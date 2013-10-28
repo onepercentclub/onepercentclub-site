@@ -1,0 +1,229 @@
+//
+// Manage projects enviroment
+// --------------------------------------------------
+
+#project-dashboard {
+	
+    .menu-sidebar {
+        @include grid(16, 1, 0);
+        
+        .menu {
+            
+            .title {
+                
+
+                h4 {
+                    text-transform: uppercase;
+                    
+                    .flaticon {
+						text-align: center;
+                    }
+                }
+                
+                background-color: $color-secondary;
+                color: $white;
+            }
+           
+            
+            a {
+            	text-decoration: underline;
+                display: block;
+                padding: $base-padding/2 $base-padding;
+                background-color: $gray-lighter;
+                color: $color-primary;
+                border-bottom: 1px solid $white;
+                font-weight: 300;
+                
+                .icon {
+		            display: inline-block;
+		            background-color: $color-primary;
+		            @include border-radius(16px);
+		            text-align: center;
+		            color: $color-text-light;
+		            font-style: normal;
+				}
+                
+                em {
+	            	display: inline-block;
+		            width: 26px;
+		            height: 26px;
+					vertical-align: middle;
+	            }
+	            
+	            em.is-unfinished {
+		            background-image: $icons;
+					background-repeat: no-repeat;
+					background-position: sprite-position($icons, dashboard-is-unfinished, 0, 0);
+	            }
+	            
+	            em.is-in-progress {
+		            background-image: $icons;
+					background-repeat: no-repeat;
+					background-position: sprite-position($icons, dashboard-is-in-progress, 0, 0);
+	            }
+	            
+	            em.is-finished {
+		            background-image: $icons;
+					background-repeat: no-repeat;
+					background-position: sprite-position($icons, dashboard-is-finished, 0, 0);
+	            }
+	                            
+                &.submit {
+	                background-color: $white;
+                }
+                
+                &.active {
+                    background-color: $white;
+                    color: $black;
+                    text-decoration: none;
+                }
+                &.disabled {
+                    color: $gray;
+                }
+                
+            }
+        }
+    }
+
+    form {
+        margin-bottom: 24px;
+        
+        .controls {
+        
+            .extra-info {
+                padding: 8px 0px;
+                
+                strong {
+                    color: $color-secondary;
+                }
+            }
+
+        }
+    }
+
+
+}
+
+#project-dashboard .donate-status {
+    width: 100%;
+    float: none;
+    .donate-amount {
+        color: $gray-darker;
+    }
+
+}
+
+.pitch-start {
+    //@include grid(24, 0, 1);
+    position: relative;
+}
+
+.map-picker {
+    width: 100%;
+    height: 350px;
+
+}
+
+.map-look-up {
+    position: absolute;
+    top: 4px;
+    left: 100px;
+    font-size: 13px;
+    input {
+        padding: 1px 4px 0px 4px;
+        width: 300px;
+        border: 1px solid $gray-dark;
+        box-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+
+    }
+    button {
+        text-transform: capitalize;
+        font-weight: 300;
+        background-color: $color-secondary;
+        color: $white;
+        padding: 1px 8px 0px 8px;
+        border: 1px solid $white;
+        box-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+    }
+
+}
+
+.project-pic-uploader {
+    .preview {
+        margin-top: 12px;
+        width: 412px;
+        height: 206px;
+        overflow: hidden;
+        &.empty {
+            border: 1px dotted $gray;
+        }
+        img {
+            width: 100%;
+        }
+    }
+}
+
+.main-title {
+    em {
+        font-style: normal;
+        color: $gray
+    }
+}
+
+.my-project {
+    @include clearfix;
+    border-bottom: 1px solid $gray-lighter;
+    
+    
+    li {
+    	display: block;
+	    border-top: 1px solid $gray-lighter;
+		padding: $base-padding 0;
+		
+	    .project-image {
+	        @include grid(16,0,1);
+	    }
+	    
+	    h2 {
+	    	@include grid(32,0,1);
+	    	padding: 0;
+	    }
+	    
+	    .project-status {
+	        clear: left;
+	        @include grid(16,0,1);
+	    }
+	    
+	    a {
+		    @include grid(16,0,1);
+	    } 
+	    
+    }
+	
+}
+
+.toolbox {
+    @include grid(16,1,0);
+    background-color: $gray-lighter;
+    
+    .title {
+        background-color: $gray-light;
+        color: $white;
+        
+    }
+
+    .body {
+        
+        .tip {
+        
+            .flaticon {
+                color: $gray-light;
+                float: left;
+                display: inline-block;
+            }
+            
+            margin-bottom: 12px;
+
+        }
+    }
+}

@@ -137,9 +137,8 @@ App.UserMonthlyProjectsController = Em.ObjectController.extend({
                 }
             });
         }
-    },
-
-    actions: {
+     },
+     actions: {
         save: function(){
             this.get('model').transaction.commit();
         },

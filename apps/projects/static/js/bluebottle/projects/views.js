@@ -2,13 +2,13 @@ App.AnimateProgressMixin = Em.Mixin.create({
     didInsertElement: function(){
         var donated = this.get('controller.campaign.money_donated');
         var asked = this.get('controller.campaign.money_asked');
-        this.$('.donate-progress').css('width', '0px');
+        this.$('.slider-progress').css('width', '0px');
         var width = 0;
         if (asked > 0) {
             width = 100 * donated / asked;
             width += '%';
         }
-        this.$('.donate-progress').animate({'width': width}, 1000);
+        this.$('.slider-progress').animate({'width': width}, 1000);
     }
 });
 

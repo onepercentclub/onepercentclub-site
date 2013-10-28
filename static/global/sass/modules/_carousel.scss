@@ -1,0 +1,88 @@
+//
+// Full width carousel with (optional) navigation
+//
+// Uses jquery.unslider.js and must be 
+// triggered specifically
+// --------------------------------------------------
+
+.carousel {
+	background: $gray-darkest;
+	@include clear;
+	position: relative;
+	
+	ul, li {
+		@include clear;
+		 margin: 0;
+		 padding: 0;
+		 list-style: none;
+		 background: none;
+	}
+	
+	.carousel-item {
+		font-size: $font-size-large;
+		line-height: $base-line-height;
+		display: block;
+		color: $white;
+		float: left;
+		overflow: hidden;
+		
+		.carousel-content {
+		    position: relative;
+		    padding: $base-padding 0;
+			
+			h1 {
+				color: $white;
+				font-size: $font-size-larger;
+			}
+		}
+	}
+}
+
+.carousel-nav-section {
+	background-color: $gray-lighter;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	font-family: $font-family-heavy;
+	z-index: 10;
+	
+	.carousel-nav {
+		margin-top: 0;
+		margin-bottom: 0;
+		list-style: none;
+		background-color: $gray-lighter;
+		
+		.carousel-nav-item {
+			@include grid(12);
+			padding: $base-padding 0;
+			border-right: 1px solid $white;
+			text-align: center;
+			cursor: pointer;
+			position: relative;
+		
+			&.is-active {
+				position: relative;
+				background: $gray-light;
+				color: $white;
+				
+				&:after {
+					position: absolute;
+					border: solid transparent;
+					content: ' ';
+					height: 0;
+					bottom: 100%;
+					left: 49%;
+					width: 0;
+					border-width: 12px;
+					border-bottom-color: $gray-light;
+				}
+			}
+			
+			&:first-of-type {
+				border-left: 1px solid $white;
+			}
+			
+		}
+	}
+}

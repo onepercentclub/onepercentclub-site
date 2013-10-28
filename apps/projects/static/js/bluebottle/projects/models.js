@@ -187,7 +187,8 @@ App.Project = DS.Model.extend({
 App.ProjectPreview = App.Project.extend({
     url: 'projects/previews',
     image: DS.attr('string'),
-    country: DS.belongsTo('App.ProjectCountry')
+    country: DS.belongsTo('App.ProjectCountry'),
+    description: DS.attr('string')
 });
 
 

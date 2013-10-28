@@ -1,10 +1,6 @@
 // @private Default font-size for all browsers
 $browser-default-font-size: 16px;
 
-// Base font size in pixels, if not already defined.
-// Should be the same as the font-size of the html element.
-$base-font-size: 14px !default;
-
 // Whether to output fallback values in px when outputting rems.
 $rem-with-px-fallback: true !default;
 

@@ -1,0 +1,190 @@
+/* =========== Typography */
+
+@font-face {
+  font-family: 'Futura Alt';
+  src: url('../fonts/futura-alt-book-webfont.eot');
+  src: url('../fonts/futura-alt-book-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/futura-alt-book-webfont.woff') format('woff'),
+       url('../fonts/futura-alt-book-webfont.ttf') format('truetype');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Futura Alt';
+  src: url('../fonts/futura-alt-heavy-webfont.eot');
+  src: url('../fonts/futura-alt-heavy-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/futura-alt-heavy-webfont.woff') format('woff'),
+       url('../fonts/futura-alt-heavy-webfont.ttf') format('truetype');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'Futura Alt';
+  src: url('../fonts/futura-alt-bold-webfont.eot');
+  src: url('../fonts/futura-alt-bold-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/futura-alt-bold-webfont.woff') format('woff'),
+       url('../fonts/futura-alt-bold-webfont.ttf') format('truetype');
+  font-weight: 600;
+}
+
+body {
+  line-height: $base-line-height;
+  font-family: $font-family;
+  font-size: $base-font-size;
+}  
+
+h1, h2, h3, h4, h5, h6 {
+  @include rem(padding, 32px 0 8px 0); 
+}
+
+h1 { 
+    @include rem(font-size, 30px);
+    text-transform: uppercase;
+    font-weight: 600;
+    color: $color-primary;
+}
+
+.main-title  {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.big-text {
+    @include rem(font-size, 30px);
+}
+
+h2 { 
+    @include rem(font-size, 26px);
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+h3 { 
+    @include rem(font-size, 24px); 
+}
+
+h4 { 
+    @include rem(font-size, 18px);
+    @include rem(padding, 4px 0 4px 0);
+    font-weight: 300;
+}
+
+h5 { @include rem(font-size, 16px); }
+
+.tagline {
+
+    color: $color-secondary;
+    text-align: center;
+    
+    em {
+        color: $color-primary;
+        font-weight: 600;
+        font-style: normal;
+    }
+    
+    @include rem(font-size, 48px);
+    line-height: 1.2em;
+    @include rem(margin, 64px 0);
+}
+
+p { 
+    margin-bottom: $base-margin; 
+    &.lead { 
+        font-weight: 300;
+    }
+}
+
+a { 
+    color: $color-link; 
+    text-decoration: none; 
+    //@include transition(color 0.1s ease-in, color 0.25s ease-out);
+ 
+    &:hover { 
+        color: $color-link-hover;
+    }
+    
+    &:active {
+        color: $text-color;
+        position: relative;
+        top: 1px;
+    }
+    
+}
+
+small { font-size: 0.85em; color: lighten($black, 50%); }
+
+em { font-style: italic; }
+
+strong { font-weight: 300; }
+
+code, pre { font-family: 'courier new', monospace; }
+
+abbr { border-bottom: 1px dotted lighten($black, 50%); }
+
+del { text-decoration: line-through; }
+
+mark { background-color: lighten(yellow, 35%); }
+
+hr { 
+    background-color: transparent; 
+    border: solid darken($white, 25%);
+    border-width: 1px 0 0; 
+    clear: both; 
+    margin: $base-padding*2 0 0 0;
+    padding: 0; 
+}
+
+blockquote { 
+    color: lighten($black, 25%);
+    font-style: italic; 
+    
+    cite {
+        color: lighten($black, 35%);
+        display: block;
+        font-size: 0.85em;
+        &:before {  content: "\2014 \0020"; }
+    }
+}
+
+figure {
+    display: inline-block;
+    max-width: 100%;
+    img { 
+        display: block;
+        width: 100%;
+    }
+    figcaption {
+        color: blue;
+    }
+}
+
+ul, ol { margin: 0 0 $base-margin 1.5em; }
+ul.list li:before {
+    margin-right: 1.5em;
+    font-family: 'Flaticons Solid';
+    color: $gray;
+    content: "\e1c3";
+}
+ol { list-style: decimal; }
+
+dl {
+	@include clear;
+	font-size: $font-size-small;
+	
+	dt {
+		text-transform: uppercase;
+		color: $gray;
+		@include grid(20,0,1);
+		font-weight: normal;
+						
+		.flaticon {
+			margin-right: $base-margin/4;
+		}
+		
+	}
+	
+	dd {
+		@include grid(28,0,0);
+	}
+}

@@ -4,9 +4,10 @@
 
 {% tplhandlebars "user" %}
 
-<div class="container" id="profile">
-    <div id="profile-actions" class="section">
-        <div class="wrapper">
+<div id="profile">
+    <div class="l-section profile-actions">
+        <nav class="l-wrapper">
+        
             <div class="profile-actions-meta">
                 <a {{action openInBigBox "userModal" controllers.currentUser.content }}>
                     <img {{bindAttr src="controllers.currentUser.getAvatar"}} />
@@ -24,7 +25,7 @@
                     </span>
                 </a>
             </div>
-            <br />
+            
             <ul class="tabs">
                 <li class="tab-item first">
                     {{#linkTo 'userProfile'}}
@@ -47,13 +48,13 @@
                     {{/linkTo}}
                 </li>
             </ul>
-        </div>
+            
+        </nav>
     </div>
 
     {# Outlet for user/profile, user/settings and user/orders #}
     {{ outlet }}
 
-    <br>
 </div>
 
 {% endtplhandlebars %}
@@ -61,158 +62,150 @@
 
 {% tplhandlebars "userProfile" %}
 
-<section class="wrapper">
-    <div class="content">
+<section class="l-wrapper">
+    <article class="l-content">
         {{#if isLoaded}}
-            <form>
-                <div class="form-meta">
-                    <div class="form-label">{% trans "Edit your profile" %}</div>
-                    <div class="form-desc">{% blocktrans %}Personalise your account so 1%Members can get to know you.{% endblocktrans %}</div>
-                </div>
+        <form>
+            <legend class="form-intro">
+                <strong>{% trans "Edit your profile" %}</strong>
+                <p>{% blocktrans %}Personalise your account so 1%Members can get to know you.{% endblocktrans %}</p>
+            </legend>
 
-                <fieldset>
-                    <ul>
-                        <li class="control-group">
-                            <label class="control-label">
-                                {% trans "Name" %}
-                            </label>
+            <fieldset>
+                <ul>
+                    <li class="control-group">
+                        <label class="control-label">
+                            {% trans "Name" %}
+                        </label>
 
-                            <div class="controls">
-                                {{view Em.TextField valueBinding="first_name" placeholder="First name" class="inline-prepend" classBinding="errors.first_name.length:error"}}
-                                {{view Em.TextField valueBinding="last_name" placeholder="Surname" class="inline-append" classBinding="errors.last_name.length:error"}}
-                            </div>
+                        <div class="controls">
+                            {{view Em.TextField valueBinding="first_name" placeholder="First name" class="inline-prepend" classBinding="errors.first_name.length:error"}}
+                            {{view Em.TextField valueBinding="last_name" placeholder="Surname" class="inline-append" classBinding="errors.last_name.length:error"}}
+                        </div>
 
-                            {# TODO: Error Handling #}
-                        </li>
+                        {# TODO: Error Handling #}
+                    </li>
 
-                        <li class="control-group">
-                            <label class="control-label">
-                                {% trans "Profile Picture" %}
-                            </label>
+                    <li class="control-group">
+                        <label class="control-label">
+                            {% trans "Profile Picture" %}
+                        </label>
 
-                            <div class="controls profile-pic-uploader">
-                                <img {{bindAttr src="getAvatar"}} class="preview" />
+                        <div class="controls profile-pic-uploader">
+                            <img {{bindAttr src="getAvatar"}} class="preview" />
 
-                                <a class="btn btn-iconed btn-uploader">
-                                    {{view App.UploadFile contentBinding="this" fileBinding="picture" name="picture" id="picture" accept="image/*"}}
-                                    <em class="flaticon solid upload-document-1"></em>
-                                    {% trans "Upload picture" %}
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                </fieldset>
+                            <a class="btn btn-iconed btn-uploader">
+                                {{view App.UploadFileView contentBinding="this" name="picture" id="picture" accept="image/*"}}
+                                <em class="flaticon solid upload-document-1"></em>
+                                {% trans "Upload picture" %}
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </fieldset>
 
-                <hr class="form-divider">
+            <fieldset>
+                <ul>
+                    <li class="control-group">
+                        <label class="control-label">
+                            {% trans "About yourself" %}
+                        </label>
 
-                <fieldset>
-                    <ul>
-                        <li class="control-group">
-                            <label class="control-label">
-                                {% trans "About yourself" %}
-                            </label>
+                        <div class="controls">
+                            {{view Em.TextArea valueBinding="about" maxlength="265" placeholder="Tell us a bit about yourself so we can get to know you!" classBinding="errors.about.length:error"}}
+                        </div>
 
-                            <div class="controls">
-                                {{view Em.TextArea valueBinding="about" maxlength="265" placeholder="Tell us a bit about yourself so we can get to know you!" classBinding="errors.about.length:error"}}
-                            </div>
+                        {{#if errors.about}}
+                            <div class="has-errors">{{#each errors.about}}<p>{{this}}</p>{{/each}}</div>
+                        {{/if}}
+                    </li>
 
-                            {{#if errors.about}}
-                                <div class="errors">{{#each errors.about}}<p>{{this}}</p>{{/each}}</div>
-                            {{/if}}
-                        </li>
+                    <li class="control-group">
+                        <label class="control-label">
+                            {% blocktrans %}Why did you join 1%Club?{% endblocktrans %}
+                        </label>
 
-                        <li class="control-group">
-                            <label class="control-label">
-                                {% blocktrans %}Why did you join 1%Club?{% endblocktrans %}
-                            </label>
+                        <div class="controls">
+                            {{view Em.TextArea valueBinding="why" maxlength="265" placeholder="Tell the world why you chose to join 1%CLUB!" classBinding="errors.why.length:error"}}
+                        </div>
 
-                            <div class="controls">
-                                {{view Em.TextArea valueBinding="why" maxlength="265" placeholder="Tell the world why you chose to join 1%CLUB!" classBinding="errors.why.length:error"}}
-                            </div>
+                        {{#if errors.why}}
+                            <div class="has-errors">{{#each errors.why}}<p>{{this}}</p>{{/each}}</div>
+                        {{/if}}
+                    </li>
 
-                            {{#if errors.why}}
-                                <div class="errors">{{#each errors.why}}<p>{{this}}</p>{{/each}}</div>
-                            {{/if}}
-                        </li>
+                    <li class="control-group">
+                        <label class="control-label">
+                            {% trans "Your website" %}
+                        </label>
 
-                        <li class="control-group">
-                            <label class="control-label">
-                                {% trans "Your website" %}
-                            </label>
+                        <div class="controls">
+                            {{view Em.TextField valueBinding="website" placeholder="http://" classBinding="errors.website.length:error"}}
+                        </div>
 
-                            <div class="controls">
-                                {{view Em.TextField valueBinding="website" placeholder="http://" classBinding="errors.website.length:error"}}
-                            </div>
+                        {{#if errors.website}}
+                            <div class="has-errors">{{#each errors.website}}<p>{{this}}</p>{{/each}}</div>
+                        {{/if}}
+                    </li>
 
-                            {{#if errors.website}}
-                                <div class="errors">{{#each errors.website}}<p>{{this}}</p>{{/each}}</div>
-                            {{/if}}
-                        </li>
+                    <li class="control-group">
+                        <label class="control-label">
+                            {% trans "Location" %}
+                        </label>
 
-                        <li class="control-group">
-                            <label class="control-label">
-                                {% trans "Location" %}
-                            </label>
+                        <div class="controls">
+                            {{view Em.TextField valueBinding="location" classBinding="errors.location.length:error"}}
+                        </div>
 
-                            <div class="controls">
-                                {{view Em.TextField valueBinding="location" classBinding="errors.location.length:error"}}
-                            </div>
+                        {{#if errors.location}}
+                            <div class="has-errors">{{#each errors.website}}<p>{{this}}</p>{{/each}}</div>
+                        {{/if}}
+                    </li>
+                </ul>
+            </fieldset>
+            
+            <fieldset>
+                <legend>
+                	<strong>{% blocktrans %}1%Skills{% endblocktrans %}</strong>
+                    <p>{% blocktrans %}How much time are you willing to spend your 1%Skills?<br/>Let us know so we can provide you with some matching tasks from our projects.{% endblocktrans %}</p>
+                </legend>
 
-                            {{#if errors.location}}
-                                <div class="errors">{{#each errors.website}}<p>{{this}}</p>{{/each}}</div>
-                            {{/if}}
-                        </li>
-                    </ul>
-                </fieldset>
+                <ul>
+                    <li class="control-group">
+                        <label class="control-label">
+                            {% trans "Time available" %}
+                        </label>
 
-                <hr class="form-divider">
+                        <div class="controls">
+                            {{view Em.Select
+                                contentBinding="timeAvailableList"
+                                optionValuePath="content.value"
+                                optionLabelPath="content.name"
+                                valueBinding="availability"}}
+                        </div>
 
-                <fieldset>
-                    <legend>
-                        <strong>{% blocktrans %}1%Skills{% endblocktrans %}</strong>
-                        <p>{% blocktrans %}How much time are you willing to spend your 1%Skills?<br/>Let us know so we can provide you with some matching tasks from our projects.{% endblocktrans %}</p>
-                    </legend>
+                        {{#if errors.availability}}
+                            <div class="has-errors">{{#each errors.availability}}<p>{{this}}</p>{{/each}}</div>
+                        {{/if}}
+                    </li>
+                </ul>
+            </fieldset>
 
-                    <ul>
-                        <li class="control-group">
-                            <label class="control-label">
-                                {% trans "Time available" %}
-                            </label>
+            {{#if saved}}
+                <span class="is-saved"><em class="flaticon solid checkmark-1"> {% trans "Profile saved" %}</em></span>
+            {{/if}}
 
-                            <div class="controls">
-                                {{view Em.Select
-                                    contentBinding="timeAvailableList"
-                                    optionValuePath="content.value"
-                                    optionLabelPath="content.name"
-                                    valueBinding="availability"}}
-                            </div>
-
-                            {{#if errors.availability}}
-                                <div class="errors">{{#each errors.availability}}<p>{{this}}</p>{{/each}}</div>
-                            {{/if}}
-                        </li>
-                    </ul>
-                </fieldset>
-
-                {{#if isDirty}}
-                    <span class="left"><em class="flaticon solid checkmark-1"> {% trans "Changes not saved" %}</em></span>
-                {{else}}
-                    {{#if saved}}
-                        <span class="left"><em class="flaticon solid checkmark-1"> {% trans "Profile saved" %}</em></span>
-                    {{/if}}
-                {{/if}}
-
-                <button class="btn btn-iconed btn-primary right" {{action 'save' model}}>
-                    <em class="flaticon solid checkmark-1"></em>
-                    {{saveButtonText}}
-                </button>
-            </form>
-    </div>
+            <button class="btn btn-iconed btn-primary" {{action 'save' model}}>
+                <em class="flaticon solid checkmark-1"></em>
+                {{saveButtonText}}
+            </button>
+        </form>
+    </article>
 </section>
 
 
 {{else}}
-    <span class="loading-big">Loading&#8230;</span>
+    <span class="is-loading-big">{% trans "Loading" %}&#8230;</span>
 {{/if}}
 
 {% endtplhandlebars %}
@@ -220,259 +213,252 @@
 
 {% tplhandlebars "userSettings" %}
 
-<section class="wrapper">
-    <div class="content">
+<section class="l-wrapper">
+    <article class="l-content">
         {{#if isLoaded}}
-            <form>
-                <div class="form-meta">
-                    <div class="form-label">{% trans "Edit your account" %}</div>
-                    <div class="form-desc">{% trans "These are the details we currently have for you – update or change them below." %}</div>
-                </div>
+        <form>
+            <legend class="form-intro">
+                <strong>{% trans "Edit your account" %}</strong>
+                <p>{% trans "These are the details we currently have for you – update or change them below." %}</p>
+            </legend>
 
-                <fieldset>
-                    <ul>
-                        <li class="control-group">
-                            <label class="control-label">
-                                {% trans "Email Address" %}
+            <fieldset>
+                <ul>
+                    <li class="control-group">
+                        <label class="control-label">
+                            {% trans "Email Address" %}
+                        </label>
+
+                        <div class="controls">
+                            {{view Em.TextField valueBinding="email" classBinding="errors.email.length:error"}}
+                        </div>
+
+                        {{#if errors.email}}
+                            <div class="has-errors">{{#each errors.email}}<p>{{this}}</p>{{/each}}</div>
+                        {{/if}}
+                    </li>
+                </ul>
+            </fieldset>
+            
+            <fieldset>
+                <ul>
+                    <li class="control-group">
+                        <label class="control-label">
+                            {% trans "I'd like to receive emails about" %}
+                        </label>
+
+                        <div class="controls">
+                            <label class="checkbox">
+                                {{view Em.Checkbox checkedBinding="newsletter" }}
+                                <span for="optionsCheckboxes1">{% blocktrans %}1%News{% endblocktrans %}</span>
                             </label>
+                        </div>
+                    </li>
+                </ul>
+            </fieldset>
 
-                            <div class="controls">
-                                {{view Em.TextField valueBinding="email" classBinding="errors.email.length:error"}}
-                            </div>
+            <fieldset>
+                <ul>
+                    <li class="control-group">
+                        <label class="control-label">
+                            {% trans "Account type" %}
+                        </label>
 
-                            {{#if errors.email}}
-                                <div class="errors">{{#each errors.email}}<p>{{this}}</p>{{/each}}</div>
-                            {{/if}}
-                        </li>
-                    </ul>
-                </fieldset>
+                        <div class="controls">
+                            {{view Em.Select
+                                contentBinding="userTypeList"
+                                optionValuePath="content.value"
+                                optionLabelPath="content.name"
+                                valueBinding="user_type"}}
+                        </div>
 
-                <hr class="form-divider">
+                        {{#if errors.user_type}}
+                            <div class="has-errors">{{#each errors.user_type}}<p>{{this}}</p>{{/each}}</div>
+                        {{/if}}
+                    </li>
 
-                <fieldset>
-                    <ul>
-                        <li class="control-group">
-                            <label class="control-label">
-                                {% trans "I'd like to receive emails about" %}
+                    <li class="control-group">
+                        <label class="control-label">
+                            {% trans "Primary language" %}
+                        </label>
+
+                        <div class="controls">
+                            {{view Em.Select
+                                contentBinding="App.interfaceLanguages"
+                                optionValuePath="content.code"
+                                optionLabelPath="content.name"
+                                valueBinding="primary_language"}}
+                        </div>
+
+                        {{#if errors.user_type}}
+                            <div class="has-errors">{{#each errors.user_type}}<p>{{this}}</p>{{/each}}</div>
+                        {{/if}}
+                    </li>
+
+                    <li class="control-group">
+                        <label class="control-label">
+                            {% trans "I want to share" %}
+                        </label>
+
+                        <div class="controls">
+                            <label class="checkbox">
+                                {{view Em.Checkbox checkedBinding="share_time_knowledge" }}
+                                <span for="optionsCheckboxes1">{% trans "Time & Knowledge" %}</span>
                             </label>
-
-                            <div class="controls">
-                                <label class="checkbox">
-                                    {{view Em.Checkbox checkedBinding="newsletter" }}
-                                    <span for="optionsCheckboxes1">{% blocktrans %}1%News{% endblocktrans %}</span>
-                                </label>
-                            </div>
-                        </li>
-                    </ul>
-                </fieldset>
-
-                <hr class="form-divider">
-
-                <fieldset>
-                    <ul>
-                        <li class="control-group">
-                            <label class="control-label">
-                                {% trans "Account type" %}
+                            <label class="checkbox">
+                                {{view Em.Checkbox checkedBinding="share_money" }}
+                                <span for="optionsCheckboxes1">{% trans "Money" %}</span>
                             </label>
+                        </div>
+                    </li>
+                </ul>
+            </fieldset>
 
-                            <div class="controls">
-                                {{view Em.Select
-                                    contentBinding="userTypeList"
-                                    optionValuePath="content.value"
-                                    optionLabelPath="content.name"
-                                    valueBinding="user_type"}}
-                            </div>
+            <fieldset>
+                <legend>
+                    <strong>{% trans "Personal Details" %}</strong>
+                    <p>{% trans "We'd like to match you to projects and events based on your location & a personal thank you in your mailbox." %}</p>
+                </legend>
+                <ul>
+                    <li class="control-group">
+                        <label class="control-label">
+                            {% trans "Address Line 1" %}
+                        </label>
 
-                            {{#if errors.user_type}}
-                                <div class="errors">{{#each errors.user_type}}<p>{{this}}</p>{{/each}}</div>
-                            {{/if}}
-                        </li>
+                        <div class="controls">
+                            {{view Em.TextField valueBinding="line1" classBinding="errors.line1.length:error"}}
+                        </div>
 
-                        <li class="control-group">
-                            <label class="control-label">
-                                {% trans "Primary language" %}
-                            </label>
+                        {{#if errors.line1}}
+                            <div class="has-errors">{{#each errors.line1}}<p>{{this}}</p>{{/each}}</div>
+                        {{/if}}
+                    </li>
+                    <li class="control-group">
+                        <label class="control-label">
+                            {% trans "Address Line 2" %}
+                        </label>
 
-                            <div class="controls">
-                                {{view Em.Select
-                                    contentBinding="App.interfaceLanguages"
-                                    optionValuePath="content.code"
-                                    optionLabelPath="content.name"
-                                    valueBinding="primary_language"}}
-                            </div>
+                        <div class="controls">
+                            {{view Em.TextField valueBinding="line2" classBinding="errors.line2.length:error"}}
+                        </div>
 
-                            {{#if errors.user_type}}
-                                <div class="errors">{{#each errors.user_type}}<p>{{this}}</p>{{/each}}</div>
-                            {{/if}}
-                        </li>
+                        {{#if errors.line2}}
+                            <div class="has-errors">{{#each errors.line2}}<p>{{this}}</p>{{/each}}</div>
+                        {{/if}}
+                    </li>
+                    <li class="control-group">
+                        <label class="control-label">
+                            {% trans "City" %}
+                        </label>
 
-                        <li class="control-group">
-                            <label class="control-label">
-                                {% trans "I want to share" %}
-                            </label>
+                        <div class="controls">
+                            {{view Em.TextField valueBinding="city" classBinding="errors.city.length:error"}}
+                        </div>
 
-                            <div class="controls">
-                                <label class="checkbox">
-                                    {{view Em.Checkbox checkedBinding="share_time_knowledge" }}
-                                    <span for="optionsCheckboxes1">{% trans "Time & Knowledge" %}</span>
-                                </label>
-                                <label class="checkbox">
-                                    {{view Em.Checkbox checkedBinding="share_money" }}
-                                    <span for="optionsCheckboxes1">{% trans "Money" %}</span>
-                                </label>
-                            </div>
-                        </li>
-                    </ul>
-                </fieldset>
+                        {{#if errors.city}}
+                            <div class="has-errors">{{#each errors.city}}<p>{{this}}</p>{{/each}}</div>
+                        {{/if}}
+                    </li>
+                    <li class="control-group">
+                        <label class="control-label">
+                            {% trans "Province / State" %}
+                        </label>
 
-                <hr class="form-divider">
+                        <div class="controls">
+                            {{view Em.TextField valueBinding="state" classBinding="errors.state.length:error"}}
+                        </div>
 
-                <fieldset>
-                    <legend>
-                        <strong>{% trans "Personal Details" %}</strong>
-                        <p>{% trans "We'd like to match you to projects and events based on your location & a personal thank you in your mailbox." %}</p>
-                    </legend>
-                    <ul>
-                        <li class="control-group">
-                            <label class="control-label">
-                                {% trans "Address Line 1" %}
-                            </label>
+                        {{#if errors.state}}
+                            <div class="has-errors">{{#each errors.state}}<p>{{this}}</p>{{/each}}</div>
+                        {{/if}}
+                    </li>
+                    <li class="control-group">
+                        <label class="control-label">
+                            {% trans "Postal Code" %}
+                        </label>
 
-                            <div class="controls">
-                                {{view Em.TextField valueBinding="line1" classBinding="errors.line1.length:error"}}
-                            </div>
+                        <div class="controls">
+                            {{view Em.TextField valueBinding="postal_code" classBinding="errors.postal_code.length:error"}}
+                        </div>
 
-                            {{#if errors.line1}}
-                                <div class="errors">{{#each errors.line1}}<p>{{this}}</p>{{/each}}</div>
-                            {{/if}}
-                        </li>
-                        <li class="control-group">
-                            <label class="control-label">
-                                {% trans "Address Line 2" %}
-                            </label>
+                        {{#if errors.postal_code}}
+                            <div class="has-errors">{{#each errors.postal_code}}<p>{{this}}</p>{{/each}}</div>
+                        {{/if}}
 
-                            <div class="controls">
-                                {{view Em.TextField valueBinding="line2" classBinding="errors.line2.length:error"}}
-                            </div>
+                    </li>
 
-                            {{#if errors.line2}}
-                                <div class="errors">{{#each errors.line2}}<p>{{this}}</p>{{/each}}</div>
-                            {{/if}}
-                        </li>
-                        <li class="control-group">
-                            <label class="control-label">
-                                {% trans "City" %}
-                            </label>
+                    <li class="control-group">
+                        <label class="control-label">
+                            {% trans "Country" %}
+                        </label>
 
-                            <div class="controls">
-                                {{view Em.TextField valueBinding="city" classBinding="errors.city.length:error"}}
-                            </div>
+                        <div class="controls">
+                            {{view App.CountryCodeSelectView valueBinding="country" placeholder="Country" classBinding="errors.country.length:error"}}
+                        </div>
 
-                            {{#if errors.city}}
-                                <div class="errors">{{#each errors.city}}<p>{{this}}</p>{{/each}}</div>
-                            {{/if}}
-                        </li>
-                        <li class="control-group">
-                            <label class="control-label">
-                                {% trans "Province / State" %}
-                            </label>
+                        {{#if error.country}}
+                            <div class="has-errors">{{#each errors.country}}<p>{{this}}</p>{{/each}}</div>
+                        {{/if}}
+                    </li>
 
-                            <div class="controls">
-                                {{view Em.TextField valueBinding="state" classBinding="errors.state.length:error"}}
-                            </div>
+                    <li class="control-group">
+                        <label class="control-label">
+                            {% trans "Gender" %}
+                        </label>
 
-                            {{#if errors.state}}
-                                <div class="errors">{{#each errors.state}}<p>{{this}}</p>{{/each}}</div>
-                            {{/if}}
-                        </li>
-                        <li class="control-group">
-                            <label class="control-label">
-                                {% trans "Postal Code" %}
-                            </label>
+                        <div class="controls">
+                            {{#view Em.RadioButtonGroup name="gender" selectedValueBinding="gender" class="radio-group-horizontal"}}
+                                <label class="radio" for="female">{{view view.RadioButton value="female" id="female"}}<span>{% trans "Female" %}</span></label>
+                                <label class="radio" for="male">{{view view.RadioButton value="male" id="male"}}<span>{% trans "Male" %}</span></label>
+                                <label class="radio" for="unset">{{view view.RadioButton value="" id="unset"}}<span>{% trans "Unset" %}</span></label>
+                            {{/view}}
+                        </div>
+                    </li>
 
-                            <div class="controls">
-                                {{view Em.TextField valueBinding="postal_code" classBinding="errors.postal_code.length:error"}}
-                            </div>
+                    <li class="control-group">
+                        <label class="control-label">
+                            {% trans "Date of birth" %}
+                        </label>
 
-                            {{#if errors.postal_code}}
-                                <div class="errors">{{#each errors.postal_code}}<p>{{this}}</p>{{/each}}</div>
-                            {{/if}}
+                        <div class="controls">
+                            {{view App.DatePicker valueBinding="birthdate" classBinding="errors.birthdate.length:error"}}
+                        </div>
 
-                        </li>
+                        {{#if errors.birthdate}}
+                            <div class="has-errors">{{#each errors.birthdate}}<p>{{this}}</p>{{/each}}</div>
+                        {{/if}}
+                    </li>
+                </ul>
+            </fieldset>
 
-                        <li class="control-group">
-                            <label class="control-label">
-                                {% trans "Country" %}
-                            </label>
+            {{#if saved}}
+                <span class="is-saved"><em class="flaticon solid checkmark-1"> {% trans "Account settings saved" %}</em></span>
+            {{/if}}
 
-                            <div class="controls">
-                                {{view App.CountryCodeSelectView valueBinding="country" placeholder="Country" classBinding="errors.country.length:error"}}
-                            </div>
-
-                            {{#if error.country}}
-                                <div class="errors">{{#each errors.country}}<p>{{this}}</p>{{/each}}</div>
-                            {{/if}}
-                        </li>
-
-                        <li class="control-group">
-                            <label class="control-label">
-                                {% trans "Gender" %}
-                            </label>
-
-                            <div class="controls">
-                                {{#view Em.RadioButtonGroup name="gender" selectedValueBinding="gender" class="radio-group-horizontal"}}
-                                    <div class="radio3">{{view view.RadioButton value="female"}}<span>{% trans "Female" %}</span></div>
-                                    <div class="radio3">{{view view.RadioButton value="male"}}<span>{% trans "Male" %}</span></div>
-                                    <div class="radio3 hidden">{{view view.RadioButton value=""}}<span>{% trans "Unset" %}</span></div>
-                                {{/view}}
-                            </div>
-                        </li>
-
-                        <li class="control-group">
-                            <label class="control-label">
-                                {% trans "Date of birth" %}
-                            </label>
-
-                            <div class="controls">
-                                {{view App.DatePicker valueBinding="birthdate" classBinding="errors.birthdate.length:error"}}
-                            </div>
-
-                            {{#if errors.birthdate}}
-                                <div class="errors">{{#each errors.birthdate}}<p>{{this}}</p>{{/each}}</div>
-                            {{/if}}
-                        </li>
-                    </ul>
-                </fieldset>
-
-                {{#if saved}}
-                    <span class="settings-saved"><em class="flaticon solid checkmark-1"> {% trans "Account settings saved" %}</em></span>
-                {{/if}}
-
-                <button class="btn btn-iconed btn-primary right" {{action 'save' model}}>
-                    <em class="flaticon solid checkmark-1"></em>
-                    {{saveButtonText}}
-                </button>
-            </form>
-    </div>
+            <button class="btn btn-iconed btn-primary" {{action 'save' model}}>
+                <span class="flaticon solid checkmark-1"><spanem>
+                {{saveButtonText}}
+            </button>
+        </form>
+    </article>
 </section>
 
 {{else}}
-	<span class="loading-big">Loading&#8230;</span>
+	<span class="is-loading-big">{% trans "Loading" %}&#8230;</span>
 {{/if}}
 
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "userOrders" %}
-<section class="wrapper">
-    <div class="content">
-
+<section class="l-wrapper">
+    <article class="l-content">
         <form>
             {{#if model }}
-                <div class="form-meta">
-                    <div class="form-label">{% trans "Edit your payment info" %}</div>
-                    <div class="form-desc">{% trans "Here you can change your bank account info and monthly donations." %}</div>
-                </div>
+                <legend class="form-intro">
+                    <strong>{% trans "Edit your payment info" %}</strong>
+                    <p>{% trans "Here you can change your bank account info and monthly donations." %}</p>
+                </legend>
 
                 <fieldset>
                     <ul>
@@ -482,7 +468,7 @@
                                 {{view Em.TextField valueBinding="name" placeholder="Full name as it appears on your bank account" classBinding="errors.name.length:error"}}
                             </div>
                             {{#if errors.name }}
-                                <div class="errors">{{#each errors.name }}<p>{{this}}</p>{{/each}}</div>
+                                <div class="has-errors">{{#each errors.name }}<p>{{this}}</p>{{/each}}</div>
                             {{/if}}
                         </li>
 
@@ -492,7 +478,7 @@
                                 {{view Em.TextField valueBinding="city" placeholder="City registered on your bank account" classBinding="errors.city.length:error"}}
                             </div>
                             {{#if errors.city }}
-                                <div class="errors">{{#each errors.city }}<p>{{this}}</p>{{/each}}</div>
+                                <div class="has-errors">{{#each errors.city }}<p>{{this}}</p>{{/each}}</div>
                             {{/if}}
                         </li>
 
@@ -502,13 +488,11 @@
                                 {{view Em.TextField valueBinding="account" placeholder="Your bank account number" classBinding="errors.account.length:error"}}
                             </div>
                             {{#if errors.account }}
-                                <div class="errors">{{#each errors.account }}<p>{{this}}</p>{{/each}}</div>
+                                <div class="has-errors">{{#each errors.account }}<p>{{this}}</p>{{/each}}</div>
                             {{/if}}
                         </li>
                     </ul>
                 </fieldset>
-
-                <hr class="form-divider">
 
                 <fieldset>
                     <ul>
@@ -531,10 +515,10 @@
                 </fieldset>
 
                 {{#if saved }}
-                    <span class="left"><em class="flaticon solid checkmark-1"> {% trans "Monthly settings saved" %}</em></span>
+                    <span class="is-saved"><em class="flaticon solid checkmark-1"> {% trans "Monthly settings saved" %}</em></span>
                 {{/if}}
 
-                <button class="btn btn-iconed btn-primary right" {{action 'save' model}}>
+                <button class="btn btn-iconed btn-primary" {{action 'save' model}}>
                     <em class="flaticon solid checkmark-1"></em>
                     {{saveButtonText}}
                 </button>
@@ -562,123 +546,123 @@
                         {{/each}}
                     </ul>
                 {{else}}
-                    <span class="loading-small"><img src="{% get_static_prefix %}images/loading.gif" /> {% trans "Loading order history" %}</span>
+                    <span class="is-loading-big">{% trans "Loading" %}&#8230;</span>
                 {{/if}}
             </div>
-
 		</form>
-    </div>
+    </article>
 </section>
 
 {% endtplhandlebars %}
 
 
-
 {% tplhandlebars "signup" %}
-
-<div class="container">
-    <div class="wrapper">
-        {{partial signup_content}}
-        {{partial signup_sidebar}}
-    </div>
+<div id="signup" class="page">
+	<section class="l-wrapper">
+	    <article class="l-content">
+	        {{partial signup_content}}
+	    </article>
+	    
+	    <sidebar class="l-sidebar">
+	    	{{partial signup_sidebar}}
+		</sidebar>
+	</section>
 </div>
-
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "_signup_content" %}
-<div class="content" id="signup">
+	
+<header class="page-header">
+	<h1>{% blocktrans %}Join 1%Club{% endblocktrans %}</h1>
+	<p>{% blocktrans %} 1%Club is the global platform where you can share a little and change the world, in your vary own way. We ignite modern society to share 1% and support smart ideas from people in developing countries. We do this in a new, open way, believing in the power of collaboration boosted by today's technical possibilities. If we all share a little, we can change the world.{% endblocktrans %}</p>
+</header>
+    
+{{#if isUserCreated}}
+	<div class="signup-succes">
+    	<h2>{% trans "Thanks for signing up!" %}</h2>
+		<p>{% trans "We've sent you an email. Please click <strong>Activate Profile</strong> in the email we just sent you." %}</p>
+	</div>
+{{else}}
+    <form>
+    	<fieldset>
+            <div class="control-group">
+                <label class="control-label">
+                    {% trans "Name" %}
+                </label>
 
-    <h1>{% blocktrans %}Join 1%Club{% endblocktrans %}</h1>
-    <p>{% blocktrans %} 1%Club is the global platform where you can share a little and change the world, in your vary own way. We ignite modern society to share 1% and support smart ideas from people in developing countries. We do this in a new, open way, believing in the power of collaboration boosted by today's technical possibilities. If we all share a little, we can change the world.{% endblocktrans %}</p>
-        
-    {{#if isUserCreated}}
-        <h1>{% trans "Thanks for signing up!" %}</h1>
-        <p>{% trans "We've sent you an email. Please click <strong>Activate Profile</strong> in the email we just sent you." %}</p>
+                <div class="controls">
+                    {{view Em.TextField valueBinding="first_name" placeholder="First name" class="inline-prepend" classBinding="errors.first_name.length:error"}}
+                    {{view Em.TextField valueBinding="last_name" placeholder="Surname" class="inline-append" classBinding="errors.last_name.length:error"}}
+                </div>
+            </div>
 
-    {{else}}
-        <form class="signup-form">
-        	<fieldset>
-	            <div class="control-group">
-	                <label class="control-label">
-	                    {% trans "Name" %}
-	                </label>
-	
-	                <div class="controls">
-	                    {{view Em.TextField valueBinding="first_name" placeholder="First name" class="inline-prepend" classBinding="errors.first_name.length:error"}}
-	
-	                    {{view Em.TextField valueBinding="last_name" placeholder="Surname" class="inline-append" classBinding="errors.last_name.length:error"}}
-	                </div>
-	            </div>
-	
-	            <div class="control-group">
-	                <label class="control-label">
-	                    {% trans "Email" %}
-	                </label>
-	
-	                <div class="controls">
-	                    {{view Em.TextField valueBinding="email" type="email" classBinding="errors.email.length:error"}}
-	                </div>
-	
-	                {{#if errors.email}}
-	                    <div class="errors">{{#each errors.email}}<p>{{this}}</p>{{/each}}</div>
-	                {{/if}}
-	            </div>
-	
-	            <div class="control-group">
-	                <label class="control-label">
-	                    {% trans "Password" %}
-	                </label>
-	
-	                <div class="controls">
-	                    {{view Em.TextField valueBinding="password" type="password" classBinding="errors.password.length:error"}}
-	                </div>
-	
-	                {{#if errors.password}}
-	                    <div class="errors">{{#each errors.password}}<p>{{this}}</p>{{/each}}</div>
-	                {{/if}}
-	            </div>
-        	</fieldset>
-        	
-            <div class="user-agree">
-                {% blocktrans %}By joining 1%Club I hereby agree to the {% endblocktrans %}
-                <a {{action showPage 'terms-and-conditions'}} href="/#!/pages/terms-and-conditions">{% blocktrans %}1%Club Terms of service{% endblocktrans %}</a>
-           </div>
-           
-            <button class="btn btn-iconed btn-primary" {{action 'createUser' model}}>
-                <em class="flaticon solid user-1"></em>
-                {% trans "Sign up" %}
-            </button>
-        </form>
-    {{/if}}
-</div>
+            <div class="control-group">
+                <label class="control-label">
+                    {% trans "Email" %}
+                </label>
+
+                <div class="controls">
+                    {{view Em.TextField valueBinding="email" type="email" classBinding="errors.email.length:error"}}
+                </div>
+
+                {{#if errors.email}}
+                    <div class="has-errors">{{#each errors.email}}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">
+                    {% trans "Password" %}
+                </label>
+
+                <div class="controls">
+                    {{view Em.TextField valueBinding="password" type="password" classBinding="errors.password.length:error"}}
+                </div>
+
+                {{#if errors.password}}
+                    <div class="has-errors">{{#each errors.password}}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
+            </div>
+    	</fieldset>
+    	
+        <div class="signup-agree">
+            {% blocktrans %}By joining 1%Club I hereby agree to the {% endblocktrans %}
+            <a {{action showPage 'terms-and-conditions'}} href="/#!/pages/terms-and-conditions">{% blocktrans %}1%Club Terms of service{% endblocktrans %}</a>
+       </div>
+       
+        <button class="btn btn-iconed btn-primary" {{action 'createUser' model}}>
+            <em class="flaticon solid user-1"></em>
+            {% trans "Sign up" %}
+        </button>
+    </form>
+{{/if}}
+
 {% endtplhandlebars %}
+
 
 {% tplhandlebars "_signup_sidebar" %}
 
-<div class="sidebar tip" id="members">
-
-    <div class="login-link">
-        <a {{action openInBox "login"}} class="highlight">
-        	<em class="flaticon solid unlock-3"></em>
-            <strong>{%  trans "Already have an account?" %}</strong>
-            <em>{% trans "Log in here, fast & easy" %}</em>
-        </a>
-    </div>
-
-    <div class="members-advantage">
-    
-        <em class="flaticon solid heart-1"></em>
-        
-    	<h3>{% blocktrans %}Why join 1%Club?{% endblocktrans %}</h3>
-        <ol>
-            <li>{% trans "It's easy to find projects you like." %}</li>
-            <li>{% blocktrans %}A fun and personal way to share your 1%.{% endblocktrans %}</li>
-            <li>{% trans "You'll receive updates on the progress of the projects you support." %}</li>
-        </ol>
-    </div>
+<div class="login-link">
+    <a {{action openInBox "login"}}>
+    	<em class="flaticon solid unlock-3"></em>
+        <strong>{%  trans "Already have an account?" %}</strong><br />
+        {% trans "Log in here, fast & easy" %}
+    </a>
 </div>
+
+<div class="signup-advantage">
+    <em class="flaticon solid heart-1"></em>
+	<h3>{% blocktrans %}Why join 1%Club?{% endblocktrans %}</h3>
+    <ol>
+        <li>{% trans "It's easy to find projects you like." %}</li>
+        <li>{% blocktrans %}A fun and personal way to share your 1%.{% endblocktrans %}</li>
+        <li>{% trans "You'll receive updates on the progress of the projects you support." %}</li>
+    </ol>
+</div>
+    
 {% endtplhandlebars %}
+
 
 {% tplhandlebars "user_modal" %}
     <div class="user-modal-sidebar">
@@ -731,25 +715,27 @@
 
 {% tplhandlebars "request_password_reset" %}
 
-    <div class="form">
+    <div class="modal">
         <div class="modal-header">
             <a class="close" rel="close">&times;</a>
             <h3>{% trans "Forgot your password?" %}</h3>
         </div>
 
         <div class="modal-body">
-            <p>{% trans "Enter your email address and we'll send you an email so you can set a new password." %}</p>
-            <div class="control-group">
-                <div class="alert alert-error hidden" id="passwordResetError">
-                    {{error}}
-                </div>
-            </div>
-            <div class="control-group">
-                <div class="control-label">{% trans "Email address" %}</div>
-                <div class="controls">
-                    <input id="passwordResetEmail" type="text" />
-                </div>
-            </div>
+        	<form>
+	            <p>{% trans "Enter your email address and we'll send you an email so you can set a new password." %}</p>
+	            <div class="control-group">
+	                <div class="alert alert-error hidden" id="passwordResetError">
+	                    {{error}}
+	                </div>
+	            </div>
+	            <div class="control-group">
+	                <div class="control-label">{% trans "Email address" %}</div>
+	                <div class="controls">
+	                    <input id="passwordResetEmail" type="text" />
+	                </div>
+	            </div>
+        	</form>
         </div>
 
         <div class="modal-footer">
@@ -779,7 +765,7 @@
                 </div>
 
                 {{#if errors.new_password1}}
-                    <div class="errors">{{#each errors.new_password1}}<p>{{this}}</p>{{/each}}</div>
+                    <div class="has-errors">{{#each errors.new_password1}}<p>{{this}}</p>{{/each}}</div>
                 {{/if}}
             </div>
 

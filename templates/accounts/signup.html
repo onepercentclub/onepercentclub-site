@@ -19,22 +19,20 @@
 
 
 {% block_verbatim user_agreement %}
+    <small class="controls">
     {% blocktrans with action="{{action 'showPage' 'terms-and-conditions'}}" href="/#!/pages/terms-and-conditions" %}
     By joining 1%Club I hereby agree to the <a {{ action }} href="{{ href }}"> 1%Club Terms of service</a>
     {% endblocktrans %}
+    </small>
 {% endblock_verbatim user_agreement %}
 
 
 {% block login_text %}
-    <em class="flaticon solid unlock-3"></em>
-    <strong>{%  trans "Already have an account?" %}</strong>
-    <em>{% trans "Log in here, fast & easy" %}</em>
+    <span class="flaticon solid lock-1"></span> <strong>{% trans "Have an account?" %}</strong><br /> {%  trans "Log in here" %}
 {% endblock login_text %}
 
 
 {% block member_advantages %}
-    <em class="flaticon solid heart-1"></em>
-
     <h3>{% blocktrans %}Why join 1%Club?{% endblocktrans %}</h3>
     <ol>
         <li>{% trans "It's easy to find projects you like." %}</li>

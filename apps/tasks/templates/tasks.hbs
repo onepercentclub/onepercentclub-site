@@ -5,23 +5,23 @@
 
 {% tplhandlebars "task_preview" %}
 	
-    <li class="item item-task">
-    	<a {{action showTask task}}>
+    <li class="task-item">
+    	<a {{action 'showTask' task}}>
     	
-	        <h2><em class="flaticon solid wrench-1"></em> {{task.skill.name}}</h2>
-	        
-	        <span class="item-header">
-            	<span class="item-image">
+    	    <h2 class="task-category"><span class="flaticon solid wrench-1"></span> {{task.skill.name}}</h2>
+    	
+    	    <span class="task-header">
+                <span class="task-image">
                 	<img {{bindAttr src="project.image" }} />
             	</span>
-                <span class="item-project-title">
+                <span class="task-title">
                 	<h3>{{task.title}}</h3>
-                	<h4>{{project.title}}</h4>                   
+                	<h4>{{project.title}}</h4> 
                 </span>
             </span>
             
-	        <div class="item-footer">
-	            <ul>
+	        <div class="task-status">
+	            <ul class="task-meta">
 	                <li>
 	                    {{#if task.isStatusOpen}}
 	                        <span class="flaticon solid clipboard-1"></span>
@@ -41,23 +41,25 @@
 	                    {{/if}}
 	
 	                </li>
-	                {{#if task.isStatusRealized}}
-	                {{else}}
+	                {{#unless task.isStatusRealized}}
 	                <li>
-	                	<em class="flaticon solid calendar-1"></em>
+	                	<span class="flaticon solid calendar-1"></span>
 	                    {{ localize task.deadline formatting="X" }}
 	                </li>
-	                {{/if}}
+	                {{/unless}}
 	                <li>
-	                    <em class="flaticon solid watch-1"></em>
+	                    <span class="flaticon solid watch-1"></span>
 	                    {{ task.timeNeeded }}
 	                </li>
 	                <li>
-	                	<em class="flaticon solid location-pin-1"></em>
+	                	<span class="flaticon solid location-pin-1"></span>
 	                	{{project.country.name}}
 	                </li>
 	            </ul>
 	        </div>
+	        
+	        <div class="task-description">{{task.description}}</div>
+	        
     	</a>
     </li>
 
@@ -67,61 +69,54 @@
 {% tplhandlebars "task_list" %}
 
     {{render "taskSearchForm" }}
-
-    <div class="container">
-        <section class="wrapper">
-            <article>
-                <header>
-                    {{#if model.isLoaded}}
-                        <ul id="results">
-                            {{#each task in model}}
-                            	{{render "taskPreview" task}}
-                            {{else}}
-                                <li class="no-results">{% trans "No tasks found." %}</li>
-                            {{/each}}
-                        </ul>
+    
+    <div class="l-section">
+        <section class="l-wrapper">
+            {{#if model.isLoaded}}
+                <ul id="search-results">
+                    {{#each task in model}}
+                        {{render "taskPreview" task}}
                     {{else}}
-                        <span class="loading-big"><img src="{% get_static_prefix %}images/loading.gif" /> {% trans "loading tasks" %}</span>
-                    {{/if}}
-                </header>
-            </article>
+                        <li class="no-results">{% trans "No tasks found." %}</li>
+                    {{/each}}
+                </ul>
+            {{else}}
+                <span class="is-loading-big"><img src="{% get_static_prefix %}images/loading.gif" /><em>{% trans "Loading projects" %}</em></span>
+            {{/if}}
         </section>
     </div>
-
+    
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "task_search_form" %}
 
-    <div class="container section">
-        <section class="wrapper">
-            <article class="search-form">
+    <div class="l-section" id="search">
+        <section class="l-wrapper">
+            <form id="search-form">
                 <div class="control">
-                    <em class="flaticon solid skill-1"></em>
+                    <span class="flaticon stroke wrench-1"></span>
                     {{view App.SkillSelectView valueBinding="skill" }}
                 </div>
                 <div class="control">
-                    <em class="flaticon solid inbox-6"></em>
+                    <span class="flaticon stroke inbox-1"></span>
                     {{view App.TaskStatusSelectView valueBinding="status" }}
                 </div>
-                <div class="clear-form">
-                    <a {{action clearForm}}>
-                        <span class="flaticon solid x-2"></span>
-                        {% trans "clear filters" %}
-                    </a>
-                </div>
-            </article>
+            </form>
         </section>
     </div>
     
-    <div class="container">
-        <section class="wrapper">
+    <div class="l-section">
+        <section class="l-wrapper">
             <article id="search-navigation">
             	
-            	<div class="search-results">
+            	<header>
                 	<h2>{% trans "Results" %} <em>{{controllers.taskList.model.meta.total}}</em></h2>
-            	</div>
-                
+                	<a {{action 'clearForm'}} class="search-reset">
+                        <span class="flaticon solid x-2"></span> {% trans "Reset" %}
+                    </a>
+            	</header>
+            	
                 <div class="search-sort">
                     <strong>{% trans "Sort:" %}</strong>
                     <a {{action sortOrder 'newest'}} {{bindAttr class="orderedByNewest:active"}}>{% trans "Newest" %}</a>
@@ -133,18 +128,18 @@
                 	<span class="search-pages-control">
 		                {{#if hasPreviousPage}}
 		                    <a {{action "previousPage"}} class="previous-page">
-		                        <em class="flaticon solid left-circle-2"></em>
+		                        <span class="flaticon solid left-circle-2"></span>
 		                    </a>
 		                {{else}}
-		                	<span class="previous-page"><em class="flaticon solid left-circle-2"></em></span>
+		                	<span class="previous-page"><span class="flaticon solid left-circle-2"></span></span>
 		                {{/if}}
 		                
 		                {{#if hasNextPage}}
 		                    <a {{action "nextPage"}} class="next-page">
-		                        <em class="flaticon solid right-circle-2"></em>
+		                        <span class="flaticon solid right-circle-2"></span>
 		                    </a>
 		                {{else}}
-		                	<span class="next-page"><em class="flaticon solid right-circle-2"></em></span>
+		                	<span class="next-page"><span class="flaticon solid right-circle-2"></span></span>
 		                {{/if}}
                 	</span>
                 </div>
@@ -157,20 +152,24 @@
 
 
 {% tplhandlebars "project_task_preview" %}
-
-    <li class="item item-task">
+    
+    <li class="task-item">
     	{{#linkTo 'projectTask' task}}
     	
-	        <h2><em class="flaticon solid wrench-1"></em>{{task.skill.name}}</h2>
-	        
-	        <span class="item-header">
-                <span class="item-task-title">
-                	<h3>{{task.title}}</h3>                 
+    	    <h2 class="task-category"><span class="flaticon solid wrench-1"></span> {{task.skill.name}}</h2>
+    	
+    	    <span class="task-header">
+                <span class="task-image">
+                	<img {{bindAttr src="project.image" }} />
+            	</span>
+                <span class="task-title">
+                	<h3>{{task.title}}</h3>
+                	<h4>{{project.title}}</h4> 
                 </span>
             </span>
             
-	        <div class="item-footer">
-	            <ul>
+	        <div class="task-status">
+	            <ul class="task-meta">
 	                <li>
 	                    {{#if task.isStatusOpen}}
 	                        <span class="flaticon solid clipboard-1"></span>
@@ -188,46 +187,53 @@
 	                        <span class="flaticon solid clipboard-checkmark-1"></span>
 	                        {% trans "Realised" %}
 	                    {{/if}}
+	
 	                </li>
-	                {{#if task.isStatusRealized}}
-	                {{else}}
+	                {{#unless task.isStatusRealized}}
 	                <li>
-	                	<em class="flaticon solid calendar-1"></em>
+	                	<span class="flaticon solid calendar-1"></span>
 	                    {{ localize task.deadline formatting="X" }}
 	                </li>
-	                {{/if}}
+	                {{/unless}}
 	                <li>
-	                    <em class="flaticon solid watch-1"></em>
+	                    <span class="flaticon solid watch-1"></span>
 	                    {{ task.timeNeeded }}
+	                </li>
+	                <li>
+	                	<span class="flaticon solid location-pin-1"></span>
+	                	{{project.country.name}}
 	                </li>
 	            </ul>
 	        </div>
-		{{/linkTo}}
+	        
+	        <div class="task-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sed aliquam lacus, at luctus lacus. Pellentesque pellentesque nibh ac lacus mollis, nec fringilla nunc pharetra. Suspendisse et metus at lacus interdum pharetra ac aliquet libero. Donec dignissim et nunc vel gravida.</div>
+	        
+    	{{/linkTo}}
     </li>
-
+    
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "project_task_list" %}
 
-    <div class="container">
-        <section class="wrapper">
+    <div class="l-section">
+        <section class="l-wrapper">
 			
 			{{# if isProjectOwner}}
-            <div class="project-owner-actions">
+            <div class="owner-actions">
             	
             	<header>
             		<h3>{% trans "You're the project owner" %}</h3>
 					<p>{% trans "You can add a new task" %}.</p>
             	</header>
 	            {{#linkTo 'projectTaskNew' class="btn btn-primary btn-iconed link-action task-add"}}
-	                <em class="flaticon solid plus-1"></em>
+	                <span class="flaticon solid plus-1"></span>
 	                {% trans "Add a task" %}
 	            {{/linkTo}}
             </div>
 			{{/if}}
 			
-            <ul id="results">
+            <ul id="search-results">
                 {{#each task in controller}}
                     {{render projectTaskPreview task}}
                 {{else}}
@@ -242,104 +248,95 @@
 
 {% tplhandlebars "task" %}
 
-    <section class="wrapper" id="task-detail">
+    <section class="l-wrapper" id="task-detail">
     
-    	
         {# TODO: Make dry #}
 		{{# if isProjectOwner}}
-            <div class="project-owner-actions">
+            <div class="owner-actions">
             	<header>
             		<h3>{% trans "You're the project owner" %}</h3>
             	</header>
 
                 {% comment %}
-                    <a {{action "deleteTask" target="view"}} class="btn btn-iconed task-remove">
-                        <em class="flaticon solid trash-2"></em>
+                    <a {{action "deleteTask" target="view"}} class="btn btn-iconed delete">
+                        <span class="flaticon solid trash-2"></span>
                         {% trans "Delete task" %}
                     </a>
                 {% endcomment %}
 
-                {{#linkTo 'projectTaskEdit' controller.model class="btn btn-primary btn-iconed task-edit"}}
-                    <em class="flaticon solid pencil-3"></em> {% trans "Edit Task" %}
+                {{#linkTo 'projectTaskEdit' controller.model class="btn btn-primary btn-iconed edit"}}
+                    <span class="flaticon solid pencil-3"></span> {% trans "Edit Task" %}
                 {{/linkTo}}
             	
             </div>
          {{else}}
 			 
 			{{#if isAuthor}}  
-			
-		    	<div class="project-owner-actions">
-	            	<header>
-	            		<h3>{% trans "You're the project owner" %}</h3>
-	            	</header>
-	            	
+		    	<div class="owner-actions">
+                	<header>
+                		<h3>{% trans "You're the project owner" %}</h3>
+                	</header>
+    
                     {% comment %}
-                        <a {{action "deleteTask" target="view"}} class="btn btn-iconed task-remove">
-                            <em class="flaticon solid trash-2"></em>
+                        <a {{action "deleteTask" target="view"}} class="btn btn-iconed delete">
+                            <span class="flaticon solid trash-2"></span>
                             {% trans "Delete task" %}
                         </a>
                     {% endcomment %}
-		            
-	                {{#linkTo 'projectTaskEdit' controller.model class="btn btn-primary btn-iconed task-edit"}}
-	                    <em class="flaticon solid pencil-3"></em> {% trans "Edit Task" %}
-	                {{/linkTo}}
-	            	
-	            </div>
+    
+                    {{#linkTo 'projectTaskEdit' controller.model class="btn btn-primary btn-iconed edit"}}
+                        <span class="flaticon solid pencil-3"></span> {% trans "Edit Task" %}
+                    {{/linkTo}}
+                	
+                </div>
 		    	 
 			{{/if}}
 		{{/if}}
     
-        <div class="content">
-            <article>
-            	{% comment %}
-            	{{#linkTo 'projectTaskList' class="task-list"}}
-                    <em class="flaticon solid left-angle-quote-1"></em>
-                    {% trans "View all tasks" %}
-				{{/linkTo}}
-				{% endcomment %}
-                <header id="task-status">
-                    {{#if isStatusOpen}}
-                        <em class="flaticon solid clipboard-1"></em>
-                        {% trans "Open" %}
-                    {{/if}}
-                    {{#if isStatusInProgress}}
-                        <em class="flaticon solid upload-to-clipboard-1"></em>
-                        {% trans "In progress" %}
-                    {{/if}}
-                    {{#if isStatusClosed}}
-                        <em class="flaticon solid delete-from-clipboard-1"></em>
-                        {% trans "Closed" %}
-                    {{/if}}
-                    {{#if isStatusRealized}}
-                        <em class="flaticon solid clipboard-checkmark-1"></em>
-                        {% trans "Realised" %}
-                    {{/if}}
-                </header>
+        <div class="l-content">
+            
+            <div class="task-status">
+                {{#if isStatusOpen}}
+                    <span class="flaticon solid clipboard-1"></span>
+                    {% trans "Open" %}
+                {{/if}}
+                {{#if isStatusInProgress}}
+                    <span class="flaticon solid upload-to-clipboard-1"></span>
+                    {% trans "In progress" %}
+                {{/if}}
+                {{#if isStatusClosed}}
+                    <span class="flaticon solid delete-from-clipboard-1"></span>
+                    {% trans "Closed" %}
+                {{/if}}
+                {{#if isStatusRealized}}
+                    <span class="flaticon solid clipboard-checkmark-1"></span>
+                    {% trans "Realised" %}
+                {{/if}}
+            </div>
+            
+            <article class="task-description">
+        
+            	<header class="task-header">
+                    <h1 class="task-title">{{title}}</h1>
+            	</header>
                 
-                <div class="task-description">
-                	
-                    <h1>{{title}}</h1>
-                    
-                    <a {{action openInBigBox "memberProfile" author}} class="user">
-                        <strong class="user-name">{{author.full_name}}</strong>
-                        <em class="timestamp">{{ localize created formatting="X" }}</em>
-                    </a>
-
-                    {{view App.SocialShareView classNames="task-share"}}
-
-
-                	{{#if description}}
-                	<h2>{% trans "Task Description" %}</h2>
-                	<p>{{linebreaks description}}</p>
-                	{{/if}}
-                	
-                	{{#if end_goal}}
-                	<h2>{% trans "End goal" %}</h2>
-                    <p>{{linebreaks end_goal}}</p>
-                    {{/if}}
-
-                </div>
+                <a {{action openInBigBox "memberProfile" author}} class="member">
+                    <strong class="member-name">{{author.full_name}}</strong>
+                </a>
                 
+                <em class="task-timestamp">{{ localize created formatting="X" }}</em>
+
+                {{view App.SocialShareView classNames="task-share"}}
+
+            	{{#if description}}
+            	<h2>{% trans "Task Description" %}</h2>
+            	<p>{{linebreaks description}}</p>
+            	{{/if}}
+            	
+            	{{#if end_goal}}
+            	<h2>{% trans "End goal" %}</h2>
+                <p>{{linebreaks end_goal}}</p>
+                {{/if}}
             </article>
             
 			<div id="wallposts">
@@ -349,33 +346,34 @@
         </div>
                	
 		
-		<sidebar class="sidebar">
-	        <div class="task-meta">
+		<sidebar class="l-sidebar">
+		
+	        <div class="task-section task-meta">
 	            <h3>{% trans "Task details" %}</h3>
 	            <dl>
 	                <dt>
-	                    <em class="flaticon solid wrench-1"></em>
+	                    <span class="flaticon solid wrench-1"></span>
 	                    {% trans "Skill" %}
 	                </dt>
 	                <dd>{{ skill.name }}</dd>
 	            </dl>
 	            <dl>
 	                <dt>
-	                    <em class="flaticon solid location-pin-1"></em>
+	                    <span class="flaticon solid location-pin-1"></span>
 	                    {% trans "Location" %}
 	                </dt>
 	                <dd>{{ location }}</dd>
 	            </dl>
 	            <dl>
 	                <dt>
-	                    <em class="flaticon solid watch-1"></em>
+	                    <span class="flaticon solid watch-1"></span>
 	                    {% trans "Time needed" %}
 	                </dt>
 	                <dd>{{ timeNeeded }}</dd>
 	            </dl>
 	            <dl>
 	                <dt>
-	                    <em class="flaticon solid calendar-1"></em>
+	                    <span class="flaticon solid calendar-1"></span>
 	                    {% trans "Deadline" %}
 	                </dt>         
 	                {{# if deadline }}
@@ -386,7 +384,7 @@
 	            </dl>
 	            <dl>          
 	                <dt>
-	                    <em class="flaticon solid tag-1"></em>
+	                    <span class="flaticon solid tag-1"></span>
 	                    {% trans "Tags" %}
 	                </dt>
 	                <dd>
@@ -397,50 +395,50 @@
 	            </dl>
 	        </div>
 	
-	        <div class="task-members">
+	        <div class="task-section">
 	            <h3>{% trans "Task members" %}</h3>
 	            {{#if members}}
-	            <ul class="members">
+	            <ul class="task-members">
 	                {{#each members}}
 	                    <li class="item">
 	                        <span class="member">
 	                        	
 	                        	<a {{action openInBigBox "userModal" this.member }}>
-	                            	<img class="user-img" {{bindAttr src="this.member.getAvatar"}} />
-									<strong class="user-name">{{this.member.full_name}}</strong><br/>
+	                            	<span class="member-avatar"><img {{bindAttr src="this.member.getAvatar"}} /></span>
+									<strong class="member-name">{{this.member.full_name}}</strong><br/>
 									<em class="time-applied">{{localize this.created formatting="X"}}</em>
-	                        	</a><br />
+	                        	</a>
 	                        	
 								<span class="task-status">
 								    {{#if isStatusApplied}}
-                                        <em class="flaticon solid clipboard-1"></em>
+                                        <span class="flaticon solid clipboard-1"></span>
                                         {% trans "Applied" %}
                                     {{/if}}
                                     {{#if isStatusAccepted}}
-                                        <em class="flaticon solid upload-to-clipboard-1"></em>
+                                        <span class="flaticon solid upload-to-clipboard-1"></span>
                                         {% trans "Started" %}
                                     {{/if}}
                                     {{#if isStatusRejected}}
-                                        <em class="flaticon solid delete-from-clipboard-1"></em>
+                                        <span class="flaticon solid delete-from-clipboard-1"></span>
                                         {% trans "Rejected" %}
                                     {{/if}}
                                     {{#if isStatusRealized}}
-                                        <em class="flaticon solid clipboard-checkmark-1"></em>
+                                        <span class="flaticon solid clipboard-checkmark-1"></span>
                                         {% trans "Realised" %}
                                     {{/if}}
 								</span>
 								
 								{# TODO: Make dry #}
 		                        {{# if controller.isProjectOwner}}
-									<a {{action "editTaskMember" this}} class="edit-task-status">
-                                		<em class="flaticon solid pencil-3"></em>
+									<a {{action "editTaskMember" this}} class="task-edit-status">
+                                		<span class="flaticon solid pencil-3"></span>
 										{% trans "Edit Status" %}
 									</a>
 								{{else}}
 								 
 									{{#if controller.isAuthor}}  
-										<a {{action "editTaskMember" this}} class="edit-task-status">
-											<em class="flaticon solid pencil-3"></em>
+										<a {{action "editTaskMember" this}} class="task-edit-status">
+											<span class="flaticon solid pencil-3"></span>
 											{% trans "Edit Status" %}
 										</a>
 									{{/if}}
@@ -454,11 +452,10 @@
 					<p>{% trans "No member assigned to this task yet" %}.</p>
 				{{/if}}
 				
-				
 				{{#if isMember}}
 	            {% comment %}
-	            <a {{action stopWorkingOnTask this }} class="button-link">
-	                <em class="flaticon solid clipboard-checkmark-1"></em>
+	            <a {{action stopWorkingOnTask this }} class="btn-link">
+	                <span class="flaticon solid clipboard-checkmark-1"></span>
 	                {% trans "Done working on this task" %}
 	            </a>
 	            {% endcomment %}
@@ -467,18 +464,17 @@
 		                {{#if isStatusRealized}}
 		                {{else}}
 		                    <a {{action applyForTask this }} class="btn btn-primary btn-iconed"}}>
-		                        <em class="flaticon solid add-to-clipboard-1"></em> {% trans "Apply for task" %}
+		                        <span class="flaticon solid add-to-clipboard-1"></span> {% trans "Apply for task" %}
 		                    </a>
 		                {{/if}}
 		            {{else}}
-		            	<p class="login-signup"><a {{action openInBox "login"}} class="nav-login">{%  trans "Login" %}</a> or become a {{#linkTo 'signup'}}{% trans "member" %}{{/linkTo}} {% trans "to apply for this task" %}.</p>
+		            	<p class="login-box"><a {{action openInBox "login"}}>{%  trans "Login" %}</a> or become a {{#linkTo 'signup'}}{% trans "member" %}{{/linkTo}} {% trans "to apply for this task" %}.</p>
 		            {{/if}}
 		        {{/if}}
 				
 	        </div>
 	        
-	        
-	        <div class="task-files">
+	        <div class="task-section">
 	            <h3>{% trans "Task files" %}</h3>
 	            
 	            {{#if files}}
@@ -500,15 +496,15 @@
 	            
 	            {# TODO: Make dry & make task member part of this? #}
                 {{# if controller.isProjectOwner}}
-					<a {{action uploadFile this}} class="btn btn-iconed btn-uploader">
-		                <em class="flaticon solid upload-document-1"></em>
+					<a {{action 'uploadFile' this}} class="btn btn-iconed btn-upload">
+		                <span class="flaticon solid upload-document-1"></span>
 		                {% trans "Upload a file" %}
 		            </a>
 				{{else}}
 				 
 					{{#if controller.isAuthor}}  
-						<a {{action uploadFile this}} class="btn btn-iconed btn-uploader">
-			                <em class="flaticon solid upload-document-1"></em>
+						<a {{action 'uploadFile' this}} class="btn btn-iconed btn-upload">
+			                <span class="flaticon solid upload-document-1"></span>
 			                {% trans "Upload a file" %}
 			            </a>
 					{{/if}}
@@ -528,20 +524,20 @@
     <em>{{ motivation }}</em>
 
     {{#view Em.RadioButtonGroup class="big-radio radio4" name="status" selectedValueBinding="status"}}
-        {{view view.RadioButton value="applied" id="status_applied"}}
         <label for="status_applied">
+        {{view view.RadioButton value="applied" id="status_applied"}}
             {% trans "Applied" %}
         </label>
-        {{view view.RadioButton value="accepted" id="status_accepted"}}
         <label for="status_accepted">
+        {{view view.RadioButton value="accepted" id="status_accepted"}}
             {% trans "Start" %}
         </label>
-        {{view view.RadioButton value="rejected" id="status_rejected"}}
         <label for="status_rejected">
+        {{view view.RadioButton value="rejected" id="status_rejected"}}
             {% trans "Reject" %}
         </label>
-        {{view view.RadioButton value="realized" id="status_realised"}}
         <label for="status_realised">
+        {{view view.RadioButton value="realized" id="status_realised"}}
             {% trans "Realised" %}
         </label>
     {{/view}}
@@ -554,125 +550,123 @@
 
 {% tplhandlebars "task_new" %}
 
-    <div class="container">
-        <section class="wrapper">
-        	<div class="content">
-        		<form id="task-form">
-		            <fieldset>
-		                <ul>
-		                    <li class="control-group">
-		                        <label class="control-label" for="task-title">
-		                            {% trans "Title of your task" %}
-		                        </label>
-		
-		                        <div class="controls">
-		                            {{view Ember.TextField valueBinding="title" id="task-title" name="task-title" classBinding="errors.title.length:error"}}
-		                        </div>
-		
-		                        {{#if errors.title }}
-		                            <div class="errors">{{#each errors.title }}<p>{{this}}</p>{{/each}}</div>
-		                        {{/if}}
-		                    </li>
-		
-		                    <li class="control-group">
-		                        <label class="control-label" for="task-deadline">
-		                            {% trans "Dead line" %}
-		                        </label>
-		
-		                        <div class="controls">
-		                            {{view App.TaskDeadLineDatePicker valueBinding="deadline" id="task-deadline" name="task-dealine" classBinding="errors.deadline.length:error"}}
-		                        </div>
-		
-		                        {{#if errors.dealine }}
-		                            <div class="errors">{{#each errors.dealine }}<p>{{this}}</p>{{/each}}</div>
-		                        {{/if}}
-		                    </li>
-		
-		                    <li class="control-group">
-		                        <label class="control-label" for="task-location">
-		                            {% trans "Location" %}
-		                        </label>
-		
-		                        <div class="controls">
-		                            {{view Ember.TextField valueBinding="location" id="task-location" name="task-location" classBinding="errors.location.length:error"}}
-		                        </div>
-		
-		                        {{#if errors.location }}
-		                            <div class="errors">{{#each errors.location }}<p>{{this}}</p>{{/each}}</div>
-		                        {{/if}}
-		                    </li>
-		
-		                    <li class="control-group">
-		                        <label class="control-label" for="task-time-needed">
-		                            {% trans "Time needed (approximately)" %}
-		                        </label>
-		
-		                        <div class="controls">
-		                            {{view App.TimeNeededSelectView valueBinding="time_needed" id="task-time-needed" name="task-time-needed" classBinding="errors.time_needed.length:error"}}
-		                        </div>
-		
-		                        {{#if errors.time_needed }}
-		                            <div class="errors">{{#each time_needed.location }}<p>{{this}}</p>{{/each}}</div>
-		                        {{/if}}
-		                    </li>
-		
-		                    <li class="control-group">
-		                        <label class="control-label" for="task-skill">
-		                            {% trans "Skill" %}
-		                        </label>
-		
-		                        <div class="controls">
-		                            {{view App.SkillSelectView valueBinding="skill" id="task-skill" name="task-skill" classBinding="errors.skill.length:error"}}
-		                        </div>
-		
-		                        {{#if errors.skill }}
-		                            <div class="errors">{{#each errors.skill }}<p>{{this}}</p>{{/each}}</div>
-		                        {{/if}}
-		                    </li>
-		
-		                    <li class="control-group">
-		                        <label class="control-label" for="task-description">
-		                            {% trans "Description" %}
-		                        </label>
-		
-		                        <div class="controls">
-		                            {{view Ember.TextArea valueBinding="description" cols="50" rows="4" name="task-description" id="task-description" classBinding="errors.description.length:error"}}
-		                        </div>
-		
-		                        {{#if errors.description }}
-		                            <div class="errors">{{#each errors.description }}<p>{{this}}</p>{{/each}}</div>
-		                        {{/if}}
-		                    </li>
-		
-		                    <li class="control-group">
-		                        <label class="control-label" for="task-end_goal">
-		                            {% trans "End goal" %}
-		                        </label>
-		
-		                        <div class="controls">
-		                            {{view Ember.TextArea valueBinding="end_goal" cols="50" rows="2" name="task-end_goal" id="task-end_goal" classBinding="errors.end_goal.length:error"}}
-		                        </div>
-		
-		                        {{#if errors.end_goal }}
-		                            <div class="errors">{{#each errors.end_goal }}<p>{{this}}</p>{{/each}}</div>
-		                        {{/if}}
-		                    </li>
-		
-		                    <li class="control-group">
-		                        <label class="control-label">{% trans "Tags" %}</label>
-		                        <div class="controls">
-		                            {{view App.TagWidget tagsBinding="tags" classBinding="errors.tags.length:error"}}
-		                        </div>
-		
-		                        {{#if errors.tags }}
-		                            <div class="errors">{{#each errors.tags }}<p>{{this}}</p>{{/each}}</div>
-		                        {{/if}}
-		                    </li>
-		                </ul>
-		            </fieldset>
-					<button class="btn btn-primary btn-iconed right" type="submit"><em class="flaticon solid wrench-1"></em>{% trans "Create Task" %}</button>
-            	</form>
-        	</div>
+    <div class="l-section">
+        <section class="l-wrapper">
+    		<form class="l-content" id="task-form">
+	            <fieldset>
+	                <ul>
+	                    <li class="control-group">
+	                        <label class="control-label" for="task-title">
+	                            {% trans "Title of your task" %}
+	                        </label>
+	
+	                        <div class="controls">
+	                            {{view Ember.TextField valueBinding="title" id="task-title" name="task-title" classBinding="errors.title.length:error"}}
+	                        </div>
+	
+	                        {{#if errors.title }}
+	                            <div class="has-errors">{{#each errors.title }}<p>{{this}}</p>{{/each}}</div>
+	                        {{/if}}
+	                    </li>
+	
+	                    <li class="control-group">
+	                        <label class="control-label" for="task-deadline">
+	                            {% trans "Dead line" %}
+	                        </label>
+	
+	                        <div class="controls">
+	                            {{view App.TaskDeadLineDatePicker valueBinding="deadline" id="task-deadline" name="task-dealine" classBinding="errors.deadline.length:error"}}
+	                        </div>
+	
+	                        {{#if errors.dealine }}
+	                            <div class="has-errors">{{#each errors.dealine }}<p>{{this}}</p>{{/each}}</div>
+	                        {{/if}}
+	                    </li>
+	
+	                    <li class="control-group">
+	                        <label class="control-label" for="task-location">
+	                            {% trans "Location" %}
+	                        </label>
+	
+	                        <div class="controls">
+	                            {{view Ember.TextField valueBinding="location" id="task-location" name="task-location" classBinding="errors.location.length:error"}}
+	                        </div>
+	
+	                        {{#if errors.location }}
+	                            <div class="has-errors">{{#each errors.location }}<p>{{this}}</p>{{/each}}</div>
+	                        {{/if}}
+	                    </li>
+	
+	                    <li class="control-group">
+	                        <label class="control-label" for="task-time-needed">
+	                            {% trans "Time needed (approximately)" %}
+	                        </label>
+	
+	                        <div class="controls">
+	                            {{view App.TimeNeededSelectView valueBinding="time_needed" id="task-time-needed" name="task-time-needed" classBinding="errors.time_needed.length:error"}}
+	                        </div>
+	
+	                        {{#if errors.time_needed }}
+	                            <div class="has-errors">{{#each time_needed.location }}<p>{{this}}</p>{{/each}}</div>
+	                        {{/if}}
+	                    </li>
+	
+	                    <li class="control-group">
+	                        <label class="control-label" for="task-skill">
+	                            {% trans "Skill" %}
+	                        </label>
+	
+	                        <div class="controls">
+	                            {{view App.SkillSelectView valueBinding="skill" id="task-skill" name="task-skill" classBinding="errors.skill.length:error"}}
+	                        </div>
+	
+	                        {{#if errors.skill }}
+	                            <div class="has-errors">{{#each errors.skill }}<p>{{this}}</p>{{/each}}</div>
+	                        {{/if}}
+	                    </li>
+	
+	                    <li class="control-group">
+	                        <label class="control-label" for="task-description">
+	                            {% trans "Description" %}
+	                        </label>
+	
+	                        <div class="controls">
+	                            {{view Ember.TextArea valueBinding="description" cols="50" rows="4" name="task-description" id="task-description" classBinding="errors.description.length:error"}}
+	                        </div>
+	
+	                        {{#if errors.description }}
+	                            <div class="has-errors">{{#each errors.description }}<p>{{this}}</p>{{/each}}</div>
+	                        {{/if}}
+	                    </li>
+	
+	                    <li class="control-group">
+	                        <label class="control-label" for="task-end_goal">
+	                            {% trans "End goal" %}
+	                        </label>
+	
+	                        <div class="controls">
+	                            {{view Ember.TextArea valueBinding="end_goal" cols="50" rows="2" name="task-end_goal" id="task-end_goal" classBinding="errors.end_goal.length:error"}}
+	                        </div>
+	
+	                        {{#if errors.end_goal }}
+	                            <div class="has-errors">{{#each errors.end_goal }}<p>{{this}}</p>{{/each}}</div>
+	                        {{/if}}
+	                    </li>
+	
+	                    <li class="control-group">
+	                        <label class="control-label">{% trans "Tags" %}</label>
+	                        <div class="controls">
+	                            {{view App.TagWidget tagsBinding="tags" classBinding="errors.tags.length:error"}}
+	                        </div>
+	
+	                        {{#if errors.tags }}
+	                            <div class="has-errors">{{#each errors.tags }}<p>{{this}}</p>{{/each}}</div>
+	                        {{/if}}
+	                    </li>
+	                </ul>
+	            </fieldset>
+				<button class="btn btn-primary btn-iconed" type="submit"><span class="flaticon solid wrench-1"></span>{% trans "Create Task" %}</button>
+        	</form>
         </section>
     </div>
 
@@ -681,158 +675,156 @@
 
 {% tplhandlebars "task_edit" %}
 
-     <div class="container">
-        <section class="wrapper">
-        	<div class="content">
-	        	<form id="task-form">
-		            <fieldset>
-		                <ul>
-		                    <li class="control-group">
-		                        <label class="control-label" for="task-title">
-		                            {% trans "Title of your task." %}
-		                        </label>
-		
-		                        <div class="controls">
-		                            {{view Ember.TextField valueBinding="title" id="task-title" name="task-title" classBinding="errors.title.length:error"}}
-		                        </div>
-		
-		                        {{#if errors.title }}
-		                            <div class="errors">{{#each errors.title }}<p>{{this}}</p>{{/each}}</div>
-		                        {{/if}}
-		                    </li>
-		                    <li class="control-group">
-		                        <label class="control-label" for="task-status">
-		                            {% trans "Status" %}
-		                        </label>
-		
-		                        <div class="controls">
-		                            {{#view Em.RadioButtonGroup class="big-radio radio4" name="status" selectedValueBinding="status"}}
-		                                {{view view.RadioButton value="open" id="status_open"}}
-		                                <label for="status_open">
-		                                    {% trans "Open" %}
-		                                </label>
-		                                {{view view.RadioButton value="in progress" id="status_in_progress"}}
-		                                <label for="status_in_progress">
-		                                    {% trans "In progress" %}
-		                                </label>
-		                                {{view view.RadioButton value="closed" id="status_closed"}}
-		                                <label for="status_closed">
-		                                    {% trans "Closed" %}
-		                                </label>
-		                                {{view view.RadioButton value="realized" id="status_realised"}}
-		                                <label for="status_realised">
-		                                    {% trans "Realised" %}
-		                                </label>
-		                            {{/view}}
-		                        </div>
-		
-		                        {{#if errors.status }}
-		                            <div class="errors">{{#each errors.status }}<p>{{this}}</p>{{/each}}</div>
-		                        {{/if}}
-		                    </li>
-		
-		
-		                    <li class="control-group">
-		                        <label class="control-label" for="task-deadline">
-		                            {% trans "Deadline" %}
-		                        </label>
-		
-		                        <div class="controls">
-		                            {{view App.TaskDeadLineDatePicker valueBinding="deadline" id="task-deadline" name="task-dealine" classBinding="errors.deadline.length:error"}}
-		                        </div>
-		
-		                        {{#if errors.dealine }}
-		                            <div class="errors">{{#each errors.dealine }}<p>{{this}}</p>{{/each}}</div>
-		                        {{/if}}
-		                    </li>
-		
-		                    <li class="control-group">
-		                        <label class="control-label" for="task-location">
-		                            {% trans "Location" %}
-		                        </label>
-		
-		                        <div class="controls">
-		                            {{view Ember.TextField valueBinding="location" id="task-location" name="task-location" classBinding="errors.location.length:error"}}
-		                        </div>
-		
-		                        {{#if errors.location }}
-		                            <div class="errors">{{#each errors.location }}<p>{{this}}</p>{{/each}}</div>
-		                        {{/if}}
-		                    </li>
-		
-		                    <li class="control-group">
-		                        <label class="control-label" for="task-time-needed">
-		                            {% trans "Time needed (approximately)" %}
-		                        </label>
-		
-		                        <div class="controls">
-		                            {{view App.TimeNeededSelectView valueBinding="time_needed" id="task-time-needed" name="task-time-needed" classBinding="errors.time_needed.length:error"}}
-		                        </div>
-		
-		                        {{#if errors.time_needed }}
-		                            <div class="errors">{{#each time_needed.location }}<p>{{this}}</p>{{/each}}</div>
-		                        {{/if}}
-		                    </li>
-		
-		                    <li class="control-group">
-		                        <label class="control-label" for="task-skill">
-		                            {% trans "Skill" %}
-		                        </label>
-		
-		                        <div class="controls">
-		                            {{view App.SkillSelectView valueBinding="skill" id="task-skill" name="task-skill" classBinding="errors.skill.length:error"}}
-		                        </div>
-		
-		                        {{#if errors.skill }}
-		                            <div class="errors">{{#each errors.skill }}<p>{{this}}</p>{{/each}}</div>
-		                        {{/if}}
-		                    </li>
-		
-		                    <li class="control-group">
-		                        <label class="control-label" for="task-description">
-		                            {% trans "Description." %}
-		                        </label>
-		
-		                        <div class="controls">
-		                            {{view Ember.TextArea valueBinding="description" cols="50" rows="4" name="task-description" id="task-description" classBinding="errors.description.length:error"}}
-		                        </div>
-		
-		                        {{#if errors.description }}
-		                            <div class="errors">{{#each errors.description }}<p>{{this}}</p>{{/each}}</div>
-		                        {{/if}}
-		                    </li>
-		
-		                    <li class="control-group">
-		                        <label class="control-label" for="task-end_goal">
-		                            {% trans "End goal" %}
-		                        </label>
-		
-		                        <div class="controls">
-		                            {{view Ember.TextArea valueBinding="end_goal" cols="50" rows="2" name="task-end_goal" id="task-end_goal" classBinding="errors.end_goal.length:error"}}
-		                        </div>
-		
-		                        {{#if errors.end_goal }}
-		                            <div class="errors">{{#each errors.end_goal }}<p>{{this}}</p>{{/each}}</div>
-		                        {{/if}}
-		                    </li>
-		
-		                    <li class="control-group">
-		                        <label class="control-label">{% trans "Tags" %}</label>
-		                        <div class="controls">
-		                            {{view App.TagWidget tagsBinding="tags" classBinding="errors.tags.length:error"}}
-		                        </div>
-		
-		                        {{#if errors.tags }}
-		                            <div class="errors">{{#each errors.tags }}<p>{{this}}</p>{{/each}}</div>
-		                        {{/if}}
-		                    </li>
-		
-		                </ul>
-		            </fieldset>
-	                <button class="btn btn-primary btn-iconed right" type="submit"><em class="flaticon solid wrench-1"></em>{% trans "Save Task" %}</button>
-	                <button class="btn btn-uploader left" {{action cancelChangesToTask this}}><em class="flaticon stroke x-2"></em> {% trans "Cancel Changes" %}</button>
-	        	</form>
-           </div>
+     <div class="l-section">
+        <section class="l-wrapper">
+        	<form class="l-content" id="task-form">
+	            <fieldset>
+	                <ul>
+	                    <li class="control-group">
+	                        <label class="control-label" for="task-title">
+	                            {% trans "Title of your task." %}
+	                        </label>
+	
+	                        <div class="controls">
+	                            {{view Ember.TextField valueBinding="title" id="task-title" name="task-title" classBinding="errors.title.length:error"}}
+	                        </div>
+	
+	                        {{#if errors.title }}
+	                            <div class="has-errors">{{#each errors.title }}<p>{{this}}</p>{{/each}}</div>
+	                        {{/if}}
+	                    </li>
+	                    <li class="control-group">
+	                        <label class="control-label" for="task-status">
+	                            {% trans "Status" %}
+	                        </label>
+	
+	                        <div class="controls">
+	                            {{#view Em.RadioButtonGroup class="big-radio radio4" name="status" selectedValueBinding="status"}}
+	                                {{view view.RadioButton value="open" id="status_open"}}
+	                                <label for="status_open">
+	                                    {% trans "Open" %}
+	                                </label>
+	                                {{view view.RadioButton value="in progress" id="status_in_progress"}}
+	                                <label for="status_in_progress">
+	                                    {% trans "In progress" %}
+	                                </label>
+	                                {{view view.RadioButton value="closed" id="status_closed"}}
+	                                <label for="status_closed">
+	                                    {% trans "Closed" %}
+	                                </label>
+	                                {{view view.RadioButton value="realized" id="status_realised"}}
+	                                <label for="status_realised">
+	                                    {% trans "Realised" %}
+	                                </label>
+	                            {{/view}}
+	                        </div>
+	
+	                        {{#if errors.status }}
+	                            <div class="has-errors">{{#each errors.status }}<p>{{this}}</p>{{/each}}</div>
+	                        {{/if}}
+	                    </li>
+	
+	
+	                    <li class="control-group">
+	                        <label class="control-label" for="task-deadline">
+	                            {% trans "Deadline" %}
+	                        </label>
+	
+	                        <div class="controls">
+	                            {{view App.TaskDeadLineDatePicker valueBinding="deadline" id="task-deadline" name="task-dealine" classBinding="errors.deadline.length:error"}}
+	                        </div>
+	
+	                        {{#if errors.dealine }}
+	                            <div class="has-errors">{{#each errors.dealine }}<p>{{this}}</p>{{/each}}</div>
+	                        {{/if}}
+	                    </li>
+	
+	                    <li class="control-group">
+	                        <label class="control-label" for="task-location">
+	                            {% trans "Location" %}
+	                        </label>
+	
+	                        <div class="controls">
+	                            {{view Ember.TextField valueBinding="location" id="task-location" name="task-location" classBinding="errors.location.length:error"}}
+	                        </div>
+	
+	                        {{#if errors.location }}
+	                            <div class="has-errors">{{#each errors.location }}<p>{{this}}</p>{{/each}}</div>
+	                        {{/if}}
+	                    </li>
+	
+	                    <li class="control-group">
+	                        <label class="control-label" for="task-time-needed">
+	                            {% trans "Time needed (approximately)" %}
+	                        </label>
+	
+	                        <div class="controls">
+	                            {{view App.TimeNeededSelectView valueBinding="time_needed" id="task-time-needed" name="task-time-needed" classBinding="errors.time_needed.length:error"}}
+	                        </div>
+	
+	                        {{#if errors.time_needed }}
+	                            <div class="has-errors">{{#each time_needed.location }}<p>{{this}}</p>{{/each}}</div>
+	                        {{/if}}
+	                    </li>
+	
+	                    <li class="control-group">
+	                        <label class="control-label" for="task-skill">
+	                            {% trans "Skill" %}
+	                        </label>
+	
+	                        <div class="controls">
+	                            {{view App.SkillSelectView valueBinding="skill" id="task-skill" name="task-skill" classBinding="errors.skill.length:error"}}
+	                        </div>
+	
+	                        {{#if errors.skill }}
+	                            <div class="has-errors">{{#each errors.skill }}<p>{{this}}</p>{{/each}}</div>
+	                        {{/if}}
+	                    </li>
+	
+	                    <li class="control-group">
+	                        <label class="control-label" for="task-description">
+	                            {% trans "Description." %}
+	                        </label>
+	
+	                        <div class="controls">
+	                            {{view Ember.TextArea valueBinding="description" cols="50" rows="4" name="task-description" id="task-description" classBinding="errors.description.length:error"}}
+	                        </div>
+	
+	                        {{#if errors.description }}
+	                            <div class="has-errors">{{#each errors.description }}<p>{{this}}</p>{{/each}}</div>
+	                        {{/if}}
+	                    </li>
+	
+	                    <li class="control-group">
+	                        <label class="control-label" for="task-end_goal">
+	                            {% trans "End goal" %}
+	                        </label>
+	
+	                        <div class="controls">
+	                            {{view Ember.TextArea valueBinding="end_goal" cols="50" rows="2" name="task-end_goal" id="task-end_goal" classBinding="errors.end_goal.length:error"}}
+	                        </div>
+	
+	                        {{#if errors.end_goal }}
+	                            <div class="has-errors">{{#each errors.end_goal }}<p>{{this}}</p>{{/each}}</div>
+	                        {{/if}}
+	                    </li>
+	
+	                    <li class="control-group">
+	                        <label class="control-label">{% trans "Tags" %}</label>
+	                        <div class="controls">
+	                            {{view App.TagWidget tagsBinding="tags" classBinding="errors.tags.length:error"}}
+	                        </div>
+	
+	                        {{#if errors.tags }}
+	                            <div class="has-errors">{{#each errors.tags }}<p>{{this}}</p>{{/each}}</div>
+	                        {{/if}}
+	                    </li>
+	
+	                </ul>
+	            </fieldset>
+                <button class="btn btn-primary btn-iconed" type="submit"><span class="flaticon solid wrench-1"></span>{% trans "Save Task" %}</button>
+                <button class="btn btn-cancel" {{action 'cancelChangesToTask' this}}><em class="flaticon stroke x-2"></em> {% trans "Cancel Changes" %}</button>
+        	</form>
         </section>
     </div>
 
@@ -849,15 +841,15 @@
                 </label>
 
                 <div class="controls">
-                    <a class="btn btn-iconed btn-uploader">
+                    <a class="btn btn-iconed btn-upload">
                         {{view App.UploadFile fileBinding="file" name="file" id="file"}}
-                        <em class="flaticon solid upload-document-1"></em>
+                        <span class="flaticon solid upload-document-1"></span>
                         {% trans "Upload file" %}
                     </a>
                 </div>
                  
 		        {{#if errors.file }}
-		            <div class="errors">{{#each errors.file }}<p>{{this}}</p>{{/each}}</div>
+		            <div class="has-errors">{{#each errors.file }}<p>{{this}}</p>{{/each}}</div>
 		        {{/if}}
             </li>
                 
@@ -871,7 +863,7 @@
                 </div>
 
                 {{#if errors.title }}
-                    <div class="errors">{{#each errors.title }}<p>{{this}}</p>{{/each}}</div>
+                    <div class="has-errors">{{#each errors.title }}<p>{{this}}</p>{{/each}}</div>
                 {{/if}}
             </li>
         </ul>
@@ -881,12 +873,21 @@
 
 
 {% tplhandlebars "task_member_apply" %}
+    
+    <legend>
+        <p>{% trans "Are you sure you want to apply to this task?" %}</p>
+    </legend>
+    <fieldset>
+        <ul>
+            <li class="control-group">
+                <label class="control-label wide" for="motivation" >{% trans "Motivation" %}</label>
 
-    {% trans "Are you sure you want to apply to this task?" %}
-
-    <br/><br/>
-    {% trans "Motivation" %} <br/>
-    {{view Ember.TextArea valueBinding="view.motivation" name="motivation" classBinding="errors.motivation.length:error"}}
+                <div class="controls wide">
+                    {{view Ember.TextArea valueBinding="view.motivation" name="motivation" classBinding="errors.motivation.length:error"}}
+                </div>
+            </li>
+        </ul>
+    </fieldset>
 
 {% endtplhandlebars %}
 

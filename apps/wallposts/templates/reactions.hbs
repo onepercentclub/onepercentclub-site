@@ -4,29 +4,37 @@
 
 {% tplhandlebars "wallpost_reaction" %}
 
-	<span class="user-img">
-        <a {{action openInBigBox "userModal" author}} class="user">
-            <img {{ bindAttr src="author.getAvatar" }} width="100%" alt="Avatar" />
-        </a>
-    </span>
-	<div class="reaction">
-	
-        <a {{action openInBigBox "memberProfile" author}} class="user">
-            {# <em class="user-type not-implemented">{%  trans "Member" %}</em> #}
-            <strong class="user-name">{{ author.full_name }}</strong>
-            <em class="timestamp">{{ localize created formatting="X" }}</em>
-        </a>
+	<li class="reaction">
+	    <header class="reaction-header">
         
-        {{#if isAuthor}}
-            <ul class="manage">
-                {% comment %}
-                    <li class=" not-implemented"><a href="#"><em class="flaticon solid pencil-3"></em> {% trans "Edit" %}</a></li>
-                {% endcomment %}
-                <li class="manage-remove"><a {{ action "deleteReaction" target="view" }}><em class="flaticon solid trash-2"></em> {% trans "Delete" %}</a></li>
-            </ul>
-        {{/if}}
-		{{{ text }}}
-	</div>
+            <div class="reaction-member">
+
+                <a {{action openInBigBox "memberProfile" author}} class="member">
+                    <span class="member-avatar">
+                        <img {{ bindAttr src="author.getAvatar" }} alt="{{ author.full_name }}" />
+                    </span>
+                    <strong class="member-name">{{ author.full_name }}</strong>
+                </a>
+            
+            </div>
+
+            <div class="reaction-meta">
+                 <em class="reaction-timestamp">{{ localize created formatting="X" }}</em>
+            </div>
+
+            {{#if isAuthor}}
+                <ul class="manage">
+                    {# <li class="manage-edit"><a href="#"><span class="flaticon solid pencil-3"></span> <strong>{% trans "Edit" %}</strong></a></li> #}
+                    <li class="manage-delete"><a {{ action "deleteReaction" target="view" }}><span class="flaticon solid x-2"></span> <strong>{% trans "Delete" %}</strong></a></li>
+                </ul>
+            {{/if}}
+                
+	    </header>
+            
+        <div class="reaction-content">
+            <div class="text">{{{ text }}}</div>
+        </div>
+	</li>
 
 {% endtplhandlebars %}
 
@@ -40,31 +48,28 @@
             {{/each}}
         </ul>
     {{/if}}
-
+    
+    {{#if controllers.currentUser.isAuthenticated }}
     <form class="reaction-form">
         <fieldset>
-        <ul>
-            {{#if controllers.currentUser.isAuthenticated }}
-                <li {{bindAttr class="errors.text.length:error"}}>
-                    <span class="user-img">
-                        <img {{bindAttr src="controllers.currentUser.avatar" title="controllers.currentUser.fullname"}} width="100%" alt="Avatar" />
-                    </span>
+            <ul>
+            <li {{bindAttr class="errors.text.length:error"}}>
+                <span class="member-avatar">
+                    <img {{bindAttr src="controllers.currentUser.avatar" title="controllers.currentUser.fullname"}} alt="You" />
+                </span>
 
-                    {{#each errors.text}}
-                        <span class="error">{{this}}</span>
-                    {{/each}}
-                    {{view "Em.TextArea" placeholder="Comment"  valueBinding="newReaction.text" name="reaction" class="newReaction"}}
-                </li>
-            {{else}}
-                <a {{action openInBox "login"}} class="nav-login">{%  trans "Login" %}</a> or become a {{#linkTo "signup"}}{% trans "member" %}{{/linkTo}} {% trans "to leave a reaction" %}.
-            {{/if}}
-
-        </ul>
+                {{#each errors.text}}
+                    <span class="error">{{this}}</span>
+                {{/each}}
+                {{view "Em.TextArea" placeholder="Comment"  valueBinding="newReaction.text" name="reaction" class="newReaction"}}
+                
+                <button class="btn" type="submit" id="reaction-post">Post</button>
+            </li>
+            </ul>
         </fieldset>
-        <button class="btn" type="submit" id="reaction-post">Post</button>
     </form>
+    {{else}}
+        <div class="login-box"><a {{action openInBox "login"}}>{%  trans "Login" %}</a> or become a {{#linkTo "signup"}}{% trans "member" %}{{/linkTo}} {% trans "to leave a reaction" %}.</div>
+    {{/if}}
 
 {% endtplhandlebars %}
-
-
-

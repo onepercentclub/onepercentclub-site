@@ -7,76 +7,75 @@
 
 {% tplhandlebars "my_project_list" %}
 
-    <div class="container" id="project-dashboard">
+    <div class="l-section" id="project-dashboard">
     
     	{{partial "my_project_top"}}
     	
-        <div class="wrapper">
+        <div class="l-wrapper">
             {{#if isLoading}}
-                <span class="loading-big"></span>
+                <div class="is-loading-big"><img src="{% get_static_prefix %}images/loading.gif" /> <strong>{% trans "Loading projects" %}</strong></div>
             {{else}}
-            	<h1 class="pink">{% trans "My Projects" %}</h1>
                 {{#if canPitchNew}}
-                    {{#linkTo "myPitchNew" tagName="button" class="btn btn-primary btn-iconed"}}
-                        <em class="flaticon solid lightbulb-3"></em>
+                    {{#linkTo "myPitchNew" tagName="button" class="btn btn-primary btn-iconed btn-new"}}
+                        <span class="flaticon solid lightbulb-3"></span>
                         {% trans "Pitch your smart idea." %}
                     {{/linkTo}}
                 {{/if}}
             {{/if}}
             
-            <div class="content">
-	            <ul class="donation-projects">
+            <div class="l-content">
+	            <ul class="project-list">
 	            	{{#each project in controller}}
-	                <li class="donation-project">
-				            {{#if project.isPhasePitch}}
-	                            <img {{bindAttr src="project.pitch.image.square" alt="project.pitch.title"}} class="project-image" />
-	                        {{else}}
-	                            <img {{bindAttr src="project.plan.image.square" alt="project.pitch.title"}} class="project-image" />
-	                        {{/if}}
-				            <h2>
-				                {{ project.title }}
-				                <em class="project-status">
-			                        {{#if project.isPublic}}
-			                            <a {{action "showProject" project.id href=true}}>
-			                                <em class="flaticon solid eye-1"></em>
-			                                {% trans "View public page" %}
-			                            </a>
-			                        {{/if}}
-				                </em>
-				            </h2>
-				
-				        <p class="project-actions">
+	                <li class="project-list-item">
+                                    
+                        <span class="project-header">
+                            <figure class="project-image">
+                                <img {{bindAttr src="project.pitch.image.square" alt="project.pitch.title"}} />
+                            </figure>
+                            <h2 class="project-title">
+                                {{ project.title }}
+                                
+                                {{#if project.isPublic}}
+                                <a {{action "showProject" project.id href=true}} class="project-preview">
+	                                <span class="flaticon solid eye-1"></span>
+	                                {% trans "View public page" %}
+	                            </a>
+                                {{/if}}
+                            </h2>
+                        </span>
+                        
+				        <div class="project-actions">
 				        	{% trans "Phase" %}: <strong>{{ project.phase }}</strong> | 
 			                {{#if project.isPhasePitch}}
-			                	{% trans "Status:" %} <strong>{{project.plan.status}}</strong></p>
+			                	{% trans "Status:" %} <strong>{{project.plan.status}}</strong>
                                 {{#if project.pitch.isBeingReviewed}}
 								{% trans "Your pitch is in review now." %}
 								  <br/>
 								  {% trans "We'll get back to you soon!" %} 
 								{{else}}
-	                              {{#linkTo "myProjectPitch.basics" project tagName="a" class="btn btn-iconed right"}}
-	                                <em class="flaticon solid pencil-3"></em>
+	                              {{#linkTo "myProjectPitch.basics" project tagName="a" class="btn btn-iconed"}}
+	                                <span class="flaticon solid pencil-3"></span>
 	                                {% trans "Continue pitch" %}
 	                              {{/linkTo}}
 								{{/if}}
 	                        {{/if}}
 	
 	                        {{#if project.isPhasePlan}}
-	                            {% trans "Status:" %} <strong>{{project.plan.status}}</strong></p>
+	                            {% trans "Status:" %} <strong>{{project.plan.status}}</strong>
 	                            {{#linkTo "myProjectPlan" project tagName="a" class="btn btn-iconed right"}}
-	                                <em class="flaticon solid pencil-3"></em>
+	                                <span class="flaticon solid pencil-3"></span>
 	                                {% trans "Continue plan" %}
 	                            {{/linkTo}}
 	                        {{/if}}
 	
 	                        {{#if project.isPhaseCampaign}}
-	                            {% trans "Status:" %} <strong>{{project.campaign.status}}</strong></p>
+	                            {% trans "Status:" %} <strong>{{project.campaign.status}}</strong>
 	                            {{#linkTo "myProjectCampaign" project tagName="a" class="btn btn-iconed right"}}
-	                                <em class="flaticon solid pencil-3"></em>
+	                                <span class="flaticon solid pencil-3"></span>
 	                                {% trans "Campaigning" %}
 	                            {{/linkTo}}
 	                        {{/if}}
-				        </p>
+				        </div>
 				    </li>
 					{{/each}}
 	            </ul>
@@ -90,24 +89,25 @@
 {% tplhandlebars "my_pitch_new" %}
 
 
-    <div class="container" id="project-dashboard">
+    <div class="l-section" id="project-dashboard">
     	
     	{{partial "my_project_top"}}
     
-        <div class="wrapper">
-            <div class="content">
-                <h1 class="pink"> {% trans "Send in your Project Pitch" %}</h1>
-
-                <strong>
+        <div class="l-wrapper">
+            <div class="l-content">
+            
+                <header class="l-page-header">
+                    <h1> {% trans "Send in your Project Pitch" %}</h1>
+                    <p><strong>
 {% blocktrans %}
 Do you have a smart idea to make a contribution to your community? An idea to tackle a waste problem in your neighborhood? An idea for clean and green transport? An idea to use tech innovations to improve local healthcare?<br/><br/>
 Well, you came to the right place. We LOVE smart ideas!
 {% endblocktrans %}
-                </strong>
+                    </strong></p>
+                </header>
 
-
-                <h3>{% trans "WHEN YOUR SMART IDEA..." %}</h3>
-                <ul class="list">
+                <h2>{% trans "WHEN YOUR SMART IDEA..." %}</h2>
+                <ul>
                     <li>{% trans "Might seem small, but will have a big social impact" %}</li>
                     <li>{% trans "Is concrete and thus has a clear start and end" %}</li>
                     <li>{% trans "Needs on off investment to make it self-sufficient and sustainable on the long term" %}</li>
@@ -131,7 +131,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                         </p>
                         {% trans "It looks like you already have started a project in progress. You can manage your project here:" %}
                         {{#linkTo "myProjectList" tagName="button" class="btn btn-primary btn-iconed"}}
-                            <em class="flaticon solid pencil-3"></em>
+                            <span class="flaticon solid pencil-3"></span>
                             {% trans "Manage projects." %}
                         {{/linkTo}}
 
@@ -139,7 +139,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                         <form>
                             <div class="pitch-start">
                                 {{#if errors.title }}
-                                    <div class="errors">{{#each errors.title }}<p>{{this}}</p>{{/each}}</div>
+                                    <div class="has-errors">{{#each errors.title }}<p>{{this}}</p>{{/each}}</div>
                                 {{/if}}
                                 {{view Em.TextField valueBinding="title" name="title" placeholder="Title for your smart idea" classBinding="errors.title.length:error"}}
                             </div>
@@ -173,7 +173,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
 
 {% tplhandlebars "my_project" %}
 	
-	<div class="container" id="project-dashboard">
+	<div class="l-section" id="project-dashboard">
     	{{partial "my_project_top"}}
 		{{ outlet }}
 	</div>
@@ -183,87 +183,84 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
 
 {% tplhandlebars "_my_project_top" %}
 
-    <div id="profile-actions" class="section">
-        <div class="wrapper">
-            <div class="profile-actions-meta">
-                <a {{action "showProject" id href=true}} class="button-link">
-                    <img {{bindAttr src="controllers.currentUser.getAvatar" info="owner.first_name"}} />
-                    <span class="profile-actions-meta-title">
-                        {% trans "My 1%" %}
-                        
-                        {{#if title}}
-                        <span class="profile-title">
-                            {{ title }}
-                        </span>
-						{{/if}}
-						
-						{{#unless isPhasePitch}}
-						<small>
-                            <em class="flaticon solid eye-1"></em>
-							View public Project Page
-                        </small>
-						{{/unless}}
+<div class="l-section account-header">
+    <nav class="l-wrapper">    
+        <figure class="account-avatar"><img {{bindAttr src="controllers.currentUser.getAvatar"}} /></figure>
+        
+        <header class="account-title">
+            <h2>{% blocktrans %}My 1%{% endblocktrans %} 
+            {{#if title}}
+                <em class="account-subtitle">{{ title }}</em>
+			{{else}}
+			    <em class="account-subtitle">{% trans "Projects" %}</em>
+			{{/if}}
+            </h2>
+            
+            {{#unless isPhasePitch}}
+            <a class="account-preview">
+                <span class="flaticon solid eye-1"></span>
+                {% trans "View public project Page" %}
+            </a>
+            {{/unless}}
+        </header>
+        
+        {{#if id}}
+            <ul class="tabs steps five">
+                <li {{bindAttr class=":tab-item :first isPhasePitch:is-active:is-inactive"}}>
+                    <a>
+                        <span class="tab-icon"><em class="flaticon solid lightbulb-3"></em></span>
+                        <strong class="tab-title">
+                            {% trans "Pitch" %}
+                            <em class="tab-subtitle">{{ pitch.status }}</em>
+                        </strong>
+                    </a>
+                </li>
+                <li  {{bindAttr class=":tab-item :second isPhasePlan:is-active:is-inactive"}}>
+                    <span>
+                        <span class="tab-icon"><em class="flaticon solid notebook-1"></em></span>
+                        <strong class="tab-title">
+                            {% trans "Plan" %}
+                            <em class="tab-subtitle">{{ plan.status }}</em>
+                        </strong>
                     </span>
-                </a>
-            </div>
-            {{#if id}}
-
-                <ul class="tabs steps">
-                    <li {{bindAttr class=":tab-item :first isPhasePitch:is-active:is-inactive"}}>
-                        <span>
-                            <span class="tab-icon"><em class="flaticon solid lightbulb-3"></em></span>
-                            <strong class="tab-title">
-                                {% trans "Pitch" %}
-                                <em class="tab-subtitle">{{ pitch.status }}</em>
-                            </strong>
-                        </span>
-                    </li>
-                    <li  {{bindAttr class=":tab-item :second isPhasePlan:is-active:is-inactive"}}>
-                        <span>
-                            <span class="tab-icon"><em class="flaticon solid notebook-1"></em></span>
-                            <strong class="tab-title">
-                                {% trans "Plan" %}
-                                <em class="tab-subtitle">{{ plan.status }}</em>
-                            </strong>
-                        </span>
-                    </li>
-                    <li {{bindAttr class=":tab-item :third isPhaseCampaign:is-active:is-inactive"}}>
-                        <span>
-                            <span class="tab-icon"><em class="flaticon">&euro;</em></span>
-                            <strong class="tab-title">
-                                {% trans "Campaign" %}
-                                <em class="tab-subtitle">{{ campaign.status }}</em>
-                            </strong>
-                        </span>
-                    </li>
-                    <li {{bindAttr class=":tab-item :fourth isPhaseAct:is-active:is-inactive"}}>
-                        <span>
-                            <span class="tab-icon"><em class="flaticon solid wrench-1"></em></span>
-                            <strong class="tab-title">{% trans "Execute" %}
-                                <em class="tab-subtitle">{{ act.status }}</em>
-                            </strong>
-                        </span>
-                    </li>
-                    <li {{bindAttr class=":tab-item :fifth isPhaseResults:is-active:is-inactive"}}>
-                        <span>
-                            <span class="tab-icon"><em class="flaticon solid flag-3"></em></span>
-                            <strong class="tab-title">{% trans "Results" %}
-                                <em class="tab-subtitle">{{ results.status }}</em>
-                            </strong>
-                        </span>
-                    </li>
-                </ul>
-            {{/if}}
-		</div>
-    </div>
-
+                </li>
+                <li {{bindAttr class=":tab-item :third isPhaseCampaign:is-active:is-inactive"}}>
+                    <span>
+                        <span class="tab-icon"><em class="flaticon">&euro;</em></span>
+                        <strong class="tab-title">
+                            {% trans "Campaign" %}
+                            <em class="tab-subtitle">{{ campaign.status }}</em>
+                        </strong>
+                    </span>
+                </li>
+                <li {{bindAttr class=":tab-item :fourth isPhaseAct:is-active:is-inactive"}}>
+                    <span>
+                        <span class="tab-icon"><em class="flaticon solid wrench-1"></em></span>
+                        <strong class="tab-title">{% trans "Execute" %}
+                            <em class="tab-subtitle">{{ act.status }}</em>
+                        </strong>
+                    </span>
+                </li>
+                <li {{bindAttr class=":tab-item :fifth isPhaseResults:is-active:is-inactive"}}>
+                    <span>
+                        <span class="tab-icon"><em class="flaticon solid flag-3"></em></span>
+                        <strong class="tab-title">{% trans "Results" %}
+                            <em class="tab-subtitle">{{ results.status }}</em>
+                        </strong>
+                    </span>
+                </li>
+            </ul>
+        {{/if}}
+    </nav>
+</div>
+    
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "my_project_plan" %}
 
     
-        <div class="wrapper">
+        <div class="l-wrapper">
             <div class="menu-sidebar">
                 <div class="menu">
                     <div class="title">
@@ -446,7 +443,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                 </div>
 
                 {{#if errors.title }}
-                    <div class="errors">{{#each errors.title }}<p>{{this}}</p>{{/each}}</div>
+                    <div class="has-errors">{{#each errors.title }}<p>{{this}}</p>{{/each}}</div>
                 {{/if}}
             </li>
 
@@ -457,7 +454,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                 </div>
 
                 {{#if errors.pitch }}
-                    <div class="errors">{{#each errors.pitch }}<p>{{this}}</p>{{/each}}</div>
+                    <div class="has-errors">{{#each errors.pitch }}<p>{{this}}</p>{{/each}}</div>
                 {{/if}}
             </li>
 
@@ -468,7 +465,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                 </div>
 
                 {{#if errors.theme }}
-                    <div class="errors">{{#each errors.theme }}<p>{{this}}</p>{{/each}}</div>
+                    <div class="has-errors">{{#each errors.theme }}<p>{{this}}</p>{{/each}}</div>
                 {{/if}}
             </li>
 
@@ -484,7 +481,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                 </div>
 
                 {{#if errors.slug }}
-                    <div class="errors">{{#each errors.slug }}<p>{{this}}</p>{{/each}}</div>
+                    <div class="has-errors">{{#each errors.slug }}<p>{{this}}</p>{{/each}}</div>
                 {{/if}}
             </li>
             {% endcomment %}
@@ -499,7 +496,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                 </div>
 
                 {{#if errors.tags }}
-                    <div class="errors">{{#each errors.tags }}<p>{{this}}</p>{{/each}}</div>
+                    <div class="has-errors">{{#each errors.tags }}<p>{{this}}</p>{{/each}}</div>
                 {{/if}}
             </li>
 
@@ -541,7 +538,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                 </div>
 
                 {{#if errors.description }}
-                    <div class="errors">{{#each errors.description }}<p>{{this}}</p>{{/each}}</div>
+                    <div class="has-errors">{{#each errors.description }}<p>{{this}}</p>{{/each}}</div>
                 {{/if}}
             </li>
 
@@ -552,7 +549,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                 </div>
 
                 {{#if errors.effects }}
-                    <div class="errors">{{#each errors.effects }}<p>{{this}}</p>{{/each}}</div>
+                    <div class="has-errors">{{#each errors.effects }}<p>{{this}}</p>{{/each}}</div>
                 {{/if}}
             </li>
 
@@ -563,7 +560,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                 </div>
 
                 {{#if errors.future }}
-                    <div class="errors">{{#each errors.future }}<p>{{this}}</p>{{/each}}</div>
+                    <div class="has-errors">{{#each errors.future }}<p>{{this}}</p>{{/each}}</div>
                 {{/if}}
             </li>
 
@@ -574,7 +571,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                 </div>
 
                 {{#if errors.forWho }}
-                    <div class="errors">{{#each errors.forWho }}<p>{{this}}</p>{{/each}}</div>
+                    <div class="has-errors">{{#each errors.forWho }}<p>{{this}}</p>{{/each}}</div>
                 {{/if}}
             </li>
 
@@ -585,7 +582,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                 </div>
 
                 {{#if errors.reach }}
-                    <div class="errors">{{#each errors.reach }}<p>{{this}}</p>{{/each}}</div>
+                    <div class="has-errors">{{#each errors.reach }}<p>{{this}}</p>{{/each}}</div>
                 {{/if}}
             </li>
 
@@ -613,7 +610,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                     {{view App.ProjectCountrySelectView valueBinding="country" classBinding="errors.country.length:error"}}
                 </div>
                 {{#if errors.country }}
-                    <div class="errors">{{#each errors.country }}<p>{{this}}</p>{{/each}}</div>
+                    <div class="has-errors">{{#each errors.country }}<p>{{this}}</p>{{/each}}</div>
                 {{/if}}
             </li>
             <li class="control-group has-popover" data-content="{% trans "Select the location on the map. You can use the search to find your location." %}">
@@ -684,7 +681,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                     </div>
 
                     {{#if organization.errors.name }}
-                        <div class="errors">{{#each organization.errors.name }}<p>{{this}}</p>{{/each}}</div>
+                        <div class="has-errors">{{#each organization.errors.name }}<p>{{this}}</p>{{/each}}</div>
                     {{/if}}
                 </li>
 
@@ -695,7 +692,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                     </div>
 
                     {{#if organization.errors.description }}
-                        <div class="errors">{{#each organization.errors.description }}<p>{{this}}</p>{{/each}}</div>
+                        <div class="has-errors">{{#each organization.errors.description }}<p>{{this}}</p>{{/each}}</div>
                     {{/if}}
                 </li>
             </ul>
@@ -714,7 +711,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                         </div>
 
                         {{#if address.errors.type }}
-                            <div class="errors">{{#each address.errors.type }}<p>{{this}}</p>{{/each}}</div>
+                            <div class="has-errors">{{#each address.errors.type }}<p>{{this}}</p>{{/each}}</div>
                         {{/if}}
                     </li>
 
@@ -725,7 +722,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                         </div>
 
                         {{#if address.errors.line1 }}
-                            <div class="errors">{{#each address.errors.line1 }}<p>{{this}}</p>{{/each}}</div>
+                            <div class="has-errors">{{#each address.errors.line1 }}<p>{{this}}</p>{{/each}}</div>
                         {{/if}}
 
                     </li>
@@ -737,7 +734,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                         </div>
 
                         {{#if address.errors.line2 }}
-                            <div class="errors">{{#each address.errors.line2 }}<p>{{this}}</p>{{/each}}</div>
+                            <div class="has-errors">{{#each address.errors.line2 }}<p>{{this}}</p>{{/each}}</div>
                         {{/if}}
                     </li>
 
@@ -749,7 +746,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                         </div>
 
                         {{#if address.errors.city }}
-                            <div class="errors">{{#each address.errors.city }}<p>{{this}}</p>{{/each}}</div>
+                            <div class="has-errors">{{#each address.errors.city }}<p>{{this}}</p>{{/each}}</div>
                         {{/if}}
                     </li>
 
@@ -760,7 +757,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                         </div>
 
                         {{#if address.errors.postal_code }}
-                            <div class="errors">{{#each address.errors.postal_code }}<p>{{this}}</p>{{/each}}</div>
+                            <div class="has-errors">{{#each address.errors.postal_code }}<p>{{this}}</p>{{/each}}</div>
                         {{/if}}
                     </li>
 
@@ -771,7 +768,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                         </div>
 
                         {{#if address.errors.country }}
-                            <div class="errors">{{#each address.errors.country }}<p>{{this}}</p>{{/each}}</div>
+                            <div class="has-errors">{{#each address.errors.country }}<p>{{this}}</p>{{/each}}</div>
                         {{/if}}
                     </li>
 
@@ -802,7 +799,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                     </div>
 
                     {{#if organization.errors.website }}
-                        <div class="errors">{{#each organization.errors.website }}<p>{{this}}</p>{{/each}}</div>
+                        <div class="has-errors">{{#each organization.errors.website }}<p>{{this}}</p>{{/each}}</div>
                     {{/if}}
                 </li>
 
@@ -813,7 +810,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                     </div>
 
                     {{#if organization.errors.email }}
-                        <div class="errors">{{#each organization.errors.email }}<p>{{this}}</p>{{/each}}</div>
+                        <div class="has-errors">{{#each organization.errors.email }}<p>{{this}}</p>{{/each}}</div>
                     {{/if}}
                 </li>
 
@@ -824,7 +821,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                     </div>
 
                     {{#if organization.errors.twitter }}
-                        <div class="errors">{{#each organization.errors.twitter }}<p>{{this}}</p>{{/each}}</div>
+                        <div class="has-errors">{{#each organization.errors.twitter }}<p>{{this}}</p>{{/each}}</div>
                     {{/if}}
                 </li>
 
@@ -835,7 +832,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                     </div>
 
                     {{#if organization.errors.facebook }}
-                        <div class="errors">{{#each organization.errors.facebook }}<p>{{this}}</p>{{/each}}</div>
+                        <div class="has-errors">{{#each organization.errors.facebook }}<p>{{this}}</p>{{/each}}</div>
                     {{/if}}
                 </li>
 
@@ -846,7 +843,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                     </div>
 
                     {{#if organization.errors.skype }}
-                        <div class="errors">{{#each organization.errors.skype }}<p>{{this}}</p>{{/each}}</div>
+                        <div class="has-errors">{{#each organization.errors.skype }}<p>{{this}}</p>{{/each}}</div>
                     {{/if}}
                 </li>
             </ul>
@@ -903,7 +900,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                 </div>
 
                 {{#if organization.errors.legalStatus }}
-                    <div class="errors">{{#each organization.errors.legalStatus }}<p>{{this}}</p>{{/each}}</div>
+                    <div class="has-errors">{{#each organization.errors.legalStatus }}<p>{{this}}</p>{{/each}}</div>
                 {{/if}}
             </li>
 
@@ -962,7 +959,7 @@ You've to have at least 3 ambassadors. (more? great!)<br /><br />
                     </div>
 
                     {{#if ambassador.errors.name }}
-                        <div class="errors">{{#each ambassador.errors.name }}<p>{{this}}</p>{{/each}}</div>
+                        <div class="has-errors">{{#each ambassador.errors.name }}<p>{{this}}</p>{{/each}}</div>
                     {{/if}}
 
                 </li>
@@ -974,7 +971,7 @@ You've to have at least 3 ambassadors. (more? great!)<br /><br />
                     </div>
 
                     {{#if ambassador.errors.email }}
-                        <div class="errors">{{#each ambassador.errors.email }}<p>{{this}}</p>{{/each}}</div>
+                        <div class="has-errors">{{#each ambassador.errors.email }}<p>{{this}}</p>{{/each}}</div>
                     {{/if}}
 
                 </li>
@@ -986,7 +983,7 @@ You've to have at least 3 ambassadors. (more? great!)<br /><br />
                     </div>
 
                     {{#if ambassador.errors.description }}
-                        <div class="errors">{{#each ambassador.errors.description }}<p>{{this}}</p>{{/each}}</div>
+                        <div class="has-errors">{{#each ambassador.errors.description }}<p>{{this}}</p>{{/each}}</div>
                     {{/if}}
 
                 </li>
@@ -1027,7 +1024,7 @@ You've to have at least 3 ambassadors. (more? great!)<br /><br />
                     </div>
 
                     {{#if organization.errors.account_bank_name }}
-                        <div class="errors">{{#each organization.errors.account_bank_name }}<p>{{this}}</p>{{/each}}</div>
+                        <div class="has-errors">{{#each organization.errors.account_bank_name }}<p>{{this}}</p>{{/each}}</div>
                     {{/if}}
                 </li>
 
@@ -1038,7 +1035,7 @@ You've to have at least 3 ambassadors. (more? great!)<br /><br />
                     </div>
 
                     {{#if organization.errors.account_bank_address }}
-                        <div class="errors">{{#each organization.errors.account_bank_address }}<p>{{this}}</p>{{/each}}</div>
+                        <div class="has-errors">{{#each organization.errors.account_bank_address }}<p>{{this}}</p>{{/each}}</div>
                     {{/if}}
                 </li>
 
@@ -1049,7 +1046,7 @@ You've to have at least 3 ambassadors. (more? great!)<br /><br />
                     </div>
 
                     {{#if organization.errors.account_bank_country }}
-                        <div class="errors">{{#each organization.errors.account_bank_country }}<p>{{this}}</p>{{/each}}</div>
+                        <div class="has-errors">{{#each organization.errors.account_bank_country }}<p>{{this}}</p>{{/each}}</div>
                     {{/if}}
                 </li>
 
@@ -1060,7 +1057,7 @@ You've to have at least 3 ambassadors. (more? great!)<br /><br />
                     </div>
 
                     {{#if organization.errors.account_number }}
-                        <div class="errors">{{#each organization.errors.account_number }}<p>{{this}}</p>{{/each}}</div>
+                        <div class="has-errors">{{#each organization.errors.account_number }}<p>{{this}}</p>{{/each}}</div>
                     {{/if}}
                 </li>
 
@@ -1071,7 +1068,7 @@ You've to have at least 3 ambassadors. (more? great!)<br /><br />
                     </div>
 
                     {{#if organization.errors.account_name }}
-                        <div class="errors">{{#each organization.errors.account_name }}<p>{{this}}</p>{{/each}}</div>
+                        <div class="has-errors">{{#each organization.errors.account_name }}<p>{{this}}</p>{{/each}}</div>
                     {{/if}}
                 </li>
 
@@ -1082,7 +1079,7 @@ You've to have at least 3 ambassadors. (more? great!)<br /><br />
                     </div>
 
                     {{#if organization.errors.account_city }}
-                        <div class="errors">{{#each organization.errors.account_city }}<p>{{this}}</p>{{/each}}</div>
+                        <div class="has-errors">{{#each organization.errors.account_city }}<p>{{this}}</p>{{/each}}</div>
                     {{/if}}
                 </li>
 
@@ -1093,7 +1090,7 @@ You've to have at least 3 ambassadors. (more? great!)<br /><br />
                     </div>
 
                     {{#if organization.errors.account_iban }}
-                        <div class="errors">{{#each organization.errors.account_iban }}<p>{{this}}</p>{{/each}}</div>
+                        <div class="has-errors">{{#each organization.errors.account_iban }}<p>{{this}}</p>{{/each}}</div>
                     {{/if}}
                 </li>
 
@@ -1104,7 +1101,7 @@ You've to have at least 3 ambassadors. (more? great!)<br /><br />
                     </div>
 
                     {{#if organization.errors.account_bic }}
-                        <div class="errors">{{#each organization.errors.account_bic }}<p>{{this}}</p>{{/each}}</div>
+                        <div class="has-errors">{{#each organization.errors.account_bic }}<p>{{this}}</p>{{/each}}</div>
                     {{/if}}
                 </li>
 
@@ -1115,7 +1112,7 @@ You've to have at least 3 ambassadors. (more? great!)<br /><br />
                     </div>
 
                     {{#if organization.errors.account_other }}
-                        <div class="errors">{{#each organization.errors.account_other }}<p>{{this}}</p>{{/each}}</div>
+                        <div class="has-errors">{{#each organization.errors.account_other }}<p>{{this}}</p>{{/each}}</div>
                     {{/if}}
                 </li>
             </ul>
@@ -1156,7 +1153,7 @@ Need more tips and tricks? Read our <a href="/#!/pages/faq-projects">FAQ</a>.<br
                 </div>
 
                 {{#if errors.moneyNeeded }}
-                    <div class="errors">{{#each errors.moneyNeeded }}<p>{{this}}</p>{{/each}}</div>
+                    <div class="has-errors">{{#each errors.moneyNeeded }}<p>{{this}}</p>{{/each}}</div>
                 {{/if}}
             </li>
 
@@ -1167,7 +1164,7 @@ Need more tips and tricks? Read our <a href="/#!/pages/faq-projects">FAQ</a>.<br
                 </div>
 
                 {{#if errors.campaign }}
-                    <div class="errors">{{#each errors.campaign }}<p>{{this}}</p>{{/each}}</div>
+                    <div class="has-errors">{{#each errors.campaign }}<p>{{this}}</p>{{/each}}</div>
                 {{/if}}
             </li>
         </ul>
@@ -1230,10 +1227,10 @@ Please add 5% administration fee to your budget. The total amount, including the
                 </div>
                 {{#if totalBudget}}
                     {{#unless validBudget}}
-                        <div class="errors"><p>{% trans "Total budget shouldn't be over 5000 euro." %}</p></div>
+                        <div class="has-errors"><p>{% trans "Total budget shouldn't be over 5000 euro." %}</p></div>
                     {{/unless}}
                 {{else}}
-                    <div class="errors"><p>{% trans "Start adding items to your budget." %}</p></div>
+                    <div class="has-errors"><p>{% trans "Start adding items to your budget." %}</p></div>
                 {{/if}}
 
             </li>
@@ -1288,7 +1285,7 @@ Please add 5% administration fee to your budget. The total amount, including the
 
 {% tplhandlebars "my_project_plan_review" %}
 
-    <div class="wrapper">
+    <div class="l-wrapper">
         <article class="content">
             <h2>{% trans "Your plan is in review now. We'll get back to you soon!" %}</h2>
         </article>
@@ -1300,7 +1297,7 @@ Please add 5% administration fee to your budget. The total amount, including the
 {% tplhandlebars "my_project_plan_rejected" %}
 
 
-    <div class="wrapper">
+    <div class="l-wrapper">
         <article class="content">
             <h2>
                 {% trans "We're sorry, your plan has been rejected." %}
@@ -1316,7 +1313,7 @@ Please add 5% administration fee to your budget. The total amount, including the
 {% tplhandlebars "my_project_plan_approved" %}
 
 
-    <div class="wrapper ">
+    <div class="l-wrapper ">
         <article class="content">
             <h2>
                 {% trans "Yeah! Your plan has been approved." %}<br/>
@@ -1347,7 +1344,7 @@ Please add 5% administration fee to your budget. The total amount, including the
 {% tplhandlebars "my_project_pitch" %}
 
 
-    <div class="wrapper">
+    <div class="l-wrapper">
         <div class="menu-sidebar">
             <div class="menu">
                 <div class="title">
@@ -1399,7 +1396,7 @@ Please add 5% administration fee to your budget. The total amount, including the
                 </div>
 
                 {{#if errors.title }}
-                    <div class="errors">{{#each errors.title }}<p>{{this}}</p>{{/each}}</div>
+                    <div class="has-errors">{{#each errors.title }}<p>{{this}}</p>{{/each}}</div>
                 {{/if}}
             </li>
 
@@ -1410,7 +1407,7 @@ Please add 5% administration fee to your budget. The total amount, including the
                 </div>
 
                 {{#if errors.pitch }}
-                    <div class="errors">{{#each errors.pitch }}<p>{{this}}</p>{{/each}}</div>
+                    <div class="has-errors">{{#each errors.pitch }}<p>{{this}}</p>{{/each}}</div>
                 {{/if}}
             </li>
 
@@ -1421,7 +1418,7 @@ Please add 5% administration fee to your budget. The total amount, including the
                 </div>
 
                 {{#if errors.description }}
-                    <div class="errors">{{#each errors.description }}<p>{{this}}</p>{{/each}}</div>
+                    <div class="has-errors">{{#each errors.description }}<p>{{this}}</p>{{/each}}</div>
                 {{/if}}
             </li>
 
@@ -1432,7 +1429,7 @@ Please add 5% administration fee to your budget. The total amount, including the
                 </div>
 
                 {{#if errors.theme }}
-                    <div class="errors">{{#each errors.theme }}<p>{{this}}</p>{{/each}}</div>
+                    <div class="has-errors">{{#each errors.theme }}<p>{{this}}</p>{{/each}}</div>
                 {{/if}}
             </li>
 
@@ -1447,7 +1444,7 @@ Please add 5% administration fee to your budget. The total amount, including the
                 </div>
 
                 {{#if errors.tags }}
-                    <div class="errors">{{#each errors.tags }}<p>{{this}}</p>{{/each}}</div>
+                    <div class="has-errors">{{#each errors.tags }}<p>{{this}}</p>{{/each}}</div>
                 {{/if}}
             </li>
             <li class="control-group has-popover" data-content="{% trans "What do you need to realise your smart idea?" %}">
@@ -1562,7 +1559,7 @@ Please add 5% administration fee to your budget. The total amount, including the
 
 {% tplhandlebars "my_project_pitch_review" %}
 
-    <div class="wrapper">
+    <div class="l-wrapper">
         <article class="content">
             <h2>
                 {% trans "Your pitch is in review now." %}<br/>
@@ -1577,7 +1574,7 @@ Please add 5% administration fee to your budget. The total amount, including the
 
 {% tplhandlebars "my_project_pitch_rejected" %}
 
-    <div class="wrapper">
+    <div class="l-wrapper">
         <article class="content">
             <h2>
                 {% trans "We're sorry, your pitch has been rejected." %}<br />
@@ -1591,7 +1588,7 @@ Please add 5% administration fee to your budget. The total amount, including the
 
 {% tplhandlebars "my_project_pitch_approved" %}
 
-    <div class="wrapper">
+    <div class="l-wrapper">
         <article class="content">
             <h2>
                 {% trans "Yeah! Your pitch has been approved." %}<br/>
@@ -1617,7 +1614,7 @@ Please add 5% administration fee to your budget. The total amount, including the
 
 {% tplhandlebars "my_project_campaign" %}
 
-    <div class="wrapper">
+    <div class="l-wrapper">
         <div class="menu-sidebar">
             <div class="menu">
                 <div class="title">

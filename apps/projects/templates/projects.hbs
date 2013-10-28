@@ -4,85 +4,57 @@
 
 {% tplhandlebars "project_preview" %}
 
-    <li class="item item-project">
+    <li class="project-item">
+    
         {{#linkTo 'project' project.getProject }}
-            <span class="item-header">
-            	<span class="item-image">
+            <span class="project-header">
+            
+            	<figure class="project-image">
                 	<img {{bindAttr src="project.image" }} />
-            	</span>
-                <span class="item-project-title">
+            	</figure>
+            	
+                <span class="project-title">
                 	<h3>{{project.title}}</h3>
-                    <span class="item-project-country"><em class="flaticon solid location-pin-1"></em> {{project.country.name}}</span> 
+                    <span class="project-location"><span class="flaticon solid location-pin-1"></span> {{project.country.name}}</span> 
                 </span>
             </span>
-        
-	        <span {{bindAttr class=":item-status phase"}}>
+            
+	        <span {{bindAttr class=":project-status phase"}}>
 	            {{#if project.isPhasePlan}}
-	                <span class="donate-status">
-	                    <p class="donate-amount">
-	                        <em class="flaticon solid lightbulb-3"></em>
-	                        <em>{% trans "New" %}</em> {% trans "Smart Idea" %}
-	                    </p>
-	                </span>
+                    <span class="project-phase"><span class="flaticon solid lightbulb-3"></span> <strong>{% trans "New" %}</strong> <em>{% trans "Smart Idea" %}</em></span> 
 	            {{/if}}
 	
 	            {{#if project.isPhaseCampaign}}
-	                <div class="donate-status">
-	                    {{#if project.campaign.money_asked}}
-	                        <span class="donate-slider"><strong style="width: 0;" class="donate-progress">&nbsp;</strong></span>
-	                        <p class="donate-amount">
-	                            <span class="donated">&euro;{{localize project.campaign.money_needed}}</span>
-	                            {% trans "To go" %}
-	                        </p>
-	                    {{/if}}
-	                    {{#if project.campaign.deadline }}
-	                        <p class="donate-days-left">
-	                            <strong><i class="flaticon solid clock-1"></i> {{ project.campaign.daysToGo }}</strong>
-	                            <em>{% trans "days" %}</em>
-	                        </p>
-	                    {{/if}}
-	                </div>
+                    {{#if project.campaign.money_asked}}
+                        <div class="project-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
+                        <span class="project-fund-amount"><strong>&euro;{{localize project.campaign.money_needed}}</strong> <em>{% trans "To go" %}</em></span>
+                    {{/if}}
+                    {{#if project.campaign.deadline }}
+                        <span class="project-days-left"><span class="flaticon solid clock-1"></span> <strong>{{project.campaign.daysToGo}}</strong> <em>{% trans "days" %}</em></span>
+                    {{/if}}
 	            {{/if}}
 	
 	            {{#if project.isPhaseAct}}
-	                <span class="donate-status">
-	                    <span class="donate-slider"><strong style="width: 100%;" class="donate-progress-finished">&nbsp;</strong></span>
-	                    <p class="donate-amount">
-	                        <em>{% trans "Fully funded" %}</em>
-	                        &amp; {% trans "being realized" %}
-	                    </p>
-	                </span>
+                    <span class="project-phase"><span class="flaticon solid lightbulb-3"></span> <strong>{% trans "Project funded" %}</strong> <em>{% trans "Being realized" %}</em></span>
 	            {{/if}}
-	
-	            {# Is the same as phase "Act". So code can be made DRYer. #}
+	            
 	            {{#if project.isPhaseResults}}
-	                <span class="donate-status">
-	                    <span class="donate-slider"><strong style="width: 100%;" class="donate-progress-finished">&nbsp;</strong></span>
-	                    <p class="donate-amount">
-	                        <em>{% trans "Fully funded" %}</em>
-	                        &amp; {% trans "being realized" %}
-	                    </p>
-	                </span>
+                    <span class="project-phase"><span class="flaticon solid lightbulb-3"></span> <strong>{% trans "Project funded" %}</strong> <em>{% trans "Being realized" %}</em></span>
 	            {{/if}}
-	
+	            
 	            {{#if project.isPhaseRealized}}
-	                <span class="donate-status">
-	                    <p class="donate-amount">
-	                        {% trans "Project realized" %}
-	                        <br />{% trans "See project results" %}
-	                    </p>
-	                </span>
-	            {{/if}}
-	
-	            {{#if taskCount}}
-	                <span class="project-task">
-	                	<em class="flaticon solid wrench-1"></em> <strong>{{project.taskCount}}</strong> {% trans "task(s) available" %}
-	                </span>
+	                <span class="project-phase"><span class="flaticon solid lightbulb-3"></span> <strong>{% trans "Project realized" %}</strong> <em>{% trans "See results" %}</em></span>
 	            {{/if}}
 	        </span>
+	        
+            <span class="project-description">{{{project.description}}}</span>
+	        
         {{/linkTo}}
+        	        
+        {{#if taskCount}}
+            <a class="project-tasks"><span class="flaticon solid wrench-1"></span> <strong>{{project.taskCount}}</strong> <em>{% trans "task(s) available" %}</em></a>
+        {{/if}}
     </li>
-
 
 {% endtplhandlebars %}
 
@@ -90,23 +62,19 @@
 {% tplhandlebars "project_list" %}
 
     {{render "projectSearchForm" }}
-    <div class="container">
-        <section class="wrapper">
-            <article>
-                <header>
-                    {{#if model.isLoaded}}
-                        <ul id="results">
-                            {{#each project in model}}
-                                {{render "projectPreview" project}}
-                            {{else}}
-                                <li>{% trans "No projects found." %}</li>
-                            {{/each}}
-                        </ul>
+    <div class="l-section">
+        <section class="l-wrapper">
+            {{#if model.isLoaded}}
+                <ul id="search-results">
+                    {{#each project in model}}
+                        {{render "projectPreview" project}}
                     {{else}}
-                        <span class="loading-big"><img src="{% get_static_prefix %}images/loading.gif" /> {% trans "loading projects" %}</span>
-                    {{/if}}
-                </header>
-            </article>
+                        <li class="no-results">{% trans "No projects found." %}</li>
+                    {{/each}}
+                </ul>
+            {{else}}
+                <div class="is-loading-big"><img src="{% get_static_prefix %}images/loading.gif" /> <strong>{% trans "Loading projects" %}</strong></div>
+            {{/if}}
         </section>
     </div>
 
@@ -115,73 +83,70 @@
 
 {% tplhandlebars "project_search_form" %}
 
-    <div class="container section">
-        <section class="wrapper">
-            <article class="search-form">
-                <div class="search-field">
-                    <em class="flaticon solid zoom-1"></em>
-                    {{view Em.TextField valueBinding="text" placeholder="Search keyword"}}
+    <div class="l-section" id="search">
+        <section class="l-wrapper">
+            <form id="search-form">
+                <div class="control">
+                    {{view Em.TextField valueBinding="text" placeholder="Search"}}
+                    <span class="flaticon stroke zoom-2"></span>
                 </div>
                 <div class="control">
-                    <em class="flaticon solid earth-1"></em>
                     {{view App.ProjectCountrySelectView valueBinding="country" }}
+                    <span class="flaticon solid earth-1"></span>
                 </div>
                 <div class="control">
-                    <em class="flaticon solid tag-1"></em>
                     {{view App.ThemeSelectView valueBinding="theme" }}
+                    <span class="flaticon stroke tag-2"></span>
                 </div>
                 <div class="control">
-                    <em class="flaticon solid flag-1"></em>
                     {{view App.ProjectPhaseSelectView valueBinding="phase" }}
+                    <span class="flaticon stroke flag-1"></span>
                 </div>
-                <div class="clear-form">
-                    <a {{action clearForm}}>
-                        <span class="flaticon solid x-2"></span>
-                        {% trans "clear filters" %}
-                    </a>
-                </div>
-            </article>
+            </form>
         </section>
     </div>
 
-    <div class="container">
-        <section class="wrapper">
+    <div class="l-section">
+        <section class="l-wrapper">
             <article id="search-navigation">
             	
-            	<div class="search-results">
+            	<header>
                 	<h2>{% trans "Results" %} <em>{{controllers.projectList.model.meta.total}}</em></h2>
-            	</div>
+                    <a {{action 'clearForm'}} class="search-reset">
+                        <span class="flaticon solid x-2"></span> {% trans "Reset Search Filter" %}
+                    </a>
+            	</header>
                 
                 <div class="search-sort">
-                    <strong>{% trans "Sort:" %}</strong>
-                    <a {{action sortOrder 'popularity'}} {{bindAttr class="orderedByPopularity:active"}}>{% trans "Most popular" %}</a>
+                    {% trans "Sort:" %}
+                    <a {{action 'sortOrder' 'popularity'}} {{bindAttr class="orderedByPopularity:active"}}>{% trans "Most popular" %}</a>
                     {% comment %}
                         Disabled because the currently approved design does not include sorting by title.
                         Current design: https://www.dropbox.com/s/n34ndim6cdbm7vz/Project-Search-V2.png
-                        <a {{action sortOrder 'title'}} {{bindAttr class="orderedByTitle:active"}}>{% trans "Title" %}</a>
+                        <a {{action 'sortOrder' 'title'}} {{bindAttr class="orderedByTitle:active"}}>{% trans "Title" %}</a>
                     {% endcomment %}
-                    <a {{action sortOrder 'newest'}} {{bindAttr class="orderedByNewest:active"}}>{% trans "Newest" %}</a>
-                    <a {{action sortOrder 'needed'}} {{bindAttr class="orderedByNeeded:active"}}>{% trans "Almost funded" %}</a>
-                    <a {{action sortOrder 'deadline'}} {{bindAttr class="orderedByDeadline:active"}}>{% trans "Near deadline" %}</a>
+                    <a {{action 'sortOrder' 'newest'}} {{bindAttr class="orderedByNewest:active"}}>{% trans "Newest" %}</a>
+                    <a {{action 'sortOrder' 'needed'}} {{bindAttr class="orderedByNeeded:active"}}>{% trans "Almost funded" %}</a>
+                    <a {{action 'sortOrder' 'deadline'}} {{bindAttr class="orderedByDeadline:active"}}>{% trans "Near deadline" %}</a>
                 </div>
                 
                 <div class="search-pagination">
                 	<span class="search-showing">{% trans "Showing" %} {{rangeStart}}-{{rangeEnd}}</span>
                 	<span class="search-pages-control">
 		                {{#if hasPreviousPage}}
-		                    <a {{action "previousPage"}} class="previous-page">
-		                        <em class="flaticon solid left-circle-2"></em>
+		                    <a {{action 'previousPage'}} class="previous-page">
+		                        <span class="flaticon solid left-circle-2"></span>
 		                    </a>
 		                {{else}}
-		                	<span class="previous-page"><em class="flaticon solid left-circle-2"></em></span>
+		                	<span class="previous-page"><span class="flaticon solid left-circle-2"></span></span>
 		                {{/if}}
 		                
 		                {{#if hasNextPage}}
-		                    <a {{action "nextPage"}} class="next-page">
-		                        <em class="flaticon solid right-circle-2"></em>
+		                    <a {{action 'nextPage'}} class="next-page">
+		                        <span class="flaticon solid right-circle-2"></span>
 		                    </a>
 		                {{else}}
-		                	<span class="next-page"><em class="flaticon solid right-circle-2"></em></span>
+		                	<span class="next-page"><span class="flaticon solid right-circle-2"></span></span>
 		                {{/if}}
                 	</span>
                 </div>
@@ -194,124 +159,79 @@
 
 {% tplhandlebars "project" %}
 
-    <div class="section" id="detail">
-        <section class="wrapper">
+    <div class="l-section" id="project-detail">
+        <section class="l-wrapper">
         
-            <figure class="media">
+            <figure class="project-image l-half">
                 <img {{bindAttr src="plan.image.large"}} width="100%" alt="Photo" />
             </figure>
 
-            <article>
+            <div class="l-half">
+                
+                {% comment %}
                 <ul class="project-phase">
-                    <li class="item">{% trans "Pitch" %}</li>
-                    <li {{bindAttr class=":item isPhasePlan:is-current" }}>{% trans "Plan" %}</li>
-                    <li {{bindAttr class=":item isPhaseCampaign:is-current" }}>{% trans "Campaign" %}</li>
-                    <li {{bindAttr class=":item isPhaseAct:is-current" }}>{% trans "Act" %}</li>
-                    <li {{bindAttr class=":item isPhaseResults:is-current" }}>{% trans "Results" %}</li>
+                    <li>{% trans "Pitch" %}</li>
+                    <li {{bindAttr class="isPhasePlan:is-current" }}>{% trans "Plan" %}</li>
+                    <li {{bindAttr class="isPhaseCampaign:is-current" }}>{% trans "Campaign" %}</li>
+                    <li {{bindAttr class="isPhaseAct:is-current" }}>{% trans "Act" %}</li>
+                    <li {{bindAttr class="isPhaseResults:is-current" }}>{% trans "Results" %}</li>
                 </ul>
-
-                <div class="project-meta">
-                    <span class="location">
-                    	<em class="flaticon solid location-pin-1"></em> {{plan.country.name}}
-										</span>
-
-                    <span class="theme">
-                        <em class="flaticon solid tag-1"></em> {{plan.theme.title}}
-                    </span>
-                    
-                    {{view App.SocialShareView classNames="project-share"}}
-
-                    {% comment %}
-                    <span class="tags" data-title="Tags" {{bindAttr data-content="allTags"}}>
-                        <em class="flaticon solid tag-1"></em>
-                        {{#each tag in plan.tags}}
-                            {{tag.id}}
-                        {{/each}}
-                    </span>
-                    {% endcomment %}
-                </div>
-
-                <h1 class="project-title">
-                    {{plan.title}}
-                </h1>
-
-                <p class="project-description">{{plan.pitch}}</p>
-				
-				{% comment %}
-                <div class="project-plan">
-                    {{#linkTo 'projectPlan'}}
-                        <i class="flaticon solid open-book-4"></i>
-                        {% trans "Read full project plan" %}
-                    {{/linkTo}}
-                </div>
                 {% endcomment %}
                 
-            </article>
+                <article class="project-info">
+                    <div class="project-meta">
+	                    {{#if plan.country.name}}<span class="project-location"><span class="flaticon solid location-pin-1"></span> {{plan.country.name}}</span>{{/if}}
+	                    {{#if plan.theme.title}}<span class="project-theme"><span class="flaticon solid tag-2"></span> {{plan.theme.title}}</span>{{/if}}
+	                    {{view App.SocialShareView classNames="project-share"}}
+	                </div>
+                    <h1 class="project-title">{{plan.title}}</h1>
+                    <p class="project-description">{{plan.pitch}}</p>
+                    
+                </article>
+                
+            </div>
         </section>
 
         {{#if isFundable}}
-            <section class="wrapper">
-                <div class="status-box">
-                    <p class="donate-days-left">
-                        {{#if campaign.deadline }}
-                            <strong><em class="flaticon solid clock-1"></em> {{campaign.daysToGo}}</strong>
-                            <em>{% trans "days to go" %}</em>
-                        {{/if}}
-                    </p>
-
-                    <div class="donate-status">
-                        <p class="donate-amount">
-                                <span class="donated">&euro;{{localize campaign.money_donated}}</span>
-                                {% trans "of" %}
-                                <span class="asked">&euro;{{localize campaign.money_asked}}</span>
-                                {% trans "raised" %}
+            <section class="l-wrapper">
+                <div class="project-status">
+                    
+                	{{#if campaign.deadline}}
+                    <div class="project-days-left l-one-third">
+						<strong><span class="flaticon solid clock-1"></span> {{campaign.daysToGo}}</strong>
+						<em>{% trans "days to go" %}</em>
+					</div>
+					{{/if}}
+					
+					<div class="project-fund l-one-third">
+                        <p class="project-fund-amount">
+                            <strong class="amount-donated">&euro;{{localize campaign.money_donated}}</strong>
+                            {% trans "of" %}
+                            <strong class="amount-asked">&euro;{{localize campaign.money_asked}}</strong>
+                            {% trans "raised" %}
                         </p>
-                        <span class="donate-slider"><strong style="width: 0%;" class="donate-progress is-in-progress"><em class="donate-percentage"></em></strong></span>
+                    
+                        <div class="project-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
+					</div>
+                    
+                    <div class="project-action l-one-third">
+					    <a href='#' {{ action 'addDonation' this }} class="btn btn-primary btn-iconed"><span class="flaticon solid wallet-1"></span> {% trans "Support project" %}</a>
                     </div>
-
-                    <div class="donate-call-to-action">
-                        <a href='#' {{action 'addDonation' this}} class="btn btn-primary btn-iconed">
-                            <em class="icon">&euro;</em> {% trans "Support project" %}
-                        </a>
-                    </div>
-                </div>
+				</div>
             </section>
-        {{else}}
-          {{#unless isPhasePlan}}
-             <section class="wrapper">
-                <div class="status-box">
-                    <p class="donate-days-left">
-                    </p>
-
-                    <div class="donate-status">
-	                    <p class="donate-amount">
-						{{#if project.isPhaseRealized}}
-						    {% trans "Project realized" %}
-	                        <br />{% trans "See project results" %}
-						{{else }}
-	                        <em>{% trans "Fully funded" %}</em>
-	                        &amp; {% trans "being realized" %}
-						{{/if}}
-	                    </p>
-                        <span class="donate-slider"><strong style="width: 100%;" class="donate-progress-finished">&nbsp;</strong></span>
-                    </div>
-
-                </div>
-            </section>
-		  {{/unless}}
         {{/if}}
     </div>
 
-    <div class="section" id="member-box">
-        <div class="wrapper">
+    <div class="l-section" id="project-members">
+        <section class="l-wrapper">
             {{view App.ProjectMembersView}}
-        </div>
+        </section>
     </div>
 
-    <nav id="project-actions" class="section">
-
-        <div class="wrapper">
-            <ul class="tabs">
+    <nav class="l-section" id="project-actions">
+        <div class="l-wrapper">
+        
+            <ul class="tabs four">
                 <li class="tab-updates">
                     {{#linkTo 'project.index'}}
                         <span class="tab-icon amount">{{wallposts.length}}</span>
@@ -344,12 +264,13 @@
                     {{/if}}
                 </li>
                 <li class="tab-plan">
-                    {{#linkTo 'projectPlan'}}
-                        <span class="tab-icon"><em class="flaticon solid document-2"></em></span>
+                    {{#linkTo "projectPlan"}}
+                        <span class="tab-icon"><span class="flaticon solid document-2"></span></span>
                         <strong class="tab-title">Project Plan <em class="tab-subtitle">{% trans "Read full plan" %}</em></strong>
                     {{/linkTo}}
                 </li>
             </ul>
+            
         </div>
     </nav>
     {{ outlet }}
@@ -360,124 +281,37 @@
 
 {% tplhandlebars "project_members" %}
 
-    <div class="member-list">
-        <ul>
-            <li class="member-initiator">
-                <ul>
-                    <li>
-                        <a {{action openInBigBox "userModal" owner }} class="member">
-                            <img {{bindAttr src="owner.getAvatar" info="owner.first_name"}} width="45" height="45" />
-                            <h4>Initiator</h4>
-                            <strong class="member-name">{{owner.full_name}}</strong>
-                            <em class="member-organisation">{{organization}}</em>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            {% comment %}
-            <li class="member-project-team">
-                <h4>Project Team</h4>
-                <ul>
-                    <li>
-                        <a href="#" class="member">
-                            <img {{bindAttr src="owner.picture" info="owner.full_name"}} width="45" height="45" alt="Photo" />
-                            <span class="popup">
-                                <span class="action"><strong>Marieke</strong> just donated</span>
-                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="member">
-                            <img {{bindAttr src="view.content.owner.picture"  info="ciew.content.owner.fullname"}} width="45" height="45" alt="Photo" />
-                            <span class="popup">
-                                <span class="action"><strong>Marieke</strong> just donated</span>
-                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="member">
-                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
-                            <span class="popup">
-                                <span class="action"><strong>Marieke</strong> just donated</span>
-                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
-                            </span>
-                            <span class="popup">
-                                <span class="action"><strong>Marieke</strong> just donated</span>
-                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
-                            </span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            {% endcomment %}
-
-            {{#if team_member}}
-                <li class="member-coaches">
-                    <h4>Coach</h4>
-                    <ul>
-                        <li>
-                            <a class="member" {{action openInBigBox "userModal" team_member }} {{bindAttr data-content="team_member.full_name"}} data-title="1%Coach" >
-                                <img {{bindAttr src="team_member.getAvatar"}} width="45" height="45" alt="Photo" />
-                            </a>
-                        </li>
-                    </ul>
+    <ul class="project-member-list">
+        <li class="project-member-initiator">
+            <ul>
+                <li>
+                    <a {{action 'openInBigBox' 'userModal' owner }} class="member">
+                        <span class="member-avatar"><img {{bindAttr src="owner.getAvatar" info="owner.first_name"}} alt="team_member.full_name" /></span>
+                        <h4>{% trans "Initiator" %}</h4>
+                        <strong class="member-name">{{owner.full_name}}</strong>
+                        <em class="member-organisation">{{organization}}</em>
+                    </a>
                 </li>
-            {{/if}}
+            </ul>
+        </li>
 
-            {% comment %}
-
-            <li class="member-promotors">
-                <h4>Promotors</h4>
+        {{#if team_member}}
+            <li class="project-member-coaches">
+                <h4>{% trans "Coach" %}</h4>
                 <ul>
                     <li>
-                        <a href="#" class="member">
-                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
-                            <span class="popup">
-                                <span class="action"><strong>Marieke</strong> just donated</span>
-                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="member">
-                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
-                            <span class="popup">
-                                <span class="action"><strong>Marieke</strong> just donated</span>
-                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="member">
-                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
-                            <span class="popup">
-                                <span class="action"><strong>Marieke</strong> just donated</span>
-                                <span class="comment"><blockquotbottome>Great Project, go for it!</blockquote></span>
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="member">
-                            <img {{bindAttr src="view.content.owner.picture"}} width="45" height="45" alt="Photo" />
-                            <span class="popup">username
-                                <span class="action"><strong>Marieke</strong> just donated</span>
-                                <span class="comment"><blockquote>Great Project, go for it!</blockquote></span>
-                            </span>
+                        <a class="member" {{action 'openInBigBox' 'userModal' team_member }} {{bindAttr data-content="team_member.full_name"}} data-title="1%Coach" >
+                            <span class="member-avatar"><img {{bindAttr src="team_member.getAvatar"}} alt="team_member.full_name" /></span>
                         </a>
                     </li>
                 </ul>
             </li>
+        {{/if}}
 
-            {% endcomment %}
-
-            {{#unless isPhasePlan}}
-                {{render "projectSupporterList"}}
-            {{/unless}}
-        </ul>
-    </div>
+        {{#unless isPhasePlan}}
+            {{render "projectSupporterList"}}
+        {{/unless}}
+    </ul>
 
 {% endtplhandlebars %}
 
@@ -485,15 +319,13 @@
 {% tplhandlebars "project_supporter_list" %}
 
     {{#if supporters.length}}
-        <li class="show-all-supporters supporters-amount">
-            <a class="member">
-                <strong>{{supporters.meta.total}}</strong>
-                <br/>
-                <em>Total</em>
-            </a>
+        <li class="project-member-supporters-total">
+            <strong>{{supporters.length}}</strong>
+            <br/>
+            <em>Total</em>
         </li>
 
-        <li class="member-supporters">
+        <li class="project-member-supporters">
             <ul>
                 {{#each supporter in controller}}
                     {{view "App.ProjectSupporterView" }}
@@ -509,12 +341,12 @@
 {% tplhandlebars "project_supporter" %}
 
     {{#if supporter.member}}
-        <a class="member" {{action openInBigBox "userModal" supporter.member }} {{bindAttr data-title="supporter.member.full_name" data-content="supporter.time_since"}}>
-            <img {{bindAttr src="supporter.member.getAvatar"}} width="45" height="45" alt="Photo" />
+        <a class="member" {{action 'openInBigBox' 'userModal' supporter.member }} {{bindAttr data-title="supporter.member.full_name" data-content="supporter.time_since"}}>
+            <span class="member-avatar"><img {{bindAttr src="supporter.member.getAvatar"}}  alt="supporter.member.full_name" /></span>
         </a>
     {{else}}
         <a class="member" data-title="guest" {{bindAttr data-content="supporter.time_since"}}>
-            <img src="/static/assets/images/default-avatar.png" width="45" height="45" alt="Photo" />
+            <span class="member-avatar"><img src="/static/assets/images/default-avatar.png"  alt="{% trans 'Guest' %}" /></span>
         </a>
     {{/if}}
 
@@ -522,80 +354,81 @@
 
 
 {% tplhandlebars "project_plan" %}
-
-    <section class="wrapper">
-        <div id="project-detail">
-            
-            <header>
-            	<h1>{% trans "Project Plan" %}</h1>
-            </header>
-           
-            {{#if description}}
-            	<article>
-            	<h2>{% trans "Why, what and how?" %}</h2>
-				<p>{{{description}}}</p>
-				</article>
-			{{/if}}
-			
-			{{#if effects}}
-				<article>
-            	<h2>{% trans "Effects" %}</h3>
-            	<p>{{{effects}}}</p>
-            	</article>
-            {{/if}}
-			
-			{{#if future}}
-            	<article>
-            	<h2>{% trans "Future" %}</h2>
-				<p>{{{future}}}</p>
-            	</article>
-			{{/if}}
-				
-			{{#if forWho}}
-				<article>
-            	<h2>{% trans "For who?" %}</h2>
-				<p>{{{forWho}}}</p>
-				</article>
-			{{/if}}
-			
-			{{#if reached}}
-				<article>
-            	<h2>{% trans "People reached" %}</h2>
-				<p>{{{reached}}}</p>
-				</article>
-			{{/if}}
-
-			{{#if country.name}}
-				<article>
-            	<h2>{% trans "Location" %}</h3>
-				<p>{{country.name}}, {{country.subregion}}</p>
-				<img {{bindAttr src="view.staticMap"}} />
-				</article>
-			{{/if}}
-			
-			{{#if organization.name}}
-				<article>
-            	<h2>{% trans "Organisation" %}</h2>
-				<h3>{{organization.name}}</h3>
-				<p>{{organization.description}}</p>
-				
-				<ul>
-                {{#if organization.website}}
-                    <li><a hef="{{organization.website}}"><em class="flaticon solid link-1"></em> {{organization.website}}</a><li>
+    
+    <div class="l-section" id="project-plan">
+        <section class="l-wrapper">
+        
+                <header>
+                	<h1>{% trans "Project Plan" %}</h1>
+                </header>
+               
+                {{#if description}}
+                	<article>
+                	    <h2>{% trans "Why, what and how?" %}</h2>
+                        <p>{{{description}}}</p>
+    				</article>
+    			{{/if}}
+    			
+    			{{#if effects}}
+    				<article>
+                	    <h2>{% trans "Effects" %}</h3>
+                            <p>{{{effects}}}</p>
+                	</article>
                 {{/if}}
-                {{#if organization.twitter}}
-                    <li><a hef="http://twitter.com/{{organization.twitter}}"><em class="flaticon social twitter-3"> {{organization.twitter}}</a></em> {{organization.twitter}}</a><li>
+    			
+    			{{#if future}}
+                	<article>
+                	    <h2>{% trans "Future" %}</h2>
+                        <p>{{{future}}}</p>
+                	</article>
+    			{{/if}}
+    				
+    			{{#if forWho}}
+    				<article>
+                	    <h2>{% trans "For who?" %}</h2>
+                        <p>{{{forWho}}}</p>
+    				</article>
+    			{{/if}}
+    			
+    			{{#if reached}}
+    				<article>
+                	    <h2>{% trans "People reached" %}</h2>
+                        <p>{{{reached}}}</p>
+    				</article>
+    			{{/if}}
+    
+    			{{#if country.name}}
+    				<article>
+                	    <h2>{% trans "Location" %}</h3>
+    				    <p>{{country.name}}, {{country.subregion}}</p>
+                        <img {{bindAttr src="view.staticMap"}} />
+    				</article>
+    			{{/if}}
+    			
+    			{{#if organization.name}}
+    				<article>
+                	    <h2>{% trans "Organisation" %}</h2>
+    				    <h3>{{organization.name}}</h3>
+                        <p>{{organization.description}}</p>
+    				
+        				<ul>
+                        {{#if organization.website}}
+                            <li><a hef="{{organization.website}}"><span class="flaticon solid link-1"></span> {{organization.website}}</a></li>
+                        {{/if}}
+                        {{#if organization.twitter}}
+                            <li><a hef="http://twitter.com/{{organization.twitter}}"><span class="flaticon social twitter-3"></span> {{organization.twitter}}</a></li>
+                        {{/if}}
+                        {{#if organization.facebook}}
+                            <li><a hef="http://facebook.com/{{organization.facebook}}"><span class="flaticon social facebook-3"></span> {{organization.facebook}}</a></li>
+                        {{/if}}
+                        {{#if organization.skype}}
+                            <li><a hef="callto:{{organization.skype}}"><span class="flaticon social skype-2"></</span>> {{organization.skype}}</a></li>
+                        {{/if}}
+                        </ul>
+    				</article>	
                 {{/if}}
-                {{#if organization.facebook}}
-                    <li><a hef="http://facebook.com/{{organization.facebook}}"><em class="flaticon social facebook-3"> {{organization.facebook}}</a></em> {{organization.facebook}}</a><li>
-                {{/if}}
-                {{#if organization.skype}}
-                    <li><a hef="callto:{{organization.skype}}"><em class="flaticon social skype-2"></em> {{organization.skype}}</a><li>
-                {{/if}}
-				</article>	
-            {{/if}}
                 
-        </div>
-    </section>
+        </section>
+    </div>
 
 {% endtplhandlebars %}

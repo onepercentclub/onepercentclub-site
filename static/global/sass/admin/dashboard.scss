@@ -3,30 +3,101 @@
 @import "compass/reset";
 @import "compass/css3";
 
-/* Core & mixins */
-@import "core/variables";
+/* Variables & Mixins */
+@import "variables";
+@import "mixins/grid";
 @import "mixins/rem";
 @import "mixins/utilities";
 
-@import "core/grid";
-@import "core/typography";
 
-@import "mixins/flaticons-social";
-@import "mixins/flaticons-solid";
+// Icons
+@import "icons/flaticons-social";
+@import "icons/flaticons-solid";
+@import "icons/flaticons-stroke";
 
 body {
-    font-family: "Futura Alt","Trebuchet MS",Helvetica,Arial,sans-serif;
+    font-family: "Futura Alt", "Trebuchet MS", Helvetica, Arial, sans-serif;
     font-size: 12px;
 }
 
-#header ul#navigation-menu li {
-    ul {
-        border: 1px solid $grayDark;
-        background-color: white;
-        a:hover {
-            background-color: $light-grey;
-        }
+// Headings
+// -------------------------
+
+h1, h2, h3, h4, h5, h6 {
+	margin: $base-margin/2 0 0 0;
+	font-family: $font-family-bold;
+	line-height: $base-line-height;
+	text-transform: uppercase;
+	
+	small {
+		line-height: 1;
+		color: $gray-light;
+	}
+	
+	em {
+    	font-style: normal;
+	}
 }
+
+h1 { 
+	font-size: $font-size-largest;
+	color: $color-primary;
+} 
+
+h2 {
+	font-size: $font-size-larger;
+	color: $color-secondary;
+} 
+
+h3 { 
+	font-size: $font-size-large;
+	color: $color-heading;
+} 
+
+h4 { 
+	font-size: $base-font-size;
+}
+
+
+// Links
+// -------------------------
+
+a {
+	color: $color-link;
+	text-decoration: underline;
+	cursor: hand;
+	cursor: pointer;
+	
+	a:visited {
+		color: $color-link;	
+	}
+	
+	&:hover {
+		color: $color-link-hover;
+	}
+	
+	&:active {
+		position: relative;
+		top: 1px;
+		color: $color-text;
+	}
+}
+
+
+// Misc
+// -------------------------
+
+
+#header ul#navigation-menu li {
+
+    ul {
+        border: 1px solid $gray-dark;
+        background-color: white;
+        
+        a:hover {
+            background-color: $gray-light;
+        }
+    }
 }
 
 #header #branding h1#site-name {
@@ -44,19 +115,21 @@ body {
         margin: 0;
         padding: 0;
         list-style: none;
+        
         li {
             width: 120px;
             height: 90px;
+            
             .fluent-dashboard-icon-caption {
                 line-height: 14px;
                 font-weight: bold;
-                color: black;
+                color: $black;
             }
+            
             &:hover {
-                background-color: $light-grey;
+                background-color: $gray-light;
             }
         }
-
     }
 }
 
@@ -84,6 +157,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   td.original {
     display: block;
+    
     p {
       width: 100%;
     }

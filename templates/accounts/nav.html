@@ -16,23 +16,21 @@
 
     <li>
         {{#linkTo "userProfile" }}
-            {% trans "Edit my profile & settings" %}
+            {% trans "My profile & settings" %}
         {{/linkTo }}
     </li>
-        <li>
-            {{#linkTo "userMonthlyProjects" }}
-                {% trans "My Donations" %}
-            {{/linkTo}}
-        </li>
+    
+    <li>
+        {{#linkTo "userMonthlyProjects" }}
+            {% trans "My Donations" %}
+        {{/linkTo}}
+    </li>
 
-
-    {{#if controllers.myProjectList.model.length }}
-        <li>
-            {{#linkTo "myProjectList" }}
-                {% trans "Manage My Project" %}
-            {{/linkTo}}
-        </li>
-    {{/if}}
+    <li>
+        {{#linkTo "myProjectList" }}
+            {% trans "My Projects" %}
+        {{/linkTo}}
+    </li>
 
     <li>
         {% block logout_anchor %}
@@ -40,7 +38,7 @@
         {% endblock logout_anchor %}
     </li>
 
-    <li class="nav-my-language">
+    <li class="nav-member-switch-language">
         {% trans "Language" %} {{view "App.LanguageSwitchView"}}
     </li>
 

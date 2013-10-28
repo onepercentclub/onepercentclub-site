@@ -3,11 +3,11 @@
 
 {% tplhandlebars "_news_header" %}
 
-    <div class="container section">
-        <section class="wrapper">
-            <div class="content">
+    <div class="l-section">
+        <section class="l-wrapper">
+            <header>
                 <h1>{% blocktrans %}1%News{% endblocktrans %}</h1>
-            </div>
+            </header>
         </section>
     </div>
 
@@ -23,52 +23,50 @@
 
 {% tplhandlebars "news_item" %}
 
-        <header id="page-header">
+        <header class="blog-header">
             <h1>{{ title}}</h1>
-            <a {{action openInBigBox "userModal" author}} class="user">
-                <span class="user-img"><img {{ bindAttr src="author.getAvatar" }} width="100%" alt="Avatar"></span>
-                <strong>{{ author.full_name }}</strong>
+            <a {{action 'openInBigBox' 'userModal' author}} class="member">
+                <figure class="member-avatar"><img {{ bindAttr src="author.getAvatar" }} alt="Avatar"></figure>
+                <strong class="member-name">{{ author.full_name }}</strong>
             </a>
-            <small class="timestamp">{{ localize publicationDate formatting="X" }}</small>
+            <em class="timestamp">{{ localize publicationDate formatting="X" }}</em>
         </header>
 
-        <div class="content">
-            {{{ body }}}
-        </div>
+        {{{ body }}}
         
-
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "news" %}
 
-    <section class="wrapper">
-    	<div id="page">
-	        <article class="blogpost" id="page-content">
+    <section class="l-wrapper">
+    
+	        <article class="l-content">
 	            {{outlet}}
 	        </article>
     	
-	        <sidebar class="pages-nav">
-            <h3>{% trans "More news" %}</h3>
+	        <sidebar class="l-sidebar blog-nav">
+	        
+                <h3>{% trans "More news" %}</h3>
 	            <ul>
 	                {{#each model}}
 	                    <li>
-	                        <a {{action showNews this.id}} class="item">
-	                            {{title}} <em class="timestamp">{{localize publicationDate formatting="X"}}</em>
+	                        <a {{action 'showNews' this.id}} class="blog-navigation-item">
+	                            <strong class="blog-title">{{title}}</strong> <em class="blog-timestamp">{{localize publicationDate formatting="X"}}</em>
 	                        </a>
 	                    </li>
 	                {{/each}}
 	            </ul>
 	            
-	            <div class="pagination">
+	            <div class="blog-pagination">
 		            {{#if controller.hasPrevious}}
-		                <a {{action previousNews}} class="pager left">
+		                <a {{action 'previousNews'}} class="blog-pagination-previous">
 		                    <span class="flaticon solid left-circle-2"></span>
 		                    {% trans "previous 5" %}
 		                </a>
 		            {{/if}}
 		            {{#if controller.hasNext}}
-		                <a {{action nextNews}} class="pager right">
+		                <a {{action 'nextNews'}} class="blog-pagination-next">
 		                    {% trans "next 5" %}
 		                    <span class="flaticon solid right-circle-2"></span>
 		                </a>

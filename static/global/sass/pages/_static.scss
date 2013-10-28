@@ -1,0 +1,88 @@
+//
+// Global static pages
+// --------------------------------------------------
+
+
+.numbered-list {
+    @include clearfix;
+    margin: 0;
+    
+    li {
+        background: none;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .nl-item-number {
+        font-size: 64px;
+        color: $gray-lighter;
+        
+    }
+    
+    .nl-item-title {
+        //@include rem(font-size, 22px);
+    
+        em {
+            display: block;
+            color: $color-secondary;
+            font-style: normal;
+        }
+    }
+    
+    .nl-item-description {
+        line-height: 1.5;
+    }
+}
+
+
+
+.page-nav, blog-nav {
+	margin-top: $base-margin*2;
+	border-left: 1px solid $gray-lighter;
+	
+	h3 {
+		color: $gray;
+		margin: $base-margin/2 $base-margin*2;
+	}
+
+	ul{ 
+		padding: 0;
+		margin: 0;
+		list-style: none;
+		background: none;
+		border-top: 1px solid $white;
+		margin-bottom: $base-padding;
+	
+		li {
+		    @include resetlist;
+			padding: 0;
+			margin: 0;
+			list-style: none;
+			background: none;
+			
+			ul {
+				margin-left: $base-padding;
+			}
+	
+			a {
+				clear: both;
+				position: relative;
+				display: block;
+				padding: $base-padding/2 $base-padding*2;
+				text-transform: uppercase;
+				color: $gray;
+				text-decoration: none;
+			}
+		}
+	
+		&:hover li a {
+			color: $color-text;
+	
+			&:hover, &:active {
+				color: $white;
+				background: $color-secondary;
+			}
+		}
+	}
+}
