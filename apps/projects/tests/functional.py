@@ -103,3 +103,14 @@ class ProjectSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
 
         # Compare all projects found on the web page with those in the database, in the same order.
         self.assertListEqual(web_projects, expected_projects)
+
+    def test_meta_tag(self, lang_code=None):
+        self.visit_path('/projects/schools-for-children-2', lang_code)
+
+        self.assertIn('Schools for children 2', self.browser.title) # check that the title indeed contains the project title
+
+        # check meta url
+        meta_url = self.browser.find_by_xpath("//html/head/meta[@property='og:url']").first
+        self.assertEqual(self.browser.url, meta_url['content'])
+
+        # TODO: check that the default description is overwritten, add description to plan

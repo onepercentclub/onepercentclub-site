@@ -1,9 +1,16 @@
 from django.conf import settings
 from django.db import models
+from django.template.defaultfilters import truncatechars
 from django.utils.translation import ugettext_lazy as _
+
+
 from django_extensions.db.fields import CreationDateTimeField, ModificationDateTimeField
 from djchoices import DjangoChoices, ChoiceItem
 from fluent_contents.models import PlaceholderField
+from fluent_contents.rendering import render_placeholder
+
+
+from bluebottle.bluebottle_utils.serializers import MLStripper
 
 
 class Page(models.Model):
@@ -33,6 +40,12 @@ class Page(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    def get_meta_description(self, **kwargs):
+        request = kwargs.get('request')
+        s = MLStripper()
+        s.feed(render_placeholder(request, self.body))
+        return truncatechars(s.get_data(), 200)
 
     class Meta:
         ordering = ('language', 'slug')
