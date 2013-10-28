@@ -6,7 +6,7 @@
 ----------------------------------*/
 
 .ui-datepicker {
-	width: 24em;
+	width: 28em;
 	padding: .2em .2em 0;
 	display: none;
 	background: $white;
@@ -18,29 +18,28 @@
 .ui-datepicker .ui-datepicker-prev,
 .ui-datepicker .ui-datepicker-next {
 	position: absolute;
-	top: 2px;
-	width: 1.8em;
-	height: 1.8em;
-}
-.ui-datepicker .ui-datepicker-prev-hover,
-.ui-datepicker .ui-datepicker-next-hover {
-	top: 1px;
+	top: 8px;
+	width: 2em;
+	height: 2em;
 }
 .ui-datepicker .ui-datepicker-prev {
 	left: 2px;
+	background: red;
+	
 }
 .ui-datepicker .ui-datepicker-next {
 	right: 2px;
+	background: red;
 }
 .ui-datepicker .ui-datepicker-prev-hover {
-	left: 1px;
+	
 }
 .ui-datepicker .ui-datepicker-next-hover {
-	right: 1px;
+	
 }
 .ui-datepicker .ui-datepicker-prev span,
 .ui-datepicker .ui-datepicker-next span {
-	display: block;
+	display: none;
 	position: absolute;
 	left: 50%;
 	margin-left: -8px;

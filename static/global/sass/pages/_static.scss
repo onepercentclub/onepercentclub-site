@@ -37,7 +37,7 @@
 
 
 
-.sidebar-nav {
+.page-nav, blog-nav {
 	margin-top: $base-margin*2;
 	border-left: 1px solid $gray-lighter;
 	
@@ -55,6 +55,7 @@
 		margin-bottom: $base-padding;
 	
 		li {
+		    @include resetlist;
 			padding: 0;
 			margin: 0;
 			list-style: none;

@@ -3,6 +3,7 @@
 // --------------------------------------------------
 
 #search {
+    @include clear;
     background-color: $gray-lighter;
 }
 
@@ -127,9 +128,11 @@
     @include grid(48,1,0);
     margin-top: $base-margin*2;
     
-    li {
+    .project-item, .task-item {
         background-image: none;
         padding: 0;
         @include grid(12,0,1);
     }
 }
+    
+    

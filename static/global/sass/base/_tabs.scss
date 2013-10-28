@@ -9,19 +9,8 @@
     margin-left: 0;
     margin-bottom: 0;
     
-    &.two li {
-        @include grid(16,0,0);
-    } 
-     
-    &.three li {
-        @include grid(12,0,0);
-    } 
-    
-    &.four li {
-        @include grid(12,0,0);
-    }
-     
     li {
+        @include grid(12,0,0); // default
         @include resetlist;
         display: inline;
         position: relative;
@@ -35,7 +24,7 @@
             //margin-right: $base-margin;
             padding: $base-padding $base-padding $base-padding/2 $base-padding;
             text-transform: uppercase;
-            border-left: 1px dotted $gray-light;
+            //border-left: 1px solid $white;
             
             .tab-icon {
                 @include transition(all 0.1s ease-out);
@@ -71,7 +60,7 @@
                 
                 .tab-icon {
                     background-color: $color-text;
-                    @include scale(1.1);
+                    //@include scale(1.1);
                 }
                 
             }
@@ -79,6 +68,16 @@
             &:active {
                 
             }
+            
+            // Needed for position changing on active
+            &:before {
+        	    content: '';
+        	    position: absolute;
+        	    top: 0;
+        	    right: 0;
+        	    bottom: 0;
+        	    left: 0;
+        	}
 	        
 	    }
         
@@ -112,6 +111,23 @@
     	margin-bottom: 2px;
     	font-family: $font-family-heavy;
     	
+    	
+        &.two li {
+            @include grid(24,0,0);
+        } 
+         
+        &.three li {
+            @include grid(16,0,0);
+        } 
+        
+        &.four li {
+            @include grid(12,0,0);
+        }
+        
+        &.five li {
+            @include grid(9.5,0,0);
+        }
+     
 	    li > a, li > span {
 	    	display: block;
 		    padding: $base-padding;
@@ -188,5 +204,6 @@
 		}
     }
 }
+
 
 

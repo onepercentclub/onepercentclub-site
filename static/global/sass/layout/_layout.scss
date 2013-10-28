@@ -12,12 +12,13 @@ body {
 }
 
 #content {
-	@include clear;
+	
 }
 
 .l-section {
-	@include clear;
-	width: 100%;
+    width: 100%;
+	min-width: $min-width;
+	max-width: 100%;
 }
 
 .l-wrapper {
@@ -27,7 +28,6 @@ body {
 	max-width: $max-width;
 	margin: 0 auto;
 	height: 100%;
-    //border: 1px dotted red;
 }
 
 .l-content, .l-header {

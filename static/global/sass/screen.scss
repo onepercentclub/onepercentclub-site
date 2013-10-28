@@ -5,6 +5,7 @@
 
 /* ========================= Includes ============================= */
 
+
 /* Compass */
 @import "compass/utilities";
 @import "compass/reset";
@@ -38,7 +39,7 @@
 @import "base/buttons";
 @import "base/tabs";
 @import "base/modals";
-
+@import "base/tables";
 
 /* Modules */
 @import "modules/carousel";
@@ -59,8 +60,10 @@
 @import "pages/project-detail";
 @import "pages/task";
 @import "pages/fund";
+@import "pages/profile";
 @import "pages/account";
 @import "pages/manage";
+
 
 // @import "modules/buttons";
 // @import "modules/detail-top";
