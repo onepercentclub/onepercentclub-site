@@ -157,14 +157,28 @@ ol {
 
 }
 
+
 dl {
-    margin-bottom: $base-margin;
-    dt { font-weight: bold; }
-    dd { margin-left: $base-margin; }
-    &.advanced {
-        dt { @include grid(16, 0, 1); }
-        dd { @include grid(32); }
-    }
+	@include clear;
+	font-size: $font-size-small;
+	border-top: 1px solid $gray-light;
+	padding: $base-padding/2 $base-padding;
+	
+	dt {
+		text-transform: uppercase;
+		color: $gray;
+		@include grid(20,0,1);
+		font-weight: normal;
+						
+		.flaticon {
+			margin-right: $base-margin/4;
+		}
+		
+	}
+	
+	dd {
+		@include grid(28,0,0);
+	}
 }
 
 

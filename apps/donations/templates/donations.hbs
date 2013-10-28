@@ -4,105 +4,108 @@
 
 {% tplhandlebars "userDonation" %}
 
-    <div class="container" id="profile">
-        <div id="profile-actions" class="section">
-            <div class="wrapper">
+<div id="account">
 
-                <div class="profile-actions-meta">
-                    <a {{action "openInBigBox" "userModal" controllers.currentUser.content }}>
-                        <img {{bindAttr src="controllers.currentUser.getAvatar"}} />
-                        <span class="profile-actions-meta-title">
-                            {% trans "My 1%Donations" %}
-                        </span>
-                    </a>
-                </div>
-                <br />
-                <ul class="tabs">
-
-
-                    <li class="tab-item">
-                        {{#linkTo "userMonthlyProjects" }}
-                            <strong class="tab-title">
-                                {% trans "Monthly Donation" %}
-                                <em class="tab-subtitle">{% trans "Select Projects" %}</em>
-                            </strong>
-                        {{/linkTo}}
-                    </li>
-
-                    <li class="tab-item">
-                        {{#linkTo "userMonthlyProfile" }}
-                            <strong class="tab-title">
-                                {% trans "Donation Profile" %}
-                                <em class="tab-subtitle">{% trans "Payment Details" %}</em>
-                            </strong>
-                        {{/linkTo}}
-                    </li>
-
-                    <li class="tab-item first">
-                        {{#linkTo "userDonationHistory" }}
-                            <strong class="tab-title">
-                                {% trans "Donations" %}
-                                <em class="tab-subtitle">{% trans "Donation History" %}</em>
-                            </strong>
-                        {{/linkTo}}
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        {{ outlet }}
-
-        <br>
+    <div class="l-section account-header">
+        <nav class="l-wrapper">    
+            <figure class="account-avatar"><img {{bindAttr src="controllers.currentUser.getAvatar"}} /></figure>
+            
+            <header class="account-title">
+                <h2>{% blocktrans %}My 1%{% endblocktrans %}  <em class="account-subtitle">{% trans "Donations" %}</em></h2>
+            </header>
+            
+            <ul class="tabs three">
+                <li class="tab-item">
+                    {{#linkTo "userMonthlyProjects" }}
+                        <em class="tab-icon"><span class="flaticon solid wallet-1"></span></em>
+                        <strong class="tab-title">
+                            {% trans "Monthly Donation" %}
+                            <em class="tab-subtitle">{% trans "Select Projects" %}</em>
+                        </strong>
+                    {{/linkTo}}
+                </li>
+    
+                <li class="tab-item">
+                    {{#linkTo "userMonthlyProfile" }}
+                        <em class="tab-icon"><span class="flaticon solid wallet-1"></span></em>
+                        <strong class="tab-title">
+                            {% trans "Donation Profile" %}
+                            <em class="tab-subtitle">{% trans "Payment Details" %}</em>
+                        </strong>
+                    {{/linkTo}}
+                </li>
+    
+                <li class="tab-item first">
+                    {{#linkTo "userDonationHistory" }}
+                        <em class="tab-icon"><span class="flaticon solid wallet-1"></span></em>
+                        <strong class="tab-title">
+                            {% trans "Donations" %}
+                            <em class="tab-subtitle">{% trans "Donation History" %}</em>
+                        </strong>
+                    {{/linkTo}}
+                </li>
+            </ul>
+        </nav>
     </div>
+        
+    <div class="l-section account-details">
+        {{ outlet }}
+    </div>
+    
+</div>
 
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "userDonationHistory" %}
-    <section class="wrapper">
-        <div class="content">
 
-            <div class="order-history lined-list">
-                <h2 class="form-summary">{% trans "Order History" %}</h2>
-                {{#if model.isLoaded }}
-                    <ul>
-                        {{#each order in controller}}
-                            <li>
-                                <small>{{localize order.created formatting='d'}}</small>
-                                {{#if order.recurring }} {% trans "Monthly Donation" %} {{ else }} {% trans "Single Donation" %} {{/if}} <strong> &euro;{{ order.total }},-</strong>
-                                <ul class="order-donations">
-                                    {{#each donation in order.donations}}
-                                        <li>
-                                            <a {{action showProject donation.project.id}}>
-                                                {{donation.project.title}}
-                                            </a>
-                                            <small> &euro;{{ donation.amount }},-</small>
-                                        </li>
-                                    {{/each}}
-                                </ul>
-                            </li>
-                        {{/each}}
-                    </ul>
-                {{else}}
-                    <span class="loading-small"><img src="{% get_static_prefix %}images/loading.gif" /> {% trans "Loading order history" %}</span>
-                {{/if}}
-            </div>
-        </div>
-    </section>
-
+<section class="l-wrapper">
+    <div class="l-full">
+        
+        <header class="page-header">
+            <h1>{% trans "Order History" %}</h1>
+        </header>
+        
+        {{#if model.isLoaded }}
+        
+            <table class="fund-history">
+                {{#each order in controller}}
+                <tr>
+                    <td class="fund-history-date">{{localize order.created formatting='d'}}</td>
+                    <td class="fund-history-type">{{#if order.recurring }} {% trans "Monthly Donation" %} {{ else }} {% trans "Single Donation" %} {{/if}}</td>
+                    <td class="fund-history-total">&euro;{{ order.total }},-</td>
+                    <td>
+                        <table>
+                            {{#each donation in order.donations}}
+                            <tr>
+                                <td class="fund-history-project"><a {{action showProject donation.project.id}}>{{donation.project.title}}</a></td>
+                                <td class="fund-history-amount">&euro;{{ donation.amount }},-</td>
+                            </tr>
+                            {{/each}}
+                        </table>
+                    </td>
+                </tr>
+                {{/each}}
+            </table>
+        {{else}}
+            <div class="is-loading-small"><img src="{% get_static_prefix %}images/loading.gif" /> <strong>{% trans "Loading order history" %}</strong></div>
+        {{/if}}
+            
+    </div>
+</section>
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "userMonthlyProfile" %}
 
-    <section class="wrapper">
-        <div class="content">
+    <section class="l-wrapper">
+        <div class="l-content">
             <form>
                 {{#if model}}
-                    <div class="form-meta">
-                        <div class="form-label">{% trans "Edit your payment info" %}</div>
-                        <div class="form-desc">{% trans "Here you can change your bank account info and monthly donations." %}</div>
-                    </div>
+                    <legend>
+                        <strong>{% trans "Edit your payment info" %}</strong>
+                        <p>{% trans "Here you can change your bank account info and monthly donations." %}</p>
+                    </legend>
 
                     <fieldset>
                         <ul>
@@ -112,7 +115,7 @@
                                     {{view Em.TextField valueBinding="name" placeholder="Full name as it appears on your bank account" classBinding="errors.name.length:error"}}
                                 </div>
                                 {{#if errors.name }}
-                                    <div class="errors">{{#each errors.name }}<p>{{this}}</p>{{/each}}</div>
+                                    <div class="has-errors">{{#each errors.name }}<p>{{this}}</p>{{/each}}</div>
                                 {{/if}}
                             </li>
 
@@ -122,7 +125,7 @@
                                     {{view Em.TextField valueBinding="city" placeholder="City registered on your bank account" classBinding="errors.city.length:error"}}
                                 </div>
                                 {{#if errors.city }}
-                                    <div class="errors">{{#each errors.city }}<p>{{this}}</p>{{/each}}</div>
+                                    <div class="has-errors">{{#each errors.city }}<p>{{this}}</p>{{/each}}</div>
                                 {{/if}}
                             </li>
 
@@ -132,7 +135,7 @@
                                     {{view Em.TextField valueBinding="account" placeholder="Your bank account number" classBinding="errors.account.length:error"}}
                                 </div>
                                 {{#if errors.account }}
-                                    <div class="errors">{{#each errors.account }}<p>{{this}}</p>{{/each}}</div>
+                                    <div class="has-errors">{{#each errors.account }}<p>{{this}}</p>{{/each}}</div>
                                 {{/if}}
                             </li>
 
@@ -140,11 +143,11 @@
                     </fieldset>
 
                     {{#if saved }}
-                        <span class="left"><em class="flaticon solid checkmark-1"> {% trans "Monthly settings saved" %}</em></span>
+                        <div class="is-saved"><span class="flaticon solid checkmark-1"></span> <strong>{% trans "Monthly settings saved" %}</strong></div>
                     {{/if}}
 
-                    <button {{bindAttr class=":btn :btn-iconed :btn-primary :right isDirty::disabled"}} {{action 'save' model}}>
-                        <em class="flaticon solid checkmark-1"></em>
+                    <button {{bindAttr class=":btn :btn-iconed :btn-primary :btn-save isDirty::disabled"}} {{action 'save' model}}>
+                        <span class="flaticon solid checkmark-1"></span>
                         {% trans "Save" %}
                     </button>
                 {{/if }}
@@ -156,94 +159,96 @@
 
 
 {% tplhandlebars "userMonthlyProjects" %}
-    <section class="wrapper" id="donate">
-        <div class="content">
-            {{#unless payment.active}}
-                <h2>
-                    <a {{action 'toggleActive'}}><em class="icon flaticon solid checkmark-1"></em> Start monthly donation</a>
-                </h2>
-            {{/unless}}
+    <section class="l-wrapper">
+        <div class="l-content">
+            
             <style>
-                form.disabled .donation-projects,
-                form.disabled .donation-monthly-total,
-                form.disabled .account-info,
-                form.disabled a {
-                    opacity: 0.5;
-                    -webkit-filter: blur(2px);
-                    filter: url(#blur-effect-1);
-                    pointer-events: none;
-                    cursor: default;
-                }
-                #donate .monthly-order .button-link {
-                    float: none;
+                .hidden {
+                    display: none;
                 }
             </style>
-            <form class="monthly-order">
+            
+            <header class="page-header">
+            {{#if payment.active}}
+                <h1>{% trans "Monthly donations" %}: <em>{% trans "Active" %}</em></h1>
+                <p></p>
+            {{else}}
+                {{#if payment.isNew}}
+                    {# New recurring donation #}
+                    <h1>{% trans "Monthly donations" %}: <em>{% trans "Start" %}</em></h1>
+                    <p></p>
+                    <a {{action 'toggleActive'}} class="btn btn-iconed btn-primary"><span class="flaticon solid checkmark-1"></span> {% trans "Active monthly donations" %}</a>
+                {{else}}
+                    {# Stopped recurring donation #}
+                    <h1>{% trans "Monthly donations" %}: <em>{% trans "Off" %}</em></h1>
+                    <p></p>
+                    <a {{action 'toggleActive'}} class="btn btn-iconed btn-primary"><span class="flaticon solid checkmark-1"></span> {% trans "Turn monthly donations on" %}</a>
+                {{/if}}
+            {{/if}}
+            </header>
+            
+            <form id="fund-monthly">
+                
                 {{#if payment.active}}
-                    <ul class="donation-projects">
+                    <ul class="project-list">
                         {{#each donation in donations }}
                             {{render "monthlyDonation" donation}}
                         {{else}}
-                            <div class="donation-empty">
-                                <p class="form-label">{% blocktrans %}You are a 1%Friend{% endblocktrans %}</p>
-                                <p class="form-desc">{% trans "You currently support the top 3 projects with your monthly donation." %}</p>
-                                <p class="form-desc">{% trans "The 3 most popular projects at this moment are:." %}</p>
-                                <ul id="results">
-                                {{#each project in topThreeProjects }}
-                                    <li class="donation-project control-group">
-                                        <a {{action "showProject" project.getProject}}>
-                                            <img {{bindAttr src="project.image" }} />
-                                            <h2>
-                                                {{project.title}}
-                                                <em class="country">
-                                                    {{project.country.name}}
-                                                </em>
-                                            </h2>
-                                        </a>
-
-                                        <div class="donation-amount">
-                                            <div class="amount-needed">
-                                                <strong>€ {{project.campaign.money_needed}} </strong> is still needed
-                                            </div>
-                                        </div>
-                                    </li>
-                                {{/each}}
-                                </ul>
-                            </div>
+                            <legend class="fund-empty">
+                                <strong>{% blocktrans %}You are a 1%Friend{% endblocktrans %}</strong>
+                                <p>{% trans "You currently support the top 3 projects with your monthly donation." %} {% trans "The 3 most popular projects at this moment are:." %}</p>
+                            </legend>    
+                            {{#each project in topThreeProjects }}
+                                <li class="project-list-item project-top3">
+                                    
+                                    <a {{action "showProject" project.getProject}} class="project-header">
+                                        <figure class="project-image">
+                                            <img {{bindAttr src="project.image" alt="project.title"}} />
+                                        </figure>
+                                        <h2 class="project-title">
+                                            {{ project.title }}
+                                            <em class="project-location">
+                                                <span class="flaticon solid location-pin-1"></span> {{project.country.name}}
+                                            </em>
+                                        </h2>
+                                    </a>
+                                    
+                                    <div class="fund-amount">
+                                        <strong class="fund-amount-needed">&euro; {{ project.campaign.money_needed }}</strong> {% trans "is still needed"%}
+                                    </div>
+                                </li>
+                            {{/each}}
                         {{/each}}
-                        <li>
-                            <a {{action 'openModal' 'projectPicker'}} class="add-project button-link">
-                                <em class="flaticon solid plus-2"></em>
-                                {{#if length }}
-                                    {%trans "Add another project" %}
-                                {{else}}
-                                    {%trans "Add a project" %}
-                                {{/if}}
-                            </a>
-
-                        </li>
                     </ul>
-                    <fieldset class="donation-monthly-total">
+                    
+                    <fieldset class="fund-total">
                         {{#if showTopThreeProjects }}
-                            <div class="form-summary">&nbsp;</div>
+                            <div class="fund-total-label">&nbsp;</div>
                         {{else}}
-                            <div class="form-summary">{% trans "Divide to projects" %}</div>
+                            <div class="fund-total-label">{% trans "Total" %}</div>
                         {{/if}}
-                        <div class="donation-amount">
-                            <div class="amount-control">
-                                {{#each error in payment.errors.amount }}
-                                    <span class="errors">{{ error }}</span>
-                                {{/each}}
-                                <label for="donation-amount-1">{% trans "Total Amount" %}</label>
-                                <span class="currency"><em>&euro; </em>
-                                    {{view Em.TextField type="number" step="5" name="donation-amount" size="8" maxlength="3" valueBinding="payment.amount"}}
-                                </span>
-                            </div>
+                        <div class="fund-amount-control">
+                            {{#each error in payment.errors.amount }}
+                                <span class="has-errors">{{ error }}</span>
+                            {{/each}}
+                            <label for="fund-amount-1">{% trans "Divide to projects" %}</label>
+                            <span class="currency"><em>&euro; </em>
+                                {{view Em.TextField type="number" class="fund-amount-input" id="fund-amount-1" step="5" name="fund-amount-1" size="8" maxlength="4" valueBinding="payment.amount"}}
+                            </span>
                         </div>
                     </fieldset>
+                    
+                     <a {{action 'openModal' 'projectPicker'}} class="btn-link btn-add">
+                        <span class="flaticon solid plus-2"></span>
+                        {{#if length }}
+                            {%trans "Add another project" %}
+                        {{else}}
+                            {%trans "Add a project" %}
+                        {{/if}}
+                    </a>
 
                     {{#if payment.isIncomplete}}
-                        <fieldset class="account-info">
+                        <fieldset>
                             <ul>
                                 <li class="control-group">
                                     <label class="control-label">{% trans "Account Name" %}</label>
@@ -251,7 +256,7 @@
                                         {{view Em.TextField valueBinding="payment.name" placeholder="Full name as it appears on your bank account" classBinding="payment.errors.name.length:error"}}
                                     </div>
                                     {{#if payment.errors.name }}
-                                        <div class="errors">{{#each payment.errors.name }}<p>{{this}}</p>{{/each}}</div>
+                                        <div class="has-errors">{{#each payment.errors.name }}<p>{{this}}</p>{{/each}}</div>
                                     {{/if}}
                                 </li>
 
@@ -261,7 +266,7 @@
                                         {{view Em.TextField valueBinding="payment.city" placeholder="City registered on your bank account" classBinding="payment.errors.city.length:error"}}
                                     </div>
                                     {{#if payment.errors.city }}
-                                        <div class="errors">{{#each payment.errors.city }}<p>{{this}}</p>{{/each}}</div>
+                                        <div class="has-errors">{{#each payment.errors.city }}<p>{{this}}</p>{{/each}}</div>
                                     {{/if}}
                                 </li>
 
@@ -271,83 +276,54 @@
                                         {{view Em.TextField valueBinding="payment.account" placeholder="Your bank account number" classBinding="payment.errors.account.length:error"}}
                                     </div>
                                     {{#if payment.errors.account }}
-                                        <div class="errors">{{#each payment.errors.account }}<p>{{this}}</p>{{/each}}</div>
+                                        <div class="has-errors">{{#each payment.errors.account }}<p>{{this}}</p>{{/each}}</div>
                                     {{/if}}
                                 </li>
 
                             </ul>
                         </fieldset>
-
-                    {{else}}
-                        {{#linkTo 'userMonthlyProfile' class="add-project button-link"}}
-                            <em class="flaticon solid credit-card-1"></em>
-                            {% trans "Edit bank details" %}
-                        {{/linkTo}}
-                    {{/if}}
-                    {{#if payment.active}}
-                        <button class=" button-link" {{action 'toggleActive'}}>
-                            <em class="flaticon solid x-2"></em>
-                            {% trans "Stop monthly donation" %}
-                        </button>
-                    {{/if}}
-
-                {{else}}
-                    {{#if payment.isNew}}
-                        {# New recurring donation #}
-                        <h3>Maandelijkse donatie starten??</h3>
-                    {{else}}
-                        {# Stopped recurring donation #}
-                        <h3>Je maandelijkse donatie is nu gestopt.</h3>
+                        
                     {{/if}}
                 {{/if}}
-
-                <button {{bindAttr class=":btn :btn-iconed :btn-primary :right shouldSave::disabled"}} {{action 'save' model}}>
-                    <em class="flaticon solid checkmark-1"></em>
+                
+                {{#if payment.active}}
+                <button {{bindAttr class=":btn :btn-iconed :btn-primary :btn-save shouldSave::disabled"}} {{action 'save' model}}>
+                    <span class="flaticon solid checkmark-1"></span>
                     {% trans "Save" %}
                 </button>
+                {{/if}}
 
             </form>
         </div>
 
-        <div class="sidebar tip">
-            <h3>Did you know?</h3>
-            <p>{% blocktrans %}You're about to support a 1%Project. Great! Did you know you can also share a little every month? How? By becoming a 1%Member and choosin' monthly.{% endblocktrans %}
-            <p class="action-link">{{#linkTo 'signup'}}{% blocktrans %}Become a 1%Member{% endblocktrans %} <em class="flaticon solid right-angle-quote-1"></em>{{/linkTo}}</p>
+        <div class="l-sidebar">
+            {{#if payment.active}}
+                <a class="btn-link" {{action 'toggleActive'}}>
+                    <span class="flaticon solid x-2"></span>
+                    {% trans "Stop monthly donation" %}
+                </a>
+            {{/if}}
         </div>
     </section>
 
     {{#bb-modal id="projectPicker" class="hidden" closeButton=true}}
-        <div style="zoom: 80%">
-            {{render "monthlyProjectList" }}
-        </div>
+        {{render "monthlyProjectList" }}
     {{/bb-modal}}
 
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "components/bb-modal" %}
-    <div class="modal large">
-        {{#if header}}
-            <div class="modal-header">
-                {{header}}
-            </div>
-            <a class="close" {{action 'close'}} rel="close">×</a>
-        {{/if}}
-        <div class="modal-body">
-            {{#unless header}}
-                <a class="close"  {{action 'close'}} rel="close">×</a>
-            {{/unless}}
-            {{ yield }}
-        </div>
-        {{#if closeButton}}
-            <div class="modal-footer">
-                <button {{action 'close'}} class="btn btn-iconed btn-primary right">
-                    <em class="flaticon solid x-2"></em>
-                    Close
-                </button>
-            </div>
-        {{/if}}
+<div class="modal" id="project-select">
+    <div class="modal-header">
+        {{header}}
+        <a class="close" {{action 'close'}} rel="close">×</a>
     </div>
+    
+    <div class="modal-body">
+        {{ yield }}
+    </div>
+</div>
 {% endtplhandlebars %}
 
 
@@ -355,11 +331,11 @@
     {{render "monthlyProjectSearchForm" }}
     <article>
         <header>
-            <ul id="results">
+            <ul id="search-results">
                 {{#each project in model}}
                     {{render "monthlyProjectPreview" project}}
                 {{else}}
-                    <li>{% trans "No projects found." %}</li>
+                    <li class="no-results">{% trans "No projects found." %}</li>
                 {{/each}}
             </ul>
             </header>
@@ -369,68 +345,71 @@
 
 {% tplhandlebars "monthlyDonation" %}
 
-    {{#linkTo 'project' project}}
-        <img {{bindAttr src="project.plan.image.square" alt="project.title"}} class="project-image" />
-        <h2>
+    {{#linkTo 'project' project class="project-header" }}
+        <figure class="project-image">
+            <img {{bindAttr src="project.plan.image.square" alt="project.title"}} />
+        </figure>
+        <h2 class="project-title">
             {{ project.title }}
-            <em class="country">
-                <em class="flaticon solid location-pin-1"></em> {{ project.plan.country.name }}, {{ project.plan.country.subregion }}
+            <em class="project-location">
+                <span class="flaticon solid location-pin-1"></span> {{ project.plan.country.name }}
             </em>
         </h2>
     {{/linkTo}}
 
-    <div class="donation-amount">
-        <div class="amount-needed">
-            <strong>&euro; {{ project.campaign.money_needed }}</strong> {% trans "is still needed"%}
-        </div>
-
-        <div class="amount-control">
+    <div class="fund-amount">
+        <strong class="fund-amount-needed">&euro; {{ project.campaign.money_needed }}</strong> {% trans "is still needed"%}
+        
+        <div class="fund-amount-divided">
             {{#each error in errors.amount}}
-                <span class="errors">{{ error }}</span>
+                <span class="has-errors">{{ error }}</span>
             {{/each}}
-            <span class="divided-amount">&euro;
-                {{ amount }}
-            </span>
+            <strong>&euro; {{ amount }}</strong>
         </div>
     </div>
-
-    <a class="remove" {{action "deleteDonation" this target="view" }}>
-        <em class="flaticon solid x-2"></em>
-    </a>
+    
+    <ul class="manage">
+        {# <li class="manage-edit"><a href="#"><span class="flaticon solid pencil-3"></span> <strong>{% trans "Edit" %}</strong></a></li> #}
+        <li class="manage-delete"><a {{ action "deleteDonation" this target="view" }}><span class="flaticon solid x-2"></span> <strong>{% trans "Delete" %}</strong></a></li>
+    </ul>
 
 {% endtplhandlebars %}
 
 {% tplhandlebars "monthlyProjectPreview" %}
 
-    <li class="item item-project">
-        <a {{action 'addProjectToMonthly' project.getProject}} style="width:31%">
-            <span class="item-header">
-            	<span class="item-image">
+     <li class="project-item">
+    
+        <a {{action 'addProjectToMonthly' project.getProject}}>
+            <span class="project-header">
+            
+            	<figure class="project-image">
                 	<img {{bindAttr src="project.image" }} />
-            	</span>
-                <span class="item-project-title">
+            	</figure>
+            	
+                <span class="project-title">
                 	<h3>{{project.title}}</h3>
-                    <span class="item-project-country"><em class="flaticon solid location-pin-1"></em> {{project.country.name}}</span>
+                    <span class="project-location"><span class="flaticon solid location-pin-1"></span> {{project.country.name}}</span> 
                 </span>
             </span>
-
-	        <span class="item-status campaign">
-                <div class="donate-status">
+            
+	        <span class="project-status campaign">
+	            {{#if project.isPhasePlan}}
+                    <span class="project-phase"><span class="flaticon solid lightbulb-3"></span> <strong>{% trans "New" %}</strong> <em>{% trans "Smart Idea" %}</em></span> 
+	            {{/if}}
+	
+	            {{#if project.isPhaseCampaign}}
                     {{#if project.campaign.money_asked}}
-                        <span class="donate-slider"><strong style="width: 0;" class="donate-progress">&nbsp;</strong></span>
-                        <p class="donate-amount">
-                            <span class="donated">&euro;{{localize project.campaign.money_needed}}</span>
-                            {% trans "To go" %}
-                        </p>
+                        <div class="project-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
+                        <span class="project-fund-amount"><strong>&euro;{{localize project.campaign.money_needed}}</strong> <em>{% trans "To go" %}</em></span>
                     {{/if}}
                     {{#if project.campaign.deadline }}
-                        <p class="donate-days-left">
-                            <strong><i class="flaticon solid clock-1"></i> {{ project.campaign.daysToGo }}</strong>
-                            <em>{% trans "days" %}</em>
-                        </p>
+                        <span class="project-days-left"><span class="flaticon solid clock-1"></span> <strong>{{project.campaign.daysToGo}}</strong> <em>{% trans "days" %}</em></span>
                     {{/if}}
-                </div>
-            </span>
+	            {{/if}}
+	        </span>
+	        
+            <span class="project-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sed aliquam lacus, at luctus lacus. Pellentesque pellentesque nibh ac lacus mollis, nec fringilla nunc pharetra. Suspendisse et metus at lacus interdum pharetra ac aliquet libero. Donec dignissim et nunc vel gravida.</span>
+	        
         </a>
     </li>
 
@@ -439,63 +418,73 @@
 
 {% tplhandlebars "monthlyProjectSearchForm" %}
 
-    <article class="search-form">
-        <div class="search-field">
-            <em class="flaticon solid zoom-1"></em>
-            {{view Em.TextField valueBinding="text" placeholder="Search keyword"}}
-        </div>
-        <div class="control">
-            <em class="flaticon solid earth-1"></em>
-            {{view App.ProjectCountrySelectView valueBinding="country" }}
-        </div>
-        <div class="control">
-            <em class="flaticon solid tag-1"></em>
-            {{view App.ThemeSelectView valueBinding="theme" }}
-        </div>
-        <div class="clear-form">
-            <a {{action clearForm}}>
-                <span class="flaticon solid x-2"></span>
-                {% trans "clear filters" %}
-            </a>
-        </div>
-    </article>
+    <div id="search">
+        <section>
+            <form id="search-form">
+                <div class="control">
+                    {{view Em.TextField valueBinding="text" placeholder="Search"}}
+                    <span class="flaticon stroke zoom-2"></span>
+                </div>
+                <div class="control">
+                    {{view App.ProjectCountrySelectView valueBinding="country" }}
+                    <span class="flaticon solid earth-1"></span>
+                </div>
+                <div class="control">
+                    {{view App.ThemeSelectView valueBinding="theme" }}
+                    <span class="flaticon stroke tag-2"></span>
+                </div>
+            </form>
+        </section>
+    </div>
 
-    <article id="search-navigation">
-
-        <div class="search-results">
-            <h2>{% trans "Results" %} <em>{{controllers.projectList.model.meta.total}}</em></h2>
-        </div>
-
-        <div class="search-sort">
-            <strong>{% trans "Sort:" %}</strong>
-            <a {{action sortOrder 'popularity'}} {{bindAttr class="orderedByPopularity:active"}}>{% trans "Most popular" %}</a>
-            <a {{action sortOrder 'newest'}} {{bindAttr class="orderedByNewest:active"}}>{% trans "Newest" %}</a>
-            <a {{action sortOrder 'needed'}} {{bindAttr class="orderedByNeeded:active"}}>{% trans "Almost funded" %}</a>
-            <a {{action sortOrder 'deadline'}} {{bindAttr class="orderedByDeadline:active"}}>{% trans "Near deadline" %}</a>
-        </div>
-
-        <div class="search-pagination">
-            <span class="search-showing">{% trans "Showing" %} {{rangeStart}}-{{rangeEnd}}</span>
-            <span class="search-pages-control">
-                {{#if hasPreviousPage}}
-                    <a {{action "previousPage"}} class="previous-page">
-                        <em class="flaticon solid left-circle-2"></em>
+    <div>
+        <section>
+            <article id="search-navigation">
+            	
+            	<header>
+                	<h2>{% trans "Results" %} <em>{{controllers.projectList.model.meta.total}}</em></h2>
+                    <a {{action 'clearForm'}} class="search-reset">
+                        <span class="flaticon solid x-2"></span> {% trans "Reset Search Filter" %}
                     </a>
-                {{else}}
-                    <span class="previous-page"><em class="flaticon solid left-circle-2"></em></span>
-                {{/if}}
-
-                {{#if hasNextPage}}
-                    <a {{action "nextPage"}} class="next-page">
-                        <em class="flaticon solid right-circle-2"></em>
-                    </a>
-                {{else}}
-                    <span class="next-page"><em class="flaticon solid right-circle-2"></em></span>
-                {{/if}}
-            </span>
-        </div>
-
-    </article>
+            	</header>
+                
+                <div class="search-sort">
+                    {% trans "Sort:" %}
+                    <a {{action 'sortOrder' 'popularity'}} {{bindAttr class="orderedByPopularity:active"}}>{% trans "Most popular" %}</a>
+                    {% comment %}
+                        Disabled because the currently approved design does not include sorting by title.
+                        Current design: https://www.dropbox.com/s/n34ndim6cdbm7vz/Project-Search-V2.png
+                        <a {{action 'sortOrder' 'title'}} {{bindAttr class="orderedByTitle:active"}}>{% trans "Title" %}</a>
+                    {% endcomment %}
+                    <a {{action 'sortOrder' 'newest'}} {{bindAttr class="orderedByNewest:active"}}>{% trans "Newest" %}</a>
+                    <a {{action 'sortOrder' 'needed'}} {{bindAttr class="orderedByNeeded:active"}}>{% trans "Almost funded" %}</a>
+                    <a {{action 'sortOrder' 'deadline'}} {{bindAttr class="orderedByDeadline:active"}}>{% trans "Near deadline" %}</a>
+                </div>
+                
+                <div class="search-pagination">
+                	<span class="search-showing">{% trans "Showing" %} {{rangeStart}}-{{rangeEnd}}</span>
+                	<span class="search-pages-control">
+		                {{#if hasPreviousPage}}
+		                    <a {{action 'previousPage'}} class="previous-page">
+		                        <span class="flaticon solid left-circle-2"></span>
+		                    </a>
+		                {{else}}
+		                	<span class="previous-page"><span class="flaticon solid left-circle-2"></span></span>
+		                {{/if}}
+		                
+		                {{#if hasNextPage}}
+		                    <a {{action 'nextPage'}} class="next-page">
+		                        <span class="flaticon solid right-circle-2"></span>
+		                    </a>
+		                {{else}}
+		                	<span class="next-page"><span class="flaticon solid right-circle-2"></span></span>
+		                {{/if}}
+                	</span>
+                </div>
+                
+            </article>
+        </section>
+    </div>
 
 {% endtplhandlebars %}
 

@@ -1,0 +1,21 @@
+//
+// Profile (modal only now)
+// --------------------------------------------------
+
+#profile-preview {
+    
+    .modal-header {
+        @include clear;
+        background-color: $gray-lighter;
+        
+        .profile-avatar {
+            @include grid(12,0,2);
+            margin-top: $base-margin;
+            margin-bottom: $base-margin;
+        }
+        
+        .profile-header {
+            @include grid(36,0,0);
+        }
+    }
+}

@@ -4,18 +4,6 @@
 
 #project-dashboard {
 	
-	.profile-actions-meta {
-		@include grid(48,1,1);
-	}
-	
-	.tabs {
-		@include grid(48,1,1);
-		
-		li > a, li > span {
-			@include grid(9);
-		}
-	}
-	
     .menu-sidebar {
         @include grid(16, 1, 0);
         

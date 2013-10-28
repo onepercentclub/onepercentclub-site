@@ -97,25 +97,27 @@
 
 {% tplhandlebars "current_order_donation_list" %}
 	<form class="l-content">
+	    
+        <ul class="project-list">
         {{#each donation in controller }}
-			<ul class="projects-list">
-            	{{render "currentOrderDonation" donation}}
-			</ul>
+            {{render "currentOrderDonation" donation}}
         {{else}}
         
         	<div class="fund-empty">
             {{#linkTo 'projectList'}}
                 <em class="flaticon solid plus-2"></em>
-                <div class="form-meta">
-                    <p class="form-label">{% trans "Choose a project to support" %}</p>
-                    <p class="form-desc">{% trans "Choose a project and click 'Support this project' to add it to your list" %}.</p>
-                </div>
+                <legend>
+                    <strong>{% trans "Choose a project to support" %}</strong>
+                    <p>{% trans "Choose a project and click 'Support this project' to add it to your list" %}.</p>
+                </legend>
             {{/linkTo}}
         	</div>
         {{/each}}
+        </ul>
         
         <fieldset class="fund-total">
-            <div class="fund-total-label">{% trans "Total" %}<span class="fund-total-amount"><em class="currency">&euro;</em> {{ singleTotal }}</span></div>
+            <div class="fund-total-label">{% trans "Total" %}</div>
+            <div class="fund-total-amount"><em class="currency">&euro;</em> {{ singleTotal }}</div>
         </fieldset>
 
         {{#linkTo 'projectList' class="btn-link btn-add"}}<em class="flaticon solid plus-2"></em>
@@ -300,72 +302,63 @@
 
 {% tplhandlebars "paymentSelect" %}
 
-{# Inline style until Frans finishes CSS clean-up #}
-
-<style>
-    #donate .payment-select .tabs {
-        width: 50%;
-        float: left;
-        padding: 0px;
-        margin: 0px;
-    }
-    .payment-select .tabs .radio {
-        background-color: #e9e9e9;
-        padding: 8px 16px;
-        margin-bottom: 4px;
-        cursor: pointer;
-    }
-    .payment-select .tabs .radio input {
-        display: none;
-        opacity: 0;
-    }
-    .payment-select .tabs .radio.selected,
-    .payment-select .tabs .radio > input:checked {
-        background-color: #00c051;
-        color: white;
-    }
-
-</style>
-
 {{#if controllers.currentOrder.recurring }}
 	{{ outlet }}
 {{else}}
-	<div class="l-content payment-select">
+	<div class="l-content fund-payment-select">
 		<form>
-	    	<div class="form-meta">
-				<div class="form-label">{% trans "You're almost there!" %}</div>
-				<div class="form-desc">{% trans "We'll redirect you through our payment provider where you can finish your donation securely." %}</div>
-			</div>
+	    	<legend>
+				<strong>{% trans "You're almost there!" %}</strong>
+				<p>{% trans "We'll redirect you through our payment provider where you can finish your donation securely." %}</p>
+			</legend>
 
-	    	<div class="form-meta">
-                <div class="tabs">
+                <ul class="tabs tabs-vertical">
                     {{#view Em.RadioButtonGroup name="paymentMethod" selectedValueBinding="redirectPaymentMethod" class="radio-group-tabbed"}}
                         {{#each redirectPaymentMethods}}
-                            <label>
-                                <div class="radio">{{view view.RadioButton valueBinding=id}} {{name}}</div>
-                            </label>
+                            <li class="tab-item">
+                                <label class="tab-title radio">{{view view.RadioButton valueBinding=id}} <span>{{name}}</span></label>
+                            </li>
                         {{/each}}
                     {{/view}}
-                </div>
-                <div class="tabs">
+                </ul>
+                
+                <div class="tab-content fund-payment-type">
+                   
                     {{#if isIdeal}}
+                        <h3>{% trans "Select your bank below" %}</h3>
+                        <p>{% trans "We'll redirect you through our payment provider where you can finish your donation securely." %}</p>
+                        <ul>
                         {{#view Em.RadioButtonGroup name="issuerId" selectedValueBinding="idealIssuerId" class="radio-group-tabbed"}}
                             {{#each idealIssuers}}
-                                <label>
-                                    <div class="radio">{{view view.RadioButton valueBinding=id}} {{name}}</div>
-                                </label>
+                                <li class="fund-payment-item">
+                                    <label class="radio">{{view view.RadioButton valueBinding=id}} <span>{{name}}</span></label>
+                                </li>
                             {{/each}}
                         {{/view}}
-
+                        </ul>
+                        
+                        {{#if paymentInProgress }}
+            	            <div class="is-loading-small"><img src="{% get_static_prefix %}images/loading.gif" /><strong>{% trans "Processing payment..." %}</strong></div>
+            	            <button disabled class="btn btn-primary btn-iconed btn-submit" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
+            	        {{else}}
+            	            <button class="btn btn-primary btn-iconed btn-proceed" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
+            	        {{/if}}
+            	        
+                    {{else}}
+                        <h3>{% trans "You're almost there!" %}</h3>
+                        <p>{% trans "We'll redirect you through our payment provider where you can finish your donation securely." %}</p>
+                        
+                        {{#if paymentInProgress }}
+            	            <div class="is-loading-small"><img src="{% get_static_prefix %}images/loading.gif" /><strong>{% trans "Processing payment..." %}</strong></div>
+            	            <button disabled class="btn btn-primary btn-iconed btn-submit" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
+            	        {{else}}
+            	            <button class="btn btn-primary btn-iconed btn-proceed" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
+            	        {{/if}}
+                        
                     {{/if}}
                 </div>
             </div>
-	        {{#if paymentInProgress }}
-	            <span class="is-loading-small"><img src="{% get_static_prefix %}images/loading.gif" /><em>{% trans "Processing payment..." %}</em></span>
-	            <button disabled class="btn btn-primary btn-iconed btn-submit" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
-	        {{else}}
-	            <button class="btn btn-primary btn-iconed btn-submit" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
-	        {{/if}}
+	        
 		</form>
 	</div>
 {{/if}}
@@ -543,51 +536,6 @@
 {% endtplhandlebars %}
 
 
-{% comment %}
-{# TODO This isn't currently used but we want to be. #}
-{% tplhandlebars "payment_multi" %}
-
-    <header>
-        <h4>{% trans "YOU MAKE IT WORK!" %}</h4>
-        {% trans "Choose the payment method you prefer to donate." %}
-    </header>
-    
-    <fieldset>
-        <div class="tabs vertical">
-            {{#view Em.RadioButtonGroup name="payment_method" selectedValueBinding="paymentMethod"}}
-                {{#if hasIdeal}}
-                    <label>
-                        {{view view.RadioButton value="dd-ideal"}}
-                        {% trans "iDeal" %}
-                    </label>
-                    <br/>
-                {{/if}}
-                {{#if hasWebMenu}}
-                    <label>
-                        {{view view.RadioButton value="dd-webmenu"}}
-                        {% trans "Other" %}
-                    </label>
-                {{/if}}
-            {{/view}}
-        </div>
-        <div class="panes vertical">
-            {{#if paymentInProgress }}
-                <span class="is-loading-small"><img src="{% get_static_prefix %}images/loading.gif" /><em>{% trans "Processing payment..." %}</em></span>
-            {{else}}
-                {{#if paymentMethod}}
-                    <a href="#" {{action "proceedWithPayment"}} class="btn btn-proceed">{% trans "Proceed with Payment" %}</a>
-                {{else}}
-                    {% trans "No payment method selected" %}
-                {{/if}}
-            {{/if}}
-        </div>
-    </fieldset>
-
-{% endtplhandlebars %}
-{% endcomment %}
-
-
-
 {% tplhandlebars "orderThanks" %}
 <div id="thanks">
 	<div class="l-section">
@@ -763,12 +711,12 @@
 
 {% tplhandlebars "_thanksDonation" %}
 
-    <li class="project-item">
+    <li class="project-list-item">
         {{#linkTo 'project' donation.project}}
             <figure class="project-image">
                 <img {{bindAttr src="donation.project.plan.image.square" alt="project.title"}} />
             </figure>
-            <h2>
+            <h2 class="project-title">
                 {{ donation.project.title }}
                 <em class="project-location">
                     <span class="flaticon solid location-pin-1"></span> {{ donation.project.plan.country.name }}

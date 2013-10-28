@@ -23,13 +23,13 @@
 
 {% tplhandlebars "news_item" %}
 
-        <header>
+        <header class="blog-header">
             <h1>{{ title}}</h1>
             <a {{action 'openInBigBox' 'userModal' author}} class="member">
-                <span class="member-avatar"><img {{ bindAttr src="author.getAvatar" }} alt="Avatar"></span>
+                <figure class="member-avatar"><img {{ bindAttr src="author.getAvatar" }} alt="Avatar"></figure>
                 <strong class="member-name">{{ author.full_name }}</strong>
             </a>
-            <em class="blog-timestamp">{{ localize publicationDate formatting="X" }}</em>
+            <em class="timestamp">{{ localize publicationDate formatting="X" }}</em>
         </header>
 
         {{{ body }}}
@@ -45,7 +45,7 @@
 	            {{outlet}}
 	        </article>
     	
-	        <sidebar class="l-sidebar blog-navigation">
+	        <sidebar class="l-sidebar blog-nav">
 	        
                 <h3>{% trans "More news" %}</h3>
 	            <ul>

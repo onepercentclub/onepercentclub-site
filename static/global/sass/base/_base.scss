@@ -10,6 +10,7 @@
 
 .is-loading-small {
     float: left;
+    display: inline-block;
     padding: $base-padding/2 0;
     
     img {
@@ -17,8 +18,8 @@
         margin-right: $base-margin/2;
     }
     
-    em {
-        font-style: normal;
+    strong {
+        display: none;
     }
 }
 
@@ -33,8 +34,14 @@
         width: 100px;
     }
     
-    em {
+    strong {
         display: none;
     }
     
+}
+
+.is-saved {
+    float: left;
+    display: inline-block;
+    padding: $base-padding/2 0;
 }

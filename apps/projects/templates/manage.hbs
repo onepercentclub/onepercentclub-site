@@ -13,70 +13,69 @@
     	
         <div class="l-wrapper">
             {{#if isLoading}}
-                <span class="loading-big"></span>
+                <div class="is-loading-big"><img src="{% get_static_prefix %}images/loading.gif" /> <strong>{% trans "Loading projects" %}</strong></div>
             {{else}}
-            	<h1 class="pink">{% trans "My Projects" %}</h1>
                 {{#if canPitchNew}}
-                    {{#linkTo "myPitchNew" tagName="button" class="btn btn-primary btn-iconed"}}
-                        <em class="flaticon solid lightbulb-3"></em>
+                    {{#linkTo "myPitchNew" tagName="button" class="btn btn-primary btn-iconed btn-new"}}
+                        <span class="flaticon solid lightbulb-3"></span>
                         {% trans "Pitch your smart idea." %}
                     {{/linkTo}}
                 {{/if}}
             {{/if}}
             
-            <div class="content">
-	            <ul class="donation-projects">
+            <div class="l-content">
+	            <ul class="project-list">
 	            	{{#each project in controller}}
-	                <li class="donation-project">
-				            {{#if project.isPhasePitch}}
-	                            <img {{bindAttr src="project.pitch.image.square" alt="project.pitch.title"}} class="project-image" />
-	                        {{else}}
-	                            <img {{bindAttr src="project.plan.image.square" alt="project.pitch.title"}} class="project-image" />
-	                        {{/if}}
-				            <h2>
-				                {{ project.title }}
-				                <em class="project-status">
-			                        {{#if project.isPublic}}
-			                            <a {{action "showProject" project.id href=true}}>
-			                                <em class="flaticon solid eye-1"></em>
-			                                {% trans "View public page" %}
-			                            </a>
-			                        {{/if}}
-				                </em>
-				            </h2>
-				
-				        <p class="project-actions">
+	                <li class="project-list-item">
+                                    
+                        <span class="project-header">
+                            <figure class="project-image">
+                                <img {{bindAttr src="project.pitch.image.square" alt="project.pitch.title"}} />
+                            </figure>
+                            <h2 class="project-title">
+                                {{ project.title }}
+                                
+                                {{#if project.isPublic}}
+                                <a {{action "showProject" project.id href=true}} class="project-preview">
+	                                <span class="flaticon solid eye-1"></span>
+	                                {% trans "View public page" %}
+	                            </a>
+                                {{/if}}
+                            </h2>
+                        </span>
+                        
+				        <div class="project-actions">
 				        	{% trans "Phase" %}: <strong>{{ project.phase }}</strong> | 
 			                {{#if project.isPhasePitch}}
-			                	{% trans "Status:" %} <strong>{{project.plan.status}}</strong></p>
+			                	{% trans "Status:" %} <strong>{{project.plan.status}}</strong>
                                 {{#if project.pitch.isBeingReviewed}}
 								{% trans "Your pitch is in review now." %}
 								  <br/>
 								  {% trans "We'll get back to you soon!" %} 
 								{{else}}
-	                              {{#linkTo "myProjectPitch.basics" project tagName="a" class="btn btn-iconed right"}}
-	                                <em class="flaticon solid pencil-3"></em>
+	                              {{#linkTo "myProjectPitch.basics" project tagName="a" class="btn btn-iconed"}}
+	                                <span class="flaticon solid pencil-3"></span>
 	                                {% trans "Continue pitch" %}
 	                              {{/linkTo}}
 								{{/if}}
 	                        {{/if}}
 	
 	                        {{#if project.isPhasePlan}}
-	                            {% trans "Status:" %} <strong>{{project.plan.status}}</strong></p>
+	                            {% trans "Status:" %} <strong>{{project.plan.status}}</strong>
 	                            {{#linkTo "myProjectPlan" project tagName="a" class="btn btn-iconed right"}}
-	                                <em class="flaticon solid pencil-3"></em>
+	                                <span class="flaticon solid pencil-3"></span>
 	                                {% trans "Continue plan" %}
 	                            {{/linkTo}}
 	                        {{/if}}
 	
 	                        {{#if project.isPhaseCampaign}}
-	                            {% trans "Status:" %} <strong>{{project.campaign.status}}</strong></p>
+	                            {% trans "Status:" %} <strong>{{project.campaign.status}}</strong>
 	                            {{#linkTo "myProjectCampaign" project tagName="a" class="btn btn-iconed right"}}
-	                                <em class="flaticon solid pencil-3"></em>
+	                                <span class="flaticon solid pencil-3"></span>
 	                                {% trans "Campaigning" %}
 	                            {{/linkTo}}
 	                        {{/if}}
-				        </p>
+				        </div>
 				    </li>
 					{{/each}}
 	            </ul>
@@ -95,19 +94,20 @@
     	{{partial "my_project_top"}}
     
         <div class="l-wrapper">
-            <div class="content">
-                <h1 class="pink"> {% trans "Send in your Project Pitch" %}</h1>
-
-                <strong>
+            <div class="l-content">
+            
+                <header class="l-page-header">
+                    <h1> {% trans "Send in your Project Pitch" %}</h1>
+                    <p><strong>
 {% blocktrans %}
 Do you have a smart idea to make a contribution to your community? An idea to tackle a waste problem in your neighborhood? An idea for clean and green transport? An idea to use tech innovations to improve local healthcare?<br/><br/>
 Well, you came to the right place. We LOVE smart ideas!
 {% endblocktrans %}
-                </strong>
+                    </strong></p>
+                </header>
 
-
-                <h3>{% trans "WHEN YOUR SMART IDEA..." %}</h3>
-                <ul class="list">
+                <h2>{% trans "WHEN YOUR SMART IDEA..." %}</h2>
+                <ul>
                     <li>{% trans "Might seem small, but will have a big social impact" %}</li>
                     <li>{% trans "Is concrete and thus has a clear start and end" %}</li>
                     <li>{% trans "Needs on off investment to make it self-sufficient and sustainable on the long term" %}</li>
@@ -131,7 +131,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                         </p>
                         {% trans "It looks like you already have started a project in progress. You can manage your project here:" %}
                         {{#linkTo "myProjectList" tagName="button" class="btn btn-primary btn-iconed"}}
-                            <em class="flaticon solid pencil-3"></em>
+                            <span class="flaticon solid pencil-3"></span>
                             {% trans "Manage projects." %}
                         {{/linkTo}}
 
@@ -183,80 +183,77 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
 
 {% tplhandlebars "_my_project_top" %}
 
-    <div id="profile-actions" class="section">
-        <div class="l-wrapper">
-            <div class="profile-actions-meta">
-                <a {{action "showProject" id href=true}} class="button-link">
-                    <img {{bindAttr src="controllers.currentUser.getAvatar" info="owner.first_name"}} />
-                    <span class="profile-actions-meta-title">
-                        {% trans "My 1%" %}
-                        
-                        {{#if title}}
-                        <span class="profile-title">
-                            {{ title }}
-                        </span>
-						{{/if}}
-						
-						{{#unless isPhasePitch}}
-						<small>
-                            <em class="flaticon solid eye-1"></em>
-							View public Project Page
-                        </small>
-						{{/unless}}
+<div class="l-section account-header">
+    <nav class="l-wrapper">    
+        <figure class="account-avatar"><img {{bindAttr src="controllers.currentUser.getAvatar"}} /></figure>
+        
+        <header class="account-title">
+            <h2>{% blocktrans %}My 1%{% endblocktrans %} 
+            {{#if title}}
+                <em class="account-subtitle">{{ title }}</em>
+			{{else}}
+			    <em class="account-subtitle">{% trans "Projects" %}</em>
+			{{/if}}
+            </h2>
+            
+            {{#unless isPhasePitch}}
+            <a class="account-preview">
+                <span class="flaticon solid eye-1"></span>
+                {% trans "View public project Page" %}
+            </a>
+            {{/unless}}
+        </header>
+        
+        {{#if id}}
+            <ul class="tabs steps five">
+                <li {{bindAttr class=":tab-item :first isPhasePitch:is-active:is-inactive"}}>
+                    <a>
+                        <span class="tab-icon"><em class="flaticon solid lightbulb-3"></em></span>
+                        <strong class="tab-title">
+                            {% trans "Pitch" %}
+                            <em class="tab-subtitle">{{ pitch.status }}</em>
+                        </strong>
+                    </a>
+                </li>
+                <li  {{bindAttr class=":tab-item :second isPhasePlan:is-active:is-inactive"}}>
+                    <span>
+                        <span class="tab-icon"><em class="flaticon solid notebook-1"></em></span>
+                        <strong class="tab-title">
+                            {% trans "Plan" %}
+                            <em class="tab-subtitle">{{ plan.status }}</em>
+                        </strong>
                     </span>
-                </a>
-            </div>
-            {{#if id}}
-
-                <ul class="tabs steps four">
-                    <li {{bindAttr class=":tab-item :first isPhasePitch:is-active:is-inactive"}}>
-                        <span>
-                            <span class="tab-icon"><em class="flaticon solid lightbulb-3"></em></span>
-                            <strong class="tab-title">
-                                {% trans "Pitch" %}
-                                <em class="tab-subtitle">{{ pitch.status }}</em>
-                            </strong>
-                        </span>
-                    </li>
-                    <li  {{bindAttr class=":tab-item :second isPhasePlan:is-active:is-inactive"}}>
-                        <span>
-                            <span class="tab-icon"><em class="flaticon solid notebook-1"></em></span>
-                            <strong class="tab-title">
-                                {% trans "Plan" %}
-                                <em class="tab-subtitle">{{ plan.status }}</em>
-                            </strong>
-                        </span>
-                    </li>
-                    <li {{bindAttr class=":tab-item :third isPhaseCampaign:is-active:is-inactive"}}>
-                        <span>
-                            <span class="tab-icon"><em class="flaticon">&euro;</em></span>
-                            <strong class="tab-title">
-                                {% trans "Campaign" %}
-                                <em class="tab-subtitle">{{ campaign.status }}</em>
-                            </strong>
-                        </span>
-                    </li>
-                    <li {{bindAttr class=":tab-item :fourth isPhaseAct:is-active:is-inactive"}}>
-                        <span>
-                            <span class="tab-icon"><em class="flaticon solid wrench-1"></em></span>
-                            <strong class="tab-title">{% trans "Execute" %}
-                                <em class="tab-subtitle">{{ act.status }}</em>
-                            </strong>
-                        </span>
-                    </li>
-                    <li {{bindAttr class=":tab-item :fifth isPhaseResults:is-active:is-inactive"}}>
-                        <span>
-                            <span class="tab-icon"><em class="flaticon solid flag-3"></em></span>
-                            <strong class="tab-title">{% trans "Results" %}
-                                <em class="tab-subtitle">{{ results.status }}</em>
-                            </strong>
-                        </span>
-                    </li>
-                </ul>
-            {{/if}}
-		</div>
-    </div>
-
+                </li>
+                <li {{bindAttr class=":tab-item :third isPhaseCampaign:is-active:is-inactive"}}>
+                    <span>
+                        <span class="tab-icon"><em class="flaticon">&euro;</em></span>
+                        <strong class="tab-title">
+                            {% trans "Campaign" %}
+                            <em class="tab-subtitle">{{ campaign.status }}</em>
+                        </strong>
+                    </span>
+                </li>
+                <li {{bindAttr class=":tab-item :fourth isPhaseAct:is-active:is-inactive"}}>
+                    <span>
+                        <span class="tab-icon"><em class="flaticon solid wrench-1"></em></span>
+                        <strong class="tab-title">{% trans "Execute" %}
+                            <em class="tab-subtitle">{{ act.status }}</em>
+                        </strong>
+                    </span>
+                </li>
+                <li {{bindAttr class=":tab-item :fifth isPhaseResults:is-active:is-inactive"}}>
+                    <span>
+                        <span class="tab-icon"><em class="flaticon solid flag-3"></em></span>
+                        <strong class="tab-title">{% trans "Results" %}
+                            <em class="tab-subtitle">{{ results.status }}</em>
+                        </strong>
+                    </span>
+                </li>
+            </ul>
+        {{/if}}
+    </nav>
+</div>
+    
 {% endtplhandlebars %}
 
 

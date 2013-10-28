@@ -15,9 +15,9 @@
 						{{{body}}} 
 					</article>
 					
-					<sidebar class="l-sidebar">
+					<sidebar class="l-sidebar page-nav">
 						<h3>{% trans "About 1%Club" %}</h3>
-						<ul class="page-nav">
+						<ul>
 							<li><a {{action showPage 'story'}} href="/#!/pages/story">{% trans "Our Story" %}</a></li>
 							<li><a {{action showPage 'faq'}} href="/#!/pages/faq">{% trans "Frequently Asked Questions" %}</a></li>
 							<li><a {{action showPage 'meet-team'}} href="/#!/pages/meet-team">{% trans "Meet the team" %}</a></li>
@@ -40,7 +40,7 @@
 
 {% tplhandlebars "error/not_found" %}
 	
-	<div id="page" class="l-section page-error">
+	<div class="l-section page-error" id="page" >
 		<section class="l-wrapper">
 			<article class="l-content">
 				<header class="page-header">

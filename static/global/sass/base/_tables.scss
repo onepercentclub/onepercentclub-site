@@ -3,8 +3,30 @@
 // --------------------------------------------------
 
 
-// BASE TABLES
-// -----------------
+table {
+    border-collapse: separate;
+    *border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    
+    th {
+        //padding: $base-padding/2 $base-padding;
+        text-align: left;
+    }
+    
+    td {
+        padding: $base-padding/2 $base-padding;
+        line-height: $base-line-height;
+        border-bottom: 1px solid $gray-light;
+        
+        td {
+            border: none;
+        }
+    }
+}
+
+
+/*
 
 table {
   max-width: 100%;
@@ -233,3 +255,5 @@ table th[class*="span"],
     background-color: darken($infoBackground, 5%);
   }
 }
+
+*/
