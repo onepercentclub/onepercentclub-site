@@ -50,7 +50,7 @@ class DonationSeleniumTests(ProjectTestsMixin, UserTestsMixin, SeleniumTestCase)
     def visit_project_list_page(self, lang_code=None):
         self.visit_path('/projects', lang_code)
 
-        self.assertTrue(self.browser.is_element_present_by_css('.item.item-project'),
+        self.assertTrue(self.browser.is_element_present_by_css('.project-item'),
                         'Cannot load the project list page.')
 
     def test_view_project_page_with_donation(self):
@@ -69,26 +69,23 @@ class DonationSeleniumTests(ProjectTestsMixin, UserTestsMixin, SeleniumTestCase)
         self.assertTrue(self.browser.is_text_present('WOMEN FIRST', wait_time=10))
         self.assertEqual(self.browser.find_by_css('h1.project-title').first.text, u'WOMEN FIRST')
 
-        donation_status_text = self.browser.find_by_css('p.donate-amount').first.text
-        self.assertTrue(u'5 OF' in donation_status_text and u'500 RAISED' in donation_status_text)
-        self.assertTrue(u'SUPPORT PROJECT' in self.browser.find_by_css('div.donate-call-to-action').first.text)
+        donation_status_text = self.browser.find_by_css('.project-fund-amount').first.text
+
+        self.assertTrue(u'5 of' in donation_status_text and u'500 raised' in donation_status_text)
+        self.assertTrue(u'SUPPORT PROJECT' in self.browser.find_by_css('div.project-action').first.text)
 
         # Click through to the support-page, check the default values and
         # verify we are donating to the correct project 
-        self.browser.find_by_css('div.donate-call-to-action a').first.click()
+        self.browser.find_by_css('div.project-action a').first.click()
 
         self.assertTrue(self.browser.is_text_present('SUPPORT ONE OR MORE PROJECTS', wait_time=10))
         
-        # TODO: Note that the browser back-button doesn't yet work from support-page back to project detail page
+        self.assertEqual(self.browser.find_by_css('h2.project-title').first.text, u'WOMEN FIRST')
 
-        self.assertEqual(self.browser.find_by_css('li.donation-project h2').first.text,
-                         u'WOMEN FIRST\n,') # Required for country-label
-
-        self.assertEqual(self.browser.find_by_css('.amount-control label').first.text,
-                         u"I'D LIKE TO GIVE")
-        self.assertTrue(u'495 IS STILL NEEDED' in self.browser.find_by_css('.amount-needed').first.text)
-        input_field = self.browser.find_by_css('.amount-control input').first
-        self.assertEqual(input_field['name'], u'donation-amount-1')
+        self.assertEqual(self.browser.find_by_css('.fund-amount-control label').first.text, u"I'd like to give")
+        self.assertTrue(u'495' in self.browser.find_by_css('.fund-amount-needed').first.text)
+        input_field = self.browser.find_by_css('.fund-amount-control input').first
+        self.assertEqual(input_field['name'], u'fund-amount-1')
         self.assertEqual(input_field['value'], u'20')
 
         # Change the amount we want to donate
@@ -110,7 +107,7 @@ class DonationSeleniumTests(ProjectTestsMixin, UserTestsMixin, SeleniumTestCase)
         
         self.browser.find_by_css('.btn[href="#!/support/details"]').first.click()
         self.assertTrue(self.browser.is_text_present('Your full name',
-                                                     wait_time=10))
+                                                     wait_time=5))
 
         # NOTE: making use of fill_form_by_css() might be a better idea
 
@@ -137,12 +134,12 @@ class DonationSeleniumTests(ProjectTestsMixin, UserTestsMixin, SeleniumTestCase)
         city.fill(self.donate_details['city'])
 
         # Click on the NEXT button
-        self.browser.find_by_css('button.btn.right').first.click()
+        self.browser.find_by_css('button.btn-next').first.click()
         time.sleep(2)
         # Don't sign up. Skip this form.
         self.browser.find_link_by_partial_text('Skip').first.click()
 
-        self.assertTrue(self.browser.is_text_present("YOU'RE ALMOST THERE!", wait_time=10))
+        self.assertTrue(self.browser.is_text_present("YOU'RE ALMOST THERE!", wait_time=5))
         
         # Proceed with the payment
 
