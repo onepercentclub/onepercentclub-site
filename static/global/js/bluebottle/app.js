@@ -456,7 +456,12 @@ App.ApplicationRoute = Em.Route.extend({
     }
 });
 
-
+App.ScrollTopRoute = Em.Route.reopen({
+    enter: function(){
+        this._super();
+        window.scrollTo(0, 0);
+    }
+});
 
 App.UserIndexRoute = Em.Route.extend({
     beforeModel: function() {
