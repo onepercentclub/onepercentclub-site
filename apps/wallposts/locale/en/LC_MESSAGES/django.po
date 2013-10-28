@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-04 16:16+0200\n"
+"POT-Creation-Date: 2013-10-28 14:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,19 +21,39 @@ msgstr ""
 msgid "Author"
 msgstr ""
 
-#: mails.py:30
+#: mails.py:96
+#, python-format
+msgid "%(author)s commented on a wallpost you reacted on."
+msgstr ""
+
+#: mails.py:108
+#, python-format
+msgid "%(author)s commented on your wallpost."
+msgstr ""
+
+#: mails.py:121 mails.py:145
 #, python-format
 msgid "%(author)s has left a message on your project page."
 msgstr ""
 
-#: mails.py:49
+#: mails.py:161
 #, python-format
 msgid "%(author)s has left a message on your task page."
 msgstr ""
 
-#: mails.py:77
+#: mails.py:194
 #, python-format
-msgid "%(author)s commented on your wallpost."
+msgid "%(author)s commented on a post you reacted on."
+msgstr ""
+
+#: mails.py:206
+#, python-format
+msgid "%(author)s commented on your post."
+msgstr ""
+
+#: mails.py:218
+#, python-format
+msgid "%(author)s commented on your project page."
 msgstr ""
 
 #: models.py:30 models.py:70 models.py:101
@@ -112,7 +132,7 @@ msgid ""
 "<br/>\n"
 "See you in a bit!<br/>\n"
 "<br/>\n"
-"Liane | 1%%CLUB\n"
+"Liane | 1%%Club\n"
 msgstr ""
 
 #: templates/project_wallpost_new.mail.txt:5
@@ -129,7 +149,7 @@ msgid ""
 "\n"
 "See you in a bit!\n"
 "\n"
-"Liane | 1%%CLUB\n"
+"Liane | 1%%Club\n"
 msgstr ""
 
 #: templates/project_wallpost_reaction_new.mail.html:5
@@ -144,7 +164,7 @@ msgid ""
 "<br/>\n"
 "See you in a bit!<br/>\n"
 "<br/>\n"
-"Liane | 1%%CLUB\n"
+"Liane | 1%%Club\n"
 msgstr ""
 
 #: templates/project_wallpost_reaction_new.mail.txt:5
@@ -155,31 +175,84 @@ msgid ""
 "\n"
 "Yes, yes, yes! %(author_name)s commented on your wallpost.\n"
 "\n"
-"Click the link below to got to our website:\n"
+"Click the link below to go to our website:\n"
 "\n"
 "%(site)s%(link)s\n"
 "\n"
 "See you in a bit!\n"
 "\n"
-"Liane | 1%%CLUB\n"
+"Liane | 1%%Club\n"
 "\n"
 msgstr ""
 
-#: templates/reactions.hbs:26 templates/wallposts.hbs:195
-#: templates/wallposts.hbs.py:263 templates/wallposts.hbs:321
+#: templates/project_wallpost_reaction_project.mail.html:5
+#, python-format
+msgid ""
+"\n"
+"Hi %(receiver_name)s,<br/>\n"
+"<br/>\n"
+"<strong>%(author_name)s</strong> left a comment on your projectpage.<br/>\n"
+"<br/>\n"
+"<a href=\"%(site)s%(link)s\">Read the comment here</a> and continue the conversation!<br/>\n"
+"<br/>\n"
+"Liane | 1%%Club\n"
+msgstr ""
+
+#: templates/project_wallpost_reaction_project.mail.txt:5
+#, python-format
+msgid ""
+"\n"
+"Hi %(receiver_name)s,\n"
+"\n"
+"%(author_name)s left a comment on your projectpage.\n"
+"\n"
+"Read the comment on our website and continue the conversation:\n"
+"%(site)s%(link)s\n"
+"\n"
+"Liane | 1%%Club\n"
+msgstr ""
+
+#: templates/project_wallpost_reaction_same_wallpost.mail.html:5
+#, python-format
+msgid ""
+"\n"
+"Hi %(receiver_name)s,<br/>\n"
+"<br/>\n"
+"<strong>%(author_name)s</strong> left a comment on your message! <a href=\"%(site)s%(link)s\">Read the comment here.</a><br/>\n"
+"<br/>\n"
+"Liane | 1%%Club\n"
+msgstr ""
+
+#: templates/project_wallpost_reaction_same_wallpost.mail.txt:5
+#, python-format
+msgid ""
+"\n"
+"Hi %(receiver_name)s,\n"
+"\n"
+"%(author_name)s left a comment on your message!\n"
+"\n"
+"Read the comment here:\n"
+"%(site)s%(link)s\n"
+"\n"
+"Liane | 1%%Club\n"
+msgstr ""
+
+#: templates/reactions.hbs:28 templates/wallposts.hbs:195
+#: templates/wallposts.hbs.py:271 templates/wallposts.hbs:337
 msgid "Delete"
 msgstr ""
 
-#: templates/reactions.hbs:60 templates/wallposts.hbs:20
-#: templates/wallposts.hbs.py:351
+#: templates/reactions.hbs:72 templates/wallposts.hbs:20
+#: templates/wallposts.hbs.py:362
 msgid "Login"
 msgstr ""
 
-#: templates/reactions.hbs:60 templates/wallposts.hbs:351
+#: templates/reactions.hbs:72 templates/wallposts.hbs:20
+#: templates/wallposts.hbs.py:362
 msgid "member"
 msgstr ""
 
-#: templates/reactions.hbs:60
+#: templates/reactions.hbs:72 templates/wallposts.hbs:362
 msgid "to leave a reaction"
 msgstr ""
 
@@ -195,7 +268,7 @@ msgid ""
 "<br/>\n"
 "See you in a bit!<br/>\n"
 "<br/>\n"
-"Liane | 1%%CLUB\n"
+"Liane | 1%%Club\n"
 msgstr ""
 
 #: templates/task_wallpost_new.mail.txt:5
@@ -212,7 +285,7 @@ msgid ""
 "\n"
 "See you in a bit!\n"
 "\n"
-"Liane | 1%%CLUB\n"
+"Liane | 1%%Club\n"
 msgstr ""
 
 #: templates/wallposts.hbs:10
@@ -229,15 +302,6 @@ msgstr ""
 
 #: templates/wallposts.hbs:15
 msgid "Write an comment to place on the project's wall."
-msgstr ""
-
-#: templates/wallposts.hbs:20
-msgid "You have to"
-msgstr ""
-
-#: templates/wallposts.hbs:20
-#, python-format
-msgid "become a 1%%Member"
 msgstr ""
 
 #: templates/wallposts.hbs:20
@@ -277,30 +341,26 @@ msgid "Post Update"
 msgstr ""
 
 #: templates/wallposts.hbs:117 templates/wallposts.hbs.py:130
-#: templates/wallposts.hbs:285 templates/wallposts.hbs.py:298
+#: templates/wallposts.hbs:294 templates/wallposts.hbs.py:307
 msgid "Comment"
 msgstr ""
 
-#: templates/wallposts.hbs:154 templates/wallposts.hbs.py:363
+#: templates/wallposts.hbs:153 templates/wallposts.hbs.py:372
 msgid "Show more"
 msgstr ""
 
-#: templates/wallposts.hbs:154
+#: templates/wallposts.hbs:153
 msgid "more"
 msgstr ""
 
-#: templates/wallposts.hbs:252
+#: templates/wallposts.hbs:245
+msgid "Donation"
+msgstr ""
+
+#: templates/wallposts.hbs:255
+msgid "Someone"
+msgstr ""
+
+#: templates/wallposts.hbs:258
 msgid "Made a donation"
-msgstr ""
-
-#: templates/wallposts.hbs:254
-msgid "Someone made a donation"
-msgstr ""
-
-#: templates/wallposts.hbs:351
-msgid "or become a"
-msgstr ""
-
-#: templates/wallposts.hbs:351
-msgid "to leave a comment."
 msgstr ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-04 16:16+0200\n"
+"POT-Creation-Date: 2013-10-28 14:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,75 +17,75 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: models.py:9
+#: models.py:10
 msgid "New"
 msgstr ""
 
-#: models.py:10
+#: models.py:11
 msgid "In Progress"
 msgstr ""
 
-#: models.py:11
+#: models.py:12
 msgid "Pending"
 msgstr ""
 
-#: models.py:12
+#: models.py:13
 msgid "Paid"
 msgstr ""
 
-#: models.py:13
+#: models.py:14
 msgid "Failed"
 msgstr ""
 
-#: models.py:14
+#: models.py:15
 msgid "Cancelled"
 msgstr ""
 
-#: models.py:15
+#: models.py:16
 msgid "Chargedback"
 msgstr ""
 
-#: models.py:16
+#: models.py:17
 msgid "Refunded"
 msgstr ""
 
-#: models.py:17
+#: models.py:18
 msgid "Unknown"
 msgstr ""
 
-#: models.py:25
+#: models.py:26
 msgid "amount"
 msgstr ""
 
-#: models.py:29
+#: models.py:30
 msgid "payment service fee"
 msgstr ""
 
-#: models.py:35
+#: models.py:36
 msgid "status"
 msgstr ""
 
-#: models.py:37
+#: models.py:38
 msgid "created"
 msgstr ""
 
-#: models.py:38
+#: models.py:39
 msgid "updated"
 msgstr ""
 
-#: models.py:44
+#: models.py:45
 msgid "INFO"
 msgstr ""
 
-#: models.py:45
+#: models.py:46
 msgid "WARN"
 msgstr ""
 
-#: models.py:46
+#: models.py:47
 msgid "ERROR"
 msgstr ""
 
-#: models.py:61
+#: models.py:62
 msgid "Payment Log"
 msgstr ""
 

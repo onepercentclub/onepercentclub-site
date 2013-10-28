@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-04 16:16+0200\n"
+"POT-Creation-Date: 2013-10-28 14:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,30 +17,30 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: models.py:41
+#: models.py:67
 msgid "DocData Payment"
 msgstr ""
 
-#: models.py:42
+#: models.py:68
 msgid "DocData Payments"
 msgstr ""
 
-#: models.py:50
+#: models.py:76
 msgid "status"
 msgstr ""
 
-#: models.py:52
+#: models.py:78
 msgid "payment id"
 msgstr ""
 
-#: models.py:55
+#: models.py:81
 msgid "created"
 msgstr ""
 
-#: models.py:56
+#: models.py:82
 msgid "updated"
 msgstr ""
 
-#: models.py:78
+#: models.py:104
 msgid "DocData Payment Log"
 msgstr ""
