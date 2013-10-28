@@ -7,7 +7,7 @@ See: ``docs/testing/selenium.rst`` for details.
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.utils.text import slugify
-from django.utils.unittest.case import skipUnless
+from django.utils.unittest.case import skipUnless, skipIf
 
 
 from bluebottle.geo import models as geo_models
@@ -171,7 +171,6 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         src = self.browser.find_by_css('div.preview').first.find_by_tag('img').first['src']
         self.assertEqual('.jpg', src[-4:])
 
-    @skipUnless(False, 'Broken in firefox due to FK constraints') # FIXME: bad request in firefox
     def test_upload_multiple_wallpost_images(self):
         """ Test uploading multiple images in a media wallpost """
 
@@ -190,7 +189,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
 
         # verify that no previews are there yet
         ul = form.find_by_css('ul.wallpost-photos').first
-        previews = ul.find_by_css('li')
+        previews = ul.find_by_tag('li')
         self.assertEqual(0, len(previews))
 
 
@@ -199,13 +198,23 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         self.browser.attach_file('wallpost-photo', file_path)
 
         # wait a bit, processing...
+        time.sleep(3)
 
         # verify that one picture was added
-        previews = ul.find_by_css('li')
+        form = self.browser.find_by_css('form.ember-view')
+        ul = form.find_by_css('ul.wallpost-photos').first
+        previews = ul.find_by_tag('li')
 
         self.assertEqual(1, len(previews))
 
         # verify that a second picture was added
+        file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'chameleon.jpg')
         self.browser.attach_file('wallpost-photo', file_path)
-        previews = ul.find_by_css('li')
+        
+        # wait a bit, processing...
+        time.sleep(3)
+
+        form = self.browser.find_by_css('form.ember-view')
+        ul = form.find_by_css('ul.wallpost-photos').first
+        previews = ul.find_by_tag('li')
         self.assertEqual(2, len(previews))

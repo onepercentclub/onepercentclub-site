@@ -163,6 +163,29 @@ class ProjectMediaWallPostPhotoList(generics.ListCreateAPIView):
             obj.editor = self.request.user
         obj.ip_address = get_client_ip(self.request)
 
+    def create(self, request, *args, **kwargs): #FIXME
+        """
+        Work around browser issues.
+
+        Adding photos to a wallpost works correctly in Chrome. Firefox (at least
+        FF 24) sends the ```mediawallpost``` value to Django with the value 
+        'null', which is then interpreted as a string in Django. This is 
+        incorrect behaviour, as ```mediawallpost``` is a relation.
+
+        Eventually, this leads to HTTP400 errors, effectively breaking photo
+        uploads in FF.
+
+        The quick fix is detecting this incorrect 'null' string in ```request.POST```
+        and setting it to an empty string. ```request.POST``` is mutable because
+        of the multipart nature.
+
+        NOTE: This is something that should be fixed in the Ember app or maybe even
+        Ember itself.
+        """
+        post = request.POST.get('mediawallpost', False)
+        if post and post == u'null':
+            request.POST['mediawallpost'] = u''
+        return super(ProjectMediaWallPostPhotoList, self).create(request, *args, **kwargs)
 
 class ProjectMediaWallPostPhotoDetail(RetrieveUpdateDeleteAPIView):
     model = MediaWallPostPhoto
