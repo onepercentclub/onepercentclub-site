@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-04 16:16+0200\n"
+"POT-Creation-Date: 2013-10-28 14:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,5 +28,5 @@ msgstr ""
 
 #: templates/fluent_dashboard/modules/personal_text.html:4
 #, python-format
-msgid "Welcome to the back-office of 1%%CLUB website."
+msgid "Welcome to the back-office of 1%%Club website."
 msgstr ""

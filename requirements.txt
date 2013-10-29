@@ -1,6 +1,6 @@
 # Use the remove-onepercent-js branch for this version
 # FIXME: Make this into a tag
-# -e git://github.com/onepercentclub/bluebottle.git@v0.0.8#egg=bluebottle
+# -e git://github.com/onepercentclub/bluebottle.git@v0.0.9#egg=bluebottle
 -e git://github.com/onepercentclub/bluebottle.git@force-https-video#egg=bluebottle
 
 

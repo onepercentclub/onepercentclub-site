@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-04 16:16+0200\n"
+"POT-Creation-Date: 2013-10-28 14:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,7 +49,7 @@ msgstr ""
 msgid "Media / PR"
 msgstr ""
 
-#: models.py:195 models.py:424
+#: models.py:195 models.py:399
 msgid "Closed"
 msgstr ""
 
@@ -125,22 +125,22 @@ msgstr ""
 msgid "Category"
 msgstr ""
 
-#: models.py:362
+#: models.py:337
 msgid "PaymentMethod"
 msgstr ""
 
-#: models.py:422
+#: models.py:397
 msgid "Open"
 msgstr ""
 
-#: models.py:423
+#: models.py:398
 msgid "Running"
 msgstr ""
 
-#: models.py:425
+#: models.py:400
 msgid "Realized"
 msgstr ""
 
-#: models.py:435
+#: models.py:410
 msgid "TaskStatus"
 msgstr ""

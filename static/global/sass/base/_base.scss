@@ -37,11 +37,22 @@
     strong {
         display: none;
     }
-    
 }
 
 .is-saved {
     float: left;
     display: inline-block;
     padding: $base-padding/2 0;
+}
+
+.fade {
+    @include opacity(0);
+    
+    &.fade.in {
+        @include opacity(1);
+    }
+    
+    &.fade.out {
+        @include opacity(0);
+    }
 }

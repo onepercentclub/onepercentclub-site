@@ -15,6 +15,7 @@ from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as
 from apps.fund.models import Donation, DonationStatuses
 from django.template.defaultfilters import slugify
 from django.utils import timezone
+from django.utils.translation import get_language
 
 
 class ProjectTheme(models.Model):
@@ -152,6 +153,14 @@ class Project(models.Model):
     def get_absolute_url(self):
         """ Get the URL for the current project. """
         return 'project-detail', (), {'slug': self.slug}
+
+    def get_meta_title(self, **kwargs):
+        plan = self.projectplan
+        return "%(name_project)s | %(theme)s | %(country)s" % {
+            'name_project': self.title,
+            'theme': plan.theme.name if plan.theme else '',
+            'country': plan.country.name if plan.country else '',
+        }
 
     class Meta:
         ordering = ['title']

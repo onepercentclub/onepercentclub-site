@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-04 16:16+0200\n"
+"POT-Creation-Date: 2013-10-28 14:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -128,29 +128,29 @@ msgstr ""
 msgid "1%% News"
 msgstr ""
 
-#: accounts/login.html:6
+#: accounts/login.html:5
 #, python-format
 msgid "Log in to 1%% Club"
 msgstr ""
 
-#: accounts/login.html:11
+#: accounts/login.html:10
 msgid "You did it!"
 msgstr ""
 
-#: accounts/login.html:12
+#: accounts/login.html:11
 msgid "(Welcome back friend)"
 msgstr ""
 
-#: accounts/login.html:13
+#: accounts/login.html:12
 msgid "Login here with your email address and password"
 msgstr ""
 
-#: accounts/login.html:19
+#: accounts/login.html:18
 msgid "Forgot your password?"
 msgstr ""
 
-#: accounts/login.html:20 accounts/nav.html:35
-msgid "Log in"
+#: accounts/login.html:19
+msgid "Login"
 msgstr ""
 
 #: accounts/nav.html:8 accounts/profile_nav.html:7
@@ -158,16 +158,36 @@ msgstr ""
 msgid "My 1%%"
 msgstr ""
 
-#: accounts/nav.html:21
+#: accounts/nav.html:19
+msgid "My profile & settings"
+msgstr ""
+
+#: accounts/nav.html:25
+msgid "My Donations"
+msgstr ""
+
+#: accounts/nav.html:31
+msgid "My Projects"
+msgstr ""
+
+#: accounts/nav.html:42
+msgid "Language"
+msgstr ""
+
+#: accounts/nav.html:54
 msgid "Donations"
 msgstr ""
 
-#: accounts/nav.html:33
+#: accounts/nav.html:66
 msgid "Sign up"
 msgstr ""
 
-#: accounts/nav.html:34
+#: accounts/nav.html:67
 msgid "or"
+msgstr ""
+
+#: accounts/nav.html:68
+msgid "Log in"
 msgstr ""
 
 #: accounts/profile_form.html:6
@@ -192,7 +212,7 @@ msgstr ""
 msgid "Your website"
 msgstr ""
 
-#: accounts/profile_form.html:57 accounts/profile_public.html:20
+#: accounts/profile_form.html:57 accounts/profile_public.html:18
 msgid "Location"
 msgstr ""
 
@@ -206,7 +226,7 @@ msgstr ""
 msgid "How much time are you willing to spend your 1%%Skills?<br/>Let us know so we can provide you with some matching tasks from our projects."
 msgstr ""
 
-#: accounts/profile_form.html:83 accounts/profile_public.html:28
+#: accounts/profile_form.html:83 accounts/profile_public.html:25
 msgid "Time available"
 msgstr ""
 
@@ -218,17 +238,13 @@ msgstr ""
 msgid "Preview my profile"
 msgstr ""
 
-#: accounts/profile_nav.html:24
-msgid "Payment"
-msgstr ""
-
-#: accounts/profile_nav.html:24
-msgid "Orders"
-msgstr ""
-
 #: accounts/profile_public.html:12
 #, python-format
 msgid "Joined 1%%Club because"
+msgstr ""
+
+#: accounts/profile_public.html:32
+msgid "Website"
 msgstr ""
 
 #: accounts/signup.html:6
@@ -249,7 +265,7 @@ msgstr ""
 msgid "We've sent you an email. Please click <strong>Activate Profile</strong> in the email we just sent you."
 msgstr ""
 
-#: accounts/signup.html:22
+#: accounts/signup.html:23
 #, python-format
 msgid ""
 "\n"
@@ -257,29 +273,29 @@ msgid ""
 "    "
 msgstr ""
 
-#: accounts/signup.html:30
-msgid "Already have an account?"
+#: accounts/signup.html:31
+msgid "Have an account?"
 msgstr ""
 
 #: accounts/signup.html:31
-msgid "Log in here, fast & easy"
+msgid "Log in here"
 msgstr ""
 
-#: accounts/signup.html:38
+#: accounts/signup.html:36
 #, python-format
 msgid "Why join 1%%Club?"
 msgstr ""
 
-#: accounts/signup.html:40
+#: accounts/signup.html:38
 msgid "It's easy to find projects you like."
 msgstr ""
 
-#: accounts/signup.html:41
+#: accounts/signup.html:39
 #, python-format
 msgid "A fun and personal way to share your 1%%."
 msgstr ""
 
-#: accounts/signup.html:42
+#: accounts/signup.html:40
 msgid "You'll receive updates on the progress of the projects you support."
 msgstr ""
 

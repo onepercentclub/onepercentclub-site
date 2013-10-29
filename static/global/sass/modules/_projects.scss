@@ -69,27 +69,30 @@
     }
 }
 
+.project-days-left {
+	color: $gray-dark;
+	text-transform: uppercase;
+	
+	.flaticon {	
+	    font-size: 1em;
+        color: $gray-light;
+	}
+
+	strong {
+	    padding: 0;
+	}
+
+	em {
+	    font-style: normal;
+	}
+}
+
 .project-status {
     margin-top: $base-margin;
     margin-bottom: $base-margin;
     
     .project-days-left {
         text-align: center;
-    	color: $gray-dark;
-    	text-transform: uppercase;
-    	
-    	.flaticon {	
-    	    font-size: 1em;
-            color: $gray-light;
-    	}
-    
-    	strong {
-    	    padding: 0;
-    	}
-    
-    	em {
-    	    font-style: normal;
-    	}
     }
     
     .project-fund {

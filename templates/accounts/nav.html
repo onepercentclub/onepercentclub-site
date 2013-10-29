@@ -2,7 +2,7 @@
 {% load bb_ember i18n %}
 
 {% block_verbatim profile_anchor %}
-    <a href="#" class="nav-profile">
+    <a href="#" class="nav-member-dropdown">
         <img width="40" {{bindAttr src="controllers.currentUser.getAvatar"}} height="40" alt="Avatar" />
         <strong>
             {% trans "My 1%" %}
@@ -62,12 +62,12 @@
 
 {% block_verbatim anonymous_user %}
 
-    <li class="nav-member-actions">
+    <li class="nav-signup-login">
         {{#linkTo "signup" class="nav-signup"}}{% trans "Sign up" %}{{/linkTo}}
         {% trans "or" %}
         <a {{action 'openInBox' "login"}} class="nav-login">{%  trans "Log in" %}</a>
     </li>
-    <li class="nav-switch-lang">
+    <li class="nav-switch-language">
         {{view "App.LanguageSwitchView"}}
     </li>
 {% endblock_verbatim anonymous_user %}

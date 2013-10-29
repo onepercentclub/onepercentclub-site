@@ -400,3 +400,17 @@ DS.DRF2Adapter.registerTransform("birthdate", {
         return Year + "-" + pad(Month) + "-" + pad(DayOfMonth) + "T00:00:00Z";
     }
 });
+
+
+DS.DRF2Adapter.registerTransform("object", {
+    deserialize: function(serialized) {
+        if(serialized == undefined){
+            return null;
+        }
+        return serialized;
+    },
+    
+    serialize: function(deserialized) {
+        return Ember.isNone(deserialized) ? null : deserialized;
+    }
+});
