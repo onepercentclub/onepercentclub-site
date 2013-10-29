@@ -24,6 +24,11 @@ fieldset {
     	padding-bottom: $base-padding;
         margin-bottom: $base-margin;
     }
+    
+    .fieldset-content {
+        @include grid(48,2,2);
+        padding: $base-padding/2 0;
+    }
 }
 
 // When outside of fieldset (usally only the first)
@@ -70,7 +75,7 @@ fieldset legend {
         font-family: $font-family-heavy;
         
         &.wide {
-            @include grid(48, 1, 1);
+            @include grid(48,2,2);
         }
     }
 
@@ -80,15 +85,15 @@ fieldset legend {
         float: right;
         
         &.wide {
-            @include grid(48, 1, 1);
+            @include grid(48,2,2);
         }
 
         .inline-prepend {
-            @include grid(24, 0, 1);
+            @include grid(24,0,1);
         }
 
         .inline-append {
-            @include grid(24, 1, 0);
+            @include grid(24,1,0);
         }
     }
 }
@@ -241,22 +246,32 @@ textarea:-moz-placeholder { color: $gray-light; }
     text-indent: 0;
     
     li {
+        @include resetlist;
         display: inline-block;
-        padding: $base-padding/2;
+        padding: $base-padding/2 $base-padding/2 $base-padding/2 $base-padding;
         margin: 0 $base-margin/4 $base-margin/2 0;
-
-        border-bottom: 1px solid $gray;
-        border-right: 1px solid $gray;
-        background-color: $white;
+        color: $white;
+        font-size: $font-size-small;
+        text-transform: uppercase;
+        background-color: $color-secondary;
+        
+        .flaticon {
+            margin-right: $base-margin/2;
+        }
         
         .delete {
-            color: $gray;
+            color: $white;
             cursor: pointer;
+            
             &:hover {
                 color: $color-primary;
             }
         }
     }
+}
+
+.btn-tag, .btn-modest {
+    font-size: $font-size-small !important;
 }
 
 input.tag {
