@@ -9,7 +9,7 @@ from rest_framework import status
 from bluebottle.bluebottle_utils.tests import UserTestsMixin, generate_random_slug
 from apps.organizations.tests import OrganizationTestsMixin
 from apps.wallposts.models import TextWallPost
-from ..models import Project,ProjectPhases, ProjectPitch, ProjectPhaseLog
+from ..models import Project,ProjectPhases, ProjectPitch
 
 
 class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
