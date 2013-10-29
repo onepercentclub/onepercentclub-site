@@ -9,7 +9,7 @@ from rest_framework import status
 from bluebottle.bluebottle_utils.tests import UserTestsMixin, generate_random_slug
 from apps.organizations.tests import OrganizationTestsMixin
 from apps.wallposts.models import TextWallPost
-from ..models import Project,ProjectPhases, ProjectPitch
+from ..models import Project,ProjectPhases, ProjectPitch, ProjectPhaseLog
 
 
 class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
@@ -617,3 +617,18 @@ class CalculateProjectMoneyDonatedTest(ProjectTestsMixin, TestCase):
         donation = Donation.objects.create(user=user, amount=amount, status=status, project=project, order=order)
 
         return donation
+
+
+class ProjectPhaseLoggerTest(ProjectTestsMixin, TestCase):
+    def setUp(self):
+        self.some_project = self.create_project()
+
+    def test_phase_change_logged(self):
+        # One phase should be logged due to creation of the project
+        self.assertEqual(1, self.some_project.projectphaselog_set.count())
+        
+        # change the phase, it should be logged
+        self.some_project.phase = ProjectPhases.plan
+        self.some_project.save()
+
+        self.assertEqual(2, self.some_project.projectphaselog_set.count())
