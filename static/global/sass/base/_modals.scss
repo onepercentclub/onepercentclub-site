@@ -14,6 +14,7 @@
     @include opacity(0.85);
 }
 
+
 .modal {
     position: fixed;
     top: 10%;
@@ -26,7 +27,11 @@
     outline: none;
 
     &.large {
-        
+        height: 80%;
+        width: 700px;
+        .modal-body {
+            max-height: 90%;
+        }
     }
 }
 

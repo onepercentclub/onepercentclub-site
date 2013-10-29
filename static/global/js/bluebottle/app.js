@@ -498,6 +498,7 @@ App.HomeRoute = Em.Route.extend({
 /* Components */
 
 App.BbModalComponent = Ember.Component.extend({
+    classNames: ['hidden'],
     actions: {
         close: function() {
             this.$().removeClass('modal-active').addClass('hidden');
