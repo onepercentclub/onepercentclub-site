@@ -1,9 +1,16 @@
-from bluebottle.bluebottle_utils.utils import set_author_editor_ip
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
-from apps.wallposts.models import SystemWallPost
+from django.core.urlresolvers import reverse
+
+
 from polymorphic.admin import PolymorphicParentModelAdmin, PolymorphicChildModelAdmin
 from sorl.thumbnail.admin.compat import AdminImageMixin
+
+
+from bluebottle.bluebottle_utils.utils import set_author_editor_ip
+
+
+from apps.wallposts.models import SystemWallPost
 from .models import WallPost, MediaWallPost, TextWallPost, MediaWallPostPhoto, Reaction
 
 
@@ -72,7 +79,7 @@ admin.site.register(SystemWallPost, SystemWallPostAdmin)
 
 class ReactionAdmin(admin.ModelAdmin):
     # created and updated are auto-set fields. author, editor and ip_address are auto-set on save.
-    readonly_fields = ('created', 'updated', 'author', 'editor', 'ip_address')
+    readonly_fields = ('edit_wallpost_parent', 'created', 'updated', 'author', 'editor', 'ip_address')
     list_display = ('author_full_name', 'created', 'updated', 'deleted', 'ip_address')
     list_filter = ('created', 'updated', 'deleted')
     date_hierarchy = 'created'
@@ -94,6 +101,15 @@ class ReactionAdmin(admin.ModelAdmin):
             return full_name
 
     author_full_name.short_description = _('Author')
+
+    def edit_wallpost_parent(self, obj):
+        object = obj.wallpost.content_object
+        url = reverse('admin:%s_%s_change' % (object._meta.app_label, object._meta.module_name), args=[object.id])
+        return "<a href='%s'>%s</a>" % (str(url), object.title)
+
+    edit_wallpost_parent.allow_tags = True
+    #NOTE what if it's not a project but a task? Link is ok, but the description is not
+    edit_wallpost_parent.short_description = _('project link')
 
     def save_model(self, request, obj, form, change):
         """ Set the author or editor (as required) and ip when saving the model. """
