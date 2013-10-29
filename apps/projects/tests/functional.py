@@ -8,7 +8,7 @@ import time
 
 from django.conf import settings
 from django.utils.text import slugify
-from django.utils.unittest.case import skipUnless
+from django.utils.unittest.case import skipUnless, skipIf
 
 from ..models import Project, ProjectPhases
 from .unittests import ProjectTestsMixin
@@ -103,3 +103,98 @@ class ProjectSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
 
         # Compare all projects found on the web page with those in the database, in the same order.
         self.assertListEqual(web_projects, expected_projects)
+
+    def test_upload_pitch_picture(self):
+        """ Test that pitch picture uploads work. """
+        
+        # create project (with pitch)
+        slug = 'picture-upload'
+        project = self.create_project(title='Test picture upload', owner=self.user, phase='pitch', slug=slug)
+        pitch = project.projectpitch # raises error if no pitch is present
+        # create theme
+        pitch.theme = ProjectTheme.objects.create(name='Tests', name_nl='Testen', slug='tests')
+        # create country etc.
+        region = geo_models.Region.objects.create(name='Foo', numeric_code=123)
+        subregion = geo_models.SubRegion.objects.create(name='Bar', numeric_code=456, region=region)
+        pitch.country = geo_models.Country.objects.create(
+                            name='baz', 
+                            subregion=subregion,
+                            numeric_code=789,
+                            alpha2_code='AF',
+                            oda_recipient=True)
+
+        pitch.latitude = '52.3731'
+        pitch.longitude = '4.8922'
+        pitch.save()
+
+
+
+        self.login(self.user.email, 'secret')
+        # navigation itself has been tested before...
+        self.visit_path('/my/projects/')
+
+        self.browser.find_link_by_itext('continue pitch').first.click()
+
+        self.browser.find_link_by_itext('Media').first.click()
+        
+        # get preview div
+        self.assertTrue(self.browser.find_by_css('div.preview').has_class('empty'))
+        
+        file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'kitten_snow.jpg')
+        self.browser.attach_file('image', file_path)
+
+        # test if preview is there
+        preview = self.browser.find_by_css('div.preview')
+        self.assertFalse(preview.has_class('empty'))
+        img = preview.find_by_tag('img').first
+        self.assertNotEqual(img['src'], '%simages/empty.png' % settings.STATIC_URL)
+
+        # save
+        self.browser.find_by_tag('form').first.find_by_tag('button').first.click()
+
+        # return to media form
+        time.sleep(2) # link has to update
+        self.browser.find_link_by_itext('media').first.click()
+        
+        # check that the src of the image is correctly set (no base64 stuff)
+        src = self.browser.find_by_css('div.preview').first.find_by_tag('img').first['src']
+        self.assertEqual('.jpg', src[-4:])
+
+    @skipIf(settings.SELENIUM_WEBDRIVER == 'firefox', 'Broken in firefox due to FK constraints') # FIXME: bad request in firefox
+    def test_upload_multiple_wallpost_images(self):
+        """ Test uploading multiple images in a media wallpost """
+
+        self.login(self.user.email, 'secret')
+        self.visit_project_list_page()
+
+        # pick a project
+        self.browser.find_by_css('.item.item-project').first.find_by_tag('a').first.click()
+
+        form = self.browser.find_by_css('form.ember-view')
+        form_data = {
+            'input[placeholder="Keep it short and simple"]': 'My wallpost',
+            'textarea[name="wallpost-update"]': 'These are some sample pictures from this non-existent project!',
+        }
+        self.browser.fill_form_by_css(form, form_data)
+
+        # verify that no previews are there yet
+        ul = form.find_by_css('ul.wallpost-photos').first
+        previews = ul.find_by_css('li')
+        self.assertEqual(0, len(previews))
+
+
+        # attach file
+        file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'kitten_snow.jpg')
+        self.browser.attach_file('wallpost-photo', file_path)
+
+        # wait a bit, processing...
+
+        # verify that one picture was added
+        previews = ul.find_by_css('li')
+
+        self.assertEqual(1, len(previews))
+
+        # verify that a second picture was added
+        self.browser.attach_file('wallpost-photo', file_path)
+        previews = ul.find_by_css('li')
+        self.assertEqual(2, len(previews))
