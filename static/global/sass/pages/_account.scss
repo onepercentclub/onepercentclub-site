@@ -13,7 +13,7 @@
     }
     
     .account-title {
-        @include grid(42,1,1);
+        @include grid(32,1,0);
         margin-top: $base-margin;
         
         h2 {
@@ -35,12 +35,13 @@
     }
     
     .account-preview {
-        margin-top: $base-margin*1.5;
-        text-align: right;
+        @include grid(10,1,1);
         font-size: $font-size-small;
         color: $gray;
-        display: inline-block;
         float: right;
+        margin-top: $base-margin*2;
+        text-align: right;
+        display: inline-block;
     }
     
     .tabs {

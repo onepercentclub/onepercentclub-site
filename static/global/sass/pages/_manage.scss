@@ -2,107 +2,150 @@
 // Manage projects enviroment
 // --------------------------------------------------
 
-#project-dashboard {
-	
-    .menu-sidebar {
-        @include grid(16, 1, 0);
-        
-        .menu {
-            
-            .title {
-                
+form#manage-project-new {
+    font-size: $font-size-large;
+}
 
-                h4 {
-                    text-transform: uppercase;
-                    
-                    .flaticon {
-						text-align: center;
-                    }
-                }
-                
-                background-color: $color-secondary;
-                color: $white;
+#manage-project {
+	
+    .manage-project-sidebar {
+        @include grid(16,1,1);
+        
+        h4 {
+            padding: $base-padding $base-padding*1.5;
+            color: $white;
+            background: $color-secondary;
+            
+            .flaticon {
+                margin-right: $base-margin/2;
             }
-           
+        }
+        
+        p {
+            padding: $base-padding $base-padding*1.5; 
+        }
+    
+        .btn {
+            margin-top: $base-margin;
+            float: left;
+        }
+    }
+    
+    .manage-project-nav {
+        padding: 0;
+        margin: 0;
+        border-top: 1px solid $white;
+        
+        li {
+            @include resetlist;
             
             a {
             	text-decoration: underline;
                 display: block;
-                padding: $base-padding/2 $base-padding;
-                background-color: $gray-lighter;
-                color: $color-primary;
+                padding: $base-padding $base-padding;
+                background-color: $white;
+                color: $gray;
                 border-bottom: 1px solid $white;
-                font-weight: 300;
-                
-                .icon {
-		            display: inline-block;
-		            background-color: $color-primary;
-		            @include border-radius(16px);
-		            text-align: center;
-		            color: $color-text-light;
-		            font-style: normal;
-				}
+                font-family: $font-family-heavy;
+                text-decoration: none;
+                text-transform: uppercase;
                 
                 em {
-	            	display: inline-block;
-		            width: 26px;
-		            height: 26px;
-					vertical-align: middle;
-	            }
-	            
-	            em.is-unfinished {
-		            background-image: $icons;
-					background-repeat: no-repeat;
-					background-position: sprite-position($icons, dashboard-is-unfinished, 0, 0);
-	            }
-	            
-	            em.is-in-progress {
-		            background-image: $icons;
-					background-repeat: no-repeat;
-					background-position: sprite-position($icons, dashboard-is-in-progress, 0, 0);
-	            }
-	            
-	            em.is-finished {
-		            background-image: $icons;
-					background-repeat: no-repeat;
-					background-position: sprite-position($icons, dashboard-is-finished, 0, 0);
-	            }
-	                            
-                &.submit {
-	                background-color: $white;
+                	display: inline-block;
+    	            width: 26px;
+    	            height: 26px;
+    				vertical-align: middle;
+    				margin-right: 2px;
+                }
+                
+                .is-unfinished {
+    	            background-image: $icons;
+    				background-repeat: no-repeat;
+    				background-position: sprite-position($icons, dashboard-is-unfinished, 0, 0);
+                }
+                
+                .is-in-progress {
+    	            background-image: $icons;
+    				background-repeat: no-repeat;
+    				background-position: sprite-position($icons, dashboard-is-in-progress, 0, 0);
+                }
+                
+                .is-finished {
+                    color: $color-secondary;
+    	            background-image: $icons;
+    				background-repeat: no-repeat;
+    				background-position: sprite-position($icons, dashboard-is-finished, 0, 0);
                 }
                 
                 &.active {
-                    background-color: $white;
-                    color: $black;
-                    text-decoration: none;
+                    background-color: $gray-lighter;
+                    color: $color-heading;
                 }
+                
                 &.disabled {
                     color: $gray;
                 }
-                
             }
         }
     }
-
-    form {
-        margin-bottom: 24px;
-        
-        .controls {
-        
-            .extra-info {
-                padding: 8px 0px;
-                
-                strong {
-                    color: $color-secondary;
-                }
-            }
-
-        }
+    
+    .manage-project-overview {
+        @include prepend(2);
     }
-
-
+    
+    .manage-project-status {
+        margin-top: $base-margin/2;
+    }
+    
+    // Place errors on left
+    .has-errors {
+        right: auto;
+        left: -56%;
+    }
+    
+    
 }
+
+.toolbox {
+    @include grid(16,1,1);
+    margin-top: $base-margin*2;
+    background-color: $gray-lighter;
+    
+    .toolbox-title {
+        padding: $base-padding $base-padding*2;
+        background-color: $gray-light;
+        color: $white;
+        margin: 0;
+    }
+
+    .toolbox-content {
+        padding: $base-padding $base-padding*2;
+    }
+}
+
+.map-picker {
+    width: 100%;
+    height: 350px;
+}
+
+.map-look-up {
+    position: absolute;
+    top: 4px;
+    left: 100px;
+    font-size: 13px;
+    
+    input {
+        width: 300px;
+    }
+    
+    button {
+        
+    }
+}
+
+
+
+/*
 
 #project-dashboard .donate-status {
     width: 100%;
@@ -202,28 +245,5 @@
 	
 }
 
-.toolbox {
-    @include grid(16,1,0);
-    background-color: $gray-lighter;
-    
-    .title {
-        background-color: $gray-light;
-        color: $white;
-        
-    }
 
-    .body {
-        
-        .tip {
-        
-            .flaticon {
-                color: $gray-light;
-                float: left;
-                display: inline-block;
-            }
-            
-            margin-bottom: 12px;
-
-        }
-    }
-}
+*/

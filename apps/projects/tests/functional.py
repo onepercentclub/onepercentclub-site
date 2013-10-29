@@ -4,21 +4,30 @@ Functional tests using Selenium.
 
 See: ``docs/testing/selenium.rst`` for details.
 """
-import time
-
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.utils.text import slugify
 from django.utils.unittest.case import skipUnless, skipIf
+<<<<<<< HEAD
+=======
 
-from ..models import Project, ProjectPhases
+>>>>>>> 762ae482e461707212749a01611e364a8d039ec4
+
+from bluebottle.geo import models as geo_models
+from onepercentclub.tests.utils import OnePercentSeleniumTestCase
+
+
+from ..models import Project, ProjectPhases, ProjectPitch, ProjectTheme
 from .unittests import ProjectTestsMixin
 
-from bluebottle.tests.utils import SeleniumTestCase
+
+import os
+import time
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
         'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
-class ProjectSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
+class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
     """
     Selenium tests for Projects.
     """
@@ -27,8 +36,12 @@ class ProjectSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
             u'Women first 2', u'Mobile payments for everyone 2!', u'Schools for children 2'
         ]])
 
+        User = get_user_model()
+        # Create and activate user.
+        self.user = User.objects.create_user('johndoe@example.com', 'secret')
+
         for slug, title in self.projects.items():
-            project = self.create_project(title=title, slug=slug, money_asked=100000)
+            project = self.create_project(title=title, slug=slug, money_asked=100000, owner=self.user)
             project.projectcampaign.money_donated = 0
             project.projectcampaign.save()
 
@@ -160,7 +173,6 @@ class ProjectSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         src = self.browser.find_by_css('div.preview').first.find_by_tag('img').first['src']
         self.assertEqual('.jpg', src[-4:])
 
-    @skipIf(settings.SELENIUM_WEBDRIVER == 'firefox', 'Broken in firefox due to FK constraints') # FIXME: bad request in firefox
     def test_upload_multiple_wallpost_images(self):
         """ Test uploading multiple images in a media wallpost """
 
@@ -179,7 +191,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
 
         # verify that no previews are there yet
         ul = form.find_by_css('ul.wallpost-photos').first
-        previews = ul.find_by_css('li')
+        previews = ul.find_by_tag('li')
         self.assertEqual(0, len(previews))
 
 
@@ -188,13 +200,34 @@ class ProjectSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         self.browser.attach_file('wallpost-photo', file_path)
 
         # wait a bit, processing...
+        time.sleep(3)
 
         # verify that one picture was added
-        previews = ul.find_by_css('li')
+        form = self.browser.find_by_css('form.ember-view')
+        ul = form.find_by_css('ul.wallpost-photos').first
+        previews = ul.find_by_tag('li')
 
         self.assertEqual(1, len(previews))
 
         # verify that a second picture was added
+        file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'chameleon.jpg')
         self.browser.attach_file('wallpost-photo', file_path)
-        previews = ul.find_by_css('li')
+        
+        # wait a bit, processing...
+        time.sleep(3)
+
+        form = self.browser.find_by_css('form.ember-view')
+        ul = form.find_by_css('ul.wallpost-photos').first
+        previews = ul.find_by_tag('li')
         self.assertEqual(2, len(previews))
+
+    def test_meta_tag(self, lang_code=None):
+        self.visit_path('/projects/schools-for-children-2', lang_code)
+
+        self.assertIn('Schools for children 2', self.browser.title) # check that the title indeed contains the project title
+
+        # check meta url
+        meta_url = self.browser.find_by_xpath("//html/head/meta[@property='og:url']").first
+        self.assertEqual(self.browser.url, meta_url['content'])
+
+        # TODO: check that the default description is overwritten, add description to plan

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-04 16:16+0200\n"
+"POT-Creation-Date: 2013-10-28 14:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,95 +33,95 @@ msgstr ""
 msgid "Mark selected entries as published"
 msgstr ""
 
-#: models.py:14 models.py:39
+#: models.py:23 models.py:48
 msgid "Title"
 msgstr ""
 
-#: models.py:17
+#: models.py:26
 msgid "Blog category"
 msgstr ""
 
-#: models.py:18
+#: models.py:27
 msgid "Blog categories"
 msgstr ""
 
-#: models.py:31
+#: models.py:40
 msgid "Published"
 msgstr ""
 
-#: models.py:32
+#: models.py:41
 msgid "Draft"
 msgstr ""
 
-#: models.py:35
+#: models.py:44
 msgid "Blog"
 msgstr ""
 
-#: models.py:36 models.py:103 models.py:104
+#: models.py:45 models.py:118 models.py:119
 msgid "News"
 msgstr ""
 
-#: models.py:38
+#: models.py:47
 msgid "Type"
 msgstr ""
 
-#: models.py:40
+#: models.py:49
 msgid "Slug"
 msgstr ""
 
-#: models.py:43
+#: models.py:52
 msgid "Main photo"
 msgstr ""
 
-#: models.py:44
+#: models.py:53
 msgid "language"
 msgstr ""
 
-#: models.py:48
+#: models.py:57
 msgid "status"
 msgstr ""
 
-#: models.py:49
+#: models.py:58
 msgid "publication date"
 msgstr ""
 
-#: models.py:49
+#: models.py:58
 msgid "When the entry should go live, status must be \"Published\"."
 msgstr ""
 
-#: models.py:50
+#: models.py:59
 msgid "publication end date"
 msgstr ""
 
-#: models.py:51
+#: models.py:60
 msgid "Allow comments"
 msgstr ""
 
-#: models.py:54
+#: models.py:63
 msgid "author"
 msgstr ""
 
-#: models.py:55
+#: models.py:64
 msgid "creation date"
 msgstr ""
 
-#: models.py:56
+#: models.py:65
 msgid "last modification"
 msgstr ""
 
-#: models.py:59
+#: models.py:68
 msgid "Categories"
 msgstr ""
 
-#: models.py:61
+#: models.py:70
 msgid "Countries"
 msgstr ""
 
-#: models.py:66 models.py:86
+#: models.py:75 models.py:101
 msgid "Blog post"
 msgstr ""
 
-#: models.py:67 models.py:87
+#: models.py:76 models.py:102
 msgid "Blog posts"
 msgstr ""
 
@@ -134,15 +134,15 @@ msgstr ""
 msgid "Loading the latest news"
 msgstr ""
 
-#: templates/blogs.hbs:52
+#: templates/blogs.hbs:50
 msgid "More news"
 msgstr ""
 
-#: templates/blogs.hbs:67
+#: templates/blogs.hbs:65
 msgid "previous 5"
 msgstr ""
 
-#: templates/blogs.hbs:72
+#: templates/blogs.hbs:70
 msgid "next 5"
 msgstr ""
 

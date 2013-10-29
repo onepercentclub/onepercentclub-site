@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-04 16:16+0200\n"
+"POT-Creation-Date: 2013-10-28 14:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,75 +29,75 @@ msgstr ""
 msgid "Mark selected entries as published"
 msgstr ""
 
-#: models.py:14
+#: models.py:21
 msgid "Published"
 msgstr ""
 
-#: models.py:15
+#: models.py:22
 msgid "Draft"
 msgstr ""
 
-#: models.py:17
+#: models.py:24
 msgid "Title"
 msgstr ""
 
-#: models.py:18
+#: models.py:25
 msgid "Slug"
 msgstr ""
 
-#: models.py:21
+#: models.py:28
 msgid "language"
 msgstr ""
 
-#: models.py:25 models.py:52
+#: models.py:32 models.py:65
 msgid "status"
 msgstr ""
 
-#: models.py:26
+#: models.py:33
 msgid "publication date"
 msgstr ""
 
-#: models.py:26
+#: models.py:33
 msgid "When the entry should go live, status must be \"Published\"."
 msgstr ""
 
-#: models.py:27
+#: models.py:34
 msgid "publication end date"
 msgstr ""
 
-#: models.py:30 models.py:54
+#: models.py:37 models.py:67
 msgid "author"
 msgstr ""
 
-#: models.py:31 models.py:59
+#: models.py:38 models.py:72
 msgid "creation date"
 msgstr ""
 
-#: models.py:32 models.py:60
+#: models.py:39 models.py:73
 msgid "last modification"
 msgstr ""
 
-#: models.py:48
+#: models.py:61
 msgid "New"
 msgstr ""
 
-#: models.py:49
+#: models.py:62
 msgid "In progress"
 msgstr ""
 
-#: models.py:50
+#: models.py:63
 msgid "Closed"
 msgstr ""
 
-#: models.py:55 templates/pages.hbs:83
+#: models.py:68 templates/pages.hbs:79
 msgid "Name"
 msgstr ""
 
-#: models.py:56 templates/pages.hbs:95
+#: models.py:69 templates/pages.hbs:90
 msgid "Email"
 msgstr ""
 
-#: models.py:57 templates/pages.hbs:107
+#: models.py:70 templates/pages.hbs:102
 msgid "Message"
 msgstr ""
 
@@ -136,7 +136,7 @@ msgstr ""
 msgid "Work at 1%%Club"
 msgstr ""
 
-#: templates/pages.hbs:27 templates/pages.hbs.py:66
+#: templates/pages.hbs:27 templates/pages.hbs.py:62
 msgid "Contact"
 msgstr ""
 
@@ -144,30 +144,30 @@ msgstr ""
 msgid "Something went wrong"
 msgstr ""
 
-#: templates/pages.hbs:50
+#: templates/pages.hbs:49
 msgid "The page you are looking for couldn't be found."
 msgstr ""
 
-#: templates/pages.hbs:68
+#: templates/pages.hbs:64
 msgid ""
 "\n"
-"\t\t                    Send us a message or get in touch using the details below. Talk to you soon!\n"
-"\t\t                    "
+"                            Send us a message or get in touch using the details below. Talk to you soon!\n"
+"                            "
 msgstr ""
 
-#: templates/pages.hbs:77
+#: templates/pages.hbs:73
 msgid "Thanks for your message!. We'll get back to you soon"
 msgstr ""
 
-#: templates/pages.hbs:120
+#: templates/pages.hbs:115
 msgid "Send Message"
 msgstr ""
 
-#: templates/pages.hbs:126
+#: templates/pages.hbs:121
 msgid "Other ways to contact"
 msgstr ""
 
-#: templates/pages.hbs:127
+#: templates/pages.hbs:122
 #, python-format
 msgid ""
 "\n"
@@ -192,7 +192,7 @@ msgid ""
 "</p>\n"
 msgstr ""
 
-#: templates/pages.hbs:176
+#: templates/pages.hbs:171
 msgid "No projects found."
 msgstr ""
 
