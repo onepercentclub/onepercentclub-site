@@ -8,10 +8,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.utils.text import slugify
 from django.utils.unittest.case import skipUnless, skipIf
-<<<<<<< HEAD
-=======
 
->>>>>>> 762ae482e461707212749a01611e364a8d039ec4
 
 from bluebottle.geo import models as geo_models
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
