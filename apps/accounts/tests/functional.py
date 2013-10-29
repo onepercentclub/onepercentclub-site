@@ -15,14 +15,18 @@ from django.utils.unittest.case import skipUnless, skipIf
 
 from bluebottle.accounts.models import BlueBottleUser
 from bluebottle.geo.models import Region
-from bluebottle.tests.utils import SeleniumTestCase
+
 
 from apps.projects.tests import ProjectTestsMixin
+from onepercentclub.tests.utils import OnePercentSeleniumTestCase
+
+
+import os
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
             'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
-class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
+class AccountSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
     """
     Selenium tests for account actions.
     """
@@ -145,7 +149,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         
         self.login(user.email, 'secret')
 
-        self.browser.find_by_css('.nav-member-my1percent').first.mouse_over()
+        self.browser.find_by_css('.nav-member-profile').first.mouse_over()
         self.browser.find_link_by_partial_text('Edit my profile & settings').first.click()
 
         # Validate that we are on the intended page.
@@ -190,7 +194,7 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
 
         self.login(user.email, 'secret')
 
-        self.browser.find_by_css('.nav-member-my1percent').first.mouse_over()
+        self.browser.find_by_css('.nav-member-profile').first.mouse_over()
         self.browser.find_link_by_partial_text('Edit my profile & settings').first.click()
 
         # Validate that we are on the intended page.
@@ -318,3 +322,30 @@ class AccountSeleniumTests(ProjectTestsMixin, SeleniumTestCase):
         user = BlueBottleUser.objects.get(pk=user.pk)
         self.assertFalse(check_password(old_password, user.password))
         self.assertTrue(check_password(new_password, user.password))
+
+    def test_upload_profile_picture(self):
+        """ Test that profile picture uploads work. """
+        
+        # Create and activate user.
+        user = BlueBottleUser.objects.create_user('johndoe@example.com', 'secret')
+        self.login(user.email, 'secret')
+
+        # navigation itself has been tested before...
+        self.visit_path('/member/profile')
+        
+        file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'kitten_snow.jpg')
+        self.browser.attach_file('picture', file_path)
+
+        # test if preview is there
+        preview = self.browser.find_by_css('div.preview')
+        preview.find_by_tag('img')
+        self.assertTrue(preview.visible)
+
+        # save
+        self.browser.find_link_by_itext('SAVE').first.click()
+
+        # check that the avatar is not the default image
+        self.visit_homepage()
+
+        avatar_src = self.browser.find_by_css('li.nav-member-profile a.nav-profile img').first['src']
+        self.assertNotEqual(avatar_src, '%simages/default-avatar.png' % settings.STATIC_URL)
