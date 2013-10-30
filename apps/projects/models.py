@@ -14,7 +14,7 @@ from sorl.thumbnail import ImageField
 from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
 from apps.fund.models import Donation, DonationStatuses
 from django.template.defaultfilters import slugify
-from django.utils import timezone
+from django.utils import formats, timezone
 from django.utils.translation import get_language
 
 
