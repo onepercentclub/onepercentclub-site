@@ -250,9 +250,25 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
     get_phase_display.admin_order_field = 'phase'
     get_phase_display.short_description = _('phase')
 
+    def project_organization(self, obj):
+        object = obj.projectplan.organization
+        url = reverse('admin:%s_%s_change' % (object._meta.app_label, object._meta.module_name), args=[object.id])
+        return "<a href='%s'>%s</a>" % (str(url), object.name)
+
+    project_organization.allow_tags = True
+
     def funded(self, obj):
         try:
-            return u'{funded} %'.format(funded=obj.projectcampaign.percentage_funded)
+            # 
+            funded = obj.projectcampaign.percentage_funded
+            if funded == 100.0:
+                try:
+                    phase_log = obj.projectphaselog_set.get(phase=ProjectPhases.act)
+                    created = formats.date_format(phase_log.created, 'SHORT_DATETIME_FORMAT')
+                    return u'{funded} % ({date})'.format(funded=funded, date=created)
+                except ProjectPhaseLog.DoesNotExist:
+                    pass
+            return u'{funded} %'.format(funded=funded)
         except ProjectCampaign.DoesNotExist:
             return _('n/a')
 
