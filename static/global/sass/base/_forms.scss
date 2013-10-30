@@ -99,11 +99,15 @@ fieldset legend {
 }
 
 .message {
+    display: block;
+    @include grid(48,1,1);
+    @include clear;
     position: relative;
     color: $color-text-light;
     font-family: $font-family-heavy;
     padding: $base-padding $base-padding*2;
     margin-top: 1px;
+    margin-bottom: $base-margin;
     background-color: $color-secondary;
     
     .message-close {
@@ -117,6 +121,14 @@ fieldset legend {
         &:hover, &:active {
             color: $white;
         }
+    }
+    
+    .message-title {
+        font-family: $font-family-bold;
+    }
+    
+    .message-content {
+        font-family: $font-family-heavy;
     }
     
     &.is-error {
