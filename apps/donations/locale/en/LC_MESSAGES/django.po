@@ -1,0 +1,205 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-10-28 14:48+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: templates/donations.hbs:14
+#, python-format
+msgid "My 1%%"
+msgstr ""
+
+#: templates/donations.hbs:14 templates/donations.hbs.py:42
+msgid "Donations"
+msgstr ""
+
+#: templates/donations.hbs:22 templates/donations.hbs.py:75
+msgid "Monthly Donation"
+msgstr ""
+
+#: templates/donations.hbs:23
+msgid "Select Projects"
+msgstr ""
+
+#: templates/donations.hbs:32
+msgid "Donation Profile"
+msgstr ""
+
+#: templates/donations.hbs:33
+msgid "Payment Details"
+msgstr ""
+
+#: templates/donations.hbs:43
+msgid "Donation History"
+msgstr ""
+
+#: templates/donations.hbs:66
+msgid "Order History"
+msgstr ""
+
+#: templates/donations.hbs:75
+msgid "Single Donation"
+msgstr ""
+
+#: templates/donations.hbs:91
+msgid "Loading order history"
+msgstr ""
+
+#: templates/donations.hbs:106
+msgid "Edit your payment info"
+msgstr ""
+
+#: templates/donations.hbs:107
+msgid "Here you can change your bank account info and monthly donations."
+msgstr ""
+
+#: templates/donations.hbs:113 templates/donations.hbs.py:254
+msgid "Account Name"
+msgstr ""
+
+#: templates/donations.hbs:123 templates/donations.hbs.py:264
+msgid "Account City"
+msgstr ""
+
+#: templates/donations.hbs:133 templates/donations.hbs.py:274
+msgid "Account Number"
+msgstr ""
+
+#: templates/donations.hbs:146
+msgid "Monthly settings saved"
+msgstr ""
+
+#: templates/donations.hbs:151 templates/donations.hbs.py:292
+msgid "Save"
+msgstr ""
+
+#: templates/donations.hbs:173 templates/donations.hbs.py:178
+#: templates/donations.hbs:183
+msgid "Monthly donations"
+msgstr ""
+
+#: templates/donations.hbs:173
+msgid "Active"
+msgstr ""
+
+#: templates/donations.hbs:178
+msgid "Start"
+msgstr ""
+
+#: templates/donations.hbs:180
+msgid "Active monthly donations"
+msgstr ""
+
+#: templates/donations.hbs:183
+msgid "Off"
+msgstr ""
+
+#: templates/donations.hbs:185
+msgid "Turn monthly donations on"
+msgstr ""
+
+#: templates/donations.hbs:198
+#, python-format
+msgid "You are a 1%%Friend"
+msgstr ""
+
+#: templates/donations.hbs:199
+msgid "You currently support the top 3 projects with your monthly donation."
+msgstr ""
+
+#: templates/donations.hbs:199
+msgid "The 3 most popular projects at this moment are:."
+msgstr ""
+
+#: templates/donations.hbs:217 templates/donations.hbs.py:361
+msgid "is still needed"
+msgstr ""
+
+#: templates/donations.hbs:228
+msgid "Total"
+msgstr ""
+
+#: templates/donations.hbs:234
+msgid "Divide to projects"
+msgstr ""
+
+#: templates/donations.hbs:244
+msgid "Add another project"
+msgstr ""
+
+#: templates/donations.hbs:246
+msgid "Add a project"
+msgstr ""
+
+#: templates/donations.hbs:303
+msgid "Stop monthly donation"
+msgstr ""
+
+#: templates/donations.hbs:338
+msgid "No projects found."
+msgstr ""
+
+#: templates/donations.hbs:373
+msgid "Delete"
+msgstr ""
+
+#: templates/donations.hbs:397
+msgid "New"
+msgstr ""
+
+#: templates/donations.hbs:397
+msgid "Smart Idea"
+msgstr ""
+
+#: templates/donations.hbs:403
+msgid "To go"
+msgstr ""
+
+#: templates/donations.hbs:406
+msgid "days"
+msgstr ""
+
+#: templates/donations.hbs:445
+msgid "Results"
+msgstr ""
+
+#: templates/donations.hbs:447
+msgid "Reset Search Filter"
+msgstr ""
+
+#: templates/donations.hbs:452
+msgid "Sort:"
+msgstr ""
+
+#: templates/donations.hbs:453
+msgid "Most popular"
+msgstr ""
+
+#: templates/donations.hbs:460
+msgid "Newest"
+msgstr ""
+
+#: templates/donations.hbs:461
+msgid "Almost funded"
+msgstr ""
+
+#: templates/donations.hbs:462
+msgid "Near deadline"
+msgstr ""
+
+#: templates/donations.hbs:466
+msgid "Showing"
+msgstr ""

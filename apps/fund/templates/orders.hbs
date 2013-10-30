@@ -129,7 +129,7 @@
         {{/linkTo}}
         
 	    {{#if readyForPayment }}
-	        {{#linkTo 'paymentProfile' class="btn btn-primary btn-iconed btn-next"}}<span class="flaticon solid right-2"></span>{% trans "Next Step" %}{{/linkTo}}
+	        <button {{action nextStep}} class="btn btn-iconed btn-next"><span class="flaticon solid right-2"></span>{% trans "Next Step" %}</button>
 	    {{else}}
 	        <button disabled class="btn btn-iconed btn-next"><span class="flaticon solid right-2"></span>{% trans "Next Step" %}</button>
 	    {{/if}}
@@ -239,7 +239,7 @@
 	        {{/if}}
 	    </fieldset>
 	
-	    {{#if isFormReady }}
+	    {{#if isComplete }}
 	        <button class="btn btn-primary btn-iconed btn-next"><span class="flaticon solid right-2"></span>{% trans 'Next Step' %}</button>
 	    {{else}}
 	        <button disabled class="btn btn-iconed btn-next"><span class="flaticon solid right-2"></span>{% trans "Next Step" %}</button>
