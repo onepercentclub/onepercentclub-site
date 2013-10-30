@@ -26,6 +26,8 @@
     
     .member-name {
         display: inline-block;
+        text-transform: uppercase;
+        font-family: $font-family-heavy;
     }
     
     .member-organisation {
