@@ -1,10 +1,3 @@
-function setCookie(name, value, expireDays){
-    var expireDate = new Date();
-    expireDate.setDate(exdate.getDate() + exdays);
-    var value=escape(value) + ((expireDays==null) ? "" : "; expires=" + expireDate.toUTCString());
-    document.cookie = name + "=" + value;
-}
-
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie != '') {
@@ -21,11 +14,11 @@ function getCookie(name) {
     return cookieValue;
 }
 
-function setCookie(c_name,value,exdays)
+function setCookie(c_name, value, expireDays)
 {
-    var exdate=new Date();
-    exdate.setDate(exdate.getDate() + exdays);
-    var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+    var expireDate=new Date();
+    expireDate.setDate(expireDate.getDate() + expireDays);
+    var c_value=escape(value) + ((expireDays==null) ? "" : "; expires="+expireDate.toUTCString());
     document.cookie=c_name + "=" + c_value;
 }
 
