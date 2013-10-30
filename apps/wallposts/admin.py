@@ -87,6 +87,8 @@ class ReactionAdmin(admin.ModelAdmin):
     raw_id_fields = ('author', 'editor')
     search_fields = ('text', 'author__username', 'author__email', 'author__first_name', 'author__last_name', 'ip_address')
 
+    fields = ('text', 'project_url', 'wallpost', 'deleted', 'created', 'updated', 'author', 'editor', 'ip_address')
+
     def get_fieldsets(self, request, obj=None):
         """ Only show the relevant fields when adding a Reaction. """
         if obj: # editing an existing object
