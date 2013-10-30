@@ -3,7 +3,6 @@
 #footer {
 	position: relative;
 	background-color: $gray-lighter;
-	font-size: $font-size-small;
     
     ul, li {
     	margin: 0;
@@ -14,7 +13,7 @@
     
 	.footer-content {
 	    @include grid(48,1);
-	    padding: $base-padding*4 0;
+	    padding: $base-padding*2 0;
 	    color: $gray;
 	    
 	    hr {
@@ -28,7 +27,7 @@
 	    
 		h3 {
 		    font-size: $base-font-size;
-		    //@include rem(margin, 0 0 8px 0);
+		    margin-bottom: $base-margin/2;
 		    color: $gray-darker;
 		}
 	}
@@ -74,26 +73,39 @@
 	.footer-join-us ul {
 		@include grid(24);
 	}
+		
+	iframe {
+		width: 38% !important;
+		float: left;
+	}
 	
 	.footer-social-links {
-		margin-top: $base-margin/2;
+	    @include clear;
+	    clear: both;
+		padding-top: $base-margin;
 		
 	    li {
-	        margin-right: $base-margin/2;
-	        float: left;
+	        display: inline;
 	        
-	        .flaticon {
-	            transition: 200ms;
-	            background-color: $gray;
-	            color: $white;
+	        a {
+	            @include transition(all 0.2s ease-out);
 	            display: inline-block;
-	            font-size: $font-size-medium;
+    	        margin-right: $base-margin/4;
 	            padding-top: $base-margin/2;
+	            float: left;
+	            width: 2em;
+	            height: 2em;
 	            text-align: center;
+	            font-size: $font-size-medium;
+	            background-color: $gray;
 	            
-	            &:hover {
+	             &:hover {
 	                background-color: $color-text;
 	            }
+	        }
+	        
+	        .flaticon {
+	            color: $white;
 	        }
 	    }
 	}

@@ -471,7 +471,6 @@ App.SocialShareView = Em.View.extend({
 
     showDialog: function(shareUrl, type) {
         var currentLink = encodeURIComponent(location.href);
-
         window.open(shareUrl + currentLink, type + '-share-dialog', 'width=' + this.get('dialogW') + ',height=' + this.get('dialogH'));
     }
 })

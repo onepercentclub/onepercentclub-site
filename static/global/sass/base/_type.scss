@@ -52,7 +52,7 @@ cite {
 h1, h2, h3, h4, h5, h6 {
 	margin: $base-margin/2 0 0 0;
 	font-family: $font-family-bold;
-	line-height: $base-line-height;
+	line-height: 1.3em;
 	text-transform: uppercase;
 	
 	small {
@@ -114,14 +114,6 @@ a {
 	}
 }
 
-
-
-// Page header
-// -------------------------
-
-.l-page-header, .page-header {
-  	margin: $base-margin*2 0 $base-margin 0;
-}
 
 // Lists
 // --------------------------------------------------
@@ -209,16 +201,13 @@ abbr.initialism {
 
 // Blockquotes
 blockquote {
-	padding: 0 0 0 15px;
-	margin: 0 0 $base-line-height;
+	padding: 0 0 0 $base-padding;
+	margin: $base-margin 0;
 	border-left: 5px solid $gray-lighter;
 	
 	p {
-		margin-bottom: 0;
-		font-size: $base-font-size * 1.25;
-		font-weight: 300;
-		line-height: 1.25;
-	}
+		margin-bottom: 0;	
+    }
 	
 	small {
 		display: block;
