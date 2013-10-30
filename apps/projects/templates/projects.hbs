@@ -286,7 +286,7 @@
             <ul>
                 <li>
                     <a {{action 'openInBigBox' 'userModal' owner }} class="member">
-                        <span class="member-avatar"><img {{bindAttr src="owner.getAvatar" info="owner.first_name"}} alt="team_member.full_name" /></span>
+                        <figure class="member-avatar"><img {{bindAttr src="owner.getAvatar"}} /></figure>
                         <h4>{% trans "Initiator" %}</h4>
                         <strong class="member-name">{{owner.full_name}}</strong>
                         <em class="member-organisation">{{organization}}</em>
@@ -319,14 +319,13 @@
 {% tplhandlebars "project_supporter_list" %}
 
     {{#if supporters.length}}
-        <li class="project-member-supporters-total">
-            <strong>{{supporters.length}}</strong>
-            <br/>
-            <em>Total</em>
-        </li>
-
         <li class="project-member-supporters">
             <ul>
+                <li class="project-member-supporters-total">
+                    <strong>{{supporters.length}}</strong>
+                    <br/>
+                    <em>Total</em>
+                </li>
                 {{#each supporter in controller}}
                     {{view "App.ProjectSupporterView" }}
                 {{/each}}

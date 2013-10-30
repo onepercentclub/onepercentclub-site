@@ -47,23 +47,19 @@ object, embed, iframe {
         @include resetlist;
         @include grid(8,0,1);
         overflow: hidden;
+        margin-bottom: $base-margin;
         
         img {
-            border: 1px solid $gray-dark;
+            border: 1px solid $white;
         }
         
         &:hover img {
-            border-color: $color-secondary;
-        }
-        
-        &:first-child {
-            @include grid(48, 0, 0);
             border-color: $color-primary;
         }
-    
+        
         &.more {
             display: block;
-            @include grid(8, 0, 0);
+            @include grid(8,0,0);
             background-color: $color-secondary;
             
             a {

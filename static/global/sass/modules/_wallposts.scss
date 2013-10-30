@@ -26,7 +26,6 @@
 		    @include clear;
 		    @include grid(48,0,0);
 	    }
-	    
     }
     
     .wallpost-photos {
@@ -54,7 +53,6 @@
 	    @include clear;
 	    position: relative;
 	    padding: $base-padding 0 $base-padding/2 0;
-	    //border-bottom: 1px solid $gray-lighter;
 	    
 	    header {
             position: relative;
@@ -128,16 +126,14 @@
         }
         
         .login-box {
-            @include grid(48,12,0);
+            opacity: 0;
+            @include transition(opacity 0.2s ease-out);
             color: $gray;
-            //opacity: 0;
-            //@include transition(opacity 0.2s ease-out);
-            //background-color: $gray-lighter;
-            padding: $base-padding;
+            padding-bottom: $base-padding;
         }
         
         &:hover .login-box {
-            //opacity: 1;
+            opacity: 1;
         }
         
         &.wallpost-system {
@@ -172,5 +168,17 @@
                 display: none;
             }
         }
+	}
+	
+	.btn-more {
+	    margin-top: $base-margin;
+	    padding-top: $base-padding;
+    	@include grid(48,12,0);
+    	border-top: 1px solid $gray-lighter;
+    	text-align: center;
+    	
+    	small {
+        	color: $gray;
+    	}
 	}
 }

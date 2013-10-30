@@ -90,10 +90,10 @@
                                     <span class="error">{% trans "Error" %}</span>
                                 {{else}}
                                     {{#if photo.photo.small}}
-                                        <img {{bindAttr src="photo.photo.small"}} width="100%" alt="Thumbnail" />
-                                        <a {{action "removePhoto" photo href=true}} class="remove">[x]</a>
+                                        <img {{bindAttr src="photo.photo.small"}} />
+                                        <a {{action "removePhoto" photo href=true}} class="delete">x</a>
                                     {{else}}
-                                        <img src="{% get_static_prefix %}images/loading.gif" width="100%" alt="Thumbnail" />
+                                        <div class="is-loading-small"><img src="{% get_static_prefix %}images/loading.gif" /> <strong>{% trans "Loading photos" %}</strong></div>
                                     {{/if}}
                                 {{/if}}
                             </li>
@@ -121,7 +121,7 @@
 	            </div>
 	
 	            {{#if errors.text }}
-	                <div class="errors">{{#each errors.text}}<p>{{this}}</p>{{/each}}</div>
+	                <div class="has-errors">{{#each errors.text}}<p>{{this}}</p>{{/each}}</div>
 	            {{/if}}
 	        </li>
 	    </ul>
@@ -149,11 +149,10 @@
     	        {{/each}}
             	
                 {{#if canLoadMore}}
-                    <a {{action "showMore"}} class="show-more">
+                    <a {{action "showMore"}} class="btn-link btn-more">
                         <span class="flaticon solid plus-2"></span> {% trans "Show more" %} <small>{{remainingItemCount}} {% trans "more" %}</small>
                     </a>
                 {{else}}
-                    {# trans "no more posts to show" #}
                 {{/if}}
     
         	</div>

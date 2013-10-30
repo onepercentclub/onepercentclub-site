@@ -16,7 +16,7 @@
             float: left;
             border-width: 1px;
             border-style: solid;
-            border-color: $white;
+            border-color: transparent;
             background-color: $gray-lighter;
             color: $color-text-light;
             vertical-align: middle;
@@ -40,7 +40,7 @@
     &:hover {
     
         img {
-    
+            border-color: $color-primary;
         }
     }
 }
@@ -81,24 +81,6 @@
             li {
                 display: inline;
                 margin: 0;
-
-                .member {
-                
-                    .member-avatar {
-                        border-width: 1px 1px 1px 0;
-                    }
-                    
-                }
-
-                .popover {
-                    display: none !important;
-                    bottom: 60px;
-                    left: 0;
-                }
-
-                &:first-child a img {
-                    border-left: 1px solid $white;
-                }
             }
         }
 
@@ -108,41 +90,31 @@
             h4 {
                 position: relative;
                 bottom: auto;
-                color: $gray-darker;
-                font-weight: 300;
             }
     
-            ul li a {
-                margin-right: 3em;
-                text-transform: uppercase;
-    
-                img {
-                    position: relative;
-                    margin-right: 0.5em;
-                    width: 68px;
-                    height: auto;
-                }
+            .member-avatar {
+                display: block;
+                float: left;
+                margin-right: $base-margin;
+                width: 68px;
             }
         }
         
         &.project-member-supporters {
-            @include grid(36,0,1);
-            margin-right: 0;
+            @include grid(36,0,0);
+            margin-right: 0;        
         }
     }
 
     .project-member-supporters, .project-member-supporters-total {
         display: none;
         display: block;
-        float: right;
         margin: 0;
         padding: 0;
 
         a {
-            padding-top: $base-padding/4;
             width: 45px;
             height: 45px;
-            background-color: $white;
             color: $color-text;
             vertical-align: middle;
             text-align: center;
@@ -151,19 +123,36 @@
             line-height: 1em;
 
             strong {
-                //@include rem(font-size, 22px);
                 color: $color-primary;
-                //font-weight: 300;
             }
 
             em {
                 font-style: normal;
             }
-
         }
     }
     
     .project-member-supporters-total {
+        float: left;
+        display: block;
+        padding-top: $base-padding;
+        background: $white;
+        width: 44px;
+        height: 44px;
+        text-transform: uppercase;
+        text-align: center;
+        line-height: 1em;
+        border-width: 1px;
+        border-style: solid;
+        border-color: transparent;
         
+        strong {
+            color: $color-primary;
+        }
+        
+        em {
+            font-style: normal;
+            color: $gray;
+        }
     }
 }

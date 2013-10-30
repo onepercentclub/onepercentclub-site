@@ -83,6 +83,10 @@
         background-color: $gray-lighter;
         padding: $base-padding;
         
+        &:last-of-type {
+            margin-bottom: $base-margin;
+        }
+        
         header {
             @include clear;
             
@@ -90,13 +94,14 @@
                 @include grid(28,0,0);
                 
                 .member-avatar {
-                    @include grid(10,0,2);
+                    @include grid(9,0,2);
                     position: absolute;
                     left: 0;
                 }
             
                 .member-name {
                     @include prepend(10);
+                    color: $gray;
                 }
             }
             
@@ -123,7 +128,6 @@
             .manage {
                 display: block;
             }
-            
         }
         
         .reaction-content {
@@ -132,10 +136,14 @@
             vertical-align: baseline;
             word-wrap: break-word;
             
+            .text {
+                margin: 0;
+                padding: 0;
+            }
+            
             p {
                 margin: 0;
                 padding: 0;
-                //line-height: 1.6em;
                 margin-bottom: $base-margin/2;
             }
         }
