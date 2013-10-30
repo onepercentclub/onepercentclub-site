@@ -199,7 +199,9 @@ App.MonthlyProjectListController = App.ProjectListController.extend({});
 App.MonthlyDonationController = Em.ObjectController.extend({
     deleteDonation: function() {
         var donation = this.get('model');
-        donation.get('order').transaction.add(donation);
+        var order = donation.get('order');
+        order.transaction.add(donation);
+        order.get('donations').removeObject(donation);
         donation.deleteRecord();
     }
 });
