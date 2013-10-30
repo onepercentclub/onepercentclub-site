@@ -442,10 +442,14 @@ App.ApplicationRoute = Em.Route.extend({
             var route = this;
             App.CurrentOrder.find('current').then(function(order) {
                 var store = route.get('store');
-                var donation = store.createRecord(App.CurrentOrderDonation);
-                donation.set('project', project);
-                donation.set('order', order);
-                donation.save();
+                if (order.get('donations').anyBy('project', project)) {
+                   // Donation for this already exists in this order.
+                } else {
+                    var donation = store.createRecord(App.CurrentOrderDonation);
+                    donation.set('project', project);
+                    donation.set('order', order);
+                    donation.save();
+                }
                 route.transitionTo('currentOrder.donationList');
             });
         }
