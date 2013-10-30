@@ -206,7 +206,7 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
 
     raw_id_fields = ('owner', 'coach')
 
-    readonly_fields = ('project_owner', 'pitch_view', 'plan_view', 'campaign_view', 'funded')
+    readonly_fields = ('project_owner', 'pitch_view', 'plan_view', 'campaign_view', 'project_organization', 'funded')
 
     fields = readonly_fields + ('owner', 'coach', 'title', 'slug', 'phase', 'partner_organization')
 
@@ -249,6 +249,13 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
 
     get_phase_display.admin_order_field = 'phase'
     get_phase_display.short_description = _('phase')
+
+    def project_organization(self, obj):
+        object = obj.projectplan.organization
+        url = reverse('admin:%s_%s_change' % (object._meta.app_label, object._meta.module_name), args=[object.id])
+        return "<a href='%s'>%s</a>" % (str(url), object.name)
+
+    project_organization.allow_tags = True
 
     def funded(self, obj):
         try:
