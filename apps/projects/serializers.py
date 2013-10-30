@@ -70,7 +70,7 @@ class ProjectBudgetLineSerializer(serializers.ModelSerializer):
         fields = ('id', 'project_plan', 'description', 'amount')
 
 
-class ProjectPlanSerializer(serializers.ModelSerializer):
+class ProjectPlanSerializer(TaggableSerializerMixin, serializers.ModelSerializer):
 
     project = serializers.SlugRelatedField(source='project', slug_field='slug', read_only=True)
     country = ProjectCountrySerializer()
