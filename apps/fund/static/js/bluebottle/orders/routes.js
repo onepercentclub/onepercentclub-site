@@ -194,12 +194,13 @@ App.PaymentSignupRoute = Em.Route.extend({
 
 App.PaymentSelectRoute = Em.Route.extend({
     beforeModel: function() {
-        var order = this.modelFor('currentOrder');
-        if (!order.get('paymentProfileComplete')) {
-            this.replaceWith('paymentProfile');
-        } else if (order.get('recurring')) {
-            this.replaceWith('recurringDirectDebitPayment');
-        }
+        // var paymentProfile = this.modelFor('paymentProfile');
+        var route = this;
+        App.PaymentProfile.find('current').then(function(paymentProfile){
+            if (!paymentProfile.get('isComplete')) {
+                route.replaceWith('paymentProfile');
+            }
+        })
     },
 
     model: function(params) {

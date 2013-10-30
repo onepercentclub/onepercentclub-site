@@ -15,6 +15,7 @@
 }
 
 
+// The modal
 .modal {
     position: fixed;
     top: 10%;
@@ -28,7 +29,7 @@
 
     &.large {
         height: 80%;
-        width: 700px;
+        width: 880px;
         .modal-body {
             max-height: 90%;
         }

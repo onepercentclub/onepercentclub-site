@@ -4,7 +4,7 @@
 
 App.CurrentOrderDonationListController = Em.ArrayController.extend({
     // The CurrentOrderController is needed for the single / recurring radio buttons.
-    needs: ['currentUser', 'currentOrder'],
+    needs: ['currentUser', 'currentOrder', 'paymentProfile'],
 
     singleTotal: function() {
         return this.get('model').getEach('amount').reduce(function(accum, item) {
@@ -63,6 +63,19 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
         });
         donation.set('amount', newAmount);
         donation.save();
+    },
+    actions: {
+        nextStep: function(){
+            // Check what information is available and continue to the next applicable step.
+            var controller = this;
+            App.PaymentProfile.find('current').then(function(paymentProfile){
+                if (paymentProfile.get('isComplete')){
+                    controller.transitionToRoute('paymentSelect');
+                } else {
+                    controller.transitionToRoute('paymentProfile');
+                }
+            });
+        }
     }
 });
 
@@ -96,14 +109,6 @@ App.CurrentOrderDonationController = Em.ObjectController.extend({
         donation.get('order.donations').removeObject(donation);
         donation.deleteRecord();
         donation.save();
-    }
-});
-
-App.CurrentRecurringDonationController = App.CurrentOrderDonationController.extend({
-    deleteDonation: function() {
-        var donation = this.get('model');
-        donation.set('tempRecurringAmount', 0);
-        this.get('controllers.currentOrderDonationList').updateRecurringDonations()
     }
 });
 
@@ -202,12 +207,38 @@ App.PaymentProfileController = Em.ObjectController.extend({
 
         profile.save();
     },
+    actions: {
+        nextStep: function(){
+            var profile = this.get('model');
+            var user = this.get('controllers.currentUser');
+            var controller = this;
 
-    isFormReady: function() {
-        return !Em.isEmpty(this.get('firstName')) && !Em.isEmpty(this.get('lastName')) && !Em.isEmpty(this.get('email')) &&
-               !Em.isEmpty(this.get('address')) && !Em.isEmpty(this.get('postalCode')) && !Em.isEmpty(this.get('city')) &&
-               !Em.isEmpty(this.get('country'));
-    }.property('firstName', 'lastName', 'email', 'address', 'postalCode', 'city', 'country')
+            if (profile.get('isDirty')) {
+                profile.one('didUpdate', function(record) {
+                    var currentOrder = controller.get('controllers.currentOrder');
+                    if (user.get('isAuthenticated')) {
+                        controller.transitionToRoute('paymentSelect');
+                    } else {
+                        controller.transitionToRoute('paymentSignup');
+                    }
+                });
+
+                profile.one('becameInvalid', function(record) {
+                    controller.get('model').set('errors', record.get('errors'));
+                });
+
+                profile.save();
+            }
+            if (profile.get('isCompleted')){
+                if (user.get('isAuthenticated')) {
+                    controller.transitionToRoute('paymentSelect');
+                } else {
+                    controller.transitionToRoute('paymentSignup');
+                }
+            }
+        }
+    }
+
 });
 
 
