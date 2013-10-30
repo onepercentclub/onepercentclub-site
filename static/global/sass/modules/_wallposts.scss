@@ -4,11 +4,11 @@
 
 #wallpost-form {
     @include clear;
-	background-color: $gray-lighter;
-	padding: $base-padding $base-padding*2;
 	
 	fieldset {
         padding: 0;
+        background-color: $gray-lighter;
+        padding: $base-padding $base-padding*2;
 	}
 	
     ul {
@@ -28,18 +28,19 @@
 	    }
     }
     
-    .wallpost-photos {
-        margin-top: $base-margin;
+    .form-wallpost-photos {
         @include clear;
 
-        li {
+        .form-wallpost-photo {
             display: block;
-            @include grid(6,0,1);
+            @include grid(12,0,1);
+            margin-top: $base-margin;
+            margin-bottom: $base-margin;
             @include allowmanage;
         }
     }
     
-    .btn {
+    .btn-submit {
         float: right;
     }
 }
@@ -49,7 +50,6 @@
 	padding-top: $base-padding*2;
 	
 	.wallpost {
-	    @include allowmanage;
 	    @include clear;
 	    position: relative;
 	    padding: $base-padding 0 $base-padding/2 0;
@@ -78,20 +78,22 @@
                 right: 0;
                 float: right;
                 text-align: right;
-            }
-            
-            .wallpost-timestamp, .reaction-timestamp {
                 color: $gray;
                 font-style: normal;
                 font-size: $font-size-smallest;
                 text-transform: uppercase;
             }
+            
+            .timestamp {
+                font-style: normal;
+            }
                             
-            .manage {
-                display: none;
-                position: absolute;
-                top: 0;
-                right: 0;
+            .manage-delete {
+                color: $gray;
+                
+                &:hover {
+                    color: $color-text;
+                }
             }
             
         }
@@ -174,7 +176,6 @@
 	    margin-top: $base-margin;
 	    padding-top: $base-padding;
     	@include grid(48,12,0);
-    	border-top: 1px solid $gray-lighter;
     	text-align: center;
     	
     	small {

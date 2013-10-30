@@ -9,7 +9,17 @@
     background-color: $gray-darkest;
     color: $color-text-light;
     
+    .project-meta {
+        float: left;
+    }
+    
+    #share {
+        padding: $base-padding/1.5 0;
+        float: left;
+    }
+    
     .project-title {
+        clear: both;
         color: $white;
     }
     
@@ -17,7 +27,6 @@
         @include clear;
         padding: $base-padding/3 0;
     }
-    
     
     .project-days-left {
         margin-top: $base-padding/2;

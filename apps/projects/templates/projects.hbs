@@ -182,11 +182,10 @@
                     <div class="project-meta">
 	                    {{#if plan.country.name}}<span class="project-location"><span class="flaticon solid location-pin-1"></span> {{plan.country.name}}</span>{{/if}}
 	                    {{#if plan.theme.title}}<span class="project-theme"><span class="flaticon solid tag-2"></span> {{plan.theme.title}}</span>{{/if}}
-	                    {{view App.SocialShareView classNames="project-share"}}
 	                </div>
+	                {{view App.SocialShareView}}
                     <h1 class="project-title">{{plan.title}}</h1>
                     <p class="project-description">{{plan.pitch}}</p>
-                    
                 </article>
                 
             </div>

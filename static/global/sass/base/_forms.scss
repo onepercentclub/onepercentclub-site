@@ -388,3 +388,16 @@ textarea[readonly] {
 .agree {
     margin-bottom: 0;
 }
+
+.file-upload {
+    
+    .member-avatar {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    
+    .btn-upload {
+        margin-left: $base-margin*2;
+    }
+    
+}

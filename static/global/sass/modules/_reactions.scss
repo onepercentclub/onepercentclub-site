@@ -83,10 +83,6 @@
         background-color: $gray-lighter;
         padding: $base-padding;
         
-        &:last-of-type {
-            margin-bottom: $base-margin;
-        }
-        
         header {
             @include clear;
             
@@ -108,19 +104,19 @@
             .reaction-meta {
                 @include grid(20,1,0);
                 text-align: right;
+                color: $gray;
+                font-style: normal;
+                font-size: $font-size-smallest;
+                text-transform: uppercase; 
                 
-                .reaction-timestamp {
+                .manage-delete {
                     color: $gray;
-                }  
+                
+                    &:hover {
+                        color: $color-text;
+                    }
+                }
             }
-                            
-            .manage {
-                display: none;
-                position: absolute;
-                top: 0;
-                right: 0;
-            }
-            
         }
         
         &:hover {
