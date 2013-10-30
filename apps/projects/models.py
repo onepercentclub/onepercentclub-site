@@ -188,7 +188,6 @@ class Project(models.Model):
         # insert the hashbang, after the language string
         bits = url.split('/')
         url = "/".join(bits[:2] + ['#!'] + bits[2:])
-        print url
         return url
 
     def get_meta_title(self, **kwargs):
@@ -496,7 +495,6 @@ class ProjectBudgetLine(models.Model):
 def log_project_phase(sender, instance, created, **kwargs):
     """ Log the project phases when they change """
     if instance.phase != instance._original_phase or created:
-        print instance.phase, '***'
         phase = getattr(ProjectPhases, instance.phase)
         instance.projectphaselog_set.create(phase=phase)
         # set the new phase as 'original', as subsequent saves can occur,
