@@ -329,20 +329,38 @@ label.radio {
 .radio-select {
 
     label {
-        padding: $base-padding/2 0;
-        color: $white;
-        border: 1px solid darken($gray-light, 5%);
-        background-color: $gray-light;
-        cursor: pointer;
-        text-align: center;
-        @include border-radius(1px);
+        margin: 0 0 0 -1px;
+        
+        span {
+            display: block;
+            padding: 0;
+            background: none;
+            height: auto;
+            line-height: $base-line-height;
+            text-indent: 0;
+            
+            margin: 0;
+            padding: $base-padding/2 $base-padding;
+            color: $white;
+            border: 1px solid darken($gray-light, 5%);
+            background-color: $gray-light;
+            cursor: pointer;
+            @include border-radius(1px);
+            text-align: center;
+            
+        }
+        
+        input[type=radio]:checked + span {
+            position: relative;
+            border-color: darken($color-secondary, 5%);
+            font-family: $font-family-heavy;
+            background: $color-secondary;
+            z-index: 10;
+        }
+        
     }
     
-    input[type=radio]:checked + span {
-        background-color: $color-secondary;
-        border-color: darken($color-secondary, 5%);
-        font-family: $font-family-heavy;
-    }
+    
 }
 
 // Special groups for horizontal views
