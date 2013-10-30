@@ -206,7 +206,7 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
 
     raw_id_fields = ('owner', 'coach')
 
-    readonly_fields = ('project_owner', 'pitch_view', 'plan_view', 'campaign_view', 'project_organization', 'funded')
+    readonly_fields = ('project_owner', 'pitch_view', 'plan_view', 'campaign_view', 'funded')
 
     fields = readonly_fields + ('owner', 'coach', 'title', 'slug', 'phase', 'partner_organization')
 
@@ -259,7 +259,16 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
 
     def funded(self, obj):
         try:
-            return u'{funded} %'.format(funded=obj.projectcampaign.percentage_funded)
+            # 
+            funded = obj.projectcampaign.percentage_funded
+            if funded == 100.0:
+                try:
+                    phase_log = obj.projectphaselog_set.get(phase=ProjectPhases.act)
+                    created = formats.date_format(phase_log.created, 'SHORT_DATETIME_FORMAT')
+                    return u'{funded} % ({date})'.format(funded=funded, date=created)
+                except ProjectPhaseLog.DoesNotExist:
+                    pass
+            return u'{funded} %'.format(funded=funded)
         except ProjectCampaign.DoesNotExist:
             return _('n/a')
 
