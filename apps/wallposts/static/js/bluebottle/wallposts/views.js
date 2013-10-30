@@ -42,6 +42,8 @@ App.ProjectWallPostView = Em.View.extend({
     templateName: 'project_wallpost',
 
     didInsertElement: function(){
+        this.$().hide().slideDown(500);
+
         // Give it some time to really render...
         // Hack to make sure photo viewer works for new wallposts
         Em.run.later(function(){
