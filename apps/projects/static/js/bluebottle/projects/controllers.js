@@ -267,7 +267,8 @@ App.MyProjectPlanAmbassadorsController = Em.ObjectController.extend(App.Editable
         updateRecordOnServer: function(){
             var controller = this;
             var model = this.get('model');
-            model.save();
+            model.transaction.commit();
+
 
             /* The minimum number of ambassadors requirement was dropped, plus there was no visual feedback if not
              * enough ambassadors
@@ -372,24 +373,6 @@ App.MyProjectPlanBankController = Em.ObjectController.extend(App.Editable, {
 
     nextStep: 'myProjectPlan.submit',
 
-    updateRecordOnServer: function(){
-        var controller = this;
-        var model = this.get('model.organization');
-        model.one('becameInvalid', function(record){
-            model.set('errors', record.get('errors'));
-        });
-        model.one('didUpdate', function(){
-            controller.transitionToRoute(controller.get('nextStep'));
-            window.scrollTo(0);
-        });
-        model.one('didCreate', function(){
-            controller.transitionToRoute(controller.get('nextStep'));
-            window.scrollTo(0);
-        });
-
-        model.save();
-    },
-
     shouldSave: function(){
         // Determine if any part is dirty, project plan, org or any of the org addresses
         if (this.get('isDirty')) {
@@ -399,7 +382,27 @@ App.MyProjectPlanBankController = Em.ObjectController.extend(App.Editable, {
             return true;
         }
         return false;
-    }.property('organization.isLoaded', 'isDirty')
+    }.property('organization.isLoaded', 'isDirty'),
+
+    actions: {
+        updateRecordOnServer: function(){
+            var controller = this;
+            var model = this.get('model.organization');
+            model.one('becameInvalid', function(record){
+                model.set('errors', record.get('errors'));
+            });
+            model.one('didUpdate', function(){
+                controller.transitionToRoute(controller.get('nextStep'));
+                window.scrollTo(0);
+            });
+            model.one('didCreate', function(){
+                controller.transitionToRoute(controller.get('nextStep'));
+                window.scrollTo(0);
+            });
+
+            model.save();
+        }
+    }
 });
 
 
@@ -415,8 +418,8 @@ App.MyProjectPlanBudgetController = Em.ObjectController.extend(App.Editable, {
         }
         var budgetLines = this.get('budgetLines');
         var dirty = false;
-        budgetLines.forEach(function(line){
-             if (line.get('isDirty')) {
+        budgetLines.forEach(function(ad){
+             if (ad.get('isDirty')) {
                  dirty = true;
              }
 
@@ -424,24 +427,26 @@ App.MyProjectPlanBudgetController = Em.ObjectController.extend(App.Editable, {
         return dirty;
     }.property('isDirty', 'budgetLines.@each.isDirty'),
 
-    updateRecordOnServer: function(){
-        var controller = this;
-        var model = this.get('model');
-        model.save();
-        if (model.get('validBudget')) {
-            controller.transitionToRoute(controller.get('nextStep'));
+    actions: {
+        updateRecordOnServer: function(){
+            var controller = this;
+            var model = this.get('model');
+            model.transaction.commit();
+            if (model.get('validBudget')) {
+                controller.transitionToRoute(controller.get('nextStep'));
+            }
+        },
+
+        addBudgetLine: function(){
+            // Use the same transaction as the projectplan
+            var transaction =  this.get('model').transaction;
+            var line = transaction.createRecord(App.MyProjectBudgetLine, {});
+            this.get('budgetLines').pushObject(line);
+        },
+
+        removeBudgetLine: function(line){
+            line.deleteRecord();
         }
-    },
-
-    addBudgetLine: function(){
-        // Use the same transaction as the projectplan
-        var transaction =  this.get('model').transaction;
-        var line = transaction.createRecord(App.MyProjectBudgetLine, {});
-        this.get('budgetLines').pushObject(line);
-    },
-
-    removeBudgetLine: function(line){
-        line.deleteRecord();
     }
 
 });
