@@ -26,3 +26,7 @@ class OrganizationDocumentForm(forms.ModelForm):
         widgets = {
             'file': UploadWidget()
         }
+
+    def __init__(self, *args, **kwargs):
+        super(OrganizationDocumentForm, self).__init__(*args, **kwargs)
+        self.fields['file'].required = False
