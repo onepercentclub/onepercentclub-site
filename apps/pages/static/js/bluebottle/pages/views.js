@@ -79,8 +79,9 @@ App.PageView = Ember.View.extend(App.GoTo, {
     },
 
     didInsertElement: function(e){
-		this.$().find('#bannerCarousel').unslider({
+		this.$().find('.carousel').unslider({
             dots: true,
+            fluid: true,
             delay: 10000
         });
         if (this.get('controller.id') == 'meet-team') {

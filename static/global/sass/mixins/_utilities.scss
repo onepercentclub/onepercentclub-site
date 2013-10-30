@@ -25,44 +25,43 @@
 @mixin allowmanage {
     position: relative;
     
-    .manage {
-    
-        .manage-edit, .manage-delete {
-            
-            strong {
-                display: none;
-            }
-        }
-    
-        .manage-edit {
+    .manage-edit, .manage-delete {
+        
+        strong {
             display: none;
         }
-    
-        .manage-delete a {
-            cursor: pointer;
-            display: none;
-            z-index: 5;
-            position: absolute;
-            top: -30px;
-            right: -30px;
-            padding: 20px;
-            color: $gray-darker;
-            text-decoration: none;
-            
-            &:hover {
-                color: $color-primary;
-            }
-            
-            &:active {
-                color: $color-primary;
-            }
+    }
+
+    .manage-edit {
+        display: none;
+    }
+
+    .manage-delete {
+        cursor: pointer;
+        display: none;
+        z-index: 5;
+        position: absolute;
+        top: -30px;
+        right: -30px;
+        padding: 20px;
+        color: $gray-darker;
+        text-decoration: none;
+        
+        &:hover {
+            color: $color-primary;
         }
         
+        &:active {
+            color: $color-primary;
+        }
     }
+        
     
     &:hover {
-        .manage-delete a {
+    
+        .manage-delete {
             display: block;
         }
+        
     }
 }
