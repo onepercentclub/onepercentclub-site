@@ -263,27 +263,31 @@ App.MyProjectPlanAmbassadorsController = Em.ObjectController.extend(App.Editable
         return dirty;
     }.property('isDirty', 'ambassadors.@each.isDirty'),
 
+    actions: {
+        updateRecordOnServer: function(){
+            var controller = this;
+            var model = this.get('model');
+            model.save();
 
-    updateRecordOnServer: function(){
-        var controller = this;
-        var model = this.get('model');
-        model.save();
-
-        if (model.get('validAmbassadors')) {
+            /* The minimum number of ambassadors requirement was dropped, plus there was no visual feedback if not
+             * enough ambassadors
+             */
+            //if (model.get('validAmbassadors')) {
             controller.transitionToRoute(controller.get('nextStep'));
+            //}
+
+        },
+
+        addAmbassador: function(){
+            // Use the same transaction as the projectplan
+            var transaction =  this.get('model').transaction;
+            var ambassador = transaction.createRecord(App.MyProjectAmbassador, {});
+            this.get('ambassadors').pushObject(ambassador);
+        },
+
+        removeAmbassador: function(ambassador){
+            ambassador.deleteRecord();
         }
-
-    },
-
-    addAmbassador: function(){
-        // Use the same transaction as the projectplan
-        var transaction =  this.get('model').transaction;
-        var ambassador = transaction.createRecord(App.MyProjectAmbassador, {});
-        this.get('ambassadors').pushObject(ambassador);
-    },
-
-    removeAmbassador: function(ambassador){
-        ambassador.deleteRecord();
     }
 
 });
@@ -457,18 +461,39 @@ App.MyProjectPlanLegalController = Em.ObjectController.extend(App.Editable, {
         }
     }.property('organization.isLoaded'),
 
+    actions: {
+        updateRecordOnServer: function() {
+            var controller = this;
+            var model = this.get('model.organization');
+            model.one('becameInvalid', function(record){
+                model.set('errors', record.get('errors'));
+            });
+            model.one('didUpdate', function(){
+                controller.transitionToRoute(controller.get('nextStep'));
+                window.scrollTo(0);
+            });
+            model.one('didCreate', function(){
+                controller.transitionToRoute(controller.get('nextStep'));
+                window.scrollTo(0);
+            });
+
+            model.save();
+        }
+    },
+
+    /* addFile and removeFile are called directly on the controller by utils.js:App.UploadMultipleFiles */
     addFile: function(file) {
         var transaction = this.get('model').transaction;
         var doc = transaction.createRecord(App.MyOrganizationDocument);
         doc.set('file', file);
-        doc.set('organization',  this.get('organization'));
+        var org = this.get('organization');
+        doc.set('organization', org);
         doc.one('didCreate', function(record){
-            this.get('organization').reload();
+            org.reload();
         });
 
         transaction.commit();
     },
-
 
     removeFile: function(doc) {
         var transaction = this.get('model').transaction;
