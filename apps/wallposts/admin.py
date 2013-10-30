@@ -24,6 +24,9 @@ class MediaWallPostAdmin(PolymorphicChildModelAdmin):
     base_model = WallPost
     raw_id_fields = ('author', 'editor')
     list_display = ('created', 'view_project_online', 'get_text', 'video_url', 'photos', 'author')
+
+    readonly_fields = ('view_project_online', )
+
     ordering = ('-created', )
     inlines = (MediaWallPostPhotoInline,)
 
@@ -49,19 +52,21 @@ class TextWallPostAdmin(PolymorphicChildModelAdmin):
     list_display = ('created', 'author', 'content_type', 'text')
     raw_id_fields = ('author', 'editor')
     ordering =  ('-created', )
-    readonly_fields = ('task_wallpost_link',)
+    readonly_fields = ('wallpost_link', )
 
-    def task_wallpost_link(self, obj):
-        task = obj.content_object
-        if task.__class__.__name__ == 'Task':
+    def wallpost_link(self, obj):
+        if str(obj.content_type)  == 'task':
+            task = obj.content_object
             url = '/#!/projects/{project_slug}/tasks/{task_id}'.format(
                             project_slug = task.project.slug,
                             task_id = task.id,
                             )
             return "<a href='%s'>%s</a>" % (str(url), task.title)
-        return ''
+        # Assume it's a Project wallpost
+        return u'<a href="/go/projects/{slug}">{title}</a>'.format(slug=obj.content_object.slug, title=obj.content_object.title)
 
-    task_wallpost_link.allow_tags = True
+    wallpost_link.allow_tags = True
+
 
 
 class SystemWallPostAdmin(PolymorphicChildModelAdmin):
