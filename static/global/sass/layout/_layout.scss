@@ -82,7 +82,7 @@ html, body {
 
 #main {
   	min-height: 100%;
-  	margin-bottom: -562px; // equal to footer height + 2x margin */
+  	margin-bottom: -632px; // equal to footer height + 2x margin */
   	padding-bottom: $base-margin*2;
 }
 
@@ -92,11 +92,11 @@ html, body {
 }
 
 #footer, #main:after {
-  	height: 530px;
+  	height: 600px;
 }
 
 #footer {
-	margin-top: $base-margin*2;
+	margin-top: 32px;
 	clear: both;
 }
 
