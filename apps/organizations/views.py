@@ -1,15 +1,22 @@
-import os
 from django.http import HttpResponseForbidden
-from bluebottle.bluebottle_utils.utils import get_client_ip
+from django.http.response import HttpResponseForbidden
+from django.shortcuts import get_object_or_404
+from django.views.generic.detail import DetailView
+
+
 from apps.organizations.models import Organization, OrganizationMember, OrganizationAddress, OrganizationDocument
 from apps.organizations.permissions import IsOrganizationMember
 from apps.organizations.serializers import OrganizationSerializer, ManageOrganizationSerializer, OrganizationAddressSerializer, OrganizationDocumentSerializer
-from django.http.response import HttpResponseForbidden
-from django.views.generic.detail import DetailView
+
+
+from filetransfers.api import serve_file
 from rest_framework import generics
 
-from django.shortcuts import get_object_or_404
-from filetransfers.api import serve_file
+
+from bluebottle.bluebottle_utils.utils import get_client_ip
+
+
+import os
 
 
 class OrganizationList(generics.ListAPIView):
@@ -103,14 +110,15 @@ class ManageOrganizationDocumentDetail(generics.RetrieveUpdateDestroyAPIView):
 # Non API views
 
 # Download private documents
+# OrganizationDocument handled by Bluebottle view
 
-class OrganizationDocumentDownloadView(DetailView):
-
-    model = OrganizationDocument
+class RegistrationDocumentDownloadView(DetailView):
+    model = Organization
 
     def get(self, request, pk):
-        upload = get_object_or_404(OrganizationDocument, pk=pk)
-        if upload.author != request.user:
-            return HttpResponseForbidden()
-        file_name = os.path.basename(upload.file.name)
-        return serve_file(request, upload.file, save_as=file_name)
+        obj = self.get_object()
+        if request.user.is_staff:
+            f = obj.registration.file
+            file_name = os.path.basename(f. name)
+            return serve_file(request, f, save_as=file_name)
+        return HttpResponseForbidden()

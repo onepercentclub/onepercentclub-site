@@ -1,7 +1,7 @@
 from django.conf.urls import patterns
 from surlex.dj import surl
-from .views import OrganizationDocumentDownloadView
+from .views import RegistrationDocumentDownloadView
 
 urlpatterns = patterns('',
-    surl(r'^documents/<pk:#>$', OrganizationDocumentDownloadView.as_view(), name='organization-document-download-detail'),
+    surl(r'^organizations/<pk:#>/$', RegistrationDocumentDownloadView.as_view(), name='organization-registration-download'),
 )
