@@ -413,18 +413,30 @@
     				    <h3>{{organization.name}}</h3>
                         <p>{{organization.description}}</p>
     				
-        				<ul>
+        				
                         {{#if organization.website}}
-                            <li><a hef="{{organization.website}}"><span class="flaticon solid link-1"></span> {{organization.website}}</a></li>
+                            <dl>
+                                <dt><span class="flaticon solid link-1"></span> Website</dt>
+                                <dd><a href="{{organization.website}}">{{organization.website}}</a></dd>
+                            </dl>
                         {{/if}}
                         {{#if organization.twitter}}
-                            <li><a hef="http://twitter.com/{{organization.twitter}}"><span class="flaticon social twitter-3"></span> {{organization.twitter}}</a></li>
+                            <dl>
+                                <dt><span class="flaticon social twitter-3"></span> Twitter</dt>
+                                <dd><a href="http://twitter.com/{{organization.twitter}}">{{organization.twitter}}</a></dd>
+                            </dl>
                         {{/if}}
                         {{#if organization.facebook}}
-                            <li><a hef="http://facebook.com/{{organization.facebook}}"><span class="flaticon social facebook-3"></span> {{organization.facebook}}</a></li>
+                            <dl>
+                                <dt><span class="flaticon social facebook-3"></span> Facebook</dt>
+                                <dd><a href="http://facebook.com/{{organization.facebook}}">{{organization.facebook}}</a></dd>
+                            </dl>
                         {{/if}}
                         {{#if organization.skype}}
-                            <li><a hef="callto:{{organization.skype}}"><span class="flaticon social skype-2"></</span>> {{organization.skype}}</a></li>
+                            <dl>
+                                <dt><span class="flaticon social skype-2"></span> Website</dt>
+                                <dd><a href="callto:{{organization.skype}}">{{organization.skype}}</a></dd>
+                            </dl>
                         {{/if}}
                         </ul>
     				</article>	
