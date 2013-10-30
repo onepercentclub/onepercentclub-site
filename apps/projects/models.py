@@ -183,6 +183,14 @@ class Project(models.Model):
         """ Get the URL for the current project. """
         return 'project-detail', (), {'slug': self.slug}
 
+    def get_absolute_frontend_url(self):
+        url = self.get_absolute_url()
+        # insert the hashbang, after the language string
+        bits = url.split('/')
+        url = "/".join(bits[:2] + ['#!'] + bits[2:])
+        print url
+        return url
+
     def get_meta_title(self, **kwargs):
         plan = self.projectplan
         return "%(name_project)s | %(theme)s | %(country)s" % {
