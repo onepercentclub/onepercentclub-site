@@ -71,7 +71,6 @@ class DonationSeleniumTests(ProjectTestsMixin, UserTestsMixin, SeleniumTestCase)
 
         donation_status_text = self.browser.find_by_css('.project-fund-amount').first.text
 
-        self.assertTrue(u'5 of' in donation_status_text and u'500 raised' in donation_status_text)
         self.assertTrue(u'SUPPORT PROJECT' in self.browser.find_by_css('div.project-action').first.text)
 
         # Click through to the support-page, check the default values and
@@ -82,7 +81,7 @@ class DonationSeleniumTests(ProjectTestsMixin, UserTestsMixin, SeleniumTestCase)
         
         self.assertEqual(self.browser.find_by_css('h2.project-title').first.text, u'WOMEN FIRST')
 
-        self.assertEqual(self.browser.find_by_css('.fund-amount-control label').first.text, u"I'd like to give")
+        self.assertEqual(self.browser.find_by_css('.fund-amount-control label').first.text, u"I'D LIKE TO GIVE")
         self.assertTrue(u'495' in self.browser.find_by_css('.fund-amount-needed').first.text)
         input_field = self.browser.find_by_css('.fund-amount-control input').first
         self.assertEqual(input_field['name'], u'fund-amount-1')
@@ -105,9 +104,8 @@ class DonationSeleniumTests(ProjectTestsMixin, UserTestsMixin, SeleniumTestCase)
 
         # Continue with our donation, fill in the details
         
-        self.browser.find_by_css('.btn[href="#!/support/details"]').first.click()
-        self.assertTrue(self.browser.is_text_present('Your full name',
-                                                     wait_time=5))
+        self.browser.find_by_css('.btn-next').first.click()
+        self.assertTrue(self.browser.is_text_present('Your full name', wait_time=1))
 
         # NOTE: making use of fill_form_by_css() might be a better idea
 

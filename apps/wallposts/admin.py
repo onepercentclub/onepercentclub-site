@@ -24,6 +24,9 @@ class MediaWallPostAdmin(PolymorphicChildModelAdmin):
     base_model = WallPost
     raw_id_fields = ('author', 'editor')
     list_display = ('created', 'view_project_online', 'get_text', 'video_url', 'photos', 'author')
+
+    readonly_fields = ('view_project_online', )
+
     ordering = ('-created', )
     inlines = (MediaWallPostPhotoInline,)
 
@@ -49,19 +52,21 @@ class TextWallPostAdmin(PolymorphicChildModelAdmin):
     list_display = ('created', 'author', 'content_type', 'text')
     raw_id_fields = ('author', 'editor')
     ordering =  ('-created', )
-    readonly_fields = ('task_wallpost_link',)
+    readonly_fields = ('wallpost_link', )
 
-    def task_wallpost_link(self, obj):
-        task = obj.content_object
-        if task.__class__.__name__ == 'Task':
+    def wallpost_link(self, obj):
+        if str(obj.content_type)  == 'task':
+            task = obj.content_object
             url = '/#!/projects/{project_slug}/tasks/{task_id}'.format(
                             project_slug = task.project.slug,
                             task_id = task.id,
                             )
             return "<a href='%s'>%s</a>" % (str(url), task.title)
-        return ''
+        # Assume it's a Project wallpost
+        return u'<a href="/go/projects/{slug}">{title}</a>'.format(slug=obj.content_object.slug, title=obj.content_object.title)
 
-    task_wallpost_link.allow_tags = True
+    wallpost_link.allow_tags = True
+
 
 
 class SystemWallPostAdmin(PolymorphicChildModelAdmin):
@@ -92,13 +97,15 @@ admin.site.register(SystemWallPost, SystemWallPostAdmin)
 
 class ReactionAdmin(admin.ModelAdmin):
     # created and updated are auto-set fields. author, editor and ip_address are auto-set on save.
-    readonly_fields = ('edit_wallpost_parent', 'created', 'updated', 'author', 'editor', 'ip_address')
+    readonly_fields = ('project_url', 'created', 'updated', 'author', 'editor', 'ip_address')
     list_display = ('author_full_name', 'created', 'updated', 'deleted', 'ip_address')
     list_filter = ('created', 'updated', 'deleted')
     date_hierarchy = 'created'
     ordering = ('-created',)
     raw_id_fields = ('author', 'editor')
     search_fields = ('text', 'author__username', 'author__email', 'author__first_name', 'author__last_name', 'ip_address')
+
+    fields = ('text', 'project_url', 'wallpost', 'deleted', 'created', 'updated', 'author', 'editor', 'ip_address')
 
     def get_fieldsets(self, request, obj=None):
         """ Only show the relevant fields when adding a Reaction. """
@@ -115,14 +122,15 @@ class ReactionAdmin(admin.ModelAdmin):
 
     author_full_name.short_description = _('Author')
 
-    def edit_wallpost_parent(self, obj):
-        object = obj.wallpost.content_object
-        url = reverse('admin:%s_%s_change' % (object._meta.app_label, object._meta.module_name), args=[object.id])
-        return "<a href='%s'>%s</a>" % (str(url), object.title)
+    def project_url(self, obj):
+        project = obj.wallpost.content_object
+        if project.__class__.__name__ == 'Project':
+            url = project.get_absolute_frontend_url()
+            return "<a href='%s'>%s</a>" % (str(url), project.title)
+        return ''
 
-    edit_wallpost_parent.allow_tags = True
-    #NOTE what if it's not a project but a task? Link is ok, but the description is not
-    edit_wallpost_parent.short_description = _('project link')
+    project_url.allow_tags = True
+    project_url.short_description = _('project link')
 
     def save_model(self, request, obj, form, change):
         """ Set the author or editor (as required) and ip when saving the model. """

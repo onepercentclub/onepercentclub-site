@@ -81,31 +81,6 @@
 		}
 	}
 	
-    // Upload button (we hide everything and make a button out of it)
-    &.btn-upload {
-        border: 1px solid darken($gray-light, 5%);
-        background-color: $gray-light;
-        font-size: $base-font-size;
-        
-        .flaticon, .icon {
-            background-color: darken($gray-light, 15%);
-            color: $white;
-        }
-        
-        input {
-            @include opacity(0);
-            cursor: pointer;
-            height: 100%;
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 0;
-            z-index: 10;
-            width: auto;
-        }
-    }
-    
-    
     // Button states
 	&:hover {
     	border-color: $black;
@@ -157,6 +132,25 @@
     }
 }
 
+	
+// Upload button (we hide everything and make a button out of it)
+.btn-upload {
+    position: relative;
+    
+    input {
+        @include opacity(0);
+        cursor: pointer;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        z-index: 10;
+        width: auto;
+    }
+}
+    
+ 
 // Allignment
 
 .btn-submit, .btn-next, .btn-save {

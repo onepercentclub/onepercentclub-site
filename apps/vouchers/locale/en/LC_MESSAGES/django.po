@@ -1,0 +1,368 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-10-30 13:49+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: mails.py:21
+#, python-format
+msgid "You received a 1%GIFTCARD!"
+msgstr ""
+
+#: mails.py:22
+#, python-format
+msgid "You received a 1%GIFTCARD with this code:"
+msgstr ""
+
+#: mails.py:37 mails.py:38
+msgid "has supported a 1%PROJECT using your 1%GIFTCARD"
+msgstr ""
+
+#: mails.py:54 mails.py:55
+#, python-format
+msgid "has a custom 1%GIFTCARD request"
+msgstr ""
+
+#: models.py:11 models.py:64
+msgid "New"
+msgstr ""
+
+#: models.py:12
+msgid "Paid"
+msgstr ""
+
+#: models.py:13
+msgid "Cancelled"
+msgstr ""
+
+#: models.py:14
+msgid "Cashed"
+msgstr ""
+
+#: models.py:15
+msgid "Cashed by us"
+msgstr ""
+
+#: models.py:20
+msgid "English"
+msgstr ""
+
+#: models.py:21
+msgid "Dutch"
+msgstr ""
+
+#: models.py:23
+msgid "Amount"
+msgstr ""
+
+#: models.py:24
+msgid "Currency"
+msgstr ""
+
+#: models.py:26
+msgid "Language"
+msgstr ""
+
+#: models.py:27
+msgid "Message"
+msgstr ""
+
+#: models.py:28
+msgid "Code"
+msgstr ""
+
+#: models.py:30
+msgid "Status"
+msgstr ""
+
+#: models.py:31
+msgid "Created"
+msgstr ""
+
+#: models.py:32
+msgid "Updated"
+msgstr ""
+
+#: models.py:34
+msgid "Sender"
+msgstr ""
+
+#: models.py:35
+msgid "Sender email"
+msgstr ""
+
+#: models.py:36
+msgid "Sender name"
+msgstr ""
+
+#: models.py:38
+msgid "Receiver"
+msgstr ""
+
+#: models.py:39
+msgid "Receiver email"
+msgstr ""
+
+#: models.py:40
+msgid "Receiver name"
+msgstr ""
+
+#: models.py:42
+msgid "Order"
+msgstr ""
+
+#: models.py:46
+msgid "Gift Card"
+msgstr ""
+
+#: models.py:47
+msgid "Gift Cards"
+msgstr ""
+
+#: models.py:59
+msgid "Card"
+msgstr ""
+
+#: models.py:60
+msgid "Digital"
+msgstr ""
+
+#: models.py:61
+msgid "Unknown"
+msgstr ""
+
+#: models.py:65
+msgid "In progress"
+msgstr ""
+
+#: models.py:66
+msgid "Finished"
+msgstr ""
+
+#: models.py:68
+msgid "Value"
+msgstr ""
+
+#: models.py:69
+msgid "Number"
+msgstr ""
+
+#: models.py:70
+msgid "Contact member"
+msgstr ""
+
+#: models.py:71 models.py:72
+msgid "Contact email"
+msgstr ""
+
+#: models.py:73
+msgid "Contact phone"
+msgstr ""
+
+#: models.py:74 templates/vouchers.hbs:287
+msgid "Organisation"
+msgstr ""
+
+#: models.py:75
+msgid "message"
+msgstr ""
+
+#: models.py:77
+msgid "type"
+msgstr ""
+
+#: models.py:78
+msgid "status"
+msgstr ""
+
+#: models.py:79
+msgid "created"
+msgstr ""
+
+#: serializers.py:19
+msgid "You cannot modify a Gift Card that does not have status new."
+msgstr ""
+
+#: serializers.py:26
+#, python-format
+msgid "Choose between 1%GIFTCARDS with a value of €10, €25, €50 or €100. Not "
+msgstr ""
+
+#: serializers.py:58
+msgid "Only allowed to change status to 'cashed'"
+msgstr ""
+
+#: views.py:42
+msgid "No gift card code supplied"
+msgstr ""
+
+#: views.py:46
+msgid "No gift card with that code"
+msgstr ""
+
+#: views.py:48
+msgid "Gift card code already used"
+msgstr ""
+
+#: templates/vouchers.hbs:11 templates/vouchers.hbs.py:58
+msgid "Give"
+msgstr ""
+
+#: templates/vouchers.hbs:12
+msgid "a gift"
+msgstr ""
+
+#: templates/vouchers.hbs:13
+msgid "that keeps on giving"
+msgstr ""
+
+#: templates/vouchers.hbs:14
+msgid "Give a"
+msgstr ""
+
+#: templates/vouchers.hbs:15
+#, python-format
+msgid "1%%GIFTCARD"
+msgstr ""
+
+#: templates/vouchers.hbs:25
+#, python-format
+msgid "I received a 1%%GIFTCARD"
+msgstr ""
+
+#: templates/vouchers.hbs:26
+msgid "Support a project by cashing your voucher"
+msgstr ""
+
+#: templates/vouchers.hbs:36
+#, python-format
+msgid "I'd like to buy a 1%%GIFTCARD"
+msgstr ""
+
+#: templates/vouchers.hbs:37
+msgid "Order your digital email-vouchers right here!"
+msgstr ""
+
+#: templates/vouchers.hbs:43
+msgid "Need a (large) batch or custom cards?"
+msgstr ""
+
+#: templates/vouchers.hbs:45
+msgid "Contact us!"
+msgstr ""
+
+#: templates/vouchers.hbs:65
+msgid "Choose"
+msgstr ""
+
+#: templates/vouchers.hbs:72
+msgid "Follow"
+msgstr ""
+
+#: templates/vouchers.hbs:88
+#, python-format
+msgid "Redeem your 1%%GIFTCARD and support a project!"
+msgstr ""
+
+#: templates/vouchers.hbs:92
+msgid "Switch to donations"
+msgstr ""
+
+#: templates/vouchers.hbs:107
+msgid "Profile"
+msgstr ""
+
+#: templates/vouchers.hbs:117
+msgid "Gift card"
+msgstr ""
+
+#: templates/vouchers.hbs:129
+msgid "Choose a project to support with this gift card"
+msgstr ""
+
+#: templates/vouchers.hbs:130
+msgid "You can make it work!"
+msgstr ""
+
+#: templates/vouchers.hbs:140
+msgid "Total"
+msgstr ""
+
+#: templates/vouchers.hbs:149
+msgid "Choose different project"
+msgstr ""
+
+#: templates/vouchers.hbs:156 templates/vouchers.hbs.py:161
+#: templates/vouchers.hbs:186
+msgid "Submit"
+msgstr ""
+
+#: templates/vouchers.hbs:171
+msgid "Gift card code"
+msgstr ""
+
+#: templates/vouchers.hbs:178
+msgid "Unfortunately we couldn't find a gift card with this code. Try entering the code again or send us a message and we will sort it out."
+msgstr ""
+
+#: templates/vouchers.hbs:219
+msgid "is still needed"
+msgstr ""
+
+#: templates/vouchers.hbs:234
+#, python-format
+msgid "Contact us for 1%%GIFTCARDS"
+msgstr ""
+
+#: templates/vouchers.hbs:235
+msgid "Please send us a message and tell us your wishes and we will contact you as soon as possible. Or call us directly on (+31) 20 715 8980."
+msgstr ""
+
+#: templates/vouchers.hbs:247
+msgid "Value of Gift Cards"
+msgstr ""
+
+#: templates/vouchers.hbs:257
+msgid "Number of Gift Cards"
+msgstr ""
+
+#: templates/vouchers.hbs:267
+msgid "Your name"
+msgstr ""
+
+#: templates/vouchers.hbs:277
+msgid "Your email"
+msgstr ""
+
+#: templates/vouchers.hbs:297
+msgid "Phone number"
+msgstr ""
+
+#: templates/vouchers.hbs:306
+msgid "Anything else you’d like to ask? Send us a message!"
+msgstr ""
+
+#: templates/vouchers.hbs:310
+msgid "Send message"
+msgstr ""
+
+#: templates/vouchers.hbs:327
+msgid "Thanks for your request. We'll get back to you soon!"
+msgstr ""
+
+#: templates/vouchers.hbs:328
+msgid "YOU MAKE IT WORK!"
+msgstr ""

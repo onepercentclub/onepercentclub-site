@@ -1,0 +1,50 @@
+//
+// Social share buttons
+// --------------------------------------------------
+
+#share {
+    margin: 0;
+    font-size: $font-size-smallest;
+    
+    li {
+        @include resetlist;
+        display: inline;
+        
+        a {
+            display: inline-block;
+            padding: $base-padding/2 $base-padding; 
+            color: $gray;
+            text-decoration: none;
+            text-transform: uppercase;
+            
+            strong {
+                font-family: $base-font-family;
+            }
+            
+            .flaticon {
+                
+            }
+            
+            &:hover {
+                color: $color-text-light;
+            }
+        }
+
+        &.share-facebook a {
+            
+            &:hover {
+                background-color: #45619d;
+            }
+            
+        }
+        
+        &.share-twitter a {
+            
+            &:hover {
+                background-color: #33b9e2;
+            }
+        }
+                
+    }
+    
+}

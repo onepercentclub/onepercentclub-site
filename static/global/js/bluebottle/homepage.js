@@ -104,13 +104,17 @@ App.HomeController = Ember.ObjectController.extend({
 
 App.HomeBannerView = Ember.View.extend({
     templateName: 'home_banner',
-
+    
     didInsertElement: function() {
         this.$().find('.carousel').unslider({
             dots: true,
+            fluid: true,
             delay: 10000
         });
-    }
+    },
+    
+    
+    
 });
 
 
