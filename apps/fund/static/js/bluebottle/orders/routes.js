@@ -53,29 +53,7 @@ App.CurrentOrderDonationListRoute = Em.Route.extend({
     setupController: function(controller, donations) {
         this._super(controller, donations);
         this.controllerFor('currentOrder').set('isVoucherOrder', false);
-
-        // Set the monthly order.
-        App.Order.find({status: 'recurring'}).then(function(recurringOrders) {
-            if (recurringOrders.get('length') > 0) {
-                controller.set('recurringOrder', recurringOrders.objectAt(0))
-            } else {
-                controller.set('recurringOrder', null)
-            }
-        });
-
-        // Set the top three projects
-        App.ProjectPreview.find({ordering: 'popularity', phase: 'campaign'}).then(function(projects) {
-            controller.set('topThreeProjects', projects.slice(0, 3));
-        });
-
-        // set the recurring payment
-        App.RecurringDirectDebitPayment.find({}).then(function(recurringPayments) {
-            if (recurringPayments.get('length') > 0) {
-                controller.set('recurringPayment', recurringPayments.objectAt(0));
-            }else {
-                controller.set('recurringPayment', null);
-            }
-        });
+        controller.set('paymentProfile', App.PaymentProfile.find('current'));
     }
 });
 
@@ -205,6 +183,10 @@ App.PaymentSelectRoute = Em.Route.extend({
 
     model: function(params) {
         return App.Payment.find('current');
+    },
+    setupController: function(controller, model){
+        this._super(controller, model);
+        controller.set('paymentProfile', App.PaymentProfile.find('current'));
     }
 });
 

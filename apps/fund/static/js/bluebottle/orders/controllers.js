@@ -68,13 +68,11 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
         nextStep: function(){
             // Check what information is available and continue to the next applicable step.
             var controller = this;
-            App.PaymentProfile.find('current').then(function(paymentProfile){
-                if (paymentProfile.get('isComplete')){
-                    controller.transitionToRoute('paymentSelect');
-                } else {
-                    controller.transitionToRoute('paymentProfile');
-                }
-            });
+            if (this.get('paymentProfile.isComplete')){
+                controller.transitionToRoute('paymentSelect');
+            } else {
+                controller.transitionToRoute('paymentProfile');
+            }
         }
     }
 });
@@ -193,7 +191,6 @@ App.PaymentProfileController = Em.ObjectController.extend({
         var controller = this;
         profile.one('didUpdate', function(record) {
             var currentOrder = controller.get('controllers.currentOrder');
-            currentOrder.set('paymentProfileComplete', true);
             if (user.get('isAuthenticated')) {
                 controller.transitionToRoute('paymentSelect');
             } else {
@@ -267,7 +264,7 @@ App.PaymentSelectController = Em.ObjectController.extend({
     needs: ['paymentProfile', 'currentOrder'],
 
     redirectPaymentMethods: function(){
-        if (this.get('controllers.paymentProfile.country') == 'NL') {
+        if (this.get('paymentProfile.country') == 'NL') {
             return [
                 {'id':'IDEAL', 'name': 'IDEAL'},
                 {'id':'DIRECT_DEBIT', 'name': 'Automatische Incasso'},
