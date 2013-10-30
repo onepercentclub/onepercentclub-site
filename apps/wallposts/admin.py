@@ -49,6 +49,19 @@ class TextWallPostAdmin(PolymorphicChildModelAdmin):
     list_display = ('created', 'author', 'content_type', 'text')
     raw_id_fields = ('author', 'editor')
     ordering =  ('-created', )
+    readonly_fields = ('task_wallpost_link',)
+
+    def task_wallpost_link(self, obj):
+        task = obj.content_object
+        if task.__class__.__name__ == 'Task':
+            url = '/#!/projects/{project_slug}/tasks/{task_id}'.format(
+                            project_slug = task.project.slug,
+                            task_id = task.id,
+                            )
+            return "<a href='%s'>%s</a>" % (str(url), task.title)
+        return ''
+
+    task_wallpost_link.allow_tags = True
 
 
 class SystemWallPostAdmin(PolymorphicChildModelAdmin):

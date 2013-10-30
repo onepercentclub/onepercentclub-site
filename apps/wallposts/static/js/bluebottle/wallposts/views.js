@@ -80,7 +80,12 @@ App.ProjectWallPostView = Em.View.extend({
 
 
 App.TaskWallPostView = App.ProjectWallPostView.extend({
-    templateName: 'task_wallpost'
+    templateName: 'task_wallpost'/*,
+    
+    # FIXME: ugh stupid hashbang, #anchors don't work ofc...
+    didInsertElement: function(e){
+        this.$().attr('id', 'wallpost-'+this.get('context').get('id'));
+    }*/
 
 });
 
