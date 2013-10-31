@@ -183,12 +183,6 @@
     <section class="l-wrapper">
         <div class="l-content">
             
-            <style>
-                .hidden {
-                    display: none;
-                }
-            </style>
-            
             <header class="page-header">
             {{#if payment.active}}
                 <h1>{% trans "Monthly donations" %}: <em>{% trans "Active" %}</em></h1>
@@ -327,7 +321,7 @@
         </div>
     </section>
 
-    {{#bb-modal id="projectPicker" class="large"}}
+    {{#bb-modal id="projectPicker" class="large compact"}}
         {{render "monthlyProjectList" }}
     {{/bb-modal}}
 
@@ -381,7 +375,7 @@
 
 {% tplhandlebars "monthlyProjectPreview" %}
 
-     <li class="project-item">
+     <li class="project-item project-item-small">
     
         <a {{action 'addProjectToMonthly' project.getProject}}>
             <span class="project-header">
@@ -446,7 +440,7 @@
             <article id="search-navigation">
             	
             	<header>
-                	<h2>{% trans "Results" %} <em>{{controllers.projectList.model.meta.total}}</em></h2>
+                	<h4>{% trans "Found" %} <em>{{controllers.monthlyProjectList.model.meta.total}}</em></h4>
                     <a {{action 'clearForm'}} class="search-reset">
                         <span class="flaticon solid x-2"></span> {% trans "Reset Search Filter" %}
                     </a>

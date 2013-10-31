@@ -347,7 +347,7 @@ App.ApplicationRoute = Em.Route.extend({
 
         openModal: function(name) {
             var route = this;
-            $('#' + name).addClass('modal-active').removeClass('hidden');
+            $('#' + name).addClass('modal-active').removeClass('is-hidden');
             $('body').append('<div class="modal-backdrop"></div>');
             $('.modal-backdrop').click(function(){
                 route.send('closeAllModals');
@@ -355,7 +355,7 @@ App.ApplicationRoute = Em.Route.extend({
         },
 
         closeAllModals: function(){
-            $('.modal-active').removeClass('modal-active').addClass('hidden');
+            $('.modal-active').removeClass('modal-active').addClass('is-hidden');
             $('.modal-backdrop').fadeOut(200, function(){
                 this.remove();
             });
@@ -502,10 +502,10 @@ App.HomeRoute = Em.Route.extend({
 /* Components */
 
 App.BbModalComponent = Ember.Component.extend({
-    classNames: ['hidden'],
+    classNames: ['is-hidden'],
     actions: {
         close: function() {
-            this.$().removeClass('modal-active').addClass('hidden');
+            this.$().removeClass('modal-active').addClass('is-hidden');
             $('.modal-backdrop').fadeOut(200, function(){
                 this.remove();
             });

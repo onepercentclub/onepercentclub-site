@@ -214,7 +214,11 @@
     background-color: $gray-lighter;
     overflow: hidden;
     height: 260px;
-    
+
+    &.project-item-small {
+        height: 230px;
+    }
+
     a {
         display: block;
         //border: 1px solid $gray-light;
