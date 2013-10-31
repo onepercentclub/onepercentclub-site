@@ -17,13 +17,13 @@
         
         input {
 			height: 40px;
-			text-indent: 30px;
+			padding-left: 40px;
 		}
         
         select {
             height: 40px;
             text-transform: capitalize;
-            text-indent: 30px;
+            padding-left: 40px;
         }
         
         select option:first-child {
@@ -32,7 +32,7 @@
         }
         
         select option:selected {
-            font-weight: 300;
+            font-family: $font-family-heavy;
         }
         
         .flaticon {
@@ -151,6 +151,15 @@
         background-image: none;
         padding: 0;
         @include grid(12,0,1);
+    }
+    
+    .no-results {
+        @include resetlist;
+        padding: $base-padding 0;
+        text-align: center;
+        color: $gray;
+        font-family: $font-family-heavy;
+        font-size: $font-size-large;
     }
 }
     
