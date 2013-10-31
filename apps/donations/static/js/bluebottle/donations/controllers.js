@@ -147,9 +147,9 @@ App.UserMonthlyProjectsController = Em.ObjectController.extend({
                 var payment = this.get('payment');
                 Bootstrap.ModalPane.popup({
                     classNames: ['modal'],
-                    heading: gettext('Stop monthly support?'),
-                    message: gettext('Are you sure you want to stop your monthly support?'),
-                    primary: gettext('Yes, stop it'),
+                    heading: gettext('Stop my monthly donation'),
+                    message: gettext('Thanks a lot for your support until now. You rock! We welcome you back anytime.<br /><br />Are you sure you want to stop your monthly support?'),
+                    primary: gettext('Yes, stop my donation'),
                     secondary: gettext('No, continue'),
                     callback: function(opts, e) {
                         e.preventDefault();
