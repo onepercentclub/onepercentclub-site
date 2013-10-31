@@ -430,6 +430,11 @@ class ProjectResult(models.Model):
     created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
     updated = ModificationDateTimeField(_('updated'))
 
+    @property
+    def date_funded(self):
+        log = self.project.projectphaselog_set.get(phase=ProjectPhases.act)
+        return log.created
+
 
 class PartnerOrganization(models.Model):
     """

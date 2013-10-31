@@ -12,7 +12,7 @@
     {% spaceless %}
     {% for projectresult in module.children %}
     <li class="{% cycle 'odd' 'even' %}">
-        <span class="float-right">{{ projectresult.created|date }}</span>
+        <span class="float-right">{{ projectresult.date_funded|date }}</span>
         <a href="{{ admin_url }}projects/projectresult/{{ projectresult.id }}" >{{ projectresult.project.title }}</a>
     </li>
     {% endfor %}
