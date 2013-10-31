@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 
 
 from .models import Organization, OrganizationDocument, OrganizationAddress, OrganizationMember
-from .forms import OrganizationDocumentForm
+from .forms import OrganizationForm, OrganizationDocumentForm
 
 
 class OrganizationDocumentInline(admin.StackedInline):
@@ -30,6 +30,7 @@ class OrganizationMemberInline(admin.StackedInline):
     extra = 0
     
 class OrganizationAdmin(admin.ModelAdmin):
+    form = OrganizationForm
     prepopulated_fields = {"slug": ("name",)}
 
     inlines = (OrganizationAddressInline, OrganizationMemberInline, OrganizationDocumentInline)
