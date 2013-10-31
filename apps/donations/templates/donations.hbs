@@ -185,7 +185,7 @@
             
             <header class="page-header">
             {{#if payment.active}}
-                <h1>{% trans "Monthly donations" %}: <em>{% trans "Active" %}</em></h1>
+                <h1>{% trans "My monthly donation" %}</h1>
                 <p></p>
             {{else}}
                 {{#if payment.isNew}}
@@ -214,7 +214,7 @@
                     <a {{action 'toggleActive'}} class="btn btn-iconed btn-primary"><span class="flaticon solid checkmark-1"></span> {% trans "Yes, I want to set a monthly donation" %}</a>
                 {{else}}
                     {# Stopped recurring donation #}
-                    <h1>{% trans "Monthly donations" %}: <em>{% trans "Off" %}</em></h1>
+                    <h1>{% trans "Monthly donation" %}: <em>{% trans "Off" %}</em></h1>
                     <p></p>
                     <a {{action 'toggleActive'}} class="btn btn-iconed btn-primary"><span class="flaticon solid checkmark-1"></span> {% trans "Turn monthly donations on" %}</a>
                 {{/if}}
@@ -229,8 +229,8 @@
                             {{render "monthlyDonation" donation}}
                         {{else}}
                             <legend class="fund-empty">
-                                <strong>{% blocktrans %}You are a 1%Friend{% endblocktrans %}</strong>
-                                <p>{% trans "You currently support the top 3 projects with your monthly donation." %} {% trans "The 3 most popular projects at this moment are:." %}</p>
+                                <strong>{% blocktrans %}Your monthly donation will got to the top 3 projects.{% endblocktrans %}</strong>
+                                <p>{% trans "The three most popular projects at this moment are:" %}</p>
                             </legend>    
                             {{#each project in topThreeProjects }}
                                 <li class="project-list-item project-top3">
@@ -274,10 +274,10 @@
                     
                      <a {{action 'openModal' 'projectPicker'}} class="btn-link btn-add">
                         <span class="flaticon solid plus-2"></span>
-                        {{#if length }}
+                        {{#if donations.length }}
                             {%trans "Add another project" %}
                         {{else}}
-                            {%trans "Add a project" %}
+                            {%trans "Select a project yourself" %}
                         {{/if}}
                     </a>
 
@@ -335,7 +335,7 @@
             {{#if payment.active}}
                 <a class="btn-link" {{action 'toggleActive'}}>
                     <span class="flaticon solid x-2"></span>
-                    {% trans "Stop monthly donation" %}
+                    {% trans "Cancel my monthly donation" %}
                 </a>
             {{/if}}
         </div>
