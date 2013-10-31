@@ -6,7 +6,7 @@
 ----------------------------------*/
 
 .ui-datepicker {
-	width: 28em;
+	width: 20em;
 	padding: .2em .2em 0;
 	display: none;
 	background: $white;
@@ -23,13 +23,11 @@
 	height: 2em;
 }
 .ui-datepicker .ui-datepicker-prev {
-	left: 2px;
-	background: red;
+	left: 8px;
 	
 }
 .ui-datepicker .ui-datepicker-next {
-	right: 2px;
-	background: red;
+	right: 8px;
 }
 .ui-datepicker .ui-datepicker-prev-hover {
 	
@@ -39,12 +37,7 @@
 }
 .ui-datepicker .ui-datepicker-prev span,
 .ui-datepicker .ui-datepicker-next span {
-	display: none;
-	position: absolute;
-	left: 50%;
-	margin-left: -8px;
-	top: 50%;
-	margin-top: -8px;
+	
 }
 .ui-datepicker .ui-datepicker-title {
 	margin: 0 2.3em;
@@ -85,6 +78,9 @@
 	text-align: right;
 	text-decoration: none;
 }
+.ui-datepicker td.ui-state-hover {
+    background-color: $gray-lighter;
+} 
 .ui-datepicker .ui-datepicker-buttonpane {
 	background-image: none;
 	margin: .7em 0 0 0;

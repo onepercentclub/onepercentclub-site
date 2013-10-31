@@ -153,7 +153,7 @@ ol {
 dl {
 	@include clear;
 	font-size: $font-size-small;
-	border-top: 1px solid $gray-light;
+	border-bottom: 1px solid $gray-light;
 	padding: $base-padding/2 $base-padding;
 	
 	dt {
@@ -161,7 +161,10 @@ dl {
 		color: $gray;
 		@include grid(20,0,1);
 		font-weight: normal;
-						
+		white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;	
+        			
 		.flaticon {
 			margin-right: $base-margin/4;
 		}
