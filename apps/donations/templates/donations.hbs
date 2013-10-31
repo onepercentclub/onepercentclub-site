@@ -226,6 +226,7 @@
                 {{#if payment.active}}
                     <ul class="project-list">
                         {{#each donation in donations }}
+                            <strong>{% blocktrans %}Your monthly donation will go to the project(s) you've selected here:{% endblocktrans %}</strong>
                             {{render "monthlyDonation" donation}}
                         {{else}}
                             <legend class="fund-empty">
