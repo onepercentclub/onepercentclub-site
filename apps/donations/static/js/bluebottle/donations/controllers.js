@@ -140,16 +140,41 @@ App.UserMonthlyProjectsController = Em.ObjectController.extend({
      },
      actions: {
         save: function(){
-            this.get('model').transaction.commit();
+            var model = this.get('model');
+            var message = gettext("You're about to set a monthly donation.<br/><br/>" +
+                "Has anybody ever told you that you're awesome? Well, you're awesome!<br/><br/>" +
+                "1%Club will withdrawal your monthly donation from your bank account in the beginning of each month. You can cancel it anytime you like.<br/><br/>" +
+                "We will send you an email in the beginning of each month to update you on what project(s) received your 1% Support!");
+
+
+            Bootstrap.ModalPane.popup({
+                classNames: ['modal'],
+                heading: gettext('Set my monthly donation'),
+                message: message,
+                primary: gettext('Save'),
+                secondary: gettext('Cancel'),
+                callback: function(opts, e) {
+                    e.preventDefault();
+
+                    if (opts.primary) {
+                        model.transaction.commit();
+                    }
+
+                    if (opts.secondary) {
+                        // Do nothing
+                    }
+                }
+            });
+
         },
         toggleActive: function(sender, value){
             if (this.get('payment.active')) {
                 var payment = this.get('payment');
                 Bootstrap.ModalPane.popup({
                     classNames: ['modal'],
-                    heading: gettext('Stop monthly support?'),
-                    message: gettext('Are you sure you want to stop your monthly support?'),
-                    primary: gettext('Yes, stop it'),
+                    heading: gettext('Stop my monthly donation'),
+                    message: gettext('Thanks a lot for your support until now. You rock! We welcome you back anytime.<br /><br />Are you sure you want to stop your monthly support?'),
+                    primary: gettext('Yes, stop my donation'),
                     secondary: gettext('No, continue'),
                     callback: function(opts, e) {
                         e.preventDefault();
@@ -199,7 +224,9 @@ App.MonthlyProjectListController = App.ProjectListController.extend({});
 App.MonthlyDonationController = Em.ObjectController.extend({
     deleteDonation: function() {
         var donation = this.get('model');
-        donation.get('order').transaction.add(donation);
+        var order = donation.get('order');
+        order.transaction.add(donation);
+        order.get('donations').removeObject(donation);
         donation.deleteRecord();
     }
 });

@@ -1,0 +1,21 @@
+//
+// Project owner actions
+// Currently tasks only
+//
+// --------------------------------------------------
+
+.owner-actions {
+    @include grid(48,1,1);
+    border: 1px solid $gray-lighter;
+    padding: $base-padding $base-padding *2;
+    margin-top: $base-margin;
+    
+    header {
+        float: left;
+    }
+    
+    .btn {
+        margin-top: $base-margin/2;
+        float: right;
+    }
+}

@@ -29,6 +29,7 @@
 @import "base/base";
 @import "base/type";
 @import "base/media";
+@import "states/states";
 
 
 /* Main Layout */
@@ -52,7 +53,7 @@
 @import "modules/tasks";
 @import "modules/share";
 @import "modules/project-iframe";
-
+@import "modules/owner-actions";
 
 /* Pages */
 @import "pages/home";
@@ -61,7 +62,7 @@
 @import "pages/signup";
 @import "pages/search";
 @import "pages/project-detail";
-@import "pages/task";
+@import "pages/task-detail";
 @import "pages/fund";
 @import "pages/profile";
 @import "pages/account";
