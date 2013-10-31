@@ -190,9 +190,28 @@
             {{else}}
                 {{#if payment.isNew}}
                     {# New recurring donation #}
-                    <h1>{% trans "Monthly donations" %}: <em>{% trans "Start" %}</em></h1>
-                    <p></p>
-                    <a {{action 'toggleActive'}} class="btn btn-iconed btn-primary"><span class="flaticon solid checkmark-1"></span> {% trans "Active monthly donations" %}</a>
+                    <h1>{% blocktrans %}Support 1%Projects monthly{% endblocktrans %}</h1>
+                    {% blocktrans %}
+<p>Do you like to support projects regularly on 1%Club? But are you too busy to select a new project each time again?</p>
+<p>No worries! Just set a monthly donation.</p>
+
+<p>
+    There are two ways:
+    <ol>
+        <li>
+            <h3>Top 3 Projects</h3>
+            Follow the 'wisdom of the crowd' and donate to the 3 projects that are most successful that month. And give them an extra boost!
+        </li>
+        <li>
+            <h3>Pick your own project(s)</h3>
+            Select one or more projects yourself that you want to support every month. You can adjust your support all the time, as you like.
+        </li>
+
+    </ol>
+</p>
+<p>We will send you an email every month to update you what project(s) received your 1% support!</p>
+                    {% endblocktrans %}
+                    <a {{action 'toggleActive'}} class="btn btn-iconed btn-primary"><span class="flaticon solid checkmark-1"></span> {% trans "Yes, I want to set a monthly donation" %}</a>
                 {{else}}
                     {# Stopped recurring donation #}
                     <h1>{% trans "Monthly donations" %}: <em>{% trans "Off" %}</em></h1>
