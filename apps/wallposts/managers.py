@@ -4,7 +4,9 @@ from polymorphic import PolymorphicManager
 
 
 class WallPostManager(GenericForeignKeyManagerMixin, PolymorphicManager):
-    pass
+    def get_query_set(self):
+        queryset = super(WallPostManager, self).get_query_set()
+        return queryset.filter(deleted__isnull=True)
 
 
 class ReactionManager(models.Manager):
