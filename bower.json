@@ -1,0 +1,25 @@
+{
+  "name": "onepercentclub-site",
+  "version": "0.0.1",
+  "homepage": "https://github.com/onepercentclub/onepercentclub-site",
+  "authors": [
+    "Mark Gallop <mark@rollick.id.au>"
+  ],
+  "description": "1%Club's website  ================",
+  "license": "BSD-3-Clause",
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "jquery-mockjax": "*",
+    "pavlov": "https://github.com/mmonteleone/pavlov.git",
+    "sinon-qunit": "~1.0.0",
+    "sinon": "~1.7.3"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

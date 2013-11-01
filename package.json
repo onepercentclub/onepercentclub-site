@@ -1,0 +1,44 @@
+{
+  "name": "onepercentclub-site",
+  "description": "1%Club's website  ================",
+  "version": "0.0.1",
+  "author": "",
+  "license": "BSD-3-Clause",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/onepercentclub/onepercentclub-site.git"
+  },
+  "bugs": {
+    "url": "https://github.com/onepercentclub/onepercentclub-site/issues"
+  },
+  "dependencies": {
+    "grunt": "~0.4.1",
+    "bower": "~1.2.7",
+    "grunt-ember-template-compiler": "~1.1.2",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-cli": "~0.1.9",
+    "grunt-bower-task": "~0.3.2",
+    "grunt-hashres": "~0.3.2",
+    "grunt-contrib-uglify": "~0.2.5"
+  },
+  "devDependencies": {
+    "karma-handlebars-preprocessor": "~0.1.2",
+    "karma-coverage": "~0.1.0",
+    "karma": "~0.10.4",
+    "karma-ember-preprocessor": "~1.1.2",
+    "karma-html2js-preprocessor": "~0.1.0",
+    "karma-firefox-launcher": "~0.1.0",
+    "karma-phantomjs-launcher": "~0.1.0",
+    "karma-script-launcher": "~0.1.0",
+    "karma-qunit": "~0.1.1",
+    "qunitjs": "~1.12.0",
+    "karma-growl-reporter": "~0.1.1",
+    "growly": "~1.1.1",
+    "grunt-karma": "~0.6.2",
+    "phantomjs": "~1.9.2-2"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS"
+  }
+}
