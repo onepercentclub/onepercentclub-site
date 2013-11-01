@@ -29,7 +29,7 @@ module.exports = function(config) {
       'config/test_env.js',
 
       // Vendor
-      '../../static/build/js/lib/deps.min.js',
+      '../../static/build/js/lib/deps.js',
 
       'config/ember_config.js',
 
@@ -60,7 +60,9 @@ module.exports = function(config) {
       // Handlebars templates before loading them here!
       // '../../apps/**/templates/*.hbs',
 
-      // Fixtures
+      // Factories / Fixtures
+      '../../static/build/js/components/ember-data-factory/dist/ember-data-factory-0.0.1.js',
+      'factories/**/*_factory.js',
       'fixtures/*.js',
 
       // Test Config and Helpers

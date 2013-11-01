@@ -8,32 +8,45 @@ pavlov.specify("Wallpost model unit tests", function(){
     });
 
     describe("Wallpost instance", function () {
-        
-        var wallpost;
 
-        before(function(){
-            Ember.run(function() {
-                wallpost = App.WallPost.find(9120);
+        before(function() {      
+            Ember.run( function () {
+                App.injectTestHelpers();
             });
         });
 
-        after(function() {
-            Ember.run(function() {
-                App.reset();
+        after(function () {
+            Ember.run( function () {
+                App.removeTestHelpers();
+
+                App.WallPost.FIXTURES = [];
             });
         });
 
-        it("should have some properties", function () {
-            assert(wallpost.url).equals('wallposts');
-            assert(wallpost.get('title')).equals(null);
-            assert(wallpost.get('text')).equals(null);
-            assert(wallpost.get('author')).equals(null);
-            assert(wallpost.get('type')).equals(null);
-            assert(wallpost.get('created')).equals(null);
-            assert(wallpost.get('reactions')).isDSArray();
-            assert(wallpost.get('video_url')).equals(null);
-            assert(wallpost.get('video_html')).equals(null);
-            assert(wallpost.get('photos')).isDSArray();
+        it("should be a new wallpost", function () {
+            build('wallPost').then(function(wallPost) {
+                assert(wallPost instanceof App.WallPost).isTrue();
+                assert(wallPost.get('isNew')).isTrue();
+            });
+        });
+
+        it('should have some properties', function () {
+            build('wallPost').then(function(wallPost) {
+                assert(wallPost.url).equals('wallposts');
+                assert(wallPost.get('title')).equals('Kick start on the road to clean drinking water');
+                assert(wallPost.get('type')).equals('media');
+            });
+        });
+
+        it('should set isSystemWallPost correctly', function () {
+            build('wallPost').then(function(wallPost) {
+                assert(wallPost.get('isSystemWallPost')).isFalse();
+
+                wallPost.set('type', 'system');
+                return wallPost;
+            }).then( function (wallPost) {
+                assert(wallPost.get('isSystemWallPost')).isTrue();
+            });
         });
 
     });

@@ -1,9 +1,10 @@
 {
   "name": "onepercentclub-site",
   "description": "1%Club's website  ================",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "",
   "license": "BSD-3-Clause",
+  "private": true,
   "repository": {
     "type": "git",
     "url": "git://github.com/onepercentclub/onepercentclub-site.git"
@@ -36,9 +37,13 @@
     "karma-growl-reporter": "~0.1.1",
     "growly": "~1.1.1",
     "grunt-karma": "~0.6.2",
-    "phantomjs": "~1.9.2-2"
+    "phantomjs": "~1.9.2-2",
+    "grunt-es6-module-transpiler": "~0.5.1",
+    "grunt-microlib": "~0.1.1"
   },
   "scripts": {
-    "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS"
+    "build": "grunt build",
+    "test": "grunt karma:unit",
+    "postinstall": "bower install"
   }
 }

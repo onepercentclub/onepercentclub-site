@@ -1,4 +1,12 @@
 // Mocking the API
+function stubApiRequest(url, json) {
+  $.mockjax({
+    url: url,
+    dataType: 'json',
+    responseText: json
+  });
+}
+
 var testTimeout;
 module = function(name, mocks) {
   QUnit.module(name, {

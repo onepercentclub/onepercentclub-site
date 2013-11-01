@@ -11,9 +11,10 @@
   "dependencies": {},
   "devDependencies": {
     "jquery-mockjax": "*",
-    "pavlov": "https://github.com/mmonteleone/pavlov.git",
+    "pavlov": "https://github.com/pixelhandler/pavlov.git",
     "sinon-qunit": "~1.0.0",
-    "sinon": "~1.7.3"
+    "sinon": "~1.7.3",
+    "ember-data-factory": "https://github.com/teddyzeenny/ember-data-factory.git#ed-0.14"
   },
   "ignore": [
     "**/.*",
