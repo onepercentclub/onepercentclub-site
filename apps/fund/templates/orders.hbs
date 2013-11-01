@@ -129,7 +129,7 @@
         {{/linkTo}}
         
 	    {{#if readyForPayment }}
-	        {{#linkTo 'paymentProfile' class="btn btn-primary btn-iconed btn-next"}}<span class="flaticon solid right-2"></span>{% trans "Next Step" %}{{/linkTo}}
+	        <button {{action nextStep}} class="btn btn-iconed btn-next"><span class="flaticon solid right-2"></span>{% trans "Next Step" %}</button>
 	    {{else}}
 	        <button disabled class="btn btn-iconed btn-next"><span class="flaticon solid right-2"></span>{% trans "Next Step" %}</button>
 	    {{/if}}
@@ -239,7 +239,7 @@
 	        {{/if}}
 	    </fieldset>
 	
-	    {{#if isFormReady }}
+	    {{#if isComplete }}
 	        <button class="btn btn-primary btn-iconed btn-next"><span class="flaticon solid right-2"></span>{% trans 'Next Step' %}</button>
 	    {{else}}
 	        <button disabled class="btn btn-iconed btn-next"><span class="flaticon solid right-2"></span>{% trans "Next Step" %}</button>
@@ -249,10 +249,6 @@
 </div>
 
 <div class="l-sidebar">
-
-	{{#unless controllers.currentUser.isAuthenticated}}
-		<a {{action openInBox "login"}} class="btn-login"><span class="flaticon solid lock-1"></span> <strong>{% trans "Have an account?" %}</strong><br /> {%  trans "Log in here" %}</a>
-	{{/unless}}
 
     <h3>{% trans "Did you know?" %}</h3>
     {{#if controllers.currentUser.isAuthenticated }}
@@ -292,10 +288,7 @@
         </div>
     </div>
     
-    <ul class="manage">
-        {# <li class="manage-edit"><a href="#"><span class="flaticon solid pencil-3"></span> <strong>{% trans "Edit" %}</strong></a></li> #}
-        <li class="manage-delete"><a {{ action "deleteDonation" target="view" }}><span class="flaticon solid x-2"></span> <strong>{% trans "Delete" %}</strong></a></li>
-    </ul>
+    <a {{ action "deleteDonation" target="view" }} class="manage-delete"><span class="flaticon solid x-2"></span> <strong>{% trans "Delete" %}</strong></a>
     
 {% endtplhandlebars %}
 

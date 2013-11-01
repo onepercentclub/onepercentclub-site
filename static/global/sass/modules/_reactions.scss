@@ -90,32 +90,33 @@
                 @include grid(28,0,0);
                 
                 .member-avatar {
-                    @include grid(10,0,2);
+                    @include grid(9,0,2);
                     position: absolute;
                     left: 0;
                 }
             
                 .member-name {
                     @include prepend(10);
+                    color: $gray;
                 }
             }
             
             .reaction-meta {
                 @include grid(20,1,0);
                 text-align: right;
+                color: $gray;
+                font-style: normal;
+                font-size: $font-size-smallest;
+                text-transform: uppercase; 
                 
-                .reaction-timestamp {
+                .manage-delete {
                     color: $gray;
-                }  
+                
+                    &:hover {
+                        color: $color-text;
+                    }
+                }
             }
-                            
-            .manage {
-                display: none;
-                position: absolute;
-                top: 0;
-                right: 0;
-            }
-            
         }
         
         &:hover {
@@ -123,7 +124,6 @@
             .manage {
                 display: block;
             }
-            
         }
         
         .reaction-content {
@@ -132,10 +132,14 @@
             vertical-align: baseline;
             word-wrap: break-word;
             
+            .text {
+                margin: 0;
+                padding: 0;
+            }
+            
             p {
                 margin: 0;
                 padding: 0;
-                //line-height: 1.6em;
                 margin-bottom: $base-margin/2;
             }
         }

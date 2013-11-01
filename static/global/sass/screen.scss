@@ -29,6 +29,7 @@
 @import "base/base";
 @import "base/type";
 @import "base/media";
+@import "states/states";
 
 
 /* Main Layout */
@@ -42,6 +43,7 @@
 @import "base/tables";
 @import "base/popovers";
 
+
 /* Modules */
 @import "modules/carousel";
 @import "modules/members";
@@ -49,8 +51,9 @@
 @import "modules/wallposts";
 @import "modules/reactions";
 @import "modules/tasks";
+@import "modules/share";
 @import "modules/project-iframe";
-
+@import "modules/owner-actions";
 
 /* Pages */
 @import "pages/home";
@@ -59,52 +62,13 @@
 @import "pages/signup";
 @import "pages/search";
 @import "pages/project-detail";
-@import "pages/task";
+@import "pages/task-detail";
 @import "pages/fund";
 @import "pages/profile";
 @import "pages/account";
+@import "pages/news";
 @import "pages/manage";
 
-
-// @import "modules/buttons";
-// @import "modules/detail-top";
-// @import "modules/project-detail";
-// @import "modules/project-iframe";
-// @import "modules/partners";
-// @import "modules/project-iframe";
-// @import "modules/donation";
-// @import "modules/forms";
-// @import "modules/icons";
-// @import "modules/labels";
-//// @import "modules/lightbox";
-// @import "modules/media";
-// @import "modules/member-box";
-// @import "modules/member-profile";
-// @import "modules/misc";
-// @import "modules/navigation";
-//// @import "modules/pagination";
-//// @import "modules/panels";
-// @import "modules/reactions";
-// @import "modules/status-box";
-//// @import "modules/tables";
-// @import "modules/tabs";
-// @import "modules/users";
-// @import "modules/vouchers";
-// @import "modules/wallposts";
-// @import "modules/tasks";
-// @import "modules/signup";
-// @import "modules/alerts";
-// @import "modules/dashboard";
-// @import "modules/homepage";
-// @import "modules/footer";
-// @import "modules/search";
-// @import "modules/blogs";
-// @import "modules/staticpage";
-
 /* Plugins */
-//@import "plugins/datepicker";
 @import "plugins/jquery-ui";
 @import "plugins/colorbox";
-
-/* Bootstrap */
-// @import "bootstrap/bootstrap";

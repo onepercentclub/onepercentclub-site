@@ -14,7 +14,7 @@ from sorl.thumbnail import ImageField
 from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
 from apps.fund.models import Donation, DonationStatuses
 from django.template.defaultfilters import slugify
-from django.utils import timezone
+from django.utils import formats, timezone
 from django.utils.translation import get_language
 
 
@@ -44,6 +44,24 @@ class ProjectPhases(DjangoChoices):
     results = ChoiceItem('results', label=_("Results"))
     realized = ChoiceItem('realized', label=_("Realised"))
     failed = ChoiceItem('failed', label=_("Failed"))
+
+
+class ProjectPhaseLog(models.Model):
+    """ Log when a project reaches a certain phase """
+    
+    project = models.ForeignKey('projects.Project')
+    phase = models.CharField(_("phase"), max_length=20, choices=ProjectPhases.choices)
+    created = CreationDateTimeField(_("created"), help_text=_("When this phase was reached."))
+
+    class Meta:
+        unique_together = (('project', 'phase'),)
+
+    def __unicode__(self):
+        return "%s - %s - %s" % (
+                self.project.title,
+                self.phase,
+                self.created
+            )
 
 
 class ProjectManager(models.Manager):
@@ -99,6 +117,17 @@ class Project(models.Model):
 
     objects = ProjectManager()
 
+    _original_phase = None
+
+
+    def __init__(self, *args, **kwargs):
+        super(Project, self).__init__(*args, **kwargs)
+        # we do this for efficiency reasons. Comparing with the object in database
+        # through a pre_save handler is expensive because it requires at least one
+        # extra query. The phase logging is handled in a post_save only when it's
+        # needed!
+        self._original_phase = self.phase
+
     def __unicode__(self):
         if self.title:
             return self.title
@@ -153,6 +182,13 @@ class Project(models.Model):
     def get_absolute_url(self):
         """ Get the URL for the current project. """
         return 'project-detail', (), {'slug': self.slug}
+
+    def get_absolute_frontend_url(self):
+        url = self.get_absolute_url()
+        # insert the hashbang, after the language string
+        bits = url.split('/')
+        url = "/".join(bits[:2] + ['#!'] + bits[2:])
+        return url
 
     def get_meta_title(self, **kwargs):
         plan = self.projectplan
@@ -394,6 +430,11 @@ class ProjectResult(models.Model):
     created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
     updated = ModificationDateTimeField(_('updated'))
 
+    @property
+    def date_funded(self):
+        log = self.project.projectphaselog_set.get(phase=ProjectPhases.act)
+        return log.created
+
 
 class PartnerOrganization(models.Model):
     """
@@ -454,6 +495,17 @@ class ProjectBudgetLine(models.Model):
         return u'{0} - {1}'.format(self.description,
                                    format_currency(self.amount / 100.0, self.currency, locale=language))
 
+
+@receiver(post_save, weak=False, sender=Project, dispatch_uid="log-project-phase")
+def log_project_phase(sender, instance, created, **kwargs):
+    """ Log the project phases when they change """
+    if instance.phase != instance._original_phase or created:
+        phase = getattr(ProjectPhases, instance.phase)
+        instance.projectphaselog_set.create(phase=phase)
+        # set the new phase as 'original', as subsequent saves can occur,
+        # leading to unique_constraints being violated (plan_status_status_changed)
+        # for example
+        instance._original_phase = instance.phase
 
 @receiver(post_save, weak=False, sender=Project)
 def progress_project_phase(sender, instance, created, **kwargs):

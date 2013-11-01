@@ -13,12 +13,25 @@ App.TaskPreviewView = Em.View.extend({
 
 
 App.ProjectTaskListView = Em.View.extend({
-    templateName: 'project_task_list'
+    templateName: 'project_task_list',
+
+    didInsertElement: function(){
+        $('body').animate({
+            scrollTop: $('#search-results').offset().top
+        }, 100);
+    }
 });
 
 
 App.ProjectTaskView = Em.View.extend({
-    templateName: 'task'
+    templateName: 'task',
+
+    didInsertElement: function(){
+        // scroll to the task (and comments)
+        $('html, body').animate({
+            scrollTop: $('#task-detail').offset().top
+        }, 1000);
+    }
 });
 
 

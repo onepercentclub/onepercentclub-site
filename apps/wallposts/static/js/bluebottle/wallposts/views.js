@@ -6,7 +6,8 @@
 App.MediaWallPostNewView = Em.View.extend({
     templateName: 'media_wallpost_new',
     tagName: 'form',
-
+    elementId: 'wallpost-form',
+    
     submit: function(e) {
         e.preventDefault();
         this.get('controller').addMediaWallPost();
@@ -21,6 +22,7 @@ App.MediaWallPostNewView = Em.View.extend({
 App.TextWallPostNewView = Em.View.extend({
     templateName: 'text_wallpost_new',
     tagName: 'form',
+    elementId: 'wallpost-form',
 
     submit: function(e){
         e.preventDefault();
@@ -34,25 +36,7 @@ App.TextWallPostNewView = Em.View.extend({
 
 
 App.SystemWallPostView = Em.View.extend({
-    templateName: 'system_wallpost'
-});
-
-
-App.ProjectWallPostView = Em.View.extend({
-    templateName: 'project_wallpost',
-
-    didInsertElement: function(){
-        // Give it some time to really render...
-        // Hack to make sure photo viewer works for new wallposts
-        Em.run.later(function(){
-            this.$('.photo-viewer a').colorbox({
-                rel: this.toString(),
-                next: '<span class="flaticon solid right-2"></span>',
-                previous: '<span class="flaticon solid left-2"></span>',
-                close: 'x'
-            });
-        }, 500);
-    },
+    templateName: 'system_wallpost',
 
     actions: {
         deleteWallPost: function() {
@@ -75,12 +59,37 @@ App.ProjectWallPostView = Em.View.extend({
             });
         }
     }
+});
+
+
+App.ProjectWallPostView = App.SystemWallPostView.extend({
+    templateName: 'project_wallpost',
+
+    didInsertElement: function(){
+        this.$().hide().slideDown(500);
+
+        // Give it some time to really render...
+        // Hack to make sure photo viewer works for new wallposts
+        Em.run.later(function(){
+            this.$('.photo-viewer a').colorbox({
+                rel: this.toString(),
+                next: '<span class="flaticon solid right-2"></span>',
+                previous: '<span class="flaticon solid left-2"></span>',
+                close: 'x'
+            });
+        }, 500);
+    },
 
 });
 
 
 App.TaskWallPostView = App.ProjectWallPostView.extend({
-    templateName: 'task_wallpost'
+    templateName: 'task_wallpost'/*,
+    
+    # FIXME: ugh stupid hashbang, #anchors don't work ofc...
+    didInsertElement: function(e){
+        this.$().attr('id', 'wallpost-'+this.get('context').get('id'));
+    }*/
 
 });
 
@@ -93,7 +102,7 @@ App.ProjectIndexView = Em.View.extend({
 
 
 App.ProjectWallPostNewView = Em.View.extend({
-    templateName: 'project_wallpost_new'
+    templateName: 'project_wallpost_new',
 });
 
 

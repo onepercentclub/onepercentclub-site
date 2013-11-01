@@ -19,21 +19,20 @@
             </div>
 
             <div class="reaction-meta">
-                 <em class="reaction-timestamp">{{ localize created formatting="X" }}</em>
+                <em class="timestamp">{{ localize created formatting="X" }}</em>
+                {{#if isAuthor}}
+                    <a {{ action "deleteReaction" target="view" }} class="manage-delete">{% trans "Delete" %}</a>
+                {{/if}}
             </div>
-
-            {{#if isAuthor}}
-                <ul class="manage">
-                    {# <li class="manage-edit"><a href="#"><span class="flaticon solid pencil-3"></span> <strong>{% trans "Edit" %}</strong></a></li> #}
-                    <li class="manage-delete"><a {{ action "deleteReaction" target="view" }}><span class="flaticon solid x-2"></span> <strong>{% trans "Delete" %}</strong></a></li>
-                </ul>
-            {{/if}}
-                
+ 
 	    </header>
             
         <div class="reaction-content">
             <div class="text">{{{ text }}}</div>
         </div>
+        
+       
+        
 	</li>
 
 {% endtplhandlebars %}

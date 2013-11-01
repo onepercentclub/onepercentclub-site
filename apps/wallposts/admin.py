@@ -1,9 +1,16 @@
-from bluebottle.bluebottle_utils.utils import set_author_editor_ip
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
-from apps.wallposts.models import SystemWallPost
+from django.core.urlresolvers import reverse
+
+
 from polymorphic.admin import PolymorphicParentModelAdmin, PolymorphicChildModelAdmin
 from sorl.thumbnail.admin.compat import AdminImageMixin
+
+
+from bluebottle.bluebottle_utils.utils import set_author_editor_ip
+
+
+from apps.wallposts.models import SystemWallPost
 from .models import WallPost, MediaWallPost, TextWallPost, MediaWallPostPhoto, Reaction
 
 
@@ -17,6 +24,9 @@ class MediaWallPostAdmin(PolymorphicChildModelAdmin):
     base_model = WallPost
     raw_id_fields = ('author', 'editor')
     list_display = ('created', 'view_project_online', 'get_text', 'video_url', 'photos', 'author')
+
+    readonly_fields = ('view_project_online', )
+
     ordering = ('-created', )
     inlines = (MediaWallPostPhotoInline,)
 
@@ -42,6 +52,21 @@ class TextWallPostAdmin(PolymorphicChildModelAdmin):
     list_display = ('created', 'author', 'content_type', 'text')
     raw_id_fields = ('author', 'editor')
     ordering =  ('-created', )
+    readonly_fields = ('wallpost_link', )
+
+    def wallpost_link(self, obj):
+        if str(obj.content_type)  == 'task':
+            task = obj.content_object
+            url = '/#!/projects/{project_slug}/tasks/{task_id}'.format(
+                            project_slug = task.project.slug,
+                            task_id = task.id,
+                            )
+            return "<a href='%s'>%s</a>" % (str(url), task.title)
+        # Assume it's a Project wallpost
+        return u'<a href="/go/projects/{slug}">{title}</a>'.format(slug=obj.content_object.slug, title=obj.content_object.title)
+
+    wallpost_link.allow_tags = True
+
 
 
 class SystemWallPostAdmin(PolymorphicChildModelAdmin):
@@ -72,13 +97,15 @@ admin.site.register(SystemWallPost, SystemWallPostAdmin)
 
 class ReactionAdmin(admin.ModelAdmin):
     # created and updated are auto-set fields. author, editor and ip_address are auto-set on save.
-    readonly_fields = ('created', 'updated', 'author', 'editor', 'ip_address')
+    readonly_fields = ('project_url', 'created', 'updated', 'author', 'editor', 'ip_address')
     list_display = ('author_full_name', 'created', 'updated', 'deleted', 'ip_address')
     list_filter = ('created', 'updated', 'deleted')
     date_hierarchy = 'created'
     ordering = ('-created',)
     raw_id_fields = ('author', 'editor')
     search_fields = ('text', 'author__username', 'author__email', 'author__first_name', 'author__last_name', 'ip_address')
+
+    fields = ('text', 'project_url', 'wallpost', 'deleted', 'created', 'updated', 'author', 'editor', 'ip_address')
 
     def get_fieldsets(self, request, obj=None):
         """ Only show the relevant fields when adding a Reaction. """
@@ -94,6 +121,16 @@ class ReactionAdmin(admin.ModelAdmin):
             return full_name
 
     author_full_name.short_description = _('Author')
+
+    def project_url(self, obj):
+        project = obj.wallpost.content_object
+        if project.__class__.__name__ == 'Project':
+            url = project.get_absolute_frontend_url()
+            return "<a href='%s'>%s</a>" % (str(url), project.title)
+        return ''
+
+    project_url.allow_tags = True
+    project_url.short_description = _('project link')
 
     def save_model(self, request, obj, form, change):
         """ Set the author or editor (as required) and ip when saving the model. """

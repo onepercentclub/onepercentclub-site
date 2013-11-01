@@ -88,7 +88,8 @@ class FundedProjects(DashboardModule):
     def init_with_context(self, context):
 
         qs = ProjectResult.objects.order_by('created')
-        qs = qs.filter(status=ProjectResult.ResultStatuses.running)
+        qs = qs.filter(status=ProjectResult.ResultStatuses.running
+            ).select_related('project')
 
         self.children = qs[:self.limit]
         if not len(self.children):

@@ -361,7 +361,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                 </h3>
                 <div class="toolbox-content">
                     <p>{% trans "Do you need someone to help writing your business plan?" %}</p>
-                    {{#linkTo "projectTaskNew" getProject tagName="button" class="btn btn-iconed"}}
+                    {{#linkTo "projectTaskNew" getProject name="button" class="btn btn-iconed"}}
                         <em class="flaticon solid wrench-1"></em>
                         {% trans "Create a new task" %}
                     {{/linkTo}}
@@ -852,7 +852,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                 </li>
             </ul>
         </fieldset>
-        <button {{bindAttr class=":btn :btn-iconed :btn-next shouldSave::disabled"}} {{action updateRecordOnServer}}><em class="flaticon solid right-2"></em>{% trans "Save & Next" %}</button>
+        <button {{bindAttr class=":btn :btn-iconed :btn-next shouldSave::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
     {{else}}
         <fieldset>
             <ul>
@@ -931,7 +931,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
         </ul>
     </fieldset>
 
-    <button {{bindAttr class=":btn :btn-iconed :right shouldSave::disabled"}} {{action updateRecordOnServer}}><em class="icon icon-star"></em>{% trans "Save & Next" %}</button>
+    <button {{bindAttr class=":btn :btn-iconed :btn-next shouldSave::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
 
 {% endtplhandlebars %}
 

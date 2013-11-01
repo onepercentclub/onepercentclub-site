@@ -101,6 +101,8 @@ PRIVATE_MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'private', 'media')
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
 MEDIA_URL = '/static/media/'
+PRIVATE_MEDIA_URL = '/private/media/'
+
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files

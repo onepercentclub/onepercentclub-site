@@ -9,7 +9,17 @@
     background-color: $gray-darkest;
     color: $color-text-light;
     
+    .project-meta {
+        float: left;
+    }
+    
+    #share {
+        padding: $base-padding/1.5 0;
+        float: left;
+    }
+    
     .project-title {
+        clear: both;
         color: $white;
     }
     
@@ -18,12 +28,13 @@
         padding: $base-padding/3 0;
     }
     
-    
     .project-days-left {
+        margin-top: $base-padding/2;
     	color: $gray-light;
+    	line-height: 1em;
     	
     	.flaticon {	
-    	    font-size: 1.5em;
+    	    font-size: 1.3em;
     	}
     
     	strong {
@@ -68,8 +79,7 @@
 
 #project-actions {
     border-top: 1px solid $gray-light;
-    //padding-top: $base-padding/2;
-    background-color: $gray-lighter; 
+    background-color: $gray-lighter;
     
     .tabs {
         @include grid(48,1,1);

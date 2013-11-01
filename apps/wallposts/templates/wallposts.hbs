@@ -4,22 +4,20 @@
 
 {% tplhandlebars "project_wallpost_new" %}
 	
-    <form id="wallpost-form">
-        {{#if controllers.currentUser.isAuthenticated }}
-            {{#if isProjectOwner }}
-            	<h3>{% trans "Write an update" %}</h3>
-            	<p>{% trans "Write an update of your project to inform your crowd." %}</p>
-                {{view App.MediaWallPostNewView content=content}}
-            {{else}}
-            	<h3>{% trans "Write a comment" %}</h3>
-            	<p>{% trans "Write an comment to place on the project's wall." %}</p>
-                {{view App.TextWallPostNewView content=content}}
-            {{/if}}
+    {{#if controllers.currentUser.isAuthenticated }}
+        {{#if isProjectOwner }}
+        	<h3>{% trans "Write an update" %}</h3>
+        	<p>{% trans "Write an update of your project to inform your crowd." %}</p>
+            {{view App.MediaWallPostNewView content=content}}
         {{else}}
         	<h3>{% trans "Write a comment" %}</h3>
-        	<a {{action openInBox "login"}}>{%  trans "Login" %}</a> or become a {{#linkTo "signup"}}{% trans "member" %}{{/linkTo}} {% trans "to leave a comment" %}.</p>
+        	<p>{% trans "Write an comment to place on the project's wall." %}</p>
+            {{view App.TextWallPostNewView content=content}}
         {{/if}}
-    </form>
+    {{else}}
+    	<h3>{% trans "Write a comment" %}</h3>
+    	<a {{action openInBox "login"}}>{%  trans "Login" %}</a> or become a {{#linkTo "signup"}}{% trans "member" %}{{/linkTo}} {% trans "to leave a comment" %}.</p>
+    {{/if}}
 
 {% endtplhandlebars %}
 
@@ -77,28 +75,28 @@
                 </label>
 
                 <div class="controls">
-                    <a class="btn btn-iconed btn-uploader">
-                        {{view App.UploadMultipleFiles valueBinding="photo_files" multiple="multiple" id="wallpost-photo" name="wallpost-photo" accept="image/*"}}
-                        <span class="flaticon solid upload-document-1"></span>
-                        {% trans "Select photos" %}
-                    </a>
-
-                    <ul class="wallpost-photos">
+                    <ul class="form-wallpost-photos">
                         {{#each photo in files}}
-                            <li>
+                            <li class="form-wallpost-photo">
                                 {{#if photo.errors}}
-                                    <span class="error">{% trans "Error" %}</span>
+                                    <span class="message is-error">{% trans "Error" %}</span>
                                 {{else}}
                                     {{#if photo.photo.small}}
-                                        <img {{bindAttr src="photo.photo.small"}} width="100%" alt="Thumbnail" />
-                                        <a {{action "removePhoto" photo href=true}} class="remove">[x]</a>
+                                        <img {{bindAttr src="photo.photo.small"}} />
+                                        <a {{action "removePhoto" photo href=true}} class="manage-delete"><span class="flaticon solid x-2"></span> <strong>{% trans "Delete" %}</strong></a>
                                     {{else}}
-                                        <img src="{% get_static_prefix %}images/loading.gif" width="100%" alt="Thumbnail" />
+                                        <div class="is-loading-small"><img src="{% get_static_prefix %}images/loading.gif" /> <strong>{% trans "Loading photos" %}</strong></div>
                                     {{/if}}
                                 {{/if}}
                             </li>
                         {{/each}}
                     </ul>
+                    
+                    <a class="btn-link btn-upload">
+                        {{view App.UploadMultipleFiles valueBinding="photo_files" multiple="multiple" id="wallpost-photo" name="wallpost-photo" accept="image/*"}}
+                        <span class="flaticon solid upload-document-1"></span>
+                        {% trans "Upload photos" %}
+                    </a>
                 </div>
             </li>
         </ul>
@@ -121,7 +119,7 @@
 	            </div>
 	
 	            {{#if errors.text }}
-	                <div class="errors">{{#each errors.text}}<p>{{this}}</p>{{/each}}</div>
+	                <div class="has-errors">{{#each errors.text}}<p>{{this}}</p>{{/each}}</div>
 	            {{/if}}
 	        </li>
 	    </ul>
@@ -149,11 +147,9 @@
     	        {{/each}}
             	
                 {{#if canLoadMore}}
-                    <a {{action "showMore"}} class="show-more">
+                    <a {{action "showMore"}} class="btn-link btn-more">
                         <span class="flaticon solid plus-2"></span> {% trans "Show more" %} <small>{{remainingItemCount}} {% trans "more" %}</small>
                     </a>
-                {{else}}
-                    {# trans "no more posts to show" #}
                 {{/if}}
     
         	</div>
@@ -184,17 +180,13 @@
             </div>
             
             <div class="wallpost-meta">
-                 {{#if created}}
-                    <em class="wallpost-timestamp">{{ localize created formatting="X" }}</em>
+                {{#if created}}
+                    <em class="timestamp">{{ localize created formatting="X" }}</em>
+                {{/if}}
+                {{#if isAuthor}}
+                    <a {{ action "deleteWallPost" target="view" }} class="manage-delete">{% trans "Delete" %}</a>
                 {{/if}}
             </div>
-            
-            {{#if isAuthor}}
-                <ul class="manage">
-                    {# <li class="manage-edit"><a href="#"><span class="flaticon solid pencil-3"></span> <strong>{% trans "Edit" %}</strong></a></li> #}
-                    <li class="manage-delete"><a {{ action "deleteWallPost" target="view" }}><span class="flaticon solid x-2"></span> <strong>{% trans "Delete" %}</strong></a></li>
-                </ul>
-            {{/if}}
         </header>
 
         <div class="wallpost-content">            
@@ -261,15 +253,11 @@
             
             {{#if created}}
             <div class="wallpost-meta">
-                <em class="wallpost-timestamp">{{ localize created formatting="X" }}</em>
+                <em class="timestamp">{{ localize created formatting="X" }}</em>
+                {{#if isAuthor}}
+                    <a {{ action "deleteWallPost" target="view" }} class="manage-delete">{% trans "Delete" %}</a>
+                {{/if}}
             </div>
-            {{/if}}
-            
-            {{#if isAuthor}}
-                <ul class="manage">
-                    {# <li class="manage-edit"><a href="#"><span class="flaticon solid pencil-3"></span> <strong>{% trans "Edit" %}</strong></a></li> #}
-                    <li class="manage-delete"><a {{ action "deleteWallPost" target="view" }}><span class="flaticon solid x-2"></span> <strong>{% trans "Delete" %}</strong></a></li>
-                </ul>
             {{/if}}
             
         </header>
@@ -327,16 +315,12 @@
             
             <div class="wallpost-meta">
                  {{#if created}}
-                    <em class="wallpost-timestamp">{{ localize created formatting="X" }}</em>
+                    <em class="timestamp">{{ localize created formatting="X" }}</em>
+                {{/if}}
+                {{#if isAuthor}}
+                    <a {{ action "deleteWallPost" target="view" }} class="manage-delete">{% trans "Delete" %}</a>
                 {{/if}}
             </div>
-            
-            {{#if isAuthor}}
-                <ul class="manage">
-                    {# <li class="manage-edit"><a href="#"><span class="flaticon solid pencil-3"></span> <strong>{% trans "Edit" %}</strong></a></li> #}
-                    <li class="manage-delete"><a {{ action "deleteWallPost" target="view" }}><span class="flaticon solid x-2"></span> <strong>{% trans "Delete" %}</strong></a></li>
-                </ul>
-            {{/if}}
         </header>
 
         <div class="wallpost-content">
@@ -369,7 +353,9 @@
     {{/each}}
 
     {{#if canLoadMore}}
-        <a {{action "showMore"}} class="btn-link btn-more"><span class="flaticon solid plus-2"></span> {% trans "Show more" %}</a>
+        <a {{action "showMore"}} class="btn-link btn-more">
+            <span class="flaticon solid plus-2"></span> {% trans "Show more" %} <small>{{remainingItemCount}} {% trans "more" %}</small>
+        </a>
     {{/if}}
 
 {% endtplhandlebars %}

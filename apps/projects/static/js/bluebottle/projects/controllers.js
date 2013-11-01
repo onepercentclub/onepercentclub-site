@@ -263,27 +263,32 @@ App.MyProjectPlanAmbassadorsController = Em.ObjectController.extend(App.Editable
         return dirty;
     }.property('isDirty', 'ambassadors.@each.isDirty'),
 
+    actions: {
+        updateRecordOnServer: function(){
+            var controller = this;
+            var model = this.get('model');
+            model.transaction.commit();
 
-    updateRecordOnServer: function(){
-        var controller = this;
-        var model = this.get('model');
-        model.save();
 
-        if (model.get('validAmbassadors')) {
+            /* The minimum number of ambassadors requirement was dropped, plus there was no visual feedback if not
+             * enough ambassadors
+             */
+            //if (model.get('validAmbassadors')) {
             controller.transitionToRoute(controller.get('nextStep'));
+            //}
+
+        },
+
+        addAmbassador: function(){
+            // Use the same transaction as the projectplan
+            var transaction =  this.get('model').transaction;
+            var ambassador = transaction.createRecord(App.MyProjectAmbassador, {});
+            this.get('ambassadors').pushObject(ambassador);
+        },
+
+        removeAmbassador: function(ambassador){
+            ambassador.deleteRecord();
         }
-
-    },
-
-    addAmbassador: function(){
-        // Use the same transaction as the projectplan
-        var transaction =  this.get('model').transaction;
-        var ambassador = transaction.createRecord(App.MyProjectAmbassador, {});
-        this.get('ambassadors').pushObject(ambassador);
-    },
-
-    removeAmbassador: function(ambassador){
-        ambassador.deleteRecord();
     }
 
 });
@@ -311,52 +316,55 @@ App.MyProjectPlanOrganisationController = Em.ObjectController.extend(App.Editabl
         return dirty;
     }.property('organization.isLoaded', 'organization.addresses.@each.isDirty'),
 
+    actions: {
+        updateRecordOnServer: function(){
+            var controller = this;
+            var model = this.get('model.organization');
+            model.one('becameInvalid', function(record){
+                model.set('errors', record.get('errors'));
+            });
+            model.one('didUpdate', function(){
+                controller.transitionToRoute(controller.get('nextStep'));
+                window.scrollTo(0);
+            });
+            model.one('didCreate', function(){
+                controller.transitionToRoute(controller.get('nextStep'));
+                window.scrollTo(0);
+            });
 
-    addAddress: function(){
-        // Use the same transaction as the projectplan
-        var transaction =  this.get('model.organization').transaction;
-        var address = transaction.createRecord(App.MyOrganizationAddress, {});
-        this.get('model.organization.addresses').pushObject(address);
-    },
+            model.save();
+        },
 
-    removeAddress: function(address){
-        address.deleteRecord();
-    },
+        addAddress: function(){
+            // Use the same transaction as the projectplan
+            var transaction =  this.get('model.organization').transaction;
+            var address = transaction.createRecord(App.MyOrganizationAddress, {});
+            this.get('model.organization.addresses').pushObject(address);
+        },
 
-    updateRecordOnServer: function(){
-        var controller = this;
-        var model = this.get('model.organization');
-        model.one('becameInvalid', function(record){
-            model.set('errors', record.get('errors'));
-        });
-        model.one('didUpdate', function(){
-            controller.transitionToRoute(controller.get('nextStep'));
-            window.scrollTo(0);
-        });
-        model.one('didCreate', function(){
-            controller.transitionToRoute(controller.get('nextStep'));
-            window.scrollTo(0);
-        });
+        removeAddress: function(address){
+            address.deleteRecord();
+        },
 
-        model.save();
-    },
+        selectOrganization: function(org){
+            // Use the same transaction as the projectplan
+            var transaction =  this.get('model').transaction;
+            transaction.add(org);
+            this.set('model.organization', org);
+            if (this.get('model.organization.addresses.length') == 0) {
+                this.addAddress();
+            }
+        },
 
-    selectOrganization: function(org){
-        // Use the same transaction as the projectplan
-        var transaction =  this.get('model').transaction;
-        transaction.add(org);
-        this.set('model.organization', org);
-        if (this.get('model.organization.addresses.length') == 0) {
-            this.addAddress();
+        createNewOrganization: function() {
+            var controller = this;
+            var transaction = this.get('store').transaction();
+            var org = transaction.createRecord(App.MyOrganization, {name: controller.get('model.title')});
+            this.set('model.organization', org);
+            transaction.commit();
         }
     },
-    createNewOrganization: function() {
-        var controller = this;
-        var transaction = this.get('store').transaction();
-        var org = transaction.createRecord(App.MyOrganization, {name: controller.get('model.title')});
-        this.set('model.organization', org);
-        transaction.commit();
-    }
+
 });
 
 
@@ -364,24 +372,6 @@ App.MyProjectPlanOrganisationController = Em.ObjectController.extend(App.Editabl
 App.MyProjectPlanBankController = Em.ObjectController.extend(App.Editable, {
 
     nextStep: 'myProjectPlan.submit',
-
-    updateRecordOnServer: function(){
-        var controller = this;
-        var model = this.get('model.organization');
-        model.one('becameInvalid', function(record){
-            model.set('errors', record.get('errors'));
-        });
-        model.one('didUpdate', function(){
-            controller.transitionToRoute(controller.get('nextStep'));
-            window.scrollTo(0);
-        });
-        model.one('didCreate', function(){
-            controller.transitionToRoute(controller.get('nextStep'));
-            window.scrollTo(0);
-        });
-
-        model.save();
-    },
 
     shouldSave: function(){
         // Determine if any part is dirty, project plan, org or any of the org addresses
@@ -392,7 +382,27 @@ App.MyProjectPlanBankController = Em.ObjectController.extend(App.Editable, {
             return true;
         }
         return false;
-    }.property('organization.isLoaded', 'isDirty')
+    }.property('organization.isLoaded', 'isDirty'),
+
+    actions: {
+        updateRecordOnServer: function(){
+            var controller = this;
+            var model = this.get('model.organization');
+            model.one('becameInvalid', function(record){
+                model.set('errors', record.get('errors'));
+            });
+            model.one('didUpdate', function(){
+                controller.transitionToRoute(controller.get('nextStep'));
+                window.scrollTo(0);
+            });
+            model.one('didCreate', function(){
+                controller.transitionToRoute(controller.get('nextStep'));
+                window.scrollTo(0);
+            });
+
+            model.save();
+        }
+    }
 });
 
 
@@ -408,8 +418,8 @@ App.MyProjectPlanBudgetController = Em.ObjectController.extend(App.Editable, {
         }
         var budgetLines = this.get('budgetLines');
         var dirty = false;
-        budgetLines.forEach(function(line){
-             if (line.get('isDirty')) {
+        budgetLines.forEach(function(ad){
+             if (ad.get('isDirty')) {
                  dirty = true;
              }
 
@@ -417,24 +427,26 @@ App.MyProjectPlanBudgetController = Em.ObjectController.extend(App.Editable, {
         return dirty;
     }.property('isDirty', 'budgetLines.@each.isDirty'),
 
-    updateRecordOnServer: function(){
-        var controller = this;
-        var model = this.get('model');
-        model.save();
-        if (model.get('validBudget')) {
-            controller.transitionToRoute(controller.get('nextStep'));
+    actions: {
+        updateRecordOnServer: function(){
+            var controller = this;
+            var model = this.get('model');
+            model.transaction.commit();
+            if (model.get('validBudget')) {
+                controller.transitionToRoute(controller.get('nextStep'));
+            }
+        },
+
+        addBudgetLine: function(){
+            // Use the same transaction as the projectplan
+            var transaction =  this.get('model').transaction;
+            var line = transaction.createRecord(App.MyProjectBudgetLine, {});
+            this.get('budgetLines').pushObject(line);
+        },
+
+        removeBudgetLine: function(line){
+            line.deleteRecord();
         }
-    },
-
-    addBudgetLine: function(){
-        // Use the same transaction as the projectplan
-        var transaction =  this.get('model').transaction;
-        var line = transaction.createRecord(App.MyProjectBudgetLine, {});
-        this.get('budgetLines').pushObject(line);
-    },
-
-    removeBudgetLine: function(line){
-        line.deleteRecord();
     }
 
 });
@@ -454,18 +466,39 @@ App.MyProjectPlanLegalController = Em.ObjectController.extend(App.Editable, {
         }
     }.property('organization.isLoaded'),
 
+    actions: {
+        updateRecordOnServer: function() {
+            var controller = this;
+            var model = this.get('model.organization');
+            model.one('becameInvalid', function(record){
+                model.set('errors', record.get('errors'));
+            });
+            model.one('didUpdate', function(){
+                controller.transitionToRoute(controller.get('nextStep'));
+                window.scrollTo(0);
+            });
+            model.one('didCreate', function(){
+                controller.transitionToRoute(controller.get('nextStep'));
+                window.scrollTo(0);
+            });
+
+            model.save();
+        }
+    },
+
+    /* addFile and removeFile are called directly on the controller by utils.js:App.UploadMultipleFiles */
     addFile: function(file) {
         var transaction = this.get('model').transaction;
         var doc = transaction.createRecord(App.MyOrganizationDocument);
         doc.set('file', file);
-        doc.set('organization',  this.get('organization'));
+        var org = this.get('organization');
+        doc.set('organization', org);
         doc.one('didCreate', function(record){
-            this.get('organization').reload();
+            org.reload();
         });
 
         transaction.commit();
     },
-
 
     removeFile: function(doc) {
         var transaction = this.get('model').transaction;

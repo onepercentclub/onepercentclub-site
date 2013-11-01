@@ -70,7 +70,7 @@ class ProjectBudgetLineSerializer(serializers.ModelSerializer):
         fields = ('id', 'project_plan', 'description', 'amount')
 
 
-class ProjectPlanSerializer(serializers.ModelSerializer):
+class ProjectPlanSerializer(TaggableSerializerMixin, serializers.ModelSerializer):
 
     project = serializers.SlugRelatedField(source='project', slug_field='slug', read_only=True)
     country = ProjectCountrySerializer()
@@ -144,7 +144,7 @@ class ProjectPreviewSerializer(serializers.ModelSerializer):
     image = SorlImageField('projectplan.image', '247x180', crop='center')
     background_image = SorlImageField('projectplan.image', '600x4000', crop='center')
     country = ProjectCountrySerializer(source='projectplan.country')
-    description = serializers.CharField(source='projectplan.description')
+    pitch = serializers.CharField(source='projectplan.pitch')
 
     #plan = ProjectPlanSerializer(source='projectplan')
     campaign = ProjectCampaignSerializer(source='projectcampaign')
@@ -152,7 +152,7 @@ class ProjectPreviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Project
-        fields = ('id', 'title', 'image', 'phase', 'campaign', 'description', 'popularity', 'country', 'task_count')
+        fields = ('id', 'title', 'image', 'phase', 'campaign', 'pitch', 'popularity', 'country', 'task_count')
 
 
 class DonationPreviewSerializer(serializers.ModelSerializer):

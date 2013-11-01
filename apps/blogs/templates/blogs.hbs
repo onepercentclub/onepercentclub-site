@@ -1,19 +1,6 @@
 {% load templatetag_handlebars %}
 {% load i18n %}
 
-{% tplhandlebars "_news_header" %}
-
-    <div class="l-section">
-        <section class="l-wrapper">
-            <header>
-                <h1>{% blocktrans %}1%News{% endblocktrans %}</h1>
-            </header>
-        </section>
-    </div>
-
-{% endtplhandlebars %}
-
-
 {% tplhandlebars "news_index" %}
 
     {% trans "Loading the latest news" %}
@@ -23,29 +10,32 @@
 
 {% tplhandlebars "news_item" %}
 
-        <header class="blog-header">
-            <h1>{{ title}}</h1>
-            <a {{action 'openInBigBox' 'userModal' author}} class="member">
-                <figure class="member-avatar"><img {{ bindAttr src="author.getAvatar" }} alt="Avatar"></figure>
-                <strong class="member-name">{{ author.full_name }}</strong>
-            </a>
+    <header class="l-page-header">
+        <a {{action 'openInBigBox' 'userModal' author}} class="member">
+            <figure class="member-avatar"><img {{ bindAttr src="author.getAvatar" }} alt="Avatar"></figure>
+            <strong class="member-name">{{ author.full_name }}</strong>
             <em class="timestamp">{{ localize publicationDate formatting="X" }}</em>
-        </header>
-
+        </a>
+        <h1 class="page-title">{{ title}}</h1>
+    </header>
+    
+    <div class="news-content">
         {{{ body }}}
+    </div>
         
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "news" %}
 
+<div class="l-section" id="news">
     <section class="l-wrapper">
     
 	        <article class="l-content">
 	            {{outlet}}
 	        </article>
     	
-	        <sidebar class="l-sidebar blog-nav">
+	        <sidebar class="l-sidebar page-nav">
 	        
                 <h3>{% trans "More news" %}</h3>
 	            <ul>
@@ -58,15 +48,15 @@
 	                {{/each}}
 	            </ul>
 	            
-	            <div class="blog-pagination">
+	            <div class="page-pagination">
 		            {{#if controller.hasPrevious}}
-		                <a {{action 'previousNews'}} class="blog-pagination-previous">
+		                <a {{action 'previousNews'}} class="page-pagination-previous">
 		                    <span class="flaticon solid left-circle-2"></span>
 		                    {% trans "previous 5" %}
 		                </a>
 		            {{/if}}
 		            {{#if controller.hasNext}}
-		                <a {{action 'nextNews'}} class="blog-pagination-next">
+		                <a {{action 'nextNews'}} class="page-pagination-next">
 		                    {% trans "next 5" %}
 		                    <span class="flaticon solid right-circle-2"></span>
 		                </a>
@@ -76,6 +66,6 @@
 	        </sidebar>
     	</div>
     </section>
-
+</div>
 {% endtplhandlebars %}
 

@@ -99,11 +99,16 @@ fieldset legend {
 }
 
 .message {
+    display: block;
+    @include grid(48,1,1);
+    @include clear;
     position: relative;
     color: $color-text-light;
     font-family: $font-family-heavy;
     padding: $base-padding $base-padding*2;
     margin-top: 1px;
+    margin-bottom: $base-margin;
+    background-color: $color-secondary;
     
     .message-close {
         position: absolute;
@@ -116,6 +121,14 @@ fieldset legend {
         &:hover, &:active {
             color: $white;
         }
+    }
+    
+    .message-title {
+        font-family: $font-family-bold;
+    }
+    
+    .message-content {
+        font-family: $font-family-heavy;
     }
     
     &.is-error {
@@ -166,6 +179,44 @@ p.error, label.error {
 // Inputs & Textareas
 // -------------------------
 
+textarea {
+    overflow: auto;
+    resize: none;
+    vertical-align: top;
+    display: block;
+}
+
+
+// Hide default arrow
+select {
+    // Webkit
+	-webkit-appearance: none;
+	-webkit-border-radius: 0;
+	-webkit-box-shadow: none;
+	-webkit-padding-end: $base-padding;
+	-webkit-padding-start: $base-padding;
+	-webkit-user-select: none;
+	
+	// Firefox
+	-moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+    
+	background-image: image-url("select-arrow.png");
+	background-position: center right;
+	background-repeat: no-repeat;
+	
+	&:hover, &:focus {
+		border-color: $color-secondary;
+		background-image: image-url("select-arrow-hover.png");
+	}
+}
+
+// Hide default arrow IE 10
+select::-ms-expand {
+	visibility: hidden;
+}
+
 select,
 option,
 textarea,
@@ -203,30 +254,6 @@ input[type=url] {
     &.error {
         border-color: $color-error;
     }
-}
-
-textarea {
-    overflow: auto;
-    resize: none;
-    vertical-align: top;
-    display: block;
-}
-
-select {
-	-webkit-appearance: none;
-	-webkit-border-radius: 0;
-	-webkit-box-shadow: none;
-	-webkit-padding-end: $base-padding;
-	-webkit-padding-start: $base-padding;
-	-webkit-user-select: none;
-	background-image: image-url("select-arrow.png");
-	background-position: center right;
-	background-repeat: no-repeat;
-	
-	&:hover, &:focus {
-		border-color: $color-secondary;
-		background-image: image-url("select-arrow-hover.png");
-	}
 }
 
 ::-webkit-input-placeholder { color: $gray-light; }
@@ -329,20 +356,38 @@ label.radio {
 .radio-select {
 
     label {
-        padding: $base-padding/2 0;
-        color: $white;
-        border: 1px solid darken($gray-light, 5%);
-        background-color: $gray-light;
-        cursor: pointer;
-        text-align: center;
-        @include border-radius(1px);
+        margin: 0 0 0 -1px;
+        
+        span {
+            display: block;
+            padding: 0;
+            background: none;
+            height: auto;
+            line-height: $base-line-height;
+            text-indent: 0;
+            
+            margin: 0;
+            padding: $base-padding/2 $base-padding;
+            color: $white;
+            border: 1px solid darken($gray-light, 5%);
+            background-color: $gray-light;
+            cursor: pointer;
+            @include border-radius(1px);
+            text-align: center;
+            
+        }
+        
+        input[type=radio]:checked + span {
+            position: relative;
+            border-color: darken($color-secondary, 5%);
+            font-family: $font-family-heavy;
+            background: $color-secondary;
+            z-index: 10;
+        }
+        
     }
     
-    input[type=radio]:checked + span {
-        background-color: $color-secondary;
-        border-color: darken($color-secondary, 5%);
-        font-family: $font-family-heavy;
-    }
+    
 }
 
 // Special groups for horizontal views
@@ -387,4 +432,17 @@ textarea[readonly] {
     
 .agree {
     margin-bottom: 0;
+}
+
+.file-upload {
+    
+    .member-avatar {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    
+    .btn-upload {
+        margin-left: $base-margin*2;
+    }
+    
 }

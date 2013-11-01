@@ -1,15 +1,18 @@
 from django.contrib import admin
 from django.core.urlresolvers import reverse
-from .models import Organization, OrganizationAddress, OrganizationMember
-from .models import OrganizationDocument
+
+
+from .models import Organization, OrganizationDocument, OrganizationAddress, OrganizationMember
+from .forms import OrganizationForm, OrganizationDocumentForm
 
 
 class OrganizationDocumentInline(admin.StackedInline):
     model = OrganizationDocument
+    form = OrganizationDocumentForm
     extra = 0
     raw_id_fields = ('author', )
-    readonly_fields = ('download_url', 'file')
-    fields = readonly_fields + ('author', )
+    readonly_fields = ('download_url',)
+    fields = readonly_fields + ('file', 'author')
 
     def download_url(self, obj):
         return "<a href='%s'>%s</a>" % (str(obj.document_url), 'Download')
@@ -27,6 +30,7 @@ class OrganizationMemberInline(admin.StackedInline):
     extra = 0
     
 class OrganizationAdmin(admin.ModelAdmin):
+    form = OrganizationForm
     prepopulated_fields = {"slug": ("name",)}
 
     inlines = (OrganizationAddressInline, OrganizationMemberInline, OrganizationDocumentInline)
