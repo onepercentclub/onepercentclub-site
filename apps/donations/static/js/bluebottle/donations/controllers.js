@@ -6,7 +6,7 @@ App.UserMonthlyController = Em.ObjectController.extend({
 
 });
 
-App.UserMonthlyProfileController = Em.ObjectController.extend({
+App.UserMonthlyProfileController = Em.ObjectController.extend(App.Editable, {
     actions: {
         save: function(){
             this.get('model').save();
@@ -196,10 +196,14 @@ App.UserMonthlyProjectsController = Em.ObjectController.extend({
         addProjectToMonthly: function(project){
             var store = this.get('store');
             var order = this.get('model');
-            var donation = store.createRecord(App.RecurringDonation);
-            order.transaction.add(donation);
-            donation.set('project', project);
-            donation.set('order', order);
+            if (order.get('donations').anyBy('project', project)) {
+               // Donation for this already exists in this order.
+            } else {
+                var donation = store.createRecord(App.RecurringDonation);
+                order.transaction.add(donation);
+                donation.set('project', project);
+                donation.set('order', order);
+            }
 
             // Close the modal
             this.send('closeAllModals');
