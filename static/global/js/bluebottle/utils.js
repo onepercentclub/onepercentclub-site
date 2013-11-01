@@ -217,7 +217,7 @@ App.UploadFile = Ember.TextField.extend({
 
 App.UploadMultipleFiles = Ember.TextField.extend({
     type: 'file',
-    attributeBindings: ['name', 'accept'],
+    attributeBindings: ['name', 'accept', 'multiple'],
 
     contentBinding: 'parentView.controller.content',
 
