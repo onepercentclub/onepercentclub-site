@@ -25,35 +25,48 @@ App.UserDonationHistoryRoute = Em.Route.extend({
 
 
 
-App.UserMonthlyRoute = Em.Route.extend({});
-
-
-App.UserMonthlyProfileRoute = Em.Route.extend({
-    model: function(params) {
-        var store = this.get('store');
-        return App.RecurringDirectDebitPayment.find({status: 'recurring'}).then(function(recurringPayments) {
-            if (recurringPayments.get('length') > 0) {
-                return recurringPayments.objectAt(0);
-            }else {
-                return store.createRecord(App.RecurringDirectDebitPayment);
-            }
-        });
-    }
-
-});
-
-App.UserMonthlyProjectsRoute = Em.Route.extend({
+App.UserDonationRoute = Em.Route.extend({
     model: function() {
         var route = this;
-        return App.RecurringOrder.find({'status': 'recurring'}).then(function(recordList) {
+        return App.RecurringDirectDebitPayment.find({}).then(function(recordList) {
             var store = route.get('store');
             if (recordList.get('length') > 0) {
                 var record = recordList.objectAt(0);
                 return record;
             } else {
-                return store.createRecord(App.RecurringOrder);
+                record = store.createRecord(App.RecurringDirectDebitPayment);
+                return record
             }
         })
+    }
+
+});
+
+
+App.UserMonthlyProfileRoute = Em.Route.extend({
+    model: function(params) {
+        return this.modelFor('userDonation');
+    },
+    exit: function(){
+        this.get('controller').stopEditing();
+    }
+
+
+
+});
+
+App.UserMonthlyProjectsRoute = Em.Route.extend({
+
+    model: function() {
+        var route = this;
+        return App.RecurringOrder.find({'status': 'recurring'}).then(function(recordList) {
+            var store = route.get('store');
+            if (recordList.get('length') > 0) {
+                return recordList.objectAt(0);
+            } else {
+                return store.createRecord(App.RecurringOrder);
+            }
+        });
     },
     setupController: function(controller, order) {
         this._super(controller, order);
@@ -66,19 +79,21 @@ App.UserMonthlyProjectsRoute = Em.Route.extend({
         });
 
         // Set the recurring payment
-        App.RecurringDirectDebitPayment.find({}).then(function(recurringPayments) {
-            if (recurringPayments.get('length') > 0) {
-                controller.set('payment', recurringPayments.objectAt(0));
-            } else {
-                controller.set('payment', store.createRecord(App.RecurringDirectDebitPayment));
-            }
-            var payment = controller.get('payment');
-            payment.on('didError', function(record){
-                payment.set('errors', record.get('errors'));
-            });
-        });
+        controller.set('payment', this.modelFor('userDonation'));
+//
+//        App.RecurringDirectDebitPayment.find({}).then(function(recurringPayments) {
+//            if (recurringPayments.get('length') > 0) {
+//                controller.set('payment', recurringPayments.objectAt(0));
+//            } else {
+//                controller.set('payment', store.createRecord(App.RecurringDirectDebitPayment));
+//            }
+//            var payment = controller.get('payment');
+//            payment.on('didError', function(record){
+//                payment.set('errors', record.get('errors'));
+//            });
+//        });
     },
-    exit: function(){
+    exit: function(transition){
         this.get('controller').stopEditing();
     }
 
