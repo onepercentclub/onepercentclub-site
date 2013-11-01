@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-30 13:49+0100\n"
+"POT-Creation-Date: 2013-11-01 15:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -125,24 +125,19 @@ msgstr ""
 msgid "Blog posts"
 msgstr ""
 
-#: templates/blogs.hbs:9
-#, python-format
-msgid "1%%News"
-msgstr ""
-
-#: templates/blogs.hbs:19
+#: templates/blogs.hbs:6
 msgid "Loading the latest news"
 msgstr ""
 
-#: templates/blogs.hbs:50
+#: templates/blogs.hbs:40
 msgid "More news"
 msgstr ""
 
-#: templates/blogs.hbs:65
+#: templates/blogs.hbs:55
 msgid "previous 5"
 msgstr ""
 
-#: templates/blogs.hbs:70
+#: templates/blogs.hbs:60
 msgid "next 5"
 msgstr ""
 

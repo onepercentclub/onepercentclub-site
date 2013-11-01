@@ -10,10 +10,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
-"Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-08-29 15:52+0200\n"
-"PO-Revision-Date: 2013-10-30 12:40+0000\n"
-"Last-Translator: nieja <niels@1procentclub.nl>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-11-01 13:23+0100\n"
+"PO-Revision-Date: 2013-11-01 12:50+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -52,222 +52,6 @@ msgid ""
 "<strong>%(error_id)s</strong>."
 msgstr "Als je hulp nodig hebt kun je naar deze fout verwijzen als <strong>%(error_id)s</strong>."
 
-#: base.html:17 base.html.py:27
-#, python-format
-msgid ""
-"1%%Club is the global crowdfunding and crowdsourcing platform where you can "
-"share a little and change the world, in your very own way. Pick any project "
-"you like, support it with 1%% of your knowledge, money or time and follow "
-"the progress online."
-msgstr "1%%Club is het crowdfunding en crowdsourcing platform waar je door een beetje te delen, een wereld van verschil kan maken. Kies een project dat bij je past, support het met 1%% van je kennis, geld of tijd en volg de voortgang online."
-
-#: base.html:19
-msgid ""
-"crowdfunding, crowdsourcing, platform, developing countries, time, skills, "
-"money, doneren, international cooperation, charity"
-msgstr "crowdfunding, crowdsourcing, platform, ontwikkelingslanden, tijd, expertise, geld, doneren, internationale samenwerking, goed doel"
-
-#: base.html:140
-#, python-format
-msgid "What is 1%%"
-msgstr "Wat is 1%%"
-
-#: base.html:141 base.html.py:300
-#, python-format
-msgid "1%%Projects"
-msgstr "1%%Projecten"
-
-#: base.html:142 base.html.py:304
-#, python-format
-msgid "1%%Skills"
-msgstr "1%%Doen"
-
-#: base.html:143 base.html.py:309
-msgid "Get involved"
-msgstr "Doe mee"
-
-#: base.html:152
-#, python-format
-msgid "My 1%%"
-msgstr "Mijn 1%%"
-
-#: base.html:157
-msgid "Edit my profile & settings"
-msgstr "Profiel & instellingen"
-
-#: base.html:163
-msgid "Manage My Project"
-msgstr "Manage mijn project"
-
-#: base.html:171
-msgid "Language"
-msgstr "Taal"
-
-#: base.html:181
-msgid "Donations"
-msgstr "Donaties"
-
-#: base.html:187
-msgid "Sign up"
-msgstr "Registreer"
-
-#: base.html:189 registration/login.html:10
-msgid "Log in"
-msgstr "Log in"
-
-#: base.html:242
-#, python-format
-msgid "Log in to 1%%Club"
-msgstr "Aanmelden bij 1%%Club"
-
-#: base.html:247
-msgid "You did it!"
-msgstr "Gelukt!"
-
-#: base.html:248
-msgid "(Welcome back friend)"
-msgstr "(Welcome terug)"
-
-#: base.html:250
-msgid "Login here with your email address and password"
-msgstr "Log hier in met je e-mailadres en wachtwoord"
-
-#: base.html:255 registration/login.html:19
-msgid "Email"
-msgstr "Email"
-
-#: base.html:264 registration/login.html:28
-msgid "Password"
-msgstr "Wachtwoord"
-
-#: base.html:274
-msgid "Forgot your password?"
-msgstr "Wachtwoord vergeten?"
-
-#: base.html:290
-#, python-format
-msgid "It all starts with 1%%"
-msgstr "Het begint met 1%%"
-
-#: base.html:294
-#, python-format
-msgid "What is 1%%CLUB?"
-msgstr "Wat is 1%%CLUB?"
-
-#: base.html:314
-msgid "Start your project"
-msgstr "Start jouw project"
-
-#: base.html:321
-#, python-format
-msgid "About 1%%CLUB"
-msgstr "Over 1%%CLUB"
-
-#: base.html:325
-msgid "Our story"
-msgstr "Ons verhaal"
-
-#: base.html:329
-msgid "Frequently Asked Questions"
-msgstr "Veelgestelde vragen"
-
-#: base.html:333
-msgid "Meet the team"
-msgstr "Wie zijn wij"
-
-#: base.html:339 footer.html:13
-msgid "Partners"
-msgstr "Partners"
-
-#: base.html:344
-msgid "Press"
-msgstr "Pers"
-
-#: base.html:349
-#, python-format
-msgid "Work at 1%%CLUB"
-msgstr "Werken bij 1%%CLUB"
-
-#: base.html:354 footer.html:18 footer.html.py:38
-msgid "Contact"
-msgstr "Contact"
-
-#: base.html:361
-#, python-format
-msgid "Discover 1%%More"
-msgstr "Ontdek 1%%Meer"
-
-#: base.html:365
-#, python-format
-msgid "1%%Business"
-msgstr "1%%Business"
-
-#: base.html:370
-#, python-format
-msgid "1%%Blog"
-msgstr "1%%Blog"
-
-#: base.html:375
-#, python-format
-msgid "1%%Github"
-msgstr "1%%Github"
-
-#: base.html:383
-#, python-format
-msgid "1%%Social"
-msgstr "1%%Social"
-
-#: base.html:419
-#, python-format
-msgid "1%%News"
-msgstr "1%%Nieuws"
-
-#: base.html:433 base.html.py:440
-#, python-format
-msgid "Join 1%%Club"
-msgstr "Doe mee met 1%%Club"
-
-#: base.html:434
-#, python-format
-msgid ""
-"1%%Club is the global crowdfunding and crowdsourcing platform where you can "
-"share a little and change the world, in your very own way. Pick any project "
-"you like, support it with 1%% of your knowledge, money or time and follow "
-"the progress online. "
-msgstr "1%%Club is het crowdfunding en crowdsourcing platform waar je door een beetje te delen, een wereld van verschil kan maken. Kies een project dat bij je past, support het met 1%% van je kennis, geld of tijd en volg de voortgang online."
-
-#: base.html:436
-msgid "Select a project or task"
-msgstr "Selecteer een project of taak"
-
-#: base.html:437
-msgid "Share your skills or money"
-msgstr "Steun het met je tijd, kennis of geld"
-
-#: base.html:438
-msgid "See direct results"
-msgstr "Volg de voortgang"
-
-#: base.html:454
-msgid "General Conditions"
-msgstr "Algemene voorwaarden"
-
-#: base.html:455
-msgid "Privacy Policy"
-msgstr "Privacybeleid"
-
-#: base.html:459
-msgid "Give us feedback"
-msgstr "Geef ons feedback"
-
-#: base.html:497
-msgid ""
-"\n"
-"                        Our new website currently does not work well with older versions of Internet Explorer.<br/>\n"
-"                        Please install Internet Explorer 10 or use another browser such as Firefox or Chrome!<br/>\n"
-"                        "
-msgstr "\n                        Onze nieuwe website werkt op dit moment niet optimaal met oudere versies van Internet Explorer.<br/>\n                        Installeer Internet Explorer 10 of gebruik een andere browers zoals Firefox or Chrome. We lossen dit zo snel mogelijk op!<br/>\n                        "
-
 #: footer.html:6
 msgid "Menu"
 msgstr "Menu"
@@ -296,6 +80,10 @@ msgstr "Leden"
 msgid "Organizations"
 msgstr "Organisaties"
 
+#: footer.html:13
+msgid "Partners"
+msgstr "Partners"
+
 #: footer.html:14
 msgid "Business"
 msgstr "Business"
@@ -311,6 +99,10 @@ msgstr "In de media"
 #: footer.html:17 footer.html.py:37
 msgid "FAQ"
 msgstr "FAQ"
+
+#: footer.html:18 footer.html.py:38
+msgid "Contact"
+msgstr "Contact"
 
 #: footer.html:21
 msgid "News"
@@ -328,7 +120,7 @@ msgstr "Stuur door"
 msgid "More"
 msgstr "Meer"
 
-#: footer.html:34
+#: footer.html:34 accounts/profile_public.html:7
 msgid "About"
 msgstr "Over"
 
@@ -339,6 +131,191 @@ msgstr "Tweet"
 #: footer.html:44
 msgid "We like you too"
 msgstr "We like you too"
+
+#: accounts/account_settings.html:5
+#, python-format
+msgid "1%% News"
+msgstr ""
+
+#: accounts/login.html:5
+#, python-format
+msgid "Log in to 1%% Club"
+msgstr ""
+
+#: accounts/login.html:10
+msgid "You did it!"
+msgstr "Gelukt!"
+
+#: accounts/login.html:11
+msgid "(Welcome back friend)"
+msgstr "(Welcome terug)"
+
+#: accounts/login.html:12
+msgid "Login here with your email address and password"
+msgstr "Log hier in met je e-mailadres en wachtwoord"
+
+#: accounts/login.html:18
+msgid "Forgot your password?"
+msgstr "Wachtwoord vergeten?"
+
+#: accounts/login.html:19
+msgid "Login"
+msgstr "Log in"
+
+#: accounts/nav.html:8 accounts/profile_nav.html:7
+#, python-format
+msgid "My 1%%"
+msgstr "Mijn 1%%"
+
+#: accounts/nav.html:19
+msgid "My profile & settings"
+msgstr ""
+
+#: accounts/nav.html:25
+msgid "My Donations"
+msgstr ""
+
+#: accounts/nav.html:31
+msgid "My Projects"
+msgstr "Mijn Projecten"
+
+#: accounts/nav.html:42
+msgid "Language"
+msgstr "Taal"
+
+#: accounts/nav.html:54
+msgid "Donations"
+msgstr "Donaties"
+
+#: accounts/nav.html:66
+msgid "Sign up"
+msgstr "Registreer"
+
+#: accounts/nav.html:67
+msgid "or"
+msgstr ""
+
+#: accounts/nav.html:68
+msgid "Log in"
+msgstr "Log in"
+
+#: accounts/profile_form.html:6
+msgid "Edit your profile"
+msgstr "Vul je profiel aan"
+
+#: accounts/profile_form.html:7
+#, python-format
+msgid "Personalise your account so 1%%Members can get to know you."
+msgstr "Vul je profiel aan, zodat andere 1%%Leden zien wie je bent."
+
+#: accounts/profile_form.html:15
+msgid "About yourself"
+msgstr "Over jezelf"
+
+#: accounts/profile_form.html:29
+#, python-format
+msgid "Why did you join 1%%Club?"
+msgstr "Waarom doe je mee met 1%%Club?"
+
+#: accounts/profile_form.html:43
+msgid "Your website"
+msgstr "Jouw website"
+
+#: accounts/profile_form.html:57 accounts/profile_public.html:18
+msgid "Location"
+msgstr "Location"
+
+#: accounts/profile_form.html:76
+#, python-format
+msgid "1%%Skills"
+msgstr "1%%Doen"
+
+#: accounts/profile_form.html:77
+#, python-format
+msgid ""
+"How much time are you willing to spend your 1%%Skills?<br/>Let us know so we"
+" can provide you with some matching tasks from our projects."
+msgstr "Hoeveel tijd wil je besteden aan je 1%%Skills?<br/> Als je het ons laat weten dan kunnen wij taken van onze projecten die overeenkomen met jouw voorkeur aan je voorleggen."
+
+#: accounts/profile_form.html:83 accounts/profile_public.html:25
+msgid "Time available"
+msgstr "Beschikbare tijd"
+
+#: accounts/profile_nav.html:9
+msgid "Profile"
+msgstr "Profiel"
+
+#: accounts/profile_nav.html:13
+msgid "Preview my profile"
+msgstr "Bekijk mijn profiel"
+
+#: accounts/profile_public.html:12
+#, python-format
+msgid "Joined 1%%Club because"
+msgstr "Doet mee met 1%%Club omdat"
+
+#: accounts/profile_public.html:32
+msgid "Website"
+msgstr "Website"
+
+#: accounts/signup.html:6
+#, python-format
+msgid "Join 1%%Club"
+msgstr "Doe mee met 1%%Club"
+
+#: accounts/signup.html:8
+#, python-format
+msgid ""
+"1%%Club is the global platform where you can share a little and change the "
+"world, in your vary own way. We ignite modern society to share 1%% and "
+"support smart ideas from people in developing countries. We do this in a "
+"new, open way, believing in the power of collaboration boosted by today's "
+"technical possibilities. If we all share a little, we can change the world."
+msgstr ""
+
+#: accounts/signup.html:14
+msgid "Thanks for signing up!"
+msgstr "Bedankt voor je registratie!"
+
+#: accounts/signup.html:16
+msgid ""
+"We've sent you an email. Please click <strong>Activate Profile</strong> in "
+"the email we just sent you."
+msgstr "We hebben je een mail gestuurd. Klik op <strong>Activeer Profiel</strong> in deze mail."
+
+#: accounts/signup.html:23
+#, python-format
+msgid ""
+"\n"
+"    By joining 1%%Club I hereby agree to the <a %(action)s href=\"%(href)s\"> 1%%Club Terms of service</a>\n"
+"    "
+msgstr ""
+
+#: accounts/signup.html:31
+msgid "Have an account?"
+msgstr "Heb je een profiel?"
+
+#: accounts/signup.html:31
+msgid "Log in here"
+msgstr "Log hier in"
+
+#: accounts/signup.html:36
+#, python-format
+msgid "Why join 1%%Club?"
+msgstr "Waarom meedoen met 1%%Club?"
+
+#: accounts/signup.html:38
+msgid "It's easy to find projects you like."
+msgstr "Vind makkelijk projecten die jou aanspreken."
+
+#: accounts/signup.html:39
+#, python-format
+msgid "A fun and personal way to share your 1%%."
+msgstr "Een leuke & persoonlijke manier om jouw 1%% te delen."
+
+#: accounts/signup.html:40
+msgid "You'll receive updates on the progress of the projects you support."
+msgstr ""
 
 #: registration/activation_email.html:20
 msgid "Confirm your registration"
@@ -365,14 +342,6 @@ msgstr "Je activatiecode verloopt in %(expiration_days)s dagen. "
 #: registration/logged_out.html:9
 msgid "Logged out."
 msgstr "Uitgelogd."
-
-#: registration/login.html:38
-msgid "Please use your email address to log in."
-msgstr "Gebruik je e-mailadres om in te loggen"
-
-#: registration/login.html:39
-msgid "Your email address and password didn't match. Please try again."
-msgstr "Je e-mailadres en wachtwoord kwamen niet overeen. Probeer het nog eens."
 
 #: registration/password_reset_email.html:21
 msgid "Click on this link to reset your password."

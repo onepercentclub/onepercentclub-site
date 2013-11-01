@@ -240,7 +240,7 @@
 			
             <ul id="search-results">
                 {{#each task in controller}}
-                    {{render projectTaskPreview task}}
+                    {{render taskPreview task}}
                 {{else}}
                     <li class="no-results">{% trans "No tasks currently available for this project" %}.</li>
                 {{/each}}

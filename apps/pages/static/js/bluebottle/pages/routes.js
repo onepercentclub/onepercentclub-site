@@ -12,7 +12,7 @@ App.Router.map(function() {
 
 /* Static Pages */
 
-App.PageRoute = Em.Route.extend({
+App.PageRoute = Em.Route.extend(App.ScrollToTop, {
     model: function(params) {
         var page =  App.Page.find(params.page_id);
         var route = this;
@@ -25,7 +25,7 @@ App.PageRoute = Em.Route.extend({
 
 /* Contact Page */
 
-App.ContactMessageRoute = Em.Route.extend({
+App.ContactMessageRoute = Em.Route.extend(App.ScrollToTop, {
     model: function(params) {
         var store = this.get('store');
         return store.createRecord(App.ContactMessage);

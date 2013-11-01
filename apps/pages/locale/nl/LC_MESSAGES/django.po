@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
-"Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-08-29 15:52+0200\n"
-"PO-Revision-Date: 2013-08-29 14:10+0000\n"
-"Last-Translator: gannetson <loek@1procentclub.nl>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-11-01 13:23+0100\n"
+"PO-Revision-Date: 2013-11-01 14:52+0000\n"
+"Last-Translator: nieja <niels@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,75 +30,75 @@ msgstr "Status"
 msgid "Mark selected entries as published"
 msgstr "Markeer geselecteerde berichten als gepubliceerd"
 
-#: models.py:14
+#: models.py:21
 msgid "Published"
 msgstr "Gepubliceerd"
 
-#: models.py:15
+#: models.py:22
 msgid "Draft"
 msgstr "Draft"
 
-#: models.py:17
+#: models.py:24
 msgid "Title"
 msgstr "Titel"
 
-#: models.py:18
+#: models.py:25
 msgid "Slug"
 msgstr "Slug"
 
-#: models.py:21
+#: models.py:28
 msgid "language"
 msgstr "taal"
 
-#: models.py:25 models.py:52
+#: models.py:32 models.py:65
 msgid "status"
 msgstr "status"
 
-#: models.py:26
+#: models.py:33
 msgid "publication date"
 msgstr "publicatie datum"
 
-#: models.py:26
+#: models.py:33
 msgid "When the entry should go live, status must be \"Published\"."
 msgstr "Als je deze invoer live wil zien, moet de status \"Published\" zijn. "
 
-#: models.py:27
+#: models.py:34
 msgid "publication end date"
 msgstr "Einddatum publicatie"
 
-#: models.py:30 models.py:54
+#: models.py:37 models.py:67
 msgid "author"
 msgstr "auteur"
 
-#: models.py:31 models.py:59
+#: models.py:38 models.py:72
 msgid "creation date"
 msgstr "aanmaakdatum"
 
-#: models.py:32 models.py:60
+#: models.py:39 models.py:73
 msgid "last modification"
 msgstr "laatste wijziging"
 
-#: models.py:48
+#: models.py:61
 msgid "New"
 msgstr "Nieuw"
 
-#: models.py:49
+#: models.py:62
 msgid "In progress"
 msgstr "In progress"
 
-#: models.py:50
+#: models.py:63
 msgid "Closed"
 msgstr "Gesloten"
 
-#: models.py:55 templates/pages.hbs:83
+#: models.py:68 templates/pages.hbs:79
 msgid "Name"
 msgstr "Name"
 
-#: models.py:56 templates/pages.hbs:95
+#: models.py:69 templates/pages.hbs:90
 msgid "Email"
 msgstr "Email"
 
-#: models.py:57 templates/pages.hbs:107
+#: models.py:70 templates/pages.hbs:102
 msgid "Message"
 msgstr "Bericht"
 
@@ -137,7 +137,7 @@ msgstr "Pers"
 msgid "Work at 1%%Club"
 msgstr "Werken bij 1%%Club"
 
-#: templates/pages.hbs:27 templates/pages.hbs.py:66
+#: templates/pages.hbs:27 templates/pages.hbs.py:62
 msgid "Contact"
 msgstr "Contact"
 
@@ -145,30 +145,30 @@ msgstr "Contact"
 msgid "Something went wrong"
 msgstr "Oeps, er ging iets mis"
 
-#: templates/pages.hbs:50
+#: templates/pages.hbs:49
 msgid "The page you are looking for couldn't be found."
 msgstr "Helaas, de pagina die je zoekt is niet gevonden"
 
-#: templates/pages.hbs:68
+#: templates/pages.hbs:64
 msgid ""
 "\n"
-"\t\t                    Send us a message or get in touch using the details below. Talk to you soon!\n"
-"\t\t                    "
-msgstr "\n\nStuur ons een bericht. Hiernaast vind je op welke manieren dat kan."
+"                            Send us a message or get in touch using the details below. Talk to you soon!\n"
+"                            "
+msgstr ""
 
-#: templates/pages.hbs:77
+#: templates/pages.hbs:73
 msgid "Thanks for your message!. We'll get back to you soon"
 msgstr "Bedankt voor je bericht. We nemen zo snel mogelijk contact met je op!"
 
-#: templates/pages.hbs:120
+#: templates/pages.hbs:115
 msgid "Send Message"
 msgstr "Verstuur"
 
-#: templates/pages.hbs:126
+#: templates/pages.hbs:121
 msgid "Other ways to contact"
 msgstr "Contact details"
 
-#: templates/pages.hbs:127
+#: templates/pages.hbs:122
 #, python-format
 msgid ""
 "\n"
@@ -193,27 +193,27 @@ msgid ""
 "</p>\n"
 msgstr "\n<p>⏎\nEmail:<a href=\"mailto:info@1procentclub.nl?subject=Contact\">info@1procentclub.nl</a><br />⏎\nTwitter:<a href=\"https://twitter.com/1procentclub\">@1procentclub</a><br />⏎\nFacebook: <a href=\"http://www.facebook.com/onepercentclub\">/onepercentclub</a>⏎\n</p>⏎\n<p>⏎\nStichting 1%%Club<br />⏎\n's Gravenhekje 1a<br />⏎\n1011 TG Amsterdam<br />⏎\n</p>⏎\n<p>⏎\nBank: Rabobank (Haarlem)<br />⏎\nAccount number: NL45 RABO 01322070 44 (Stg. 1%Club donaties)<br />⏎\nBIC: RABONL2U<br />⏎\n<br />⏎\nKamer van Koophandel 34.26.78.95<br />⏎\nTelefoon 020 715 8980<br />⏎\n</p>⏎\n"
 
-#: templates/pages.hbs:176
+#: templates/pages.hbs:171
 msgid "No projects found."
 msgstr "Geen projecten gevonden."
 
-#: templates/project_snippet.html:52
+#: templates/project_snippet.html:51
 msgid "days to go"
 msgstr "dagen"
 
-#: templates/project_snippet.html:59
+#: templates/project_snippet.html:58
 msgid "of"
 msgstr "van"
 
-#: templates/project_snippet.html:61
+#: templates/project_snippet.html:60
 msgid "raised"
 msgstr "opgehaald"
 
-#: templates/project_snippet.html:68
+#: templates/project_snippet.html:67
 msgid "Support"
 msgstr "Support"
 
-#: templates/project_snippet.html:76
+#: templates/project_snippet.html:75
 msgid "Apply for task"
 msgstr "Doe deze taak"
 

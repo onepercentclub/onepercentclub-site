@@ -10,10 +10,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
-"Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-08-29 15:52+0200\n"
-"PO-Revision-Date: 2013-10-30 12:40+0000\n"
-"Last-Translator: nieja <niels@1procentclub.nl>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-11-01 13:23+0100\n"
+"PO-Revision-Date: 2013-11-01 12:50+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,423 +21,438 @@ msgstr ""
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: admin.py:173 models.py:85 models.py:195 models.py:236
+#: admin.py:62 templates/manage.hbs:333
+msgid "Budget"
+msgstr "Budget"
+
+#: admin.py:227 models.py:106 models.py:242 models.py:283
 msgid "title"
 msgstr "titel"
 
-#: admin.py:181
+#: admin.py:236
 msgid "owner"
 msgstr "eigenaar"
 
-#: admin.py:187
-msgid "n/a"
-msgstr "niet beschikbaar"
+#: admin.py:245
+msgid "{phase} (since {created})"
+msgstr ""
 
-#: admin.py:227
-msgid "Mark selected projects as failed"
-msgstr "Markeer geselecteerde projecten als failed"
-
-#: models.py:22 models.py:23 models.py:389 models.py:413
-msgid "name"
-msgstr "naam"
-
-#: models.py:24 models.py:86 models.py:390
-msgid "slug"
-msgstr "url"
-
-#: models.py:25 models.py:391 models.py:415 models.py:425
-msgid "description"
-msgstr "beschrijving"
-
-#: models.py:32
-msgid "project theme"
-msgstr "project thema"
-
-#: models.py:33
-msgid "project themes"
-msgstr "project thema's"
-
-#: models.py:37 templates/manage.hbs:217 templates/manage.hbs.py:455
-#: templates/manage.hbs:1407 templates/projects.hbs:214
-msgid "Pitch"
-msgstr "Pitch"
-
-#: models.py:38 templates/manage.hbs:226 templates/projects.hbs:215
-msgid "Plan"
-msgstr "Plan"
-
-#: models.py:39 templates/manage.hbs:235 templates/manage.hbs.py:1323
-#: templates/projects.hbs:216
-msgid "Campaign"
-msgstr "Campagne"
-
-#: models.py:40 templates/projects.hbs:217
-msgid "Act"
-msgstr "Act"
-
-#: models.py:41 templates/manage.hbs:251 templates/projects.hbs:152
-#: templates/projects.hbs.py:218
-msgid "Results"
-msgstr "Resultaten"
-
-#: models.py:42
-msgid "Realised"
-msgstr "Gerealiseerd"
-
-#: models.py:43
-msgid "Failed"
-msgstr "Mislukt"
-
-#: models.py:81
-msgid "initiator"
-msgstr "project initiator"
-
-#: models.py:81
-msgid "Project owner"
-msgstr "Project initiator"
-
-#: models.py:83
-msgid "coach"
-msgstr "coach"
-
-#: models.py:83
-msgid "Assistent at 1%OFFICE"
-msgstr "Medewerker 1%Club"
-
-#: models.py:88
+#: admin.py:251 models.py:53 models.py:109
 msgid "phase"
 msgstr "fase"
 
-#: models.py:88
-msgid "Phase this project is in right now."
-msgstr "Fase waarin het project zicht bevindt"
+#: admin.py:273
+msgid "n/a"
+msgstr "niet beschikbaar"
 
-#: models.py:92 models.py:191 models.py:232 models.py:286
+#: admin.py:312
+msgid "Mark selected projects as failed"
+msgstr "Markeer geselecteerde projecten als failed"
+
+#: dashboard.py:7
+msgid "Recently Created Projects"
+msgstr ""
+
+#: dashboard.py:19
+msgid "No recent projects."
+msgstr ""
+
+#: dashboard.py:24
+msgid "Recently Submitted Pitches"
+msgstr ""
+
+#: dashboard.py:37
+msgid "No submitted pitches."
+msgstr ""
+
+#: dashboard.py:42
+msgid "Recently Submitted Plans"
+msgstr ""
+
+#: dashboard.py:56
+msgid "No submitted plans."
+msgstr ""
+
+#: dashboard.py:61
+msgid "Recently Started Campaigns"
+msgstr ""
+
+#: dashboard.py:75
+msgid "No campaigns."
+msgstr ""
+
+#: dashboard.py:80
+msgid "Recently Funded Projects"
+msgstr ""
+
+#: dashboard.py:96
+msgid "No recently funded projects."
+msgstr ""
+
+#: models.py:25 models.py:26 models.py:444 models.py:468
+msgid "name"
+msgstr "naam"
+
+#: models.py:27 models.py:107 models.py:445
+msgid "slug"
+msgstr "url"
+
+#: models.py:28 models.py:446 models.py:470 models.py:480
+msgid "description"
+msgstr "beschrijving"
+
+#: models.py:35
+msgid "project theme"
+msgstr "project thema"
+
+#: models.py:36
+msgid "project themes"
+msgstr "project thema's"
+
+#: models.py:40 templates/manage.hbs:218 templates/manage.hbs.py:443
+#: templates/manage.hbs:1400
+msgid "Pitch"
+msgstr "Pitch"
+
+#: models.py:41 templates/manage.hbs:227
+msgid "Plan"
+msgstr "Plan"
+
+#: models.py:42 templates/manage.hbs:236 templates/manage.hbs.py:1312
+msgid "Campaign"
+msgstr "Campagne"
+
+#: models.py:43
+msgid "Act"
+msgstr "Act"
+
+#: models.py:44 templates/manage.hbs:252 templates/projects.hbs:118
+msgid "Results"
+msgstr "Resultaten"
+
+#: models.py:45
+msgid "Realised"
+msgstr "Gerealiseerd"
+
+#: models.py:46
+msgid "Failed"
+msgstr "Mislukt"
+
+#: models.py:54 models.py:113 models.py:238 models.py:279 models.py:333
+#: models.py:430
 msgid "created"
 msgstr "aangemaakt"
 
-#: models.py:92 models.py:191 models.py:232 models.py:286
+#: models.py:54
+msgid "When this phase was reached."
+msgstr ""
+
+#: models.py:102
+msgid "initiator"
+msgstr "project initiator"
+
+#: models.py:102
+msgid "Project owner"
+msgstr "Project initiator"
+
+#: models.py:104
+msgid "coach"
+msgstr "coach"
+
+#: models.py:104
+msgid "Assistent at 1%OFFICE"
+msgstr "Medewerker 1%Club"
+
+#: models.py:109
+msgid "Phase this project is in right now."
+msgstr "Fase waarin het project zicht bevindt"
+
+#: models.py:113 models.py:238 models.py:279 models.py:333 models.py:430
 msgid "When this project was created."
 msgstr "Wanneer dit project is aangemaakt"
 
-#: models.py:156 models.py:188 models.py:229 models.py:280 models.py:380
+#: models.py:203 models.py:235 models.py:276 models.py:327 models.py:427
 msgid "project"
 msgstr "project"
 
-#: models.py:157
+#: models.py:204
 msgid "projects"
 msgstr "projecten"
 
-#: models.py:175 templates/manage.hbs:515 templates/manage.hbs.py:1460
+#: models.py:222 templates/manage.hbs:516 templates/manage.hbs.py:1466
 msgid "Skills and expertise"
 msgstr "Skills en expertise"
 
-#: models.py:176 templates/manage.hbs:516 templates/manage.hbs.py:1461
+#: models.py:223 templates/manage.hbs:517 templates/manage.hbs.py:1467
 msgid "Crowdfunding campaign"
 msgstr "Crowdfunding campagne"
 
-#: models.py:177 templates/manage.hbs:517 templates/manage.hbs.py:1462
+#: models.py:224 templates/manage.hbs:518 templates/manage.hbs.py:1468
 msgid "Both"
 msgstr "Beide"
 
-#: models.py:183 models.py:223 templates/projects.hbs:24
+#: models.py:230 models.py:270 templates/projects.hbs:24
 msgid "New"
 msgstr "Nieuw"
 
-#: models.py:184 models.py:224
+#: models.py:231 models.py:271
 msgid "Submitted"
 msgstr "Verzonden"
 
-#: models.py:185 models.py:225
+#: models.py:232 models.py:272
 msgid "Rejected"
 msgstr "Afgewezen"
 
-#: models.py:186 models.py:227
+#: models.py:233 models.py:274
 msgid "Approved"
 msgstr "Goedgekeurd"
 
-#: models.py:189 models.py:230 models.py:281 models.py:381
+#: models.py:236 models.py:277 models.py:328 models.py:428
 msgid "status"
 msgstr "status"
 
-#: models.py:192 models.py:233 models.py:287
+#: models.py:239 models.py:280 models.py:334 models.py:431
 msgid "updated"
 msgstr "aangepast"
 
-#: models.py:195 models.py:236
+#: models.py:242 models.py:283
 msgid "Be short, creative, simple and memorable"
 msgstr "Pitch kort, creatief en simpel!"
 
-#: models.py:196 models.py:216 models.py:237
+#: models.py:243 models.py:263 models.py:284
 msgid "pitch"
 msgstr "pitch"
 
-#: models.py:196 models.py:237
+#: models.py:243 models.py:284
 msgid "Pitch your smart idea in one sentence"
 msgstr "Pitch your smart idea in one sentence"
 
-#: models.py:197 models.py:244
+#: models.py:244 models.py:291
 msgid "why, what and how"
 msgstr "why, what and how"
 
-#: models.py:197 models.py:244 templates/manage.hbs:539
+#: models.py:244 models.py:291 templates/manage.hbs:539
 msgid "Blow us away with the details!"
 msgstr "Kom maar op met die details!"
 
-#: models.py:199 models.py:239
+#: models.py:246 models.py:286
 msgid "Project need"
 msgstr "Project benodigdheden"
 
-#: models.py:200 models.py:240
+#: models.py:247 models.py:287
 msgid "theme"
 msgstr "thema"
 
-#: models.py:200 models.py:240
+#: models.py:247 models.py:287
 msgid "Select one of the themes "
 msgstr "Selecteer een van deze thema's"
 
-#: models.py:201 models.py:241
+#: models.py:248 models.py:288
 msgid "tags"
 msgstr "tags"
 
-#: models.py:201 models.py:241
+#: models.py:248 models.py:288
 msgid "Add tags"
 msgstr "Voeg tag toe"
 
-#: models.py:204 models.py:251
+#: models.py:251 models.py:298
 msgid "latitude"
 msgstr "breedte"
 
-#: models.py:205 models.py:252
+#: models.py:252 models.py:299
 msgid "longitude"
 msgstr "lengte"
 
-#: models.py:209
+#: models.py:256
 msgid "picture"
 msgstr "afbeelding"
 
-#: models.py:209
+#: models.py:256
 msgid "Upload the picture that best describes your smart idea!"
 msgstr "Upload the picture that best describes your smart idea!"
 
-#: models.py:210 models.py:257
+#: models.py:257 models.py:304
 msgid "video"
 msgstr "video"
 
-#: models.py:210 models.py:257
+#: models.py:257 models.py:304
 msgid ""
 "Do you have a video pitch or a short movie that explains your project. Cool!"
 " We can't wait to see it. You can paste the link to the YouTube or Vimeo "
 "video here"
 msgstr "Do you have a video pitch or a short movie that explains your project. Cool! We can't wait to see it. You can paste the link to the YouTube or Vimeo video here."
 
-#: models.py:217
+#: models.py:264
 msgid "pitches"
 msgstr "pitches"
 
-#: models.py:226
+#: models.py:273
 msgid "Needs work"
 msgstr "Needs work"
 
-#: models.py:245
+#: models.py:292
 msgid "effects"
 msgstr "effecten"
 
-#: models.py:245 templates/manage.hbs:550
+#: models.py:292 templates/manage.hbs:550
 msgid ""
 "What will be the Impact? How will your Smart Idea change the lives of "
 "people?"
 msgstr "What will be the Impact? How will your Smart Idea change the lives of people? ENG"
 
-#: models.py:246
+#: models.py:293
 msgid "for who"
 msgstr "voor wie"
 
-#: models.py:246
+#: models.py:293
 msgid "Describe your target group"
 msgstr "Describe your target group (ENG)"
 
-#: models.py:247
+#: models.py:294
 msgid "future"
 msgstr "toekomst"
 
-#: models.py:247 templates/manage.hbs:561
+#: models.py:294 templates/manage.hbs:561
 msgid ""
 "How will this project be self-sufficient and sustainable in the long term?"
 msgstr "How will this project be self-sufficient and sustainable in the long term? ENG"
 
-#: models.py:248
+#: models.py:295
 msgid "Reach"
 msgstr "Bereik"
 
-#: models.py:248
+#: models.py:295
 msgid "How many people do you expect to reach?"
 msgstr "How many people do you expect to reach? ENG"
 
-#: models.py:256 models.py:392
+#: models.py:303 models.py:447
 msgid "image"
 msgstr "afbeelding"
 
-#: models.py:256
+#: models.py:303
 msgid "Main project picture"
 msgstr "Project afbeelding"
 
-#: models.py:259
+#: models.py:306
 msgid "organisation"
 msgstr "organisatie"
 
-#: models.py:262
+#: models.py:309
 msgid "Describe in one sentence what you need the money for."
 msgstr "Describe in one sentence what you need the money for. ENG"
 
-#: models.py:263 templates/manage.hbs:1166
+#: models.py:310 templates/manage.hbs:1163
 msgid "Campaign strategy"
 msgstr "Campagne strategie"
 
-#: models.py:269
+#: models.py:316
 msgid "plan"
 msgstr "plan"
 
-#: models.py:270
+#: models.py:317
 msgid "plans"
 msgstr "plannen"
 
-#: models.py:276 models.py:376
+#: models.py:323 models.py:423
 msgid "Running"
 msgstr "Loopt"
 
-#: models.py:277 models.py:377
+#: models.py:324 models.py:424
 msgid "Realized"
 msgstr "Gerealiseerd"
 
-#: models.py:278 models.py:378
+#: models.py:325 models.py:425
 msgid "Closed"
 msgstr "Gesloten"
 
-#: models.py:392
+#: models.py:447
 msgid "Main partner picture"
 msgstr "Hoofdafbeelding"
 
-#: models.py:399
+#: models.py:454
 msgid "partner organization"
 msgstr "partner organisatie"
 
-#: models.py:400
+#: models.py:455
 msgid "partner organizations"
 msgstr "partner organisaties"
 
-#: models.py:414
+#: models.py:469
 msgid "email"
 msgstr "e-mail"
 
-#: models.py:427
-msgid "Amount (in cents)"
-msgstr "Bedrag (in centen)"
+#: models.py:482
+msgid "amount (in cents)"
+msgstr ""
 
-#: models.py:433
+#: models.py:488
 msgid "budget line"
 msgstr "budget item"
 
-#: models.py:434
+#: models.py:489
 msgid "budget lines"
 msgstr "budget items"
 
-#: views.py:212 views.py:215
+#: views.py:238 views.py:241
 #, python-format
 msgid "No %(verbose_name)s found matching the query"
 msgstr "Geen  %(verbose_name)s gevonden die voldoet aan deze zoekopdracht"
 
-#: templates/manage.hbs:18
-msgid "My Projects"
-msgstr "Mijn Projecten"
+#: templates/manage.hbs:16 templates/projects.hbs:80
+msgid "Loading projects"
+msgstr "Projecten laden"
 
-#: templates/manage.hbs:22
-msgid "Pitch your smart idea."
-msgstr "Pitch your smart idea. ENG"
+#: templates/manage.hbs:21
+msgid "No open projects"
+msgstr ""
 
-#: templates/manage.hbs:42
+#: templates/manage.hbs:27
+msgid "Pitch a new smart idea"
+msgstr ""
+
+#: templates/manage.hbs:47
 msgid "View public page"
 msgstr "Bekijk project pagina"
 
-#: templates/manage.hbs:49
+#: templates/manage.hbs:54
 msgid "Phase"
 msgstr "Fase:"
 
-#: templates/manage.hbs:51 templates/manage.hbs.py:65 templates/manage.hbs:73
+#: templates/manage.hbs:56 templates/manage.hbs.py:70 templates/manage.hbs:78
 msgid "Status:"
 msgstr "Status:"
 
-#: templates/manage.hbs:53 templates/manage.hbs.py:1568
+#: templates/manage.hbs:58
 msgid "Your pitch is in review now."
 msgstr "Je pitch wordt op dit moment door ons gelezen."
 
-#: templates/manage.hbs:55 templates/manage.hbs.py:1569
+#: templates/manage.hbs:60 templates/manage.hbs.py:1555
 msgid "We'll get back to you soon!"
 msgstr "We komen snel bij je terug!"
 
-#: templates/manage.hbs:59
+#: templates/manage.hbs:64
 msgid "Continue pitch"
 msgstr "Ga verder met je pitch"
 
-#: templates/manage.hbs:68
+#: templates/manage.hbs:73
 msgid "Continue plan"
 msgstr "Ga verder met je plan"
 
-#: templates/manage.hbs:76
+#: templates/manage.hbs:81
 msgid "Campaigning"
 msgstr "Campagne voeren"
 
-#: templates/manage.hbs:99
+#: templates/manage.hbs:106
 msgid "Send in your Project Pitch"
 msgstr "Verzend je Project Pitch"
 
-#: templates/manage.hbs:102
+#: templates/manage.hbs:108
 msgid ""
 "\n"
-"Do you have a smart idea to make a contribution to your community? An idea to tackle a waste problem in your neighborhood? An idea for clean and green transport? An idea to use tech innovations to improve local healthcare?<br/><br/>\n"
-"Well, you came to the right place. We LOVE smart ideas!\n"
-msgstr "\nDo you have a smart idea to make a contribution to your community? An idea to tackle a waste problem in your neighborhood? An idea for clean and green transport? An idea to use tech innovations to improve local healthcare?<br/><br/>\nWell, you came to the right place. We LOVE smart ideas!\n"
-
-#: templates/manage.hbs:109
-msgid "WHEN YOUR SMART IDEA..."
-msgstr "JOUW SMART IDEA..."
-
-#: templates/manage.hbs:111
-msgid "Might seem small, but will have a big social impact"
-msgstr "Lijkt klein maar heeft juist een grote sociale impact"
-
-#: templates/manage.hbs:112
-msgid "Is concrete and thus has a clear start and end"
-msgstr "Is concreet en behapbaar en heeft duidelijk begin en eind doel."
-
-#: templates/manage.hbs:113
-msgid ""
-"Needs on off investment to make it self-sufficient and sustainable on the "
-"long term"
-msgstr "Heeft eenmalige funding nodig om zelfredzaam en duurzaam te worden op lange termijn"
-
-#: templates/manage.hbs:114
-msgid "Takes place in one of these developing countries"
-msgstr "Vindt plaats in een van deze ontwikkelingslanden"
+"Do you have a smart idea to make a contribution to your community? An idea to tackle a waste problem in your neighborhood? An idea for clean and green transport? An idea to use tech innovations to improve local healthcare? Well, you came to the right place. We LOVE smart ideas!\n"
+msgstr ""
 
 #: templates/manage.hbs:115
-msgid "Is managed and owned locally"
-msgstr "Wordt lokaal uitgevoerd en gemanaged"
-
-#: templates/manage.hbs:116
-msgid "Needs people, special know-how and skills"
-msgstr "Is op zoek naar mensen, expertise en skills om er een succes van te maken"
-
-#: templates/manage.hbs:117
-msgid "Needs some cash to get started (up to €5000)"
-msgstr "Heeft een beetje start kapitaal nodig om van de grond te komen (max €5000)"
-
-#: templates/manage.hbs:119
-#, python-format
-msgid "...your idea fits right in with 1%%Club!"
-msgstr "...je idee past helemaal bij 1%%Club!"
-
-#: templates/manage.hbs:122
 #, python-format
 msgid ""
 "\n"
@@ -445,208 +460,255 @@ msgid ""
 "Are you ready to invest time and effort in succeeding? Double check our <a href=\"/#!/pages/faq-projects\">FAQ</a> and pitch your smart idea here!\n"
 msgstr "\n1%%Club offers you tools to engage your crowd to turn your smart idea in to reality.<br />\nAre you ready to invest time and effort in succeeding? Double check our <a href=\"/#!/pages/faq-projects\">FAQ</a> and pitch your smart idea here!\n"
 
-#: templates/manage.hbs:130
+#: templates/manage.hbs:124
 msgid "Problem creating pitch."
 msgstr "Probleem creëren pitch."
 
-#: templates/manage.hbs:132
+#: templates/manage.hbs:126
 msgid ""
 "It looks like you already have started a project in progress. You can manage"
 " your project here:"
 msgstr "Je hebt al een project. Je kunt het hier bewerken:"
 
-#: templates/manage.hbs:135
+#: templates/manage.hbs:129
 msgid "Manage projects."
 msgstr "Manage projecten."
+
+#: templates/manage.hbs:137
+msgid "Name your pitch"
+msgstr ""
 
 #: templates/manage.hbs:149
 msgid "write your pitch"
 msgstr "schrijf een pitch"
 
-#: templates/manage.hbs:158
+#: templates/manage.hbs:154
 msgid "Login"
 msgstr "Log in"
 
-#: templates/manage.hbs:158
+#: templates/manage.hbs:154
 msgid "or become a"
 msgstr "of maak"
 
-#: templates/manage.hbs:158
+#: templates/manage.hbs:154
 msgid "member"
 msgstr "een profiel aan"
 
-#: templates/manage.hbs:158
+#: templates/manage.hbs:154
 msgid "to pitch your plan."
 msgstr "om je plan te pitchen."
 
-#: templates/manage.hbs:193
+#: templates/manage.hbs:158
+msgid "WHEN YOUR SMART IDEA..."
+msgstr "JOUW SMART IDEA..."
+
+#: templates/manage.hbs:160
+msgid "Might seem small, but will have a big social impact"
+msgstr "Lijkt klein maar heeft juist een grote sociale impact"
+
+#: templates/manage.hbs:161
+msgid "Is concrete and thus has a clear start and end"
+msgstr "Is concreet en behapbaar en heeft duidelijk begin en eind doel."
+
+#: templates/manage.hbs:162
+msgid ""
+"Needs on off investment to make it self-sufficient and sustainable on the "
+"long term"
+msgstr "Heeft eenmalige funding nodig om zelfredzaam en duurzaam te worden op lange termijn"
+
+#: templates/manage.hbs:163
+msgid "Takes place in one of these developing countries"
+msgstr "Vindt plaats in een van deze ontwikkelingslanden"
+
+#: templates/manage.hbs:164
+msgid "Is managed and owned locally"
+msgstr "Wordt lokaal uitgevoerd en gemanaged"
+
+#: templates/manage.hbs:165
+msgid "Needs people, special know-how and skills"
+msgstr "Is op zoek naar mensen, expertise en skills om er een succes van te maken"
+
+#: templates/manage.hbs:166
+msgid "Needs some cash to get started (up to €5000)"
+msgstr "Heeft een beetje start kapitaal nodig om van de grond te komen (max €5000)"
+
+#: templates/manage.hbs:168
+#, python-format
+msgid "...your idea fits right in with 1%%Club!"
+msgstr "...je idee past helemaal bij 1%%Club!"
+
+#: templates/manage.hbs:194
 #, python-format
 msgid "My 1%%"
 msgstr "Mijn 1%%"
 
-#: templates/manage.hbs:243
+#: templates/manage.hbs:198
+msgid "Projects"
+msgstr "Projecten"
+
+#: templates/manage.hbs:207 templates/projects.hbs:53
+msgid "View project"
+msgstr ""
+
+#: templates/manage.hbs:244
 msgid "Execute"
 msgstr "Uitvoer"
 
-#: templates/manage.hbs:273 templates/manage.hbs.py:1626
+#: templates/manage.hbs:270 templates/manage.hbs.py:1609
 msgid "Project Story"
 msgstr "Project Story"
 
-#: templates/manage.hbs:278 templates/manage.hbs.py:1361
+#: templates/manage.hbs:275 templates/manage.hbs.py:1349
 msgid "Project Basics"
 msgstr "Project Basics"
 
-#: templates/manage.hbs:282
+#: templates/manage.hbs:281
 msgid "Project Description"
 msgstr "Project Beschrijving"
 
-#: templates/manage.hbs:286 templates/manage.hbs.py:622
-#: templates/manage.hbs:1365 templates/project_detail.html:34
-#: templates/projects.hbs:582
+#: templates/manage.hbs:287 templates/manage.hbs.py:623
+#: templates/manage.hbs:1355 templates/project_detail.html:34
+#: templates/projects.hbs:406
 msgid "Location"
 msgstr "Locatie"
 
-#: templates/manage.hbs:290 templates/manage.hbs.py:1369
+#: templates/manage.hbs:293 templates/manage.hbs.py:1361
 msgid "Media"
 msgstr "Media"
 
-#: templates/manage.hbs:297 templates/manage.hbs.py:676
-#: templates/manage.hbs:861 templates/projects.hbs:590
+#: templates/manage.hbs:298 templates/manage.hbs.py:676
+#: templates/manage.hbs:861 templates/projects.hbs:414
 msgid "Organisation"
 msgstr "Organisatie"
 
-#: templates/manage.hbs:302
+#: templates/manage.hbs:303
 msgid "Organisation Profile"
 msgstr "Organisatie Profiel"
 
-#: templates/manage.hbs:307
+#: templates/manage.hbs:310
 msgid "Legal Status"
 msgstr "Juridische Status"
 
-#: templates/manage.hbs:311 templates/manage.hbs.py:946
+#: templates/manage.hbs:316 templates/manage.hbs.py:943
 msgid "Ambassadors"
 msgstr "Ambassadeurs"
 
-#: templates/manage.hbs:321
+#: templates/manage.hbs:322
 msgid "Crowdfunding"
 msgstr "Crowdfunding"
 
-#: templates/manage.hbs:326
+#: templates/manage.hbs:327
 msgid "Start Campaign"
 msgstr "Start Campagne"
 
-#: templates/manage.hbs:330
-msgid "Budget"
-msgstr "Budget"
-
-#: templates/manage.hbs:335 templates/manage.hbs.py:1019
+#: templates/manage.hbs:340 templates/manage.hbs.py:1016
 msgid "Bank details"
 msgstr "Bank details"
 
-#: templates/manage.hbs:344 templates/manage.hbs.py:1251
+#: templates/manage.hbs:348 templates/manage.hbs.py:1243
 msgid "Submit Plan"
 msgstr "Verzend Plan"
 
-#: templates/manage.hbs:359 templates/manage.hbs.py:1688
+#: templates/manage.hbs:360 templates/manage.hbs.py:1654
 msgid "Crowdsourcing"
 msgstr "Crowdsourcing"
 
-#: templates/manage.hbs:365 templates/manage.hbs.py:1694
+#: templates/manage.hbs:363 templates/manage.hbs.py:1657
 msgid "Do you need someone to help writing your business plan?"
 msgstr "Iemand nodig die je ondersteunt bij het schrijven van je business plan?"
 
-#: templates/manage.hbs:369 templates/manage.hbs.py:1698
+#: templates/manage.hbs:366 templates/manage.hbs.py:1660
 msgid "Create a new task"
 msgstr "Creëer nieuwe taak"
 
-#: templates/manage.hbs:378 templates/manage.hbs.py:1707
+#: templates/manage.hbs:374 templates/manage.hbs.py:1668
 msgid "Project Updates"
 msgstr "Projecten Updates"
 
-#: templates/manage.hbs:385 templates/manage.hbs.py:1714
+#: templates/manage.hbs:377 templates/manage.hbs.py:1671
 msgid "Why not? Ask the crowd for feedback on your idea!"
 msgstr "Why not? Vraag de community om feedback op je idee! "
 
-#: templates/manage.hbs:389 templates/manage.hbs.py:1718
+#: templates/manage.hbs:380 templates/manage.hbs.py:1674
 msgid "Post an Update"
 msgstr "Schrijf een Update"
 
-#: templates/manage.hbs:404
+#: templates/manage.hbs:394
 msgid "Woohoo, your pitch was accepted!"
 msgstr "Woohoo, je pitch is geaccepteerd!"
 
-#: templates/manage.hbs:407
+#: templates/manage.hbs:397
 #, python-format
 msgid ""
 "To complete your project plan, please fill in the empty spaces. Are there "
 "still some gaps? Don’t worry! We have a community full of people that are "
-"willing to help you.  The only thing you need to do is create a 1%%Skills "
+"willing to help you. The only thing you need to do is create a 1%%Skills "
 "task ask for the right expertise."
-msgstr "To complete your project plan, please fill in the empty spaces. Are there still some gaps? Don’t worry! We have a community full of people that are willing to help you.  The only thing you need to do is create a 1%%Skills task ask for the right expertise."
+msgstr ""
 
-#: templates/manage.hbs:416
+#: templates/manage.hbs:404
 msgid "Project Coach"
 msgstr "Project Coach"
 
-#: templates/manage.hbs:419
+#: templates/manage.hbs:407
 msgid "Meet"
 msgstr "Ontmoet"
 
-#: templates/manage.hbs:419
+#: templates/manage.hbs:407
 msgid "who's ready to guide you through writing your ProjectPlan."
 msgstr "who's ready to guide you through writing your ProjectPlan."
 
-#: templates/manage.hbs:430 templates/manage.hbs.py:1342
+#: templates/manage.hbs:418 templates/manage.hbs.py:1331
 msgid "Next"
 msgstr "Volgende"
 
-#: templates/manage.hbs:438
+#: templates/manage.hbs:426
 msgid "Project basics"
 msgstr "Project basics"
 
-#: templates/manage.hbs:443 templates/manage.hbs.py:1395
+#: templates/manage.hbs:431 templates/manage.hbs.py:1388
 msgid "Be short, creative, simple and memorable."
 msgstr "Pitch kort, creatief en simpel!"
 
-#: templates/manage.hbs:444 templates/manage.hbs.py:1396
+#: templates/manage.hbs:432 templates/manage.hbs.py:1389
 msgid "Title"
 msgstr "Titel"
 
-#: templates/manage.hbs:454
+#: templates/manage.hbs:442
 msgid "Pitch your smart idea in one sentence."
 msgstr "Pitch your smart idea in one sentence. ENG"
 
-#: templates/manage.hbs:465 templates/manage.hbs.py:1428
+#: templates/manage.hbs:456 templates/manage.hbs.py:1425
 msgid "Select one of the themes."
 msgstr "Selecteer een van de thema's"
 
-#: templates/manage.hbs:466 templates/manage.hbs.py:1429
+#: templates/manage.hbs:457 templates/manage.hbs.py:1426
 msgid "Theme"
 msgstr "Thema"
 
-#: templates/manage.hbs:496 templates/manage.hbs.py:1441
+#: templates/manage.hbs:494 templates/manage.hbs.py:1442
 #: templates/project_detail.html:85
 msgid "Tags"
 msgstr "Tags"
 
-#: templates/manage.hbs:497 templates/manage.hbs.py:1442
+#: templates/manage.hbs:495 templates/manage.hbs.py:1443
 msgid "Between 2 and 5 tags"
 msgstr "Tussen de 2 en 5 tags"
 
-#: templates/manage.hbs:508 templates/manage.hbs.py:1453
+#: templates/manage.hbs:509 templates/manage.hbs.py:1459
 msgid "What do you need to realise your smart idea?"
 msgstr "What do you need to realise your smart idea? ENG"
 
-#: templates/manage.hbs:510 templates/manage.hbs.py:1455
+#: templates/manage.hbs:511 templates/manage.hbs.py:1461
 msgid "What do you need?"
 msgstr "What do you need? ENG"
 
-#: templates/manage.hbs:526 templates/manage.hbs.py:597
-#: templates/manage.hbs:632 templates/manage.hbs.py:668
-#: templates/manage.hbs:856 templates/manage.hbs.py:938
-#: templates/manage.hbs:1011 templates/manage.hbs.py:1125
-#: templates/manage.hbs:1178 templates/manage.hbs.py:1243
-#: templates/manage.hbs:1469
+#: templates/manage.hbs:526 templates/manage.hbs.py:599
+#: templates/manage.hbs:631 templates/manage.hbs.py:668
+#: templates/manage.hbs:856 templates/manage.hbs.py:935
+#: templates/manage.hbs:1008 templates/manage.hbs.py:1122
+#: templates/manage.hbs:1175 templates/manage.hbs.py:1235
+#: templates/manage.hbs:1475
 msgid "Save & Next"
 msgstr "Opslaan & Volgende"
 
@@ -658,57 +720,53 @@ msgstr "Project beschrijving"
 msgid "Why, what and how"
 msgstr "Why, what and how"
 
-#: templates/manage.hbs:551 templates/projects.hbs:554
+#: templates/manage.hbs:551 templates/projects.hbs:378
 msgid "Effects"
 msgstr "Effecten"
 
-#: templates/manage.hbs:562 templates/projects.hbs:561
+#: templates/manage.hbs:562 templates/projects.hbs:385
 msgid "Future"
 msgstr "Toekomst"
 
-#: templates/manage.hbs:572
+#: templates/manage.hbs:575
 msgid "Describe your target group."
 msgstr "Describe your target group."
 
-#: templates/manage.hbs:573
+#: templates/manage.hbs:576
 msgid "For who"
 msgstr "For who"
 
-#: templates/manage.hbs:583
+#: templates/manage.hbs:586
 msgid "How many people do you expect to reach? Enter a number (e.g. 50)"
 msgstr "How many people do you expect to reach? Enter a number (e.g. 50) "
 
-#: templates/manage.hbs:584 templates/projects.hbs:575
+#: templates/manage.hbs:587 templates/projects.hbs:399
 msgid "People reached"
 msgstr "Mensen bereikt"
 
-#: templates/manage.hbs:605
+#: templates/manage.hbs:607
 msgid "Project location"
 msgstr "Project locatie"
 
-#: templates/manage.hbs:606
+#: templates/manage.hbs:608
 msgid "So where is it all happenin'?"
 msgstr "So where is it all happenin'?"
 
-#: templates/manage.hbs:612
-msgid "Country."
-msgstr "Land."
-
-#: templates/manage.hbs:613 templates/manage.hbs.py:770
+#: templates/manage.hbs:614 templates/manage.hbs.py:770
 msgid "Country"
 msgstr "Land"
 
-#: templates/manage.hbs:621
+#: templates/manage.hbs:622
 msgid ""
 "Select the location on the map. You can use the search to find your "
 "location."
 msgstr "Selecteer de locatie op de kaart. Je kunt \"zoek\" gebruiken om je locatie te vinden."
 
-#: templates/manage.hbs:640
+#: templates/manage.hbs:639
 msgid "Project media"
 msgstr "Project media"
 
-#: templates/manage.hbs:641
+#: templates/manage.hbs:640
 msgid "Upload a photo"
 msgstr "Upload afbeelding"
 
@@ -731,7 +789,7 @@ msgstr "Upload afbeelding"
 msgid "Name of your organisation"
 msgstr "Naam van je organisatie"
 
-#: templates/manage.hbs:683 templates/manage.hbs.py:961
+#: templates/manage.hbs:683 templates/manage.hbs.py:958
 msgid "Name"
 msgstr "Name"
 
@@ -739,7 +797,7 @@ msgstr "Name"
 msgid "Describe your organisation"
 msgstr "Describe your organisation ENG"
 
-#: templates/manage.hbs:694 templates/manage.hbs.py:985
+#: templates/manage.hbs:694 templates/manage.hbs.py:982
 #: templates/project_detail.html:96
 msgid "Description"
 msgstr "Description"
@@ -820,7 +878,7 @@ msgstr "Website"
 msgid "Email address"
 msgstr "Email address"
 
-#: templates/manage.hbs:812 templates/manage.hbs.py:973
+#: templates/manage.hbs:812 templates/manage.hbs.py:970
 msgid "Email"
 msgstr "Email"
 
@@ -868,42 +926,41 @@ msgstr "Creër nieuwe organisatie voor dit project."
 msgid "Create"
 msgstr "Creër"
 
-#: templates/manage.hbs:891 templates/manage.hbs.py:902
+#: templates/manage.hbs:891 templates/manage.hbs.py:899
 msgid "Legal status"
 msgstr "Juridische status"
 
-#: templates/manage.hbs:893
+#: templates/manage.hbs:892
 msgid ""
 "Please upload an excerpt of your official registration to show that your NGO"
 " is registered."
 msgstr "Please upload an excerpt of your official registration to show that your NGO is registered."
 
-#: templates/manage.hbs:901
+#: templates/manage.hbs:898
 msgid ""
 "What is the legal status of your organization? Include the registration "
 "number."
 msgstr "What is the legal status of your organization? Include the registration number. ENG"
 
-#: templates/manage.hbs:912
+#: templates/manage.hbs:909
 msgid ""
-"Please scan and upload your passport or ID and the registration document. "
-"Don’t have it? It is also possible to upload the passport of ID of the "
-"person named in the registration document."
-msgstr "Please scan and upload your passport or ID and the registration document. Don’t have it? It is also possible to upload the passport of ID of the person named in the registration document."
+"please upload a copy of your passport. Make sure it's a valid one and we can"
+" read it clearly!"
+msgstr ""
 
-#: templates/manage.hbs:914
+#: templates/manage.hbs:911
 msgid "Documents"
 msgstr "Documenten"
 
-#: templates/manage.hbs:916
+#: templates/manage.hbs:913
 msgid ".jpg, .png or .pdf"
 msgstr ".jpg, .png of .pdf"
 
-#: templates/manage.hbs:924
+#: templates/manage.hbs:921
 msgid "Upload scan(s)"
 msgstr "Upload scan(s)"
 
-#: templates/manage.hbs:948
+#: templates/manage.hbs:945
 #, python-format
 msgid ""
 "\n"
@@ -913,115 +970,115 @@ msgid ""
 "            "
 msgstr "\nAn ambassador is somebody who can tell something about your smart idea or about you as a person or your organisation. Ambassadors will make your story more credible and will add that little something extra. You probably have lots of people in your network who can act as ambassador, but be sure it is not your mom and the person meets our criteria (see <a href=\"/#!/pages/faq-projects\">FAQ</a>).<br /><br />\nDo you want to start a crowdfunding campaign? Make sure all ambassadors create a 1%%Profile and post a short comment on your project page to promote your smart idea.<br /><br />\nYou've to have at least 3 ambassadors. (more? great!)<br /><br />\n            "
 
-#: templates/manage.hbs:960 templates/manage.hbs.py:972
+#: templates/manage.hbs:957 templates/manage.hbs.py:969
 msgid "Email address of the amabassador"
 msgstr "Email address of the amabassador"
 
-#: templates/manage.hbs:984
+#: templates/manage.hbs:981
 msgid "Can you tell something more about this ambassador."
 msgstr "Can you tell something more about this ambassador. ENG"
 
-#: templates/manage.hbs:996
+#: templates/manage.hbs:993
 msgid "Do you want to remove this ambassador?"
 msgstr "Wil je deze ambassadeur verwijderen?"
 
-#: templates/manage.hbs:998
+#: templates/manage.hbs:995
 msgid "Remove this ambassador"
 msgstr "Verwijder deze ambassadeur"
 
-#: templates/manage.hbs:1003
+#: templates/manage.hbs:1000
 msgid "You should at least add three ambassadors."
 msgstr "Je hebt minimaal drie ambassadeurs nodig."
 
-#: templates/manage.hbs:1005
+#: templates/manage.hbs:1002
 msgid "Add another ambassador"
 msgstr "Voeg een ambassadeur toe"
 
-#: templates/manage.hbs:1025
+#: templates/manage.hbs:1022
 msgid "Name of the bank that holds your acount."
 msgstr "Name of the bank that holds your acount."
 
-#: templates/manage.hbs:1026
+#: templates/manage.hbs:1023
 msgid "Account bank name"
 msgstr "Account bank name"
 
-#: templates/manage.hbs:1036
+#: templates/manage.hbs:1033
 msgid "Address of the bank."
 msgstr "Address of the bank."
 
-#: templates/manage.hbs:1037
+#: templates/manage.hbs:1034
 msgid "Bank address"
 msgstr "Bank address"
 
-#: templates/manage.hbs:1047
+#: templates/manage.hbs:1044
 msgid "Country of the bank."
 msgstr "Country of the bank."
 
-#: templates/manage.hbs:1048
+#: templates/manage.hbs:1045
 msgid "Bank country"
 msgstr "Bank country"
 
-#: templates/manage.hbs:1058
+#: templates/manage.hbs:1055
 msgid "Bank account number."
 msgstr "Bank account number."
 
-#: templates/manage.hbs:1059
+#: templates/manage.hbs:1056
 msgid "Account number"
 msgstr "Account number"
 
-#: templates/manage.hbs:1069
+#: templates/manage.hbs:1066
 msgid "Name of the bank account holder."
 msgstr "Name of the bank account holder."
 
-#: templates/manage.hbs:1070
+#: templates/manage.hbs:1067
 msgid "Account name"
 msgstr "Account name"
 
-#: templates/manage.hbs:1080
+#: templates/manage.hbs:1077
 msgid "Account holder city"
 msgstr "Account holder city"
 
-#: templates/manage.hbs:1081
+#: templates/manage.hbs:1078
 msgid "Account city"
 msgstr "Account city"
 
-#: templates/manage.hbs:1091
+#: templates/manage.hbs:1088
 msgid "You ony have to enter this if your country supports IBAN."
 msgstr "Je hoeft alleen een IBAN adres in te vullen als jouw land dat ondersteunt"
 
-#: templates/manage.hbs:1092
+#: templates/manage.hbs:1089
 msgid "Account IBAN"
 msgstr "Account IBAN"
 
-#: templates/manage.hbs:1102
+#: templates/manage.hbs:1099
 msgid "BIC/SWIFT code for your bank"
 msgstr "BIC/SWIFT code for your bank"
 
-#: templates/manage.hbs:1103
+#: templates/manage.hbs:1100
 msgid "Bank BIC/SWIFT code"
 msgstr "Bank BIC/SWIFT code"
 
-#: templates/manage.hbs:1113
+#: templates/manage.hbs:1110
 msgid "Do we need more information to make an eventual bank transfer?"
 msgstr "Do we need more information to make an eventual bank transfer?"
 
-#: templates/manage.hbs:1114
+#: templates/manage.hbs:1111
 msgid "Extra info"
 msgstr "Extra info"
 
-#: templates/manage.hbs:1129
+#: templates/manage.hbs:1126
 msgid "Loading data"
 msgstr "Data laden"
 
-#: templates/manage.hbs:1131
+#: templates/manage.hbs:1128
 msgid "You should create an organisation profile first."
 msgstr "Maak eerst een organisatie profiel aan."
 
-#: templates/manage.hbs:1141
+#: templates/manage.hbs:1138
 msgid "Crowndfunding Campaign"
 msgstr "Crowdfunding Campagne"
 
-#: templates/manage.hbs:1143
+#: templates/manage.hbs:1140
 #, python-format
 msgid ""
 "\n"
@@ -1031,102 +1088,104 @@ msgid ""
 "            "
 msgstr "\nSometimes people are lucky and support for their project directly comes in from all corners of the world. However, for the other 99%% it starts with their own network and their networks’ network. This basically means you have to tell your network about your project on 1%%Club. Once, twice, maybe even three times. Per e-mail, on Facebook, on Twitter, face-to-face, by phone, by poster or in a video message. Whatever you need to do to get them on board! Our advice would be to have some people on board to help you do this.<br/><br/>\nDo realize that you have to put in work to make it work. And remember, hard work tends to pays off. You have 6 months for this campaign so use it wisely. If you don’t succeed the money will go back to the people who gave it and they will choose another project.<br/><br/>\nNeed more tips and tricks? Read our <a href=\"/#!/pages/faq-projects\">FAQ</a>.<br/><br/>\n            "
 
-#: templates/manage.hbs:1154
+#: templates/manage.hbs:1151
 msgid "Describe in one sentence where the money is needed for."
 msgstr "Describe in one sentence where the money is needed for. ENG"
 
-#: templates/manage.hbs:1155
+#: templates/manage.hbs:1152
 msgid "Money needed for"
 msgstr "Money needed for"
 
-#: templates/manage.hbs:1165
+#: templates/manage.hbs:1162
 msgid "What is your crowdfunding strategy? What steps are you going to take? "
 msgstr "What is your crowdfunding strategy? What steps are you going to take? ENG"
 
-#: templates/manage.hbs:1186
+#: templates/manage.hbs:1183
 msgid "Budget needed"
 msgstr "Budget needed"
 
-#: templates/manage.hbs:1188
+#: templates/manage.hbs:1185
+#, python-format
 msgid ""
 "\n"
-"            Time to let us know how the money that you will be raising will be spent! Be sure to give us a\n"
-"            detailed insight in your budget as it will only make your credibility go up. Just one little suggestion\n"
-"            before you start; be realistic in your crowdfunding goal. Better a smaller amount and make it then a\n"
-"            large amount and have nothing in the end. Also, there are certain things not allowed to ask money for.\n"
-"            Check them in our <a href=\"/#!/pages/faq-projects\">FAQ</a>.\n"
-"            "
-msgstr "\n            Time to let us know how the money that you will be raising will be spent! Be sure to give us a\n            detailed insight in your budget as it will only make your credibility go up. Just one little suggestion\n            before you start; be realistic in your crowdfunding goal. Better a smaller amount and make it then a\n            large amount and have nothing in the end. Also, there are certain things not allowed to ask money for.\n            Check them in our <a href=\"/#!/pages/faq-projects\">FAQ</a>.\n            "
+"Time to let us know how the money that you will be raising will be spent! Be sure to give us a\n"
+"detailed insight in your budget as it will only make your credibility go up. Just one little suggestion\n"
+"before you start; be realistic in your crowdfunding goal. Better a smaller amount and make it then a\n"
+"large amount and have nothing in the end. Also, there are certain things not allowed to ask money for.\n"
+"Check them in our <a href=\"/#!/pages/faq-projects\">FAQ</a>.\n"
+"<br/>\n"
+"Please add 5%% administration fee to your budget. The total amount, including the fee, cannot exceed 5.000 Euro.\n"
+msgstr ""
 
-#: templates/manage.hbs:1218
+#: templates/manage.hbs:1214
 msgid "Add an item to your needed budget."
 msgstr "Voeg een item toe aan je budget."
 
-#: templates/manage.hbs:1228
+#: templates/manage.hbs:1220
 msgid "Total budget needed"
 msgstr "Total budget needed"
 
-#: templates/manage.hbs:1233
+#: templates/manage.hbs:1225
 msgid "Total budget shouldn't be over 5000 euro."
 msgstr "Total budget mag niet boven 5000 euro zijn."
 
-#: templates/manage.hbs:1236
+#: templates/manage.hbs:1228
 msgid "Start adding items to your budget."
 msgstr "Start adding items to your budget."
 
-#: templates/manage.hbs:1256 templates/manage.hbs.py:1269
-msgid "Agree to the terms to submit the plan"
-msgstr "Agree to the terms to submit the plan"
-
-#: templates/manage.hbs:1261
+#: templates/manage.hbs:1250
 msgid "Check!"
 msgstr "Check!"
 
-#: templates/manage.hbs:1262
+#: templates/manage.hbs:1251
 msgid ""
 "\n"
-"                        Make sure that you filled out the entire form and that all items to the left have a <span class=\"icon-ok\"></span> check sign.\n"
-"                        If one of the items still shows a <span class=\"icon-circle\"></span> circle then that still needs some work.\n"
-"                    "
-msgstr "\n                        Make sure that you filled out the entire form and that all items to the left have a <span class=\"icon-ok\"></span> check sign.\n                        If one of the items still shows a <span class=\"icon-pencil\"></span> pencil then that still needs some work.\n                    "
+"                Make sure that you filled out the entire form and that all items to the left have a <span class=\"flaticon solid checkmark-2\"></span> check sign.\n"
+"                If one of the items still shows a circle then that still needs some work.\n"
+"            "
+msgstr ""
 
-#: templates/manage.hbs:1273 templates/manage.hbs.py:1546
+#: templates/manage.hbs:1258
+msgid "Agree to the terms to submit the plan"
+msgstr "Agree to the terms to submit the plan"
+
+#: templates/manage.hbs:1260 templates/manage.hbs.py:1533
 msgid "I agree to the "
 msgstr "Ik ga akkoord met de"
 
-#: templates/manage.hbs:1274 templates/manage.hbs.py:1547
+#: templates/manage.hbs:1260 templates/manage.hbs.py:1533
 msgid "general terms and conditions"
 msgstr "algemene voorwaarden"
 
-#: templates/manage.hbs:1281 templates/manage.hbs.py:1283
+#: templates/manage.hbs:1267 templates/manage.hbs.py:1269
 msgid "Submit plan"
 msgstr "Verzend plan"
 
-#: templates/manage.hbs:1293
-msgid "Your plan is in review now. We'll get back to you soon!"
-msgstr "We gaan je plan lezen. We komen snel bij je terug!"
+#: templates/manage.hbs:1280
+msgid "Your plan is in review now"
+msgstr ""
 
-#: templates/manage.hbs:1306
+#: templates/manage.hbs:1295
 msgid "We're sorry, your plan has been rejected."
 msgstr "Helaas, je plan is afgewezen."
 
-#: templates/manage.hbs:1307 templates/manage.hbs.py:1584
+#: templates/manage.hbs:1296 templates/manage.hbs.py:1570
 msgid "Please contact us if you need support to define your smart idea."
 msgstr "Als je ondersteuning nodig hebt bij het definiëren van je smart idea kun je altijd contact met ons opnemen."
 
-#: templates/manage.hbs:1322
+#: templates/manage.hbs:1311
 msgid "Yeah! Your plan has been approved."
 msgstr "Yeah! Je plan is goedgekeurd."
 
-#: templates/manage.hbs:1323
+#: templates/manage.hbs:1312
 msgid "You can start your "
 msgstr "Je kunt starten met je"
 
-#: templates/manage.hbs:1337
+#: templates/manage.hbs:1326
 msgid "Get ready to write your pitch!"
 msgstr "Ben je klaar voor om je pitch te schrijven?"
 
-#: templates/manage.hbs:1338
+#: templates/manage.hbs:1327
 msgid ""
 "Time to pitch your smart idea because we just can’t wait to hear about it! "
 "Make sure your story is positive, convincing and compelling. Fill in the "
@@ -1135,87 +1194,91 @@ msgid ""
 "projects\">FAQ</a>."
 msgstr "Time to pitch your smart idea because we just can’t wait to hear about it! Make sure your story is positive, convincing and compelling. Fill in the Projects Basics, Location and a Picture. Need more tips and tricks to blow us away with your pitch? Check out our <a href=\"/#!/pages/faq-projects\">FAQ</a>."
 
-#: templates/manage.hbs:1356
+#: templates/manage.hbs:1343
 msgid "Project Pitch"
 msgstr "Project Pitch"
 
-#: templates/manage.hbs:1373 templates/manage.hbs.py:1478
+#: templates/manage.hbs:1368 templates/manage.hbs.py:1484
 msgid "Submit Pitch"
 msgstr "Verzend Pitch"
 
-#: templates/manage.hbs:1390
+#: templates/manage.hbs:1383
 msgid "Pitch basics"
 msgstr "Pitch basics"
 
-#: templates/manage.hbs:1406
+#: templates/manage.hbs:1399
 msgid ""
 "By reading your pitch many donors already make the decision to donate or "
 "not. The explanation must be to the point, because people don't have time to"
 " read everything."
 msgstr "Veel mensen zullen op basis van je pitch beslissen of je willen meedoen of niet. Probeer het kort en bondig te houden."
 
-#: templates/manage.hbs:1417
+#: templates/manage.hbs:1410
 msgid ""
 "A short description should at least tell something about a person, place, "
 "mitvation and activity. The simplest story would be: [Person] in [place] "
 "needs help to [activity] because [motivation]."
 msgstr "A short description should at least tell something about a person, place, mitvation and activity. The simplest story would be: [Person] in [place] needs help to [activity] because [motivation]."
 
-#: templates/manage.hbs:1418
+#: templates/manage.hbs:1411
 msgid "Short explanation: Why, what and how"
 msgstr "Short explanation: Why, what and how"
 
-#: templates/manage.hbs:1479
+#: templates/manage.hbs:1485
 msgid "Send your pitch to us, we'll get back to you soon."
 msgstr "Stuur je pitch naar ons toe, we zullen het snel lezen."
 
-#: templates/manage.hbs:1485 templates/manage.hbs.py:1542
+#: templates/manage.hbs:1531
 msgid "Agree to the terms to submit the pitch"
 msgstr "Ga akkoord met de algemene voorwaarden om je pitch te kunnen verzenden"
 
-#: templates/manage.hbs:1554 templates/manage.hbs.py:1556
+#: templates/manage.hbs:1540 templates/manage.hbs.py:1542
 msgid "Submit pitch"
 msgstr "Verzend pitch"
 
+#: templates/manage.hbs:1554
+msgid "Your pitch is in review now"
+msgstr ""
+
+#: templates/manage.hbs:1569
+msgid "We're sorry, your pitch has been rejected"
+msgstr ""
+
 #: templates/manage.hbs:1583
-msgid "We're sorry, your pitch has been rejected."
-msgstr "Helaas is je pitch afgewezen."
+msgid "Yeah! Your pitch has been approved"
+msgstr ""
 
-#: templates/manage.hbs:1597
-msgid "Yeah! Your pitch has been approved."
-msgstr "Yeah! Je pitch is goedgekeurd."
-
-#: templates/manage.hbs:1598
+#: templates/manage.hbs:1584
 msgid "You can write your {{#linkTo myProjectPlan}}Project Plan{{/linkTo}}!"
 msgstr "Je kunt je {{#linkTo myProjectPlan}}Project Plan{{/linkTo}} schrijven!"
 
-#: templates/manage.hbs:1639
+#: templates/manage.hbs:1613
 msgid "Funding status"
 msgstr "Funding status"
 
-#: templates/manage.hbs:1647 templates/projects.hbs:275
+#: templates/manage.hbs:1618 templates/projects.hbs:214
 msgid "of"
 msgstr "van"
 
-#: templates/manage.hbs:1649 templates/projects.hbs:277
+#: templates/manage.hbs:1620 templates/projects.hbs:216
 msgid "raised"
 msgstr "opgehaald"
 
-#: templates/manage.hbs:1661
+#: templates/manage.hbs:1630
 msgid "How is your campaign going?"
 msgstr "Hoe gaat het met je campagne?"
 
-#: templates/manage.hbs:1663
+#: templates/manage.hbs:1634
 msgid ""
 "\n"
-"                        Is money pouring in? No? Our tips & tricks might help you.\n"
-"                        Check our <a href=\"/#!/pages/faq-projects\">FAQ</a>! And remember Einsteins words: \"You have to learn the rules\n"
-"                        of the game. And then you have to play better than anyone else\".\n"
-"                        You can do it!\n"
-"                        "
-msgstr "\nIs money pouring in? No? Our tips & tricks might help you.⏎\nCheck our <a href=\"/#!/pages/faq-projects\">FAQ</a>! And remember Einsteins words: \"You have to learn the rules⏎\nof the game. And then you have to play better than anyone else\".⏎\nYou can do it!⏎"
+"                    Is money pouring in? No? Our tips & tricks might help you.\n"
+"                    Check our <a href=\"/#!/pages/faq-projects\">FAQ</a>! And remember Einsteins words: \"You have to learn the rules\n"
+"                    of the game. And then you have to play better than anyone else\".\n"
+"                    You can do it!\n"
+"                    "
+msgstr ""
 
-#: templates/manage.hbs:1675 templates/projects.hbs:268
+#: templates/manage.hbs:1644 templates/projects.hbs:207
 msgid "days to go"
 msgstr "dagen"
 
@@ -1261,7 +1324,7 @@ msgstr "Thema's"
 msgid "None specified."
 msgstr "Niet gespecificeerd."
 
-#: templates/project_detail.html:73 templates/projects.hbs:514
+#: templates/project_detail.html:73 templates/projects.hbs:338
 msgid "Supporters"
 msgstr "Supporters"
 
@@ -1269,25 +1332,23 @@ msgstr "Supporters"
 msgid "Funding needed for"
 msgstr "Financiering nodig voor"
 
-#: templates/project_iframe.html:29 templates/projects.hbs:35
+#: templates/project_iframe.html:29 templates/projects.hbs:30
 msgid "To go"
 msgstr "To go"
 
-#: templates/project_iframe.html:34 templates/projects.hbs:41
+#: templates/project_iframe.html:34 templates/projects.hbs:33
 msgid "days"
 msgstr "dagen"
 
-#: templates/project_iframe.html:41 templates/projects.hbs:51
-#: templates/projects.hbs.py:62 templates/projects.hbs:302
+#: templates/project_iframe.html:41
 msgid "Fully funded"
 msgstr "Volledig gefund"
 
-#: templates/project_iframe.html:42 templates/projects.hbs:52
-#: templates/projects.hbs.py:63 templates/projects.hbs:303
+#: templates/project_iframe.html:42
 msgid "being realized"
 msgstr "gerealiseerd"
 
-#: templates/project_iframe.html:51 templates/projects.hbs:79
+#: templates/project_iframe.html:51 templates/projects.hbs:59
 msgid "task(s) available"
 msgstr "taak (taken) beschikbaar"
 
@@ -1295,86 +1356,113 @@ msgstr "taak (taken) beschikbaar"
 msgid "Smart Idea"
 msgstr "Smart Idea"
 
-#: templates/projects.hbs:71 templates/projects.hbs.py:299
+#: templates/projects.hbs:38 templates/projects.hbs.py:42
+msgid "Project funded"
+msgstr ""
+
+#: templates/projects.hbs:38 templates/projects.hbs.py:42
+msgid "Being realized"
+msgstr ""
+
+#: templates/projects.hbs:46
 msgid "Project realized"
 msgstr "Project gerealiseerd"
 
-#: templates/projects.hbs:72 templates/projects.hbs.py:300
-msgid "See project results"
-msgstr "Bekijk project resultaten"
+#: templates/projects.hbs:46
+msgid "See results"
+msgstr ""
 
-#: templates/projects.hbs:102
+#: templates/projects.hbs:76
 msgid "No projects found."
 msgstr "Geen projecten gevonden."
 
-#: templates/projects.hbs:106
-msgid "loading projects"
-msgstr "projecten laden"
+#: templates/projects.hbs:120
+msgid "Reset Search Filter"
+msgstr ""
 
-#: templates/projects.hbs:140
-msgid "clear filters"
-msgstr "wis alle velden"
-
-#: templates/projects.hbs:156
+#: templates/projects.hbs:125
 msgid "Sort:"
 msgstr "Sorteer:"
 
-#: templates/projects.hbs:157
+#: templates/projects.hbs:126
 msgid "Most popular"
 msgstr "Meest populair"
 
-#: templates/projects.hbs:164
+#: templates/projects.hbs:133
 msgid "Newest"
 msgstr "Nieuwste"
 
-#: templates/projects.hbs:165
+#: templates/projects.hbs:134
 msgid "Almost funded"
 msgstr "Bijna vol"
 
-#: templates/projects.hbs:166
+#: templates/projects.hbs:135
 msgid "Near deadline"
 msgstr "Deadline nadert"
 
-#: templates/projects.hbs:170
+#: templates/projects.hbs:139
 msgid "Showing"
 msgstr "Toont"
 
-#: templates/projects.hbs:284
+#: templates/projects.hbs:223
 msgid "Support project"
 msgstr "Steun dit project"
 
-#: templates/projects.hbs:329
+#: templates/projects.hbs:244
 msgid "Updates"
 msgstr "Updates"
 
-#: templates/projects.hbs:335
+#: templates/projects.hbs:250
 msgid "Loading&#8230;"
 msgstr "Loading&#8230;"
 
-#: templates/projects.hbs:338
+#: templates/projects.hbs:253
 msgid "No updates"
 msgstr "Geen updates"
 
-#: templates/projects.hbs:347
+#: templates/projects.hbs:262
 msgid "Skills needed"
 msgstr "Skills en expertise"
 
-#: templates/projects.hbs:352
+#: templates/projects.hbs:267
 msgid "No skills needed"
 msgstr "Geen skills nodig"
 
-#: templates/projects.hbs:359
+#: templates/projects.hbs:274
 msgid "Read full plan"
 msgstr "Lees hele project plan"
 
-#: templates/projects.hbs:542
+#: templates/projects.hbs:295
+msgid "Initiator"
+msgstr ""
+
+#: templates/projects.hbs:305
+msgid "Coach"
+msgstr ""
+
+#: templates/projects.hbs:353
+msgid "Guest"
+msgstr ""
+
+#: templates/projects.hbs:366
 msgid "Project Plan"
 msgstr "Projectplan"
 
-#: templates/projects.hbs:547
+#: templates/projects.hbs:371
 msgid "Why, what and how?"
 msgstr "Wie, wat en hoe?"
 
-#: templates/projects.hbs:568
+#: templates/projects.hbs:392
 msgid "For who?"
 msgstr "Voor wie?"
+
+#: templates/admin_tools/dashboard/recent_funded_projects.html:6
+msgid ""
+"\n"
+"            Recently funded projects that are now in 'result' phase.\n"
+"        "
+msgstr ""
+
+#: templates/admin_tools/dashboard/started_campaigns.html:17
+msgid "View all campaigns"
+msgstr ""

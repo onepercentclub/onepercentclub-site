@@ -128,6 +128,24 @@ App = Em.Application.create({
 });
 
 
+// Mixin to scroll view top top of the screen
+App.ScrollInView = Em.Mixin.create({
+    didInsertElement: function(){
+        this._super();
+        var view = this.$();
+        var offset = view.offset().top - 120;
+        $("html, body").animate({ scrollTop: offset }, 600);
+    }
+});
+
+App.ScrollToTop = Em.Mixin.create({
+    enter: function(){
+        this._super();
+        $("html, body").animate({ scrollTop: 0 }, 600);
+    }
+});
+
+
 /**
  * The Ember Data Adapter and Store configuration.
  */
@@ -427,14 +445,12 @@ App.ApplicationRoute = Em.Route.extend({
             var route = this;
             App.News.find(news_id).then(function(news) {
                 route.transitionTo('newsItem', news);
-                window.scrollTo(0, 0);
             });
         },
         showPage: function(page_id) {
             var route = this;
             App.Page.find(page_id).then(function(page) {
                 route.transitionTo('page', page);
-                window.scrollTo(0, 0);
             });
         },
 
@@ -457,13 +473,6 @@ App.ApplicationRoute = Em.Route.extend({
 
     urlForEvent: function(actionName, context) {
         return "/nice/stuff"
-    }
-});
-
-App.ScrollTopRoute = Em.Route.reopen({
-    enter: function(){
-        this._super();
-        window.scrollTo(0, 0);
     }
 });
 

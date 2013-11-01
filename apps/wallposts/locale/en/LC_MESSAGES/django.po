@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-30 13:49+0100\n"
+"POT-Creation-Date: 2013-11-01 15:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: admin.py:118
+#: admin.py:123
 msgid "Author"
 msgstr ""
 
-#: admin.py:128
+#: admin.py:133
 msgid "project link"
 msgstr ""
 
@@ -241,22 +241,23 @@ msgid ""
 "Liane | 1%%Club\n"
 msgstr ""
 
-#: templates/reactions.hbs:28 templates/wallposts.hbs:195
-#: templates/wallposts.hbs.py:271 templates/wallposts.hbs:337
+#: templates/reactions.hbs:24 templates/wallposts.hbs:86
+#: templates/wallposts.hbs.py:187 templates/wallposts.hbs:258
+#: templates/wallposts.hbs.py:321
 msgid "Delete"
 msgstr ""
 
-#: templates/reactions.hbs:72 templates/wallposts.hbs:20
-#: templates/wallposts.hbs.py:362
+#: templates/reactions.hbs:71 templates/wallposts.hbs:19
+#: templates/wallposts.hbs.py:346
 msgid "Login"
 msgstr ""
 
-#: templates/reactions.hbs:72 templates/wallposts.hbs:20
-#: templates/wallposts.hbs.py:362
+#: templates/reactions.hbs:71 templates/wallposts.hbs:19
+#: templates/wallposts.hbs.py:346
 msgid "member"
 msgstr ""
 
-#: templates/reactions.hbs:72 templates/wallposts.hbs:362
+#: templates/reactions.hbs:71 templates/wallposts.hbs:346
 msgid "to leave a reaction"
 msgstr ""
 
@@ -292,79 +293,79 @@ msgid ""
 "Liane | 1%%Club\n"
 msgstr ""
 
-#: templates/wallposts.hbs:10
+#: templates/wallposts.hbs:9
 msgid "Write an update"
 msgstr ""
 
-#: templates/wallposts.hbs:11
+#: templates/wallposts.hbs:10
 msgid "Write an update of your project to inform your crowd."
 msgstr ""
 
-#: templates/wallposts.hbs:14 templates/wallposts.hbs.py:19
+#: templates/wallposts.hbs:13 templates/wallposts.hbs.py:18
 msgid "Write a comment"
 msgstr ""
 
-#: templates/wallposts.hbs:15
+#: templates/wallposts.hbs:14
 msgid "Write an comment to place on the project's wall."
 msgstr ""
 
-#: templates/wallposts.hbs:20
+#: templates/wallposts.hbs:19
 msgid "to leave a comment"
 msgstr ""
 
-#: templates/wallposts.hbs:33
+#: templates/wallposts.hbs:31
 msgid "Name of your update."
 msgstr ""
 
-#: templates/wallposts.hbs:47
+#: templates/wallposts.hbs:45
 msgid "Your update."
 msgstr ""
 
-#: templates/wallposts.hbs:61
+#: templates/wallposts.hbs:59
 msgid "Add link to video"
 msgstr ""
 
-#: templates/wallposts.hbs:75
+#: templates/wallposts.hbs:73 templates/wallposts.hbs.py:98
 msgid "Upload photos"
 msgstr ""
 
-#: templates/wallposts.hbs:76
+#: templates/wallposts.hbs:74
 msgid "format 620 x 380 minimum for best result"
 msgstr ""
 
-#: templates/wallposts.hbs:83
-msgid "Select photos"
-msgstr ""
-
-#: templates/wallposts.hbs:90
+#: templates/wallposts.hbs:82
 msgid "Error"
 msgstr ""
 
-#: templates/wallposts.hbs:107
+#: templates/wallposts.hbs:88
+msgid "Loading photos"
+msgstr ""
+
+#: templates/wallposts.hbs:105
 msgid "Post Update"
 msgstr ""
 
-#: templates/wallposts.hbs:117 templates/wallposts.hbs.py:130
-#: templates/wallposts.hbs:294 templates/wallposts.hbs.py:307
+#: templates/wallposts.hbs:115 templates/wallposts.hbs.py:128
+#: templates/wallposts.hbs:282 templates/wallposts.hbs.py:295
 msgid "Comment"
 msgstr ""
 
-#: templates/wallposts.hbs:153 templates/wallposts.hbs.py:372
+#: templates/wallposts.hbs:151 templates/wallposts.hbs.py:357
 msgid "Show more"
 msgstr ""
 
-#: templates/wallposts.hbs:153
+#: templates/wallposts.hbs:151 templates/wallposts.hbs.py:357
 msgid "more"
 msgstr ""
 
-#: templates/wallposts.hbs:245
+#: templates/wallposts.hbs:237
 msgid "Donation"
 msgstr ""
 
-#: templates/wallposts.hbs:255
+#: templates/wallposts.hbs:247
 msgid "Someone"
 msgstr ""
 
-#: templates/wallposts.hbs:258
+#: templates/wallposts.hbs:250
 msgid "Made a donation"
 msgstr ""
