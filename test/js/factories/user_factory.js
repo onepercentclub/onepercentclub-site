@@ -3,3 +3,9 @@ Factory.define('userPreview', {
     last_name: 'Skywalker',
     username: 'luke',
 });
+
+Factory.define('user', { 
+    first_name: 'Darth',
+    last_name: 'Vader',
+    username: 'darth',
+});

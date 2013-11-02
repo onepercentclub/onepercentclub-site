@@ -42,9 +42,24 @@ pavlov.specify("Task model unit tests", function() {
             });
         });
 
-        it('should set isStatusOpen correctly', function () {
+        it('should set status correctly', function () {
             build('task').then(function(task) {
                 assert(task.get('isStatusOpen')).isTrue();
+
+                task.set('status', 'in progress');
+                return task;
+            }).then( function(task) {
+                assert(task.get('isStatusInProgress')).isTrue();
+
+                task.set('status', 'closed');
+                return task;
+            }).then( function(task) {
+                assert(task.get('isStatusClosed')).isTrue();
+
+                task.set('status', 'realized');
+                return task;
+            }).then( function(task) {
+                assert(task.get('isStatusRealized')).isTrue();
             });
         });
 

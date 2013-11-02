@@ -23,8 +23,43 @@ pavlov.specify("Task Member model unit tests", function() {
             });
         });
 
-        it("should be a new task member");
-        it("should have some properties");
+        it("should be a new task search", function () {
+            build('taskMember').then(function(taskMember) {
+                assert(taskMember instanceof App.TaskMember).isTrue();
+                assert(taskMember.get('isNew')).isTrue();
+            });
+        });
+
+        it("should have some properties", function () {
+            build('taskMember').then(function(taskMember) {
+                assert(taskMember.url).equals('tasks/members');
+                assert(taskMember.get('member') instanceof App.UserPreview).isTrue();
+                assert(taskMember.get('task') instanceof App.Task).isTrue();
+                assert(taskMember.get('motivation')).equals('Build a better Death Star');
+                assert(taskMember.get('status')).equals('applied');
+            });
+        });
+
+        it('should set status correctly', function () {
+            build('taskMember').then(function(taskMember) {
+                assert(taskMember.get('isStatusApplied')).isTrue();
+
+                taskMember.set('status', 'accepted');
+                return taskMember;
+            }).then( function(taskMember) {
+                assert(taskMember.get('isStatusAccepted')).isTrue();
+
+                taskMember.set('status', 'rejected');
+                return taskMember;
+            }).then( function(taskMember) {
+                assert(taskMember.get('isStatusRejected')).isTrue();
+
+                taskMember.set('status', 'realized');
+                return taskMember;
+            }).then( function(taskMember) {
+                assert(taskMember.get('isStatusRealized')).isTrue();
+            });
+        });
 
     });
 

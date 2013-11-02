@@ -7,3 +7,37 @@ Factory.define('task', {
     end_goal: 'Description says it all',
     status: 'open'
 });
+
+Factory.define('taskFile', {
+	author: function () {
+		return attr('user');
+	},
+    task: function () {
+    	return attr('task');
+    },
+	title: 'Death Star Blueprints',
+    file: 'deathstar.pdf'
+});
+
+Factory.define('skill', {
+	name: 'Engineer'
+});
+
+Factory.define('taskMember', {
+	member: function () {
+		return attr('userPreview');
+	},
+	task: function () {
+    	return attr('task');
+    },
+	status: 'applied',
+	motivation: 'Build a better Death Star',
+});
+
+Factory.define('taskSearch', {
+	text: 'star',
+	skill: 'Engineer',
+	ordering: 'newest',
+	status: 'open',
+	page: 1
+});
