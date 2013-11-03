@@ -60,6 +60,11 @@ module.exports = function(config) {
       // Handlebars templates before loading them here!
       // '../../apps/**/templates/*.hbs',
 
+      // Sion
+      '../../static/build/js/components/sinon/lib/sinon.js',
+      '../../static/build/js/components/sinon/lib/sinon/{assert,test,stub,injector,spy,call}.js',
+      // '../../static/build/js/components/sinon-qunit/lib/*.js',
+
       // Factories / Fixtures
       '../../static/build/js/components/ember-data-factory/dist/ember-data-factory-0.0.1.js',
       'factories/**/*_factory.js',

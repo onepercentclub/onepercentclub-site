@@ -42,22 +42,22 @@ pavlov.specify("Task Member model unit tests", function() {
 
         it('should set status correctly', function () {
             build('taskMember').then(function(taskMember) {
-                assert(taskMember.get('isStatusApplied')).isTrue();
+                assert(taskMember.get('isStatusApplied')).isTrue('status should be applied');
 
                 taskMember.set('status', 'accepted');
                 return taskMember;
             }).then( function(taskMember) {
-                assert(taskMember.get('isStatusAccepted')).isTrue();
+                assert(taskMember.get('isStatusAccepted')).isTrue('status should be accepted');
 
                 taskMember.set('status', 'rejected');
                 return taskMember;
             }).then( function(taskMember) {
-                assert(taskMember.get('isStatusRejected')).isTrue();
+                assert(taskMember.get('isStatusRejected')).isTrue('status should be rejected');
 
                 taskMember.set('status', 'realized');
                 return taskMember;
             }).then( function(taskMember) {
-                assert(taskMember.get('isStatusRealized')).isTrue();
+                assert(taskMember.get('isStatusRealized')).isTrue('status should be realized');
             });
         });
 

@@ -9,15 +9,9 @@ pavlov.specify("Task model unit tests", function() {
     
     describe("Task Instance", function () {
 
-        var task;
-
         before(function() {      
             Ember.run( function () {
                 App.injectTestHelpers();
-            });
-
-            build('task').then(function(record) {
-                task = record;
             });
         });
 
@@ -30,8 +24,10 @@ pavlov.specify("Task model unit tests", function() {
         });
 
         it("should be a new task", function () {
-            assert(task instanceof App.Task).isTrue();
-            assert(task.get('isNew')).isTrue();
+            build('task').then(function(task) {
+                assert(task instanceof App.Task).isTrue();
+                assert(task.get('isNew')).isTrue();
+            });
         });
 
         it("should have some properties", function () {
@@ -44,23 +40,39 @@ pavlov.specify("Task model unit tests", function() {
 
         it('should set status correctly', function () {
             build('task').then(function(task) {
-                assert(task.get('isStatusOpen')).isTrue();
+                assert(task.get('isStatusOpen')).isTrue('status should be open');
 
                 task.set('status', 'in progress');
                 return task;
             }).then( function(task) {
-                assert(task.get('isStatusInProgress')).isTrue();
+                assert(task.get('isStatusInProgress')).isTrue('status should be in progress');
 
                 task.set('status', 'closed');
                 return task;
             }).then( function(task) {
-                assert(task.get('isStatusClosed')).isTrue();
+                assert(task.get('isStatusClosed')).isTrue('status should be closed');
 
                 task.set('status', 'realized');
                 return task;
             }).then( function(task) {
-                assert(task.get('isStatusRealized')).isTrue();
+                assert(task.get('isStatusRealized')).isTrue('status should be realized');
             });
+        });
+
+        describe('#timeNeeded', function () {
+
+            it('should return friendly time for specific times', function () {
+                build('task', {time_needed: 8}).then(function(task) {
+                    assert(task.get('timeNeeded')).equals('one day', 'time needed from App.TimeNeededList');
+                });
+            });
+
+            it('should return time in hours for non-specific times', function () {
+                build('task', {time_needed: 2}).then(function(task) {
+                    assert(task.get('timeNeeded')).equals('two hours', 'time needed in hours');
+                });
+            });
+
         });
 
     });
