@@ -101,6 +101,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build', ['bower:install', 'concat:dist']);
   // Add emberhandlebars to dev once it is working
   grunt.registerTask('dev', ['build', 'karma:unit']);
+  grunt.registerTask('travis', ['build', 'karma:ci']);
   grunt.registerTask('local', ['dev', 'watch']);
   grunt.registerTask('deploy', ['concat:dist', 'uglify:dist', 'hashres']);
 }
