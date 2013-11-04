@@ -84,41 +84,5 @@
     	.page-pagination-next {
         	float: right;
     	}
-    	
 	}
-}
-
-
-
-
-.numbered-list {
-    @include clearfix;
-    margin: 0;
-    
-    li {
-        background: none;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-    }
-    
-    .nl-item-number {
-        font-size: 64px;
-        color: $gray-lighter;
-        
-    }
-    
-    .nl-item-title {
-        //@include rem(font-size, 22px);
-    
-        em {
-            display: block;
-            color: $color-secondary;
-            font-style: normal;
-        }
-    }
-    
-    .nl-item-description {
-        line-height: 1.5;
-    }
 }

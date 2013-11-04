@@ -3,24 +3,18 @@
 // --------------------------------------------------
 
 .static-onepage {
+    @include clear;
     
     .static-onepage-nav {
-        @include clearfix;
-        @include grid(48,0);
+        @include clear;
+        @include grid(48,1,1);
         margin-top: 0;
         margin-bottom: 0;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 100;
-        background-color: rgba(255, 255, 255, 0.8);
     
         > li {
+            @include resetlist;
             margin-right: $base-margin*2;
             float: left;
-            background-image: none;
-            list-style: none;
-            padding: 0;
     
             a {
                 color: $gray;
@@ -37,13 +31,16 @@
             }
         }
     }
-
-    .static-onepage-section {
     
+    .static-onepage-section {
+        
         .static-onepage-content {
-            @include clearfix;
-            margin: auto;
-            top: -100px;
+            @include clear;
+            width: 100%;
+            margin-top: auto;
+            margin-bottom: auto;
+            border: 1px solid red;
+            top: 0;
             left: 0;
             bottom: 0;
             right: 0;
@@ -62,5 +59,50 @@
             }
         }
     }
+    
+    .numbered-list {
+        @include clearfix;
+        margin: 0;
+        
+        li {
+            @include resetlist;
+        }
+        
+        .nl-item-number {
+            font-size: 64px;
+            line-height: $base-line-height;
+            color: $gray-lighter;
+            font-family: $font-family-bold;
+        }
+        
+        .nl-item-title {
+            font-size: 22px;
+            line-height: $base-line-height;
+            margin-bottom: 0;
+            color: $color-primary;
+            font-family: $font-family-heavy;
+        
+            em {
+                display: block;
+                color: $color-secondary;
+                font-family: $base-font-family;
+                font-style: normal;
+            }
+        }
+        
+        .nl-item-description {
+            line-height: $base-line-height;
+            color: $gray-darker;
+        }
+    }
+    
+    .static-onepage-next {
+        font-size: 40px;
+        position: absolute;
+        right: 15%;
+        bottom: -100px;
+        color: $color-primary;
+        cursor: pointer;
+        text-decoration: none;
+    }
 }
-
