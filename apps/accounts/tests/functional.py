@@ -23,6 +23,7 @@ from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 
 import os
 
+#FIXME: tests are broken
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
             'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
@@ -128,7 +129,7 @@ class AccountSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         self.assertTrue(self.visit_homepage())
 
         # Find the link to the login button page and click it.
-        self.browser.find_link_by_text('Log in').first.click()
+        self.browser.find_link_by_text('LOG IN').first.click()
 
         # Validate that we are on the intended page.
         self.assertTrue(self.browser.is_text_present('LOG IN'),
@@ -149,7 +150,7 @@ class AccountSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         
         self.login(user.email, 'secret')
 
-        self.browser.find_by_css('.nav-member-profile').first.mouse_over()
+        self.browser.find_by_css('.nav-member-dropdown').first.mouse_over()
         self.browser.find_link_by_partial_text('Edit my profile & settings').first.click()
 
         # Validate that we are on the intended page.
@@ -194,7 +195,7 @@ class AccountSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
 
         self.login(user.email, 'secret')
 
-        self.browser.find_by_css('.nav-member-profile').first.mouse_over()
+        self.browser.find_by_css('.nav-member-dropdown').first.mouse_over()
         self.browser.find_link_by_partial_text('Edit my profile & settings').first.click()
 
         # Validate that we are on the intended page.
@@ -347,5 +348,5 @@ class AccountSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         # check that the avatar is not the default image
         self.visit_homepage()
 
-        avatar_src = self.browser.find_by_css('li.nav-member-profile a.nav-profile img').first['src']
+        avatar_src = self.browser.find_by_css('li.nav-member-dropdown a.nav-profile img').first['src']
         self.assertNotEqual(avatar_src, '%simages/default-avatar.png' % settings.STATIC_URL)
