@@ -29,17 +29,6 @@ App.ContactMessageRoute = Em.Route.extend({
     model: function(params) {
         var store = this.get('store');
         return store.createRecord(App.ContactMessage);
-    },
-    setupController: function(controller, model) {
-        window.scrollTo(0, 0);
-        this._super(controller, model);
-        controller.startEditing();
-    },
-
-    exit: function() {
-        if (this.get('controller')) {
-            this.get('controller').stopEditing();
-        }
     }
 });
 

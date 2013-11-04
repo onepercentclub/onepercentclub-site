@@ -101,14 +101,6 @@ App.DeleteModelMixin = Em.Mixin.create({
 App.Editable = Ember.Mixin.create({
     saved: false,
 
-    startEditing: function() {
-        var record = this.get('model');
-        if (record.get('transaction.isDefault') == true) {
-            this.transaction = this.get('store').transaction();
-            this.transaction.add(record);
-        }
-    },
-
     actions : {
         save: function(record) {
             var controller = this;
@@ -139,16 +131,12 @@ App.Editable = Ember.Mixin.create({
             model.one('didUpdate', function(){
                 if (controller.get('nextStep')) {
                     controller.transitionToRoute(controller.get('nextStep'));
-                } else {
-                    controller.startEditing();
                 }
             });
 
             model.one('didCreate', function(){
                 if (controller.get('nextStep')) {
                     controller.transitionToRoute(controller.get('nextStep'));
-                } else {
-                    controller.startEditing();
                 }
             });
 

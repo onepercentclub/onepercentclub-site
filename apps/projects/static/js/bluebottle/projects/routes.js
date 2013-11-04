@@ -173,10 +173,6 @@ App.MyProjectPitchSubRoute = Ember.Route.extend({
     model: function(params) {
         return this.modelFor('myProject').get('pitch');
     },
-    setupController: function(controller, model) {
-        this._super(controller, model);
-        controller.startEditing();
-    },
     exit: function() {
         if (this.get('controller')) {
             this.get('controller').stopEditing();
@@ -245,11 +241,6 @@ App.MyProjectPlanSubRoute = Em.Route.extend({
 
     model: function(params) {
         return this.modelFor('myProject').get('plan');
-    },
-
-    setupController: function(controller, model) {
-        this._super(controller, model);
-        controller.startEditing();
     },
 
     exit: function() {
