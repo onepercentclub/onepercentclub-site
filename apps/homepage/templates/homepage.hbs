@@ -76,7 +76,7 @@
                         <p class="project-description">{{project.plan.pitch}}</p>
                     </article>
                     
-                    <div class="project-status l-half">
+                    <div class="project-status l-full">
                     
                         {{#if project.campaign.deadline}}
                         <div class="project-days-left l-one-third">
@@ -135,15 +135,15 @@
                     </article>
                 </div>
     
-                {{#linkTo projectList class="btn btn-iconed one"}}
+                {{#linkTo 'projectList' class="btn btn-iconed one"}}
                     <span class="flaticon stroke zoom-2"></span> {% trans "Find projects" %}
                 {{/linkTo}}
     
-    			{{#linkTo taskList class="btn btn-iconed two"}}
+    			{{#linkTo 'taskList' class="btn btn-iconed two"}}
                     <span class="flaticon solid wrench-1"></span> {% trans "Find tasks" %}
                 {{/linkTo}}
     
-                <a class="btn btn-iconed three" {{action showPage 'befriend'}} href="/#!/pages/befriend">
+                <a class="btn btn-iconed three" {{action 'showPage' 'befriend'}} href="/#!/pages/befriend">
                     <span class="flaticon solid heart-1"></span> {% trans "Befriend us" %}
                 </a>
             </div>
