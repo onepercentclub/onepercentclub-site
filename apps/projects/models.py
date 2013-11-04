@@ -507,6 +507,8 @@ def log_project_phase(sender, instance, created, **kwargs):
     """ Log the project phases when they change """
     if instance.phase != instance._original_phase or created:
         phase = getattr(ProjectPhases, instance.phase)
+        # get or create to handle IntegrityErrors (unique constraints)
+        # manually reverting a project phase causes violations of the constraint
         instance.projectphaselog_set.get_or_create(phase=phase)
         # set the new phase as 'original', as subsequent saves can occur,
         # leading to unique_constraints being violated (plan_status_status_changed)
@@ -608,11 +610,7 @@ def pitch_status_status_changed(sender, instance, created, **kwargs):
         if instance.project.phase == ProjectPhases.pitch:
             instance.project.phase = ProjectPhases.plan
             instance.project.save()
-    # plan/pitch rejected -> project failed
-    elif (instance.status == ProjectPitch.PitchStatuses.rejected and 
-            instance.project.phase != ProjectPhases.failed):
-        instance.project.phase = ProjectPhases.failed
-        instance.project.save()
+
     # Ensure the project 'updated' field is updated for the Saleforce sync script.
     if not project_saved:
         instance.project.save()
@@ -628,13 +626,7 @@ def plan_status_status_changed(sender, instance, created, **kwargs):
         if instance.project.phase == ProjectPhases.plan:
             instance.project.phase = ProjectPhases.campaign
             instance.project.save()
-            project_saved = True
-    # plan/pitch rejected -> project failed
-    elif (instance.status == ProjectPlan.PlanStatuses.rejected and 
-            instance.project.phase != ProjectPhases.failed):
-        instance.project.phase = ProjectPhases.failed
-        instance.project.save()
-        project_saved = True
+
     # Ensure the project 'updated' field is updated for the Saleforce sync script.
     if not project_saved:
         instance.project.save()
