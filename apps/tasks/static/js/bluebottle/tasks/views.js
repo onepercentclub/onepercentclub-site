@@ -12,9 +12,7 @@ App.TaskPreviewView = Em.View.extend({
 });
 
 
-App.ProjectTaskListView = Em.View.extend(App.ScrollInView, {
-    templateName: 'project_task_list'
-});
+App.ProjectTaskListView = Em.View.extend(App.ScrollInView, {});
 
 
 App.ProjectTaskView = Em.View.extend(App.ScrollInView, {

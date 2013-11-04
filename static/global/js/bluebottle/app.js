@@ -130,16 +130,18 @@ App = Em.Application.create({
 
 // Mixin to scroll view top top of the screen
 App.ScrollInView = Em.Mixin.create({
-    didInsertElement: function(){
-        this._super();
-        var view = this.$();
-        var offset = view.offset().top - 120;
-        $("html, body").animate({ scrollTop: offset }, 600);
+    didInsertElement: function(a, b){
+        var offset = this.$().offset().top - 120;
+        var windowOffset = $(window).scrollTop();
+        // Only scroll if the focus is more then 50px off.
+        if (Math.abs(windowOffset - offset) > 50) {
+            $("html, body").animate({ scrollTop: offset }, 600);
+        }
     }
 });
 
 App.ScrollToTop = Em.Mixin.create({
-    enter: function(){
+    afterModel: function(){
         this._super();
         $("html, body").animate({ scrollTop: 0 }, 600);
     }

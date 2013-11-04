@@ -67,7 +67,7 @@ App.Router.map(function(){
  * Project Routes
  */
 
-App.ProjectRoute = Em.Route.extend({
+App.ProjectRoute = Em.Route.extend(App.ScrollToTop, {
     model: function(params) {
         var page =  App.Project.find(params.project_id);
         var route = this;

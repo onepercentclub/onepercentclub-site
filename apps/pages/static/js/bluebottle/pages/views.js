@@ -96,19 +96,18 @@ App.PageView = Ember.View.extend(App.GoTo, {
                             $('div.image').css('position', 'relative');
 
                             var loc = [
-                                {top: '92px', left: '78px', rotate: -5},
-                                {top: '94px', left: '96px', rotate: 12},
-                                {top: '82px', left: '88px', rotate: -5},
-                                {top: '82px', left: '63px', rotate: -10},
-                                {top: '92px', left: '63px', rotate: 23},
-                                {top: '64px', left: '87px', rotate: 0},
-                                {top: '87px', left: '78px', rotate: -11},
-                                {top: '87px', left: '78px', rotate: -9},
-                                {top: '92px', left: '87px', rotate: 0},
-                                {top: '86px', left: '89px', rotate: 3},
-                                {top: '91px', left: '76px', rotate: -3},
-                                {top: '101px', left: '79px', rotate: 7},
-                                {top: '10000px', left: '-1000px', rotate: 7},
+                                {top: '124px', left: '113px', rotate: -5}, // AC
+                                {top: '126px', left: '134px', rotate: 12}, // BL
+                                {top: '114px', left: '126px', rotate: -5}, // MP
+                                {top: '114px', left: '92px', rotate: -10}, //NJ
+                                {top: '126px', left: '94px', rotate: 23}, //NE
+                                {top: '89px', left: '124px', rotate: 0}, //LG
+                                {top: '114px', left: '113px', rotate: -11}, //NT
+                                {top: '117px', left: '112px', rotate: -9}, //LM
+                                {top: '124px', left: '123px', rotate: 0}, // MG
+                                {top: '118px', left: '126px', rotate: 3}, // MH
+                                {top: '123px', left: '109px', rotate: -3}, // SS
+                                {top: '1000px', left: '-1000px', rotate: 7}
                             ]
 
                             var t = 0;
@@ -118,7 +117,6 @@ App.PageView = Ember.View.extend(App.GoTo, {
                                 $(this).append(m[t]);
                                 if (loc[t] != undefined) {
                                     var degree = loc[t].rotate;
-                                    console.log(degree);
                                     m[t].fadeOut(0);
                                     m[t].fadeIn(1000);
                                     m[t].css({

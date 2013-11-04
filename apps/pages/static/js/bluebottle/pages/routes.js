@@ -14,18 +14,18 @@ App.Router.map(function() {
 
 App.PageRoute = Em.Route.extend(App.ScrollToTop, {
     model: function(params) {
-        var page =  App.Page.find(params.page_id);
+        var model = App.Page.find(params.page_id);
         var route = this;
-        page.on('becameError', function() {
+        model.on('becameError', function() {
             route.transitionTo('error.notFound');
         });
-        return page;
+        return model;
     }
 });
 
 /* Contact Page */
 
-App.ContactMessageRoute = Em.Route.extend(App.ScrollToTop, {
+App.ContactMessageRoute = Em.Route.extend({
     model: function(params) {
         var store = this.get('store');
         return store.createRecord(App.ContactMessage);
