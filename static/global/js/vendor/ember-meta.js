@@ -96,7 +96,7 @@ Ember.onLoad('Ember.Application', function(Application) {
               if (!newTitle) {
                 var handlerTitle = meta_data.title;
                 if(handlerTitle){
-                  newTitle = handlerTitle + ' | ' + this.get('defaults.title');
+                  newTitle = handlerTitle + ' | onepercentclub.com';
                 } else {
                   newTitle = this.get('defaults.title');
                 }
