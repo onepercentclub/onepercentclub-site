@@ -68,14 +68,13 @@ App.PageView = Ember.View.extend(App.GoTo, {
 
     renderSections: function(e) {
         var windowHeight = $(window).height();
-        this.$('.l-section').css('height', windowHeight + 'px');
+        this.$('.static-onepage-section').css('height', windowHeight + 'px');
         this.$('.static-onepage-content').each(function() {
             $(this).css({
                 'height' : $(this).height() + 'px',
                 'position' : 'absolute'
             });
         });
-        
     },
 
     didInsertElement: function(e){

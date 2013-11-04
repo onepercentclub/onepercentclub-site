@@ -55,6 +55,10 @@ body {
 	@include grid(48,1,1);
 }
 
+.l-two-third {
+	@include grid(32,1,1);
+}
+
 .l-half {
 	@include grid(24,1,1);
 }

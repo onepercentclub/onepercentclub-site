@@ -329,35 +329,23 @@
                             {{/each}}
                         {{/view}}
                         </ul>
-
-                        {{#if idealIssuerId}}
-                            {{#if paymentInProgress }}
-                                <div class="is-loading-small">
-                                    <img src="{% get_static_prefix %}images/loading.gif" />
-                                    <strong>{% trans "Processing payment..." %}</strong>
-                                </div>
-                                <button disabled class="btn btn-primary btn-iconed btn-submit" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
-                            {{else}}
-                                <button class="btn btn-primary btn-iconed btn-proceed" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
-                            {{/if}}
-                        {{else}}
-                            <button class="btn btn-primary btn-iconed btn-proceed" disabled {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
-
-                        {{/if}}
-
+                    
+                        {{#if paymentInProgress }}
+            	            <div class="is-loading-small"><img src="{% get_static_prefix %}images/loading.gif" /> <strong>{% trans "Processing payment&#8230;" %}</strong></div>
+            	            <button disabled class="btn btn-primary btn-iconed btn-submit" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
+            	        {{else}}
+            	            <button class="btn btn-primary btn-iconed btn-proceed" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
+            	        {{/if}}
+            	        
                     {{else}}
-                        {{#if redirectPaymentMethod}}
-                            <h3>{% trans "You're almost there!" %}</h3>
-                            <p>{% trans "We'll redirect you through our payment provider where you can finish your donation securely." %}</p>
-                            {{#if paymentInProgress }}
-                                <div class="is-loading-small">
-                                    <img src="{% get_static_prefix %}images/loading.gif" />
-                                    <strong>{% trans "Processing payment..." %}</strong>
-                                </div>
-                                <button disabled class="btn btn-primary btn-iconed btn-submit" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
-                            {{else}}
-                                <button class="btn btn-primary btn-iconed btn-proceed" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
-                            {{/if}}
+                        <h3>{% trans "You're almost there!" %}</h3>
+                        <p>{% trans "We'll redirect you through our payment provider where you can finish your donation securely." %}</p>
+                        
+                        {{#if paymentInProgress }}
+            	            <div class="is-loading-small"><img src="{% get_static_prefix %}images/loading.gif" /> <strong>{% trans "Processing payment&#8230;" %}</strong></div>
+            	            <button disabled class="btn btn-primary btn-iconed btn-submit" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
+            	        {{else}}
+            	            <button class="btn btn-primary btn-iconed btn-proceed" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
             	        {{/if}}
                         
                     {{/if}}
@@ -521,7 +509,7 @@
 	
 	    {{#if isFormReady }}
 	        {{#if paymentInProgress }}
-		        <span class="is-loading-small"><img src="{% get_static_prefix %}images/loading.gif" /><em>{% trans "Updating monthly donation ..." %}</em></span>
+		        <div class="is-loading-small"><img src="{% get_static_prefix %}images/loading.gif" /> <strong>{% trans "Updating monthly donation&#8230;" %}</strong></div>
 		        <button disabled class="btn btn-primary btn-iconed btn-submit"><span class="flaticon solid right-2"></span>{% trans "Submit" %}</button>
 	        {{else}}
 	            <button class="btn btn-primary btn-iconed btn-submit"><span class="flaticon solid right-2"></span>{% trans "Submit" %}</button>
@@ -570,7 +558,7 @@
         </div>
         <div class="panes vertical">
             {{#if paymentInProgress }}
-                <span class="is-loading-small"><img src="{% get_static_prefix %}images/loading.gif" /><em>{% trans "Processing payment..." %}</em></span>
+                <div class="is-loading-small"><img src="{% get_static_prefix %}images/loading.gif" /> <strong>{% trans "Processing payment&#8230;" %}</strong></span>
             {{else}}
                 {{#if paymentMethod}}
                     <a href="#" {{action "proceedWithPayment"}} class="btn btn-proceed">{% trans "Proceed with Payment" %}</a>
