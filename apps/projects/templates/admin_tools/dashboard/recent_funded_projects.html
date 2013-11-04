@@ -4,16 +4,16 @@
 <div class="dashboard-module-content">
     <p>
         {% blocktrans %}
-            Recently funded projects that are now in 'result' phase.
+            Recently funded projects that are now in 'act' phase.
         {% endblocktrans %}
     </p>
 </div>
 <ul>
     {% spaceless %}
-    {% for projectresult in module.children %}
+    {% for project in module.children %}
     <li class="{% cycle 'odd' 'even' %}">
-        <span class="float-right">{{ projectresult.date_funded|date }}</span>
-        <a href="{{ admin_url }}projects/projectresult/{{ projectresult.id }}" >{{ projectresult.project.title }}</a>
+        <span class="float-right">{{ project.date_funded|date }}</span>
+        <a href="{{ admin_url }}projects/project/{{ project.id }}" >{{ project.title }}</a>
     </li>
     {% endfor %}
     {% endspaceless %}

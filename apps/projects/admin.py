@@ -200,7 +200,7 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
 
     list_filter = ('phase', 'partner_organization')
-    list_display = ('get_title_display', 'get_owner_display', 'coach', 'get_phase_display', 'funded', 'created')
+    list_display = ('get_title_display', 'get_owner_display', 'coach', 'phase', 'funded', 'created')
 
     search_fields = ('title', 'owner__first_name', 'owner__last_name', 'partner_organization__name')
 
@@ -234,21 +234,6 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
 
     get_owner_display.admin_order_field = 'owner__last_name'
     get_owner_display.short_description = _('owner')
-
-    def get_phase_display(self, obj):
-        phase = obj.get_phase_display()
-        if obj.phase == 'act':
-            # add the date when this phase was reached
-            try:
-                phase_log = obj.projectphaselog_set.get(phase=obj.phase)
-                created = formats.date_format(phase_log.created, 'SHORT_DATETIME_FORMAT')
-                phase = _(u'{phase} (since {created})').format(phase=phase, created=created)
-            except ProjectPhaseLog.DoesNotExist:
-                pass
-        return phase
-
-    get_phase_display.admin_order_field = 'phase'
-    get_phase_display.short_description = _('phase')
 
     def project_organization(self, obj):
         object = obj.projectplan.organization
