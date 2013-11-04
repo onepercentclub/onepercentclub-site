@@ -501,7 +501,9 @@ def log_project_phase(sender, instance, created, **kwargs):
     """ Log the project phases when they change """
     if instance.phase != instance._original_phase or created:
         phase = getattr(ProjectPhases, instance.phase)
-        instance.projectphaselog_set.create(phase=phase)
+        # get or create to handle IntegrityErrors (unique constraints)
+        # manually reverting a project phase causes violations of the constraint
+        instance.projectphaselog_set.get_or_create(phase=phase)
         # set the new phase as 'original', as subsequent saves can occur,
         # leading to unique_constraints being violated (plan_status_status_changed)
         # for example

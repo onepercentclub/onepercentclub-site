@@ -90,25 +90,28 @@ Ember.onLoad('Ember.Application', function(Application) {
           // take the first ones that are not empty
           while (i--) {
             var handler = handlers[i].handler;
-            var meta_data = Ember.get(handler, 'meta_data');
+            var currentModel = Ember.get(handler, 'currentModel');
 
-            if(meta_data){
-              if (!newTitle) {
-                var handlerTitle = meta_data.title;
-                if(handlerTitle){
-                  newTitle = handlerTitle + ' | ' + this.get('defaults.title');
-                } else {
-                  newTitle = this.get('defaults.title');
+            if(currentModel){
+              var meta_data = Ember.get(currentModel, 'meta_data');
+              if(meta_data){
+                if (!newTitle) {
+                  var handlerTitle = meta_data.title;
+                  if(handlerTitle){
+                    newTitle = handlerTitle + ' | onepercentclub.com'; // TODO: avoid hardcoding this
+                  } else {
+                    newTitle = this.get('defaults.title');
+                  }
                 }
-              }
-              if (!newDescription) {
-                newDescription = meta_data.description;
-              }
-              if(!newKeywords){
-                newKeywords = meta_data.keywords;
-              }
-              if (!newImage && meta_data.image) {
-                newImage = meta_data.image.full;
+                if (!newDescription) {
+                  newDescription = meta_data.description;
+                }
+                if(!newKeywords){
+                  newKeywords = meta_data.keywords;
+                }
+                if (!newImage && meta_data.image) {
+                  newImage = meta_data.image.full;
+                }
               }
             }
           }
