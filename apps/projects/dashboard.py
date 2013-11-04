@@ -93,7 +93,7 @@ class FundedProjects(DashboardModule):
 
         qs1 = Project.objects.filter(
                 Q(projectphaselog__phase=ProjectPhases.act)
-            ).order_by('projectphaselog__created')[:self.limit]
+            ).order_by('-projectphaselog__created')[:self.limit]
 
         qs1_project_ids = qs1.values_list('id', flat=True)
         qs2 = Project.objects.filter(
@@ -102,12 +102,12 @@ class FundedProjects(DashboardModule):
                 projectresult = None
             ).exclude(
                 id__in = qs1_project_ids
-            ).order_by('projectresult__created')[:self.limit]
+            ).order_by('-projectresult__created')[:self.limit]
 
         projects = list(qs1) + list(qs2)
 
         # sort the projects based on act phase reached or projectresult created
-        sorted(projects, key=lambda project: project.date_funded)
+        sorted(projects, key=lambda project: project.date_funded, reverse=True)
         
         self.children = projects[:self.limit]
         if not len(self.children):
