@@ -104,6 +104,18 @@ directory::
 
     find apps -name \*.json
 
+Running Tests
+-------------
+
+***Frontend Javascript***
+
+From the root of the application (node/npm required):
+
+        npm install
+        grunt (or grunt test:chrome)
+
+This will install some npm & bower packages for dev & testing, and run the tests headless with PhantomJS using Karma. Karma is watching the test/ directory for changes.
+
 License
 -------
 Project Bluebottle is distributed under a 3-clause BSD license. For more
