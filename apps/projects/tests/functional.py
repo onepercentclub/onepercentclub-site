@@ -74,7 +74,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         time.sleep(2)
 
         def convert_money_to_int(money_text):
-            return int(money_text.strip(u' To go').strip(u'€ ').replace('.', '').replace(',', ''))
+            return int(money_text.strip(' TO GO').strip(u'€').replace('.', '').replace(',', ''))
 
         # NOTE: Due to a recent change, its harder to calculate/get the financiel data from the front end.
         # Hence, these calculations are commented. Perhaps enable in the future if this data becomes available again.
@@ -84,6 +84,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         for p in self.browser.find_by_css('.project-item'):
             # NOTE: donated class name should be read as "to go"...
             needed = convert_money_to_int(p.find_by_css('.project-fund-amount').first.text)
+            print needed
             #asked = convert_money_to_int(p.find_by_css('.asked').first.text)
 
             web_projects.append({
@@ -107,7 +108,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         expected_projects = []
         for p in Project.objects.filter(phase=ProjectPhases.campaign).order_by('popularity')[:len(web_projects)]:
             expected_projects.append({
-                'title': p.title,  # Uppercase the title for comparison.
+                'title': p.title.upper(),  # Uppercase the title for comparison.
                 'money_needed': int(round(p.projectcampaign.money_needed / 100.0)),
             })
 
@@ -148,13 +149,13 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         self.browser.find_link_by_itext('Media').first.click()
         
         # get preview div
-        self.assertTrue(self.browser.find_by_css('div.preview').has_class('empty'))
-        
+        preview = self.browser.find_by_css('div.image-preview').first
+        self.assertTrue(preview.has_class('empty'))
+
         file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'kitten_snow.jpg')
         self.browser.attach_file('image', file_path)
 
         # test if preview is there
-        preview = self.browser.find_by_css('div.preview')
         self.assertFalse(preview.has_class('empty'))
         img = preview.find_by_tag('img').first
         self.assertNotEqual(img['src'], '%simages/empty.png' % settings.STATIC_URL)
@@ -167,7 +168,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         self.browser.find_link_by_itext('media').first.click()
         
         # check that the src of the image is correctly set (no base64 stuff)
-        src = self.browser.find_by_css('div.preview').first.find_by_tag('img').first['src']
+        src = self.browser.find_by_css('div.image-preview').first.find_by_tag('img').first['src']
         self.assertEqual('.jpg', src[-4:])
 
     def test_upload_multiple_wallpost_images(self):
@@ -177,9 +178,9 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         self.visit_project_list_page()
 
         # pick a project
-        self.browser.find_by_css('.item.item-project').first.find_by_tag('a').first.click()
+        self.browser.find_by_css('.project-item').first.find_by_tag('a').first.click()
 
-        form = self.browser.find_by_css('form.ember-view')
+        form = self.browser.find_by_id('wallpost-form')
         form_data = {
             'input[placeholder="Keep it short and simple"]': 'My wallpost',
             'textarea[name="wallpost-update"]': 'These are some sample pictures from this non-existent project!',
@@ -187,7 +188,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         self.browser.fill_form_by_css(form, form_data)
 
         # verify that no previews are there yet
-        ul = form.find_by_css('ul.wallpost-photos').first
+        ul = form.find_by_css('ul.form-wallpost-photos').first
         previews = ul.find_by_tag('li')
         self.assertEqual(0, len(previews))
 
@@ -200,8 +201,8 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         time.sleep(3)
 
         # verify that one picture was added
-        form = self.browser.find_by_css('form.ember-view')
-        ul = form.find_by_css('ul.wallpost-photos').first
+        form = self.browser.find_by_id('wallpost-form')
+        ul = form.find_by_css('ul.form-wallpost-photos').first
         previews = ul.find_by_tag('li')
 
         self.assertEqual(1, len(previews))
@@ -213,14 +214,15 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         # wait a bit, processing...
         time.sleep(3)
 
-        form = self.browser.find_by_css('form.ember-view')
-        ul = form.find_by_css('ul.wallpost-photos').first
+        form = self.browser.find_by_id('wallpost-form')
+        ul = form.find_by_css('ul.form-wallpost-photos').first
         previews = ul.find_by_tag('li')
         self.assertEqual(2, len(previews))
 
     def test_meta_tag(self, lang_code=None):
         self.visit_path('/projects/schools-for-children-2', lang_code)
 
+        time.sleep(2)
         self.assertIn('Schools for children 2', self.browser.title) # check that the title indeed contains the project title
 
         # check meta url

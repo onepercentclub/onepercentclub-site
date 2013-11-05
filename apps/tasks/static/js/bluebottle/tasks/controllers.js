@@ -97,7 +97,7 @@ App.IsProjectOwnerMixin = Em.Mixin.create({
 });
 
 
-App.ProjectTaskListController = Em.ArrayController.extend(App.IsProjectOwnerMixin, {
+App.ProjectTasksIndexController = Em.ArrayController.extend(App.IsProjectOwnerMixin, {
     needs: ['currentUser', 'project']
 });
 
@@ -139,7 +139,7 @@ App.TaskMemberController = Em.ObjectController.extend({
 });
 
 
-App.ProjectTaskNewController = Em.ObjectController.extend({
+App.ProjectTasksNewController = Em.ObjectController.extend({
     needs: ['project', 'currentUser', 'projectTaskList'],
     addTask: function(event){
         var controller = this;
@@ -156,7 +156,7 @@ App.ProjectTaskNewController = Em.ObjectController.extend({
 });
 
 
-App.ProjectTaskEditController = App.ProjectTaskNewController.extend({
+App.ProjectTasksEditController = App.ProjectTasksNewController.extend({
     updateTask: function(event){
         var controller = this;
         var task = this.get('content');

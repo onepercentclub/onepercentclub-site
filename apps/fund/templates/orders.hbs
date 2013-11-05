@@ -329,23 +329,35 @@
                             {{/each}}
                         {{/view}}
                         </ul>
-                        
-                        {{#if paymentInProgress }}
-            	            <div class="is-loading-small"><img src="{% get_static_prefix %}images/loading.gif" /><strong>{% trans "Processing payment..." %}</strong></div>
-            	            <button disabled class="btn btn-primary btn-iconed btn-submit" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
-            	        {{else}}
-            	            <button class="btn btn-primary btn-iconed btn-proceed" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
-            	        {{/if}}
-            	        
+
+                        {{#if idealIssuerId}}
+                            {{#if paymentInProgress }}
+                                <div class="is-loading-small">
+                                    <img src="{% get_static_prefix %}images/loading.gif" />
+                                    <strong>{% trans "Processing payment..." %}</strong>
+                                </div>
+                                <button disabled class="btn btn-primary btn-iconed btn-submit" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
+                            {{else}}
+                                <button class="btn btn-primary btn-iconed btn-proceed" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
+                            {{/if}}
+                        {{else}}
+                            <button class="btn btn-primary btn-iconed btn-proceed" disabled {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
+
+                        {{/if}}
+
                     {{else}}
-                        <h3>{% trans "You're almost there!" %}</h3>
-                        <p>{% trans "We'll redirect you through our payment provider where you can finish your donation securely." %}</p>
-                        
-                        {{#if paymentInProgress }}
-            	            <div class="is-loading-small"><img src="{% get_static_prefix %}images/loading.gif" /><strong>{% trans "Processing payment..." %}</strong></div>
-            	            <button disabled class="btn btn-primary btn-iconed btn-submit" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
-            	        {{else}}
-            	            <button class="btn btn-primary btn-iconed btn-proceed" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
+                        {{#if redirectPaymentMethod}}
+                            <h3>{% trans "You're almost there!" %}</h3>
+                            <p>{% trans "We'll redirect you through our payment provider where you can finish your donation securely." %}</p>
+                            {{#if paymentInProgress }}
+                                <div class="is-loading-small">
+                                    <img src="{% get_static_prefix %}images/loading.gif" />
+                                    <strong>{% trans "Processing payment..." %}</strong>
+                                </div>
+                                <button disabled class="btn btn-primary btn-iconed btn-submit" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
+                            {{else}}
+                                <button class="btn btn-primary btn-iconed btn-proceed" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
+                            {{/if}}
             	        {{/if}}
                         
                     {{/if}}

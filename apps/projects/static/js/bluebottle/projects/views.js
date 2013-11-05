@@ -44,7 +44,7 @@ App.ProjectSearchFormView = Em.View.extend({
 });
 
 
-App.ProjectPlanView = Em.View.extend({
+App.ProjectPlanView = Em.View.extend(App.ScrollInView, {
     templateName: 'project_plan',
 
     staticMap: function(){

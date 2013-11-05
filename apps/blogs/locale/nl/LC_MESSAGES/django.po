@@ -8,10 +8,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
-"Report-Msgid-Bugs-To: https://github.com/onepercentclub/bluebottle/issues\n"
-"POT-Creation-Date: 2013-08-29 15:52+0200\n"
-"PO-Revision-Date: 2013-08-15 11:50+0000\n"
-"Last-Translator: nieja <niels@1procentclub.nl>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-11-01 13:23+0100\n"
+"PO-Revision-Date: 2013-11-01 12:36+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,116 +35,111 @@ msgstr "Status"
 msgid "Mark selected entries as published"
 msgstr "Markeer geselecteerde berichten als gepubliceerd"
 
-#: models.py:14 models.py:39
+#: models.py:23 models.py:48
 msgid "Title"
 msgstr "Titel"
 
-#: models.py:17
+#: models.py:26
 msgid "Blog category"
 msgstr "Categorie"
 
-#: models.py:18
+#: models.py:27
 msgid "Blog categories"
 msgstr "Categorieën"
 
-#: models.py:31
+#: models.py:40
 msgid "Published"
 msgstr "Gepubliceerd"
 
-#: models.py:32
+#: models.py:41
 msgid "Draft"
 msgstr "Draft"
 
-#: models.py:35
+#: models.py:44
 msgid "Blog"
 msgstr "Blog"
 
-#: models.py:36 models.py:103 models.py:104
+#: models.py:45 models.py:118 models.py:119
 msgid "News"
 msgstr "Nieuws"
 
-#: models.py:38
+#: models.py:47
 msgid "Type"
 msgstr "Type"
 
-#: models.py:40
+#: models.py:49
 msgid "Slug"
 msgstr "Slug"
 
-#: models.py:43
+#: models.py:52
 msgid "Main photo"
 msgstr "Main foto"
 
-#: models.py:44
+#: models.py:53
 msgid "language"
 msgstr "taal"
 
-#: models.py:48
+#: models.py:57
 msgid "status"
 msgstr "status"
 
-#: models.py:49
+#: models.py:58
 msgid "publication date"
 msgstr "publicatie datum"
 
-#: models.py:49
+#: models.py:58
 msgid "When the entry should go live, status must be \"Published\"."
 msgstr "Als je deze invoer live wil zien, moet de status \"Published\" zijn. "
 
-#: models.py:50
+#: models.py:59
 msgid "publication end date"
 msgstr "Einddatum publicatie"
 
-#: models.py:51
+#: models.py:60
 msgid "Allow comments"
 msgstr "Sta comments toe"
 
-#: models.py:54
+#: models.py:63
 msgid "author"
 msgstr "auteur"
 
-#: models.py:55
+#: models.py:64
 msgid "creation date"
 msgstr "aanmaakdatum"
 
-#: models.py:56
+#: models.py:65
 msgid "last modification"
 msgstr "laatste wijziging"
 
-#: models.py:59
+#: models.py:68
 msgid "Categories"
 msgstr "Categorieën"
 
-#: models.py:61
+#: models.py:70
 msgid "Countries"
 msgstr "Landen"
 
-#: models.py:66 models.py:86
+#: models.py:75 models.py:101
 msgid "Blog post"
 msgstr "Blog post"
 
-#: models.py:67 models.py:87
+#: models.py:76 models.py:102
 msgid "Blog posts"
 msgstr "Blog postst"
 
-#: templates/blogs.hbs:9
-#, python-format
-msgid "1%%News"
-msgstr "1%%Nieuws"
-
-#: templates/blogs.hbs:19
+#: templates/blogs.hbs:6
 msgid "Loading the latest news"
 msgstr "Laadt het laatste nieuws"
 
-#: templates/blogs.hbs:52
+#: templates/blogs.hbs:40
 msgid "More news"
 msgstr "Meer nieuws"
 
-#: templates/blogs.hbs:67
+#: templates/blogs.hbs:55
 msgid "previous 5"
 msgstr "vorige 5"
 
-#: templates/blogs.hbs:72
+#: templates/blogs.hbs:60
 msgid "next 5"
 msgstr "volgende 5"
 

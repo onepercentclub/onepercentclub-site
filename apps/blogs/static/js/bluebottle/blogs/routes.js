@@ -7,7 +7,13 @@ App.Router.map(function(){
 
 /* Routes */
 
-App.NewsItemRoute = Em.Route.extend({
+App.NewsRoute = Em.Route.extend({
+    model: function(params) {
+        return App.NewsPreview.find({language: App.get('language')});
+    }
+});
+
+App.NewsItemRoute = Em.Route.extend(App.ScrollToTop, {
     model: function(params) {
         var newsItem =  App.News.find(params.news_id);
         var route = this;
@@ -15,13 +21,9 @@ App.NewsItemRoute = Em.Route.extend({
             route.transitionTo('error.notFound');
         });
         return newsItem;
-    }
-});
-
-
-App.NewsRoute = Em.Route.extend({
-    model: function(params) {
-        return App.NewsPreview.find({language: App.get('language')});
+    },
+    setupController: function(controller, model) {
+        this._super(controller, model);
     }
 });
 
@@ -32,6 +34,7 @@ App.NewsIndexRoute = Em.Route.extend({
     },
     // Redirect to the latest news item
     setupController: function(controller, model) {
+        this._super(controller, model);
         this.send('showNews', model.objectAt(0).get('id'));
     }
 });

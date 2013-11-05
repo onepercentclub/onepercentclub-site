@@ -12,26 +12,11 @@ App.TaskPreviewView = Em.View.extend({
 });
 
 
-App.ProjectTaskListView = Em.View.extend({
-    templateName: 'project_task_list',
-
-    didInsertElement: function(){
-        $('body').animate({
-            scrollTop: $('#search-results').offset().top
-        }, 100);
-    }
-});
+App.ProjectTaskListView = Em.View.extend(App.ScrollInView, {});
 
 
-App.ProjectTaskView = Em.View.extend({
-    templateName: 'task',
-
-    didInsertElement: function(){
-        // scroll to the task (and comments)
-        $('html, body').animate({
-            scrollTop: $('#task-detail').offset().top
-        }, 1000);
-    }
+App.ProjectTaskView = Em.View.extend(App.ScrollInView, {
+    templateName: 'task'
 });
 
 
@@ -42,7 +27,7 @@ App.TaskMenuView = Em.View.extend({
 
 
 
-App.ProjectTaskNewView = Em.View.extend({
+App.ProjectTaskNewView = Em.View.extend(App.ScrollInView, {
     templateName: 'task_new',
 
     submit: function(e) {
@@ -52,7 +37,7 @@ App.ProjectTaskNewView = Em.View.extend({
 });
 
 
-App.ProjectTaskEditView = Em.View.extend({
+App.ProjectTaskEditView = Em.View.extend(App.ScrollInView, {
     templateName: 'task_edit',
 
     submit: function(e) {

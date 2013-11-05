@@ -1,3 +1,5 @@
+App.NewsController = Em.ObjectController.extend({});
+
 
 App.NewsController = Em.ArrayController.extend({
 
