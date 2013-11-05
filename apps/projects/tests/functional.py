@@ -86,10 +86,11 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         web_projects = []
         for p in self.browser.find_by_css('#search-results .project-item'):
             needed = convert_money_to_int(p.find_by_css('.project-fund-amount').first.text)
-            web_projects.append({
-                'title': p.find_by_css('h3').first.text,
-                'money_needed': needed,
-            })
+            if needed:
+                web_projects.append({
+                    'title': p.find_by_css('h3').first.text,
+                    'money_needed': needed,
+                })
 
         # Make sure there are some projects to compare.
         self.assertTrue(len(web_projects) > 0)
