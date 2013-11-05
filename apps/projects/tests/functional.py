@@ -74,7 +74,10 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         time.sleep(2)
 
         def convert_money_to_int(money_text):
-            return int(money_text.strip(' TO GO').strip(u'€').replace('.', '').replace(',', ''))
+            amount = money_text.strip(' TO GO').strip(u'€').strip(u'\u20ac').replace('.', '').replace(',', '')
+            if not amount:
+                amount = 0
+            return int(amount)
 
         # NOTE: Due to a recent change, its harder to calculate/get the financiel data from the front end.
         # Hence, these calculations are commented. Perhaps enable in the future if this data becomes available again.
@@ -82,24 +85,11 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         # Create a dict of all projects on the web page.
         web_projects = []
         for p in self.browser.find_by_css('.project-item'):
-            # NOTE: donated class name should be read as "to go"...
             needed = convert_money_to_int(p.find_by_css('.project-fund-amount').first.text)
-            print needed
-            #asked = convert_money_to_int(p.find_by_css('.asked').first.text)
-
             web_projects.append({
                 'title': p.find_by_css('h3').first.text,
                 'money_needed': needed,
-                #'money_asked': asked,
             })
-
-            # Validate the donation slider.
-            # NOTE: It's an animation. We expect it to be done after a few seconds.
-            #expected_slider_value = ((Decimal('100') / asked) * donated)
-            #web_slider_value = Decimal(css_dict(p.find_by_css('.donate-progress').first['style'])['width'].strip('%'))
-
-            # We allow a small delta to deviate.
-            #self.assertAlmostEqual(web_slider_value, expected_slider_value, delta=1)
 
         # Make sure there are some projects to compare.
         self.assertTrue(len(web_projects) > 0)
