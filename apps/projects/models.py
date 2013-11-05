@@ -602,7 +602,11 @@ def pitch_status_status_changed(sender, instance, created, **kwargs):
         if instance.project.phase == ProjectPhases.pitch:
             instance.project.phase = ProjectPhases.plan
             instance.project.save()
-
+    # plan/pitch rejected -> project failed
+    elif (instance.status == ProjectPitch.PitchStatuses.rejected and 
+            instance.project.status != ProjectPhases.failed):
+        instance.project.status = ProjectPhases.failed
+        instance.project.save()
     # Ensure the project 'updated' field is updated for the Saleforce sync script.
     if not project_saved:
         instance.project.save()
@@ -618,7 +622,11 @@ def plan_status_status_changed(sender, instance, created, **kwargs):
         if instance.project.phase == ProjectPhases.plan:
             instance.project.phase = ProjectPhases.campaign
             instance.project.save()
-
+    # plan/pitch rejected -> project failed
+    elif (instance.status == ProjectPlan.PlanStatuses.rejected and 
+            instance.project.status != ProjectPhases.failed):
+        instance.project.status = ProjectPhases.failed
+        instance.project.save()
     # Ensure the project 'updated' field is updated for the Saleforce sync script.
     if not project_saved:
         instance.project.save()
