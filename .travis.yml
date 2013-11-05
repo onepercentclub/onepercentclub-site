@@ -19,5 +19,9 @@ matrix:
   allow_failures:
     - env: DJANGO=https://github.com/django/django/archive/master.zip
 
+before_script:
+  - npm install
+
 script:
   - python ./manage.py test --settings=onepercentclub.settings.travis -v 2
+  - grunt travis --verbose --force # remove force when js tests setup correctly
