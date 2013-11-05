@@ -20,11 +20,20 @@ pip-log.txt
 .coverage
 .tox
 
+# JS tests / coverage / bower
+test/js/coverage/*
+static/bower_components/*
+node_modules/*
+npm-debug.log
+
 #Translations
 *.mo
 
 #Mr Developer
 .mr.developer.cfg
+
+# Sublime Text
+*.sublime-workspace
 
 # Mac stuff and specific weirdness
 .DS\_Store

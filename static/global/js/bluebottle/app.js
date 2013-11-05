@@ -93,7 +93,7 @@ App = Em.Application.create({
             // Try to load locale specifications.
             $.getScript('/static/assets/js/vendor/globalize-cultures/globalize.culture.' + locale + '.js')
                 .fail(function() {
-                    if (window.console) {
+                    if (window.console && !Ember.testing) {
                         console.log("No globalize culture file for : "+ locale);
                     }
                     // Specified locale file not available. Use default locale.
@@ -108,7 +108,7 @@ App = Em.Application.create({
                 });
             $.getScript('/static/assets/js/vendor/jquery-ui/i18n/jquery.ui.datepicker-' + locale.substr(0, 2) + '.js')
                 .fail(function() {
-                    if (window.console) {
+                    if (window.console && !Ember.testing) {
                         console.log("No jquery.ui.datepicker file for : "+ locale);
                     }
                     // Specified locale file not available. Use default locale.
