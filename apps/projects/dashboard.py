@@ -1,6 +1,10 @@
-from admin_tools.dashboard.modules import DashboardModule
+from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
-from apps.projects.models import Project, ProjectPitch, ProjectPlan, ProjectResult, ProjectCampaign
+
+
+from admin_tools.dashboard.modules import DashboardModule
+from apps.projects.models import (Project, ProjectPitch, ProjectPlan, 
+                                  ProjectResult, ProjectCampaign, ProjectPhases)
 
 
 class RecentProjects(DashboardModule):
@@ -87,11 +91,25 @@ class FundedProjects(DashboardModule):
 
     def init_with_context(self, context):
 
-        qs = ProjectResult.objects.order_by('created')
-        qs = qs.filter(status=ProjectResult.ResultStatuses.running
-            ).select_related('project')
+        qs1 = Project.objects.filter(
+                Q(projectphaselog__phase=ProjectPhases.act)
+            ).order_by('-projectphaselog__created')[:self.limit]
 
-        self.children = qs[:self.limit]
+        qs1_project_ids = qs1.values_list('id', flat=True)
+        qs2 = Project.objects.filter(
+                projectresult__status = ProjectResult.ResultStatuses.running
+            ).exclude(
+                projectresult = None
+            ).exclude(
+                id__in = qs1_project_ids
+            ).order_by('-projectresult__created')[:self.limit]
+
+        projects = list(qs1) + list(qs2)
+
+        # sort the projects based on act phase reached or projectresult created
+        sorted(projects, key=lambda project: project.date_funded, reverse=True)
+        
+        self.children = projects[:self.limit]
         if not len(self.children):
             self.pre_content = _('No recently funded projects.')
         self._initialized = True

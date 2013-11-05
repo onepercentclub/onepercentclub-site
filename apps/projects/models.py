@@ -178,6 +178,17 @@ class Project(models.Model):
     def get_open_tasks(self):
         return self.task_set.filter(status=Task.TaskStatuses.open).all()
 
+    @property
+    def date_funded(self):
+        try:
+            log = self.projectphaselog_set.get(phase=ProjectPhases.act)
+            return log.created
+        except ProjectPhaseLog.DoesNotExist:
+            # fall back to creation date of the projectresult
+            if self.projectresult:
+                return self.projectresult.created
+        return None
+
     @models.permalink
     def get_absolute_url(self):
         """ Get the URL for the current project. """
@@ -429,11 +440,6 @@ class ProjectResult(models.Model):
 
     created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
     updated = ModificationDateTimeField(_('updated'))
-
-    @property
-    def date_funded(self):
-        log = self.project.projectphaselog_set.get(phase=ProjectPhases.act)
-        return log.created
 
 
 class PartnerOrganization(models.Model):
