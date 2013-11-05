@@ -74,7 +74,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         time.sleep(2)
 
         def convert_money_to_int(money_text):
-            return int(money_text.strip(u' To go').strip(u'€ ').replace('.', '').replace(',', ''))
+            return int(money_text.strip(u' TO GO').strip(u'€ ').replace('.', '').replace(',', ''))
 
         # NOTE: Due to a recent change, its harder to calculate/get the financiel data from the front end.
         # Hence, these calculations are commented. Perhaps enable in the future if this data becomes available again.
@@ -107,7 +107,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         expected_projects = []
         for p in Project.objects.filter(phase=ProjectPhases.campaign).order_by('popularity')[:len(web_projects)]:
             expected_projects.append({
-                'title': p.title,  # Uppercase the title for comparison.
+                'title': p.title.upper(),  # Uppercase the title for comparison.
                 'money_needed': int(round(p.projectcampaign.money_needed / 100.0)),
             })
 
@@ -177,7 +177,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         self.visit_project_list_page()
 
         # pick a project
-        self.browser.find_by_css('.item.item-project').first.find_by_tag('a').first.click()
+        self.browser.find_by_css('.project-item').first.find_by_tag('a').first.click()
 
         form = self.browser.find_by_css('form.ember-view')
         form_data = {
@@ -221,6 +221,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
     def test_meta_tag(self, lang_code=None):
         self.visit_path('/projects/schools-for-children-2', lang_code)
 
+        time.sleep(2)
         self.assertIn('Schools for children 2', self.browser.title) # check that the title indeed contains the project title
 
         # check meta url

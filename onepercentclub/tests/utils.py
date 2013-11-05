@@ -23,7 +23,7 @@ class OnePercentSeleniumTestCase(SeleniumTestCase):
         self.browser.fill('username', username)
         self.browser.fill('password', password)
 
-        self.browser.find_by_value('Log in').first.click()
+        self.browser.find_by_value('Login').first.click()
 
         return self.browser.is_text_present('MY 1%', wait_time=10)
 
