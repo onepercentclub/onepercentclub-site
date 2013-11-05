@@ -4,6 +4,8 @@
 
 .static-onepage {
     @include clear;
+    font-size: $font-size-large;
+    line-height: $base-line-height;
     
     .static-onepage-nav {
         @include clear;
@@ -15,8 +17,10 @@
             @include resetlist;
             margin-right: $base-margin*2;
             float: left;
-    
+            
             a {
+                display: inline-block;
+                padding: $base-padding 0;
                 color: $gray;
                 text-transform: uppercase;
     
@@ -33,13 +37,14 @@
     }
     
     .static-onepage-section {
+        @include clear;
+        position: relative;
         
         .static-onepage-content {
             @include clear;
             width: 100%;
             margin-top: auto;
             margin-bottom: auto;
-            border: 1px solid red;
             top: 0;
             left: 0;
             bottom: 0;
@@ -51,7 +56,7 @@
             color: $gray-lighter;
         }
         
-        &:nth-of-type(odd) {
+        &:nth-of-type(even) {
             background-color: $gray-lighter;
     
             .illustration {
@@ -62,10 +67,11 @@
     
     .numbered-list {
         @include clearfix;
-        margin: 0;
+        margin-left: 0;
         
         li {
             @include resetlist;
+            margin-left: 0;
         }
         
         .nl-item-number {
@@ -100,9 +106,13 @@
         font-size: 40px;
         position: absolute;
         right: 15%;
-        bottom: -100px;
+        bottom: 64px;
         color: $color-primary;
         cursor: pointer;
         text-decoration: none;
+    }
+    
+    #hello .static-onepage-next {
+        bottom: 200px;
     }
 }

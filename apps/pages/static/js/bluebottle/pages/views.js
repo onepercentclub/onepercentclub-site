@@ -70,8 +70,13 @@ App.PageView = Ember.View.extend(App.GoTo, {
         var windowHeight = $(window).height();
         this.$('.static-onepage-section').css('height', windowHeight + 'px');
         this.$('.static-onepage-content').each(function() {
+            // Reset first to get correct height
             $(this).css({
-                'height' : $(this).height() + 'px',
+                'position' : 'relative',
+                'height' : 'auto'
+            });
+            $(this).css({
+                'height' : $(this).height() + 140 + 'px',
                 'position' : 'absolute'
             });
         });
