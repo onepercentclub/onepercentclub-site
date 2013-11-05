@@ -16,15 +16,12 @@
         position: relative;
         
        	> a, > span {
-       	    //@include transition(color 0.1s ease-out);
             color: $gray-dark;
             display: block;
             overflow: hidden;
             text-decoration: none;
-            //margin-right: $base-margin;
             padding: $base-padding $base-padding $base-padding/2 $base-padding;
             text-transform: uppercase;
-            //border-left: 1px solid $white;
             
             .tab-icon {
                 @include transition(all 0.1s ease-out);
@@ -56,16 +53,10 @@
             
             &:hover {
                 color: $color-text;
-                //background-color: $gray-light;
                 
                 .tab-icon {
                     background-color: $color-text;
-                    //@include scale(1.1);
                 }
-                
-            }
-            
-            &:active {
                 
             }
             
@@ -82,7 +73,6 @@
 	    }
         
         &:first-of-type > a, &:first-of-type > span {
-			//border-left: 1px dotted $gray-light;
 		}
 
     }
@@ -111,7 +101,6 @@
     	margin-bottom: 2px;
     	font-family: $font-family-heavy;
     	
-    	
         &.two li {
             @include grid(24,0,0);
         } 
@@ -131,7 +120,7 @@
 	    li > a, li > span {
 	    	display: block;
 		    padding: $base-padding;
-		    color: $gray-lighter;
+		    color: $gray-light;
 		    background: image-url("steps-back.png") $white no-repeat 100% 50%;
 		    border: none;
 		    
@@ -146,6 +135,7 @@
 	    
 		li.is-selected > a, li.is-selected > span {
 			background: image-url("steps-back-selected.png") $color-secondary no-repeat 100% 50%;
+			color: $gray-lighter;
 			
 			.tab-icon .flaticon:before {
 				content: "\e1ba"; // replace with ok
