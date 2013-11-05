@@ -19,50 +19,39 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
     },
 
     addMediaWallPost: function() {
-        var transaction = this.get('store').transaction();
-        var mediawallpost = transaction.createRecord(App.ProjectMediaWallPost);
+        var store = this.get('store');
+        var mediawallpost = store.createRecord(App.ProjectMediaWallPost);
+        var controller = this;
         mediawallpost.set('title', this.get('content.title'));
         mediawallpost.set('text', this.get('content.text'));
         mediawallpost.set('video_url', this.get('content.video_url'));
         mediawallpost.set('project', this.get('controllers.project.model'));
 
-        var controller = this;
-        // As soon as the wallpost has got an id we can start connecting photos to it.
-        mediawallpost.addObserver('id', function(){
-            if (controller.get('files').length) {
-                // Start a new transaction and add the wallpost and all the photos to it.
-                var transaction = controller.get('store').transaction();
-                // Add the wallpost to the same transaction.
-                transaction.add(mediawallpost);
-                var reload = true;
-                controller.get('files').forEach(function(photo){
-                    transaction.add(photo);
-                    // Connect a photo to the new wallpost.
-                    photo.set('mediawallpost', mediawallpost);
-                    photo.on('didUpdate', function(){
-                        if (reload) {
-                            mediawallpost.reload();
-                            reload = false;
-                        }
-                    });
-                });
-                // Empty this.files so we can use it again.
-                controller.set('files', Em.A());
-                transaction.commit();
-            }
-        });
+
 
         mediawallpost.on('didCreate', function(record) {
-            var list = controller.get('controllers.projectIndex.items');
-            list.unshiftObject(record);
-            controller.clearWallPost()
+            Ember.run.next(function() {
+                if (controller.get('files').length) {
+                    // Connect all photos to this wallpost.
+                    var reload = true;
+                    controller.get('files').forEach(function(photo){
+                        photo.set('mediawallpost', record);
+                        photo.save();
+                    });
+                    // Empty this.files so we can use it again.
+                    controller.set('files', Em.A());
+                }
+                var list = controller.get('controllers.projectIndex.items');
+                list.unshiftObject(record);
+                controller.clearWallPost()
+            });
         });
         mediawallpost.on('becameInvalid', function(record) {
             controller.set('errors', record.get('errors'));
 //            TODO: The record needs need to be deleted somehow.
 //            record.deleteRecord();
         });
-        transaction.commit();
+        mediawallpost.save();
     },
 
     addFile: function(file) {
