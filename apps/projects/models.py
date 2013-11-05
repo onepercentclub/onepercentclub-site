@@ -220,7 +220,6 @@ class Project(models.Model):
     def get_tweet(self, **kwargs):
         """ Build the tweet text for the meta data """
         request = kwargs.get('request')
-        # import pdb; pdb.set_trace()
         lang_code = request.LANGUAGE_CODE
         twitter_handle = settings.TWITTER_HANDLES.get(lang_code, settings.DEFAULT_TWITTER_HANDLE)
 
