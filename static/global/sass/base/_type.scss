@@ -10,11 +10,19 @@ body {
 	line-height: $base-line-height;
 	font-size: $base-font-size;
 	color: $color-text;
-	
-	-webkit-font-smoothing: antialiased; 
-	-moz-font-smoothing: antialiased; 
+	-webkit-font-smoothing: antialiased;
 	font-smoothing: antialiased; 
 	text-rendering: optimizelegibility;
+	
+	
+    -moz-osx-font-smoothing: grayscale;
+}
+
+// Workaround for smooth text rendering on Firefox
+@-moz-document url-prefix() {
+    * {
+        font-weight: normal !important;
+    }
 }  
 
 p {
