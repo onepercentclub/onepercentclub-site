@@ -89,42 +89,6 @@ App.OrderThanksRoute = Em.Route.extend({
 });
 
 
-App.RecurringOrderThanksRoute = Em.Route.extend({
-// FIXME: Enable this when we fix the issue with transitioning to this route without a full page reload.
-//    beforeModel: function() {
-//        if (!this.controllerFor('currentUser').get('isAuthenticated')) {
-//            this.transitionTo('home');
-//        }
-//    },
-
-    model: function(params) {
-        return App.Order.find({status: 'recurring'}).then(function(orders) {
-            if (orders.get('length') > 0) {
-                return orders.objectAt(0);
-            }
-            this.transitionTo('home');
-        });
-    },
-
-    setupController: function(controller, order) {
-        this._super(controller, order);
-
-        App.RecurringDirectDebitPayment.find({}).then(function(recurringPayments) {
-            if (recurringPayments.get('length') > 0) {
-                controller.set('recurringPayment', recurringPayments.objectAt(0));
-            } else {
-                controller.set('recurringPayment', null);
-            }
-        });
-
-        // Set the top three projects
-        App.ProjectPreview.find({ordering: 'popularity', phase: 'campaign'}).then(function(projects) {
-            controller.set('topThreeProjects', projects.slice(0, 3));
-        });
-    }
-});
-
-
 /**
  * Payment for Current Order Routes
  */

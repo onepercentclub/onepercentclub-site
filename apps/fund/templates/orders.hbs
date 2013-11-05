@@ -587,7 +587,6 @@
 
 
 {% tplhandlebars "orderThanks" %}
-<div id="thanks">
 	<div class="l-section">
         <section class="l-wrapper">
         
@@ -617,7 +616,6 @@
     <div class="l-section">
         <section class="l-wrapper">
 			<div class="l-content">
-			
 				<header>
                 	{{#if moreThanOneDonation }}
                         <h3>{% trans "You just supported these projects" %}</h3>
@@ -632,24 +630,12 @@
 	                {{/each}}
 	            </ul>
             </div>
-            
-            <sidebar class="l-sidebar">
-            	{{#if recurring}}
-                <h3>{% trans "Your donation is set" %}</h3>
-        		<p>{% blocktrans %}
-				Your donation will be deducted from your account.
-				{% endblocktrans %}</p>
-				<p>{% trans "Donation total:" %} <strong>&euro; {{ total }},-</strong></p>
-				{{/if}}
-            </sidebar>
         </section>
     </div>
-</div>
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "recurringOrderThanks" %}
-<div id="thanks">
     <div class="l-section">
         <section class="l-wrapper">
             <div class="l-content">
@@ -755,7 +741,6 @@
             </sidebar>
         </section>
     </div>
-</div>
 {% endtplhandlebars %}
 
 
