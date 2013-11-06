@@ -510,15 +510,19 @@ App.MyProjectPlanLegalController = Em.ObjectController.extend(App.Editable, {
 
 
 App.MyProjectPlanSubmitController = Em.ObjectController.extend(App.Editable, {
-    submitPlan: function(e){
-        var controller = this;
-        var model = this.get('model');
-        model.set('status', 'submitted');
-        model.on('didUpdate', function(){
-            controller.transitionToRoute('myProjectPlanReview');
-        });
-        model.save();
+
+    actions: {
+        submitPlan: function(e){
+            var controller = this;
+            var model = this.get('model');
+            model.set('status', 'submitted');
+            model.on('didUpdate', function(){
+                controller.transitionToRoute('myProjectPlanReview');
+            });
+            model.save();
+        }
     },
+
     exit: function(){
         this.set('model.status', 'new');
         this._super();
