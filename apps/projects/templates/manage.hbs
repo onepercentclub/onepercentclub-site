@@ -146,7 +146,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                             </fieldset>
                             
                             <button {{bindAttr class=":btn :btn-iconed :btn-primary :btn-save isDirty::disabled"}} {{action updateRecordOnServer}}>
-                                <em class="flaticon solid pencil-3"></em>{% trans "write your pitch" %}
+                                <span class="flaticon solid pencil-3"></span>{% trans "write your pitch" %}
                             </button>
                         </form>
                     {{/if}}
@@ -310,12 +310,12 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                             {% trans "Legal Status" %}
                         {{/linkTo}}
                     </li>
-                    <li>
+                    <!--{% comment %}<li>
                         {{#linkTo "myProjectPlan.ambassadors"}}
                             <em {{bindAttr class="validAmbassadors:is-finished:is-unfinished"}}></em>
                             {% trans "Ambassadors" %}
                         {{/linkTo}}
-                    </li>
+                    </li>{% endcomment %}-->
                     {{/if}}
 
                 {{#if needsFunding}}
@@ -415,7 +415,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
         </fieldset>
     {{/if}}
 
-    {{#linkTo myProjectPlan.basics class="btn btn-iconed btn-next"}}<em class="flaticon solid right-2"></em>{% trans "Next" %}{{/linkTo}}
+    {{#linkTo "myProjectPlan.basics" class="btn btn-iconed btn-next"}}<span class="flaticon solid right-2"></span>{% trans "Next" %}{{/linkTo}}
 
 {% endtplhandlebars %}
 
@@ -1282,7 +1282,7 @@ Please add 5% administration fee to your budget. The total amount, including the
         <article class="l-content">
             <header class="page-header">
                 <h2>{% trans "Yeah! Your plan has been approved." %}</h2>
-                <p>{% trans "You can start your " %} {{#linkTo myProjectCampaign}}{% trans "Campaign" %}{{/linkTo}}</p>
+                <p>{% trans "You can start your " %} {{#linkTo "myProjectCampaign"}}{% trans "Campaign" %}{{/linkTo}}</p>
             </header>
         </article>
     </div>
@@ -1301,7 +1301,7 @@ Please add 5% administration fee to your budget. The total amount, including the
         </legend>
     </fieldset>
 
-    {{#linkTo myProjectPitch.basics class="btn btn-iconed btn-next"}}<span class="flaticon solid right-2"></span>{% trans "Next" %}{{/linkTo}}
+    {{#linkTo "myProjectPitch.basics" class="btn btn-iconed btn-next"}}<span class="flaticon solid right-2"></span>{% trans "Next" %}{{/linkTo}}
 
 {% endtplhandlebars %}
 
@@ -1484,7 +1484,7 @@ Please add 5% administration fee to your budget. The total amount, including the
             {{#if validLocation}}
                 <h3><span class="flaticon solid checkmark-1"></span> Location is ok!</h3>
             {{else}}
-                <h3>{{#linkTo "myProjectPitch.basics"}}Basics{{/linkTo}} still need work!</h4>
+                <h3>{{#linkTo "myProjectPitch.basics"}}Basics{{/linkTo}} still need work!</h3>
                 {{#unless latitude}}
                     <span class="flaticon solid exclamation-point-2"></span> <strong>Map location</strong> is missing<br/>
                 {{/unless}}

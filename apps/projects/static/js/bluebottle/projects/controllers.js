@@ -1,4 +1,3 @@
-
 App.ProjectListController = Em.ArrayController.extend({
     needs: ['projectSearchForm']
 });
@@ -144,18 +143,20 @@ App.MyProjectController = Em.ObjectController.extend({
 
 App.MyPitchNewController = Em.ObjectController.extend(App.Editable, {
     needs: ['currentUser'],
-    updateRecordOnServer: function(){
-        var controller = this;
-        var model = this.get('model');
-        model.one('becameInvalid', function(record){
-            model.set('errors', record.get('errors'));
-        });
+    actions: {
+        updateRecordOnServer: function(){
+            var controller = this;
+            var model = this.get('model');
+            model.one('becameInvalid', function(record){
+                model.set('errors', record.get('errors'));
+            });
 
-        model.one('didCreate', function(record){
-            controller.transitionToRoute('myProjectPitch', record);
-        });
+            model.one('didCreate', function(record){
+                controller.transitionToRoute('myProjectPitch', record);
+            });
 
-        model.save();
+            model.save();
+        }
     }
 });
 
@@ -177,7 +178,6 @@ App.MyProjectListController = Em.ArrayController.extend({
 
 App.MyProjectPitchController = Em.ObjectController.extend(App.Editable, {
     needs: ['currentUser']
-
 });
 
 App.MyProjectPitchBasicsController = Em.ObjectController.extend(App.Editable, {
@@ -189,22 +189,25 @@ App.MyProjectPitchLocationController = Em.ObjectController.extend(App.Editable, 
 App.MyProjectPitchMediaController = Em.ObjectController.extend(App.Editable, {
     nextStep: 'myProjectPitch.submit',
 
-    save: function(record) {
-        this._super();
-        this.get('model').reload();
+    actions: {
+        save: function(record) {
+            this._super();
+            this.get('model').reload();
+        }
     }
-
 });
 
 App.MyProjectPitchSubmitController = Em.ObjectController.extend(App.Editable, {
-    submitPitch: function(e){
-        var controller = this;
-        var model = this.get('model');
-        model.set('status', 'submitted');
-        model.on('didUpdate', function(){
-            controller.transitionToRoute('myProjectPitchReview');
-        });
-        model.save();
+    actions: {
+        submitPitch: function(e){
+            var controller = this;
+            var model = this.get('model');
+            model.set('status', 'submitted');
+            model.on('didUpdate', function(){
+                controller.transitionToRoute('myProjectPitchReview');
+            });
+            model.save();
+        }
     },
     exit: function(){
         this.set('model.status', 'new');
@@ -237,6 +240,7 @@ App.MyProjectPlanCampaignController = Em.ObjectController.extend(App.Editable, {
     nextStep: 'myProjectPlan.budget'
 });
 
+/*
 App.MyProjectPlanAmbassadorsController = Em.ObjectController.extend(App.Editable, {
     nextStep: function(){
         if (this.get('need') == 'skills') {
@@ -269,9 +273,8 @@ App.MyProjectPlanAmbassadorsController = Em.ObjectController.extend(App.Editable
             model.transaction.commit();
 
 
-            /* The minimum number of ambassadors requirement was dropped, plus there was no visual feedback if not
-             * enough ambassadors
-             */
+            // The minimum number of ambassadors requirement was dropped, plus there was no visual feedback if not
+            // enough ambassadors
             //if (model.get('validAmbassadors')) {
             controller.transitionToRoute(controller.get('nextStep'));
             //}
@@ -291,6 +294,7 @@ App.MyProjectPlanAmbassadorsController = Em.ObjectController.extend(App.Editable
     }
 
 });
+*/
 
 App.MyProjectPlanOrganisationController = Em.ObjectController.extend(App.Editable, {
 
@@ -349,7 +353,7 @@ App.MyProjectPlanOrganisationController = Em.ObjectController.extend(App.Editabl
             transaction.add(org);
             this.set('model.organization', org);
             if (this.get('model.organization.addresses.length') == 0) {
-                this.addAddress();
+                this.send('addAddress');
             }
         },
 
@@ -358,10 +362,12 @@ App.MyProjectPlanOrganisationController = Em.ObjectController.extend(App.Editabl
             var transaction = this.get('store').transaction();
             var org = transaction.createRecord(App.MyOrganization, {name: controller.get('model.title')});
             this.set('model.organization', org);
-            transaction.commit();
-        }
-    },
 
+            transaction.commit();
+            // TODO: This does not work.
+            this.send('addAddress');
+        }
+    }
 });
 
 
@@ -451,7 +457,8 @@ App.MyProjectPlanBudgetController = Em.ObjectController.extend(App.Editable, {
 
 App.MyProjectPlanLegalController = Em.ObjectController.extend(App.Editable, {
 
-    nextStep: 'myProjectPlan.ambassadors',
+    /*nextStep: 'myProjectPlan.ambassadors', */
+    nextStep: 'myProjectPlan.campaign',
 
     shouldSave: function(){
         // Determine if any part is dirty, project plan, org or any of the org addresses
