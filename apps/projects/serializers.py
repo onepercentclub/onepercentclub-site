@@ -126,9 +126,11 @@ class ProjectSerializer(serializers.ModelSerializer):
 
     meta_data = MetaField(
             title = 'get_meta_title', 
+            fb_title = 'get_fb_title',
             description = 'projectplan__pitch',
             keywords = 'projectplan__tags',
-            image_source = 'projectplan__image'
+            image_source = 'projectplan__image',
+            tweet = 'get_tweet',
             )
 
     def __init__(self, *args, **kwargs):

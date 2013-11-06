@@ -53,7 +53,12 @@ class TaskSerializer(TaggableSerializerMixin, serializers.ModelSerializer):
     tags = TagSerializer()
     wallpost_ids = WallPostListSerializer()
 
-    meta_data = MetaField(title='get_meta_title')
+    meta_data = MetaField(
+        title = 'get_meta_title', 
+        fb_title = 'get_fb_title',
+        tweet = 'get_tweet',
+        image_source = 'project__projectplan__image',
+        )
 
     class Meta:
         model = Task

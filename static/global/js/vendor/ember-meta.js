@@ -13,6 +13,14 @@ Ember.onLoad('Ember.Application', function(Application) {
           return $(tags[0]);
         }
       };
+
+      var _setProperty = function(target, key, value) {
+        if (value) {
+          target.set(key, value);
+        } else if (target.get('defaults.'+key)) {
+          target.set(key, target.get('defaults.'+key));
+        }
+      }
    
       // hold logic and information
       var Meta = Ember.Object.extend(Ember.Evented, {
@@ -20,6 +28,7 @@ Ember.onLoad('Ember.Application', function(Application) {
    
         // string values
         title: null,
+        ogTitle: null,
         description: null,
         keywords: null,
         url: null,
@@ -36,6 +45,7 @@ Ember.onLoad('Ember.Application', function(Application) {
         // defaults, set by the base template
         defaults: {
           title: default_title,
+          ogTitle: default_title,
           description: default_description,
           keywords: default_keywords
         },
@@ -50,29 +60,32 @@ Ember.onLoad('Ember.Application', function(Application) {
         // propagate changes to dom elements
         titleChanged: function() {
           document.title = this.get('title');
-          this.get('_ogTitle').attr('content', this.get('title'));
         }.observes('title'),
+
+        ogTitleChanged: function() {
+          this.get('_ogTitle').attr('content', this.get('ogTitle'));
+        }.observes('ogTitle'),
    
-        descriptionChanged: Ember.observer(function() {
+        descriptionChanged: function() {
           this.get('_description').attr('content', this.get('description'));
           this.get('_ogDescription').attr('content', this.get('description'));
-          this.notifyPropertyChange('_ogDescription');
-        }, 'description'),
+          // this.notifyPropertyChange('_ogDescription');
+        }.observes('description'),
 
-        keywordsChanged: Ember.observer(function() {
+        keywordsChanged: function() {
           this.get('_keywords').attr('content', this.get('keywords'));
           this.get('_ogKeywords').attr('content', this.get('keywords'));
-          this.notifyPropertyChange('_ogkeywords');
-        }, 'keywords'),
+          // this.notifyPropertyChange('_ogkeywords');
+        }.observes('keywords'),
 
-        urlChanged: Ember.observer(function() {
+        urlChanged: function() {
           this.get('_ogUrl').attr('content', this.get('url'));
-          this.notifyPropertyChange('_ogUrl');
-        }, 'url'),
+          // this.notifyPropertyChange('_ogUrl');
+        }.observes('url'),
 
-        imageChanged: Ember.observer(function() {
+        imageChanged: function() {
           this.get('_ogImage').attr('content', this.get('image'));
-        }, 'image'),
+        }.observes('image'),
    
         init: function() {
           this._super();
@@ -82,6 +95,7 @@ Ember.onLoad('Ember.Application', function(Application) {
         reloadDataFromRoutes: function() {
           var handlers = this.get('application').Router.router.currentHandlerInfos,
             newTitle,
+            newOgTitle, // open graph title
             newDescription,
             newKeywords,
             newImage,
@@ -103,6 +117,9 @@ Ember.onLoad('Ember.Application', function(Application) {
                     newTitle = this.get('defaults.title');
                   }
                 }
+                if(!newOgTitle) {
+                  newOgTitle = meta_data.fb_title;
+                }
                 if (!newDescription) {
                   newDescription = meta_data.description;
                 }
@@ -110,36 +127,20 @@ Ember.onLoad('Ember.Application', function(Application) {
                   newKeywords = meta_data.keywords;
                 }
                 if (!newImage && meta_data.image) {
-                  newImage = meta_data.image.full;
+                  newImage = meta_data.image;
                 }
               }
             }
           }
+          
           // save changes or snap back to defaults
-          if (newTitle) {
-            this.set('title', newTitle);
-          } else if (this.get('defaults.title')) {
-            this.set('title', this.get('defaults.title'));
-          }
-          if (newDescription) {
-            this.set('description', newDescription);
-          } else if (this.get('defaults.description')) {
-            this.set('description', this.get('defaults.description'));
-          }
-          if(newKeywords) {
-            this.set('keywords', newKeywords);
-          } else if (this.get('defaults.keywords')) {
-            this.set('keywords', this.get('defaults.keywords'));
-          }
-          if(newImage) {
-            this.set('image', newImage);
-          } else if (this.get('defaults.image')) {
-            this.set('image', this.get('defaults.image'));
-          }
+          _setProperty(this, 'title', newTitle);
+          _setProperty(this, 'ogTitle', newOgTitle);
+          _setProperty(this, 'description', newDescription);
+          _setProperty(this, 'keywords', newKeywords);
+          _setProperty(this, 'image', newImage);
 
           this.set('url', window.location.href);
-
-
           this.trigger('didReloadDataFromRoutes');
         }
       });

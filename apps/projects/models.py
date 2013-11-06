@@ -203,11 +203,35 @@ class Project(models.Model):
 
     def get_meta_title(self, **kwargs):
         plan = self.projectplan
-        return "%(name_project)s | %(theme)s | %(country)s" % {
+        return u"%(name_project)s | %(theme)s | %(country)s" % {
             'name_project': self.title,
             'theme': plan.theme.name if plan.theme else '',
             'country': plan.country.name if plan.country else '',
         }
+
+    def get_fb_title(self, **kwargs):
+        plan = self.projectplan
+        title = _(u"{name_project} in {country}").format(
+                    name_project = self.title,
+                    country = plan.country.name if plan.country else '',
+                )
+        return title
+
+    def get_tweet(self, **kwargs):
+        """ Build the tweet text for the meta data """
+        request = kwargs.get('request')
+        lang_code = request.LANGUAGE_CODE
+        twitter_handle = settings.TWITTER_HANDLES.get(lang_code, settings.DEFAULT_TWITTER_HANDLE)
+
+        title = self.get_fb_title()
+
+        # {URL} is replaced in Ember to fill in the page url, avoiding the
+        # need to provide front-end urls in our Django code.
+        tweet = _(u"{title} {{URL}} via @{twitter_handle}").format(
+                    title=title, twitter_handle=twitter_handle
+                )
+
+        return tweet
 
     class Meta:
         ordering = ['title']
