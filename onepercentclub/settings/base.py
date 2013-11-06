@@ -156,6 +156,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'bluebottle.accounts.middleware.LocaleMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     # https://docs.djangoproject.com/en/1.4/ref/clickjacking/
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -650,6 +651,14 @@ SESSION_COOKIE_NAME = 'bb-session-id'
 PASSWORD_HASHERS = global_settings.PASSWORD_HASHERS + (
     'legacyauth.hashers.LegacyPasswordHasher',
 )
+
+# Twitter handles, per language
+TWITTER_HANDLES = {
+    'nl': '1procentclub',
+    'en': '1percentclub',
+}
+DEFAULT_TWITTER_HANDLE = TWITTER_HANDLES['nl']
+
 #
 # BlueBottle
 #
