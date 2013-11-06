@@ -1,4 +1,4 @@
-pavlov.specify('Project Task List Route Tests', function() {
+pavlov.specify('Project Tasks Route Tests', function() {
 
     describe('App.ProjectTasksIndexRoute Class', function () {
         it('should be an Ember.Route', function() {
@@ -7,7 +7,7 @@ pavlov.specify('Project Task List Route Tests', function() {
         });
     });
 
-    describe('App.ProjectTaskListRoute Instance', function () {
+    describe('App.ProjectTasksIndexRoute Instance', function () {
 
         var route;
 
