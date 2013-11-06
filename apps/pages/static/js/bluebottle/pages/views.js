@@ -84,7 +84,7 @@ App.PageView = Ember.View.extend(App.GoTo, {
                 'height' : 'auto'
             });
             $(this).css({
-                'height' : $(this).height() + 140 + 'px',
+                'height' : $(this).height() + 'px',
                 'position' : 'absolute'
             });
         });
