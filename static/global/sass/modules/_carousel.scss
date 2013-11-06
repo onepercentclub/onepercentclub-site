@@ -10,15 +10,11 @@
 	@include clear;
 	position: relative;
 	
-	ul, li {
-		@include clear;
-		 margin: 0;
-		 padding: 0;
-		 list-style: none;
-		 background: none;
-	}
-	
 	.carousel-item {
+	    @include clear;
+        @include resetlist;
+        margin: 0;
+        padding: 0;
 		font-size: $font-size-large;
 		line-height: $base-line-height;
 		display: block;
@@ -33,7 +29,23 @@
 			h1 {
 				color: $white;
 				font-size: $font-size-larger;
+				line-height: $base-line-height;
 			}
+			
+			h2 {
+    			color: $gray;
+				font-size: $font-size-large;
+				font-family: $base-font-family;
+				line-height: $base-line-height;
+			}
+			
+			ul, ol {
+        		margin-left: 0;
+        		
+        		> li {
+            		line-height: 1;
+        		}
+    		}
 		}
 	}
 }
@@ -50,11 +62,13 @@
 	.carousel-nav {
 		margin-top: 0;
 		margin-bottom: 0;
-		list-style: none;
 		background-color: $gray-lighter;
 		
 		.carousel-nav-item {
 			@include grid(12);
+			@include clear;
+            @include resetlist;
+            margin: 0;
 			padding: $base-padding 0;
 			border-right: 1px solid $white;
 			text-align: center;

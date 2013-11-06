@@ -4,11 +4,6 @@
 
 #home {
 	
-	// Global
-	.section-header {
-    	text-align: center;
-	}
-	
 	.home-projects, .home-quotes, .home-impact {
 	    @include clear;
     	padding: $base-padding*2 0;
