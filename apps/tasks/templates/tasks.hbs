@@ -218,36 +218,42 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "projectTaskList" %}
+{% tplhandlebars "projectTasks" %}
 
     <div class="l-section">
         <section class="l-wrapper">
 			
-            {{# if isProjectOwner}}
-            <div class="owner-actions">
-
-                <header>
-                    <h3>{% trans "You're the project owner" %}</h3>
-                    <p>{% trans "You can add a new task" %}.</p>
-                </header>
-
-                {{#linkTo 'projectTaskNew' class="btn btn-primary btn-iconed task-add"}}
-                    <span class="flaticon solid plus-1"></span>
-                    {% trans "Add a task" %}
-                {{/linkTo}}
-            </div>
-            {{/if}}
-
-            <ul id="search-results">
-                {{#each task in controller}}
-                    {{render taskPreview task}}
-                {{else}}
-                    <li class="no-results">{% trans "No tasks currently available for this project" %}.</li>
-                {{/each}}
-            </ul>
-            
+            {{ outlet }}
         </section>
     </div>
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "projectTasks/index" %}
+
+    {{# if isProjectOwner}}
+    <div class="owner-actions">
+
+        <header>
+            <h3>{% trans "You're the project owner" %}</h3>
+            <p>{% trans "You can add a new task" %}.</p>
+        </header>
+
+        {{#linkTo 'projectTaskNew' class="btn btn-primary btn-iconed task-add"}}
+            <span class="flaticon solid plus-1"></span>
+            {% trans "Add a task" %}
+        {{/linkTo}}
+    </div>
+    {{/if}}
+
+    <ul id="search-results">
+        {{#each task in controller}}
+            {{render taskPreview task}}
+        {{else}}
+            <li class="no-results">{% trans "No tasks currently available for this project" %}.</li>
+        {{/each}}
+    </ul>
+
 {% endtplhandlebars %}
 
 

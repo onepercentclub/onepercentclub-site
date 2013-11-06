@@ -147,3 +147,7 @@ App.TickerView = Em.View.extend({
         $('#footer').remove();
     }
 });
+
+App.OrderThanksView = Em.View.extend({
+    
+});

@@ -361,7 +361,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                 </h3>
                 <div class="toolbox-content">
                     <p>{% trans "Do you need someone to help writing your business plan?" %}</p>
-                    {{#linkTo "projectTaskNew" getProject name="button" class="btn btn-iconed"}}
+                    {{#linkTo "projectTaskNew" project.getProject name="button" class="btn btn-iconed"}}
                         <em class="flaticon solid wrench-1"></em>
                         {% trans "Create a new task" %}
                     {{/linkTo}}
@@ -375,7 +375,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                 </h3>
                 <div class="toolbox-content">
                     <p>{% trans "Why not? Ask the crowd for feedback on your idea!" %}</p>
-                    {{#linkTo "project" getProject tagName="button" class="btn btn-iconed"}}
+                    {{#linkTo "project" project.getProject tagName="button" class="btn btn-iconed"}}
                         <span class="flaticon solid megaphone-1"></span>
                         {% trans "Post an Update" %}
                     {{/linkTo}}
@@ -706,87 +706,61 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                 <strong>{% trans "Address" %}</strong>
             </legend>
             <ul>
-                {{#each address in organization.addresses}}
+                <li class="control-group has-popover" data-content="{% trans "Street, house number, the place in your city" %}">
+                    <label class="control-label">{% trans "Address line 1" %}</label>
+                    <div class="controls">
+                        {{view Em.TextField valueBinding="address.line1" classBinding="address.errors.line1.length:error"}}
+                    </div>
 
-                    <li class="control-group has-popover" data-content="{% trans "What type of address is this? You can add multiple addresses" %}">
-                        <label class="control-label">{% trans "Type" %}</label>
-                        <div class="controls">
-                            {{view App.AddressTypeSelectView valueBinding="address.type" classBinding="address.errors.type.length:error"}}
-                        </div>
+                    {{#if address.errors.line1 }}
+                        <div class="has-errors">{{#each address.errors.line1 }}<p>{{this}}</p>{{/each}}</div>
+                    {{/if}}
 
-                        {{#if address.errors.type }}
-                            <div class="has-errors">{{#each address.errors.type }}<p>{{this}}</p>{{/each}}</div>
-                        {{/if}}
-                    </li>
+                </li>
 
-                    <li class="control-group has-popover" data-content="{% trans "Street, house number, the place in your city" %}">
-                        <label class="control-label">{% trans "Address line 1" %}</label>
-                        <div class="controls">
-                            {{view Em.TextField valueBinding="address.line1" classBinding="address.errors.line1.length:error"}}
-                        </div>
+                <li class="control-group has-popover" data-content="{% trans "More about your address" %}">
+                    <label class="control-label">{% trans "Address line 2" %}</label>
+                    <div class="controls">
+                        {{view Em.TextField valueBinding="address.line2" classBinding="address.errors.line2.length:error"}}
+                    </div>
 
-                        {{#if address.errors.line1 }}
-                            <div class="has-errors">{{#each address.errors.line1 }}<p>{{this}}</p>{{/each}}</div>
-                        {{/if}}
-
-                    </li>
-
-                    <li class="control-group has-popover" data-content="{% trans "More about your address" %}">
-                        <label class="control-label">{% trans "Address line 2" %}</label>
-                        <div class="controls">
-                            {{view Em.TextField valueBinding="address.line2" classBinding="address.errors.line2.length:error"}}
-                        </div>
-
-                        {{#if address.errors.line2 }}
-                            <div class="has-errors">{{#each address.errors.line2 }}<p>{{this}}</p>{{/each}}</div>
-                        {{/if}}
-                    </li>
+                    {{#if address.errors.line2 }}
+                        <div class="has-errors">{{#each address.errors.line2 }}<p>{{this}}</p>{{/each}}</div>
+                    {{/if}}
+                </li>
 
 
-                    <li class="control-group has-popover" data-content="{% trans "City or village.." %}">
-                        <label class="control-label">{% trans "City" %}</label>
-                        <div class="controls">
-                            {{view Em.TextField valueBinding="address.city" classBinding="address.errors.city.length:error"}}
-                        </div>
+                <li class="control-group has-popover" data-content="{% trans "City or village.." %}">
+                    <label class="control-label">{% trans "City" %}</label>
+                    <div class="controls">
+                        {{view Em.TextField valueBinding="address.city" classBinding="address.errors.city.length:error"}}
+                    </div>
 
-                        {{#if address.errors.city }}
-                            <div class="has-errors">{{#each address.errors.city }}<p>{{this}}</p>{{/each}}</div>
-                        {{/if}}
-                    </li>
+                    {{#if address.errors.city }}
+                        <div class="has-errors">{{#each address.errors.city }}<p>{{this}}</p>{{/each}}</div>
+                    {{/if}}
+                </li>
 
-                    <li class="control-group has-popover" data-content="{% trans "Postal code" %}">
-                        <label class="control-label">{% trans "Postal code" %}</label>
-                        <div class="controls">
-                            {{view Em.TextField valueBinding="address.postal_code" classBinding="address.errors.postal_code.length:error"}}
-                        </div>
+                <li class="control-group has-popover" data-content="{% trans "Postal code" %}">
+                    <label class="control-label">{% trans "Postal code" %}</label>
+                    <div class="controls">
+                        {{view Em.TextField valueBinding="address.postal_code" classBinding="address.errors.postal_code.length:error"}}
+                    </div>
 
-                        {{#if address.errors.postal_code }}
-                            <div class="has-errors">{{#each address.errors.postal_code }}<p>{{this}}</p>{{/each}}</div>
-                        {{/if}}
-                    </li>
+                    {{#if address.errors.postal_code }}
+                        <div class="has-errors">{{#each address.errors.postal_code }}<p>{{this}}</p>{{/each}}</div>
+                    {{/if}}
+                </li>
 
-                    <li class="control-group has-popover" data-content="{% trans "Country or territory" %}">
-                        <label class="control-label">{% trans "Country" %}</label>
-                        <div class="controls">
-                            {{view App.CountrySelectView valueBinding="address.country" classBinding="address.errors.country.length:error"}}
-                        </div>
+                <li class="control-group has-popover" data-content="{% trans "Country or territory" %}">
+                    <label class="control-label">{% trans "Country" %}</label>
+                    <div class="controls">
+                        {{view App.CountrySelectView valueBinding="address.country" classBinding="address.errors.country.length:error"}}
+                    </div>
 
-                        {{#if address.errors.country }}
-                            <div class="has-errors">{{#each address.errors.country }}<p>{{this}}</p>{{/each}}</div>
-                        {{/if}}
-                    </li>
-
-                    <li class="control-group has-popover" data-content="{% trans "Do you want to remove this address?" %}">
-                        <label class="control-label wide">
-                            <a {{action removeAddress address}} class="btn-link"><span class="flaticon solid minus-2"></span> {% trans "Remove this address" %}</a>
-                        </label>
-                        <hr />
-                    </li>
-                {{/each}}
-                <li class="control-group has-popover" data-content="{% trans "Does your organisation has more addresses?" %}">
-                    <label class="control-label">
-                        <a {{action addAddress}} class="btn-link wide"><span class="flaticon solid plus-2"></span> {% trans "Add address" %}</a>
-                    </label>
+                    {{#if address.errors.country }}
+                        <div class="has-errors">{{#each address.errors.country }}<p>{{this}}</p>{{/each}}</div>
+                    {{/if}}
                 </li>
             </ul>
         </fieldset>

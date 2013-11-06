@@ -255,12 +255,12 @@
                 </li>
                 <li class="tab-tasks">
                     {{#if taskCount}}
-                        {{#linkTo 'projectTaskList'}}
+                        {{#linkTo 'projectTasks'}}
                             <span class="tab-icon">{{taskCount}}</span>
                             <strong class="tab-title">Tasks <em class="tab-subtitle">{% trans "Skills needed" %}</em></strong>
                         {{/linkTo}}
                     {{else}}
-                        {{#linkTo 'projectTaskList'}}
+                        {{#linkTo 'projectTasks'}}
                             <span class="tab-icon">0</span>
                             <strong class="tab-title">Tasks <em class="tab-subtitle">{% trans "No skills needed" %}</em></strong>
                         {{/linkTo}}

@@ -10,10 +10,11 @@ App.Router.map(function(){
 
    this.resource('project', {path: '/projects/:project_id'}, function() {
         this.resource('projectPlan', {path: '/plan'});
-        this.resource('projectTaskList', {path: '/tasks'});
-        this.resource('projectTaskNew', {path: '/tasks/new'});
-        this.resource('projectTask', {path: '/tasks/:task_id'});
-        this.resource('projectTaskEdit', {path: '/tasks/:task_id/edit'});
+        this.resource('projectTasks', {path: '/tasks'}, function(){
+            this.resource('projectTask', {path: '/:task_id'});
+            this.resource('projectTaskNew', {path: '/new'});
+            this.resource('projectTaskEdit', {path: '/:task_id/edit'});
+        });
     });
 
     this.resource('myProject', {path: '/my/projects/:my_project_id'}, function() {
@@ -261,9 +262,21 @@ App.MyProjectPlanCampaignRoute = App.MyProjectPlanSubRoute.extend({});
 App.MyProjectPlanBudgetRoute = App.MyProjectPlanSubRoute.extend({});
 
 App.MyProjectPlanOrganisationRoute = App.MyProjectPlanSubRoute.extend({
+
     setupController: function(controller, model) {
         this._super(controller, model);
-        controller.set('organizations', App.MyOrganization.find());
+        var organization = model.get('organization');
+
+        organization.one('didLoad', function(){
+            if (organization.get('addresses.length') == 0) {
+                controller.send('addAddress');
+            }
+            controller.set('address', model.get('organization.addresses.firstObject'));
+        });
+
+        if (!organization){
+            controller.set('organizations', App.MyOrganization.find());
+        }
     }
 });
 

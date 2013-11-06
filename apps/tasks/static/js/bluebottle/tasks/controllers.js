@@ -139,7 +139,7 @@ App.TaskMemberController = Em.ObjectController.extend({
 });
 
 
-App.ProjectTasksNewController = Em.ObjectController.extend({
+App.ProjectTaskNewController = Em.ObjectController.extend({
     needs: ['project', 'currentUser', 'projectTaskList'],
     addTask: function(event){
         var controller = this;
@@ -156,7 +156,7 @@ App.ProjectTasksNewController = Em.ObjectController.extend({
 });
 
 
-App.ProjectTasksEditController = App.ProjectTasksNewController.extend({
+App.ProjectTaskEditController = App.ProjectTaskNewController.extend({
     updateTask: function(event){
         var controller = this;
         var task = this.get('content');
