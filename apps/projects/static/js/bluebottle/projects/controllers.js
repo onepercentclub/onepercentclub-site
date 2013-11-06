@@ -304,41 +304,39 @@ App.MyProjectPlanOrganisationController = Em.ObjectController.extend(App.Editabl
         if (this.get('organization.isDirty')) {
             return true;
         }
-        var addresses = this.get('organization.addresses');
-        var dirty = false;
-        addresses.forEach(function(ad){
-             if (ad.get('isDirty')) {
-                 dirty = true;
-             }
-
-        });
-        return dirty;
+        if (this.get('address.isDirty')) {
+            return true;
+        }
+        return false;
     }.property('organization.isLoaded', 'organization.addresses.@each.isDirty'),
 
     actions: {
         updateRecordOnServer: function(){
             var controller = this;
-            var model = this.get('model.organization');
-            model.one('becameInvalid', function(record){
-                model.set('errors', record.get('errors'));
-            });
+            var model = this.get('model');
+            var organization = model.get('organization');
+            var address = this.get('address');
             model.one('didUpdate', function(){
+                // Connected an organization to ProjectPlan.
                 controller.transitionToRoute(controller.get('nextStep'));
-                window.scrollTo(0);
             });
-            model.one('didCreate', function(){
+            organization.one('didUpdate', function(){
+                // Updated organization info.
                 controller.transitionToRoute(controller.get('nextStep'));
-                window.scrollTo(0);
             });
-
-            model.save();
+            address.one('didUpdate', function(){
+                // Updated address info.
+                controller.transitionToRoute(controller.get('nextStep'));
+            });
+            model.transaction.commit();
         },
 
         addAddress: function(){
             // Use the same transaction as the projectplan
-            var transaction =  this.get('model.organization').transaction;
-            var address = transaction.createRecord(App.MyOrganizationAddress, {});
-            this.get('model.organization.addresses').pushObject(address);
+            var organization =  this.get('model.organization');
+            var transaction =  organization.transaction;
+            var address = transaction.createRecord(App.MyOrganizationAddress);
+            organization.get('addresses').pushObject(address);
         },
 
         removeAddress: function(address){

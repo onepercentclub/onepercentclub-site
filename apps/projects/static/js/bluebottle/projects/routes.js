@@ -262,9 +262,21 @@ App.MyProjectPlanCampaignRoute = App.MyProjectPlanSubRoute.extend({});
 App.MyProjectPlanBudgetRoute = App.MyProjectPlanSubRoute.extend({});
 
 App.MyProjectPlanOrganisationRoute = App.MyProjectPlanSubRoute.extend({
+
     setupController: function(controller, model) {
         this._super(controller, model);
-        controller.set('organizations', App.MyOrganization.find());
+        var organization = model.get('organization');
+
+        organization.one('didLoad', function(){
+            if (organization.get('addresses.length') == 0) {
+                controller.send('addAddress');
+            }
+            controller.set('address', model.get('organization.addresses.firstObject'));
+        });
+
+        if (!organization){
+            controller.set('organizations', App.MyOrganization.find());
+        }
     }
 });
 
