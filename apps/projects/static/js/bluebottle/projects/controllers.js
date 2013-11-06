@@ -487,28 +487,23 @@ App.MyProjectPlanLegalController = Em.ObjectController.extend(App.Editable, {
             });
 
             model.save();
+        },
+
+        removeFile: function(doc) {
+            var transaction = this.get('model').transaction;
+            transaction.add(doc);
+            doc.deleteRecord();
+            transaction.commit();
         }
     },
 
-    /* addFile and removeFile are called directly on the controller by utils.js:App.UploadMultipleFiles */
     addFile: function(file) {
-        var transaction = this.get('model').transaction;
-        var doc = transaction.createRecord(App.MyOrganizationDocument);
+        var store = this.get('store');
+        var doc = store.createRecord(App.MyOrganizationDocument);
         doc.set('file', file);
         var org = this.get('organization');
         doc.set('organization', org);
-        doc.one('didCreate', function(record){
-            org.reload();
-        });
-
-        transaction.commit();
-    },
-
-    removeFile: function(doc) {
-        var transaction = this.get('model').transaction;
-        transaction.add(doc);
-        doc.deleteRecord();
-        transaction.commit();
+        doc.save();
     }
 });
 
