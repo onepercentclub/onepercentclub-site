@@ -584,43 +584,62 @@
 {% endcomment %}
 
 
+{% tplhandlebars "_thanksDonation" %}
+
+    <li class="project-list-item">
+        {{#linkTo 'project' donation.project class="project-header" }}
+            <figure class="project-image">
+                <img {{bindAttr src="donation.project.plan.image.square" alt="project.title"}} />
+            </figure>
+            <h2 class="project-title">
+                {{ donation.project.title }}
+                <em class="project-location">
+                    <span class="flaticon solid location-pin-1"></span> {{ donation.project.plan.country.name }}
+                </em>
+            </h2>
+        {{/linkTo}}
+    
+        <div class="fund-amount">
+            {% trans "You supported"%} <strong class="fund-amount-needed">&euro; [10]</strong> 
+        </div>
+    </li>
+
+{% endtplhandlebars %}
+
 
 {% tplhandlebars "orderThanks" %}
-	<div class="l-section">
+<div id="thanks">
+	<div class="l-section thanks-header">
         <section class="l-wrapper">
-        
-            <div class="l-content">    	
-            	<figure>
-        			<img src="/static/assets/images/you-made-it-work.png" alt="You made it work" />
-				</figure>
-            	
-            	<header>
-                	<h1>{% trans "Donation Successful!" %}</h1>
-					{{#if controllers.currentUser.isAuthenticated }}
-                		<p>{% blocktrans %}
-						Thanks for your support! Your 1% has brought them one step closer to realise their smart idea! Don't forget to tune in to see how they're doing! 
-					{% endblocktrans %}</p>
-					{{else}}
-                		<p>{% blocktrans %}
-						Thanks for your support! We'd be happy to keep you posted on the progress of the project(s) you supported. Why? Because it's a fun and personal way to see what's happening with your 1%. Sounds good? Just become a 1%Member!
-					{% endblocktrans %}</p>
-					<p>{{#linkTo 'signup'}}{% blocktrans %}Become a 1%Member{% endblocktrans %} <em class="flaticon solid right-angle-quote-1"></em>{{/linkTo}}</p>
-					{{/if}}
-            	</header>
+
+            <figure class="image thanks-image">
+                <img src="/static/assets/images/pages/business-green.png" alt="High five!" />
+            </figure>
             
-            </div>
+        	<header class="thanks-title">
+            	<h1>{% trans "Did you know that you rock?" %} <em>{% trans "Well, you rock!" %}</em></h1>
+                
+                <div class="thanks-share"><p>{% blocktrans %}Why not share the project with your friends, and encourage them to support as well? Just hit (one of the) share buttons to make even more impact.{% endblocktrans %}</p>
+                {{view App.SocialShareView}}
+                </div>
+            </header>
+            
         </section>
     </div>
 
     <div class="l-section">
         <section class="l-wrapper">
-			<div class="l-content">
-				<header>
+			<article class="l-content">
+			
+				<header class="page-header">
                 	{{#if moreThanOneDonation }}
                         <h3>{% trans "You just supported these projects" %}</h3>
                     {{ else }}
                         <h3>{% trans "You just supported this project" %}</h3>
                     {{/if}}
+                    
+                    <p>{% blocktrans %}Thank you for supporting <strong>&euro;[amount]</strong> to these projects below. With your support [name projectowner first project] comes one step closer realizing the project.{% endblocktrans %}</p>
+                    
                 </header>
 	
 	            <ul class="project-list">
@@ -628,9 +647,25 @@
                         {{partial "thanksDonation"}}
 	                {{/each}}
 	            </ul>
-            </div>
+            </article>
+            
+            <sidebar class="l-sidebar">
+                
+                {{#if controllers.currentUser.isAuthenticated }}
+                    <h3>{% trans "Did you know" %}&#8230;</h3>
+                    <p>{% blocktrans %}You can support projects monthly? Automatically every month, easy!{% endblocktrans %}</p>
+                    <a href="#" class="btn btn-primary">{% trans "Set up monthly donation" %}</a>
+                {{else}}
+                     <h3>{% trans "Stay updated" %}</h3>
+                    <p>{% blocktrans %}We’d love to keep you updated on the progress of the project(s) you just supported. Sign up and receive updates, and our everlasting love.{% endblocktrans %}</p>
+                    {{#linkTo 'signup' class="btn btn-primary"}}{% blocktrans %}Sign me up{% endblocktrans %}{{/linkTo}}
+                {{/if}}
+                 
+            </sidebar>
+            
         </section>
     </div>
+</div>
 {% endtplhandlebars %}
 
 
@@ -740,32 +775,6 @@
             </sidebar>
         </section>
     </div>
-{% endtplhandlebars %}
-
-
-{% tplhandlebars "_thanksDonation" %}
-
-    <li class="project-item">
-        {{#linkTo 'project' donation.project}}
-            <figure class="project-image">
-                <img {{bindAttr src="donation.project.plan.image.square" alt="project.title"}} />
-            </figure>
-            <h2>
-                {{ donation.project.title }}
-                <em class="project-location">
-                    <span class="flaticon solid location-pin-1"></span> {{ donation.project.plan.country.name }}
-                </em>
-            </h2>
-        {{/linkTo}}
-
-        <p class="fund-amount">
-            <span class="fund-amount-needed">
-                <strong>&euro; {{ donation.project.campaign.money_needed }}</strong>
-                {% trans "still needed" %}
-            </span>
-        </p>
-    </li>
-
 {% endtplhandlebars %}
 
 {% tplhandlebars "current_order_voucher_list" %}
