@@ -8,74 +8,45 @@
 {% get_project project_id as project %}
 
 
-<div class="project">
+<div class="project-preview">
+                    
+    <figure class="image l-half">
+	    <img src="{{ project.projectpitch.image.url }}" width="100%" alt="Photo" />
+    </figure>
 
-	<div class="project-top">
-	
-	    <figure class="media">
-	        {% if project.projectpitch.image %}
-	        <img src="{{ project.projectpitch.image.url }}" width="100%" alt="Photo" />
-	        {% endif %}
-	    </figure>
-	
-	    <article>
-	        
-	        <div class="project-meta">
-	            <span class="location">
-	            	<em class="flaticon solid location-pin-1"></em> {{project.projectplan.country.name}}
-	            </span>
-				{% if project.projectplan.theme %}
-	            <span class="theme">
-	                <em class="flaticon solid tag-1"></em> {{project.projectplan.theme.name}}
-	            </span>
-				{% endif %}
-	
-	        </div>
-	        
-	        <h2 class="project-title">
-	            {{project.title}}
-	        </h2>
-	
-	        <p class="project-description">
-	            {{project.projectpitch.pitch}}
-	        </p>
-	        
-	    </article>
-	    
-	</div>
-	
-	<div class="status-box">
-	    <p class="donate-days-left">
-			{% if project.projectcampaign.deadline %}
-			<strong><em class="flaticon solid clock-1"></em> {{project.projectcampaign.nr_days_remaining}}</strong>
+    <article class="project-info l-half">
+        <div class="project-meta">
+            <span class="project-location"><span class="flaticon solid location-pin-1"></span> {{project.projectplan.country.name}}</span>
+            <span class="project-theme"><span class="flaticon solid tag-1"></span> {{project.projectplan.theme.name}}</span>
+        </div>
+        
+        <h2 class="project-title">{{project.title}}</h2>
+        <p class="project-description">{{project.projectpitch.pitch}}</p>
+    </article>
+    
+    <div class="project-status l-full">
+    
+        {% if project.projectcampaign.deadline %}
+        <div class="project-days-left l-one-third">
+			<strong><span class="flaticon solid clock-1"></span> {{project.projectcampaign.nr_days_remaining}}</strong>
 			<em>{% trans "days to go" %}</em>
-			{% endif %}
-		</p>
-	
-	    <div class="donate-status">
-	        <p class="donate-amount">
-	            <span class="donated">&euro;{{ project.projectcampaign.local_money_donated }}</span>
-	            {% trans "of" %}
-	            <span class="asked">&euro;{{ project.projectcampaign.local_money_asked }}</span>
-	            {% trans "raised" %}
-	        </p>
-	        <span class="donate-slider"><strong style="width: {{ project.projectcampaign.percentage_funded }}%;" class="donate-progress is-in-progress"><em class="donate-percentage"></em></strong></span>
-	    </div>
-	
-	    <div class="donate-call-to-action">
-			<a href='/en/#!/projects/{{ project.slug }}' class="btn btn-primary btn-iconed">
-			<em class="icon">&euro;</em> {% trans "Support" %}</a>
 		</div>
-		<div style='clear: both;'> </div>
-		<div class="tasks-box">
-			{% for task in project.get_open_tasks %}
-			<div class="task">
-			  <p>{{ task }}</p>
-			  <a href='/en/#!/projects/{{ project.slug }}/tasks/{{ task.id }}' class="btn">
-				  {% trans "Apply for task" %}</a>
-			</div>
-			{% endfor %}
+		{% endif %}
+		
+		<div class="project-fund l-one-third">
+            <p class="project-fund-amount">
+                <strong class="amount-donated">&euro;{{ project.projectcampaign.local_money_donated }}</strong>
+                {% trans "of" %}
+                <strong class="amount-asked">&euro;{{ project.projectcampaign.local_money_asked }}</strong>
+                {% trans "raised" %}
+            </p>
+        
+            <div class="project-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
 		</div>
+        
+        <div class="project-action l-one-third">
+		    <a href='/en/#!/projects/{{ project.slug }}' class="btn btn-primary btn-iconed"><span class="flaticon solid wallet-1"></span> {% trans "Support" %}</a>
+        </div>
+        
 	</div>
 </div>
-

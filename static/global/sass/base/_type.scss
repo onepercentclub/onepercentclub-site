@@ -10,12 +10,11 @@ body {
 	line-height: $base-line-height;
 	font-size: $base-font-size;
 	color: $color-text;
-	
-	-webkit-font-smoothing: antialiased; 
-	-moz-font-smoothing: antialiased; 
+	-webkit-font-smoothing: antialiased;
 	font-smoothing: antialiased; 
 	text-rendering: optimizelegibility;
-}  
+    -moz-osx-font-smoothing: grayscale;
+}
 
 p {
   	margin: 0 0 $base-margin 0;
@@ -23,6 +22,7 @@ p {
 
 .section-header {
     padding: $base-padding 0 $base-padding/2 0;
+    text-align: center;
 }
 
 // Emphasis & misc
@@ -33,11 +33,12 @@ small {
 }
 
 strong { 
+    font-weight: normal; 
     font-family: $font-family-heavy; 
-    font-weight: bold; 
 }
 
 em { 
+    font-weight: normal; 
     font-style: italic; 
 }
 
@@ -54,6 +55,7 @@ h1, h2, h3, h4, h5, h6 {
 	font-family: $font-family-bold;
 	line-height: 1.3em;
 	text-transform: uppercase;
+	font-weight: normal;
 	
 	small {
 		line-height: 1;
@@ -132,7 +134,7 @@ a {
 ul {
 	margin: $base-margin 0 $base-margin*2 $base-margin*2;
 
-	li {
+	> li {
 		padding-left: $base-padding*2;
 		margin: $base-margin 0;
 		background: image-url("list-item.png") transparent no-repeat 0 0;
@@ -142,7 +144,7 @@ ul {
 ol { 
 	margin: $base-padding 0 $base-padding*2 $base-padding*2;
 
-	li {
+	> li {
 		list-style: decimal;
 		margin: $base-margin/4 0;
 	}
@@ -156,7 +158,7 @@ dl {
 	border-bottom: 1px solid $gray-light;
 	padding: $base-padding/2 $base-padding;
 	
-	dt {
+	> dt {
 		text-transform: uppercase;
 		color: $gray;
 		@include grid(20,0,1);
@@ -171,7 +173,7 @@ dl {
 		
 	}
 	
-	dd {
+	> dd {
 		@include grid(28,0,0);
 	}
 }

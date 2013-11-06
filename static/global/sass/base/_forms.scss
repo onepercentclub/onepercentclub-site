@@ -100,7 +100,6 @@ fieldset legend {
 
 .message {
     display: block;
-    @include grid(48,1,1);
     @include clear;
     position: relative;
     color: $color-text-light;

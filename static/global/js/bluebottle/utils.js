@@ -437,27 +437,39 @@ App.MapPicker = Em.View.extend({
  * Generic view to plug-in social sharing functionality anywhere in the app.
  * e.g. {{view App.SocialShareView classNames="your-styling-class-name"}}
  *
- * Gets the entire current URL to share.
+ * Gets the entire current URL to share, and if available, extra metadata from the API.
  *
  * @class SocialShareView
  * @namespace App
  * @extends Ember.View
+ *
+ * NOTE: maybe we should look into url shortening?
  */
 App.SocialShareView = Em.View.extend({
     templateName: 'social_share',
     dialogW: 626,
     dialogH: 436,
 
-    shareOnFacebook: function() {
-        this.showDialog('https://www.facebook.com/sharer/sharer.php?u=', 'facebook');
-    },
+    actions: {
+        shareOnFacebook: function() {
+            var currentLink = encodeURIComponent(location.href);
+            this.showDialog('https://www.facebook.com/sharer/sharer.php?u=', currentLink, 'facebook');
+        },
 
-    shareOnTwitter: function() {
-        this.showDialog('https://twitter.com/home?status=', 'twitter');
-    },
+        shareOnTwitter: function() {
+            // NOTE: there must be a cleaner approach (invoking get('currentModel'))
+            // something for the Ember guru's? ;)
+            var meta_data = this.get('context').get('model').get('meta_data');
+            var currentLink = encodeURIComponent(location.href);
 
-    showDialog: function(shareUrl, type) {
-        var currentLink = encodeURIComponent(location.href);
-        window.open(shareUrl + currentLink, type + '-share-dialog', 'width=' + this.get('dialogW') + ',height=' + this.get('dialogH'));
+            // status: e.g. Women first in Botswana {{URL}} via @1percentclub'
+            var status = meta_data.tweet.replace('{URL}', currentLink);
+
+            this.showDialog('https://twitter.com/home?status=', status, 'twitter');
+        },
+    },
+    
+    showDialog: function(shareUrl, urlArgs, type) {
+        window.open(shareUrl + urlArgs, type + '-share-dialog', 'width=' + this.get('dialogW') + ',height=' + this.get('dialogH'));
     }
 })

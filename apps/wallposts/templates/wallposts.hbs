@@ -85,7 +85,7 @@
                                         <img {{bindAttr src="photo.photo.small"}} />
                                         <a {{action "removePhoto" photo href=true}} class="manage-delete"><span class="flaticon solid x-2"></span> <strong>{% trans "Delete" %}</strong></a>
                                     {{else}}
-                                        <div class="is-loading-small"><img src="{% get_static_prefix %}images/loading.gif" /> <strong>{% trans "Loading photos" %}</strong></div>
+                                        <div class="is-loading-small"><img src="{% get_static_prefix %}images/loading.gif" /> <strong>{% trans "Loading photos&#8230;" %}</strong></div>
                                     {{/if}}
                                 {{/if}}
                             </li>

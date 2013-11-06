@@ -20,6 +20,7 @@ App.GoTo = Ember.Mixin.create({
 
         if ($target.hasClass('goto')) {
             this.goTo($target.data('target'));
+            e.preventDefault();
         }
     },
 
@@ -68,14 +69,18 @@ App.PageView = Ember.View.extend(App.GoTo, {
 
     renderSections: function(e) {
         var windowHeight = $(window).height();
-        this.$('.l-section').css('height', windowHeight + 'px');
+        this.$('.static-onepage-section').css('height', windowHeight + 'px');
         this.$('.static-onepage-content').each(function() {
+            // Reset first to get correct height
+            $(this).css({
+                'position' : 'relative',
+                'height' : 'auto'
+            });
             $(this).css({
                 'height' : $(this).height() + 'px',
                 'position' : 'absolute'
             });
         });
-        
     },
 
     didInsertElement: function(e){

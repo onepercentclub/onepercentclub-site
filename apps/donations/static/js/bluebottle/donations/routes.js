@@ -80,18 +80,11 @@ App.UserMonthlyProjectsRoute = Em.Route.extend({
 
         // Set the recurring payment
         controller.set('payment', this.modelFor('userDonation'));
-//
-//        App.RecurringDirectDebitPayment.find({}).then(function(recurringPayments) {
-//            if (recurringPayments.get('length') > 0) {
-//                controller.set('payment', recurringPayments.objectAt(0));
-//            } else {
-//                controller.set('payment', store.createRecord(App.RecurringDirectDebitPayment));
-//            }
-//            var payment = controller.get('payment');
-//            payment.on('didError', function(record){
-//                payment.set('errors', record.get('errors'));
-//            });
-//        });
+
+        // Set Address
+        App.CurrentUser.find('current').then(function(user) {
+            controller.set('address', App.UserSettings.find(user.get('id_for_ember')));
+        });
     },
     exit: function(transition){
         this.get('controller').stopEditing();

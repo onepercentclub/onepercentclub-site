@@ -3,7 +3,8 @@
 // --------------------------------------------------
 
 #fund {
-
+    margin-bottom: $base-margin*2;
+    
     .l-content {
         position: relative;
         
@@ -93,7 +94,7 @@
         font-size: $font-size-larger;
         color: $gray;
         background-color: $gray-lighter;
-        padding: $base-padding/2 $base-padding $base-padding/2 $base-padding/2;
+        padding: $base-padding/2 $base-padding $base-padding/2 $base-padding*1.6;
 	}
 	
 	.fund-total-amount {
@@ -107,7 +108,7 @@
 		font-size: $font-size-larger;
 		background-color: $gray-lighter;
         color: $gray;
-        padding: $base-padding/2 $base-padding $base-padding/2 $base-padding/2;
+        padding: $base-padding/2 $base-padding*1.6 $base-padding/2 $base-padding/2;
 	}
 	
 	.currency {
@@ -162,7 +163,24 @@
     }
     
     .btn-proceed {
+        float: right;
         clear: both;
         margin-top: $base-margin;
     }
+}
+
+// Monthly donation
+#fund-monthly {
+    
+    legend {
+        padding: 0;
+    }
+    
+    .fund-monthly-details {
+        margin-top: $base-margin*2;
+    }
+}
+
+.fund-monthly-cancel {
+   font-size: $font-size-small;
 }

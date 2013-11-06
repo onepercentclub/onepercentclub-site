@@ -22,6 +22,16 @@ App.UserMonthlyProjectsController = Em.ObjectController.extend({
         }
     }.observes('payment.isLoaded'),
 
+    addressComplete: function(){
+        if (this.get('address.didError')) {
+            return false;
+        }
+        if (this.get('address.isDirty')) {
+            return false;
+        }
+        return (this.get('address.line1') && this.get('address.city') && this.get('address.country') && this.get('address.postal_code'));
+    }.property('address.line1', 'address.city', 'address.country', 'address.postal_code'),
+
     shouldSave: function(obj, keyName){
         var dirty = false;
         this.get('model.donations').forEach(function(record){
@@ -118,6 +128,7 @@ App.UserMonthlyProjectsController = Em.ObjectController.extend({
         var self = this;
         var record = this.get('model');
         var transaction = record.get('transaction');
+        var address = this.get('address');
 
         if (this.get('shouldSave')) {
             Bootstrap.ModalPane.popup({
@@ -130,9 +141,11 @@ App.UserMonthlyProjectsController = Em.ObjectController.extend({
                     e.preventDefault();
                     if (opts.primary) {
                         transaction.commit();
+                        address.save();
                     }
                     if (opts.secondary) {
                         transaction.rollback();
+                        address.rollback();
                     }
                 }
             });
@@ -146,6 +159,7 @@ App.UserMonthlyProjectsController = Em.ObjectController.extend({
                 "1%Club will withdrawal your monthly donation from your bank account in the beginning of each month. You can cancel it anytime you like.<br/><br/>" +
                 "We will send you an email in the beginning of each month to update you on what project(s) received your 1% Support!");
 
+            var address = this.get('address');
 
             Bootstrap.ModalPane.popup({
                 classNames: ['modal'],
@@ -158,6 +172,7 @@ App.UserMonthlyProjectsController = Em.ObjectController.extend({
 
                     if (opts.primary) {
                         model.transaction.commit();
+                        address.save();
                     }
 
                     if (opts.secondary) {

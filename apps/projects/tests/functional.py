@@ -30,7 +30,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
     """
     def setUp(self):
         self.projects = dict([(slugify(title), title) for title in [
-            u'Women first 2', u'Mobile payments for everyone 2!', u'Schools for children 2'
+           u'Mobile payments for everyone 2!', u'Schools for children 2',  u'Women first 2'
         ]])
 
         User = get_user_model()

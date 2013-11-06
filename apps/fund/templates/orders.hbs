@@ -25,7 +25,7 @@
             <section class="l-wrapper">
             
                 <header class="l-header">
-                    <h1>{% trans "Support one or more projects!" %}</h1>
+                    <h1>{% trans "Support" %}</h1>
                 
                     {{#if controllers.currentUser.isAuthenticated}}
                 	<ul class="tabs steps three">
@@ -136,8 +136,9 @@
 	    
 	</form>
 
+{% comment %}
 <div class="l-sidebar">
-	{{#if controllers.currentUser.isAuthenticated}}
+	{{if controllers.currentUser.isAuthenticated}}
 		<h3>{% trans "Why not donate monthly?" %}</h3>
 		<p>{% blocktrans %}You're about to support a 1%Project. Great! Did you know you can also share a little every month? How? Choose 'monthly' and become a 1%Friend!{% endblocktrans %}</p>
 	{{else}}
@@ -146,6 +147,7 @@
 		<p class="btn-link">{{#linkTo 'signup'}}{% blocktrans %}Become a 1%Member{% endblocktrans %} <span class="flaticon solid right-angle-quote-1"></span>{{/linkTo}}</p>
 	{{/if}}
 </div>
+{% endcomment %}
 
 {% endtplhandlebars %}
 
@@ -162,10 +164,10 @@
 	<form>
     	<legend>
         	{{#if controllers.currentUser.isAuthenticated}}
-        		<strong>{% trans "Great your doing another donation!" %}</strong>
-    			<p>{% trans "To process your donation, please check if your information is still correct." %}</p>
+        		<strong>{% trans "Great that you are doing another donation!" %}</strong>
+    			<p>{% trans "Please verify your details" %}.</p>
         	{{else}}
-    			<strong>{% trans "Please to meet you" %}</strong>
+    			<strong>{% trans "Nice to meet you" %}</strong>
     			<p>{% trans "To process your donation we need some information." %}</p>
         	{{/if}}
     	</legend>
@@ -248,6 +250,7 @@
 	</form>
 </div>
 
+{% comment %}
 <div class="l-sidebar">
 
     <h3>{% trans "Did you know?" %}</h3>
@@ -257,6 +260,7 @@
         <p>{% blocktrans %}You're about to make a big impact! Did you know that every 1%Project has 6 months to reach its target? And, if the target isn't reached we'll make sure your donation will support a similar project.{% endblocktrans %}</p>
     {{/if}}
 </div>
+{% endcomment %}
 
 {% endtplhandlebars %}
 
@@ -329,13 +333,10 @@
                             {{/each}}
                         {{/view}}
                         </ul>
-
+                    
                         {{#if idealIssuerId}}
                             {{#if paymentInProgress }}
-                                <div class="is-loading-small">
-                                    <img src="{% get_static_prefix %}images/loading.gif" />
-                                    <strong>{% trans "Processing payment..." %}</strong>
-                                </div>
+                                <div class="is-loading-small"><img src="{% get_static_prefix %}images/loading.gif" /> <strong>{% trans "Processing payment&#8230;" %}</strong></div>
                                 <button disabled class="btn btn-primary btn-iconed btn-submit" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
                             {{else}}
                                 <button class="btn btn-primary btn-iconed btn-proceed" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
@@ -349,17 +350,15 @@
                         {{#if redirectPaymentMethod}}
                             <h3>{% trans "You're almost there!" %}</h3>
                             <p>{% trans "We'll redirect you through our payment provider where you can finish your donation securely." %}</p>
+
                             {{#if paymentInProgress }}
-                                <div class="is-loading-small">
-                                    <img src="{% get_static_prefix %}images/loading.gif" />
-                                    <strong>{% trans "Processing payment..." %}</strong>
-                                </div>
+                                <div class="is-loading-small"><img src="{% get_static_prefix %}images/loading.gif" /> <strong>{% trans "Processing payment&#8230;" %}</strong></div>
                                 <button disabled class="btn btn-primary btn-iconed btn-submit" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
                             {{else}}
                                 <button class="btn btn-primary btn-iconed btn-proceed" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
                             {{/if}}
             	        {{/if}}
-                        
+
                     {{/if}}
                 </div>
             </div>
@@ -521,7 +520,7 @@
 	
 	    {{#if isFormReady }}
 	        {{#if paymentInProgress }}
-		        <span class="is-loading-small"><img src="{% get_static_prefix %}images/loading.gif" /><em>{% trans "Updating monthly donation ..." %}</em></span>
+		        <div class="is-loading-small"><img src="{% get_static_prefix %}images/loading.gif" /> <strong>{% trans "Updating monthly donation&#8230;" %}</strong></div>
 		        <button disabled class="btn btn-primary btn-iconed btn-submit"><span class="flaticon solid right-2"></span>{% trans "Submit" %}</button>
 	        {{else}}
 	            <button class="btn btn-primary btn-iconed btn-submit"><span class="flaticon solid right-2"></span>{% trans "Submit" %}</button>
@@ -570,7 +569,7 @@
         </div>
         <div class="panes vertical">
             {{#if paymentInProgress }}
-                <span class="is-loading-small"><img src="{% get_static_prefix %}images/loading.gif" /><em>{% trans "Processing payment..." %}</em></span>
+                <div class="is-loading-small"><img src="{% get_static_prefix %}images/loading.gif" /> <strong>{% trans "Processing payment&#8230;" %}</strong></span>
             {{else}}
                 {{#if paymentMethod}}
                     <a href="#" {{action "proceedWithPayment"}} class="btn btn-proceed">{% trans "Proceed with Payment" %}</a>
@@ -610,7 +609,7 @@
             	</header>
             
             </div>
-        </div>
+        </section>
     </div>
 
     <div class="l-section">

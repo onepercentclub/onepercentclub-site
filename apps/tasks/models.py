@@ -2,8 +2,14 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext as _
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
+
+
 from djchoices.choices import DjangoChoices, ChoiceItem
 from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
+
+
+from bluebottle.bluebottle_utils.utils import clean_for_hashtag
+
 
 class Skill(models.Model):
 
@@ -64,6 +70,51 @@ class Task(models.Model):
             'expertise': self.skill.name if self.skill else '',
             'country': country,
         }
+
+    def get_fb_title(self, **kwargs):
+        # Circular imports
+        from apps.projects.models import ProjectPlan
+        
+        try:
+            plan = self.project.projectplan
+            country = plan.country.name if plan.country else ''
+        except ProjectPlan.DoesNotExist:
+            country = ''
+        return _(u"Share your skills: {task_name} in {country}").format(
+                task_name = self.title,
+                country = country
+            )
+
+    def get_tweet(self, **kwargs):
+        # Circular imports
+        from apps.projects.models import ProjectPlan
+        
+        """
+        {URL} is replaced in Ember to fill in the page url, avoiding the
+        need to provide front-end urls in our Django code.
+        """
+        
+        try:
+            plan = self.project.projectplan
+            country = plan.country.name if plan.country else ''
+        except ProjectPlan.DoesNotExist:
+            country = ''
+
+        request = kwargs.get('request')
+        lang_code = request.LANGUAGE_CODE
+        twitter_handle = settings.TWITTER_HANDLES.get(lang_code, settings.DEFAULT_TWITTER_HANDLE)
+        
+        expertise = self.skill.name if self.skill else ''
+        expertise_hashtag = clean_for_hashtag(expertise)
+
+        tweet = _(u"Share your skills: {task_name} in {country} {{URL}}"
+                   " #{expertise} via @{twitter_handle}").format(
+                    task_name = self.title,
+                    country = country,
+                    expertise = expertise_hashtag,
+                    twitter_handle = twitter_handle
+                )
+        return tweet
 
     class Meta:
         ordering = ['-created']

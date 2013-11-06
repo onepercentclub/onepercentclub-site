@@ -195,6 +195,7 @@
             </div>
         </section>
 
+
         {{#if isFundable}}
             <section class="l-wrapper">
                 <div class="project-status">
@@ -220,6 +221,29 @@
                     <div class="project-action l-one-third">
 					    <a href='#' {{ action 'addDonation' this }} class="btn btn-primary btn-iconed"><span class="flaticon solid wallet-1"></span> {% trans "Support project" %}</a>
                     </div>
+				</div>
+            </section>
+        {{else}}
+            <section class="l-wrapper">
+                <div class="project-status">
+
+                    <div class="project-days-left l-one-third">
+                	{% comment %}
+						<strong><span class="flaticon solid clock-1"></span>[DATE COMPLETED]</strong>
+						<em>{% trans "completed" %}</em>
+                	{% endcomment %}
+					</div>
+
+                    {{#if campaign}}
+                        <div class="project-fund l-one-third">
+                            <p class="project-fund-amount">
+                                <strong class="amount-donated">&euro;{{localize campaign.money_donated}}</strong>
+                                {% trans "raised" %}
+                            </p>
+
+                            <div class="project-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
+                        </div>
+                    {{/if}}
 				</div>
             </section>
         {{/if}}
