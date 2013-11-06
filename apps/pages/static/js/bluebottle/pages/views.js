@@ -69,7 +69,7 @@ App.PageView = Ember.View.extend(App.GoTo, {
 
     renderSections: function(e) {
         var windowHeight = $(window).height();
-        this.$('.static-onepage-section').css('height', windowHeight + 'px');
+        
         this.$('.static-onepage-content').each(function() {
             // Reset first to get correct height
 <<<<<<< HEAD
@@ -83,10 +83,15 @@ App.PageView = Ember.View.extend(App.GoTo, {
                 'position' : 'relative',
                 'height' : 'auto'
             });
-            $(this).css({
-                'height' : $(this).height() + 'px',
-                'position' : 'absolute'
-            });
+            // Set static height for centering if not higher then section
+            if ($(this).height() <= $(window).height() - 100) {
+                $(this).css({
+                    'height' : $(this).height() + 'px',
+                    'position' : 'absolute'
+                });
+                // Set section height to window height
+                $(this).closest( ".static-onepage-section" ).css('height', windowHeight + 'px');
+            }
         });
     },
 
