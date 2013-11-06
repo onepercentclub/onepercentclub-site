@@ -20,6 +20,7 @@ App.GoTo = Ember.Mixin.create({
 
         if ($target.hasClass('goto')) {
             this.goTo($target.data('target'));
+            e.preventDefault();
         }
     },
 
@@ -76,7 +77,7 @@ App.PageView = Ember.View.extend(App.GoTo, {
                 'height' : 'auto'
             });
             $(this).css({
-                'height' : $(this).height() + 140 + 'px',
+                'height' : $(this).height() + 'px',
                 'position' : 'absolute'
             });
         });
