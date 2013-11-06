@@ -77,7 +77,7 @@ class DonationSeleniumTests(ProjectTestsMixin, UserTestsMixin, SeleniumTestCase)
         # verify we are donating to the correct project 
         self.browser.find_by_css('div.project-action a').first.click()
 
-        self.assertTrue(self.browser.is_text_present('SUPPORT ONE OR MORE PROJECTS', wait_time=10))
+        self.assertTrue(self.browser.is_text_present('LIKE TO GIVE', wait_time=10))
         
         self.assertEqual(self.browser.find_by_css('h2.project-title').first.text, u'WOMEN FIRST')
 

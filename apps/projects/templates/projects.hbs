@@ -234,14 +234,16 @@
                 	{% endcomment %}
 					</div>
 
-					<div class="project-fund l-one-third">
-                        <p class="project-fund-amount">
-                            <strong class="amount-donated">&euro;{{localize campaign.money_donated}}</strong>
-                            {% trans "raised" %}
-                        </p>
+                    {{#if campaign}}
+                        <div class="project-fund l-one-third">
+                            <p class="project-fund-amount">
+                                <strong class="amount-donated">&euro;{{localize campaign.money_donated}}</strong>
+                                {% trans "raised" %}
+                            </p>
 
-                        <div class="project-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
-					</div>
+                            <div class="project-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
+                        </div>
+                    {{/if}}
 				</div>
             </section>
         {{/if}}

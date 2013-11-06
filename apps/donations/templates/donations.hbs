@@ -220,27 +220,20 @@
                 {{#if payment.active}}
                 
                     {{#if donations.length}}
-                    <legend>
-                        <strong>{% blocktrans %}Your monthly donation will go to the project(s) you've selected here:{% endblocktrans %}</strong>
-                    </legend>
+                        <legend>
+                            <strong>{% blocktrans %}Your monthly donation will go to the project(s) you've selected here:{% endblocktrans %}</strong>
+                        </legend>
                     {{else}}
-                    <legend class="fund-empty">
-                        <strong>{% blocktrans %}Your monthly donation will go to the top 3 projects.{% endblocktrans %}</strong>
-                        <p>{% trans "The three most popular projects at this moment are:" %}</p>
-                    </legend> 
+                        <legend class="fund-empty">
+                            <strong>{% blocktrans %}Your monthly donation will go to the top 3 projects.{% endblocktrans %}</strong>
+                            <p>{% trans "The three most popular projects at this moment are:" %}</p>
+                        </legend>
                     {{/if}}
                 
                     <ul class="project-list">
-                        {{#if donations.length}}
-                            <strong>{% blocktrans %}Your monthly donation will go to the project(s) you've selected here:{% endblocktrans %}</strong>
-                        {{/if}}
                         {{#each donation in donations }}
                             {{render "monthlyDonation" donation}}
                         {{else}}
-                            <legend class="fund-empty">
-                                <strong>{% blocktrans %}Your monthly donation will got to the top 3 projects.{% endblocktrans %}</strong>
-                                <p>{% trans "The three most popular projects at this moment are:" %}</p>
-                            </legend>    
                             {{#each project in topThreeProjects }}
                                 <li class="project-list-item project-top3">
                                     
