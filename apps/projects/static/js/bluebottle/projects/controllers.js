@@ -328,10 +328,12 @@ App.MyProjectPlanOrganisationController = Em.ObjectController.extend(App.Editabl
                 // Updated organization info.
                 controller.transitionToRoute(controller.get('nextStep'));
             });
-            address.one('didUpdate', function(){
-                // Updated address info.
-                controller.transitionToRoute(controller.get('nextStep'));
-            });
+            if (address) {
+                address.one('didUpdate', function(){
+                    // Updated address info.
+                    controller.transitionToRoute(controller.get('nextStep'));
+                });
+            }
             model.transaction.commit();
         },
 
