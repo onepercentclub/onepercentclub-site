@@ -188,10 +188,10 @@
                 <h1>{% trans "My monthly donation" %}</h1>
                 <p></p>
             {{else}}
-                {{#if payment.isNew}}
-                    {# New recurring donation #}
-                    <h1>{% blocktrans %}Support 1%Projects monthly{% endblocktrans %}</h1>
-                    {% blocktrans %}
+                {# Could use payment.isNew if we want to show a different page for new and stopped recurring donations #}
+                {# New recurring donation #}
+                <h1>{% blocktrans %}Support 1%Projects monthly{% endblocktrans %}</h1>
+                {% blocktrans %}
 <p>Do you like to support projects regularly on 1%Club? But are you too busy to select a new project each time again?</p>
 <p>No worries! Just set a monthly donation.</p>
 
@@ -210,14 +210,9 @@
     </ol>
 </p>
 <p>We will send you an email every month to update you what project(s) received your 1% support!</p>
-                    {% endblocktrans %}
-                    <a {{action 'toggleActive'}} class="btn btn-iconed btn-primary"><span class="flaticon solid checkmark-1"></span> {% trans "Yes, I want to set a monthly donation" %}</a>
-                {{else}}
-                    {# Stopped recurring donation #}
-                    <h1>{% trans "Monthly donation" %}: <em>{% trans "Off" %}</em></h1>
-                    <p></p>
-                    <a {{action 'toggleActive'}} class="btn btn-iconed btn-primary"><span class="flaticon solid checkmark-1"></span> {% trans "Turn monthly donations on" %}</a>
-                {{/if}}
+                {% endblocktrans %}
+                <a {{action 'toggleActive'}} class="btn btn-iconed btn-primary"><span class="flaticon solid checkmark-1"></span> {% trans "Yes, I want to set a monthly donation" %}</a>
+
             {{/if}}
             </header>
             
@@ -295,7 +290,7 @@
                         {{/if}}
                     </a>
 
-                    {{#unless address.addressComplete}}
+                    {{#unless addressComplete}}
                         <h2>{% blocktrans %}My address{% endblocktrans %}</h2>
                         <fieldset>
                             <ul>
