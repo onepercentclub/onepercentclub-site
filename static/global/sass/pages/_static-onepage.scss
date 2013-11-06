@@ -3,28 +3,32 @@
 // --------------------------------------------------
 
 .static-onepage {
+    @include clear;
+    line-height: $base-line-height;
+    font-size: $font-size-large;
     
     .static-onepage-nav {
-        @include clearfix;
-        @include grid(48,0);
+        @include clear;
+        @include grid(48,1,1);
         margin-top: 0;
         margin-bottom: 0;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 100;
-        background-color: rgba(255, 255, 255, 0.8);
-    
+        position: relative;
+        z-index: 10;
+        background-color: $white;
+        font-size: 14px;
+        
         > li {
+            @include resetlist;
             margin-right: $base-margin*2;
-            float: left;
-            background-image: none;
-            list-style: none;
-            padding: 0;
-    
+            display: inline;
+            
             a {
+                display: inline-block;
+                padding: $base-padding 0;
                 color: $gray;
                 text-transform: uppercase;
+                text-decoration: none;
+                white-space: nowrap;
     
                 &:hover {
     	            color: $gray-darker;
@@ -37,13 +41,18 @@
             }
         }
     }
-
-    .static-onepage-section {
     
+    .static-onepage-section {
+        @include clear;
+        position: relative;
+        overflow: hidden;
+        
         .static-onepage-content {
-            @include clearfix;
+            @include clear;
+            width: 100%;
+            max-width: 1260px;
             margin: auto;
-            top: -100px;
+            top: 0;
             left: 0;
             bottom: 0;
             right: 0;
@@ -56,11 +65,272 @@
         
         &:nth-of-type(odd) {
             background-color: $gray-lighter;
-    
+            
+            .static-onepage-nav {
+                background-color: $gray-lighter; 
+            }
+            
             .illustration {
                 color: $white;
             }
         }
     }
+    
+    .numbered-list {
+        @include clear;
+        margin-left: 0;
+        
+        li {
+            @include resetlist;
+            margin-left: 0;
+        }
+        
+        .nl-item-number {
+            font-size: 64px;
+            line-height: $base-line-height;
+            color: $gray-lighter;
+            font-family: $font-family-bold;
+        }
+        
+        .nl-item-title {
+            font-size: 22px;
+            line-height: $base-line-height;
+            margin-bottom: 0;
+            color: $color-primary;
+            font-family: $font-family-heavy;
+        
+            em {
+                display: block;
+                color: $color-secondary;
+                font-family: $font-family-heavy;
+                font-style: normal;
+            }
+        }
+        
+        .nl-item-description {
+            line-height: $base-line-height;
+            color: $gray-darker;
+        }
+    }
+    
+    .static-onepage-next {
+        @include transition(color 0.2s ease-in);
+        font-size: 40px;
+        position: absolute;
+        right: 15%;
+        bottom: 0;
+        color: $color-primary;
+        cursor: pointer;
+        text-decoration: none;
+        text-align: center;
+        
+        &:hover {
+            color: $color-secondary;
+        }
+        
+        &:active {
+            top: auto;
+        }
+    }
+    
+    .btn-link {
+        color: $color-primary;
+        font-family: $font-family-heavy;
+        font-size: 22px;
+        
+        &:hover, &:active {
+            color: $color-text;
+        }
+    }
+    // Specific page styles
+    #faq, #contact {
+        
+        h1 {
+            color: $color-secondary;
+            margin-bottom: $base-margin/2;
+        }
+    }
+    
+    #hello {
+        
+        h1 {
+            color: $color-secondary;
+            margin-bottom: $base-margin/2;
+        }
+          
+        .static-onepage-next {
+            bottom: 50px;
+        }
+    }
+    
+    #howitworks {
+        font-size: $font-size-smallest;
+        
+        h1 {
+            color: $color-heading;
+            font-size: $font-size-largest*1.5;
+        }
+        
+        .btn-link {
+            display: block;
+            text-align: center;
+        }
+        
+    }
+    
+    #why {
+        
+        h3 {
+            font-family: $base-font-family;
+            text-transform: none;
+        }
+        
+        small {
+            line-height: $base-line-height;
+        }
+         
+    }
+    
+    #contactus {
+    
+        .static-onepage-next {
+            bottom: -80px;
+        }
+     
+        .contactus-ways {
+            
+            .contact-photo {
+            	width: 150px !important;
+            	margin: $base-margin 0;
+            }
+            
+            h1 {
+                color: $color-secondary;
+            }
+            
+            ul {
+                margin: 0;
+                
+                li {
+                    @include resetlist;
+                    
+                    .flaticon {
+                        color: $gray;
+                        margin-right: $base-margin/2;
+                    }
+                }
+            }
+        }
+    }
 }
 
+
+.static-page-iconed-list {
+    margin: 0;
+
+    .item {
+        margin-bottom: $base-margin;
+        font-size: $font-size-large;
+        display: block;
+
+        .flaticon {
+            @include inline-block;
+            font-size: 32px;
+            width: 40px;
+            color: $gray;
+            vertical-align: middle;
+            line-height: 1;
+        }
+
+        strong {
+            font-style: $base-font-family;
+        }
+
+        a {
+            color: $color-primary;
+        }
+    }
+}
+
+#business-products {
+    @include clear;
+    margin: 0;
+    position: relative;
+
+    .business-product {
+        @include grid(9.6,0,1);
+        @include resetlist;
+        margin-left: 0;
+        padding: $base-padding/2 $base-padding;
+        overflow: hidden;
+        height: 180px;
+        border: 1px solid $gray-light;
+        text-align: center;
+        vertical-align: middle;
+
+        .icon {
+            max-width: 100px;
+            padding: 0;
+            margin: $base-margin 0 0 0;
+        }
+
+        .business-product-title {
+        	@include clear;
+        	position: relative;
+        	top: -50px;
+        	margin: 0;
+        	margin-top: $base-margin; 
+        	display: block;
+            color: $gray-darker;
+            text-transform: uppercase;
+            font-family: $font-family-heavy;
+            line-height: 1;
+        }
+
+        &:hover {
+            background-color: $color-secondary;
+
+            .business-product-title {
+                color: $white;
+            }
+            
+            .item-popover {
+	        	display: block !important;
+			}
+        }
+
+        &:last-of-type {
+            margin-right: 0;
+        }
+        
+        .item-popover {
+        	display: none;
+        	position: absolute;
+			bottom: 100%;
+			left: 0;
+			background: $gray-lighter;
+			width: 100%;
+			border-width: $base-padding 0;
+			border-style: solid;
+			border-color: $white;
+			text-align: left;
+			padding: $base-padding*2 $base-padding;
+			@include append(1);
+
+			p {
+            	margin: 0;
+			}
+
+		}
+    }
+}
+
+// FMO page specific
+
+#fmo {
+	
+    .carousel {
+		height: 500px !important;
+	}
+	
+}

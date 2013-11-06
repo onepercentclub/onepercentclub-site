@@ -109,7 +109,7 @@
                 {{/each}}
             </table>
         {{else}}
-            <div class="is-loading-small"><img src="{% get_static_prefix %}images/loading.gif" /> <strong>{% trans "Loading order history" %}</strong></div>
+            <div class="is-loading-small"><img src="{% get_static_prefix %}images/loading.gif" /> <strong>{% trans "Loading order history&#8230;" %}</strong></div>
         {{/if}}
             
     </div>
@@ -222,8 +222,19 @@
             </header>
             
             <form id="fund-monthly">
-                
                 {{#if payment.active}}
+                
+                    {{#if donations.length}}
+                    <legend>
+                        <strong>{% blocktrans %}Your monthly donation will go to the project(s) you've selected here:{% endblocktrans %}</strong>
+                    </legend>
+                    {{else}}
+                    <legend class="fund-empty">
+                        <strong>{% blocktrans %}Your monthly donation will go to the top 3 projects.{% endblocktrans %}</strong>
+                        <p>{% trans "The three most popular projects at this moment are:" %}</p>
+                    </legend> 
+                    {{/if}}
+                
                     <ul class="project-list">
                         {{#if donations.length}}
                             <strong>{% blocktrans %}Your monthly donation will go to the project(s) you've selected here:{% endblocktrans %}</strong>
@@ -375,8 +386,11 @@
 
                     {{/unless}}
 
+                    
                     {{#if payment.isIncomplete}}
+                    <div class="fund-monthly-details">
                         <h2>{% blocktrans %}My payment details{% endblocktrans %}</h2>
+                        <p>{% blocktrans %}Please fill in your bank details{% endblocktrans %}.</p>
                         <fieldset>
                             <ul>
                                 <li class="control-group">
@@ -411,9 +425,8 @@
 
                             </ul>
                         </fieldset>
-                        
+                    </div>
                     {{/if}}
-
                 {{/if}}
                 
                 {{#if payment.active}}
@@ -428,7 +441,7 @@
 
         <div class="l-sidebar">
             {{#if payment.active}}
-                <a class="btn-link" {{action 'toggleActive'}}>
+                <a class="btn-link fund-monthly-cancel" {{action 'toggleActive'}}>
                     <span class="flaticon solid x-2"></span>
                     {% trans "Cancel my monthly donation" %}
                 </a>
