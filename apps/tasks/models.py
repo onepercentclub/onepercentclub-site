@@ -72,6 +72,9 @@ class Task(models.Model):
         }
 
     def get_fb_title(self, **kwargs):
+        # Circular imports
+        from apps.projects.models import ProjectPlan
+        
         try:
             plan = self.project.projectplan
             country = plan.country.name if plan.country else ''
@@ -83,6 +86,9 @@ class Task(models.Model):
             )
 
     def get_tweet(self, **kwargs):
+        # Circular imports
+        from apps.projects.models import ProjectPlan
+        
         """
         {URL} is replaced in Ember to fill in the page url, avoiding the
         need to provide front-end urls in our Django code.
