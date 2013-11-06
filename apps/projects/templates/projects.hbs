@@ -223,6 +223,27 @@
                     </div>
 				</div>
             </section>
+        {{else}}
+            <section class="l-wrapper">
+                <div class="project-status">
+
+                    <div class="project-days-left l-one-third">
+                	{% comment %}
+						<strong><span class="flaticon solid clock-1"></span>[DATE COMPLETED]</strong>
+						<em>{% trans "completed" %}</em>
+                	{% endcomment %}
+					</div>
+
+					<div class="project-fund l-one-third">
+                        <p class="project-fund-amount">
+                            <strong class="amount-donated">&euro;{{localize campaign.money_donated}}</strong>
+                            {% trans "raised" %}
+                        </p>
+
+                        <div class="project-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
+					</div>
+				</div>
+            </section>
         {{/if}}
     </div>
 
