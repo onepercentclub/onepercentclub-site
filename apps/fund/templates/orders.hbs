@@ -621,7 +621,8 @@
         	<header class="thanks-title">
             	<h1>{% trans "Did you know that you rock?" %} <em>{% trans "Well, you rock!" %}</em></h1>
                 
-                <div class="thanks-share"><p>{% blocktrans %}Why not share the project with your friends, and encourage them to support as well? Just hit (one of the) share buttons to make even more impact.{% endblocktrans %}</p>
+                <div class="thanks-share"><p>{% blocktrans %}Why not share the project with your friends, and encourage them to support as well?{% endblocktrans %}<br />            
+                {% blocktrans %}Just hit (one of the) share buttons to make even more impact:{% endblocktrans %}</p>
                 {{view App.SocialShareView}}
                 </div>
             </header>
@@ -633,13 +634,9 @@
 			<article class="l-content">
 			
 				<header class="page-header">
-                	{{#if moreThanOneDonation }}
-                        <h3>{% trans "You just supported these projects" %}</h3>
-                    {{ else }}
-                        <h3>{% trans "You just supported this project" %}</h3>
-                    {{/if}}
+                    <h3>{% trans "Thank you!" %}</h3>
                     
-                    <p>{% blocktrans %}Thank you for supporting <strong>&euro;[amount]</strong> to these projects below. With your support [name projectowner first project] comes one step closer realizing the project.{% endblocktrans %}</p>
+                    <p>{% blocktrans %}For supporting <strong>&euro;[amount]</strong> to these projects below:{% endblocktrans %}</p>
                     
                 </header>
 	
