@@ -255,7 +255,7 @@ App.MyProjectPlanBasicsRoute = App.MyProjectPlanSubRoute.extend({});
 App.MyProjectPlanDescriptionRoute = App.MyProjectPlanSubRoute.extend({});
 App.MyProjectPlanLocationRoute = App.MyProjectPlanSubRoute.extend({});
 App.MyProjectPlanMediaRoute = App.MyProjectPlanSubRoute.extend({});
-App.MyProjectPlanAmbassadorsRoute = App.MyProjectPlanSubRoute.extend({});
+//App.MyProjectPlanAmbassadorsRoute = App.MyProjectPlanSubRoute.extend({});
 App.MyProjectPlanSubmitRoute = App.MyProjectPlanSubRoute.extend({});
 
 App.MyProjectPlanCampaignRoute = App.MyProjectPlanSubRoute.extend({});

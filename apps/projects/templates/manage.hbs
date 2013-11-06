@@ -146,7 +146,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                             </fieldset>
                             
                             <button {{bindAttr class=":btn :btn-iconed :btn-primary :btn-save isDirty::disabled"}} {{action updateRecordOnServer}}>
-                                <em class="flaticon solid pencil-3"></em>{% trans "write your pitch" %}
+                                <span class="flaticon solid pencil-3"></span>{% trans "write your pitch" %}
                             </button>
                         </form>
                     {{/if}}
@@ -261,6 +261,37 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
     
 {% endtplhandlebars %}
 
+{% tplhandlebars "_my_project_tasks_and_updates" %}
+
+    <div class="toolbox">
+        <h3 class="toolbox-title">
+            <em class="flaticon solid wrench-1"></em>
+            {% trans "Crowdsourcing" %}
+        </h3>
+        <div class="toolbox-content">
+            <p>{% trans "Do you need someone to help writing your business plan?" %}</p>
+            {{#linkTo "projectTaskNew" getProject tagName="button" class="btn btn-iconed"}}
+                <em class="flaticon solid wrench-1"></em>
+                {% trans "Create a new task" %}
+            {{/linkTo}}
+        </div>
+    </div>
+
+    <div class="toolbox">
+        <h3 class="toolbox-title">
+            <em class="flaticon solid megaphone-1"></em>
+            {% trans "Project Updates" %}
+        </h3>
+        <div class="toolbox-content">
+            <p>{% trans "Why not? Ask the crowd for feedback on your idea!" %}</p>
+            {{#linkTo "project" getProject tagName="button" class="btn btn-iconed"}}
+                <span class="flaticon solid megaphone-1"></span>
+                {% trans "Post an Update" %}
+            {{/linkTo}}
+        </div>
+    </div>
+
+{% endtplhandlebars %}
 
 {% tplhandlebars "my_project_plan" %}
 
@@ -310,12 +341,12 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                             {% trans "Legal Status" %}
                         {{/linkTo}}
                     </li>
-                    <li>
+                    <!--{% comment %}<li>
                         {{#linkTo "myProjectPlan.ambassadors"}}
                             <em {{bindAttr class="validAmbassadors:is-finished:is-unfinished"}}></em>
                             {% trans "Ambassadors" %}
                         {{/linkTo}}
-                    </li>
+                    </li>{% endcomment %}-->
                     {{/if}}
 
                 {{#if needsFunding}}
@@ -353,34 +384,6 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
             <form class="l-content">
                 {{ outlet }}
             </form>
-            
-            <div class="toolbox">
-                <h3 class="toolbox-title">
-                    <em class="flaticon solid wrench-1"></em>
-                    {% trans "Crowdsourcing" %}
-                </h3>
-                <div class="toolbox-content">
-                    <p>{% trans "Do you need someone to help writing your business plan?" %}</p>
-                    {{#linkTo "projectTaskNew" project.getProject name="button" class="btn btn-iconed"}}
-                        <em class="flaticon solid wrench-1"></em>
-                        {% trans "Create a new task" %}
-                    {{/linkTo}}
-                </div>
-            </div>
-
-            <div class="toolbox">
-                <h3 class="toolbox-title">
-                    <em class="flaticon solid megaphone-1"></em>
-                    {% trans "Project Updates" %}
-                </h3>
-                <div class="toolbox-content">
-                    <p>{% trans "Why not? Ask the crowd for feedback on your idea!" %}</p>
-                    {{#linkTo "project" project.getProject tagName="button" class="btn btn-iconed"}}
-                        <span class="flaticon solid megaphone-1"></span>
-                        {% trans "Post an Update" %}
-                    {{/linkTo}}
-                </div>
-            </div>
 
         </div>
 
@@ -415,7 +418,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
         </fieldset>
     {{/if}}
 
-    {{#linkTo myProjectPlan.basics class="btn btn-iconed btn-next"}}<em class="flaticon solid right-2"></em>{% trans "Next" %}{{/linkTo}}
+    {{#linkTo "myProjectPlan.basics" class="btn btn-iconed btn-next"}}<span class="flaticon solid right-2"></span>{% trans "Next" %}{{/linkTo}}
 
 {% endtplhandlebars %}
 
@@ -523,6 +526,8 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
     </fieldset>
 
     <button {{bindAttr class=":btn :btn-iconed :btn-next isDirty::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+
+    {{partial "my_project_tasks_and_updates"}}
 
 {% endtplhandlebars %}
 
@@ -889,7 +894,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
 
                 <div class="controls manage-project-files">
                     <a class="btn btn-iconed btn-upload">
-                        {{view App.UploadMultipleFiles valueBinding="image" name="documents" multiple=true}}
+                        {{view App.UploadMultipleFiles name="documents" multiple=true}}
                         <span class="flaticon solid upload-document-1"></span>
                         {% trans "Upload scan(s)" %}
                     </a>
@@ -1282,7 +1287,7 @@ Please add 5% administration fee to your budget. The total amount, including the
         <article class="l-content">
             <header class="page-header">
                 <h2>{% trans "Yeah! Your plan has been approved." %}</h2>
-                <p>{% trans "You can start your " %} {{#linkTo myProjectCampaign}}{% trans "Campaign" %}{{/linkTo}}</p>
+                <p>{% trans "You can start your " %} {{#linkTo "myProjectCampaign"}}{% trans "Campaign" %}{{/linkTo}}</p>
             </header>
         </article>
     </div>
@@ -1301,7 +1306,7 @@ Please add 5% administration fee to your budget. The total amount, including the
         </legend>
     </fieldset>
 
-    {{#linkTo myProjectPitch.basics class="btn btn-iconed btn-next"}}<span class="flaticon solid right-2"></span>{% trans "Next" %}{{/linkTo}}
+    {{#linkTo "myProjectPitch.basics" class="btn btn-iconed btn-next"}}<span class="flaticon solid right-2"></span>{% trans "Next" %}{{/linkTo}}
 
 {% endtplhandlebars %}
 
@@ -1484,7 +1489,7 @@ Please add 5% administration fee to your budget. The total amount, including the
             {{#if validLocation}}
                 <h3><span class="flaticon solid checkmark-1"></span> Location is ok!</h3>
             {{else}}
-                <h3>{{#linkTo "myProjectPitch.basics"}}Basics{{/linkTo}} still need work!</h4>
+                <h3>{{#linkTo "myProjectPitch.basics"}}Basics{{/linkTo}} still need work!</h3>
                 {{#unless latitude}}
                     <span class="flaticon solid exclamation-point-2"></span> <strong>Map location</strong> is missing<br/>
                 {{/unless}}
@@ -1621,33 +1626,7 @@ Please add 5% administration fee to your budget. The total amount, including the
             </fieldset>
         </form>
 
-        <div class="toolbox">
-            <h3 class="toolbox-title">
-                <em class="flaticon solid wrench-1"></em>
-                {% trans "Crowdsourcing" %}
-            </h3>
-            <div class="toolbox-content">
-                <p>{% trans "Do you need someone to help writing your business plan?" %}</p>
-                {{#linkTo "projectTaskNew" getProject tagName="button" class="btn btn-iconed"}}
-                    <em class="flaticon solid wrench-1"></em>
-                    {% trans "Create a new task" %}
-                {{/linkTo}}
-            </div>
-        </div>
-
-        <div class="toolbox">
-            <h3 class="toolbox-title">
-                <em class="flaticon solid megaphone-1"></em>
-                {% trans "Project Updates" %}
-            </h3>
-            <div class="toolbox-content">
-                <p>{% trans "Why not? Ask the crowd for feedback on your idea!" %}</p>
-                {{#linkTo "project" getProject tagName="button" class="btn btn-iconed"}}
-                    <span class="flaticon solid megaphone-1"></span>
-                    {% trans "Post an Update" %}
-                {{/linkTo}}
-            </div>
-        </div>
+        {{partial "my_project_tasks_and_updates"}}
 
     </div>
 

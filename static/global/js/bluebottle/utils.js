@@ -211,7 +211,6 @@ App.UploadMultipleFiles = Ember.TextField.extend({
 
     change: function(e) {
         var controller = this.get('parentView.controller');
-        //var controller = this.get('parentView.controller');
         var files = e.target.files;
         for (var i = 0; i < files.length; i++) {
             var reader = new FileReader();
@@ -222,7 +221,7 @@ App.UploadMultipleFiles = Ember.TextField.extend({
             var view = this;
             view.$().parents('form').find('.preview').attr('src', '/static/assets/images/loading.gif');
             reader.onload = function(e) {
-                view.$().parents('form').find('.preview').attr('src',  e.target.result);
+                view.$().parents('form').find('.preview').attr('src', e.target.result);
             }
             controller.addFile(file);
         }
