@@ -6,7 +6,7 @@ App.Router.map(function(){
 
 // Tasks
 
-App.ProjectTaskListRoute = Em.Route.extend({
+App.ProjectTasksIndexRoute = Em.Route.extend({
     model: function(params) {
         return Em.A();
     },
