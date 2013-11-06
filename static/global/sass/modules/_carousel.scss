@@ -10,6 +10,11 @@
 	@include clear;
 	position: relative;
 	
+	> ul {
+	    margin: 0;
+	    padding: 0;
+	}
+	
 	.carousel-item {
 	    @include clear;
         @include resetlist;
