@@ -200,16 +200,16 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
             </h2>
         </header>
                  
-        {{#if title}}
-        {{#unless isPhasePitch}}
-        <a class="account-preview btn-link">
-            <span class="flaticon solid eye-1"></span>
-            {% trans "View project" %}
-        </a>
-        {{/unless}}
-        {{/if}}
-        
         {{#if id}}
+            {{#if title}}
+                {{#unless isPhasePitch}}
+                    <a {{action "showProject" id href=true}} class="account-preview btn-link">
+                        <span class="flaticon solid eye-1"></span>
+                        {% trans "View project" %}
+                    </a>
+                {{/unless}}
+            {{/if}}
+    
             <ul class="tabs steps five">
                 <li {{bindAttr class=":tab-item :first isPhasePitch:is-active:is-inactive"}}>
                     <a>
