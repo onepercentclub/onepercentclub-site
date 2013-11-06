@@ -220,7 +220,10 @@ class Project(models.Model):
     def get_tweet(self, **kwargs):
         """ Build the tweet text for the meta data """
         request = kwargs.get('request')
-        lang_code = request.LANGUAGE_CODE
+        if request:
+            lang_code = request.LANGUAGE_CODE
+        else:
+            lang_code = 'en'
         twitter_handle = settings.TWITTER_HANDLES.get(lang_code, settings.DEFAULT_TWITTER_HANDLE)
 
         title = self.get_fb_title()

@@ -358,7 +358,7 @@
                                 <button class="btn btn-primary btn-iconed btn-proceed" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
                             {{/if}}
             	        {{/if}}
-                        
+
                     {{/if}}
                 </div>
             </div>
@@ -600,7 +600,7 @@
         {{/linkTo}}
     
         <div class="fund-amount">
-            {% trans "You supported"%} <strong class="fund-amount-needed">&euro; [10]</strong> 
+            {% trans "You supported"%} <strong class="fund-amount-needed">&euro; {{ donation.amount }}</strong>
         </div>
     </li>
 
@@ -611,7 +611,7 @@
 <div id="thanks">
 	<div class="l-section thanks-header">
         <section class="l-wrapper">
-            
+
             <figure class="image thanks-image">
                 <img src="/static/assets/images/pages/business-green.png" alt="High five!" />
             </figure>
@@ -619,10 +619,12 @@
         	<header class="thanks-title">
             	<h1>{% trans "Did you know that you rock?" %} <em>{% trans "Well, you rock!" %}</em></h1>
                 
-                <div class="thanks-share"><p>{% blocktrans %}Why not share the project with your friends, and encourage them to support as well? Just hit (one of the) share buttons to make even more impact.{% endblocktrans %}</p>
+                <div class="thanks-share"><p>{% blocktrans %}Why not share the project with your friends, and encourage them to support as well?{% endblocktrans %}<br />            
+                {% blocktrans %}Just hit (one of the) share buttons to make even more impact:{% endblocktrans %}</p>
                 {{view App.SocialShareView}}
                 </div>
             </header>
+            
         </section>
     </div>
 
@@ -631,13 +633,9 @@
 			<article class="l-content">
 			
 				<header class="page-header">
-                	{{#if moreThanOneDonation }}
-                        <h3>{% trans "You just supported these projects" %}</h3>
-                    {{ else }}
-                        <h3>{% trans "You just supported this project" %}</h3>
-                    {{/if}}
+                    <h3>{% trans "Thank you!" %}</h3>
                     
-                    <p>{% blocktrans %}Thank you for supporting <strong>&euro;[amount]</strong> to these projects below. With your support [name projectowner first project] comes one step closer realizing the project.{% endblocktrans %}</p>
+                    <p>{% blocktrans %}For supporting these projects below:{% endblocktrans %}</p>
                     
                 </header>
 	
@@ -651,13 +649,13 @@
             <sidebar class="l-sidebar">
                 
                 {{#if controllers.currentUser.isAuthenticated }}
-                    <h3>{% trans "Donate monthly" %}</h3>
-                    <p>{% blocktrans %}Did you know: you support to projects monthly as a monthly member? You'll rock even more!{% endblocktrans %}</p>
-                    <a href="#" class="btn btn-primary">{% trans "Set up monthly donations" %}</a>
+                    <h3>{% trans "Did you know" %}&#8230;</h3>
+                    <p>{% blocktrans %}You can support projects monthly? Automatically every month, easy!{% endblocktrans %}</p>
+                    <a href="#" class="btn btn-primary">{% trans "Set up monthly donation" %}</a>
                 {{else}}
                      <h3>{% trans "Stay updated" %}</h3>
-                    <p>{% blocktrans %}We’d love to keep you updated on the progress of the projects you just supported. Sign up and receive updates, and our everlasting love.{% endblocktrans %}</p>
-                    {{#linkTo 'signup' class="btn btn-primary"}}{% blocktrans %}Signup now{% endblocktrans %}{{/linkTo}}
+                    <p>{% blocktrans %}We’d love to keep you updated on the progress of the project(s) you just supported. Sign up and receive updates, and our everlasting love.{% endblocktrans %}</p>
+                    {{#linkTo 'signup' class="btn btn-primary"}}{% blocktrans %}Sign me up{% endblocktrans %}{{/linkTo}}
                 {{/if}}
                  
             </sidebar>
