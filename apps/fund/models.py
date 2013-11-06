@@ -226,8 +226,8 @@ class Order(models.Model):
     class Meta:
         ordering = ('-updated',)
 
-    # http://stackoverflow.com/questions/2076838
     def save(self, *args, **kwargs):
+        # http://stackoverflow.com/questions/2076838
         if not self.order_number:
             loop_num = 0
             max_number = 1000000000  # 1 billion

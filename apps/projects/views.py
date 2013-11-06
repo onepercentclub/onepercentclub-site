@@ -154,7 +154,7 @@ class ProjectWallPostDetail(ProjectWallPostMixin, RetrieveUpdateDeleteAPIView):
     permission_classes = (IsAuthorOrReadOnly,)
 
 
-class ProjectMediaWallPostPhotoList(generics.ListCreateAPIView):
+class ProjectMediaWallPostPhotoList(ListCreateAPIView):
     model = MediaWallPostPhoto
     serializer_class = MediaWallPostPhotoSerializer
     paginate_by = 4
@@ -189,6 +189,7 @@ class ProjectMediaWallPostPhotoList(generics.ListCreateAPIView):
         if post and post == u'null':
             request.POST['mediawallpost'] = u''
         return super(ProjectMediaWallPostPhotoList, self).create(request, *args, **kwargs)
+
 
 class ProjectMediaWallPostPhotoDetail(RetrieveUpdateDeleteAPIView):
     model = MediaWallPostPhoto
