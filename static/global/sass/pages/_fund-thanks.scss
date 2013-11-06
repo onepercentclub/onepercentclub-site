@@ -1,0 +1,70 @@
+//
+// Funding thank you page (overwrites modules)
+// --------------------------------------------------
+
+#thanks {
+    
+    .thanks-header {
+        padding: $base-padding*2 0;
+        background-color: $gray-lighter;
+        
+        .thanks-image {
+            @include grid(10,1,1);
+            text-align: center;
+            
+            img {
+                //max-width: 250px;
+                position: relative;
+                bottom: 30px;
+            }
+            
+        }
+        
+        .thanks-title {
+            @include grid(32,2,2);
+        }
+    }
+    
+    #share {
+        font-size: $base-font-size;
+        
+        a {
+            color: $color-text-light;
+        
+            &:hover {
+                color: $white;
+                background-color: $gray-darker !important;
+            }
+        }
+
+        .share-facebook a {
+            background-color: #45619d;
+        }
+        
+        .share-twitter a {
+            background-color: #33b9e2;
+        }
+    }
+    
+    .l-content {
+        margin-top: $base-margin;
+    }
+    
+    .l-sidebar {
+        
+        h3 {
+            color: $color-secondary;
+        }
+        
+        .btn {
+            font-size: $base-font-size;
+        }
+    }
+    
+    .project-list {
+    
+        .project-title, .fund-amount {
+            color: $gray;
+        }
+    }
+}

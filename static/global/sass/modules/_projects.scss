@@ -523,11 +523,11 @@
             font-size: $font-size-larger;
         }
         
-        &:hover {
+        &:hover, &.is-highlighted {
             border-color: $gray-lighter !important;
             
             .project-header h2 {
-                color: $color-primary;
+                color: $color-primary !important;
             }
         }
         
