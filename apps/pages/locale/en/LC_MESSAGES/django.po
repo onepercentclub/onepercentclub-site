@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-01 15:53+0100\n"
+"POT-Creation-Date: 2013-11-07 16:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -196,24 +196,20 @@ msgstr ""
 msgid "No projects found."
 msgstr ""
 
-#: templates/project_snippet.html:51
+#: templates/project_snippet.html:32
 msgid "days to go"
 msgstr ""
 
-#: templates/project_snippet.html:58
+#: templates/project_snippet.html:39
 msgid "of"
 msgstr ""
 
-#: templates/project_snippet.html:60
+#: templates/project_snippet.html:41
 msgid "raised"
 msgstr ""
 
-#: templates/project_snippet.html:67
+#: templates/project_snippet.html:48
 msgid "Support"
-msgstr ""
-
-#: templates/project_snippet.html:75
-msgid "Apply for task"
 msgstr ""
 
 #: templates/admin/pages/change_form.html:7

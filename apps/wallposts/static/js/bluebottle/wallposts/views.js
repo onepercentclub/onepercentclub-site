@@ -66,30 +66,30 @@ App.ProjectWallPostView = App.SystemWallPostView.extend({
     templateName: 'project_wallpost',
 
     didInsertElement: function(){
-        this.$().hide().slideDown(500);
-
+        var view = this;
+        view.$().hide();
         // Give it some time to really render...
         // Hack to make sure photo viewer works for new wallposts
-        Em.run.later(function(){
-            this.$('.photo-viewer a').colorbox({
+        Em.run.next(function(){
+            view.$().slideDown(500);
+            view.$('.photo-viewer a').colorbox({
                 rel: this.toString(),
                 next: '<span class="flaticon solid right-2"></span>',
                 previous: '<span class="flaticon solid left-2"></span>',
                 close: 'x'
             });
-        }, 500);
-    },
+        });
+    }
 
 });
 
 
 App.TaskWallPostView = App.ProjectWallPostView.extend({
-    templateName: 'task_wallpost'/*,
+    templateName: 'task_wallpost',
     
-    # FIXME: ugh stupid hashbang, #anchors don't work ofc...
-    didInsertElement: function(e){
-        this.$().attr('id', 'wallpost-'+this.get('context').get('id'));
-    }*/
+    didInsertElement: function(){
+        this.$().hide().fadeIn(500);
+    }
 
 });
 

@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-01 13:23+0100\n"
-"PO-Revision-Date: 2013-11-01 12:50+0000\n"
-"Last-Translator: gannetson <loek@1procentclub.nl>\n"
+"POT-Creation-Date: 2013-11-07 16:07+0100\n"
+"PO-Revision-Date: 2013-11-03 20:21+0000\n"
+"Last-Translator: nieja <niels@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -135,12 +135,12 @@ msgstr "We like you too"
 #: accounts/account_settings.html:5
 #, python-format
 msgid "1%% News"
-msgstr ""
+msgstr "1%%Nieuws"
 
 #: accounts/login.html:5
 #, python-format
 msgid "Log in to 1%% Club"
-msgstr ""
+msgstr "Login bij 1%%Club"
 
 #: accounts/login.html:10
 msgid "You did it!"
@@ -169,11 +169,11 @@ msgstr "Mijn 1%%"
 
 #: accounts/nav.html:19
 msgid "My profile & settings"
-msgstr ""
+msgstr "Mijn profiel & settings"
 
 #: accounts/nav.html:25
 msgid "My Donations"
-msgstr ""
+msgstr "Mijn donaties"
 
 #: accounts/nav.html:31
 msgid "My Projects"
@@ -193,7 +193,7 @@ msgstr "Registreer"
 
 #: accounts/nav.html:67
 msgid "or"
-msgstr ""
+msgstr "of"
 
 #: accounts/nav.html:68
 msgid "Log in"
@@ -219,11 +219,11 @@ msgstr "Waarom doe je mee met 1%%Club?"
 
 #: accounts/profile_form.html:43
 msgid "Your website"
-msgstr "Jouw website"
+msgstr "Website"
 
 #: accounts/profile_form.html:57 accounts/profile_public.html:18
 msgid "Location"
-msgstr "Location"
+msgstr "Locatie"
 
 #: accounts/profile_form.html:76
 #, python-format
@@ -271,11 +271,11 @@ msgid ""
 "support smart ideas from people in developing countries. We do this in a "
 "new, open way, believing in the power of collaboration boosted by today's "
 "technical possibilities. If we all share a little, we can change the world."
-msgstr ""
+msgstr "1%%Club is hét crowdfunding en crowdsourcing platform waar je, door een klein beetje te delen, een wereld van verschil kan maken. We werken samen met ons wereldwijde netwerk om slimme ideeën van mensen in ontwikkelingslanden te realiseren. En dat kan dus al met 1% van je tijd, kennis of geld. If we all share a little, we can change the world!"
 
 #: accounts/signup.html:14
 msgid "Thanks for signing up!"
-msgstr "Bedankt voor je registratie!"
+msgstr "Bedankt voor je aanmelding!"
 
 #: accounts/signup.html:16
 msgid ""
@@ -289,11 +289,11 @@ msgid ""
 "\n"
 "    By joining 1%%Club I hereby agree to the <a %(action)s href=\"%(href)s\"> 1%%Club Terms of service</a>\n"
 "    "
-msgstr ""
+msgstr "\n⏎\nDoor mee te doen met 1%%Club ga ik akkoord met de <a %(action)s href=\"%(href)s\"> 1%%Club Algemene Voorwaarden</a>⏎"
 
 #: accounts/signup.html:31
 msgid "Have an account?"
-msgstr "Heb je een profiel?"
+msgstr "Heb je een account?"
 
 #: accounts/signup.html:31
 msgid "Log in here"
@@ -315,7 +315,7 @@ msgstr "Een leuke & persoonlijke manier om jouw 1%% te delen."
 
 #: accounts/signup.html:40
 msgid "You'll receive updates on the progress of the projects you support."
-msgstr ""
+msgstr "Je ontvangt updates over de voortgang van de projecten die jij steunt."
 
 #: registration/activation_email.html:20
 msgid "Confirm your registration"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-01 15:53+0100\n"
+"POT-Creation-Date: 2013-11-07 16:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,7 +59,7 @@ msgid "Single Donation"
 msgstr ""
 
 #: templates/donations.hbs:112
-msgid "Loading order history"
+msgid "Loading order history&#8230;"
 msgstr ""
 
 #: templates/donations.hbs:127
@@ -70,15 +70,15 @@ msgstr ""
 msgid "Here you can change your bank account info and monthly donations."
 msgstr ""
 
-#: templates/donations.hbs:134 templates/donations.hbs.py:292
+#: templates/donations.hbs:134 templates/donations.hbs.py:385
 msgid "Account Name"
 msgstr ""
 
-#: templates/donations.hbs:144 templates/donations.hbs.py:302
+#: templates/donations.hbs:144 templates/donations.hbs.py:395
 msgid "Account Number"
 msgstr ""
 
-#: templates/donations.hbs:154 templates/donations.hbs.py:312
+#: templates/donations.hbs:154 templates/donations.hbs.py:405
 msgid "Account City"
 msgstr ""
 
@@ -86,7 +86,7 @@ msgstr ""
 msgid "Monthly settings saved"
 msgstr ""
 
-#: templates/donations.hbs:172 templates/donations.hbs.py:330
+#: templates/donations.hbs:172 templates/donations.hbs.py:423
 msgid "Save"
 msgstr ""
 
@@ -121,117 +121,137 @@ msgid ""
 "    </ol>\n"
 "</p>\n"
 "<p>We will send you an email every month to update you what project(s) received your 1%% support!</p>\n"
-"                    "
+"                "
 msgstr ""
 
 #: templates/donations.hbs:214
 msgid "Yes, I want to set a monthly donation"
 msgstr ""
 
-#: templates/donations.hbs:217
-msgid "Monthly donation"
-msgstr ""
-
-#: templates/donations.hbs:217
-msgid "Off"
-msgstr ""
-
-#: templates/donations.hbs:219
-msgid "Turn monthly donations on"
-msgstr ""
-
-#: templates/donations.hbs:229
+#: templates/donations.hbs:224
 msgid "Your monthly donation will go to the project(s) you've selected here:"
 msgstr ""
 
-#: templates/donations.hbs:235
-msgid "Your monthly donation will got to the top 3 projects."
+#: templates/donations.hbs:228
+msgid "Your monthly donation will go to the top 3 projects."
 msgstr ""
 
-#: templates/donations.hbs:236
+#: templates/donations.hbs:229
 msgid "The three most popular projects at this moment are:"
 msgstr ""
 
-#: templates/donations.hbs:254 templates/donations.hbs.py:385
+#: templates/donations.hbs:253 templates/donations.hbs.py:478
 msgid "is still needed"
 msgstr ""
 
-#: templates/donations.hbs:265
+#: templates/donations.hbs:264
 msgid "Total"
 msgstr ""
 
-#: templates/donations.hbs:271
+#: templates/donations.hbs:270
 msgid "Divide to projects"
 msgstr ""
 
-#: templates/donations.hbs:281
+#: templates/donations.hbs:280
 msgid "Add another project"
 msgstr ""
 
-#: templates/donations.hbs:283
+#: templates/donations.hbs:282
 msgid "Select a project yourself"
 msgstr ""
 
-#: templates/donations.hbs:288
+#: templates/donations.hbs:287
+msgid "My address"
+msgstr ""
+
+#: templates/donations.hbs:293
+msgid "Address Line 1"
+msgstr ""
+
+#: templates/donations.hbs:306
+msgid "Address Line 2"
+msgstr ""
+
+#: templates/donations.hbs:319
+msgid "City"
+msgstr ""
+
+#: templates/donations.hbs:332
+msgid "Province / State"
+msgstr ""
+
+#: templates/donations.hbs:345
+msgid "Postal Code"
+msgstr ""
+
+#: templates/donations.hbs:360
+msgid "Country"
+msgstr ""
+
+#: templates/donations.hbs:380
 msgid "My payment details"
 msgstr ""
 
-#: templates/donations.hbs:341
+#: templates/donations.hbs:381
+msgid "Please fill in your bank details"
+msgstr ""
+
+#: templates/donations.hbs:434
 msgid "Cancel my monthly donation"
 msgstr ""
 
-#: templates/donations.hbs:362
+#: templates/donations.hbs:455
 msgid "No projects found."
 msgstr ""
 
-#: templates/donations.hbs:395
+#: templates/donations.hbs:488
 msgid "Delete"
 msgstr ""
 
-#: templates/donations.hbs:418
+#: templates/donations.hbs:511
 msgid "New"
 msgstr ""
 
-#: templates/donations.hbs:418
+#: templates/donations.hbs:511
 msgid "Smart Idea"
 msgstr ""
 
-#: templates/donations.hbs:424
+#: templates/donations.hbs:517
 msgid "To go"
 msgstr ""
 
-#: templates/donations.hbs:427
+#: templates/donations.hbs:520
 msgid "days"
 msgstr ""
 
-#: templates/donations.hbs:466
+#: templates/donations.hbs:559
 msgid "Found"
 msgstr ""
 
-#: templates/donations.hbs:468
+#: templates/donations.hbs:561
 msgid "Reset Search Filter"
 msgstr ""
 
-#: templates/donations.hbs:473
+#: templates/donations.hbs:566
 msgid "Sort:"
 msgstr ""
 
-#: templates/donations.hbs:474
+#: templates/donations.hbs:567
 msgid "Most popular"
 msgstr ""
 
-#: templates/donations.hbs:481
+#: templates/donations.hbs:574
 msgid "Newest"
 msgstr ""
 
-#: templates/donations.hbs:482
+#: templates/donations.hbs:575
 msgid "Almost funded"
 msgstr ""
 
-#: templates/donations.hbs:483
+#: templates/donations.hbs:576
 msgid "Near deadline"
 msgstr ""
 
-#: templates/donations.hbs:487
+#: templates/donations.hbs:580
 msgid "Showing"
 msgstr ""
