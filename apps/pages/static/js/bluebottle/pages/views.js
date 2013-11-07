@@ -69,17 +69,32 @@ App.PageView = Ember.View.extend(App.GoTo, {
 
     renderSections: function(e) {
         var windowHeight = $(window).height();
-        this.$('.static-onepage-section').css('height', windowHeight + 'px');
+        
         this.$('.static-onepage-content').each(function() {
             // Reset first to get correct height
+<<<<<<< HEAD
             $(this).css({
                 'position' : 'relative',
                 'height' : 'auto'
             });
+<<<<<<< HEAD
+=======
+>>>>>>> 7ac6e60... Static Pages WIP
             $(this).css({
-                'height' : $(this).height() + 'px',
-                'position' : 'absolute'
+                'position' : 'relative',
+                'height' : 'auto'
             });
+=======
+>>>>>>> 29650f0... Fix for static pages on low resolution
+            // Set static height for centering if not higher then section
+            if ($(this).height() <= $(window).height() - 100) {
+                $(this).css({
+                    'height' : $(this).height() + 'px',
+                    'position' : 'absolute'
+                });
+                // Set section height to window height
+                $(this).closest( ".static-onepage-section" ).css('height', windowHeight + 'px');
+            }
         });
     },
 
