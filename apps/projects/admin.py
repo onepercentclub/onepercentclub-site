@@ -253,7 +253,7 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
                     return u'{funded} % ({date})'.format(funded=funded, date=created)
                 except ProjectPhaseLog.DoesNotExist:
                     pass
-            return u'{funded} %'.format(funded=funded)
+            return u'{0:.1f}'.format(funded).rstrip('0').rstrip('.') + ' %'
         except ProjectCampaign.DoesNotExist:
             return _('n/a')
 
