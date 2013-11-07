@@ -27,6 +27,7 @@ PROJECT_APPS = list(INSTALLED_APPS)
 # https://code.djangoproject.com/ticket/17966
 PROJECT_APPS.remove('django.contrib.auth')
 PROJECT_APPS.remove('legacyauth')
+PROJECT_APPS.remove('bluebottle.bluebottle_utils')
 
 # This app fails with a strange error:
 # DatabaseError: no such table: django_comments
