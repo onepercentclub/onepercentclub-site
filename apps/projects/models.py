@@ -14,8 +14,7 @@ from sorl.thumbnail import ImageField
 from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
 from apps.fund.models import Donation, DonationStatuses
 from django.template.defaultfilters import slugify
-from django.utils import formats, timezone
-from django.utils.translation import get_language
+from django.utils import timezone
 
 
 class ProjectTheme(models.Model):
@@ -118,7 +117,6 @@ class Project(models.Model):
     objects = ProjectManager()
 
     _original_phase = None
-
 
     def __init__(self, *args, **kwargs):
         super(Project, self).__init__(*args, **kwargs)
@@ -539,6 +537,7 @@ def log_project_phase(sender, instance, created, **kwargs):
         # for example
         instance._original_phase = instance.phase
 
+
 @receiver(post_save, weak=False, sender=Project)
 def progress_project_phase(sender, instance, created, **kwargs):
     # Skip all post save logic during fixture loading.
@@ -554,9 +553,8 @@ def progress_project_phase(sender, instance, created, **kwargs):
         instance.projectpitch.status = ProjectPitch.PitchStatuses.new
         instance.projectpitch.save()
 
-
     if instance.phase == ProjectPhases.pitch:
-        #If project is rolled back to Pitch (e.g. from Plan) then adjust Pitch status.
+        # If project is rolled back to Pitch (e.g. from Plan) then adjust Pitch status.
         if instance.projectpitch.status == ProjectPitch.PitchStatuses.approved:
             instance.projectpitch.status = ProjectPitch.PitchStatuses.new
             instance.projectpitch.save()
@@ -682,7 +680,3 @@ def update_project_after_donation(sender, instance, created, **kwargs):
     else:
         project.phase = ProjectPhases.campaign
         project.save()
-
-
-
-
