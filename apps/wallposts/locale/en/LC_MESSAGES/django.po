@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-01 15:53+0100\n"
+"POT-Creation-Date: 2013-11-07 16:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,11 +60,11 @@ msgstr ""
 msgid "%(author)s commented on your project page."
 msgstr ""
 
-#: models.py:30 models.py:70 models.py:101
+#: models.py:30 models.py:79 models.py:110
 msgid "author"
 msgstr ""
 
-#: models.py:31 models.py:71 models.py:102
+#: models.py:31 models.py:80 models.py:111
 msgid "editor"
 msgstr ""
 
@@ -72,19 +72,19 @@ msgstr ""
 msgid "The last user to edit this wallpost."
 msgstr ""
 
-#: models.py:34 models.py:109
+#: models.py:34 models.py:118
 msgid "created"
 msgstr ""
 
-#: models.py:35 models.py:110
+#: models.py:35 models.py:119
 msgid "updated"
 msgstr ""
 
-#: models.py:36 models.py:68 models.py:111
+#: models.py:36 models.py:77 models.py:120
 msgid "deleted"
 msgstr ""
 
-#: models.py:37 models.py:69 models.py:112
+#: models.py:37 models.py:78 models.py:121
 msgid "IP address"
 msgstr ""
 
@@ -96,31 +96,31 @@ msgstr ""
 msgid "object ID"
 msgstr ""
 
-#: models.py:71
+#: models.py:80
 msgid "The last user to edit this wallpost photo."
 msgstr ""
 
-#: models.py:87
+#: models.py:96
 msgid "related type"
 msgstr ""
 
-#: models.py:88
+#: models.py:97
 msgid "related ID"
 msgstr ""
 
-#: models.py:102
+#: models.py:111
 msgid "The last user to edit this reaction."
 msgstr ""
 
-#: models.py:105
+#: models.py:114
 msgid "reaction text"
 msgstr ""
 
-#: models.py:120
+#: models.py:129
 msgid "Reaction"
 msgstr ""
 
-#: models.py:121
+#: models.py:130
 msgid "Reactions"
 msgstr ""
 
@@ -338,7 +338,7 @@ msgid "Error"
 msgstr ""
 
 #: templates/wallposts.hbs:88
-msgid "Loading photos"
+msgid "Loading photos&#8230;"
 msgstr ""
 
 #: templates/wallposts.hbs:105

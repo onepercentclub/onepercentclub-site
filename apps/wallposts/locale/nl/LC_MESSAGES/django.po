@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-01 13:23+0100\n"
-"PO-Revision-Date: 2013-11-01 12:50+0000\n"
+"POT-Creation-Date: 2013-11-07 16:07+0100\n"
+"PO-Revision-Date: 2013-11-07 15:08+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -26,12 +26,12 @@ msgstr "Auteur"
 
 #: admin.py:133
 msgid "project link"
-msgstr ""
+msgstr "project link"
 
 #: mails.py:96
 #, python-format
 msgid "%(author)s commented on a wallpost you reacted on."
-msgstr ""
+msgstr "%(author)s  heeft gereageerd op een bericht van jou."
 
 #: mails.py:108
 #, python-format
@@ -51,23 +51,23 @@ msgstr "%(author)s heeft een bericht op de pagina van je taak geplaatst."
 #: mails.py:194
 #, python-format
 msgid "%(author)s commented on a post you reacted on."
-msgstr ""
+msgstr "%(author)s  heeft gereageerd op een bericht van jou."
 
 #: mails.py:206
 #, python-format
 msgid "%(author)s commented on your post."
-msgstr ""
+msgstr "%(author)s  heeft gereageerd op een bericht van jou."
 
 #: mails.py:218
 #, python-format
 msgid "%(author)s commented on your project page."
-msgstr ""
+msgstr "%(author)s  heeft gereageerd op je projectpagina."
 
-#: models.py:30 models.py:70 models.py:101
+#: models.py:30 models.py:79 models.py:110
 msgid "author"
 msgstr "auteur"
 
-#: models.py:31 models.py:71 models.py:102
+#: models.py:31 models.py:80 models.py:111
 msgid "editor"
 msgstr "editor"
 
@@ -75,19 +75,19 @@ msgstr "editor"
 msgid "The last user to edit this wallpost."
 msgstr "Gebruiker met de laatste wijziging bij wallpost"
 
-#: models.py:34 models.py:109
+#: models.py:34 models.py:118
 msgid "created"
 msgstr "aangemaakt"
 
-#: models.py:35 models.py:110
+#: models.py:35 models.py:119
 msgid "updated"
 msgstr "aangepast"
 
-#: models.py:36 models.py:68 models.py:111
+#: models.py:36 models.py:77 models.py:120
 msgid "deleted"
 msgstr "verwijderd"
 
-#: models.py:37 models.py:69 models.py:112
+#: models.py:37 models.py:78 models.py:121
 msgid "IP address"
 msgstr "IP-adres"
 
@@ -99,31 +99,31 @@ msgstr "content type"
 msgid "object ID"
 msgstr "object ID"
 
-#: models.py:71
+#: models.py:80
 msgid "The last user to edit this wallpost photo."
 msgstr "De laatste gebruiker die deze wallpost heeft gewijzigd."
 
-#: models.py:87
+#: models.py:96
 msgid "related type"
-msgstr ""
+msgstr "related type"
 
-#: models.py:88
+#: models.py:97
 msgid "related ID"
-msgstr ""
+msgstr "related ID"
 
-#: models.py:102
+#: models.py:111
 msgid "The last user to edit this reaction."
 msgstr "De laatste gebruiker die deze wallpost heeft gewijzigd."
 
-#: models.py:105
+#: models.py:114
 msgid "reaction text"
 msgstr "reactie tekst"
 
-#: models.py:120
+#: models.py:129
 msgid "Reaction"
 msgstr "Reactie"
 
-#: models.py:121
+#: models.py:130
 msgid "Reactions"
 msgstr "Reacties"
 
@@ -140,7 +140,7 @@ msgid ""
 "See you in a bit!<br/>\n"
 "<br/>\n"
 "Liane | 1%%Club\n"
-msgstr ""
+msgstr "\n⏎\nHello %(receiver_name)s,<br/>⏎\n<br/>⏎\n%(author_name)s has left a message on your project page.<br/>⏎\n<br/>⏎\nYou must be curious what! Don't wait any longer and check it out <a href=\"%(site)s%(link)s\">here on our website</a>.⏎\n<br/>⏎\nSee you in a bit!<br/>⏎\n<br/>⏎\nLiane | 1%%Club⏎\n"
 
 #: templates/project_wallpost_new.mail.txt:5
 #, python-format
@@ -157,7 +157,7 @@ msgid ""
 "See you in a bit!\n"
 "\n"
 "Liane | 1%%Club\n"
-msgstr ""
+msgstr "\n⏎\nHello %(receiver_name)s,⏎\n⏎\n%(author_name)s has left a message on your project page.⏎\n⏎\nYou must be curious what! Don't wait any longer and check it out here:⏎\n⏎\n%(site)s%(link)s⏎\n⏎\nSee you in a bit!⏎\n⏎\nLiane | 1%%Club⏎\n"
 
 #: templates/project_wallpost_reaction_new.mail.html:5
 #, python-format
@@ -172,7 +172,7 @@ msgid ""
 "See you in a bit!<br/>\n"
 "<br/>\n"
 "Liane | 1%%Club\n"
-msgstr ""
+msgstr "\n⏎\nHi %(receiver_name)s,⏎\n<br/>⏎\nJa, ja, ja! <b>%(author_name)s</b> heeft gereageerd op enen bericht van jou.<br/>⏎\n<br/>⏎\n<a href=\"%(site)s%(link)s\">Ga naar de website</a> en lees de reactie.<br/>⏎\n<br/>⏎\nTot zo!<br/>⏎\n<br/>⏎\nLiane | 1%%Club⏎\n"
 
 #: templates/project_wallpost_reaction_new.mail.txt:5
 #, python-format
@@ -190,7 +190,7 @@ msgid ""
 "\n"
 "Liane | 1%%Club\n"
 "\n"
-msgstr ""
+msgstr "\n⏎\nHi %(receiver_name)s,⏎\n<br/>⏎\nJa, ja, ja! <b>%(author_name)s</b> heeft gereageerd op enen bericht van jou.<br/>⏎\n<br/>⏎\n<a href=\"%(site)s%(link)s\">Ga naar de website</a> en lees de reactie.<br/>⏎\n<br/>⏎\nTot zo!<br/>⏎\n<br/>⏎\nLiane | 1%%Club⏎\n"
 
 #: templates/project_wallpost_reaction_project.mail.html:5
 #, python-format
@@ -203,7 +203,7 @@ msgid ""
 "<a href=\"%(site)s%(link)s\">Read the comment here</a> and continue the conversation!<br/>\n"
 "<br/>\n"
 "Liane | 1%%Club\n"
-msgstr ""
+msgstr "\n⏎\nHi %(receiver_name)s,<br/>⏎\n<br/>⏎\n<strong>%(author_name)s</strong> heeft een bericht achtergelaten op je projectpagina.<br/>⏎\n<br/>⏎\n<a href=\"%(site)s%(link)s\">Lees hier de reactie</a> en ga het gesprek aan!<br/>⏎\n<br/>⏎\nLiane | 1%%Club⏎\n"
 
 #: templates/project_wallpost_reaction_project.mail.txt:5
 #, python-format
@@ -217,7 +217,7 @@ msgid ""
 "%(site)s%(link)s\n"
 "\n"
 "Liane | 1%%Club\n"
-msgstr ""
+msgstr "\n⏎\nHi %(receiver_name)s,<br/>⏎\n<br/>⏎\n<strong>%(author_name)s</strong> heeft een bericht achtergelaten op je projectpagina.<br/>⏎\n<br/>⏎\n<a href=\"%(site)s%(link)s\">Lees hier de reactie</a> en ga het gesprek aan!<br/>⏎\n<br/>⏎\nLiane | 1%%Club⏎\n"
 
 #: templates/project_wallpost_reaction_same_wallpost.mail.html:5
 #, python-format
@@ -228,7 +228,7 @@ msgid ""
 "<strong>%(author_name)s</strong> left a comment on your message! <a href=\"%(site)s%(link)s\">Read the comment here.</a><br/>\n"
 "<br/>\n"
 "Liane | 1%%Club\n"
-msgstr ""
+msgstr "\n⏎\nHi %(receiver_name)s,<br/>⏎\n<br/>⏎\n<strong>%(author_name)s</strong> heeft gereageerd op jouw bericht! <a href=\"%(site)s%(link)s\">Lees de reactie hier.</a><br/>⏎\n<br/>⏎\nLiane | 1%%Club⏎\n"
 
 #: templates/project_wallpost_reaction_same_wallpost.mail.txt:5
 #, python-format
@@ -242,7 +242,7 @@ msgid ""
 "%(site)s%(link)s\n"
 "\n"
 "Liane | 1%%Club\n"
-msgstr ""
+msgstr "\n\n⏎\nHi %(receiver_name)s,<br/>⏎\n<br/>⏎\n<strong>%(author_name)s</strong> heeft gereageerd op jouw bericht! <a href=\"%(site)s%(link)s\">Lees de reactie hier.</a><br/>⏎\n<br/>⏎\nLiane | 1%%Club⏎\n"
 
 #: templates/reactions.hbs:24 templates/wallposts.hbs:86
 #: templates/wallposts.hbs.py:187 templates/wallposts.hbs:258
@@ -277,7 +277,7 @@ msgid ""
 "See you in a bit!<br/>\n"
 "<br/>\n"
 "Liane | 1%%Club\n"
-msgstr ""
+msgstr "\n⏎\nHi %(receiver_name)s,<br/>⏎\n<br/>⏎\n%(author_name)s heeft een bericht geplaatst op je taakpagina.<br/>⏎\n<br/>⏎\nJe zult vast willen wat! Wacht niet en ga direct naar <a href=\"%(site)s%(link)s\">de website</a>.<br/>⏎\n<br/>⏎\nTot zo!<br/>⏎\n<br/>⏎\nLiane | 1%%Club⏎\n"
 
 #: templates/task_wallpost_new.mail.txt:5
 #, python-format
@@ -294,7 +294,7 @@ msgid ""
 "See you in a bit!\n"
 "\n"
 "Liane | 1%%Club\n"
-msgstr ""
+msgstr "\n\n\n⏎\nHi %(receiver_name)s,<br/>⏎\n<br/>⏎\n%(author_name)s heeft een bericht geplaatst op je taakpagina.<br/>⏎\n<br/>⏎\nJe zult vast willen wat! Wacht niet en ga direct naar <a href=\"%(site)s%(link)s\">de website</a>.<br/>⏎\n<br/>⏎\nTot zo!<br/>⏎\n<br/>⏎\nLiane | 1%%Club⏎\n"
 
 #: templates/wallposts.hbs:9
 msgid "Write an update"
@@ -341,7 +341,7 @@ msgid "Error"
 msgstr "Error"
 
 #: templates/wallposts.hbs:88
-msgid "Loading photos"
+msgid "Loading photos&#8230;"
 msgstr ""
 
 #: templates/wallposts.hbs:105
@@ -363,12 +363,12 @@ msgstr "meer"
 
 #: templates/wallposts.hbs:237
 msgid "Donation"
-msgstr ""
+msgstr "Donatie"
 
 #: templates/wallposts.hbs:247
 msgid "Someone"
-msgstr ""
+msgstr "Iemand"
 
 #: templates/wallposts.hbs:250
 msgid "Made a donation"
-msgstr ""
+msgstr "Heeft een donatie gedaan"
