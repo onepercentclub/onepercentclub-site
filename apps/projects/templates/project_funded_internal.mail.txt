@@ -1,0 +1,17 @@
+{% extends "base.mail.txt" %}
+{% load i18n %}
+
+{% block content %}
+{% blocktrans %}
+Hey Project Team,
+
+A project has just been funded! Check it out.
+
+{{ site }}{{ link }}
+
+See you in a bit!
+
+Liane | 1%Club
+
+{% endblocktrans %}
+{% endblock %}

@@ -15,6 +15,8 @@ from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as
 from apps.fund.models import Donation, DonationStatuses
 from django.template.defaultfilters import slugify
 from django.utils import timezone
+from .mails import mail_project_funded_internal
+from .signals import project_funded
 
 
 class ProjectTheme(models.Model):
@@ -531,11 +533,23 @@ def log_project_phase(sender, instance, created, **kwargs):
         phase = getattr(ProjectPhases, instance.phase)
         # get or create to handle IntegrityErrors (unique constraints)
         # manually reverting a project phase causes violations of the constraint
-        instance.projectphaselog_set.get_or_create(phase=phase)
+        log_instance, log_created = instance.projectphaselog_set.get_or_create(phase=phase)
+
+        # Send the project_funded signal if the campaign phase has ended and the act phased is starting.
+        # This needs to be in this method instead of in its own method because 'instance._original_phase' is modified
+        # below which makes it impossible to use 'instance._original_phase' condition in another post_save method.
+        if instance._original_phase == ProjectPhases.campaign and phase == ProjectPhases.act:
+            project_funded.send(sender=Project, instance=instance, first_time_funded=log_created)
+
         # set the new phase as 'original', as subsequent saves can occur,
         # leading to unique_constraints being violated (plan_status_status_changed)
         # for example
         instance._original_phase = instance.phase
+
+
+@receiver(project_funded, weak=False, sender=Project, dispatch_uid="email-project-team-project-funded")
+def email_project_team_project_funded(sender, instance, first_time_funded, **kwargs):
+    mail_project_funded_internal(instance)
 
 
 @receiver(post_save, weak=False, sender=Project)
