@@ -19,6 +19,7 @@ INSTALLED_APPS += ('django_jenkins',)
 
 DEBUG = False
 TEMPLATE_DEBUG = False
+INCLUDE_TEST_MODELS = True
 
 # Test all INSTALLED_APPS by default
 PROJECT_APPS = list(INSTALLED_APPS)
