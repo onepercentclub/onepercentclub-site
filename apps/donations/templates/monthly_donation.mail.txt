@@ -16,8 +16,7 @@ Op {{ date }} is een bedrag {{ amount }} van je rekening afgeschreven. Hieronder
 Mede dankzij jouw support hebben we samen al heel veel projecten gerealiseerd.
 If we all share a little, together we can change the world.
 
-See you in a bit!
-
+Tot zo!
 Liane | 1%Club
-{% endblock %}
 
+{% endblock %}
