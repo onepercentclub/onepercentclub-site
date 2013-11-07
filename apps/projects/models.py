@@ -656,8 +656,9 @@ def plan_status_status_changed(sender, instance, created, **kwargs):
         instance.project.save()
 
 
-@receiver(post_save, weak=False, sender=ProjectCampaign)
-def plan_status_status_changed(sender, instance, created, **kwargs):
+@receiver(post_save, weak=False, sender=ProjectCampaign, dispatch_uid="update-project-after-campaign-updated")
+def update_project_after_campaign_updated(sender, instance, created, **kwargs):
+    """ Ensure the project 'updated' field is updated for the Salesforce sync script. """
     instance.project.save()
 
 
