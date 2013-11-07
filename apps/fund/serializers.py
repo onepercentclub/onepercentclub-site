@@ -129,7 +129,6 @@ class OrderSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='fund-order-detail')
 
     meta_data = MetaField(
-            # link = 'first_donation__project__get_absolute_frontend_url',
             title = 'first_donation__project__get_meta_title',
             fb_title = 'first_donation__project__get_fb_title',
             description = 'first_donation__project__projectplan__pitch',
