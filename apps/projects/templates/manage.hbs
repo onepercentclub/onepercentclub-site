@@ -527,7 +527,9 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
 
     <button {{bindAttr class=":btn :btn-iconed :btn-next isDirty::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
 
-    {{partial "my_project_tasks_and_updates"}}
+    <div>
+        {{partial "my_project_tasks_and_updates"}}
+    </div>
 
 {% endtplhandlebars %}
 
