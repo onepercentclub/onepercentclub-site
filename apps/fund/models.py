@@ -186,6 +186,13 @@ class Order(models.Model):
         return None
 
     @property
+    def first_donation(self):
+        if self.donations.count() > 0:
+            return self.donations.all()[0]
+        return None
+
+
+    @property
     def total(self):
         """ Calculated total for this Order. """
         total = 0
