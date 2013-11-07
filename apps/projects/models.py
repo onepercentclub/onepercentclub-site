@@ -627,13 +627,14 @@ def pitch_status_status_changed(sender, instance, created, **kwargs):
 
     project_saved = False
 
-    # If Pitch is approved, move Project to PLan phase.
+    # If Pitch is approved, move Project to Plan phase.
     if instance.status == ProjectPitch.PitchStatuses.approved:
         if instance.project.phase == ProjectPhases.pitch:
             instance.project.phase = ProjectPhases.plan
             instance.project.save()
+            project_saved = True
 
-    # Ensure the project 'updated' field is updated for the Saleforce sync script.
+    # Ensure the project 'updated' field is updated for the Salesforce sync script.
     if not project_saved:
         instance.project.save()
 
@@ -648,8 +649,9 @@ def plan_status_status_changed(sender, instance, created, **kwargs):
         if instance.project.phase == ProjectPhases.plan:
             instance.project.phase = ProjectPhases.campaign
             instance.project.save()
+            project_saved = True
 
-    # Ensure the project 'updated' field is updated for the Saleforce sync script.
+    # Ensure the project 'updated' field is updated for the Salesforce sync script.
     if not project_saved:
         instance.project.save()
 
