@@ -1,0 +1,26 @@
+{% extends "base.mail.html" %}
+{% load i18n %}
+
+{% block content %}
+
+Hi {{ receiver_first_name }},<br/>
+<br/>
+Fantastisch nieuws: mede dankzij jouw 1% is
+<a href="{{ site }}{{ link }}">{{ project }}</a>
+nu helemaal gefinancierd! Whihoe!
+<br/><br/>
+Dat betekent dat het project nu echt gerealiseerd gaat worden. En dat betekent ook dat je nu een nieuw project kunt
+kiezen om maandelijks een duwtje in de rug te geven! Je vindt [hier een overzicht] van alle projecten die jouw steun
+goed kunnen gebruiken.
+<br/><br/>
+Je kan het jezelf ook makkelijk maken en de keuze aan ons overlaten. Dan verdelen wij jouw maandelijkse 1% over de drie
+meest populaire projecten. Dat zijn projecten die de meeste donaties hebben verzameld, en daardoor de meeste kans maken
+om gerealiseerd te worden. En daar draait het ten slotte om: samen projecten waar maken!
+<br/><br/>
+Nogmaals dank voor je trouwe steun!
+<br/><br/>
+Groet!<br/>
+Liane - 1%Club
+<br/><br/>
+
+{% endblock %}
