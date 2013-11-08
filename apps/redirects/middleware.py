@@ -1,22 +1,23 @@
 from __future__ import unicode_literals
 
+import urllib
+import re
+
 from django.conf import settings
-from apps.redirects.models import Redirect
 from django.contrib.sites.models import get_current_site
 from django.core.exceptions import ImproperlyConfigured
 from django import http
 from django.utils import translation
 
-import re
-
-"""
-A modified version of django.contrib.redirects, this app allows
-us to optionally redirect users using regular expressions. 
-
-It is based on: http://djangosnippets.org/snippets/2784/
-"""
+from apps.redirects.models import Redirect
 
 class RedirectFallbackMiddleware(object):
+    """
+    A modified version of django.contrib.redirects, this app allows
+    us to optionally redirect users using regular expressions.
+
+    It is based on: http://djangosnippets.org/snippets/2784/
+    """
     def __init__(self):
         if 'django.contrib.sites' not in settings.INSTALLED_APPS:
             raise ImproperlyConfigured(
@@ -87,7 +88,7 @@ class RedirectHashCompatMiddleware(object):
     """
     def process_response(self, request, response):
         if response.status_code in [301, 302]:
-            hash_part = request.COOKIES.get('hash_compat')
+            hash_part = urllib.unquote(request.COOKIES.get('hash_compat'))
             if hash_part and hash_part.startswith('#') and '#' not in response['Location']:
                 response['Location'] += hash_part
 
