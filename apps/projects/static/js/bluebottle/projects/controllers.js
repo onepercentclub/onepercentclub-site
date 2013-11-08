@@ -342,7 +342,7 @@ App.MyProjectPlanOrganisationController = Em.ObjectController.extend(App.Editabl
             var organization =  this.get('model.organization');
             var transaction =  organization.transaction;
             var address = transaction.createRecord(App.MyOrganizationAddress);
-            organization.get('addresses').pushObject(address);
+            organization.set('addresses', address);
         },
 
         removeAddress: function(address){
