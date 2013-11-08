@@ -118,5 +118,5 @@ This will install some npm & bower packages for dev & testing, and run the tests
 
 License
 -------
-Project Bluebottle is distributed under a 3-clause BSD license. For more
+1%Club's website is distributed under a 3-clause BSD license. For more
 information, please refer to the `license <https://github.com/onepercentclub/onepercentclub-site/blob/master/LICENSE>`_.
