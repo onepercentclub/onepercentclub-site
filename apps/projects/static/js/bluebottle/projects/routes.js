@@ -267,16 +267,17 @@ App.MyProjectPlanOrganisationRoute = App.MyProjectPlanSubRoute.extend({
         this._super(controller, model);
         var organization = model.get('organization');
 
-        organization.one('didLoad', function(){
-            if (organization.get('addresses.length') == 0) {
-                controller.send('addAddress');
-            }
-            controller.set('address', model.get('organization.addresses.firstObject'));
-        });
-
-        if (!organization){
+        if (!organization) {
             controller.set('organizations', App.MyOrganization.find());
+        } else {
+            organization.one('didLoad', function(){
+                if (organization.get('addresses.length') == 0) {
+                    controller.send('addAddress');
+                }
+                controller.set('address', model.get('organization.addresses.firstObject'));
+            });
         }
+
     }
 });
 
