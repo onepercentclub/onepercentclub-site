@@ -14,8 +14,9 @@ from sorl.thumbnail import ImageField
 from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
 from apps.fund.models import Donation, DonationStatuses
 from django.template.defaultfilters import slugify
-from django.utils import formats, timezone
-from django.utils.translation import get_language
+from django.utils import timezone
+from .mails import mail_project_funded_internal
+from .signals import project_funded
 
 
 class ProjectTheme(models.Model):
@@ -118,7 +119,6 @@ class Project(models.Model):
     objects = ProjectManager()
 
     _original_phase = None
-
 
     def __init__(self, *args, **kwargs):
         super(Project, self).__init__(*args, **kwargs)
@@ -533,11 +533,24 @@ def log_project_phase(sender, instance, created, **kwargs):
         phase = getattr(ProjectPhases, instance.phase)
         # get or create to handle IntegrityErrors (unique constraints)
         # manually reverting a project phase causes violations of the constraint
-        instance.projectphaselog_set.get_or_create(phase=phase)
+        log_instance, log_created = instance.projectphaselog_set.get_or_create(phase=phase)
+
+        # Send the project_funded signal if the campaign phase has ended and the act phased is starting.
+        # This needs to be in this method instead of in its own method because 'instance._original_phase' is modified
+        # below which makes it impossible to use 'instance._original_phase' condition in another post_save method.
+        if instance._original_phase == ProjectPhases.campaign and phase == ProjectPhases.act:
+            project_funded.send(sender=Project, instance=instance, first_time_funded=log_created)
+
         # set the new phase as 'original', as subsequent saves can occur,
         # leading to unique_constraints being violated (plan_status_status_changed)
         # for example
         instance._original_phase = instance.phase
+
+
+@receiver(project_funded, weak=False, sender=Project, dispatch_uid="email-project-team-project-funded")
+def email_project_team_project_funded(sender, instance, first_time_funded, **kwargs):
+    mail_project_funded_internal(instance)
+
 
 @receiver(post_save, weak=False, sender=Project)
 def progress_project_phase(sender, instance, created, **kwargs):
@@ -554,9 +567,8 @@ def progress_project_phase(sender, instance, created, **kwargs):
         instance.projectpitch.status = ProjectPitch.PitchStatuses.new
         instance.projectpitch.save()
 
-
     if instance.phase == ProjectPhases.pitch:
-        #If project is rolled back to Pitch (e.g. from Plan) then adjust Pitch status.
+        # If project is rolled back to Pitch (e.g. from Plan) then adjust Pitch status.
         if instance.projectpitch.status == ProjectPitch.PitchStatuses.approved:
             instance.projectpitch.status = ProjectPitch.PitchStatuses.new
             instance.projectpitch.save()
@@ -629,13 +641,14 @@ def pitch_status_status_changed(sender, instance, created, **kwargs):
 
     project_saved = False
 
-    # If Pitch is approved, move Project to PLan phase.
+    # If Pitch is approved, move Project to Plan phase.
     if instance.status == ProjectPitch.PitchStatuses.approved:
         if instance.project.phase == ProjectPhases.pitch:
             instance.project.phase = ProjectPhases.plan
             instance.project.save()
+            project_saved = True
 
-    # Ensure the project 'updated' field is updated for the Saleforce sync script.
+    # Ensure the project 'updated' field is updated for the Salesforce sync script.
     if not project_saved:
         instance.project.save()
 
@@ -650,14 +663,16 @@ def plan_status_status_changed(sender, instance, created, **kwargs):
         if instance.project.phase == ProjectPhases.plan:
             instance.project.phase = ProjectPhases.campaign
             instance.project.save()
+            project_saved = True
 
-    # Ensure the project 'updated' field is updated for the Saleforce sync script.
+    # Ensure the project 'updated' field is updated for the Salesforce sync script.
     if not project_saved:
         instance.project.save()
 
 
-@receiver(post_save, weak=False, sender=ProjectCampaign)
-def plan_status_status_changed(sender, instance, created, **kwargs):
+@receiver(post_save, weak=False, sender=ProjectCampaign, dispatch_uid="update-project-after-campaign-updated")
+def update_project_after_campaign_updated(sender, instance, created, **kwargs):
+    """ Ensure the project 'updated' field is updated for the Salesforce sync script. """
     instance.project.save()
 
 
@@ -682,7 +697,3 @@ def update_project_after_donation(sender, instance, created, **kwargs):
     else:
         project.phase = ProjectPhases.campaign
         project.save()
-
-
-
-

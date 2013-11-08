@@ -11,7 +11,7 @@ Op {{ date }} is een bedrag {{ amount }} van je rekening afgeschreven. Hieronder
 <br/><br/>
 
 {% for donation in order.donations.all %}
-    <a href="{{ site }}/#!/projects/{{ donation.project.slug }}">{{ donation.project.title }}</a>
+    <a href="{{ site }}/go/projects/{{ donation.project.slug }}">{{ donation.project.title }}</a>
     in {{ donation.project.projectplan.country.name }}.<br/>
 {%  endfor %}
 
@@ -20,8 +20,7 @@ Mede dankzij jouw support hebben we samen al heel veel projecten gerealiseerd.<b
 If we all share a little, together we can change the world.<br/>
 <br/>
 Tot zo!<br/>
-<br/>
 Liane | 1%Club
+<br/><br/>
 
 {% endblock %}
-
