@@ -59,11 +59,11 @@ pavlov.specify('Project Task New View Tests', function() {
             assert(view.submit).isFunction();
         });
 
-        it('should call newTask when submit action triggered', function () {
+        it('should call createTask when submit action triggered', function () {
             // stub some stuff
             var event = { preventDefault: function () {} };
-            var controller = { addTask: function () {} };
-            var spy = sinon.spy(controller, 'addTask');
+            var controller = { createTask: function () {} };
+            var spy = sinon.spy(controller, 'createTask');
 
             // call submit
             view.set('controller', controller);
