@@ -39,12 +39,25 @@ class TaskAdmin(admin.ModelAdmin):
 
     raw_id_fields = ('author', 'project')
     list_filter = ('status', )
-    list_display = ('title', 'project', 'status')
+    list_display = ('title', 'project', 'status', 'date_status_change')
+
+    readonly_fields = ('date_status_change',)
 
     search_fields = (
         'title', 'description',
         'author__first_name', 'author__last_name'
     )
+    # ordering
+    fields = (
+        'title', 'description', 'end_goal', 'location',
+        'expertise', 'skill', 'time_needed',
+        'status', 'date_status_change',
+        'people_needed',
+        'project', 'author',
+        'tags',
+        'deadline',
+    )
+
 admin.site.register(Task, TaskAdmin)
 
 

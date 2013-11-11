@@ -1,12 +1,13 @@
 from django.conf import settings
 from django.db import models
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+from django.utils.timezone import now
 from django.utils.translation import ugettext as _
+
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
-
-
 from djchoices.choices import DjangoChoices, ChoiceItem
 from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
-
 
 from bluebottle.bluebottle_utils.utils import clean_for_hashtag
 
@@ -43,6 +44,7 @@ class Task(models.Model):
     time_needed = models.CharField(_("time_needed"), max_length=200, help_text=_("Estimated number of hours needed to perform this task."))
 
     status = models.CharField(_("status"), max_length=20, choices=TaskStatuses.choices, default=TaskStatuses.open)
+    date_status_change = models.DateTimeField(_("status since"), blank=True, null=True)
 
     people_needed = models.PositiveIntegerField(_("people needed"), default=1, help_text=_("How many people are needed for this task?"))
 
@@ -57,6 +59,10 @@ class Task(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    def __init__(self, *args, **kwargs):
+        super(Task, self).__init__(*args, **kwargs)
+        self._original_status = self.status
 
     def get_meta_title(self, **kwargs):
         from apps.projects.models import ProjectPlan
@@ -74,7 +80,7 @@ class Task(models.Model):
     def get_fb_title(self, **kwargs):
         # Circular imports
         from apps.projects.models import ProjectPlan
-        
+
         try:
             plan = self.project.projectplan
             country = plan.country.name if plan.country else ''
@@ -88,12 +94,12 @@ class Task(models.Model):
     def get_tweet(self, **kwargs):
         # Circular imports
         from apps.projects.models import ProjectPlan
-        
+
         """
         {URL} is replaced in Ember to fill in the page url, avoiding the
         need to provide front-end urls in our Django code.
         """
-        
+
         try:
             plan = self.project.projectplan
             country = plan.country.name if plan.country else ''
@@ -103,7 +109,7 @@ class Task(models.Model):
         request = kwargs.get('request')
         lang_code = request.LANGUAGE_CODE
         twitter_handle = settings.TWITTER_HANDLES.get(lang_code, settings.DEFAULT_TWITTER_HANDLE)
-        
+
         expertise = self.skill.name if self.skill else ''
         expertise_hashtag = clean_for_hashtag(expertise)
 
@@ -148,3 +154,11 @@ class TaskFile(models.Model):
     file = models.FileField(_("file"), upload_to='task_files/')
     created = CreationDateTimeField(_("created"))
     updated = ModificationDateTimeField(_("Updated"))
+
+
+
+### SIGNALS ###
+@receiver(pre_save, weak=False, sender=Task, dispatch_uid="log-task-status")
+def log_task_status(sender, instance, **kwargs):
+    if instance.status != instance._original_status:
+        instance.date_status_change = now()
