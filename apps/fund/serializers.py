@@ -4,6 +4,7 @@ from apps.vouchers.serializers import VoucherSerializer, OrderCurrentVoucherSeri
 from bluebottle.accounts.serializers import UserPreviewSerializer
 from bluebottle.bluebottle_drf2.serializers import EuroField
 from apps.projects.models import ProjectPhases
+from bluebottle.bluebottle_utils.serializers import MetaField
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
 from .models import Donation, DonationStatuses, Order, OrderStatuses, RecurringDirectDebitPayment
@@ -127,6 +128,15 @@ class OrderSerializer(serializers.ModelSerializer):
     payments = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     url = serializers.HyperlinkedIdentityField(view_name='fund-order-detail')
 
+    meta_data = MetaField(
+            title = 'first_donation__project__get_meta_title',
+            fb_title = 'first_donation__project__get_fb_title',
+            description = 'first_donation__project__projectplan__pitch',
+            keywords = 'first_donation__project__projectplan__tags',
+            image_source = 'first_donation__project__projectplan__image',
+            tweet = 'first_donation__project__get_tweet',
+            )
+
     def validate(self, attrs):
         if self.object.status == OrderStatuses.closed and attrs is not None:
             raise serializers.ValidationError(_("You cannot modify a closed Order."))
@@ -134,7 +144,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('id', 'url', 'total', 'status', 'recurring', 'donations', 'vouchers', 'payments', 'created')
+        fields = ('id', 'url', 'total', 'status', 'recurring', 'donations', 'vouchers', 'payments', 'created', 'meta_data')
 
 
 class RecurringOrderSerializer(serializers.ModelSerializer):

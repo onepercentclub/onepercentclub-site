@@ -45,7 +45,7 @@ App.CurrentOrderRoute = Em.Route.extend({
 });
 
 
-App.CurrentOrderDonationListRoute = Em.Route.extend({
+App.CurrentOrderDonationListRoute = Em.Route.extend(App.ScrollToTop, {
     model: function(params) {
         return this.modelFor('currentOrder').get('donations');
     },
@@ -122,6 +122,12 @@ App.PaymentProfileRoute = Em.Route.extend({
 
 
 App.PaymentSignupRoute = Em.Route.extend({
+    redirect: function(){
+        var route = this;
+        App.CurrentUser.find('current').then(function(user) {
+            route.transitionTo('paymentProfile');
+        });
+    },
     model: function(params) {
         var model = App.UserCreate.createRecord();
         return App.PaymentProfile.find('current').then(function(profile){

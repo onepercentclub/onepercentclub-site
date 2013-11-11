@@ -270,7 +270,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
         </h3>
         <div class="toolbox-content">
             <p>{% trans "Do you need someone to help writing your business plan?" %}</p>
-            {{#linkTo "projectTaskNew" getProject tagName="button" class="btn btn-iconed"}}
+            {{#linkTo "projectTaskNew" project.getProject tagName="button" class="btn btn-iconed"}}
                 <em class="flaticon solid wrench-1"></em>
                 {% trans "Create a new task" %}
             {{/linkTo}}
@@ -284,7 +284,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
         </h3>
         <div class="toolbox-content">
             <p>{% trans "Why not? Ask the crowd for feedback on your idea!" %}</p>
-            {{#linkTo "project" getProject tagName="button" class="btn btn-iconed"}}
+            {{#linkTo "project" project.getProject tagName="button" class="btn btn-iconed"}}
                 <span class="flaticon solid megaphone-1"></span>
                 {% trans "Post an Update" %}
             {{/linkTo}}
@@ -419,6 +419,10 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
     {{/if}}
 
     {{#linkTo "myProjectPlan.basics" class="btn btn-iconed btn-next"}}<span class="flaticon solid right-2"></span>{% trans "Next" %}{{/linkTo}}
+
+    <div>
+        {{partial "my_project_tasks_and_updates"}}
+    </div>
 
 {% endtplhandlebars %}
 

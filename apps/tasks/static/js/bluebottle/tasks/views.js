@@ -32,7 +32,7 @@ App.ProjectTaskNewView = Em.View.extend(App.ScrollInView, {
 
     submit: function(e) {
         e.preventDefault();
-        this.get('controller').addTask();
+        this.get('controller').createTask();
     }
 });
 

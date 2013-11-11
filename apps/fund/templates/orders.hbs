@@ -600,7 +600,7 @@
         {{/linkTo}}
     
         <div class="fund-amount">
-            {% trans "You supported"%} <strong class="fund-amount-needed">&euro; [10]</strong> 
+            {% trans "You supported"%} <strong class="fund-amount-needed">&euro;{{ donation.amount }}</strong>
         </div>
     </li>
 
@@ -655,7 +655,7 @@
                 {{#if controllers.currentUser.isAuthenticated }}
                     <h3>{% trans "Donate monthly" %}</h3>
                     <p>{% blocktrans %}Did you know: you support to projects monthly as a monthly member? You'll rock even more!{% endblocktrans %}</p>
-                    <a href="#" class="btn btn-primary">{% trans "Set up monthly donations" %}</a>
+                    {{#linkTo 'userMonthlyProjects' class="btn btn-primary"}}{% trans "Set up monthly donations" %}{{/linkTo}}
                 {{else}}
                      <h3>{% trans "Stay updated" %}</h3>
                     <p>{% blocktrans %}We’d love to keep you updated on the progress of the projects you just supported. Sign up and receive updates, and our everlasting love.{% endblocktrans %}</p>
