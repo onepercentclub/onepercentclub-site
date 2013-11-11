@@ -125,7 +125,7 @@ App.PaymentSignupRoute = Em.Route.extend({
     redirect: function(){
         var route = this;
         App.CurrentUser.find('current').then(function(user) {
-            route.transitionTo('paymentProfile');
+            route.transitionTo('paymentSelect');
         });
     },
     model: function(params) {
