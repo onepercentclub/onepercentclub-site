@@ -141,15 +141,15 @@ App.TaskMemberController = Em.ObjectController.extend({
 
 App.ProjectTaskNewController = Em.ObjectController.extend({
     needs: ['project', 'currentUser', 'projectTasksIndex'],
-    addTask: function(event){
+    createTask: function(event){
         var controller = this;
         var task = this.get('content');
         task.set('project', this.get('controllers.project.model'));
         task.on('didCreate', function(record) {
-            controller.transitionToRoute('projectTasksIndex')
+            controller.transitionToRoute('projectTasks')
         });
         task.on('becameInvalid', function(record) {
-            controller.set('errors', record.get('errors'));
+            //controller.set('errors', record.get('errors'));
         });
         task.save();
     }
@@ -164,11 +164,10 @@ App.ProjectTaskEditController = App.ProjectTaskNewController.extend({
             controller.transitionToRoute('projectTask', task);
         }
         task.on('didUpdate', function(record) {
-            controller.get('controllers.projectTasksIndex').unshiftObject(record);
-            controller.transitionToRoute('projectTask', task);
+            controller.transitionToRoute('projectTasks', task);
         });
         task.on('becameInvalid', function(record) {
-            controller.set('errors', record.get('errors'));
+            //controller.set('errors', record.get('errors'));
         });
         task.save();
     },
