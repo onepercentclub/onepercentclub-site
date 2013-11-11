@@ -138,19 +138,21 @@ class AccountSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         self.browser.fill('username', user.email)
         self.browser.fill('password', 'secret')
 
-        self.browser.find_by_value('Log in').first.click()
+        self.browser.find_by_value('Login').first.click()
 
         self.assertTrue(self.browser.is_text_present('MY 1%'))
 
     @skipIf(settings.SELENIUM_WEBDRIVER=='firefox', 'Firefox does not support mouse interactions.')
     def test_edit_profile(self):
         # Create and activate user.
-        user = BlueBottleUser.objects.create_user('johndoe@example.com', 'secret')
-        
+        user = BlueBottleUser.objects.create_user('johndoe@example.com', 'secret', primary_language='en')
+
         self.login(user.email, 'secret')
 
-        self.browser.find_by_css('.nav-member-profile').first.mouse_over()
-        self.browser.find_link_by_partial_text('Edit my profile & settings').first.click()
+        self.visit_homepage()
+
+        self.browser.find_by_css('.nav-member-dropdown').first.mouse_over()
+        self.browser.find_link_by_partial_text('My profile & settings').first.click()
 
         # Validate that we are on the intended page.
         self.assertTrue(self.browser.is_text_present('EDIT YOUR PROFILE'))
@@ -186,7 +188,7 @@ class AccountSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
     @skipIf(settings.SELENIUM_WEBDRIVER=='firefox', 'Firefox does not support mouse interactions.')
     def test_edit_account(self):
         # Create and activate user.
-        user = BlueBottleUser.objects.create_user('johndoe@example.com', 'secret')
+        user = BlueBottleUser.objects.create_user('johndoe@example.com', 'secret', primary_language='en')
         # Create a country.
         region = Region.objects.create(name='Europe', numeric_code='150')
         subregion = region.subregion_set.create(name='Western Europe', numeric_code='155')
@@ -194,8 +196,10 @@ class AccountSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
 
         self.login(user.email, 'secret')
 
-        self.browser.find_by_css('.nav-member-profile').first.mouse_over()
-        self.browser.find_link_by_partial_text('Edit my profile & settings').first.click()
+        self.visit_homepage()
+
+        self.browser.find_by_css('.nav-member-dropdown').first.mouse_over()
+        self.browser.find_link_by_partial_text('My profile & settings').first.click()
 
         # Validate that we are on the intended page.
         self.assertTrue(self.browser.is_text_present('EDIT YOUR PROFILE'))
@@ -220,7 +224,7 @@ class AccountSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         self.browser.fill_form_by_label(fieldsets[2], [
             ('Account type', 'person'),
             ('Primary language', 'en'),
-            ('I want to share', [True, True]),
+            # ('I want to share', [True, True]),
         ])
         self.browser.fill_form_by_label(fieldsets[3], [
             ('Address Line 1', 'Example street 1'),
@@ -229,9 +233,12 @@ class AccountSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
             ('Province / State', 'North-Holland'),
             ('Postal Code', '1234AB'),
             ('Country', 'NL'),
-            ('Gender', [None, 'male', None]),
-            ('Date of birth', '01/01/1980')
+            # ('Gender', [None, 'male', None]),
+            # ('Date of birth', '01/01/1980')
         ])
+
+        self.browser.find_by_css('label[for="genderMale"] > span').first.click()
+        self.browser.find_by_css('.hasDatepicker').first.fill('01/01/1980')
 
         self.browser.find_link_by_itext('SAVE').first.click()
 
@@ -242,8 +249,8 @@ class AccountSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         user = BlueBottleUser.objects.get(pk=user.pk)
         self.assertEqual(user.email, 'doejohn@example.com')
         self.assertEqual(user.gender, 'male')
-        self.assertTrue(user.share_money)
-        self.assertTrue(user.share_time_knowledge)
+        self.assertFalse(user.share_money)
+        self.assertFalse(user.share_time_knowledge)
         self.assertEqual(user.birthdate, datetime.date(1980, 1, 1))
 
         self.assertEqual(user.address.line1, 'Example street 1')
@@ -325,14 +332,14 @@ class AccountSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
 
     def test_upload_profile_picture(self):
         """ Test that profile picture uploads work. """
-        
+
         # Create and activate user.
         user = BlueBottleUser.objects.create_user('johndoe@example.com', 'secret')
         self.login(user.email, 'secret')
 
         # navigation itself has been tested before...
         self.visit_path('/member/profile')
-        
+
         file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'kitten_snow.jpg')
         self.browser.attach_file('picture', file_path)
 
@@ -347,5 +354,5 @@ class AccountSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         # check that the avatar is not the default image
         self.visit_homepage()
 
-        avatar_src = self.browser.find_by_css('li.nav-member-profile a.nav-profile img').first['src']
+        avatar_src = self.browser.find_by_css('li.nav-member-dropdown a.nav-profile img').first['src']
         self.assertNotEqual(avatar_src, '%simages/default-avatar.png' % settings.STATIC_URL)

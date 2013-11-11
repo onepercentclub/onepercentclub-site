@@ -48,7 +48,7 @@ class ProjectPhases(DjangoChoices):
 
 class ProjectPhaseLog(models.Model):
     """ Log when a project reaches a certain phase """
-    
+
     project = models.ForeignKey('projects.Project')
     phase = models.CharField(_("phase"), max_length=20, choices=ProjectPhases.choices)
     created = CreationDateTimeField(_("created"), help_text=_("When this phase was reached."))
@@ -603,7 +603,7 @@ def pitch_status_status_changed(sender, instance, created, **kwargs):
             instance.project.phase = ProjectPhases.plan
             instance.project.save()
     # plan/pitch rejected -> project failed
-    elif (instance.status == ProjectPitch.PitchStatuses.rejected and 
+    elif (instance.status == ProjectPitch.PitchStatuses.rejected and
             instance.project.phase != ProjectPhases.failed):
         instance.project.phase = ProjectPhases.failed
         instance.project.save()
@@ -624,7 +624,7 @@ def plan_status_status_changed(sender, instance, created, **kwargs):
             instance.project.save()
             project_saved = True
     # plan/pitch rejected -> project failed
-    elif (instance.status == ProjectPlan.PlanStatuses.rejected and 
+    elif (instance.status == ProjectPlan.PlanStatuses.rejected and
             instance.project.phase != ProjectPhases.failed):
         instance.project.phase = ProjectPhases.failed
         instance.project.save()
@@ -635,7 +635,7 @@ def plan_status_status_changed(sender, instance, created, **kwargs):
 
 
 @receiver(post_save, weak=False, sender=ProjectCampaign)
-def plan_status_status_changed(sender, instance, created, **kwargs):
+def campaign_changed(sender, instance, created, **kwargs):
     instance.project.save()
 
 

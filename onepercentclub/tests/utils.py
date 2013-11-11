@@ -23,7 +23,7 @@ class OnePercentSeleniumTestCase(SeleniumTestCase):
         self.browser.fill('username', username)
         self.browser.fill('password', password)
 
-        self.browser.find_by_value('Log in').first.click()
+        self.browser.find_by_value('Login').first.click()
 
         return self.browser.is_text_present('MY 1%', wait_time=10)
 
@@ -34,7 +34,7 @@ class OnePercentSeleniumTestCase(SeleniumTestCase):
         :param lang_code: A two letter language code as used in the URL.
         :return: ``True`` if the homepage could be visited.
         """
-        
+
         self.visit_path('', lang_code)
 
         # # Check if the homepage opened, and the dynamically loaded content appeared.
