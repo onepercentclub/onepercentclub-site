@@ -39,9 +39,9 @@ class TaskAdmin(admin.ModelAdmin):
 
     raw_id_fields = ('author', 'project')
     list_filter = ('status', )
-    list_display = ('title', 'project', 'status', 'date_realised')
+    list_display = ('title', 'project', 'status', 'date_status_change')
 
-    readonly_fields = ('date_realised',)
+    readonly_fields = ('date_status_change',)
 
     search_fields = (
         'title', 'description',
@@ -51,7 +51,7 @@ class TaskAdmin(admin.ModelAdmin):
     fields = (
         'title', 'description', 'end_goal', 'location',
         'expertise', 'skill', 'time_needed',
-        'status', 'date_realised',
+        'status', 'date_status_change',
         'people_needed',
         'project', 'author',
         'tags',

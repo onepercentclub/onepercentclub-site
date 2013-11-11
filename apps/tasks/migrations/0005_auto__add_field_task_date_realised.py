@@ -8,15 +8,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding field 'Task.date_realised'
-        db.add_column(u'tasks_task', 'date_realised',
+        # Adding field 'Task.date_status_change'
+        db.add_column(u'tasks_task', 'date_status_change',
                       self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True),
                       keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting field 'Task.date_realised'
-        db.delete_column(u'tasks_task', 'date_realised')
+        # Deleting field 'Task.date_status_change'
+        db.delete_column(u'tasks_task', 'date_status_change')
 
 
     models = {
@@ -119,7 +119,7 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-created']", 'object_name': 'Task'},
             'author': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'author'", 'to': u"orm['accounts.BlueBottleUser']"}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'date_realised': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
+            'date_status_change': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'deadline': ('django.db.models.fields.DateTimeField', [], {}),
             'description': ('django.db.models.fields.TextField', [], {}),
             'end_goal': ('django.db.models.fields.TextField', [], {}),

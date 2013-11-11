@@ -44,7 +44,7 @@ class Task(models.Model):
     time_needed = models.CharField(_("time_needed"), max_length=200, help_text=_("Estimated number of hours needed to perform this task."))
 
     status = models.CharField(_("status"), max_length=20, choices=TaskStatuses.choices, default=TaskStatuses.open)
-    date_realised = models.DateTimeField(_("date realised"), blank=True, null=True)
+    date_status_change = models.DateTimeField(_("status since"), blank=True, null=True)
 
     people_needed = models.PositiveIntegerField(_("people needed"), default=1, help_text=_("How many people are needed for this task?"))
 
@@ -158,9 +158,7 @@ class TaskFile(models.Model):
 
 
 ### SIGNALS ###
-@receiver(pre_save, sender=Task)
-def update_status_change_date(sender, **kwargs):
-    instance = kwargs.get('instance')
-    realised = Task.TaskStatuses.realized
-    if instance.status == realised and instance._original_status != realised:
-        instance.date_realised = now()
+@receiver(pre_save, weak=False, sender=Task, dispatch_uid="log-task-status")
+def log_task_status(sender, instance, **kwargs):
+    if instance.status != instance._original_status:
+        instance.date_status_change = now()
