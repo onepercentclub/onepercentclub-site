@@ -503,6 +503,15 @@ App.MyProjectPlan = DS.Model.extend({
         return false;
     }.property('totalBudget'),
 
+    // showBudgetError: function(){ // TODO
+    //     var numBudgetLines = this.get('budgetLines').get('content').length;
+    //     var budgetSpecified = (numBudgetLines > 0 && this.get('totalBudget') > 0);
+    //     if(typeof this.get('totalBudget') == 'undefined' || budgetSpecified){
+    //         return false;
+    //     }
+    //     return true;
+    // }.property('totalBudget'),
+
 
     created: DS.attr('date')
 });
