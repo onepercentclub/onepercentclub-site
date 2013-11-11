@@ -24,4 +24,4 @@ before_script:
 
 script:
   - python ./manage.py test --settings=onepercentclub.settings.travis -v 2
-  - grunt travis --verbose --force # remove force when js tests setup correctly
+  - grunt travis --verbose # add --force to overlook JS test failures
