@@ -262,7 +262,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
 {% endtplhandlebars %}
 
 {% tplhandlebars "_my_project_tasks_and_updates" %}
-
+    
     <div class="toolbox">
         <h3 class="toolbox-title">
             <em class="flaticon solid wrench-1"></em>
@@ -420,10 +420,8 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
 
     {{#linkTo "myProjectPlan.basics" class="btn btn-iconed btn-next"}}<span class="flaticon solid right-2"></span>{% trans "Next" %}{{/linkTo}}
 
-    <div>
-        {{partial "my_project_tasks_and_updates"}}
-    </div>
-
+    {{partial "my_project_tasks_and_updates"}}
+    
 {% endtplhandlebars %}
 
 
@@ -530,10 +528,6 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
     </fieldset>
 
     <button {{bindAttr class=":btn :btn-iconed :btn-next isDirty::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
-
-    <div>
-        {{partial "my_project_tasks_and_updates"}}
-    </div>
 
 {% endtplhandlebars %}
 
@@ -1179,41 +1173,52 @@ Please add 5% administration fee to your budget. The total amount, including the
     </legend>
 
     <fieldset>
+        <br />
         <ul>
             {{#each line in budgetLines}}
                 <li class="control-group">
-                    <div class="controls wide budget-line">
-                        <a {{action removeBudgetLine line href=true}}>
-                            <span class="flaticon solid minus-2"></span>
+                    <label class="control-label">{% trans "Budget item description" %}</label>
+                    <div class="controls">
+                       {{view Em.TextField valueBinding="line.description" placeholder="Description"}} 
+                    </div>
+                </li>    
+                <li class="control-group">
+                    <label class="control-label">{% trans "Amount" %}</label>
+                    <div class="controls">
+                       {{view Em.TextField valueBinding="line.amount" placeholder="Amount euro"}}
+                    </div>
+                </li>
+                <li class="control-group">
+                    <div class="controls wide text-right">
+                        <a {{action removeBudgetLine line href=true}} class="btn-link">
+                            <span class="flaticon solid minus-2"> {% trans  "Remove" %}</span>
                         </a>
-                        {{view Em.TextField valueBinding="line.description" placeholder="Description" class="description"}}
-                        {{view Em.TextField valueBinding="line.amount" placeholder="Amount euro" class="amount"}}
                     </div>
                 </li>
             {{/each}}
+
             <li class="control-group">
-                <div class="controls wide budget">
+                <div class="controls wide text-left">
                     <a {{action addBudgetLine line href=true}} class="btn-link">
                         <span class="flaticon solid plus-2"></span>
-                        {% trans "Add an item to your needed budget." %}
+                        {% trans "Add budget item" %}
                     </a>
                 </div>
             </li>
-            <li class="control-group">
-                <div class="controls wide budget">
-                    <div class="budget-description">{% trans "Total budget needed" %}:</div>
-                    <div class="budget-amount">{{totalBudget}}</div>
-                </div>
-                {{#if totalBudget}}
-                    {{#unless validBudget}}
-                        <div class="has-errors"><p>{% trans "Total budget shouldn't be over 5000 euro." %}</p></div>
-                    {{/unless}}
-                {{else}}
-                    <div class="has-errors"><p>{% trans "Start adding items to your budget." %}</p></div>
-                {{/if}}
-
-            </li>
         </ul>
+    </fieldset>
+    <fieldset>
+        <legend>
+            <strong>{% trans "Total budget needed" %}:</strong>
+            <p>&euro; {{totalBudget}}</p>
+            {{#if totalBudget}}
+                {{#unless validBudget}}
+                    <div class="has-errors"><p>{% trans "Total budget shouldn't be over 5000 euro." %}</p></div>
+                {{/unless}}
+            {{else}}
+                <div class="has-errors"><p>{% trans "Start adding items to your budget." %}</p></div>
+            {{/if}}
+        </legend>
     </fieldset>
 
     <button {{bindAttr class=":btn :btn-iconed :btn-next shouldSave::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
@@ -1631,9 +1636,7 @@ Please add 5% administration fee to your budget. The total amount, including the
                 </div>
             </fieldset>
         </form>
-
-        {{partial "my_project_tasks_and_updates"}}
-
+        
     </div>
 
 {% endtplhandlebars %}
