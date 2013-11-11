@@ -290,7 +290,7 @@
 
                                 <li class="control-group">
                                     <label class="control-label">
-                                        {% trans "Address Line 1" %}
+                                        {% trans "Address" %}
                                     </label>
 
                                     <div class="controls">
@@ -299,19 +299,6 @@
 
                                     {{#if address.errors.line1}}
                                         <div class="has-errors">{{#each address.errors.line1}}<p>{{this}}</p>{{/each}}</div>
-                                    {{/if}}
-                                </li>
-                                <li class="control-group">
-                                    <label class="control-label">
-                                        {% trans "Address Line 2" %}
-                                    </label>
-
-                                    <div class="controls">
-                                        {{view Em.TextField valueBinding="address.line2" classBinding="address.errors.line2.length:error"}}
-                                    </div>
-
-                                    {{#if address.errors.line2}}
-                                        <div class="has-errors">{{#each address.errors.line2}}<p>{{this}}</p>{{/each}}</div>
                                     {{/if}}
                                 </li>
                                 <li class="control-group">
@@ -325,19 +312,6 @@
 
                                     {{#if address.errors.city}}
                                         <div class="has-errors">{{#each address.errors.city}}<p>{{this}}</p>{{/each}}</div>
-                                    {{/if}}
-                                </li>
-                                <li class="control-group">
-                                    <label class="control-label">
-                                        {% trans "Province / State" %}
-                                    </label>
-
-                                    <div class="controls">
-                                        {{view Em.TextField valueBinding="address.state" classBinding="address.errors.state.length:error"}}
-                                    </div>
-
-                                    {{#if address.errors.state}}
-                                        <div class="has-errors">{{#each address.errors.state}}<p>{{this}}</p>{{/each}}</div>
                                     {{/if}}
                                 </li>
                                 <li class="control-group">
