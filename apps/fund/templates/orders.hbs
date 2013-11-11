@@ -319,9 +319,10 @@
                     {{/view}}
                 </ul>
                 
-                <div class="tab-content fund-payment-type">
+                
                    
                     {{#if isIdeal}}
+                    <div class="tab-content fund-payment-type">
                         <h3>{% trans "Select your bank below" %}</h3>
                         <p>{% trans "We'll redirect you through our payment provider where you can finish your donation securely." %}</p>
                         <ul>
@@ -345,9 +346,10 @@
                             <button class="btn btn-primary btn-iconed btn-proceed" disabled {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
 
                         {{/if}}
-
+                    </div>
                     {{else}}
                         {{#if redirectPaymentMethod}}
+                        <div class="tab-content fund-payment-type">
                             <h3>{% trans "You're almost there!" %}</h3>
                             <p>{% trans "We'll redirect you through our payment provider where you can finish your donation securely." %}</p>
 
@@ -357,10 +359,9 @@
                             {{else}}
                                 <button class="btn btn-primary btn-iconed btn-proceed" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
                             {{/if}}
+                        </div>
             	        {{/if}}
-
                     {{/if}}
-                </div>
             </div>
 	        
 		</form>
@@ -651,17 +652,15 @@
             </article>
             
             <sidebar class="l-sidebar">
-                
                 {{#if controllers.currentUser.isAuthenticated }}
-                    <h3>{% trans "Donate monthly" %}</h3>
-                    <p>{% blocktrans %}Did you know: you support to projects monthly as a monthly member? You'll rock even more!{% endblocktrans %}</p>
-                    {{#linkTo 'userMonthlyProjects' class="btn btn-primary"}}{% trans "Set up monthly donations" %}{{/linkTo}}
+                    <h3>{% trans "Want to do more?" %}</h3>
+                    <p>{% blocktrans %}You can easily support projects monthly. Just pick a project yourself or you can leave that up to us.{% endblocktrans %}</p>
+                    <a href="#" class="btn btn-primary">{% trans "Support monthly" %}</a>
                 {{else}}
                      <h3>{% trans "Stay updated" %}</h3>
                     <p>{% blocktrans %}We’d love to keep you updated on the progress of the projects you just supported. Sign up and receive updates, and our everlasting love.{% endblocktrans %}</p>
                     {{#linkTo 'signup' class="btn btn-primary"}}{% blocktrans %}Signup now{% endblocktrans %}{{/linkTo}}
                 {{/if}}
-                 
             </sidebar>
             
         </section>
