@@ -25,7 +25,7 @@ App.PageRoute = Em.Route.extend(App.ScrollToTop, {
 
 /* Contact Page */
 
-App.ContactMessageRoute = Em.Route.extend({
+App.ContactMessageRoute = Em.Route.extend(App.ScrollToTop, {
     model: function(params) {
         var store = this.get('store');
         return store.createRecord(App.ContactMessage);

@@ -45,7 +45,7 @@ App.CurrentOrderRoute = Em.Route.extend({
 });
 
 
-App.CurrentOrderDonationListRoute = Em.Route.extend({
+App.CurrentOrderDonationListRoute = Em.Route.extend(App.ScrollToTop, {
     model: function(params) {
         return this.modelFor('currentOrder').get('donations');
     },
