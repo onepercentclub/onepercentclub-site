@@ -312,7 +312,7 @@ App.MyProjectPlanOrganisationController = Em.ObjectController.extend(App.Editabl
             return true;
         }
         return false;
-    }.property('organization.isLoaded', 'organization.addresses.@each.isDirty'),
+    }.property('organization.isLoaded', 'organization.isDirty', 'address.isDirty'),
 
     actions: {
         updateRecordOnServer: function(){

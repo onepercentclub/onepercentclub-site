@@ -270,7 +270,7 @@ App.MyProjectPlanOrganisationRoute = App.MyProjectPlanSubRoute.extend({
         if (!organization) {
             controller.set('organizations', App.MyOrganization.find());
         } else {
-            organization.one('didLoad', function(){
+            Em.run.next(function(){
                 if (organization.get('addresses.length') == 0) {
                     controller.send('addAddress');
                 }

@@ -88,8 +88,8 @@ class RedirectHashCompatMiddleware(object):
     """
     def process_response(self, request, response):
         if response.status_code in [301, 302]:
-            hash_part = urllib.unquote(request.COOKIES.get('hash_compat'))
-            if hash_part and hash_part.startswith('#') and '#' not in response['Location']:
-                response['Location'] += hash_part
-
+            if request.COOKIES.get('hash_compat'):
+                hash_part = urllib.unquote(request.COOKIES.get('hash_compat'))
+                if hash_part and hash_part.startswith('#') and '#' not in response['Location']:
+                    response['Location'] += hash_part
         return response
