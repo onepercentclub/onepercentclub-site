@@ -35,7 +35,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
 
         User = get_user_model()
         # Create and activate user.
-        self.user = User.objects.create_user('johndoe@example.com', 'secret')
+        self.user = User.objects.create_user('johndoe@example.com', 'secret', primary_language='en')
 
         for slug, title in self.projects.items():
             project = self.create_project(title=title, slug=slug, money_asked=100000, owner=self.user)
@@ -165,6 +165,8 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         src = self.browser.find_by_css('div.image-preview').first.find_by_tag('img').first['src']
         self.assertEqual('.jpg', src[-4:])
 
+    @skipUnless(getattr(settings, 'SELENIUM_WEBDRIVER') == 'firefox',
+        'PhantomJS keeps hanging on the file uploads, probably bug in selenium/phantomjs')
     def test_upload_multiple_wallpost_images(self):
         """ Test uploading multiple images in a media wallpost """
 
@@ -174,18 +176,16 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         # pick a project
         self.browser.find_by_css('.project-item').first.find_by_tag('a').first.click()
 
+
         form = self.browser.find_by_id('wallpost-form')
-        form_data = {
-            'input[placeholder="Keep it short and simple"]': 'My wallpost',
-            'textarea[name="wallpost-update"]': 'These are some sample pictures from this non-existent project!',
-        }
-        self.browser.fill_form_by_css(form, form_data)
+
+        self.browser.find_by_id('wallpost-title').first.fill('My wallpost')
+        self.browser.find_by_id('wallpost-update').first.fill('These are some sample pictures from this non-existent project!')
 
         # verify that no previews are there yet
         ul = form.find_by_css('ul.form-wallpost-photos').first
         previews = ul.find_by_tag('li')
         self.assertEqual(0, len(previews))
-
 
         # attach file
         file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'kitten_snow.jpg')
@@ -212,6 +212,17 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         ul = form.find_by_css('ul.form-wallpost-photos').first
         previews = ul.find_by_tag('li')
         self.assertEqual(2, len(previews))
+
+        # submit the form
+        form.find_by_tag('button').first.click();
+
+        # check if the wallpostis there
+        wp = self.browser.find_by_css('article.wallpost').first
+        self.assertTrue(self.browser.is_text_present('MY WALLPOST'))
+
+        num_photos = len(wp.find_by_css('ul.photo-viewer li.photo'))
+        self.assertEqual(num_photos, 2)
+
 
     def test_meta_tag(self, lang_code=None):
         self.visit_path('/projects/schools-for-children-2', lang_code)
