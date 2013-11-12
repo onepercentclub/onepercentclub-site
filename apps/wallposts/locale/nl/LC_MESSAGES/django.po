@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-07 16:07+0100\n"
-"PO-Revision-Date: 2013-11-07 15:08+0000\n"
-"Last-Translator: gannetson <loek@1procentclub.nl>\n"
+"POT-Creation-Date: 2013-11-12 11:21+0100\n"
+"PO-Revision-Date: 2013-11-11 11:40+0000\n"
+"Last-Translator: nieja <niels@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -140,7 +140,7 @@ msgid ""
 "See you in a bit!<br/>\n"
 "<br/>\n"
 "Liane | 1%%Club\n"
-msgstr "\n⏎\nHello %(receiver_name)s,<br/>⏎\n<br/>⏎\n%(author_name)s has left a message on your project page.<br/>⏎\n<br/>⏎\nYou must be curious what! Don't wait any longer and check it out <a href=\"%(site)s%(link)s\">here on our website</a>.⏎\n<br/>⏎\nSee you in a bit!<br/>⏎\n<br/>⏎\nLiane | 1%%Club⏎\n"
+msgstr "\n\nHello %(receiver_name)s,<br/>\n<br/>\n%(author_name)s has left a message on your project page.<br/>\n<br/>\nYou must be curious what! Don't wait any longer and check it out <a href=\"%(site)s%(link)s\">here on our website</a>.\n<br/>\nSee you in a bit!<br/>\n<br/>\nLiane | 1%%Club\n"
 
 #: templates/project_wallpost_new.mail.txt:5
 #, python-format
@@ -157,7 +157,7 @@ msgid ""
 "See you in a bit!\n"
 "\n"
 "Liane | 1%%Club\n"
-msgstr "\n⏎\nHello %(receiver_name)s,⏎\n⏎\n%(author_name)s has left a message on your project page.⏎\n⏎\nYou must be curious what! Don't wait any longer and check it out here:⏎\n⏎\n%(site)s%(link)s⏎\n⏎\nSee you in a bit!⏎\n⏎\nLiane | 1%%Club⏎\n"
+msgstr "\n\nHello %(receiver_name)s,\n<br/>\n%(author_name)s has left a message on your project page.\n<br/>\nYou must be curious what! Don't wait any longer and check it out here:<br/>\n<br/>\n%(site)s%(link)s<br/>\n<br/>\nSee you in a bit!<br/>\n<br/>\nLiane | 1%%Club\n"
 
 #: templates/project_wallpost_reaction_new.mail.html:5
 #, python-format
@@ -172,7 +172,7 @@ msgid ""
 "See you in a bit!<br/>\n"
 "<br/>\n"
 "Liane | 1%%Club\n"
-msgstr "\n⏎\nHi %(receiver_name)s,⏎\n<br/>⏎\nJa, ja, ja! <b>%(author_name)s</b> heeft gereageerd op enen bericht van jou.<br/>⏎\n<br/>⏎\n<a href=\"%(site)s%(link)s\">Ga naar de website</a> en lees de reactie.<br/>⏎\n<br/>⏎\nTot zo!<br/>⏎\n<br/>⏎\nLiane | 1%%Club⏎\n"
+msgstr "\n\nHi %(receiver_name)s,\n<br/>\nJa, ja, ja! <b>%(author_name)s</b> heeft gereageerd op een bericht van jou.<br/>\n<br/>\n<a href=\"%(site)s%(link)s\">Ga naar de website</a> en lees de reactie.<br/>\n<br/>\nTot zo!<br/>\n<br/>\nLiane | 1%%Club\n\n"
 
 #: templates/project_wallpost_reaction_new.mail.txt:5
 #, python-format
@@ -190,7 +190,7 @@ msgid ""
 "\n"
 "Liane | 1%%Club\n"
 "\n"
-msgstr "\n⏎\nHi %(receiver_name)s,⏎\n<br/>⏎\nJa, ja, ja! <b>%(author_name)s</b> heeft gereageerd op enen bericht van jou.<br/>⏎\n<br/>⏎\n<a href=\"%(site)s%(link)s\">Ga naar de website</a> en lees de reactie.<br/>⏎\n<br/>⏎\nTot zo!<br/>⏎\n<br/>⏎\nLiane | 1%%Club⏎\n"
+msgstr "\n\nHi %(receiver_name)s,\n<br/>\nJa, ja, ja! <b>%(author_name)s</b> heeft gereageerd op een bericht van jou.<br/>\n<br/>\n<a href=\"%(site)s%(link)s\">Ga naar de website</a> en lees de reactie.<br/>\n<br/>\nTot zo!<br/>\n<br/>\nLiane | 1%%Club\n"
 
 #: templates/project_wallpost_reaction_project.mail.html:5
 #, python-format
@@ -203,7 +203,7 @@ msgid ""
 "<a href=\"%(site)s%(link)s\">Read the comment here</a> and continue the conversation!<br/>\n"
 "<br/>\n"
 "Liane | 1%%Club\n"
-msgstr "\n⏎\nHi %(receiver_name)s,<br/>⏎\n<br/>⏎\n<strong>%(author_name)s</strong> heeft een bericht achtergelaten op je projectpagina.<br/>⏎\n<br/>⏎\n<a href=\"%(site)s%(link)s\">Lees hier de reactie</a> en ga het gesprek aan!<br/>⏎\n<br/>⏎\nLiane | 1%%Club⏎\n"
+msgstr "\n\nHi %(receiver_name)s,<br/>\n<br/>\n<strong>%(author_name)s</strong> heeft een bericht achtergelaten op je projectpagina.<br/>\n<br/>\n<a href=\"%(site)s%(link)s\">Lees hier de reactie</a> en ga het gesprek aan!<br/>\n<br/>\nLiane | 1%%Club\n"
 
 #: templates/project_wallpost_reaction_project.mail.txt:5
 #, python-format
@@ -217,7 +217,7 @@ msgid ""
 "%(site)s%(link)s\n"
 "\n"
 "Liane | 1%%Club\n"
-msgstr "\n⏎\nHi %(receiver_name)s,<br/>⏎\n<br/>⏎\n<strong>%(author_name)s</strong> heeft een bericht achtergelaten op je projectpagina.<br/>⏎\n<br/>⏎\n<a href=\"%(site)s%(link)s\">Lees hier de reactie</a> en ga het gesprek aan!<br/>⏎\n<br/>⏎\nLiane | 1%%Club⏎\n"
+msgstr "\n\nHi %(receiver_name)s,<br/>\n<br/>\n<strong>%(author_name)s</strong> heeft een bericht achtergelaten op je projectpagina.<br/>\n<br/>\n<a href=\"%(site)s%(link)s\">Lees hier de reactie</a> en ga het gesprek aan!<br/>\n<br/>\nLiane | 1%%Club\n"
 
 #: templates/project_wallpost_reaction_same_wallpost.mail.html:5
 #, python-format
@@ -242,7 +242,7 @@ msgid ""
 "%(site)s%(link)s\n"
 "\n"
 "Liane | 1%%Club\n"
-msgstr "\n\n⏎\nHi %(receiver_name)s,<br/>⏎\n<br/>⏎\n<strong>%(author_name)s</strong> heeft gereageerd op jouw bericht! <a href=\"%(site)s%(link)s\">Lees de reactie hier.</a><br/>⏎\n<br/>⏎\nLiane | 1%%Club⏎\n"
+msgstr "\n\n\nHi %(receiver_name)s,<br/>\n<br/>\n<strong>%(author_name)s</strong> heeft gereageerd op jouw bericht! <a href=\"%(site)s%(link)s\">Lees de reactie hier.</a><br/>\n<br/>\nLiane | 1%%Club\n"
 
 #: templates/reactions.hbs:24 templates/wallposts.hbs:86
 #: templates/wallposts.hbs.py:187 templates/wallposts.hbs:258
@@ -294,7 +294,7 @@ msgid ""
 "See you in a bit!\n"
 "\n"
 "Liane | 1%%Club\n"
-msgstr "\n\n\n⏎\nHi %(receiver_name)s,<br/>⏎\n<br/>⏎\n%(author_name)s heeft een bericht geplaatst op je taakpagina.<br/>⏎\n<br/>⏎\nJe zult vast willen wat! Wacht niet en ga direct naar <a href=\"%(site)s%(link)s\">de website</a>.<br/>⏎\n<br/>⏎\nTot zo!<br/>⏎\n<br/>⏎\nLiane | 1%%Club⏎\n"
+msgstr "\n\n\n\nHi %(receiver_name)s,<br/>\n<br/>\n%(author_name)s heeft een bericht geplaatst op je taakpagina.<br/>\n<br/>\nJe zult vast willen wat! Wacht niet en ga direct naar <a href=\"%(site)s%(link)s\">de website</a>.<br/>\n<br/>\nTot zo!<br/>\n<br/>\nLiane | 1%%Club\n"
 
 #: templates/wallposts.hbs:9
 msgid "Write an update"
@@ -342,7 +342,7 @@ msgstr "Error"
 
 #: templates/wallposts.hbs:88
 msgid "Loading photos&#8230;"
-msgstr ""
+msgstr "Laadt foto's&#8230;"
 
 #: templates/wallposts.hbs:105
 msgid "Post Update"
