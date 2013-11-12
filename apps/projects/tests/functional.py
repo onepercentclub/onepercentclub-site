@@ -7,14 +7,14 @@ See: ``docs/testing/selenium.rst`` for details.
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.utils.text import slugify
-from django.utils.unittest.case import skipUnless, skipIf
+from django.utils.unittest.case import skipUnless
 
 
 from bluebottle.geo import models as geo_models
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 
 
-from ..models import Project, ProjectPhases, ProjectPitch, ProjectTheme
+from ..models import Project, ProjectPhases, ProjectTheme
 from .unittests import ProjectTestsMixin
 
 
@@ -111,7 +111,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
 
     def test_upload_pitch_picture(self):
         """ Test that pitch picture uploads work. """
-        
+
         # create project (with pitch)
         slug = 'picture-upload'
         project = self.create_project(title='Test picture upload', owner=self.user, phase='pitch', slug=slug)
@@ -122,7 +122,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         region = geo_models.Region.objects.create(name='Foo', numeric_code=123)
         subregion = geo_models.SubRegion.objects.create(name='Bar', numeric_code=456, region=region)
         pitch.country = geo_models.Country.objects.create(
-                            name='baz', 
+                            name='baz',
                             subregion=subregion,
                             numeric_code=789,
                             alpha2_code='AF',
@@ -141,7 +141,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         self.browser.find_link_by_itext('continue pitch').first.click()
 
         self.browser.find_link_by_itext('Media').first.click()
-        
+
         # get preview div
         preview = self.browser.find_by_css('div.image-preview').first
         self.assertTrue(preview.has_class('empty'))
@@ -160,7 +160,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         # return to media form
         time.sleep(2) # link has to update
         self.browser.find_link_by_itext('media').first.click()
-        
+
         # check that the src of the image is correctly set (no base64 stuff)
         src = self.browser.find_by_css('div.image-preview').first.find_by_tag('img').first['src']
         self.assertEqual('.jpg', src[-4:])
@@ -204,7 +204,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         # verify that a second picture was added
         file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'chameleon.jpg')
         self.browser.attach_file('wallpost-photo', file_path)
-        
+
         # wait a bit, processing...
         time.sleep(3)
 
