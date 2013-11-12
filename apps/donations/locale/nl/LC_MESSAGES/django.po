@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project Bluebottle\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-07 16:07+0100\n"
-"PO-Revision-Date: 2013-11-07 15:07+0000\n"
+"POT-Creation-Date: 2013-11-12 11:21+0100\n"
+"PO-Revision-Date: 2013-11-12 10:22+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -63,7 +63,7 @@ msgstr "Eenmalige donatie"
 
 #: templates/donations.hbs:112
 msgid "Loading order history&#8230;"
-msgstr ""
+msgstr "Laadt donatie overzicht&#8230;"
 
 #: templates/donations.hbs:127
 msgid "Edit your payment info"
@@ -73,15 +73,15 @@ msgstr "Wijzig betaalgegevens"
 msgid "Here you can change your bank account info and monthly donations."
 msgstr "Hier kun je jouw betaalgegevens en maandelijkse donatie aanpassen. "
 
-#: templates/donations.hbs:134 templates/donations.hbs.py:385
+#: templates/donations.hbs:134 templates/donations.hbs.py:359
 msgid "Account Name"
 msgstr "Naam rekeninghouder"
 
-#: templates/donations.hbs:144 templates/donations.hbs.py:395
+#: templates/donations.hbs:144 templates/donations.hbs.py:369
 msgid "Account Number"
 msgstr "Rekeningnummer"
 
-#: templates/donations.hbs:154 templates/donations.hbs.py:405
+#: templates/donations.hbs:154 templates/donations.hbs.py:379
 msgid "Account City"
 msgstr "Plaats"
 
@@ -89,7 +89,7 @@ msgstr "Plaats"
 msgid "Monthly settings saved"
 msgstr "Maandelijkse instellingen gewijzigd"
 
-#: templates/donations.hbs:172 templates/donations.hbs.py:423
+#: templates/donations.hbs:172 templates/donations.hbs.py:397
 msgid "Save"
 msgstr "Opslaan"
 
@@ -125,7 +125,7 @@ msgid ""
 "</p>\n"
 "<p>We will send you an email every month to update you what project(s) received your 1%% support!</p>\n"
 "                "
-msgstr ""
+msgstr "\n<p>Wil je regelmatig projecten via 1%%Club steunen? Maar ben je eigenlijk te druk om iedere keer te kiezen?</p>\n<p>Geen probleem! Je kunt ook maandelijks doneren.</p>\n<p>\nEr zijn 2 manieren:\n<ol>\n<li>\n<h3>Top 3 projecten</h3>\nVolg de 'wisdom of the crowd' en steun automatisch de 3 populairste projecten van de maand. \n</li>\n<li>\n<h3>Kies je eigen project(en)</h3>\nKies één of meer projecten die je maandelijkse wilt steunen. Je kunt deze donatie op iedere moment wijzigen.\n</li>\n</ol>\n</p>\n<p>Wij sturen je maandelijks een overzicht van de projecten die jouw steun hebben ontvangen.</p>"
 
 #: templates/donations.hbs:214
 msgid "Yes, I want to set a monthly donation"
@@ -137,13 +137,13 @@ msgstr "Je maandelijkse donatie gaat naar het volgende project(en):"
 
 #: templates/donations.hbs:228
 msgid "Your monthly donation will go to the top 3 projects."
-msgstr ""
+msgstr "Jouw maandelijkse donatie gaat naar de top 3 projecten."
 
 #: templates/donations.hbs:229
 msgid "The three most popular projects at this moment are:"
 msgstr "De 3 meest populaire projecten op dit moment, zijn:"
 
-#: templates/donations.hbs:253 templates/donations.hbs.py:478
+#: templates/donations.hbs:253 templates/donations.hbs.py:452
 msgid "is still needed"
 msgstr "nog nodig"
 
@@ -165,96 +165,88 @@ msgstr "Selecteer een project"
 
 #: templates/donations.hbs:287
 msgid "My address"
-msgstr ""
+msgstr "Adres"
 
 #: templates/donations.hbs:293
-msgid "Address Line 1"
+msgid "Address"
 msgstr ""
 
 #: templates/donations.hbs:306
-msgid "Address Line 2"
-msgstr ""
+msgid "City"
+msgstr "Plaats"
 
 #: templates/donations.hbs:319
-msgid "City"
-msgstr ""
-
-#: templates/donations.hbs:332
-msgid "Province / State"
-msgstr ""
-
-#: templates/donations.hbs:345
 msgid "Postal Code"
-msgstr ""
+msgstr "Postcode"
 
-#: templates/donations.hbs:360
+#: templates/donations.hbs:334
 msgid "Country"
-msgstr ""
+msgstr "Land"
 
-#: templates/donations.hbs:380
+#: templates/donations.hbs:354
 msgid "My payment details"
 msgstr "Mijn bankgegevens"
 
-#: templates/donations.hbs:381
+#: templates/donations.hbs:355
 msgid "Please fill in your bank details"
-msgstr ""
+msgstr "Vul je bankgegevens in"
 
-#: templates/donations.hbs:434
+#: templates/donations.hbs:408
 msgid "Cancel my monthly donation"
 msgstr "Annuleer mijn maandelijkse donatie"
 
-#: templates/donations.hbs:455
+#: templates/donations.hbs:429
 msgid "No projects found."
 msgstr "Geen projecten gevonden."
 
-#: templates/donations.hbs:488
+#: templates/donations.hbs:462
 msgid "Delete"
 msgstr "Verwijder"
 
-#: templates/donations.hbs:511
+#: templates/donations.hbs:485
 msgid "New"
 msgstr "Nieuw"
 
-#: templates/donations.hbs:511
+#: templates/donations.hbs:485
 msgid "Smart Idea"
 msgstr "Smart Idea"
 
-#: templates/donations.hbs:517
+#: templates/donations.hbs:491
 msgid "To go"
 msgstr "To go"
 
-#: templates/donations.hbs:520
+#: templates/donations.hbs:494
 msgid "days"
 msgstr "dagen"
 
-#: templates/donations.hbs:559
+#: templates/donations.hbs:533
 msgid "Found"
 msgstr "Gevonden"
 
-#: templates/donations.hbs:561
+#: templates/donations.hbs:535
 msgid "Reset Search Filter"
 msgstr "Wis filter"
 
-#: templates/donations.hbs:566
+#: templates/donations.hbs:540
 msgid "Sort:"
 msgstr "Sorteer:"
 
-#: templates/donations.hbs:567
+#: templates/donations.hbs:541
 msgid "Most popular"
 msgstr "Meest populair"
 
-#: templates/donations.hbs:574
+#: templates/donations.hbs:548
 msgid "Newest"
 msgstr "Nieuwste"
 
-#: templates/donations.hbs:575
+#: templates/donations.hbs:549
 msgid "Almost funded"
 msgstr "Bijna vol"
 
-#: templates/donations.hbs:576
+#: templates/donations.hbs:550
 msgid "Near deadline"
 msgstr "Deadline nadert"
 
-#: templates/donations.hbs:580
+#: templates/donations.hbs:554
 msgid "Showing"
 msgstr "Weergegeven"
