@@ -266,7 +266,9 @@ App.MyProjectPlanBudgetRoute = App.MyProjectPlanSubRoute.extend({
 
         var numBudgetLines = model.get('budgetLines').get('content').length;
         if(numBudgetLines === 0){
-            controller.send('addBudgetLine');
+            Em.run.next(function(){
+                controller.send('addBudgetLine');
+            });
         } else {
             // there are budget lines, and it's not the initial click -> show errors
             controller.set('showBudgetError', true);
