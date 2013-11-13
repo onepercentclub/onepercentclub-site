@@ -49,7 +49,7 @@ def mail_new_oneoff_donation(donation):
     if donation.user:
         name = donation.user.first_name
     else:
-        name = _('Unknown user')
+        name = _('Anonymous')
     send_mail(
         template_name='new_oneoff_donation.mail',
         subject=_('You received a new donation'),
