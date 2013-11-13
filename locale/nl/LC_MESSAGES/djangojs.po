@@ -5,13 +5,14 @@
 # Translators:
 # gannetson <loek@1procentclub.nl>, 2013
 # nieja <niels@1procentclub.nl>, 2013
+# nieja <niels@1procentclub.nl>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: onepercentclub-site\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-15 16:16+0200\n"
-"PO-Revision-Date: 2013-11-13 10:03+0000\n"
-"Last-Translator: gannetson <loek@1procentclub.nl>\n"
+"PO-Revision-Date: 2013-11-13 12:53+0000\n"
+"Last-Translator: nieja <niels@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub-site/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -116,7 +117,7 @@ msgstr "januari februari maart april mei juni juli augustus september oktober no
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/calendar.js:27
 msgid "S M T W T F S"
-msgstr "Z M D W D F Z"
+msgstr "Z M D W D V Z"
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/collapse.js:8
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/collapse.js:19
@@ -267,7 +268,7 @@ msgstr "9-16 uur per maand"
 
 #: static/global/js/app/users.js:201
 msgid "I have all the time in the world. Bring it on!"
-msgstr "Ik heb alle tijd van de wereld. Kom maar op!"
+msgstr "Tijd genoeg, kom maar op!"
 
 #: static/global/js/app/users.js:202
 msgid "It depends on the content of the tasks. Challenge me!"
@@ -348,7 +349,7 @@ msgstr "Wijzigingen opslaan?"
 
 #: static/global/js/app/utils.js:148
 msgid "You have some unsaved changes. Do you want to save before you leave?"
-msgstr "Je hebt niet-opgeslagen wijzigingen. Wil je deze opslaan?"
+msgstr "Je hebt niet-opgeslagen wijzigingen. Wil je deze eerst opslaan?"
 
 #: static/global/js/app/utils.js:149 static/global/js/app/utils.js.c:188
 msgid "Save"

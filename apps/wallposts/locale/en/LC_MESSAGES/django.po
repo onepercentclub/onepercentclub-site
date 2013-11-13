@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-13 11:24+0100\n"
+"POT-Creation-Date: 2013-11-13 21:32+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,37 +25,27 @@ msgstr ""
 msgid "project link"
 msgstr ""
 
-#: mails.py:96
-#, python-format
-msgid "%(author)s commented on a wallpost you reacted on."
-msgstr ""
-
-#: mails.py:108
-#, python-format
-msgid "%(author)s commented on your wallpost."
-msgstr ""
-
-#: mails.py:121 mails.py:145
+#: mails.py:66
 #, python-format
 msgid "%(author)s has left a message on your project page."
 msgstr ""
 
-#: mails.py:161
+#: mails.py:84
 #, python-format
 msgid "%(author)s has left a message on your task page."
 msgstr ""
 
-#: mails.py:194
+#: mails.py:117
 #, python-format
 msgid "%(author)s commented on a post you reacted on."
 msgstr ""
 
-#: mails.py:206
+#: mails.py:131
 #, python-format
 msgid "%(author)s commented on your post."
 msgstr ""
 
-#: mails.py:218
+#: mails.py:145
 #, python-format
 msgid "%(author)s commented on your project page."
 msgstr ""
@@ -122,6 +112,10 @@ msgstr ""
 
 #: models.py:130
 msgid "Reactions"
+msgstr ""
+
+#: tests.py:260 tests.py:276
+msgid "Username"
 msgstr ""
 
 #: templates/project_wallpost_new.mail.html:5
