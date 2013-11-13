@@ -16,7 +16,7 @@
 	                			<div class="video">{{{video}}}</div>
 							</div>
 						{{/if}}
-						
+
                     	<article class="l-half carousel-content">
 				            <h1>{{ title }}</h1>
 				            <p>{{{ body }}}</p>
@@ -24,14 +24,14 @@
 				                <a class="btn btn-primary" {{bindAttr href="link_url" }}>{{link_text}}</a>
 				            {{/if}}
 				        </article>
-				        
+
 		        	</div>
-		        	
+
 		        	<div class="carousel-image"></div>
 		        </li>
 		    {{/each }}
 			</ul>
-			
+
 	        <div class="l-section carousel-nav-section">
 	            <div class="l-wrapper">
 	                <ol class="carousel-nav l-full">
@@ -52,16 +52,16 @@
 
     <div class="l-section home-projects">
         <section class="l-wrapper">
-        	
+
             <div class="project-slider l-full">
-            	
+
 	        	<header class="section-header">
 	            	<h1>{% trans "Choose your project" %}</h1>
 					<p>{% trans "Support it with your time, knowledge or money and receive real-time updates." %}</p>
 	        	</header>
 
                 <div class="project-preview">
-                    
+
                     <figure class="image l-half">
                         <img {{bindAttr src="project.plan.image.large" }} width="100%" alt="Project Photo" />
                     </figure>
@@ -71,20 +71,20 @@
 		                    <span class="project-location"><span class="flaticon solid location-pin-1"></span> {{project.plan.country.name}}</span>
 		                    <span class="project-theme"><span class="flaticon solid tag-1"></span> {{project.plan.theme.title}}</span>
 		                </div>
-		                
+
                         <h2 class="project-title">{{#linkTo 'project' project.getProject }}{{project.title}}{{/linkTo}}</h2>
                         <p class="project-description">{{project.plan.pitch}}</p>
                     </article>
-                    
+
                     <div class="project-status l-full">
-                    
+
                         {{#if project.campaign.deadline}}
                         <div class="project-days-left l-one-third">
     						<strong><span class="flaticon solid clock-1"></span> {{project.campaign.daysToGo}}</strong>
     						<em>{% trans "days to go" %}</em>
     					</div>
     					{{/if}}
-    					
+
     					<div class="project-fund l-one-third">
                             <p class="project-fund-amount">
                                 <strong class="amount-donated">&euro;{{localize project.campaign.money_donated}}</strong>
@@ -92,20 +92,20 @@
                                 <strong class="amount-asked">&euro;{{localize project.campaign.money_asked}}</strong>
                                 {% trans "raised" %}
                             </p>
-                        
+
                             <div class="project-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
     					</div>
-                        
+
                         <div class="project-action l-one-third">
     					    <a href='#' {{ action 'addDonation' project }} class="btn btn-primary btn-iconed"><span class="flaticon solid wallet-1"></span> {% trans "Support" %}</a>
                         </div>
-                        
+
 					</div>
                 </div>
-                
+
                 <span {{action previousProject}} class="project-slider-prev">{% trans "Previous project" %}</span>
                 <span {{action nextProject}} class="project-slider-next">{% trans "Next project" %}</span>
-                
+
             </div>
         </section>
     </div>
@@ -114,42 +114,44 @@
 
 
 {% tplhandlebars "home_quotes" %}
-	
+
 
     <div class="l-section home-quotes">
         <section class="l-wrapper">
             <div class="l-full">
-            
+
                 <header class="section-header">
                 	<h1>{% trans "Share a little." %} <em>{%  trans "Change the world." %}</em></h1>
             	</header>
-    
+
                 <div class="quote">
                     <figure>
                         <img {{ bindAttr src="quote.user.getAvatar" alt="quote.user.full_name" }} />
                     </figure>
-    
+
                     <article>
                         <p class="quote-name">{{ quote.user.full_name }}</p>
                         <p class="quote-content">{{ quote.quote }}</p>
                     </article>
                 </div>
-    
+
                 {{#linkTo 'projectList' class="btn btn-iconed one"}}
                     <span class="flaticon stroke zoom-2"></span> {% trans "Find projects" %}
                 {{/linkTo}}
-    
+
     			{{#linkTo 'taskList' class="btn btn-iconed two"}}
                     <span class="flaticon solid wrench-1"></span> {% trans "Find tasks" %}
                 {{/linkTo}}
-    
-                <a class="btn btn-iconed three" {{action 'showPage' 'befriend'}} href="/#!/pages/befriend">
+
+                {# <a class="" {{action 'showPage' 'befriend'}} href="/#!/pages/befriend"> #}
+                {{#link-to 'userMonthlyProjects' class="btn btn-iconed three"}}
                     <span class="flaticon solid heart-1"></span> {% trans "Befriend us" %}
+                {{/link-to}}
                 </a>
             </div>
         </section>
     </div>
-    
+
 
 {% endtplhandlebars %}
 
@@ -159,7 +161,7 @@
     <div class="l-section home-impact">
         <section class="l-wrapper">
             <div class="l-full">
-        
+
                 <header class="section-header">
             	    <h1>{% trans "Our impact" %}</h1>
             	    <p>{% trans "We believe that if we all share a little, together we can change the world. We got this far already." %}</p>
@@ -180,7 +182,7 @@
                     	<figure class="image"><object type="image/svg+xml" data="/static/assets/images/illustrations/countries-green.svg" class="logo-image"></object></figure>
                         <strong>{{ impact.countries }}</strong>
                         {% trans "Countries" %}
-                    </li>                    
+                    </li>
                     <li class="impact-hours">
                     	<figure class="image"><object type="image/svg+xml" data="/static/assets/images/illustrations/hours-pink.svg" class="logo-image"></object></figure>
                         <strong>{{localize impact.hours_spent }}</strong>
@@ -196,8 +198,8 @@
                 {{#unless controllers.currentUser.isAuthenticated}}
                     {{#linkTo 'signup' classNames="btn-link"}}{% blocktrans %}Join us. Sign up and share your 1%{% endblocktrans %}{{/linkTo}}
                 {{/unless}}
-            </div>    
-            
+            </div>
+
         </section>
     </div>
 
@@ -210,15 +212,15 @@
         {{#if slides }}
             {{view App.HomeBannerView }}
         {{/if }}
-		
+
         {{#if project }}
             {{view App.HomeProjectView }}
         {{/if }}
-        
+
         {{#if quote }}
             {{view App.HomeQuotesView }}
         {{/if }}
-		
+
         {{#if impact }}
             {{view App.HomeImpactView }}
         {{/if }}

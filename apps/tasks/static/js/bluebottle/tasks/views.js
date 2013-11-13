@@ -3,7 +3,7 @@
  Views
  */
 
-App.TaskListView = Em.View.extend({
+App.TaskListView = Em.View.extend(App.ScrollInView, {
     templateName: 'task_list'
 });
 
