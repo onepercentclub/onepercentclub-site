@@ -281,7 +281,7 @@ App.MyProjectPlanOrganisationRoute = App.MyProjectPlanSubRoute.extend({
     setupController: function(controller, model) {
         this._super(controller, model);
         var organization = model.get('organization');
-        
+
         if (!organization) {
             controller.set('organizations', App.MyOrganization.find());
         } else {
