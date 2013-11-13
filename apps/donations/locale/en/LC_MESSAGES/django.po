@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-13 11:24+0100\n"
+"POT-Creation-Date: 2013-11-13 21:32+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,14 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: mails.py:52
+msgid "Anonymous"
+msgstr ""
+
+#: mails.py:55
+msgid "You received a new donation"
+msgstr ""
 
 #: templates/donations.hbs:18
 msgid "Close"
@@ -246,4 +254,18 @@ msgstr ""
 
 #: templates/donations.hbs:554
 msgid "Showing"
+msgstr ""
+
+#: templates/new_oneoff_donation.mail.html:5
+#, python-format
+msgid ""
+"\n"
+"Hello,<br/>\n"
+"<br/>\n"
+"You just received a EUR %(amount|floatformat:2)s donation from %(donor_name)s!<br/>\n"
+"<br/>\n"
+"Quickly thank your supporter by posting a personal message on your <a href=\"%(site)s%(link)s\">project wall</a>.<br/>\n"
+"<br/>\n"
+"Cheers,<br/>\n"
+"1%%Club\n"
 msgstr ""

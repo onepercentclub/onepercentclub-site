@@ -7,13 +7,14 @@
 # gannetson <loek@1procentclub.nl>, 2013
 # gannetson <loek@1procentclub.nl>, 2013
 # nieja <niels@1procentclub.nl>, 2013
+# nieja <niels@1procentclub.nl>, 2013
 # onepercentclub <webmaster@1procentclub.nl>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: onepercentclub-site\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-13 09:54+0100\n"
-"PO-Revision-Date: 2013-11-13 10:14+0000\n"
+"POT-Creation-Date: 2013-11-13 21:32+0100\n"
+"PO-Revision-Date: 2013-11-13 20:34+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub-site/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -44,7 +45,7 @@ msgid ""
 "There was an error while trying to serve the requested page. Please try "
 "again. If the error persists, please contact the webmaster about it. In any "
 "case, we have been notified of this error."
-msgstr "Er heeft zich een interne serverfout voorgedaan tijdens het ophalen van de verzochte pagina. Probeer het nog eens. Als de fout zich blijft voordoen, neem dan contact op met de webmaster. Hoe dan ook zijn wij op de hoogte gebracht van deze fout."
+msgstr "Oh jee.. Er heeft zich een interne serverfout voorgedaan tijdens het ophalen van de verzochte pagina. Probeer het nog eens. Blijft de fout zich voordoen, stuur ons dan een bericht. Hoe dan ook, zijn wij op de hoogte gebracht van deze fout."
 
 #: 500.html:12
 #, python-format
@@ -75,7 +76,7 @@ msgstr "Doe mee"
 #: base.html:96
 #, python-format
 msgid "It all starts with 1%%"
-msgstr "Bet begint met 1%%"
+msgstr "Het begint met 1%%"
 
 #: base.html:100
 #, python-format
@@ -144,6 +145,44 @@ msgstr "1%%Github"
 #, python-format
 msgid "1%%Social"
 msgstr "1%%Social"
+
+#: base.html:228 base.html.py:235 accounts/signup.html:6
+#, python-format
+msgid "Join 1%%Club"
+msgstr "Doe mee met 1%%Club"
+
+#: base.html:229
+#, python-format
+msgid ""
+"1%%Club is the global crowdfunding and crowdsourcing platform where you can "
+"share a little and change the world, in your very own way. Pick any project "
+"you like, support it with 1%% of your knowledge, money or time and follow "
+"the progress online. "
+msgstr "1%%Club is het crowdfunding en crowdsourcing platform waar je, door een klein beetje te delen, een wereld van verschil kan maken. Kies een project, steun het met 1%% van je geld, kennis of tijd en volg de voortgang."
+
+#: base.html:231
+msgid "Select a project or task"
+msgstr "Kies een project"
+
+#: base.html:232
+msgid "Share your skills or money"
+msgstr "Steun het met je tijd, geld of kennis"
+
+#: base.html:233
+msgid "See direct results"
+msgstr "Zie direct resultaat"
+
+#: base.html:246
+msgid "General Conditions"
+msgstr ""
+
+#: base.html:247
+msgid "Privacy Policy"
+msgstr ""
+
+#: base.html:251
+msgid "Give us feedback"
+msgstr ""
 
 #: footer.html:6
 msgid "Menu"
@@ -254,7 +293,7 @@ msgstr "Mijn 1%%"
 
 #: accounts/nav.html:19
 msgid "My profile & settings"
-msgstr "Mijn profiel & settings"
+msgstr "Mijn profiel & instellingen"
 
 #: accounts/nav.html:25
 msgid "My Donations"
@@ -338,11 +377,6 @@ msgstr "Doet mee met 1%%Club omdat"
 msgid "Website"
 msgstr "Website"
 
-#: accounts/signup.html:6
-#, python-format
-msgid "Join 1%%Club"
-msgstr "Doe mee met 1%%Club"
-
 #: accounts/signup.html:8
 #, python-format
 msgid ""
@@ -417,7 +451,7 @@ msgstr "activeer profiel"
 #: registration/activation_email.html:56
 #, python-format
 msgid "Your activation code will expire in %(expiration_days)s days."
-msgstr "Je activatiecode verloopt in %(expiration_days)s dagen. "
+msgstr "Je activatiecode verloopt over %(expiration_days)s dagen. "
 
 #: registration/logged_out.html:9
 msgid "Logged out."

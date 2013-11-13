@@ -5,13 +5,14 @@
 # Translators:
 # gannetson <loek@1procentclub.nl>, 2013
 # nieja <niels@1procentclub.nl>, 2013
+# nieja <niels@1procentclub.nl>, 2013
 # onepercentclub <webmaster@1procentclub.nl>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: onepercentclub-site\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-13 09:54+0100\n"
-"PO-Revision-Date: 2013-11-13 10:02+0000\n"
+"POT-Creation-Date: 2013-11-13 21:32+0100\n"
+"PO-Revision-Date: 2013-11-13 20:34+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub-site/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -28,37 +29,27 @@ msgstr "Auteur"
 msgid "project link"
 msgstr "project link"
 
-#: mails.py:96
-#, python-format
-msgid "%(author)s commented on a wallpost you reacted on."
-msgstr "%(author)s  heeft gereageerd op een bericht van jou."
-
-#: mails.py:108
-#, python-format
-msgid "%(author)s commented on your wallpost."
-msgstr "%(author)s heeft op je wallpost gereageerd."
-
-#: mails.py:121 mails.py:145
+#: mails.py:66
 #, python-format
 msgid "%(author)s has left a message on your project page."
-msgstr "%(author)s heeft een bericht op jouw project pagina geplaatst."
+msgstr "%(author)s heeft een bericht op jouw projectpagina geplaatst."
 
-#: mails.py:161
+#: mails.py:84
 #, python-format
 msgid "%(author)s has left a message on your task page."
 msgstr "%(author)s heeft een bericht op de pagina van je taak geplaatst."
 
-#: mails.py:194
+#: mails.py:117
 #, python-format
 msgid "%(author)s commented on a post you reacted on."
 msgstr "%(author)s  heeft gereageerd op een bericht van jou."
 
-#: mails.py:206
+#: mails.py:131
 #, python-format
 msgid "%(author)s commented on your post."
 msgstr "%(author)s  heeft gereageerd op een bericht van jou."
 
-#: mails.py:218
+#: mails.py:145
 #, python-format
 msgid "%(author)s commented on your project page."
 msgstr "%(author)s  heeft gereageerd op je projectpagina."
@@ -126,6 +117,10 @@ msgstr "Reactie"
 #: models.py:130
 msgid "Reactions"
 msgstr "Reacties"
+
+#: tests.py:260 tests.py:276
+msgid "Username"
+msgstr ""
 
 #: templates/project_wallpost_new.mail.html:5
 #, python-format
@@ -302,7 +297,7 @@ msgstr "Schrijf een update"
 
 #: templates/wallposts.hbs:10
 msgid "Write an update of your project to inform your crowd."
-msgstr "Write an update of your project to inform your crowd."
+msgstr "Schrijf een update en houd je supporters op de hoogte!"
 
 #: templates/wallposts.hbs:13 templates/wallposts.hbs.py:18
 msgid "Write a comment"
@@ -310,7 +305,7 @@ msgstr "Plaats een reactie"
 
 #: templates/wallposts.hbs:14
 msgid "Write an comment to place on the project's wall."
-msgstr "Schrijf een reactie voor de projectpagina."
+msgstr "Schrijf een reactie op de projectpagina."
 
 #: templates/wallposts.hbs:19
 msgid "to leave a comment"
