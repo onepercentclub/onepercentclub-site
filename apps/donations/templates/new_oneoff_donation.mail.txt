@@ -1,0 +1,8 @@
+Hello,
+
+You just received a EUR {{ amount|floatformat:2 }} donation from {{ donor_name }}!
+
+Quickly thank your supporter by posting a personal message on your project wall: {{ site }}{{ link }}.
+
+Cheers,
+1%Club
