@@ -40,89 +40,10 @@ from django.utils.translation import ugettext_lazy as _
 from apps.projects.models import Project
 from apps.tasks.models import Task
 from apps.wallposts.models import TextWallPost, Reaction
+from apps.mail import send_mail
 
 
 logger = logging.getLogger(__name__)
-
-
-def send_mail(template_name, subject, obj, to, **kwargs):
-    translation.activate(to.primary_language)
-
-    kwargs.update({
-        'project': obj,
-        'receiver': to,
-        'link': '/go/projects/{0}'.format(obj.slug),
-        'site': 'https://{0}'.format(Site.objects.get_current().domain)
-    })
-
-    context = Context(kwargs)
-    text_content = get_template('{0}.txt'.format(template_name)).render(context)
-    html_content = get_template('{0}.html'.format(template_name)).render(context)
-
-    translation.deactivate()
-
-    msg = EmailMultiAlternatives(subject=subject, body=text_content, to=[to.email])
-    msg.attach_alternative(html_content, "text/html")
-
-    return msg.send()
-
-
-def handle_project_feedback_mails(wallpost_or_reaction):
-    if isinstance(wallpost_or_reaction, TextWallPost):
-        wallpost = wallpost_or_reaction
-        reaction = None
-    elif isinstance(wallpost_or_reaction, Reaction):
-        wallpost = wallpost_or_reaction.wallpost
-        reaction = wallpost_or_reaction
-    else:
-        logger.critical('Cannot sent out mails: Unknown how to handle object "%s".', wallpost_or_reaction)
-        return
-
-    obj = wallpost.content_object
-    obj_owner = obj.owner
-
-    wallpost_author = wallpost.author
-    reaction_author = reaction.author if reaction is not None else None
-
-    mailed_users = set()
-
-    if reaction_author:
-        # Implement 2c: send email to other Reaction authors that are not the Object owner or the Wallpost author.
-        reactions = wallpost.reactions.exclude(Q(author=wallpost_author) | Q(author=obj_owner) | Q(author=reaction_author))
-        for r in reactions:
-            if r.author not in mailed_users:
-                send_mail(
-                    template_name='project_wallpost_reaction_new.mail',
-                    subject=_('%(author)s commented on a wallpost you reacted on.') % {'author': reaction_author.first_name},
-                    obj=obj,
-                    to=r.author,
-                    author=reaction_author
-                )
-                mailed_users.add(r.author)
-
-        # Implement 2b: send email to Wallpost author, if Reaction author is not the Wallpost author.
-        if reaction_author != wallpost_author:
-            if reaction_author not in mailed_users:
-                send_mail(
-                    template_name='project_wallpost_reaction_new.mail',
-                    subject=_('%(author)s commented on your wallpost.') % {'author': reaction_author.first_name},
-                    obj=obj,
-                    to=wallpost_author,
-                    author=reaction_author
-                )
-                mailed_users.add(reaction_author)
-
-
-    # Implement 1a, 2a: send email to Object owner, if Wallpost/Reaction author is not the Object owner.
-    if wallpost_author != obj_owner and reaction_author != obj_owner:
-        if obj_owner not in mailed_users:
-            send_mail(
-                template_name='project_wallpost_new.mail',
-                subject=_('%(author)s has left a message on your project page.') % {'author': wallpost_author.first_name},
-                obj=obj,
-                to=obj_owner,
-                author=wallpost_author
-            )
 
 
 @receiver(post_save, weak=False, sender=TextWallPost)
@@ -143,8 +64,10 @@ def new_wallpost_notification(sender, instance, created, **kwargs):
             send_mail(
                 template_name='project_wallpost_new.mail',
                 subject=_('%(author)s has left a message on your project page.') % {'author': post_author.first_name},
-                obj=project,
                 to=project_owner,
+
+                project=project,
+                link='/go/projects/{0}'.format(project.slug),
                 author=post_author
             )
 
@@ -192,8 +115,10 @@ def new_reaction_notification(sender, instance, created, **kwargs):
                 send_mail(
                     template_name='project_wallpost_reaction_same_wallpost.mail',
                     subject=_('%(author)s commented on a post you reacted on.') % {'author': reaction_author.first_name},
-                    obj=project,
                     to=r.author,
+
+                    project=project,
+                    link='/go/projects/{0}'.format(project.slug),
                     author=reaction_author
                 )
                 mailed_users.add(r.author)
@@ -204,8 +129,10 @@ def new_reaction_notification(sender, instance, created, **kwargs):
                 send_mail(
                     template_name='project_wallpost_reaction_new.mail',
                     subject=_('%(author)s commented on your post.') % {'author': reaction_author.first_name},
-                    obj=project,
                     to=post_author,
+
+                    project=project,
+                    link='/go/projects/{0}'.format(project.slug),
                     author=reaction_author
                 )
                 mailed_users.add(post_author)
@@ -216,7 +143,6 @@ def new_reaction_notification(sender, instance, created, **kwargs):
                 send_mail(
                     template_name='project_wallpost_reaction_project.mail',
                     subject=_('%(author)s commented on your project page.') % {'author': reaction_author.first_name},
-                    obj=project,
                     to=project_owner,
-                    author=post_author
+                    author=reaction_author
                 )

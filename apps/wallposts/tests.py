@@ -6,6 +6,7 @@ from django.test import TestCase
 from rest_framework import status
 from bluebottle.bluebottle_utils.tests import UserTestsMixin
 
+from apps.mail import send_mail
 from apps.projects.tests import ProjectWallPostTestsMixin
 from .models import Reaction
 
