@@ -56,6 +56,8 @@ def send_mail(template_name, subject, obj, to, **kwargs):
     })
 
     context = Context(kwargs)
+    subject = unicode(subject)  # Unlazy the translatable string subject within activated language.
+
     text_content = get_template('{0}.txt'.format(template_name)).render(context)
     html_content = get_template('{0}.html'.format(template_name)).render(context)
 
@@ -218,5 +220,5 @@ def new_reaction_notification(sender, instance, created, **kwargs):
                     subject=_('%(author)s commented on your project page.') % {'author': reaction_author.first_name},
                     obj=project,
                     to=project_owner,
-                    author=post_author
+                    author=reaction_author
                 )
