@@ -5,7 +5,7 @@
     <a href="#" class="nav-member-dropdown">
         <img width="40" {{bindAttr src="controllers.currentUser.getAvatar"}} height="40" alt="Avatar" />
         <strong>
-            {% trans "My 1%" %}
+            {% blocktrans %}My 1%{% endblocktrans %}
             <em class="flaticon solid down-2"></em>
         </strong>
     </a>
@@ -46,7 +46,7 @@
 
 
 {% block_verbatim donations_anchor %}
-    <!-- <a href="#" class="nav-notifications"><strong class="nav-notifications-nr">999</strong> Notifications &#9660;</a> -->
+
     {{#if controllers.currentOrder.donations.length }}
         <li class="nav-cart">
             {{#linkTo 'currentOrder.index'}}

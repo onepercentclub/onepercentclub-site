@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-12 11:25+0100\n"
+"POT-Creation-Date: 2013-11-13 11:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,6 +43,120 @@ msgstr ""
 msgid "If you need assistance, you may reference this error as <strong>%(error_id)s</strong>."
 msgstr ""
 
+#: base.html:44
+#, python-format
+msgid "What is 1%%"
+msgstr ""
+
+#: base.html:45 base.html.py:106
+#, python-format
+msgid "1%%Projects"
+msgstr ""
+
+#: base.html:46 base.html.py:111 accounts/profile_form.html:76
+#, python-format
+msgid "1%%Skills"
+msgstr ""
+
+#: base.html:47 base.html.py:116
+msgid "Get involved"
+msgstr ""
+
+#: base.html:96
+#, python-format
+msgid "It all starts with 1%%"
+msgstr ""
+
+#: base.html:100
+#, python-format
+msgid "What is 1%%CLUB?"
+msgstr ""
+
+#: base.html:121
+msgid "Start your project"
+msgstr ""
+
+#: base.html:129
+#, python-format
+msgid "About 1%%Club"
+msgstr ""
+
+#: base.html:133
+msgid "Our story"
+msgstr ""
+
+#: base.html:137
+msgid "Frequently Asked Questions"
+msgstr ""
+
+#: base.html:141
+msgid "Meet the team"
+msgstr ""
+
+#: base.html:147 footer.html:13
+msgid "Partners"
+msgstr ""
+
+#: base.html:152
+msgid "Press"
+msgstr ""
+
+#: base.html:157
+#, python-format
+msgid "Work at 1%%CLUB"
+msgstr ""
+
+#: base.html:162 footer.html:18 footer.html.py:38
+msgid "Contact"
+msgstr ""
+
+#: base.html:170
+#, python-format
+msgid "Discover 1%%More"
+msgstr ""
+
+#: base.html:174
+#, python-format
+msgid "1%%Business"
+msgstr ""
+
+#: base.html:179
+#, python-format
+msgid "1%%Blog"
+msgstr ""
+
+#: base.html:184
+#, python-format
+msgid "1%%Github"
+msgstr ""
+
+#: base.html:193
+#, python-format
+msgid "1%%Social"
+msgstr ""
+
+#: base.html:228 base.html.py:235 accounts/signup.html:6
+#, python-format
+msgid "Join 1%%Club"
+msgstr ""
+
+#: base.html:229
+#, python-format
+msgid "1%%Club is the global crowdfunding and crowdsourcing platform where you can share a little and change the world, in your very own way. Pick any project you like, support it with 1%% of your knowledge, money or time and follow the progress online. "
+msgstr ""
+
+#: base.html:231
+msgid "Select a project or task"
+msgstr ""
+
+#: base.html:232
+msgid "Share your skills or money"
+msgstr ""
+
+#: base.html:233
+msgid "See direct results"
+msgstr ""
+
 #: footer.html:6
 msgid "Menu"
 msgstr ""
@@ -71,10 +185,6 @@ msgstr ""
 msgid "Organizations"
 msgstr ""
 
-#: footer.html:13
-msgid "Partners"
-msgstr ""
-
 #: footer.html:14
 msgid "Business"
 msgstr ""
@@ -89,10 +199,6 @@ msgstr ""
 
 #: footer.html:17 footer.html.py:37
 msgid "FAQ"
-msgstr ""
-
-#: footer.html:18 footer.html.py:38
-msgid "Contact"
 msgstr ""
 
 #: footer.html:21
@@ -216,11 +322,6 @@ msgstr ""
 msgid "Location"
 msgstr ""
 
-#: accounts/profile_form.html:76
-#, python-format
-msgid "1%%Skills"
-msgstr ""
-
 #: accounts/profile_form.html:77
 #, python-format
 msgid "How much time are you willing to spend your 1%%Skills?<br/>Let us know so we can provide you with some matching tasks from our projects."
@@ -245,11 +346,6 @@ msgstr ""
 
 #: accounts/profile_public.html:32
 msgid "Website"
-msgstr ""
-
-#: accounts/signup.html:6
-#, python-format
-msgid "Join 1%%Club"
 msgstr ""
 
 #: accounts/signup.html:8
