@@ -7,14 +7,14 @@ See: ``docs/testing/selenium.rst`` for details.
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.utils.text import slugify
-from django.utils.unittest.case import skipUnless, skipIf
+from django.utils.unittest.case import skipUnless
 
 
 from bluebottle.geo import models as geo_models
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 
 
-from ..models import Project, ProjectPhases, ProjectPitch, ProjectTheme
+from ..models import Project, ProjectPhases, ProjectTheme
 from .unittests import ProjectTestsMixin
 
 
@@ -35,7 +35,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
 
         User = get_user_model()
         # Create and activate user.
-        self.user = User.objects.create_user('johndoe@example.com', 'secret')
+        self.user = User.objects.create_user('johndoe@example.com', 'secret', primary_language='en')
 
         for slug, title in self.projects.items():
             project = self.create_project(title=title, slug=slug, money_asked=100000, owner=self.user)
@@ -111,7 +111,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
 
     def test_upload_pitch_picture(self):
         """ Test that pitch picture uploads work. """
-        
+
         # create project (with pitch)
         slug = 'picture-upload'
         project = self.create_project(title='Test picture upload', owner=self.user, phase='pitch', slug=slug)
@@ -122,7 +122,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         region = geo_models.Region.objects.create(name='Foo', numeric_code=123)
         subregion = geo_models.SubRegion.objects.create(name='Bar', numeric_code=456, region=region)
         pitch.country = geo_models.Country.objects.create(
-                            name='baz', 
+                            name='baz',
                             subregion=subregion,
                             numeric_code=789,
                             alpha2_code='AF',
@@ -141,7 +141,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         self.browser.find_link_by_itext('continue pitch').first.click()
 
         self.browser.find_link_by_itext('Media').first.click()
-        
+
         # get preview div
         preview = self.browser.find_by_css('div.image-preview').first
         self.assertTrue(preview.has_class('empty'))
@@ -160,11 +160,13 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         # return to media form
         time.sleep(2) # link has to update
         self.browser.find_link_by_itext('media').first.click()
-        
+
         # check that the src of the image is correctly set (no base64 stuff)
         src = self.browser.find_by_css('div.image-preview').first.find_by_tag('img').first['src']
         self.assertEqual('.jpg', src[-4:])
 
+    @skipUnless(getattr(settings, 'SELENIUM_WEBDRIVER') == 'firefox',
+        'PhantomJS keeps hanging on the file uploads, probably bug in selenium/phantomjs')
     def test_upload_multiple_wallpost_images(self):
         """ Test uploading multiple images in a media wallpost """
 
@@ -174,18 +176,16 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         # pick a project
         self.browser.find_by_css('.project-item').first.find_by_tag('a').first.click()
 
+
         form = self.browser.find_by_id('wallpost-form')
-        form_data = {
-            'input[placeholder="Keep it short and simple"]': 'My wallpost',
-            'textarea[name="wallpost-update"]': 'These are some sample pictures from this non-existent project!',
-        }
-        self.browser.fill_form_by_css(form, form_data)
+
+        self.browser.find_by_id('wallpost-title').first.fill('My wallpost')
+        self.browser.find_by_id('wallpost-update').first.fill('These are some sample pictures from this non-existent project!')
 
         # verify that no previews are there yet
         ul = form.find_by_css('ul.form-wallpost-photos').first
         previews = ul.find_by_tag('li')
         self.assertEqual(0, len(previews))
-
 
         # attach file
         file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'kitten_snow.jpg')
@@ -204,7 +204,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         # verify that a second picture was added
         file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'chameleon.jpg')
         self.browser.attach_file('wallpost-photo', file_path)
-        
+
         # wait a bit, processing...
         time.sleep(3)
 
@@ -212,6 +212,17 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         ul = form.find_by_css('ul.form-wallpost-photos').first
         previews = ul.find_by_tag('li')
         self.assertEqual(2, len(previews))
+
+        # submit the form
+        form.find_by_tag('button').first.click();
+
+        # check if the wallpostis there
+        wp = self.browser.find_by_css('article.wallpost').first
+        self.assertTrue(self.browser.is_text_present('MY WALLPOST'))
+
+        num_photos = len(wp.find_by_css('ul.photo-viewer li.photo'))
+        self.assertEqual(num_photos, 2)
+
 
     def test_meta_tag(self, lang_code=None):
         self.visit_path('/projects/schools-for-children-2', lang_code)
