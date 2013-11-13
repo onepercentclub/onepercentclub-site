@@ -30,7 +30,7 @@ App.ProjectSupporterListView = Em.View.extend({
 });
 
 
-App.ProjectListView = Em.View.extend({
+App.ProjectListView = Em.View.extend(App.ScrollInView, {
     templateName: 'project_list'
 });
 
