@@ -100,14 +100,20 @@ form#manage-project-new {
     // Place errors on left
     .has-errors {
         right: auto;
-        left: -56%;
+        left: -54%;
+        @include grid(24);
+        
+        &:after {
+            left: auto;
+            right: -14px;
+            background: image-url("form-error-back-arrow-right.png") transparent no-repeat 0 0;
+        }
     }
-    
-    
 }
 
 .toolbox {
-    @include grid(16,1,1);
+    clear: right;
+    @include grid(24,1,1);
     margin-top: $base-margin*2;
     background-color: $gray-lighter;
     
@@ -142,108 +148,3 @@ form#manage-project-new {
         
     }
 }
-
-
-
-/*
-
-#project-dashboard .donate-status {
-    width: 100%;
-    float: none;
-    .donate-amount {
-        color: $gray-darker;
-    }
-
-}
-
-.pitch-start {
-    //@include grid(24, 0, 1);
-    position: relative;
-}
-
-.map-picker {
-    width: 100%;
-    height: 350px;
-
-}
-
-.map-look-up {
-    position: absolute;
-    top: 4px;
-    left: 100px;
-    font-size: 13px;
-    input {
-        padding: 1px 4px 0px 4px;
-        width: 300px;
-        border: 1px solid $gray-dark;
-        box-shadow: 2px 2px 2px rgba(0,0,0,0.5);
-
-    }
-    button {
-        text-transform: capitalize;
-        font-weight: 300;
-        background-color: $color-secondary;
-        color: $white;
-        padding: 1px 8px 0px 8px;
-        border: 1px solid $white;
-        box-shadow: 2px 2px 2px rgba(0,0,0,0.5);
-    }
-
-}
-
-.project-pic-uploader {
-    .preview {
-        margin-top: 12px;
-        width: 412px;
-        height: 206px;
-        overflow: hidden;
-        &.empty {
-            border: 1px dotted $gray;
-        }
-        img {
-            width: 100%;
-        }
-    }
-}
-
-.main-title {
-    em {
-        font-style: normal;
-        color: $gray
-    }
-}
-
-.my-project {
-    @include clearfix;
-    border-bottom: 1px solid $gray-lighter;
-    
-    
-    li {
-    	display: block;
-	    border-top: 1px solid $gray-lighter;
-		padding: $base-padding 0;
-		
-	    .project-image {
-	        @include grid(16,0,1);
-	    }
-	    
-	    h2 {
-	    	@include grid(32,0,1);
-	    	padding: 0;
-	    }
-	    
-	    .project-status {
-	        clear: left;
-	        @include grid(16,0,1);
-	    }
-	    
-	    a {
-		    @include grid(16,0,1);
-	    } 
-	    
-    }
-	
-}
-
-
-*/

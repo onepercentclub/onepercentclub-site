@@ -8,20 +8,20 @@
 {% tplhandlebars "my_project_list" %}
 
     <div class="l-section" id="project-dashboard">
-
+    
     	{{partial "my_project_top"}}
-
+    	
         <div class="l-wrapper">
             {{#if isLoading}}
                 <div class="is-loading-big"><img src="{% get_static_prefix %}images/loading.gif" /> <strong>{% trans "Loading projects" %}</strong></div>
             {{else}}
                 {{#if canPitchNew}}
-                    <div class="l-content">
+                    <div class="l-content">                        
                         <header class="l-page-header">
                             <h1>{% trans "No open projects" %}</h1>
                             <p></p>
                         </header>
-
+                        
                         {{#linkTo "myPitchNew" tagName="button" class="btn btn-primary btn-iconed"}}
                             <span class="flaticon solid lightbulb-3"></span>
                             {% trans "Pitch a new smart idea" %}
@@ -29,18 +29,18 @@
                     </div>
                 {{/if}}
             {{/if}}
-
+            
             <div class="l-content">
 	            <ul class="project-list">
 	            	{{#each project in controller}}
 	                <li class="project-list-item">
-
+                                    
                         <span class="project-header">
                             <figure class="project-image">
                                 <img {{bindAttr src="project.pitch.image.square" alt="project.pitch.title"}} />
                             </figure>
                             <h2 class="project-title">
-                                {{ project.title }}
+                                {{ project.title }}                                
                                 {{#if project.isPublic}}
                                     <a {{action "showProject" project.id href=true}} class="project-preview">
     	                                <span class="flaticon solid eye-1"></span>
@@ -49,15 +49,15 @@
                                 {{/if}}
                             </h2>
                         </span>
-
+                        
 				        <div class="project-actions">
-				        	{% trans "Phase" %}: <strong>{{ project.phase }}</strong> |
+				        	{% trans "Phase" %}: <strong>{{ project.phase }}</strong> | 
 			                {{#if project.isPhasePitch}}
 			                	{% trans "Status:" %} <strong>{{project.plan.status}}</strong>
                                 {{#if project.pitch.isBeingReviewed}}
 								{% trans "Your pitch is in review now." %}
 								  <br/>
-								  {% trans "We'll get back to you soon!" %}
+								  {% trans "We'll get back to you soon!" %} 
 								{{else}}
 	                              {{#linkTo "myProjectPitch.basics" project tagName="a" class="btn btn-iconed"}}
 	                                <span class="flaticon solid pencil-3"></span>
@@ -65,7 +65,7 @@
 	                              {{/linkTo}}
 								{{/if}}
 	                        {{/if}}
-
+	
 	                        {{#if project.isPhasePlan}}
 	                            {% trans "Status:" %} <strong>{{project.plan.status}}</strong>
 	                            {{#linkTo "myProjectPlan" project tagName="a" class="btn btn-iconed right"}}
@@ -73,7 +73,7 @@
 	                                {% trans "Continue plan" %}
 	                            {{/linkTo}}
 	                        {{/if}}
-
+	
 	                        {{#if project.isPhaseCampaign}}
 	                            {% trans "Status:" %} <strong>{{project.campaign.status}}</strong>
 	                            {{#linkTo "myProjectCampaign" project tagName="a" class="btn btn-iconed right"}}
@@ -96,12 +96,12 @@
 
 
     <div class="l-section" id="project-dashboard">
-
+    	
     	{{partial "my_project_top"}}
-
+    
         <div class="l-wrapper">
             <div class="l-content">
-
+            
                 <header class="l-page-header">
                     <h1> {% trans "Send in your Project Pitch" %}</h1>
                     <p><strong>
@@ -117,7 +117,7 @@ Do you have a smart idea to make a contribution to your community? An idea to ta
 Are you ready to invest time and effort in succeeding? Double check our <a href="/#!/pages/faq-projects">FAQ</a> and pitch your smart idea here!
 {% endblocktrans %}
                 </p>
-
+                
                 {{#if controllers.currentUser.isAuthenticated}}
                     {{#if errors.detail}}
                         <p class="alert alert-error">
@@ -144,7 +144,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                                     </li>
                                 </ul>
                             </fieldset>
-
+                            
                             <button {{bindAttr class=":btn :btn-iconed :btn-primary :btn-save isDirty::disabled"}} {{action updateRecordOnServer}}>
                                 <span class="flaticon solid pencil-3"></span>{% trans "write your pitch" %}
                             </button>
@@ -174,7 +174,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
 
 
 {% tplhandlebars "my_project" %}
-
+	
 	<div class="l-section" id="manage-project">
     	{{partial "my_project_top"}}
 		{{ outlet }}
@@ -186,12 +186,12 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
 {% tplhandlebars "_my_project_top" %}
 
 <div class="l-section account-header">
-    <nav class="l-wrapper">
-
+    <nav class="l-wrapper">    
+    
         <figure class="account-avatar"><img {{bindAttr src="controllers.currentUser.getAvatar"}} /></figure>
-
+        
         <header class="account-title">
-            <h2>{% blocktrans %}My 1%{% endblocktrans %}
+            <h2>{% blocktrans %}My 1%{% endblocktrans %} 
             {{#if title}}
                 <em class="account-subtitle">{{ title }}</em>
 			{{else}}
@@ -199,7 +199,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
 			{{/if}}
             </h2>
         </header>
-
+                 
         {{#if id}}
             {{#if title}}
                 {{#unless isPhasePitch}}
@@ -209,7 +209,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                     </a>
                 {{/unless}}
             {{/if}}
-
+    
             <ul class="tabs steps five">
                 <li {{bindAttr class=":tab-item :first isPhasePitch:is-active:is-inactive"}}>
                     <a>
@@ -258,7 +258,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
         {{/if}}
     </nav>
 </div>
-
+    
 {% endtplhandlebars %}
 
 {% tplhandlebars "_my_project_tasks_and_updates" %}
@@ -296,7 +296,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
 {% tplhandlebars "my_project_plan" %}
 
         <div class="l-wrapper">
-
+        
             <nav class="manage-project-sidebar">
                 <h4><span class="flaticon solid notebook-1"></span> {% trans "Project Story" %} </h4>
                 <ul class="manage-project-nav">
@@ -325,7 +325,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                         {{/linkTo}}
                     </li>
                 </ul>
-
+                
                 <h4><span class="flaticon solid briefcase-1"></span> {% trans "Organisation" %}</h4>
                 <ul class="manage-project-nav">
                     <li>
@@ -373,7 +373,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                         </li>
                         {{/if}}
                 {{/if}}
-
+                
                 {{#linkTo "myProjectPlan.submit" class="btn btn-iconed btn-primary btn-submit"}}
                     <span class="flaticon solid right-2"></span>
                     {% trans "Submit Plan" %}
@@ -475,7 +475,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
     {% comment %}
     <fieldset>
         <ul>
-
+            
             <li class="control-group has-popover" data-content="{% trans "Pick a short, clear name." %}">
                 <label class="control-label">{% trans "Short name" %}</label>
                 <div class="controls">
@@ -649,7 +649,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
         <strong>{% trans "Project media" %}</strong>
         <p>{% trans "Upload a photo" %}</p>
     </legend>
-
+    
     <fieldset>
         <ul>
             <li class="control-group has-popover" data-content="{% trans "This photo will represent your idea on 1%Club. So make sure it's personal, unique and recognisable for your smart idea and that it looks nice too!" %}">
@@ -1003,42 +1003,6 @@ You've to have at least 3 ambassadors. (more? great!)<br /><br />
     {{#if organization.isLoaded}}
         <fieldset>
             <ul>
-                <li class="control-group has-popover" data-content="{% trans "Name of the bank account holder." %}">
-                    <label class="control-label">{% trans "Account name" %}</label>
-                    <div class="controls">
-                        {{view Em.TextField valueBinding="organization.account_name" classBinding="organization.errors.account_name.length:error"}}
-                    </div>
-
-                    {{#if organization.errors.account_name }}
-                        <div class="has-errors">{{#each organization.errors.account_name }}<p>{{this}}</p>{{/each}}</div>
-                    {{/if}}
-                </li>
-
-                <li class="control-group has-popover" data-content="{% trans "Bank account number." %}">
-                    <label class="control-label">{% trans "Account number" %}</label>
-                    <div class="controls">
-                        {{view Em.TextField valueBinding="organization.account_number" classBinding="organization.errors.account_number.length:error"}}
-                    </div>
-
-                    {{#if organization.errors.account_number }}
-                        <div class="has-errors">{{#each organization.errors.account_number }}<p>{{this}}</p>{{/each}}</div>
-                    {{/if}}
-                </li>
-
-                <li class="control-group has-popover" data-content="{% trans "You ony have to enter this if your country supports IBAN." %}">
-                    <label class="control-label">{% trans "Account IBAN" %}</label>
-                    <div class="controls">
-                        {{view Em.TextField valueBinding="organization.account_iban" classBinding="organization.errors.account_iban.length:error"}}
-                    </div>
-
-                    {{#if organization.errors.account_iban }}
-                        <div class="has-errors">{{#each organization.errors.account_iban }}<p>{{this}}</p>{{/each}}</div>
-                    {{/if}}
-                </li>
-            </ul>
-        </fieldset>
-        <fieldset>
-            <ul>
                 <li class="control-group has-popover" data-content="{% trans "Name of the bank that holds your acount." %}">
                     <label class="control-label">{% trans "Account bank name" %}</label>
                     <div class="controls">
@@ -1047,17 +1011,6 @@ You've to have at least 3 ambassadors. (more? great!)<br /><br />
 
                     {{#if organization.errors.account_bank_name }}
                         <div class="has-errors">{{#each organization.errors.account_bank_name }}<p>{{this}}</p>{{/each}}</div>
-                    {{/if}}
-                </li>
-
-                <li class="control-group has-popover" data-content="{% trans "BIC/SWIFT code for your bank" %}">
-                    <label class="control-label">{% trans "Bank BIC/SWIFT code" %}</label>
-                    <div class="controls">
-                        {{view Em.TextField valueBinding="organization.account_bic" classBinding="organization.errors.account_bic.length:error"}}
-                    </div>
-
-                    {{#if organization.errors.account_bic }}
-                        <div class="has-errors">{{#each organization.errors.account_bic }}<p>{{this}}</p>{{/each}}</div>
                     {{/if}}
                 </li>
 
@@ -1072,6 +1025,39 @@ You've to have at least 3 ambassadors. (more? great!)<br /><br />
                     {{/if}}
                 </li>
 
+                <li class="control-group has-popover" data-content="{% trans "Country of the bank." %}">
+                    <label class="control-label">{% trans "Bank country" %}</label>
+                    <div class="controls">
+                        {{view App.CountrySelectView valueBinding="organization.account_bank_country" classBinding="organization.errors.account_bank_country.length:error"}}
+                    </div>
+
+                    {{#if organization.errors.account_bank_country }}
+                        <div class="has-errors">{{#each organization.errors.account_bank_country }}<p>{{this}}</p>{{/each}}</div>
+                    {{/if}}
+                </li>
+
+                <li class="control-group has-popover" data-content="{% trans "Bank account number." %}">
+                    <label class="control-label">{% trans "Account number" %}</label>
+                    <div class="controls">
+                        {{view Em.TextField valueBinding="organization.account_number" classBinding="organization.errors.account_number.length:error"}}
+                    </div>
+
+                    {{#if organization.errors.account_number }}
+                        <div class="has-errors">{{#each organization.errors.account_number }}<p>{{this}}</p>{{/each}}</div>
+                    {{/if}}
+                </li>
+
+                <li class="control-group has-popover" data-content="{% trans "Name of the bank account holder." %}">
+                    <label class="control-label">{% trans "Account name" %}</label>
+                    <div class="controls">
+                        {{view Em.TextField valueBinding="organization.account_name" classBinding="organization.errors.account_name.length:error"}}
+                    </div>
+
+                    {{#if organization.errors.account_name }}
+                        <div class="has-errors">{{#each organization.errors.account_name }}<p>{{this}}</p>{{/each}}</div>
+                    {{/if}}
+                </li>
+
                 <li class="control-group has-popover" data-content="{% trans "Account holder city" %}">
                     <label class="control-label">{% trans "Account city" %}</label>
                     <div class="controls">
@@ -1083,20 +1069,28 @@ You've to have at least 3 ambassadors. (more? great!)<br /><br />
                     {{/if}}
                 </li>
 
-                <li class="control-group has-popover" data-content="{% trans "Country of the bank." %}">
-                    <label class="control-label">{% trans "Bank country" %}</label>
+                <li class="control-group has-popover" data-content="{% trans "You ony have to enter this if your country supports IBAN." %}">
+                    <label class="control-label">{% trans "Account IBAN" %}</label>
                     <div class="controls">
-                        {{view App.CountrySelectView valueBinding="organization.account_bank_country" classBinding="organization.errors.account_bank_country.length:error"}}
+                        {{view Em.TextField valueBinding="organization.account_iban" classBinding="organization.errors.account_iban.length:error"}}
                     </div>
 
-                    {{#if organization.errors.account_bank_country }}
-                        <div class="has-errors">{{#each organization.errors.account_bank_country }}<p>{{this}}</p>{{/each}}</div>
+                    {{#if organization.errors.account_iban }}
+                        <div class="has-errors">{{#each organization.errors.account_iban }}<p>{{this}}</p>{{/each}}</div>
                     {{/if}}
                 </li>
-            </ul>
-        </fieldset>
-        <fieldset>
-            <ul>
+
+                <li class="control-group has-popover" data-content="{% trans "BIC/SWIFT code for your bank" %}">
+                    <label class="control-label">{% trans "Bank BIC/SWIFT code" %}</label>
+                    <div class="controls">
+                        {{view Em.TextField valueBinding="organization.account_bic" classBinding="organization.errors.account_bic.length:error"}}
+                    </div>
+
+                    {{#if organization.errors.account_bic }}
+                        <div class="has-errors">{{#each organization.errors.account_bic }}<p>{{this}}</p>{{/each}}</div>
+                    {{/if}}
+                </li>
+
                 <li class="control-group has-popover" data-content="{% trans "Do we need more information to make an eventual bank transfer?" %}">
                     <label class="control-label">{% trans "Extra info" %}</label>
                     <div class="controls">
@@ -1188,40 +1182,47 @@ Please add 5% administration fee to your budget. The total amount, including the
         <ul>
             {{#each line in budgetLines}}
                 <li class="control-group">
-                    <div class="controls wide budget-line">
-                        <a {{action 'removeBudgetLine' line href=true}}>
-                            <span class="flaticon solid minus-2"></span>
+                    <label class="control-label">{% trans "Budget item description" %}</label>
+                    <div class="controls">
+                       {{view Em.TextField valueBinding="line.description" placeholder="Description"}} 
+                    </div>
+                </li>    
+                <li class="control-group">
+                    <label class="control-label">{% trans "Amount" %}</label>
+                    <div class="controls">
+                       {{view Em.TextField valueBinding="line.amount" placeholder="Amount euro"}}
+                    </div>
+                </li>
+                <li class="control-group">
+                    <div class="controls wide text-right">
+                        <a {{action removeBudgetLine line href=true}} class="btn-link">
+                            <span class="flaticon solid minus-2"> {% trans  "Remove" %}</span>
                         </a>
-                        {{view Em.TextField valueBinding="line.description" placeholder="Description" class="description"}}
-                        {{view Em.TextField valueBinding="line.amount" placeholder="Amount euro" class="amount"}}
                     </div>
                 </li>
             {{/each}}
             <li class="control-group">
-                <div class="controls wide budget">
-                    <a {{action 'addBudgetLine' line href=true}} class="btn-link">
+                <div class="controls wide text-left">
+                    <a {{action addBudgetLine line href=true}} class="btn-link">
                         <span class="flaticon solid plus-2"></span>
-                        {% trans "Add an item to your needed budget." %}
+                        {% trans "Add budget item" %}
                     </a>
                 </div>
             </li>
-            <li class="control-group">
-                <div class="controls wide budget">
-                    <div class="budget-description">{% trans "Total budget needed" %}:</div>
-                    <div class="budget-amount">{{totalBudget}}</div>
-                </div>
-                {{#if showBudgetError}}
-                    {{#if totalBudget}}
-                        {{#unless validBudget}}
-                            <div class="has-errors"><p>{% trans "Total budget shouldn't be over 5000 euro." %}</p></div>
-                        {{/unless}}
-                    {{else}}
-                        <div class="has-errors"><p>{% trans "Start adding items to your budget." %}</p></div>
-                    {{/if}}
-                {{/if}}
-
-            </li>
         </ul>
+    </fieldset>
+    <fieldset>
+        <legend>
+            <strong>{% trans "Total budget needed" %}:</strong>
+            <p>&euro; {{totalBudget}}</p>
+            {{#if totalBudget}}
+                {{#unless validBudget}}
+                    <div class="has-errors"><p>{% trans "Total budget shouldn't be over 5000 euro." %}</p></div>
+                {{/unless}}
+            {{else}}
+                <div class="has-errors"><p>{% trans "Start adding items to your budget." %}</p></div>
+            {{/if}}
+        </legend>
     </fieldset>
 
     <button {{bindAttr class=":btn :btn-iconed :btn-next shouldSave::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
@@ -1234,18 +1235,18 @@ Please add 5% administration fee to your budget. The total amount, including the
     <legend>
         <strong>{% trans "Submit Plan" %}</strong>
     </legend>
-
+    
     <fieldset>
-
+    
         <div class="fieldset-content">
-
+            
             <h3>{% trans "Check!" %}</h3>
             {% blocktrans %}
                 Make sure that you filled out the entire form and that all items to the left have a <span class="flaticon solid checkmark-2"></span> check sign.
                 If one of the items still shows a circle then that still needs some work.
             {% endblocktrans %}
         </div>
-
+        
         <ul>
             <li class="control-group has-popover" data-content="{% trans "Agree to the terms to submit the plan" %}">
                 <div class="controls wide">
@@ -1254,7 +1255,7 @@ Please add 5% administration fee to your budget. The total amount, including the
             </li>
         </ul>
     </fieldset>
-
+    
     {{#if agreed}}
         <button {{bindAttr class=":btn :btn-iconed :btn-submit :btn-primary"}} {{action submitPlan}}><span class="flaticon solid right-2"></span>{% trans "Submit plan" %}</button>
     {{else}}
@@ -1329,11 +1330,11 @@ Please add 5% administration fee to your budget. The total amount, including the
 
 
     <div class="l-wrapper">
-
+    
         <div class="manage-project-sidebar">
-
+            
             <h4><em class="flaticon solid lightbulb-3"></em>{% trans "Project Pitch" %}</h4>
-
+                
             <ul class="manage-project-nav">
                 <li>
                     {{#linkTo "myProjectPitch.basics"}}
@@ -1354,13 +1355,13 @@ Please add 5% administration fee to your budget. The total amount, including the
                     {{/linkTo}}
                 </li>
             </ul>
-
+            
             {{#linkTo "myProjectPitch.submit" class="btn btn-iconed btn-primary btn-submit"}}
                 <span class="flaticon solid right-2"></span>
                 {% trans "Submit Pitch" %}
             {{/linkTo}}
         </div>
-
+            
         <form class="l-content">
             {{ outlet }}
         </form>
@@ -1411,7 +1412,7 @@ Please add 5% administration fee to your budget. The total amount, including the
             </li>
         </ul>
     </fieldset>
-
+    
     <fieldset>
         <ul>
             <li class="control-group has-popover" data-content="{% trans "Select one of the themes." %}">
@@ -1426,7 +1427,7 @@ Please add 5% administration fee to your budget. The total amount, including the
             </li>
         </ul>
     </fieldset>
-
+    
     <fieldset>
         <ul>
             <li class="control-group">
@@ -1445,9 +1446,9 @@ Please add 5% administration fee to your budget. The total amount, including the
             </li>
         </ul>
     </fieldset>
-
+    
     <fieldset>
-        <ul>
+        <ul>   
             <li class="control-group has-popover" data-content="{% trans "What do you need to realise your smart idea?" %}">
                 <label class="control-label">
                     {% trans "What do you need?" %}
@@ -1476,9 +1477,9 @@ Please add 5% administration fee to your budget. The total amount, including the
         <strong>{% trans "Submit Pitch" %}</strong>
         <p>{% trans "Send your pitch to us, we'll get back to you soon." %}</p>
     </legend>
-
+    
     <fieldset>
-
+    
         <div class="manage-project-overview">
             {{#if validBasics}}
                 <h3><span class="flaticon solid checkmark-1"></span> Basics are ok!<br/></h3>
@@ -1518,8 +1519,8 @@ Please add 5% administration fee to your budget. The total amount, including the
                 <span class="flaticon solid exclamation-point-2"></span> <strong>Image</strong> is missing<br/>
             {{/if}}
         </div>
-
-        <ul>
+        
+        <ul> 
             <li class="control-group has-popover" data-content="{% trans "Agree to the terms to submit the pitch" %}">
                 <div class="controls wide">
                     <label class="checkbox">{{view Em.Checkbox checkedBinding="agreed" classBinding="errors.agreed.length:error"}} <span>{% trans "I agree to the " %} <a {{action showPage 'terms-and-conditions'}}>{% trans "general terms and conditions" %}</a></span></label>
@@ -1595,15 +1596,15 @@ Please add 5% administration fee to your budget. The total amount, including the
 {% tplhandlebars "my_project_campaign" %}
 
     <div class="l-wrapper">
-
+    
         <div class="manage-project-sidebar">
 
             <h4><span class="flaticon solid lock-1"></span> {% trans "Project Story" %}</h4>
             <p>Your plan is approved and currently locked. If you need to make any changes: please sent a message to
             {{#if coach}}your 1%COACH, <strong>{{coach.full_name}}</strong>, at{{/if}} projects@1procentclub.nl.</p>
-
+            
             <h4><span class="flaticon solid wallet-1"></span> {% trans "Funding status" %}</h4>
-
+                  
             <div class="project-fund">
                 <p class="project-fund-amount">
                     <strong class="amount-donated">&euro;{{campaign.money_donated}}</strong>
@@ -1611,7 +1612,7 @@ Please add 5% administration fee to your budget. The total amount, including the
                     <strong class="amount-asked">&euro;{{campaign.money_asked}}</strong>
                     {% trans "raised" %}
                 </p>
-
+            
                 <div class="project-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
 			</div>
         </div>
@@ -1621,7 +1622,7 @@ Please add 5% administration fee to your budget. The total amount, including the
                 <legend>
                     <strong>{% trans "How is your campaign going?" %}</strong>
                 </legend>
-
+                
                 <div class="fieldset-content">
                     <p>{% blocktrans %}
                     Is money pouring in? No? Our tips & tricks might help you.
