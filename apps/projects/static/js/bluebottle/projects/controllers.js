@@ -321,7 +321,7 @@ App.MyProjectPlanOrganisationController = Em.ObjectController.extend(App.Editabl
             var organization = model.get('organization');
             var address = this.get('address');
             model.one('didUpdate', function(){
-                // Connected an organization to ProjectPlan.
+                // Connected a (new or old) organization to ProjectPlan.
                 controller.transitionToRoute(controller.get('nextStep'));
             });
             organization.one('didUpdate', function(){
@@ -333,6 +333,10 @@ App.MyProjectPlanOrganisationController = Em.ObjectController.extend(App.Editabl
                     // Updated address info.
                     controller.transitionToRoute(controller.get('nextStep'));
                 });
+                address.one('didCreate', function(){
+                    // Created address info.
+                    controller.transitionToRoute(controller.get('nextStep'));
+                });
             }
             model.transaction.commit();
         },
@@ -342,7 +346,8 @@ App.MyProjectPlanOrganisationController = Em.ObjectController.extend(App.Editabl
             var organization =  this.get('model.organization');
             var transaction =  organization.transaction;
             var address = transaction.createRecord(App.MyOrganizationAddress);
-            organization.set('addresses', address);
+            address.set('organization', organization);
+            this.set('address', address);
         },
 
         removeAddress: function(address){

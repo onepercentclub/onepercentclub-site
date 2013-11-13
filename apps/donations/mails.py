@@ -4,7 +4,10 @@ from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
 from django.template import Context
+from django.utils.translation import ugettext_lazy as _
 from celery import task
+
+from apps.mail import send_mail
 
 
 @task
@@ -40,3 +43,19 @@ def mail_project_funded_monthly_donor_notification(receiver, project):
     msg = EmailMultiAlternatives(subject=subject, body=text_content, to=[receiver.email])
     msg.attach_alternative(html_content, "text/html")
     msg.send()
+
+
+def mail_new_oneoff_donation(donation):
+    if donation.user:
+        name = donation.user.first_name
+    else:
+        name = _('Anonymous')
+    send_mail(
+        template_name='new_oneoff_donation.mail',
+        subject=_('You received a new donation'),
+        to=donation.project.owner,
+
+        amount=(donation.amount / 100.0),
+        donor_name=name,
+        link='/go/projects/{0}'.format(donation.project.slug),
+    )

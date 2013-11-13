@@ -285,12 +285,11 @@ App.MyProjectPlanOrganisationRoute = App.MyProjectPlanSubRoute.extend({
         if (!organization) {
             controller.set('organizations', App.MyOrganization.find());
         } else {
-            Em.run.next(function(){
-                if (organization.get('addresses.length') == 0) {
-                    controller.send('addAddress');
-                }
+            if (organization.get('addresses.length') == 0) {
+                controller.send('addAddress');
+            } else {
                 controller.set('address', model.get('organization.addresses.firstObject'));
-            });
+            }
         }
 
     }
