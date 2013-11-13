@@ -1,8 +1,10 @@
-from bluebottle.bluebottle_drf2.serializers import PrivateFileSerializer
-from bluebottle.bluebottle_utils.serializers import AddressSerializer
-from apps.organizations.models import OrganizationAddress, OrganizationDocument
 from django_iban.validators import iban_validator, swift_bic_validator
 from rest_framework import serializers
+
+from bluebottle.bluebottle_drf2.serializers import PrivateFileSerializer
+from bluebottle.bluebottle_utils.serializers import AddressSerializer, URLField
+
+from apps.organizations.models import OrganizationAddress, OrganizationDocument
 from .models import Organization
 
 
@@ -39,7 +41,7 @@ class ManageOrganizationSerializer(OrganizationSerializer):
 
     name = serializers.CharField(required=True)
     description = serializers.CharField(required=False)
-    website = serializers.URLField(required=False)
+    website = URLField(required=False)
     email = serializers.EmailField(required=False)
     twitter = serializers.CharField(required=False)
     facebook = serializers.CharField(required=False)
