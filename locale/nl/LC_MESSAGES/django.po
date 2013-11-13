@@ -3,18 +3,19 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# gannetson <loek@1procentclub.nl>, 2013
 # dokterbob <mathijs@mathijsfietst.nl>, 2012
+# gannetson <loek@1procentclub.nl>, 2013
+# gannetson <loek@1procentclub.nl>, 2013
 # nieja <niels@1procentclub.nl>, 2013
 # onepercentclub <webmaster@1procentclub.nl>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: Project Bluebottle\n"
+"Project-Id-Version: onepercentclub-site\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-12 11:21+0100\n"
-"PO-Revision-Date: 2013-11-08 11:40+0000\n"
-"Last-Translator: nieja <niels@1procentclub.nl>\n"
-"Language-Team: Dutch (http://www.transifex.com/projects/p/bluebottle/language/nl/)\n"
+"POT-Creation-Date: 2013-11-13 09:54+0100\n"
+"PO-Revision-Date: 2013-11-13 10:14+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub-site/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -52,6 +53,98 @@ msgid ""
 "<strong>%(error_id)s</strong>."
 msgstr "Als je hulp nodig hebt kun je naar deze fout verwijzen als <strong>%(error_id)s</strong>."
 
+#: base.html:44
+#, python-format
+msgid "What is 1%%"
+msgstr "Wat is 1%%"
+
+#: base.html:45 base.html.py:106
+#, python-format
+msgid "1%%Projects"
+msgstr "1%%Project"
+
+#: base.html:46 base.html.py:111 accounts/profile_form.html:76
+#, python-format
+msgid "1%%Skills"
+msgstr "1%%Doen"
+
+#: base.html:47 base.html.py:116
+msgid "Get involved"
+msgstr "Doe mee"
+
+#: base.html:96
+#, python-format
+msgid "It all starts with 1%%"
+msgstr "Bet begint met 1%%"
+
+#: base.html:100
+#, python-format
+msgid "What is 1%%CLUB?"
+msgstr "Wat is 1%%"
+
+#: base.html:121
+msgid "Start your project"
+msgstr "Start your project"
+
+#: base.html:129
+#, python-format
+msgid "About 1%%Club"
+msgstr "Over 1%%Club"
+
+#: base.html:133
+msgid "Our story"
+msgstr "Onze verhaal"
+
+#: base.html:137
+msgid "Frequently Asked Questions"
+msgstr "Veel gestelde vragen"
+
+#: base.html:141
+msgid "Meet the team"
+msgstr "Ons team"
+
+#: base.html:147 footer.html:13
+msgid "Partners"
+msgstr "Partners"
+
+#: base.html:152
+msgid "Press"
+msgstr "Pers"
+
+#: base.html:157
+#, python-format
+msgid "Work at 1%%CLUB"
+msgstr "Werken bij 1%%Club"
+
+#: base.html:162 footer.html:18 footer.html.py:38
+msgid "Contact"
+msgstr "Contact"
+
+#: base.html:170
+#, python-format
+msgid "Discover 1%%More"
+msgstr "Ontdek 1%%Meer"
+
+#: base.html:174
+#, python-format
+msgid "1%%Business"
+msgstr "1%%Business"
+
+#: base.html:179
+#, python-format
+msgid "1%%Blog"
+msgstr "1%%Blog"
+
+#: base.html:184
+#, python-format
+msgid "1%%Github"
+msgstr "1%%Github"
+
+#: base.html:193
+#, python-format
+msgid "1%%Social"
+msgstr "1%%Social"
+
 #: footer.html:6
 msgid "Menu"
 msgstr "Menu"
@@ -80,10 +173,6 @@ msgstr "Leden"
 msgid "Organizations"
 msgstr "Organisaties"
 
-#: footer.html:13
-msgid "Partners"
-msgstr "Partners"
-
 #: footer.html:14
 msgid "Business"
 msgstr "Business"
@@ -99,10 +188,6 @@ msgstr "In de media"
 #: footer.html:17 footer.html.py:37
 msgid "FAQ"
 msgstr "FAQ"
-
-#: footer.html:18 footer.html.py:38
-msgid "Contact"
-msgstr "Contact"
 
 #: footer.html:21
 msgid "News"
@@ -148,7 +233,7 @@ msgstr "Gelukt!"
 
 #: accounts/login.html:11
 msgid "(Welcome back friend)"
-msgstr "(Welcome terug)"
+msgstr "(Welkom terug)"
 
 #: accounts/login.html:12
 msgid "Login here with your email address and password"
@@ -225,11 +310,6 @@ msgstr "Website"
 msgid "Location"
 msgstr "Locatie"
 
-#: accounts/profile_form.html:76
-#, python-format
-msgid "1%%Skills"
-msgstr "1%%Doen"
-
 #: accounts/profile_form.html:77
 #, python-format
 msgid ""
@@ -271,7 +351,7 @@ msgid ""
 "support smart ideas from people in developing countries. We do this in a "
 "new, open way, believing in the power of collaboration boosted by today's "
 "technical possibilities. If we all share a little, we can change the world."
-msgstr "1%%Club is hét crowdfunding en crowdsourcing platform waar je, door een klein beetje te delen, een wereld van verschil kan maken. We werken samen met ons wereldwijde netwerk om slimme ideeën van mensen in ontwikkelingslanden te realiseren. En dat kan dus al met 1% van je tijd, kennis of geld. If we all share a little, we can change the world!"
+msgstr "1%%Club is hét crowdfunding en crowdsourcing platform waar je, door een klein beetje te delen, een wereld van verschil kan maken. We werken samen met ons wereldwijde netwerk om slimme ideeën van mensen in ontwikkelingslanden te realiseren. En dat kan dus al met 1%% van je tijd, kennis of geld. If we all share a little, we can change the world!"
 
 #: accounts/signup.html:14
 msgid "Thanks for signing up!"

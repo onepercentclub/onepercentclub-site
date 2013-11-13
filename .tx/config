@@ -1,98 +1,93 @@
 [main]
 host = https://www.transifex.com
 
-[bluebottle.fund_django]
+[onepercentclub-site.support]
 file_filter = apps/fund/locale/<lang>/LC_MESSAGES/django.po
 source_file = apps/fund/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
-[bluebottle.donations_django]
+[onepercentclub-site.monthly_donations]
 file_filter = apps/donations/locale/<lang>/LC_MESSAGES/django.po
 source_file = apps/donations/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
-[bluebottle.organizations_django]
+[onepercentclub-site.organizations]
 file_filter = apps/organizations/locale/<lang>/LC_MESSAGES/django.po
 source_file = apps/organizations/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
-[bluebottle.projects_django]
+[onepercentclub-site.projects]
 file_filter = apps/projects/locale/<lang>/LC_MESSAGES/django.po
 source_file = apps/projects/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
-[bluebottle.blogs_django]
+[onepercentclub-site.blogs_and_news]
 file_filter = apps/blogs/locale/<lang>/LC_MESSAGES/django.po
 source_file = apps/blogs/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
-[bluebottle.bluebottle_dashboard_django]
+[onepercentclub-site.admin_dashboard]
 file_filter = apps/bluebottle_dashboard/locale/<lang>/LC_MESSAGES/django.po
 source_file = apps/bluebottle_dashboard/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
-[bluebottle.contentplugins_django]
+[onepercentclub-site.contentplugins]
 file_filter = apps/contentplugins/locale/<lang>/LC_MESSAGES/django.po
 source_file = apps/contentplugins/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
-[bluebottle.cowry_django]
+[onepercentclub-site.payments_cowry]
 file_filter = apps/cowry/locale/<lang>/LC_MESSAGES/django.po
 source_file = apps/cowry/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
-[bluebottle.cowry_docdata_django]
+[onepercentclub-site.payments_cowry_docdata_django]
 file_filter = apps/cowry_docdata/locale/<lang>/LC_MESSAGES/django.po
 source_file = apps/cowry_docdata/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
-[bluebottle.love_django]
-file_filter = apps/love/locale/<lang>/LC_MESSAGES/django.po
-source_file = apps/love/locale/en/LC_MESSAGES/django.po
-source_lang = en
-type = PO
-
-[bluebottle.homepage_django]
+[onepercentclub-site.homepage]
 file_filter = apps/homepage/locale/<lang>/LC_MESSAGES/django.po
 source_file = apps/homepage/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
-[bluebottle.pages_django]
+[onepercentclub-site.content_pages]
 file_filter = apps/pages/locale/<lang>/LC_MESSAGES/django.po
 source_file = apps/pages/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
-[bluebottle.wallposts_django]
+[onepercentclub-site.wallposts]
 file_filter = apps/wallposts/locale/<lang>/LC_MESSAGES/django.po
 source_file = apps/wallposts/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
-[bluebottle.tasks_django]
+[onepercentclub-site.tasks]
 file_filter = apps/tasks/locale/<lang>/LC_MESSAGES/django.po
 source_file = apps/tasks/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
-[bluebottle.templates]
+[onepercentclub-site.main]
 file_filter = locale/<lang>/LC_MESSAGES/django.po
 source_file = locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
-[bluebottle.javascript]
+[onepercentclub-site.popups_and_javascript]
 file_filter = locale/<lang>/LC_MESSAGES/djangojs.po
 source_file = locale/en/LC_MESSAGES/djangojs.po
 source_lang = en
 type = PO
+
