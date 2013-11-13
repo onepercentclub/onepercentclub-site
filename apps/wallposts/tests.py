@@ -2,10 +2,12 @@ import json
 
 from django.core import mail
 from django.test import TestCase
+from django.utils.translation import ugettext_lazy as _
 
 from rest_framework import status
 from bluebottle.bluebottle_utils.tests import UserTestsMixin
 
+from apps.wallposts.mails import send_mail
 from apps.projects.tests import ProjectWallPostTestsMixin
 from .models import Reaction
 
@@ -248,6 +250,39 @@ class WallpostMailTests(ProjectWallPostTestsMixin, UserTestsMixin, TestCase):
         self.user_c = self.create_user(email='c@example.com')
 
         self.project = self.create_project(owner=self.user_a)
+
+    def test_translated_mail_subject(self):
+        self.user_a.primary_language = 'en'
+        self.user_a.save()
+
+        send_mail(
+            template_name='project_wallpost_reaction_new.mail',
+            subject=_('Username'),
+            obj=self.project,
+            to=self.user_a,
+            author=self.user_b
+        )
+
+        self.assertEqual(len(mail.outbox), 1)
+        mail_message = mail.outbox[0]
+
+        self.assertEquals(mail_message.subject, 'Username')
+
+        self.user_a.primary_language = 'nl'
+        self.user_a.save()
+
+        send_mail(
+            template_name='project_wallpost_reaction_new.mail',
+            subject=_('Username'),
+            obj=self.project,
+            to=self.user_a,
+            author=self.user_b
+        )
+
+        self.assertEqual(len(mail.outbox), 2)
+        mail_message = mail.outbox[1]
+
+        self.assertEquals(mail_message.subject, 'Gebruikersnaam')
 
     def test_new_wallpost_by_a_on_project_by_a(self):
         """
