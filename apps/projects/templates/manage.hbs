@@ -1189,7 +1189,7 @@ Please add 5% administration fee to your budget. The total amount, including the
             {{#each line in budgetLines}}
                 <li class="control-group">
                     <div class="controls wide budget-line">
-                        <a {{action removeBudgetLine line href=true}}>
+                        <a {{action 'removeBudgetLine' line href=true}}>
                             <span class="flaticon solid minus-2"></span>
                         </a>
                         {{view Em.TextField valueBinding="line.description" placeholder="Description" class="description"}}
@@ -1199,7 +1199,7 @@ Please add 5% administration fee to your budget. The total amount, including the
             {{/each}}
             <li class="control-group">
                 <div class="controls wide budget">
-                    <a {{action addBudgetLine line href=true}} class="btn-link">
+                    <a {{action 'addBudgetLine' line href=true}} class="btn-link">
                         <span class="flaticon solid plus-2"></span>
                         {% trans "Add an item to your needed budget." %}
                     </a>
@@ -1210,12 +1210,14 @@ Please add 5% administration fee to your budget. The total amount, including the
                     <div class="budget-description">{% trans "Total budget needed" %}:</div>
                     <div class="budget-amount">{{totalBudget}}</div>
                 </div>
-                {{#if totalBudget}}
-                    {{#unless validBudget}}
-                        <div class="has-errors"><p>{% trans "Total budget shouldn't be over 5000 euro." %}</p></div>
-                    {{/unless}}
-                {{else}}
-                    <div class="has-errors"><p>{% trans "Start adding items to your budget." %}</p></div>
+                {{#if showBudgetError}}
+                    {{#if totalBudget}}
+                        {{#unless validBudget}}
+                            <div class="has-errors"><p>{% trans "Total budget shouldn't be over 5000 euro." %}</p></div>
+                        {{/unless}}
+                    {{else}}
+                        <div class="has-errors"><p>{% trans "Start adding items to your budget." %}</p></div>
+                    {{/if}}
                 {{/if}}
 
             </li>

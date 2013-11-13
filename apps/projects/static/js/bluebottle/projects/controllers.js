@@ -432,6 +432,13 @@ App.MyProjectPlanBudgetController = Em.ObjectController.extend(App.Editable, {
         return dirty;
     }.property('isDirty', 'budgetLines.@each.isDirty'),
 
+    // only show the budget errors if no budget was entered on the first display
+    showBudgetError: function(){
+        var validBudget = this.get('validBudget');
+        var totalBudget = this.get('totalBudget');
+        return (totalBudget && !validBudget);
+    }.property('validBudget', 'totalBudget'),
+
     actions: {
         updateRecordOnServer: function(){
             var controller = this;

@@ -503,7 +503,6 @@ App.MyProjectPlan = DS.Model.extend({
         return false;
     }.property('totalBudget'),
 
-
     created: DS.attr('date')
 });
 

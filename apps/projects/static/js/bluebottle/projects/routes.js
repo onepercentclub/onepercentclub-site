@@ -259,7 +259,22 @@ App.MyProjectPlanMediaRoute = App.MyProjectPlanSubRoute.extend({});
 App.MyProjectPlanSubmitRoute = App.MyProjectPlanSubRoute.extend({});
 
 App.MyProjectPlanCampaignRoute = App.MyProjectPlanSubRoute.extend({});
-App.MyProjectPlanBudgetRoute = App.MyProjectPlanSubRoute.extend({});
+
+App.MyProjectPlanBudgetRoute = App.MyProjectPlanSubRoute.extend({
+    setupController: function(controller, model){
+        this._super(controller, model);
+
+        var numBudgetLines = model.get('budgetLines').get('content').length;
+        if(numBudgetLines === 0){
+            Em.run.next(function(){
+                controller.send('addBudgetLine');
+            });
+        } else {
+            // there are budget lines, and it's not the initial click -> show errors
+            controller.set('showBudgetError', true);
+        }
+    }
+});
 
 App.MyProjectPlanOrganisationRoute = App.MyProjectPlanSubRoute.extend({
 
