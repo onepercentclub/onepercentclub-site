@@ -262,7 +262,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
 {% endtplhandlebars %}
 
 {% tplhandlebars "_my_project_tasks_and_updates" %}
-
+    
     <div class="toolbox">
         <h3 class="toolbox-title">
             <em class="flaticon solid wrench-1"></em>
@@ -420,10 +420,8 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
 
     {{#linkTo "myProjectPlan.basics" class="btn btn-iconed btn-next"}}<span class="flaticon solid right-2"></span>{% trans "Next" %}{{/linkTo}}
 
-    <div>
-        {{partial "my_project_tasks_and_updates"}}
-    </div>
-
+    {{partial "my_project_tasks_and_updates"}}
+    
 {% endtplhandlebars %}
 
 
@@ -530,10 +528,6 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
     </fieldset>
 
     <button {{bindAttr class=":btn :btn-iconed :btn-next isDirty::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
-
-    <div>
-        {{partial "my_project_tasks_and_updates"}}
-    </div>
 
 {% endtplhandlebars %}
 
@@ -1179,6 +1173,7 @@ Please add 5% administration fee to your budget. The total amount, including the
     </legend>
 
     <fieldset>
+        <br />
         <ul>
             {{#each line in budgetLines}}
                 <li class="control-group">
@@ -1201,6 +1196,7 @@ Please add 5% administration fee to your budget. The total amount, including the
                     </div>
                 </li>
             {{/each}}
+
             <li class="control-group">
                 <div class="controls wide text-left">
                     <a {{action addBudgetLine line href=true}} class="btn-link">
@@ -1640,9 +1636,7 @@ Please add 5% administration fee to your budget. The total amount, including the
                 </div>
             </fieldset>
         </form>
-
-        {{partial "my_project_tasks_and_updates"}}
-
+        
     </div>
 
 {% endtplhandlebars %}
