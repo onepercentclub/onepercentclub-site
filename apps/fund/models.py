@@ -306,7 +306,7 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
             order.save()
 
         # Donations.
-        for donation in order.donations:
+        for donation in order.donations.all():
             donation.status = DonationStatuses.failed
             donation.save()
 
