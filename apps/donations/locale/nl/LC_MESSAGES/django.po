@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: onepercentclub-site\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-13 21:32+0100\n"
-"PO-Revision-Date: 2013-11-13 20:33+0000\n"
-"Last-Translator: gannetson <loek@1procentclub.nl>\n"
+"PO-Revision-Date: 2013-11-14 07:56+0000\n"
+"Last-Translator: nieja <niels@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub-site/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,11 +23,11 @@ msgstr ""
 
 #: mails.py:52
 msgid "Anonymous"
-msgstr ""
+msgstr "Anoniem"
 
 #: mails.py:55
 msgid "You received a new donation"
-msgstr ""
+msgstr "Je hebt een nieuwe donatie ontvangen"
 
 #: templates/donations.hbs:18
 msgid "Close"
@@ -272,4 +272,4 @@ msgid ""
 "<br/>\n"
 "Cheers,<br/>\n"
 "1%%Club\n"
-msgstr ""
+msgstr "\nHi,<br/>\n<br/>\nJe hebt zojuist EUR %(amount|floatformat:2)s gedoneerd gekregen van %(donor_name)s!<br/>\n<br/>\nZorg dat je z.s.m. deze persoon bedankt met een persoonlijk berichtje op de <a href=\"%(site)s%(link)s\">projectpagina</a>.<br/>\n<br/>\nSucces!<br/>\n1%%Club\n"

@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: onepercentclub-site\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-13 21:32+0100\n"
-"PO-Revision-Date: 2013-11-13 20:33+0000\n"
-"Last-Translator: gannetson <loek@1procentclub.nl>\n"
+"PO-Revision-Date: 2013-11-14 08:02+0000\n"
+"Last-Translator: nieja <niels@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub-site/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -397,7 +397,7 @@ msgstr "De voortgang volgen?"
 #: templates/orders.hbs:403
 msgid ""
 "Sign up for an account and we keep you updated on the projects progress"
-msgstr "Maak een profiel aan en we houden je op de hoogte van de voortgang van het project."
+msgstr "Maak een profiel aan en we houden je op de hoogte van de voortgang."
 
 #: templates/orders.hbs:426
 msgid "Password"
@@ -498,17 +498,17 @@ msgstr "Bedankt voor je support aan onderstaande project(en). Dankzij jouw steun
 
 #: templates/orders.hbs:658
 msgid "Want to do more?"
-msgstr ""
+msgstr "Meer doen?"
 
 #: templates/orders.hbs:659
 msgid ""
 "You can easily support projects monthly. Just pick a project yourself or you"
 " can leave that up to us."
-msgstr ""
+msgstr "Je kunt ook heel simpel automatisch projecten steunen. Kies een project of laat dat aan ons over."
 
 #: templates/orders.hbs:660
 msgid "Support monthly"
-msgstr ""
+msgstr "Steun maandelijks"
 
 #: templates/orders.hbs:662
 msgid "Stay updated"
