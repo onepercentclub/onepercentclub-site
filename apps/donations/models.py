@@ -1,7 +1,6 @@
 from django.dispatch import receiver
 from django.db.models.signals import pre_save
-
-from apps.fund.models import Order, OrderStatuses, Donation, DonationStatuses
+from apps.fund.models import Order, OrderStatuses, Donation, DonationStatuses, RecurringDirectDebitPayment
 from apps.projects.models import Project
 from apps.projects.signals import project_funded
 
@@ -10,14 +9,24 @@ from .mails import mail_project_funded_monthly_donor_notification, mail_new_oneo
 
 @receiver(project_funded, weak=False, sender=Project, dispatch_uid="email-monthly-donor-project-funded")
 def email_monthly_donor_project_funded(sender, instance, first_time_funded, **kwargs):
+    """
+    Sends an email to users that have the funded project in their monthly shopping cart and have their monthly
+    donation turned on.
+    """
     # A project can become funded multiple times if pending donations fail. Only send this email the first time that
     # the project becomes funded.
     if first_time_funded:
-        # Send an email to any user that has this project in their monthly shopping cart.
         for order in Order.objects.filter(status=OrderStatuses.recurring):
             for donation in order.donations.all():
                 if donation.project == instance:
-                    mail_project_funded_monthly_donor_notification(donation.user, instance)
+                    # Only send the email if the monthly payment is turned on.
+                    try:
+                        recurring_payment = RecurringDirectDebitPayment.objects.get(user=order.user)
+                    except RecurringDirectDebitPayment.DoesNotExist:
+                        pass
+                    else:
+                        if recurring_payment.active:
+                            mail_project_funded_monthly_donor_notification(donation.user, instance)
 
 
 @receiver(pre_save, sender=Donation, dispatch_uid="new_oneoff_donation")
