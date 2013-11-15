@@ -21,14 +21,6 @@ function getCookie(name) {
     return cookieValue;
 }
 
-function setCookie(c_name,value,exdays)
-{
-    var exdate=new Date();
-    exdate.setDate(exdate.getDate() + exdays);
-    var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
-    document.cookie=c_name + "=" + c_value;
-}
-
 var csrf_token = getCookie('csrftoken');
 
 function csrfSafeMethod(method) {
@@ -61,7 +53,11 @@ $.ajaxSetup({
             // Using the CSRFToken value acquired earlier
             xhr.setRequestHeader("X-CSRFToken", csrf_token);
         }
-    }
+    },
+    // Disable AJAX caching. This will add a timestamp to all requests. Especially to avoid problems with IE.
+    // TODO: See if we can make this a bit smarter.
+    cache: false
+
 });
 
 
