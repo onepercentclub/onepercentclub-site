@@ -53,11 +53,7 @@ $.ajaxSetup({
             // Using the CSRFToken value acquired earlier
             xhr.setRequestHeader("X-CSRFToken", csrf_token);
         }
-    },
-    // Disable AJAX caching. This will add a timestamp to all requests. Especially to avoid problems with IE.
-    // TODO: See if we can make this a bit smarter.
-    cache: false
-
+    }
 });
 
 
@@ -66,5 +62,9 @@ $.ajaxSetup({
 // https://github.com/francois2metz/html5-formdata
 if (Em.isNone(File)) {
     var File = function(){};
+}
+
+if (Em.isNone(document.head)){
+    document.head = document.getElementsByTagName('head')[0];
 }
 
