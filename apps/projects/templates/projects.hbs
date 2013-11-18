@@ -163,6 +163,8 @@
 
 {% tplhandlebars "project" %}
 
+    {{#if isCampaign}}<div class="project-campaign">TODO: Add promotional layout{{/if}}
+
     <div class="l-section" id="project-detail">
         <section class="l-wrapper">
         
@@ -302,6 +304,7 @@
     </nav>
     {{ outlet }}
 
+    {{#if isCampaign}}</div> <!-- /.project-campaign -->{{/if}}
 
 {% endtplhandlebars %}
 

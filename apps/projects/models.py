@@ -116,6 +116,8 @@ class Project(models.Model):
 
     popularity = models.FloatField(null=False, default=0)
 
+    is_campaign = models.BooleanField(default=False, help_text=_("Project is part of a campaign and gets special promotion."))
+
     objects = ProjectManager()
 
     _original_phase = None
