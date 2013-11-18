@@ -5,7 +5,8 @@ import os
 from registration.models import RegistrationProfile
 from django.utils import timezone
 from apps.cowry_docdata.models import payment_method_mapping
-from apps.fund.models import Donation, DonationStatuses, Voucher, VoucherStatuses, RecurringDirectDebitPayment
+from apps.fund.models import Donation, DonationStatuses, RecurringDirectDebitPayment
+from apps.vouchers.models import Voucher, VoucherStatuses
 from apps.organizations.models import Organization, OrganizationAddress
 from bluebottle.accounts.models import BlueBottleUser
 from apps.projects.models import Project, ProjectCampaign, ProjectPitch, ProjectPlan, ProjectBudgetLine, \
