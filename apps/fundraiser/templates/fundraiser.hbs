@@ -1,0 +1,105 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% language "en" %}
+{# Force all these pages to english #}
+
+{% tplhandlebars "my_pitch_basics" %}
+
+    <legend>
+        <strong>{% trans "Pitch basics" %}</strong>
+    </legend>
+
+    <fieldset>
+        <ul>
+            <li class="control-group has-popover" data-content="{% trans "Be short, creative, simple and memorable." %}">
+                <label class="control-label">{% trans "Title" %}</label>
+                <div class="controls">
+                    {{view Em.TextField valueBinding="title" placeholder="Title" classBinding="errors.title.length:error"}}
+                </div>
+
+                {{#if errors.title }}
+                    <div class="has-errors">{{#each errors.title }}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
+            </li>
+
+            <li class="control-group has-popover" data-content="{% trans "By reading your pitch many donors already make the decision to donate or not. The explanation must be to the point, because people don't have time to read everything." %}">
+                <label class="control-label">{% trans "Pitch" %}</label>
+                <div class="controls">
+                    {{view Em.TextArea valueBinding="pitch" placeholder="Description" classBinding="errors.pitch.length:error"}}
+                </div>
+
+                {{#if errors.pitch }}
+                    <div class="has-errors">{{#each errors.pitch }}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
+            </li>
+
+            <li class="control-group has-popover" data-content="{% trans "A short description should at least tell something about a person, place, mitvation and activity. The simplest story would be: [Person] in [place] needs help to [activity] because [motivation]." %}">
+                <label class="control-label wide">{% trans "Short explanation: Why, what and how" %}</label>
+                <div class="controls wide">
+                    {{view Em.TextArea valueBinding="description"classBinding="errors.description.length:error" rows=12}}
+                </div>
+
+                {{#if errors.description }}
+                    <div class="has-errors">{{#each errors.description }}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
+            </li>
+        </ul>
+    </fieldset>
+
+    <fieldset>
+        <ul>
+            <li class="control-group has-popover" data-content="{% trans "Select one of the themes." %}">
+                <label class="control-label">{% trans "Theme" %}</label>
+                <div class="controls">
+                    {{view App.ThemeSelectView valueBinding="theme" classBinding="errors.theme.length:error"}}
+                </div>
+
+                {{#if errors.theme }}
+                    <div class="has-errors">{{#each errors.theme }}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
+            </li>
+        </ul>
+    </fieldset>
+
+    <fieldset>
+        <ul>
+            <li class="control-group">
+                <label class="control-label">
+                    {% trans "Tags" %} ({{tags.length}})<br />
+                    <small>{% trans "Between 2 and 5 tags" %}</small>
+                </label>
+
+                <div class="controls">
+                    {{view App.TagWidget tagsBinding="tags" classBinding="errors.tags.length:error"}}
+                </div>
+
+                {{#if errors.tags }}
+                    <div class="has-errors">{{#each errors.tags }}<p>{{this}}</p>{{/each}}</div>
+                {{/if}}
+            </li>
+        </ul>
+    </fieldset>
+
+    <fieldset>
+        <ul>
+            <li class="control-group has-popover" data-content="{% trans "What do you need to realise your smart idea?" %}">
+                <label class="control-label">
+                    {% trans "What do you need?" %}
+                </label>
+
+                <div class="controls">
+                    {{#view Em.RadioButtonGroup name="need" selectedValueBinding="need" class="radio-group"}}
+                        <label class="radio">{{view view.RadioButton value="skills"}}<span>{% trans "Skills and expertise" %}</span></label>
+                        <label class="radio">{{view view.RadioButton value="finance"}}<span>{% trans "Crowdfunding campaign" %}</span></label>
+                        <label class="radio">{{view view.RadioButton value="both"}}<span>{% trans "Both" %}</span></label>
+                    {{/view}}
+                </div>
+            </li>
+        </ul>
+    </fieldset>
+
+    <button {{bindAttr class=":btn :btn-iconed :btn-primary :btn-next isDirty::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+
+{% endtplhandlebars %}
