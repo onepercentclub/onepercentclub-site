@@ -6,7 +6,9 @@ from apps.projects.models import Project, ProjectBudgetLine, ProjectCampaign, Pr
     ProjectPhases, ProjectAmbassador
 from apps.organizations.models import Organization, OrganizationAddress
 from apps.tasks.models import Task, TaskMember
-from apps.fund.models import Donation, Voucher, VoucherStatuses, DonationStatuses, RecurringDirectDebitPayment
+from apps.fund.models import Donation, DonationStatuses, RecurringDirectDebitPayment
+from apps.vouchers.models import Voucher, VoucherStatuses
+
 from apps.bluebottle_salesforce.models import SalesforceOrganization, SalesforceContact, SalesforceProject, \
     SalesforceDonation, SalesforceProjectBudget, SalesforceTask, SalesforceTaskMembers, SalesforceVoucher
 
