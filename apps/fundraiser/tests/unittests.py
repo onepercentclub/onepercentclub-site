@@ -4,8 +4,7 @@ from rest_framework import status
 
 from bluebottle.bluebottle_utils.tests import UserTestsMixin, generate_random_slug
 
-from apps.fund.models import DonationStatuses, Donation, Order
-from apps.projects.models import Project, ProjectPlan, ProjectPhases
+from apps.fund.models import DonationStatuses, Donation
 from apps.projects.tests.unittests import ProjectTestsMixin
 
 from ..models import FundRaiser

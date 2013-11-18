@@ -85,8 +85,10 @@ App.ProjectRoute = Em.Route.extend(App.ScrollToTop, {
         // Set the controller to show Project Supporters
         var projectSupporterListController = this.controllerFor('projectSupporterList');
         projectSupporterListController.set('supporters', App.DonationPreview.find({project: project.get('id')}));
+        projectSupporterListController.set('fundraisers', App.FundRaiser.find({project: project.get('id')}));
         projectSupporterListController.set('page', 1);
         projectSupporterListController.set('canLoadMore', true);
+        // TODO: set fundraisers here
     }
 });
 

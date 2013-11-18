@@ -24,6 +24,14 @@ App.ProjectSupporterView = Em.View.extend({
     }
 });
 
+App.ProjectFundRaiserView = Em.View.extend({
+    tempalteName: 'project_fundraiser',
+    tagName: 'li',
+    didInsertElement: function(){
+        this.$('a').popover({trigger: 'hover', placement: 'top', width: '100px'})
+    }
+})
+
 
 App.ProjectSupporterListView = Em.View.extend({
     templateName: 'project_supporter_list'
