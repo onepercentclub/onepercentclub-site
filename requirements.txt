@@ -145,3 +145,6 @@ pycurl==7.19.0
 
 # Date and Currency formatting.
 babel==1.3
+
+
+django-tools
