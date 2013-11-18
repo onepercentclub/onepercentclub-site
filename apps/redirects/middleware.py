@@ -11,6 +11,7 @@ from django.utils import translation
 
 from apps.redirects.models import Redirect
 
+
 class RedirectFallbackMiddleware(object):
     """
     A modified version of django.contrib.redirects, this app allows
