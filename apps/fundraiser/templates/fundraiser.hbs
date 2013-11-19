@@ -152,16 +152,22 @@
                 <article class="fundraiser-info-owner">
 
                     <figure class="fundraiser-image l-half">
-                        <img {{bindAttr src="owner.avatar"}} width="50%" alt="Photo" />
+                        <span class="member-avatar">
+                            <a href='#' {{action 'openInBigBox' 'userModal' owner }} class="TODO">
+                                <img {{bindAttr src="owner.getAvatar" alt="owner.full_name"}} width="50%" />
+                            </a>
+                        </span>
                     </figure>
 
-                    <span class="TODO">{{owner}}</span>
+                    <div>
+                        {% trans "Fundraiser" %} <a class="membe TODO" {{action 'openInBigBox' 'userModal' owner }}>{{owner.full_name}}</a>
 
-                    <a href='#' {{ action 'addDonation' this }} class="btn btn-primary btn-iconed">
-                        <span class="flaticon solid wallet-1"></span>
-                        {% trans "Support" %} {{owner.first_name}}
-                    </a>
-                    {{!-- TODO: fix donations + backlink from donations to fundraisers --}}
+                        <a href='#' {{ action 'addDonation' this }} class="btn btn-primary btn-iconed">
+                            <span class="flaticon solid wallet-1"></span>
+                            {% trans "Support" %} {{owner.first_name}}
+                        </a>
+                        {{!-- TODO: fix donations + backlink from donations to fundraisers --}}
+                    </div>
 
                 </article>
 
@@ -187,6 +193,10 @@
                     </p>
 
                     <div class="fundraiser-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
+                </div>
+
+                <div class="fundraiser-fund l-one-third">
+                    supporters-placeholder
                 </div>
 
             </div>
