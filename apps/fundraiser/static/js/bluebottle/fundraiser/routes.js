@@ -25,13 +25,7 @@ App.FundRaiserRoute = Em.Route.extend(App.ScrollToTop, {
 
         var project_id = fundraiser.get('project');
         controller.set('projectModel', App.ProjectPreview.find({project: project_id}));
-// TODO: Add meta data when ready in sprint.
-//
-//        // Set the controller to show Project Supporters
-//        var projectSupporterListController = this.controllerFor('projectSupporterList');
-//        projectSupporterListController.set('supporters', App.DonationPreview.find({project: project.get('id')}));
-//        projectSupporterListController.set('page', 1);
-//        projectSupporterListController.set('canLoadMore', true);
+        controller.set('fundRaiseSupporters', App.DonationPreview.find({project: project_id, fundraiser: fundraiser.id}));
     }
 });
 

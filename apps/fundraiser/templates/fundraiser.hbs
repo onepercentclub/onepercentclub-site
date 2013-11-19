@@ -196,7 +196,23 @@
                 </div>
 
                 <div class="fundraiser-fund l-one-third">
-                    supporters-placeholder
+
+                    {{#if fundRaiseSupporters.length}}
+                        <li class="project-member-supporters"  style="width:30%;"> {{!-- TODO: CSS --}}
+                            <ul>
+                                <li class="project-member-supporters-total">
+                                    <strong>{{fundRaiseSupporters.meta.total}}</strong>
+                                    <br/>
+                                    <em>Total</em>
+                                </li>
+                                {{#each supporter in fundRaiseSupporters}}
+                                    {{view "App.ProjectSupporterView" }}
+                                {{/each}}
+                            </ul>
+                            <h4>{% trans "Supporters" %}</h4>
+                        </li>
+                    {{/if}}
+
                 </div>
 
             </div>
