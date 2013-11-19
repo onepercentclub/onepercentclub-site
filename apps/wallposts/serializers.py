@@ -114,8 +114,6 @@ class SystemWallPostSerializer(WallPostSerializerBase):
     related_type = serializers.CharField(source='related_type.name')
     related_object = WallpostRelatedField(source='related_object')
 
-    related_object = WallpostRelatedField(source='related_object')
-
     class Meta:
         model = TextWallPost
         fields = WallPostSerializerBase.Meta.fields + ('text', 'related_type', 'related_object')
