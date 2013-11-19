@@ -1,29 +1,32 @@
-from apps.projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador, ProjectBudgetLine, ProjectPhases, ProjectCampaign, ProjectTheme
+import django_filters
+
 from django.db.models.query_utils import Q
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
-from apps.fund.models import Donation, DonationStatuses
-from apps.projects.serializers import DonationPreviewSerializer, ManageProjectSerializer, ManageProjectPitchSerializer, ManageProjectPlanSerializer, ProjectPlanSerializer, ProjectPitchSerializer, ProjectAmbassadorSerializer, ProjectBudgetLineSerializer, ProjectPreviewSerializer, ProjectCampaignSerializer, ProjectThemeSerializer
-from apps.wallposts.permissions import IsConnectedWallPostAuthorOrReadOnly
-from apps.wallposts.serializers import MediaWallPostPhotoSerializer
 from django.http import Http404
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
-import django_filters
+from django.contrib.contenttypes.models import ContentType
 from rest_framework import generics
 from rest_framework import permissions
-from django.contrib.contenttypes.models import ContentType
+from rest_framework.permissions import IsAuthenticated
 from bluebottle.bluebottle_drf2.views import ListCreateAPIView, RetrieveUpdateDeleteAPIView, ListAPIView
 from bluebottle.bluebottle_utils.utils import get_client_ip, set_author_editor_ip
-from apps.projects.permissions import IsProjectOwnerOrReadOnly, IsProjectOwner, IsOwner, NoRunningProjectsOrReadOnly, EditablePitchOrReadOnly, EditablePlanOrReadOnly
 from bluebottle.bluebottle_drf2.permissions import IsAuthorOrReadOnly
+
+from apps.projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador, ProjectBudgetLine, ProjectPhases, ProjectCampaign, ProjectTheme
+from apps.fund.models import Donation, DonationStatuses
+from apps.projects.serializers import DonationPreviewSerializer, ManageProjectSerializer, ManageProjectPitchSerializer, ManageProjectPlanSerializer, ProjectPlanSerializer, ProjectPitchSerializer, ProjectAmbassadorSerializer, ProjectBudgetLineSerializer, ProjectPreviewSerializer, ProjectCampaignSerializer, ProjectThemeSerializer
+from apps.wallposts.permissions import IsConnectedWallPostAuthorOrReadOnly
+from apps.wallposts.serializers import MediaWallPostPhotoSerializer
+from apps.projects.permissions import IsProjectOwnerOrReadOnly, IsProjectOwner, IsOwner, NoRunningProjectsOrReadOnly, EditablePitchOrReadOnly, EditablePlanOrReadOnly
 from apps.wallposts.models import WallPost, MediaWallPost, TextWallPost, MediaWallPostPhoto
+from apps.fundraiser.models import FundRaiser
+
 from .models import Project
-from rest_framework.permissions import IsAuthenticated
 from .serializers import (ProjectSerializer, ProjectWallPostSerializer, ProjectMediaWallPostSerializer,
                           ProjectTextWallPostSerializer)
-
 
 # API views
 
@@ -231,18 +234,31 @@ class ProjectDonationList(generics.ListAPIView):
 
     def get_queryset(self):
         queryset = super(ProjectDonationList, self).get_queryset()
+
+        filter_kwargs = {}
+
         project_slug = self.request.QUERY_PARAMS.get('project', None)
         if project_slug:
             try:
                 project = Project.objects.get(slug=project_slug)
+                filter_kwargs['project'] = project
             except Project.DoesNotExist:
                 raise Http404(_(u"No %(verbose_name)s found matching the query") %
                               {'verbose_name': queryset.model._meta.verbose_name})
         else:
             raise Http404(_(u"No %(verbose_name)s found matching the query") %
-                          {'verbose_name': queryset.model._meta.verbose_name})
+                          {'verbose_name': Project._meta.verbose_name})
 
-        queryset = queryset.filter(project=project)
+        fundraiser_id = self.request.QUERY_PARAMS.get('fundraiser', None)
+        if fundraiser_id:
+            try:
+                fundraiser = FundRaiser.objects.get(project=project, pk=fundraiser_id)
+                filter_kwargs['fundraiser'] = fundraiser
+            except FundRaiser.DoesNotExist:
+                raise Http404(_(u"No %(verbose_name)s found matching the query") %
+                              {'verbose_name': FundRaiser._meta.verbose_name})
+
+        queryset = queryset.filter(**filter_kwargs)
         queryset = queryset.order_by("-ready")
         queryset = queryset.filter(status__in=[DonationStatuses.paid, DonationStatuses.pending])
 
