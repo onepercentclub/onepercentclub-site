@@ -1,6 +1,5 @@
 App.FundRaiserView = Em.View.extend({
     templateName: 'fund_raiser'
-
 });
 
 

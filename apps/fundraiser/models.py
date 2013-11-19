@@ -24,6 +24,7 @@ class FundRaiser(models.Model):
 
     created = CreationDateTimeField(_("created"), help_text=_("When this fundraiser was created."))
     updated = ModificationDateTimeField(_('updated'))
+    deleted = models.DateTimeField(_('deleted'), blank=True, null=True)
 
     def __unicode__(self):
         return self.title
