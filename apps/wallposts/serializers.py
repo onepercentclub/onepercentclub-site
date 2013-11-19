@@ -99,11 +99,7 @@ class TextWallPostSerializer(WallPostSerializerBase):
 class WallpostRelatedField(serializers.RelatedField):
     def to_native(self, obj):
         if obj.__class__.__name__ == 'Donation':
-<<<<<<< Updated upstream
             serializer = DonationFundRaiserSerializer(obj)
-=======
-            serializer = projects.serializers.DonationPreviewSerializer(obj)
->>>>>>> Stashed changes
             return serializer.data
         return super(WallpostRelatedField, self).to_native(obj)
 
@@ -116,20 +112,11 @@ class SystemWallPostSerializer(WallPostSerializerBase):
     type = WallPostTypeField(type='system')
     text = ContentTextField()
     related_type = serializers.CharField(source='related_type.name')
-
-<<<<<<< Updated upstream
     related_object = WallpostRelatedField(source='related_object')
 
     class Meta:
         model = TextWallPost
         fields = WallPostSerializerBase.Meta.fields + ('text', 'related_type', 'related_object')
-=======
-    foo = WallpostRelatedField(source='related_object')
-
-    class Meta:
-        model = TextWallPost
-        fields = WallPostSerializerBase.Meta.fields + ('text', 'related_type', 'foo')
->>>>>>> Stashed changes
 
 
 class WallPostSerializer(PolymorphicSerializer):
