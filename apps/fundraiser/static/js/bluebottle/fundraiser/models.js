@@ -6,7 +6,7 @@ App.Adapter.map('App.FundRaiser', {
 App.FundRaiser = DS.Model.extend({
 	url: 'fundraiser/fundraisers',
 
-	project: DS.belongsTo('App.ProjectPreview'), // TODO
+	project: DS.attr('string'),
     owner: DS.belongsTo('App.UserPreview'),
 
 	title: DS.attr('string'),

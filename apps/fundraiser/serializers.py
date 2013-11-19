@@ -13,8 +13,8 @@ from .models import FundRaiser
 class FundRaiserSerializer(serializers.ModelSerializer):
     """ Serializer to view/create fundraisers """
 
-    owner = UserPreviewSerializer()
-    project = ProjectPreviewSerializer(source='project')
+    owner = UserPreviewSerializer(read_only=True)
+    project = serializers.SlugRelatedField(source='project', slug_field='slug')
     image = ImageSerializer()
     amount = EuroField()
     amount_donated = EuroField(source='amount_donated', read_only=True)

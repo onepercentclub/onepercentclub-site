@@ -1,5 +1,8 @@
-from bluebottle.bluebottle_drf2.permissions import IsAuthorOrReadOnly
+from django.http import Http404
+from django.utils.translation import ugettext_lazy as _
+
 from bluebottle.bluebottle_drf2.views import RetrieveUpdateDeleteAPIView, ListCreateAPIView
+from rest_framework.permissions import IsAuthenticated
 
 from apps.projects.models import Project
 
@@ -29,8 +32,11 @@ class FundRaiserListView(ListCreateAPIView):
         # randomize results?
         return queryset.order_by('?')
 
+    def pre_save(self, obj):
+        obj.owner = self.request.user
+
 
 class FundRaiserDetailView(RetrieveUpdateDeleteAPIView):
     model = FundRaiser
     serializer_class = FundRaiserSerializer
-    permission_classes = (IsAuthorOrReadOnly,)
+    permission_classes = (IsAuthenticated,)
