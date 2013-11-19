@@ -5,101 +5,82 @@
 {% language "en" %}
 {# Force all these pages to english #}
 
-{% tplhandlebars "my_pitch_basics" %}
+{% tplhandlebars "my_fund_raiser_new" %}
 
-    <legend>
-        <strong>{% trans "Pitch basics" %}</strong>
-    </legend>
 
-    <fieldset>
-        <ul>
-            <li class="control-group has-popover" data-content="{% trans "Be short, creative, simple and memorable." %}">
-                <label class="control-label">{% trans "Title" %}</label>
-                <div class="controls">
-                    {{view Em.TextField valueBinding="title" placeholder="Title" classBinding="errors.title.length:error"}}
-                </div>
+    <div class="l-section" id="project-dashboard">
 
-                {{#if errors.title }}
-                    <div class="has-errors">{{#each errors.title }}<p>{{this}}</p>{{/each}}</div>
+        <div class="l-section account-header">
+            <nav class="l-wrapper">
+
+                <figure class="account-avatar"><img {{bindAttr src="controllers.currentUser.getAvatar"}} /></figure>
+
+                <header class="account-title">
+                    <h2>{% trans "My 1%" %} > {% trans "Fundraisers" %}</h2>
+                </header>
+
+                {{#if id}}
+                    {{#if title}}
+                        <a {{action "showFundraiser" id href=true}} class="account-preview btn-link">
+                            <span class="flaticon solid eye-1"></span>
+                            {% trans "Preview fundraiser page" %}
+                        </a>
+                    {{/if}}
                 {{/if}}
-            </li>
+            </nav>
+        </div>
 
-            <li class="control-group has-popover" data-content="{% trans "By reading your pitch many donors already make the decision to donate or not. The explanation must be to the point, because people don't have time to read everything." %}">
-                <label class="control-label">{% trans "Pitch" %}</label>
-                <div class="controls">
-                    {{view Em.TextArea valueBinding="pitch" placeholder="Description" classBinding="errors.pitch.length:error"}}
-                </div>
+        <div class="l-wrapper">
+            <form class="l-content">
+                <legend>
+                    <strong>{% trans "New fundraiser" %}</strong>
+                </legend>
 
-                {{#if errors.pitch }}
-                    <div class="has-errors">{{#each errors.pitch }}<p>{{this}}</p>{{/each}}</div>
-                {{/if}}
-            </li>
+                <fieldset>
+                    <ul>
+                        {% include "generic/form_field.html" with title="Title" placeholder="Title describes your fundraiser action in short" field_type="Em.TextField" field_name="title" %}
 
-            <li class="control-group has-popover" data-content="{% trans "A short description should at least tell something about a person, place, mitvation and activity. The simplest story would be: [Person] in [place] needs help to [activity] because [motivation]." %}">
-                <label class="control-label wide">{% trans "Short explanation: Why, what and how" %}</label>
-                <div class="controls wide">
-                    {{view Em.TextArea valueBinding="description"classBinding="errors.description.length:error" rows=12}}
-                </div>
+                        {% include "generic/form_field.html" with title="Description" placeholder="Tell a little bit about yourself so we get to know you" field_type="Em.TextArea" field_name="description" %}
+                    </ul>
+                </fieldset>
 
-                {{#if errors.description }}
-                    <div class="has-errors">{{#each errors.description }}<p>{{this}}</p>{{/each}}</div>
-                {{/if}}
-            </li>
-        </ul>
-    </fieldset>
+                <fieldset>
+                    <ul>
+                        {% include "generic/form_imagefield.html" with title="Image" field_name="image" help_text="Minimal of 800px wide" %}
 
-    <fieldset>
-        <ul>
-            <li class="control-group has-popover" data-content="{% trans "Select one of the themes." %}">
-                <label class="control-label">{% trans "Theme" %}</label>
-                <div class="controls">
-                    {{view App.ThemeSelectView valueBinding="theme" classBinding="errors.theme.length:error"}}
-                </div>
+                        {% include "generic/form_field.html" with title="Video" placeholder="http://" field_type="Em.TextField" field_name="video_url" help_text="Youtube or Vimeo link" %}
+                    </ul>
+                </fieldset>
 
-                {{#if errors.theme }}
-                    <div class="has-errors">{{#each errors.theme }}<p>{{this}}</p>{{/each}}</div>
-                {{/if}}
-            </li>
-        </ul>
-    </fieldset>
+                <fieldset>
+                    <h2>TODO: Subtitle</h2>
+                    <p>Lorem ipsum</p>
 
-    <fieldset>
-        <ul>
-            <li class="control-group">
-                <label class="control-label">
-                    {% trans "Tags" %} ({{tags.length}})<br />
-                    <small>{% trans "Between 2 and 5 tags" %}</small>
-                </label>
+                    <ul>
+                        {% include "generic/form_field.html" with title="Amount to raise" placeholder="&euro;" field_type="Em.TextField" field_name="amount" %}
 
-                <div class="controls">
-                    {{view App.TagWidget tagsBinding="tags" classBinding="errors.tags.length:error"}}
-                </div>
+                        {% include "generic/form_field.html" with title="Deadline" placeholder="" field_type="Em.TextField" field_name="deadline" %}
+                    </ul>
+                </fieldset>
 
-                {{#if errors.tags }}
-                    <div class="has-errors">{{#each errors.tags }}<p>{{this}}</p>{{/each}}</div>
-                {{/if}}
-            </li>
-        </ul>
-    </fieldset>
+                <button {{bindAttr class=":btn :btn-iconed :btn-next isDirty::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Create" %}</button>
 
-    <fieldset>
-        <ul>
-            <li class="control-group has-popover" data-content="{% trans "What do you need to realise your smart idea?" %}">
-                <label class="control-label">
-                    {% trans "What do you need?" %}
-                </label>
+            </form>
 
-                <div class="controls">
-                    {{#view Em.RadioButtonGroup name="need" selectedValueBinding="need" class="radio-group"}}
-                        <label class="radio">{{view view.RadioButton value="skills"}}<span>{% trans "Skills and expertise" %}</span></label>
-                        <label class="radio">{{view view.RadioButton value="finance"}}<span>{% trans "Crowdfunding campaign" %}</span></label>
-                        <label class="radio">{{view view.RadioButton value="both"}}<span>{% trans "Both" %}</span></label>
-                    {{/view}}
-                </div>
-            </li>
-        </ul>
-    </fieldset>
+            <sidebar class="l-sidebar">
+                <h2>{% trans "FUNDRAISING FOR PROJECT" %}</h2>
+                <p>{% trans "You'll be fundraising for this project" %}</p>
 
-    <button {{bindAttr class=":btn :btn-iconed :btn-primary :btn-next isDirty::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+                <p>1.{{ projectPreview.title }}</p>
+                <p>2.{{ project_preview.title }}</p>
+                <p>3.{{ projectpreview.title }}</p>
+                <p>TODO: Project thumb</p>
+
+            </sidebar>
+        </div>
+    </div>
 
 {% endtplhandlebars %}
+
+
+{% endlanguage %}

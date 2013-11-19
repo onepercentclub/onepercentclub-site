@@ -6,9 +6,7 @@
         {% templatetag openvariable %}view Em.TextField valueBinding="{{ field_name }}" placeholder="{{ placeholder }}" classBinding="errors.title.length:error"{% templatetag closevariable %}
     </div>
 
-    {% verbatim %}
-    {{#if errors.title }}
-        <div class="has-errors">{{#each errors.title }}<p>{{this}}</p>{{/each}}</div>
-    {{/if}}
-    {% endverbatim %}
+    {% templatetag openvariable %}#if errors.{{ field_name }}{% templatetag closevariable %}
+        <div class="has-errors">{% templatetag openvariable %}#each errors.{{ field_name }}{% templatetag closevariable %}<p>{% templatetag openvariable %}this{% templatetag closevariable %}</p>{% templatetag openvariable %}/each{% templatetag closevariable %}</div>
+    {% templatetag openvariable %}/if{% templatetag closevariable %}
 </li>
