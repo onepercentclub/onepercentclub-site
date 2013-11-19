@@ -12,7 +12,8 @@ App.Adapter.map('App.ProjectPreview', {
 
 App.Adapter.map('App.ProjectPlan', {
     tags: {embedded: 'load'},
-    country: {embedded: 'load'}
+    country: {embedded: 'load'},
+    budgetLines: {embedded: 'load'}
 });
 App.Adapter.map('App.ProjectPitch', {
     tags: {embedded: 'load'},
@@ -47,6 +48,16 @@ App.Organization = DS.Model.extend({
     facebook: DS.attr('string', {defaultValue: ""}),
     twitter: DS.attr('string', {defaultValue: ""}),
     skype: DS.attr('string', {defaultValue: ""}),
+
+    facebookUrl: function(){
+        return this.get('facebook');
+    }.property('facebook'),
+    twitterUrl: function(){
+        return this.get('twitter');
+    }.property('twitter'),
+    skypeUrl: function(){
+        return 'callto:' + this.get('skype');
+    }.property('skype'),
 
     // Legal
     legalStatus: DS.attr('string', {defaultValue: ""})
@@ -118,7 +129,8 @@ App.ProjectPlan = DS.Model.extend({
     image: DS.attr('image'),
 
     // Organization
-    organization: DS.belongsTo('App.Organization')
+    organization: DS.belongsTo('App.Organization'),
+    budgetLines: DS.hasMany('App.BudgetLine')
 
 });
 
@@ -393,6 +405,11 @@ App.MyProjectPitch = DS.Model.extend({
     created: DS.attr('date')
 });
 
+App.BudgetLine = DS.Model.extend({
+    project_plan: DS.belongsTo('App.ProjectPlan'),
+    description: DS.attr('string'),
+    amount: DS.attr('number')
+});
 
 
 App.MyProjectPlan = DS.Model.extend({

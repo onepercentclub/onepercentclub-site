@@ -697,6 +697,7 @@ def update_project_after_donation(sender, instance, created, **kwargs):
     if campaign.money_asked <= campaign.money_donated:
         project.phase = ProjectPhases.act
         project.save()
-    else:
-        project.phase = ProjectPhases.campaign
-        project.save()
+    # Never (automatically) move the project back to Campaign phase.
+    #else:
+    #    project.phase = ProjectPhases.campaign
+    #    project.save()

@@ -447,23 +447,35 @@
                         {{#if organization.twitter}}
                             <dl>
                                 <dt><span class="flaticon social twitter-3"></span> Twitter</dt>
-                                <dd><a href="http://twitter.com/{{organization.twitter}}">{{organization.twitter}}</a></dd>
+                                <dd><a {{bindAttr href=organization.twitterUrl}}>{{organization.twitter}}</a></dd>
                             </dl>
                         {{/if}}
                         {{#if organization.facebook}}
                             <dl>
                                 <dt><span class="flaticon social facebook-3"></span> Facebook</dt>
-                                <dd><a href="http://facebook.com/{{organization.facebook}}">{{organization.facebook}}</a></dd>
+                                <dd><a {{bindAttr href=organization.facebookUrl}}>{{organization.facebook}}</a></dd>
                             </dl>
                         {{/if}}
                         {{#if organization.skype}}
                             <dl>
-                                <dt><span class="flaticon social skype-2"></span> Website</dt>
-                                <dd><a href="callto:{{organization.skype}}">{{organization.skype}}</a></dd>
+                                <dt><span class="flaticon social skype-2"></span> Skype</dt>
+                                <dd><a {{bindAttr href=organization.skypeUrl}}>{{organization.skype}}</a></dd>
                             </dl>
                         {{/if}}
                         </ul>
     				</article>	
+                {{/if}}
+
+                {{#if budgetLines.length}}
+    				<article>
+                        <h2>{% trans "Budget" %}</h2>
+                        {{#each line in budgetLines}}
+                            <dl>
+                                <dd>{{line.description}}</dd>
+                                <dt align="right">&euro;{{line.amount}}</dt>
+                            </dl>
+                        {{/each}}
+                    </article>
                 {{/if}}
                 
         </section>
