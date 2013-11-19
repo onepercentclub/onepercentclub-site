@@ -335,33 +335,26 @@
             </li>
         {{/if}}
 
+
         {{#unless isPhasePlan}}
+            {{render "projectFundRaiserList"}}
             {{render "projectSupporterList"}}
         {{/unless}}
     </ul>
 
-{% endtplhandlebars %}
+    {{!-- TODO: move this and fix the CSS --}}
+    <div style="text-align:center">
+        {{#linkTo 'myFundRaiserNew' id}}
+            {% trans "Become a fundraiser" %}
+        {{/linkTo}}
+    </div>
 
-{% tplhandlebars "project_fundraiser_list" %}
-    {{#if fundraisers.length}}
-        <li class="project-member-fundraisers">
-            <ul>
-                {{#each fundraiser in controller}}
-                    {{view "App.ProjectFundRaiserView" }}
-                {{/each}}
-            </ul>
-            <h4>{% trans "Fundraisers" %}</h4>
-        </li>
-    {{/if}}
-    {{#linkto 'project' project.getProject}}
-        {% trans "Become a fundraiser" %}
-    {{/linkto}} {{!-- TODO: correct route --}}
 {% endtplhandlebars %}
 
 {% tplhandlebars "project_supporter_list" %}
 
     {{#if supporters.length}}
-        <li class="project-member-supporters">
+        <li class="project-member-supporters"  style="width:30%;"> {{!-- TODO: CSS --}}
             <ul>
                 <li class="project-member-supporters-total">
                     <strong>{{supporters.meta.total}}</strong>

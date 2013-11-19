@@ -20,3 +20,13 @@ App.MyFundRaiserNewController = Em.ObjectController.extend(App.Editable, {
         }
     }
 });
+
+App.ProjectFundRaiserListController = Em.ArrayController.extend({
+	fundraisersLoaded: function(sender, key) {
+		if (this.get(key)) {
+			this.set('model', this.get('fundraisers').toArray());
+		} else {
+			this.set('model', null);
+		}
+	}.observes('fundraisers.isLoaded')
+});
