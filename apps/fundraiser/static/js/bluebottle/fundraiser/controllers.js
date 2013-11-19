@@ -1,5 +1,5 @@
-App.FundRaiserController = Em.ObjectController.extend({
-});
+// App.FundRaiserController = Em.ObjectController.extend({
+// });
 
 
 App.MyFundRaiserNewController = Em.ObjectController.extend(App.Editable, {

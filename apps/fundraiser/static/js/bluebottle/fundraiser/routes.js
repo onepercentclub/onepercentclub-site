@@ -14,13 +14,17 @@ App.Router.map(function(){
 /**
  * Fundraiser Routes
  */
+
 App.FundRaiserRoute = Em.Route.extend(App.ScrollToTop, {
     model: function(params) {
         return App.FundRaiser.find(params.fundraiser_id);
     },
 
-    setupController: function(controller, project) {
-        this._super(controller, project);
+    setupController: function(controller, fundraiser) {
+        this._super(controller, fundraiser);
+
+        var project_id = fundraiser.get('project');
+        controller.set('projectModel', App.ProjectPreview.find({project: project_id}));
 // TODO: Add meta data when ready in sprint.
 //
 //        // Set the controller to show Project Supporters

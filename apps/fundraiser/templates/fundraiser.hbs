@@ -127,4 +127,73 @@
 {% endtplhandlebars %}
 
 
+{% tplhandlebars "fund_raiser" %}
+
+    {# TODO: CSS #}
+    <div class="l-section" id="fundraiser-detail">
+        <section class="l-wrapper">
+
+            <figure class="fundraiser-image l-half">
+                <img {{bindAttr src="image.large"}} width="100%" alt="Photo" />
+            </figure>
+
+            <div class="l-half">
+
+                <article class="fundraiser-info">
+
+                    <span class="action tag"><span class="flaticon solid tag-2"></span>{% trans "Action" %}</span>
+
+                    {{view App.SocialShareView}}
+                    <h1 class="fundraiser-title">{{title}}</h1>
+                    <p class="fundraiser-description">{{description}}</p>
+
+                </article>
+
+                <article class="fundraiser-info-owner">
+
+                    <figure class="fundraiser-image l-half">
+                        <img {{bindAttr src="owner.avatar"}} width="50%" alt="Photo" />
+                    </figure>
+
+                    <span class="TODO">{{owner}}</span>
+
+                    <a href='#' {{ action 'addDonation' this }} class="btn btn-primary btn-iconed">
+                        <span class="flaticon solid wallet-1"></span>
+                        {% trans "Support" %} {{owner.first_name}}
+                    </a>
+                    {{!-- TODO: fix donations + backlink from donations to fundraisers --}}
+
+                </article>
+
+            </div>
+        </section>
+
+        <section class="l-wrapper">
+            <div class="fundraiser-status">
+
+                {{#if deadline}}
+                <div class="fundraiser-days-left l-one-third">
+                    <strong><span class="flaticon solid clock-1"></span> {{daysToGo}}</strong>
+                    <em>{% trans "days to go" %}</em>
+                </div>
+                {{/if}}
+
+                <div class="fundraiser-fund l-one-third">
+                    <p class="fundraiser-fund-amount">
+                        <strong class="amount-donated">&euro;{{localize amount_donated}}</strong>
+                        {% trans "of" %}
+                        <strong class="amount-asked">&euro;{{localize amount}}</strong>
+                        {% trans "raised" %}
+                    </p>
+
+                    <div class="fundraiser-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+{% endtplhandlebars %}
+
+
 {% endlanguage %}

@@ -8,7 +8,7 @@ App.Router.map(function(){
         this.route('search');
     });
 
-   this.resource('project', {path: '/projects/:project_id'}, function() {
+    this.resource('project', {path: '/projects/:project_id'}, function() {
         this.resource('projectPlan', {path: '/plan'});
         this.resource('projectTasks', {path: '/tasks'}, function(){
             this.resource('projectTask', {path: '/:task_id'});
