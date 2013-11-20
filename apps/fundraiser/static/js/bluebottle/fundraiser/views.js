@@ -25,6 +25,6 @@ App.ProjectFundRaiserView = Em.View.extend({
 	templateName: 'project_fundraiser',
     tagName: 'li',
     didInsertElement: function(){
-        this.$('a').popover({trigger: 'hover', placement: 'top', width: '300px'});
+        this.$('span').popover({trigger: 'hover', placement: 'top', width: '300px'});
     }
 })
