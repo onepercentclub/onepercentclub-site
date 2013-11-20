@@ -7,6 +7,10 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
+    depends_on = (
+        ("fundraisers", "0001_initial"),
+    )
+
     def forwards(self, orm):
         # Adding field 'Donation.fundraiser'
         db.add_column(u'fund_donation', 'fundraiser',
