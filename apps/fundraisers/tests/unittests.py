@@ -5,22 +5,13 @@ from django.test import TestCase
 
 from rest_framework import status
 
-from bluebottle.bluebottle_utils.tests import UserTestsMixin, generate_random_slug
+from bluebottle.bluebottle_utils.tests import UserTestsMixin
 
 from apps.donations.tests import DonationTestsMixin
 from apps.fund.models import DonationStatuses, Donation
 from apps.projects.tests.unittests import ProjectTestsMixin
 
-from ..models import FundRaiser
-
-
-class FundRaiserTestsMixin(object):
-    def create_fundraiser(self, owner, project, title=None, amount=5000):
-        if not title:
-            title = generate_random_slug()
-
-        fr = FundRaiser.objects.create(owner=owner, project=project, title=title, amount=amount)
-        return fr
+from .helpers import FundRaiserTestsMixin
 
 
 class FundRaiserApiIntegrationTest(FundRaiserTestsMixin, DonationTestsMixin, ProjectTestsMixin, UserTestsMixin, TestCase):
