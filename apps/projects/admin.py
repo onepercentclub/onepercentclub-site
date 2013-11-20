@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.core.urlresolvers import reverse
 from django.db.models.aggregates import Sum
+from django.db.models import F
 from django.http.response import HttpResponseRedirect
 from django.utils import formats, translation
 from django.utils.html import escape
@@ -12,7 +13,7 @@ from sorl.thumbnail.admin import AdminImageMixin
 import logging
 
 
-from .models import (Project, ProjectBudgetLine, PartnerOrganization,
+from .models import (Project, ProjectBudgetLine, PartnerOrganization, 
                      ProjectPitch, ProjectPlan, ProjectCampaign,
                      ProjectTheme, ProjectPhases, ProjectResult, ProjectPhaseLog)
 
@@ -195,12 +196,12 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
     date_hierarchy = 'created'
     ordering = ('-created',)
     save_on_top = True
-    actions = ('set_failed',)
+    actions = ('set_failed', 'toggle_campaign')
 
     prepopulated_fields = {"slug": ("title",)}
 
-    list_filter = ('phase', 'is_campaign', 'partner_organization')
-    list_display = ('get_title_display', 'get_owner_display', 'coach', 'phase', 'funded', 'created')
+    list_filter = ('phase', 'partner_organization', 'is_campaign')
+    list_display = ('get_title_display', 'get_owner_display', 'coach', 'phase', 'funded', 'is_campaign', 'created')
 
     search_fields = ('title', 'owner__first_name', 'owner__last_name', 'partner_organization__name')
 
@@ -208,7 +209,7 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
 
     readonly_fields = ('project_owner', 'pitch_view', 'plan_view', 'campaign_view', 'funded')
 
-    fields = readonly_fields + ('owner', 'coach', 'title', 'slug', 'phase', 'partner_organization', 'is_campaign')
+    fields = readonly_fields + ('owner', 'coach', 'title', 'slug', 'phase', 'partner_organization')
 
     def queryset(self, request):
         # Optimization: Select related fields that are used in admin specific display fields.
@@ -244,7 +245,7 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
 
     def funded(self, obj):
         try:
-            #
+            # 
             funded = obj.projectcampaign.percentage_funded
             if funded == 100.0:
                 try:

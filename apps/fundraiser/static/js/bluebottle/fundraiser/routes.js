@@ -14,7 +14,6 @@ App.Router.map(function(){
 /**
  * Fundraiser Routes
  */
-
 App.FundRaiserRoute = Em.Route.extend(App.ScrollToTop, {
     model: function(params) {
         return App.FundRaiser.find(params.fundraiser_id);

@@ -5,8 +5,9 @@ from bluebottle.accounts.serializers import UserPreviewSerializer
 from bluebottle.bluebottle_drf2.serializers import (EuroField, ImageSerializer,
                                             OEmbedField)
 
-from apps.projects.serializers import ProjectPreviewSerializer
+from bluebottle.bluebottle_drf2.serializers import EuroField, OEmbedField
 
+from apps.fund.models import Donation
 from .models import FundRaiser
 
 
@@ -25,3 +26,17 @@ class FundRaiserSerializer(serializers.ModelSerializer):
         fields = ('owner', 'project', 'title', 'description', 'image',
                   'video_html', 'video_url', 'amount', 'deadline',
                   'amount_donated')
+
+
+class FundRaiserPreviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FundRaiser
+        fields = ('title', 'id')
+
+
+class DonationFundRaiserSerializer(serializers.ModelSerializer):
+    fundraiser = FundRaiserPreviewSerializer(read_only=True)
+
+    class Meta:
+        model = Donation
+        fields = ('fundraiser',)

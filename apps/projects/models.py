@@ -49,7 +49,7 @@ class ProjectPhases(DjangoChoices):
 
 class ProjectPhaseLog(models.Model):
     """ Log when a project reaches a certain phase """
-
+    
     project = models.ForeignKey('projects.Project')
     phase = models.CharField(_("phase"), max_length=20, choices=ProjectPhases.choices)
     created = CreationDateTimeField(_("created"), help_text=_("When this phase was reached."))
@@ -116,7 +116,7 @@ class Project(models.Model):
 
     popularity = models.FloatField(null=False, default=0)
 
-    is_campaign = models.BooleanField(_("is campaign?"), default=False, help_text=_("Is this project part of Crazy Campaign?"))
+    is_campaign = models.BooleanField(default=False, help_text=_("Project is part of a campaign and gets special promotion."))
 
     objects = ProjectManager()
 

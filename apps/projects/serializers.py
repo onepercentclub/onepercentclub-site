@@ -125,7 +125,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     task_count = serializers.IntegerField(source='task_count')
 
     meta_data = MetaField(
-            title = 'get_meta_title', 
+            title = 'get_meta_title',
             fb_title = 'get_fb_title',
             description = 'projectplan__pitch',
             keywords = 'projectplan__tags',
@@ -138,7 +138,10 @@ class ProjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Project
-        fields = ('id', 'created', 'title', 'owner', 'coach', 'plan', 'campaign', 'wallpost_ids', 'phase', 'popularity', 'task_count', 'meta_data')
+        fields = (
+            'id', 'created', 'title', 'owner', 'coach', 'plan', 'campaign', 'wallpost_ids', 'phase', 'popularity',
+            'task_count', 'meta_data', 'is_campaign',
+        )
 
 
 class ProjectPreviewSerializer(serializers.ModelSerializer):
@@ -154,7 +157,9 @@ class ProjectPreviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Project
-        fields = ('id', 'title', 'image', 'phase', 'campaign', 'pitch', 'popularity', 'country', 'task_count')
+        fields = (
+            'id', 'title', 'image', 'phase', 'campaign', 'pitch', 'popularity', 'country', 'task_count', 'is_campaign',
+        )
 
 
 class DonationPreviewSerializer(serializers.ModelSerializer):
@@ -162,12 +167,12 @@ class DonationPreviewSerializer(serializers.ModelSerializer):
     For displaying donations on project and member pages.
     """
     member = UserPreviewSerializer(source='user')
-    project = ProjectPreviewSerializer(source='project')
+    project = ProjectPreviewSerializer(source='project') # NOTE: is this really necessary?
     date_donated = serializers.DateTimeField(source='ready')
 
     class Meta:
         model = Donation
-        fields = ('date_donated', 'project',  'member')
+        fields = ('date_donated', 'project',  'member',)
 
 
 class ManageProjectSerializer(serializers.ModelSerializer):
