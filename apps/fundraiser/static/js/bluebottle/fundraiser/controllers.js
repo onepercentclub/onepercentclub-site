@@ -14,7 +14,7 @@ App.MyFundRaiserNewController = Em.ObjectController.extend(App.Editable, {
             });
 
             model.one('didCreate', function(record){
-                controller.transitionToRoute('myFundRaiser', record);
+                controller.transitionToRoute('fundRaiser', record);
             });
 
             model.save();
