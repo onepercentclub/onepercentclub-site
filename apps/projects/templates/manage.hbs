@@ -5,6 +5,7 @@
 {% language "en" %}
 {# Force all these pages to english #}
 
+
 {% tplhandlebars "my_project_list" %}
 
     <div class="l-section" id="project-dashboard">
@@ -527,7 +528,14 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
         </ul>
     </fieldset>
 
-    <button {{bindAttr class=":btn :btn-iconed :btn-next isDirty::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+    {{#if isDirty}}
+        <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+    {{else}}
+        <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action goToNextStep}}><span class="flaticon solid right-2"></span>{% trans "Next" %}</button>
+    {{/if}}
+
+
+    {{partial "my_project_tasks_and_updates"}}
 
 {% endtplhandlebars %}
 
@@ -600,7 +608,11 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
         </ul>
     </fieldset>
 
-    <button {{bindAttr class=":btn :btn-iconed :btn-next isDirty::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+    {{#if isDirty}}
+        <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+    {{else}}
+        <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action goToNextStep}}><span class="flaticon solid right-2"></span>{% trans "Next" %}</button>
+    {{/if}}
 
 {% endtplhandlebars %}
 
@@ -632,7 +644,12 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
         </ul>
     </fieldset>
 
-    <button {{bindAttr class=":btn :btn-iconed :btn-next isDirty::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+    {{#if isDirty}}
+        <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+    {{else}}
+        <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action goToNextStep}}><span class="flaticon solid right-2"></span>{% trans "Next" %}</button>
+    {{/if}}
+
 
 {% endtplhandlebars %}
 
@@ -669,7 +686,13 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
             </li>
         </ul>
     </fieldset>
-    <button {{bindAttr class=":btn :btn-iconed :btn-next isDirty::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+
+    {{#if isDirty}}
+        <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+    {{else}}
+        <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Next" %}</button>
+    {{/if}}
+
 
 {% endtplhandlebars %}
 
@@ -831,7 +854,13 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                 </li>
             </ul>
         </fieldset>
-        <button {{bindAttr class=":btn :btn-iconed :btn-next shouldSave::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+
+        {{#if shouldSave}}
+            <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+        {{else}}
+            <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action goToNextStep}}><span class="flaticon solid right-2"></span>{% trans "Next" %}</button>
+        {{/if}}
+
     {{else}}
         <fieldset>
             <ul>
@@ -910,7 +939,11 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
         </ul>
     </fieldset>
 
-    <button {{bindAttr class=":btn :btn-iconed :btn-next shouldSave::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+    {{#if shouldSave}}
+        <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+    {{else}}
+        <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action goToNextStep}}><span class="flaticon solid right-2"></span>{% trans "Next" %}</button>
+    {{/if}}
 
 {% endtplhandlebars %}
 
@@ -1097,7 +1130,11 @@ You've to have at least 3 ambassadors. (more? great!)<br /><br />
                 </li>
             </ul>
         </fieldset>
-        <button {{bindAttr class=":btn :btn-iconed :btn-next shouldSave::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+        {{#if shouldSave}}
+            <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+        {{else}}
+            <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action goToNextStep}}><span class="flaticon solid right-2"></span>{% trans "Next" %}</button>
+        {{/if}}
 
     {{else}}
         {{#if organization}}
@@ -1221,7 +1258,11 @@ Please add 5% administration fee to your budget. The total amount, including the
         </legend>
     </fieldset>
 
-    <button {{bindAttr class=":btn :btn-iconed :btn-next shouldSave::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+    {{#if shouldSave}}
+        <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+    {{else}}
+        <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action goToNextStep}}><span class="flaticon solid right-2"></span>{% trans "Next" %}</button>
+    {{/if}}
 
 {% endtplhandlebars %}
 
