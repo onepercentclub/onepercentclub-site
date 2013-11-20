@@ -118,9 +118,11 @@
 {% tplhandlebars "project_fundraiser" %}
     {{!-- FIXME The 'popup' content is now built in model App.FundRaiser. Not sure
     how this will be done with the redesigned 'popup' --}}
-    <a class="member" {{action 'openInBigBox' 'userModal' fundraiser.owner }} {{bindAttr data-title="fundraiser.popover_title" data-content="fundraiser.popover_content"}}>
-        <span class="member-avatar"><img {{bindAttr src="fundraiser.owner.getAvatar" alt="fundraiser.owner.full_name" }}/></span>
-    </a>
+    {{#linkTo "fundRaiser" fundraiser.id classNames='member'}}
+        <span {{bindAttr data-title="fundraiser.popover_title" data-content="fundraiser.popover_content"}}>
+            <span class="member-avatar"><img {{bindAttr src="fundraiser.owner.getAvatar" alt="fundraiser.owner.full_name" }}/></span>
+        </span>
+    {{/linkTo}}
 
 {% endtplhandlebars %}
 
