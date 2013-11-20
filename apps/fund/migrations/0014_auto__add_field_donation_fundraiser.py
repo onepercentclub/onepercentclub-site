@@ -14,7 +14,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         # Adding field 'Donation.fundraiser'
         db.add_column(u'fund_donation', 'fundraiser',
-                      self.gf('django.db.models.fields.related.ForeignKey')(to=orm['fundraiser.FundRaiser'], null=True, blank=True),
+                      self.gf('django.db.models.fields.related.ForeignKey')(to=orm['fundraisers.FundRaiser'], null=True, blank=True),
                       keep_default=False)
 
 
@@ -84,7 +84,7 @@ class Migration(SchemaMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'currency': ('django.db.models.fields.CharField', [], {'default': "'EUR'", 'max_length': '3'}),
             'donation_type': ('django.db.models.fields.CharField', [], {'default': "'one_off'", 'max_length': '20', 'db_index': 'True'}),
-            'fundraiser': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['fundraiser.FundRaiser']", 'null': 'True', 'blank': 'True'}),
+            'fundraiser': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['fundraisers.FundRaiser']", 'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'order': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'donations'", 'to': u"orm['fund.Order']"}),
             'project': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['projects.Project']"}),
@@ -120,7 +120,7 @@ class Migration(SchemaMigration):
             'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['accounts.BlueBottleUser']", 'unique': 'True'})
         },
-        u'fundraiser.fundraiser': {
+        u'fundraisers.fundraiser': {
             'Meta': {'object_name': 'FundRaiser'},
             'amount': ('django.db.models.fields.PositiveIntegerField', [], {}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),

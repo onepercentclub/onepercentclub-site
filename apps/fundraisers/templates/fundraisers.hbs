@@ -7,7 +7,6 @@
 
 {% tplhandlebars "my_fund_raiser_new" %}
 
-
     <div class="l-section" id="project-dashboard">
 
         <div class="l-section account-header">
@@ -88,7 +87,7 @@
             </div>
 
             <sidebar class="l-sidebar">
-                <h2>{% trans "FUNDRAISING FOR PROJECT" %}</h2>
+                <h2>{% trans "Fundraising for project" %}</h2>
                 <p>{% trans "You'll be fundraising for this project" %}</p>
 
                 {{render "projectPreview" project}}
@@ -101,17 +100,24 @@
 
 
 {% tplhandlebars "project_fundraiser_list" %}
-    {{#if fundraisers.length}}
-        <li class="project-member-supporters" style="width:40%;">
-        {{!- <li class="project-member-fundraisers"> TODO: CSS -}}
-            <ul>
-                {{#each fundraiser in controller}}
-                    {{view "App.ProjectFundRaiserView" }}
-                {{/each}}
-            </ul>
-            <h4>{% trans "Fundraisers" %}</h4>
-        </li>
-    {{/if}}
+    <li class="project-member-fundraisers">
+    
+        {{!-- TODO: Moved link 'become fundraiser' from projects.hbs
+        Link not working anymore --}}
+    
+        <h4>{% trans "Fundraisers" %}</h4>
+        {{#linkTo 'myFundRaiserNew' id class="fundraiser-become"}}
+            {% trans "Become a fundraiser" %}
+        {{/linkTo}}
+        
+        {{#if fundraisers.length}}
+        <ul>
+            {{#each fundraiser in controller}}
+                {{view "App.ProjectFundRaiserView" }}
+            {{/each}}
+        </ul>
+        {{/if}}
+    </li>
 {% endtplhandlebars %}
 
 
@@ -197,7 +203,8 @@
                         {% trans "raised" %}
                     </p>
 
-                    <div class="fundraiser-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
+                    {{#bb-progressbar class="fundraiser-fund-amount-slider" totalValue=amount currentValue=amount_donated}}
+                    {{/bb-progressbar}}
                 </div>
 
                 <div class="fundraiser-fund l-one-third">
