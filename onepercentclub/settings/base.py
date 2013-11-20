@@ -252,7 +252,7 @@ INSTALLED_APPS = (
     'apps.organizations',
     'apps.projects',
     'apps.fund',
-    'apps.fundraiser',
+    'apps.fundraisers',
     'apps.donations',
     'apps.vouchers',
     'bluebottle.geo',

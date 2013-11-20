@@ -5,7 +5,7 @@ from rest_framework import serializers
 from bluebottle.accounts.serializers import UserPreviewSerializer
 from bluebottle.bluebottle_drf2.serializers import OEmbedField, PolymorphicSerializer, ContentTextField, PhotoSerializer
 
-from apps.fundraiser.serializers import DonationFundRaiserSerializer
+from apps.fundraisers.serializers import DonationFundRaiserSerializer
 from .models import WallPost, SystemWallPost, MediaWallPost, TextWallPost, MediaWallPostPhoto, Reaction
 
 

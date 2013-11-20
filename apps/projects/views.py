@@ -22,7 +22,7 @@ from apps.wallposts.permissions import IsConnectedWallPostAuthorOrReadOnly
 from apps.wallposts.serializers import MediaWallPostPhotoSerializer
 from apps.projects.permissions import IsProjectOwnerOrReadOnly, IsProjectOwner, IsOwner, NoRunningProjectsOrReadOnly, EditablePitchOrReadOnly, EditablePlanOrReadOnly
 from apps.wallposts.models import WallPost, MediaWallPost, TextWallPost, MediaWallPostPhoto
-from apps.fundraiser.models import FundRaiser
+from apps.fundraisers.models import FundRaiser
 
 from .models import Project
 from .serializers import (ProjectSerializer, ProjectWallPostSerializer, ProjectMediaWallPostSerializer,
@@ -174,8 +174,8 @@ class ProjectMediaWallPostPhotoList(ListCreateAPIView):
         Work around browser issues.
 
         Adding photos to a wallpost works correctly in Chrome. Firefox (at least
-        FF 24) sends the ```mediawallpost``` value to Django with the value 
-        'null', which is then interpreted as a string in Django. This is 
+        FF 24) sends the ```mediawallpost``` value to Django with the value
+        'null', which is then interpreted as a string in Django. This is
         incorrect behaviour, as ```mediawallpost``` is a relation.
 
         Eventually, this leads to HTTP400 errors, effectively breaking photo

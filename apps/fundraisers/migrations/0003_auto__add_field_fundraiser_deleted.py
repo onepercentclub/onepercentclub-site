@@ -8,26 +8,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'FundRaiser'
-        db.create_table(u'fundraiser_fundraiser', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('owner', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['accounts.BlueBottleUser'])),
-            ('project', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['projects.Project'])),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('description', self.gf('django.db.models.fields.TextField')(blank=True)),
-            ('image', self.gf('sorl.thumbnail.fields.ImageField')(max_length=255, null=True, blank=True)),
-            ('video_url', self.gf('django.db.models.fields.URLField')(default='', max_length=100, blank=True)),
-            ('amount', self.gf('django.db.models.fields.PositiveIntegerField')()),
-            ('deadline', self.gf('django.db.models.fields.DateTimeField')(null=True)),
-            ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('updated', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-        ))
-        db.send_create_signal(u'fundraiser', ['FundRaiser'])
+        # Adding field 'FundRaiser.deleted'
+        db.add_column(u'fundraisers_fundraiser', 'deleted',
+                      self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True),
+                      keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting model 'FundRaiser'
-        db.delete_table(u'fundraiser_fundraiser')
+        # Deleting field 'FundRaiser.deleted'
+        db.delete_column(u'fundraisers_fundraiser', 'deleted')
 
 
     models = {
@@ -85,11 +74,13 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'fundraiser.fundraiser': {
+        u'fundraisers.fundraiser': {
             'Meta': {'object_name': 'FundRaiser'},
             'amount': ('django.db.models.fields.PositiveIntegerField', [], {}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            'currency': ('django.db.models.fields.CharField', [], {'default': "'EUR'", 'max_length': "'10'"}),
             'deadline': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
+            'deleted': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'image': ('sorl.thumbnail.fields.ImageField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
@@ -136,4 +127,4 @@ class Migration(SchemaMigration):
         }
     }
 
-    complete_apps = ['fundraiser']
+    complete_apps = ['fundraisers']
