@@ -314,7 +314,6 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
 admin.site.register(Project, ProjectAdmin)
 
 
-
 class PartnerOrganizationAdmin(AdminImageMixin, admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
 
