@@ -15,7 +15,6 @@ App.Router.map(function(){
             this.resource('projectTaskNew', {path: '/new'});
             this.resource('projectTaskEdit', {path: '/:task_id/edit'});
         });
-        this.resource('fundRaiser', {path: 'fundraisers/:fundraiser_id'});
     });
 
     this.resource('myProject', {path: '/my/projects/:my_project_id'}, function() {
