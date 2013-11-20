@@ -233,6 +233,7 @@ App.MyProjectPlanLocationController = Em.ObjectController.extend(App.Editable, {
     nextStep: 'myProjectPlan.media'
 });
 App.MyProjectPlanSubmitController = Em.ObjectController.extend(App.Editable, {});
+
 App.MyProjectPlanMediaController = Em.ObjectController.extend(App.Editable, {
     nextStep: 'myProjectPlan.organisation'
 });
@@ -363,8 +364,10 @@ App.MyProjectPlanOrganisationController = Em.ObjectController.extend(App.Editabl
             var transaction =  this.get('model').transaction;
             transaction.add(org);
             this.set('model.organization', org);
-            if (this.get('model.organization.addresses.length') == 0) {
+            if (org.get('addresses.length') == 0) {
                 this.send('addAddress');
+            } else {
+                this.set('address', org.get('addresses.firstObject'));
             }
         },
 

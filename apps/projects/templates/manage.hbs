@@ -690,7 +690,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
     {{#if isDirty}}
         <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
     {{else}}
-        <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Next" %}</button>
+        <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action goToNextStep}}><span class="flaticon solid right-2"></span>{% trans "Next" %}</button>
     {{/if}}
 
 
@@ -964,7 +964,6 @@ You've to have at least 3 ambassadors. (more? great!)<br /><br />
     <fieldset>
         <ul>
             {{#each ambassador in ambassadors}}
-
                 <li class="control-group has-popover" data-content="{% trans "Email address of the amabassador" %}">
                     <label class="control-label">{% trans "Name" %}</label>
                     <div class="controls">
@@ -1187,7 +1186,11 @@ Need more tips and tricks? Read our <a href="/#!/pages/faq-projects">FAQ</a>.<br
         </ul>
     </fieldset>
 
-    <button {{bindAttr class=":btn :btn-iconed :btn-next isDirty::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+    {{#if isDirty}}
+        <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+    {{else}}
+        <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action goToNextStep}}><span class="flaticon solid right-2"></span>{% trans "Next" %}</button>
+    {{/if}}
 
 {% endtplhandlebars %}
 
