@@ -5,8 +5,6 @@ from bluebottle.accounts.serializers import UserPreviewSerializer
 from bluebottle.bluebottle_drf2.serializers import (EuroField, ImageSerializer,
                                             OEmbedField)
 
-from bluebottle.bluebottle_drf2.serializers import EuroField, OEmbedField
-
 from apps.fund.models import Donation
 from .models import FundRaiser
 
