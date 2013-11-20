@@ -515,7 +515,6 @@ App.MyProjectCampaign = App.ProjectCampaign.extend({
     moneyAsked: DS.attr('number'),
     moneyDonated: DS.attr('number'),
     deadline: DS.attr('date')
-
 });
 
 

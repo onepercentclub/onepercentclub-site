@@ -37,7 +37,7 @@ class DonationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Donation
-        fields = ('id', 'project', 'amount', 'status', 'order')
+        fields = ('id', 'project', 'amount', 'status', 'order', 'fundraiser')
 
     def validate(self, attrs):
         if self.object and self.object.status != DonationStatuses.new and attrs is not None:
@@ -45,6 +45,7 @@ class DonationSerializer(serializers.ModelSerializer):
         return attrs
 
     def validate_amount(self, attrs, source):
+        # TODO: check requirements for fundraisers
         value = attrs[source]
 
         if self.object:

@@ -24,11 +24,9 @@ App.ProjectSupporterView = Em.View.extend({
     }
 });
 
-
 App.ProjectSupporterListView = Em.View.extend({
     templateName: 'project_supporter_list'
 });
-
 
 App.ProjectListView = Em.View.extend(App.ScrollInView, {
     templateName: 'project_list'

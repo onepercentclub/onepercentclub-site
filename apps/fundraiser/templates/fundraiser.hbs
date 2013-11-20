@@ -1,0 +1,130 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% language "en" %}
+{# Force all these pages to english #}
+
+{% tplhandlebars "my_fund_raiser_new" %}
+
+
+    <div class="l-section" id="project-dashboard">
+
+        <div class="l-section account-header">
+            <nav class="l-wrapper">
+
+                <figure class="account-avatar"><img {{bindAttr src="controllers.currentUser.getAvatar"}} /></figure>
+
+                <header class="account-title">
+                    <h2>{% trans "My 1%" %} > {% trans "Fundraisers" %}</h2>
+                </header>
+
+                {{#if id}}
+                    {{#if title}}
+                        <a {{action "showFundraiser" id href=true}} class="account-preview btn-link">
+                            <span class="flaticon solid eye-1"></span>
+                            {% trans "Preview fundraiser page" %}
+                        </a>
+                    {{/if}}
+                {{/if}}
+            </nav>
+        </div>
+
+        <div class="l-wrapper">
+            <div class="l-content">
+                {{#if controllers.currentUser.isAuthenticated}}
+                    <header class="l-page-header">
+                        <h1>{% trans "New fundraiser" %}</h1>
+                        <p>
+                            {% blocktrans %}
+                                Lorem ipsum
+                            {% endblocktrans %}
+                        </p>
+                    </header>
+
+                    <form>
+                        <fieldset>
+                            <ul>
+                                {% include "generic/form_field.html" with title="Title" placeholder="Title describes your fundraiser action in short" field_type="Em.TextField" field_name="title" %}
+
+                                {% include "generic/form_field.html" with title="Description" placeholder="Tell a little bit about yourself so we get to know you" field_type="Em.TextArea" field_name="description" %}
+                            </ul>
+                        </fieldset>
+
+                        <fieldset>
+                            <ul>
+                                {% include "generic/form_imagefield.html" with title="Image" field_name="image" help_text="Minimal of 800px wide" %}
+
+                                {% include "generic/form_field.html" with title="Video" placeholder="http://" field_type="Em.TextField" field_name="video_url" help_text="Youtube or Vimeo link" %}
+                            </ul>
+                        </fieldset>
+
+                        <fieldset>
+                            <h2>TODO: Subtitle</h2>
+                            <p>Lorem ipsum</p>
+
+                            <ul>
+                                {% include "generic/form_field.html" with title="Amount to raise" placeholder="&euro;" field_type="Em.TextField" field_name="amount" %}
+
+                                {% include "generic/form_field.html" with title="Deadline" placeholder="" field_type="App.DatePicker" field_name="deadline" %}
+                            </ul>
+                        </fieldset>
+
+                        <button {{bindAttr class=":btn :btn-iconed :btn-next isDirty::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Create" %}</button>
+
+                    </form>
+                {{else}}
+                    <header class="l-page-header">
+                        <h1>{% trans "New fundraiser" %}</h1>
+                        <p>
+                            {% blocktrans %}
+                                You can only make a fundraiser if you are logged in.
+                            {% endblocktrans %}
+                        </p>
+                    </header>
+
+                    <p class="login-signup"><a href="/accounts/login">{% trans "Login" %}</a> {% trans "or become a" %} {{#linkTo "signup"}}{% trans "member" %}{{/linkTo}} {% trans "to start a fundraiser." %}</p>
+                {{/if}}
+            </div>
+
+            <sidebar class="l-sidebar">
+                <h2>{% trans "FUNDRAISING FOR PROJECT" %}</h2>
+                <p>{% trans "You'll be fundraising for this project" %}</p>
+
+                {{fullProject.title}}
+
+                <p>TODO: Project thumb</p>
+
+            </sidebar>
+        </div>
+    </div>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "project_fundraiser_list" %}
+    {{#if fundraisers.length}}
+        <li class="project-member-supporters" style="width:40%;">
+        {{!- <li class="project-member-fundraisers"> TODO: CSS -}}
+            <ul>
+                {{#each fundraiser in controller}}
+                    {{view "App.ProjectFundRaiserView" }}
+                {{/each}}
+            </ul>
+            <h4>{% trans "Fundraisers" %}</h4>
+        </li>
+    {{/if}}
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "project_fundraiser" %}
+    {{!-- FIXME The 'popup' content is now built in model App.FundRaiser. Not sure
+    how this will be done with the redesigned 'popup' --}}
+    <a class="member" {{action 'openInBigBox' 'userModal' fundraiser.owner }} {{bindAttr data-title="fundraiser.popover_title" data-content="fundraiser.popover_content"}}>
+        <span class="member-avatar"><img {{bindAttr src="fundraiser.owner.getAvatar" alt="fundraiser.owner.full_name" }}/></span>
+    </a>
+
+{% endtplhandlebars %}
+
+
+{% endlanguage %}
