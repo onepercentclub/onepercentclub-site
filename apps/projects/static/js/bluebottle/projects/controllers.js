@@ -323,19 +323,23 @@ App.MyProjectPlanOrganisationController = Em.ObjectController.extend(App.Editabl
             model.one('didUpdate', function(){
                 // Connected a (new or old) organization to ProjectPlan.
                 controller.transitionToRoute(controller.get('nextStep'));
+                $("html, body").animate({ scrollTop: 0 }, 600);
             });
             organization.one('didUpdate', function(){
                 // Updated organization info.
                 controller.transitionToRoute(controller.get('nextStep'));
+                $("html, body").animate({ scrollTop: 0 }, 600);
             });
             if (address) {
                 address.one('didUpdate', function(){
                     // Updated address info.
                     controller.transitionToRoute(controller.get('nextStep'));
+                    $("html, body").animate({ scrollTop: 0 }, 600);
                 });
                 address.one('didCreate', function(){
                     // Created address info.
                     controller.transitionToRoute(controller.get('nextStep'));
+                    $("html, body").animate({ scrollTop: 0 }, 600);
                 });
             }
             model.transaction.commit();
@@ -344,7 +348,7 @@ App.MyProjectPlanOrganisationController = Em.ObjectController.extend(App.Editabl
         addAddress: function(){
             // Use the same transaction as the projectplan
             var organization =  this.get('model.organization');
-            var transaction =  organization.transaction;
+            var transaction =  this.get('model').transaction;
             var address = transaction.createRecord(App.MyOrganizationAddress);
             address.set('organization', organization);
             this.set('address', address);
