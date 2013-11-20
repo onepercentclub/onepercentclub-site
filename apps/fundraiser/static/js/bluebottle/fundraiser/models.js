@@ -13,11 +13,7 @@ App.FundRaiser = DS.Model.extend({
 	description: DS.attr('string'),
 
 	// Media
-    image: DS.attr('string'),
-    image_small: DS.attr('string'),
-    image_square: DS.attr('string'),
-    image_bg: DS.attr('string'),
-
+    image: DS.attr('image'),
     video_url: DS.attr('string'),
     // video_html: DS.attr('string'),
 
@@ -31,5 +27,11 @@ App.FundRaiser = DS.Model.extend({
 
     popover_content: function(){ // FIXME this should go in a view...
         return this.get('amount_donated') + ' / ' + this.get('amount');
-    }.property('amount_donated', 'amount')
+    }.property('amount_donated', 'amount'),
+
+    daysToGo: function(){
+        var now = new Date();
+        var microseconds = this.get('deadline').getTime() - now.getTime();
+        return Math.ceil(microseconds / (1000 * 60 * 60 * 24));
+    }.property('deadline')
 });

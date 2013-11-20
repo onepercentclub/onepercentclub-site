@@ -1,9 +1,13 @@
+import json
+
+from django.core.urlresolvers import reverse
 from django.test import TestCase
 
 from rest_framework import status
 
 from bluebottle.bluebottle_utils.tests import UserTestsMixin, generate_random_slug
 
+from apps.donations.tests import DonationTestsMixin
 from apps.fund.models import DonationStatuses, Donation
 from apps.projects.tests.unittests import ProjectTestsMixin
 
@@ -18,7 +22,8 @@ class FundRaiserTestsMixin(object):
         fr = FundRaiser.objects.create(owner=owner, project=project, title=title, amount=amount)
         return fr
 
-class FundRaiserApiIntegrationTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsMixin, TestCase):
+
+class FundRaiserApiIntegrationTest(FundRaiserTestsMixin, DonationTestsMixin, ProjectTestsMixin, UserTestsMixin, TestCase):
     """
     Integration tests for the fundraiser API.
     """
@@ -108,3 +113,31 @@ class FundRaiserApiIntegrationTest(FundRaiserTestsMixin, ProjectTestsMixin, User
         response = self.client.get(url_fundraisers)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual('15.00', response.data['results'][0]['amount_donated'])
+
+    def test_api_project_donation_view(self):
+        self.create_donation(user=self.some_user, project=self.some_project, status=DonationStatuses.paid)
+
+        self.create_donation(user=self.some_user, project=self.some_project, status=DonationStatuses.paid,
+                fundraiser=self.fundraiser)
+
+        project_donation_url = '{0}?project={1}'.format(reverse('project-donation-list'), self.some_project.slug)
+        response = self.client.get(project_donation_url)
+
+        json_data = json.loads(response.content)
+        self.assertEqual(len(json_data['results']), 2)
+
+    def test_api_project_donation_fundraiser_view(self):
+        self.create_donation(user=self.some_user, project=self.some_project, status=DonationStatuses.paid)
+
+        fundraise_donation = self.create_donation(user=self.some_user, project=self.some_project, status=DonationStatuses.paid,
+                fundraiser=self.fundraiser)
+
+        project_donation_url = '{0}?project={1}&fundraiser={2}'.format(
+            reverse('project-donation-list'),
+            self.some_project.slug,
+            fundraise_donation.fundraiser.pk,
+        )
+        response = self.client.get(project_donation_url)
+
+        json_data = json.loads(response.content)
+        self.assertEqual(len(json_data['results']), 1)
