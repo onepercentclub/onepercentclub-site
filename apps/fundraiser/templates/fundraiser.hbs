@@ -7,7 +7,6 @@
 
 {% tplhandlebars "my_fund_raiser_new" %}
 
-
     <div class="l-section" id="project-dashboard">
 
         <div class="l-section account-header">
@@ -204,7 +203,8 @@
                         {% trans "raised" %}
                     </p>
 
-                    <div class="fundraiser-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
+                    {{#bb-progressbar class="fundraiser-fund-amount-slider" totalValue=amount currentValue=amount}}
+                    {{/bb-progressbar}}
                 </div>
 
                 <div class="fundraiser-fund l-one-third">
