@@ -14,36 +14,6 @@
     }
 }
 
-/*
-.project-phase {
-    display: none;
-	@include clear;
-	padding-bottom: $base-padding/2;
-	margin: 0 0 $base-margin/2 0;
-	border-bottom: 1px solid $gray-darker;
-
-    li {
-        @include grid(10);
-        font-size: $font-size-smallest;
-        background-image: none;
-        color: $gray;
-        text-transform: uppercase;
-		padding: $base-padding/2 $base-padding/2 $base-padding/2 $base-padding/4;
-		text-align: center;
-		
-        &:first-of-type {
-            margin-right: $base-margin;
-            width: auto;
-        }
-
-        &.is-current {
-			background: image-url('steps-phase-back.png') no-repeat $gray 100% 50%;
-			color: $gray-darker;
-		}
-    }
-}
-*/
-
 .project-location, .project-theme {
 	color: $color-secondary;
 	font-family: $font-family-heavy;

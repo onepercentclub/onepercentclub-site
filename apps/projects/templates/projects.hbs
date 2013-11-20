@@ -171,7 +171,7 @@
 
 {% tplhandlebars "project" %}
 
-    {{#if isCampaign}}<div class="project-campaign">TODO: Add promotional layout{{/if}}
+    {{#if isCampaign}}<div id="project-campaign">{{/if}}
 
     <div class="l-section" id="project-detail">
         <section class="l-wrapper">
@@ -350,7 +350,7 @@
             {{render "projectSupporterList"}}
         {{/unless}}
     </ul>
-
+    
 {% endtplhandlebars %}
 
 {% tplhandlebars "project_supporter_list" %}

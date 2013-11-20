@@ -59,8 +59,11 @@
                         </fieldset>
 
                         <fieldset>
-                            <h2>TODO: Subtitle</h2>
-                            <p>Lorem ipsum</p>
+                            <legend>
+                                <strong>TODO: Subtitle</strong>
+                                <p>Lorem ipsum</p>
+                            </legend>
+                            
 
                             <ul>
                                 {% include "generic/form_field.html" with title="Amount to raise" placeholder="&euro;" field_type="Em.TextField" field_name="amount" %}
@@ -106,9 +109,6 @@
         Link not working anymore --}}
     
         <h4>{% trans "Fundraisers" %}</h4>
-        {{#linkTo 'fundRaiserNew' controllers.project.id class="fundraiser-become"}}
-            {% trans "Become a fundraiser" %}
-        {{/linkTo}}
         
         {{#if fundraisers.length}}
         <ul>
@@ -117,6 +117,10 @@
             {{/each}}
         </ul>
         {{/if}}
+        
+        {{#linkTo 'fundRaiserNew' controllers.project.id class="fundraiser-become"}}
+            {% trans "Become a fundraiser" %}
+        {{/linkTo}}
     </li>
 {% endtplhandlebars %}
 

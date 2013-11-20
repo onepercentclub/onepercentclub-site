@@ -1,0 +1,21 @@
+//
+// Project detail for crazy campaign race
+// --------------------------------------------------
+
+#project-campaign { 
+    
+    .project-member-initiator {
+        
+        h4 {
+            left: -$base-margin*2;
+            background: $color-primary;
+            display: inline-block;
+            margin: 0 0 $base-margin 0;
+            padding: $base-padding/4 $base-padding $base-padding/4 $base-padding*2;
+        }
+        
+        .member-name {
+            display: block;
+        }
+    }
+}
