@@ -41,7 +41,7 @@ class FundRaiserApiIntegrationTest(FundRaiserTestsMixin, DonationTestsMixin, Pro
 
         self.current_donations_url = '/api/fund/orders/current/donations/'
         self.current_order_url = '/api/fund/orders/current'
-        self.fundraisers_url = '/api/fundraiser/fundraisers/'
+        self.fundraisers_url = '/api/fundraisers/'
 
     def test_project_fundraisers(self):
         """ Test if the correct fundraisers are returned for a project """
