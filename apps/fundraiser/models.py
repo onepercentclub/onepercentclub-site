@@ -36,3 +36,26 @@ class FundRaiser(models.Model):
         donations = self.donation_set.filter(status__in=valid_statuses)
         total = donations.aggregate(sum=Sum('amount'))
         return total['sum'] or '000' # FIXME special formatting due to the way EuroField works
+
+    def get_meta_title(self, **kwargs):
+        title = _(u"{fundraiser} for {project}").format(
+            fundraiser=self.title,
+            project=self.project.title
+        )
+        return title
+
+    def get_tweet(self, **kwargs):
+        # NOTE: mention user in hashtag or something like that?
+        request = kwargs.get('request', None)
+        lang_code = request.LANGUAGE_CODE if request else 'en'
+        twitter_handle = settings.TWITTER_HANDLES.get(lang_code, settings.DEFAULT_TWITTER_HANDLE)
+
+        title = self.get_meta_title(**kwargs)
+
+        # {URL} is replaced in Ember to fill in the page url, avoiding the
+        # need to provide front-end urls in our Django code.
+        tweet = _(u"{title} {{URL}} via @{twitter_handle}").format(
+                    title=title, twitter_handle=twitter_handle
+                )
+
+        return tweet

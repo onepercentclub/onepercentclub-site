@@ -20,12 +20,9 @@ class FundRaiserSerializer(serializers.ModelSerializer):
     video_html = OEmbedField(source='video_url', maxwidth='560', maxheight='315')
 
     meta_data = MetaField(
-            # title = 'get_meta_title', # TODO: specific title format
-            # fb_title = 'get_fb_title',
-            # description = 'projectplan__pitch',
-            # keywords = 'projectplan__tags',
+            title = 'get_meta_title', # TODO: specific title format
             image_source = 'image',
-            # tweet = 'get_tweet',
+            tweet = 'get_tweet',
             )
 
     class Meta:
