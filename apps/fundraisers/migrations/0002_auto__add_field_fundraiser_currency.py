@@ -8,15 +8,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding field 'FundRaiser.deleted'
-        db.add_column(u'fundraiser_fundraiser', 'deleted',
-                      self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True),
+        # Adding field 'FundRaiser.currency'
+        db.add_column(u'fundraisers_fundraiser', 'currency',
+                      self.gf('django.db.models.fields.CharField')(default='EUR', max_length='10'),
                       keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting field 'FundRaiser.deleted'
-        db.delete_column(u'fundraiser_fundraiser', 'deleted')
+        # Deleting field 'FundRaiser.currency'
+        db.delete_column(u'fundraisers_fundraiser', 'currency')
 
 
     models = {
@@ -74,13 +74,12 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'fundraiser.fundraiser': {
+        u'fundraisers.fundraiser': {
             'Meta': {'object_name': 'FundRaiser'},
             'amount': ('django.db.models.fields.PositiveIntegerField', [], {}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'currency': ('django.db.models.fields.CharField', [], {'default': "'EUR'", 'max_length': "'10'"}),
             'deadline': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
-            'deleted': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'image': ('sorl.thumbnail.fields.ImageField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
@@ -127,4 +126,4 @@ class Migration(SchemaMigration):
         }
     }
 
-    complete_apps = ['fundraiser']
+    complete_apps = ['fundraisers']

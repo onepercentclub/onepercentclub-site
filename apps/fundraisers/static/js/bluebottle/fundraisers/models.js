@@ -3,7 +3,7 @@ App.Adapter.map('App.FundRaiser', {
 });
 
 App.FundRaiser = DS.Model.extend({
-	url: 'fundraiser/fundraisers',
+	url: 'fundraisers',
 
 	project: DS.belongsTo('App.ProjectPreview'),
     owner: DS.belongsTo('App.UserPreview'),

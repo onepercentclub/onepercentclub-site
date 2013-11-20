@@ -6,6 +6,6 @@ from .views import FundRaiserListView, FundRaiserDetailView
 
 urlpatterns = patterns('',
     # TODO: filtering via querystring?
-    url(r'^fundraisers/$', FundRaiserListView.as_view(), name='fundraiser-list'),
-    surl(r'^fundraisers/<pk:#>$', FundRaiserDetailView.as_view(), name='fundraiser-detail'),
+    url(r'^$', FundRaiserListView.as_view(), name='fundraiser-list'),
+    surl(r'^<pk:#>$', FundRaiserDetailView.as_view(), name='fundraiser-detail'),
 )
