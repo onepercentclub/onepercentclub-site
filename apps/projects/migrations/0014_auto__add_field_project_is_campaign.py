@@ -263,8 +263,4 @@ class Migration(SchemaMigration):
         }
     }
 
-<<<<<<< HEAD
     complete_apps = ['projects']
-=======
-    complete_apps = ['projects']
->>>>>>> 66caa826b1988424b8e00dc17f28cc201ecc3f5d
