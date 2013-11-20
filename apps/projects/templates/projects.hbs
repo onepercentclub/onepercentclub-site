@@ -2,6 +2,14 @@
 {% load i18n %}
 {% load static %}
 
+
+{% tplhandlebars "components/bb-progressbar" %}
+
+    <div {{bindAttr class=class}}><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage"></em></strong></div>
+
+{% endtplhandlebars %}
+
+
 {% tplhandlebars "project_preview" %}
 
     <li class="project-item">
