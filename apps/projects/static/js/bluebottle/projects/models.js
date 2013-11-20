@@ -170,6 +170,8 @@ App.Project = DS.Model.extend({
 
     taskCount: DS.attr('number'),
 
+    isCampaign: DS.attr('boolean'),
+
     isPhasePlan: Em.computed.equal('phase', 'plan'),
     isPhaseCampaign: Em.computed.equal('phase', 'campaign'),
     isPhaseAct: Em.computed.equal('phase', 'act'),

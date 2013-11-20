@@ -138,7 +138,10 @@ class ProjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Project
-        fields = ('id', 'created', 'title', 'owner', 'coach', 'plan', 'campaign', 'wallpost_ids', 'phase', 'popularity', 'task_count', 'meta_data')
+        fields = (
+            'id', 'created', 'title', 'owner', 'coach', 'plan', 'campaign', 'wallpost_ids', 'phase', 'popularity',
+            'task_count', 'meta_data', 'is_campaign',
+        )
 
 
 class ProjectPreviewSerializer(serializers.ModelSerializer):
@@ -154,7 +157,9 @@ class ProjectPreviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Project
-        fields = ('id', 'title', 'image', 'phase', 'campaign', 'pitch', 'popularity', 'country', 'task_count')
+        fields = (
+            'id', 'title', 'image', 'phase', 'campaign', 'pitch', 'popularity', 'country', 'task_count', 'is_campaign',
+        )
 
 
 class DonationPreviewSerializer(serializers.ModelSerializer):

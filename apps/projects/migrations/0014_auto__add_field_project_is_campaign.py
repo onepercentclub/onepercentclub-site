@@ -13,6 +13,9 @@ class Migration(SchemaMigration):
                       self.gf('django.db.models.fields.BooleanField')(default=False),
                       keep_default=False)
 
+        if not db.dry_run:
+            orm['projects.Project'].objects.all().update(is_campaign=False)
+
 
     def backwards(self, orm):
         # Deleting field 'Project.is_campaign'
@@ -260,4 +263,8 @@ class Migration(SchemaMigration):
         }
     }
 
+<<<<<<< HEAD
     complete_apps = ['projects']
+=======
+    complete_apps = ['projects']
+>>>>>>> 66caa826b1988424b8e00dc17f28cc201ecc3f5d
