@@ -91,9 +91,7 @@
                 <h2>{% trans "FUNDRAISING FOR PROJECT" %}</h2>
                 <p>{% trans "You'll be fundraising for this project" %}</p>
 
-                {{fullProject.title}}
-
-                <p>TODO: Project thumb</p>
+                {{render "projectPreview" project}}
 
             </sidebar>
         </div>
@@ -146,6 +144,11 @@
                     {{view App.SocialShareView}}
                     <h1 class="fundraiser-title">{{title}}</h1>
                     <p class="fundraiser-description">{{description}}</p>
+
+                    <h3>{% trans "Fundraising for" %}</h3>
+                    <p>
+                        {{#linkTo 'project' project.getProject}}{{project.title}}{{/linkTo}}
+                    </p>
 
                 </article>
 

@@ -22,8 +22,7 @@ App.FundRaiserRoute = Em.Route.extend(App.ScrollToTop, {
     setupController: function(controller, fundraiser) {
         this._super(controller, fundraiser);
 
-        var project_id = fundraiser.get('project');
-        controller.set('projectModel', App.ProjectPreview.find({project: project_id}));
+        var project_id = fundraiser.get('project.id');
         controller.set('fundRaiseSupporters', App.DonationPreview.find({project: project_id, fundraiser: fundraiser.id}));
     }
 });
@@ -44,13 +43,12 @@ App.MyFundRaiserNewRoute = Em.Route.extend(App.ScrollToTop, {
         // Using project preview to have less data attached (TODO: Verify!)
         var store = this.get('store');
 
-        return store.createRecord(App.FundRaiser, {project: params.project_id});
+        var projectPreview = App.ProjectPreview.find(params.project_id);
+
+        return store.createRecord(App.FundRaiser, {project: projectPreview});
     },
     setupController: function(controller, fundRaiser) {
         this._super(controller, fundRaiser);
-
-        // Make project available in template.
-        controller.set('fullProject', App.Project.find(fundRaiser.get('project')));
     }
 });
 
