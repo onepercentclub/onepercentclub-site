@@ -9,42 +9,49 @@
     background-color: $gray-darkest;
     color: $color-text-light;
     
+    .project-image img {
+       border: 1px solid $gray-lighter; 
+    }
+    
     .project-meta {
         float: left;
+        font-family: $font-family-heavy;
     }
     
     #share {
-        padding: $base-padding/1.5 0;
         float: left;
     }
     
     .project-title {
         clear: both;
         color: $white;
+        font-size: $font-size-larger;
     }
     
     .project-status {
         @include clear;
-        padding: $base-padding/3 0;
+        padding: $base-padding/4 0;
     }
     
     .project-days-left {
-        margin-top: $base-padding/2;
+        @include grid(12,1,1);
     	color: $gray-light;
-    	line-height: 1em;
+    	margin-top: $base-margin/2;
     	
-    	.flaticon {	
-    	    font-size: 1.3em;
-    	}
-    
     	strong {
-    	    font-size: 1.5em;
+    	    font-size: 2em;
     	    color: $gray-lighter;
+    	    
+    	    em {
+        	    font-size: 0.5em;
+        	    font-family: $base-font-family;
+        	    color: $gray-light;  
+            }
     	}
+    }
     
-    	em {
-    	
-    	}
+    .project-fund {
+        @include grid(14,1,1);
     }
     
     .project-fund-amount {
@@ -52,25 +59,35 @@
     
         .amount-donated {
             font-size: 1.5em;
-        }
-    
-        .amount-asked {
-            
+            color: $color-text-light;
         }
         
         strong {
-            color: $gray-lighter;
+            color: $gray-light;
         }
+    }
+    
+    .project-action {
+        @include grid(22,1,1);
+        float: right;
         
-        em {
+        .btn {
+            font-family: $font-family-bold;
+            white-space: nowrap;
+            font-size: 1.5em;
+            display: block;
             
+            .flaticon {
+                color: $white;
+                font-size: 1.2em;
+            }
         }
     }
 }
 
 #project-members {
     padding: $base-padding 0;
-    background-color: $gray-lighter;
+    background-color: $gray-darker;
     
     .project-member-list {
         @include grid(48,1,1);

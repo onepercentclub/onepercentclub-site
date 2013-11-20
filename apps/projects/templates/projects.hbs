@@ -203,13 +203,12 @@
                 <div class="project-status">
 
                 	{{#if campaign.deadline}}
-                    <div class="project-days-left l-one-third">
-						<strong><span class="flaticon solid clock-1"></span> {{campaign.daysToGo}}</strong>
-						<em>{% trans "days to go" %}</em>
+                    <div class="project-days-left">
+						<strong><span class="flaticon solid clock-1"></span> {{campaign.daysToGo}} <em>{% trans "days to go" %}</em></strong>
 					</div>
 					{{/if}}
 
-					<div class="project-fund l-one-third">
+					<div class="project-fund">
                         <p class="project-fund-amount">
                             <strong class="amount-donated">&euro;{{localize campaign.money_donated}}</strong>
                             {% trans "of" %}
@@ -220,7 +219,7 @@
                         <div class="project-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
 					</div>
 
-                    <div class="project-action l-one-third">
+                    <div class="project-action">
 					    <a href='#' {{ action 'addDonation' this }} class="btn btn-primary btn-iconed"><span class="flaticon solid wallet-1"></span> {% trans "Support project" %}</a>
                     </div>
 				</div>
@@ -338,37 +337,24 @@
             </li>
         {{/if}}
 
-
         {{#unless isPhasePlan}}
             {{render "projectFundRaiserList"}}
             {{render "projectSupporterList"}}
         {{/unless}}
     </ul>
 
-    {{!-- TODO: move this and fix the CSS --}}
-    <div style="text-align:center">
-        {{#linkTo 'myFundRaiserNew' id}}
-            {% trans "Become a fundraiser" %}
-        {{/linkTo}}
-    </div>
-
 {% endtplhandlebars %}
 
 {% tplhandlebars "project_supporter_list" %}
 
     {{#if supporters.length}}
-        <li class="project-member-supporters"  style="width:30%;"> {{!-- TODO: CSS --}}
+        <li class="project-member-supporters">
+            <h4>{% trans "Supporters" %} <em>{{supporters.meta.total}} {% trans "Total" %}</em></h4>
             <ul>
-                <li class="project-member-supporters-total">
-                    <strong>{{supporters.meta.total}}</strong>
-                    <br/>
-                    <em>Total</em>
-                </li>
                 {{#each supporter in controller}}
                     {{view "App.ProjectSupporterView" }}
                 {{/each}}
             </ul>
-            <h4>{% trans "Supporters" %}</h4>
         </li>
     {{/if}}
 

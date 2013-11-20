@@ -88,7 +88,7 @@
             </div>
 
             <sidebar class="l-sidebar">
-                <h2>{% trans "FUNDRAISING FOR PROJECT" %}</h2>
+                <h2>{% trans "Fundraising for project" %}</h2>
                 <p>{% trans "You'll be fundraising for this project" %}</p>
 
                 {{render "projectPreview" project}}
@@ -101,17 +101,24 @@
 
 
 {% tplhandlebars "project_fundraiser_list" %}
-    {{#if fundraisers.length}}
-        <li class="project-member-supporters" style="width:40%;">
-        {{!- <li class="project-member-fundraisers"> TODO: CSS -}}
-            <ul>
-                {{#each fundraiser in controller}}
-                    {{view "App.ProjectFundRaiserView" }}
-                {{/each}}
-            </ul>
-            <h4>{% trans "Fundraisers" %}</h4>
-        </li>
-    {{/if}}
+    <li class="project-member-fundraisers">
+    
+        {{!-- TODO: Moved link 'become fundraiser' from projects.hbs
+        Link not working anymore --}}
+    
+        <h4>{% trans "Fundraisers" %}</h4>
+        {{#linkTo 'myFundRaiserNew' id class="fundraiser-become"}}
+            {% trans "Become a fundraiser" %}
+        {{/linkTo}}
+        
+        {{#if fundraisers.length}}
+        <ul>
+            {{#each fundraiser in controller}}
+                {{view "App.ProjectFundRaiserView" }}
+            {{/each}}
+        </ul>
+        {{/if}}
+    </li>
 {% endtplhandlebars %}
 
 
