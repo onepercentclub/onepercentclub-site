@@ -173,7 +173,7 @@
                     <div>
                         {% trans "Fundraiser" %} <a class="membe TODO" {{action 'openInBigBox' 'userModal' owner }}>{{owner.full_name}}</a>
 
-                        <a href='#' {{ action 'addDonation' this }} class="btn btn-primary btn-iconed">
+                        <a href='#' {{ action 'addDonation' this.project this }} class="btn btn-primary btn-iconed">
                             <span class="flaticon solid wallet-1"></span>
                             {% trans "Support" %} {{owner.first_name}}
                         </a>

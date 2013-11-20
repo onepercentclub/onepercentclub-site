@@ -68,9 +68,11 @@ App.WallPost = DS.Model.extend({
 
     // determine if this wallpost is related to a fundraiser
     fundraiser: function() {
-        var fundraiser = this.get('related_object').fundraiser;
-        if(this.get('isSystemWallPost') && this.get('related_type') == 'donation' && fundraiser !== undefined){
-            return fundraiser;
+        if (this.get('related_object')){
+            var fundraiser = this.get('related_object').fundraiser;
+            if(this.get('isSystemWallPost') && this.get('related_type') == 'donation' && fundraiser !== undefined){
+                return fundraiser;
+            }
         }
         return false;
     }.property('related_type', 'isSystemWallPost', 'related_object')
