@@ -1,3 +1,7 @@
+import datetime
+from django.test.client import MULTIPART_CONTENT
+from django.utils.unittest.case import expectedFailure
+import os
 import json
 
 from django.core.urlresolvers import reverse
@@ -12,6 +16,7 @@ from apps.fund.models import DonationStatuses, Donation
 from apps.projects.tests.unittests import ProjectTestsMixin
 
 from .helpers import FundRaiserTestsMixin
+from ..models import FundRaiser
 
 
 class FundRaiserApiIntegrationTest(FundRaiserTestsMixin, DonationTestsMixin, ProjectTestsMixin, UserTestsMixin, TestCase):
@@ -28,16 +33,18 @@ class FundRaiserApiIntegrationTest(FundRaiserTestsMixin, DonationTestsMixin, Pro
         self.another_user = self.create_user()
 
         self.fundraiser = self.create_fundraiser(self.some_user, self.some_project)
-        self.rundraiser2 = self.create_fundraiser(self.another_user, self.another_project)
+        self.fundraiser2 = self.create_fundraiser(self.another_user, self.another_project)
 
         self.current_donations_url = '/api/fund/orders/current/donations/'
         self.current_order_url = '/api/fund/orders/current'
-        self.fundraisers_url = '/api/fundraisers/'
+        self.fundraiser_list_url = '/api/fundraisers/'
+        self.fundraiser_url = '/api/fundraisers/{0}'.format(self.fundraiser.pk)
+        self.fundraiser2_url = '/api/fundraisers/{0}'.format(self.fundraiser2.pk)
 
     def test_project_fundraisers(self):
         """ Test if the correct fundraisers are returned for a project """
 
-        url = self.fundraisers_url + '?project=' + self.some_project.slug
+        url = self.fundraiser_list_url + '?project=' + self.some_project.slug
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(1, response.data['count'])
@@ -50,7 +57,7 @@ class FundRaiserApiIntegrationTest(FundRaiserTestsMixin, DonationTestsMixin, Pro
 
     def test_fundraiser_donations(self):
         """ Test that the correct amounts are returned """
-        url_fundraisers = self.fundraisers_url + '?project=' + self.some_project.slug
+        url_fundraisers = self.fundraiser_list_url + '?project=' + self.some_project.slug
 
         # First make sure we have a current order
         self.client.login(username=self.some_user.email, password='password')
@@ -105,7 +112,10 @@ class FundRaiserApiIntegrationTest(FundRaiserTestsMixin, DonationTestsMixin, Pro
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual('15.00', response.data['results'][0]['amount_donated'])
 
-    def test_api_project_donation_view(self):
+    def test_supporters_for_project(self):
+        """
+        Test the list of supporters of a project when a fundraiser donation was made.
+        """
         self.create_donation(user=self.some_user, project=self.some_project, status=DonationStatuses.paid)
 
         self.create_donation(user=self.some_user, project=self.some_project, status=DonationStatuses.paid,
@@ -115,9 +125,13 @@ class FundRaiserApiIntegrationTest(FundRaiserTestsMixin, DonationTestsMixin, Pro
         response = self.client.get(project_donation_url)
 
         json_data = json.loads(response.content)
+        # Expect donation for project and donation for fundraiser to show up.
         self.assertEqual(len(json_data['results']), 2)
 
-    def test_api_project_donation_fundraiser_view(self):
+    def test_supporters_for_fundraiser(self):
+        """
+        Test the list of supporters for a specific fundraiser.
+        """
         self.create_donation(user=self.some_user, project=self.some_project, status=DonationStatuses.paid)
 
         fundraise_donation = self.create_donation(user=self.some_user, project=self.some_project, status=DonationStatuses.paid,
@@ -131,4 +145,148 @@ class FundRaiserApiIntegrationTest(FundRaiserTestsMixin, DonationTestsMixin, Pro
         response = self.client.get(project_donation_url)
 
         json_data = json.loads(response.content)
+        # Only expect the donation for the fundraiser to show up.
         self.assertEqual(len(json_data['results']), 1)
+
+    def _post_fundraiser_data(self, **kwargs):
+        """
+        Helper function to post some data to the fundraiser list view.
+        """
+        # Construct default data
+        now = datetime.datetime.now()
+        data = {
+            'project': self.some_project.slug,
+            'title': 'My Title',
+            'description': 'My Description',
+            'amount': '1000',
+            'deadline': now.strftime('%Y-%m-%dT%H:%M:%S'),
+        }
+
+        # Adjust default data with given kwargs.
+        data.update(kwargs)
+
+        # Special case: Image file
+        f = None
+        if 'image' not in data:
+            f = open(os.path.join(os.path.dirname(__file__), 'test_files', 'upload.png'), 'rb')
+            data['image'] = f
+
+        response = self.client.post(self.fundraiser_list_url, data)
+
+        if f and not f.closed:
+            f.close()
+
+        return response
+
+    def test_create_fundraiser_anonymous(self):
+        """
+        Test create fundraiser, via fundraiser list API, as anonymous user.
+        """
+        response = self.client.post(self.fundraiser_list_url, {})
+        self.assertEqual(response.status_code, 403)
+
+    def test_create_fundraiser_authenticated(self):
+        """
+        Test create fundraiser, via fundraiser list API, as authenticated user.
+        """
+        self.assertTrue(self.client.login(username=self.some_user.email, password='password'))
+
+        # Construct data
+        deadline = (datetime.datetime.now() + datetime.timedelta(days=14)).strftime('%Y-%m-%dT%H:%M:%S')
+        with open(os.path.join(os.path.dirname(__file__), 'test_files', 'upload.png'), 'rb') as fp:
+            data = {
+                'project': self.some_project.slug,
+                'title': 'My Title',
+                'description': 'My Description',
+                'image': fp,
+                'amount': '1000',
+                'deadline': deadline,
+            }
+
+            # Perform call
+            response = self.client.post(self.fundraiser_list_url, data)
+
+        # Validate response
+        self.assertEqual(response.status_code, 201)
+
+        json_data = json.loads(response.content)
+
+        self.assertEqual(json_data['title'], 'My Title')
+        self.assertEqual(json_data['deadline'], deadline)
+        self.assertEqual(json_data['owner']['username'], self.some_user.username)
+        self.assertEqual(json_data['project'], self.some_project.slug)
+
+    def test_read_fundraiser_list_anonymous(self):
+        """
+        Test read fundraiser, via fundraiser list API, as anonymous user.
+        """
+        response = self.client.get('{0}?project={1}'.format(self.fundraiser_list_url, self.some_project.slug))
+
+        # Validate response
+        self.assertEqual(response.status_code, 200)
+
+        json_data = json.loads(response.content)
+
+        self.assertEqual(json_data['count'], 1)
+        self.assertEqual(len(json_data['results']), 1)
+
+        json_data = json_data['results'][0]
+
+        self.assertEqual(json_data['title'], self.fundraiser.title)
+        # TODO: Timezone difference issue
+        #self.assertEqual(json_data['deadline'], self.fundraiser.deadline.strftime('%Y-%m-%dT%H:%M:%S'))
+        self.assertEqual(json_data['owner']['username'], self.fundraiser.owner.username)
+        self.assertEqual(json_data['project'], self.fundraiser.project.slug)
+
+    def test_read_fundraiser_anonymous(self):
+        """
+        Test read fundraiser, via fundraiser detail API, as anonymous user.
+        """
+        response = self.client.get(self.fundraiser_url)
+
+        # Validate response
+        self.assertEqual(response.status_code, 200)
+
+        json_data = json.loads(response.content)
+
+        self.assertEqual(json_data['title'], self.fundraiser.title)
+        # TODO: Timezone difference issue
+        #self.assertTrue(json_data['deadline'].startswith(self.fundraiser.deadline.strftime('%Y-%m-%dT%H:%M:%S')))
+        self.assertEqual(json_data['owner']['username'], self.fundraiser.owner.username)
+        self.assertEqual(json_data['project'], self.fundraiser.project.slug)
+
+    def test_update_fundraiser_anonymous(self):
+        response = self.client.put(self.fundraiser_url, {})
+        self.assertEqual(response.status_code, 403)
+
+    def test_update_fundraiser_authenticated_owner(self):
+        self.assertEqual(self.some_user, self.fundraiser.owner)
+
+        self.assertTrue(self.client.login(username=self.some_user.email, password='password'))
+
+        # Construct data
+        deadline = datetime.datetime.now() + datetime.timedelta(days=14)
+        with open(os.path.join(os.path.dirname(__file__), 'test_files', 'upload.png'), 'rb') as fp:
+            data = {
+                'project': self.another_project.slug,
+                'title': 'Updated Title',
+                'description': 'Updated Description',
+                #'image': fp,
+                'amount': '2000',
+                'deadline': deadline.strftime('%Y-%m-%dT%H:%M:%S'),
+            }
+
+            # Perform call
+            response = self.client.put(self.fundraiser_url, data, content_type=MULTIPART_CONTENT)
+
+        # Validate response
+        # TODO: How can we PUT with a file?
+        # self.assertEquals(response.status_code, 200)
+        #
+        # # Reload fundraiser
+        # fundraiser = FundRaiser.objects.get(pk=self.fundraiser.pk)
+        #
+        # self.assertEqual(data['title'], fundraiser.title)
+        # self.assertEquals(deadline, fundraiser.deadline)
+        # self.assertEqual(self.some_user, fundraiser.some_user.username)
+        # self.assertEqual(data['project'], fundraiser.another_project.slug)

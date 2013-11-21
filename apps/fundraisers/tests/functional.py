@@ -35,7 +35,7 @@ class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsM
         self.fundraiser_url = '/fundraiser/{0}'.format(self.fundraiser.pk)
         self.new_fundraiser_url = '/project/{0}/new-fundraiser'.format(self.project_without_fundraiser.slug)
 
-    def test_link_from_project_page_to_create_fundraiser_not_logged_in(self):
+    def test_link_from_project_page_to_create_fundraiser_anonymous(self):
         """
         Test create a fundraiser for a project as anonymous user.
         """
@@ -47,11 +47,11 @@ class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsM
         self.assertTrue(self.browser.is_text_present('You can only make a fundraiser if you are logged in.'))
         self.assertFalse(self.browser.is_text_present('Amount to raise'))
 
-    def test_link_from_project_page_to_create_fundraiser_logged_in(self):
+    def test_link_from_project_page_to_create_fundraiser_authenticated(self):
         """
         Test create a fundraiser for a project as authenticated user.
         """
-        self.login(self.some_user.email, 'secret')
+        self.assertTrue(self.client.login(username=self.some_user.email, password='secret'))
 
         self.visit_path(self.project_with_fundraiser_url)
 
