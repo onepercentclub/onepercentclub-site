@@ -316,34 +316,57 @@ App.MyProjectPlanOrganisationController = Em.ObjectController.extend(App.Editabl
     }.property('organization.isLoaded', 'organization.isDirty', 'address.isDirty'),
 
     actions: {
+        saveAddress: function(){
+            var address = this.get('address');
+            var controller = this;
+            var model = this.get('model');
+            var organization = model.get('organization');
+            address.set('organization', organization);
+            address.one('didUpdate', function(){
+                // Updated address info.
+                controller.transitionToRoute(controller.get('nextStep'));
+                $("html, body").animate({ scrollTop: 0 }, 600);
+            });
+            address.one('didCreate', function(){
+                // Created address info.
+                controller.transitionToRoute(controller.get('nextStep'));
+                $("html, body").animate({ scrollTop: 0 }, 600);
+            });
+            address.save();
+        },
         updateRecordOnServer: function(){
             var controller = this;
             var model = this.get('model');
             var organization = model.get('organization');
             var address = this.get('address');
-            model.one('didUpdate', function(){
-                // Connected a (new or old) organization to ProjectPlan.
-                controller.transitionToRoute(controller.get('nextStep'));
-                $("html, body").animate({ scrollTop: 0 }, 600);
-            });
-            organization.one('didUpdate', function(){
-                // Updated organization info.
-                controller.transitionToRoute(controller.get('nextStep'));
-                $("html, body").animate({ scrollTop: 0 }, 600);
-            });
-            if (address) {
-                address.one('didUpdate', function(){
-                    // Updated address info.
-                    controller.transitionToRoute(controller.get('nextStep'));
+
+            if (organization.get('isDirty')) {
+                organization.one('didUpdate', function(){
+                    // Updated organization info.
+                    if (address.get('isDirty')) {
+                        controller.send('saveAddress');
+                    } else {
+                        controller.transitionToRoute(controller.get('nextStep'));
+                        $("html, body").animate({ scrollTop: 0 }, 600);
+                    }
                     $("html, body").animate({ scrollTop: 0 }, 600);
                 });
-                address.one('didCreate', function(){
-                    // Created address info.
-                    controller.transitionToRoute(controller.get('nextStep'));
+                organization.one('didCreate', function(){
+                    // Create organization info.
+                    if (address.get('isDirty')) {
+                        Em.run.next(function(){
+                            controller.send('saveAddress');
+                        })
+                    } else {
+                        controller.transitionToRoute(controller.get('nextStep'));
+                        $("html, body").animate({ scrollTop: 0 }, 600);
+                    }
                     $("html, body").animate({ scrollTop: 0 }, 600);
                 });
+                model.transaction.commit();
+            } else {
+                controller.send('saveAddress');
             }
-            model.transaction.commit();
         },
 
         addAddress: function(){

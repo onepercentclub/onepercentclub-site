@@ -50,6 +50,14 @@ class Organization(models.Model):
     account_city = models.CharField(_("account city"), max_length=255, blank=True)
     account_other = models.CharField(_("account information that doesn't fit in the other field"), max_length=255, blank=True)
 
+    # Address
+    line1 = models.CharField(max_length=100, blank=True)
+    line2 = models.CharField(max_length=100, blank=True)
+    city = models.CharField(max_length=100, blank=True)
+    state = models.CharField(max_length=100, blank=True)
+    country = models.ForeignKey('geo.Country', blank=True, null=True)
+    postal_code = models.CharField(max_length=20, blank=True)
+
     tags = TaggableManager(blank=True, verbose_name=_("tags"))
 
     def __unicode__(self):
