@@ -1,5 +1,6 @@
-// App.FundRaiserController = Em.ObjectController.extend({
-// });
+//App.FundRaiserController = Em.ObjectController.extend({
+//    needs: ['project']
+//});
 
 
 App.FundRaiserNewController = Em.ObjectController.extend(App.Editable, {

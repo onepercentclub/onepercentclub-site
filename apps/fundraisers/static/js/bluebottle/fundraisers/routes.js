@@ -2,13 +2,13 @@
  *  Router Map
  */
 
-App.Router.map(function(){
-    this.resource('fundRaiser', {path: '/projects/:project_id/fundraisers/:fundraiser_id'});
+App.Router.map(function() {
+    this.resource('fundRaiser', {path: '/fundraisers/:fundraiser_id'});
     this.resource('fundRaiserNew', {path: '/projects/:project_id/new-fundraiser'});
 
-    this.resource('myFundRaiserList', {path: '/my/fundraisers'});
-//    this.resource('myFundRaiserNew', {path: '/my/fundraisers/new/:project_id'});
-    this.resource('myFundRaiser', {path: '/my/fundraisers/:my_fundraiser_id'});
+// TODO: Future resources.
+//    this.resource('myFundRaiserList', {path: '/my/fundraisers'});
+//    this.resource('myFundRaiser', {path: '/my/fundraisers/:my_fundraiser_id'});
 });
 
 
