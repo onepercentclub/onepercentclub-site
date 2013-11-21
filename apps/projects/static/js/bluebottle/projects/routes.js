@@ -283,13 +283,6 @@ App.MyProjectPlanOrganisationRoute = App.MyProjectPlanSubRoute.extend({
         var organization =  model.get('organization');
         if (Ember.isNone(organization)) {
             controller.set('organizations', App.MyOrganization.find());
-        } else {
-            console.log('Got org');
-            if (organization.get('addresses.length') == 0) {
-                controller.send('addAddress');
-            } else {
-                controller.set('address', organization.get('addresses.firstObject'));
-            }
         }
 
     }

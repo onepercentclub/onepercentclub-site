@@ -49,6 +49,7 @@ App.Organization = DS.Model.extend({
     twitter: DS.attr('string', {defaultValue: ""}),
     skype: DS.attr('string', {defaultValue: ""}),
 
+
     facebookUrl: function(){
         return this.get('facebook');
     }.property('facebook'),
@@ -236,37 +237,6 @@ App.DonationPreview =  DS.Model.extend({
  Models
  */
 
-App.AddressTypeSelectView = Em.Select.extend({
-    content: [
-        {value: 'physical', title: "Physical address"},
-        {value: 'postal', title: "Postal address"},
-        {value: 'other', title: "Other address"}
-    ],
-    optionValuePath: "content.value",
-    optionLabelPath: "content.title"
-});
-
-
-App.MyOrganizationAddress = DS.Model.extend({
-    url: 'organizations/addresses/manage',
-
-    organization: DS.belongsTo('App.MyOrganization'),
-    line1: DS.attr('string', {defaultValue: ""}),
-    line2: DS.attr('string', {defaultValue: ''}),
-    postal_code: DS.attr('string', {defaultValue: ""}),
-    city: DS.attr('string', {defaultValue: ""}),
-    country: DS.attr('string', {defaultValue: ""}),
-    type: DS.attr('string', {defaultValue: 'physical'}),
-
-    validAddress: function(){
-        if (this.get('line1') &&  this.get('city') && this.get('country')){
-            return true;
-        }
-        return false;
-    }.property('line1', 'city', 'country')
-
-});
-
 App.MyOrganizationDocument = DS.Model.extend({
     url: 'organizations/documents/manage',
 
@@ -296,6 +266,14 @@ App.MyOrganization = DS.Model.extend({
     name: DS.attr('string'),
     description: DS.attr('string', {defaultValue: ""}),
 
+    // Address
+    address_line1: DS.attr('string', {defaultValue: ""}),
+    address_line2: DS.attr('string', {defaultValue: ""}),
+    city: DS.attr('string', {defaultValue: ""}),
+    state: DS.attr('string', {defaultValue: ""}),
+    country: DS.attr('string'),
+    postal_code: DS.attr('string', {defaultValue: ""}),
+
     // Internet
     website: DS.attr('string', {defaultValue: ""}),
     email: DS.attr('string', {defaultValue: ""}),
@@ -303,15 +281,14 @@ App.MyOrganization = DS.Model.extend({
     twitter: DS.attr('string', {defaultValue: ""}),
     skype: DS.attr('string', {defaultValue: ""}),
 
-    // Addresses
-    addresses: DS.hasMany('App.MyOrganizationAddress'),
-
     validProfile: function(){
-        if (this.get('name') &&  this.get('description') && this.get('email') && this.get('addresses.firstObject.validAddress')){
+        if (this.get('name') &&  this.get('description') && this.get('email') &&
+              this.get('address_line1') && this.get('city') && this.get('country')
+            ){
             return true;
         }
         return false;
-    }.property('name', 'description', 'email', 'addresses.firstObject.validAddress'),
+    }.property('name', 'description', 'email', 'address_line1', 'city', 'country'),
 
 
     // Legal
