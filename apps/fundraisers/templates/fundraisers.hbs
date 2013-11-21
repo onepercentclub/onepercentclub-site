@@ -5,7 +5,7 @@
 {% language "en" %}
 {# Force all these pages to english #}
 
-{% tplhandlebars "my_fund_raiser_new" %}
+{% tplhandlebars "fundraiser_new" %}
 
     <div class="l-section" id="project-dashboard">
 
@@ -106,7 +106,7 @@
         Link not working anymore --}}
     
         <h4>{% trans "Fundraisers" %}</h4>
-        {{#linkTo 'myFundRaiserNew' id class="fundraiser-become"}}
+        {{#linkTo 'fundRaiserNew' controllers.project.id class="fundraiser-become"}}
             {% trans "Become a fundraiser" %}
         {{/linkTo}}
         
@@ -133,7 +133,7 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "fund_raiser" %}
+{% tplhandlebars "fundraiser" %}
 
     {# TODO: CSS #}
     <div class="l-section" id="fundraiser-detail">
