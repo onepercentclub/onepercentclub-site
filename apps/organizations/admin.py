@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.core.urlresolvers import reverse
 
 
-from .models import Organization, OrganizationDocument, OrganizationAddress, OrganizationMember
+from .models import Organization, OrganizationDocument, OrganizationMember
 from .forms import OrganizationDocumentForm
 
 
@@ -19,11 +19,6 @@ class OrganizationDocumentInline(admin.StackedInline):
     download_url.allow_tags = True
 
 
-class OrganizationAddressInline(admin.StackedInline):
-    model = OrganizationAddress
-    extra = 0
-
-
 class OrganizationMemberInline(admin.StackedInline):
     model = OrganizationMember
     raw_id_fields = ('user', )
@@ -33,7 +28,7 @@ class OrganizationAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
     exclude = ('registration',)
 
-    inlines = (OrganizationAddressInline, OrganizationMemberInline, OrganizationDocumentInline)
+    inlines = (OrganizationMemberInline, OrganizationDocumentInline)
 
     search_fields = ('name', 'description')
 
