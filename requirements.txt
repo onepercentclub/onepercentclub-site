@@ -100,7 +100,8 @@ django_countries==1.5
 requests==1.2.3
 # This version should be considered suds-jurko 0.4.1 jurko pre 5.
 # This is just a fork of the official repo in case it disappears.
-https://bitbucket.org/onepercentclub/suds/get/afe727f50704.zip
+# https://bitbucket.org/onepercentclub/suds/get/afe727f50704.zip
+-e hg://bitbucket.org/onepercentclub/suds/@afe727f50704#egg=suds
 
 django-iban==0.2.1
 
@@ -118,11 +119,13 @@ django-social-auth==0.7.23
 # Fork with 1.5 Custom User support: https://bitbucket.org/eire1130/django-registration
 # Our fork of the fork with HTML_ACTIVATION_EMAIL option:
 # TODO Try to unwind this mess and contribute some stuff upstream.
-https://bitbucket.org/onepercentclub/django-registration/get/ae9e9ed265ed.zip
+# https://bitbucket.org/onepercentclub/django-registration/get/ae9e9ed265ed.zip
+-e hg://bitbucket.org/onepercentclub/django-registration/@ae9e9ed265ed#egg=django-registration
 
 
 # Private uploads
-https://bitbucket.org/wkornewald/django-filetransfers/get/32ddeac.zip
+# https://bitbucket.org/wkornewald/django-filetransfers/get/32ddeac.zip
+-e hg://bitbucket.org/wkornewald/django-filetransfers/@32ddeac#egg=django-filetransfers
 
 # DKIM to sign e-mails
 dkimpy
