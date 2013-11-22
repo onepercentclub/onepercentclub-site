@@ -602,17 +602,32 @@
 {% tplhandlebars "_thanksDonation" %}
 
     <li class="project-list-item">
-        {{#linkTo 'project' donation.project class="project-header" }}
-            <figure class="project-image">
-                <img {{bindAttr src="donation.project.plan.image.square" alt="project.title"}} />
-            </figure>
-            <h2 class="project-title">
-                {{ donation.project.title }}
-                <em class="project-location">
-                    <span class="flaticon solid location-pin-1"></span> {{ donation.project.plan.country.name }}
-                </em>
-            </h2>
-        {{/linkTo}}
+        {{#if donation.fundraiser}}
+            {{#linkTo 'fundRaiser' donation.fundraiser class="project-header" }}
+                <figure class="project-image">
+                    <img {{bindAttr src="donation.project.plan.image.square" alt="project.title"}} />
+                </figure>
+                <h2 class="project-title">
+                    {{ donation.fundraiser.title }}
+                    ({{ donation.project.title }})
+                    <em class="project-location">
+                        <span class="flaticon solid location-pin-1"></span> {{ donation.project.plan.country.name }}
+                    </em>
+                </h2>
+            {{/linkTo}}
+        {{else}}
+            {{#linkTo 'project' donation.project class="project-header" }}
+                <figure class="project-image">
+                    <img {{bindAttr src="donation.project.plan.image.square" alt="project.title"}} />
+                </figure>
+                <h2 class="project-title">
+                    {{ donation.project.title }}
+                    <em class="project-location">
+                        <span class="flaticon solid location-pin-1"></span> {{ donation.project.plan.country.name }}
+                    </em>
+                </h2>
+            {{/linkTo}}
+        {{/if}}
 
         <div class="fund-amount">
             {% trans "You supported"%} <strong class="fund-amount-needed">&euro;{{ donation.amount }}</strong>
