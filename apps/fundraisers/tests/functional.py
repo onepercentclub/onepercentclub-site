@@ -1,3 +1,4 @@
+import datetime
 from django.utils.unittest.case import skipUnless
 from django.conf import settings
 
@@ -9,6 +10,7 @@ from apps.projects.tests.unittests import ProjectTestsMixin
 
 from ..models import FundRaiser
 from .helpers import FundRaiserTestsMixin
+import os
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
@@ -24,16 +26,21 @@ class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsM
         self.project_with_fundraiser = self.create_project(money_asked=50000)
         self.project_without_fundraiser = self.create_project(money_asked=75000)
 
-        self.some_user = self.create_user(password='secret')
-        self.another_user = self.create_user(password='secret')
+        self.some_user = self.create_user()
+        self.another_user = self.create_user()
 
         self.fundraiser = self.create_fundraiser(self.some_user, self.project_with_fundraiser)
 
         self.project_with_fundraiser_url = '/projects/{0}'.format(self.project_with_fundraiser.slug)
         self.project_without_fundraiser_url = '/projects/{0}'.format(self.project_without_fundraiser.slug)
 
-        self.fundraiser_url = '/fundraiser/{0}'.format(self.fundraiser.pk)
+        self.fundraiser_url = '/fundraisers/{0}'.format(self.fundraiser.pk)
         self.new_fundraiser_url = '/project/{0}/new-fundraiser'.format(self.project_without_fundraiser.slug)
+
+        # Force reload by visiting the home
+        self.visit_path('')
+        # Force refresh of the browser to work with the new database state, rather then Ember using a cached version.
+        #self.browser.driver.refresh()
 
     def test_link_from_project_page_to_create_fundraiser_anonymous(self):
         """
@@ -51,7 +58,7 @@ class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsM
         """
         Test create a fundraiser for a project as authenticated user.
         """
-        self.assertTrue(self.client.login(username=self.some_user.email, password='secret'))
+        self.assertTrue(self.login(username=self.some_user.email, password='password'))
 
         self.visit_path(self.project_with_fundraiser_url)
 
@@ -61,21 +68,32 @@ class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsM
         self.assertFalse(self.browser.is_text_present('You can only make a fundraiser if you are logged in.'))
         self.assertTrue(self.browser.is_text_present('Amount to raise'))
 
+        deadline = datetime.datetime.now() + datetime.timedelta(days=28)
+        filepath = os.path.join(os.path.dirname(__file__), 'test_files', 'upload.png')
+
         self.browser.fill_form_by_label(
-            self.browser.find_by_css('form#fundraiser-new'),
+            self.browser.find_by_css('form#fundraiser-new').first,
             [
                 ('Title', 'Run for the cause'),
                 ('Description', 'I will run for joy and to help the cause.'),
+                ('Image', filepath),
+                ('Video', ''),
                 ('Amount to raise', '1000'),
-                ('Deadline', '11/30/2013'),
+                ('Deadline', [None, deadline.strftime(' %d/%m/%Y')]),
             ]
         )
 
-        self.browser.find_link_by_partial_text('CREATE').first.click()
+        self.browser.find_by_css('button.btn.btn-iconed.btn-next').first.click()
 
-        self.assertEqual(self.browser.url, '{0}/en/#!/fundraiser/2'.format(self.live_server_url))
+        self.assertTrue(self.browser.is_text_present('FUNDRAISING FOR'))
 
-        self.assertTrue(self.browser.is_text_present('Run for the cause'))
+        self.assertEqual(self.browser.url, '{0}/en/#!/fundraisers/2'.format(self.live_server_url))
+
+        self.assertTrue(self.browser.is_text_present('RUN FOR THE CAUSE'))
+
+        fundraisers = FundRaiser.objects.filter(title='Run for the cause')
+        self.assertEqual(fundraisers.count(), 1)
+        self.assertEqual(fundraisers[0].amount, 100000)
 
     def test_link_from_project_to_fundraiser_page(self):
         """
@@ -85,10 +103,10 @@ class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsM
 
         self.browser.find_link_by_href('#!{0}'.format(self.fundraiser_url)).first.click()
 
-        self.assertEqual(self.browser.url, self.fundraiser_url)
+        self.assertEqual(self.browser.url, '{0}/en/#!{1}'.format(self.live_server_url, self.fundraiser_url))
 
         self.assertTrue(self.fundraiser.title != '')
-        self.assertTrue(self.browser.is_text_present(self.fundraiser.title))
+        self.assertTrue(self.browser.is_text_present(self.fundraiser.title.upper()))
 
     def test_fundraise_page(self):
         """
@@ -97,7 +115,7 @@ class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsM
         self.visit_path(self.fundraiser_url)
 
         self.assertTrue(self.fundraiser.title != '')
-        self.assertTrue(self.browser.is_text_present(self.fundraiser.title))
+        self.assertTrue(self.browser.is_text_present(self.fundraiser.title.upper()))
 
         link = self.browser.find_link_by_partial_text(self.project_with_fundraiser.title)
 
@@ -110,18 +128,23 @@ class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsM
         self.visit_path(self.fundraiser_url)
 
         self.assertTrue(self.fundraiser.title != '')
-        self.assertTrue(self.browser.is_text_present(self.fundraiser.title))
+        self.assertTrue(self.browser.is_text_present(self.fundraiser.title.upper()))
 
-        self.browser.find_link_by_partial_text('SUPPORT').first.click()
+        # TODO: This fails for some reason, we use an alternative method:
+        #self.browser.find_link_by_partial_text('Support').first.click()
+        self.browser.find_by_css('a.btn.btn-primary.btn-iconed').first.click()
+
+        self.assertTrue(self.browser.is_text_present('SUPPORT'))
+        self.assertTrue(self.browser.is_text_present(self.fundraiser.title.upper()))
+        self.assertTrue(self.browser.is_text_present('TOTAL'))
 
         self.assertEqual(self.browser.url, '{0}/en/#!/support/donations'.format(self.live_server_url))
 
-        self.assertTrue(self.browser.is_text_present('SUPPORT'))
-        self.assertTrue(self.browser.is_text_present(self.fundraiser.title))
-        self.assertTrue(self.browser.is_text_present('TOTAL'))
+        self.browser.find_by_css('button.btn.btn-iconed.btn-next').first.click()
 
-        self.browser.find_link_by_partial_text('NEXT STEP').first.click()
+        self.assertTrue(self.browser.is_text_present('SUPPORT'))
+        self.assertTrue(self.browser.is_text_present('NICE TO MEET YOU'))
 
         self.assertEqual(self.browser.url, '{0}/en/#!/support/details'.format(self.live_server_url))
 
-        # TODO: Test rest of the flow.
+        # TODO: Test rest of the flow?
