@@ -1,8 +1,9 @@
-// App.FundRaiserController = Em.ObjectController.extend({
-// });
+//App.FundRaiserController = Em.ObjectController.extend({
+//    needs: ['project']
+//});
 
 
-App.MyFundRaiserNewController = Em.ObjectController.extend(App.Editable, {
+App.FundRaiserNewController = Em.ObjectController.extend(App.Editable, {
     needs: ['currentUser', 'project'],
     actions: {
         updateRecordOnServer: function(){
@@ -23,6 +24,7 @@ App.MyFundRaiserNewController = Em.ObjectController.extend(App.Editable, {
 });
 
 App.ProjectFundRaiserListController = Em.ArrayController.extend({
+    needs: ['project'],
 	fundraisersLoaded: function(sender, key) {
 		if (this.get(key)) {
 			this.set('model', this.get('fundraisers').toArray());

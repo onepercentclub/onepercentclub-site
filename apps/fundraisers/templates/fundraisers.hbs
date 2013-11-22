@@ -5,7 +5,7 @@
 {% language "en" %}
 {# Force all these pages to english #}
 
-{% tplhandlebars "my_fund_raiser_new" %}
+{% tplhandlebars "fundraiser_new" %}
 
     <div class="l-section" id="project-dashboard">
 
@@ -41,7 +41,7 @@
                         </p>
                     </header>
 
-                    <form>
+                    <form id="fundraiser-new">
                         <fieldset>
                             <ul>
                                 {% include "generic/form_field.html" with title="Title" placeholder="Title describes your fundraiser action in short" field_type="Em.TextField" field_name="title" %}
@@ -106,7 +106,7 @@
         Link not working anymore --}}
     
         <h4>{% trans "Fundraisers" %}</h4>
-        {{#linkTo 'myFundRaiserNew' id class="fundraiser-become"}}
+        {{#linkTo 'fundRaiserNew' controllers.project.id class="fundraiser-become"}}
             {% trans "Become a fundraiser" %}
         {{/linkTo}}
         
@@ -124,7 +124,7 @@
 {% tplhandlebars "project_fundraiser" %}
     {{!-- FIXME The 'popup' content is now built in model App.FundRaiser. Not sure
     how this will be done with the redesigned 'popup' --}}
-    {{#linkTo "fundRaiser" fundraiser.id classNames='member'}}
+    {{#linkTo "fundRaiser" fundraiser classNames='member'}}
         <span {{bindAttr data-title="fundraiser.popover_title" data-content="fundraiser.popover_content"}}>
             <span class="member-avatar"><img {{bindAttr src="fundraiser.owner.getAvatar" alt="fundraiser.owner.full_name" }}/></span>
         </span>
@@ -133,7 +133,7 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "fund_raiser" %}
+{% tplhandlebars "fundraiser" %}
 
     {# TODO: CSS #}
     <div class="l-section" id="fundraiser-detail">
