@@ -1,4 +1,4 @@
--e git://github.com/onepercentclub/bluebottle.git@v0.0.24#egg=bluebottle
+-e git://github.com/onepercentclub/bluebottle.git@v0.0.26#egg=bluebottle
 
 Django==1.5.4
 Pillow==2.1.0
@@ -151,3 +151,5 @@ babel==1.3
 
 # Used for sending mails on testing to current user.
 django-tools==0.25.0
+
+django-loginas==0.1.3
