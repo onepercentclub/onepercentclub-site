@@ -44,6 +44,10 @@ urlpatterns = patterns('',
     url(r'^', include('django.conf.urls.i18n')),
 )
 
+urlpatterns += patterns('loginas.views',
+    url(r"^login/user/(?P<user_id>.+)/$", "user_login", name="loginas-user-login"),
+)
+
 urlpatterns += i18n_patterns('',
 
     # account login/logout, password reset, and password change
