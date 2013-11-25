@@ -7,7 +7,7 @@ from django.conf import settings
 from bluebottle.bluebottle_utils.tests import UserTestsMixin
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 
-from apps.fund.models import DonationStatuses, Donation
+from apps.fund.models import DonationStatuses, Donation, OrderStatuses
 from apps.projects.tests.unittests import ProjectTestsMixin
 from apps.donations.tests import DonationTestsMixin
 
@@ -190,6 +190,8 @@ class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsM
         """
         Test create donation for fundraise action.
         """
+        self.assertTrue(self.login(username=self.some_user.email, password='password'))
+
         self.visit_path(self.fundraiser_url)
 
         self.assertTrue(self.fundraiser.title != '')
@@ -211,16 +213,27 @@ class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsM
 
         # Validate personal info page.
         self.assertTrue(self.browser.is_text_present('SUPPORT'))
-        self.assertTrue(self.browser.is_text_present('NICE TO MEET YOU'))
+        self.assertTrue(self.browser.is_text_present('Please verify your details.'))
 
         self.assertEqual(self.browser.url, '{0}/en/#!/support/details'.format(self.live_server_url))
 
         # TODO: Test rest of the flow?
 
         # Create dummy donation, so we can validate the thank you page.
-        donation = self.create_donation(self.another_user, self.project_with_fundraiser)
-        self.visit_path('support/thanks/{0}'.format(donation.order.pk))
+        donation = self.create_donation(self.some_user, self.project_with_fundraiser)
+        donation.fundraiser = self.fundraiser
+        donation.order.status = OrderStatuses.current
+        donation.order.closed = None
+
+        from apps.cowry_docdata.models import DocDataPaymentOrder
+        DocDataPaymentOrder.objects.create(order=donation.order, payment_order_id='dummy')
+
+        donation.order.save()
+        donation.save()
+
+        self.visit_path('/support/thanks/{0}'.format(donation.order.pk))
 
         # Validate thank you page.
         self.assertTrue(self.browser.is_text_present('WELL, YOU ROCK!'))
         self.assertTrue(self.browser.is_text_present(self.fundraiser.title.upper()))
+
