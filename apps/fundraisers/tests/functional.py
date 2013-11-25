@@ -1,4 +1,6 @@
+import os
 import datetime
+
 from django.utils.unittest.case import skipUnless
 from django.conf import settings
 
@@ -7,15 +9,15 @@ from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 
 from apps.fund.models import DonationStatuses, Donation
 from apps.projects.tests.unittests import ProjectTestsMixin
+from apps.donations.tests import DonationTestsMixin
 
 from ..models import FundRaiser
 from .helpers import FundRaiserTestsMixin
-import os
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
         'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
-class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsMixin, OnePercentSeleniumTestCase):
+class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsMixin, DonationTestsMixin, OnePercentSeleniumTestCase):
     """
     Integration tests for the fundraiser API.
     """
@@ -79,7 +81,7 @@ class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsM
                 ('Image', filepath),
                 ('Video', ''),
                 ('Amount to raise', '1000'),
-                ('Deadline', [None, deadline.strftime(' %d/%m/%Y')]),
+                ('Deadline', [None, deadline.strftime('%d/%m/%Y')]),
             ]
         )
 
@@ -94,6 +96,69 @@ class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsM
         fundraisers = FundRaiser.objects.filter(title='Run for the cause')
         self.assertEqual(fundraisers.count(), 1)
         self.assertEqual(fundraisers[0].amount, 100000)
+
+    def test_link_from_fundraiser_page_to_edit_fundraiser_authenticated(self):
+        """
+        Test edit a fundraiser that the user does not own.
+        """
+        self.assertTrue(self.login(username=self.another_user.email, password='password'))
+
+        self.visit_path(self.fundraiser_url)
+
+        self.assertFalse(self.browser.is_text_present('Edit'))
+
+        # Visit link anyway
+        self.visit_path('{0}/edit'.format(self.fundraiser_url))
+
+        self.assertTrue(self.browser.is_text_present('EDIT FUNDRAISER'))
+        self.assertTrue(self.browser.is_text_present('You can only make a fundraiser if you are logged in and the owner of this fundraiser.'))
+        self.assertFalse(self.browser.is_text_present('Amount to raise'))
+
+    def test_link_from_fundraiser_page_to_edit_fundraiser_as_owner(self):
+        """
+        Test edit a fundraiser that the user owns.
+        """
+        self.assertTrue(self.login(username=self.some_user.email, password='password'))
+
+        self.visit_path(self.fundraiser_url)
+
+        self.browser.find_link_by_partial_text('Edit').first.click()
+
+        self.assertTrue(self.browser.is_text_present('EDIT FUNDRAISER'))
+        self.assertFalse(self.browser.is_text_present('You can only make a fundraiser if you are logged in and the owner of this fundraiser.'))
+        self.assertTrue(self.browser.is_text_present('Amount to raise'))
+
+        self.assertEqual(self.browser.url, '{0}/en/#!/fundraisers/{1}/edit'.format(self.live_server_url, self.fundraiser.pk))
+
+        deadline = datetime.datetime.now() + datetime.timedelta(days=28)
+        filepath = os.path.join(os.path.dirname(__file__), 'test_files', 'upload.png')
+
+        self.browser.fill_form_by_label(
+            self.browser.find_by_css('form#fundraiser-edit').first,
+            [
+                ('Title', 'Run for the cause'),
+                ('Description', 'I will run for joy and to help the cause.'),
+                ('Image', filepath),
+                ('Video', ''),
+                ('Amount to raise', '1000'),
+                ('Deadline', [None, deadline.strftime('%d/%m/%Y')]),
+            ]
+        )
+
+        # Press save
+        self.browser.find_by_css('button.btn.btn-iconed.btn-next').first.click()
+
+        # Validate transition to fundraiser page
+        self.assertTrue(self.browser.is_text_present('RUN FOR THE CAUSE'))
+        self.assertEqual(self.browser.url, '{0}/en/#!/fundraisers/{1}'.format(self.live_server_url, self.fundraiser.pk))
+
+        # Reload fundraiser
+        fundraiser = FundRaiser.objects.get(pk=self.fundraiser.pk)
+
+        # Validate updated properties
+        self.assertEqual(fundraiser.amount, 100000)
+        self.assertEqual(fundraiser.title, 'Run for the cause')
+        self.assertEqual(fundraiser.description, 'I will run for joy and to help the cause.')
 
     def test_link_from_project_to_fundraiser_page(self):
         """
@@ -130,10 +195,12 @@ class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsM
         self.assertTrue(self.fundraiser.title != '')
         self.assertTrue(self.browser.is_text_present(self.fundraiser.title.upper()))
 
+        # Go to donate page.
         # TODO: This fails for some reason, we use an alternative method:
         #self.browser.find_link_by_partial_text('Support').first.click()
         self.browser.find_by_css('a.btn.btn-primary.btn-iconed').first.click()
 
+        # Validate donation page.
         self.assertTrue(self.browser.is_text_present('SUPPORT'))
         self.assertTrue(self.browser.is_text_present(self.fundraiser.title.upper()))
         self.assertTrue(self.browser.is_text_present('TOTAL'))
@@ -142,9 +209,18 @@ class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsM
 
         self.browser.find_by_css('button.btn.btn-iconed.btn-next').first.click()
 
+        # Validate personal info page.
         self.assertTrue(self.browser.is_text_present('SUPPORT'))
         self.assertTrue(self.browser.is_text_present('NICE TO MEET YOU'))
 
         self.assertEqual(self.browser.url, '{0}/en/#!/support/details'.format(self.live_server_url))
 
         # TODO: Test rest of the flow?
+
+        # Create dummy donation, so we can validate the thank you page.
+        donation = self.create_donation(self.another_user, self.project_with_fundraiser)
+        self.visit_path('support/thanks/{0}'.format(donation.order.pk))
+
+        # Validate thank you page.
+        self.assertTrue(self.browser.is_text_present('WELL, YOU ROCK!'))
+        self.assertTrue(self.browser.is_text_present(self.fundraiser.title.upper()))
