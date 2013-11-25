@@ -1,4 +1,7 @@
+from django.utils.timezone import now
+
 from apps.banners.models import Slide
+from apps.campaigns.models import Campaign
 from apps.fundraisers.models import FundRaiser
 from apps.projects.models import Project
 from apps.quotes.models import Quote
@@ -26,6 +29,12 @@ class HomePage(object):
         else:
             self.projects = None
 
-        # NOTE: what if we don't want to show these on the homepage?
-        self.fundraisers = FundRaiser.objects.filter(project__is_campaign=True).order_by('?')
+        # TODO: write test to check that homepage falls back to default homepage if no campaign exists
+        try:
+            self.campaign = Campaign.objects.get(start__lte=now(), end__gte=now())
+            # NOTE: MultipleObjectsReturned is not caught yet!
+            self.fundraisers = FundRaiser.objects.filter(project__is_campaign=True).order_by('?')
+        except Campaign.DoesNotExist:
+            self.campaign, self.fundraisers = None, None
+
         return self

@@ -47,6 +47,7 @@ App.HomePage = DS.Model.extend({
     slides: DS.hasMany('App.Slide'),
     quotes: DS.hasMany('App.Quote'),
     impact: DS.belongsTo('App.Impact'),
+    campaign: DS.belongsTo('App.Campaign'),
     fundraisers: DS.hasMany('App.FundRaiser')
 
 });
@@ -56,6 +57,7 @@ App.Adapter.map('App.HomePage', {
     slides: {embedded: 'load'},
     quotes: {embedded: 'load'},
     impact: {embedded: 'load'},
+    campaign: {embedded: 'load'},
     fundraisers: {embedded: 'load'}
 });
 
@@ -103,10 +105,10 @@ App.HomeController = Ember.ObjectController.extend({
         this.set('quote', this.get('quotes').objectAt(this.get('quoteIndex')));
     },
 
-    enableCampaignHomePage: function() {
-        this.set('isCampaignHomePage', true);
-
-        // fetch status donations
+    checkCampaignHomePage: function() {
+        if(this.get('campaign')){
+            this.set('isCampaignHomePage', true);
+        }
     },
 
     actions: {

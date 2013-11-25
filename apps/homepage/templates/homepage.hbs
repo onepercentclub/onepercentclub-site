@@ -306,20 +306,27 @@
 
     <div style="background-color: #e9e9e9;">
 
+        {{campaign}}
+
         <span>
             {# Flag-image (with text?) #}
         </span>
 
         <div>
-            &euro; 1.200 of &euro;2.600 fund-raced.
+            &euro;{{localize campaign.amount_donated}} of &euro;{{localize campaign.target}} fund-raced.
             <div class="fundraiser-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
             {# TODO: animate progressbar #}
+        </div>
+
+        {# timer #}
+        <div>
+            {{campaign.start}} - {{campaign.end}}
         </div>
 
         <div>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
             tempor incididunt ut labore et dolore magna aliqua.
-        </div> {# timer #}
+        </div>
 
         <a {{action 'scrollToFundraisers' }}>{% trans "Pick a crazy fund-racer and support" %}</a>
     </div>

@@ -525,9 +525,7 @@ App.HomeRoute = Em.Route.extend({
         this._super(controller, model);
         controller.set('projectIndex', 0).loadProject();
         controller.set('quoteIndex', 0).loadQuote();
-
-        // NOTE: comment this line to show the default homepage
-        controller.enableCampaignHomePage();
+        controller.checkCampaignHomePage();
     }
 });
 
