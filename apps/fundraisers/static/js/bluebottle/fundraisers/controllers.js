@@ -35,7 +35,7 @@ App.ProjectFundRaiserListController = Em.ArrayController.extend({
 });
 
 
-App.FundRaiserWallPostListController = Em.ArrayController.extend({
+App.FundRaiserIndexController = Em.ArrayController.extend({
     needs: ['fundRaiser'],
     perPage: 5,
     page: 1,
@@ -57,7 +57,7 @@ App.FundRaiserWallPostListController = Em.ArrayController.extend({
             var controller = this;
             var page = this.incrementProperty('page');
             var id = this.get('controllers.fundRaiser.model.id');
-            App.WallPost.find({'content_type': 'fund raiser', 'content_id': id, page: page}).then(function(items){
+            App.WallPost.find({'parent_type': 'fund raiser', 'parent_id': id, page: page}).then(function(items){
                 controller.get('model').pushObjects(items.toArray());
             });
         }

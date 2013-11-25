@@ -3,10 +3,10 @@
  */
 
 
-// This is the controller to show the wallposts
 App.ProjectIndexController = Em.ArrayController.extend({
     needs: ['project'],
     perPage: 5,
+
     page: 1,
 
     remainingItemCount: function(){
@@ -26,7 +26,7 @@ App.ProjectIndexController = Em.ArrayController.extend({
             var controller = this;
             var page = this.incrementProperty('page');
             var id = this.get('controllers.project.model.id');
-            App.WallPost.find({'content_type': 'project', 'content_id': id, page: page}).then(function(items){
+            App.WallPost.find({'parent_type': 'project', 'parent_id': id, page: page}).then(function(items){
                 controller.get('model').pushObjects(items.toArray());
             });
         }
@@ -67,7 +67,7 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
                     // Empty this.files so we can use it again.
                     controller.set('files', Em.A());
                 }
-                var list = controller.get('controllers.projectIndex.items');
+                var list = controller.get('controllers.projectIndex.model');
                 list.unshiftObject(record);
                 controller.clearWallPost()
             });
@@ -110,7 +110,7 @@ App.ProjectWallPostNewController = Em.ObjectController.extend({
         var controller = this;
         textwallpost.on('didCreate', function(record) {
             // This is an odd way of getting to the parent controller
-            var list = controller.get('controllers.projectIndex.items');
+            var list = controller.get('controllers.projectIndex.model');
             list.unshiftObject(record);
             controller.clearWallPost()
         });
@@ -236,5 +236,3 @@ App.WallPostReactionListController = Em.ArrayController.extend({
         reaction.save();
     }
 });
-
-App.ProjectIndexController = Em.ArrayController.extend(App.ShowMoreItemsMixin, {});

@@ -270,13 +270,13 @@
             <ul class="tabs four">
                 <li class="tab-updates">
                     {{#linkTo 'project.index'}}
-                        <span class="tab-icon amount">{{wallposts.length}}</span>
+                        <span class="tab-icon amount">{{controllers.projectIndex.meta.total}}</span>
                         <strong class="tab-title">
                             {% trans "Updates" %}
 
-                            {{#if wallposts.length}}
-                                {{#if wallposts.firstObject.isLoaded}}
-                                    <em class="tab-subtitle">{{localize wallposts.firstObject.created formatting="X"}}</em>
+                            {{#if controllers.projectIndex.meta.total}}
+                                {{#if controllers.projectIndex.firstObject.isLoaded}}
+                                    <em class="tab-subtitle">{{localize controllers.projectIndex.firstObject.created formatting="X"}}</em>
                                 {{else}}
                                     <em class="tab-subtitle">{% trans "Loading&#8230;" %}</em>
                                 {{/if}}

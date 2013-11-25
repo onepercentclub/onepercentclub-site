@@ -117,16 +117,9 @@ App.TaskWallPostView = App.ProjectWallPostView.extend({
 
 });
 
-// This is the view toi display the wallpost list
-// Idea of how to have child views with different templates:
-// http://stackoverflow.com/questions/10216059/ember-collectionview-with-views-that-have-different-templates
-App.ProjectIndexView = Em.View.extend({
-    templateName: 'project_wallpost_list'
-});
-
 
 App.ProjectWallPostNewView = Em.View.extend({
-    templateName: 'project_wallpost_new',
+    templateName: 'project_wallpost_new'
 });
 
 

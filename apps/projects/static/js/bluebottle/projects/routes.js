@@ -95,9 +95,11 @@ App.ProjectRoute = Em.Route.extend(App.ScrollToTop, {
 
 
 App.ProjectIndexRoute = Em.Route.extend({
+    // This way the ArrayController won't hold an immutable array.
     setupController: function(controller, model) {
         var project_id = this.modelFor('project').get('id');
-        App.WallPost.find({'content_type': 'project', 'content_id': project_id}).then(function(items){
+        controller.set('page', 1);
+        App.WallPost.find({'parent_type': 'project', 'parent_id': project_id}).then(function(items){
             controller.set('meta', items.get('meta'));
             controller.set('model', items.toArray());
         });

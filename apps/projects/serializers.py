@@ -121,7 +121,6 @@ class ProjectSerializer(serializers.ModelSerializer):
     plan = ProjectPlanSerializer(source='projectplan')
     campaign = ProjectCampaignSerializer(source='projectcampaign')
 
-    wallpost_ids = WallPostListSerializer()
     task_count = serializers.IntegerField(source='task_count')
 
     meta_data = MetaField(
@@ -139,7 +138,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = (
-            'id', 'created', 'title', 'owner', 'coach', 'plan', 'campaign', 'wallpost_ids', 'phase', 'popularity',
+            'id', 'created', 'title', 'owner', 'coach', 'plan', 'campaign', 'phase', 'popularity',
             'task_count', 'meta_data', 'is_campaign',
         )
 

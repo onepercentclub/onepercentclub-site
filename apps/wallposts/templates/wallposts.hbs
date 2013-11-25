@@ -130,7 +130,7 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "project_wallpost_list" %}
+{% tplhandlebars "project/index" %}
 
     <div id="l-section">
         <section class="l-wrapper">
@@ -145,7 +145,6 @@
                         {{/if}}
     	            {{/if}}
     	        {{/each}}
-
                 {{#if canLoadMore}}
                     <a {{action "showMore"}} class="btn-link btn-more">
                         <span class="flaticon solid plus-2"></span> {% trans "Show more" %} <small>{{remainingItemCount}} {% trans "more" %}</small>

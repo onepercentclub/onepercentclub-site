@@ -4,7 +4,6 @@
 
 App.Router.map(function() {
     this.resource('fundRaiser', {path: '/fundraisers/:fundraiser_id'}, function(){
-        this.resource('fundRaiserWallPostList', {path: '/'});
     });
     this.resource('fundRaiserNew', {path: '/projects/:project_id/new-fundraiser'});
 
@@ -30,13 +29,12 @@ App.FundRaiserRoute = Em.Route.extend(App.ScrollToTop, {
 });
 
 
-App.FundRaiserWallPostListRoute = Em.Route.extend(App.ScrollToTop, {
-    // We do some dirty trick here to set the model.
-    // Otherwise the ArrayController will have a ImmutableArray which we can't add to.
-
+App.FundRaiserIndexRoute = Em.Route.extend(App.ScrollToTop, {
+    // This way the ArrayController won't hold an immutable array.
     setupController: function(controller, model) {
         var fundraiser_id = this.modelFor('fundRaiser').get('id');
-        App.WallPost.find({'content_type': 'fund raiser', 'content_id': fundraiser_id}).then(function(items){
+        controller.set('page', 1);
+        App.WallPost.find({'parent_type': 'fund raiser', 'parent_id': fundraiser_id}).then(function(items){
             controller.set('meta', items.get('meta'));
             controller.set('model', items.toArray());
         });

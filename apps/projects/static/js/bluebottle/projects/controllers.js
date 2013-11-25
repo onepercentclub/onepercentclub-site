@@ -104,6 +104,8 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
 
 
 App.ProjectController = Em.ObjectController.extend({
+    needs: ['projectIndex'],
+
     isFundable: function(){
        return (this.get('phase') == 'campaign' && this.get('campaign.money_asked'));
     }.property('phase', 'campaign'),
