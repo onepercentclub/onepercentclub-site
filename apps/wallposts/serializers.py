@@ -51,11 +51,11 @@ class WallPostSerializerBase(serializers.ModelSerializer):
     """
     author = UserPreviewSerializer()
     reactions = ReactionSerializer(many=True, read_only=True)
-    module = serializers.SlugRelatedField(slug_field='name', source='content_type')
+    parent_type = serializers.SlugRelatedField(slug_field='name', source='content_type')
     parent_id = serializers.IntegerField(source='object_id')
 
     class Meta:
-        fields = ('id', 'type', 'author', 'created', 'reactions', 'module', 'parent_id')
+        fields = ('id', 'type', 'author', 'created', 'reactions', 'parent_type', 'parent_id')
 
 
 class MediaWallPostPhotoSerializer(serializers.ModelSerializer):

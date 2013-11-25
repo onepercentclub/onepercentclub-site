@@ -26,11 +26,7 @@ App.TextWallPostNewView = Em.View.extend({
 
     submit: function(e){
         e.preventDefault();
-        this.get('controller').addTextWallPost();
-    },
-
-    didInsertElement: function() {
-        this.get('controller').clearWallPost();
+        this.get('controller').saveWallPost();
     }
 });
 

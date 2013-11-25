@@ -59,6 +59,9 @@ App.WallPost = DS.Model.extend({
     video_html: DS.attr('string'),
     photos: DS.hasMany('App.ProjectWallPostPhoto'),
 
+    parent_id: DS.attr('string'),
+    parent_type: DS.attr('string'),
+
     related_type: DS.attr('string'),
     related_object: DS.attr('object'), // keep it generic
 
@@ -76,6 +79,11 @@ App.WallPost = DS.Model.extend({
         }
         return false;
     }.property('related_type', 'isSystemWallPost', 'related_object')
+});
+
+
+App.TextWallPost = App.WallPost.extend({
+    url: 'wallposts/textwallposts'
 });
 
 

@@ -6,7 +6,6 @@
 App.ProjectIndexController = Em.ArrayController.extend({
     needs: ['project'],
     perPage: 5,
-
     page: 1,
 
     remainingItemCount: function(){
@@ -33,7 +32,39 @@ App.ProjectIndexController = Em.ArrayController.extend({
     }
 });
 
+
 App.ProjectWallPostNewController = Em.ObjectController.extend({
+    needs: ['currentUser', 'projectIndex', 'project'],
+
+    init: function() {
+        this._super();
+        this.set('model', App.TextWallPost.createRecord());
+    },
+
+    saveWallPost: function() {
+        var wallPost = this.get('model');
+        wallPost.set('parent_id', this.get('controllers.project.model.id'));
+        wallPost.set('parent_type', 'project');
+        wallPost.set('type', 'text');
+
+        var controller = this;
+        wallPost.on('didCreate', function(record) {
+            var list = controller.get('controllers.projectIndex.model');
+            list.unshiftObject(record);
+            controller.clearWallPost()
+        });
+        wallPost.on('becameInvalid', function(record) {
+            controller.set('errors', record.get('errors'));
+        });
+        wallPost.save();
+    },
+
+    createNewWallPost: function() {
+        this.set('model', App.TextWallPost.createRecord());
+    }
+})
+
+App.OLD_ProjectWallPostNewController = Em.ObjectController.extend({
     needs: ['currentUser', 'projectIndex', 'project'],
 
     // This a temporary container for App.Photo records until they are connected after this wallpost is saved.

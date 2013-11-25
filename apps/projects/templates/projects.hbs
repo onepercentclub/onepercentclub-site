@@ -316,6 +316,41 @@
 {% endtplhandlebars %}
 
 
+{% tplhandlebars "project/index" %}
+    {{!-- Project Wall Post List template --}}
+
+    <div id="l-section">
+        <section class="l-wrapper">
+        	<div class="l-content" id="wallposts">
+
+    	        {{#each item in controller itemController="wallPost"}}
+    	            {{#if item.isLoaded}}
+                        {{#if item.isSystemWallPost}}
+        	                {{view "App.SystemWallPostView"}}
+                        {{else}}
+        	                {{view "App.ProjectWallPostView"}}
+                        {{/if}}
+    	            {{/if}}
+    	        {{/each}}
+                {{#if canLoadMore}}
+                    <a {{action "showMore"}} class="btn-link btn-more">
+                        <span class="flaticon solid plus-2"></span> {% trans "Show more" %} <small>{{remainingItemCount}} {% trans "more" %}</small>
+                    </a>
+                {{/if}}
+
+        	</div>
+
+            <sidebar class="l-sidebar">
+            	{{ render "projectWallPostNew" }}
+            </sidebar>
+
+        </section>
+    </div>
+
+{% endtplhandlebars %}
+
+
+
 {% tplhandlebars "project_members" %}
 
     <ul class="project-member-list">

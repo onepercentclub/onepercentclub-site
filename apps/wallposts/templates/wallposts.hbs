@@ -130,37 +130,35 @@
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "project/index" %}
+{% tplhandlebars "textWallPostNew" %}
 
-    <div id="l-section">
-        <section class="l-wrapper">
-        	<div class="l-content" id="wallposts">
+    {{#if controllers.currentUser.isAuthenticated }}
+        <h3>{% trans "Write a comment" %}</h3>
+        <p>{% trans "Write an comment to place on the project's wall." %}</p>
+        <fieldset>
+           <ul>
+                <li class="control-group">
+                    <label for="wallpost-update" class="control-label">{% trans "Comment" %}</label>
 
-    	        {{#each item in controller itemController="wallPost"}}
-    	            {{#if item.isLoaded}}
-                        {{#if item.isSystemWallPost}}
-        	                {{view "App.SystemWallPostView"}}
-                        {{else}}
-        	                {{view "App.ProjectWallPostView"}}
-                        {{/if}}
-    	            {{/if}}
-    	        {{/each}}
-                {{#if canLoadMore}}
-                    <a {{action "showMore"}} class="btn-link btn-more">
-                        <span class="flaticon solid plus-2"></span> {% trans "Show more" %} <small>{{remainingItemCount}} {% trans "more" %}</small>
-                    </a>
-                {{/if}}
+                    <div class="controls">
+                        {{view Ember.TextArea valueBinding="text" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
+                    </div>
 
-        	</div>
+                    {{#if errors.text }}
+                        <div class="has-errors">{{#each errors.text}}<p>{{this}}</p>{{/each}}</div>
+                    {{/if}}
+                </li>
+            </ul>
+        </fieldset>
 
-            <sidebar class="l-sidebar">
-            	{{ render "projectWallPostNew" }}
-            </sidebar>
-
-        </section>
-    </div>
+        <button class="btn btn-iconed" type="submit"><span class="flaticon solid thinking-comment-1"></span>{% trans "Comment" %}</button>
+    {{else}}
+    	<h3>{% trans "Write a comment" %}</h3>
+    	<a {{action openInBox "login"}}>{%  trans "Login" %}</a> or become a {{#linkTo "signup"}}{% trans "member" %}{{/linkTo}} {% trans "to leave a comment" %}.</p>
+    {{/if}}
 
 {% endtplhandlebars %}
+
 
 
 {% tplhandlebars "project_wall_post" %}
