@@ -1,7 +1,10 @@
 from django.db import models
+from django.db.models import Sum
 from django.utils.translation import ugettext as _
 
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
+
+from apps.fund.models import Donation
 
 
 class Campaign(models.Model):
@@ -26,6 +29,9 @@ class Campaign(models.Model):
 
     @property
     def sum_donations(self):
+        """ TODO: add test """
         """ Add all donation amounts for donations made between start and end of the campaign """
-        return '000' # FIXME
+        donations = Donation.valid_donations.all()
+        donated = donations.aggregate(sum=Sum('amount'))['sum']
+        return donated
 
