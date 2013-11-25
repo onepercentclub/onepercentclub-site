@@ -10,7 +10,7 @@
     .project-image img {
        border: 1px solid $white; 
     }
-    
+   
     .fundraiser-project {
         
         .fundraiser-project-image {
@@ -59,7 +59,7 @@
             @include grid(38,0,0);
         }
     }
-    
+
     .project-title {
         color: $color-heading;
     }
