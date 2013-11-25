@@ -1,6 +1,5 @@
 import datetime
 from django.test.client import MULTIPART_CONTENT
-from django.utils.unittest.case import expectedFailure
 import os
 import json
 
@@ -11,12 +10,11 @@ from rest_framework import status
 
 from bluebottle.bluebottle_utils.tests import UserTestsMixin
 
-from apps.donations.tests import DonationTestsMixin
+from apps.donations.tests.helpers import DonationTestsMixin
 from apps.fund.models import DonationStatuses, Donation
 from apps.projects.tests.unittests import ProjectTestsMixin
 
 from .helpers import FundRaiserTestsMixin
-from ..models import FundRaiser
 
 
 class FundRaiserApiIntegrationTest(FundRaiserTestsMixin, DonationTestsMixin, ProjectTestsMixin, UserTestsMixin, TestCase):
