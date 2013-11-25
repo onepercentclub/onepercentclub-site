@@ -451,18 +451,29 @@
         
         .project-header {
             @include grid(32,1,1);
+            text-decoration: none;
             
             .project-image {
                 @include grid(12,0,1);
                 float: left;
             }
             
-            .project-title {
+            .project-title, .fundraiser-title {
                 @include grid(32);
                 text-transform: uppercase;
                 font-size: $base-font-size;
                 padding: 0;
                 color: $color-heading;
+            }
+            
+            .fundraiser-subtitle {
+                font-family: $base-font-family;
+                color: $gray;
+                font-size: $font-size-small;
+                
+                em {
+                   font-family: $font-family-heavy; 
+                }
             }
             
             .project-location, .project-status, .project-preview  {

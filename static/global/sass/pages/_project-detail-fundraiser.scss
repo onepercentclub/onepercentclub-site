@@ -1,0 +1,28 @@
+//
+// Fundraiser detail
+// Overwrites project detail elements
+// --------------------------------------------------
+
+#fundraiser-detail {
+    background-color: $gray-lighter;
+    color: $color-text;
+    
+    .project-image img {
+       border: 1px solid $white; 
+    }
+    
+    .project-title {
+        color: $color-heading;
+    }
+    
+    #fundraiser-status {
+        padding: $base-padding 0;
+        background-color: $gray-light;
+        
+        .project-member-list {
+            @include grid(48,1,1);
+        }
+    }
+}
+
+

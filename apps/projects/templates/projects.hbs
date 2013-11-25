@@ -173,7 +173,7 @@
 
     {{#if isCampaign}}<div id="project-campaign">{{/if}}
 
-    <div class="l-section" id="project-detail">
+    <div class="l-section detail" id="project-detail">
         <section class="l-wrapper">
 
             <figure class="project-image l-half">
@@ -181,16 +181,6 @@
             </figure>
 
             <div class="l-half">
-
-                {% comment %}
-                <ul class="project-phase">
-                    <li>{% trans "Pitch" %}</li>
-                    <li {{bindAttr class="isPhasePlan:is-current" }}>{% trans "Plan" %}</li>
-                    <li {{bindAttr class="isPhaseCampaign:is-current" }}>{% trans "Campaign" %}</li>
-                    <li {{bindAttr class="isPhaseAct:is-current" }}>{% trans "Act" %}</li>
-                    <li {{bindAttr class="isPhaseResults:is-current" }}>{% trans "Results" %}</li>
-                </ul>
-                {% endcomment %}
 
                 <article class="project-info">
                     <div class="project-meta">
