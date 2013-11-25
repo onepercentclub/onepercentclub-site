@@ -2,7 +2,7 @@ from django.http import Http404
 from django.utils.translation import ugettext_lazy as _
 
 from bluebottle.bluebottle_drf2.views import RetrieveUpdateDeleteAPIView, ListCreateAPIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework import permissions, exceptions
 
 from apps.projects.models import Project
 
@@ -13,6 +13,7 @@ from .serializers import FundRaiserSerializer
 class FundRaiserListView(ListCreateAPIView):
     model = FundRaiser
     serializer_class = FundRaiserSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     paginate_by = 4
 
     def get_queryset(self):
@@ -33,10 +34,13 @@ class FundRaiserListView(ListCreateAPIView):
         return queryset.order_by('?')
 
     def pre_save(self, obj):
+        if not self.request.user.is_authenticated():
+            raise exceptions.PermissionDenied()
+
         obj.owner = self.request.user
 
 
 class FundRaiserDetailView(RetrieveUpdateDeleteAPIView):
     model = FundRaiser
     serializer_class = FundRaiserSerializer
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
