@@ -31,6 +31,10 @@ class FundRaiserSerializer(serializers.ModelSerializer):
                   'video_html', 'video_url', 'amount', 'deadline',
                   'amount_donated', 'meta_data')
 
+class HomePageFundRaiserSerializer(FundRaiserSerializer):
+    class Meta(FundRaiserSerializer.Meta):
+        fields = ('id', 'owner', 'project', 'title', 'image', 'video_html', 'amount', 'amount_donated', 'deadline')
+
 
 class FundRaiserPreviewSerializer(serializers.ModelSerializer):
     class Meta:

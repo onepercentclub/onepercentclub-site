@@ -1,4 +1,5 @@
 from apps.banners.models import Slide
+from apps.fundraisers.models import FundRaiser
 from apps.projects.models import Project
 from apps.quotes.models import Quote
 from apps.statistics.models import Statistic
@@ -24,4 +25,7 @@ class HomePage(object):
             self.projects = projects[0:len(projects)]
         else:
             self.projects = None
+
+        # NOTE: what if we don't want to show these on the homepage?
+        self.fundraisers = FundRaiser.objects.filter(project__is_campaign=True).order_by('?')
         return self
