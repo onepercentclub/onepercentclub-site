@@ -4,8 +4,34 @@
 
 
 // This is the controller to show the wallposts
-App.ProjectIndexController = Em.ArrayController.extend(App.ShowMoreItemsMixin, {});
+App.ProjectIndexController = Em.ArrayController.extend({
+    needs: ['project'],
+    perPage: 5,
+    page: 1,
 
+    remainingItemCount: function(){
+        if (this.get('meta.total')) {
+            return this.get('meta.total') - (this.get('page')  * this.get('perPage'));
+        }
+        return 0;
+    }.property('page', 'perPage', 'meta.total'),
+
+    canLoadMore: function(){
+        var totalPages = Math.ceil(this.get('meta.total') / this.get('perPage'));
+        return totalPages > this.get('page');
+    }.property('perPage', 'page', 'meta.total'),
+
+    actions: {
+        showMore: function() {
+            var controller = this;
+            var page = this.incrementProperty('page');
+            var id = this.get('controllers.project.model.id');
+            App.WallPost.find({'content_type': 'project', 'content_id': id, page: page}).then(function(items){
+                controller.get('model').pushObjects(items.toArray());
+            });
+        }
+    }
+});
 
 App.ProjectWallPostNewController = Em.ObjectController.extend({
     needs: ['currentUser', 'projectIndex', 'project'],
@@ -210,3 +236,5 @@ App.WallPostReactionListController = Em.ArrayController.extend({
         reaction.save();
     }
 });
+
+App.ProjectIndexController = Em.ArrayController.extend(App.ShowMoreItemsMixin, {});

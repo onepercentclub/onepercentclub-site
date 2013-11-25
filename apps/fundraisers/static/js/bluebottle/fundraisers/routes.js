@@ -3,7 +3,9 @@
  */
 
 App.Router.map(function() {
-    this.resource('fundRaiser', {path: '/fundraisers/:fundraiser_id'});
+    this.resource('fundRaiser', {path: '/fundraisers/:fundraiser_id'}, function(){
+        this.resource('fundRaiserWallPostList', {path: '/'});
+    });
     this.resource('fundRaiserNew', {path: '/projects/:project_id/new-fundraiser'});
 
 // TODO: Future resources.
@@ -19,7 +21,6 @@ App.FundRaiserRoute = Em.Route.extend(App.ScrollToTop, {
     model: function(params) {
         return App.FundRaiser.find(params.fundraiser_id);
     },
-
     setupController: function(controller, fundraiser) {
         this._super(controller, fundraiser);
 
@@ -27,6 +28,21 @@ App.FundRaiserRoute = Em.Route.extend(App.ScrollToTop, {
         controller.set('fundRaiseSupporters', App.DonationPreview.find({project: project_id, fundraiser: fundraiser.id}));
     }
 });
+
+
+App.FundRaiserWallPostListRoute = Em.Route.extend(App.ScrollToTop, {
+    // We do some dirty trick here to set the model.
+    // Otherwise the ArrayController will have a ImmutableArray which we can't add to.
+
+    setupController: function(controller, model) {
+        var fundraiser_id = this.modelFor('fundRaiser').get('id');
+        App.WallPost.find({'content_type': 'fund raiser', 'content_id': fundraiser_id}).then(function(items){
+            controller.set('meta', items.get('meta'));
+            controller.set('model', items.toArray());
+        });
+    }
+});
+
 
 
 App.FundRaiserNewRoute = Em.Route.extend(App.ScrollToTop, {

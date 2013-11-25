@@ -1,3 +1,4 @@
+import django_filters
 from bluebottle.bluebottle_drf2.permissions import IsAuthorOrReadOnly, AllowNone
 from bluebottle.bluebottle_utils.utils import set_author_editor_ip
 from rest_framework import permissions
@@ -6,22 +7,25 @@ from .models import WallPost, Reaction
 from .serializers import ReactionSerializer, WallPostSerializer
 
 
-class WallPostList(ListAPIView):
+class WallPostFilter(django_filters.FilterSet):
+    module = django_filters.CharFilter(name="content_type__name")
+    parent_id = django_filters.NumberFilter(name="object_id")
+
+    class Meta:
+        model = WallPost
+        fields = ['module', 'parent_id']
+
+
+class WallPostList(ListCreateAPIView):
     model = WallPost
     serializer_class = WallPostSerializer
-    filter_fields = ('id',)
-    paginate_by = 200
+    filter_class = WallPostFilter
+    paginate_by = 5
 
     def get_queryset(self):
-        """
-        Override get_queryset() to filter on multiple values for 'id'
-        It seems that DRF2 doesn't have a implementation for filtering against an array of ids.
-        https://groups.google.com/forum/?fromgroups#!topic/django-rest-framework/vbifEyharBw
-        """
+        if 'project' == self.request.QUERY_PARAMS
+
         queryset = super(WallPostList, self).get_queryset()
-        id_list = self.request.GET.getlist('ids[]', None)
-        if id_list:
-            queryset = queryset.filter(id__in=id_list)
         queryset = queryset.order_by('-created')
         return queryset
 

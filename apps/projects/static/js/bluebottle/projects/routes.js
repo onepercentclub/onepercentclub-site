@@ -94,22 +94,18 @@ App.ProjectRoute = Em.Route.extend(App.ScrollToTop, {
 });
 
 
-// This is the 'ProjectWallPostListRoute'
 App.ProjectIndexRoute = Em.Route.extend({
-    model: function(params) {
-        return this.modelFor('project');
-    },
-
     setupController: function(controller, model) {
-        // Empty the items and set page to 0 if project changes so we don't show wall posts from previous project
-        if (this.get('model_id') != model.get('id')) {
-            controller.set('items', Em.A());
-            controller.set('page', 0);
-        }
-        this.set('model_id', model.get('id'));
-        this._super(controller, model.get('wallposts'));
+        var project_id = this.modelFor('project').get('id');
+        App.WallPost.find({'content_type': 'project', 'content_id': project_id}).then(function(items){
+            controller.set('meta', items.get('meta'));
+            controller.set('model', items.toArray());
+        });
     }
 });
+
+
+
 
 
 App.ProjectPlanRoute = Em.Route.extend({

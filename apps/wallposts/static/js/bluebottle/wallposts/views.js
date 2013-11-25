@@ -36,7 +36,8 @@ App.TextWallPostNewView = Em.View.extend({
 
 
 App.SystemWallPostView = Em.View.extend({
-    templateName: 'system_wallpost',
+
+    templateName: 'system_wall_post',
 
     actions: {
         deleteWallPost: function() {
@@ -63,7 +64,8 @@ App.SystemWallPostView = Em.View.extend({
 
 
 App.ProjectWallPostView = App.SystemWallPostView.extend({
-    templateName: 'project_wallpost',
+
+    templateName: 'project_wall_post',
 
     didInsertElement: function(){
         var view = this;
@@ -81,6 +83,28 @@ App.ProjectWallPostView = App.SystemWallPostView.extend({
         });
     }
 
+});
+
+
+App.WallPostView = App.ProjectWallPostView.extend({
+
+    templateName: 'wall_post',
+
+    didInsertElement: function(){
+        var view = this;
+        view.$().hide();
+        // Give it some time to really render...
+        // Hack to make sure photo viewer works for new wallposts
+        Em.run.next(function(){
+            view.$().slideDown(500);
+            view.$('.photo-viewer a').colorbox({
+                rel: this.toString(),
+                next: '<span class="flaticon solid right-2"></span>',
+                previous: '<span class="flaticon solid left-2"></span>',
+                close: 'x'
+            });
+        });
+    }
 });
 
 

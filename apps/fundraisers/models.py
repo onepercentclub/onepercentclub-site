@@ -34,8 +34,10 @@ class FundRaiser(models.Model):
         # TODO: unittest
         valid_statuses = (DonationStatuses.pending, DonationStatuses.paid)
         donations = self.donation_set.filter(status__in=valid_statuses)
-        total = donations.aggregate(sum=Sum('amount'))
-        return total['sum'] or '000' # FIXME special formatting due to the way EuroField works
+        if donations:
+            total = donations.aggregate(sum=Sum('amount'))
+            return total['sum']
+        return 0.0
 
     def get_meta_title(self, **kwargs):
         title = _(u"{fundraiser} for {project}").format(
