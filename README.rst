@@ -41,7 +41,7 @@ Translations
 ------------
 Translations are managed using Transifex. Feel free to contribute and
 collaborate at the
-`Transifex project page <https://www.transifex.com/projects/p/bluebottle/>`_.
+`Transifex project page <https://www.transifex.com/projects/p/onepercentclub-site/>`_.
 
 Settings
 --------
