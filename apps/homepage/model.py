@@ -29,7 +29,6 @@ class HomePage(object):
         else:
             self.projects = None
 
-        # TODO: write test to check that homepage falls back to default homepage if no campaign exists
         try:
             self.campaign = Campaign.objects.get(start__lte=now(), end__gte=now())
             # NOTE: MultipleObjectsReturned is not caught yet!

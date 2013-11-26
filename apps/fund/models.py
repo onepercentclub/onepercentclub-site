@@ -119,6 +119,7 @@ class Donation(models.Model):
 
     order = models.ForeignKey('Order', verbose_name=_("Order"), related_name='donations')
 
+    objects = models.Manager()
     valid_donations = ValidDonationsManager()
 
     @property

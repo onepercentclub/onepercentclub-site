@@ -29,9 +29,8 @@ class Campaign(models.Model):
 
     @property
     def sum_donations(self):
-        """ TODO: add test """
         """ Add all donation amounts for donations made between start and end of the campaign """
-        donations = Donation.valid_donations.all()
+        donations = Donation.valid_donations.filter(ready__gte=self.start).filter(ready__lte=self.end)
         donated = donations.aggregate(sum=Sum('amount'))['sum']
-        return donated
+        return donated or '000'
 
