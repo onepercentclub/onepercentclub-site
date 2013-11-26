@@ -3,7 +3,8 @@
  */
 
 App.Router.map(function() {
-    this.resource('fundRaiser', {path: '/fundraisers/:fundraiser_id'});
+    this.resource('fundRaiser', {path: '/fundraisers/:fundraiser_id'}, function(){
+    })
     this.resource('fundRaiserEdit', {path: '/fundraisers/:fundraiser_id/edit'});
 
     this.resource('fundRaiserNew', {path: '/projects/:project_id/new-fundraiser'});
