@@ -104,6 +104,8 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
 
 
 App.ProjectController = Em.ObjectController.extend({
+    needs: ['projectIndex', 'currentUser'],
+
     isFundable: function(){
        return (this.get('phase') == 'campaign' && this.get('campaign.money_asked'));
     }.property('phase', 'campaign'),
@@ -114,7 +116,16 @@ App.ProjectController = Em.ObjectController.extend({
             var separator = (index == 0 ? " " : ", ");
             return previousValue + separator + tag.id;
         }, "");
-    }.property('tags.@each')
+    }.property('tags.@each'),
+
+    isProjectOwner: function() {
+        var username = this.get('controllers.currentUser.username');
+        var ownername = this.get('model.owner.username');
+        if (username) {
+            return (username == ownername);
+        }
+        return false;
+    }.property('model.owner', 'controllers.currentUser.username')
 
 });
 
@@ -130,6 +141,46 @@ App.ProjectSupporterListController = Em.ArrayController.extend({
     }.observes('supporters.isLoaded')
 
 });
+
+
+App.ProjectIndexController = Em.ArrayController.extend({
+    needs: ['project', 'currentUser'],
+    perPage: 5,
+    page: 1,
+
+    remainingItemCount: function(){
+        if (this.get('meta.total')) {
+            return this.get('meta.total') - (this.get('page')  * this.get('perPage'));
+        }
+        return 0;
+    }.property('page', 'perPage', 'meta.total'),
+
+    canLoadMore: function(){
+        var totalPages = Math.ceil(this.get('meta.total') / this.get('perPage'));
+        return totalPages > this.get('page');
+    }.property('perPage', 'page', 'meta.total'),
+
+    actions: {
+        showMore: function() {
+            var controller = this;
+            var page = this.incrementProperty('page');
+            var id = this.get('controllers.project.model.id');
+            App.WallPost.find({'parent_type': 'project', 'parent_id': id, page: page}).then(function(items){
+                controller.get('model').pushObjects(items.toArray());
+            });
+        }
+    },
+    isProjectOwner: function() {
+        var username = this.get('controllers.currentUser.username');
+        var ownername = this.get('controllers.project.model.owner.username');
+        if (username) {
+            return (username == ownername);
+        }
+        return false;
+    }.property('controllers.project.model.owner', 'controllers.currentUser.username')
+
+});
+
 
 
 /*

@@ -33,6 +33,24 @@ App.FundRaiserRoute = Em.Route.extend(App.ScrollToTop, {
 });
 
 
+App.FundRaiserIndexRoute = Em.Route.extend(App.ScrollToTop, {
+    // This way the ArrayController won't hold an immutable array thus it can be extended with more wallposts.
+    setupController: function(controller, model) {
+        var parent_id = this.modelFor('fundRaiser').get('id');
+        // Only reload this if switched to another fundraiser.
+        if (controller.get('parent_id') != parent_id){
+            controller.set('page', 1);
+            controller.set('parent_id', parent_id);
+            App.WallPost.find({'parent_type': 'fund raiser', 'parent_id': parent_id}).then(function(items){
+                controller.set('meta', items.get('meta'));
+                controller.set('model', items.toArray());
+            });
+        }
+    }
+});
+
+
+
 App.FundRaiserNewRoute = Em.Route.extend(App.ScrollToTop, {
     model: function(params) {
         // Using project preview to have less data attached (TODO: Verify!)
@@ -83,5 +101,3 @@ App.FundRaiserDonationListRoute = Em.Route.extend({
 //        return App.FundRaiser.find(params.my_fundraiser_id);
 //    }
 //});
-
-

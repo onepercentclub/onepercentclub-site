@@ -7,23 +7,13 @@ App.Adapter.map('App.WallPost', {
     photos: {embedded: 'load'},
     reactions: {embedded: 'load'}
 });
-App.Adapter.map('App.ProjectWallPost', {
+App.Adapter.map('App.TextWallPost', {
     author: {embedded: 'load'},
-    photos: {embedded: 'load'},
     reactions: {embedded: 'load'}
 });
-App.Adapter.map('App.ProjectTextWallPost', {
+App.Adapter.map('App.MediaWallPost', {
     author: {embedded: 'load'},
     photos: {embedded: 'load'},
-    reactions: {embedded: 'load'}
-});
-App.Adapter.map('App.ProjectMediaWallPost', {
-    author: {embedded: 'load'},
-    photos: {embedded: 'load'},
-    reactions: {embedded: 'load'}
-});
-App.Adapter.map('App.TaskWallPost', {
-    author: {embedded: 'load'},
     reactions: {embedded: 'load'}
 });
 App.Adapter.map('App.WallPostReaction', {
@@ -35,13 +25,12 @@ App.Adapter.map('App.WallPostReaction', {
  Models
  */
 
-App.ProjectWallPostPhoto = DS.Model.extend({
+
+App.WallPostPhoto = DS.Model.extend({
     url: 'projects/wallposts/media/photos',
     photo: DS.attr('image'),
-    mediawallpost: DS.belongsTo('App.ProjectWallPost')
+    mediawallpost: DS.belongsTo('App.MediaWallPost')
 });
-
-
 
 // This is union of all different wallposts.
 App.WallPost = DS.Model.extend({
@@ -55,9 +44,12 @@ App.WallPost = DS.Model.extend({
     created: DS.attr('date'),
     reactions: DS.hasMany('App.WallPostReaction'),
 
-    video_url: DS.attr('string'),
+    video_url: DS.attr('string', {defaultValue: ''}),
     video_html: DS.attr('string'),
     photos: DS.hasMany('App.ProjectWallPostPhoto'),
+
+    parent_id: DS.attr('string'),
+    parent_type: DS.attr('string'),
 
     related_type: DS.attr('string'),
     related_object: DS.attr('object'), // keep it generic
@@ -79,28 +71,13 @@ App.WallPost = DS.Model.extend({
 });
 
 
-App.ProjectWallPost = App.WallPost.extend({
-    url: 'projects/wallposts',
-    project: DS.belongsTo('App.Project')
+App.TextWallPost = App.WallPost.extend({
+    url: 'wallposts/textwallposts'
 });
 
 
-App.NewProjectWallPost = App.ProjectWallPost.extend({
-    url: 'projects/wallposts'
-});
-
-App.ProjectMediaWallPost = App.ProjectWallPost.extend({
-    url: 'projects/wallposts/media'
-});
-
-App.ProjectTextWallPost = App.ProjectWallPost.extend({
-    url: 'projects/wallposts/text'
-});
-
-
-App.TaskWallPost = App.WallPost.extend({
-    url: 'tasks/wallposts',
-    task: DS.belongsTo('App.Task')
+App.MediaWallPost = App.WallPost.extend({
+    url: 'wallposts/mediawallposts'
 });
 
 

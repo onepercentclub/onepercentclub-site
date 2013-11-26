@@ -94,22 +94,24 @@ App.ProjectRoute = Em.Route.extend(App.ScrollToTop, {
 });
 
 
-// This is the 'ProjectWallPostListRoute'
 App.ProjectIndexRoute = Em.Route.extend({
-    model: function(params) {
-        return this.modelFor('project');
-    },
-
+    // This way the ArrayController won't hold an immutable array thus it can be extended with more wallposts.
     setupController: function(controller, model) {
-        // Empty the items and set page to 0 if project changes so we don't show wall posts from previous project
-        if (this.get('model_id') != model.get('id')) {
-            controller.set('items', Em.A());
-            controller.set('page', 0);
+        var parent_id = this.modelFor('project').get('id');
+        // Only reload this if switched to another project.
+        if (controller.get('parent_id') != parent_id){
+            controller.set('page', 1);
+            controller.set('parent_id', parent_id);
+            App.WallPost.find({'parent_type': 'project', 'parent_id': parent_id}).then(function(items){
+                controller.set('meta', items.get('meta'));
+                controller.set('model', items.toArray());
+            });
         }
-        this.set('model_id', model.get('id'));
-        this._super(controller, model.get('wallposts'));
     }
 });
+
+
+
 
 
 App.ProjectPlanRoute = Em.Route.extend({
