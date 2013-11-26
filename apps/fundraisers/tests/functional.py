@@ -9,7 +9,7 @@ from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 
 from apps.fund.models import DonationStatuses, Donation, OrderStatuses
 from apps.projects.tests.unittests import ProjectTestsMixin
-from apps.donations.tests import DonationTestsMixin
+from apps.donations.tests.helpers import DonationTestsMixin
 
 from ..models import FundRaiser
 from .helpers import FundRaiserTestsMixin
