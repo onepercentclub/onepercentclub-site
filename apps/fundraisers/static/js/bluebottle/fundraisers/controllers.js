@@ -1,10 +1,23 @@
-//App.FundRaiserController = Em.ObjectController.extend({
-//    needs: ['project']
-//});
+App.FundRaiserIsOwner = Em.Mixin.create({
+    needs: ['currentUser'],
+    isOwner: function() {
+        var username = this.get('controllers.currentUser.username');
+        var ownername = this.get('model.owner.username');
+        if (username) {
+            return (username == ownername);
+        }
+        return false;
+    }.property('model.owner', 'controllers.currentUser.username')
+});
 
 
-App.FundRaiserNewController = Em.ObjectController.extend(App.Editable, {
-    needs: ['currentUser', 'project'],
+App.FundRaiserController = Em.ObjectController.extend(App.FundRaiserIsOwner, {
+    needs: ['project']
+});
+
+
+App.FundRaiserNewController = Em.ObjectController.extend(App.Editable, App.FundRaiserIsOwner, {
+    needs: ['project'],
     actions: {
         updateRecordOnServer: function(){
             var controller = this;
@@ -18,10 +31,19 @@ App.FundRaiserNewController = Em.ObjectController.extend(App.Editable, {
                 controller.transitionToRoute('fundRaiser', record);
             });
 
+            model.one('didUpdate', function(record) {
+                controller.transitionToRoute('fundRaiser', record);
+            });
+
             model.save();
         }
     }
 });
+
+
+App.FundRaiserEditController = App.FundRaiserNewController.extend({
+});
+
 
 App.ProjectFundRaiserListController = Em.ArrayController.extend({
     needs: ['project'],

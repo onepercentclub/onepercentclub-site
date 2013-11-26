@@ -4,6 +4,8 @@
 
 App.Router.map(function() {
     this.resource('fundRaiser', {path: '/fundraisers/:fundraiser_id'});
+    this.resource('fundRaiserEdit', {path: '/fundraisers/:fundraiser_id/edit'});
+
     this.resource('fundRaiserNew', {path: '/projects/:project_id/new-fundraiser'});
 
 // TODO: Future resources.
@@ -40,6 +42,12 @@ App.FundRaiserNewRoute = Em.Route.extend(App.ScrollToTop, {
     },
     setupController: function(controller, fundRaiser) {
         this._super(controller, fundRaiser);
+    }
+});
+
+App.FundRaiserEditRoute = Em.Route.extend(App.ScrollToTop, {
+    model: function(params) {
+        return App.FundRaiser.find(params.fundraiser_id);
     }
 });
 

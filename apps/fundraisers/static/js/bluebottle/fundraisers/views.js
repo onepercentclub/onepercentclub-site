@@ -8,6 +8,11 @@ App.FundRaiserNewView = Em.View.extend({
 });
 
 
+App.FundRaiserEditView = Em.View.extend({
+    templateName: 'fundraiser_edit'
+});
+
+
 App.ProjectFundRaiserListView = Em.View.extend({
     templateName: 'project_fundraiser_list'
 });

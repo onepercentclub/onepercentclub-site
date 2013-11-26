@@ -24,7 +24,7 @@ class FundRaiserListView(ListCreateAPIView):
                 project = Project.objects.get(slug=project_slug)
             except Project.DoesNotExist:
                 raise Http404(_(u"No %(verbose_name)s found matching the query") %
-                              {'verbose_name': queryset.model._meta.verbose_name})
+                              {'verbose_name': Project._meta.verbose_name})
         else:
             raise Http404(_(u"No %(verbose_name)s found matching the query") %
                           {'verbose_name': queryset.model._meta.verbose_name})
