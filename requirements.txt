@@ -1,4 +1,5 @@
--e git://github.com/onepercentclub/bluebottle.git@v0.0.24#egg=bluebottle
+{# -e git://github.com/onepercentclub/bluebottle.git@v0.0.24#egg=bluebottle #}
+-e git://github.com/onepercentclub/bluebottle.git@add-url-to-metadata#egg=bluebottle
 
 Django==1.5.4
 Pillow==2.1.0

@@ -265,6 +265,33 @@ class Order(models.Model):
         super(Order, self).save(*args, **kwargs)
 
 
+    ### METADATA is rather specific here, fetching the metadata of either the fundraiser or the project itself
+    def get_tweet(self, **kwargs):
+        request = kwargs.get('request', None)
+        lang_code = request.LANGUAGE_CODE if request else 'en'
+        twitter_handle = settings.TWITTER_HANDLES.get(lang_code, settings.DEFAULT_TWITTER_HANDLE)
+
+        if self.first_donation.fundraiser:
+            title = self.first_donation.fundraiser.owner.get_full_name()
+        else:
+            title = self.first_donation.project.get_fb_title()
+
+        tweet = _(u"I've just supported {title} {{URL}} via @{twitter_handle}").format(title=title, twitter_handle=twitter_handle)
+        return tweet
+
+    def get_share_url(self, **kwargs):
+        request = kwargs.get('request')
+
+        if self.first_donation.fundraiser:
+            fundraiser = self.first_donation.fundraiser
+            location = '/#!/fundraisers/{0}'.format(fundraiser.id)
+        else:
+            project = self.first_donation.project
+            location = '/#!/projects/{0}'.format(project.slug)
+        return request.build_absolute_uri(location)
+
+
+
 @receiver(payment_status_changed, sender=Payment)
 def process_payment_status_changed(sender, instance, old_status, new_status, **kwargs):
     # Payment statuses: new

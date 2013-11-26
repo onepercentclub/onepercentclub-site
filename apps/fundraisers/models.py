@@ -44,6 +44,8 @@ class FundRaiser(models.Model):
         )
         return title
 
+    get_fb_title = get_meta_title # alias for metadata in apps/fund/models.py:Order
+
     def get_tweet(self, **kwargs):
         # NOTE: mention user in hashtag or something like that?
         request = kwargs.get('request', None)
