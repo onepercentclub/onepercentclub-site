@@ -212,7 +212,6 @@
 
 {% tplhandlebars "fundraiser" %}
 
-    {# TODO: CSS #}
     <div class="l-section detail" id="fundraiser-detail">
         <section class="l-wrapper">
             
@@ -222,9 +221,8 @@
                 </figure>
                 
                 <div class="fundraiser-project">
-                    <figure class="fundraiser-project-image"><img {{bindAttr src="image.large"}} width="100%" alt="Photo" /></figure>
-                    {# TODO: Change this to project image #}
-                
+                    <figure class="fundraiser-project-image"><img {{bindAttr src="project.image"}} width="100%" alt="Photo" /></figure>
+
                     <div class="fundraiser-project-detail">
                         <h4>{% trans "Fundraising for" %}</h4>
                         <p>{{#linkTo 'project' project.getProject}}{{project.title}}{{/linkTo}}</p>
@@ -238,41 +236,32 @@
 
                     <span class="action tag"><span class="flaticon solid tag-2"></span>{% trans "Action" %}</span>
                     {{#if isOwner}}
-                    <span class="action tag"><span class="flaticon solid tag-2"></span>
-                        {{#linkTo 'fundRaiserEdit' id}}{% trans "Edit" %}{{/linkTo}}
-                    </span>
+                        <span class="action tag"><span class="flaticon solid tag-2"></span>
+                            {{#linkTo 'fundRaiserEdit' id}}{% trans "Edit" %}{{/linkTo}}
+                        </span>
                     {{/if}}
+                </article>
 
                 <article class="project-info">
                     {{view App.SocialShareView}}
-                    <h1 class="fundraiser-title">{{title}}</h1>
-                    <p class="fundraiser-description">{{description}}</p>
-
-                    <h3>{% trans "Fundraising for" %}</h3>
-                    <p>
-                        {{#linkTo 'project' project.getProject}}{{project.title}}{{/linkTo}}
-                    </p>
-
+                    <h1 class="project-title">{{title}}</h1>
+                    <p class="project-description">{{description}}</p>
                 </article>
 
-                <article class="fundraiser-info-owner">
+                <article class="fundraiser-member">
 
-                    <figure class="fundraiser-image l-half">
-                        <span class="member-avatar">
-                            <a href='#' {{action 'openInBigBox' 'userModal' owner }} class="TODO">
-                                <img {{bindAttr src="owner.getAvatar" alt="owner.full_name"}} width="50%" />
-                            </a>
-                        </span>
+                    <figure class="member-avatar">
+                        <a href='#' {{action 'openInBigBox' 'userModal' owner }} class="TODO">
+                            <img {{bindAttr src="owner.getAvatar" alt="owner.full_name"}} />
+                            <strong class="member-name"><em>{% trans "Fundraiser" %}</em> {{owner.full_name}}</strong>
+                        </a>
                     </figure>
 
-                    <div>
-                        {% trans "Fundraiser" %} <a class="membe TODO" {{action 'openInBigBox' 'userModal' owner }}>{{owner.full_name}}</a>
-
+                    <div class="project-action">
                         <a href='#' {{ action 'addDonation' this.project this }} class="btn btn-primary btn-iconed">
                             <span class="flaticon solid wallet-1"></span>
                             {% trans "Support" %} {{owner.first_name}}
                         </a>
-                        {{!-- TODO: fix donations + backlink from donations to fundraisers --}}
                     </div>
 
                 </article>
@@ -280,50 +269,45 @@
             </div>
         </section>
 
-        <section class="l-wrapper">
-            <div class="fundraiser-status">
+       <div class="l-section" id="fundraiser-status">
+            <section class="l-wrapper">
+                <div class="project-status">
 
-                {{#if deadline}}
-                <div class="fundraiser-days-left l-one-third">
-                    <strong><span class="flaticon solid clock-1"></span> {{daysToGo}}</strong>
-                    <em>{% trans "days to go" %}</em>
-                </div>
-                {{/if}}
+                    {{#if deadline}}
+                    <div class="project-days-left l-one-third">
+                        <strong><span class="flaticon solid stopwatch-1"></span> {{daysToGo}} <em>{% trans "days to go" %}!</em></strong>
+                    </div>
+                    {{/if}}
 
-                <div class="fundraiser-fund l-one-third">
-                    <p class="fundraiser-fund-amount">
-                        <strong class="amount-donated">&euro;{{localize amount_donated}}</strong>
-                        {% trans "of" %}
-                        <strong class="amount-asked">&euro;{{localize amount}}</strong>
-                        {% trans "raised" %}
-                    </p>
+                    <div class="project-fund l-one-third">
+                        <p class="project-fund-amount">
+                            <strong class="amount-donated">&euro;{{localize amount_donated}}</strong>
+                            {% trans "of" %}
+                            <strong class="amount-asked">&euro;{{localize amount}}</strong>
+                            {% trans "raised" %}
+                        </p>
 
-                    {{#bb-progressbar class="fundraiser-fund-amount-slider" totalValue=amount currentValue=amount_donated}}
-                    {{/bb-progressbar}}
-                </div>
+                        {{#bb-progressbar class="project-fund-amount-slider" totalValue=amount currentValue=amount_donated}}
+                        {{/bb-progressbar}}
+                    </div>
 
-                <div class="fundraiser-fund l-one-third">
+                    <ul class="project-member-list l-one-third">
 
-                    {{#if fundRaiseSupporters.length}}
-                        <li class="project-member-supporters"  style="width:30%;"> {{!-- TODO: CSS --}}
+                        {{#if fundRaiseSupporters.length}}
+                        <li class="project-member-supporters">
+                            <h4>{% trans "Supporters" %} <em>{{supporters.meta.total}} {% trans "Total" %}</em></h4>
                             <ul>
-                                <li class="project-member-supporters-total">
-                                    <strong>{{fundRaiseSupporters.meta.total}}</strong>
-                                    <br/>
-                                    <em>Total</em>
-                                </li>
                                 {{#each supporter in fundRaiseSupporters}}
                                     {{view "App.ProjectSupporterView" }}
                                 {{/each}}
                             </ul>
-                            <h4>{% trans "Supporters" %}</h4>
                         </li>
-                    {{/if}}
+                        {{/if}}
+                    </ul>
 
                 </div>
-
-            </div>
-        </section>
+            </section>
+        </div>
     </div>
 
 {% endtplhandlebars %}
