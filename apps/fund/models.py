@@ -86,6 +86,11 @@ class DonationStatuses(DjangoChoices):
     failed = ChoiceItem('failed', label=_("Failed"))
 
 
+class ValidDonationsManager(models.Manager):
+    def get_queryset(self):
+        return super(ValidDonationsManager, self).get_queryset().filter(status__in=(DonationStatuses.pending, DonationStatuses.paid))
+
+
 class Donation(models.Model):
     """
     Donation of an amount from a user to a project.
@@ -113,6 +118,9 @@ class Donation(models.Model):
     donation_type = models.CharField(_("Type"), max_length=20, choices=DonationTypes.choices, default=DonationTypes.one_off, db_index=True)
 
     order = models.ForeignKey('Order', verbose_name=_("Order"), related_name='donations')
+
+    objects = models.Manager()
+    valid_donations = ValidDonationsManager()
 
     @property
     def payment_method(self):

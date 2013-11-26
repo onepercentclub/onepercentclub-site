@@ -49,7 +49,7 @@ class ProjectPhases(DjangoChoices):
 
 class ProjectPhaseLog(models.Model):
     """ Log when a project reaches a certain phase """
-    
+
     project = models.ForeignKey('projects.Project')
     phase = models.CharField(_("phase"), max_length=20, choices=ProjectPhases.choices)
     created = CreationDateTimeField(_("created"), help_text=_("When this phase was reached."))
