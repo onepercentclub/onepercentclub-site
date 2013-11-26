@@ -7,33 +7,32 @@
 
 {% tplhandlebars "fundraiser_form" %}
 
-                        <fieldset>
-                            <ul>
-                                {% include "generic/form_field.html" with title="Title" placeholder="Title describes your fundraiser action in short" field_type="Em.TextField" field_name="title" %}
+    <fieldset>
+        <ul>
+            {% include "generic/form_field.html" with title="Title" placeholder="Title describes your fundraiser action in short" field_type="Em.TextField" field_name="title" %}
 
-                                {% include "generic/form_field.html" with title="Description" placeholder="Tell a little bit about yourself so we get to know you" field_type="Em.TextArea" field_name="description" %}
-                            </ul>
-                        </fieldset>
+            {% include "generic/form_field.html" with title="Description" placeholder="Tell a little bit about yourself so we get to know you" field_type="Em.TextArea" field_name="description" %}
+        </ul>
+    </fieldset>
 
-                        <fieldset>
-                            <ul>
-                                {% include "generic/form_imagefield.html" with title="Image" field_name="image" help_text="Minimal of 800px wide" %}
+    <fieldset>
+        <ul>
+            {% include "generic/form_imagefield.html" with title="Image" field_name="image" help_text="Minimal of 800px wide" %}
 
-                                {% include "generic/form_field.html" with title="Video" placeholder="http://" field_type="Em.TextField" field_name="video_url" help_text="Youtube or Vimeo link" %}
-                            </ul>
-                        </fieldset>
+            {% include "generic/form_field.html" with title="Video" placeholder="http://" field_type="Em.TextField" field_name="video_url" help_text="Youtube or Vimeo link" %}
+        </ul>
+    </fieldset>
 
-                        <fieldset>
-                            <h2>TODO: Subtitle</h2>
-                            <p>Lorem ipsum</p>
+    <fieldset>
+        <h2>TODO: Subtitle</h2>
+        <p>Lorem ipsum</p>
 
-                            <ul>
-                                {% include "generic/form_field.html" with title="Amount to raise" placeholder="&euro;" field_type="Em.TextField" field_name="amount" %}
+        <ul>
+            {% include "generic/form_field.html" with title="Amount to raise" placeholder="&euro;" field_type="Em.TextField" field_name="amount" %}
 
-                                {% include "generic/form_field.html" with title="Deadline" placeholder="" field_type="App.DatePicker" field_name="deadline" %}
-                            </ul>
-                        </fieldset>
-
+            {% include "generic/form_field.html" with title="Deadline" placeholder="" field_type="App.DatePicker" field_name="deadline" %}
+        </ul>
+    </fieldset>
 {% endtplhandlebars %}
 
 {% tplhandlebars "fundraiser_new" %}
@@ -151,10 +150,10 @@
                     </form>
                 {{else}}
                     <header class="l-page-header">
-                        <h1>{% trans "Edit fundraiser" %}</h1>
+                        <h1>{% trans "New fundraiser" %}</h1>
                         <p>
                             {% blocktrans %}
-                                You can only make a fundraiser if you are logged in and the owner of this fundraiser.
+                                You can only make a fundraiser if you are logged in.
                             {% endblocktrans %}
                         </p>
                     </header>
@@ -165,7 +164,7 @@
 
             <sidebar class="l-sidebar">
                 <h2>{% trans "Fundraising for project" %}</h2>
-                <p>{% trans "You are be fundraising for this project" %}</p>
+                <p>{% trans "You'll be fundraising for this project" %}</p>
 
                 {{render "projectPreview" project}}
 
@@ -183,9 +182,6 @@
         Link not working anymore --}}
     
         <h4>{% trans "Fundraisers" %}</h4>
-        {{#linkTo 'fundRaiserNew' controllers.project.id class="fundraiser-become"}}
-            {% trans "Become a fundraiser" %}
-        {{/linkTo}}
         
         {{#if fundraisers.length}}
         <ul>
@@ -194,6 +190,10 @@
             {{/each}}
         </ul>
         {{/if}}
+        
+        {{#linkTo 'fundRaiserNew' controllers.project.id class="fundraiser-become"}}
+            {% trans "Become a fundraiser" %}
+        {{/linkTo}}
     </li>
 {% endtplhandlebars %}
 
@@ -213,12 +213,24 @@
 {% tplhandlebars "fundraiser" %}
 
     {# TODO: CSS #}
-    <div class="l-section" id="fundraiser-detail">
+    <div class="l-section detail" id="fundraiser-detail">
         <section class="l-wrapper">
-
-            <figure class="fundraiser-image l-half">
-                <img {{bindAttr src="image.large"}} width="100%" alt="Photo" />
-            </figure>
+            
+            <div class="l-half">
+                <figure class="project-image">
+                    <img {{bindAttr src="image.large"}} width="100%" alt="Photo" />
+                </figure>
+                
+                <div class="fundraiser-project">
+                    <figure class="fundraiser-project-image"><img {{bindAttr src="image.large"}} width="100%" alt="Photo" /></figure>
+                    {# TODO: Change this to project image #}
+                
+                    <div class="fundraiser-project-detail">
+                        <h4>{% trans "Fundraising for" %}</h4>
+                        <p>{{#linkTo 'project' project.getProject}}{{project.title}}{{/linkTo}}</p>
+                    </div>
+                </div>
+            </div>
 
             <div class="l-half">
 
@@ -231,6 +243,7 @@
                     </span>
                     {{/if}}
 
+                <article class="project-info">
                     {{view App.SocialShareView}}
                     <h1 class="fundraiser-title">{{title}}</h1>
                     <p class="fundraiser-description">{{description}}</p>

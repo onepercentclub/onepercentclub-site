@@ -268,15 +268,13 @@
 {% tplhandlebars "currentOrderDonation" %}
 
     {{#if fundraiser}}
-        {{#linkTo 'fundRaiser' fundraiser class="project-header" }}
+        {{#linkTo 'fundRaiser' fundraiser class="project-header fundraiser" }}
             <figure class="project-image">
                 <img {{bindAttr src="fundraiser.image.square" alt="fundraiser.title"}} />
             </figure>
-            <h2 class="project-title">
-                {{ fundraiser.title }}, {{ fundraiser.owner.full_name }}, {{ fundraiser.owner.first_name}} {{!-- Alternatives/extra info,  --}}
-            </h2>
-            <h3 class="project-title" style="font-size: 80%"> {{!-- TODO: apply styling --}}
-                {{ project.title }}
+            <h2 class="fundraiser-title">{{ fundraiser.title }}</h2>
+            <h3 class="fundraiser-subtitle"> 
+                <em>{{ fundraiser.owner.full_name }} {% trans "Fund-racing for" %}</em> {{ project.title }}
             </h3>
         {{/linkTo}}
     {{else}}
