@@ -270,6 +270,7 @@
                 </article>
 
             </div>
+            
         </section>
 
         <div class="l-section" id="fundraiser-status">
@@ -278,8 +279,7 @@
     
                     {{#if deadline}}
                     <div class="project-days-left l-one-third">
-                        <strong><span class="flaticon solid clock-1"></span> {{daysToGo}}</strong>
-                        <em>{% trans "days to go" %}</em>
+                        <strong><span class="flaticon solid stopwatch-1"></span> {{daysToGo}} <em>{% trans "days to go" %}!</em></strong>
                     </div>
                     {{/if}}
     
@@ -290,6 +290,7 @@
                             <strong class="amount-asked">&euro;{{localize amount}}</strong>
                             {% trans "raised" %}
                         </p>
+
                         {{#bb-progressbar class="project-fund-amount-slider" totalValue=amount currentValue=amount_donated}}
                         {{/bb-progressbar}}
                     </div>
