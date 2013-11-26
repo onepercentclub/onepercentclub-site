@@ -150,10 +150,10 @@
                     </form>
                 {{else}}
                     <header class="l-page-header">
-                        <h1>{% trans "New fundraiser" %}</h1>
+                        <h1>{% trans "Edit fundraiser" %}</h1>
                         <p>
                             {% blocktrans %}
-                                You can only make a fundraiser if you are logged in.
+                                You can only make a fundraiser if you are logged in and the owner of this fundraiser.
                             {% endblocktrans %}
                         </p>
                     </header>
@@ -164,7 +164,7 @@
 
             <sidebar class="l-sidebar">
                 <h2>{% trans "Fundraising for project" %}</h2>
-                <p>{% trans "You'll be fundraising for this project" %}</p>
+                <p>{% trans "You are be fundraising for this project" %}</p>
 
                 {{render "projectPreview" project}}
 
@@ -232,18 +232,16 @@
 
             <div class="l-half">
 
-                <article class="fundraiser-info">
-
-                    <span class="action tag"><span class="flaticon solid tag-2"></span>{% trans "Action" %}</span>
+                <article class="project-info">
+                    {{view App.SocialShareView}}
                     {{#if isOwner}}
                         <span class="action tag"><span class="flaticon solid tag-2"></span>
                             {{#linkTo 'fundRaiserEdit' id}}{% trans "Edit" %}{{/linkTo}}
                         </span>
+                        <span class="action tag"><span class="flaticon solid tag-2"></span>
+                            {{#linkTo 'fundRaiserDonationList' id}}{% trans "Donations" %}{{/linkTo}}
+                        </span>
                     {{/if}}
-                </article>
-
-                <article class="project-info">
-                    {{view App.SocialShareView}}
                     <h1 class="project-title">{{title}}</h1>
                     <p class="project-description">{{description}}</p>
                 </article>
@@ -306,7 +304,77 @@
                     </ul>
 
                 </div>
-            </section>
+
+            </div>
+        </section>
+    </div>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "fundraiser_donation_list" %}
+
+    <div class="l-section" id="project-dashboard">
+
+        <div class="l-section account-header">
+            <nav class="l-wrapper">
+
+                <figure class="account-avatar"><img {{bindAttr src="controllers.currentUser.getAvatar"}} /></figure>
+
+                <header class="account-title">
+                    <h2>{% trans "My 1%" %} > {% trans "Fundraisers" %} > {{title}} > {% trans "Donations" %}</h2>
+                </header>
+
+                {{#linkTo 'fundRaiser' id}}
+                    <span class="flaticon solid eye-1"></span>
+                    {% trans "Back to fundraiser page" %}
+                {{/linkTo}}
+            </nav>
+        </div>
+
+        <div class="l-wrapper">
+            <div class="l-content">
+                {{#if controllers.currentUser.isAuthenticated}}
+                    <header class="l-page-header">
+                        <h1>{% trans "Donation overview" %}</h1>
+                        <p>
+                            {% blocktrans %}
+                                Lorem ipsum
+                            {% endblocktrans %}
+                        </p>
+                    </header>
+
+                    {{#if fundRaiseDonations.length}}
+                        <ul>
+                            {{#each donation in fundRaiseDonations}}
+                                {{view "App.ProjectDonationView" }}
+                            {{/each}}
+                        </ul>
+                    {{else}}
+                        <p>{% trans "Awww. No donations yet!" %}</p>
+                    {{/if}}
+
+                {{else}}
+                    <header class="l-page-header">
+                        <h1>{% trans "Donation overview" %}</h1>
+                        <p>
+                            {% blocktrans %}
+                                You are not authorized to view the donations.
+                            {% endblocktrans %}
+                        </p>
+                    </header>
+
+                    <p class="login-signup"><a href="/accounts/login">{% trans "Login" %}</a> {% trans "or become a" %} {{#linkTo "signup"}}{% trans "member" %}{{/linkTo}} {% trans "to start a fundraiser." %}</p>
+                {{/if}}
+            </div>
+
+            <sidebar class="l-sidebar">
+                <h2>{% trans "Fundraising for project" %}</h2>
+                <p>{% trans "You are fundraising for this project" %}</p>
+
+                {{render "projectPreview" project}}
+
+            </sidebar>
         </div>
     </div>
 
