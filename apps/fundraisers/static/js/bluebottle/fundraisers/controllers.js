@@ -55,3 +55,8 @@ App.ProjectFundRaiserListController = Em.ArrayController.extend({
 		}
 	}.observes('fundraisers.isLoaded')
 });
+
+
+App.FundRaiserDonationListController = Em.ObjectController.extend({
+    needs: ['currentUser']
+});

@@ -1,6 +1,32 @@
 from apps.projects.models import ProjectPitch, ProjectPhases, ProjectPlan
+from django.core.exceptions import ImproperlyConfigured
 from rest_framework import permissions
 from .models import Project
+
+
+class BaseIsUser(permissions.BasePermission):
+    """
+    Experimental base permission to check if a user matches a certain property or field of an object or model instance.
+
+    Usage::
+
+        SomeApiView(...):
+            permission_classes = (IsUser('project.owner'),)
+    """
+    field = None
+
+    def has_object_permission(self, request, view, obj):
+        if self.field is None:
+            raise ImproperlyConfigured('The "IsUser" permission should provide a field attribute.')
+
+        o = obj
+        for f in field.split('.'):
+            o = getattr(o, f, None)
+
+        return o == request.user
+
+
+IsUser = lambda x: type('IsUser', (BaseIsUser,), {'field': x})
 
 
 class IsProjectOwner(permissions.BasePermission):

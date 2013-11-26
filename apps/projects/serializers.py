@@ -162,7 +162,7 @@ class ProjectPreviewSerializer(serializers.ModelSerializer):
         )
 
 
-class DonationPreviewSerializer(serializers.ModelSerializer):
+class ProjectSupporterSerializer(serializers.ModelSerializer):
     """
     For displaying donations on project and member pages.
     """
@@ -173,6 +173,16 @@ class DonationPreviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Donation
         fields = ('date_donated', 'project',  'member',)
+
+
+class ProjectDonationSerializer(serializers.ModelSerializer):
+    member = UserPreviewSerializer(source='user')
+    date_donated = serializers.DateTimeField(source='ready')
+    amount = EuroField(source='amount')
+
+    class Meta:
+        model = Donation
+        fields = ('member', 'date_donated', 'amount',)
 
 
 class ManageProjectSerializer(serializers.ModelSerializer):

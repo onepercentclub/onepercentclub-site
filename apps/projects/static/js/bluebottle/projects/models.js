@@ -36,6 +36,9 @@ App.Adapter.map('App.MyOrganizationDocument', {
 App.Adapter.map('App.PartnerOrganization', {
     projects: {embedded: 'load'}
 });
+App.Adapter.map('App.ProjectDonation', {
+    member: {embedded: 'both'}
+});
 
 App.Organization = DS.Model.extend({
     url: 'organizations',
@@ -206,9 +209,9 @@ App.ProjectSearch = DS.Model.extend({
 
 });
 
-
-App.DonationPreview =  DS.Model.extend({
-    url: 'projects/donations',
+// TODO: Refactor App.DonationPreview to ProjectSupporter
+App.DonationPreview = DS.Model.extend({
+    url: 'projects/supporters',
 
     project: DS.belongsTo('App.ProjectPreview'),
     member: DS.belongsTo('App.UserPreview'),
@@ -219,6 +222,18 @@ App.DonationPreview =  DS.Model.extend({
     }.property('date_donated')
 });
 
+
+App.ProjectDonation = DS.Model.extend({
+    url: 'projects/donations',
+
+    member: DS.belongsTo('App.UserPreview'),
+    amount: DS.attr('number'),
+    date_donated: DS.attr('date'),
+
+    time_since: function(){
+        return Globalize.format(this.get('date_donated'), 'X');
+    }.property('date_donated')
+});
 
 /* Project Manage Models */
 

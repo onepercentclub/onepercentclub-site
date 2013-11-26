@@ -119,17 +119,42 @@ class FundRaiserApiIntegrationTest(FundRaiserTestsMixin, DonationTestsMixin, Pro
         self.create_donation(user=self.some_user, project=self.some_project, status=DonationStatuses.paid,
                 fundraiser=self.fundraiser)
 
-        project_donation_url = '{0}?project={1}'.format(reverse('project-donation-list'), self.some_project.slug)
-        response = self.client.get(project_donation_url)
+        project_supporter_url = '{0}?project={1}'.format(reverse('project-supporter-list'), self.some_project.slug)
+        response = self.client.get(project_supporter_url)
 
         json_data = json.loads(response.content)
         # Expect donation for project and donation for fundraiser to show up.
         self.assertEqual(len(json_data['results']), 2)
+        self.assertFalse('amount' in json_data['results'][0])
+        self.assertFalse('amount' in json_data['results'][1])
 
     def test_supporters_for_fundraiser(self):
         """
         Test the list of supporters for a specific fundraiser.
         """
+        self.create_donation(user=self.some_user, project=self.some_project, status=DonationStatuses.paid)
+
+        fundraise_donation = self.create_donation(user=self.some_user, project=self.some_project, status=DonationStatuses.paid,
+                fundraiser=self.fundraiser)
+
+        project_supporter_url = '{0}?project={1}&fundraiser={2}'.format(
+            reverse('project-supporter-list'),
+            self.some_project.slug,
+            fundraise_donation.fundraiser.pk,
+        )
+        response = self.client.get(project_supporter_url)
+
+        json_data = json.loads(response.content)
+        # Only expect the donation for the fundraiser to show up.
+        self.assertEqual(len(json_data['results']), 1)
+        self.assertFalse('amount' in json_data['results'][0])
+
+    def test_donations_for_fundraiser_authenticated(self):
+        """
+        Test the list of donations for a specific fundraiser.
+        """
+        self.assertTrue(self.client.login(username=self.some_user.email, password='password'))
+
         self.create_donation(user=self.some_user, project=self.some_project, status=DonationStatuses.paid)
 
         fundraise_donation = self.create_donation(user=self.some_user, project=self.some_project, status=DonationStatuses.paid,
@@ -145,6 +170,42 @@ class FundRaiserApiIntegrationTest(FundRaiserTestsMixin, DonationTestsMixin, Pro
         json_data = json.loads(response.content)
         # Only expect the donation for the fundraiser to show up.
         self.assertEqual(len(json_data['results']), 1)
+        self.assertTrue('amount' in json_data['results'][0])
+        self.assertEqual(json_data['results'][0]['amount'], '1.00')
+
+    def test_donations_for_fundraiser_anonymous(self):
+        self.assertTrue(self.client.login(username=self.another_user.email, password='password'))
+
+        self.create_donation(user=self.some_user, project=self.some_project, status=DonationStatuses.paid)
+
+        fundraise_donation = self.create_donation(user=self.some_user, project=self.some_project, status=DonationStatuses.paid,
+                fundraiser=self.fundraiser)
+
+        project_donation_url = '{0}?project={1}&fundraiser={2}'.format(
+            reverse('project-donation-list'),
+            self.some_project.slug,
+            fundraise_donation.fundraiser.pk,
+        )
+        response = self.client.get(project_donation_url)
+
+        json_data = json.loads(response.content)
+        # Only expect the donation for the fundraiser to show up.
+        self.assertEqual(len(json_data['results']), 0)
+
+    def test_donations_for_fundraiser_not_owner(self):
+        fundraise_donation = self.create_donation(user=self.some_user, project=self.some_project, status=DonationStatuses.paid,
+                fundraiser=self.fundraiser)
+
+        project_donation_url = '{0}?project={1}&fundraiser={2}'.format(
+            reverse('project-donation-list'),
+            self.some_project.slug,
+            fundraise_donation.fundraiser.pk,
+        )
+        response = self.client.get(project_donation_url)
+
+        json_data = json.loads(response.content)
+        self.assertDictEqual(json_data, {u'detail': u'Authentication credentials were not provided.'})
+
 
     def _post_fundraiser_data(self, **kwargs):
         """
