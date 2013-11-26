@@ -92,8 +92,7 @@
     overflow: hidden;
     margin: 0 0 $base-margin/2 0;
     background-color: $gray-lighter;
-    line-height: 0;
-
+    
     .slider-progress {
         position: relative;
         display: block;
@@ -103,7 +102,8 @@
         text-align: right;
         white-space: nowrap;
         line-height: 1em;
-
+        height: 1em;
+        
         .slider {
             padding: 0 0.5em;
             font-style: normal;

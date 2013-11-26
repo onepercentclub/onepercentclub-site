@@ -9,12 +9,11 @@
             <span class="flaticon solid upload-document-1"></span>
             {% trans "Upload picture" %}
         </a>
-        <br />
+        <br /><br />
         <div {% templatetag openvariable %}bindAttr class=":image-preview image::empty"{% templatetag closevariable %}>
             {% templatetag openvariable %}#if image{% templatetag closevariable %}
                 <img {{bindAttr src="image.large"{% templatetag closevariable %} />
             {% templatetag openvariable %}else{% templatetag closevariable %}
-                <img src="{% get_static_prefix %}images/empty.png" />
             {% templatetag openvariable %}/if{% templatetag closevariable %}
         </div>
     </div>
