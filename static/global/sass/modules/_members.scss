@@ -13,6 +13,7 @@
     .member-avatar {
         
         img {
+            @include transition(all 0.2s ease-out);
             float: left;
             border-width: 1px;
             border-style: solid;
@@ -25,6 +26,7 @@
     }
     
     .member-name {
+        @include transition(all 0.2s ease-out);
         display: inline-block;
         text-transform: uppercase;
         font-family: $font-family-heavy;
@@ -35,13 +37,6 @@
         display: block;
         color: $gray;
         font-style: normal;
-    }
-    
-    &:hover {
-    
-        img {
-            border-color: $color-primary;
-        }
     }
 }
 
@@ -65,8 +60,8 @@
 
         h4 {
             font-family: $font-family-heavy;
-            margin: 0 0 $base-margin/2 0;
-            padding: 0;
+            margin: 0;
+            padding: $base-padding/4 0;
             color: $color-text-light;
             text-transform: uppercase;
             
@@ -94,11 +89,14 @@
             }
     
             .member-avatar {
+                top: -2px;
+                position: relative;
                 display: block;
                 float: left;
                 margin-right: $base-margin;
                 width: 100px;
                 border-width: 2px;
+                z-index: 2;
             }
             
             .member-name {
@@ -117,9 +115,11 @@
         }
         
         &.project-member-fundraisers, &.project-member-supporters {
-             
+            
             ul {
+                @include clear;
                 width: 3000px;
+                margin-bottom: $base-margin/4;
             }
             
             .member {
@@ -139,6 +139,13 @@
                 em {
                     font-style: normal;
                 }
+                    
+                &:hover {
+                
+                    img {
+                        margin-top: 4px;
+                    }
+                }
             }
         }
         
@@ -146,6 +153,7 @@
             @include transition(all 0.2s ease-out);
             font-family: $font-family-heavy;
             text-transform: uppercase;
+            display: inline-block;
             color: $color-primary;
             padding-right: 16px;
             background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAALCAYAAABCm8wlAAAAfElEQVQoz2P4nziLAYgNgXgfEItD+XAMImyA+D0Q/wfi60Asia5gPVQShm8AsRSyAk4g3oGm6BYQy8AUgDA7EG9DU3QHiOWQHcQDxG/RFO1FNmErmuRdmAkcQLwdixtkYW5YjSZ5E4ilkX1hBMRv8IUDCOsC8X4glkAPSQDpL9be9X9n1gAAAABJRU5ErkJggg==') transparent no-repeat 100% 50%;
