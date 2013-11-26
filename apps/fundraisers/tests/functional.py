@@ -237,3 +237,6 @@ class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsM
         self.assertTrue(self.browser.is_text_present('WELL, YOU ROCK!'))
         self.assertTrue(self.browser.is_text_present(self.fundraiser.title.upper()))
 
+        # check that the correct links are present
+        self.browser.find_by_css('li.project-list-item a').first.click()
+        self.assertEqual(self.browser.url, '{0}/en/#!/fundraisers/{1}'.format(self.live_server_url, self.fundraiser.id))
