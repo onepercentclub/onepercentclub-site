@@ -605,14 +605,14 @@
         {{#if donation.fundraiser}}
             {{#linkTo 'fundRaiser' donation.fundraiser class="project-header" }}
                 <figure class="project-image">
-                    <img {{bindAttr src="donation.project.plan.image.square" alt="project.title"}} />
+                    <img {{bindAttr src="donation.fundraiser.image.square" alt="donation.fundraiser.title"}} />
                 </figure>
                 <h2 class="project-title">
                     {{ donation.fundraiser.title }}
                     ({{ donation.project.title }})
-                    <em class="project-location">
+                    {{!-- <em class="project-location">
                         <span class="flaticon solid location-pin-1"></span> {{ donation.project.plan.country.name }}
-                    </em>
+                    </em> NOTE: is this required here? Design decision. --}}
                 </h2>
             {{/linkTo}}
         {{else}}
@@ -650,7 +650,7 @@
             	<h1>{% trans "Did you know that you rock?" %} <em>{% trans "Well, you rock!" %}</em></h1>
 
                 <div class="thanks-share"><p>{% blocktrans %}Why not share the project with your friends, and encourage them to support as well?{% endblocktrans %}<br />
-                {% blocktrans %}Just hit (one of the) share buttons to make even more impact:{% endblocktrans %}</p>
+                {% blocktrans %}Just hit (one of) the share buttons to make even more impact:{% endblocktrans %}</p>
                 {{view App.SocialShareView}}
                 </div>
             </header>
