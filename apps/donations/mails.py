@@ -50,12 +50,24 @@ def mail_new_oneoff_donation(donation):
         name = donation.user.first_name
     else:
         name = _('Anonymous')
-    send_mail(
-        template_name='new_oneoff_donation.mail',
-        subject=_('You received a new donation'),
-        to=donation.project.owner,
 
-        amount=(donation.amount / 100.0),
-        donor_name=name,
-        link='/go/projects/{0}'.format(donation.project.slug),
-    )
+    if donation.fundraiser:
+        send_mail(
+            template_name='new_oneoff_donation_fundraiser.mail',
+            subject=_('You received a new donation'),
+            to=donation.fundraiser.owner,
+
+            amount=(donation.amount / 100.0),
+            donor_name=name,
+            link='/go/fundraisers/{0}'.format(donation.fundraiser.id),
+        )
+    else:
+        send_mail(
+            template_name='new_oneoff_donation.mail',
+            subject=_('You received a new donation'),
+            to=donation.project.owner,
+
+            amount=(donation.amount / 100.0),
+            donor_name=name,
+            link='/go/projects/{0}'.format(donation.project.slug),
+        )
