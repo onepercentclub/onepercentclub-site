@@ -11,6 +11,8 @@ App.Router.map(function() {
 // TODO: Future resources.
 //    this.resource('myFundRaiserList', {path: '/my/fundraisers'});
 //    this.resource('myFundRaiser', {path: '/my/fundraisers/:my_fundraiser_id'});
+
+    this.resource('fundRaiserDonationList', {path: '/fundraisers/:fundraiser_id/donations'});
 });
 
 
@@ -51,6 +53,20 @@ App.FundRaiserEditRoute = Em.Route.extend(App.ScrollToTop, {
     }
 });
 
+
+App.FundRaiserDonationListRoute = Em.Route.extend({
+    model: function(params) {
+        return App.FundRaiser.find(params.fundraiser_id);
+    },
+
+    setupController: function(controller, fundraiser) {
+        this._super(controller, fundraiser);
+
+        var project_id = fundraiser.get('project.id');
+        controller.set('fundRaiseDonations', App.ProjectDonation.find({project: project_id, fundraiser: fundraiser.id}));
+    }
+});
+
 // TOOD: Unused at this time.
 //App.MyFundRaiserListRoute = Em.Route.extend(App.ScrollToTop, {
 //    model: function(params) {
@@ -67,3 +83,5 @@ App.FundRaiserEditRoute = Em.Route.extend(App.ScrollToTop, {
 //        return App.FundRaiser.find(params.my_fundraiser_id);
 //    }
 //});
+
+

@@ -384,6 +384,25 @@
 {% endtplhandlebars %}
 
 
+{% tplhandlebars "project_donation" %}
+
+    <!-- TODO: Insert Frans design skillz -->
+
+    {{#if donation.member}}
+        <a class="member" {{action 'openInBigBox' 'userModal' donation.member }} {{bindAttr data-title="donation.member.full_name" data-content="donation.time_since"}}>
+            <span class="member-avatar"><img {{bindAttr src="donation.member.getAvatar" alt="donation.member.full_name"}} /></span>
+        </a>
+    {{else}}
+        <a class="member" data-title="guest" {{bindAttr data-content="donation.time_since"}}>
+            <span class="member-avatar"><img src="/static/assets/images/default-avatar.png"  alt="{% trans 'Guest' %}" /></span>
+        </a>
+    {{/if}}
+
+    <span>&euro; {{donation.amount}}</span>
+
+{% endtplhandlebars %}
+
+
 {% tplhandlebars "project_plan" %}
 
     <div class="l-section" id="project-plan">

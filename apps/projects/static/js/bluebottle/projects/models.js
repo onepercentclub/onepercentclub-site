@@ -36,6 +36,9 @@ App.Adapter.map('App.MyOrganizationDocument', {
 App.Adapter.map('App.PartnerOrganization', {
     projects: {embedded: 'load'}
 });
+App.Adapter.map('App.ProjectDonation', {
+    member: {embedded: 'both'}
+});
 
 App.Organization = DS.Model.extend({
     url: 'organizations',
@@ -206,8 +209,8 @@ App.ProjectSearch = DS.Model.extend({
 
 });
 
-// TODO: Refactor App.DonationPreview to ProjectSupporterList
-App.DonationPreview =  DS.Model.extend({
+// TODO: Refactor App.DonationPreview to ProjectSupporter
+App.DonationPreview = DS.Model.extend({
     url: 'projects/supporters',
 
     project: DS.belongsTo('App.ProjectPreview'),
@@ -220,7 +223,7 @@ App.DonationPreview =  DS.Model.extend({
 });
 
 
-App.ProjectDonationList =  DS.Model.extend({
+App.ProjectDonation = DS.Model.extend({
     url: 'projects/donations',
 
     member: DS.belongsTo('App.UserPreview'),
