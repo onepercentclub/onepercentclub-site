@@ -31,7 +31,13 @@ class DonationMailTests(TestCase, ProjectTestsMixin, DonationTestsMixin, FundRai
 
         self.assertListEqual(message.to, [self.project_owner.email])
         self.assertEqual(message.subject, 'You received a new donation')
-        self.assertTrue('EUR {0:.2f}'.format(donation.amount / 100.0) in message.body)
+
+        amount_string = 'EUR {0:.2f}'.format(donation.amount / 100.0)
+        self.assertTrue(amount_string in message.body)
+
+        for content, content_type in message.alternatives:
+            self.assertTrue(amount_string in content)
+
         self.assertTrue(self.user.first_name in message.body)
 
     def test_single_mail_on_new_donation(self):
@@ -71,8 +77,9 @@ class DonationMailTests(TestCase, ProjectTestsMixin, DonationTestsMixin, FundRai
         donation.status = DonationStatuses.paid
         donation.save()
 
-        # Owner should have just one email
-        self.assertEqual(len(mail.outbox), 1)
+        # Fundraiser owner and project owner should have just one email each
+        # careful, fundraiser mail is sent first
+        self.assertEqual(len(mail.outbox), 2)
 
         # Verify that the link points to the fundraiser page
         m = mail.outbox.pop(0)
