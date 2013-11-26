@@ -124,6 +124,10 @@ App.TaskWallPostListView = Em.View.extend({
 
 });
 
+App.FundRaiserWallPostNewView = Em.View.extend({
+    templateName: 'textWallPostNew',
+    tagName: 'form'
+});
 
 App.TaskWallPostNewView = Em.View.extend({
     templateName: 'task_wallpost_new'

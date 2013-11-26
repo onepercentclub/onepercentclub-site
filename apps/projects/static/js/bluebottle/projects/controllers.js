@@ -104,7 +104,7 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
 
 
 App.ProjectController = Em.ObjectController.extend({
-    needs: ['projectIndex'],
+    needs: ['projectIndex', 'currentUser'],
 
     isFundable: function(){
        return (this.get('phase') == 'campaign' && this.get('campaign.money_asked'));
@@ -116,7 +116,16 @@ App.ProjectController = Em.ObjectController.extend({
             var separator = (index == 0 ? " " : ", ");
             return previousValue + separator + tag.id;
         }, "");
-    }.property('tags.@each')
+    }.property('tags.@each'),
+
+    isProjectOwner: function() {
+        var username = this.get('controllers.currentUser.username');
+        var ownername = this.get('model.owner.username');
+        if (username) {
+            return (username == ownername);
+        }
+        return false;
+    }.property('model.owner', 'controllers.currentUser.username')
 
 });
 

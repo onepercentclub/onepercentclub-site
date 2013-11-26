@@ -95,14 +95,18 @@ App.ProjectRoute = Em.Route.extend(App.ScrollToTop, {
 
 
 App.ProjectIndexRoute = Em.Route.extend({
-    // This way the ArrayController won't hold an immutable array.
+    // This way the ArrayController won't hold an immutable array thus it can be extended with more wallposts.
     setupController: function(controller, model) {
-        var project_id = this.modelFor('project').get('id');
-        controller.set('page', 1);
-        App.WallPost.find({'parent_type': 'project', 'parent_id': project_id}).then(function(items){
-            controller.set('meta', items.get('meta'));
-            controller.set('model', items.toArray());
-        });
+        var parent_id = this.modelFor('project').get('id');
+        // Only reload this if switched to another project.
+        if (controller.get('parent_id') != parent_id){
+            controller.set('page', 1);
+            controller.set('parent_id', parent_id);
+            App.WallPost.find({'parent_type': 'project', 'parent_id': parent_id}).then(function(items){
+                controller.set('meta', items.get('meta'));
+                controller.set('model', items.toArray());
+            });
+        }
     }
 });
 

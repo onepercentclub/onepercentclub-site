@@ -4,7 +4,7 @@
 
 
 App.ProjectIndexController = Em.ArrayController.extend({
-    needs: ['project'],
+    needs: ['project', 'currentUser'],
     perPage: 5,
     page: 1,
 
@@ -29,42 +29,20 @@ App.ProjectIndexController = Em.ArrayController.extend({
                 controller.get('model').pushObjects(items.toArray());
             });
         }
-    }
+    },
+    isProjectOwner: function() {
+        var username = this.get('controllers.currentUser.username');
+        var ownername = this.get('controllers.project.model.owner.username');
+        if (username) {
+            return (username == ownername);
+        }
+        return false;
+    }.property('controllers.project.model.owner', 'controllers.currentUser.username')
+
 });
 
 
 App.ProjectWallPostNewController = Em.ObjectController.extend({
-    needs: ['currentUser', 'projectIndex', 'project'],
-
-    init: function() {
-        this._super();
-        this.set('model', App.TextWallPost.createRecord());
-    },
-
-    saveWallPost: function() {
-        var wallPost = this.get('model');
-        wallPost.set('parent_id', this.get('controllers.project.model.id'));
-        wallPost.set('parent_type', 'project');
-        wallPost.set('type', 'text');
-
-        var controller = this;
-        wallPost.on('didCreate', function(record) {
-            var list = controller.get('controllers.projectIndex.model');
-            list.unshiftObject(record);
-            controller.clearWallPost()
-        });
-        wallPost.on('becameInvalid', function(record) {
-            controller.set('errors', record.get('errors'));
-        });
-        wallPost.save();
-    },
-
-    createNewWallPost: function() {
-        this.set('model', App.TextWallPost.createRecord());
-    }
-})
-
-App.OLD_ProjectWallPostNewController = Em.ObjectController.extend({
     needs: ['currentUser', 'projectIndex', 'project'],
 
     // This a temporary container for App.Photo records until they are connected after this wallpost is saved.
@@ -192,6 +170,83 @@ App.WallPostController = Em.ObjectController.extend(App.IsAuthorMixin, {
 App.TaskWallPostListController = Em.ArrayController.extend(App.ShowMoreItemsMixin, {
     needs: ['currentUser']
 });
+
+
+
+App.TextWallPostNewController = Em.ObjectController.extend({
+    needs: ['currentUser'],
+
+    parentId: function(){
+        return Em.K();
+    }.property(),
+
+    wallPostList: function(){
+        return Em.K();
+    }.property(),
+
+    type: Em.K(),
+
+    init: function() {
+        this._super();
+        this.createNewWallPost();
+    },
+    actions: {
+        saveWallPost: function() {
+            var wallPost = this.get('model');
+            wallPost.set('parent_id', this.get('parentId'));
+            wallPost.set('parent_type', this.get('type'));
+            wallPost.set('type', 'text');
+
+            var controller = this;
+            wallPost.on('didCreate', function(record) {
+                var list = controller.get('wallPostList');
+                list.unshiftObject(record);
+                controller.createNewWallPost()
+            });
+            wallPost.on('becameInvalid', function(record) {
+                controller.set('errors', record.get('errors'));
+            });
+            wallPost.save();
+        }
+    },
+
+    createNewWallPost: function() {
+        this.set('model', App.TextWallPost.createRecord());
+    }
+});
+
+
+App.FundRaiserWallPostNewController = App.TextWallPostNewController.extend({
+
+    needs: ['currentUser', 'fundRaiser', 'fundRaiserIndex'],
+    type: 'fundraiser',
+
+    parentId: function(){
+        return this.get('controllers.fundRaiser.model.id');
+    }.property('controllers.fundRaiser.model.id'),
+
+    wallPostList: function(){
+        return this.get('controllers.fundRaiserIndex.model');
+    }.property('controllers.fundRaiserIndex.model')
+
+});
+
+
+App.ProjectTextWallPostNewController = App.TextWallPostNewController.extend({
+
+    needs: ['currentUser', 'project', 'projectIndex'],
+    type: 'project',
+
+    parentId: function(){
+        return this.get('controllers.project.model.id');
+    }.property('controllers.project.model.id'),
+
+    wallPostList: function(){
+        return this.get('controllers.projectIndex.model');
+    }.property('controllers.projectIndex.model')
+
+});
+
 
 
 App.TaskWallPostNewController = Em.ObjectController.extend({

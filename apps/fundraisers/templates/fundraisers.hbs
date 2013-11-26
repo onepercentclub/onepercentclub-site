@@ -242,7 +242,6 @@
         <section class="l-wrapper">
         	<div class="l-content" id="wallposts">
 
-                Showing {{controller.model.length}}/{{controller.model.meta.total}} items
     	        {{#each item in controller itemController="wallPost"}}
     	            {{#if item.isLoaded}}
                         {{#if item.isSystemWallPost}}
@@ -270,9 +269,5 @@
 
 {% endtplhandlebars %}
 
-
-{% tplhandlebars "fundRaiserWallPostNew" %}
-
-{% endtplhandlebars %}
 
 {% endlanguage %}

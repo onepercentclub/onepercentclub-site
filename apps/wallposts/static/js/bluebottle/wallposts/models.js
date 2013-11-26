@@ -7,6 +7,10 @@ App.Adapter.map('App.WallPost', {
     photos: {embedded: 'load'},
     reactions: {embedded: 'load'}
 });
+App.Adapter.map('App.TextWallPost', {
+    author: {embedded: 'load'},
+    reactions: {embedded: 'load'}
+});
 App.Adapter.map('App.ProjectWallPost', {
     author: {embedded: 'load'},
     photos: {embedded: 'load'},

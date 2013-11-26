@@ -3,6 +3,9 @@ from bluebottle.bluebottle_drf2.serializers import OEmbedField, PolymorphicSeria
 from apps.wallposts.models import WallPost, SystemWallPost
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import serializers
+from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
+from django.utils.encoding import smart_text
 from .models import MediaWallPost, TextWallPost, MediaWallPostPhoto, Reaction
 
 
@@ -45,13 +48,25 @@ class WallPostTypeField(serializers.Field):
         return self.type
 
 
+class WallPostContentTypeField(serializers.SlugRelatedField):
+
+    # To avoid stale apps in ContentType we whitelist the apps we want to use.
+    # This avoids errors like "get() returned more than one ContentType -- it returned 2!".
+    white_listed_apps = ['projects', 'tasks', 'fundraisers']
+
+    def initialize(self, parent, field_name):
+        super(WallPostContentTypeField, self).initialize(parent, field_name)
+        self.queryset = self.queryset.filter(app_label__in=self.white_listed_apps)
+
+
 class WallPostSerializerBase(serializers.ModelSerializer):
     """
         Base class serializer for WallPosts. This is not used directly; please subclass it.
     """
+
     author = UserPreviewSerializer()
     reactions = ReactionSerializer(many=True, read_only=True)
-    parent_type = serializers.SlugRelatedField(slug_field='name', source='content_type')
+    parent_type = WallPostContentTypeField(slug_field='model', source='content_type')
     parent_id = serializers.IntegerField(source='object_id')
 
     class Meta:

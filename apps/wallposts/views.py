@@ -2,7 +2,7 @@ import django_filters
 from apps.wallposts.models import TextWallPost
 from apps.wallposts.serializers import TextWallPostSerializer
 from bluebottle.bluebottle_drf2.permissions import IsAuthorOrReadOnly, AllowNone
-from bluebottle.bluebottle_utils.utils import set_author_editor_ip
+from bluebottle.bluebottle_utils.utils import set_author_editor_ip, get_client_ip
 from rest_framework import permissions
 from bluebottle.bluebottle_drf2.views import ListCreateAPIView, RetrieveUpdateDeleteAPIView, ListAPIView
 from apps.projects.models import Project
@@ -65,6 +65,13 @@ class TextWallPostList(ListCreateAPIView):
 
         queryset = queryset.order_by('-created')
         return queryset
+
+    def pre_save(self, obj):
+        if not obj.author:
+            obj.author = self.request.user
+        else:
+            obj.editor = self.request.user
+        obj.ip_address = get_client_ip(self.request)
 
 
 

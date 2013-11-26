@@ -151,7 +151,7 @@
             </ul>
         </fieldset>
 
-        <button class="btn btn-iconed" type="submit"><span class="flaticon solid thinking-comment-1"></span>{% trans "Comment" %}</button>
+        <button class="btn btn-iconed" {{action "saveWallPost"}}><span class="flaticon solid thinking-comment-1"></span>{% trans "Comment" %}</button>
     {{else}}
     	<h3>{% trans "Write a comment" %}</h3>
     	<a {{action openInBox "login"}}>{%  trans "Login" %}</a> or become a {{#linkTo "signup"}}{% trans "member" %}{{/linkTo}} {% trans "to leave a comment" %}.</p>

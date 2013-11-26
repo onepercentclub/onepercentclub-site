@@ -341,7 +341,11 @@
         	</div>
 
             <sidebar class="l-sidebar">
-            	{{ render "projectWallPostNew" }}
+                {{#if isProjectOwner}}
+                	{{ render "projectWallPostNew" }}
+                {{else}}
+                	{{ render "projectTextWallPostNew" }}
+                {{/if}}
             </sidebar>
 
         </section>
