@@ -26,15 +26,14 @@ App.FundRaiserRoute = Em.Route.extend(App.ScrollToTop, {
 
     setupController: function(controller, fundraiser) {
         this._super(controller, fundraiser);
-
         var project_id = fundraiser.get('project.id');
         controller.set('fundRaiseSupporters', App.DonationPreview.find({project: project_id, fundraiser: fundraiser.id}));
     }
 });
 
 
-App.FundRaiserIndexRoute = Em.Route.extend(App.ScrollToTop, {
-    // This way the ArrayController won't hold an immutable array thus it can be extended with more wallposts.
+App.FundRaiserIndexRoute = Em.Route.extend({
+    // This way the ArrayController won't hold an immutable array thus it can be extended with more wall-posts.
     setupController: function(controller, model) {
         var parent_id = this.modelFor('fundRaiser').get('id');
         // Only reload this if switched to another fundraiser.
@@ -50,7 +49,6 @@ App.FundRaiserIndexRoute = Em.Route.extend(App.ScrollToTop, {
 });
 
 
-
 App.FundRaiserNewRoute = Em.Route.extend(App.ScrollToTop, {
     model: function(params) {
         // Using project preview to have less data attached (TODO: Verify!)
@@ -59,9 +57,6 @@ App.FundRaiserNewRoute = Em.Route.extend(App.ScrollToTop, {
         var projectPreview = App.ProjectPreview.find(params.project_id);
 
         return store.createRecord(App.FundRaiser, {project: projectPreview});
-    },
-    setupController: function(controller, fundRaiser) {
-        this._super(controller, fundRaiser);
     }
 });
 
