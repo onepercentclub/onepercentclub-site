@@ -271,24 +271,28 @@ class Order(models.Model):
         lang_code = request.LANGUAGE_CODE if request else 'en'
         twitter_handle = settings.TWITTER_HANDLES.get(lang_code, settings.DEFAULT_TWITTER_HANDLE)
 
-        if self.first_donation.fundraiser:
-            title = self.first_donation.fundraiser.owner.get_full_name()
-        else:
-            title = self.first_donation.project.get_fb_title()
+        if self.first_donation:
+            if self.first_donation.fundraiser:
+                title = self.first_donation.fundraiser.owner.get_full_name()
+            else:
+                title = self.first_donation.project.get_fb_title()
 
-        tweet = _(u"I've just supported {title} {{URL}} via @{twitter_handle}").format(title=title, twitter_handle=twitter_handle)
-        return tweet
+            tweet = _(u"I've just supported {title} {{URL}} via @{twitter_handle}")
+            return tweet.format(title=title, twitter_handle=twitter_handle)
+        return _(u"{{URL}} via @{twitter_handle}").format(twitter_handle=twitter_handle)
 
     def get_share_url(self, **kwargs):
-        request = kwargs.get('request')
+        if self.first_donation:
+            request = kwargs.get('request')
 
-        if self.first_donation.fundraiser:
-            fundraiser = self.first_donation.fundraiser
-            location = '/#!/fundraisers/{0}'.format(fundraiser.id)
-        else:
-            project = self.first_donation.project
-            location = '/#!/projects/{0}'.format(project.slug)
-        return request.build_absolute_uri(location)
+            if self.first_donation.fundraiser:
+                fundraiser = self.first_donation.fundraiser
+                location = '/#!/fundraisers/{0}'.format(fundraiser.id)
+            else:
+                project = self.first_donation.project
+                location = '/#!/projects/{0}'.format(project.slug)
+            return request.build_absolute_uri(location)
+        return None
 
 
 
