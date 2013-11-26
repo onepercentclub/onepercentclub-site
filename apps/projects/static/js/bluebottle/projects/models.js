@@ -206,9 +206,9 @@ App.ProjectSearch = DS.Model.extend({
 
 });
 
-
+// TODO: Refactor App.DonationPreview to ProjectSupporterList
 App.DonationPreview =  DS.Model.extend({
-    url: 'projects/donations',
+    url: 'projects/supporters',
 
     project: DS.belongsTo('App.ProjectPreview'),
     member: DS.belongsTo('App.UserPreview'),
@@ -219,6 +219,18 @@ App.DonationPreview =  DS.Model.extend({
     }.property('date_donated')
 });
 
+
+App.ProjectDonationList =  DS.Model.extend({
+    url: 'projects/donations',
+
+    member: DS.belongsTo('App.UserPreview'),
+    amount: DS.attr('number'),
+    date_donated: DS.attr('date'),
+
+    time_since: function(){
+        return Globalize.format(this.get('date_donated'), 'X');
+    }.property('date_donated')
+});
 
 /* Project Manage Models */
 
