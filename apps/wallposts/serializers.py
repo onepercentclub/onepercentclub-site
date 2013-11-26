@@ -1,3 +1,4 @@
+from apps.projects.models import Project
 from bluebottle.accounts.serializers import UserPreviewSerializer
 from bluebottle.bluebottle_drf2.serializers import OEmbedField, PolymorphicSerializer, SorlImageField, ContentTextField, ImageSerializer, PhotoSerializer
 from apps.wallposts.models import WallPost, SystemWallPost
@@ -49,14 +50,34 @@ class WallPostTypeField(serializers.Field):
 
 
 class WallPostContentTypeField(serializers.SlugRelatedField):
+    """
+    Field to save content_type on wall-posts.
+    """
 
-    # To avoid stale apps in ContentType we whitelist the apps we want to use.
+    # To avoid stale apps in ContentType we white-list the apps we want to use.
     # This avoids errors like "get() returned more than one ContentType -- it returned 2!".
     white_listed_apps = ['projects', 'tasks', 'fundraisers']
 
     def initialize(self, parent, field_name):
         super(WallPostContentTypeField, self).initialize(parent, field_name)
         self.queryset = self.queryset.filter(app_label__in=self.white_listed_apps)
+
+
+class WallPostParentIdField(serializers.IntegerField):
+    """
+    Field to save object_id on wall-posts.
+    """
+
+    # Make an exception for project slugs.
+    def from_native(self, value):
+        if not value.isnumeric():
+            # Assume a project slug here
+            try:
+                project = Project.objects.get(slug=value)
+            except Project.DoesNotExist:
+                raise ValidationError("No project with that slug")
+            value = project.id
+        return value
 
 
 class WallPostSerializerBase(serializers.ModelSerializer):
@@ -67,7 +88,7 @@ class WallPostSerializerBase(serializers.ModelSerializer):
     author = UserPreviewSerializer()
     reactions = ReactionSerializer(many=True, read_only=True)
     parent_type = WallPostContentTypeField(slug_field='model', source='content_type')
-    parent_id = serializers.IntegerField(source='object_id')
+    parent_id = WallPostParentIdField(source='object_id')
 
     class Meta:
         fields = ('id', 'type', 'author', 'created', 'reactions', 'parent_type', 'parent_id')
@@ -91,6 +112,7 @@ class MediaWallPostSerializer(WallPostSerializerBase):
     text = ContentTextField(required=False)
     video_html = OEmbedField(source='video_url', maxwidth='560', maxheight='315')
     photos = MediaWallPostPhotoSerializer(many=True, required=False)
+    video_url = serializers.CharField(required=False)
 
     class Meta:
         model = MediaWallPost

@@ -1,6 +1,6 @@
 import django_filters
-from apps.wallposts.models import TextWallPost
-from apps.wallposts.serializers import TextWallPostSerializer
+from apps.wallposts.models import TextWallPost, MediaWallPost
+from apps.wallposts.serializers import TextWallPostSerializer, MediaWallPostSerializer
 from bluebottle.bluebottle_drf2.permissions import IsAuthorOrReadOnly, AllowNone
 from bluebottle.bluebottle_utils.utils import set_author_editor_ip, get_client_ip
 from rest_framework import permissions
@@ -73,6 +73,12 @@ class TextWallPostList(ListCreateAPIView):
             obj.editor = self.request.user
         obj.ip_address = get_client_ip(self.request)
 
+
+class MediaWallPostList(TextWallPostList):
+    model = MediaWallPost
+    serializer_class = MediaWallPostSerializer
+    filter_class = WallPostFilter
+    paginate_by = 5
 
 
 class WallPostDetail(RetrieveUpdateDeleteAPIView):

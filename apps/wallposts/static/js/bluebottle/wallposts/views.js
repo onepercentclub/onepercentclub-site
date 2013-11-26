@@ -3,37 +3,9 @@
  Views
  */
 
-App.MediaWallPostNewView = Em.View.extend({
-    templateName: 'media_wallpost_new',
-    tagName: 'form',
-    elementId: 'wallpost-form',
-    
-    submit: function(e) {
-        e.preventDefault();
-        this.get('controller').addMediaWallPost();
-    },
+App.WallPostView = Em.View.extend({
 
-    didInsertElement: function() {
-        this.get('controller').clearWallPost();
-    }
-});
-
-
-App.TextWallPostNewView = Em.View.extend({
-    templateName: 'text_wallpost_new',
-    tagName: 'form',
-    elementId: 'wallpost-form',
-
-    submit: function(e){
-        e.preventDefault();
-        this.get('controller').saveWallPost();
-    }
-});
-
-
-App.SystemWallPostView = Em.View.extend({
-
-    templateName: 'system_wall_post',
+    templateName: 'wallPost',
 
     actions: {
         deleteWallPost: function() {
@@ -59,9 +31,14 @@ App.SystemWallPostView = Em.View.extend({
 });
 
 
-App.ProjectWallPostView = App.SystemWallPostView.extend({
+App.SystemWallPostView = App.WallPostView.extend({
+    templateName: 'systemWallPost'
+});
 
-    templateName: 'project_wall_post',
+
+App.MediaWallPostView = App.WallPostView.extend({
+
+    templateName: 'wallPost',
 
     didInsertElement: function(){
         var view = this;
@@ -82,55 +59,25 @@ App.ProjectWallPostView = App.SystemWallPostView.extend({
 });
 
 
-App.WallPostView = App.ProjectWallPostView.extend({
-
-    templateName: 'wall_post',
-
-    didInsertElement: function(){
-        var view = this;
-        view.$().hide();
-        // Give it some time to really render...
-        // Hack to make sure photo viewer works for new wallposts
-        Em.run.next(function(){
-            view.$().slideDown(500);
-            view.$('.photo-viewer a').colorbox({
-                rel: this.toString(),
-                next: '<span class="flaticon solid right-2"></span>',
-                previous: '<span class="flaticon solid left-2"></span>',
-                close: 'x'
-            });
-        });
-    }
+App.ProjectMediaWallPostNewView = Em.View.extend({
+    templateName: 'mediaWallPostNew'
 });
 
-
-App.TaskWallPostView = App.ProjectWallPostView.extend({
-    templateName: 'task_wallpost',
-    
-    didInsertElement: function(){
-        this.$().hide().fadeIn(500);
-    }
-
-});
-
-
-App.ProjectWallPostNewView = Em.View.extend({
-    templateName: 'project_wallpost_new'
-});
-
-
-App.TaskWallPostListView = Em.View.extend({
-    templateName: 'task_wallpost_list'
-
-});
 
 App.FundRaiserWallPostNewView = Em.View.extend({
     templateName: 'textWallPostNew',
     tagName: 'form'
 });
 
-App.TaskWallPostNewView = Em.View.extend({
-    templateName: 'task_wallpost_new'
+
+App.ProjectTextWallPostNewView = Em.View.extend({
+    templateName: 'textWallPostNew',
+    tagName: 'form'
+});
+
+
+App.TaskTestWallPostNewView = Em.View.extend({
+    templateName: 'textWallPostNew'
 });
 
 
