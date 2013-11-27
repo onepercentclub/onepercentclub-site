@@ -209,21 +209,124 @@
 {% tplhandlebars "home" %}
 
     <div id="home">
-        {{#if slides }}
-            {{view App.HomeBannerView }}
-        {{/if }}
+        {{#if isCampaignHomePage}}
 
-        {{#if project }}
-            {{view App.HomeProjectView }}
-        {{/if }}
+            {{!-- TODO: add progressbar with racecar etc. --}}
+            {{view App.HomeCampaignView }}
 
-        {{#if quote }}
-            {{view App.HomeQuotesView }}
-        {{/if }}
+            {{#if fundraisers}}
+                {{view App.HomeFundraisersView}}
+            {{/if }}
+        {{else}}
+            {{#if slides }}
+                {{view App.HomeBannerView }}
+            {{/if }}
 
-        {{#if impact }}
-            {{view App.HomeImpactView }}
+            {{#if project }}
+                {{view App.HomeProjectView }}
+            {{/if }}
+
+            {{#if quote }}
+                {{view App.HomeQuotesView }}
+            {{/if }}
+
+            {{#if impact }}
+                {{view App.HomeImpactView }}
+            {{/if }}
         {{/if }}
+    </div>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "home_fundraisers" %}
+
+    <div id="fundraisers">
+        {{!-- TODO: Frans - styling --}}
+
+        {{#if fundraisers}}
+            <h2>{% trans "Our crazy fund-racers" %}</h2>
+            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua.</div>
+
+            <ul>
+                {{#each fundraisers}}
+
+                    <li class="fundraiser-item">
+                        {{#linkTo 'fundRaiser' this}}
+                            {{#if is_funded }}
+                                <span>
+                                    {% trans "Fully funded by" %} {{owner.full_name}} {% trans "and his/her/it's supporters." %}
+                                </span>
+                            {{/if}}
+
+                            <span class="fundraiser-header">
+
+                                <figure class="fundraiser-image">
+                                    {{#if video_html}}
+                                        {{video_html}}
+                                    {{else}}
+                                        <img {{bindAttr src="image.small" }} />
+                                    {{/if}}
+                                </figure>
+
+                                <span class="fundraiser-title">
+                                    <h3>{{title}}</h3>
+                                </span>
+                            </span>
+
+                            <span>
+
+                                <div class="fundraiser-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
+                                <span class="fundraiser-fund-amount">
+                                    {{#if is_funded }}
+                                        {% trans "<strong>Fully</strong> funded" %}
+                                    {{else}}
+                                        <strong>&euro;{{localize amount_needed}}</strong> <em>{% trans "To go" %}</em>
+                                        {{#if deadline }}
+                                            <span class="project-days-left"><span class="flaticon solid clock-1"></span> <strong>{{daysToGo}}</strong> <em>{% trans "days" %}</em></span>
+                                        {{/if}}
+                                    {{/if}}
+                                </span>
+
+                            </span>
+                        {{/linkTo}}
+                    </li>
+                {{/each}}
+            </ul>
+
+        {{/if}}
+
+    </div>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "home_campaign_block" %}
+
+    <div style="background-color: #e9e9e9;">
+
+        <span>
+            {# Flag-image (with text?) #}
+        </span>
+
+        <div>
+            &euro;{{localize campaign.amount_donated}} of &euro;{{localize campaign.target}} fund-raced.
+            <div class="fundraiser-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
+            {# TODO: animate progressbar #}
+        </div>
+
+        {# timer #}
+        <div>
+            {{campaign.start}} - {{campaign.end}}
+        </div>
+
+        <div>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua.
+        </div>
+
+        <a {{action 'scrollToFundraisers' }}>{% trans "Pick a crazy fund-racer and support" %}</a>
     </div>
 
 {% endtplhandlebars %}

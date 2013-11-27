@@ -1,0 +1,54 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: onepercentclub-site\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-11-27 14:05+0100\n"
+"PO-Revision-Date: 2013-11-27 13:10+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub-site/language/nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: models.py:11
+msgid "title"
+msgstr ""
+
+#: models.py:12
+msgid "start"
+msgstr ""
+
+#: models.py:13
+msgid "end"
+msgstr ""
+
+#: models.py:15
+msgid "target (in cents)"
+msgstr ""
+
+#: models.py:18
+msgid "created"
+msgstr ""
+
+#: models.py:19
+msgid "updated"
+msgstr ""
+
+#: models.py:20
+msgid "deleted"
+msgstr ""
+
+#: models.py:23
+msgid "campaign"
+msgstr ""
+
+#: models.py:24
+msgid "campaigns"
+msgstr ""

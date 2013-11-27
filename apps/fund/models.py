@@ -86,6 +86,11 @@ class DonationStatuses(DjangoChoices):
     failed = ChoiceItem('failed', label=_("Failed"))
 
 
+class ValidDonationsManager(models.Manager):
+    def get_queryset(self):
+        return super(ValidDonationsManager, self).get_queryset().filter(status__in=(DonationStatuses.pending, DonationStatuses.paid))
+
+
 class Donation(models.Model):
     """
     Donation of an amount from a user to a project.
@@ -101,6 +106,7 @@ class Donation(models.Model):
     # User is just a cache of the order user.
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("User"), null=True, blank=True)
     project = models.ForeignKey('projects.Project', verbose_name=_("Project"))
+    fundraiser = models.ForeignKey('fundraisers.FundRaiser', verbose_name=_("fund raiser"), null=True, blank=True)
 
     status = models.CharField(_("Status"), max_length=20, choices=DonationStatuses.choices, default=DonationStatuses.new, db_index=True)
 
@@ -112,6 +118,9 @@ class Donation(models.Model):
     donation_type = models.CharField(_("Type"), max_length=20, choices=DonationTypes.choices, default=DonationTypes.one_off, db_index=True)
 
     order = models.ForeignKey('Order', verbose_name=_("Order"), related_name='donations')
+
+    objects = models.Manager()
+    valid_donations = ValidDonationsManager()
 
     @property
     def payment_method(self):
@@ -254,6 +263,37 @@ class Order(models.Model):
             self.closed = None
 
         super(Order, self).save(*args, **kwargs)
+
+
+    ### METADATA is rather specific here, fetching the metadata of either the fundraiser or the project itself
+    def get_tweet(self, **kwargs):
+        request = kwargs.get('request', None)
+        lang_code = request.LANGUAGE_CODE if request else 'en'
+        twitter_handle = settings.TWITTER_HANDLES.get(lang_code, settings.DEFAULT_TWITTER_HANDLE)
+
+        if self.first_donation:
+            if self.first_donation.fundraiser:
+                title = self.first_donation.fundraiser.owner.get_full_name()
+            else:
+                title = self.first_donation.project.get_fb_title()
+
+            tweet = _(u"I've just supported {title} {{URL}} via @{twitter_handle}")
+            return tweet.format(title=title, twitter_handle=twitter_handle)
+        return _(u"{{URL}} via @{twitter_handle}").format(twitter_handle=twitter_handle)
+
+    def get_share_url(self, **kwargs):
+        if self.first_donation:
+            request = kwargs.get('request')
+
+            if self.first_donation.fundraiser:
+                fundraiser = self.first_donation.fundraiser
+                location = '/#!/fundraisers/{0}'.format(fundraiser.id)
+            else:
+                project = self.first_donation.project
+                location = '/#!/projects/{0}'.format(project.slug)
+            return request.build_absolute_uri(location)
+        return None
+
 
 
 @receiver(payment_status_changed, sender=Payment)

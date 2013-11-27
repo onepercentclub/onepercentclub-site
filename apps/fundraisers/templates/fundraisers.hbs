@@ -1,0 +1,384 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% language "en" %}
+{# Force all these pages to english #}
+
+{% tplhandlebars "fundraiser_form" %}
+
+    <fieldset>
+        <ul>
+            {% include "generic/form_field.html" with title="Title" placeholder="Title describes your fundraiser action in short" field_type="Em.TextField" field_name="title" %}
+
+            {% include "generic/form_field.html" with title="Description" placeholder="Tell a little bit about yourself so we get to know you" field_type="Em.TextArea" field_name="description" %}
+        </ul>
+    </fieldset>
+
+    <fieldset>
+        <ul>
+            {% include "generic/form_imagefield.html" with title="Image" field_name="image" help_text="Minimal of 800px wide" %}
+
+            {% include "generic/form_field.html" with title="Video" placeholder="http://" field_type="Em.TextField" field_name="video_url" help_text="Youtube or Vimeo link" %}
+        </ul>
+    </fieldset>
+
+    <fieldset>
+        <h2>TODO: Subtitle</h2>
+        <p>Lorem ipsum</p>
+
+        <ul>
+            {% include "generic/form_field.html" with title="Amount to raise" placeholder="&euro;" field_type="Em.TextField" field_name="amount" %}
+
+            {% include "generic/form_field.html" with title="Deadline" placeholder="" field_type="App.DatePicker" field_name="deadline" %}
+        </ul>
+    </fieldset>
+{% endtplhandlebars %}
+
+{% tplhandlebars "fundraiser_new" %}
+
+    <div class="l-section" id="project-dashboard">
+
+        <div class="l-section account-header">
+            <nav class="l-wrapper">
+
+                <figure class="account-avatar"><img {{bindAttr src="controllers.currentUser.getAvatar"}} /></figure>
+
+                <header class="account-title">
+                    <h2>{% trans "My 1%" %} > {% trans "Fundraisers" %}</h2>
+                </header>
+
+                {{#if id}}
+                    {{#if title}}
+                        <a {{action "showFundraiser" id href=true}} class="account-preview btn-link">
+                            <span class="flaticon solid eye-1"></span>
+                            {% trans "Preview fundraiser page" %}
+                        </a>
+                    {{/if}}
+                {{/if}}
+            </nav>
+        </div>
+
+        <div class="l-wrapper">
+            <div class="l-content">
+                {{#if controllers.currentUser.isAuthenticated}}
+                    <header class="l-page-header">
+                        <h1>{% trans "New fundraiser" %}</h1>
+                        <p>
+                            {% blocktrans %}
+                                Lorem ipsum
+                            {% endblocktrans %}
+                        </p>
+                    </header>
+
+                    <form id="fundraiser-new">
+
+                        {{partial "fundraiser_form"}}
+
+                        <button {{bindAttr class=":btn :btn-iconed :btn-next isDirty::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Create" %}</button>
+
+                    </form>
+                {{else}}
+                    <header class="l-page-header">
+                        <h1>{% trans "New fundraiser" %}</h1>
+                        <p>
+                            {% blocktrans %}
+                                You can only make a fundraiser if you are logged in.
+                            {% endblocktrans %}
+                        </p>
+                    </header>
+
+                    <p class="login-signup"><a href="/accounts/login">{% trans "Login" %}</a> {% trans "or become a" %} {{#linkTo "signup"}}{% trans "member" %}{{/linkTo}} {% trans "to start a fundraiser." %}</p>
+                {{/if}}
+            </div>
+
+            <sidebar class="l-sidebar">
+                <h2>{% trans "Fundraising for project" %}</h2>
+                <p>{% trans "You'll be fundraising for this project" %}</p>
+
+                {{render "projectPreview" project}}
+
+            </sidebar>
+        </div>
+    </div>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "fundraiser_edit" %}
+
+    <div class="l-section" id="project-dashboard">
+
+        <div class="l-section account-header">
+            <nav class="l-wrapper">
+
+                <figure class="account-avatar"><img {{bindAttr src="controllers.currentUser.getAvatar"}} /></figure>
+
+                <header class="account-title">
+                    <h2>{% trans "My 1%" %} > {% trans "Fundraisers" %}</h2>
+                </header>
+
+                {{#if id}}
+                    {{#if title}}
+                        <a {{action "showFundraiser" id href=true}} class="account-preview btn-link">
+                            <span class="flaticon solid eye-1"></span>
+                            {% trans "Preview fundraiser page" %}
+                        </a>
+                    {{/if}}
+                {{/if}}
+            </nav>
+        </div>
+
+        <div class="l-wrapper">
+            <div class="l-content">
+                {{#if isOwner}}
+                    <header class="l-page-header">
+                        <h1>{% trans "Edit fundraiser" %}</h1>
+                        <p>
+                            {% blocktrans %}
+                                Lorem ipsum
+                            {% endblocktrans %}
+                        </p>
+                    </header>
+
+                    <form id="fundraiser-edit">
+
+                        {{partial "fundraiser_form"}}
+
+                        <button {{bindAttr class=":btn :btn-iconed :btn-next isDirty::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save" %}</button>
+
+                    </form>
+                {{else}}
+                    <header class="l-page-header">
+                        <h1>{% trans "Edit fundraiser" %}</h1>
+                        <p>
+                            {% blocktrans %}
+                                You can only make a fundraiser if you are logged in and the owner of this fundraiser.
+                            {% endblocktrans %}
+                        </p>
+                    </header>
+
+                    <p class="login-signup"><a href="/accounts/login">{% trans "Login" %}</a> {% trans "or become a" %} {{#linkTo "signup"}}{% trans "member" %}{{/linkTo}} {% trans "to start a fundraiser." %}</p>
+                {{/if}}
+            </div>
+
+            <sidebar class="l-sidebar">
+                <h2>{% trans "Fundraising for project" %}</h2>
+                <p>{% trans "You are be fundraising for this project" %}</p>
+
+                {{render "projectPreview" project}}
+
+            </sidebar>
+        </div>
+    </div>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "project_fundraiser_list" %}
+    <li class="project-member-fundraisers">
+    
+        {{!-- TODO: Moved link 'become fundraiser' from projects.hbs
+        Link not working anymore --}}
+    
+        <h4>{% trans "Fundraisers" %}</h4>
+        
+        {{#if fundraisers.length}}
+        <ul>
+            {{#each fundraiser in controller}}
+                {{view "App.ProjectFundRaiserView" }}
+            {{/each}}
+        </ul>
+        {{/if}}
+        
+        {{#linkTo 'fundRaiserNew' controllers.project.id class="fundraiser-become"}}
+            {% trans "Become a fundraiser" %}
+        {{/linkTo}}
+    </li>
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "project_fundraiser" %}
+    {{!-- FIXME The 'popup' content is now built in model App.FundRaiser. Not sure
+    how this will be done with the redesigned 'popup' --}}
+    {{#linkTo "fundRaiser" fundraiser classNames='member'}}
+        <span {{bindAttr data-title="fundraiser.popover_title" data-content="fundraiser.popover_content"}}>
+            <span class="member-avatar"><img {{bindAttr src="fundraiser.owner.getAvatar" alt="fundraiser.owner.full_name" }}/></span>
+        </span>
+    {{/linkTo}}
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "fundraiser" %}
+
+    <div class="l-section detail" id="fundraiser-detail">
+        <section class="l-wrapper">
+            
+            <div class="l-half">
+                <figure class="project-image">
+                    <img {{bindAttr src="image.large"}} width="100%" alt="Photo" />
+                </figure>
+                
+                <div class="fundraiser-project">
+                    <figure class="fundraiser-project-image"><img {{bindAttr src="project.image"}} width="100%" alt="Photo" /></figure>
+
+                    <div class="fundraiser-project-detail">
+                        <h4>{% trans "Fundraising for" %}</h4>
+                        <p>{{#linkTo 'project' project.getProject}}{{project.title}}{{/linkTo}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="l-half">
+
+                <article class="project-info">
+                    {{view App.SocialShareView}}
+                    {{#if isOwner}}
+                        <span class="action tag"><span class="flaticon solid tag-2"></span>
+                            {{#linkTo 'fundRaiserEdit' id}}{% trans "Edit" %}{{/linkTo}}
+                        </span>
+                        <span class="action tag"><span class="flaticon solid tag-2"></span>
+                            {{#linkTo 'fundRaiserDonationList' id}}{% trans "Donations" %}{{/linkTo}}
+                        </span>
+                    {{/if}}
+                    <h1 class="project-title">{{title}}</h1>
+                    <p class="project-description">{{description}}</p>
+                </article>
+
+                <article class="fundraiser-member">
+
+                    <figure class="member-avatar">
+                        <a href='#' {{action 'openInBigBox' 'userModal' owner }} class="TODO">
+                            <img {{bindAttr src="owner.getAvatar" alt="owner.full_name"}} />
+                            <strong class="member-name"><em>{% trans "Fundraiser" %}</em> {{owner.full_name}}</strong>
+                        </a>
+                    </figure>
+
+                    <div class="project-action">
+                        <a href='#' {{ action 'addDonation' this.project this }} class="btn btn-primary btn-iconed">
+                            <span class="flaticon solid wallet-1"></span>
+                            {% trans "Support" %} {{owner.first_name}}
+                        </a>
+                    </div>
+
+                </article>
+
+            </div>
+        </section>
+
+       <div class="l-section" id="fundraiser-status">
+            <section class="l-wrapper">
+                <div class="project-status">
+
+                    {{#if deadline}}
+                    <div class="project-days-left l-one-third">
+                        <strong><span class="flaticon solid stopwatch-1"></span> {{daysToGo}} <em>{% trans "days to go" %}!</em></strong>
+                    </div>
+                    {{/if}}
+
+                    <div class="project-fund l-one-third">
+                        <p class="project-fund-amount">
+                            <strong class="amount-donated">&euro;{{localize amount_donated}}</strong>
+                            {% trans "of" %}
+                            <strong class="amount-asked">&euro;{{localize amount}}</strong>
+                            {% trans "raised" %}
+                        </p>
+
+                        {{#bb-progressbar class="project-fund-amount-slider" totalValue=amount currentValue=amount_donated}}
+                        {{/bb-progressbar}}
+                    </div>
+
+                    <ul class="project-member-list l-one-third">
+
+                        {{#if fundRaiseSupporters.length}}
+                        <li class="project-member-supporters">
+                            <h4>{% trans "Supporters" %} <em>{{supporters.meta.total}} {% trans "Total" %}</em></h4>
+                            <ul>
+                                {{#each supporter in fundRaiseSupporters}}
+                                    {{view "App.ProjectSupporterView" }}
+                                {{/each}}
+                            </ul>
+                        </li>
+                        {{/if}}
+                    </ul>
+
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "fundraiser_donation_list" %}
+
+    <div class="l-section" id="project-dashboard">
+
+        <div class="l-section account-header">
+            <nav class="l-wrapper">
+
+                <figure class="account-avatar"><img {{bindAttr src="controllers.currentUser.getAvatar"}} /></figure>
+
+                <header class="account-title">
+                    <h2>{% trans "My 1%" %} > {% trans "Fundraisers" %} > {{title}} > {% trans "Donations" %}</h2>
+                </header>
+
+                {{#linkTo 'fundRaiser' id}}
+                    <span class="flaticon solid eye-1"></span>
+                    {% trans "Back to fundraiser page" %}
+                {{/linkTo}}
+            </nav>
+        </div>
+
+        <div class="l-wrapper">
+            <div class="l-content">
+                {{#if controllers.currentUser.isAuthenticated}}
+                    <header class="l-page-header">
+                        <h1>{% trans "Donation overview" %}</h1>
+                        <p>
+                            {% blocktrans %}
+                                Lorem ipsum
+                            {% endblocktrans %}
+                        </p>
+                    </header>
+
+                    {{#if fundRaiseDonations.length}}
+                        <ul>
+                            {{#each donation in fundRaiseDonations}}
+                                {{view "App.ProjectDonationView" }}
+                            {{/each}}
+                        </ul>
+                    {{else}}
+                        <p>{% trans "Awww. No donations yet!" %}</p>
+                    {{/if}}
+
+                {{else}}
+                    <header class="l-page-header">
+                        <h1>{% trans "Donation overview" %}</h1>
+                        <p>
+                            {% blocktrans %}
+                                You are not authorized to view the donations.
+                            {% endblocktrans %}
+                        </p>
+                    </header>
+
+                    <p class="login-signup"><a href="/accounts/login">{% trans "Login" %}</a> {% trans "or become a" %} {{#linkTo "signup"}}{% trans "member" %}{{/linkTo}} {% trans "to start a fundraiser." %}</p>
+                {{/if}}
+            </div>
+
+            <sidebar class="l-sidebar">
+                <h2>{% trans "Fundraising for project" %}</h2>
+                <p>{% trans "You are fundraising for this project" %}</p>
+
+                {{render "projectPreview" project}}
+
+            </sidebar>
+        </div>
+    </div>
+
+{% endtplhandlebars %}
+
+
+{% endlanguage %}
