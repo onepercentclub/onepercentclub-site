@@ -13,7 +13,11 @@ App.WallPostView = Em.View.extend({
         // Give it some time to really render...
         // Hack to make sure photo viewer works for new wallposts
         Em.run.next(function(){
-            view.$().slideDown(500);
+
+            // slideDown has weird behaviour on Task Wall with post not appearing.
+            // view.$().slideDown(500);
+            view.$().fadeIn(500);
+
             view.$('.photo-viewer a').colorbox({
                 rel: this.toString(),
                 next: '<span class="flaticon solid right-2"></span>',
@@ -56,26 +60,24 @@ App.MediaWallPostView = App.WallPostView.extend({
 });
 
 
-App.ProjectMediaWallPostNewView = Em.View.extend({
+App.TextWallPostNewView = Em.View.extend({
+    templateName: 'textWallPostNew',
+    tagName: 'form',
+    elementId: 'wallpost-form'
+});
+
+App.MediaWallPostNewView = App.TextWallPostNewView.extend({
     templateName: 'mediaWallPostNew'
 });
 
 
-App.FundRaiserWallPostNewView = Em.View.extend({
-    templateName: 'textWallPostNew',
-    tagName: 'form'
-});
+App.ProjectMediaWallPostNewView = App.MediaWallPostNewView.extend({});
+App.ProjectTextWallPostNewView = App.TextWallPostNewView.extend({});
 
+App.FundRaiserWallPostNewView = App.TextWallPostNewView.extend({});
 
-App.ProjectTextWallPostNewView = Em.View.extend({
-    templateName: 'textWallPostNew',
-    tagName: 'form'
-});
-
-
-App.TaskTextWallPostNewView = Em.View.extend({
-    templateName: 'textWallPostNew'
-});
+App.TaskMediaWallPostNewView = App.MediaWallPostNewView.extend({});
+App.TaskTextWallPostNewView = App.TextWallPostNewView.extend({});
 
 
 /* Reactions */

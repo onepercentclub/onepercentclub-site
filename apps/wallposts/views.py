@@ -1,6 +1,7 @@
 import django_filters
-from apps.wallposts.models import TextWallPost, MediaWallPost
-from apps.wallposts.serializers import TextWallPostSerializer, MediaWallPostSerializer
+from apps.wallposts.models import TextWallPost, MediaWallPost, MediaWallPostPhoto
+from apps.wallposts.permissions import IsConnectedWallPostAuthorOrReadOnly
+from apps.wallposts.serializers import TextWallPostSerializer, MediaWallPostSerializer, MediaWallPostPhotoSerializer
 from bluebottle.bluebottle_drf2.permissions import IsAuthorOrReadOnly, AllowNone
 from bluebottle.bluebottle_utils.utils import set_author_editor_ip, get_client_ip
 from rest_framework import permissions
@@ -85,6 +86,49 @@ class WallPostDetail(RetrieveUpdateDeleteAPIView):
     model = WallPost
     serializer_class = WallPostSerializer
     permission_classes = (IsAuthorOrReadOnly, )
+
+
+class MediaWallPostPhotoList(ListCreateAPIView):
+    model = MediaWallPostPhoto
+    serializer_class = MediaWallPostPhotoSerializer
+    paginate_by = 4
+
+    def pre_save(self, obj):
+        if not obj.author:
+            obj.author = self.request.user
+        else:
+            obj.editor = self.request.user
+        obj.ip_address = get_client_ip(self.request)
+
+    def create(self, request, *args, **kwargs): #FIXME
+        """
+        Work around browser issues.
+
+        Adding photos to a wallpost works correctly in Chrome. Firefox (at least
+        FF 24) sends the ```mediawallpost``` value to Django with the value
+        'null', which is then interpreted as a string in Django. This is
+        incorrect behaviour, as ```mediawallpost``` is a relation.
+
+        Eventually, this leads to HTTP400 errors, effectively breaking photo
+        uploads in FF.
+
+        The quick fix is detecting this incorrect 'null' string in ```request.POST```
+        and setting it to an empty string. ```request.POST``` is mutable because
+        of the multipart nature.
+
+        NOTE: This is something that should be fixed in the Ember app or maybe even
+        Ember itself.
+        """
+        post = request.POST.get('mediawallpost', False)
+        if post and post == u'null':
+            request.POST['mediawallpost'] = u''
+        return super(MediaWallPostPhotoList, self).create(request, *args, **kwargs)
+
+
+class MediaWallPostPhotoDetail(RetrieveUpdateDeleteAPIView):
+    model = MediaWallPostPhoto
+    serializer_class = MediaWallPostPhotoSerializer
+    permission_classes = (IsAuthorOrReadOnly, IsConnectedWallPostAuthorOrReadOnly)
 
 
 class ReactionList(ListCreateAPIView):
