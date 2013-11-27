@@ -8,7 +8,11 @@ App.BbProgressbarComponent = Ember.Component.extend({
         this.$('.slider-progress').css('width', '0px');
         var width = 0;
         if (this.totalValue > 0) {
-            width = 100 * this.currentValue / this.totalValue;
+        	if(this.currentValue >= this.totalValue){
+        		width = 100;
+        	} else {
+	            width = 100 * this.currentValue / this.totalValue;
+        	}
             width += '%';
         }
         this.$('.slider-progress').animate({'width': width}, 1000);

@@ -177,12 +177,12 @@
 
 {% tplhandlebars "project_fundraiser_list" %}
     <li class="project-member-fundraisers">
-    
+
         {{!-- TODO: Moved link 'become fundraiser' from projects.hbs
         Link not working anymore --}}
-    
+
         <h4>{% trans "Fundraisers" %}</h4>
-        
+
         {{#if fundraisers.length}}
         <ul>
             {{#each fundraiser in controller}}
@@ -190,7 +190,7 @@
             {{/each}}
         </ul>
         {{/if}}
-        
+
         {{#linkTo 'fundRaiserNew' controllers.project.id class="fundraiser-become"}}
             {% trans "Become a fundraiser" %}
         {{/linkTo}}
@@ -214,12 +214,16 @@
 
     <div class="l-section detail" id="fundraiser-detail">
         <section class="l-wrapper">
-            
+
             <div class="l-half">
                 <figure class="project-image">
-                    <img {{bindAttr src="image.large"}} width="100%" alt="Photo" />
+                    {{#if video_html}}
+                        {{{video_html}}}
+                    {{else}}
+                        <img {{bindAttr src="image.large"}} width="100%" alt="Photo" />
+                    {{/if}}
                 </figure>
-                
+
                 <div class="fundraiser-project">
                     <figure class="fundraiser-project-image"><img {{bindAttr src="project.image"}} width="100%" alt="Photo" /></figure>
 
