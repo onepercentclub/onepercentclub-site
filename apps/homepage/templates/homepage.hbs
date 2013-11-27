@@ -254,7 +254,7 @@
             <ul>
                 {{#each fundraisers}}
 
-                    <li class="fundraiser-item">
+                    <li {{bind-attr class="is_funded:fully-funded :fundraiser-item" }}>
                         {{#linkTo 'fundRaiser' this}}
                             {{#if is_funded }}
                                 <span>
