@@ -1,12 +1,13 @@
-from django.contrib.contenttypes.models import ContentType
-
-from rest_framework import serializers
-
+from apps.projects.models import Project
 from bluebottle.accounts.serializers import UserPreviewSerializer
-from bluebottle.bluebottle_drf2.serializers import OEmbedField, PolymorphicSerializer, ContentTextField, PhotoSerializer
-
-from apps.fundraisers.serializers import DonationFundRaiserSerializer
-from .models import WallPost, SystemWallPost, MediaWallPost, TextWallPost, MediaWallPostPhoto, Reaction
+from bluebottle.bluebottle_drf2.serializers import OEmbedField, PolymorphicSerializer, SorlImageField, ContentTextField, ImageSerializer, PhotoSerializer
+from apps.wallposts.models import WallPost, SystemWallPost
+from django.contrib.contenttypes.models import ContentType
+from rest_framework import serializers
+from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
+from django.utils.encoding import smart_text
+from .models import MediaWallPost, TextWallPost, MediaWallPostPhoto, Reaction
 
 
 # Serializer to serialize all wall-posts for an object into an array of ids
@@ -48,15 +49,49 @@ class WallPostTypeField(serializers.Field):
         return self.type
 
 
+class WallPostContentTypeField(serializers.SlugRelatedField):
+    """
+    Field to save content_type on wall-posts.
+    """
+
+    # To avoid stale apps in ContentType we white-list the apps we want to use.
+    # This avoids errors like "get() returned more than one ContentType -- it returned 2!".
+    white_listed_apps = ['projects', 'tasks', 'fundraisers']
+
+    def initialize(self, parent, field_name):
+        super(WallPostContentTypeField, self).initialize(parent, field_name)
+        self.queryset = self.queryset.filter(app_label__in=self.white_listed_apps)
+
+
+class WallPostParentIdField(serializers.IntegerField):
+    """
+    Field to save object_id on wall-posts.
+    """
+
+    # Make an exception for project slugs.
+    def from_native(self, value):
+        if not value.isnumeric():
+            # Assume a project slug here
+            try:
+                project = Project.objects.get(slug=value)
+            except Project.DoesNotExist:
+                raise ValidationError("No project with that slug")
+            value = project.id
+        return value
+
+
 class WallPostSerializerBase(serializers.ModelSerializer):
     """
         Base class serializer for WallPosts. This is not used directly; please subclass it.
     """
+
     author = UserPreviewSerializer()
     reactions = ReactionSerializer(many=True, read_only=True)
+    parent_type = WallPostContentTypeField(slug_field='model', source='content_type')
+    parent_id = WallPostParentIdField(source='object_id')
 
     class Meta:
-        fields = ('id', 'type', 'author', 'created', 'reactions')
+        fields = ('id', 'type', 'author', 'created', 'reactions', 'parent_type', 'parent_id')
 
 
 class MediaWallPostPhotoSerializer(serializers.ModelSerializer):
@@ -77,6 +112,7 @@ class MediaWallPostSerializer(WallPostSerializerBase):
     text = ContentTextField(required=False)
     video_html = OEmbedField(source='video_url', maxwidth='560', maxheight='315')
     photos = MediaWallPostPhotoSerializer(many=True, required=False)
+    video_url = serializers.CharField(required=False)
 
     class Meta:
         model = MediaWallPost
@@ -96,14 +132,6 @@ class TextWallPostSerializer(WallPostSerializerBase):
         fields = WallPostSerializerBase.Meta.fields + ('text',)
 
 
-class WallpostRelatedField(serializers.RelatedField):
-    def to_native(self, obj):
-        if obj.__class__.__name__ == 'Donation':
-            serializer = DonationFundRaiserSerializer(obj)
-            return serializer.data
-        return super(WallpostRelatedField, self).to_native(obj)
-
-
 class SystemWallPostSerializer(WallPostSerializerBase):
     """
     Serializer for TextWallPosts. This should not be used directly but instead should be subclassed for the specific
@@ -112,11 +140,10 @@ class SystemWallPostSerializer(WallPostSerializerBase):
     type = WallPostTypeField(type='system')
     text = ContentTextField()
     related_type = serializers.CharField(source='related_type.name')
-    related_object = WallpostRelatedField(source='related_object')
 
     class Meta:
         model = TextWallPost
-        fields = WallPostSerializerBase.Meta.fields + ('text', 'related_type', 'related_object')
+        fields = WallPostSerializerBase.Meta.fields + ('text', 'related_type')
 
 
 class WallPostSerializer(PolymorphicSerializer):
