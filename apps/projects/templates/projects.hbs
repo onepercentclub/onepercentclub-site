@@ -436,12 +436,11 @@
                 	    <h2>{% trans "Organisation" %}</h2>
     				    <h3>{{organization.name}}</h3>
                         <p>{{organization.description}}</p>
-    				
-        				
+
                         {{#if organization.website}}
                             <dl>
                                 <dt><span class="flaticon solid link-1"></span> Website</dt>
-                                <dd><a href="{{organization.website}}">{{organization.website}}</a></dd>
+                                <dd><a {{bindAttr href=organization.websiteUrl}}>{{organization.website}}</a></dd>
                             </dl>
                         {{/if}}
                         {{#if organization.twitter}}
@@ -454,12 +453,6 @@
                             <dl>
                                 <dt><span class="flaticon social facebook-3"></span> Facebook</dt>
                                 <dd><a {{bindAttr href=organization.facebookUrl}}>{{organization.facebook}}</a></dd>
-                            </dl>
-                        {{/if}}
-                        {{#if organization.skype}}
-                            <dl>
-                                <dt><span class="flaticon social skype-2"></span> Skype</dt>
-                                <dd><a {{bindAttr href=organization.skypeUrl}}>{{organization.skype}}</a></dd>
                             </dl>
                         {{/if}}
                         </ul>
