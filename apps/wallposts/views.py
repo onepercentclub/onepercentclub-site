@@ -1,29 +1,84 @@
+import django_filters
+from apps.wallposts.models import TextWallPost, MediaWallPost
+from apps.wallposts.serializers import TextWallPostSerializer, MediaWallPostSerializer
 from bluebottle.bluebottle_drf2.permissions import IsAuthorOrReadOnly, AllowNone
-from bluebottle.bluebottle_utils.utils import set_author_editor_ip
+from bluebottle.bluebottle_utils.utils import set_author_editor_ip, get_client_ip
 from rest_framework import permissions
 from bluebottle.bluebottle_drf2.views import ListCreateAPIView, RetrieveUpdateDeleteAPIView, ListAPIView
+from apps.projects.models import Project
 from .models import WallPost, Reaction
 from .serializers import ReactionSerializer, WallPostSerializer
+
+
+class WallPostFilter(django_filters.FilterSet):
+    parent_type = django_filters.CharFilter(name="content_type__name")
+    parent_id = django_filters.NumberFilter(name="object_id")
+
+    class Meta:
+        model = WallPost
+        fields = ['parent_type', 'parent_id']
 
 
 class WallPostList(ListAPIView):
     model = WallPost
     serializer_class = WallPostSerializer
-    filter_fields = ('id',)
-    paginate_by = 200
+    filter_class = WallPostFilter
+    paginate_by = 5
 
     def get_queryset(self):
-        """
-        Override get_queryset() to filter on multiple values for 'id'
-        It seems that DRF2 doesn't have a implementation for filtering against an array of ids.
-        https://groups.google.com/forum/?fromgroups#!topic/django-rest-framework/vbifEyharBw
-        """
         queryset = super(WallPostList, self).get_queryset()
-        id_list = self.request.GET.getlist('ids[]', None)
-        if id_list:
-            queryset = queryset.filter(id__in=id_list)
+
+        # Some custom filtering projects slugs.
+        parent_type = self.request.QUERY_PARAMS.get('parent_type', None)
+        parent_id = self.request.QUERY_PARAMS.get('parent_id', None)
+        if parent_type == 'project' and parent_id:
+            print "Yeah"
+            try:
+                project = Project.objects.get(slug=parent_id)
+            except Project.DoesNotExist:
+                return WallPost.objects.none()
+            queryset = queryset.filter(object_id=project.id)
+
         queryset = queryset.order_by('-created')
         return queryset
+
+
+class TextWallPostList(ListCreateAPIView):
+    model = TextWallPost
+    serializer_class = TextWallPostSerializer
+    filter_class = WallPostFilter
+    paginate_by = 5
+
+    def get_queryset(self):
+        queryset = super(TextWallPostList, self).get_queryset()
+
+        # Some custom filtering projects slugs.
+        parent_type = self.request.QUERY_PARAMS.get('parent_type', None)
+        parent_id = self.request.QUERY_PARAMS.get('parent_id', None)
+        if parent_type == 'project' and parent_id:
+            print "Yeah"
+            try:
+                project = Project.objects.get(slug=parent_id)
+            except Project.DoesNotExist:
+                return WallPost.objects.none()
+            queryset = queryset.filter(object_id=project.id)
+
+        queryset = queryset.order_by('-created')
+        return queryset
+
+    def pre_save(self, obj):
+        if not obj.author:
+            obj.author = self.request.user
+        else:
+            obj.editor = self.request.user
+        obj.ip_address = get_client_ip(self.request)
+
+
+class MediaWallPostList(TextWallPostList):
+    model = MediaWallPost
+    serializer_class = MediaWallPostSerializer
+    filter_class = WallPostFilter
+    paginate_by = 5
 
 
 class WallPostDetail(RetrieveUpdateDeleteAPIView):

@@ -3,40 +3,25 @@
  Views
  */
 
-App.MediaWallPostNewView = Em.View.extend({
-    templateName: 'media_wallpost_new',
-    tagName: 'form',
-    elementId: 'wallpost-form',
-    
-    submit: function(e) {
-        e.preventDefault();
-        this.get('controller').addMediaWallPost();
+App.WallPostView = Em.View.extend({
+
+    templateName: 'wallPost',
+
+    didInsertElement: function(){
+        var view = this;
+        view.$().hide();
+        // Give it some time to really render...
+        // Hack to make sure photo viewer works for new wallposts
+        Em.run.next(function(){
+            view.$().slideDown(500);
+            view.$('.photo-viewer a').colorbox({
+                rel: this.toString(),
+                next: '<span class="flaticon solid right-2"></span>',
+                previous: '<span class="flaticon solid left-2"></span>',
+                close: 'x'
+            });
+        });
     },
-
-    didInsertElement: function() {
-        this.get('controller').clearWallPost();
-    }
-});
-
-
-App.TextWallPostNewView = Em.View.extend({
-    templateName: 'text_wallpost_new',
-    tagName: 'form',
-    elementId: 'wallpost-form',
-
-    submit: function(e){
-        e.preventDefault();
-        this.get('controller').addTextWallPost();
-    },
-
-    didInsertElement: function() {
-        this.get('controller').clearWallPost();
-    }
-});
-
-
-App.SystemWallPostView = Em.View.extend({
-    templateName: 'system_wallpost',
 
     actions: {
         deleteWallPost: function() {
@@ -62,58 +47,34 @@ App.SystemWallPostView = Em.View.extend({
 });
 
 
-App.ProjectWallPostView = App.SystemWallPostView.extend({
-    templateName: 'project_wallpost',
-
-    didInsertElement: function(){
-        var view = this;
-        view.$().hide();
-        // Give it some time to really render...
-        // Hack to make sure photo viewer works for new wallposts
-        Em.run.next(function(){
-            view.$().slideDown(500);
-            view.$('.photo-viewer a').colorbox({
-                rel: this.toString(),
-                next: '<span class="flaticon solid right-2"></span>',
-                previous: '<span class="flaticon solid left-2"></span>',
-                close: 'x'
-            });
-        });
-    }
-
+App.SystemWallPostView = App.WallPostView.extend({
+    templateName: 'systemWallPost'
 });
 
 
-App.TaskWallPostView = App.ProjectWallPostView.extend({
-    templateName: 'task_wallpost',
-    
-    didInsertElement: function(){
-        this.$().hide().fadeIn(500);
-    }
-
-});
-
-// This is the view toi display the wallpost list
-// Idea of how to have child views with different templates:
-// http://stackoverflow.com/questions/10216059/ember-collectionview-with-views-that-have-different-templates
-App.ProjectIndexView = Em.View.extend({
-    templateName: 'project_wallpost_list'
+App.MediaWallPostView = App.WallPostView.extend({
 });
 
 
-App.ProjectWallPostNewView = Em.View.extend({
-    templateName: 'project_wallpost_new',
+App.ProjectMediaWallPostNewView = Em.View.extend({
+    templateName: 'mediaWallPostNew'
 });
 
 
-App.TaskWallPostListView = Em.View.extend({
-    templateName: 'task_wallpost_list'
-
+App.FundRaiserWallPostNewView = Em.View.extend({
+    templateName: 'textWallPostNew',
+    tagName: 'form'
 });
 
 
-App.TaskWallPostNewView = Em.View.extend({
-    templateName: 'task_wallpost_new'
+App.ProjectTextWallPostNewView = Em.View.extend({
+    templateName: 'textWallPostNew',
+    tagName: 'form'
+});
+
+
+App.TaskTextWallPostNewView = Em.View.extend({
+    templateName: 'textWallPostNew'
 });
 
 
