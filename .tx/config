@@ -79,6 +79,18 @@ source_file = apps/tasks/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
+[onepercentclub-site.fundraisers]
+file_filter = apps/fundraisers/locale/<lang>/LC_MESSAGES/django.po
+source_file = apps/fundraisers/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[onepercentclub-site.campaigns]
+file_filter = apps/campaigns/locale/<lang>/LC_MESSAGES/django.po
+source_file = apps/campaigns/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
 [onepercentclub-site.main]
 file_filter = locale/<lang>/LC_MESSAGES/django.po
 source_file = locale/en/LC_MESSAGES/django.po

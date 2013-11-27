@@ -4,7 +4,8 @@
 
 #share {
     margin: 0;
-    font-size: $font-size-smallest;
+    padding: 0;
+    font-family: $font-family-heavy;
     
     li {
         @include resetlist;
@@ -12,17 +13,14 @@
         
         a {
             display: inline-block;
-            padding: $base-padding/2 $base-padding; 
+            font-family: $font-family-heavy;
+            padding: $base-padding/2 $base-padding;
+            display: inline-block;
             color: $gray;
             text-decoration: none;
-            text-transform: uppercase;
-            
-            strong {
-                font-family: $base-font-family;
-            }
             
             .flaticon {
-                
+                margin-right: $base-margin/4;
             }
             
             &:hover {

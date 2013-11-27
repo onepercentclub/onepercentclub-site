@@ -39,6 +39,7 @@
     {% include  "manage.hbs" %}
     {% include  "vouchers.hbs" %}
     {% include  "pages.hbs" %}
+    {% include  "fundraisers.hbs" %}
 {% endblock handlebars_templates %}
 
 {% block_verbatim nav_main %}
@@ -59,6 +60,7 @@
     <script type="text/javascript" src="{% static "js/bluebottle/projects/controllers.js" %}"></script>
     <script type="text/javascript" src="{% static "js/bluebottle/projects/views.js" %}"></script>
     <script type="text/javascript" src="{% static "js/bluebottle/projects/routes.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/projects/components.js" %}"></script>
 
     <script type="text/javascript" src="{% static "js/bluebottle/wallposts/models.js" %}"></script>
     <script type="text/javascript" src="{% static "js/bluebottle/wallposts/controllers.js" %}"></script>
@@ -89,6 +91,18 @@
     <script type="text/javascript" src="{% static "js/bluebottle/donations/controllers.js" %}"></script>
     <script type="text/javascript" src="{% static "js/bluebottle/donations/views.js" %}"></script>
     <script type="text/javascript" src="{% static "js/bluebottle/donations/routes.js" %}"></script>
+
+    <script type="text/javascript" src="{% static "js/bluebottle/fundraisers/models.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/fundraisers/controllers.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/fundraisers/views.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/fundraisers/routes.js" %}"></script>
+
+    <script type="text/javascript" src="{% static "js/bluebottle/campaigns/models.js" %}"></script>
+    {% comment %}
+    <script type="text/javascript" src="{% static "js/bluebottle/campaigns/controllers.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/campaigns/views.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/campaigns/routes.js" %}"></script>
+    {% endcomment %}
 
     <script type="text/javascript" src="{{ STATIC_URL }}js/bluebottle/vouchers.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/bluebottle/homepage.js"></script>

@@ -46,7 +46,9 @@ App.HomePage = DS.Model.extend({
     projects: DS.hasMany('App.ProjectPreview'),
     slides: DS.hasMany('App.Slide'),
     quotes: DS.hasMany('App.Quote'),
-    impact: DS.belongsTo('App.Impact')
+    impact: DS.belongsTo('App.Impact'),
+    campaign: DS.belongsTo('App.Campaign'),
+    fundraisers: DS.hasMany('App.FundRaiser')
 
 });
 
@@ -54,7 +56,9 @@ App.Adapter.map('App.HomePage', {
     projects: {embedded: 'load'},
     slides: {embedded: 'load'},
     quotes: {embedded: 'load'},
-    impact: {embedded: 'load'}
+    impact: {embedded: 'load'},
+    campaign: {embedded: 'load'},
+    fundraisers: {embedded: 'load'}
 });
 
 
@@ -63,7 +67,9 @@ App.Adapter.map('App.HomePage', {
 App.HomeController = Ember.ObjectController.extend({
     needs: ['currentUser'],
 
-    nextProject: function() {
+    isCampaignHomePage: false,
+
+    nextProject: function() { // TODO: similar thing for fundraisers?
         var projects = this.get('projects');
 
         this.incrementProperty('projectIndex');
@@ -97,6 +103,19 @@ App.HomeController = Ember.ObjectController.extend({
 
     loadQuote: function() {
         this.set('quote', this.get('quotes').objectAt(this.get('quoteIndex')));
+    },
+
+    checkCampaignHomePage: function() {
+        if(this.get('campaign')){
+            this.set('isCampaignHomePage', true);
+        }
+    },
+
+    actions: {
+        scrollToFundraisers: function() {
+            var offset = $('#fundraisers').offset().top;
+            $("html, body").animate({ scrollTop: offset }, 600);
+        }
     }
 });
 
@@ -104,7 +123,7 @@ App.HomeController = Ember.ObjectController.extend({
 
 App.HomeBannerView = Ember.View.extend({
     templateName: 'home_banner',
-    
+
     didInsertElement: function() {
         this.$().find('.carousel').unslider({
             dots: true,
@@ -112,9 +131,9 @@ App.HomeBannerView = Ember.View.extend({
             delay: 10000
         });
     },
-    
-    
-    
+
+
+
 });
 
 
@@ -172,3 +191,10 @@ App.HomeImpactView = Ember.View.extend({
 });
 
 
+App.HomeFundraisersView = Ember.View.extend({
+    templateName: 'home_fundraisers'
+});
+
+App.HomeCampaignView = Ember.View.extend({
+    templateName: 'home_campaign_block'
+});

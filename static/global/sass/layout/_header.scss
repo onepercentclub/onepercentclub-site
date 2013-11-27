@@ -3,22 +3,10 @@
 // --------------------------------------------------
 
 #header {
-    /*
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 9999;
-	*/
-	//background-color: $black;
 	@include clear;
 	@include transition(background 0.2s ease-out);
-	background-color: $gray-darkest;
-	//border-bottom: 1px solid $black;
-	//@include opacity(0.8);
-	
-	&:hover {
-    	background-color: $black;
-	}
+	background-color: $black;
+	box-shadow: inset 0 -1px 0 0 #393939
 }
 
 #logo {
@@ -27,8 +15,6 @@
     .logo-link {
 	    display: block;
         padding: $base-padding*1.2 0 0 0;
-        //@include transition(opacity, 0.5s, ease-out);
-        //@include opacity(0.95);
         
 	    // Fix for making linkable
 	    object {
@@ -76,15 +62,20 @@
 	    
 	    > li a, > li a:visited {
 	        @include transition(all 0.2s ease-in);
-			padding: $base-padding*2 2%;
+			margin: $base-padding 0 0 0;
+			padding: $base-padding 2% $base-padding*2 2%;
 	        white-space: nowrap;
-	        color: $gray-lighter;
+	        color: #bfbfbf;
             font-family: $font-family-bold;
 		    display: inline-block;
 		    text-align: center;
 		    text-decoration: none;
+		    border: 1px solid $black;
+		    border-bottom-color: #393939;
 		
 		    &:hover, &:active, &.is-active {
+		        border-color:  #393939;
+		        border-bottom-color: $gray-darkest;
 		        color: $white;
 		        background-color: $gray-darkest;
 		    }
@@ -167,16 +158,17 @@
     	    height: 2em;
     	    margin: $base-margin*1.8 0 0 0;
     	    float: right;
+    	    font-family: $font-family-bold;
     	    
 			.nav-member-dropdown {
 				position: relative;
 				z-index: 999;
 				display: inline-block;
 				color: $white;
-				background: $color-secondary;
 				margin: 0;
-                padding: 0;
-				
+                padding: 0 16px 0 0;
+                background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAAJCAYAAADpeqZqAAAAb0lEQVQoz2NgaDVngOJwIA5F4iNjWyBugPOhjGAg/gPFoVg0fAbi/0BcBdPkCsQ/oYL/0TQia4DhZJCEKBBfQJMAaWzCouExECvDnIBN43+sGpD8REgjQgOaJlwaUTVg0YSuEVMDDk0wjVuxagBiAFeciJvQD09BAAAAAElFTkSuQmCC') $color-secondary no-repeat 90% 50%;
+                
 		        img {
 		        	width: 2em;
 					height: 2em;

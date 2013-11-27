@@ -1,0 +1,20 @@
+{% load i18n %}
+{% load static %}
+
+<li class="control-group has-popover" data-content="{% blocktrans %}{{ help_text }}{% endblocktrans %}">
+    <label class="control-label">{% blocktrans %}{{ title }}{% endblocktrans %}</label>
+    <div class="controls manage-project-image">
+        <a class="btn btn-iconed btn-upload">
+            {% templatetag openvariable %}view App.UploadFile fileBinding="{{ field_name }}" name="{{ field_name }}" accept="image/*" id="image"{% templatetag closevariable %}
+            <span class="flaticon solid upload-document-1"></span>
+            {% trans "Upload picture" %}
+        </a>
+        <br /><br />
+        <div {% templatetag openvariable %}bindAttr class=":image-preview image::empty"{% templatetag closevariable %}>
+            {% templatetag openvariable %}#if image{% templatetag closevariable %}
+                <img {{bindAttr src="image.large"{% templatetag closevariable %} />
+            {% templatetag openvariable %}else{% templatetag closevariable %}
+            {% templatetag openvariable %}/if{% templatetag closevariable %}
+        </div>
+    </div>
+</li>

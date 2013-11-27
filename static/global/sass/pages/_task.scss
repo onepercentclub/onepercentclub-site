@@ -1,0 +1,110 @@
+//
+// Task detail page
+// --------------------------------------------------
+
+#task-detail {
+	margin-top: $base-padding*2;
+	padding-top: $base-margin;
+	
+	.task-status {
+		display: block;
+		@include grid(12,2,4);
+		
+	   .flaticon {
+            font-size: 40px;
+            display: block;
+        }
+        
+        padding: $base-padding 0;
+        background-color: $gray-lighter;
+        color: $white;
+        text-align: center;
+        text-transform: uppercase;
+        
+    }
+    
+	.task-description {
+		@include grid(36,0,0);
+	}
+	
+	// Wallposts
+	
+	#wallposts {
+	
+	    #wallpost-form {
+    	    
+	    }
+	    
+	}
+	
+	
+	// Sidebar
+	
+	.task-section {
+	    @include clear;
+	    background-color: $gray-lighter;
+	    margin-bottom: $base-margin;
+		padding: $base-padding $base-padding*2;
+		
+	}
+	
+	.task-meta {
+
+		p {
+			color: $gray;
+		}
+		
+		
+	}
+	
+	.task-members, .task-files {
+	    margin: 0;
+				
+		.item {
+		    @include resetlist;
+			@include clear;
+			position: relative;
+			display: block;
+			border-bottom: 1px solid $white;
+			
+			.member {
+				text-transform: uppercase;
+				
+				.member-avatar {
+				    display: inline-block;
+					width: 40px;
+					padding: 0;
+					float: left;
+				}
+			}
+			
+			.task-status {
+		        margin-right: 4px;
+				font-weight: 300;
+		        color: $color-primary;
+		        text-transform: uppercase;
+			}
+			
+	        .edit-task-status {
+				color: $black;
+				text-transform: uppercase;
+	        }
+			
+			.file-size, .file-author, .time-applied {
+				font-size: $font-size-smallest;
+				text-transform: uppercase;
+				font-style: normal;
+				color: $gray;
+			}
+		}
+	}
+	
+	.task-files {
+							
+		.item .flaticon {
+			color: $color-text;
+			display: block;
+			float: left;
+		}
+	}
+}

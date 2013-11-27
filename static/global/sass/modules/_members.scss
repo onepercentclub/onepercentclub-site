@@ -13,6 +13,7 @@
     .member-avatar {
         
         img {
+            @include transition(all 0.2s ease-out);
             float: left;
             border-width: 1px;
             border-style: solid;
@@ -25,6 +26,7 @@
     }
     
     .member-name {
+        @include transition(all 0.2s ease-out);
         display: inline-block;
         text-transform: uppercase;
         font-family: $font-family-heavy;
@@ -35,13 +37,6 @@
         display: block;
         color: $gray;
         font-style: normal;
-    }
-    
-    &:hover {
-    
-        img {
-            border-color: $color-primary;
-        }
     }
 }
 
@@ -61,15 +56,19 @@
         display: inline-block;
         margin: 0 $base-margin*2 0 0;
         overflow: visible;
-        font-size: $font-size-small;
         vertical-align: top;
 
         h4 {
-            font-size: $font-size-small;
+            font-family: $font-family-heavy;
             margin: 0;
-            padding: 0;
-            color: $gray;
+            padding: $base-padding/4 0;
+            color: $color-text-light;
             text-transform: uppercase;
+            
+            em {
+                font-family: $base-font-family;
+                color: $gray-light;
+            }
         }
 
         ul {
@@ -82,7 +81,7 @@
         }
 
         &.project-member-initiator {
-            @include grid(12,0,1);
+            @include grid(14,0,1);
         
             h4 {
                 position: relative;
@@ -90,51 +89,83 @@
             }
     
             .member-avatar {
+                top: -2px;
+                position: relative;
                 display: block;
                 float: left;
                 margin-right: $base-margin;
-                width: 68px;
+                width: 100px;
+                border-width: 2px;
+                z-index: 2;
             }
+            
+            .member-name {
+                text-decoration: underline;
+            }
+        }
+        
+        &.project-member-fundraisers {
+            @include grid(16,0,1);
         }
         
         &.project-member-supporters {
-            @include grid(36,0,0);
-            margin-right: 0;        
-        }
-    }
-
-    .project-member-supporters {
-        display: block;
-        margin: 0;
-        padding: 0;
-        
-        h4 {
-            position: absolute;
-            bottom: -25px;
-            right: 0;
-        }
-
-        a {
+            @include grid(18,1,0);
+            margin-right: 0;   
             float: right;
-            width: 45px;
-            height: 45px;
-            color: $color-text;
-            vertical-align: middle;
-            text-align: center;
-            text-transform: uppercase;
-            white-space: normal;
-            line-height: 1em;
-
-            strong {
-                color: $color-primary;
+        }
+        
+        &.project-member-fundraisers, &.project-member-supporters {
+            
+            ul {
+                @include clear;
+                width: 3000px;
+                margin-bottom: $base-margin/4;
             }
-
-            em {
-                font-style: normal;
+            
+            .member {
+                width: 45px;
+                height: 45px;
+                color: $color-text;
+                vertical-align: middle;
+                text-align: center;
+                text-transform: uppercase;
+                white-space: normal;
+                line-height: 1em;
+        
+                strong {
+                    color: $color-primary;
+                }
+        
+                em {
+                    font-style: normal;
+                }
+                    
+                &:hover {
+                
+                    img {
+                        margin-top: 4px;
+                    }
+                }
+            }
+        }
+        
+        .fundraiser-become {
+            @include transition(all 0.2s ease-out);
+            font-family: $font-family-heavy;
+            text-transform: uppercase;
+            display: inline-block;
+            color: $color-primary;
+            padding-right: 16px;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAALCAYAAABCm8wlAAAAfElEQVQoz2P4nziLAYgNgXgfEItD+XAMImyA+D0Q/wfi60Asia5gPVQShm8AsRSyAk4g3oGm6BYQy8AUgDA7EG9DU3QHiOWQHcQDxG/RFO1FNmErmuRdmAkcQLwdixtkYW5YjSZ5E4ilkX1hBMRv8IUDCOsC8X4glkAPSQDpL9be9X9n1gAAAABJRU5ErkJggg==') transparent no-repeat 100% 50%;
+            
+            &:hover, &:active {
+                padding-right: 20px;
+                text-decoration: none;
             }
         }
     }
-    
+        
+    /*
     .project-member-supporters-total {
         float: right;
         display: block;
@@ -160,4 +191,5 @@
             color: $gray;
         }
     }
+    */
 }

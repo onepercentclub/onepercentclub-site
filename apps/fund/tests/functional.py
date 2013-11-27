@@ -10,14 +10,16 @@ from django.conf import settings
 from django.utils.text import slugify
 from django.utils.unittest.case import skipUnless
 
+from apps.fund.models import DonationStatuses, Donation, OrderStatuses
+from apps.donations.tests.helpers import DonationTestsMixin
 from .unittests import ProjectTestsMixin, UserTestsMixin
 
-from bluebottle.tests.utils import SeleniumTestCase
+from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
             'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
-class DonationSeleniumTests(ProjectTestsMixin, UserTestsMixin, SeleniumTestCase):
+class DonationSeleniumTests(DonationTestsMixin, ProjectTestsMixin, UserTestsMixin, OnePercentSeleniumTestCase):
     """
     Selenium tests for Projects.
     """
@@ -25,12 +27,14 @@ class DonationSeleniumTests(ProjectTestsMixin, UserTestsMixin, SeleniumTestCase)
     fixtures = ['region_subregion_country_data.json'] # apps/geo/fixtures/
 
     def setUp(self):
+        self._projects = []
         self.projects = dict([(slugify(title), title) for title in [
             u'Women first', u'Mobile payments for everyone!', u'Schools for children'
         ]])
 
         for slug, title in self.projects.items():
             project = self.create_project(title=title, slug=slug, money_asked=50000)  # EUR 500.00
+            self._projects.append(project)
 
             project.projectcampaign.money_donated = 500  # EUR 5.00
             project.projectcampaign.save()
@@ -65,7 +69,7 @@ class DonationSeleniumTests(ProjectTestsMixin, UserTestsMixin, SeleniumTestCase)
         # Click through to the project and verify we can support the project
         # and the fundraising values we expect
 
-        self.browser.find_by_css('h3').first.click()  # First project in the list
+        self.browser.find_by_css('span.project-header').first.click()  # First project in the list
         self.assertTrue(self.browser.is_text_present('WOMEN FIRST', wait_time=10))
         self.assertEqual(self.browser.find_by_css('h1.project-title').first.text, u'WOMEN FIRST')
 
@@ -74,11 +78,11 @@ class DonationSeleniumTests(ProjectTestsMixin, UserTestsMixin, SeleniumTestCase)
         self.assertTrue(u'SUPPORT PROJECT' in self.browser.find_by_css('div.project-action').first.text)
 
         # Click through to the support-page, check the default values and
-        # verify we are donating to the correct project 
+        # verify we are donating to the correct project
         self.browser.find_by_css('div.project-action a').first.click()
 
         self.assertTrue(self.browser.is_text_present('LIKE TO GIVE', wait_time=10))
-        
+
         self.assertEqual(self.browser.find_by_css('h2.project-title').first.text, u'WOMEN FIRST')
 
         self.assertEqual(self.browser.find_by_css('.fund-amount-control label').first.text, u"I'D LIKE TO GIVE")
@@ -103,7 +107,7 @@ class DonationSeleniumTests(ProjectTestsMixin, UserTestsMixin, SeleniumTestCase)
         # self.assertTrue(len(self.browser.find_by_css('ul#donation-projects li.donation-project')) == 1)
 
         # Continue with our donation, fill in the details
-        
+
         self.browser.find_by_css('.btn-next').first.click()
         self.assertTrue(self.browser.is_text_present('Your full name', wait_time=1))
 
@@ -116,7 +120,7 @@ class DonationSeleniumTests(ProjectTestsMixin, UserTestsMixin, SeleniumTestCase)
         address = fields[3]
         postcode = fields[4]
         city = fields[5]
-        
+
         self.assertEqual(firstname['placeholder'], u'First name')
         self.assertEqual(lastname['placeholder'], u'Last name')
         self.assertEqual(email['placeholder'], u'Email')
@@ -138,7 +142,7 @@ class DonationSeleniumTests(ProjectTestsMixin, UserTestsMixin, SeleniumTestCase)
         self.browser.find_link_by_partial_text('Skip').first.click()
 
         self.assertTrue(self.browser.is_text_present("YOU'RE ALMOST THERE!", wait_time=5))
-        
+
         # Proceed with the payment
 
         # self.browser.find_link_by_partial_text('Proceed').first.click()
@@ -158,3 +162,28 @@ class DonationSeleniumTests(ProjectTestsMixin, UserTestsMixin, SeleniumTestCase)
         # time.sleep(2)
         #
         # self.assertTrue(self.browser.url.find('https://test.tripledeal.com/') != -1)
+
+
+
+        self.assertTrue(self.login(username=self.some_user.email, password='password'))
+
+        # Create dummy donation, so we can validate the thank you page.
+        donation = self.create_donation(self.some_user, self._projects[0])
+        donation.order.status = OrderStatuses.current
+        donation.order.closed = None
+
+        from apps.cowry_docdata.models import DocDataPaymentOrder
+        DocDataPaymentOrder.objects.create(order=donation.order, payment_order_id='dummy')
+
+        donation.order.save()
+        donation.save()
+
+        self.visit_path('/support/thanks/{0}'.format(donation.order.pk))
+
+        # Validate thank you page.
+        self.assertTrue(self.browser.is_text_present('WELL, YOU ROCK!'))
+        self.assertTrue(self.browser.is_text_present(self._projects[0].title.upper()))
+
+        # check that the correct links are present
+        self.browser.find_by_css('li.project-list-item a').first.click()
+        self.assertEqual(self.browser.url, '{0}/en/#!/projects/{1}'.format(self.live_server_url, self._projects[0].slug))

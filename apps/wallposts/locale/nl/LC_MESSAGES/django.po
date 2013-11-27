@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: onepercentclub-site\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-13 21:32+0100\n"
-"PO-Revision-Date: 2013-11-14 07:50+0000\n"
-"Last-Translator: nieja <niels@1procentclub.nl>\n"
+"POT-Creation-Date: 2013-11-27 14:05+0100\n"
+"PO-Revision-Date: 2013-11-27 13:09+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub-site/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -223,7 +223,7 @@ msgid ""
 "<strong>%(author_name)s</strong> left a comment on your message! <a href=\"%(site)s%(link)s\">Read the comment here.</a><br/>\n"
 "<br/>\n"
 "Liane | 1%%Club\n"
-msgstr "\n⏎\nHi %(receiver_name)s,<br/>⏎\n<br/>⏎\n<strong>%(author_name)s</strong> heeft gereageerd op jouw bericht! <a href=\"%(site)s%(link)s\">Lees de reactie hier.</a><br/>⏎\n<br/>⏎\nLiane | 1%%Club⏎\n"
+msgstr "\nHi %(receiver_name)s,<br/>\n<br/>\n<strong>%(author_name)s</strong> heeft gereageerd op jouw bericht! <a href=\"%(site)s%(link)s\">Lees de reactie hier.</a><br/>\n<br/>\nLiane | 1%%Club\n\n"
 
 #: templates/project_wallpost_reaction_same_wallpost.mail.txt:5
 #, python-format
@@ -240,22 +240,22 @@ msgid ""
 msgstr "\n\n\nHi %(receiver_name)s,<br/>\n<br/>\n<strong>%(author_name)s</strong> heeft gereageerd op jouw bericht! <a href=\"%(site)s%(link)s\">Lees de reactie hier.</a><br/>\n<br/>\nLiane | 1%%Club\n"
 
 #: templates/reactions.hbs:24 templates/wallposts.hbs:86
-#: templates/wallposts.hbs.py:187 templates/wallposts.hbs:258
-#: templates/wallposts.hbs.py:321
+#: templates/wallposts.hbs.py:187 templates/wallposts.hbs:263
+#: templates/wallposts.hbs.py:326
 msgid "Delete"
 msgstr "Verwijderen"
 
 #: templates/reactions.hbs:71 templates/wallposts.hbs:19
-#: templates/wallposts.hbs.py:346
+#: templates/wallposts.hbs.py:351
 msgid "Login"
 msgstr "Inloggen"
 
 #: templates/reactions.hbs:71 templates/wallposts.hbs:19
-#: templates/wallposts.hbs.py:346
+#: templates/wallposts.hbs.py:351
 msgid "member"
 msgstr "een profiel aan"
 
-#: templates/reactions.hbs:71 templates/wallposts.hbs:346
+#: templates/reactions.hbs:71 templates/wallposts.hbs:351
 msgid "to leave a reaction"
 msgstr "laat reactie achter"
 
@@ -293,23 +293,23 @@ msgstr "\n\n\n\nHi %(receiver_name)s,<br/>\n<br/>\n%(author_name)s heeft een ber
 
 #: templates/wallposts.hbs:9
 msgid "Write an update"
-msgstr "Schrijf een update"
+msgstr ""
 
 #: templates/wallposts.hbs:10
 msgid "Write an update of your project to inform your crowd."
-msgstr "Schrijf een update en houd je supporters op de hoogte!"
+msgstr ""
 
 #: templates/wallposts.hbs:13 templates/wallposts.hbs.py:18
 msgid "Write a comment"
-msgstr "Plaats een reactie"
+msgstr ""
 
 #: templates/wallposts.hbs:14
 msgid "Write an comment to place on the project's wall."
-msgstr "Schrijf een reactie op de projectpagina."
+msgstr ""
 
 #: templates/wallposts.hbs:19
 msgid "to leave a comment"
-msgstr "laat reactie achter"
+msgstr ""
 
 #: templates/wallposts.hbs:31
 msgid "Name of your update."
@@ -344,17 +344,17 @@ msgid "Post Update"
 msgstr "Plaats update"
 
 #: templates/wallposts.hbs:115 templates/wallposts.hbs.py:128
-#: templates/wallposts.hbs:282 templates/wallposts.hbs.py:295
+#: templates/wallposts.hbs:287 templates/wallposts.hbs.py:300
 msgid "Comment"
-msgstr "Reactie"
+msgstr "Reageer"
 
-#: templates/wallposts.hbs:151 templates/wallposts.hbs.py:357
+#: templates/wallposts.hbs:151 templates/wallposts.hbs.py:362
 msgid "Show more"
-msgstr "Meer"
+msgstr ""
 
-#: templates/wallposts.hbs:151 templates/wallposts.hbs.py:357
+#: templates/wallposts.hbs:151 templates/wallposts.hbs.py:362
 msgid "more"
-msgstr "meer"
+msgstr ""
 
 #: templates/wallposts.hbs:237
 msgid "Donation"
@@ -364,6 +364,6 @@ msgstr "Donatie"
 msgid "Someone"
 msgstr "Iemand"
 
-#: templates/wallposts.hbs:250
+#: templates/wallposts.hbs:251
 msgid "Made a donation"
 msgstr "Heeft een donatie gedaan"

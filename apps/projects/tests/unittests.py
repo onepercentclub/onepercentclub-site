@@ -1,15 +1,17 @@
-from decimal import Decimal
 import json
+from decimal import Decimal
 
-from apps.fund.models import DonationStatuses, Donation, Order
-from apps.projects.models import ProjectPlan, ProjectCampaign
 from django.test import TestCase, RequestFactory
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import status
 from bluebottle.bluebottle_utils.tests import UserTestsMixin, generate_random_slug
+
 from apps.organizations.tests import OrganizationTestsMixin
 from apps.wallposts.models import TextWallPost
-from ..models import Project,ProjectPhases, ProjectPitch
+from apps.fund.models import DonationStatuses, Donation, Order
+from apps.projects.models import ProjectPlan, ProjectCampaign
+
+from ..models import Project, ProjectPhases, ProjectPitch
 
 
 class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
@@ -146,7 +148,7 @@ class ProjectApiIntegrationTest(ProjectTestsMixin, TestCase):
 
         # Test that combination of arguments works
         response = self.client.get(self.projects_url + '?ordering=deadline&phase=campaign&country=101')
-        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.status_code, 200)                                   
 
     def test_project_detail_view(self):
         """ Tests retrieving a project detail from the API. """
@@ -227,7 +229,7 @@ class ProjectManageApiIntegrationTest(ProjectTestsMixin, TestCase):
         pitch_data['status'] = 'approved'
         response = self.client.put(pitch_url, json.dumps(pitch_data), 'application/json')
         self.assertEquals(response.status_code, status.HTTP_400_BAD_REQUEST, response)
-
+        
         # Ok, let's try to submit it. We have to submit all previous data again too.
         pitch_data['status'] = 'submitted'
         response = self.client.put(pitch_url, json.dumps(pitch_data), 'application/json')
@@ -390,7 +392,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['title'], wallpost_title)
         another_wallpost_id = response.data['id']
-        # another_wallpost_detail_url = "{0}{1}".format(self.project_media_wallposts_url, another_wallpost_id)
+        antoher_wallpost_detail_url = "{0}{1}".format(self.project_media_wallposts_url, another_wallpost_id)
 
         # The other shouldn't be able to use the photo of the first user
         response = self.client.put(another_photo_detail_url, {'mediawallpost': another_wallpost_id})
@@ -409,7 +411,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         response = self.client.post(self.project_text_wallposts_url,
                                     {'text': text, 'project': self.another_project.slug})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
-        # text_wallpost_id = response.data['id']
+        text_wallpost_id = response.data['id']
         response = self.client.put(another_photo_detail_url, json.dumps({'mediawallpost': another_wallpost_id}), 'application/json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
@@ -584,7 +586,7 @@ class CalculateProjectMoneyDonatedTest(ProjectTestsMixin, TestCase):
         first_donation = self._create_donation(user=self.some_user, project=self.some_project, amount=1500,
                                                status=DonationStatuses.new)
         self.assertEqual(self.some_project.projectcampaign.money_donated, 0)
-
+        
 
         # Create a new donation of 25 in status 'in_progress'. project money donated should be 0.
         second_donation = self._create_donation(user=self.some_user, project=self.some_project, amount=2500,
@@ -626,7 +628,7 @@ class ProjectPhaseLoggerTest(ProjectTestsMixin, TestCase):
     def test_phase_change_logged(self):
         # One phase should be logged due to creation of the project
         self.assertEqual(1, self.some_project.projectphaselog_set.count())
-
+        
         # change the phase, it should be logged
         self.some_project.phase = ProjectPhases.plan
         self.some_project.save()

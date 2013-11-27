@@ -1,0 +1,12 @@
+{% load i18n %}
+
+<li class="control-group has-popover" data-content="{% blocktrans %}{{ help_text }}{% endblocktrans %}">
+    <label class="control-label">{% blocktrans %}{{ title }}{% endblocktrans %}</label>
+    <div class="controls">
+        {% templatetag openvariable %}view {{ field_type }} valueBinding="{{ field_name }}" placeholder="{{ placeholder }}" classBinding="errors.{{ field_name }}.length:error"{% templatetag closevariable %}
+    </div>
+
+    {% templatetag openvariable %}#if errors.{{ field_name }}{% templatetag closevariable %}
+        <div class="has-errors">{% templatetag openvariable %}#each errors.{{ field_name }}{% templatetag closevariable %}<p>{% templatetag openvariable %}this{% templatetag closevariable %}</p>{% templatetag openvariable %}/each{% templatetag closevariable %}</div>
+    {% templatetag openvariable %}/if{% templatetag closevariable %}
+</li>
