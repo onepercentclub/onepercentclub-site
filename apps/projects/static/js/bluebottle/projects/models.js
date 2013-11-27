@@ -47,18 +47,37 @@ App.Organization = DS.Model.extend({
     website: DS.attr('string', {defaultValue: ""}),
     facebook: DS.attr('string', {defaultValue: ""}),
     twitter: DS.attr('string', {defaultValue: ""}),
-    skype: DS.attr('string', {defaultValue: ""}),
 
-
+    websiteUrl: function(){
+        var website = this.get('website');
+        if (website) {
+            if (website.substr(0, 4) != 'http') {
+                return 'http://' + website;
+            }
+            return website;
+        }
+        return "";
+    }.property('website'),
     facebookUrl: function(){
-        return this.get('facebook');
+        var facebook = this.get('facebook');
+        if (facebook) {
+            if (facebook.substr(0, 4) != 'http') {
+                return 'http://' + facebook;
+            }
+            return facebook;
+        }
+        return "";
     }.property('facebook'),
     twitterUrl: function(){
-        return this.get('twitter');
+        var twitter = this.get('facebook');
+        if (twitter) {
+            if (twitter.substr(0, 4) != 'http') {
+                return 'http://' + twitter;
+            }
+            return twitter;
+        }
+        return "";
     }.property('twitter'),
-    skypeUrl: function(){
-        return 'callto:' + this.get('skype');
-    }.property('skype'),
 
     // Legal
     legalStatus: DS.attr('string', {defaultValue: ""})
