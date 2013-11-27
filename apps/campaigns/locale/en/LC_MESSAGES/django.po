@@ -17,30 +17,38 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: models.py:67
-msgid "DocData Payment"
+#: models.py:11
+msgid "title"
 msgstr ""
 
-#: models.py:68
-msgid "DocData Payments"
+#: models.py:12
+msgid "start"
 msgstr ""
 
-#: models.py:76
-msgid "status"
+#: models.py:13
+msgid "end"
 msgstr ""
 
-#: models.py:78
-msgid "payment id"
+#: models.py:15
+msgid "target (in cents)"
 msgstr ""
 
-#: models.py:81
+#: models.py:18
 msgid "created"
 msgstr ""
 
-#: models.py:82
+#: models.py:19
 msgid "updated"
 msgstr ""
 
-#: models.py:104
-msgid "DocData Payment Log"
+#: models.py:20
+msgid "deleted"
+msgstr ""
+
+#: models.py:23
+msgid "campaign"
+msgstr ""
+
+#: models.py:24
+msgid "campaigns"
 msgstr ""
