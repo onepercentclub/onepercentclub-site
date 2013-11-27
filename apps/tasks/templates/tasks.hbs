@@ -528,13 +528,6 @@
     {{!-- Project Wall Post List template --}}
 
     {{#if controllers.currentUser.isAuthenticated }}
-        {{#if controllers.projectTask.model.isAuthor}}
-            <h3>{% trans "Write an update" %}</h3>
-            <p>{% trans "Write an update of your task to inform your crowd." %}</p>
-        {{else}}
-            <h3>{% trans "Write a comment" %}</h3>
-            <p>{% trans "Write an comment to place on the task's wall." %}</p>
-        {{/if}}
         {{ render "taskTextWallPostNew" }}
     {{else}}
         <h3>{% trans "Write a comment" %}</h3>
