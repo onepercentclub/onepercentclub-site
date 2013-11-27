@@ -1,6 +1,6 @@
 import logging
 import random
-from babel.numbers import format_currency
+
 from django.conf import settings
 from django.db import models
 from django.db.models.signals import post_save, post_delete
@@ -11,10 +11,19 @@ from django.utils.translation import ugettext as _
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from django_iban.fields import IBANField, SWIFTBICField
 from djchoices import DjangoChoices, ChoiceItem
+
+from babel.numbers import format_currency
+from registration.signals import user_activated
+
 from bluebottle.accounts.models import BlueBottleUser
+
 from apps.cowry.models import PaymentStatuses, Payment
+from apps.cowry_docdata.models import DocDataPaymentOrder
+
 from apps.cowry.signals import payment_status_changed
+
 from .fields import DutchBankAccountField
+
 
 logger = logging.getLogger(__name__)
 random.seed()
@@ -409,3 +418,26 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
         #for voucher in order.vouchers.all():
         #    voucher.status = VoucherStatuses.cancelled
         #    voucher.save()
+
+
+def link_anonymous_donations(sender, user, request, **kwargs):
+    """
+    Search for anonymous donations with the same email address as this user and connect them.
+    """
+    import pdb; pdb.set_trace()
+    print "Connect to " + user.email
+    dd_orders = DocDataPaymentOrder.objects.filter(email=user.email).all()
+    print "Found orders " + str(len(dd_orders))
+    for dd_order in dd_orders:
+        dd_order.customer_id = user.id
+        dd_order.save()
+        dd_order.order.user = user
+        dd_order.order.save()
+        for donation in dd_order.order.donations:
+            donation.user = user
+            donation.save()
+            # TODO: Also link donation Wall Post to this user
+
+# On account activation try to connect anonymous donations to this user.
+user_activated.connect(link_anonymous_donations)
+# TODO: test
