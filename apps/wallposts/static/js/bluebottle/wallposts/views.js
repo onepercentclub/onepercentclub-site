@@ -6,7 +6,7 @@
 App.WallPostView = Em.View.extend({
 
     templateName: 'wallPost',
-    
+
     didInsertElement: function(){
         var view = this;
         view.$().hide();
@@ -73,7 +73,7 @@ App.ProjectTextWallPostNewView = Em.View.extend({
 });
 
 
-App.TaskTestWallPostNewView = Em.View.extend({
+App.TaskTextWallPostNewView = Em.View.extend({
     templateName: 'textWallPostNew'
 });
 

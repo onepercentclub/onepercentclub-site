@@ -142,7 +142,30 @@ App.MediaWallPostNewController = App.TextWallPostNewController.extend({
 });
 
 
-App.ProjectTextWallPostNewController = App.TextWallPostNewController.extend({
+/* Task WallPosts */
+
+App.TaskWallPostMixin = Em.Mixin.create({
+
+    needs: ['currentUser', 'projectTask', 'projectTaskIndex'],
+    type: 'task',
+
+    parentId: function(){
+        return this.get('controllers.projectTask.model.id');
+    }.property('controllers.projectTask.model.id'),
+
+    wallPostList: function(){
+        return this.get('controllers.projectTaskIndex.model');
+    }.property('controllers.projectTaskIndex.model')
+
+})
+
+App.TaskTextWallPostNewController = App.TextWallPostNewController.extend(App.TaskWallPostMixin, {});
+App.TaskMediaWallPostNewController = App.MediaWallPostNewController.extend(App.TaskWallPostMixin, {});
+
+
+/* Project WallPosts */
+
+App.ProjectWallPostMixin = Em.Mixin.create({
 
     needs: ['currentUser', 'project', 'projectIndex'],
     type: 'project',
@@ -154,10 +177,15 @@ App.ProjectTextWallPostNewController = App.TextWallPostNewController.extend({
     wallPostList: function(){
         return this.get('controllers.projectIndex.model');
     }.property('controllers.projectIndex.model')
+})
 
-});
+App.ProjectTextWallPostNewController = App.TextWallPostNewController.extend(App.ProjectWallPostMixin, {});
+App.ProjectMediaWallPostNewController = App.MediaWallPostNewController.extend(App.ProjectWallPostMixin, {});
 
-App.FundRaiserWallPostNewController = App.TextWallPostNewController.extend({
+
+/* FundRaiser WallPosts */
+
+App.FundRaiserWallPostMixin = Em.Mixin.create({
 
     needs: ['currentUser', 'fundRaiser', 'fundRaiserIndex'],
     type: 'fundraiser',
@@ -169,25 +197,9 @@ App.FundRaiserWallPostNewController = App.TextWallPostNewController.extend({
     wallPostList: function(){
         return this.get('controllers.fundRaiserIndex.model');
     }.property('controllers.fundRaiserIndex.model')
-
 });
 
-
-App.TaskWallPostNewController = Em.ObjectController.extend({
-
-    needs: ['currentUser', 'taskWallPostList', 'projectTask'],
-    type: 'task',
-
-    parentId: function(){
-        return this.get('controllers.projectTask.model.id');
-    }.property('controllers.projectTask.model.id'),
-
-    wallPostList: function(){
-        return this.get('controllers.taskWallPostList.model');
-    }.property('controllers.taskWallPostList.model')
-
-
-});
+App.FundRaiserWallPostNewController = App.TextWallPostNewController.extend(App.FundRaiserWallPostMixin, {});
 
 
 /* Reactions */

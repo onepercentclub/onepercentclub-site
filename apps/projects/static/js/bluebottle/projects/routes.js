@@ -11,7 +11,7 @@ App.Router.map(function(){
     this.resource('project', {path: '/projects/:project_id'}, function() {
         this.resource('projectPlan', {path: '/plan'});
         this.resource('projectTasks', {path: '/tasks'}, function(){
-            this.resource('projectTask', {path: '/:task_id'});
+            this.resource('projectTask', {path: '/:task_id'}, function(){});
             this.resource('projectTaskNew', {path: '/new'});
             this.resource('projectTaskEdit', {path: '/:task_id/edit'});
         });
@@ -73,7 +73,6 @@ App.ProjectRoute = Em.Route.extend(App.ScrollToTop, {
         var page =  App.Project.find(params.project_id);
         var route = this;
         page.on('becameError', function() {
-            //route.transitionTo('error.notFound');
             route.transitionTo('projectList');
         });
         return page;
@@ -97,21 +96,19 @@ App.ProjectRoute = Em.Route.extend(App.ScrollToTop, {
 App.ProjectIndexRoute = Em.Route.extend({
     // This way the ArrayController won't hold an immutable array thus it can be extended with more wallposts.
     setupController: function(controller, model) {
+        // Only reload wall-posts if switched to another project.
         var parent_id = this.modelFor('project').get('id');
-        // Only reload this if switched to another project.
         if (controller.get('parent_id') != parent_id){
             controller.set('page', 1);
             controller.set('parent_id', parent_id);
-            App.WallPost.find({'parent_type': 'project', 'parent_id': parent_id}).then(function(items){
+            var store = this.get('store');
+            store.find('wallPost', {'parent_type': 'project', 'parent_id': parent_id}).then(function(items){
                 controller.set('meta', items.get('meta'));
                 controller.set('model', items.toArray());
             });
         }
     }
 });
-
-
-
 
 
 App.ProjectPlanRoute = Em.Route.extend({
