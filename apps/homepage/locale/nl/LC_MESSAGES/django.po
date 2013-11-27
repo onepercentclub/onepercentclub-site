@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: onepercentclub-site\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-13 21:32+0100\n"
-"PO-Revision-Date: 2013-11-13 12:32+0000\n"
-"Last-Translator: nieja <niels@1procentclub.nl>\n"
+"POT-Creation-Date: 2013-11-27 14:05+0100\n"
+"PO-Revision-Date: 2013-11-27 12:52+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub-site/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -107,3 +107,31 @@ msgstr "Gedoneerd"
 #, python-format
 msgid "Join us. Sign up and share your 1%%"
 msgstr "Doe ook mee. Meld je aan en deel jouw 1%%"
+
+#: templates/homepage.hbs:248
+msgid "Our crazy fund-racers"
+msgstr ""
+
+#: templates/homepage.hbs:259
+msgid "Fully funded by"
+msgstr ""
+
+#: templates/homepage.hbs:259
+msgid "and his/her/it's supporters."
+msgstr ""
+
+#: templates/homepage.hbs:283
+msgid "<strong>Fully</strong> funded"
+msgstr ""
+
+#: templates/homepage.hbs:285
+msgid "To go"
+msgstr ""
+
+#: templates/homepage.hbs:287
+msgid "days"
+msgstr ""
+
+#: templates/homepage.hbs:329
+msgid "Pick a crazy fund-racer and support"
+msgstr ""

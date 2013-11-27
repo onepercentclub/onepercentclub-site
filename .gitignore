@@ -45,6 +45,8 @@ npm-debug.log
 !/static/media/.gitkeep
 /static/assets/*
 !/static/assets/.gitkeep
+/private/*
+!/private/.gitkeep
 
 # Local settings overrides
 onepercentclub/settings/local.py

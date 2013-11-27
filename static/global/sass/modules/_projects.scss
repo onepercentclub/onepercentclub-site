@@ -14,42 +14,12 @@
     }
 }
 
-/*
-.project-phase {
-    display: none;
-	@include clear;
-	padding-bottom: $base-padding/2;
-	margin: 0 0 $base-margin/2 0;
-	border-bottom: 1px solid $gray-darker;
-
-    li {
-        @include grid(10);
-        font-size: $font-size-smallest;
-        background-image: none;
-        color: $gray;
-        text-transform: uppercase;
-		padding: $base-padding/2 $base-padding/2 $base-padding/2 $base-padding/4;
-		text-align: center;
-		
-        &:first-of-type {
-            margin-right: $base-margin;
-            width: auto;
-        }
-
-        &.is-current {
-			background: image-url('steps-phase-back.png') no-repeat $gray 100% 50%;
-			color: $gray-darker;
-		}
-    }
-}
-*/
-
 .project-location, .project-theme {
-	margin-right: $base-margin*2;
-	line-height: $base-line-height*2;
 	color: $color-secondary;
-	font-style: normal;
-	font-family: $base-font-family;
+	font-family: $font-family-heavy;
+	padding: $base-padding/2 0;
+	margin-right: $base-margin*2;
+	display: inline-block;
 	
 	.flaticon {
 	    margin-right: $base-margin/4;
@@ -122,8 +92,7 @@
     overflow: hidden;
     margin: 0 0 $base-margin/2 0;
     background-color: $gray-lighter;
-    line-height: 0;
-
+    
     .slider-progress {
         position: relative;
         display: block;
@@ -133,7 +102,8 @@
         text-align: right;
         white-space: nowrap;
         line-height: 1em;
-
+        height: 1em;
+        
         .slider {
             padding: 0 0.5em;
             font-style: normal;
@@ -481,18 +451,29 @@
         
         .project-header {
             @include grid(32,1,1);
+            text-decoration: none;
             
             .project-image {
                 @include grid(12,0,1);
                 float: left;
             }
             
-            .project-title {
+            .project-title, .fundraiser-title {
                 @include grid(32);
                 text-transform: uppercase;
                 font-size: $base-font-size;
                 padding: 0;
                 color: $color-heading;
+            }
+            
+            .fundraiser-subtitle {
+                font-family: $base-font-family;
+                color: $gray;
+                font-size: $font-size-small;
+                
+                em {
+                   font-family: $font-family-heavy; 
+                }
             }
             
             .project-location, .project-status, .project-preview  {

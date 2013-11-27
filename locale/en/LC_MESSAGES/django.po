@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-13 21:32+0100\n"
+"POT-Creation-Date: 2013-11-27 14:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,129 +43,129 @@ msgstr ""
 msgid "If you need assistance, you may reference this error as <strong>%(error_id)s</strong>."
 msgstr ""
 
-#: base.html:44
+#: base.html:47
 #, python-format
 msgid "What is 1%%"
 msgstr ""
 
-#: base.html:45 base.html.py:106
+#: base.html:48 base.html.py:123
 #, python-format
 msgid "1%%Projects"
 msgstr ""
 
-#: base.html:46 base.html.py:111 accounts/profile_form.html:76
+#: base.html:49 base.html.py:128 accounts/profile_form.html:76
 #, python-format
 msgid "1%%Skills"
 msgstr ""
 
-#: base.html:47 base.html.py:116
+#: base.html:50 base.html.py:133
 msgid "Get involved"
 msgstr ""
 
-#: base.html:96
+#: base.html:113
 #, python-format
 msgid "It all starts with 1%%"
 msgstr ""
 
-#: base.html:100
+#: base.html:117
 #, python-format
 msgid "What is 1%%CLUB?"
 msgstr ""
 
-#: base.html:121
+#: base.html:138
 msgid "Start your project"
 msgstr ""
 
-#: base.html:129
+#: base.html:146
 #, python-format
 msgid "About 1%%Club"
 msgstr ""
 
-#: base.html:133
+#: base.html:150
 msgid "Our story"
 msgstr ""
 
-#: base.html:137
+#: base.html:154
 msgid "Frequently Asked Questions"
 msgstr ""
 
-#: base.html:141
+#: base.html:158
 msgid "Meet the team"
 msgstr ""
 
-#: base.html:147 footer.html:13
+#: base.html:164 footer.html:13
 msgid "Partners"
 msgstr ""
 
-#: base.html:152
+#: base.html:169
 msgid "Press"
-msgstr ""
-
-#: base.html:157
-#, python-format
-msgid "Work at 1%%CLUB"
-msgstr ""
-
-#: base.html:162 footer.html:18 footer.html.py:38
-msgid "Contact"
-msgstr ""
-
-#: base.html:170
-#, python-format
-msgid "Discover 1%%More"
 msgstr ""
 
 #: base.html:174
 #, python-format
+msgid "Work at 1%%CLUB"
+msgstr ""
+
+#: base.html:179 footer.html:18 footer.html.py:38
+msgid "Contact"
+msgstr ""
+
+#: base.html:187
+#, python-format
+msgid "Discover 1%%More"
+msgstr ""
+
+#: base.html:191
+#, python-format
 msgid "1%%Business"
 msgstr ""
 
-#: base.html:179
+#: base.html:196
 #, python-format
 msgid "1%%Blog"
 msgstr ""
 
-#: base.html:184
+#: base.html:201
 #, python-format
 msgid "1%%Github"
 msgstr ""
 
-#: base.html:193
+#: base.html:210
 #, python-format
 msgid "1%%Social"
 msgstr ""
 
-#: base.html:228 base.html.py:235 accounts/signup.html:6
+#: base.html:245 base.html.py:252 accounts/signup.html:6
 #, python-format
 msgid "Join 1%%Club"
 msgstr ""
 
-#: base.html:229
+#: base.html:246
 #, python-format
 msgid "1%%Club is the global crowdfunding and crowdsourcing platform where you can share a little and change the world, in your very own way. Pick any project you like, support it with 1%% of your knowledge, money or time and follow the progress online. "
 msgstr ""
 
-#: base.html:231
+#: base.html:248
 msgid "Select a project or task"
 msgstr ""
 
-#: base.html:232
+#: base.html:249
 msgid "Share your skills or money"
 msgstr ""
 
-#: base.html:233
+#: base.html:250
 msgid "See direct results"
 msgstr ""
 
-#: base.html:246
+#: base.html:263
 msgid "General Conditions"
 msgstr ""
 
-#: base.html:247
+#: base.html:264
 msgid "Privacy Policy"
 msgstr ""
 
-#: base.html:251
+#: base.html:268
 msgid "Give us feedback"
 msgstr ""
 

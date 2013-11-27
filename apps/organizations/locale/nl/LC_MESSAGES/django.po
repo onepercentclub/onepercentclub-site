@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: onepercentclub-site\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-13 21:32+0100\n"
-"PO-Revision-Date: 2013-11-13 12:22+0000\n"
-"Last-Translator: nieja <niels@1procentclub.nl>\n"
+"POT-Creation-Date: 2013-11-27 14:05+0100\n"
+"PO-Revision-Date: 2013-11-27 13:09+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub-site/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -116,78 +116,50 @@ msgstr "Plaats rekening"
 msgid "account information that doesn't fit in the other field"
 msgstr "Rekeninginformatie die niet in het andere veld paste"
 
-#: models.py:53
+#: models.py:61
 msgid "tags"
 msgstr "tags"
 
-#: models.py:60 models.py:81 models.py:99 models.py:109
+#: models.py:68 models.py:89 models.py:101
 msgid "organization"
 msgstr "organisatie"
 
-#: models.py:61
+#: models.py:69
 msgid "organizations"
 msgstr "organisaties"
 
-#: models.py:78
+#: models.py:86
 msgid "Owner"
 msgstr "Eigenaar"
 
-#: models.py:79
+#: models.py:87
 msgid "Editor"
 msgstr "Editor"
 
-#: models.py:82
+#: models.py:90
 msgid "user"
 msgstr "gebruiker"
 
-#: models.py:83
+#: models.py:91
 msgid "function"
 msgstr "functie"
 
-#: models.py:86
+#: models.py:94
 msgid "organization member"
 msgstr "organisatielid"
 
-#: models.py:87
+#: models.py:95
 msgid "organization members"
 msgstr "organisatieleden"
 
-#: models.py:94
-msgid "Physical"
-msgstr "Fysiek"
-
-#: models.py:95
-msgid "Postal"
-msgstr "Post"
-
-#: models.py:96
-msgid "Other"
-msgstr "Anders"
-
-#: models.py:98
-msgid "type"
-msgstr "type"
-
-#: models.py:98
-msgid "Address type."
-msgstr "Adres."
-
-#: models.py:102
-msgid "organization address"
-msgstr "organisatieadres"
-
 #: models.py:103
-msgid "organization addresses"
-msgstr "organisatieadressen"
-
-#: models.py:111
 msgid "author"
 msgstr "auteur"
 
-#: models.py:119
+#: models.py:111
 msgid "organization document"
 msgstr "organisatie document"
 
-#: models.py:120
+#: models.py:112
 msgid "organization documents"
 msgstr "organisatie documenten"
