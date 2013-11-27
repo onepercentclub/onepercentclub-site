@@ -1,9 +1,12 @@
-from bluebottle.accounts.serializers import UserPreviewSerializer
-from bluebottle.bluebottle_drf2.serializers import OEmbedField, PolymorphicSerializer, SorlImageField, ContentTextField, ImageSerializer, PhotoSerializer
-from apps.wallposts.models import WallPost, SystemWallPost
 from django.contrib.contenttypes.models import ContentType
+
 from rest_framework import serializers
-from .models import MediaWallPost, TextWallPost, MediaWallPostPhoto, Reaction
+
+from bluebottle.accounts.serializers import UserPreviewSerializer
+from bluebottle.bluebottle_drf2.serializers import OEmbedField, PolymorphicSerializer, ContentTextField, PhotoSerializer
+
+from apps.fundraisers.serializers import DonationFundRaiserSerializer
+from .models import WallPost, SystemWallPost, MediaWallPost, TextWallPost, MediaWallPostPhoto, Reaction
 
 
 # Serializer to serialize all wall-posts for an object into an array of ids
@@ -93,6 +96,14 @@ class TextWallPostSerializer(WallPostSerializerBase):
         fields = WallPostSerializerBase.Meta.fields + ('text',)
 
 
+class WallpostRelatedField(serializers.RelatedField):
+    def to_native(self, obj):
+        if obj.__class__.__name__ == 'Donation':
+            serializer = DonationFundRaiserSerializer(obj)
+            return serializer.data
+        return super(WallpostRelatedField, self).to_native(obj)
+
+
 class SystemWallPostSerializer(WallPostSerializerBase):
     """
     Serializer for TextWallPosts. This should not be used directly but instead should be subclassed for the specific
@@ -101,10 +112,11 @@ class SystemWallPostSerializer(WallPostSerializerBase):
     type = WallPostTypeField(type='system')
     text = ContentTextField()
     related_type = serializers.CharField(source='related_type.name')
+    related_object = WallpostRelatedField(source='related_object')
 
     class Meta:
         model = TextWallPost
-        fields = WallPostSerializerBase.Meta.fields + ('text', 'related_type')
+        fields = WallPostSerializerBase.Meta.fields + ('text', 'related_type', 'related_object')
 
 
 class WallPostSerializer(PolymorphicSerializer):

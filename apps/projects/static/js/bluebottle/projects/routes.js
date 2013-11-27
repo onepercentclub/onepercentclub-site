@@ -8,7 +8,7 @@ App.Router.map(function(){
         this.route('search');
     });
 
-   this.resource('project', {path: '/projects/:project_id'}, function() {
+    this.resource('project', {path: '/projects/:project_id'}, function() {
         this.resource('projectPlan', {path: '/plan'});
         this.resource('projectTasks', {path: '/tasks'}, function(){
             this.resource('projectTask', {path: '/:task_id'});
@@ -87,6 +87,9 @@ App.ProjectRoute = Em.Route.extend(App.ScrollToTop, {
         projectSupporterListController.set('supporters', App.DonationPreview.find({project: project.get('id')}));
         projectSupporterListController.set('page', 1);
         projectSupporterListController.set('canLoadMore', true);
+
+        var projectFundRaiserListController = this.controllerFor('projectFundRaiserList');
+        projectFundRaiserListController.set('fundraisers', App.FundRaiser.find({project: project.get('id')}));
     }
 });
 

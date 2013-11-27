@@ -49,7 +49,7 @@ class DonationAdmin(admin.ModelAdmin):
     ordering = ('-ready', '-updated')
     raw_id_fields = ('user', 'project')
     readonly_fields = ('view_order', 'created', 'updated', 'ready')
-    fields = readonly_fields + ('status', 'donation_type', 'amount', 'currency', 'user', 'project')
+    fields = readonly_fields + ('status', 'donation_type', 'amount', 'currency', 'user', 'project', 'fundraiser')
     search_fields = ('user__first_name', 'user__last_name', 'user__email', 'project__title')
 
     def view_order(self, obj):

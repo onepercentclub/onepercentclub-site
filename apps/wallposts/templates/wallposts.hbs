@@ -3,7 +3,7 @@
 {% load static %}
 
 {% tplhandlebars "project_wallpost_new" %}
-	
+
     {{#if controllers.currentUser.isAuthenticated }}
         {{#if isProjectOwner }}
         	<h3>{% trans "Write an update" %}</h3>
@@ -91,7 +91,7 @@
                             </li>
                         {{/each}}
                     </ul>
-                    
+
                     <a class="btn-link btn-upload">
                         {{view App.UploadMultipleFiles valueBinding="photo_files" multiple="multiple" id="wallpost-photo" name="wallpost-photo" accept="image/*"}}
                         <span class="flaticon solid upload-document-1"></span>
@@ -108,16 +108,16 @@
 
 
 {% tplhandlebars "text_wallpost_new" %}
-	
+
 	<fieldset>
 	   <ul>
 	        <li class="control-group">
 	            <label for="wallpost-update" class="control-label">{% trans "Comment" %}</label>
-	
+
 	            <div class="controls">
 	                {{view Ember.TextArea valueBinding="text" cols="50" rows="4" name="wallpost-update" id="wallpost-update"}}
 	            </div>
-	
+
 	            {{#if errors.text }}
 	                <div class="has-errors">{{#each errors.text}}<p>{{this}}</p>{{/each}}</div>
 	            {{/if}}
@@ -135,7 +135,7 @@
     <div id="l-section">
         <section class="l-wrapper">
         	<div class="l-content" id="wallposts">
-    
+
     	        {{#each item in items itemController="wallPost"}}
     	            {{#if item.isLoaded}}
                         {{#if item.isSystemWallPost}}
@@ -145,31 +145,31 @@
                         {{/if}}
     	            {{/if}}
     	        {{/each}}
-            	
+
                 {{#if canLoadMore}}
                     <a {{action "showMore"}} class="btn-link btn-more">
                         <span class="flaticon solid plus-2"></span> {% trans "Show more" %} <small>{{remainingItemCount}} {% trans "more" %}</small>
                     </a>
                 {{/if}}
-    
+
         	</div>
-    
+
             <sidebar class="l-sidebar">
             	{{ render "projectWallPostNew" }}
             </sidebar>
-            
+
         </section>
     </div>
-    
+
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "project_wallpost" %}
 
     <article class="wallpost">
-    
+
         <header class="wallpost-header">
-        
+
             <div class="wallpost-member">
                 <a {{action openInBigBox "userModal" author}} class="member">
                     <span class="member-avatar">
@@ -178,7 +178,7 @@
                     <strong class="member-name">{{author.full_name}}</strong>
                 </a>
             </div>
-            
+
             <div class="wallpost-meta">
                 {{#if created}}
                     <em class="timestamp">{{ localize created formatting="X" }}</em>
@@ -189,11 +189,11 @@
             </div>
         </header>
 
-        <div class="wallpost-content">            
+        <div class="wallpost-content">
             {{#if title}}
                 <h3 class="wallpost-title">{{title}}</h3>
             {{/if}}
-            
+
             {{#if video_html}}
                 <div class="video">{{{video_html}}}</div>
             {{/if}}
@@ -216,7 +216,7 @@
             {{/if}}
 
 	    </div>
-        
+
         <div class="wallpost-reactions">
             {{render "wallPostReactionList" reactions}}
         </div>
@@ -230,13 +230,13 @@
 {% tplhandlebars "system_wallpost" %}
 
     <article class="wallpost wallpost-system">
-    
+
         <header class="wallpost-header">
-            
+
             <span class="wallpost-system-type">
                 <span class="flaticon solid wallet-1"></span> {% trans "Donation" %}
             </span>
-            
+
             <div class="wallpost-member">
                 {{#if author}}
                 <a {{action openInBigBox "userModal" author}} class="member">
@@ -247,10 +247,15 @@
                     <span class="member member-guest"><strong class="member-name">{% trans "Someone" %}</strong></span>
                 </span>
                 {{/if}}
-                <span class="wallpost-system-action">{% trans "Made a donation" %}</span>
+                <span class="wallpost-system-action">
+                    {% trans "Made a donation" %}
+                    {{#if fundraiser}}
+                        to {{#link-to 'fundRaiser' fundraiser.id}}{{fundraiser.title}}{{/link-to}}
+                    {{/if}}
+                </span>
             </div>
-            
-            
+
+
             {{#if created}}
             <div class="wallpost-meta">
                 <em class="timestamp">{{ localize created formatting="X" }}</em>
@@ -259,7 +264,7 @@
                 {{/if}}
             </div>
             {{/if}}
-            
+
         </header>
 
         <div class="wallpost-reactions">
@@ -274,24 +279,24 @@
 
 
 {% tplhandlebars "task_wallpost_new" %}
-    
+
     <form id="wallpost-form">
 	    <fieldset>
 		   <ul>
 		        <li class="control-group">
 		            <label for="wallpost-update" class="control-label">{% trans "Comment" %}</label>
-		
+
 		            <div class="controls">
 		                {{view Ember.TextArea valueBinding="text" placeholder="Comment" cols="50" rows="2" name="wallpost-update" id="wallpost-update"}}
 		            </div>
-		
+
 		            {{#if errors.text }}
 	                	<div class="errors">{{#each errors.text}}<p>{{this}}</p>{{/each}}</div>
 					{{/if}}
 		        </li>
 		    </ul>
 		</fieldset>
-	
+
 	    <button {{action "addTextWallPost" }} class="btn btn-iconed btn-comment" type="submit"><span class="flaticon solid thinking-comment-1"></span>{% trans "Comment" %}</button>
     </form>
 
@@ -299,11 +304,11 @@
 
 
 {% tplhandlebars "task_wallpost" %}
-    
+
     <article class="wallpost">
-    
+
         <header class="wallpost-header">
-        
+
             <div class="wallpost-member">
                 <a {{action openInBigBox "memberProfile" author}} class="member">
                     <span class="member-avatar">
@@ -312,7 +317,7 @@
                     <strong class="member-name">{{author.full_name}}</strong>
                 </a>
             </div>
-            
+
             <div class="wallpost-meta">
                  {{#if created}}
                     <em class="timestamp">{{ localize created formatting="X" }}</em>
@@ -326,7 +331,7 @@
         <div class="wallpost-content">
             <div class="text">{{{text}}}</div>
 	    </div>
-        
+
         <div class="wallpost-reactions">
             {{render "wallPostReactionList" reactions}}
         </div>
@@ -338,8 +343,8 @@
 
 
 {% tplhandlebars "task_wallpost_list" %}
-	
-	
+
+
 	    {{#if controllers.currentUser.isAuthenticated }}
 	        {{ render "taskWallPostNew" }}
 	    {{else}}

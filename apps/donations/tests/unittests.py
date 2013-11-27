@@ -1,41 +1,16 @@
-import uuid
+import re
 
 from django.test import TestCase
 from django.core import mail
 
 from apps.projects.tests import ProjectTestsMixin
-from apps.fund.models import Donation, DonationStatuses, Order
+from apps.fund.models import Donation, DonationStatuses
+from apps.fundraisers.tests.helpers import FundRaiserTestsMixin
+
+from .helpers import DonationTestsMixin
 
 
-class DonationTestsMixin(object):
-    def create_order(self, user, **kwargs):
-        # Default values.
-        creation_kwargs = {
-            'user': user,
-            'order_number': unicode(uuid.uuid4())[0:30],  # Unique enough...
-        }
-
-        creation_kwargs.update(kwargs)
-
-        return Order.objects.create(**creation_kwargs)
-
-    def create_donation(self, user, project, **kwargs):
-        # Default values.
-        creation_kwargs = {
-            'amount': 100,
-            'user': user,
-            'project': project,
-        }
-
-        creation_kwargs.update(kwargs)
-
-        if 'order' not in creation_kwargs:
-            creation_kwargs['order'] = self.create_order(user)
-
-        return Donation.objects.create(**creation_kwargs)
-
-
-class DonationMailTests(TestCase, ProjectTestsMixin, DonationTestsMixin):
+class DonationMailTests(TestCase, ProjectTestsMixin, DonationTestsMixin, FundRaiserTestsMixin):
     def setUp(self):
         self.project_owner = self.create_user(email='projectowner@example.com', primary_language='en')
         self.project = self.create_project(money_asked=50000, owner=self.project_owner)
@@ -56,7 +31,13 @@ class DonationMailTests(TestCase, ProjectTestsMixin, DonationTestsMixin):
 
         self.assertListEqual(message.to, [self.project_owner.email])
         self.assertEqual(message.subject, 'You received a new donation')
-        self.assertTrue('EUR {0:.2f}'.format(donation.amount / 100.0) in message.body)
+
+        amount_string = 'EUR {0:.2f}'.format(donation.amount / 100.0)
+        self.assertTrue(amount_string in message.body)
+
+        for content, content_type in message.alternatives:
+            self.assertTrue(amount_string in content)
+
         self.assertTrue(self.user.first_name in message.body)
 
     def test_single_mail_on_new_donation(self):
@@ -77,3 +58,33 @@ class DonationMailTests(TestCase, ProjectTestsMixin, DonationTestsMixin):
 
         # Owner should have just one email
         self.assertEqual(len(mail.outbox), 1)
+
+    def test_single_mail_on_new_fundraiser_donation(self):
+        self.fundraiser_owner = self.create_user(email='fundraiserowner@example.com', primary_language='en')
+        fundraiser = self.create_fundraiser(self.fundraiser_owner, self.project)
+        donation = self.create_donation(self.user, self.project, donation_type=Donation.DonationTypes.one_off, fundraiser=fundraiser)
+
+        # Mailbox should not contain anything.
+        self.assertEqual(len(mail.outbox), 0)
+
+        donation.status = DonationStatuses.pending
+        donation.save()
+
+        # Save twice!
+        donation.save()
+
+        # Save with different status.
+        donation.status = DonationStatuses.paid
+        donation.save()
+
+        # Fundraiser owner and project owner should have just one email each
+        # careful, fundraiser mail is sent first
+        self.assertEqual(len(mail.outbox), 2)
+
+        # Verify that the link points to the fundraiser page
+        m = mail.outbox.pop(0)
+        match = re.search(r'https?://.*/go/fundraisers/(\d+)', m.body)
+        self.assertEqual(int(match.group(1)), fundraiser.id)
+
+        # verify that the mail is indeed directed to the fundraiser owner
+        self.assertIn(self.fundraiser_owner.email, m.recipients())

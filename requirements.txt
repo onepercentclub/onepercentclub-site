@@ -1,4 +1,5 @@
--e git://github.com/onepercentclub/bluebottle.git@v0.0.26#egg=bluebottle
+# -e git://github.com/onepercentclub/bluebottle.git@v0.0.24#egg=bluebottle
+-e git://github.com/onepercentclub/bluebottle.git@add-url-to-metadata#egg=bluebottle
 
 Django==1.5.4
 Pillow==2.1.0
@@ -101,7 +102,6 @@ requests==1.2.3
 # This version should be considered suds-jurko 0.4.1 jurko pre 5.
 # This is just a fork of the official repo in case it disappears.
 https://bitbucket.org/onepercentclub/suds/get/afe727f50704.zip
-# -e hg+ssh://hg@bitbucket.org/onepercentclub/suds/@afe727f50704#egg=suds
 
 django-iban==0.2.1
 
@@ -111,8 +111,8 @@ django-social-auth==0.7.23
 # django-salesforce==0.1.6.2
 # setup.py doesn't seem to be working properly so we're using a fixed version.
 # https://github.com/freelancersunion/django-salesforce/issues/4
-https://github.com/onepercentclub/django-salesforce/archive/1e54beb7bcc15a893e9590fb27cbf08853da5599.zip
-# -e git://github.com/onepercentclub/django-salesforce.git@1e54beb7bcc15a893e9590fb27cbf08853da5599#egg=django-salesforce
+# https://github.com/onepercentclub/django-salesforce/archive/1e54beb7bcc15a893e9590fb27cbf08853da5599.zip
+-e git://github.com/onepercentclub/django-salesforce.git@1e54beb7bcc15a893e9590fb27cbf08853da5599#egg=django-salesforce
 
 # There hasn't been a release of django-registration is a while and we need the 1.5 custom user support.
 # Official: https://bitbucket.org/ubernostrum/django-registration/
@@ -120,12 +120,10 @@ https://github.com/onepercentclub/django-salesforce/archive/1e54beb7bcc15a893e95
 # Our fork of the fork with HTML_ACTIVATION_EMAIL option:
 # TODO Try to unwind this mess and contribute some stuff upstream.
 https://bitbucket.org/onepercentclub/django-registration/get/ae9e9ed265ed.zip
-# -e hg+ssh://hg@bitbucket.org/onepercentclub/django-registration/@ae9e9ed265ed#egg=django-registration
 
 
 # Private uploads
 https://bitbucket.org/wkornewald/django-filetransfers/get/32ddeac.zip
-# -e hg+ssh://hg@bitbucket.org/wkornewald/django-filetransfers/@32ddeac#egg=django-filetransfers
 
 # DKIM to sign e-mails
 dkimpy

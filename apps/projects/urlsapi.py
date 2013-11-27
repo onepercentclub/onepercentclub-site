@@ -3,15 +3,16 @@ from django.conf.urls import patterns, url, include
 from surlex.dj import surl
 from .views import (ProjectDetail, ProjectList, ProjectWallPostList, ProjectWallPostDetail, ProjectMediaWallPostList,
                     ProjectMediaWallPostDetail, ProjectTextWallPostList, ProjectTextWallPostDetail,
-                    ProjectMediaWallPostPhotoList, ProjectMediaWallPostPhotoDetail, ProjectDonationList,
+                    ProjectMediaWallPostPhotoList, ProjectMediaWallPostPhotoDetail, ProjectSupporterList,
                     ManageProjectList, ManageProjectDetail, ManageProjectPitchDetail, ManageProjectPlanDetail,
-                    ProjectPitchDetail, ProjectPlanDetail, ManageProjectCampaignDetail, ProjectThemeList, ProjectThemeDetail)
+                    ProjectPitchDetail, ProjectPlanDetail, ManageProjectCampaignDetail, ProjectThemeList,
+                    ProjectThemeDetail, ProjectDonationList)
 
 urlpatterns = patterns('',
     url(r'^projects/$', ProjectList.as_view(), name='project-list'),
     surl(r'^projects/<slug:s>$', ProjectDetail.as_view(), name='project-detail'),
 
-    url(r'^previews/', ProjectPreviewList.as_view(), name='project-preview-list'),
+    url(r'^previews/$', ProjectPreviewList.as_view(), name='project-preview-list'),
     surl(r'^previews/<slug:s>$', ProjectPreviewDetail.as_view(), name='project-preview-detail'),
 
     # Not publically avaialable atm
@@ -34,6 +35,7 @@ urlpatterns = patterns('',
     surl(r'^themes/<pk:#>$', ProjectThemeDetail.as_view(), name='project-theme-detail'),
 
     # Project supporters
+    url(r'^supporters/$', ProjectSupporterList.as_view(), name='project-supporter-list'),
     url(r'^donations/$', ProjectDonationList.as_view(), name='project-donation-list'),
 
     # Manage stuff
