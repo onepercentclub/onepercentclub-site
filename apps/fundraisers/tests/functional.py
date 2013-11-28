@@ -1,5 +1,5 @@
 import os
-import datetime
+from django.utils import timezone
 
 from django.utils.unittest.case import skipUnless
 from django.conf import settings
@@ -70,7 +70,7 @@ class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsM
         self.assertFalse(self.browser.is_text_present('You can only make a fundraiser if you are logged in.'))
         self.assertTrue(self.browser.is_text_present('Amount to raise'))
 
-        deadline = datetime.datetime.now() + datetime.timedelta(days=28)
+        deadline = timezone.now() + timezone.timedelta(days=28)
         filepath = os.path.join(os.path.dirname(__file__), 'test_files', 'upload.png')
 
         self.browser.fill_form_by_label(
@@ -130,7 +130,7 @@ class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsM
 
         self.assertEqual(self.browser.url, '{0}/en/#!/fundraisers/{1}/edit'.format(self.live_server_url, self.fundraiser.pk))
 
-        deadline = datetime.datetime.now() + datetime.timedelta(days=28)
+        deadline = timezone.now() + timezone.timedelta(days=28)
         filepath = os.path.join(os.path.dirname(__file__), 'test_files', 'upload.png')
 
         self.browser.fill_form_by_label(

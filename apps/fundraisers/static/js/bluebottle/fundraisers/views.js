@@ -1,5 +1,5 @@
 App.FundRaiserView = Em.View.extend({
-    templateName: 'fundraiser'
+    templateName: 'fundRaiser'
 });
 
 
@@ -17,12 +17,39 @@ App.ProjectFundRaiserListView = Em.View.extend({
     templateName: 'project_fundraiser_list'
 });
 
+App.ProjectFundRaiserPopupView = Em.View.extend({
+    templateName : 'project_fundraiser_popup'
+});
 
 App.ProjectFundRaiserView = Em.View.extend({
 	templateName: 'project_fundraiser',
+
+    html: function(){
+        /*
+        var controller = this.get('controller');
+        var contentView = App.ProjectFundRaiserPopupView.create({controller: controller});
+        return contentView.renderToBuffer().buffer;
+        */
+        var model= this.get('controller');
+        return '<h3>' + model.get('model.owner.full_name') + '</h3>' +
+                '<img src="' + model.get('model.image.small') +  '" />' +
+                '<div class="project-fund-amount">' +
+                '<strong class="amount-donated">&euro;' + model.get('model.amount_donated') + '</strong> ' +
+                gettext('of') + ' <strong class="amount-asked">&euro;' + model.get('model.amount') + '</strong> ' +
+                gettext('raised') + '</div>';
+
+    }.property('controller.title'),
+
     tagName: 'li',
     didInsertElement: function(){
-        this.$('span').popover({trigger: 'hover', placement: 'top', width: '300px'});
+        var model = this.get('controller.content');
+        this.$('img').popover({
+            trigger: 'hover',
+            placement: 'top',
+            title: model.get('title'),
+            html: true,
+            content: this.get('html')
+        });
     }
 })
 

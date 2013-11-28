@@ -218,6 +218,7 @@ INSTALLED_APPS = (
     'polymorphic',
     'registration',
     'filetransfers',
+    'loginas',
 
     # CMS page contents
     'fluent_contents',

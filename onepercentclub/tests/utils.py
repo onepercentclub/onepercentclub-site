@@ -34,7 +34,7 @@ class OnePercentSeleniumTestCase(SeleniumTestCase):
         :param lang_code: A two letter language code as used in the URL.
         :return: ``True`` if the homepage could be visited.
         """
-        
+
         self.visit_path('', lang_code)
 
         # # Check if the homepage opened, and the dynamically loaded content appeared.

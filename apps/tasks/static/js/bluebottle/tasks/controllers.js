@@ -120,6 +120,46 @@ App.ProjectTaskController = Em.ObjectController.extend(App.IsProjectOwnerMixin, 
 });
 
 
+App.ProjectTaskIndexController = Em.ArrayController.extend({
+    needs: ['projectTask', 'currentUser'],
+    perPage: 5,
+    page: 1,
+
+
+    remainingItemCount: function(){
+        if (this.get('meta.total')) {
+            return this.get('meta.total') - (this.get('page')  * this.get('perPage'));
+        }
+        return 0;
+    }.property('page', 'perPage', 'meta.total'),
+
+    canLoadMore: function(){
+        var totalPages = Math.ceil(this.get('meta.total') / this.get('perPage'));
+        return totalPages > this.get('page');
+    }.property('perPage', 'page', 'meta.total'),
+
+    actions: {
+        showMore: function() {
+            var controller = this;
+            var page = this.incrementProperty('page');
+            var id = this.get('controllers.projectTask.model.id');
+            App.WallPost.find({'parent_type': 'task', 'parent_id': id, page: page}).then(function(items){
+                controller.get('model').pushObjects(items.toArray());
+            });
+        }
+    },
+    isOwner: function() {
+        var username = this.get('controllers.currentUser.username');
+        var ownername = this.get('controllers.projectTask.model.owner.username');
+        if (username) {
+            return (username == ownername);
+        }
+        return false;
+    }.property('controllers.projectTask.model.owner', 'controllers.currentUser.username')
+
+});
+
+
 App.TaskMemberController = Em.ObjectController.extend({
     isStatusApplied: function(){
         return this.get('status') == 'applied';

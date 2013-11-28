@@ -172,6 +172,10 @@
     text-transform: uppercase;
 }
 
+.project-member-fundraisers .popover {
+    width: 350px;
+}
+
 //
 // Project as block item (search result)
 // --------------------------------------------------
@@ -184,14 +188,18 @@
     background-color: $gray-lighter;
     overflow: hidden;
     height: 260px;
+    border: 1px solid $gray;
 
     &.project-item-small {
         height: 230px;
     }
+    
+    &:hover {
+        border-color: $black;
+    }
 
     a {
         display: block;
-        //border: 1px solid $gray-light;
 		text-decoration: none;
 		
 		// Needed for position changing on active
@@ -316,23 +324,6 @@
         }
     }
     
-    &:hover {
-        background-color: $black;
-        
-        .project-image {
-            zoom: 3;
-            height: 999px;
-        }
-        
-        .project-title, .project-location, .project-status {
-            display: none;
-        }
-        
-        .project-description {
-    	    display: block;
-        }
-    }
-
     .project-tasks {
         display: block;
         position: absolute;

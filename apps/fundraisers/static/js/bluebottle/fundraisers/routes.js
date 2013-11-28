@@ -3,7 +3,9 @@
  */
 
 App.Router.map(function() {
-    this.resource('fundRaiser', {path: '/fundraisers/:fundraiser_id'});
+    // The empty function is there for the fundRaiserIndex route to be called.
+    this.resource('fundRaiser', {path: '/fundraisers/:fundraiser_id'}, function(){});
+
     this.resource('fundRaiserEdit', {path: '/fundraisers/:fundraiser_id/edit'});
 
     this.resource('fundRaiserNew', {path: '/projects/:project_id/new-fundraiser'});
@@ -26,9 +28,25 @@ App.FundRaiserRoute = Em.Route.extend(App.ScrollToTop, {
 
     setupController: function(controller, fundraiser) {
         this._super(controller, fundraiser);
-
         var project_id = fundraiser.get('project.id');
         controller.set('fundRaiseSupporters', App.DonationPreview.find({project: project_id, fundraiser: fundraiser.id}));
+    }
+});
+
+
+App.FundRaiserIndexRoute = Em.Route.extend({
+    // This way the ArrayController won't hold an immutable array thus it can be extended with more wall-posts.
+    setupController: function(controller, model) {
+        var parent_id = this.modelFor('fundRaiser').get('id');
+        // Only reload this if switched to another fundraiser.
+        if (controller.get('parent_id') != parent_id){
+            controller.set('page', 1);
+            controller.set('parent_id', parent_id);
+            App.WallPost.find({'parent_type': 'fund raiser', 'parent_id': parent_id}).then(function(items){
+                controller.set('meta', items.get('meta'));
+                controller.set('model', items.toArray());
+            });
+        }
     }
 });
 
@@ -41,9 +59,6 @@ App.FundRaiserNewRoute = Em.Route.extend(App.ScrollToTop, {
         var projectPreview = App.ProjectPreview.find(params.project_id);
 
         return store.createRecord(App.FundRaiser, {project: projectPreview});
-    },
-    setupController: function(controller, fundRaiser) {
-        this._super(controller, fundRaiser);
     }
 });
 
@@ -83,5 +98,3 @@ App.FundRaiserDonationListRoute = Em.Route.extend({
 //        return App.FundRaiser.find(params.my_fundraiser_id);
 //    }
 //});
-
-

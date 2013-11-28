@@ -178,17 +178,14 @@
 {% tplhandlebars "project_fundraiser_list" %}
     <li class="project-member-fundraisers">
 
-        {{!-- TODO: Moved link 'become fundraiser' from projects.hbs
-        Link not working anymore --}}
-
         <h4>{% trans "Fundraisers" %}</h4>
 
         {{#if fundraisers.length}}
-        <ul>
-            {{#each fundraiser in controller}}
-                {{view "App.ProjectFundRaiserView" }}
-            {{/each}}
-        </ul>
+            <ul>
+                {{#each fundraiser in controller}}
+                    {{render "projectFundRaiser" fundraiser}}
+                {{/each}}
+            </ul>
         {{/if}}
 
         {{#linkTo 'fundRaiserNew' controllers.project.id class="fundraiser-become"}}
@@ -198,19 +195,34 @@
 {% endtplhandlebars %}
 
 
+{% tplhandlebars "project_fundraiser_popup" %}
+
+    <span id="fundraiser-detail">
+        <h3>{{owner.full_name}}</h3>
+        <img {{bindAttr src="image.large"}} />
+        <p class="project-fund-amount">
+            <strong class="amount-donated">&euro;{{localize amount_donated}}</strong>
+            {% trans "of" %}
+            <strong class="amount-asked">&euro;{{localize amount}}</strong>
+            {% trans "raised" %}
+        </p>
+    </span>
+
+{% endtplhandlebars %}
+
+
 {% tplhandlebars "project_fundraiser" %}
-    {{!-- FIXME The 'popup' content is now built in model App.FundRaiser. Not sure
-    how this will be done with the redesigned 'popup' --}}
+
     {{#linkTo "fundRaiser" fundraiser classNames='member'}}
-        <span {{bindAttr data-title="fundraiser.popover_title" data-content="fundraiser.popover_content"}}>
-            <span class="member-avatar"><img {{bindAttr src="fundraiser.owner.getAvatar" alt="fundraiser.owner.full_name" }}/></span>
+        <span>
+            <span class="member-avatar"><img {{bindAttr src="owner.getAvatar" alt="owner.full_name" }}/></span>
         </span>
     {{/linkTo}}
 
 {% endtplhandlebars %}
 
 
-{% tplhandlebars "fundraiser" %}
+{% tplhandlebars "fundRaiser" %}
 
     <div class="l-section detail" id="fundraiser-detail">
         <section class="l-wrapper">
@@ -306,11 +318,46 @@
                         </li>
                         {{/if}}
                     </ul>
-
                 </div>
+            </section>
+        </div>
+    </div>
 
-            </div>
+    {{ outlet }}
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "fundRaiser/index" %}
+
+    <div id="l-section">
+        <section class="l-wrapper">
+        	<div class="l-content" id="wallposts">
+
+    	        {{#each item in controller itemController="wallPost"}}
+    	            {{#if item.isLoaded}}
+                        {{#if item.isSystemWallPost}}
+        	                {{view "App.SystemWallPostView"}}
+                        {{else}}
+        	                {{view "App.WallPostView"}}
+                        {{/if}}
+    	            {{/if}}
+    	        {{/each}}
+
+                {{#if canLoadMore}}
+                    <a {{action "showMore"}} class="btn-link btn-more">
+                        <span class="flaticon solid plus-2"></span> {% trans "Show more" %} <small>{{remainingItemCount}} {% trans "more" %}</small>
+                    </a>
+                {{/if}}
+
+        	</div>
+
+            <sidebar class="l-sidebar">
+            	{{ render "fundRaiserWallPostNew" }}
+            </sidebar>
+
         </section>
+        </div>
     </div>
 
 {% endtplhandlebars %}

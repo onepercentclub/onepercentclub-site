@@ -60,3 +60,36 @@ App.ProjectFundRaiserListController = Em.ArrayController.extend({
 App.FundRaiserDonationListController = Em.ObjectController.extend({
     needs: ['currentUser']
 });
+
+
+App.FundRaiserIndexController = Em.ArrayController.extend({
+    needs: ['fundRaiser'],
+    perPage: 5,
+    page: 1,
+
+    remainingItemCount: function(){
+        if (this.get('meta.total')) {
+            return this.get('meta.total') - (this.get('page')  * this.get('perPage'));
+        }
+        return 0;
+    }.property('page', 'perPage', 'meta.total'),
+
+    canLoadMore: function(){
+        var totalPages = Math.ceil(this.get('meta.total') / this.get('perPage'));
+        return totalPages > this.get('page');
+    }.property('perPage', 'page', 'meta.total'),
+
+    actions: {
+        showMore: function() {
+            var controller = this;
+            var page = this.incrementProperty('page');
+            var id = this.get('controllers.fundRaiser.model.id');
+            App.WallPost.find({'parent_type': 'fund raiser', 'parent_id': id, page: page}).then(function(items){
+                controller.get('model').pushObjects(items.toArray());
+            });
+        }
+    }
+});
+
+
+

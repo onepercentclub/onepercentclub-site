@@ -5,6 +5,7 @@
 {% language "en" %}
 {# Force all these pages to english #}
 
+
 {% tplhandlebars "my_project_list" %}
 
     <div class="l-section" id="project-dashboard">
@@ -527,7 +528,14 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
         </ul>
     </fieldset>
 
-    <button {{bindAttr class=":btn :btn-iconed :btn-next isDirty::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+    {{#if isDirty}}
+        <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+    {{else}}
+        <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action goToNextStep}}><span class="flaticon solid right-2"></span>{% trans "Next" %}</button>
+    {{/if}}
+
+
+    {{partial "my_project_tasks_and_updates"}}
 
 {% endtplhandlebars %}
 
@@ -600,7 +608,11 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
         </ul>
     </fieldset>
 
-    <button {{bindAttr class=":btn :btn-iconed :btn-next isDirty::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+    {{#if isDirty}}
+        <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+    {{else}}
+        <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action goToNextStep}}><span class="flaticon solid right-2"></span>{% trans "Next" %}</button>
+    {{/if}}
 
 {% endtplhandlebars %}
 
@@ -632,7 +644,12 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
         </ul>
     </fieldset>
 
-    <button {{bindAttr class=":btn :btn-iconed :btn-next isDirty::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+    {{#if isDirty}}
+        <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+    {{else}}
+        <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action goToNextStep}}><span class="flaticon solid right-2"></span>{% trans "Next" %}</button>
+    {{/if}}
+
 
 {% endtplhandlebars %}
 
@@ -669,7 +686,13 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
             </li>
         </ul>
     </fieldset>
-    <button {{bindAttr class=":btn :btn-iconed :btn-next isDirty::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+
+    {{#if isDirty}}
+        <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+    {{else}}
+        <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action goToNextStep}}><span class="flaticon solid right-2"></span>{% trans "Next" %}</button>
+    {{/if}}
+
 
 {% endtplhandlebars %}
 
@@ -714,11 +737,11 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                 <li class="control-group has-popover" data-content="{% trans "Street, house number, the place in your city" %}">
                     <label class="control-label">{% trans "Address line 1" %}</label>
                     <div class="controls">
-                        {{view Em.TextField valueBinding="address.line1" classBinding="address.errors.line1.length:error"}}
+                        {{view Em.TextField valueBinding="organization.address_line1" classBinding="organization.errors.address_line1.length:error"}}
                     </div>
 
-                    {{#if address.errors.line1 }}
-                        <div class="has-errors">{{#each address.errors.line1 }}<p>{{this}}</p>{{/each}}</div>
+                    {{#if organization.errors.address_line1 }}
+                        <div class="has-errors">{{#each organization.errors.address_line1 }}<p>{{this}}</p>{{/each}}</div>
                     {{/if}}
 
                 </li>
@@ -726,11 +749,11 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                 <li class="control-group has-popover" data-content="{% trans "More about your address" %}">
                     <label class="control-label">{% trans "Address line 2" %}</label>
                     <div class="controls">
-                        {{view Em.TextField valueBinding="address.line2" classBinding="address.errors.line2.length:error"}}
+                        {{view Em.TextField valueBinding="organization.address_line2" classBinding="organization.errors.address_line2.length:error"}}
                     </div>
 
-                    {{#if address.errors.line2 }}
-                        <div class="has-errors">{{#each address.errors.line2 }}<p>{{this}}</p>{{/each}}</div>
+                    {{#if organization.errors.address_line2 }}
+                        <div class="has-errors">{{#each organization.errors.address_line2 }}<p>{{this}}</p>{{/each}}</div>
                     {{/if}}
                 </li>
 
@@ -738,33 +761,33 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                 <li class="control-group has-popover" data-content="{% trans "City or village.." %}">
                     <label class="control-label">{% trans "City" %}</label>
                     <div class="controls">
-                        {{view Em.TextField valueBinding="address.city" classBinding="address.errors.city.length:error"}}
+                        {{view Em.TextField valueBinding="organization.city" classBinding="organization.errors.city.length:error"}}
                     </div>
 
-                    {{#if address.errors.city }}
-                        <div class="has-errors">{{#each address.errors.city }}<p>{{this}}</p>{{/each}}</div>
+                    {{#if organization.errors.city }}
+                        <div class="has-errors">{{#each organization.errors.city }}<p>{{this}}</p>{{/each}}</div>
                     {{/if}}
                 </li>
 
                 <li class="control-group has-popover" data-content="{% trans "Postal code" %}">
                     <label class="control-label">{% trans "Postal code" %}</label>
                     <div class="controls">
-                        {{view Em.TextField valueBinding="address.postal_code" classBinding="address.errors.postal_code.length:error"}}
+                        {{view Em.TextField valueBinding="organization.postal_code" classBinding="organization.errors.postal_code.length:error"}}
                     </div>
 
-                    {{#if address.errors.postal_code }}
-                        <div class="has-errors">{{#each address.errors.postal_code }}<p>{{this}}</p>{{/each}}</div>
+                    {{#if organization.errors.postal_code }}
+                        <div class="has-errors">{{#each organization.errors.postal_code }}<p>{{this}}</p>{{/each}}</div>
                     {{/if}}
                 </li>
 
                 <li class="control-group has-popover" data-content="{% trans "Country or territory" %}">
                     <label class="control-label">{% trans "Country" %}</label>
                     <div class="controls">
-                        {{view App.CountrySelectView valueBinding="address.country" classBinding="address.errors.country.length:error"}}
+                        {{view App.CountrySelectView valueBinding="organization.country" classBinding="organization.errors.country.length:error"}}
                     </div>
 
-                    {{#if address.errors.country }}
-                        <div class="has-errors">{{#each address.errors.country }}<p>{{this}}</p>{{/each}}</div>
+                    {{#if organization.errors.country }}
+                        <div class="has-errors">{{#each organization.errors.country }}<p>{{this}}</p>{{/each}}</div>
                     {{/if}}
                 </li>
             </ul>
@@ -831,7 +854,13 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                 </li>
             </ul>
         </fieldset>
-        <button {{bindAttr class=":btn :btn-iconed :btn-next shouldSave::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+
+        {{#if shouldSave}}
+            <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+        {{else}}
+            <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action goToNextStep}}><span class="flaticon solid right-2"></span>{% trans "Next" %}</button>
+        {{/if}}
+
     {{else}}
         <fieldset>
             <ul>
@@ -910,7 +939,11 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
         </ul>
     </fieldset>
 
-    <button {{bindAttr class=":btn :btn-iconed :btn-next shouldSave::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+    {{#if shouldSave}}
+        <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+    {{else}}
+        <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action goToNextStep}}><span class="flaticon solid right-2"></span>{% trans "Next" %}</button>
+    {{/if}}
 
 {% endtplhandlebars %}
 
@@ -931,7 +964,6 @@ You've to have at least 3 ambassadors. (more? great!)<br /><br />
     <fieldset>
         <ul>
             {{#each ambassador in ambassadors}}
-
                 <li class="control-group has-popover" data-content="{% trans "Email address of the amabassador" %}">
                     <label class="control-label">{% trans "Name" %}</label>
                     <div class="controls">
@@ -1097,7 +1129,11 @@ You've to have at least 3 ambassadors. (more? great!)<br /><br />
                 </li>
             </ul>
         </fieldset>
-        <button {{bindAttr class=":btn :btn-iconed :btn-next shouldSave::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+        {{#if shouldSave}}
+            <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+        {{else}}
+            <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action goToNextStep}}><span class="flaticon solid right-2"></span>{% trans "Next" %}</button>
+        {{/if}}
 
     {{else}}
         {{#if organization}}
@@ -1150,7 +1186,11 @@ Need more tips and tricks? Read our <a href="/#!/pages/faq-projects">FAQ</a>.<br
         </ul>
     </fieldset>
 
-    <button {{bindAttr class=":btn :btn-iconed :btn-next isDirty::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+    {{#if isDirty}}
+        <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+    {{else}}
+        <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action goToNextStep}}><span class="flaticon solid right-2"></span>{% trans "Next" %}</button>
+    {{/if}}
 
 {% endtplhandlebars %}
 
@@ -1221,7 +1261,11 @@ Please add 5% administration fee to your budget. The total amount, including the
         </legend>
     </fieldset>
 
-    <button {{bindAttr class=":btn :btn-iconed :btn-next shouldSave::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+    {{#if shouldSave}}
+        <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save & Next" %}</button>
+    {{else}}
+        <button {{bindAttr class=":btn :btn-iconed :btn-next"}} {{action goToNextStep}}><span class="flaticon solid right-2"></span>{% trans "Next" %}</button>
+    {{/if}}
 
 {% endtplhandlebars %}
 

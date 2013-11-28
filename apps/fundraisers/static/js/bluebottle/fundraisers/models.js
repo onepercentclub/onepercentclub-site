@@ -32,14 +32,6 @@ App.FundRaiser = DS.Model.extend({
         return this.get('amount_needed') <= 0;
     }.property('amount_needed'),
 
-    popover_title: function(){ // FIXME this should go in a view...
-        return this.get('owner').get('full_name') + '\n' + this.get('title');
-    }.property('owner', 'title'),
-
-    popover_content: function(){ // FIXME this should go in a view...
-        return this.get('amount_donated') + ' / ' + this.get('amount');
-    }.property('amount_donated', 'amount'),
-
     daysToGo: function(){
         var now = new Date();
         var microseconds = this.get('deadline').getTime() - now.getTime();
