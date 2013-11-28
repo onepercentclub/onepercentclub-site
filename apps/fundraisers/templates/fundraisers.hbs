@@ -187,10 +187,11 @@
                 {{/each}}
             </ul>
         {{/if}}
-
-        {{#linkTo 'fundRaiserNew' controllers.project.id class="fundraiser-become"}}
-            {% trans "Become a fundraiser" %}
-        {{/linkTo}}
+        {{#if controllers.project.isFundable}}
+            {{#linkTo 'fundRaiserNew' controllers.project.id class="fundraiser-become"}}
+                {% trans "Become a fundraiser" %}
+            {{/linkTo}}
+        {{/if}}
     </li>
 {% endtplhandlebars %}
 
@@ -272,10 +273,14 @@
                     </figure>
 
                     <div class="project-action">
-                        <a href='#' {{ action 'addDonation' this.project this }} class="btn btn-primary btn-iconed">
-                            <span class="flaticon solid wallet-1"></span>
-                            {% trans "Support" %} {{owner.first_name}}
-                        </a>
+                        {{#if controllers.project.isFundable}}
+                            <a href='#' {{ action 'addDonation' this.project this }} class="btn btn-primary btn-iconed">
+                                <span class="flaticon solid wallet-1"></span>
+                                {% trans "Support" %} {{owner.first_name}}
+                            </a>
+                        {{else}}
+                            <h2>{% trans "Project Funded" %}</h2>
+                        {{/if}}
                     </div>
 
                 </article>
