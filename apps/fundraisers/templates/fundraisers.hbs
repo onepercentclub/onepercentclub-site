@@ -246,6 +246,7 @@
                             {{#linkTo 'fundRaiserDonationList' id}}{% trans "Donations" %}{{/linkTo}}
                         </span>
                     {{/if}}
+
                     <h1 class="project-title">{{title}}</h1>
                     <p class="project-description">{{description}}</p>
                 </article>
@@ -269,18 +270,19 @@
                 </article>
 
             </div>
+            
         </section>
 
-       <div class="l-section" id="fundraiser-status">
+        <div class="l-section" id="fundraiser-status">
             <section class="l-wrapper">
                 <div class="project-status">
-
+    
                     {{#if deadline}}
                     <div class="project-days-left l-one-third">
                         <strong><span class="flaticon solid stopwatch-1"></span> {{daysToGo}} <em>{% trans "days to go" %}!</em></strong>
                     </div>
                     {{/if}}
-
+    
                     <div class="project-fund l-one-third">
                         <p class="project-fund-amount">
                             <strong class="amount-donated">&euro;{{localize amount_donated}}</strong>
@@ -306,11 +308,9 @@
                         </li>
                         {{/if}}
                     </ul>
-
                 </div>
-
-            </div>
-        </section>
+            </section>
+        </div>
     </div>
 
 {% endtplhandlebars %}

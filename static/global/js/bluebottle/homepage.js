@@ -113,7 +113,7 @@ App.HomeController = Ember.ObjectController.extend({
 
     actions: {
         scrollToFundraisers: function() {
-            var offset = $('#fundraisers').offset().top;
+            var offset = $('#home-crazy-campaign-fundraisers').offset().top;
             $("html, body").animate({ scrollTop: offset }, 600);
         }
     }
@@ -125,15 +125,14 @@ App.HomeBannerView = Ember.View.extend({
     templateName: 'home_banner',
 
     didInsertElement: function() {
+    
+        // Carousel
         this.$().find('.carousel').unslider({
             dots: true,
             fluid: true,
             delay: 10000
         });
     },
-
-
-
 });
 
 
@@ -196,5 +195,20 @@ App.HomeFundraisersView = Ember.View.extend({
 });
 
 App.HomeCampaignView = Ember.View.extend({
-    templateName: 'home_campaign_block'
+    templateName: 'home_campaign_block',
+    
+    didInsertElement: function() {
+    
+        // Countdown for campaign
+        var liftoffTime = new Date();
+    	liftoffTime = new Date('1 Dec, 2013 23:00:00'); // TODO: Switch with campaign.end variable
+        
+        this.$().find('#countdown').countdown({
+            until: liftoffTime, 
+            format: 'HMS',
+            whichLabels: null,
+            timeSeparator: ':',
+            layout: $('#countdown').html()
+        });
+    }
 });
