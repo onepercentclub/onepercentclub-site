@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-28 17:50+0100\n"
+"POT-Creation-Date: 2013-11-29 00:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,6 +78,14 @@ msgstr ""
 msgid "No %(verbose_name)s found matching the query"
 msgstr ""
 
+#: templates/fundraisers.hbs:27
+msgid "Amount & deadline"
+msgstr ""
+
+#: templates/fundraisers.hbs:28
+msgid "Be realistic and...show ambition!"
+msgstr ""
+
 #: templates/fundraisers.hbs:48 templates/fundraisers.hbs.py:118
 #: templates/fundraisers.hbs:376
 #, python-format
@@ -85,7 +93,7 @@ msgid "My 1%%"
 msgstr ""
 
 #: templates/fundraisers.hbs:48 templates/fundraisers.hbs.py:118
-#: templates/fundraisers.hbs:181 templates/fundraisers.hbs.py:376
+#: templates/fundraisers.hbs:176 templates/fundraisers.hbs.py:376
 msgid "Fundraisers"
 msgstr ""
 
@@ -93,15 +101,14 @@ msgstr ""
 msgid "Preview fundraiser page"
 msgstr ""
 
-#: templates/fundraisers.hbs:66 templates/fundraisers.hbs.py:83
-msgid "New fundraiser"
+#: templates/fundraisers.hbs:66
+msgid "Yes, you can!"
 msgstr ""
 
-#: templates/fundraisers.hbs:68 templates/fundraisers.hbs.py:138
-#: templates/fundraisers.hbs:392
+#: templates/fundraisers.hbs:68
 msgid ""
 "\n"
-"                                Lorem ipsum\n"
+"                            What's your fundraising plan? Make it concrete & exciting!\n"
 "                            "
 msgstr ""
 
@@ -109,35 +116,36 @@ msgstr ""
 msgid "Create"
 msgstr ""
 
+#: templates/fundraisers.hbs:83
+msgid "New fundraiser"
+msgstr ""
+
 #: templates/fundraisers.hbs:85
 msgid ""
 "\n"
-"                                You can only make a fundraiser if you are logged in.\n"
+"                            You need to be logged in to start fundraising.\n"
 "                            "
 msgstr ""
 
-#: templates/fundraisers.hbs:91 templates/fundraisers.hbs.py:161
+#: templates/fundraisers.hbs:91 templates/fundraisers.hbs.py:156
 #: templates/fundraisers.hbs:418
 msgid "Login"
 msgstr ""
 
-#: templates/fundraisers.hbs:91 templates/fundraisers.hbs.py:161
-#: templates/fundraisers.hbs:418
-msgid "or become a"
+#: templates/fundraisers.hbs:91
+msgid "or"
 msgstr ""
 
-#: templates/fundraisers.hbs:91 templates/fundraisers.hbs.py:161
+#: templates/fundraisers.hbs:91 templates/fundraisers.hbs.py:156
 #: templates/fundraisers.hbs:418
 msgid "member"
 msgstr ""
 
-#: templates/fundraisers.hbs:91 templates/fundraisers.hbs.py:161
-#: templates/fundraisers.hbs:418
-msgid "to start a fundraiser."
+#: templates/fundraisers.hbs:91
+msgid "to become a fundraiser."
 msgstr ""
 
-#: templates/fundraisers.hbs:96 templates/fundraisers.hbs.py:166
-#: templates/fundraisers.hbs:423
+#: templates/fundraisers.hbs:96 templates/fundraisers.hbs.py:423
 msgid "Fundraising for project"
 msgstr ""
 
@@ -145,55 +153,71 @@ msgstr ""
 msgid "You'll be fundraising for this project"
 msgstr ""
 
-#: templates/fundraisers.hbs:136 templates/fundraisers.hbs.py:153
+#: templates/fundraisers.hbs:136 templates/fundraisers.hbs.py:148
 msgid "Edit fundraiser"
 msgstr ""
 
-#: templates/fundraisers.hbs:148
+#: templates/fundraisers.hbs:143
 msgid "Save"
 msgstr ""
 
-#: templates/fundraisers.hbs:155
+#: templates/fundraisers.hbs:150
 msgid ""
 "\n"
 "                                You can only make a fundraiser if you are logged in and the owner of this fundraiser.\n"
 "                            "
 msgstr ""
 
-#: templates/fundraisers.hbs:167
-msgid "You are be fundraising for this project"
+#: templates/fundraisers.hbs:156 templates/fundraisers.hbs.py:418
+msgid "or become a"
 msgstr ""
 
-#: templates/fundraisers.hbs:192
+#: templates/fundraisers.hbs:156 templates/fundraisers.hbs.py:418
+msgid "to start a fundraiser."
+msgstr ""
+
+#: templates/fundraisers.hbs:161
+msgid "You rock!"
+msgstr ""
+
+#: templates/fundraisers.hbs:162
+msgid "Because you're fundraising for this project:"
+msgstr ""
+
+#: templates/fundraisers.hbs:187
 msgid "Become a fundraiser"
 msgstr ""
 
-#: templates/fundraisers.hbs:205 templates/fundraisers.hbs.py:299
+#: templates/fundraisers.hbs:201 templates/fundraisers.hbs.py:299
 msgid "of"
 msgstr ""
 
-#: templates/fundraisers.hbs:207 templates/fundraisers.hbs.py:301
+#: templates/fundraisers.hbs:203 templates/fundraisers.hbs.py:301
 msgid "raised"
 msgstr ""
 
-#: templates/fundraisers.hbs:243
+#: templates/fundraisers.hbs:239
 msgid "Fundraising for"
 msgstr ""
 
-#: templates/fundraisers.hbs:255
+#: templates/fundraisers.hbs:251
 msgid "Edit"
 msgstr ""
 
-#: templates/fundraisers.hbs:258 templates/fundraisers.hbs.py:376
+#: templates/fundraisers.hbs:254 templates/fundraisers.hbs.py:376
 msgid "Donations"
 msgstr ""
 
-#: templates/fundraisers.hbs:270
+#: templates/fundraisers.hbs:266
 msgid "Fundraiser"
 msgstr ""
 
-#: templates/fundraisers.hbs:277
+#: templates/fundraisers.hbs:274
 msgid "Support"
+msgstr ""
+
+#: templates/fundraisers.hbs:277
+msgid "Project Funded"
 msgstr ""
 
 #: templates/fundraisers.hbs:292
@@ -222,6 +246,13 @@ msgstr ""
 
 #: templates/fundraisers.hbs:390 templates/fundraisers.hbs.py:410
 msgid "Donation overview"
+msgstr ""
+
+#: templates/fundraisers.hbs:392
+msgid ""
+"\n"
+"                            The people below already supported your fundraise action\n"
+"                            "
 msgstr ""
 
 #: templates/fundraisers.hbs:405
