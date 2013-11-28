@@ -83,12 +83,12 @@
                         <h1>{% trans "New fundraiser" %}</h1>
                         <p>
                             {% blocktrans %}
-                                You can only make a fundraiser if you are logged in.
+                            You need to be logged in to start fundraising.
                             {% endblocktrans %}
                         </p>
                     </header>
 
-                    <p class="login-signup"><a href="/accounts/login">{% trans "Login" %}</a> {% trans "or become a" %} {{#linkTo "signup"}}{% trans "member" %}{{/linkTo}} {% trans "to start a fundraiser." %}</p>
+                    <p class="login-signup"><a href="/accounts/login">{% trans "Login" %}</a> {% trans "or" %} {{#linkTo "register"}}{% trans "member" %}{{/linkTo}} {% trans "to become a fundraiser." %}</p>
                 {{/if}}
             </div>
 
