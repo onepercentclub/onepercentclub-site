@@ -23,9 +23,9 @@ class MediaWallPostPhotoInline(AdminImageMixin, admin.StackedInline):
 class MediaWallPostAdmin(PolymorphicChildModelAdmin):
     base_model = WallPost
     raw_id_fields = ('author', 'editor')
-    list_display = ('created', 'view_project_online', 'get_text', 'video_url', 'photos', 'author')
+    list_display = ('created', 'view_online', 'get_text', 'video_url', 'photos', 'author')
 
-    readonly_fields = ('view_project_online', )
+    readonly_fields = ('view_online', )
 
     ordering = ('-created', )
     inlines = (MediaWallPostPhotoInline,)
@@ -41,9 +41,16 @@ class MediaWallPostAdmin(PolymorphicChildModelAdmin):
             return len(photos)
         return '-'
 
-    def view_project_online(self, obj):
-        return u'<a href="/go/projects/{slug}">{title}</a>'.format(slug=obj.content_object.slug, title=obj.content_object.title)
-    view_project_online.allow_tags = True
+    def view_online(self, obj):
+        if obj.content_type.name == 'project':
+            return u'<a href="/go/projects/{slug}">{title}</a>'.format(slug=obj.content_object.slug, title=obj.content_object.title)
+        if obj.content_type.name == 'task':
+            return u'<a href="/go/projects/{slug}/tasks/{task_id}">{title}</a>'.format(slug=obj.content_object.project.slug, task_id=obj.content_object.id, title=obj.content_object.project.title)
+        if obj.content_type.name == 'fund raiser':
+            return u'<a href="/go/fundraisers/{id}">{title}</a>'.format(id=obj.content_object.id, title=obj.content_object.title)
+        return '---'
+
+    view_online.allow_tags = True
 
 
 

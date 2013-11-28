@@ -119,6 +119,11 @@ App.Editable = Ember.Mixin.create({
             record.save();
         },
 
+        goToNextStep: function(){
+            $("html, body").animate({ scrollTop: 0 }, 600);
+            this.transitionToRoute(this.get('nextStep'));
+        },
+
         updateRecordOnServer: function(){
             var controller = this;
             var model = this.get('model');
@@ -130,12 +135,14 @@ App.Editable = Ember.Mixin.create({
 
             model.one('didUpdate', function(){
                 if (controller.get('nextStep')) {
+                    $("html, body").animate({ scrollTop: 0 }, 600);
                     controller.transitionToRoute(controller.get('nextStep'));
                 }
             });
 
             model.one('didCreate', function(){
                 if (controller.get('nextStep')) {
+                    $("html, body").animate({ scrollTop: 0 }, 600);
                     controller.transitionToRoute(controller.get('nextStep'));
                 }
             });
