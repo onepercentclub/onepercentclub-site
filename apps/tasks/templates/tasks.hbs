@@ -262,7 +262,6 @@
     <div class="l-section">
         <section class="l-wrapper" id="task-detail">
 
-            {# TODO: Make dry #}
             {{# if isProjectOwner}}
                 <div class="owner-actions">
                     <header>
@@ -354,7 +353,7 @@
                 </article>
 
                 <div id="wallposts">
-                    {{ render "taskWallPostList" }}
+                    {{ outlet }}
                 </div>
 
             </div>
@@ -524,6 +523,34 @@
 
 {% endtplhandlebars %}
 
+
+{% tplhandlebars "projectTask/index" %}
+    {{!-- Project Wall Post List template --}}
+
+    {{#if controllers.currentUser.isAuthenticated }}
+        {{ render "taskTextWallPostNew" }}
+    {{else}}
+        <h3>{% trans "Write a comment" %}</h3>
+        <a {{action openInBox "login"}}>{%  trans "Login" %}</a> or become a {{#linkTo "signup"}}{% trans "member" %}{{/linkTo}} {% trans "to leave a comment" %}.</p>
+    {{/if}}
+
+    {{#each item in controller itemController="wallPost"}}
+        {{#if item.isLoaded}}
+            {{#if item.isSystemWallPost}}
+                {{view "App.SystemWallPostView"}}
+            {{else}}
+                {{view "App.MediaWallPostView"}}
+            {{/if}}
+        {{/if}}
+    {{/each}}
+
+    {{#if canLoadMore}}
+        <a {{action "showMore"}} class="btn-link btn-more">
+            <span class="flaticon solid plus-2"></span> {% trans "Show more" %} <small>{{remainingItemCount}} {% trans "more" %}</small>
+        </a>
+    {{/if}}
+
+{% endtplhandlebars %}
 
 {% tplhandlebars "task_member_edit" %}
     

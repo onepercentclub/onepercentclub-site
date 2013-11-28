@@ -1,4 +1,4 @@
-import datetime
+from django.utils import timezone
 from django.test.client import MULTIPART_CONTENT
 import os
 import json
@@ -212,7 +212,7 @@ class FundRaiserApiIntegrationTest(FundRaiserTestsMixin, DonationTestsMixin, Pro
         Helper function to post some data to the fundraiser list view.
         """
         # Construct default data
-        now = datetime.datetime.now()
+        now = timezone.now()
         data = {
             'project': self.some_project.slug,
             'title': 'My Title',
@@ -251,7 +251,7 @@ class FundRaiserApiIntegrationTest(FundRaiserTestsMixin, DonationTestsMixin, Pro
         self.assertTrue(self.client.login(username=self.some_user.email, password='password'))
 
         # Construct data
-        deadline = (datetime.datetime.now() + datetime.timedelta(days=14)).strftime('%Y-%m-%dT%H:%M:%S')
+        deadline = (timezone.now() + timezone.timedelta(days=14)).strftime('%Y-%m-%dT%H:%M:%S')
         with open(os.path.join(os.path.dirname(__file__), 'test_files', 'upload.png'), 'rb') as fp:
             data = {
                 'project': self.some_project.slug,
@@ -324,7 +324,7 @@ class FundRaiserApiIntegrationTest(FundRaiserTestsMixin, DonationTestsMixin, Pro
         self.assertTrue(self.client.login(username=self.some_user.email, password='password'))
 
         # Construct data
-        deadline = datetime.datetime.now() + datetime.timedelta(days=14)
+        deadline = timezone.now() + timezone.timedelta(days=14)
         with open(os.path.join(os.path.dirname(__file__), 'test_files', 'upload.png'), 'rb') as fp:
             data = {
                 'project': self.another_project.slug,

@@ -6,27 +6,17 @@ from django.utils.translation import ugettext as _
 from django.http import Http404
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.generic.detail import DetailView
-from django.views.generic.list import ListView
-from django.contrib.contenttypes.models import ContentType
 from rest_framework import generics
-from rest_framework import permissions
 from rest_framework.permissions import IsAuthenticated
-from bluebottle.bluebottle_drf2.views import ListCreateAPIView, RetrieveUpdateDeleteAPIView, ListAPIView
-from bluebottle.bluebottle_utils.utils import get_client_ip, set_author_editor_ip
-from bluebottle.bluebottle_drf2.permissions import IsAuthorOrReadOnly
 
 from apps.projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador, ProjectBudgetLine, ProjectPhases, ProjectCampaign, ProjectTheme
 from apps.fund.models import Donation, DonationStatuses
 from apps.projects.serializers import ProjectSupporterSerializer, ManageProjectSerializer, ManageProjectPitchSerializer, ManageProjectPlanSerializer, ProjectPlanSerializer, ProjectPitchSerializer, ProjectAmbassadorSerializer, ProjectBudgetLineSerializer, ProjectPreviewSerializer, ProjectCampaignSerializer, ProjectThemeSerializer
-from apps.wallposts.permissions import IsConnectedWallPostAuthorOrReadOnly
-from apps.wallposts.serializers import MediaWallPostPhotoSerializer
-from apps.projects.permissions import IsProjectOwnerOrReadOnly, IsProjectOwner, IsOwner, NoRunningProjectsOrReadOnly, EditablePitchOrReadOnly, EditablePlanOrReadOnly
-from apps.wallposts.models import WallPost, MediaWallPost, TextWallPost, MediaWallPostPhoto
+from apps.projects.permissions import IsProjectOwner, NoRunningProjectsOrReadOnly, EditablePitchOrReadOnly, EditablePlanOrReadOnly
 from apps.fundraisers.models import FundRaiser
 
 from .models import Project
-from .serializers import (ProjectSerializer, ProjectWallPostSerializer, ProjectMediaWallPostSerializer,
-                          ProjectTextWallPostSerializer, ProjectDonationSerializer)
+from .serializers import ProjectSerializer, ProjectDonationSerializer
 
 # API views
 
@@ -118,112 +108,6 @@ class ProjectPitchDetail(generics.RetrieveAPIView):
 class ProjectPlanDetail(generics.RetrieveAPIView):
     model = ProjectPlan
     serializer_class = ProjectPlanSerializer
-
-
-class ProjectWallPostMixin(object):
-
-    def get_queryset(self):
-        queryset = super(ProjectWallPostMixin, self).get_queryset()
-        project_type = ContentType.objects.get_for_model(Project)
-        queryset = queryset.filter(content_type=project_type)
-        project_slug = self.request.QUERY_PARAMS.get('project', None)
-        if project_slug:
-            try:
-                project = Project.objects.get(slug=project_slug)
-            except Project.DoesNotExist:
-                pass
-            else:
-                queryset = queryset.filter(object_id=project.id)
-        queryset = queryset.order_by("-created")
-        return queryset
-
-    def pre_save(self, obj):
-        if not obj.author:
-            obj.author = self.request.user
-        else:
-            obj.editor = self.request.user
-        obj.ip_address = get_client_ip(self.request)
-
-
-class ProjectWallPostList(ProjectWallPostMixin, ListAPIView):
-    model = WallPost
-    serializer_class = ProjectWallPostSerializer
-    paginate_by = 40
-
-
-class ProjectWallPostDetail(ProjectWallPostMixin, RetrieveUpdateDeleteAPIView):
-    model = WallPost
-    serializer_class = ProjectWallPostSerializer
-    permission_classes = (IsAuthorOrReadOnly,)
-
-
-class ProjectMediaWallPostPhotoList(ListCreateAPIView):
-    model = MediaWallPostPhoto
-    serializer_class = MediaWallPostPhotoSerializer
-    paginate_by = 4
-
-    def pre_save(self, obj):
-        if not obj.author:
-            obj.author = self.request.user
-        else:
-            obj.editor = self.request.user
-        obj.ip_address = get_client_ip(self.request)
-
-    def create(self, request, *args, **kwargs): #FIXME
-        """
-        Work around browser issues.
-
-        Adding photos to a wallpost works correctly in Chrome. Firefox (at least
-        FF 24) sends the ```mediawallpost``` value to Django with the value
-        'null', which is then interpreted as a string in Django. This is
-        incorrect behaviour, as ```mediawallpost``` is a relation.
-
-        Eventually, this leads to HTTP400 errors, effectively breaking photo
-        uploads in FF.
-
-        The quick fix is detecting this incorrect 'null' string in ```request.POST```
-        and setting it to an empty string. ```request.POST``` is mutable because
-        of the multipart nature.
-
-        NOTE: This is something that should be fixed in the Ember app or maybe even
-        Ember itself.
-        """
-        post = request.POST.get('mediawallpost', False)
-        if post and post == u'null':
-            request.POST['mediawallpost'] = u''
-        return super(ProjectMediaWallPostPhotoList, self).create(request, *args, **kwargs)
-
-
-class ProjectMediaWallPostPhotoDetail(RetrieveUpdateDeleteAPIView):
-    model = MediaWallPostPhoto
-    serializer_class = MediaWallPostPhotoSerializer
-    permission_classes = (IsAuthorOrReadOnly, IsConnectedWallPostAuthorOrReadOnly)
-
-
-class ProjectMediaWallPostList(ProjectWallPostMixin, ListCreateAPIView):
-    model = MediaWallPost
-    serializer_class = ProjectMediaWallPostSerializer
-    permission_classes = (IsProjectOwnerOrReadOnly,)
-    paginate_by = 4
-
-
-class ProjectMediaWallPostDetail(ProjectWallPostMixin, RetrieveUpdateDeleteAPIView):
-    model = MediaWallPost
-    serializer_class = ProjectMediaWallPostSerializer
-    permission_classes = (IsAuthorOrReadOnly,)
-
-
-class ProjectTextWallPostList(ProjectWallPostMixin, ListCreateAPIView):
-    model = TextWallPost
-    serializer_class = ProjectTextWallPostSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-    paginate_by = 4
-
-
-class ProjectTextWallPostDetail(ProjectWallPostMixin, RetrieveUpdateDeleteAPIView):
-    model = TextWallPost
-    serializer_class = ProjectTextWallPostSerializer
-    permission_classes = (IsAuthorOrReadOnly,)
 
 
 class ProjectSupporterList(generics.ListAPIView):

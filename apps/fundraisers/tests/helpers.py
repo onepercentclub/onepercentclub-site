@@ -1,4 +1,4 @@
-import datetime
+from django.utils import timezone
 from bluebottle.bluebottle_utils.tests import generate_random_slug
 
 from ..models import FundRaiser
@@ -9,7 +9,7 @@ class FundRaiserTestsMixin(object):
         if not title:
             title = generate_random_slug()
         if deadline is None:
-            deadline = datetime.datetime.now() + datetime.timedelta(days=28)
+            deadline = timezone.now() + timezone.timedelta(days=28)
 
         fr = FundRaiser.objects.create(owner=owner, project=project, title=title, amount=amount, deadline=deadline)
         return fr

@@ -169,7 +169,7 @@ App.Adapter = DS.DRF2Adapter.extend({
         "users/activate": "users/activate",
         "users/passwordset": "users/passwordset",
         "homepage": "homepage",
-        "pages/contact": "pages/contact"
+        "pages/contact": "pages/contact",
     }
 });
 
