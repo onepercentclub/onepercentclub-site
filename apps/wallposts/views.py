@@ -1,4 +1,5 @@
 import django_filters
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from apps.wallposts.models import TextWallPost, MediaWallPost, MediaWallPostPhoto
 from apps.wallposts.permissions import IsConnectedWallPostAuthorOrReadOnly
 from apps.wallposts.serializers import TextWallPostSerializer, MediaWallPostSerializer, MediaWallPostPhotoSerializer
@@ -49,6 +50,7 @@ class TextWallPostList(ListCreateAPIView):
     serializer_class = TextWallPostSerializer
     filter_class = WallPostFilter
     paginate_by = 5
+    permission_classes = (IsAuthenticatedOrReadOnly, )
 
     def get_queryset(self):
         queryset = super(TextWallPostList, self).get_queryset()
