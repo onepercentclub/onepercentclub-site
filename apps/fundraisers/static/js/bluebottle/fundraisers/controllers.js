@@ -90,3 +90,6 @@ App.FundRaiserIndexController = Em.ArrayController.extend({
         }
     }
 });
+
+
+
