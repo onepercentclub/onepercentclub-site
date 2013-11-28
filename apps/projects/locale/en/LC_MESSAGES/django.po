@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-27 14:05+0100\n"
+"POT-Creation-Date: 2013-11-28 17:50+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: admin.py:63 templates/manage.hbs:366 templates/projects.hbs:488
+#: admin.py:63 templates/manage.hbs:366 templates/projects.hbs:537
 msgid "Budget"
 msgstr ""
 
@@ -395,7 +395,7 @@ msgstr ""
 msgid "budget lines"
 msgstr ""
 
-#: views.py:246 views.py:249 views.py:258
+#: views.py:130 views.py:133 views.py:142
 #, python-format
 msgid "No %(verbose_name)s found matching the query"
 msgstr ""
@@ -482,7 +482,7 @@ msgstr ""
 msgid "write your pitch"
 msgstr ""
 
-#: templates/manage.hbs:155
+#: templates/manage.hbs:155 templates/projects.hbs:357
 msgid "Login"
 msgstr ""
 
@@ -490,7 +490,7 @@ msgstr ""
 msgid "or become a"
 msgstr ""
 
-#: templates/manage.hbs:155
+#: templates/manage.hbs:155 templates/projects.hbs:357
 msgid "member"
 msgstr ""
 
@@ -590,7 +590,7 @@ msgstr ""
 
 #: templates/manage.hbs:319 templates/manage.hbs.py:641
 #: templates/manage.hbs:1390 templates/project_detail.html:34
-#: templates/projects.hbs:451
+#: templates/projects.hbs:501
 msgid "Location"
 msgstr ""
 
@@ -599,7 +599,7 @@ msgid "Media"
 msgstr ""
 
 #: templates/manage.hbs:330 templates/manage.hbs.py:705
-#: templates/manage.hbs:870 templates/projects.hbs:459
+#: templates/manage.hbs:870 templates/projects.hbs:509
 msgid "Organisation"
 msgstr ""
 
@@ -715,11 +715,11 @@ msgstr ""
 msgid "Why, what and how"
 msgstr ""
 
-#: templates/manage.hbs:565 templates/projects.hbs:423
+#: templates/manage.hbs:565 templates/projects.hbs:473
 msgid "Effects"
 msgstr ""
 
-#: templates/manage.hbs:576 templates/projects.hbs:430
+#: templates/manage.hbs:576 templates/projects.hbs:480
 msgid "Future"
 msgstr ""
 
@@ -735,7 +735,7 @@ msgstr ""
 msgid "How many people do you expect to reach? Enter a number (e.g. 50)"
 msgstr ""
 
-#: templates/manage.hbs:601 templates/projects.hbs:444
+#: templates/manage.hbs:601 templates/projects.hbs:494
 msgid "People reached"
 msgstr ""
 
@@ -1292,7 +1292,7 @@ msgstr ""
 msgid "None specified."
 msgstr ""
 
-#: templates/project_detail.html:73 templates/projects.hbs:359
+#: templates/project_detail.html:73 templates/projects.hbs:409
 msgid "Supporters"
 msgstr ""
 
@@ -1432,31 +1432,59 @@ msgstr ""
 msgid "Read full plan"
 msgstr ""
 
-#: templates/projects.hbs:325
+#: templates/projects.hbs:338
+msgid "Show more"
+msgstr ""
+
+#: templates/projects.hbs:338
+msgid "more"
+msgstr ""
+
+#: templates/projects.hbs:347
+msgid "Write an update"
+msgstr ""
+
+#: templates/projects.hbs:348
+msgid "Write an update of your project to inform your crowd."
+msgstr ""
+
+#: templates/projects.hbs:351 templates/projects.hbs.py:356
+msgid "Write a comment"
+msgstr ""
+
+#: templates/projects.hbs:352
+msgid "Write an comment to place on the project's wall."
+msgstr ""
+
+#: templates/projects.hbs:357
+msgid "to leave a comment"
+msgstr ""
+
+#: templates/projects.hbs:375
 msgid "Initiator"
 msgstr ""
 
-#: templates/projects.hbs:335
+#: templates/projects.hbs:385
 msgid "Coach"
 msgstr ""
 
-#: templates/projects.hbs:359
+#: templates/projects.hbs:409
 msgid "Total"
 msgstr ""
 
-#: templates/projects.hbs:379 templates/projects.hbs.py:396
+#: templates/projects.hbs:429 templates/projects.hbs.py:446
 msgid "Guest"
 msgstr ""
 
-#: templates/projects.hbs:411
+#: templates/projects.hbs:461
 msgid "Project Plan"
 msgstr ""
 
-#: templates/projects.hbs:416
+#: templates/projects.hbs:466
 msgid "Why, what and how?"
 msgstr ""
 
-#: templates/projects.hbs:437
+#: templates/projects.hbs:487
 msgid "For who?"
 msgstr ""
 
