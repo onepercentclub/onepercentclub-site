@@ -543,3 +543,8 @@ App.MyProjectPlanSubmitController = Em.ObjectController.extend(App.Editable, {
     }
 });
 
+App.MyProjectCampaignController = Em.ObjectController.extend({
+    project: function() {
+        return this.get('model');
+    }.property('model')
+});
