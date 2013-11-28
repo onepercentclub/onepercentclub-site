@@ -37,7 +37,7 @@ class FundRaiser(models.Model):
         if donations:
             total = donations.aggregate(sum=Sum('amount'))
             return total['sum']
-        return 0.0
+        return '000'
 
     def get_meta_title(self, **kwargs):
         title = _(u"{fundraiser} for {project}").format(
