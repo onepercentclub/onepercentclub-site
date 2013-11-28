@@ -634,3 +634,21 @@ class ProjectPhaseLoggerTest(ProjectTestsMixin, TestCase):
         self.some_project.save()
 
         self.assertEqual(2, self.some_project.projectphaselog_set.count())
+
+
+class FailedProjectTest(ProjectTestsMixin, TestCase):
+    """ Verify that the project is marked as failed when pitch/plan is rejected """
+    def setUp(self):
+        self.some_project = self.create_project(phase='plan')
+
+    def test_pitch_rejected(self):
+        self.some_project.projectpitch.status = ProjectPitch.PitchStatuses.rejected
+        self.some_project.projectpitch.save()
+        self.assertEqual(self.some_project.phase, ProjectPhases.failed)
+
+
+    def test_plan_rejected(self):
+        self.some_project.projectplan.status = ProjectPlan.PlanStatuses.rejected
+        self.some_project.projectplan.save()
+
+        self.assertEqual(self.some_project.phase, ProjectPhases.failed)

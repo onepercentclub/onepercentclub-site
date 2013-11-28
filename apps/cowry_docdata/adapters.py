@@ -221,6 +221,7 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
             payment_num = int(order_payment_nums[1]) + 1
             return '{0}-{1}'.format(payment.order.order_number, payment_num)
 
+
     # TODO Find a way to use UTF-8 / unicode strings with Suds to make this truly international.
     def convert_to_ascii(self, value):
         """ Normalize / convert unicode characters to ascii equivalents. """
@@ -288,13 +289,15 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
         description = payment.order.__unicode__()[:50]
         if not description:
             # TODO Add a setting for default description.
-            description = "1%CLUB"
+            description = "1%Club"
 
         payment.merchant_order_reference = self.generate_merchant_order_reference(payment)
 
         # Execute create payment order request.
         reply = self.client.service.create(self.merchant, payment.merchant_order_reference, paymentPreferences,
                                            menuPreferences, shopper, amount, billTo, description)
+
+
         if hasattr(reply, 'createSuccess'):
             payment.payment_order_id = str(reply['createSuccess']['key'])
             self._change_status(payment, PaymentStatuses.in_progress)  # Note: _change_status calls payment.save().
@@ -303,11 +306,19 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
             error = reply['createError']['error']
             error_message = "{0} {1}".format(error['_code'], error['value'])
             logger.error(error_message)
+            # Log this error to db too.
+            log_entry = DocDataPaymentLogEntry(docdata_payment_order=payment, level='warn', message=error_message)
+            log_entry.save()
+
             raise DocDataPaymentException(error['_code'], error['value'])
         else:
             payment.save()
             error_message = 'Received unknown reply from DocData. Remote Payment not created.'
             logger.error(error_message)
+            # Log this error to db too.
+            log_entry = DocDataPaymentLogEntry(docdata_payment_order=payment, level='warn', message=error_message)
+            log_entry.save()
+
             raise DocDataPaymentException('REPLY_ERROR', error_message)
 
     def cancel_payment(self, payment):

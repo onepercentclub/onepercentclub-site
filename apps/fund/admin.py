@@ -160,7 +160,7 @@ class DonationAdminInline(admin.TabularInline):
 class OrderAdmin(admin.ModelAdmin):
     date_hierarchy = 'updated'
     list_filter = (OrderStatusFilter, 'recurring')
-    list_display = ('order_number', 'updated', 'closed', 'user',  'total', 'status', 'type')
+    list_display = ('order_number', 'updated', 'closed', 'user',  'total', 'status', 'type', 'payment_status')
     ordering = ('-closed', '-updated')
     raw_id_fields = ('user',)
     readonly_fields = ('total', 'order_number', 'created', 'updated')
@@ -177,6 +177,12 @@ class OrderAdmin(admin.ModelAdmin):
             'fund/icon-{0}.svg'.format({True: 'recurring-donation', False: 'one-time-donation'}[obj.recurring]))
         alt_text = {True: 'Recurring', False: 'One-time'}[obj.recurring]
         return '<img alt="{0}" src="{1}" height="16px" />'.format(alt_text, icon_url)
+
+
+    def payment_status(self, obj):
+        if obj.latest_payment:
+            return obj.latest_payment.status
+        return '-'
 
     type.allow_tags = True
     type.short_description = 'type'

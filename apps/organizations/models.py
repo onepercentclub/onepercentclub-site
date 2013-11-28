@@ -42,13 +42,21 @@ class Organization(models.Model):
 
     account_bank_name = models.CharField(_("account bank name"), max_length=255, blank=True)
     account_bank_address = models.CharField(_("account bank address"), max_length=255, blank=True)
-    account_bank_country = models.ForeignKey('geo.Country', blank=True, null=True)
+    account_bank_country = models.ForeignKey('geo.Country', blank=True, null=True, related_name="account_bank_country")
     account_iban = IBANField(_("account IBAN"), blank=True)
     account_bic = SWIFTBICField(_("account SWIFT-BIC"), blank=True)
     account_number = models.CharField(_("account number"), max_length=255, blank=True)
     account_name = models.CharField(_("account name"), max_length=255, blank=True)
     account_city = models.CharField(_("account city"), max_length=255, blank=True)
     account_other = models.CharField(_("account information that doesn't fit in the other field"), max_length=255, blank=True)
+
+    # Address
+    address_line1 = models.CharField(max_length=100, blank=True)
+    address_line2 = models.CharField(max_length=100, blank=True)
+    city = models.CharField(max_length=100, blank=True)
+    state = models.CharField(max_length=100, blank=True)
+    country = models.ForeignKey('geo.Country', blank=True, null=True, related_name="country")
+    postal_code = models.CharField(max_length=20, blank=True)
 
     tags = TaggableManager(blank=True, verbose_name=_("tags"))
 
@@ -85,22 +93,6 @@ class OrganizationMember(models.Model):
     class Meta:
         verbose_name = _("organization member")
         verbose_name_plural = _("organization members")
-
-
-class OrganizationAddress(Address):
-    """ Address model for Organizations. """
-
-    class AddressType(DjangoChoices):
-        physical = ChoiceItem('physical', label=_("Physical"))
-        postal = ChoiceItem('postal', label=_("Postal"))
-        other = ChoiceItem('other', label=_("Other"))
-
-    type = models.CharField(_("type"), help_text=_("Address type."), max_length=8, blank=True, choices=AddressType.choices)
-    organization = models.ForeignKey(Organization, verbose_name=_("organization"))
-
-    class Meta:
-        verbose_name = _("organization address")
-        verbose_name_plural = _("organization addresses")
 
 
 class OrganizationDocument(models.Model):

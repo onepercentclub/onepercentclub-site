@@ -5,8 +5,9 @@ import os
 from registration.models import RegistrationProfile
 from django.utils import timezone
 from apps.cowry_docdata.models import payment_method_mapping
-from apps.fund.models import Donation, DonationStatuses, Voucher, VoucherStatuses, RecurringDirectDebitPayment
-from apps.organizations.models import Organization, OrganizationAddress
+from apps.fund.models import Donation, DonationStatuses, RecurringDirectDebitPayment
+from apps.vouchers.models import Voucher, VoucherStatuses
+from apps.organizations.models import Organization
 from bluebottle.accounts.models import BlueBottleUser
 from apps.projects.models import Project, ProjectCampaign, ProjectPitch, ProjectPlan, ProjectBudgetLine, \
     ProjectAmbassador, ProjectPhases
@@ -40,24 +41,12 @@ def generate_organizations_csv_file(path, loglevel):
         # When multiple address types are supported in the website, extend this function
         for organization in organizations:
             try:
-                billing_city = ''
-                billing_street = ''
-                billing_postal_code = ''
+                billing_city = organization.city[:40]
+                billing_street = organization.address_line1 + " " + organization.address_line2
+                billing_postal_code = organization.postal_code
                 billing_country = ''
-                try:
-                    organizationaddress = OrganizationAddress.objects.get(organization=organization)
-                    billing_city = organizationaddress.city[:40]
-                    billing_street = organizationaddress.line1 + " " + organizationaddress.line2
-                    billing_postal_code = organizationaddress.postal_code
-                    if organizationaddress.country:
-                        billing_country = organizationaddress.country.name
-                    else:
-                        billing_country = ''
-                except OrganizationAddress.DoesNotExist:
-                    pass
-                except OrganizationAddress.MultipleObjectsReturned:
-                    logger.warn("Organization id {0} has multiple addresses, this is not supported.".format(
-                        organization.id))
+                if organization.country:
+                    billing_country = organization.country.name
 
                 if organization.account_bank_country:
                     bank_country = organization.account_bank_country.name
@@ -564,7 +553,7 @@ def generate_tasks_csv_file(path, loglevel):
             try:
                 csvwriter.writerow([task.id,
                                     task.project.id,
-                                    task.deadline.date(),
+                                    task.deadline.strftime("%d %B %Y"),
                                     task.time_needed.encode("utf-8"),
                                     task.description.encode("utf-8"),
                                     task.location.encode("utf-8"),

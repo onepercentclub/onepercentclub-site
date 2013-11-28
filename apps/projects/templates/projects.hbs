@@ -89,7 +89,7 @@
             {{/if}}
         </section>
     </div>
-
+    
 {% endtplhandlebars %}
 
 
@@ -121,14 +121,14 @@
     <div class="l-section">
         <section class="l-wrapper">
             <article id="search-navigation">
-
+            	
             	<header>
                 	<h2>{% trans "Results" %} <em>{{controllers.projectList.model.meta.total}}</em></h2>
                     <a {{action 'clearForm'}} class="search-reset">
                         <span class="flaticon solid x-2"></span> {% trans "Reset Search Filter" %}
                     </a>
             	</header>
-
+                
                 <div class="search-sort">
                     {% trans "Sort:" %}
                     <a {{action 'sortOrder' 'popularity'}} {{bindAttr class="orderedByPopularity:active"}}>{% trans "Most popular" %}</a>
@@ -141,7 +141,7 @@
                     <a {{action 'sortOrder' 'needed'}} {{bindAttr class="orderedByNeeded:active"}}>{% trans "Almost funded" %}</a>
                     <a {{action 'sortOrder' 'deadline'}} {{bindAttr class="orderedByDeadline:active"}}>{% trans "Near deadline" %}</a>
                 </div>
-
+                
                 <div class="search-pagination">
                 	<span class="search-showing">{% trans "Showing" %} {{rangeStart}}-{{rangeEnd}}</span>
                 	<span class="search-pages-control">
@@ -152,7 +152,7 @@
 		                {{else}}
 		                	<span class="previous-page"><span class="flaticon solid left-circle-2"></span></span>
 		                {{/if}}
-
+		                
 		                {{#if hasNextPage}}
 		                    <a {{action 'nextPage'}} class="next-page">
 		                        <span class="flaticon solid right-circle-2"></span>
@@ -162,7 +162,7 @@
 		                {{/if}}
                 	</span>
                 </div>
-
+                
             </article>
         </section>
     </div>
@@ -262,17 +262,17 @@
 
     <nav class="l-section" id="project-actions">
         <div class="l-wrapper">
-
+        
             <ul class="tabs four">
                 <li class="tab-updates">
                     {{#linkTo 'project.index'}}
-                        <span class="tab-icon amount">{{wallposts.length}}</span>
+                        <span class="tab-icon amount">{{controllers.projectIndex.meta.total}}</span>
                         <strong class="tab-title">
                             {% trans "Updates" %}
 
-                            {{#if wallposts.length}}
-                                {{#if wallposts.firstObject.isLoaded}}
-                                    <em class="tab-subtitle">{{localize wallposts.firstObject.created formatting="X"}}</em>
+                            {{#if controllers.projectIndex.meta.total}}
+                                {{#if controllers.projectIndex.firstObject.isLoaded}}
+                                    <em class="tab-subtitle">{{localize controllers.projectIndex.firstObject.created formatting="X"}}</em>
                                 {{else}}
                                     <em class="tab-subtitle">{% trans "Loading&#8230;" %}</em>
                                 {{/if}}
@@ -302,12 +302,62 @@
                     {{/linkTo}}
                 </li>
             </ul>
-
+            
         </div>
     </nav>
+
     {{ outlet }}
 
     {{#if isCampaign}}</div> <!-- /.project-campaign -->{{/if}}
+
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "project/index" %}
+    {{!-- Project Wall Post List template --}}
+
+    <div id="l-section">
+        <section class="l-wrapper">
+        	<div class="l-content" id="wallposts">
+
+    	        {{#each item in controller itemController="wallPost"}}
+    	            {{#if item.isLoaded}}
+                        {{#if item.isSystemWallPost}}
+        	                {{view "App.SystemWallPostView"}}
+                        {{else}}
+
+        	                {{view "App.MediaWallPostView"}}
+                        {{/if}}
+    	            {{/if}}
+    	        {{/each}}
+
+                {{#if canLoadMore}}
+                    <a {{action "showMore"}} class="btn-link btn-more">
+                        <span class="flaticon solid plus-2"></span> {% trans "Show more" %} <small>{{remainingItemCount}} {% trans "more" %}</small>
+                    </a>
+                {{/if}}
+
+        	</div>
+
+            <sidebar class="l-sidebar">
+                {{#if controllers.currentUser.isAuthenticated }}
+                    {{#if isProjectOwner}}
+                        <h3>{% trans "Write an update" %}</h3>
+                        <p>{% trans "Write an update of your project to inform your crowd." %}</p>
+                        {{ render "projectMediaWallPostNew" }}
+                    {{else}}
+                        <h3>{% trans "Write a comment" %}</h3>
+                        <p>{% trans "Write an comment to place on the project's wall." %}</p>
+                        {{ render "projectTextWallPostNew" }}
+                    {{/if}}
+                {{else}}
+                    <h3>{% trans "Write a comment" %}</h3>
+                    <a {{action openInBox "login"}}>{%  trans "Login" %}</a> or become a {{#linkTo "signup"}}{% trans "member" %}{{/linkTo}} {% trans "to leave a comment" %}.</p>
+                {{/if}}
+            </sidebar>
+
+        </section>
+    </div>
 
 {% endtplhandlebars %}
 
@@ -346,8 +396,9 @@
             {{render "projectSupporterList"}}
         {{/unless}}
     </ul>
-    
+
 {% endtplhandlebars %}
+
 
 {% tplhandlebars "project_supporter_list" %}
 
@@ -400,49 +451,49 @@
 
 
 {% tplhandlebars "project_plan" %}
-
+    
     <div class="l-section" id="project-plan">
         <section class="l-wrapper">
-
+        
                 <header>
                 	<h1>{% trans "Project Plan" %}</h1>
                 </header>
-
+               
                 {{#if description}}
                 	<article>
                 	    <h2>{% trans "Why, what and how?" %}</h2>
                         <p>{{{description}}}</p>
     				</article>
     			{{/if}}
-
+    			
     			{{#if effects}}
     				<article>
                 	    <h2>{% trans "Effects" %}</h3>
                             <p>{{{effects}}}</p>
                 	</article>
                 {{/if}}
-
+    			
     			{{#if future}}
                 	<article>
                 	    <h2>{% trans "Future" %}</h2>
                         <p>{{{future}}}</p>
                 	</article>
     			{{/if}}
-
+    				
     			{{#if forWho}}
     				<article>
                 	    <h2>{% trans "For who?" %}</h2>
                         <p>{{{forWho}}}</p>
     				</article>
     			{{/if}}
-
+    			
     			{{#if reached}}
     				<article>
                 	    <h2>{% trans "People reached" %}</h2>
                         <p>{{{reached}}}</p>
     				</article>
     			{{/if}}
-
+    
     			{{#if country.name}}
     				<article>
                 	    <h2>{% trans "Location" %}</h3>
@@ -450,42 +501,47 @@
                         <img {{bindAttr src="view.staticMap"}} />
     				</article>
     			{{/if}}
-
+    			
     			{{#if organization.name}}
     				<article>
                 	    <h2>{% trans "Organisation" %}</h2>
     				    <h3>{{organization.name}}</h3>
                         <p>{{organization.description}}</p>
 
-
                         {{#if organization.website}}
                             <dl>
                                 <dt><span class="flaticon solid link-1"></span> Website</dt>
-                                <dd><a href="{{organization.website}}">{{organization.website}}</a></dd>
+                                <dd><a {{bindAttr href=organization.websiteUrl}}>{{organization.website}}</a></dd>
                             </dl>
                         {{/if}}
                         {{#if organization.twitter}}
                             <dl>
                                 <dt><span class="flaticon social twitter-3"></span> Twitter</dt>
-                                <dd><a href="http://twitter.com/{{organization.twitter}}">{{organization.twitter}}</a></dd>
+                                <dd><a {{bindAttr href=organization.twitterUrl}}>{{organization.twitter}}</a></dd>
                             </dl>
                         {{/if}}
                         {{#if organization.facebook}}
                             <dl>
                                 <dt><span class="flaticon social facebook-3"></span> Facebook</dt>
-                                <dd><a href="http://facebook.com/{{organization.facebook}}">{{organization.facebook}}</a></dd>
-                            </dl>
-                        {{/if}}
-                        {{#if organization.skype}}
-                            <dl>
-                                <dt><span class="flaticon social skype-2"></span> Website</dt>
-                                <dd><a href="callto:{{organization.skype}}">{{organization.skype}}</a></dd>
+                                <dd><a {{bindAttr href=organization.facebookUrl}}>{{organization.facebook}}</a></dd>
                             </dl>
                         {{/if}}
                         </ul>
-    				</article>
+    				</article>	
                 {{/if}}
 
+                {{#if budgetLines.length}}
+    				<article>
+                        <h2>{% trans "Budget" %}</h2>
+                        {{#each line in budgetLines}}
+                            <dl>
+                                <dd>{{line.description}}</dd>
+                                <dt align="right">&euro;{{line.amount}}</dt>
+                            </dl>
+                        {{/each}}
+                    </article>
+                {{/if}}
+                
         </section>
     </div>
 

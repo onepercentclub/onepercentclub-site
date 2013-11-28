@@ -651,9 +651,12 @@ def pitch_status_status_changed(sender, instance, created, **kwargs):
         if instance.project.phase == ProjectPhases.pitch:
             instance.project.phase = ProjectPhases.plan
             instance.project.save()
-            project_saved = True
+    # plan/pitch rejected -> project failed
+    elif instance.status == ProjectPitch.PitchStatuses.rejected and instance.project.phase != ProjectPhases.failed:
+        instance.project.phase = ProjectPhases.failed
+        instance.project.save()
 
-    # Ensure the project 'updated' field is updated for the Salesforce sync script.
+    # Ensure the project 'updated' field is updated for the Saleforce sync script.
     if not project_saved:
         instance.project.save()
 
@@ -669,8 +672,13 @@ def plan_status_status_changed(sender, instance, created, **kwargs):
             instance.project.phase = ProjectPhases.campaign
             instance.project.save()
             project_saved = True
+    # plan/pitch rejected -> project failed
+    elif instance.status == ProjectPlan.PlanStatuses.rejected and instance.project.phase != ProjectPhases.failed:
+        instance.project.phase = ProjectPhases.failed
+        instance.project.save()
+        project_saved = True
 
-    # Ensure the project 'updated' field is updated for the Salesforce sync script.
+    # Ensure the project 'updated' field is updated for the Saleforce sync script.
     if not project_saved:
         instance.project.save()
 
@@ -699,6 +707,7 @@ def update_project_after_donation(sender, instance, created, **kwargs):
     if campaign.money_asked <= campaign.money_donated:
         project.phase = ProjectPhases.act
         project.save()
-    else:
-        project.phase = ProjectPhases.campaign
-        project.save()
+    # Never (automatically) move the project back to Campaign phase.
+    #else:
+    #    project.phase = ProjectPhases.campaign
+    #    project.save()

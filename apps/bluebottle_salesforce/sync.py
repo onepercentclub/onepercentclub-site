@@ -4,9 +4,11 @@ from bluebottle.accounts.models import BlueBottleUser
 from apps.cowry_docdata.models import payment_method_mapping
 from apps.projects.models import Project, ProjectBudgetLine, ProjectCampaign, ProjectPitch, ProjectPlan, \
     ProjectPhases, ProjectAmbassador
-from apps.organizations.models import Organization, OrganizationAddress
+from apps.organizations.models import Organization
 from apps.tasks.models import Task, TaskMember
-from apps.fund.models import Donation, Voucher, VoucherStatuses, DonationStatuses, RecurringDirectDebitPayment
+from apps.fund.models import Donation, DonationStatuses, RecurringDirectDebitPayment
+from apps.vouchers.models import Voucher, VoucherStatuses
+
 from apps.bluebottle_salesforce.models import SalesforceOrganization, SalesforceContact, SalesforceProject, \
     SalesforceDonation, SalesforceProjectBudget, SalesforceTask, SalesforceTaskMembers, SalesforceVoucher
 
@@ -40,24 +42,14 @@ def sync_organizations(dry_run, sync_from_datetime, loglevel):
 
         # SF Layout: Contact Information section. Ignore address type and only use first address.
         # When multiple address types are supported in the website, extend this function
-        try:
-            organizationaddress = OrganizationAddress.objects.get(organization=organization)
-        except OrganizationAddress.DoesNotExist:
-            sforganization.billing_city = ''
-            sforganization.billing_street = ''
-            sforganization.billing_postal_code = ''
-            sforganization.billing_country = ''
-        except OrganizationAddress.MultipleObjectsReturned:
-            logger.warn("Organization id {0} has multiple addresses, this is not supported by the integration.".format(
-                organization.id))
+        sforganization.billing_city = organization.city[:40]
+        sforganization.billing_street = organization.address_line1 + " " + organization.address_line2
+        sforganization.billing_postal_code = organization.postal_code
+        if organization.country:
+            sforganization.billing_country = organization.country.name
         else:
-            sforganization.billing_city = organizationaddress.city[:40]
-            sforganization.billing_street = organizationaddress.line1 + " " + organizationaddress.line2
-            sforganization.billing_postal_code = organizationaddress.postal_code
-            if organizationaddress.country:
-                sforganization.billing_country = organizationaddress.country.name
-            else:
-                sforganization.billing_country = ''
+            sforganization.billing_country = ''
+
         # E-mail addresses for organizations are currently left out because source data is not validated
         # sforganization.email_address = organization.email
         sforganization.phone = organization.phone_number
@@ -163,7 +155,8 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
         # if this is a legacy record, by default assume it has activated
         contact.has_activated = False
         try:
-            rp = RegistrationProfile.objects.get(id=user.id)
+            rp = RegistrationProfile.objects.get(user_id=user.id)
+            contact.tags = rp.activation_key
             if rp.activation_key == RegistrationProfile.ACTIVATED:
                 contact.has_activated = True
         except RegistrationProfile.DoesNotExist:
@@ -271,7 +264,7 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
             elif project_pitch.status == ProjectPitch.PitchStatuses.approved and not sfproject.date_pitch_approved:
                 sfproject.date_pitch_approved = project_pitch.updated
             elif project_pitch.status == ProjectPitch.PitchStatuses.rejected and not sfproject.date_pitch_created:
-                sfproject.date_pitch_created = project_pitch.updated
+                sfproject.date_pitch_rejected = project_pitch.updated
 
             sfproject.tags = ""
             for tag in project_pitch.tags.all():
@@ -568,7 +561,7 @@ def sync_tasks(dry_run, sync_from_datetime, loglevel):
         except SalesforceProject.DoesNotExist:
             logger.error("Unable to find project id {0} in Salesforce for task id {1}".format(task.project.id, task.id))
 
-        sftask.deadline = task.deadline
+        sftask.deadline = task.deadline.strftime("%d %B %Y")
         sftask.effort = task.time_needed
         sftask.extended_task_description = task.description
         sftask.location_of_the_task = task.location

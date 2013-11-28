@@ -286,7 +286,7 @@ App.PaymentSelectController = Em.ObjectController.extend({
         {'id':'0091', 'name': 'Friesland Bank'},
         {'id':'0721', 'name': 'ING Bank'},
         {'id':'0801', 'name': 'Knab'},
-        {'id':'0161', 'name': 'van Landschot Bankiers'},
+        {'id':'0161', 'name': 'van Lanschot Bankiers'},
         {'id':'0021', 'name': 'Rabobank'},
         {'id':'0771', 'name': 'Regio Bank'},
         {'id':'0511', 'name': 'Triodos Bank'},

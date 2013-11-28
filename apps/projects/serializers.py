@@ -14,7 +14,7 @@ from bluebottle.bluebottle_utils.serializers import MetaField
 from apps.fund.models import Donation
 from apps.projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador, ProjectBudgetLine, ProjectCampaign, ProjectTheme
 from apps.wallposts.models import TextWallPost, MediaWallPost
-from apps.wallposts.serializers import TextWallPostSerializer, MediaWallPostSerializer, WallPostListSerializer
+from apps.wallposts.serializers import TextWallPostSerializer, MediaWallPostSerializer
 
 from .models import Project
 
@@ -121,7 +121,6 @@ class ProjectSerializer(serializers.ModelSerializer):
     plan = ProjectPlanSerializer(source='projectplan')
     campaign = ProjectCampaignSerializer(source='projectcampaign')
 
-    wallpost_ids = WallPostListSerializer()
     task_count = serializers.IntegerField(source='task_count')
 
     meta_data = MetaField(
@@ -139,7 +138,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = (
-            'id', 'created', 'title', 'owner', 'coach', 'plan', 'campaign', 'wallpost_ids', 'phase', 'popularity',
+            'id', 'created', 'title', 'owner', 'coach', 'plan', 'campaign', 'phase', 'popularity',
             'task_count', 'meta_data', 'is_campaign',
         )
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-13 21:32+0100\n"
+"POT-Creation-Date: 2013-11-27 14:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -236,22 +236,22 @@ msgid ""
 msgstr ""
 
 #: templates/reactions.hbs:24 templates/wallposts.hbs:86
-#: templates/wallposts.hbs.py:187 templates/wallposts.hbs:258
-#: templates/wallposts.hbs.py:321
+#: templates/wallposts.hbs.py:187 templates/wallposts.hbs:263
+#: templates/wallposts.hbs.py:326
 msgid "Delete"
 msgstr ""
 
 #: templates/reactions.hbs:71 templates/wallposts.hbs:19
-#: templates/wallposts.hbs.py:346
+#: templates/wallposts.hbs.py:351
 msgid "Login"
 msgstr ""
 
 #: templates/reactions.hbs:71 templates/wallposts.hbs:19
-#: templates/wallposts.hbs.py:346
+#: templates/wallposts.hbs.py:351
 msgid "member"
 msgstr ""
 
-#: templates/reactions.hbs:71 templates/wallposts.hbs:346
+#: templates/reactions.hbs:71 templates/wallposts.hbs:351
 msgid "to leave a reaction"
 msgstr ""
 
@@ -340,15 +340,15 @@ msgid "Post Update"
 msgstr ""
 
 #: templates/wallposts.hbs:115 templates/wallposts.hbs.py:128
-#: templates/wallposts.hbs:282 templates/wallposts.hbs.py:295
+#: templates/wallposts.hbs:287 templates/wallposts.hbs.py:300
 msgid "Comment"
 msgstr ""
 
-#: templates/wallposts.hbs:151 templates/wallposts.hbs.py:357
+#: templates/wallposts.hbs:151 templates/wallposts.hbs.py:362
 msgid "Show more"
 msgstr ""
 
-#: templates/wallposts.hbs:151 templates/wallposts.hbs.py:357
+#: templates/wallposts.hbs:151 templates/wallposts.hbs.py:362
 msgid "more"
 msgstr ""
 
@@ -360,6 +360,6 @@ msgstr ""
 msgid "Someone"
 msgstr ""
 
-#: templates/wallposts.hbs:250
+#: templates/wallposts.hbs:251
 msgid "Made a donation"
 msgstr ""
