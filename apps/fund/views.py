@@ -10,7 +10,6 @@ from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer
 from apps.fund.serializers import DonationInfoSerializer, NestedDonationSerializer, RecurringOrderSerializer, RecurringDonationSerializer
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.auth.signals import user_logged_in
-from registration.signals import user_registered
 from django.db import transaction
 from django.http import Http404
 from rest_framework import exceptions, status, permissions, response, generics
@@ -553,27 +552,6 @@ def adjust_anonymous_current_order(sender, request, user, **kwargs):
             pass
 
 user_logged_in.connect(adjust_anonymous_current_order)
-
-
-def link_anonymous_donations(sender, user, request, **kwargs):
-    """
-    Search for anonymous donations with the same email address as this user and connect them.
-    """
-    print "Connect to " + user.email
-    dd_orders = DocDataPaymentOrder.objects.filter(email=user.email).all()
-    print "Found orders " + str(len(dd_orders))
-    for dd_order in dd_orders:
-        dd_order.customer_id = user.id
-        dd_order.save()
-        dd_order.order.user = user
-        dd_order.order.save()
-        for donation in dd_order.order.donations:
-            donation.user = user
-            donation.save()
-            # TODO: Also link donation Wall Post to this user
-
-# On account activation try to connect anonymous donations to this user.
-user_registered.connect(link_anonymous_donations)
 
 
 # For showing the latest donations

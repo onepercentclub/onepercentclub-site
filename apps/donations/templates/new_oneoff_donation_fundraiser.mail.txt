@@ -1,0 +1,11 @@
+{% load i18n %}
+{% blocktrans with amount=amount|floatformat:2 donor_name=donor_name site=site link=link %}
+Hello,
+
+You just received a EUR {{ amount }} donation from {{ donor_name }}!
+
+Quickly thank your supporter by posting a personal message on your fundraise action wall: {{ site }}{{ link }}.
+
+Cheers,
+1%Club
+{% endblocktrans %}

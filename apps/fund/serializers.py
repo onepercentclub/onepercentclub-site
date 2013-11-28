@@ -37,7 +37,7 @@ class DonationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Donation
-        fields = ('id', 'project', 'amount', 'status', 'order')
+        fields = ('id', 'project', 'amount', 'status', 'order', 'fundraiser')
 
     def validate(self, attrs):
         if self.object and self.object.status != DonationStatuses.new and attrs is not None:
@@ -45,6 +45,7 @@ class DonationSerializer(serializers.ModelSerializer):
         return attrs
 
     def validate_amount(self, attrs, source):
+        # TODO: check requirements for fundraisers
         value = attrs[source]
 
         if self.object:
@@ -128,13 +129,15 @@ class OrderSerializer(serializers.ModelSerializer):
     payments = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     url = serializers.HyperlinkedIdentityField(view_name='fund-order-detail')
 
+    # moste are not required because the link is pointing to a different page and facebook will look up the info on that page
     meta_data = MetaField(
-            title = 'first_donation__project__get_meta_title',
-            fb_title = 'first_donation__project__get_fb_title',
-            description = 'first_donation__project__projectplan__pitch',
-            keywords = 'first_donation__project__projectplan__tags',
-            image_source = 'first_donation__project__projectplan__image',
-            tweet = 'first_donation__project__get_tweet',
+            title = None,
+            fb_title = None,
+            description = None, # these are all not required because the link is pointing to a different page
+            keywords = None,
+            image_source = None,
+            tweet = 'get_tweet',
+            url = 'get_share_url',
             )
 
     def validate(self, attrs):

@@ -39,6 +39,7 @@ App.Donation = DS.Model.extend({
     url: 'fund/donations',
 
     project: DS.belongsTo('App.Project'),
+    fundraiser: DS.belongsTo('App.FundRaiser'),
     amount: DS.attr('number', {defaultValue: 20}),
     status: DS.attr('string'),
     type: DS.attr('string'),

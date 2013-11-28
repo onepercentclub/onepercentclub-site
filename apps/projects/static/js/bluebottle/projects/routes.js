@@ -8,10 +8,10 @@ App.Router.map(function(){
         this.route('search');
     });
 
-   this.resource('project', {path: '/projects/:project_id'}, function() {
+    this.resource('project', {path: '/projects/:project_id'}, function() {
         this.resource('projectPlan', {path: '/plan'});
         this.resource('projectTasks', {path: '/tasks'}, function(){
-            this.resource('projectTask', {path: '/:task_id'});
+            this.resource('projectTask', {path: '/:task_id'}, function(){});
             this.resource('projectTaskNew', {path: '/new'});
             this.resource('projectTaskEdit', {path: '/:task_id/edit'});
         });
@@ -73,7 +73,6 @@ App.ProjectRoute = Em.Route.extend(App.ScrollToTop, {
         var page =  App.Project.find(params.project_id);
         var route = this;
         page.on('becameError', function() {
-            //route.transitionTo('error.notFound');
             route.transitionTo('projectList');
         });
         return page;
@@ -87,24 +86,27 @@ App.ProjectRoute = Em.Route.extend(App.ScrollToTop, {
         projectSupporterListController.set('supporters', App.DonationPreview.find({project: project.get('id')}));
         projectSupporterListController.set('page', 1);
         projectSupporterListController.set('canLoadMore', true);
+
+        var projectFundRaiserListController = this.controllerFor('projectFundRaiserList');
+        projectFundRaiserListController.set('fundraisers', App.FundRaiser.find({project: project.get('id')}));
     }
 });
 
 
-// This is the 'ProjectWallPostListRoute'
 App.ProjectIndexRoute = Em.Route.extend({
-    model: function(params) {
-        return this.modelFor('project');
-    },
-
+    // This way the ArrayController won't hold an immutable array thus it can be extended with more wallposts.
     setupController: function(controller, model) {
-        // Empty the items and set page to 0 if project changes so we don't show wall posts from previous project
-        if (this.get('model_id') != model.get('id')) {
-            controller.set('items', Em.A());
-            controller.set('page', 0);
+        // Only reload wall-posts if switched to another project.
+        var parent_id = this.modelFor('project').get('id');
+        if (controller.get('parent_id') != parent_id){
+            controller.set('page', 1);
+            controller.set('parent_id', parent_id);
+            var store = this.get('store');
+            store.find('wallPost', {'parent_type': 'project', 'parent_id': parent_id}).then(function(items){
+                controller.set('meta', items.get('meta'));
+                controller.set('model', items.toArray());
+            });
         }
-        this.set('model_id', model.get('id'));
-        this._super(controller, model.get('wallposts'));
     }
 });
 

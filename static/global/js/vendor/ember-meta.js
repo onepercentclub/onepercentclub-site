@@ -4,7 +4,7 @@
 Ember.onLoad('Ember.Application', function(Application) {
   Application.initializer({
     name: "meta",
-   
+
     initialize: function(container, application) {
       var _getTag = function(tagname, property, value) {
         var selector = tagname+"["+property+'="'+value+'"]';
@@ -21,11 +21,11 @@ Ember.onLoad('Ember.Application', function(Application) {
           target.set(key, target.get('defaults.'+key));
         }
       }
-   
+
       // hold logic and information
       var Meta = Ember.Object.extend(Ember.Evented, {
         application: null,
-   
+
         // string values
         title: null,
         ogTitle: null,
@@ -33,7 +33,7 @@ Ember.onLoad('Ember.Application', function(Application) {
         keywords: null,
         url: null,
         image: null,
-   
+
         // dom elements (jQuery objects)
         _ogTitle: null,
         _description: null,
@@ -41,7 +41,7 @@ Ember.onLoad('Ember.Application', function(Application) {
         _ogKeywords: null,
         _ogUrl: null,
         _ogImage: null,
-   
+
         // defaults, set by the base template
         defaults: {
           title: default_title,
@@ -49,14 +49,14 @@ Ember.onLoad('Ember.Application', function(Application) {
           description: default_description,
           keywords: default_keywords
         },
-   
+
         summary: Ember.computed(function() {
           return '<title>' + this.get('title') + '</title>\n' +
             this.get('_ogTitle').outerHTML + '\n' +
             this.get('_description').outerHTML + '\n' +
             this.get('_ogDescription').outerHTML;
         }).property('_ogTitle', '_ogDescription'),
-   
+
         // propagate changes to dom elements
         titleChanged: function() {
           document.title = this.get('title');
@@ -65,7 +65,7 @@ Ember.onLoad('Ember.Application', function(Application) {
         ogTitleChanged: function() {
           this.get('_ogTitle').attr('content', this.get('ogTitle'));
         }.observes('ogTitle'),
-   
+
         descriptionChanged: function() {
           this.get('_description').attr('content', this.get('description'));
           this.get('_ogDescription').attr('content', this.get('description'));
@@ -86,19 +86,21 @@ Ember.onLoad('Ember.Application', function(Application) {
         imageChanged: function() {
           this.get('_ogImage').attr('content', this.get('image'));
         }.observes('image'),
-   
+
         init: function() {
           this._super();
           this.on('reloadDataFromRoutes', this.reloadDataFromRoutes);
         },
-   
+
         reloadDataFromRoutes: function() {
           var handlers = this.get('application').Router.router.currentHandlerInfos,
             newTitle,
             newOgTitle, // open graph title
+            newOgURL,
             newDescription,
             newKeywords,
             newImage,
+            newOgUrl,
             i = handlers.length;
           // walk through handlers until we have title and description
           // take the first ones that are not empty
@@ -129,25 +131,33 @@ Ember.onLoad('Ember.Application', function(Application) {
                 if (!newImage && meta_data.image) {
                   newImage = meta_data.image;
                 }
+                if(!newOgUrl){
+                  newOgUrl = meta_data.url;
+                }
               }
             }
           }
-          
+
           // save changes or snap back to defaults
           _setProperty(this, 'title', newTitle);
           _setProperty(this, 'ogTitle', newOgTitle);
           _setProperty(this, 'description', newDescription);
           _setProperty(this, 'keywords', newKeywords);
           _setProperty(this, 'image', newImage);
+          _setProperty(this, 'ogUrl', newOgUrl);
 
-          this.set('url', window.location.href);
+          if(newOgUrl){
+            this.set('url', newOgUrl);
+          } else {
+            this.set('url', window.location.href);
+          }
           this.trigger('didReloadDataFromRoutes');
         }
       });
       var meta = Meta.create({application: application});
 
       meta.set('defaults.title', document.title);
-   
+
       // setup meta object
       // are there any tags present yet? if not, create them
       // ogTitle
@@ -167,7 +177,7 @@ Ember.onLoad('Ember.Application', function(Application) {
         _ogUrl.attr('property', 'og:url');
       }
       meta.set('_ogUrl', _ogUrl);
-   
+
       // description
       var _description = _getTag('meta', 'name', 'description');
       if (!_description) {
@@ -179,7 +189,7 @@ Ember.onLoad('Ember.Application', function(Application) {
         meta.set('defaults.description', _description.attr('content'));
       }
       meta.set('_description', _description);
-      
+
       // ogDescription
       var _ogDescription = _getTag('meta', 'property', 'og:description');
       if (!_ogDescription) {
@@ -201,7 +211,7 @@ Ember.onLoad('Ember.Application', function(Application) {
         meta.set('defaults.keywords', _keywords.content);
       }
       meta.set('_keywords', _keywords);
-   
+
       // ogKeywords
       var _ogKeywords = _getTag('meta', 'property', 'og:keywords');
       if (!_ogKeywords) {
@@ -223,6 +233,18 @@ Ember.onLoad('Ember.Application', function(Application) {
         meta.set('defaults.ogImage', _ogImage.attr('content'));
       }
       meta.set('_ogImage', _ogImage);
+
+      // ogImage
+      var _ogUrl = _getTag('meta', 'property', 'og:url');
+      if (!_ogUrl) {
+        _ogUrl = document.createElement('meta');
+        _ogUrl.setAttribute('property', 'og:url');
+        document.head.appendChild(_ogUrl);
+        _ogUrl = $(_ogUrl);
+      } else {
+        meta.set('defaults.ogUrl', _ogUrl.attr('content'));
+      }
+      meta.set('_ogUrl', _ogUrl);
 
 
       // save object to app

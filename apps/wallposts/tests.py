@@ -23,7 +23,8 @@ class WallPostReactionApiIntegrationTest(ProjectWallPostTestsMixin, TestCase):
         self.some_user = self.create_user()
         self.another_user = self.create_user()
         self.wallpost_reaction_url = '/api/wallposts/reactions/'
-        self.project_text_wallpost_url = '/api/projects/wallposts/text/'
+        self.wallpost_url = '/api/wallposts/'
+        self.text_wallpost_url = '/api/wallposts/textwallposts/'
 
 
     def test_wallpost_reaction_crud(self):
@@ -169,7 +170,7 @@ class WallPostReactionApiIntegrationTest(ProjectWallPostTestsMixin, TestCase):
         reaction1_detail_url = response.data['url']
         reaction2_text = "This is cool!"
         self.client.post(self.wallpost_reaction_url, {'text': reaction2_text, 'wallpost': self.some_wallpost.id})
-        some_wallpost_detail_url = "{0}{1}".format(self.project_text_wallpost_url, str(self.some_wallpost.id))
+        some_wallpost_detail_url = "{0}{1}".format(self.wallpost_url, str(self.some_wallpost.id))
         response = self.client.get(some_wallpost_detail_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(len(response.data['reactions']), 2)
@@ -179,7 +180,7 @@ class WallPostReactionApiIntegrationTest(ProjectWallPostTestsMixin, TestCase):
         # Create a Reaction to another WallPost and retrieve that WallPost should return one embedded reaction
         reaction3_text = "That other post was way better..."
         self.client.post(self.wallpost_reaction_url, {'text': reaction3_text, 'wallpost': self.another_wallpost.id})
-        another_wallpost_detail_url = "{0}{1}".format(self.project_text_wallpost_url, str(self.another_wallpost.id))
+        another_wallpost_detail_url = "{0}{1}".format(self.wallpost_url, str(self.another_wallpost.id))
         response = self.client.get(another_wallpost_detail_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(len(response.data['reactions']), 1)
@@ -209,9 +210,9 @@ class WallPostApiRegressionTests(ProjectWallPostTestsMixin, UserTestsMixin, Test
         self.user = self.create_user()
         self.wallpost = self.create_project_text_wallpost(author=self.user)
 
-        self.project_media_wallposts_url = '/api/projects/wallposts/media/'
-        self.project_text_wallposts_url = '/api/projects/wallposts/text/'
-        self.project_wallposts_url = '/api/projects/wallposts/'
+        self.media_wallposts_url = '/api/wallposts/mediawallposts/'
+        self.text_wallposts_url = '/api/wallposts/textwallposts/'
+        self.wallposts_url = '/api/wallposts/'
         self.wallpost_reaction_url = '/api/wallposts/reactions/'
 
     def test_html_javascript_propperly_escaped(self):

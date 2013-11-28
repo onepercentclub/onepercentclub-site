@@ -2,10 +2,10 @@
 {% load i18n %}
 
 {% block content %}
-{% blocktrans with amount=amount donor_name=donor_name site=site link=link %}
+{% blocktrans with amount=amount|floatformat:2 donor_name=donor_name site=site link=link %}
 Hello,<br/>
 <br/>
-You just received a EUR {{ amount|floatformat:2 }} donation from {{ donor_name }}!<br/>
+You just received a EUR {{ amount }} donation from {{ donor_name }}!<br/>
 <br/>
 Quickly thank your supporter by posting a personal message on your <a href="{{ site }}{{ link }}">project wall</a>.<br/>
 <br/>

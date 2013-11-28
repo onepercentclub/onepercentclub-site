@@ -252,7 +252,9 @@ INSTALLED_APPS = (
     'apps.love',
     'apps.organizations',
     'apps.projects',
+    'apps.campaigns',
     'apps.fund',
+    'apps.fundraisers',
     'apps.donations',
     'apps.vouchers',
     'bluebottle.geo',
@@ -431,6 +433,7 @@ FLUENT_DASHBOARD_APP_GROUPS = (
             'apps.banners.*',
             'apps.quotes.*',
             'apps.statistics.*',
+            'apps.campaigns.*',
         ],
         'module': 'fluent_dashboard.modules.AppIconList',
         'collapsible': False,
@@ -438,6 +441,7 @@ FLUENT_DASHBOARD_APP_GROUPS = (
     (_('Projects'), {
         'models': (
             'apps.projects.models.*',
+            'apps.fundraisers.*',
             'apps.organizations.*',
         ),
         'module': 'fluent_dashboard.modules.AppIconList',
