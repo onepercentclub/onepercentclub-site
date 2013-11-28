@@ -243,92 +243,117 @@
 
 {% tplhandlebars "home_fundraisers" %}
 
-    <div id="fundraisers">
-        {{!-- TODO: Frans - styling --}}
+    <div class="l-section" id="home-crazy-campaign-fundraisers">
+        <section class="l-wrapper">
 
         {{#if fundraisers}}
-            <h2>{% trans "Our crazy fund-racers" %}</h2>
-            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua.</div>
+        
+            <div class="l-full">
+                <header class="section-header">
+            	    <h1>{% trans "Our crazy fund-racers" %}</h1>
+            	    <p>{% trans "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." %}</p>
+                </header>
+                
 
-            <ul>
-                {{#each fundraisers}}
-
-                    <li {{bind-attr class="is_funded:fully-funded :fundraiser-item" }}>
-                        {{#linkTo 'fundRaiser' this}}
-                            {{#if is_funded }}
-                                <span>
-                                    {% trans "Fully funded by" %} {{owner.full_name}} {% trans "and his/her/it's supporters." %}
-                                </span>
-                            {{/if}}
-
-                            <span class="fundraiser-header">
-
-                                <figure class="fundraiser-image">
-                                    {{#if video_html}}
-                                        {{video_html}}
-                                    {{else}}
+                <ul id="fundraiser-results">
+                    {{#each fundraisers}}
+    
+                        <li {{bind-attr class="is_funded:fully-funded :project-item" }}>
+                            {{#linkTo 'fundRaiser' this}}
+                                {{#if is_funded }}
+                                    <span class="is-funded">
+                                        {% trans "Fully funded by" %} {{owner.full_name}} {% trans "and supporters." %}
+                                    </span>
+                                {{/if}}
+    
+                                <span class="project-header">
+    
+                                    <figure class="project-image">
                                         <img {{bindAttr src="image.small" }} />
-                                    {{/if}}
-                                </figure>
-
-                                <span class="fundraiser-title">
-                                    <h3>{{title}}</h3>
+                                    </figure>
+    
+                                    <span class="project-title">
+                                        <h3>{{title}}</h3>
+                                    </span>
                                 </span>
-                            </span>
-
-                            <span>
-
-                                <div class="fundraiser-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
-                                <span class="fundraiser-fund-amount">
-                                    {{#if is_funded }}
-                                        {% trans "<strong>Fully</strong> funded" %}
-                                    {{else}}
-                                        <strong>&euro;{{localize amount_needed}}</strong> <em>{% trans "To go" %}</em>
-                                        {{#if deadline }}
-                                            <span class="project-days-left"><span class="flaticon solid clock-1"></span> <strong>{{daysToGo}}</strong> <em>{% trans "days" %}</em></span>
+    
+                                <span class="project-status">
+    
+                                    <div class="project-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
+                                    <span class="project-fund-amount">
+                                        {{#if is_funded }}
+                                            {% trans "<strong>Fully</strong> funded" %}
+                                        {{else}}
+                                            <strong>&euro;{{localize amount_needed}}</strong> <em>{% trans "To go" %}</em>
                                         {{/if}}
+                                    </span>
+                                    
+                                    {{#unless is_funded }}
+                                    {{#if deadline }}
+                                        <span class="project-days-left"><span class="flaticon solid clock-1"></span> <strong>{{daysToGo}}</strong> <em>{% trans "days" %}</em></span>
                                     {{/if}}
+                                    {{/unless}}
+    
                                 </span>
-
-                            </span>
-                        {{/linkTo}}
-                    </li>
-                {{/each}}
-            </ul>
+                            {{/linkTo}}
+                        </li>
+                    {{/each}}
+                </ul>
+            </div>
 
         {{/if}}
 
+        </section>
     </div>
 
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "home_campaign_block" %}
-
-    <div style="background-color: #e9e9e9;">
-
-        <span>
-            {# Flag-image (with text?) #}
-        </span>
-
-        <div>
-            &euro;{{localize campaign.amount_donated}} of &euro;{{localize campaign.target}} fund-raced.
-            <div class="fundraiser-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
-            {# TODO: animate progressbar #}
-        </div>
-
-        {# timer #}
-        <div>
-            {{campaign.start}} - {{campaign.end}}
-        </div>
-
-        <div>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua.
-        </div>
-
-        <a {{action 'scrollToFundraisers' }}>{% trans "Pick a crazy fund-racer and support" %}</a>
+    
+    
+    <div class="l-section" id="home-crazy-campaign-header">
+        <section class="l-wrapper">
+        
+            <div class="campaign-image">
+                <object type="image/svg+xml" data="{% static "images/campaigns/crazy-campaign-days-2013.svg" %}"></object>
+            </div>
+            
+            <div class="campaign-description">
+            
+                <div class="project-fund">
+                    <p class="project-fund-amount">
+                        <strong class="amount-donated">&euro;{{localize campaign.amount_donated}}</strong> 
+                        {% trans "of" %}
+                        <strong class="amount-asked">&euro;{{localize campaign.target}}</strong>
+                        {% trans "fund-raced" %}
+                    </p>
+                    <div class="project-fund-amount-slider"><strong style="width: 50%;" class="slider-progress is-in-progress"><em class="slider-percentage">&nbsp;</em></strong></div>
+                    {# TODO: animate progressbar #}
+                </div>
+                
+                {# timer {{campaign.start}} - {{campaign.end}} #}
+                <div class="crazy-campaign-countdown">
+                    <div id="countdown">
+                        <span class="digit">{h10}</span> 
+                        <span class="digit">{h1}</span> 
+                        <span class="digit-sep">:</span> 
+                        <span class="digit">{m10}</span> 
+                        <span class="digit">{m1}</span> 
+                        <span class="digit-sep">:</span> 
+                        <span class="digit">{s10}</span> 
+                        <span class="digit">{s1}</span> 
+                    </div>
+                </div>
+        
+                <p class="crazy-campaign-intro">
+                    <p>{% trans "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." %}</p>
+                    
+                    <a {{action 'scrollToFundraisers' }} class="crazy-campaign-pick">{% trans "Pick a crazy fund-racer and support" %}</a>
+                </p>
+            </div>
+             
+        </section>
     </div>
 
 {% endtplhandlebars %}
