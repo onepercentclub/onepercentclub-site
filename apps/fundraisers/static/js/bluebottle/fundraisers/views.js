@@ -53,6 +53,10 @@ App.ProjectFundRaiserView = Em.View.extend({
     }
 })
 
+App.FundRaiserDeadLineDatePicker = App.DatePicker.extend({
+    config: {minDate: 0, maxDate: "+6M"}
+});
+
 
 App.FundRaiserDonationListView = Em.View.extend({
     templateName: 'fundraiser_donation_list'

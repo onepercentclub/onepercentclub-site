@@ -30,7 +30,7 @@
         <ul>
             {% include "generic/form_field.html" with title="Amount to raise" placeholder="&euro;" field_type="Em.TextField" field_name="amount" %}
 
-            {% include "generic/form_field.html" with title="Deadline" placeholder="" field_type="App.DatePicker" field_name="deadline" %}
+            {% include "generic/form_field.html" with title="Deadline" placeholder="" field_type="App.FundRaiserDeadLineDatePicker" field_name="deadline" %}
         </ul>
     </fieldset>
 {% endtplhandlebars %}
