@@ -10,8 +10,9 @@ App.Router.map(function() {
 
     this.resource('fundRaiserNew', {path: '/projects/:project_id/new-fundraiser'});
 
+    this.resource('myFundRaiserList', {path: '/my/fundraisers'});
+
 // TODO: Future resources.
-//    this.resource('myFundRaiserList', {path: '/my/fundraisers'});
 //    this.resource('myFundRaiser', {path: '/my/fundraisers/:my_fundraiser_id'});
 
     this.resource('fundRaiserDonationList', {path: '/fundraisers/:fundraiser_id/donations'});
@@ -82,17 +83,20 @@ App.FundRaiserDonationListRoute = Em.Route.extend({
     }
 });
 
+
+App.MyFundRaiserListRoute = Em.Route.extend(App.ScrollToTop, {
+    model: function(params) {
+        return App.CurrentUser.find('current').then(function(user) {
+            var user_id = user.get('id_for_ember');
+            return App.FundRaiser.find({owner: user_id});
+        });
+    },
+    setupController: function(controller, model) {
+        this._super(controller, model);
+    }
+});
+//
 // TOOD: Unused at this time.
-//App.MyFundRaiserListRoute = Em.Route.extend(App.ScrollToTop, {
-//    model: function(params) {
-//        return App.FundRaiser.find();
-//    },
-//    setupController: function(controller, model) {
-//        this._super(controller, model);
-//    }
-//});
-//
-//
 //App.MyFundRaiserRoute = Em.Route.extend({
 //    model: function(params) {
 //        return App.FundRaiser.find(params.my_fundraiser_id);
