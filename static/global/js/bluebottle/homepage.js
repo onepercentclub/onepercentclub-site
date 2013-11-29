@@ -194,6 +194,38 @@ App.HomeFundraisersView = Ember.View.extend({
     templateName: 'home_fundraisers'
 });
 
+function go(){
+    $(document).bind("keydown", function(e){
+
+        if (e.keyCode == 71) {
+            $('#car1').css({'left' : "+=5px"});
+        }
+        if (e.keyCode == 80) {
+            $('#car2').css({'left' : "+=5px"});
+        }
+        if ($('#car2').offset().left >= 1096) {
+            alert('Pink wins!!!')
+        }
+        if ($('#car1').offset().left >= 1096) {
+            alert('Green wins!!!')
+        }
+    });
+}
+
+var time = 10;
+function countdown() {
+
+    $('.digit').html(time);
+    time--;
+    if (time==0) {
+        $('.digit').html('GO');
+        go();
+    } else {
+        setTimeout('countdown()', 1000);
+    }
+}
+
+
 App.HomeCampaignView = Ember.View.extend({
     templateName: 'home_campaign_block',
     
@@ -208,5 +240,37 @@ App.HomeCampaignView = Ember.View.extend({
             timeSeparator: ':',
             layout: $('#countdown').html()
         });
+
+        var html = '<section class="l-wrapper"><div class="hasCountdown"><span class="digit">10</span></div><h3>[P] for Pink, [G] for Green</h3><h4>Ready to race? </h4><div id="track"><div id="start"></div><div id="car1"></div><div id="car2"></div><div id="finish"></div></div></section>';
+
+        var typeKeys = [67, 82, 65, 90, 89];
+        var something_index = 0;
+
+        $(document).bind("keydown", function (e) {
+            if (e.keyCode === typeKeys[something_index++]) {
+                if (something_index === typeKeys.length) {
+                    $('#home-crazy-campaign-header').html(html);
+                    countdown();
+                }
+            } else {
+                something_index = 0;
+            }
+        });
+
+
+
+
+//        $(document).bind("keydown", function(e){
+//            if (e.keyCode == 71) {
+//                $('#car1').css({'left' : "+=5px"});
+//            }
+//            if (e.keyCode == 80) {
+//                $('#car2').css({'left' : "+=5px"});
+//            }
+//        });
+
+
+
+
     }
 });
