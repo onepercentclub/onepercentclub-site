@@ -1,6 +1,6 @@
 from apps.banners.serializers import SlideSerializer
 from apps.campaigns.serializers import CampaignSerializer
-from apps.fundraisers.serializers import HomePageFundRaiserSerializer
+from apps.fundraisers.serializers import FundRaiserSerializer
 from apps.projects.serializers import ProjectPreviewSerializer
 from apps.quotes.serializers import QuoteSerializer
 from apps.statistics.serializers import StatisticSerializer
@@ -14,4 +14,4 @@ class HomePageSerializer(serializers.Serializer):
     impact = StatisticSerializer(source='stats')
     projects = ProjectPreviewSerializer(source='projects')
     campaign = CampaignSerializer(source='campaign')
-    fundraisers = HomePageFundRaiserSerializer(source='fundraisers')
+    fundraisers = FundRaiserSerializer(source='fundraisers')
