@@ -353,7 +353,11 @@
         	</div>
 
             <sidebar class="l-sidebar">
-            	{{ render "fundRaiserWallPostNew" }}
+                {{#if isOwner}}
+                	{{ render "fundRaiserMediaWallPostNew" }}
+                {{else}}
+                	{{ render "fundRaiserTextWallPostNew" }}
+                {{/if}}
             </sidebar>
 
         </section>

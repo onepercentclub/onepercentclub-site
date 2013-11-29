@@ -63,9 +63,18 @@ App.FundRaiserDonationListController = Em.ObjectController.extend({
 
 
 App.FundRaiserIndexController = Em.ArrayController.extend({
-    needs: ['fundRaiser'],
+    needs: ['fundRaiser', 'currentUser'],
     perPage: 5,
     page: 1,
+
+    isOwner: function(){
+        var userName = this.get('controllers.currentUser.username');
+        var ownerName = this.get('controllers.fundRaiser.owner.username');
+        if (userName) {
+            return (userName == ownerName);
+        }
+        return false;
+    }.property('controllers.fundRaiser.owner', 'controllers.fundRaiser.owner.username'),
 
     remainingItemCount: function(){
         if (this.get('meta.total')) {
