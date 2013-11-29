@@ -4,6 +4,7 @@
 
 .popover {
     @include transition(opacity 0.2s ease-out);
+    @include single-box-shadow( rgba(0,0,0,0.25) , 0, 0, 12px, 6px);
     position: absolute;
     top: 0;
     left: 0;
@@ -33,6 +34,8 @@
 .popover-title {
     margin: 0; // reset heading margin
     padding: $base-padding/2 $base-padding;
+    font-family: $font-family-heavy;
+    color: $color-secondary;
     
     &:empty {
         display: none;

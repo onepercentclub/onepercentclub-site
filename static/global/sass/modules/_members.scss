@@ -105,11 +105,11 @@
         }
         
         &.project-member-fundraisers {
-            @include grid(16,0,1);
+            @include grid(14,0,1);
         }
         
         &.project-member-supporters {
-            @include grid(18,1,0);
+            @include grid(20,1,0);
             margin-right: 0;   
             float: right;
         }
@@ -145,6 +145,25 @@
                         margin-top: 4px;
                     }
                 }
+            }
+        }
+        
+        &.project-member-fundraisers .popover {
+            width: 400px;
+        }
+        
+        &.project-member-supporters .popover {
+            width: 240px;
+            text-align: center;
+            
+            .popover-title {
+                margin-bottom: 0;
+                padding-bottom: 0;
+            }
+            
+            .popover-content {
+                margin-top: 0;
+                padding-top: 0;
             }
         }
         
