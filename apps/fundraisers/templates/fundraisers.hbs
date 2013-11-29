@@ -11,7 +11,7 @@
         <ul>
             {% include "generic/form_field.html" with title="Title" placeholder="Title describes your fundraiser action in short" field_type="Em.TextField" field_name="title" %}
 
-            {% include "generic/form_field.html" with title="Description" placeholder="Tell a little bit about yourself so we get to know you" field_type="Em.TextArea" field_name="description" %}
+            {% include "generic/form_field.html" with title="Description" placeholder="Tell a little more about your fundraise action" field_type="Em.TextArea" field_name="description" %}
         </ul>
     </fieldset>
 
@@ -24,13 +24,13 @@
     </fieldset>
 
     <fieldset>
-        <h2>TODO: Subtitle</h2>
-        <p>Lorem ipsum</p>
+        <h2>{% trans "Amount & deadline" %}</h2>
+        <p>{% trans "Be realistic and...show ambition!" %}</p>
 
         <ul>
             {% include "generic/form_field.html" with title="Amount to raise" placeholder="&euro;" field_type="Em.TextField" field_name="amount" %}
 
-            {% include "generic/form_field.html" with title="Deadline" placeholder="" field_type="App.DatePicker" field_name="deadline" %}
+            {% include "generic/form_field.html" with title="Deadline" placeholder="" field_type="App.FundRaiserDeadLineDatePicker" field_name="deadline" %}
         </ul>
     </fieldset>
 {% endtplhandlebars %}
@@ -63,10 +63,10 @@
             <div class="l-content">
                 {{#if controllers.currentUser.isAuthenticated}}
                     <header class="l-page-header">
-                        <h1>{% trans "New fundraiser" %}</h1>
+                        <h1>{% trans "Yes, you can!" %}</h1>
                         <p>
                             {% blocktrans %}
-                                Lorem ipsum
+                            What's your fundraising plan? Make it concrete & exciting!
                             {% endblocktrans %}
                         </p>
                     </header>
@@ -83,12 +83,12 @@
                         <h1>{% trans "New fundraiser" %}</h1>
                         <p>
                             {% blocktrans %}
-                                You can only make a fundraiser if you are logged in.
+                            You need to be logged in to start fundraising.
                             {% endblocktrans %}
                         </p>
                     </header>
 
-                    <p class="login-signup"><a href="/accounts/login">{% trans "Login" %}</a> {% trans "or become a" %} {{#linkTo "signup"}}{% trans "member" %}{{/linkTo}} {% trans "to start a fundraiser." %}</p>
+                    <p class="login-signup"><a href="/accounts/login">{% trans "Login" %}</a> {% trans "or" %} {{#linkTo "register"}}{% trans "member" %}{{/linkTo}} {% trans "to become a fundraiser." %}</p>
                 {{/if}}
             </div>
 
@@ -120,10 +120,10 @@
 
                 {{#if id}}
                     {{#if title}}
-                        <a {{action "showFundraiser" id href=true}} class="account-preview btn-link">
+                        {{#linkTo 'fundRaiser' this class="account-preview btn-link"}}
                             <span class="flaticon solid eye-1"></span>
                             {% trans "Preview fundraiser page" %}
-                        </a>
+                        {{/linkTo}}
                     {{/if}}
                 {{/if}}
             </nav>
@@ -134,11 +134,6 @@
                 {{#if isOwner}}
                     <header class="l-page-header">
                         <h1>{% trans "Edit fundraiser" %}</h1>
-                        <p>
-                            {% blocktrans %}
-                                Lorem ipsum
-                            {% endblocktrans %}
-                        </p>
                     </header>
 
                     <form id="fundraiser-edit">
@@ -163,8 +158,8 @@
             </div>
 
             <sidebar class="l-sidebar">
-                <h2>{% trans "Fundraising for project" %}</h2>
-                <p>{% trans "You are be fundraising for this project" %}</p>
+                <h2>{% trans "You rock!" %}</h2>
+                <p>{% trans "Because you're fundraising for this project:" %}</p>
 
                 {{render "projectPreview" project}}
 
@@ -187,10 +182,11 @@
                 {{/each}}
             </ul>
         {{/if}}
-
-        {{#linkTo 'fundRaiserNew' controllers.project.id class="fundraiser-become"}}
-            {% trans "Become a fundraiser" %}
-        {{/linkTo}}
+        {{#if controllers.project.isFundable}}
+            {{#linkTo 'fundRaiserNew' controllers.project.id class="fundraiser-become"}}
+                {% trans "Become a fundraiser" %}
+            {{/linkTo}}
+        {{/if}}
     </li>
 {% endtplhandlebars %}
 
@@ -272,10 +268,14 @@
                     </figure>
 
                     <div class="project-action">
-                        <a href='#' {{ action 'addDonation' this.project this }} class="btn btn-primary btn-iconed">
-                            <span class="flaticon solid wallet-1"></span>
-                            {% trans "Support" %} {{owner.first_name}}
-                        </a>
+                        {{#if controllers.project.isFundable}}
+                            <a href='#' {{ action 'addDonation' this.project this }} class="btn btn-primary btn-iconed">
+                                <span class="flaticon solid wallet-1"></span>
+                                {% trans "Support" %} {{owner.first_name}}
+                            </a>
+                        {{else}}
+                            <h2>{% trans "Project Funded" %}</h2>
+                        {{/if}}
                     </div>
 
                 </article>
@@ -390,7 +390,7 @@
                         <h1>{% trans "Donation overview" %}</h1>
                         <p>
                             {% blocktrans %}
-                                Lorem ipsum
+                            The people below already supported your fundraise action
                             {% endblocktrans %}
                         </p>
                     </header>

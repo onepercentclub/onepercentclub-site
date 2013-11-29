@@ -47,11 +47,15 @@ class Payout(models.Model):
     description_line4 = models.CharField(max_length=100, blank=True, default="")
 
     @property
-    def local_amount(self):
+    def amount_payout(self):
         return '%.2f' % (float(self.amount) / 100)
 
     @property
-    def local_amount_safe(self):
+    def amount_raised(self):
+        return '%.2f' % (float(self.amount) / settings.PROJECT_PAYOUT_RATE / 100)
+
+    @property
+    def current_amount_safe(self):
         return '%.2f' % (self.project.projectcampaign.money_safe * settings.PROJECT_PAYOUT_RATE / 100)
 
     @property
@@ -67,7 +71,7 @@ class Payout(models.Model):
 
     def __unicode__(self):
         date = self.created.strftime('%d-%m-%Y')
-        return  self.invoice_reference + " : " + date + " : " + self.receiver_account_number + " : EUR " + str(self.local_amount)
+        return  self.invoice_reference + " : " + date + " : " + self.receiver_account_number + " : EUR " + str(self.amount_payout)
 
 
 class BankMutationLine(models.Model):
