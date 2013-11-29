@@ -199,7 +199,8 @@ App.FundRaiserWallPostMixin = Em.Mixin.create({
     }.property('controllers.fundRaiserIndex.model')
 });
 
-App.FundRaiserWallPostNewController = App.TextWallPostNewController.extend(App.FundRaiserWallPostMixin, {});
+App.FundRaiserTextWallPostNewController = App.TextWallPostNewController.extend(App.FundRaiserWallPostMixin, {});
+App.FundRaiserMediaWallPostNewController = App.MediaWallPostNewController.extend(App.FundRaiserWallPostMixin, {});
 
 
 /* Reactions */

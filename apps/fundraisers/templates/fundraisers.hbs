@@ -183,6 +183,7 @@
 
 {% tplhandlebars "project_fundraiser_popup" %}
 
+    {{!-- NOT WORKING ATM! --}}
     <span id="fundraiser-detail">
         <h3>{{owner.full_name}}</h3>
         <img {{bindAttr src="image.large"}} />
@@ -291,8 +292,7 @@
                             {% trans "raised" %}
                         </p>
 
-                        {{#bb-progressbar class="project-fund-amount-slider" totalValue=amount currentValue=amount_donated}}
-                        {{/bb-progressbar}}
+                        {{bb-progressbar class="project-fund-amount-slider" totalValue=amount currentValue=amount_donated}}
                     </div>
 
                     <ul class="project-member-list l-one-third">
@@ -343,7 +343,11 @@
         	</div>
 
             <sidebar class="l-sidebar">
-            	{{ render "fundRaiserWallPostNew" }}
+                {{#if isOwner}}
+                	{{ render "fundRaiserMediaWallPostNew" }}
+                {{else}}
+                	{{ render "fundRaiserTextWallPostNew" }}
+                {{/if}}
             </sidebar>
 
         </section>

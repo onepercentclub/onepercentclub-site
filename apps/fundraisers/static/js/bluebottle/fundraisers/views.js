@@ -25,7 +25,7 @@ App.ProjectFundRaiserView = Em.View.extend({
 	templateName: 'project_fundraiser',
 
     html: function(){
-        /*
+        /* Unfortunately using templates isn't working when you enter the page a second time. Needs work!
         var controller = this.get('controller');
         var contentView = App.ProjectFundRaiserPopupView.create({controller: controller});
         return contentView.renderToBuffer().buffer;
