@@ -92,4 +92,6 @@ App.FundRaiserIndexController = Em.ArrayController.extend({
 });
 
 
-
+App.MyFundRaiserListController = Em.ArrayController.extend({
+    needs: ['currentUser']
+});

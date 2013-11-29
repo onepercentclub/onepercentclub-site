@@ -62,12 +62,12 @@ App.FundRaiserDonationListView = Em.View.extend({
     templateName: 'fundraiser_donation_list'
 });
 
+App.MyFundRaiserListView = Em.View.extend({
+    templateName: 'my_fundraiser_list'
+});
+//
+//
 // TODO: Unused at this time.
-//App.MyFundRaiserListView = Em.View.extend({
-//    templateName: 'my_fund_raiser_list'
-//});
-//
-//
 //App.MyFundRaiserView = Em.View.extend({
 //    templateName: 'my_fund_raiser'
 //});

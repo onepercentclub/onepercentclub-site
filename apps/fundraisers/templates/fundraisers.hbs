@@ -5,6 +5,32 @@
 {% language "en" %}
 {# Force all these pages to english #}
 
+{% tplhandlebars "_my_fundraiser_top" %}
+    <div class="l-section account-header">
+        <nav class="l-wrapper">
+
+            <figure class="account-avatar"><img {{bindAttr src="controllers.currentUser.getAvatar"}} /></figure>
+
+            <header class="account-title">
+                <h2>{% trans "My 1%" %} > {% trans "Fundraisers" %}</h2>
+            </header>
+
+            {{#if id}}
+                {{#if title}}
+                    {{#linkTo 'fundRaiser' this class="account-preview btn-link"}}
+                        <span class="flaticon solid eye-1"></span>
+                        {% trans "Preview fundraiser page" %}
+                    {{/linkTo}}
+{#                    <a {{action "showFundraiser" id href=true}} class="account-preview btn-link">#}
+{#                        <span class="flaticon solid eye-1"></span>#}
+{#                        {% trans "Preview fundraiser page" %}#}
+{#                    </a>#}
+                {{/if}}
+            {{/if}}
+        </nav>
+    </div>
+{% endtplhandlebars %}
+
 {% tplhandlebars "fundraiser_form" %}
 
     <fieldset>
@@ -39,25 +65,7 @@
 
     <div class="l-section" id="project-dashboard">
 
-        <div class="l-section account-header">
-            <nav class="l-wrapper">
-
-                <figure class="account-avatar"><img {{bindAttr src="controllers.currentUser.getAvatar"}} /></figure>
-
-                <header class="account-title">
-                    <h2>{% trans "My 1%" %} > {% trans "Fundraisers" %}</h2>
-                </header>
-
-                {{#if id}}
-                    {{#if title}}
-                        <a {{action "showFundraiser" id href=true}} class="account-preview btn-link">
-                            <span class="flaticon solid eye-1"></span>
-                            {% trans "Preview fundraiser page" %}
-                        </a>
-                    {{/if}}
-                {{/if}}
-            </nav>
-        </div>
+        {{partial "my_fundraiser_top"}}
 
         <div class="l-wrapper">
             <div class="l-content">
@@ -109,25 +117,7 @@
 
     <div class="l-section" id="project-dashboard">
 
-        <div class="l-section account-header">
-            <nav class="l-wrapper">
-
-                <figure class="account-avatar"><img {{bindAttr src="controllers.currentUser.getAvatar"}} /></figure>
-
-                <header class="account-title">
-                    <h2>{% trans "My 1%" %} > {% trans "Fundraisers" %}</h2>
-                </header>
-
-                {{#if id}}
-                    {{#if title}}
-                        {{#linkTo 'fundRaiser' this class="account-preview btn-link"}}
-                            <span class="flaticon solid eye-1"></span>
-                            {% trans "Preview fundraiser page" %}
-                        {{/linkTo}}
-                    {{/if}}
-                {{/if}}
-            </nav>
-        </div>
+        {{partial "my_fundraiser_top"}}
 
         <div class="l-wrapper">
             <div class="l-content">
@@ -426,6 +416,57 @@
                 {{render "projectPreview" project}}
 
             </sidebar>
+        </div>
+    </div>
+
+{% endtplhandlebars %}
+
+{% tplhandlebars "my_fundraiser_list" %}
+
+    <div class="l-section" id="project-dashboard">
+
+    	{{partial "my_fundraiser_top"}}
+
+        <div class="l-wrapper">
+            {{#if isLoading}}
+                <div class="is-loading-big"><img src="{% get_static_prefix %}images/loading.gif" /> <strong>{% trans "Loading projects" %}</strong></div>
+            {{else}}
+                <div class="l-content">
+                    {{#if controller.length}}
+                        <p>Overview of all your fundraiser actions.</p>
+                    {{else}}
+                        <p>You have no fundraiser actions.</p>
+                    {{/if}}
+                </div>
+            {{/if}}
+
+            <div class="l-content">
+	            <ul class="project-list">
+	            	{{#each fundraiser in controller}}
+	                <li class="project-list-item">
+
+                        <span class="project-header">
+                            <figure class="project-image">
+                                <img {{bindAttr src="fundraiser.image.square" alt="fundraiser.title"}} />
+                            </figure>
+                            <h2 class="project-title">
+                                {{ fundraiser.title }}
+                                {{#if fundraiser.isPublic}}
+                                    <a {{action "showFundraiser" fundraiser.id href=true}} class="project-preview">
+    	                                <span class="flaticon solid eye-1"></span>
+    	                                {% trans "View public page" %}
+    	                            </a>
+                                {{/if}}
+                            </h2>
+                        </span>
+
+				        <div class="project-actions">
+				        	{{#linkTo 'fundRaiserEdit' fundraiser.id}}{% trans "Edit" %}{{/linkTo}}
+				        </div>
+				    </li>
+					{{/each}}
+	            </ul>
+			</div>
         </div>
     </div>
 
