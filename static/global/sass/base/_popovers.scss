@@ -9,7 +9,7 @@
     left: 0;
     z-index: 9999;
     display: none;
-    max-width: 276px;
+    max-width: 450px;
     min-width: 150px;
     padding: 1px;
     text-align: left; // Reset given new insertion method
@@ -17,10 +17,8 @@
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding;
     background-clip: padding-box;
-    
-    border: 1px solid $white;
-    color: $white;
-    background-color: $color-secondary;
+    border: 1px solid $gray-lighter;
+    background-color: $gray-lighter;
     
     // Overrides for proper insertion
     white-space: normal;
@@ -43,7 +41,7 @@
 
 .popover-content {
     padding: $base-padding/2 $base-padding;
-    color: $white;
+    color: $color-text;
 }
 
 // Arrows
@@ -73,14 +71,14 @@
         margin-left: -12px;
         border-bottom-width: 0;
         border-top-color: #999; // IE8 fallback
-        border-top-color: $white;
+        border-top-color: $gray-lighter;
         bottom: -12px;
         
         &:after {
             bottom: 1px;
             margin-left: -12px;
             border-bottom-width: 0;
-            border-top-color: $color-secondary;;
+            border-top-color: $gray-lighter;
         }
     }
     
@@ -90,13 +88,13 @@
         margin-top: -12px;
         border-left-width: 0;
         border-right-color: #999; // IE8 fallback
-        border-right-color: $white;
+        border-right-color: $gray-lighter;
         
         &:after {
             left: 1px;
             bottom: -12px;
             border-left-width: 0;
-            border-right-color: $color-secondary;;
+            border-right-color: $gray-lighter;
         }
     }
     
@@ -112,7 +110,7 @@
             top: 1px;
             margin-left: -12px;
             border-top-width: 0;
-            border-bottom-color: $color-secondary;;
+            border-bottom-color: $gray-lighter;
         }
     }
     
@@ -124,12 +122,12 @@
             margin-top: -12px;
             border-right-width: 0;
             border-left-color: #999; // IE8 fallback
-            border-left-color: $white;
+            border-left-color: $gray-lighter;
             
             &:after {
                 right: 1px;
                 border-right-width: 0;
-                border-left-color: $color-secondary;
+                border-left-color: $gray-lighter;
                 bottom: -12px;
             }
         }

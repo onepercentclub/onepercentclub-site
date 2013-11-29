@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-13 21:32+0100\n"
+"POT-Creation-Date: 2013-11-29 00:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,7 +29,7 @@ msgstr ""
 msgid "days to go"
 msgstr ""
 
-#: templates/homepage.hbs:91
+#: templates/homepage.hbs:91 templates/homepage.hbs.py:327
 msgid "of"
 msgstr ""
 
@@ -100,4 +100,40 @@ msgstr ""
 #: templates/homepage.hbs:199
 #, python-format
 msgid "Join us. Sign up and share your 1%%"
+msgstr ""
+
+#: templates/homepage.hbs:253
+msgid "Our crazy fund-racers"
+msgstr ""
+
+#: templates/homepage.hbs:254 templates/homepage.hbs.py:350
+msgid "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+msgstr ""
+
+#: templates/homepage.hbs:265
+msgid "Fully funded by"
+msgstr ""
+
+#: templates/homepage.hbs:265
+msgid "and supporters."
+msgstr ""
+
+#: templates/homepage.hbs:285
+msgid "<strong>Fully</strong> funded"
+msgstr ""
+
+#: templates/homepage.hbs:287
+msgid "To go"
+msgstr ""
+
+#: templates/homepage.hbs:293
+msgid "days"
+msgstr ""
+
+#: templates/homepage.hbs:329
+msgid "fund-raced"
+msgstr ""
+
+#: templates/homepage.hbs:352
+msgid "Pick a crazy fund-racer and support"
 msgstr ""

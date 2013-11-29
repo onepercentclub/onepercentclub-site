@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-13 21:32+0100\n"
+"POT-Creation-Date: 2013-11-29 00:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,23 +17,23 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: admin.py:14 admin.py:113 models.py:105 models.py:173
+#: admin.py:14 admin.py:113 models.py:120 models.py:191
 msgid "Status"
 msgstr ""
 
-#: admin.py:20 admin.py:119 admin.py:197
+#: admin.py:20 admin.py:119 admin.py:203
 msgid "All"
 msgstr ""
 
-#: admin.py:189
+#: admin.py:195
 msgid "Active"
 msgstr ""
 
-#: admin.py:192
+#: admin.py:198
 msgid "Yes"
 msgstr ""
 
-#: admin.py:193
+#: admin.py:199
 msgid "No"
 msgstr ""
 
@@ -45,184 +45,196 @@ msgstr ""
 msgid "Invalid Dutch bank account number."
 msgstr ""
 
-#: models.py:29 models.py:107 models.py:177
+#: models.py:38 models.py:122 models.py:195
 msgid "Created"
 msgstr ""
 
-#: models.py:30 models.py:108 models.py:178
+#: models.py:39 models.py:123 models.py:196
 msgid "Updated"
 msgstr ""
 
-#: models.py:35
+#: models.py:44
 msgid "amount"
 msgstr ""
 
-#: models.py:82
+#: models.py:91
 msgid "New"
 msgstr ""
 
-#: models.py:83
+#: models.py:92
 msgid "In progress"
 msgstr ""
 
-#: models.py:84
+#: models.py:93
 msgid "Pending"
 msgstr ""
 
-#: models.py:85
+#: models.py:94
 msgid "Paid"
 msgstr ""
 
-#: models.py:86
+#: models.py:95
 msgid "Failed"
 msgstr ""
 
-#: models.py:94
+#: models.py:108
 msgid "One-off"
 msgstr ""
 
-#: models.py:95 models.py:164
+#: models.py:109 models.py:182
 msgid "Recurring"
 msgstr ""
 
-#: models.py:96
+#: models.py:110
 msgid "Voucher"
 msgstr ""
 
-#: models.py:98
+#: models.py:112
 msgid "amount (in cents)"
 msgstr ""
 
-#: models.py:99
+#: models.py:113
 msgid "currency"
 msgstr ""
 
-#: models.py:102
+#: models.py:116
 msgid "User"
 msgstr ""
 
-#: models.py:103
+#: models.py:117
 msgid "Project"
 msgstr ""
 
-#: models.py:110
+#: models.py:118
+msgid "fund raiser"
+msgstr ""
+
+#: models.py:125
 msgid "Ready"
 msgstr ""
 
-#: models.py:112
+#: models.py:127
 msgid "Type"
 msgstr ""
 
-#: models.py:114
+#: models.py:129
 msgid "Order"
 msgstr ""
 
-#: models.py:127
+#: models.py:145
 msgid "Gift Card"
 msgstr ""
 
-#: models.py:132
+#: models.py:150
 msgid "donation"
 msgstr ""
 
-#: models.py:133
+#: models.py:151
 msgid "donations"
 msgstr ""
 
-#: models.py:163
+#: models.py:181
 msgid "Current"
 msgstr ""
 
-#: models.py:165 models.py:180
+#: models.py:183 models.py:198
 msgid "Closed"
 msgstr ""
 
-#: models.py:172
+#: models.py:190
 msgid "user"
 msgstr ""
 
-#: models.py:175
+#: models.py:193
 msgid "Order Number"
 msgstr ""
 
-#: models.py:219
+#: models.py:237
 msgid "GIFTCARDS"
 msgstr ""
 
-#: models.py:221
+#: models.py:239
 msgid "GIFTCARD"
 msgstr ""
 
-#: models.py:225
+#: models.py:243
 msgid "DONATIONS"
 msgstr ""
 
-#: models.py:227
+#: models.py:245
 msgid "DONATION"
 msgstr ""
 
-#: models.py:229
+#: models.py:247
 msgid "DONATIONS & GIFTCARDS"
 msgstr ""
 
-#: models.py:230
+#: models.py:248
 msgid "THANK YOU!"
 msgstr ""
 
-#: models.py:244
+#: models.py:262
 msgid "Couldn't generate a unique order number."
 msgstr ""
 
-#: serializers.py:44 serializers.py:83
+#: models.py:289
+msgid "I've just supported {title} {{URL}} via @{twitter_handle}"
+msgstr ""
+
+#: models.py:291
+msgid "{{URL}} via @{twitter_handle}"
+msgstr ""
+
+#: serializers.py:44 serializers.py:84
 msgid "You cannot modify a Donation that does not have status new."
 msgstr ""
 
-#: serializers.py:53 serializers.py:92
+#: serializers.py:54 serializers.py:93
 msgid "Donations must be at least €2."
 msgstr ""
 
-#: serializers.py:56 serializers.py:59 serializers.py:95 serializers.py:98
+#: serializers.py:57 serializers.py:60 serializers.py:96 serializers.py:99
 msgid "Donations must be at least €5."
 msgstr ""
 
-#: serializers.py:66 serializers.py:105
+#: serializers.py:67 serializers.py:106
 msgid "You can only donate a project in the campaign phase."
 msgstr ""
 
-#: serializers.py:111
+#: serializers.py:112
 msgid "Can only Recurring Donations to a Recurring Order."
 msgstr ""
 
-#: serializers.py:113
+#: serializers.py:114
 msgid "Can only Recurring Donations to an active Recurring Order (status recurring)."
 msgstr ""
 
-#: serializers.py:142
+#: serializers.py:145
 msgid "You cannot modify a closed Order."
 msgstr ""
 
-#: views.py:33
+#: views.py:32
 msgid "No active order"
 msgstr ""
 
-#: views.py:91
+#: views.py:90
 msgid "You cannot add a donation to a closed Order."
 msgstr ""
 
-#: views.py:339 views.py:343
+#: views.py:338 views.py:342
 msgid "Order not found."
 msgstr ""
 
-#: views.py:341
+#: views.py:340
 msgid "No order specified."
 msgstr ""
 
-#: views.py:409
+#: views.py:408
 #, python-format
 msgid "No %(verbose_name)s found matching the query"
 msgstr ""
 
-#: views.py:415
+#: views.py:414
 msgid "Anonymous users are not permitted to create recurring orders."
 msgstr ""
 
@@ -277,16 +289,16 @@ msgstr ""
 
 #: templates/orders.hbs:134 templates/orders.hbs.py:136
 #: templates/orders.hbs:247 templates/orders.hbs.py:249
-#: templates/orders.hbs:456 templates/orders.hbs.py:458
-#: templates/orders.hbs:815 templates/orders.hbs.py:817
+#: templates/orders.hbs:468 templates/orders.hbs.py:470
+#: templates/orders.hbs:842 templates/orders.hbs.py:844
 msgid "Next Step"
 msgstr ""
 
-#: templates/orders.hbs:163 templates/orders.hbs.py:396
+#: templates/orders.hbs:163 templates/orders.hbs.py:408
 msgid "Have an account?"
 msgstr ""
 
-#: templates/orders.hbs:163 templates/orders.hbs.py:396
+#: templates/orders.hbs:163 templates/orders.hbs.py:408
 msgid "Log in here"
 msgstr ""
 
@@ -306,12 +318,12 @@ msgstr ""
 msgid "To process your donation we need some information."
 msgstr ""
 
-#: templates/orders.hbs:182 templates/orders.hbs.py:409
+#: templates/orders.hbs:182 templates/orders.hbs.py:421
 msgid "Your full name"
 msgstr ""
 
-#: templates/orders.hbs:190 templates/orders.hbs.py:416
-#: templates/orders.hbs:917
+#: templates/orders.hbs:190 templates/orders.hbs.py:428
+#: templates/orders.hbs:944
 msgid "Email"
 msgstr ""
 
@@ -331,188 +343,192 @@ msgstr ""
 msgid "Country"
 msgstr ""
 
-#: templates/orders.hbs:285
+#: templates/orders.hbs:279
+msgid "Fund-racing for"
+msgstr ""
+
+#: templates/orders.hbs:297
 msgid "is still needed"
 msgstr ""
 
-#: templates/orders.hbs:290
+#: templates/orders.hbs:302
 msgid "I'd like to give"
 msgstr ""
 
-#: templates/orders.hbs:297 templates/orders.hbs.py:957
+#: templates/orders.hbs:309 templates/orders.hbs.py:984
 msgid "Delete"
 msgstr ""
 
-#: templates/orders.hbs:310 templates/orders.hbs.py:355
-#: templates/orders.hbs:480
+#: templates/orders.hbs:322 templates/orders.hbs.py:367
+#: templates/orders.hbs:492
 msgid "You're almost there!"
 msgstr ""
 
-#: templates/orders.hbs:311 templates/orders.hbs.py:329
-#: templates/orders.hbs:356
+#: templates/orders.hbs:323 templates/orders.hbs.py:341
+#: templates/orders.hbs:368
 msgid "We'll redirect you through our payment provider where you can finish your donation securely."
 msgstr ""
 
-#: templates/orders.hbs:328
+#: templates/orders.hbs:340
 msgid "Select your bank below"
 msgstr ""
 
-#: templates/orders.hbs:342 templates/orders.hbs.py:359
+#: templates/orders.hbs:354 templates/orders.hbs.py:371
 msgid "Processing payment&#8230;"
 msgstr ""
 
-#: templates/orders.hbs:343 templates/orders.hbs.py:345
-#: templates/orders.hbs:348 templates/orders.hbs.py:360
-#: templates/orders.hbs:362
+#: templates/orders.hbs:355 templates/orders.hbs.py:357
+#: templates/orders.hbs:360 templates/orders.hbs.py:372
+#: templates/orders.hbs:374
 msgid "Proceed with Payment"
 msgstr ""
 
-#: templates/orders.hbs:382
+#: templates/orders.hbs:394
 msgid "We'll keep you up to date!"
 msgstr ""
 
-#: templates/orders.hbs:383
+#: templates/orders.hbs:395
 msgid "You already have an account. Great! We'll keep you updated with the progress of the projects you support"
 msgstr ""
 
-#: templates/orders.hbs:388
+#: templates/orders.hbs:400
 msgid "Next"
 msgstr ""
 
-#: templates/orders.hbs:402
+#: templates/orders.hbs:414
 msgid "Follow the progress?"
 msgstr ""
 
-#: templates/orders.hbs:403
+#: templates/orders.hbs:415
 msgid "Sign up for an account and we keep you updated on the projects progress"
 msgstr ""
 
-#: templates/orders.hbs:426
+#: templates/orders.hbs:438
 msgid "Password"
 msgstr ""
 
-#: templates/orders.hbs:436
+#: templates/orders.hbs:448
 msgid "Password again"
 msgstr ""
 
-#: templates/orders.hbs:448
+#: templates/orders.hbs:460
 #, python-format
 msgid "By joining 1%%Club I hereby agree to the "
 msgstr ""
 
-#: templates/orders.hbs:449
+#: templates/orders.hbs:461
 #, python-format
 msgid "1%%Club Terms of service"
 msgstr ""
 
-#: templates/orders.hbs:481
+#: templates/orders.hbs:493
 msgid "Add or edit your bank account information and submit to set your monthly donations."
 msgstr ""
 
-#: templates/orders.hbs:486
+#: templates/orders.hbs:498
 msgid "Account Name"
 msgstr ""
 
-#: templates/orders.hbs:496
+#: templates/orders.hbs:508
 msgid "Account City"
 msgstr ""
 
-#: templates/orders.hbs:506
+#: templates/orders.hbs:518
 msgid "Account Number"
 msgstr ""
 
-#: templates/orders.hbs:518
+#: templates/orders.hbs:530
 #, python-format
 msgid "By clicking submit, I authorize 1%%Club to withdraw money every month."
 msgstr ""
 
-#: templates/orders.hbs:526
+#: templates/orders.hbs:538
 msgid "Updating monthly donation&#8230;"
 msgstr ""
 
-#: templates/orders.hbs:527 templates/orders.hbs.py:529
-#: templates/orders.hbs:532
+#: templates/orders.hbs:539 templates/orders.hbs.py:541
+#: templates/orders.hbs:544
 msgid "Submit"
 msgstr ""
 
-#: templates/orders.hbs:539
+#: templates/orders.hbs:551
 msgid "Your monthly donation"
 msgstr ""
 
-#: templates/orders.hbs:540
+#: templates/orders.hbs:552
 #, python-format
 msgid "Thank you 1%%Friend! You're about to set your monthly donation amount to &euro;"
 msgstr ""
 
-#: templates/orders.hbs:606
+#: templates/orders.hbs:633
 msgid "You supported"
 msgstr ""
 
-#: templates/orders.hbs:623
+#: templates/orders.hbs:650
 msgid "Did you know that you rock?"
 msgstr ""
 
-#: templates/orders.hbs:623
+#: templates/orders.hbs:650
 msgid "Well, you rock!"
 msgstr ""
 
-#: templates/orders.hbs:625
+#: templates/orders.hbs:652
 msgid "Why not share the project with your friends, and encourage them to support as well?"
 msgstr ""
 
-#: templates/orders.hbs:626
-msgid "Just hit (one of the) share buttons to make even more impact:"
+#: templates/orders.hbs:653
+msgid "Just hit (one of) the share buttons to make even more impact:"
 msgstr ""
 
-#: templates/orders.hbs:640 templates/orders.hbs.py:718
+#: templates/orders.hbs:667 templates/orders.hbs.py:745
 msgid "You just supported these projects"
 msgstr ""
 
-#: templates/orders.hbs:642 templates/orders.hbs.py:720
+#: templates/orders.hbs:669 templates/orders.hbs.py:747
 msgid "You just supported this project"
 msgstr ""
 
-#: templates/orders.hbs:645
+#: templates/orders.hbs:672
 msgid "Thank you for supporting these projects below. With your support we come one step closer realizing the project."
 msgstr ""
 
-#: templates/orders.hbs:658
+#: templates/orders.hbs:685
 msgid "Want to do more?"
 msgstr ""
 
-#: templates/orders.hbs:659
+#: templates/orders.hbs:686
 msgid "You can easily support projects monthly. Just pick a project yourself or you can leave that up to us."
 msgstr ""
 
-#: templates/orders.hbs:660
+#: templates/orders.hbs:687
 msgid "Support monthly"
 msgstr ""
 
-#: templates/orders.hbs:662
+#: templates/orders.hbs:689
 msgid "Stay updated"
 msgstr ""
 
-#: templates/orders.hbs:663
+#: templates/orders.hbs:690
 msgid "We’d love to keep you updated on the progress of the projects you just supported. Sign up and receive updates, and our everlasting love."
 msgstr ""
 
-#: templates/orders.hbs:664
+#: templates/orders.hbs:691
 msgid "Signup now"
 msgstr ""
 
-#: templates/orders.hbs:685
+#: templates/orders.hbs:712
 msgid "Donation Successful!"
 msgstr ""
 
-#: templates/orders.hbs:687
+#: templates/orders.hbs:714
 #, python-format
 msgid ""
 "\n"
-"\t\t\t\t\t\t\tThanks for your support! Your 1%% has brought them one step closer to realise their smart idea! Don't forget to tune in to see how they're doing! \n"
+"\t\t\t\t\t\t\tThanks for your support! Your 1%% has brought them one step closer to realise their smart idea! Don't forget to tune in to see how they're doing!\n"
 "\t\t\t\t\t\t"
 msgstr ""
 
-#: templates/orders.hbs:691
+#: templates/orders.hbs:718
 #, python-format
 msgid ""
 "\n"
@@ -520,86 +536,86 @@ msgid ""
 "\t\t\t\t\t\t"
 msgstr ""
 
-#: templates/orders.hbs:694
+#: templates/orders.hbs:721
 #, python-format
 msgid "Become a 1%%Member"
 msgstr ""
 
-#: templates/orders.hbs:700
+#: templates/orders.hbs:727
 msgid "No donation set..."
 msgstr ""
 
-#: templates/orders.hbs:702
+#: templates/orders.hbs:729
 msgid "Create or enable your monthly donation"
 msgstr ""
 
-#: templates/orders.hbs:723
+#: templates/orders.hbs:750
 msgid "You just supported the top three projects."
 msgstr ""
 
-#: templates/orders.hbs:748
+#: templates/orders.hbs:775
 msgid "Your monthly donation is set"
 msgstr ""
 
-#: templates/orders.hbs:750
+#: templates/orders.hbs:777
 msgid "Your monthly donation will be deducted from your account at the beginning of each month."
 msgstr ""
 
-#: templates/orders.hbs:752
+#: templates/orders.hbs:779
 msgid "Monthly donation total:"
 msgstr ""
 
-#: templates/orders.hbs:798
+#: templates/orders.hbs:825
 #, python-format
 msgid "1%%GIFTCARDS will be sent out with a total value of"
 msgstr ""
 
-#: templates/orders.hbs:807
+#: templates/orders.hbs:834
 msgid "No gift cards in shopping basket"
 msgstr ""
 
-#: templates/orders.hbs:828
+#: templates/orders.hbs:855
 #, python-format
 msgid "Choose value & personalize 1%%GIFTCARD"
 msgstr ""
 
-#: templates/orders.hbs:834
+#: templates/orders.hbs:861
 msgid "Language"
 msgstr ""
 
-#: templates/orders.hbs:839
+#: templates/orders.hbs:866
 msgid "English"
 msgstr ""
 
-#: templates/orders.hbs:842
+#: templates/orders.hbs:869
 msgid "Dutch"
 msgstr ""
 
-#: templates/orders.hbs:848
+#: templates/orders.hbs:875
 msgid "Value"
 msgstr ""
 
-#: templates/orders.hbs:873
+#: templates/orders.hbs:900
 msgid "Your name"
 msgstr ""
 
-#: templates/orders.hbs:885
+#: templates/orders.hbs:912
 msgid "Your email"
 msgstr ""
 
-#: templates/orders.hbs:901
+#: templates/orders.hbs:928
 msgid "This gift card is for:"
 msgstr ""
 
-#: templates/orders.hbs:905
+#: templates/orders.hbs:932
 msgid "Name"
 msgstr ""
 
-#: templates/orders.hbs:929
+#: templates/orders.hbs:956
 msgid "Personal message"
 msgstr ""
 
-#: templates/orders.hbs:942
+#: templates/orders.hbs:969
 msgid "Add"
 msgstr ""
 

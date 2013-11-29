@@ -145,6 +145,24 @@ App.ProjectTaskRoute = Em.Route.extend({
 });
 
 
+App.ProjectTaskIndexRoute = Em.Route.extend({
+    // This way the ArrayController won't hold an immutable array thus it can be extended with more wallposts.
+    setupController: function(controller, model) {
+        // Only reload wall-posts if switched to another project.
+        var parent_id = this.modelFor('projectTask').get('id');
+        if (controller.get('parent_id') != parent_id){
+            controller.set('page', 1);
+            controller.set('parent_id', parent_id);
+            var store = this.get('store');
+            store.find('wallPost', {'parent_type': 'task', 'parent_id': parent_id}).then(function(items){
+                controller.set('meta', items.get('meta'));
+                controller.set('model', items.toArray());
+            });
+        }
+    }
+});
+
+
 App.ProjectTaskNewRoute = Em.Route.extend({
 
     setupController: function(controller, model) {

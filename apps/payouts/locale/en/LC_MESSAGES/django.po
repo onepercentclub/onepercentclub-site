@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-13 21:32+0100\n"
+"POT-Creation-Date: 2013-11-29 00:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: admin.py:45
+#: admin.py:56
 msgid "project"
 msgstr ""
 
@@ -45,7 +45,7 @@ msgstr ""
 msgid "status"
 msgstr ""
 
-#: models.py:30 models.py:75 models.py:104
+#: models.py:30 models.py:79 models.py:108
 msgid "Created"
 msgstr ""
 
@@ -61,14 +61,14 @@ msgstr ""
 msgid "Currency"
 msgstr ""
 
-#: models.py:80
+#: models.py:84
 msgid "Date started"
 msgstr ""
 
-#: models.py:81
+#: models.py:85
 msgid "Debet/Credit"
 msgstr ""
 
-#: models.py:105
+#: models.py:109
 msgid "Uploaded mutation file"
 msgstr ""

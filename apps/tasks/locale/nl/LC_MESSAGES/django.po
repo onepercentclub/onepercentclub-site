@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: onepercentclub-site\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-13 21:32+0100\n"
-"PO-Revision-Date: 2013-11-13 11:34+0000\n"
-"Last-Translator: nieja <niels@1procentclub.nl>\n"
+"POT-Creation-Date: 2013-11-29 00:05+0100\n"
+"PO-Revision-Date: 2013-11-28 23:07+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub-site/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -56,24 +56,24 @@ msgid "description"
 msgstr "beschrijving"
 
 #: models.py:32 templates/tasks.hbs:28 templates/tasks.hbs.py:180
-#: templates/tasks.hbs:317 templates/tasks.hbs.py:739
+#: templates/tasks.hbs:316 templates/tasks.hbs.py:766
 msgid "Open"
 msgstr "Open"
 
 #: models.py:33 templates/tasks.hbs:32 templates/tasks.hbs.py:184
-#: templates/tasks.hbs:321 templates/tasks.hbs.py:743
+#: templates/tasks.hbs:320 templates/tasks.hbs.py:770
 msgid "In progress"
 msgstr "Loopt"
 
 #: models.py:34 templates/tasks.hbs:36 templates/tasks.hbs.py:188
-#: templates/tasks.hbs:325 templates/tasks.hbs.py:747
+#: templates/tasks.hbs:324 templates/tasks.hbs.py:774
 msgid "Closed"
 msgstr "Gesloten"
 
 #: models.py:35 models.py:136 templates/tasks.hbs:40
-#: templates/tasks.hbs.py:192 templates/tasks.hbs:329
-#: templates/tasks.hbs.py:435 templates/tasks.hbs:555
-#: templates/tasks.hbs.py:751
+#: templates/tasks.hbs.py:192 templates/tasks.hbs:328
+#: templates/tasks.hbs.py:434 templates/tasks.hbs:582
+#: templates/tasks.hbs.py:778
 msgid "Realised"
 msgstr "Gerealiseerd"
 
@@ -147,7 +147,7 @@ msgid ""
 "@{twitter_handle}"
 msgstr "Deel je kennis: {task_name} in {country} {{URL}} #{expertise} via @{twitter_handle}"
 
-#: models.py:132 templates/tasks.hbs:426 templates/tasks.hbs.py:543
+#: models.py:132 templates/tasks.hbs:425 templates/tasks.hbs.py:570
 msgid "Applied"
 msgstr "Aangemeld"
 
@@ -155,7 +155,7 @@ msgstr "Aangemeld"
 msgid "Accepted"
 msgstr "Goedgekeurd"
 
-#: models.py:134 templates/tasks.hbs:432
+#: models.py:134 templates/tasks.hbs:431
 msgid "Rejected"
 msgstr "Afgewezen"
 
@@ -163,7 +163,7 @@ msgstr "Afgewezen"
 msgid "Stopped"
 msgstr "Gestopt"
 
-#: models.py:142 templates/tasks.hbs:928
+#: models.py:142 templates/tasks.hbs:955
 msgid "Motivation"
 msgstr "Motivatie"
 
@@ -333,7 +333,7 @@ msgstr "Deadline nadert"
 msgid "Showing"
 msgstr "Weergegeven"
 
-#: templates/tasks.hbs:238 templates/tasks.hbs.py:269 templates/tasks.hbs:291
+#: templates/tasks.hbs:238 templates/tasks.hbs.py:268 templates/tasks.hbs:290
 msgid "You're the project owner"
 msgstr "Jij bent de projecteigenaar"
 
@@ -349,171 +349,187 @@ msgstr "Voeg een taak toe"
 msgid "No tasks currently available for this project"
 msgstr "Er zijn geen taken beschikbaar voor dit project"
 
-#: templates/tasks.hbs:270 templates/tasks.hbs.py:292
+#: templates/tasks.hbs:269 templates/tasks.hbs.py:291
 msgid "You can edit your tasks"
 msgstr "Pas je taken aan"
 
-#: templates/tasks.hbs:282 templates/tasks.hbs.py:304
+#: templates/tasks.hbs:281 templates/tasks.hbs.py:303
 msgid "Edit Task"
 msgstr "Pas taak aan"
 
-#: templates/tasks.hbs:348
+#: templates/tasks.hbs:347
 msgid "Task Description"
 msgstr "Taak omschrijving"
 
-#: templates/tasks.hbs:353 templates/tasks.hbs.py:605 templates/tasks.hbs:780
+#: templates/tasks.hbs:352 templates/tasks.hbs.py:632 templates/tasks.hbs:807
 msgid "End goal"
 msgstr "Einddoel"
 
-#: templates/tasks.hbs:368
+#: templates/tasks.hbs:367
 msgid "Task details"
 msgstr "Taak details"
 
-#: templates/tasks.hbs:372 templates/tasks.hbs.py:667 templates/tasks.hbs:842
+#: templates/tasks.hbs:371 templates/tasks.hbs.py:694 templates/tasks.hbs:869
 msgid "Skill"
 msgstr "Expertise"
 
-#: templates/tasks.hbs:379 templates/tasks.hbs.py:636 templates/tasks.hbs:811
+#: templates/tasks.hbs:378 templates/tasks.hbs.py:663 templates/tasks.hbs:838
 msgid "Location"
 msgstr "Locatie"
 
-#: templates/tasks.hbs:386
+#: templates/tasks.hbs:385
 msgid "Time needed"
 msgstr "Benodigde tijd"
 
-#: templates/tasks.hbs:393 templates/tasks.hbs.py:797
+#: templates/tasks.hbs:392 templates/tasks.hbs.py:824
 msgid "Deadline"
 msgstr "Deadline"
 
-#: templates/tasks.hbs:398
+#: templates/tasks.hbs:397
 msgid "No deadline"
 msgstr "Geen deadline"
 
-#: templates/tasks.hbs:404 templates/tasks.hbs.py:683 templates/tasks.hbs:858
+#: templates/tasks.hbs:403 templates/tasks.hbs.py:710 templates/tasks.hbs:885
 msgid "Tags"
 msgstr "Tags"
 
-#: templates/tasks.hbs:415
+#: templates/tasks.hbs:414
 msgid "Task members"
 msgstr "Taak leden"
 
-#: templates/tasks.hbs:429
+#: templates/tasks.hbs:428
 msgid "Started"
 msgstr "Gestart"
 
-#: templates/tasks.hbs:445 templates/tasks.hbs.py:452
+#: templates/tasks.hbs:444 templates/tasks.hbs.py:451
 msgid "Edit Status"
 msgstr "Pas status aan"
 
-#: templates/tasks.hbs:461
+#: templates/tasks.hbs:460
 msgid "No member assigned to this task yet"
 msgstr "Er is nog niemand aan deze taak gekoppeld"
 
-#: templates/tasks.hbs:477
+#: templates/tasks.hbs:476
 msgid "Apply for task"
 msgstr "Doe deze taak"
 
-#: templates/tasks.hbs:481
+#: templates/tasks.hbs:480 templates/tasks.hbs.py:537
 msgid "Login"
 msgstr "Log in"
 
-#: templates/tasks.hbs:481
+#: templates/tasks.hbs:480 templates/tasks.hbs.py:537
 msgid "member"
 msgstr "een profiel aan"
 
-#: templates/tasks.hbs:481
+#: templates/tasks.hbs:480
 msgid "to apply for this task"
 msgstr "om deze taak uit te voeren. "
 
-#: templates/tasks.hbs:488
+#: templates/tasks.hbs:487
 msgid "Task files"
 msgstr "Taak bestanden"
 
-#: templates/tasks.hbs:498
+#: templates/tasks.hbs:497
 msgid "by"
 msgstr "door"
 
-#: templates/tasks.hbs:504
+#: templates/tasks.hbs:503
 msgid "No files have been uploaded yet"
 msgstr "Nog geen documenten geüpload"
 
-#: templates/tasks.hbs:511 templates/tasks.hbs.py:518
+#: templates/tasks.hbs:510 templates/tasks.hbs.py:517
 msgid "Upload a file"
 msgstr "Upload een bestand"
 
-#: templates/tasks.hbs:535
+#: templates/tasks.hbs:536
+msgid "Write a comment"
+msgstr ""
+
+#: templates/tasks.hbs:537
+msgid "to leave a comment"
+msgstr ""
+
+#: templates/tasks.hbs:552
+msgid "Show more"
+msgstr ""
+
+#: templates/tasks.hbs:552
+msgid "more"
+msgstr ""
+
+#: templates/tasks.hbs:562
 msgid "said:"
 msgstr "zei:"
 
-#: templates/tasks.hbs:547
+#: templates/tasks.hbs:574
 msgid "Start"
 msgstr "Start"
 
-#: templates/tasks.hbs:551
+#: templates/tasks.hbs:578
 msgid "Reject"
 msgstr "Wijs af"
 
-#: templates/tasks.hbs:571
+#: templates/tasks.hbs:598
 msgid "Create new task"
 msgstr "Maak taak aan"
 
-#: templates/tasks.hbs:577
+#: templates/tasks.hbs:604
 msgid "Title of your task"
 msgstr "Titel van je taak"
 
-#: templates/tasks.hbs:591
+#: templates/tasks.hbs:618
 msgid "Description"
 msgstr "Beschrijving"
 
-#: templates/tasks.hbs:622
+#: templates/tasks.hbs:649
 msgid "Dead line"
 msgstr "Deadline"
 
-#: templates/tasks.hbs:653 templates/tasks.hbs.py:828
+#: templates/tasks.hbs:680 templates/tasks.hbs.py:855
 msgid "Time needed (approximately)"
 msgstr "Benodigde tijd (schatting)"
 
-#: templates/tasks.hbs:694
+#: templates/tasks.hbs:721
 msgid "Create Task"
 msgstr "Maak taak aan"
 
-#: templates/tasks.hbs:708
+#: templates/tasks.hbs:735
 msgid "Edit current task"
 msgstr "Wijzig taak"
 
-#: templates/tasks.hbs:715
+#: templates/tasks.hbs:742
 msgid "Title of your task."
 msgstr "Titel van je taak."
 
-#: templates/tasks.hbs:732
+#: templates/tasks.hbs:759
 msgid "Status"
 msgstr "Status"
 
-#: templates/tasks.hbs:766
+#: templates/tasks.hbs:793
 msgid "Description."
 msgstr "Omschrijving."
 
-#: templates/tasks.hbs:870
+#: templates/tasks.hbs:897
 msgid "Save Task"
 msgstr "Sla taak op"
 
-#: templates/tasks.hbs:871
+#: templates/tasks.hbs:898
 msgid "Cancel Changes"
 msgstr "Annuleer wijzigingen"
 
-#: templates/tasks.hbs:885
+#: templates/tasks.hbs:912
 msgid "Title"
 msgstr "Titel"
 
-#: templates/tasks.hbs:899
+#: templates/tasks.hbs:926
 msgid "File"
 msgstr "Bestand"
 
-#: templates/tasks.hbs:906
+#: templates/tasks.hbs:933
 msgid "Upload file"
 msgstr "Upload bestand"
 
-#: templates/tasks.hbs:923
+#: templates/tasks.hbs:950
 msgid "Are you sure you want to apply to this task?"
 msgstr "Weet je zeker dat je je wilt aanmelden voor deze taak?"
 

@@ -169,7 +169,7 @@ App.Adapter = DS.DRF2Adapter.extend({
         "users/activate": "users/activate",
         "users/passwordset": "users/passwordset",
         "homepage": "homepage",
-        "pages/contact": "pages/contact"
+        "pages/contact": "pages/contact",
     }
 });
 
@@ -265,7 +265,7 @@ App.Router.reopen({
     didTransition: function(infos) {
         this._super(infos);
         if (window._gaq === undefined) { return; }
-        
+
         Ember.run.next(function(){
             _gaq.push(['_trackPageview', window.location.hash.substr(1)]);
         });
@@ -457,15 +457,32 @@ App.ApplicationRoute = Em.Route.extend({
             });
         },
 
-        addDonation: function (project) {
+        addDonation: function (project, fundraiser) {
             var route = this;
             App.CurrentOrder.find('current').then(function(order) {
                 var store = route.get('store');
-                if (order.get('donations').anyBy('project', project)) {
-                   // Donation for this already exists in this order.
+
+                var projectHasDonation = order.get('donations').anyBy('project', project);
+                var fundraiserHasDonation = false;
+                if(fundraiser !== undefined){
+                    fundraiserHasDonation = order.get('donations').anyBy('fundraiser', fundraiser);
+                }
+
+                // TODO: functional test this.
+                /*
+                 *  Donate directly to project: check if no direct donations exist
+                 *  Donate through fundraiser: check if donation for that fundraiser exists
+                 *  We can have the same project multiple times, but all different fundraisers
+                */
+                if (fundraiserHasDonation ||
+                    (projectHasDonation && !fundraiserHasDonation && fundraiser === undefined)) {
+                    // Donation for this already exists in this order.
                 } else {
                     var donation = store.createRecord(App.CurrentOrderDonation);
                     donation.set('project', project);
+                    if(fundraiser !== undefined){
+                        donation.set('fundraiser', fundraiser);
+                    }
                     donation.set('order', order);
                     donation.save();
                 }
@@ -508,6 +525,7 @@ App.HomeRoute = Em.Route.extend({
         this._super(controller, model);
         controller.set('projectIndex', 0).loadProject();
         controller.set('quoteIndex', 0).loadQuote();
+        controller.checkCampaignHomePage();
     }
 });
 
@@ -551,5 +569,3 @@ App.LanguageSwitchView = Em.CollectionView.extend({
 App.ApplicationView = Em.View.extend({
     elementId: 'site'
 });
-
-

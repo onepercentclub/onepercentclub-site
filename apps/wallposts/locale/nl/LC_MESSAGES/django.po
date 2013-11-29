@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: onepercentclub-site\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-13 21:32+0100\n"
-"PO-Revision-Date: 2013-11-14 07:50+0000\n"
-"Last-Translator: nieja <niels@1procentclub.nl>\n"
+"POT-Creation-Date: 2013-11-29 00:05+0100\n"
+"PO-Revision-Date: 2013-11-28 23:07+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub-site/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,11 +21,11 @@ msgstr ""
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: admin.py:123
+#: admin.py:130
 msgid "Author"
 msgstr "Auteur"
 
-#: admin.py:133
+#: admin.py:140
 msgid "project link"
 msgstr "project link"
 
@@ -118,7 +118,7 @@ msgstr "Reactie"
 msgid "Reactions"
 msgstr "Reacties"
 
-#: tests.py:260 tests.py:276
+#: tests.py:261 tests.py:277
 msgid "Username"
 msgstr "Gebruikersnaam"
 
@@ -223,7 +223,7 @@ msgid ""
 "<strong>%(author_name)s</strong> left a comment on your message! <a href=\"%(site)s%(link)s\">Read the comment here.</a><br/>\n"
 "<br/>\n"
 "Liane | 1%%Club\n"
-msgstr "\n⏎\nHi %(receiver_name)s,<br/>⏎\n<br/>⏎\n<strong>%(author_name)s</strong> heeft gereageerd op jouw bericht! <a href=\"%(site)s%(link)s\">Lees de reactie hier.</a><br/>⏎\n<br/>⏎\nLiane | 1%%Club⏎\n"
+msgstr "\nHi %(receiver_name)s,<br/>\n<br/>\n<strong>%(author_name)s</strong> heeft gereageerd op jouw bericht! <a href=\"%(site)s%(link)s\">Lees de reactie hier.</a><br/>\n<br/>\nLiane | 1%%Club\n\n"
 
 #: templates/project_wallpost_reaction_same_wallpost.mail.txt:5
 #, python-format
@@ -239,23 +239,20 @@ msgid ""
 "Liane | 1%%Club\n"
 msgstr "\n\n\nHi %(receiver_name)s,<br/>\n<br/>\n<strong>%(author_name)s</strong> heeft gereageerd op jouw bericht! <a href=\"%(site)s%(link)s\">Lees de reactie hier.</a><br/>\n<br/>\nLiane | 1%%Club\n"
 
-#: templates/reactions.hbs:24 templates/wallposts.hbs:86
-#: templates/wallposts.hbs.py:187 templates/wallposts.hbs:258
-#: templates/wallposts.hbs.py:321
+#: templates/reactions.hbs:24 templates/wallposts.hbs:67
+#: templates/wallposts.hbs.py:135 templates/wallposts.hbs:203
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: templates/reactions.hbs:71 templates/wallposts.hbs:19
-#: templates/wallposts.hbs.py:346
+#: templates/reactions.hbs:71
 msgid "Login"
 msgstr "Inloggen"
 
-#: templates/reactions.hbs:71 templates/wallposts.hbs:19
-#: templates/wallposts.hbs.py:346
+#: templates/reactions.hbs:71
 msgid "member"
 msgstr "een profiel aan"
 
-#: templates/reactions.hbs:71 templates/wallposts.hbs:346
+#: templates/reactions.hbs:71
 msgid "to leave a reaction"
 msgstr "laat reactie achter"
 
@@ -291,79 +288,50 @@ msgid ""
 "Liane | 1%%Club\n"
 msgstr "\n\n\n\nHi %(receiver_name)s,<br/>\n<br/>\n%(author_name)s heeft een bericht geplaatst op je taakpagina.<br/>\n<br/>\nJe zult vast willen wat! Wacht niet en ga direct naar <a href=\"%(site)s%(link)s\">de website</a>.<br/>\n<br/>\nTot zo!<br/>\n<br/>\nLiane | 1%%Club\n"
 
-#: templates/wallposts.hbs:9
-msgid "Write an update"
-msgstr "Schrijf een update"
-
-#: templates/wallposts.hbs:10
-msgid "Write an update of your project to inform your crowd."
-msgstr "Schrijf een update en houd je supporters op de hoogte!"
-
-#: templates/wallposts.hbs:13 templates/wallposts.hbs.py:18
-msgid "Write a comment"
-msgstr "Plaats een reactie"
-
-#: templates/wallposts.hbs:14
-msgid "Write an comment to place on the project's wall."
-msgstr "Schrijf een reactie op de projectpagina."
-
-#: templates/wallposts.hbs:19
-msgid "to leave a comment"
-msgstr "laat reactie achter"
-
-#: templates/wallposts.hbs:31
+#: templates/wallposts.hbs:12
 msgid "Name of your update."
 msgstr "Titel"
 
-#: templates/wallposts.hbs:45
+#: templates/wallposts.hbs:26
 msgid "Your update."
 msgstr "Jouw update"
 
-#: templates/wallposts.hbs:59
+#: templates/wallposts.hbs:40
 msgid "Add link to video"
 msgstr "Voeg link naar video toe"
 
-#: templates/wallposts.hbs:73 templates/wallposts.hbs.py:98
+#: templates/wallposts.hbs:54 templates/wallposts.hbs.py:79
 msgid "Upload photos"
 msgstr "Upload foto's"
 
-#: templates/wallposts.hbs:74
+#: templates/wallposts.hbs:55
 msgid "format 620 x 380 minimum for best result"
 msgstr "een formaat van 620 x 380 voor het beste resultaat"
 
-#: templates/wallposts.hbs:82
+#: templates/wallposts.hbs:63
 msgid "Error"
 msgstr "Error"
 
-#: templates/wallposts.hbs:88
+#: templates/wallposts.hbs:69
 msgid "Loading photos&#8230;"
 msgstr "Laadt foto's&#8230;"
 
-#: templates/wallposts.hbs:105
+#: templates/wallposts.hbs:86
 msgid "Post Update"
 msgstr "Plaats update"
 
-#: templates/wallposts.hbs:115 templates/wallposts.hbs.py:128
-#: templates/wallposts.hbs:282 templates/wallposts.hbs.py:295
+#: templates/wallposts.hbs:96 templates/wallposts.hbs.py:109
 msgid "Comment"
-msgstr "Reactie"
+msgstr "Reageer"
 
-#: templates/wallposts.hbs:151 templates/wallposts.hbs.py:357
-msgid "Show more"
-msgstr "Meer"
-
-#: templates/wallposts.hbs:151 templates/wallposts.hbs.py:357
-msgid "more"
-msgstr "meer"
-
-#: templates/wallposts.hbs:237
+#: templates/wallposts.hbs:177
 msgid "Donation"
 msgstr "Donatie"
 
-#: templates/wallposts.hbs:247
+#: templates/wallposts.hbs:187
 msgid "Someone"
 msgstr "Iemand"
 
-#: templates/wallposts.hbs:250
+#: templates/wallposts.hbs:191
 msgid "Made a donation"
 msgstr "Heeft een donatie gedaan"

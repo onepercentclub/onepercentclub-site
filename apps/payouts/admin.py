@@ -23,13 +23,24 @@ class PayoutAdmin(admin.ModelAdmin):
 
     actions = ['export_sepa']
 
-    list_display = ['payout', 'ok', 'donation_overview', 'project', 'local_amount', 'local_amount_safe',
+    list_display = ['payout', 'ok', 'donation_overview', 'project',
+                    'amount_raised', 'amount_payout', 'current_amount_safe',
                     'receiver_account_number', 'invoice_reference', 'status']
 
-    readonly_fields = ['donation_overview', 'project_link', 'local_amount', 'local_amount_safe']
+    readonly_fields = ['donation_overview', 'project_link', 'organization', 'amount_raised',  'amount_payout', 'amount_safe']
+
     fields = readonly_fields + ['status', 'receiver_account_number', 'receiver_account_iban', 'receiver_account_bic',
                                 'receiver_account_country', 'invoice_reference', 'description_line1',
                                 'description_line2', 'description_line3', 'description_line4']
+
+
+    def organization(self, obj):
+        object = obj.project.projectplan.organization
+        url = reverse('admin:%s_%s_change' % (object._meta.app_label, object._meta.module_name), args=[object.id])
+        return "<a href='%s'>%s</a>" % (str(url), object.name)
+
+    organization.allow_tags = True
+
 
     def donation_overview(self, obj):
         return "<a href='/admin/fund/donation/?project=%s'>Donations</a>" % str(obj.project.id)

@@ -143,7 +143,7 @@
     @include grid(48,1,0);
     margin-top: $base-margin*2;
 
-    .compact & {
+    .compact {
         margin-top: $base-margin;
     }
 
@@ -151,6 +151,28 @@
         background-image: none;
         padding: 0;
         @include grid(12,0,1);
+        
+        
+    }
+    
+    .project-item {
+    
+        &:hover {
+            background-color: $black;
+            
+            .project-image {
+                zoom: 3;
+                height: 999px;
+            }
+            
+            .project-title, .project-location, .project-status {
+                display: none;
+            }
+            
+            .project-description {
+        	    display: block;
+            }
+        }
     }
     
     .no-results {

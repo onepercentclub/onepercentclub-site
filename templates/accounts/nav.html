@@ -33,6 +33,12 @@
     </li>
 
     <li>
+        {{#linkTo "myFundRaiserList" }}
+            {% trans "My Fundraisers" %}
+        {{/linkTo}}
+    </li>
+
+    <li>
         {% block logout_anchor %}
             <a href="{% url 'accounts:logout' %}?next=/{{ LANGUAGE_CODE }}/">Logout</a>
         {% endblock logout_anchor %}
