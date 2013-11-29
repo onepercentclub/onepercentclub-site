@@ -200,11 +200,9 @@ App.HomeCampaignView = Ember.View.extend({
     didInsertElement: function() {
     
         // Countdown for campaign
-        var liftoffTime = new Date();
-    	liftoffTime = new Date('1 Dec, 2013 23:00:00'); // TODO: Switch with campaign.end variable
-        
+        var deadline = this.get('controller.campaign.end');
         this.$().find('#countdown').countdown({
-            until: liftoffTime, 
+            until: deadline,
             format: 'HMS',
             whichLabels: null,
             timeSeparator: ':',

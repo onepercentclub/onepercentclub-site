@@ -211,7 +211,6 @@
     <div id="home">
         {{#if isCampaignHomePage}}
 
-            {{!-- TODO: add progressbar with racecar etc. --}}
             {{view App.HomeCampaignView }}
 
             {{#if fundraisers}}
@@ -246,15 +245,11 @@
     <div class="l-section" id="home-crazy-campaign-fundraisers">
         <section class="l-wrapper">
 
-        {{#if fundraisers}}
-        
             <div class="l-full">
                 <header class="section-header">
             	    <h1>{% trans "Our crazy fund-racers" %}</h1>
             	    <p>{% trans "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." %}</p>
                 </header>
-                
-
                 <ul id="fundraiser-results">
                     {{#each fundraisers}}
     
@@ -300,9 +295,6 @@
                     {{/each}}
                 </ul>
             </div>
-
-        {{/if}}
-
         </section>
     </div>
 
@@ -310,8 +302,7 @@
 
 
 {% tplhandlebars "home_campaign_block" %}
-    
-    
+
     <div class="l-section" id="home-crazy-campaign-header">
         <section class="l-wrapper">
         
@@ -328,8 +319,7 @@
                         <strong class="amount-asked">&euro;{{localize campaign.target}}</strong>
                         {% trans "fund-raced" %}
                     </p>
-                    <div class="project-fund-amount-slider"><strong style="width: 50%;" class="slider-progress is-in-progress"><em class="slider-percentage">&nbsp;</em></strong></div>
-                    {# TODO: animate progressbar #}
+                    {{bb-progressbar class="project-fund-amount-slider" totalValue=campaign.target currentValue=campaign.amount_donated}}
                 </div>
                 
                 {# timer {{campaign.start}} - {{campaign.end}} #}
