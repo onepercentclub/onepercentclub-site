@@ -246,14 +246,18 @@
 
                 <article class="project-info">
                     {{view App.SocialShareView}}
+                    
                     {{#if isOwner}}
-                        <span class="action tag"><span class="flaticon solid tag-2"></span>
-                            {{#linkTo 'fundRaiserEdit' id}}{% trans "Edit" %}{{/linkTo}}
-                        </span>
-                        <span class="action tag"><span class="flaticon solid tag-2"></span>
-                            {{#linkTo 'fundRaiserDonationList' id}}{% trans "Donations" %}{{/linkTo}}
-                        </span>
+                    <ul class="owner-settings">
+                        <li class="owner-settings-dropdown"><span class="flaticon solid settings-2"></span>
+                            <ul class="owner-settings-dropdown-menu">
+                                <li>{{#linkTo 'fundRaiserEdit' id}}{% trans "Edit Fundraiser" %}{{/linkTo}}</li>
+                                <li>{{#linkTo 'fundRaiserDonationList' id}}{% trans "View Donations" %}{{/linkTo}}</li>
+                            </ul>
+                        </li>
+                    </ul>
                     {{/if}}
+                        
                     <h1 class="project-title">{{title}}</h1>
                     <p class="project-description">{{description}}</p>
                 </article>
