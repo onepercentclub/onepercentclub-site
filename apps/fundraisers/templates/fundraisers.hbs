@@ -96,7 +96,7 @@
                         </p>
                     </header>
 
-                    <p class="login-signup"><a href="/accounts/login">{% trans "Login" %}</a> {% trans "or" %} {{#linkTo "register"}}{% trans "member" %}{{/linkTo}} {% trans "to become a fundraiser." %}</p>
+                    <p class="login-signup"><a {{action openInBox "login"}}>{% trans "Login" %}</a> {% trans "or" %} {{#linkTo "signup"}}{% trans "register" %}{{/linkTo}} {% trans "to become a fundraiser." %}</p>
                 {{/if}}
             </div>
 

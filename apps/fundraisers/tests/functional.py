@@ -52,23 +52,21 @@ class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsM
 
         self.browser.find_link_by_partial_text('Become a fundraiser').first.click()
 
-        self.assertTrue(self.browser.is_text_present('NEW FUNDRAISER'))
-        self.assertTrue(self.browser.is_text_present('You can only make a fundraiser if you are logged in.'))
-        self.assertFalse(self.browser.is_text_present('Amount to raise'))
+        self.assertTrue(self.browser.is_itext_present('NEW FUNDRAISER'))
+        self.assertTrue(self.browser.is_text_present('You need to be logged in to start fundraising.'))
 
     def test_link_from_project_page_to_create_fundraiser_authenticated(self):
         """
         Test create a fundraiser for a project as authenticated user.
         """
-        self.assertTrue(self.login(username=self.some_user.email, password='password'))
+        self.login(username=self.some_user.email, password='password')
 
         self.visit_path(self.project_with_fundraiser_url)
 
         self.browser.find_link_by_partial_text('Become a fundraiser').first.click()
 
-        self.assertTrue(self.browser.is_text_present('NEW FUNDRAISER'))
-        self.assertFalse(self.browser.is_text_present('You can only make a fundraiser if you are logged in.'))
-        self.assertTrue(self.browser.is_text_present('Amount to raise'))
+        self.assertTrue(self.browser.is_text_present('Fundraising for project'))
+        self.assertFalse(self.browser.is_text_present('You need to be logged in to start fundraising.'))
 
         deadline = timezone.now() + timezone.timedelta(days=28)
         filepath = os.path.join(os.path.dirname(__file__), 'test_files', 'upload.png')
@@ -101,7 +99,7 @@ class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsM
         """
         Test edit a fundraiser that the user does not own.
         """
-        self.assertTrue(self.login(username=self.another_user.email, password='password'))
+        self.login(username=self.another_user.email, password='password')
 
         self.visit_path(self.fundraiser_url)
 
@@ -118,7 +116,7 @@ class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsM
         """
         Test edit a fundraiser that the user owns.
         """
-        self.assertTrue(self.login(username=self.some_user.email, password='password'))
+        self.login(username=self.some_user.email, password='password')
 
         self.visit_path(self.fundraiser_url)
 
@@ -190,7 +188,7 @@ class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsM
         """
         Test create donation for fundraise action.
         """
-        self.assertTrue(self.login(username=self.some_user.email, password='password'))
+        self.login(username=self.some_user.email, password='password')
 
         self.visit_path(self.fundraiser_url)
 

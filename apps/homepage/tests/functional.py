@@ -3,6 +3,8 @@ from datetime import timedelta
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 from django.utils.text import slugify
+from django.conf import settings
+from django.utils.unittest.case import skipUnless
 
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 
@@ -11,7 +13,8 @@ from apps.fundraisers.tests.helpers import FundRaiserTestsMixin
 
 from apps.projects.tests.unittests import ProjectTestsMixin
 
-
+@skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
+        'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
 class HomepageTestCase(FundRaiserTestsMixin, ProjectTestsMixin, OnePercentSeleniumTestCase):
     """ Test that the homepage doesn't error out if no/a campaign is available """
 
