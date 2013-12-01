@@ -34,7 +34,6 @@ class WallPostList(ListAPIView):
         parent_type = self.request.QUERY_PARAMS.get('parent_type', None)
         parent_id = self.request.QUERY_PARAMS.get('parent_id', None)
         if parent_type == 'project' and parent_id:
-            print "Yeah"
             try:
                 project = Project.objects.get(slug=parent_id)
             except Project.DoesNotExist:
@@ -59,7 +58,6 @@ class TextWallPostList(ListCreateAPIView):
         parent_type = self.request.QUERY_PARAMS.get('parent_type', None)
         parent_id = self.request.QUERY_PARAMS.get('parent_id', None)
         if parent_type == 'project' and parent_id:
-            print "Yeah"
             try:
                 project = Project.objects.get(slug=parent_id)
             except Project.DoesNotExist:

@@ -63,43 +63,41 @@
     .project-title {
         color: $color-heading;
     }
+}
+
+#fundraiser-status {
+    padding: $base-padding 0;
+    background-color: $gray-light;
     
-    #fundraiser-status {
-        padding: $base-padding 0;
-        background-color: $gray-light;
-        
-        .project-member-list {
-        
-            h4 {
-                color: $gray-dark;
-            }
-            
-            .project-member-supporters {
-                width: 100%;
-                margin: 0;
-                float: left;
-            }
-            
-        }
+    .project-status {
+        margin: 0;
     }
     
     .project-days-left {
+        margin-top: $base-margin;
         color: $color-text;
-        
+    
         .flaticon {
             color: $gray-dark;
         }
     }
     
-    .project-fund-amount {
+    .project-fund {
+        margin-top: $base-margin;
         
         .amount-donated {
             color: $color-text;
         }
         
+        .project-fund-amount-slider {
+            background-color: $white;
+        }
     }
     
-    .project-fund-amount-slider {
-        background-color: $white;
+    .project-member-list {
+        
+        h4 {
+            color: $gray-dark;
+        }
     }
 }

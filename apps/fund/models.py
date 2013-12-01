@@ -445,6 +445,8 @@ def link_anonymous_donations(sender, user, request, **kwargs):
             else:
                 wallposts += qs
 
-    wallposts.update(author=user)
+    if wallposts:
+        wallposts.update(author=user)
+
 # On account activation try to connect anonymous donations to this user.
 user_activated.connect(link_anonymous_donations)

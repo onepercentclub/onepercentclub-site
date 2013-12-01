@@ -178,8 +178,8 @@ class FundRaiserApiIntegrationTest(FundRaiserTestsMixin, DonationTestsMixin, Pro
 
         self.create_donation(user=self.some_user, project=self.some_project, status=DonationStatuses.paid)
 
-        fundraise_donation = self.create_donation(user=self.some_user, project=self.some_project, status=DonationStatuses.paid,
-                fundraiser=self.fundraiser)
+        fundraise_donation = self.create_donation(user=self.some_user, project=self.some_project,
+                                                  status=DonationStatuses.paid, fundraiser=self.fundraiser)
 
         project_donation_url = '{0}?project={1}&fundraiser={2}'.format(
             reverse('project-donation-list'),
