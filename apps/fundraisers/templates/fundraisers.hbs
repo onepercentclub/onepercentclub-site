@@ -237,12 +237,14 @@
                 <article class="project-info">
                     {{view App.SocialShareView}}
                     {{#if isOwner}}
-                        <span class="action tag"><span class="flaticon solid tag-2"></span>
-                            {{#linkTo 'fundRaiserEdit' id}}{% trans "Edit" %}{{/linkTo}}
-                        </span>
-                        <span class="action tag"><span class="flaticon solid tag-2"></span>
-                            {{#linkTo 'fundRaiserDonationList' id}}{% trans "Donations" %}{{/linkTo}}
-                        </span>
+                    <ul class="owner-settings">
+                        <li class="owner-settings-dropdown"><span class="flaticon solid settings-2"></span>
+                            <ul class="owner-settings-dropdown-menu">
+                                <li>{{#linkTo 'fundRaiserEdit' id}}{% trans "Edit Fundraiser" %}{{/linkTo}}</li>
+                                <li>{{#linkTo 'fundRaiserDonationList' id}}{% trans "View Donations" %}{{/linkTo}}</li>
+                            </ul>
+                        </li>
+                    </ul>
                     {{/if}}
                     <h1 class="project-title">{{title}}</h1>
                     <p class="project-description">{{description}}</p>
@@ -272,46 +274,48 @@
 
             </div>
         </section>
-
-       <div class="l-section" id="fundraiser-status">
-            <section class="l-wrapper">
-                <div class="project-status">
-
-                    {{#if deadline}}
-                    <div class="project-days-left l-one-third">
-                        <strong><span class="flaticon solid stopwatch-1"></span> {{daysToGo}} <em>{% trans "days to go" %}!</em></strong>
-                    </div>
-                    {{/if}}
-
-                    <div class="project-fund l-one-third">
-                        <p class="project-fund-amount">
-                            <strong class="amount-donated">&euro;{{localize amount_donated}}</strong>
-                            {% trans "of" %}
-                            <strong class="amount-asked">&euro;{{localize amount}}</strong>
-                            {% trans "raised" %}
-                        </p>
-
-                        {{#bb-progressbar class="project-fund-amount-slider" totalValue=amount currentValue=amount_donated}}
-                        {{/bb-progressbar}}
-                    </div>
-
-                    <ul class="project-member-list l-one-third">
-
-                        {{#if fundRaiseSupporters.length}}
-                        <li class="project-member-supporters">
-                            <h4>{% trans "Supporters" %} <em>{{supporters.meta.total}} {% trans "Total" %}</em></h4>
-                            <ul>
-                                {{#each supporter in fundRaiseSupporters}}
-                                    {{view "App.ProjectSupporterView" }}
-                                {{/each}}
-                            </ul>
-                        </li>
-                        {{/if}}
-                    </ul>
-                </div>
-            </section>
-        </div>
     </div>
+
+   <div class="l-section detail" id="fundraiser-status">
+       
+       <section class="l-wrapper">
+           
+            <div class="project-status">
+           
+                {{#if deadline}}
+                <div class="project-days-left">
+                    <strong><span class="flaticon solid stopwatch-1"></span> {{daysToGo}} <em>{% trans "days to go" %}!</em></strong>
+                </div>
+                {{/if}}
+
+                <div class="project-fund">
+                    <p class="project-fund-amount">
+                        <strong class="amount-donated">&euro;{{localize amount_donated}}</strong>
+                        {% trans "of" %}
+                        <strong class="amount-asked">&euro;{{localize amount}}</strong>
+                        {% trans "raised" %}
+                    </p>
+
+                    {{#bb-progressbar class="project-fund-amount-slider" totalValue=amount currentValue=amount_donated}}
+                    {{/bb-progressbar}}
+                </div>
+            
+                <ul class="project-member-list">
+                    {{#if fundRaiseSupporters.length}}
+                    <li class="project-member-supporters">
+                        <h4>{% trans "Supporters" %} <em>{{supporters.meta.total}} {% trans "Total" %}</em></h4>
+                        <ul>
+                            {{#each supporter in fundRaiseSupporters}}
+                                {{view "App.ProjectSupporterView" }}
+                            {{/each}}
+                        </ul>
+                    </li>
+                    {{/if}}
+                </ul>
+            </div>
+       </section>
+   </div>
+    
 
     {{ outlet }}
 
@@ -363,12 +367,12 @@
                 <figure class="account-avatar"><img {{bindAttr src="controllers.currentUser.getAvatar"}} /></figure>
 
                 <header class="account-title">
-                    <h2>{% trans "My 1%" %} > {% trans "Fundraisers" %} > {{title}} > {% trans "Donations" %}</h2>
+                    <h2>{% trans "My 1%" %}<em class="account-subtitle">{% trans "Fundraisers" %}</em><em class="account-subtitle">{{title}}</em><em class="account-subtitle">{% trans "Donations" %}</em></h2>
                 </header>
 
-                {{#linkTo 'fundRaiser' id}}
+                {{#linkTo 'fundRaiser' id class="account-preview btn-link"}}
                     <span class="flaticon solid eye-1"></span>
-                    {% trans "Back to fundraiser page" %}
+                    {% trans "Back to fundraiser" %}
                 {{/linkTo}}
             </nav>
         </div>
