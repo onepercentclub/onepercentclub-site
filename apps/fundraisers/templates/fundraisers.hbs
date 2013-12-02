@@ -12,19 +12,15 @@
             <figure class="account-avatar"><img {{bindAttr src="controllers.currentUser.getAvatar"}} /></figure>
 
             <header class="account-title">
-                <h2>{% trans "My 1%" %} > {% trans "Fundraisers" %}</h2>
+                <h2>{% trans "My 1%" %} <em class="account-subtitle">{% trans "Fundraisers" %}</em></h2>
             </header>
 
             {{#if id}}
                 {{#if title}}
                     {{#linkTo 'fundRaiser' this class="account-preview btn-link"}}
                         <span class="flaticon solid eye-1"></span>
-                        {% trans "Preview fundraiser page" %}
+                        {% trans "Back to fundraiser" %}
                     {{/linkTo}}
-{#                    <a {{action "showFundraiser" id href=true}} class="account-preview btn-link">#}
-{#                        <span class="flaticon solid eye-1"></span>#}
-{#                        {% trans "Preview fundraiser page" %}#}
-{#                    </a>#}
                 {{/if}}
             {{/if}}
         </nav>
@@ -50,9 +46,10 @@
     </fieldset>
 
     <fieldset>
-        <h2>{% trans "Amount & deadline" %}</h2>
-        <p>{% trans "Be realistic and...show ambition!" %}</p>
-
+    	<legend>
+        	<strong>{% trans "Amount & deadline" %}</strong>
+			<p>{% trans "Be realistic and...show ambition!" %}</p>
+    	</legend>
         <ul>
             {% include "generic/form_field.html" with title="Amount to raise" placeholder="&euro;" field_type="Em.TextField" field_name="amount" %}
 
@@ -266,7 +263,7 @@
                                 {% trans "Support" %} {{owner.first_name}}
                             </a>
                         {{else}}
-                            <h2>{% trans "Project Funded" %}</h2>
+                            <strong>{% trans "Project Funded" %}</strong>
                         {{/if}}
                     </div>
 
@@ -372,7 +369,7 @@
                 <figure class="account-avatar"><img {{bindAttr src="controllers.currentUser.getAvatar"}} /></figure>
 
                 <header class="account-title">
-                    <h2>{% trans "My 1%" %}<em class="account-subtitle">{% trans "Fundraisers" %}</em><em class="account-subtitle">{{title}}</em><em class="account-subtitle">{% trans "Donations" %}</em></h2>
+                    <h2>{% trans "My 1%" %} <em class="account-subtitle">{% trans "Fundraisers" %}</em> <em class="account-subtitle">{% trans "Donations" %}</em></h2>
                 </header>
 
                 {{#linkTo 'fundRaiser' id class="account-preview btn-link"}}
@@ -389,17 +386,20 @@
                         <h1>{% trans "Donation overview" %}</h1>
                         <p>
                             {% blocktrans %}
-                            The people below already supported your fundraise action
+                            The people below supported your fundraiser
                             {% endblocktrans %}
+                             "<strong>{{title}}</strong>".
                         </p>
                     </header>
 
                     {{#if fundRaiseDonations.length}}
-                        <ul>
-                            {{#each donation in fundRaiseDonations}}
-                                {{view "App.ProjectDonationView" }}
+                    	
+	                    <table class="fund-history">
+			                {{#each donation in fundRaiseDonations}}
+			                	{{view "App.ProjectDonationView" }}
                             {{/each}}
-                        </ul>
+			            </table>
+                    
                     {{else}}
                         <p>{% trans "Awww. No donations yet!" %}</p>
                     {{/if}}
@@ -409,7 +409,7 @@
                         <h1>{% trans "Donation overview" %}</h1>
                         <p>
                             {% blocktrans %}
-                                You are not authorized to view the donations.
+                                You are not authorised to view the donations.
                             {% endblocktrans %}
                         </p>
                     </header>
@@ -441,11 +441,14 @@
                 <div class="is-loading-big"><img src="{% get_static_prefix %}images/loading.gif" /> <strong>{% trans "Loading projects" %}</strong></div>
             {{else}}
                 <div class="l-content">
-                    {{#if controller.length}}
-                        <p>Overview of all your fundraiser actions.</p>
-                    {{else}}
-                        <p>You have no fundraiser actions.</p>
-                    {{/if}}
+                	<header class="l-page-header">
+                        <h1>Fundraisers overview</h1>
+	                    {{#if controller.length}}
+	                        <p>Overview of all your fundraiser actions.</p>
+	                    {{else}}
+	                        <p>You have no fundraiser actions.</p>
+	                    {{/if}}
+                    </header>
                 </div>
             {{/if}}
 
@@ -456,21 +459,19 @@
 
                         <span class="project-header">
                             <figure class="project-image">
-                                <img {{bindAttr src="fundraiser.image.square" alt="fundraiser.title"}} />
+                            	<a {{action "showFundraiser" fundraiser.id href=true}}>
+                                	<img {{bindAttr src="fundraiser.image.square" alt="fundraiser.title"}} />
+                            	</a>
                             </figure>
                             <h2 class="project-title">
-                                {{ fundraiser.title }}
-                                {{#if fundraiser.isPublic}}
-                                    <a {{action "showFundraiser" fundraiser.id href=true}} class="project-preview">
-    	                                <span class="flaticon solid eye-1"></span>
-    	                                {% trans "View public page" %}
-    	                            </a>
-                                {{/if}}
+                                <a {{action "showFundraiser" fundraiser.id href=true}}>
+                                	{{ fundraiser.title }}
+	                            </a>
                             </h2>
                         </span>
 
 				        <div class="project-actions">
-				        	{{#linkTo 'fundRaiserEdit' fundraiser.id}}{% trans "Edit" %}{{/linkTo}}
+				        	{{#linkTo 'fundRaiserEdit' fundraiser.id class="btn-link project-edit"}}<span class="flaticon solid pencil-3"></span> {% trans "Edit" %}{{/linkTo}}
 				        </div>
 				    </li>
 					{{/each}}
