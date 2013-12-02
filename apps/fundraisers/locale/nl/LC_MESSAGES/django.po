@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: onepercentclub-site\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-12-02 09:52+0100\n"
-"PO-Revision-Date: 2013-12-02 08:53+0000\n"
-"Last-Translator: gannetson <loek@1procentclub.nl>\n"
+"PO-Revision-Date: 2013-12-02 11:20+0000\n"
+"Last-Translator: nieja <niels@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub-site/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -139,7 +139,7 @@ msgstr "of"
 
 #: templates/fundraisers.hbs:99
 msgid "register"
-msgstr ""
+msgstr "registreer"
 
 #: templates/fundraisers.hbs:99
 msgid "to become a fundraiser."
@@ -206,11 +206,11 @@ msgstr "Fundraiser voor"
 
 #: templates/fundraisers.hbs:243
 msgid "Edit Fundraiser"
-msgstr ""
+msgstr "Edit fundraise campagne"
 
 #: templates/fundraisers.hbs:244
 msgid "View Donations"
-msgstr ""
+msgstr "Bekijk donaties"
 
 #: templates/fundraisers.hbs:258
 msgid "Fundraiser"
@@ -250,7 +250,7 @@ msgstr "Donaties"
 
 #: templates/fundraisers.hbs:375
 msgid "Back to fundraiser"
-msgstr ""
+msgstr "Terug naar campagne"
 
 #: templates/fundraisers.hbs:384 templates/fundraisers.hbs.py:404
 msgid "Donation overview"
@@ -280,11 +280,11 @@ msgstr "Je bent fundraiser voor het volgende project:"
 
 #: templates/fundraisers.hbs:436
 msgid "Loading projects"
-msgstr ""
+msgstr "Laadt projecten"
 
 #: templates/fundraisers.hbs:461
 msgid "View public page"
-msgstr ""
+msgstr "Bekijk pagina"
 
 #: templates/fundraisers.hbs:468
 msgid "Edit"
