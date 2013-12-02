@@ -1,0 +1,38 @@
+#race {
+    background-color: #e9e9e9;
+}
+
+#track {
+    margin: 40px 0;
+    position: relative;
+    width: 1200px;
+    height: 332px;
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAFMAQMAAACQ9SwiAAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAACFJREFUOI1j+A8EDJQQo2AUjBzw/38DIWIUjIIRASitOgBsdXkLHwPYdQAAAABJRU5ErkJggg==') #666666 repeat-x 0 0;
+}
+
+#finish {
+    position: absolute;
+    top: 10px;
+    left: 1090px;
+    width: 40px;
+    height: 312px;
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAQAAAAn3TzeAAAAJklEQVQ4y2P4jwcw4ABAmVFto9qGkjbSDQSbOaptVNtAaCMvKQMAccU+7GHRQJUAAAAASUVORK5CIIA=') transparent repeat 0 0;
+}
+
+#car1, #car2 {
+    position: absolute;
+    width: 74px;
+    height: 37px;
+}
+
+#car1 {
+    top: 70px;
+    left: 10px;
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEoAAAAlAgMAAACYHJdtAAAADFBMVEUAAAA+tWEjHyA+tWEuhagYAAAAAnRSTlMAAHaTzTgAAACdSURBVCiR5ZKxDcMwEAMZZACN5CkyT/ahC41gz6PKtRHoUjwUy4k8Qdj9AfyCpNRp0q8OdqfXKkkJgGLbM4AkAdVNC2zhLB9meDXrbtvZdgYpge3439hE7dkMqyb2YPYSD1fBbs9Q7Vxsw3bByoktf8musyL6MGxH9iXTch71kQDKubfULpsYwngHo72EuTYSuxrtT9LtEXp2m/1ibyvl8gfxoyykAAAAAElFTkSuQmCC') transparent no-repeat 0 0;
+}
+
+#car2 {
+    top: 220px;
+    left: 10px;
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEoAAAAlAgMAAACYHJdtAAAACVBMVEXwaZ4jHyDwaZ6wMFkjAAAAAXRSTlMAQObYZgAAAJVJREFUKJHlksENgCAMRYlHR2EfODACU7BE71xMtFNKf1PEiIl3f2KAh78k7XdukHdPXWzhUUXQii2Fpig7YW05gikzV3VSZ4F5N+sm5ySfmBvDtciYR7XOorzs4QPIWrA41Ip4OxFYfWF0Y/mX7L1XrPMA672nxNbn2TwwS7rPbbVT+1mDMM/BLC9qPoxormb5+5bdEy3PKWPLdRaoAAAAAElFTkSuQmCC') transparent no-repeat 0 0;
+}

@@ -132,7 +132,7 @@ App.HomeBannerView = Ember.View.extend({
             fluid: true,
             delay: 10000
         });
-    },
+    }
 });
 
 
