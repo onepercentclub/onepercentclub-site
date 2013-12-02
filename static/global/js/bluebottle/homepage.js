@@ -207,15 +207,15 @@ function go(){
 
         if (($('#car2').offset().left - trackOffset) >= 1060) {
             $('#race').html("Great race! You'd be a great fund-racer too!");
-            $('.digit').css({'background-color': '#FF619A'});
+            $('.message-board').css({'background-color': '#FF619A', 'color': 'white'});
             $(document).unbind("keydown");
-            $('.digit').html('PINK WINS!');
+            $('.message-board').html('PINK WINS!');
         }
         if (($('#car1').offset().left - trackOffset) >= 1060) {
             $('#race').html("Great race! You'd be a great fund-racer too!");
-            $('.digit').css({'background-color': '#00C051'});
+            $('.message-board').css({'background-color': '#00C051', 'color': 'white'});
             $(document).unbind("keydown");
-            $('.digit').html('GREEN WINS!');
+            $('.message-board').html('GREEN WINS!');
         }
     });
 }
@@ -223,9 +223,10 @@ function go(){
 var time = 10;
 function countdown() {
 
-    $('.digit').html(time);
-    if (time==0) {
-        $('.digit').html('GO');
+    $('.message-board').html(time);
+    if (time<=0) {
+        $('.message-board').removeClass('digit');
+        $('.message-board').html('GO');
         go();
     } else {
         setTimeout('countdown()', 1000);
@@ -250,7 +251,7 @@ App.HomeCampaignView = Ember.View.extend({
             layout: $('#countdown').html()
         });
 
-        var html = '<section class="l-wrapper"><div class="hasCountdown"><span class="digit">10</span></div><h3 id="race">[P] for Pink, [G] for Green</h3><h4>Ready to race? </h4><div id="track"><div id="start"></div><div id="finish"></div><div id="car1"></div><div id="car2"></div></div></section>';
+        var html = '<section class="l-wrapper"><div class="hasCountdown"><span class="message-board"></span></div><h3 id="race">[P] for Pink, [G] for Green</h3><h4>Ready to race? </h4><div id="track"><div id="start"></div><div id="finish"></div><div id="car1"></div><div id="car2"></div></div></section>';
 
         var typeKeys = [67, 82, 65, 90, 89];
         var something_index = 0;
@@ -259,8 +260,7 @@ App.HomeCampaignView = Ember.View.extend({
             if (e.keyCode === typeKeys[something_index++]) {
                 if (something_index === typeKeys.length) {
                     $('#home-crazy-campaign-header').html(html);
-                    $('.digit').css({'width': '800px'});
-                    $('.digit').html('Get ready!');
+                    $('.message-board').html('Get ready!');
                     setTimeout('countdown()', 2000);
                 }
             } else {
