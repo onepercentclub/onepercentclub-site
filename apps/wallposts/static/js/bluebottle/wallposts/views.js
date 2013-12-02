@@ -74,7 +74,8 @@ App.MediaWallPostNewView = App.TextWallPostNewView.extend({
 App.ProjectMediaWallPostNewView = App.MediaWallPostNewView.extend({});
 App.ProjectTextWallPostNewView = App.TextWallPostNewView.extend({});
 
-App.FundRaiserWallPostNewView = App.TextWallPostNewView.extend({});
+App.FundRaiserTextWallPostNewView = App.TextWallPostNewView.extend({});
+App.FundRaiserMediaWallPostNewView = App.MediaWallPostNewView.extend({});
 
 App.TaskMediaWallPostNewView = App.MediaWallPostNewView.extend({});
 App.TaskTextWallPostNewView = App.TextWallPostNewView.extend({});

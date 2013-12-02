@@ -8,7 +8,7 @@ App.AnimateProgressMixin = Em.Mixin.create({
             width = 100 * donated / asked;
             width += '%';
         }
-        this.$('.slider-progress').animate({'width': width}, 1000);
+        this.$('.slider-progress').animate({'width': width}, 3000);
     }
 });
 

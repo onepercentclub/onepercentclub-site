@@ -13,7 +13,7 @@ App.FundRaiser = DS.Model.extend({
 
 	// Media
     image: DS.attr('image'),
-    video_url: DS.attr('string'),
+    video_url: DS.attr('string', {defaultValue: ''}),
     video_html: DS.attr('string'),
 
     amount: DS.attr('number'),
