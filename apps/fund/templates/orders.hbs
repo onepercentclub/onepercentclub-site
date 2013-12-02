@@ -987,13 +987,17 @@
     <ul class="donation-projects" >
         {{#each donation in controller}}
             <li class="donation-project">
-                <img {{bindAttr src="donation.project.image" alt="project.title"}} class="project-image" style="width: 200px; float: right;" />
-                <img {{bindAttr src="donation.user.avatar" alt="project.title"}} class="project-image"  style="width: 150px"  />
-                <strong style="font-size:70px; padding: 10px; font-weight: 600; color: #ff619a; float: right;">&euro;{{ donation.amount }}</strong><br />
-                <h2 style="font-size:30px; color: black;">
-                    {{ donation.user.full_name }}<br />
-                    <span style="color: #777;font-size:20px; text-transform: lowercase">{{ localize donation.created  formatting="X" }}</span><br/>
-                    <span style="color: #777;">{{ donation.project.title }}</span>
+                <img {{bindAttr src="donation.project.image" alt="project.title"}} class="project-image" />
+                <img {{bindAttr src="donation.user.avatar" alt="project.title"}} class="member-image"  />
+                <strong class="amount">&euro;{{ donation.amount }}</strong>
+                <h2>
+                    {{#if donation.user.full_name}}
+                        {{ donation.user.full_name }}<br />
+                    {{else}}
+                        ???<br/>
+                    {{/if}}
+                    <span class="date">{{ localize donation.created  formatting="X" }}</span><br/>
+                    <span class="project-title">{{ donation.project.title }}</span>
                 </h2>
 
             </li>
