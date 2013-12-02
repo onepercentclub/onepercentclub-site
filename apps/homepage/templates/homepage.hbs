@@ -49,7 +49,7 @@
 
 
 {% tplhandlebars "home_project" %}
-    
+
     <div class="l-section home-projects">
         <section class="l-wrapper">
 
@@ -246,15 +246,11 @@
     <div class="l-section" id="home-crazy-campaign-fundraisers">
         <section class="l-wrapper">
 
-        {{#if fundraisers}}
-        
             <div class="l-full">
                 <header class="section-header">
             	    <h1>{% trans "Our crazy fund-racers" %}</h1>
             	    <p>{% trans "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." %}</p>
                 </header>
-                
-
                 <ul id="fundraiser-results">
                     {{#each fundraisers}}
     
@@ -300,9 +296,6 @@
                     {{/each}}
                 </ul>
             </div>
-
-        {{/if}}
-
         </section>
     </div>
 
@@ -310,8 +303,7 @@
 
 
 {% tplhandlebars "home_campaign_block" %}
-    
-    
+
     <div class="l-section" id="home-crazy-campaign-header">
         <section class="l-wrapper">
         
@@ -347,7 +339,6 @@
         
                 <p class="crazy-campaign-intro">
                     <p>{% trans " The Crazy Campaign Days: 20 teams who will fund 20 world-changing projects within 5 days. Totally crazy!" %}</p>
-                    
                     <a {{action 'scrollToFundraisers' }} class="crazy-campaign-pick">{% trans "Pick a crazy fund-racer and support" %}</a>
                 </p>
             </div>

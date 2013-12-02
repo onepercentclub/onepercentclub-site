@@ -276,6 +276,7 @@
         </section>
     </div>
 
+
    <div class="l-section detail" id="fundraiser-status">
        
        <section class="l-wrapper">
@@ -347,7 +348,11 @@
         	</div>
 
             <sidebar class="l-sidebar">
-            	{{ render "fundRaiserWallPostNew" }}
+                {{#if isOwner}}
+                	{{ render "fundRaiserMediaWallPostNew" }}
+                {{else}}
+                	{{ render "fundRaiserTextWallPostNew" }}
+                {{/if}}
             </sidebar>
 
         </section>
