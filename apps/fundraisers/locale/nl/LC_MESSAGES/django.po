@@ -3,12 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# gannetson <loek@1procentclub.nl>, 2013
+# nieja <niels@1procentclub.nl>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: onepercentclub-site\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-29 00:05+0100\n"
-"PO-Revision-Date: 2013-11-28 23:07+0000\n"
+"POT-Creation-Date: 2013-12-02 09:52+0100\n"
+"PO-Revision-Date: 2013-12-02 08:53+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub-site/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -19,269 +21,287 @@ msgstr ""
 
 #: models.py:13
 msgid "initiator"
-msgstr ""
+msgstr "Initiator"
 
 #: models.py:13
 msgid "Project owner"
-msgstr ""
+msgstr "Project initiator"
 
 #: models.py:14
 msgid "project"
-msgstr ""
+msgstr "project"
 
 #: models.py:16
 msgid "title"
-msgstr ""
+msgstr "titel"
 
 #: models.py:17
 msgid "description"
-msgstr ""
+msgstr "beschrijving"
 
 #: models.py:18
 msgid "picture"
-msgstr ""
+msgstr "Afbeelding"
 
 #: models.py:18
 msgid "Minimal of 800px wide"
-msgstr ""
+msgstr "Minimaal 800 pixels breed"
 
 #: models.py:21
 msgid "amount (in cents)"
-msgstr ""
+msgstr "bedrag (in centen)"
 
 #: models.py:25
 msgid "created"
-msgstr ""
+msgstr "aangemaakt"
 
 #: models.py:25
 msgid "When this fundraiser was created."
-msgstr ""
+msgstr "Aanmaakdatum fundraise campagne"
 
 #: models.py:26
 msgid "updated"
-msgstr ""
+msgstr "updated"
 
 #: models.py:27
 msgid "deleted"
-msgstr ""
+msgstr "verwijderd"
 
 #: models.py:43
 msgid "{fundraiser} for {project}"
-msgstr ""
+msgstr "{fundraiser} voor {project}"
 
 #: models.py:61
 msgid "{title} {{URL}} via @{twitter_handle}"
-msgstr ""
+msgstr "{title} {{URL}} via @{twitter_handle}"
 
-#: views.py:26 views.py:29
+#: views.py:29
 #, python-format
 msgid "No %(verbose_name)s found matching the query"
-msgstr ""
+msgstr "Geen  %(verbose_name)s gevonden die voldoet aan deze zoekopdracht"
 
-#: templates/fundraisers.hbs:27
-msgid "Amount & deadline"
-msgstr ""
-
-#: templates/fundraisers.hbs:28
-msgid "Be realistic and...show ambition!"
-msgstr ""
-
-#: templates/fundraisers.hbs:48 templates/fundraisers.hbs.py:118
-#: templates/fundraisers.hbs:376
+#: templates/fundraisers.hbs:15 templates/fundraisers.hbs.py:370
 #, python-format
 msgid "My 1%%"
-msgstr ""
+msgstr "Mijn 1%%"
 
-#: templates/fundraisers.hbs:48 templates/fundraisers.hbs.py:118
-#: templates/fundraisers.hbs:176 templates/fundraisers.hbs.py:376
+#: templates/fundraisers.hbs:15 templates/fundraisers.hbs.py:166
+#: templates/fundraisers.hbs:370
 msgid "Fundraisers"
-msgstr ""
+msgstr "Fundraisers"
 
-#: templates/fundraisers.hbs:55 templates/fundraisers.hbs.py:125
+#: templates/fundraisers.hbs:22
 msgid "Preview fundraiser page"
-msgstr ""
+msgstr "Preview fundraiser pagina"
 
-#: templates/fundraisers.hbs:66
+#: templates/fundraisers.hbs:53
+msgid "Amount & deadline"
+msgstr "Bedrag & deadline"
+
+#: templates/fundraisers.hbs:54
+msgid "Be realistic and...show ambition!"
+msgstr "Ben realistisch en…ambitieus!"
+
+#: templates/fundraisers.hbs:74
 msgid "Yes, you can!"
-msgstr ""
+msgstr "Start actie"
 
-#: templates/fundraisers.hbs:68
+#: templates/fundraisers.hbs:76
 msgid ""
 "\n"
 "                            What's your fundraising plan? Make it concrete & exciting!\n"
 "                            "
-msgstr ""
+msgstr "\nWat is je fundraising plan? Maak het concreet!"
 
-#: templates/fundraisers.hbs:78
+#: templates/fundraisers.hbs:86
 msgid "Create"
-msgstr ""
+msgstr "Maak aan"
 
-#: templates/fundraisers.hbs:83
+#: templates/fundraisers.hbs:91
 msgid "New fundraiser"
-msgstr ""
+msgstr "Nieuwe fundraiser"
 
-#: templates/fundraisers.hbs:85
+#: templates/fundraisers.hbs:93
 msgid ""
 "\n"
 "                            You need to be logged in to start fundraising.\n"
 "                            "
-msgstr ""
+msgstr "\nJe moet ingelogd zijn om te fundraisen."
 
-#: templates/fundraisers.hbs:91 templates/fundraisers.hbs.py:156
-#: templates/fundraisers.hbs:418
+#: templates/fundraisers.hbs:99 templates/fundraisers.hbs.py:146
+#: templates/fundraisers.hbs:412
 msgid "Login"
-msgstr ""
+msgstr "Log in"
 
-#: templates/fundraisers.hbs:91
+#: templates/fundraisers.hbs:99
 msgid "or"
+msgstr "of"
+
+#: templates/fundraisers.hbs:99
+msgid "register"
 msgstr ""
 
-#: templates/fundraisers.hbs:91 templates/fundraisers.hbs.py:156
-#: templates/fundraisers.hbs:418
-msgid "member"
-msgstr ""
-
-#: templates/fundraisers.hbs:91
+#: templates/fundraisers.hbs:99
 msgid "to become a fundraiser."
-msgstr ""
+msgstr "om een fundraiser te worden."
 
-#: templates/fundraisers.hbs:96 templates/fundraisers.hbs.py:423
+#: templates/fundraisers.hbs:104 templates/fundraisers.hbs.py:417
 msgid "Fundraising for project"
-msgstr ""
+msgstr "Fundraiser voor..."
 
-#: templates/fundraisers.hbs:97
+#: templates/fundraisers.hbs:105
 msgid "You'll be fundraising for this project"
-msgstr ""
+msgstr "Je bent fundraiser voor het volgende project:"
 
-#: templates/fundraisers.hbs:136 templates/fundraisers.hbs.py:148
+#: templates/fundraisers.hbs:126 templates/fundraisers.hbs.py:138
 msgid "Edit fundraiser"
-msgstr ""
+msgstr "Edit fundraiser"
 
-#: templates/fundraisers.hbs:143
+#: templates/fundraisers.hbs:133
 msgid "Save"
-msgstr ""
+msgstr "Opslaan"
 
-#: templates/fundraisers.hbs:150
+#: templates/fundraisers.hbs:140
 msgid ""
 "\n"
 "                                You can only make a fundraiser if you are logged in and the owner of this fundraiser.\n"
 "                            "
-msgstr ""
+msgstr "\nJe kunt een fundraiser alleen editen als je bent ingelogd als eigenaar van de fundraiser"
 
-#: templates/fundraisers.hbs:156 templates/fundraisers.hbs.py:418
+#: templates/fundraisers.hbs:146 templates/fundraisers.hbs.py:412
 msgid "or become a"
-msgstr ""
+msgstr "of maak"
 
-#: templates/fundraisers.hbs:156 templates/fundraisers.hbs.py:418
+#: templates/fundraisers.hbs:146 templates/fundraisers.hbs.py:412
+msgid "member"
+msgstr "een profiel aan"
+
+#: templates/fundraisers.hbs:146 templates/fundraisers.hbs.py:412
 msgid "to start a fundraiser."
-msgstr ""
+msgstr "om een fundraiser te starten."
 
-#: templates/fundraisers.hbs:161
+#: templates/fundraisers.hbs:151
 msgid "You rock!"
-msgstr ""
+msgstr "Goed bezig!"
 
-#: templates/fundraisers.hbs:162
+#: templates/fundraisers.hbs:152
 msgid "Because you're fundraising for this project:"
-msgstr ""
+msgstr "Omdat je gaat fundraisen voor het volgende project:"
 
-#: templates/fundraisers.hbs:187
+#: templates/fundraisers.hbs:177
 msgid "Become a fundraiser"
-msgstr ""
+msgstr "Word een fundraiser"
 
-#: templates/fundraisers.hbs:201 templates/fundraisers.hbs.py:299
+#: templates/fundraisers.hbs:191 templates/fundraisers.hbs.py:294
 msgid "of"
-msgstr ""
+msgstr "van"
 
-#: templates/fundraisers.hbs:203 templates/fundraisers.hbs.py:301
+#: templates/fundraisers.hbs:193 templates/fundraisers.hbs.py:296
 msgid "raised"
-msgstr ""
+msgstr "opgehaald"
 
-#: templates/fundraisers.hbs:239
+#: templates/fundraisers.hbs:229
 msgid "Fundraising for"
+msgstr "Fundraiser voor"
+
+#: templates/fundraisers.hbs:243
+msgid "Edit Fundraiser"
 msgstr ""
 
-#: templates/fundraisers.hbs:251
-msgid "Edit"
+#: templates/fundraisers.hbs:244
+msgid "View Donations"
 msgstr ""
 
-#: templates/fundraisers.hbs:254 templates/fundraisers.hbs.py:376
-msgid "Donations"
-msgstr ""
+#: templates/fundraisers.hbs:258
+msgid "Fundraiser"
+msgstr "Fundraiser"
 
 #: templates/fundraisers.hbs:266
-msgid "Fundraiser"
-msgstr ""
-
-#: templates/fundraisers.hbs:274
 msgid "Support"
-msgstr ""
+msgstr "Support"
 
-#: templates/fundraisers.hbs:277
+#: templates/fundraisers.hbs:269
 msgid "Project Funded"
-msgstr ""
+msgstr "Project gerealiseerd"
 
-#: templates/fundraisers.hbs:292
+#: templates/fundraisers.hbs:287
 msgid "days to go"
-msgstr ""
+msgstr "dagen"
 
-#: templates/fundraisers.hbs:312
+#: templates/fundraisers.hbs:306
 msgid "Supporters"
-msgstr ""
+msgstr "Supporters"
 
-#: templates/fundraisers.hbs:312
+#: templates/fundraisers.hbs:306
 msgid "Total"
-msgstr ""
+msgstr "Totaal"
 
-#: templates/fundraisers.hbs:349
+#: templates/fundraisers.hbs:343
 msgid "Show more"
-msgstr ""
+msgstr "Meer"
 
-#: templates/fundraisers.hbs:349
+#: templates/fundraisers.hbs:343
 msgid "more"
+msgstr "meer"
+
+#: templates/fundraisers.hbs:370
+msgid "Donations"
+msgstr "Donaties"
+
+#: templates/fundraisers.hbs:375
+msgid "Back to fundraiser"
 msgstr ""
 
-#: templates/fundraisers.hbs:381
-msgid "Back to fundraiser page"
-msgstr ""
-
-#: templates/fundraisers.hbs:390 templates/fundraisers.hbs.py:410
+#: templates/fundraisers.hbs:384 templates/fundraisers.hbs.py:404
 msgid "Donation overview"
-msgstr ""
+msgstr "Donatie overzicht"
 
-#: templates/fundraisers.hbs:392
+#: templates/fundraisers.hbs:386
 msgid ""
 "\n"
 "                            The people below already supported your fundraise action\n"
 "                            "
-msgstr ""
+msgstr "\nOnderstaande personen hebben je actie gesteund"
 
-#: templates/fundraisers.hbs:405
+#: templates/fundraisers.hbs:399
 msgid "Awww. No donations yet!"
-msgstr ""
+msgstr "Awww. Nog geen donaties!"
 
-#: templates/fundraisers.hbs:412
+#: templates/fundraisers.hbs:406
 msgid ""
 "\n"
 "                                You are not authorized to view the donations.\n"
 "                            "
+msgstr "\nJe hebt geen toegang om de donaties te bekijken"
+
+#: templates/fundraisers.hbs:418
+msgid "You are fundraising for this project"
+msgstr "Je bent fundraiser voor het volgende project:"
+
+#: templates/fundraisers.hbs:436
+msgid "Loading projects"
 msgstr ""
 
-#: templates/fundraisers.hbs:424
-msgid "You are fundraising for this project"
+#: templates/fundraisers.hbs:461
+msgid "View public page"
 msgstr ""
+
+#: templates/fundraisers.hbs:468
+msgid "Edit"
+msgstr "Edit"
 
 #: templates/generic/form_charfield.html:3 templates/generic/form_field.html:3
 #: templates/generic/form_imagefield.html:4
 #, python-format
 msgid "%(help_text)s"
-msgstr ""
+msgstr "%(help_text)s"
 
 #: templates/generic/form_charfield.html:4 templates/generic/form_field.html:4
 #: templates/generic/form_imagefield.html:5
 #, python-format
 msgid "%(title)s"
-msgstr ""
+msgstr "%(title)s"
 
 #: templates/generic/form_imagefield.html:10
 msgid "Upload picture"
-msgstr ""
+msgstr "Upload afbeelding"

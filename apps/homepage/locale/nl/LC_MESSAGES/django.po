@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: onepercentclub-site\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-29 00:05+0100\n"
-"PO-Revision-Date: 2013-11-28 23:07+0000\n"
+"POT-Creation-Date: 2013-12-02 09:52+0100\n"
+"PO-Revision-Date: 2013-12-02 08:53+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub-site/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -110,38 +110,44 @@ msgstr "Doe ook mee. Meld je aan en deel jouw 1%%"
 
 #: templates/homepage.hbs:253
 msgid "Our crazy fund-racers"
-msgstr ""
+msgstr "De crazy fund-racers"
 
-#: templates/homepage.hbs:254 templates/homepage.hbs.py:350
+#: templates/homepage.hbs:254
 msgid ""
 "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod "
 "tempor incididunt ut labore et dolore magna aliqua."
-msgstr ""
+msgstr "Kies jouw favoriete crazy fund-racer en support een world-changing project!"
 
 #: templates/homepage.hbs:265
 msgid "Fully funded by"
-msgstr ""
+msgstr "Gerealiseerd door"
 
 #: templates/homepage.hbs:265
 msgid "and supporters."
-msgstr ""
+msgstr "en supporters"
 
 #: templates/homepage.hbs:285
 msgid "<strong>Fully</strong> funded"
-msgstr ""
+msgstr "<strong> Gerealiseerd </strong> door"
 
 #: templates/homepage.hbs:287
 msgid "To go"
-msgstr ""
+msgstr "te gaan"
 
 #: templates/homepage.hbs:293
 msgid "days"
-msgstr ""
+msgstr "dagen"
 
 #: templates/homepage.hbs:329
 msgid "fund-raced"
+msgstr "fund-raced"
+
+#: templates/homepage.hbs:349
+msgid ""
+" The Crazy Campaign Days: 20 teams who will fund 20 world-changing projects "
+"within 5 days. Totally crazy!"
 msgstr ""
 
-#: templates/homepage.hbs:352
+#: templates/homepage.hbs:351
 msgid "Pick a crazy fund-racer and support"
-msgstr ""
+msgstr "Kies een crazy fund-racer en support"
