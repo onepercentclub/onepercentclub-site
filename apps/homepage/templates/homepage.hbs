@@ -316,8 +316,6 @@
                 <div class="project-fund">
                     <p class="project-fund-amount">
                         <strong class="amount-donated">&euro;{{localize campaign.amount_donated}}</strong> 
-                        {% trans "of" %}
-                        <strong class="amount-asked">&euro;{{localize campaign.target}}</strong>
                         {% trans "fund-raced" %}
                     </p>
                     {{bb-progressbar class="project-fund-amount-slider" totalValue=campaign.target currentValue=campaign.amount_donated}}
