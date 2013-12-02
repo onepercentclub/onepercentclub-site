@@ -194,9 +194,10 @@
     .project-fund-amount-slider {
         position: relative;
         overflow: visible;
+        background-color: $white;
         
         .slider-progress {
-            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAeCAIAAADhM9qrAAACk0lEQVRYw+2Wa1MSYRTH+brV1FQy0kxWjpNd3mXTZE0FaAihCKQNIIaXMULCkaRJ8IKXgQXXZXGfywfoHNZwN54hKC1e7DP/F8vDedjfnvM/Z7Fpl5znK/k8ls3CsrAsrL/Tid1zMhhQnYnjb7s9hHWmyy5lOdd7WA3VgqkLxCJPIrxaA7FDmUsK15ekwMemuKyynTIZmPzlbP1h6Di3Kx+UBWqDxT7n2cqmdn1czHR1jM5lOeM0/lW74oId+i6pU5GhaVPktTGWzHOlTkainRqxz1MfiShLGwIs/R40ui5I0lCQFSVOGR1fbjoGEyPEwm+dNPwF4wMpuO6iUQanlExBgAWLFUosWzSKa5SrGhmNazc9usiL+WY8eTzT3DeKelaAjKUKmsMrDECJ4JT0pqGIxQr/90tWaWRdu/HWlLM7k3L16Kfl+71sT0DGcvvUuQhGof7kmc27WqpGZzLkaQxyjLZjLbcoSpp9wtS5s2lDJyJZ1XgAH0U3h94K9gm2I3WbD3Iv0GgaNzgSe+XNgoAsmTd3mNs8IBxetn9KBhfQdORBmJXQ3SyzDf1IhkNdUVHXInZANAs+w/Z8HkfDrG61RpLhsMlhH7PmueXw6WT0wxr+xFaJBtPaLR/7fgh1xJ2S3DkW+AanXUUhd6fI6DwUFCYIeZUQPACMHgOG+jLebpzC8MReg+THsiDE2i53CsU45Ju6l9jGnu4E3On3kmcxQezBkcn4t/3tsMBecIAmcjgjHr1vjLFpKGWHwtnr8EH5YFZDvk/5+jyC4Psh81shbGv/riWvF+jsGpgMKYOrXXkL5xY8yYAfBiz1foIKAhOv1MQVN9/6wl/Vf6DfZes/qaUTeyBPwGT9l7ewLKwewfoBgr6YfGmoKekAAAAASUVORK5CIIA=') $color-primary no-repeat 100% 50%;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC8AAAAQCAIAAAAJabGDAAACkUlEQVRIx72V7VMSURTG/UutyakMlS/VaE7WNPahl6nGmmoQkrcZg3yLAIOhrLBgQlGmUSAhBIUVxXUYubvsLvvSue4GDiwEjnrm+bAsz+797TnnntsldetOWRfGpfCmdKLoOn0aWe7IWdHwD5wUUcBK56nsHpIjt4cy+ZryJEpk+RuTtQdHHdI2KSFGRc1oGH+U+bomXn6jjtJjYF1hVELs/Ip0cRzucBa/DFMZfnfcKfYY0PcoKhywj13//8I+szTmlZZS9TTyq9kPy43PCLfsdCKHDkucYaHaE5AeVZqjf3XUzE/w07YAXLdV0OEpaWOnngaCjm6Vl5M1hZOoeEiRxcqzj2KvUVZlzFP1c6NzwjVjo8rmbwCEAnFBa1E1gOqZYjmFBn/9+ccuSbnCQu+EQjNolwQR04j9ZjqpAlReTVVef+IfOjnrYq1zOwqySL0PsU/czAsvbqlSgyGZE/pMCpBvTdlTYr+FThLHbaxjSS68eAXjixoTvZHtDCVP8kM2vMwlPZ5A3bqy7rMK0GK0ul1qO1wcsNB/FCA6RcD2EUamqcwuTlLwN1iF21MdwZT1C7ip3Su4hwoHzHMPrIKC8UYnd2daAQomavMGA6UwEDsXgp90bIuzB0Stlf6VhmLBHRmuzYCeYB85EVHgB224UmQRRgDzytfopDyrCoP+S9PpRxH7/L1ZuGCdYRDmi2+3y1JCkF1ID4qk8KS4OgF3hAEL83RexZzOK4vefNuUBiYQvbnDeCOwyYW7M/ilQ3aoV1WQ4RYCGl5rhRoh/zpazyhYGqOKeeRfpe47ulocfpWXPnY2JBzVlbMFOuviHzF8pFyfhHlIW/1QJkFjQsS+qre66JmdmidQq9ycvwKJv1UoBvN/QXlCAAAAAElFTkSuQmCC') $color-primary no-repeat 100% 50%;
         }
         
         &:after {
@@ -221,6 +222,7 @@
 #fundraiser-status {
     
     .project-fund-amount-slider {
+    
         &:after {
             content: '';
             display: block;

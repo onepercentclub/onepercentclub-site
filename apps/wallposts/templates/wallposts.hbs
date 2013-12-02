@@ -188,9 +188,9 @@
                 </span>
                 {{/if}}
                 <span class="wallpost-system-action">
-                    {% trans "Made a donation" %}
+                    {% trans "made a donation" %}
                     {{#if fundraiser}}
-                        to {{#link-to 'fundRaiser' fundraiser.id}}{{fundraiser.title}}{{/link-to}}
+                        {% trans "via fundraiser" %}:<br />{{#link-to 'fundRaiser' fundraiser.id class="wallpost-fundraiser-link"}}{{fundraiser.title}}{{/link-to}}
                     {{/if}}
                 </span>
             </div>

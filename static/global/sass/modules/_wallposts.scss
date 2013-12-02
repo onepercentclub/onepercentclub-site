@@ -142,6 +142,7 @@
             
             .wallpost-member {
                 padding-bottom: $base-padding;
+                @include grid(48,12,0);
                 
                 .member {
                     display: inline;
@@ -149,8 +150,19 @@
                     
                     .member-name {
                         font-family: $base-font-family;
+                        margin: 0;
                     }
                 }
+            }
+            
+            .wallpost-fundraiser-link {
+            	text-decoration: none;
+            	font-family: $font-family-heavy;
+            	color: $gray-dark;
+            	
+            	&:hover, &:active {
+	            	color: $color-primary;
+            	}
             }
             
             .wallpost-system-type {
