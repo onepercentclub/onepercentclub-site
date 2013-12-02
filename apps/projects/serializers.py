@@ -106,10 +106,11 @@ class ProjectCampaignSerializer(serializers.ModelSerializer):
     project = serializers.SlugRelatedField(source='project', slug_field='slug', read_only=True)
     money_asked = EuroField()
     money_donated = EuroField()
+    money_needed = EuroField()
 
     class Meta:
         model = ProjectCampaign
-        fields = ('id', 'project', 'money_asked', 'money_donated', 'deadline', 'status')
+        fields = ('id', 'project', 'money_asked', 'money_donated', 'money_needed', 'deadline', 'status')
 
 
 class ProjectSerializer(serializers.ModelSerializer):
@@ -156,9 +157,8 @@ class ProjectPreviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Project
-        fields = (
-            'id', 'title', 'image', 'phase', 'campaign', 'pitch', 'popularity', 'country', 'task_count', 'is_campaign',
-        )
+        fields = ('id', 'title', 'image', 'phase', 'campaign', 'pitch', 'popularity', 'country', 'task_count',
+                  'is_campaign')
 
 
 class ProjectSupporterSerializer(serializers.ModelSerializer):

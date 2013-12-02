@@ -51,7 +51,7 @@ App.ProjectSearchFormController = Em.ObjectController.extend({
         return (this.get('ordering') == 'newest');
     }.property('ordering'),
     orderedByNeeded: function(){
-        return (this.get('ordering') == 'needed');
+        return (this.get('ordering') == 'money_needed');
     }.property('ordering'),
     orderedByDeadline: function(){
         return (this.get('ordering') == 'deadline');
