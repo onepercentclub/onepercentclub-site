@@ -523,21 +523,33 @@ App.TickerController = Em.ArrayController.extend(Ember.SortableMixin, {
 
     sortProperties: ['created'],
     sortAscending: false,
+
+    firstLoad: true,
+
     init: function(){
         this._super();
         var controller = this;
         window.setTimeout(function(){
             controller.refresh();
-            console.log('reloading');
         }, 5000);
+    },
+
+    arrayContentWillChange: function(){
+        if (!this.get('firstLoad')) {
+            var nr = Math.round(Math.random() * 5) + 1;
+            var snd = new Audio('/static/assets/media/new_donation' + nr  + '.mp3');
+            snd.play();
+        }
     },
 
     refresh: function(){
         var controller = this;
-        App.Ticker.find();
+        App.Ticker.find().then(function(){
+            controller.set('firstLoad', false);
+        });
         window.setTimeout(function(){
-            controller.refresh();
             console.log('reloading');
+            controller.refresh();
         }, 20000);
 
     }

@@ -139,11 +139,13 @@ App.PaymentSelectView = Em.View.extend({
 
 
 App.TickerView = Em.View.extend({
+    classNames: ['ticker'],
+
     // Remove header/footer for this view.
     didInsertElement: function () {
         this._super();
         $('body').css('overflow', 'hidden');
-        $('#navigation').remove();
+        $('#header').remove();
         $('#footer').remove();
     }
 });
