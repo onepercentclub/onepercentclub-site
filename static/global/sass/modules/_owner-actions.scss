@@ -19,3 +19,66 @@
         float: right;
     }
 }
+
+.owner-settings {
+    position: relative;
+    float: right;
+    cursor: hand;
+    cursor: pointer;	 
+    text-align: right; 
+    margin: 0;
+    
+    li {
+        @include resetlist;
+    } 
+    	    
+    .owner-settings-dropdown {
+    	position: relative;
+    	display: inline-block;
+    	color: $gray;
+    	margin: $base-margin/4 0 0 0;
+    	height: 2em;
+    	padding: $base-padding/4 $base-padding/2;
+    }
+    
+    .owner-settings-dropdown-menu {
+    	display: none;
+        position: absolute;
+        top: 2em;
+        right: 0;
+        width: 8em;
+        margin-top: -2px;
+    	font-family: $font-family-heavy;
+        text-align: left;
+        
+        > li {
+            font-size: $font-size-small;
+            
+            > a {
+    	        display: block;
+    	        padding: $base-padding/2;
+    	        color: $gray-lighter;
+    	        text-decoration: none;
+                background: $gray;
+    	        
+    	        &:hover {
+    		        color: $white;
+    		        background: $gray-dark;
+    	        }
+            }
+            
+        }
+    }
+    
+    &:hover {
+        
+     	.owner-settings-dropdown {
+        	color: $gray-lighter;
+        	background: $gray;
+    	}
+    					
+    	.owner-settings-dropdown-menu {
+        	display: block !important;
+    	}
+    }
+}

@@ -25,23 +25,6 @@
     #smart-idea .carousel-image {
         background: image-url("pages/homepage/home-back-smart-idea.png") transparent no-repeat 120px 30%;
     }
-    
-    // TODO FIX: Hack to show resonsive background	
-    .carousel-content {
-        z-index: 2;
-    }
-    				
-	.carousel-image {
-		@include clear;
-		position: relative;
-		float: right;
-		top: 0;
-		overflow: auto;
-		width: 50%;
-		height: 450px;
-		top: -500px;
-		z-index: 1;
-	}
 	
 	// Projects
 	.project-slider {
