@@ -234,14 +234,14 @@
                 <article class="project-info">
                     {{view App.SocialShareView}}
                     {{#if isOwner}}
-                    <ul class="owner-settings">
-                        <li class="owner-settings-dropdown"><span class="flaticon solid settings-2"></span>
-                            <ul class="owner-settings-dropdown-menu">
-                                <li>{{#linkTo 'fundRaiserEdit' id}}{% trans "Edit Fundraiser" %}{{/linkTo}}</li>
-                                <li>{{#linkTo 'fundRaiserDonationList' id}}{% trans "View Donations" %}{{/linkTo}}</li>
-                            </ul>
-                        </li>
-                    </ul>
+                        <ul class="owner-settings">
+                            <li class="owner-settings-dropdown"><span class="flaticon solid settings-2"></span>
+                                <ul class="owner-settings-dropdown-menu">
+                                    <li>{{#linkTo 'fundRaiserEdit' id}}{% trans "Edit Fundraiser" %}{{/linkTo}}</li>
+                                    <li>{{#linkTo 'fundRaiserDonationList' id}}{% trans "View Donations" %}{{/linkTo}}</li>
+                                </ul>
+                            </li>
+                        </ul>
                     {{/if}}
                     <h1 class="project-title">{{title}}</h1>
                     <p class="project-description">{{description}}</p>
@@ -257,7 +257,7 @@
                     </figure>
 
                     <div class="project-action">
-                        {{#if controllers.project.isFundable}}
+                        {{#if project.getProject.isPhaseCampaign}}
                             <a href='#' {{ action 'addDonation' this.project this }} class="btn btn-primary btn-iconed">
                                 <span class="flaticon solid wallet-1"></span>
                                 {% trans "Support" %} {{owner.first_name}}
