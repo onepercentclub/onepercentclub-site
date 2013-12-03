@@ -324,6 +324,7 @@
                 {# timer {{campaign.start}} - {{campaign.end}} #}
                 <div class="crazy-campaign-countdown">
                     <div id="countdown">
+                        <span class="digit">{h100}</span> 
                         <span class="digit">{h10}</span> 
                         <span class="digit">{h1}</span> 
                         <span class="digit-sep">:</span> 
@@ -332,6 +333,11 @@
                         <span class="digit-sep">:</span> 
                         <span class="digit">{s10}</span> 
                         <span class="digit">{s1}</span> 
+                    </div>
+                    <div id="countdown-labels">
+                    	<span class="countdown-label-hours">{% trans "Hours" %}</span>
+                    	<span class="countdown-label-minutes">{% trans "Minutes" %}</span>
+                    	<span class="countdown-label-seconds">{% trans "Seconds" %}</span>
                     </div>
                 </div>
         

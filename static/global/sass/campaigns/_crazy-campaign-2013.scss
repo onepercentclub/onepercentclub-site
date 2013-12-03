@@ -158,10 +158,10 @@
 	text-align: center;
 	@include grid(48,0,0);
 	line-height: 1em;
-	margin: $base-margin/4 0;
+	margin: $base-margin/4 0 $base-margin/8 0;
 	
 	.digit {
-	    @include grid(6.5,0,0.5);
+	    @include grid(5.5,0,0.5);
 	    color: $color-text-light;
 	    background-color: $gray;
 	    @include border-radius(4px);
@@ -171,6 +171,29 @@
         @include grid(4,0,0.5);
         color: $gray;
     }
+}
+
+#countdown-labels {
+	@include clear;
+	width: 100%;
+    text-align: center;
+    color: $gray;
+    font-size: $font-size-smallest;
+    text-transform: uppercase;
+    margin: 0 0 $base-margin/4 0;
+    
+    .countdown-label-hours {
+	    @include grid(20,0,4);
+    }
+    
+    .countdown-label-minutes {
+	    @include grid(14,0,2);
+    }
+    
+    .countdown-label-seconds {
+	    @include grid(14,2,2);
+    }
+    
 }
 
 #fundraiser-detail, #fundraiser-status, #project-campaign {
