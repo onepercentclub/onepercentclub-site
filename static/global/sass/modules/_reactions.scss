@@ -97,6 +97,7 @@
             
                 .member-name {
                     @include prepend(10);
+                    width: 100%;
                     color: $gray;
                 }
             }

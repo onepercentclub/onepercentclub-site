@@ -61,7 +61,7 @@ def mail_new_oneoff_donation(donation):
             donor_name=name,
             link='/go/fundraisers/{0}'.format(donation.fundraiser.id),
         )
-    # alway email the project owner
+    # Always email the project owner.
     send_mail(
         template_name='new_oneoff_donation.mail',
         subject=_('You received a new donation'),

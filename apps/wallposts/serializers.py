@@ -1,12 +1,14 @@
+# from apps.fund.serializers import DonationSerializer
+from apps.fund.models import Donation
+from apps.fundraisers.serializers import FundRaiserSerializer
 from apps.projects.models import Project
 from bluebottle.accounts.serializers import UserPreviewSerializer
-from bluebottle.bluebottle_drf2.serializers import OEmbedField, PolymorphicSerializer, SorlImageField, ContentTextField, ImageSerializer, PhotoSerializer
-from apps.wallposts.models import WallPost, SystemWallPost
+from bluebottle.bluebottle_drf2.serializers import OEmbedField, PolymorphicSerializer, ContentTextField, PhotoSerializer
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import serializers
-from django.conf import settings
-from django.core.exceptions import ObjectDoesNotExist, ValidationError
-from django.utils.encoding import smart_text
+from django.core.exceptions import ValidationError
+from apps.wallposts.models import WallPost, SystemWallPost
+
 from .models import MediaWallPost, TextWallPost, MediaWallPostPhoto, Reaction
 
 
@@ -132,6 +134,23 @@ class TextWallPostSerializer(WallPostSerializerBase):
         fields = WallPostSerializerBase.Meta.fields + ('text',)
 
 
+class DonationPreviewSerializer(serializers.ModelSerializer):
+    project = serializers.SlugRelatedField(source='project', slug_field='slug')
+    fundraiser = FundRaiserSerializer()
+
+    class Meta:
+        model = Donation
+        fields = ('id', 'project', 'fundraiser')
+
+
+class WallPostRelatedField(serializers.RelatedField):
+    def to_native(self, obj):
+        if obj.__class__.__name__ == 'Donation':
+            serializer = DonationPreviewSerializer(obj)
+            return serializer.data
+        return super(WallPostRelatedField, self).to_native(obj)
+
+
 class SystemWallPostSerializer(WallPostSerializerBase):
     """
     Serializer for TextWallPosts. This should not be used directly but instead should be subclassed for the specific
@@ -140,10 +159,11 @@ class SystemWallPostSerializer(WallPostSerializerBase):
     type = WallPostTypeField(type='system')
     text = ContentTextField()
     related_type = serializers.CharField(source='related_type.name')
+    related_object = WallPostRelatedField(source='related_object')
 
     class Meta:
         model = TextWallPost
-        fields = WallPostSerializerBase.Meta.fields + ('text', 'related_type')
+        fields = WallPostSerializerBase.Meta.fields + ('text', 'related_type', 'related_object')
 
 
 class WallPostSerializer(PolymorphicSerializer):

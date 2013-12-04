@@ -164,7 +164,7 @@
 	            	color: $color-primary;
             	}
             }
-            
+
             .wallpost-system-type {
                 position: absolute;
                 left: 0;
@@ -177,7 +177,14 @@
                     margin-right: $base-margin/4;
                 }
             }
-            
+            .wallpost-system-message {
+                padding-bottom: $base-padding;
+                @include grid(48,12,0);
+
+                color: $gray-light;
+                text-transform: uppercase;
+
+            }
             .login-box {
                 display: none;
             }
