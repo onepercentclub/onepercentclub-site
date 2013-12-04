@@ -174,7 +174,12 @@
         <header class="wallpost-header">
 
             <span class="wallpost-system-type">
-                <span class="flaticon solid wallet-1"></span> {% trans "Donation" %}
+                <span class="flaticon solid wallet-1"></span>
+                {{#if fundraiser}}
+                    {% trans "Fundraiser" %}
+                {{else}}
+                    {% trans "Donation" %}
+                {{/if}}
             </span>
 
             <div class="wallpost-member">
@@ -189,11 +194,13 @@
                 {{/if}}
                 <span class="wallpost-system-action">
                     {% trans "made a donation" %}
-                    {{#if fundraiser}}
-                        {% trans "via fundraiser" %}:<br />{{#link-to 'fundRaiser' fundraiser.id class="wallpost-fundraiser-link"}}{{fundraiser.title}}{{/link-to}}
-                    {{/if}}
                 </span>
             </div>
+            {{#if fundraiser}}
+                <div class="wallpost-system-message">
+                    {{#link-to 'fundRaiser' fundraiser.id class="wallpost-fundraiser-link"}}{{fundraiser.title}}{{/link-to}}
+                </div>
+            {{/if}}
 
 
             {{#if created}}
