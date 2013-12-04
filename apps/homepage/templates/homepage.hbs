@@ -274,8 +274,8 @@
                                 </span>
     
                                 <span class="project-status">
-    
-                                    <div class="project-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
+
+                                    {{bb-progressbar class="project-fund-amount-slider" totalValue=amount currentValue=amount_donated}}
                                     <span class="project-fund-amount">
                                         {{#if is_funded }}
                                             {% trans "<strong>Fully</strong> funded" %}
