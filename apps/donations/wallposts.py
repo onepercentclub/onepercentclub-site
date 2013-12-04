@@ -9,10 +9,9 @@ from .models import Donation, DonationStatuses
 def create_donation_post(sender, instance, **kwargs):
     donation = instance
     if donation.status in [DonationStatuses.paid, DonationStatuses.pending]:
-        try:
-            donation_type = ContentType.objects.get_for_model(donation)
-            post = SystemWallPost.objects.filter(related_id=donation.id).filter(related_type=donation_type).get()
-        except SystemWallPost.DoesNotExist:
+        donation_type = ContentType.objects.get_for_model(donation)
+        post = SystemWallPost.objects.filter(related_id=donation.id).filter(related_type=donation_type).all()
+        if len(post) < 1:
             if donation.donation_type == Donation.DonationTypes.one_off:
 
                 if donation.fundraiser:
