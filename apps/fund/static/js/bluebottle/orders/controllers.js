@@ -534,11 +534,25 @@ App.TickerController = Em.ArrayController.extend(Ember.SortableMixin, {
         }, 5000);
     },
 
+    play: function(file){
+        var snd = window.audioJS({file: file});
+        //var snd = new Sound(file);
+        snd.play();
+
+    },
+    actions: {
+        playSound: function(){
+            var nr = Math.round(Math.random() * 5) + 1;
+            var file = '/static/assets/media/new_donation' + nr  + '.wav';
+            this.play(file);
+        }
+    },
+
     arrayContentWillChange: function(){
         if (!this.get('firstLoad')) {
             var nr = Math.round(Math.random() * 5) + 1;
-            var snd = new Audio('/static/assets/media/new_donation' + nr  + '.mp3');
-            snd.play();
+            var file = '/static/assets/media/new_donation' + nr  + '.wav';
+            this.play(file);
         }
     },
 

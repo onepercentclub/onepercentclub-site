@@ -986,7 +986,9 @@
             <li class="donation-project">
                 <img {{bindAttr src="donation.project.image" alt="project.title"}} class="project-image" />
                 <img {{bindAttr src="donation.user.avatar" alt="project.title"}} class="member-image"  />
-                <strong class="amount">&euro;{{ donation.amount }}</strong>
+                <a {{action 'playSound'}}>
+                    <strong class="amount">&euro;{{ donation.amount }}</strong>
+                </a>
                 <h2>
                     {{#if donation.user.full_name}}
                         {{ donation.user.full_name }}<br />
@@ -1000,4 +1002,6 @@
             </li>
         {{/each}}
     </ul>
+    <script src="/static/assets/js/vendor/audio-js.min.js"></script>
+
 {% endtplhandlebars %}
