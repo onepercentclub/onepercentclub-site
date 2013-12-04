@@ -70,7 +70,10 @@ App.Router.map(function(){
 
 App.ProjectRoute = Em.Route.extend(App.ScrollToTop, {
     model: function(params) {
-        var page =  App.Project.find(params.project_id);
+        // Crap hack because Ember somehow doesn't strip queryparams.
+        // FIXME: Find out this -should- work.
+        var project_id = params.project_id.split('?')[0];
+        var page =  App.Project.find(project_id);
         var route = this;
         page.on('becameError', function() {
             route.transitionTo('projectList');
