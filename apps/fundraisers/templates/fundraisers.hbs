@@ -218,19 +218,9 @@
                         <img {{bindAttr src="image.large"}} width="100%" alt="Photo" />
                     {{/if}}
                 </figure>
-
-                <div class="fundraiser-project">
-                    <figure class="fundraiser-project-image"><img {{bindAttr src="project.image"}} width="100%" alt="Photo" /></figure>
-
-                    <div class="fundraiser-project-detail">
-                        <h4>{% trans "Fundraising for" %}</h4>
-                        <p>{{#linkTo 'project' project.getProject}}{{project.title}}{{/linkTo}}</p>
-                    </div>
-                </div>
             </div>
 
             <div class="l-half">
-
                 <article class="project-info">
                     {{view App.SocialShareView}}
                     {{#if isOwner}}
@@ -246,7 +236,24 @@
                     <h1 class="project-title">{{title}}</h1>
                     <p class="project-description">{{description}}</p>
                 </article>
+            </div>
+        </section>
+        
+        <section class="l-wrapper">
+        	<div class="l-half">
+        	
+                <div class="fundraiser-project">
+                    <figure class="fundraiser-project-image"><img {{bindAttr src="project.image"}} width="100%" alt="Photo" /></figure>
 
+                    <div class="fundraiser-project-detail">
+                        <h4>{% trans "Fundraising for" %}</h4>
+                        <p>{{#linkTo 'project' project.getProject}}{{project.title}}{{/linkTo}}</p>
+                    </div>
+                </div>
+        		
+        	</div>
+        	
+        	<div class="l-half">
                 <article class="fundraiser-member">
 
                     <figure class="member-avatar">
@@ -266,13 +273,11 @@
                             <strong>{% trans "Project Funded" %}</strong>
                         {{/if}}
                     </div>
-
                 </article>
-
-            </div>
+        	</div>
+        	
         </section>
     </div>
-
 
    <div class="l-section detail" id="fundraiser-status">
        
@@ -459,14 +464,14 @@
 
                         <span class="project-header">
                             <figure class="project-image">
-                            	<a {{action "showFundraiser" fundraiser.id href=true}}>
+                            	{{#linkTo 'fundRaiser' fundraiser.id}}
                                 	<img {{bindAttr src="fundraiser.image.square" alt="fundraiser.title"}} />
-                            	</a>
+                                {{/linkTo}}
                             </figure>
                             <h2 class="project-title">
-                                <a {{action "showFundraiser" fundraiser.id href=true}}>
+                                {{#linkTo 'fundRaiser' fundraiser.id}}
                                 	{{ fundraiser.title }}
-	                            </a>
+	                            {{/linkTo}}
                             </h2>
                         </span>
 

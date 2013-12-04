@@ -272,7 +272,7 @@
             <figure class="project-image">
                 <img {{bindAttr src="fundraiser.image.square" alt="fundraiser.title"}} />
             </figure>
-            <h2 class="fundraiser-title">{{ fundraiser.title }}</h2>
+            <h2 class="fundraiser-title">{{ fundraiser.title }}</h2><br />
             <h3 class="fundraiser-subtitle"> 
                 <em>{{ fundraiser.owner.full_name }} {% trans "Fund-racing for" %}</em> {{ project.title }}
             </h3>
@@ -605,13 +605,10 @@
                 <figure class="project-image">
                     <img {{bindAttr src="donation.fundraiser.image.square" alt="donation.fundraiser.title"}} />
                 </figure>
-                <h2 class="project-title">
-                    {{ donation.fundraiser.title }}
-                    ({{ donation.project.title }})
-                    {{!-- <em class="project-location">
-                        <span class="flaticon solid location-pin-1"></span> {{ donation.project.plan.country.name }}
-                    </em> NOTE: is this required here? Design decision. --}}
-                </h2>
+                <h2 class="fundraiser-title">{{ donation.fundraiser.title }}</h2><br />
+	            <h3 class="fundraiser-subtitle"> 
+	                <em>{{ donation.fundraiser.owner.full_name }} {% trans "Fund-racing for" %}</em> {{ donation.project.title }}
+	            </h3>
             {{/linkTo}}
         {{else}}
             {{#linkTo 'project' donation.project class="project-header" }}

@@ -28,7 +28,9 @@
     outline: none;
 
     &.large {
-        width: 880px;
+        width: 600px;
+        margin-left: -300px;
+        
         .modal-body {
             max-height: 90%;
         }
