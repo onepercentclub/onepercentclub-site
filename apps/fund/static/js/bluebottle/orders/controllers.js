@@ -18,6 +18,16 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
     }.property('length'),
 
     readyForPayment: function() {
+        // Check if any of the current donations was set to an amount less than
+        // 5 euro. If so, return false.
+        var donations = this.get('model').getEach('amount');
+        for(var i = 0; i < donations.length; i++)
+        {
+            if (donations[i] < 5)
+                return false;
+        }
+
+        // Return true if we already have a valid donation.
         if (this.get('length') > 0) {
             return true;
         }
