@@ -93,7 +93,7 @@ App.CurrentOrder = App.Order.extend({
 
 App.CurrentOrderDonation = App.Donation.extend({
     url: 'fund/orders/current/donations',
-    order: DS.belongsTo('App.CurrentOrder')
+    order: DS.belongsTo('App.CurrentOrder'),
 });
 
 

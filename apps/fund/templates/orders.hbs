@@ -129,7 +129,7 @@
         {{/linkTo}}
 
 	    {{#if readyForPayment }}
-	        <button {{action nextStep}} class="btn btn-iconed btn-next"><span class="flaticon solid right-2"></span>{% trans "Next Step" %}</button>
+	        <button {{action nextStep}} type="button" class="btn btn-iconed btn-next"><span class="flaticon solid right-2"></span>{% trans "Next Step" %}</button>
 	    {{else}}
 	        <button disabled class="btn btn-iconed btn-next"><span class="flaticon solid right-2"></span>{% trans "Next Step" %}</button>
 	    {{/if}}
