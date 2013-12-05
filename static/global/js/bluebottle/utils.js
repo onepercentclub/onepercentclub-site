@@ -189,9 +189,26 @@ App.Editable = Ember.Mixin.create({
 });
 
 
-App.UploadFile = Ember.TextField.extend({
+App.UploadFile= Ember.TextField.extend({
     attributeBindings: ['name', 'accept'],
     type: 'file',
+
+    didInsertElement: function(){
+        // Or maybe try: https://github.com/francois2metz/html5-formdata.
+        var view = this.$();
+        if (Em.isNone(File)) {
+            $.getScript('//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js').done(
+                function(){
+                    $.getScript('/static/assets/js/polyfills/FileReader/jquery.FileReader.min.js').done(
+                        function(){
+                            view.fileReader({filereader: '/static/assets/js/polyfills/FileReader/filereader.swf'});
+                        }
+                    );
+                }
+            );
+        }
+    },
+
     change: function (evt) {
         var files = evt.target.files;
         var reader = new FileReader();
@@ -213,6 +230,22 @@ App.UploadFile = Ember.TextField.extend({
 App.UploadMultipleFiles = Ember.TextField.extend({
     type: 'file',
     attributeBindings: ['name', 'accept', 'multiple'],
+
+    didInsertElement: function(){
+        // Or maybe try: https://github.com/francois2metz/html5-formdata.
+        var view = this.$();
+        if (Em.isNone(File)) {
+            $.getScript('//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js').done(
+                function(){
+                    $.getScript('/static/assets/js/polyfills/FileReader/jquery.FileReader.min.js').done(
+                        function(){
+                            view.fileReader({filereader: '/static/assets/js/polyfills/FileReader/filereader.swf'});
+                        }
+                    );
+                }
+            );
+        }
+    },
 
     contentBinding: 'parentView.controller.content',
 
