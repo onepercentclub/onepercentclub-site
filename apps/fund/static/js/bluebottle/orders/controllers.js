@@ -18,16 +18,18 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
     }.property('length'),
 
     readyForPayment: function() {
-        if (this.get('length') > 0) {
-            return true;
+        var ready = true;
+        if (this.get('length') == 0 ) {
+            ready = false;
         }
-        if (this.get('editingRecurringOrder')) {
-            if (this.get('recurringTotal') != this.get('recurringOrder.total')) {
-                return true;
+
+        this.get('model').forEach(function(don){
+            if (don.get('errors.amount')) {
+                ready = false;
             }
-        }
-        return this.get('recurringTotal') > 0;
-    }.property('length', 'editingRecurringOrder', 'recurringTotal'),
+        });
+        return ready;
+    }.property('length', 'model.@each.errors'),
 
     updateDonation: function(donation, newAmount) {
         // 'current' order id hack: This can be removed when we have a RESTful Order API.
@@ -51,10 +53,6 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
         donation.set('errors', []);
         donation.one('becameInvalid', function(record) {
             record.set('errors', record.get('errors'));
-
-            // Revert to the value on the server when there's an error.
-            record.transitionTo('loaded');
-            record.reload();
 
             // Clear the error after 10 seconds.
             Ember.run.later(this, function() {
