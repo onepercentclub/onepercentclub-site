@@ -53,7 +53,8 @@ $.ajaxSetup({
             // Using the CSRFToken value acquired earlier
             xhr.setRequestHeader("X-CSRFToken", csrf_token);
         }
-    }
+    },
+    cache: false
 });
 
 

@@ -527,6 +527,7 @@ App.TickerController = Em.ArrayController.extend(Ember.SortableMixin, {
     init: function(){
         this._super();
         var controller = this;
+        $.getScript('/static/assets/js/vendor/audio-js.min.js');
         window.setTimeout(function(){
             controller.refresh();
         }, 5000);
