@@ -62,10 +62,6 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
         donation.one('becameInvalid', function(record) {
             record.set('errors', record.get('errors'));
 
-            // Revert to the value on the server when there's an error.
-            record.transitionTo('loaded');
-            record.reload();
-
             // Clear the error after 10 seconds.
             Ember.run.later(this, function() {
                 record.set('errors', []);
