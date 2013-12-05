@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: onepercentclub-site\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-29 00:05+0100\n"
-"PO-Revision-Date: 2013-11-28 23:07+0000\n"
+"POT-Creation-Date: 2013-12-05 15:49+0100\n"
+"PO-Revision-Date: 2013-12-05 14:51+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub-site/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -54,67 +54,67 @@ msgstr "%(author)s  heeft gereageerd op een bericht van jou."
 msgid "%(author)s commented on your project page."
 msgstr "%(author)s  heeft gereageerd op je projectpagina."
 
-#: models.py:30 models.py:79 models.py:110
+#: models.py:27 models.py:76 models.py:107
 msgid "author"
 msgstr "auteur"
 
-#: models.py:31 models.py:80 models.py:111
+#: models.py:28 models.py:77 models.py:108
 msgid "editor"
 msgstr "editor"
 
-#: models.py:31
+#: models.py:28
 msgid "The last user to edit this wallpost."
 msgstr "Gebruiker met de laatste wijziging bij wallpost"
 
-#: models.py:34 models.py:118
+#: models.py:31 models.py:115
 msgid "created"
 msgstr "aangemaakt"
 
-#: models.py:35 models.py:119
+#: models.py:32 models.py:116
 msgid "updated"
 msgstr "aangepast"
 
-#: models.py:36 models.py:77 models.py:120
+#: models.py:33 models.py:74 models.py:117
 msgid "deleted"
 msgstr "verwijderd"
 
-#: models.py:37 models.py:78 models.py:121
+#: models.py:34 models.py:75 models.py:118
 msgid "IP address"
 msgstr "IP-adres"
 
-#: models.py:40
+#: models.py:37
 msgid "content type"
 msgstr "content type"
 
-#: models.py:41
+#: models.py:38
 msgid "object ID"
 msgstr "object ID"
 
-#: models.py:80
+#: models.py:77
 msgid "The last user to edit this wallpost photo."
 msgstr "De laatste gebruiker die deze wallpost heeft gewijzigd."
 
-#: models.py:96
+#: models.py:93
 msgid "related type"
 msgstr "related type"
 
-#: models.py:97
+#: models.py:94
 msgid "related ID"
 msgstr "related ID"
 
-#: models.py:111
+#: models.py:108
 msgid "The last user to edit this reaction."
 msgstr "De laatste gebruiker die deze wallpost heeft gewijzigd."
 
-#: models.py:114
+#: models.py:111
 msgid "reaction text"
 msgstr "reactie tekst"
 
-#: models.py:129
+#: models.py:126
 msgid "Reaction"
 msgstr "Reactie"
 
-#: models.py:130
+#: models.py:127
 msgid "Reactions"
 msgstr "Reacties"
 
@@ -240,7 +240,7 @@ msgid ""
 msgstr "\n\n\nHi %(receiver_name)s,<br/>\n<br/>\n<strong>%(author_name)s</strong> heeft gereageerd op jouw bericht! <a href=\"%(site)s%(link)s\">Lees de reactie hier.</a><br/>\n<br/>\nLiane | 1%%Club\n"
 
 #: templates/reactions.hbs:24 templates/wallposts.hbs:67
-#: templates/wallposts.hbs.py:135 templates/wallposts.hbs:203
+#: templates/wallposts.hbs.py:135 templates/wallposts.hbs:210
 msgid "Delete"
 msgstr "Verwijderen"
 
@@ -324,14 +324,18 @@ msgstr "Plaats update"
 msgid "Comment"
 msgstr "Reageer"
 
-#: templates/wallposts.hbs:177
+#: templates/wallposts.hbs:179
+msgid "Fundraiser"
+msgstr ""
+
+#: templates/wallposts.hbs:181
 msgid "Donation"
 msgstr "Donatie"
 
-#: templates/wallposts.hbs:187
+#: templates/wallposts.hbs:192
 msgid "Someone"
 msgstr "Iemand"
 
-#: templates/wallposts.hbs:191
-msgid "Made a donation"
-msgstr "Heeft een donatie gedaan"
+#: templates/wallposts.hbs:196
+msgid "made a donation"
+msgstr ""

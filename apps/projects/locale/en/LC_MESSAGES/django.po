@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-02 09:52+0100\n"
+"POT-Creation-Date: 2013-12-05 15:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: admin.py:63 templates/manage.hbs:366 templates/projects.hbs:537
+#: admin.py:63 templates/manage.hbs:366 templates/projects.hbs:533
 msgid "Budget"
 msgstr ""
 
-#: admin.py:228 models.py:107 models.py:282 models.py:323
+#: admin.py:228 models.py:115 models.py:290 models.py:331
 msgid "title"
 msgstr ""
 
@@ -81,15 +81,15 @@ msgstr ""
 msgid "No recently funded projects."
 msgstr ""
 
-#: models.py:26 models.py:27 models.py:479 models.py:503
+#: models.py:26 models.py:27 models.py:487 models.py:511
 msgid "name"
 msgstr ""
 
-#: models.py:28 models.py:108 models.py:480
+#: models.py:28 models.py:116 models.py:488
 msgid "slug"
 msgstr ""
 
-#: models.py:29 models.py:481 models.py:505 models.py:515
+#: models.py:29 models.py:489 models.py:513 models.py:523
 msgid "description"
 msgstr ""
 
@@ -130,12 +130,12 @@ msgstr ""
 msgid "Failed"
 msgstr ""
 
-#: models.py:54 models.py:110
+#: models.py:54 models.py:118
 msgid "phase"
 msgstr ""
 
-#: models.py:55 models.py:114 models.py:278 models.py:319 models.py:373
-#: models.py:470
+#: models.py:55 models.py:122 models.py:286 models.py:327 models.py:381
+#: models.py:478
 msgid "created"
 msgstr ""
 
@@ -143,255 +143,255 @@ msgstr ""
 msgid "When this phase was reached."
 msgstr ""
 
-#: models.py:103
+#: models.py:111
 msgid "initiator"
 msgstr ""
 
-#: models.py:103
+#: models.py:111
 msgid "Project owner"
 msgstr ""
 
-#: models.py:105
+#: models.py:113
 msgid "coach"
 msgstr ""
 
-#: models.py:105
+#: models.py:113
 msgid "Assistent at 1%OFFICE"
 msgstr ""
 
-#: models.py:110
+#: models.py:118
 msgid "Phase this project is in right now."
 msgstr ""
 
-#: models.py:114 models.py:278 models.py:319 models.py:373 models.py:470
+#: models.py:122 models.py:286 models.py:327 models.py:381 models.py:478
 msgid "When this project was created."
 msgstr ""
 
-#: models.py:119
+#: models.py:127
 msgid "Project is part of a campaign and gets special promotion."
 msgstr ""
 
-#: models.py:216
+#: models.py:224
 msgid "{name_project} in {country}"
 msgstr ""
 
-#: models.py:235
+#: models.py:243
 msgid "{title} {{URL}} via @{twitter_handle}"
 msgstr ""
 
-#: models.py:243 models.py:275 models.py:316 models.py:367 models.py:467
+#: models.py:251 models.py:283 models.py:324 models.py:375 models.py:475
 msgid "project"
 msgstr ""
 
-#: models.py:244
+#: models.py:252
 msgid "projects"
 msgstr ""
 
-#: models.py:262 templates/manage.hbs:523 templates/manage.hbs.py:1501
+#: models.py:270 templates/manage.hbs:523 templates/manage.hbs.py:1501
 msgid "Skills and expertise"
 msgstr ""
 
-#: models.py:263 templates/manage.hbs:524 templates/manage.hbs.py:1502
+#: models.py:271 templates/manage.hbs:524 templates/manage.hbs.py:1502
 msgid "Crowdfunding campaign"
 msgstr ""
 
-#: models.py:264 templates/manage.hbs:525 templates/manage.hbs.py:1503
+#: models.py:272 templates/manage.hbs:525 templates/manage.hbs.py:1503
 msgid "Both"
 msgstr ""
 
-#: models.py:270 models.py:310 templates/projects.hbs:32
+#: models.py:278 models.py:318 templates/projects.hbs:32
 msgid "New"
 msgstr ""
 
-#: models.py:271 models.py:311
+#: models.py:279 models.py:319
 msgid "Submitted"
 msgstr ""
 
-#: models.py:272 models.py:312
+#: models.py:280 models.py:320
 msgid "Rejected"
 msgstr ""
 
-#: models.py:273 models.py:314
+#: models.py:281 models.py:322
 msgid "Approved"
 msgstr ""
 
-#: models.py:276 models.py:317 models.py:368 models.py:468
+#: models.py:284 models.py:325 models.py:376 models.py:476
 msgid "status"
 msgstr ""
 
-#: models.py:279 models.py:320 models.py:374 models.py:471
+#: models.py:287 models.py:328 models.py:382 models.py:479
 msgid "updated"
 msgstr ""
 
-#: models.py:282 models.py:323
+#: models.py:290 models.py:331
 msgid "Be short, creative, simple and memorable"
 msgstr ""
 
-#: models.py:283 models.py:303 models.py:324
+#: models.py:291 models.py:311 models.py:332
 msgid "pitch"
 msgstr ""
 
-#: models.py:283 models.py:324
+#: models.py:291 models.py:332
 msgid "Pitch your smart idea in one sentence"
 msgstr ""
 
-#: models.py:284 models.py:331
+#: models.py:292 models.py:339
 msgid "why, what and how"
 msgstr ""
 
-#: models.py:284 models.py:331 templates/manage.hbs:553
+#: models.py:292 models.py:339 templates/manage.hbs:553
 msgid "Blow us away with the details!"
 msgstr ""
 
-#: models.py:286 models.py:326
+#: models.py:294 models.py:334
 msgid "Project need"
 msgstr ""
 
-#: models.py:287 models.py:327
+#: models.py:295 models.py:335
 msgid "theme"
 msgstr ""
 
-#: models.py:287 models.py:327
+#: models.py:295 models.py:335
 msgid "Select one of the themes "
 msgstr ""
 
-#: models.py:288 models.py:328
+#: models.py:296 models.py:336
 msgid "tags"
 msgstr ""
 
-#: models.py:288 models.py:328
+#: models.py:296 models.py:336
 msgid "Add tags"
 msgstr ""
 
-#: models.py:291 models.py:338
+#: models.py:299 models.py:346
 msgid "latitude"
 msgstr ""
 
-#: models.py:292 models.py:339
+#: models.py:300 models.py:347
 msgid "longitude"
 msgstr ""
 
-#: models.py:296
+#: models.py:304
 msgid "picture"
 msgstr ""
 
-#: models.py:296
+#: models.py:304
 msgid "Upload the picture that best describes your smart idea!"
 msgstr ""
 
-#: models.py:297 models.py:344
+#: models.py:305 models.py:352
 msgid "video"
 msgstr ""
 
-#: models.py:297 models.py:344
+#: models.py:305 models.py:352
 msgid "Do you have a video pitch or a short movie that explains your project. Cool! We can't wait to see it. You can paste the link to the YouTube or Vimeo video here"
 msgstr ""
 
-#: models.py:304
+#: models.py:312
 msgid "pitches"
 msgstr ""
 
-#: models.py:313
+#: models.py:321
 msgid "Needs work"
 msgstr ""
 
-#: models.py:332
+#: models.py:340
 msgid "effects"
 msgstr ""
 
-#: models.py:332 templates/manage.hbs:564
+#: models.py:340 templates/manage.hbs:564
 msgid "What will be the Impact? How will your Smart Idea change the lives of people?"
 msgstr ""
 
-#: models.py:333
+#: models.py:341
 msgid "for who"
 msgstr ""
 
-#: models.py:333
+#: models.py:341
 msgid "Describe your target group"
 msgstr ""
 
-#: models.py:334
+#: models.py:342
 msgid "future"
 msgstr ""
 
-#: models.py:334 templates/manage.hbs:575
+#: models.py:342 templates/manage.hbs:575
 msgid "How will this project be self-sufficient and sustainable in the long term?"
 msgstr ""
 
-#: models.py:335
+#: models.py:343
 msgid "Reach"
 msgstr ""
 
-#: models.py:335
+#: models.py:343
 msgid "How many people do you expect to reach?"
 msgstr ""
 
-#: models.py:343 models.py:482
+#: models.py:351 models.py:490
 msgid "image"
 msgstr ""
 
-#: models.py:343
+#: models.py:351
 msgid "Main project picture"
 msgstr ""
 
-#: models.py:346
+#: models.py:354
 msgid "organisation"
 msgstr ""
 
-#: models.py:349
+#: models.py:357
 msgid "Describe in one sentence what you need the money for."
 msgstr ""
 
-#: models.py:350 templates/manage.hbs:1179
+#: models.py:358 templates/manage.hbs:1179
 msgid "Campaign strategy"
 msgstr ""
 
-#: models.py:356
+#: models.py:364
 msgid "plan"
 msgstr ""
 
-#: models.py:357
+#: models.py:365
 msgid "plans"
 msgstr ""
 
-#: models.py:363 models.py:463
+#: models.py:371 models.py:471
 msgid "Running"
 msgstr ""
 
-#: models.py:364 models.py:464
+#: models.py:372 models.py:472
 msgid "Realized"
 msgstr ""
 
-#: models.py:365 models.py:465
+#: models.py:373 models.py:473
 msgid "Closed"
 msgstr ""
 
-#: models.py:482
+#: models.py:490
 msgid "Main partner picture"
 msgstr ""
 
-#: models.py:489
+#: models.py:497
 msgid "partner organization"
 msgstr ""
 
-#: models.py:490
+#: models.py:498
 msgid "partner organizations"
 msgstr ""
 
-#: models.py:504
+#: models.py:512
 msgid "email"
 msgstr ""
 
-#: models.py:517
+#: models.py:525
 msgid "amount (in cents)"
 msgstr ""
 
-#: models.py:523
+#: models.py:531
 msgid "budget line"
 msgstr ""
 
-#: models.py:524
+#: models.py:532
 msgid "budget lines"
 msgstr ""
 
@@ -590,7 +590,7 @@ msgstr ""
 
 #: templates/manage.hbs:319 templates/manage.hbs.py:641
 #: templates/manage.hbs:1390 templates/project_detail.html:34
-#: templates/projects.hbs:501
+#: templates/projects.hbs:497
 msgid "Location"
 msgstr ""
 
@@ -599,7 +599,7 @@ msgid "Media"
 msgstr ""
 
 #: templates/manage.hbs:330 templates/manage.hbs.py:705
-#: templates/manage.hbs:870 templates/projects.hbs:509
+#: templates/manage.hbs:870 templates/projects.hbs:505
 msgid "Organisation"
 msgstr ""
 
@@ -715,11 +715,11 @@ msgstr ""
 msgid "Why, what and how"
 msgstr ""
 
-#: templates/manage.hbs:565 templates/projects.hbs:473
+#: templates/manage.hbs:565 templates/projects.hbs:469
 msgid "Effects"
 msgstr ""
 
-#: templates/manage.hbs:576 templates/projects.hbs:480
+#: templates/manage.hbs:576 templates/projects.hbs:476
 msgid "Future"
 msgstr ""
 
@@ -735,7 +735,7 @@ msgstr ""
 msgid "How many people do you expect to reach? Enter a number (e.g. 50)"
 msgstr ""
 
-#: templates/manage.hbs:601 templates/projects.hbs:494
+#: templates/manage.hbs:601 templates/projects.hbs:490
 msgid "People reached"
 msgstr ""
 
@@ -1472,19 +1472,19 @@ msgstr ""
 msgid "Total"
 msgstr ""
 
-#: templates/projects.hbs:429 templates/projects.hbs.py:446
+#: templates/projects.hbs:429 templates/projects.hbs.py:442
 msgid "Guest"
 msgstr ""
 
-#: templates/projects.hbs:461
+#: templates/projects.hbs:457
 msgid "Project Plan"
 msgstr ""
 
-#: templates/projects.hbs:466
+#: templates/projects.hbs:462
 msgid "Why, what and how?"
 msgstr ""
 
-#: templates/projects.hbs:487
+#: templates/projects.hbs:483
 msgid "For who?"
 msgstr ""
 
