@@ -17,4 +17,8 @@
             {% templatetag openvariable %}/if{% templatetag closevariable %}
         </div>
     </div>
+    {% templatetag openvariable %}#if errors.{{ field_name }}{% templatetag closevariable %}
+        <div class="has-errors">{% templatetag openvariable %}#each errors.{{ field_name }}{% templatetag closevariable %}<p>{% templatetag openvariable %}this{% templatetag closevariable %}</p>{% templatetag openvariable %}/each{% templatetag closevariable %}</div>
+    {% templatetag openvariable %}/if{% templatetag closevariable %}
+
 </li>
