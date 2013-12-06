@@ -507,19 +507,19 @@
                         {{#if organization.website}}
                             <dl>
                                 <dt><span class="flaticon solid link-1"></span> Website</dt>
-                                <dd><a {{bindAttr href=organization.websiteUrl}}>{{organization.website}}</a></dd>
+                                <dd><a {{bindAttr href=organization.websiteUrl}} target="_blank">{{organization.website}}</a></dd>
                             </dl>
                         {{/if}}
                         {{#if organization.twitter}}
                             <dl>
                                 <dt><span class="flaticon social twitter-3"></span> Twitter</dt>
-                                <dd><a {{bindAttr href=organization.twitterUrl}}>{{organization.twitter}}</a></dd>
+                                <dd><a {{bindAttr href=organization.twitterUrl}} target="_blank">{{organization.twitter}}</a></dd>
                             </dl>
                         {{/if}}
                         {{#if organization.facebook}}
                             <dl>
                                 <dt><span class="flaticon social facebook-3"></span> Facebook</dt>
-                                <dd><a {{bindAttr href=organization.facebookUrl}}>{{organization.facebook}}</a></dd>
+                                <dd><a {{bindAttr href=organization.facebookUrl}} target="_blank">{{organization.facebook}}</a></dd>
                             </dl>
                         {{/if}}
                         </ul>
