@@ -76,12 +76,6 @@ App.OrderThanksRoute = Em.Route.extend({
         var route = this;
         var order = App.Order.find(params.order_id);
         order.one('becameError', function() {
-            route.controllerFor('application').setProperties({
-                display_message: true,
-                isError: true,
-                message_title: "",
-                message_content: "Sorry, we can't find your order."
-            });
             route.replaceWith('home');
         });
         return order;
