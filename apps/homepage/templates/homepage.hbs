@@ -278,7 +278,7 @@
                                     {{bb-progressbar class="project-fund-amount-slider" totalValue=amount currentValue=amount_donated}}
                                     <span class="project-fund-amount">
                                         {{#if is_funded }}
-                                            {% trans "<strong>Fully</strong> funded" %}
+                                            <em>{% trans "Fully funded with" %}</em> <strong>&euro;{{localize amount_donated}}</strong>
                                         {{else}}
                                             <strong>&euro;{{localize amount_needed}}</strong> <em>{% trans "To go" %}</em>
                                         {{/if}}
