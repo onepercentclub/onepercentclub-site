@@ -45,6 +45,7 @@ def mail_project_funded_monthly_donor_notification(receiver, project):
     msg.send()
 
 
+@task
 def mail_new_oneoff_donation(donation):
     if donation.user:
         name = donation.user.first_name
