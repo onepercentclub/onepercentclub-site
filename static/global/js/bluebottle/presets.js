@@ -62,3 +62,7 @@ if (Em.isNone(document.head)){
     document.head = document.getElementsByTagName('head')[0];
 }
 
+// FIXME: Properly implement a polyfill for this!!
+if (Em.isNone(File)) {
+    var File = function(){};
+}

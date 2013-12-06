@@ -197,10 +197,6 @@ App.UploadFile= Ember.TextField.extend({
         // Or maybe try: https://github.com/francois2metz/html5-formdata.
         var view = this.$();
         if (Em.isNone(File)) {
-
-            // Dirty fix for now.
-            var File = function(){};
-
             $.getScript('//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js').done(
                 function(){
                     $.getScript('/static/assets/js/polyfills/FileReader/jquery.FileReader.min.js').done(
