@@ -307,8 +307,7 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
             error_message = "{0} {1}".format(error['_code'], error['value'])
             logger.error(error_message)
             # Log this error to db too.
-            log_entry = DocDataPaymentLogEntry(docdata_payment_order=payment, level='warn', message=error_message)
-            log_entry.save()
+            docdata_payment_logger(payment, 'warn', error_message)
 
             raise DocDataPaymentException(error['_code'], error['value'])
         else:
@@ -316,8 +315,7 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
             error_message = 'Received unknown reply from DocData. Remote Payment not created.'
             logger.error(error_message)
             # Log this error to db too.
-            log_entry = DocDataPaymentLogEntry(docdata_payment_order=payment, level='warn', message=error_message)
-            log_entry.save()
+            docdata_payment_logger(payment, 'warn', error_message)
 
             raise DocDataPaymentException('REPLY_ERROR', error_message)
 
