@@ -446,7 +446,7 @@
             }
             
             .project-title, .fundraiser-title {
-                @include grid(32);
+                @include grid(36);
                 text-transform: uppercase;
                 font-size: $base-font-size;
                 padding: 0;

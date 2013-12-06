@@ -12,13 +12,13 @@
 	        		
 				        <article class="l-half carousel-content">
 					       	<h1>About the contest</h1>
-					       <p><strong>FMO & 1%Club present: the accelerate your smart idea contest!</strong> FMO proudly supports 1%Club in its mission to empower entrepreneurs around the world to develop themselves and the communities around them through social enterprises. Through the Arthur Arnold Foundation (AAF) we will award two entrepreneurs with grant money to finance their social enterprises. The winners will be selected within two months after the 1%Co-Creation Lab which will take place in October at 1%Club in Amsterdam.</p>
+					       <p><strong>FMO & 1%Club present from September till December 3rd 2013: the smart idea contest! FMO proudly supports 1%Club in its mission to empower entrepreneurs around the world to develop themselves and the communities around them through social enterprises. Through the Arthur Arnold Foundation (AAF), FMO awarded two entrepreneurs with grant money to finance their social enterprises. Also, FMO employees shared expertise by co-creating solutions to challenges of the six participating projects. <a href="">And the winner is…</a></p>
                         </article>
 	        		</div>
 	        		<div class="carousel-image"></div>
 		        </li>
 		        
-		        <li class="carousel-item" id="fmo-cocreation">
+		        <li class="carousel-item"id="fmo-about">
 	        		<div class="l-wrapper">
 	        	
 				        <article class="l-half carousel-content">
@@ -45,7 +45,7 @@
 	        		<div class="carousel-image"></div>
 		        </li>
 		        
-		        <li class="carousel-item" id="fmo-about">
+		        <li class="carousel-item" id="fmo-cocreation" >
 	        		<div class="l-wrapper">
 				        <article class="l-half carousel-content">
                             <h1>About FMO and AAF</h1>
@@ -80,15 +80,19 @@
 					<p>The final six projects shown below are in the running for prizes of $7.000 and $3.000 seed money!</p>
 				</div>
 				
+				<div class="section-header" style="clear: both"><h1>Winner</h1></div>
+				{% include "project_snippet.html" with project_id="1429" %}
+				<hr />
+				
+				<div class="section-header" style="clear: both"><h1>Runner up</h1></div>
+				{% include "project_snippet.html" with project_id="1646" %}
+				<hr />
+				
 				{% include "project_snippet.html" with project_id="1748" %}
 				
 				{% include "project_snippet.html" with project_id="1535" %}
 
-                {% include "project_snippet.html" with project_id="1646" %}
-				
 				{% include "project_snippet.html" with project_id="1622" %}
-
-				{% include "project_snippet.html" with project_id="1429" %}
 
 				{% include "project_snippet.html" with project_id="1681" %}
             </div>

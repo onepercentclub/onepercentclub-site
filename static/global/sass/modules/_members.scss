@@ -145,11 +145,64 @@
                         margin-top: 4px;
                     }
                 }
+                
+                // Needed for position changing on active
+			    &:before {
+				    position: absolute;
+				    top: 0;
+				    right: 0;
+				    bottom: 0;
+				    left: 0;
+				}
             }
         }
         
         &.project-member-fundraisers .popover {
-            width: 400px;
+            width: 460px;
+            
+            .fundraiser-image {
+            	@include grid(12,0,1);
+            	float: left;
+				margin-bottom: $base-margin;
+	            
+	            img { 
+	            	border: 1px solid $white;
+	            }
+            }
+            
+            .fundraiser-content {
+	            @include grid(36,0,1);
+	            margin-bottom: $base-margin;
+            }
+            
+            .fundraiser-title {
+	            font-size: $font-size-large;
+            	color: $color-secondary;
+	            font-family: $font-family-heavy;
+            }
+            
+            .fundraiser-name {
+	            font-size: $base-font-size;
+	            font-family: $font-family-heavy;
+            }
+            
+            .project-fund-amount {
+            	margin-top: $base-margin;
+	            color: $gray;
+	            font-size: $font-size-small;
+	            
+	            strong {
+		            color: $gray-darker;
+	            }
+	            
+	            .amount-donated {
+		            
+	            }
+	            
+	            .amount-asked {
+		            
+	            }
+            }
         }
         
         &.project-member-supporters .popover {
