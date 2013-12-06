@@ -9,7 +9,7 @@
             <figure class="account-avatar"><img {{bindAttr src="controllers.currentUser.getAvatar"}} /></figure>
 
             <header class="account-title">
-                <h2>{% trans "My 1%" %} <em class="account-subtitle">{% trans "Fundraisers" %}</em></h2>
+                <h2>{% trans "My 1%" %} <em class="account-subtitle">{% trans "Fundraising" %}</em></h2>
             </header>
 
             {{#if id}}
@@ -371,7 +371,7 @@
                 <figure class="account-avatar"><img {{bindAttr src="controllers.currentUser.getAvatar"}} /></figure>
 
                 <header class="account-title">
-                    <h2>{% trans "My 1%" %} <em class="account-subtitle">{% trans "Fundraisers" %}</em> <em class="account-subtitle">{% trans "Donations" %}</em></h2>
+                    <h2>{% trans "My 1%" %} <em class="account-subtitle">{% trans "Fundraising" %}</em> <em class="account-subtitle">{% trans "Donations" %}</em></h2>
                 </header>
 
                 {{#linkTo 'fundRaiser' id class="account-preview btn-link"}}
@@ -444,11 +444,11 @@
             {{else}}
                 <div class="l-content">
                 	<header class="l-page-header">
-                        <h1>Fundraisers overview</h1>
+                        <h1>Fundraising overview</h1>
 	                    {{#if controller.length}}
-	                        <p>Overview of all your fundraiser actions.</p>
+	                        <p>{% trans "Overview of you fundraising pages" %}.</p>
 	                    {{else}}
-	                        <p>You have no fundraiser actions.</p>
+	                        <p>{% trans "You have no fundraising pages" %}.</p>
 	                    {{/if}}
                     </header>
                 </div>
