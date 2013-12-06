@@ -1,0 +1,12 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+
+{% tplhandlebars "upload_file_legacy" %}
+
+    <form target="/api/">
+        <input type="file" value="yeah" />
+    </form>
+
+{%  endtplhandlebars %}

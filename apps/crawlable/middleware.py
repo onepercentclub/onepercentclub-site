@@ -48,7 +48,7 @@ class DedicatedWebDriver(RemoteWebDriver):
 
         self.service = DummyService(port)
 
-        # Start the remove web driver.
+        # Start the remote web driver.
         try:
             RemoteWebDriver.__init__(self,
                 command_executor=self.service.service_url,
@@ -78,7 +78,6 @@ class WebCache(object):
                 '--disk-cache=true',
                 '--local-storage-path=%s' % os.path.join(tempfile.gettempdir(), 'phantomjs')
             ]
-
         self.service_args = service_args
 
     def get_driver(self):

@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: onepercentclub-site\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-02 09:52+0100\n"
-"PO-Revision-Date: 2013-12-02 11:20+0000\n"
-"Last-Translator: nieja <niels@1procentclub.nl>\n"
+"POT-Creation-Date: 2013-12-05 15:49+0100\n"
+"PO-Revision-Date: 2013-12-05 14:51+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub-site/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -80,147 +80,147 @@ msgstr "{title} {{URL}} via @{twitter_handle}"
 msgid "No %(verbose_name)s found matching the query"
 msgstr "Geen  %(verbose_name)s gevonden die voldoet aan deze zoekopdracht"
 
-#: templates/fundraisers.hbs:15 templates/fundraisers.hbs.py:370
+#: templates/fundraisers.hbs:12 templates/fundraisers.hbs.py:374
 #, python-format
 msgid "My 1%%"
 msgstr "Mijn 1%%"
 
-#: templates/fundraisers.hbs:15 templates/fundraisers.hbs.py:166
-#: templates/fundraisers.hbs:370
+#: templates/fundraisers.hbs:12 templates/fundraisers.hbs.py:160
+#: templates/fundraisers.hbs:374
 msgid "Fundraisers"
 msgstr "Fundraisers"
 
-#: templates/fundraisers.hbs:22
-msgid "Preview fundraiser page"
-msgstr "Preview fundraiser pagina"
+#: templates/fundraisers.hbs:19 templates/fundraisers.hbs.py:379
+msgid "Back to fundraiser"
+msgstr "Terug naar campagne"
 
-#: templates/fundraisers.hbs:53
+#: templates/fundraisers.hbs:47
 msgid "Amount & deadline"
 msgstr "Bedrag & deadline"
 
-#: templates/fundraisers.hbs:54
+#: templates/fundraisers.hbs:48
 msgid "Be realistic and...show ambition!"
 msgstr "Ben realistisch en…ambitieus!"
 
-#: templates/fundraisers.hbs:74
+#: templates/fundraisers.hbs:68
 msgid "Yes, you can!"
 msgstr "Start actie"
 
-#: templates/fundraisers.hbs:76
+#: templates/fundraisers.hbs:70
 msgid ""
 "\n"
 "                            What's your fundraising plan? Make it concrete & exciting!\n"
 "                            "
 msgstr "\nWat is je fundraising plan? Maak het concreet!"
 
-#: templates/fundraisers.hbs:86
+#: templates/fundraisers.hbs:80
 msgid "Create"
 msgstr "Maak aan"
 
-#: templates/fundraisers.hbs:91
+#: templates/fundraisers.hbs:85
 msgid "New fundraiser"
 msgstr "Nieuwe fundraiser"
 
-#: templates/fundraisers.hbs:93
+#: templates/fundraisers.hbs:87
 msgid ""
 "\n"
 "                            You need to be logged in to start fundraising.\n"
 "                            "
 msgstr "\nJe moet ingelogd zijn om te fundraisen."
 
-#: templates/fundraisers.hbs:99 templates/fundraisers.hbs.py:146
-#: templates/fundraisers.hbs:412
+#: templates/fundraisers.hbs:93 templates/fundraisers.hbs.py:140
+#: templates/fundraisers.hbs:419
 msgid "Login"
 msgstr "Log in"
 
-#: templates/fundraisers.hbs:99
+#: templates/fundraisers.hbs:93
 msgid "or"
 msgstr "of"
 
-#: templates/fundraisers.hbs:99
+#: templates/fundraisers.hbs:93
 msgid "register"
 msgstr "registreer"
 
-#: templates/fundraisers.hbs:99
+#: templates/fundraisers.hbs:93
 msgid "to become a fundraiser."
 msgstr "om een fundraiser te worden."
 
-#: templates/fundraisers.hbs:104 templates/fundraisers.hbs.py:417
+#: templates/fundraisers.hbs:98 templates/fundraisers.hbs.py:424
 msgid "Fundraising for project"
 msgstr "Fundraiser voor..."
 
-#: templates/fundraisers.hbs:105
+#: templates/fundraisers.hbs:99
 msgid "You'll be fundraising for this project"
 msgstr "Je bent fundraiser voor het volgende project:"
 
-#: templates/fundraisers.hbs:126 templates/fundraisers.hbs.py:138
+#: templates/fundraisers.hbs:120 templates/fundraisers.hbs.py:132
 msgid "Edit fundraiser"
 msgstr "Edit fundraiser"
 
-#: templates/fundraisers.hbs:133
+#: templates/fundraisers.hbs:127
 msgid "Save"
 msgstr "Opslaan"
 
-#: templates/fundraisers.hbs:140
+#: templates/fundraisers.hbs:134
 msgid ""
 "\n"
 "                                You can only make a fundraiser if you are logged in and the owner of this fundraiser.\n"
 "                            "
 msgstr "\nJe kunt een fundraiser alleen editen als je bent ingelogd als eigenaar van de fundraiser"
 
-#: templates/fundraisers.hbs:146 templates/fundraisers.hbs.py:412
+#: templates/fundraisers.hbs:140 templates/fundraisers.hbs.py:419
 msgid "or become a"
 msgstr "of maak"
 
-#: templates/fundraisers.hbs:146 templates/fundraisers.hbs.py:412
+#: templates/fundraisers.hbs:140 templates/fundraisers.hbs.py:419
 msgid "member"
 msgstr "een profiel aan"
 
-#: templates/fundraisers.hbs:146 templates/fundraisers.hbs.py:412
+#: templates/fundraisers.hbs:140 templates/fundraisers.hbs.py:419
 msgid "to start a fundraiser."
 msgstr "om een fundraiser te starten."
 
-#: templates/fundraisers.hbs:151
+#: templates/fundraisers.hbs:145
 msgid "You rock!"
 msgstr "Goed bezig!"
 
-#: templates/fundraisers.hbs:152
+#: templates/fundraisers.hbs:146
 msgid "Because you're fundraising for this project:"
 msgstr "Omdat je gaat fundraisen voor het volgende project:"
 
-#: templates/fundraisers.hbs:177
+#: templates/fundraisers.hbs:171
 msgid "Become a fundraiser"
 msgstr "Word een fundraiser"
 
-#: templates/fundraisers.hbs:191 templates/fundraisers.hbs.py:294
+#: templates/fundraisers.hbs:185 templates/fundraisers.hbs.py:294
 msgid "of"
 msgstr "van"
 
-#: templates/fundraisers.hbs:193 templates/fundraisers.hbs.py:296
+#: templates/fundraisers.hbs:187 templates/fundraisers.hbs.py:296
 msgid "raised"
 msgstr "opgehaald"
 
-#: templates/fundraisers.hbs:229
-msgid "Fundraising for"
-msgstr "Fundraiser voor"
-
-#: templates/fundraisers.hbs:243
+#: templates/fundraisers.hbs:227
 msgid "Edit Fundraiser"
 msgstr "Edit fundraise campagne"
 
-#: templates/fundraisers.hbs:244
+#: templates/fundraisers.hbs:228
 msgid "View Donations"
 msgstr "Bekijk donaties"
 
-#: templates/fundraisers.hbs:258
+#: templates/fundraisers.hbs:246
+msgid "Fundraising for"
+msgstr "Fundraiser voor"
+
+#: templates/fundraisers.hbs:259
 msgid "Fundraiser"
 msgstr "Fundraiser"
 
-#: templates/fundraisers.hbs:266
+#: templates/fundraisers.hbs:267
 msgid "Support"
 msgstr "Support"
 
-#: templates/fundraisers.hbs:269
+#: templates/fundraisers.hbs:270
 msgid "Project Funded"
 msgstr "Project gerealiseerd"
 
@@ -244,49 +244,41 @@ msgstr "Meer"
 msgid "more"
 msgstr "meer"
 
-#: templates/fundraisers.hbs:370
+#: templates/fundraisers.hbs:374
 msgid "Donations"
 msgstr "Donaties"
 
-#: templates/fundraisers.hbs:375
-msgid "Back to fundraiser"
-msgstr "Terug naar campagne"
-
-#: templates/fundraisers.hbs:384 templates/fundraisers.hbs.py:404
+#: templates/fundraisers.hbs:388 templates/fundraisers.hbs.py:411
 msgid "Donation overview"
 msgstr "Donatie overzicht"
 
-#: templates/fundraisers.hbs:386
+#: templates/fundraisers.hbs:390
 msgid ""
 "\n"
-"                            The people below already supported your fundraise action\n"
+"                            The people below supported your fundraiser\n"
 "                            "
-msgstr "\nOnderstaande personen hebben je actie gesteund"
+msgstr ""
 
-#: templates/fundraisers.hbs:399
+#: templates/fundraisers.hbs:406
 msgid "Awww. No donations yet!"
 msgstr "Awww. Nog geen donaties!"
 
-#: templates/fundraisers.hbs:406
+#: templates/fundraisers.hbs:413
 msgid ""
 "\n"
-"                                You are not authorized to view the donations.\n"
+"                                You are not authorised to view the donations.\n"
 "                            "
-msgstr "\nJe hebt geen toegang om de donaties te bekijken"
+msgstr ""
 
-#: templates/fundraisers.hbs:418
+#: templates/fundraisers.hbs:425
 msgid "You are fundraising for this project"
 msgstr "Je bent fundraiser voor het volgende project:"
 
-#: templates/fundraisers.hbs:436
+#: templates/fundraisers.hbs:443
 msgid "Loading projects"
 msgstr "Laadt projecten"
 
-#: templates/fundraisers.hbs:461
-msgid "View public page"
-msgstr "Bekijk pagina"
-
-#: templates/fundraisers.hbs:468
+#: templates/fundraisers.hbs:476
 msgid "Edit"
 msgstr "Edit"
 

@@ -18,26 +18,18 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
     }.property('length'),
 
     readyForPayment: function() {
-        // Check if any of the current donations was set to an amount less than
-        // 5 euro. If so, return false.
-        var donations = this.get('model').getEach('amount');
-        for(var i = 0; i < donations.length; i++)
-        {
-            if (donations[i] < 5)
-                return false;
+        var ready = true;
+        if (this.get('length') == 0 ) {
+            ready = false;
         }
 
-        // Return true if we already have a valid donation.
-        if (this.get('length') > 0) {
-            return true;
-        }
-        if (this.get('editingRecurringOrder')) {
-            if (this.get('recurringTotal') != this.get('recurringOrder.total')) {
-                return true;
+        this.get('model').forEach(function(don){
+            if (don.get('errors.amount')) {
+                ready = false;
             }
-        }
-        return this.get('recurringTotal') > 0;
-    }.property('length', 'editingRecurringOrder', 'recurringTotal'),
+        });
+        return ready;
+    }.property('length', 'model.@each.errors'),
 
     updateDonation: function(donation, newAmount) {
         // 'current' order id hack: This can be removed when we have a RESTful Order API.
@@ -535,6 +527,7 @@ App.TickerController = Em.ArrayController.extend(Ember.SortableMixin, {
     init: function(){
         this._super();
         var controller = this;
+        $.getScript('/static/assets/js/vendor/audio-js.min.js');
         window.setTimeout(function(){
             controller.refresh();
         }, 5000);

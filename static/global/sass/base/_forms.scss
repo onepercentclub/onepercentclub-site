@@ -150,8 +150,12 @@ p.error, label.error {
 // Errors on right side
 .has-errors {
     @include grid(24);
+    z-index: 10;
     position: absolute;
-    right: -57%;
+    right: -50%;
+    @include single-box-shadow( rgba(0,0,0,0.25) , 0, 0, 12px, 0px);
+
+
     background-color: $color-error;
     border: 1px solid darken($color-error, 10%);
     padding: $base-padding/2 $base-padding;
