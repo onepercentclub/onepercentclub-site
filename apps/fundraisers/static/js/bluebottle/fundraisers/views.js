@@ -31,12 +31,15 @@ App.ProjectFundRaiserView = Em.View.extend({
         return contentView.renderToBuffer().buffer;
         */
         var model= this.get('controller');
-        return '<h3>' + model.get('model.owner.full_name') + '</h3>' +
-                '<img src="' + model.get('model.image.small') +  '" />' +
+        return 	'<figure class="fundraiser-image"><img src="' + model.get('model.image.small') +  '" /></figure>' +
+        		'<div class="fundraiser-content">' + 
+        		'<h1 class="fundraiser-title">' + model.get('model.title') + '</h1>' +
+        		'<h3 class="fundraiser-name">' + gettext('by') + ' ' + model.get('model.owner.full_name') + '</h3>' +
                 '<div class="project-fund-amount">' +
                 '<strong class="amount-donated">&euro;' + model.get('model.amount_donated') + '</strong> ' +
                 gettext('of') + ' <strong class="amount-asked">&euro;' + model.get('model.amount') + '</strong> ' +
-                gettext('raised') + '</div>';
+                gettext('raised') + '</div>' +
+                '</div>';
 
     }.property('controller.title'),
 
@@ -46,7 +49,6 @@ App.ProjectFundRaiserView = Em.View.extend({
         this.$('img').popover({
             trigger: 'hover',
             placement: 'top',
-            title: model.get('title'),
             html: true,
             content: this.get('html')
         });
