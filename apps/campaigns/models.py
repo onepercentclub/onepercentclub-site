@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models import Sum
 from django.utils.translation import ugettext as _
+from django.core.cache import cache
 
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 
@@ -34,3 +35,14 @@ class Campaign(models.Model):
         donated = donations.aggregate(sum=Sum('amount'))['sum']
         return donated or '000'
 
+    @property
+    def sum_donations(self):
+
+        """ Add all donation amounts for donations made between start and end of the campaign """
+        if cache.get('donations-grant-total'):
+            return cache.get('donations-grant-total')
+
+        donations = Donation.valid_donations.filter(ready__gte=self.start).filter(ready__lte=self.end)
+        donated = donations.aggregate(sum=Sum('amount'))['sum'] or '000'
+        cache.set('donations-grant-total', donated, 60)
+        return donated

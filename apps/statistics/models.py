@@ -12,7 +12,7 @@ class Statistic(models.Model):
     projects = models.IntegerField()
     countries = models.IntegerField()
     hours_spent = models.IntegerField()
-    donated = models.IntegerField()
+    donated = models.IntegerField(verbose_name="Donated (obsolete)", help_text="Donated amount is calculated now. Hell yeah!")
     creation_date = CreationDateTimeField(_('creation date'))
 
     def __unicode__(self):
