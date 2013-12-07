@@ -52,6 +52,6 @@ class HomePage(object):
 
         donations = Donation.valid_donations
         donated = donations.aggregate(sum=Sum('amount'))['sum'] or '000'
-        cache.set('donations-grant-total', donated, 60)
+        cache.set('donations-grant-total', donated, 300)
         return donated
 

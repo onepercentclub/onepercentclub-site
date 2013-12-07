@@ -44,5 +44,5 @@ class Campaign(models.Model):
 
         donations = Donation.valid_donations.filter(ready__gte=self.start).filter(ready__lte=self.end)
         donated = donations.aggregate(sum=Sum('amount'))['sum'] or '000'
-        cache.set('donations-grant-total', donated, 60)
+        cache.set('donations-grant-total', donated, 300)
         return donated
