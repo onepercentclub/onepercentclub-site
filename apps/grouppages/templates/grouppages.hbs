@@ -1,0 +1,36 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+
+{% tplhandlebars "group" %}
+
+    <h1>{{title}}</h1>
+    <div id="group">
+        {{#if slides }}
+            {{view App.GroupPageBannerView }}
+        {{/if }}
+    </div>
+
+
+    <style>
+        #group ul li {
+            height: 450px;
+        }
+    </style>
+
+    <div class="l-section">
+        <section class="l-wrapper">
+
+            <ul id="search-results">
+                {{#each project in projects}}
+                    {{render "projectPreview" project}}
+                {{else}}
+                    <li class="no-results">{% trans "No projects found." %}</li>
+                {{/each}}
+            </ul>
+        </section>
+    </div>
+
+
+{% endtplhandlebars %}

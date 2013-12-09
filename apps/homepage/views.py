@@ -1,6 +1,6 @@
-from apps.homepage.model import HomePage
 from rest_framework import generics, response
 from .serializers import HomePageSerializer
+from .models import HomePage
 
 
 # Instead of serving all the objects separately we combine Slide, Quote and Stats into a dummy object

@@ -27,6 +27,7 @@ urlpatterns = patterns('',
     url(r'^api/organizations/', include('apps.organizations.urlsapi')),
     url(r'^api/pages/', include('apps.pages.urlsapi')),
     url(r'^api/partners/', include('apps.partners.urlsapi')),
+    url(r'^api/groups/', include('apps.grouppages.urlsapi')),
 
 
     # Homepage API urls

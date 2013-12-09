@@ -20,6 +20,7 @@ from .serializers import ProjectSerializer, ProjectDonationSerializer
 
 # API views
 
+
 class ProjectPreviewList(generics.ListAPIView):
     model = Project
     serializer_class = ProjectPreviewSerializer
