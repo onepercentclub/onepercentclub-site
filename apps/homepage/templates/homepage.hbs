@@ -225,14 +225,14 @@
             {{#if project }}
                 {{view App.HomeProjectView }}
             {{/if }}
+            
+            {{#if quote }}
+            	{{view App.HomeQuotesView }}
+			{{/if }}
 
         {{/if }}
 
         {{!-- this must always be visible --}}
-        {{#if quote }}
-            {{view App.HomeQuotesView }}
-        {{/if }}
-
         {{#if impact }}
             {{view App.HomeImpactView }}
         {{/if }}

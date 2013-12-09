@@ -243,7 +243,7 @@
                     <figure class="fundraiser-project-image"><img {{bindAttr src="project.image"}} width="100%" alt="Photo" /></figure>
 
                     <div class="fundraiser-project-detail">
-                        <h4>{% trans "Fundraising for" %}</h4>
+                        <h4>{% trans "Fund-racing for" %}</h4>
                         <p>{{#linkTo 'project' project.getProject}}{{project.title}}{{/linkTo}}</p>
                     </div>
                 </div>
@@ -256,7 +256,7 @@
                     <figure class="member-avatar">
                         <a href='#' {{action 'openInBigBox' 'userModal' owner }} class="TODO">
                             <img {{bindAttr src="owner.getAvatar" alt="owner.full_name"}} />
-                            <strong class="member-name"><em>{% trans "Fundraiser" %}</em> {{owner.full_name}}</strong>
+                            <strong class="member-name"><em>{% trans "Fund-racer" %}</em> {{owner.full_name}}</strong>
                         </a>
                     </figure>
 
