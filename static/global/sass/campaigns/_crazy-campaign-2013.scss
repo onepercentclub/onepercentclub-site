@@ -59,7 +59,7 @@
         
         .slider-progress {
             height: 25px;
-            background: image-url("campaign/home-racecar.png") $color-primary no-repeat 100% 50%;
+            background: image-url("campaigns/home-racecar.png") $color-primary no-repeat 100% 50%;
         }
         
         &:after {
@@ -76,7 +76,7 @@
             font-style: italic;
             text-transform: uppercase;
             font-size: $font-size-smallest;
-            background: image-url("campaign/home-finish.png") transparent no-repeat 0 0;
+            background: image-url("campaigns/home-finish.png") transparent no-repeat 0 0;
         }
     }
 }
@@ -116,7 +116,7 @@
                     left: 8px;
                     width: 50px;
                     height: 50px;
-                    background: image-url("campaign/campaign-label.png") transparent no-repeat 0 0;
+                    background: image-url("campaigns/campaign-label.png") transparent no-repeat 0 0;
                 }
             }
             
@@ -140,7 +140,7 @@
                     line-height: 1em;
                     font-family: $font-family-heavy;
                     @include opacity(0.9);
-                    background: image-url("campaign/fundraiser-is-funded.png") $white no-repeat 16px 16px;
+                    background: image-url("campaigns/fundraiser-is-funded.png") $white no-repeat 16px 16px;
                 }
             }
         }
@@ -210,7 +210,7 @@
             left: 16px;
             width: 50px;
             height: 50px;
-            background: image-url("campaign/campaign-label.png") transparent no-repeat 0 0;
+            background: image-url("campaigns/campaign-label.png") transparent no-repeat 0 0;
         }
     }
     
@@ -220,7 +220,7 @@
         background-color: $white;
         
         .slider-progress {
-            background: image-url("campaign/project-racecar.png") $color-primary no-repeat 100% 50%;
+            background: image-url("campaigns/project-racecar.png") $color-primary no-repeat 100% 50%;
         }
         
         &:after {
@@ -237,7 +237,7 @@
             font-style: italic;
             text-transform: uppercase;
             font-size: $font-size-smallest;
-            background: image-url("campaign/project-finish.png") transparent no-repeat 100% 0;
+            background: image-url("campaigns/project-finish.png") transparent no-repeat 100% 0;
         }
     }
 }
@@ -260,7 +260,7 @@
             font-style: italic;
             text-transform: uppercase;
             font-size: $font-size-smallest;
-            background: image-url("campaign/fundraiser-finish.png") transparent no-repeat 100% 0;
+            background: image-url("campaigns/fundraiser-finish.png") transparent no-repeat 100% 0;
         }
     }
 }
