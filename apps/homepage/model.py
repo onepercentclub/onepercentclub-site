@@ -1,4 +1,7 @@
+from apps.fund.models import Donation
+from django.db.models.aggregates import Sum
 from django.utils.timezone import now
+from django.core.cache import cache
 
 from apps.banners.models import Slide
 from apps.campaigns.models import Campaign
@@ -32,8 +35,10 @@ class HomePage(object):
         try:
             self.campaign = Campaign.objects.get(start__lte=now(), end__gte=now())
             # NOTE: MultipleObjectsReturned is not caught yet!
-            self.fundraisers = FundRaiser.objects.filter(project__is_campaign=True).order_by('?')
+            self.fundraisers = FundRaiser.objects.filter(project__is_campaign=True).order_by('-created')
         except Campaign.DoesNotExist:
             self.campaign, self.fundraisers = None, None
 
         return self
+
+
