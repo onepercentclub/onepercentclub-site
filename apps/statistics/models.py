@@ -25,7 +25,6 @@ class Statistic(models.Model):
         donations = Donation.objects.filter(status__in=(DonationStatuses.pending, DonationStatuses.paid))
         donated = donations.aggregate(sum=Sum('amount'))['sum'] or '000'
         cache.set('donations-grant-total', donated, 300)
-        donated /= 100
         return donated
 
     def __unicode__(self):

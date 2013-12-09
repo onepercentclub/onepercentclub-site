@@ -1,11 +1,12 @@
 from bluebottle.accounts.serializers import UserPreviewSerializer
 from rest_framework import serializers
+from bluebottle.bluebottle_drf2.serializers import EuroField
 from .models import Statistic
 
 
 class StatisticSerializer(serializers.ModelSerializer):
 
-    donated = serializers.IntegerField(source='donated')
+    donated = EuroField(source='donated')
 
     class Meta:
         model = Statistic
