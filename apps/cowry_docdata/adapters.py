@@ -260,8 +260,8 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
         language._code = payment.language
 
         name = self.client.factory.create('ns0:name')
-        name.first = self.convert_to_ascii(payment.first_name)
-        name.last = self.convert_to_ascii(payment.last_name)
+        name.first = self.convert_to_ascii(payment.first_name)[:35]
+        name.last = self.convert_to_ascii(payment.last_name)[:35]
 
         shopper = self.client.factory.create('ns0:shopper')
         shopper.gender = "U"  # Send unknown gender.
@@ -272,10 +272,10 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
 
         # Billing information.
         address = self.client.factory.create('ns0:address')
-        address.street = self.convert_to_ascii(payment.address)
+        address.street = self.convert_to_ascii(payment.address)[:35]
         address.houseNumber = 'N/A'
         address.postalCode = payment.postal_code.replace(' ', '')  # Spaces aren't allowed in the DocData postal code.
-        address.city = payment.city
+        address.city = payment.city[:35]
 
         country = self.client.factory.create('ns0:country')
         country._code = payment.country
@@ -306,6 +306,7 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
             error = reply['createError']['error']
             error_message = "{0} {1}".format(error['_code'], error['value'])
             logger.error(error_message)
+
             # Log this error to db too.
             docdata_payment_logger(payment, 'warn', error_message)
 
@@ -314,6 +315,7 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
             payment.save()
             error_message = 'Received unknown reply from DocData. Remote Payment not created.'
             logger.error(error_message)
+
             # Log this error to db too.
             docdata_payment_logger(payment, 'warn', error_message)
 
