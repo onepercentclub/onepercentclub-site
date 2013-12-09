@@ -39,19 +39,6 @@ class HomePage(object):
         except Campaign.DoesNotExist:
             self.campaign, self.fundraisers = None, None
 
-        self.donated = self.sum_donations
-
         return self
 
-    @property
-    def sum_donations(self):
-
-        """ Add all donation amounts for all donations ever """
-        if cache.get('donations-grant-total'):
-            return cache.get('donations-grant-total')
-
-        donations = Donation.valid_donations
-        donated = donations.aggregate(sum=Sum('amount'))['sum'] or '000'
-        cache.set('donations-grant-total', donated, 300)
-        return donated
 

@@ -97,7 +97,8 @@ class DonationStatuses(DjangoChoices):
 
 class ValidDonationsManager(models.Manager):
     def get_queryset(self):
-        return super(ValidDonationsManager, self).get_queryset().filter(status__in=(DonationStatuses.pending, DonationStatuses.paid))
+        queryset = super(ValidDonationsManager, self).get_queryset()
+        return queryset.filter(status__in=(DonationStatuses.pending, DonationStatuses.paid))
 
 
 class Donation(models.Model):
