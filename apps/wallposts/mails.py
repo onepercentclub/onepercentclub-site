@@ -125,7 +125,7 @@ def new_reaction_notification(sender, instance, created, **kwargs):
 
         # Implement 2b: send email to post author, if Reaction author is not the post author.
         if reaction_author != post_author:
-            if reaction_author not in mailed_users:
+            if reaction_author not in mailed_users and post_author:
                 send_mail(
                     template_name='project_wallpost_reaction_new.mail',
                     subject=_('%(author)s commented on your post.') % {'author': reaction_author.first_name},
