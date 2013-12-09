@@ -32,11 +32,11 @@ class Campaign(models.Model):
     def sum_donations(self):
 
         """ Add all donation amounts for donations made between start and end of the campaign """
-        if cache.get('donations-grant-total'):
-            return cache.get('donations-grant-total')
+        if cache.get('campaign-grant-total'):
+            return cache.get('campaign-grant-total')
 
         donations = Donation.valid_donations
         donations = donations.filter(ready__gte=self.start).filter(ready__lte=self.end)
         donated = donations.aggregate(sum=Sum('amount'))['sum'] or '000'
-        cache.set('donations-grant-total', donated, 120)
+        cache.set('campaign-grant-total', donated, 120)
         return donated
