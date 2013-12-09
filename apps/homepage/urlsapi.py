@@ -1,6 +1,6 @@
-from apps.homepage.views import HomePageDetail
 from django.conf.urls import patterns, url
 from surlex.dj import surl
+from .views import HomePageDetail
 
 
 urlpatterns = patterns('',

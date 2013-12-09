@@ -40,6 +40,7 @@
     {% include  "vouchers.hbs" %}
     {% include  "pages.hbs" %}
     {% include  "fundraisers.hbs" %}
+    {% include  "grouppages.hbs" %}
 {% endblock handlebars_templates %}
 
 {% block_verbatim nav_main %}
@@ -96,6 +97,11 @@
     <script type="text/javascript" src="{% static "js/bluebottle/fundraisers/controllers.js" %}"></script>
     <script type="text/javascript" src="{% static "js/bluebottle/fundraisers/views.js" %}"></script>
     <script type="text/javascript" src="{% static "js/bluebottle/fundraisers/routes.js" %}"></script>
+
+    <script type="text/javascript" src="{% static "js/bluebottle/grouppages/models.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/grouppages/controllers.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/grouppages/views.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/grouppages/routes.js" %}"></script>
 
     <script type="text/javascript" src="{% static "js/bluebottle/campaigns/models.js" %}"></script>
     {% comment %}
