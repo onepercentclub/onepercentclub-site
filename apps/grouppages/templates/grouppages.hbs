@@ -21,6 +21,20 @@
 
     <div class="l-section">
         <section class="l-wrapper">
+            <ul class="project-member-list">
+                {{#if members.length}}
+                    <li class="project-member-supporters">
+                        <h4>{% trans "Group Members" %}</h4>
+                        <ul>
+                            {{#each member in members}}
+                                <a class="member" {{action 'openInBigBox' 'userModal' member }} {{bindAttr data-title="member.full_name"}}>
+                                    <span class="member-avatar"><img {{bindAttr src="member.getAvatar" alt="member.full_name"}} /></span>
+                                </a>
+                            {{/each}}
+                        </ul>
+                    </li>
+                {{/if}}
+            </ul>
 
             <ul id="search-results">
                 {{#each project in projects}}
@@ -34,3 +48,7 @@
 
 
 {% endtplhandlebars %}
+
+
+
+

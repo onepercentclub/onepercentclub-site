@@ -13,3 +13,9 @@ App.GroupPageBannerView = Ember.View.extend({
     }
 });
 
+
+App.GroupView = Em.View.extend({
+    didInsertElement: function(){
+        this.$('a').popover({trigger: 'hover', placement: 'top'})
+    }
+});
