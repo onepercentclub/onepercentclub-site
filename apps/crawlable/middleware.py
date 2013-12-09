@@ -105,6 +105,9 @@ class WebCache(object):
                 self._web_driver.service.stop()
                 self._web_driver = WebDriver(service_args=self.service_args)
 
+        # Make sure it doesn't time out.
+        self._web_driver.set_script_timeout(30)
+
         return self._web_driver
 
 
