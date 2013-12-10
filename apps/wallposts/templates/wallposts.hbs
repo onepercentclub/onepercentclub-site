@@ -223,3 +223,55 @@
 
 {% endtplhandlebars %}
 
+
+{% tplhandlebars "systemVoucherWallPost" %}
+
+    <article class="wallpost wallpost-system">
+
+        <header class="wallpost-header">
+
+            <span class="wallpost-system-type">
+                <span class="flaticon solid wallet-1"></span>
+                {% trans "Voucher" %}
+            </span>
+
+            <div class="wallpost-member">
+                {{#if author}}
+                <a {{action openInBigBox "userModal" author}} class="member">
+                    <strong class="member-name">{{author.full_name}}</strong>
+                </a>
+                {{else}}
+                <span class="member">
+                    <span class="member member-guest"><strong class="member-name">{% trans "Someone" %}</strong></span>
+                </span>
+                {{/if}}
+                <span class="wallpost-system-action">
+                    {% trans "used a gift card" %}
+                </span>
+            </div>
+            {{#if showFundRaiser}}
+                <div class="wallpost-system-message">
+                    {{#link-to 'fundRaiser' fundraiser.id class="wallpost-fundraiser-link"}}{{fundraiser.title}}{{/link-to}}
+                </div>
+            {{/if}}
+
+
+            {{#if created}}
+            <div class="wallpost-meta">
+                <em class="timestamp">{{ localize created formatting="X" }}</em>
+                {{#if isAuthor}}
+                    <a {{ action "deleteWallPost" target="view" }} class="manage-delete">{% trans "Delete" %}</a>
+                {{/if}}
+            </div>
+            {{/if}}
+
+        </header>
+
+        <div class="wallpost-reactions">
+            {{render "wallPostReactionList" reactions}}
+        </div>
+
+    </article>
+
+
+{% endtplhandlebars %}

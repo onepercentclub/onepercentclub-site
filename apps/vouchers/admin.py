@@ -1,8 +1,17 @@
+from apps.fund.models import Donation
 from babel.numbers import format_currency
 from django.contrib import admin
 from django.core.urlresolvers import reverse
 from django.utils import translation
 from .models import CustomVoucherRequest, Voucher
+
+
+class VoucherDonationInline(admin.StackedInline):
+    model = Donation
+    raw_id_fields = ('project', 'user')
+    readonly_fields = ('amount', )
+    fields = readonly_fields + ('project', 'user')
+    extra = 0
 
 
 class VoucherAdmin(admin.ModelAdmin):
@@ -12,6 +21,8 @@ class VoucherAdmin(admin.ModelAdmin):
     readonly_fields = ('view_order',)
     fields = readonly_fields + ('sender', 'receiver', 'status', 'amount', 'currency', 'code', 'sender_email',
                                 'receiver_email', 'receiver_name', 'sender_name', 'message')
+
+    inlines = (VoucherDonationInline, )
 
     def view_order(self, obj):
         url = reverse('admin:%s_%s_change' % (obj.order._meta.app_label, obj.order._meta.module_name), args=[obj.order.id])

@@ -39,6 +39,7 @@ payment_method_icon_mapping = {
     'Direct debit': 'fund/icon-direct-debit.png',
     'Mastercard': 'fund/icon-mastercard.svg',
     'Visa': 'fund/icon-visa.svg',
+    'Gift Card': 'fund/icon-gift-card.svg',
 }
 
 
@@ -47,9 +48,9 @@ class DonationAdmin(admin.ModelAdmin):
     list_display = ('updated', 'ready', 'project', 'user', 'amount_override', 'status', 'type', 'payment_method_override')
     list_filter = (DonationStatusFilter, 'donation_type')
     ordering = ('-ready', '-updated')
-    raw_id_fields = ('user', 'project')
+    raw_id_fields = ('user', 'project', 'fundraiser', 'voucher')
     readonly_fields = ('view_order', 'created', 'updated', 'ready')
-    fields = readonly_fields + ('status', 'donation_type', 'amount', 'currency', 'user', 'project', 'fundraiser')
+    fields = readonly_fields + ('status', 'donation_type', 'amount', 'currency', 'user', 'project', 'fundraiser', 'voucher')
     search_fields = ('user__first_name', 'user__last_name', 'user__email', 'project__title')
 
     def view_order(self, obj):

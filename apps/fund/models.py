@@ -1,5 +1,6 @@
 import logging
 import random
+from apps.vouchers.models import VoucherStatuses
 
 from django.conf import settings
 from django.db import models
@@ -127,7 +128,8 @@ class Donation(models.Model):
 
     donation_type = models.CharField(_("Type"), max_length=20, choices=DonationTypes.choices, default=DonationTypes.one_off, db_index=True)
 
-    order = models.ForeignKey('Order', verbose_name=_("Order"), related_name='donations')
+    order = models.ForeignKey('Order', verbose_name=_("Order"), related_name='donations', null=True)
+    voucher = models.ForeignKey('vouchers.Voucher', verbose_name=_("Gift card"), null=True)
 
     objects = models.Manager()
     valid_donations = ValidDonationsManager()
@@ -135,15 +137,14 @@ class Donation(models.Model):
     @property
     def payment_method(self):
         """ The DocData payment method. """
+        if self.donation_type == self.DonationTypes.voucher:
+            return "Gift Card"
         latest_payment = self.order.latest_payment
         if latest_payment:
             if getattr(latest_payment, 'docdata_payments', False):
                 latest_docdata_payment = latest_payment.latest_docdata_payment
                 if latest_docdata_payment:
                     return latest_docdata_payment.payment_method
-
-        if self.donation_type == self.DonationTypes.voucher:
-            return _("Gift Card")
 
         return ''
 
@@ -162,12 +163,32 @@ class Donation(models.Model):
         # Automatically set the user and donation_type based on the order. This is required so that donations always
         # have the correct user and donation_type regardless of how they are created. User is just a cache of the order
         # user.
-        if self.order.user != self.user:
-            self.user = self.order.user
-        if self.order.recurring and self.donation_type != self.DonationTypes.recurring:
-            self.donation_type = self.DonationTypes.recurring
-        elif not self.order.recurring and self.donation_type != self.DonationTypes.one_off:
-            self.donation_type = self.DonationTypes.one_off
+        if not self.order and not self.voucher:
+            raise Exception("Either Order or Voucher should be set.")
+
+        if self.order:
+            if self.order.user != self.user:
+                self.user = self.order.user
+            if self.order.recurring and self.donation_type != self.DonationTypes.recurring:
+                self.donation_type = self.DonationTypes.recurring
+            elif not self.order.recurring and self.donation_type != self.DonationTypes.one_off:
+                self.donation_type = self.DonationTypes.one_off
+
+        if self.voucher:
+            self.donation_type = self.DonationTypes.voucher
+            if self.voucher.receiver:
+                self.user = self.voucher.receiver
+            if self.amount != self.voucher.amount:
+                self.amount = self.voucher.amount
+            if len(self.voucher.donation_set.all()) > 1:
+                raise Exception("Can't have more then one donation connected to a Voucher.")
+            if self.voucher.status not in [VoucherStatuses.paid, VoucherStatuses.cashed_by_proxy, VoucherStatuses.cashed]:
+                raise Exception("Voucher has the wrong status.")
+            # TODO: Move logic of changing voucher status to Voucher.
+            self.voucher.status = VoucherStatuses.cashed
+            self.voucher.save()
+            self.status = DonationStatuses.paid
+
 
         # Set the datetime when the Donation became 'ready'. This is used for the donation time on the frontend.
         if not self.ready and self.status in (DonationStatuses.pending, DonationStatuses.paid):
