@@ -6,6 +6,7 @@ from django.db.models.aggregates import Count, Sum
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import translation
+from django.utils.http import urlquote
 from django.utils.translation import ugettext as _
 from django.conf import settings
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
@@ -236,7 +237,7 @@ class Project(models.Model):
             lang_code = 'en'
         twitter_handle = settings.TWITTER_HANDLES.get(lang_code, settings.DEFAULT_TWITTER_HANDLE)
 
-        title = self.get_fb_title()
+        title = urlquote(self.get_fb_title())
 
         # {URL} is replaced in Ember to fill in the page url, avoiding the
         # need to provide front-end urls in our Django code.
