@@ -492,8 +492,12 @@ App.SocialShareView = Em.View.extend({
 
     actions: {
         shareOnFacebook: function() {
-            // TODO: check if there's a meta url attribute, fallback to location.href
-            var currentLink = encodeURIComponent(location.href);
+            var meta_data = this.get('context').get('meta_data');
+            if(meta_data.url){
+                var currentLink = encodeURIComponent(meta_data.url);
+            } else {
+                var currentLink = encodeURIComponent(location.href);
+            }
             this.showDialog('https://www.facebook.com/sharer/sharer.php?u=', currentLink, 'facebook');
         },
 

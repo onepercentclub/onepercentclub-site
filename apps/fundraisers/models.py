@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.db.models.aggregates import Sum
+from django.utils.http import urlquote
 from django.utils.translation import ugettext as _
 
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
@@ -54,7 +55,7 @@ class FundRaiser(models.Model):
         lang_code = request.LANGUAGE_CODE if request else 'en'
         twitter_handle = settings.TWITTER_HANDLES.get(lang_code, settings.DEFAULT_TWITTER_HANDLE)
 
-        title = self.get_meta_title(**kwargs)
+        title = urlquote(self.get_meta_title(**kwargs))
 
         # {URL} is replaced in Ember to fill in the page url, avoiding the
         # need to provide front-end urls in our Django code.
