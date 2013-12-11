@@ -24,3 +24,5 @@ COWRY_LIVE_PAYMENTS = False
 EMAIL_BACKEND = 'bluebottle.bluebottle_utils.email_backend.TestMailBackend'
 
 SESSION_COOKIE_NAME = 'bb-testing-session-id'
+
+SELENIUM_WEBDRIVER = 'phantomjs'
