@@ -5,4 +5,5 @@ App.Campaign = DS.Model.extend({
 
 	target: DS.attr('number'),
 	amount_donated: DS.attr('number'),
+	homepage: DS.attr('string')
 });

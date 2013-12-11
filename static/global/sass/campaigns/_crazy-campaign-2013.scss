@@ -23,6 +23,10 @@
         @include grid(19,0,0);
         margin-bottom: $base-margin/4;
     }
+
+	.livestream {
+		@include grid(24,1,2);
+	}
     
     .campaign-description {
         @include grid(24,0,1);
@@ -78,11 +82,7 @@
     
 	&.campaign-results {
 		background: image-url("campaigns/home-finished-back.png") $gray-lighter no-repeat 85% 100%;
-		
-		.livestream {
-			@include grid(24,1,2);
-		}
-		
+
 		.project-fund-amount {
 			text-align: left;
 			font-size: $font-size-large;
