@@ -23,6 +23,10 @@
         @include grid(19,0,0);
         margin-bottom: $base-margin/4;
     }
+
+	.livestream {
+		@include grid(24,1,2);
+	}
     
     .campaign-description {
         @include grid(24,0,1);
@@ -59,7 +63,7 @@
         
         .slider-progress {
             height: 25px;
-            background: image-url("campaign/home-racecar.png") $color-primary no-repeat 100% 50%;
+            background: image-url("campaigns/home-racecar.png") $color-primary no-repeat 100% 50%;
         }
         
         &:after {
@@ -72,12 +76,112 @@
             height: 25px;
             text-align: right;
             padding-top: 44px;
-            color: $color-primary;
-            font-style: italic;
-            text-transform: uppercase;
-            font-size: $font-size-smallest;
-            background: image-url("campaign/home-finish.png") transparent no-repeat 0 0;
+            background: image-url("campaigns/home-finish.png") transparent no-repeat 0 0;
         }
+    }
+    
+	&.campaign-results {
+		background: image-url("campaigns/home-finished-back.png") $gray-lighter no-repeat 85% 100%;
+
+		.project-fund-amount {
+			text-align: left;
+			font-size: $font-size-large;
+			font-family: $font-family-heavy;
+			margin: $base-margin/2 $base-margin;
+			
+			strong {
+				font-size: 1.3em;
+				font-family: $font-family-bold;
+			}
+		}
+		
+		.project-fund-amount-slider {
+			width: 90% !important;
+		
+		    .slider-progress {
+		    	width: 100% !important;
+		    	background: $color-primary !important;
+		    }
+		    
+		    &:after {
+	            content: '';
+	            display: block;
+	            position: absolute;
+	            bottom: 0;
+	            right: -10%;
+	            width: 127px;
+	            height: 67px;
+	            padding: 0;
+	            text-align: right;
+	            background: image-url("campaigns/home-finished.png") transparent no-repeat 0 0;
+	        }
+	    }
+	    
+	    .campaign-result-fundracers, .campaign-result-projects {
+		    @include grid(24,0,1);
+		    margin-top: $base-margin*2;
+		    margin-bottom: $base-margin*2;
+		    font-size: 1.1em;
+			font-family: $font-family-heavy;
+			text-transform: uppercase;
+			
+			strong {
+				@include grid(14,1,1);
+				position: relative;
+				text-align: center;
+				
+				.flaticon {
+					font-size: 2.2em;
+				}
+				
+				em {
+					color: $white;
+					display: block;
+					position: absolute;
+					top: 4px;
+					left: 0;
+					width: 100%;
+					font-size: 0.8em;
+					font-style: normal;
+				}
+			}
+			
+			> em {
+				@include grid(32,1,1);
+				font-style: normal;
+			}
+	    }
+	    
+	    .campaign-result-fundracers {
+		    color: $color-secondary;
+		    
+		    strong {
+				
+				.flaticon {
+					color: $color-secondary;
+				}
+				
+			}
+			
+			em {
+				
+			}
+	    }
+	    
+	    .campaign-result-projects {
+		    color: $color-primary;
+		    
+		    strong {
+		    
+				.flaticon {
+					color: $color-primary;
+				}
+			}
+			
+			em {
+				
+			}
+	    }
     }
 }
 
@@ -116,7 +220,7 @@
                     left: 8px;
                     width: 50px;
                     height: 50px;
-                    background: image-url("campaign/campaign-label.png") transparent no-repeat 0 0;
+                    background: image-url("campaigns/campaign-label.png") transparent no-repeat 0 0;
                 }
             }
             
@@ -140,7 +244,7 @@
                     line-height: 1em;
                     font-family: $font-family-heavy;
                     @include opacity(0.9);
-                    background: image-url("campaign/fundraiser-is-funded.png") $white no-repeat 16px 16px;
+                    background: image-url("campaigns/fundraiser-is-funded.png") $white no-repeat 16px 16px;
                 }
             }
         }
@@ -210,7 +314,7 @@
             left: 16px;
             width: 50px;
             height: 50px;
-            background: image-url("campaign/campaign-label.png") transparent no-repeat 0 0;
+            background: image-url("campaigns/campaign-label.png") transparent no-repeat 0 0;
         }
     }
     
@@ -220,7 +324,7 @@
         background-color: $white;
         
         .slider-progress {
-            background: image-url("campaign/project-racecar.png") $color-primary no-repeat 100% 50%;
+            background: image-url("campaigns/project-racecar.png") $color-primary no-repeat 100% 50%;
         }
         
         &:after {
@@ -237,7 +341,7 @@
             font-style: italic;
             text-transform: uppercase;
             font-size: $font-size-smallest;
-            background: image-url("campaign/project-finish.png") transparent no-repeat 100% 0;
+            background: image-url("campaigns/project-finish.png") transparent no-repeat 100% 0;
         }
     }
 }
@@ -260,7 +364,7 @@
             font-style: italic;
             text-transform: uppercase;
             font-size: $font-size-smallest;
-            background: image-url("campaign/fundraiser-finish.png") transparent no-repeat 100% 0;
+            background: image-url("campaigns/fundraiser-finish.png") transparent no-repeat 100% 0;
         }
     }
 }

@@ -11,4 +11,4 @@ class CampaignSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Campaign
-        fields = ('id', 'title', 'start', 'end', 'target', 'amount_donated')
+        fields = ('id', 'title', 'start', 'end', 'target', 'amount_donated', 'homepage')

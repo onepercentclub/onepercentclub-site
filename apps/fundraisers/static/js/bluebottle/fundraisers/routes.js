@@ -24,7 +24,10 @@ App.Router.map(function() {
  */
 App.FundRaiserRoute = Em.Route.extend(App.ScrollToTop, {
     model: function(params) {
-        return App.FundRaiser.find(params.fundraiser_id);
+        // Crap hack because Ember somehow doesn't strip queryparams.
+        // FIXME: Find out this -should- work.
+        var fundraiser_id = params.fundraiser_id.split('?')[0];
+        return App.FundRaiser.find(fundraiser_id);
     },
 
     setupController: function(controller, fundraiser) {
@@ -72,7 +75,10 @@ App.FundRaiserEditRoute = Em.Route.extend(App.ScrollToTop, {
 
 App.FundRaiserDonationListRoute = Em.Route.extend({
     model: function(params) {
-        return App.FundRaiser.find(params.fundraiser_id);
+        // Crap hack because Ember somehow doesn't strip queryparams.
+        // FIXME: Find out this -should- work.
+        var fundraiser_id = params.fundraiser_id.split('?')[0];
+        return App.FundRaiser.find(fundraiser_id);
     },
 
     setupController: function(controller, fundraiser) {

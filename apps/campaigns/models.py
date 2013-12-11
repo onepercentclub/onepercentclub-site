@@ -13,6 +13,8 @@ class Campaign(models.Model):
     start = models.DateTimeField(_('start'))
     end = models.DateTimeField(_('end'))
 
+    homepage = models.CharField(_('homepage'), help_text=_("Style for homepage, e.g. 'livestream', 'video'"), max_length=255, blank=True)
+
     target = models.PositiveIntegerField(_("target (in cents)"))
     currency = models.CharField(max_length="10", default='EUR')
 

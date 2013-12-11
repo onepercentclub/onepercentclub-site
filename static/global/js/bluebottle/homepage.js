@@ -69,7 +69,7 @@ App.HomeController = Ember.ObjectController.extend({
 
     isCampaignHomePage: false,
 
-    nextProject: function() { // TODO: similar thing for fundraisers?
+    nextProject: function() {
         var projects = this.get('projects');
 
         this.incrementProperty('projectIndex');
@@ -108,6 +108,8 @@ App.HomeController = Ember.ObjectController.extend({
     checkCampaignHomePage: function() {
         if(this.get('campaign')){
             this.set('isCampaignHomePage', true);
+            var finished = this.get('fundraisers').filterBy('is_funded', true).length;
+            this.set('finishedFundraiserCount', finished);
         }
     },
 
@@ -236,7 +238,17 @@ function countdown() {
 
 
 App.HomeCampaignView = Ember.View.extend({
-    templateName: 'home_campaign_block',
+    templateName: function(){
+        var homepage = this.get('controller.campaign.homepage');
+        console.log(homepage);
+        if (homepage == 'livestream') {
+            return 'home_campaign_livestream_block';
+        }
+        if (homepage == 'done') {
+            return 'home_campaign_done_block';
+        }
+        return 'home_campaign_block';
+    }.property('controller.campaign.homepage'),
     
     didInsertElement: function() {
     
