@@ -315,13 +315,13 @@ class Order(models.Model):
     def get_share_url(self, **kwargs):
         if self.first_donation:
             request = kwargs.get('request')
-
+            # FIXME: Make these urls smarter. At least take language code from current user.
             if self.first_donation.fundraiser:
                 fundraiser = self.first_donation.fundraiser
-                location = '/#!/fundraisers/{0}'.format(fundraiser.id)
+                location = '/en/#!/fundraisers/{0}'.format(fundraiser.id)
             else:
                 project = self.first_donation.project
-                location = '/#!/projects/{0}'.format(project.slug)
+                location = '/en/#!/projects/{0}'.format(project.slug)
             return request.build_absolute_uri(location)
         return None
 
