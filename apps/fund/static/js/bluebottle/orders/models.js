@@ -56,25 +56,6 @@ App.Ticker = DS.Model.extend({
 });
 
 
-
-App.Voucher =  DS.Model.extend({
-    url: 'fund/vouchers',
-
-    receiver_name: DS.attr('string', {defaultValue: ''}),
-    receiver_email: DS.attr('string'),
-    sender_name: DS.attr('string', {defaultValue: ''}),
-    sender_email: DS.attr('string'),
-    message: DS.attr('string', {defaultValue: ''}),
-    language: DS.attr('string', {defaultValue: 'en'}),
-    amount: DS.attr('number', {defaultValue: 25}),
-    status: DS.attr('string'),
-
-    order: DS.belongsTo('App.Order'),
-    donations: DS.hasMany('App.VoucherDonation')
-
-});
-
-
 /* Models with CurrentOrder relations and urls. */
 
 // FIXME Get rid of CurrentOrder models
@@ -94,13 +75,6 @@ App.CurrentOrder = App.Order.extend({
 App.CurrentOrderDonation = App.Donation.extend({
     url: 'fund/orders/current/donations',
     order: DS.belongsTo('App.CurrentOrder'),
-});
-
-
-App.CurrentOrderVoucher = App.Voucher.extend({
-    url: 'fund/orders/current/vouchers',
-
-    order: DS.belongsTo('App.CurrentOrder')
 });
 
 
