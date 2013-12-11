@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-05 15:49+0100\n"
+"POT-Creation-Date: 2013-12-11 12:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,59 +17,59 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: models.py:13
+#: models.py:14
 msgid "initiator"
 msgstr ""
 
-#: models.py:13
+#: models.py:14
 msgid "Project owner"
 msgstr ""
 
-#: models.py:14
+#: models.py:15
 msgid "project"
 msgstr ""
 
-#: models.py:16
+#: models.py:17
 msgid "title"
 msgstr ""
 
-#: models.py:17
+#: models.py:18
 msgid "description"
 msgstr ""
 
-#: models.py:18
+#: models.py:19
 msgid "picture"
 msgstr ""
 
-#: models.py:18
+#: models.py:19
 msgid "Minimal of 800px wide"
 msgstr ""
 
-#: models.py:21
+#: models.py:22
 msgid "amount (in cents)"
 msgstr ""
 
-#: models.py:25
+#: models.py:26
 msgid "created"
 msgstr ""
 
-#: models.py:25
+#: models.py:26
 msgid "When this fundraiser was created."
 msgstr ""
 
-#: models.py:26
+#: models.py:27
 msgid "updated"
 msgstr ""
 
-#: models.py:27
+#: models.py:28
 msgid "deleted"
 msgstr ""
 
-#: models.py:43
+#: models.py:44
 msgid "{fundraiser} for {project}"
 msgstr ""
 
-#: models.py:61
+#: models.py:62
 msgid "{title} {{URL}} via @{twitter_handle}"
 msgstr ""
 
@@ -83,9 +83,8 @@ msgstr ""
 msgid "My 1%%"
 msgstr ""
 
-#: templates/fundraisers.hbs:12 templates/fundraisers.hbs.py:160
-#: templates/fundraisers.hbs:374
-msgid "Fundraisers"
+#: templates/fundraisers.hbs:12 templates/fundraisers.hbs.py:374
+msgid "Fundraising"
 msgstr ""
 
 #: templates/fundraisers.hbs:19 templates/fundraisers.hbs.py:379
@@ -186,6 +185,10 @@ msgstr ""
 msgid "Because you're fundraising for this project:"
 msgstr ""
 
+#: templates/fundraisers.hbs:160
+msgid "Fundraisers"
+msgstr ""
+
 #: templates/fundraisers.hbs:171
 msgid "Become a fundraiser"
 msgstr ""
@@ -207,11 +210,11 @@ msgid "View Donations"
 msgstr ""
 
 #: templates/fundraisers.hbs:246
-msgid "Fundraising for"
+msgid "Fund-racing for"
 msgstr ""
 
 #: templates/fundraisers.hbs:259
-msgid "Fundraiser"
+msgid "Fund-racer"
 msgstr ""
 
 #: templates/fundraisers.hbs:267
@@ -274,6 +277,14 @@ msgstr ""
 
 #: templates/fundraisers.hbs:443
 msgid "Loading projects"
+msgstr ""
+
+#: templates/fundraisers.hbs:449
+msgid "Overview of you fundraising pages"
+msgstr ""
+
+#: templates/fundraisers.hbs:451
+msgid "You have no fundraising pages"
 msgstr ""
 
 #: templates/fundraisers.hbs:476

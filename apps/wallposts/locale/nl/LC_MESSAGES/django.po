@@ -4,6 +4,7 @@
 # 
 # Translators:
 # gannetson <loek@1procentclub.nl>, 2013
+# gannetson <loek@1procentclub.nl>, 2013
 # nieja <niels@1procentclub.nl>, 2013
 # nieja <niels@1procentclub.nl>, 2013
 # onepercentclub <webmaster@1procentclub.nl>, 2013
@@ -12,7 +13,7 @@ msgstr ""
 "Project-Id-Version: onepercentclub-site\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-12-05 15:49+0100\n"
-"PO-Revision-Date: 2013-12-05 14:51+0000\n"
+"PO-Revision-Date: 2013-12-11 13:11+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub-site/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -326,7 +327,7 @@ msgstr "Reageer"
 
 #: templates/wallposts.hbs:179
 msgid "Fundraiser"
-msgstr ""
+msgstr "Fundraiser"
 
 #: templates/wallposts.hbs:181
 msgid "Donation"
@@ -338,4 +339,4 @@ msgstr "Iemand"
 
 #: templates/wallposts.hbs:196
 msgid "made a donation"
-msgstr ""
+msgstr "heeft een donatie gedaan"

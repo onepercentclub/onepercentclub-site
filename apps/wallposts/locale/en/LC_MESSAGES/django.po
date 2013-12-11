@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-05 15:49+0100\n"
+"POT-Creation-Date: 2013-12-11 12:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -237,6 +237,7 @@ msgstr ""
 
 #: templates/reactions.hbs:24 templates/wallposts.hbs:67
 #: templates/wallposts.hbs.py:135 templates/wallposts.hbs:210
+#: templates/wallposts.hbs.py:263
 msgid "Delete"
 msgstr ""
 
@@ -328,10 +329,18 @@ msgstr ""
 msgid "Donation"
 msgstr ""
 
-#: templates/wallposts.hbs:192
+#: templates/wallposts.hbs:192 templates/wallposts.hbs.py:245
 msgid "Someone"
 msgstr ""
 
 #: templates/wallposts.hbs:196
 msgid "made a donation"
+msgstr ""
+
+#: templates/wallposts.hbs:235
+msgid "Voucher"
+msgstr ""
+
+#: templates/wallposts.hbs:249
+msgid "used a gift card"
 msgstr ""

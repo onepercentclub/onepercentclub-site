@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-05 15:49+0100\n"
+"POT-Creation-Date: 2013-12-11 12:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,38 +17,38 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: models.py:11
+#: models.py:12
 msgid "title"
 msgstr ""
 
-#: models.py:12
+#: models.py:13
 msgid "start"
 msgstr ""
 
-#: models.py:13
+#: models.py:14
 msgid "end"
 msgstr ""
 
-#: models.py:15
+#: models.py:16
 msgid "target (in cents)"
 msgstr ""
 
-#: models.py:18
+#: models.py:19
 msgid "created"
 msgstr ""
 
-#: models.py:19
+#: models.py:20
 msgid "updated"
 msgstr ""
 
-#: models.py:20
+#: models.py:21
 msgid "deleted"
 msgstr ""
 
-#: models.py:23
+#: models.py:24
 msgid "campaign"
 msgstr ""
 
-#: models.py:24
+#: models.py:25
 msgid "campaigns"
 msgstr ""
