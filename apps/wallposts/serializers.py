@@ -158,7 +158,7 @@ class SystemWallPostSerializer(WallPostSerializerBase):
     """
     type = WallPostTypeField(type='system')
     text = ContentTextField()
-    related_type = serializers.CharField(source='related_type.name')
+    related_type = serializers.CharField(source='related_type.model')
     related_object = WallPostRelatedField(source='related_object')
 
     class Meta:

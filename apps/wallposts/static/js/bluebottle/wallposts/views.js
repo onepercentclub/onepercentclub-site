@@ -52,7 +52,14 @@ App.WallPostView = Em.View.extend({
 
 
 App.SystemWallPostView = App.WallPostView.extend({
-    templateName: 'systemWallPost'
+    templateName: function(){
+        var type = this.get('controller.related_type');
+        console.log(type);
+        if (type == 'voucher') {
+            return 'systemVoucherWallPost';
+        }
+        return 'systemWallPost';
+    }.property('controller.related_type')
 });
 
 

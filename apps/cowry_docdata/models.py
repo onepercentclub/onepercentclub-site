@@ -30,6 +30,7 @@ payment_method_mapping = {
     'SOFORT_UEBERWEISUNG': 'Other',
     'MAESTRO': 'Other',
     'MISTERCASH': 'Other',
+    'Gift Card': 'Gift Card'
 }
 
 
