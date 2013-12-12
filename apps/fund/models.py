@@ -128,8 +128,8 @@ class Donation(models.Model):
 
     donation_type = models.CharField(_("Type"), max_length=20, choices=DonationTypes.choices, default=DonationTypes.one_off, db_index=True)
 
-    order = models.ForeignKey('Order', verbose_name=_("Order"), related_name='donations', null=True)
-    voucher = models.ForeignKey('vouchers.Voucher', verbose_name=_("Gift card"), null=True)
+    order = models.ForeignKey('Order', verbose_name=_("Order"), related_name='donations', null=True, blank=True)
+    voucher = models.ForeignKey('vouchers.Voucher', verbose_name=_("Gift card"), null=True, blank=True)
 
     objects = models.Manager()
     valid_donations = ValidDonationsManager()
