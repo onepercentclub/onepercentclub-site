@@ -22,6 +22,7 @@ class MediaWallPostPhotoInline(AdminImageMixin, admin.StackedInline):
 
 class MediaWallPostAdmin(PolymorphicChildModelAdmin):
     base_model = WallPost
+    readonly_fields = ('ip_address', 'deleted')
     raw_id_fields = ('author', 'editor')
     list_display = ('created', 'view_online', 'get_text', 'video_url', 'photos', 'author')
 
@@ -56,6 +57,7 @@ class MediaWallPostAdmin(PolymorphicChildModelAdmin):
 
 class TextWallPostAdmin(PolymorphicChildModelAdmin):
     base_model = WallPost
+    readonly_fields = ('ip_address', 'deleted')
     list_display = ('created', 'author', 'content_type', 'text')
     raw_id_fields = ('author', 'editor')
     ordering =  ('-created', )
@@ -78,6 +80,7 @@ class TextWallPostAdmin(PolymorphicChildModelAdmin):
 
 class SystemWallPostAdmin(PolymorphicChildModelAdmin):
     base_model = WallPost
+    readonly_fields = ('ip_address', 'deleted')
     list_display = ('created', 'author', 'content_type', 'related_type', 'text')
     raw_id_fields = ('author', 'editor')
     ordering = ('-created', )
