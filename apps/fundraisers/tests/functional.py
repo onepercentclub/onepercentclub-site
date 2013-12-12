@@ -52,7 +52,7 @@ class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsM
 
         self.browser.find_link_by_partial_text('Become a fundraiser').first.click()
 
-        self.assertTrue(self.browser.is_itext_present('NEW FUNDRAISER'))
+        self.assertTrue(self.browser.is_text_present('NEW FUNDRAISER'))
         self.assertTrue(self.browser.is_text_present('You need to be logged in to start fundraising.'))
 
     def test_link_from_project_page_to_create_fundraiser_authenticated(self):
@@ -65,7 +65,7 @@ class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsM
 
         self.browser.find_link_by_partial_text('Become a fundraiser').first.click()
 
-        self.assertTrue(self.browser.is_text_present('Fundraising for project'))
+        self.assertTrue(self.browser.is_text_present('FUNDRAISING FOR PROJECT'))
         self.assertFalse(self.browser.is_text_present('You need to be logged in to start fundraising.'))
 
         deadline = timezone.now() + timezone.timedelta(days=28)
@@ -120,6 +120,8 @@ class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsM
 
         self.visit_path(self.fundraiser_url)
 
+        self.browser.find_by_css('.owner-settings').first.mouse_over()
+        self.browser.is_text_present('Edit Fundraiser')
         self.browser.find_link_by_partial_text('Edit').first.click()
 
         self.assertTrue(self.browser.is_text_present('EDIT FUNDRAISER'))
