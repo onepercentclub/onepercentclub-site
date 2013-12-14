@@ -465,10 +465,12 @@ def link_anonymous_donations(sender, user, request, **kwargs):
             if not wallposts:
                 wallposts = qs
             else:
-                wallposts += qs
+                pass
+                # This causes errors...
+                # wallposts += qs
 
     if wallposts:
         wallposts.update(author=user)
 
-# On account activation try to connect anonymous donations to this user.
+# On account activation try to connect anonymous donations to this  fails.
 user_activated.connect(link_anonymous_donations)
