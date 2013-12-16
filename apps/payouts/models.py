@@ -9,7 +9,7 @@ from djchoices import DjangoChoices, ChoiceItem
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 import csv
-
+from dateutil.relativedelta import relativedelta
 
 class Payout(models.Model):
     """
@@ -145,7 +145,7 @@ def create_payout_for_fully_funded_project(sender, instance, created, **kwargs):
         if now.day <= 15:
             next_date = timezone.datetime(now.year, now.month, 15)
         else:
-            next_date = timezone.datetime(now.year, now.month + 1, 1)
+            next_date = timezone.datetime(now.year, now.month, 1) + relativedelta(months=1)
 
         day = timezone.datetime.strftime(now, '%d%m%Y')
 
