@@ -271,6 +271,7 @@ INSTALLED_APPS = (
     'apps.homepage',
     'apps.redirects',
     'apps.partners',
+    'apps.accounting',
 
     # Custom dashboard
     'fluent_dashboard',
