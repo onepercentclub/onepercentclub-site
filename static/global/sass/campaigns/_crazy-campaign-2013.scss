@@ -3,6 +3,7 @@
 // --------------------------------------------------
 
 // Countdown font
+/*
 @font-face {
     font-family: 'countdown';
     src: url('../fonts/countdown/countdown-webfont.eot');
@@ -12,6 +13,7 @@
     font-weight: normal;
     font-style: normal;
 }
+*/
 
 #home-crazy-campaign-header {
     padding: $base-padding*3 0;
@@ -24,8 +26,8 @@
         margin-bottom: $base-margin/4;
     }
 
-	.livestream {
-		@include grid(24,1,2);
+	.video {
+		margin: 0;
 	}
     
     .campaign-description {
@@ -252,8 +254,7 @@
 }
 
 
-
-/* jQuery Countdown styles 1.6.3. */
+/*
 .hasCountdown {
 	font-family: 'countdown';
 	font-size: 4em;
@@ -387,7 +388,7 @@
     }
 }
 
-
+*/
 
 
 
