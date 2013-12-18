@@ -9,6 +9,7 @@ import tempfile
 from django.http import HttpResponse, HttpResponseServerError
 from django.conf import settings
 from django.utils import html as html_utils
+from django.core import cache
 
 from selenium.webdriver import DesiredCapabilities
 from selenium.webdriver.common.utils import is_connectable
@@ -21,7 +22,7 @@ logger = logging.getLogger(__name__)
 
 HASHBANG = '#!'
 ESCAPED_FRAGMENT = '_escaped_fragment_'
-
+CACHE_PREFIX = '_share_'
 
 class DedicatedWebDriver(RemoteWebDriver):
     """
@@ -164,9 +165,14 @@ class HashbangMiddleware(object):
                 # Remove all javascript, since its mostly useless now.
                 script_tags_template = re.compile(r'<script([^/]*/>|(\s+[^>]*><\/script>))', re.U)
                 content = script_tags_template.sub('', content)
+                cache.cache.set(CACHE_PREFIX+query,content)
             except Exception, e:
-                logger.error('There was an error rendering "%s" for "%s" with the web driver: %s', absolute_url, original_url, e)
-                return HttpResponseServerError()
+                
+                if cache.cache.has_key(CACHE_PREFIX+query):
+                    content = cache.cache.get(CACHE_PREFIX+query)
+                else:
+                    logger.error('There was an error rendering "%s" for "%s" with the web driver: %s', absolute_url, original_url, e)
+                    return HttpResponseServerError()
 
             return HttpResponse(content=content)
 
