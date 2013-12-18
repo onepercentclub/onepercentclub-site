@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-11 12:23+0100\n"
+"POT-Creation-Date: 2013-12-18 10:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -102,54 +102,68 @@ msgstr ""
 msgid "Join us. Sign up and share your 1%%"
 msgstr ""
 
-#: templates/homepage.hbs:251
+#: templates/homepage.hbs:250
 msgid "Our crazy fund-racers"
 msgstr ""
 
-#: templates/homepage.hbs:252
+#: templates/homepage.hbs:251
 msgid "Pick your favourite crazy fund-racer and support a world-changing project!"
 msgstr ""
 
-#: templates/homepage.hbs:261
+#: templates/homepage.hbs:260
 msgid "Fully funded by"
 msgstr ""
 
-#: templates/homepage.hbs:261
+#: templates/homepage.hbs:260
 msgid "and supporters."
 msgstr ""
 
-#: templates/homepage.hbs:281
+#: templates/homepage.hbs:280
 msgid "Fully funded with"
 msgstr ""
 
-#: templates/homepage.hbs:283
+#: templates/homepage.hbs:282
 msgid "To go"
 msgstr ""
 
-#: templates/homepage.hbs:289
+#: templates/homepage.hbs:288
 msgid "days"
 msgstr ""
 
-#: templates/homepage.hbs:319
+#: templates/homepage.hbs:318 templates/homepage.hbs.py:360
+#: templates/homepage.hbs:411
 msgid "fund-raced"
 msgstr ""
 
-#: templates/homepage.hbs:338
-msgid "Hours"
+#: templates/homepage.hbs:325
+msgid "Fund-racers finished"
 msgstr ""
 
-#: templates/homepage.hbs:339
-msgid "Minutes"
+#: templates/homepage.hbs:330
+msgid "Projects fully funded"
 msgstr ""
 
-#: templates/homepage.hbs:340
-msgid "Seconds"
-msgstr ""
-
-#: templates/homepage.hbs:345
+#: templates/homepage.hbs:335 templates/homepage.hbs.py:437
 msgid " The Crazy Campaign Days: 20 teams who will fund 20 world-changing projects within 5 days. Totally crazy!"
 msgstr ""
 
-#: templates/homepage.hbs:346
+#: templates/homepage.hbs:336 templates/homepage.hbs.py:387
+#: templates/homepage.hbs:438
 msgid "Pick a crazy fund-racer and support"
+msgstr ""
+
+#: templates/homepage.hbs:379 templates/homepage.hbs.py:430
+msgid "Hours"
+msgstr ""
+
+#: templates/homepage.hbs:380 templates/homepage.hbs.py:431
+msgid "Minutes"
+msgstr ""
+
+#: templates/homepage.hbs:381 templates/homepage.hbs.py:432
+msgid "Seconds"
+msgstr ""
+
+#: templates/homepage.hbs:386
+msgid "The Crazy Campaign Days: 20 teams who will fund 20 world-changing projects within 5 days. Totally crazy!"
 msgstr ""

@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# nieja <niels@1procentclub.nl>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: onepercentclub-site\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-27 14:05+0100\n"
-"PO-Revision-Date: 2013-11-27 13:10+0000\n"
-"Last-Translator: gannetson <loek@1procentclub.nl>\n"
+"POT-Creation-Date: 2013-12-18 10:23+0100\n"
+"PO-Revision-Date: 2013-12-17 12:14+0000\n"
+"Last-Translator: nieja <niels@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub-site/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,38 +18,46 @@ msgstr ""
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:11
-msgid "title"
-msgstr ""
-
 #: models.py:12
-msgid "start"
-msgstr ""
+msgid "title"
+msgstr "titel"
 
 #: models.py:13
-msgid "end"
-msgstr ""
+msgid "start"
+msgstr "start"
 
-#: models.py:15
-msgid "target (in cents)"
-msgstr ""
+#: models.py:14
+msgid "end"
+msgstr "einde"
+
+#: models.py:16
+msgid "homepage"
+msgstr "homepage"
+
+#: models.py:16
+msgid "Style for homepage, e.g. 'livestream', 'video'"
+msgstr "Style for homepage, e.g. 'livestream', 'video'"
 
 #: models.py:18
+msgid "target (in cents)"
+msgstr "target (in centen)"
+
+#: models.py:21
 msgid "created"
-msgstr ""
+msgstr "aangemaakt"
 
-#: models.py:19
+#: models.py:22
 msgid "updated"
-msgstr ""
-
-#: models.py:20
-msgid "deleted"
-msgstr ""
+msgstr "gewijzigd"
 
 #: models.py:23
-msgid "campaign"
-msgstr ""
+msgid "deleted"
+msgstr "verwijderd"
 
-#: models.py:24
+#: models.py:26
+msgid "campaign"
+msgstr "campagne"
+
+#: models.py:27
 msgid "campaigns"
-msgstr ""
+msgstr "campagnes"

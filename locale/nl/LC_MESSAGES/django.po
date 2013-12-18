@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: onepercentclub-site\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-02 09:52+0100\n"
-"PO-Revision-Date: 2013-12-02 11:21+0000\n"
-"Last-Translator: nieja <niels@1procentclub.nl>\n"
+"POT-Creation-Date: 2013-12-17 12:10+0100\n"
+"PO-Revision-Date: 2013-12-17 11:37+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub-site/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -59,99 +59,95 @@ msgstr "Als je hulp nodig hebt kun je naar deze fout verwijzen als <strong>%(err
 msgid "What is 1%%"
 msgstr "Wat is 1%%"
 
-#: base.html:48 base.html.py:129
+#: base.html:48 base.html.py:130
 #, python-format
 msgid "1%%Projects"
 msgstr "1%%Project"
 
-#: base.html:49 base.html.py:134 accounts/profile_form.html:76
+#: base.html:49 base.html.py:135 accounts/profile_form.html:76
 #, python-format
 msgid "1%%Skills"
 msgstr "1%%Doen"
 
-#: base.html:50 base.html.py:139
+#: base.html:50 base.html.py:140
 msgid "Get involved"
 msgstr "Doe mee"
 
-#: base.html:119
+#: base.html:120
 #, python-format
 msgid "It all starts with 1%%"
 msgstr "Het begint met 1%%"
 
-#: base.html:123
+#: base.html:124
 #, python-format
 msgid "What is 1%%CLUB?"
 msgstr "Wat is 1%%"
 
-#: base.html:144
-msgid "Start your project"
-msgstr "Start your project"
-
-#: base.html:152
+#: base.html:153
 #, python-format
 msgid "About 1%%Club"
 msgstr "Over 1%%Club"
 
-#: base.html:156
+#: base.html:157
 msgid "Our story"
 msgstr "Ons verhaal"
 
-#: base.html:160
+#: base.html:161
 msgid "Frequently Asked Questions"
 msgstr "Veel gestelde vragen"
 
-#: base.html:164
+#: base.html:165
 msgid "Meet the team"
 msgstr "Ons team"
 
-#: base.html:170 footer.html:13
+#: base.html:171 footer.html:13
 msgid "Partners"
 msgstr "Partners"
 
-#: base.html:175
+#: base.html:176
 msgid "Press"
 msgstr "Pers"
 
-#: base.html:180
+#: base.html:181
 #, python-format
 msgid "Work at 1%%CLUB"
 msgstr "Werken bij 1%%Club"
 
-#: base.html:185 footer.html:18 footer.html.py:38
+#: base.html:186 footer.html:18 footer.html.py:38
 msgid "Contact"
 msgstr "Contact"
 
-#: base.html:193
+#: base.html:194
 #, python-format
 msgid "Discover 1%%More"
 msgstr "Ontdek 1%%Meer"
 
-#: base.html:197
+#: base.html:198
 #, python-format
 msgid "1%%Business"
 msgstr "1%%Business"
 
-#: base.html:202
+#: base.html:203
 #, python-format
 msgid "1%%Blog"
 msgstr "1%%Blog"
 
-#: base.html:207
+#: base.html:208
 #, python-format
 msgid "1%%Github"
 msgstr "1%%Github"
 
-#: base.html:216
+#: base.html:217
 #, python-format
 msgid "1%%Social"
 msgstr "1%%Social"
 
-#: base.html:251 base.html.py:258 accounts/signup.html:6
+#: base.html:252 base.html.py:259 accounts/signup.html:6
 #, python-format
 msgid "Join 1%%Club"
 msgstr "Doe mee met 1%%Club"
 
-#: base.html:252
+#: base.html:253
 #, python-format
 msgid ""
 "1%%Club is the global crowdfunding and crowdsourcing platform where you can "
@@ -160,27 +156,27 @@ msgid ""
 "the progress online. "
 msgstr "1%%Club is het crowdfunding en crowdsourcing platform waar je, door een klein beetje te delen, een wereld van verschil kan maken. Kies een project, steun het met 1%% van je geld, kennis of tijd en volg de voortgang."
 
-#: base.html:254
+#: base.html:255
 msgid "Select a project or task"
 msgstr "Kies een project"
 
-#: base.html:255
+#: base.html:256
 msgid "Share your skills or money"
 msgstr "Steun het met je tijd, geld of kennis"
 
-#: base.html:256
+#: base.html:257
 msgid "See direct results"
 msgstr "Zie direct resultaat"
 
-#: base.html:269
+#: base.html:270
 msgid "General Conditions"
 msgstr "Algemene voorwaarden"
 
-#: base.html:270
+#: base.html:271
 msgid "Privacy Policy"
 msgstr "Privacy policy"
 
-#: base.html:274
+#: base.html:275
 msgid "Give us feedback"
 msgstr "Geef ons feedback"
 

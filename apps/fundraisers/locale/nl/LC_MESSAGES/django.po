@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: onepercentclub-site\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-05 15:49+0100\n"
-"PO-Revision-Date: 2013-12-11 13:12+0000\n"
+"POT-Creation-Date: 2013-12-18 10:23+0100\n"
+"PO-Revision-Date: 2013-12-18 09:31+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub-site/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -19,59 +19,59 @@ msgstr ""
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:13
+#: models.py:14
 msgid "initiator"
 msgstr "Initiator"
 
-#: models.py:13
+#: models.py:14
 msgid "Project owner"
 msgstr "Project initiator"
 
-#: models.py:14
+#: models.py:15
 msgid "project"
 msgstr "project"
 
-#: models.py:16
+#: models.py:17
 msgid "title"
 msgstr "titel"
 
-#: models.py:17
+#: models.py:18
 msgid "description"
 msgstr "beschrijving"
 
-#: models.py:18
+#: models.py:19
 msgid "picture"
 msgstr "Afbeelding"
 
-#: models.py:18
+#: models.py:19
 msgid "Minimal of 800px wide"
 msgstr "Minimaal 800 pixels breed"
 
-#: models.py:21
+#: models.py:22
 msgid "amount (in cents)"
 msgstr "bedrag (in centen)"
 
-#: models.py:25
+#: models.py:26
 msgid "created"
 msgstr "aangemaakt"
 
-#: models.py:25
+#: models.py:26
 msgid "When this fundraiser was created."
 msgstr "Aanmaakdatum fundraise campagne"
 
-#: models.py:26
+#: models.py:27
 msgid "updated"
 msgstr "updated"
 
-#: models.py:27
+#: models.py:28
 msgid "deleted"
 msgstr "verwijderd"
 
-#: models.py:43
+#: models.py:44
 msgid "{fundraiser} for {project}"
 msgstr "{fundraiser} voor {project}"
 
-#: models.py:61
+#: models.py:62
 msgid "{title} {{URL}} via @{twitter_handle}"
 msgstr "{title} {{URL}} via @{twitter_handle}"
 
@@ -85,10 +85,9 @@ msgstr "Geen  %(verbose_name)s gevonden die voldoet aan deze zoekopdracht"
 msgid "My 1%%"
 msgstr "Mijn 1%%"
 
-#: templates/fundraisers.hbs:12 templates/fundraisers.hbs.py:160
-#: templates/fundraisers.hbs:374
-msgid "Fundraisers"
-msgstr "Fundraisers"
+#: templates/fundraisers.hbs:12 templates/fundraisers.hbs.py:374
+msgid "Fundraising"
+msgstr "Fundraising"
 
 #: templates/fundraisers.hbs:19 templates/fundraisers.hbs.py:379
 msgid "Back to fundraiser"
@@ -188,6 +187,10 @@ msgstr "Goed bezig!"
 msgid "Because you're fundraising for this project:"
 msgstr "Omdat je gaat fundraisen voor het volgende project:"
 
+#: templates/fundraisers.hbs:160
+msgid "Fundraisers"
+msgstr "Fundraisers"
+
 #: templates/fundraisers.hbs:171
 msgid "Become a fundraiser"
 msgstr "Word een fundraiser"
@@ -277,6 +280,14 @@ msgstr "Je bent fundraiser voor het volgende project:"
 #: templates/fundraisers.hbs:443
 msgid "Loading projects"
 msgstr "Laadt projecten"
+
+#: templates/fundraisers.hbs:449
+msgid "Overview of you fundraising pages"
+msgstr "Overzicht van jouw fundraisers"
+
+#: templates/fundraisers.hbs:451
+msgid "You have no fundraising pages"
+msgstr "Je hebt nog geen fundraisers"
 
 #: templates/fundraisers.hbs:476
 msgid "Edit"
