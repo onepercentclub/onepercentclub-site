@@ -139,11 +139,14 @@
                 {% trans "Get involved" %}
             </a>
         </li>
-{#        <li class="start-your-project">#}
+        <li class="start-your-project">
+            <a {{ action 'showPage' 'pitch'}}>
+                {% trans "Start your project" %}
+            </a>
 {#            {{#linkTo 'myPitchNew'}}#}
 {#                {% trans "Start your project" %}#}
 {#            {{/linkTo}}#}
-{#        </li>#}
+        </li>
     </ul>
 {% endblock_verbatim %}
 
