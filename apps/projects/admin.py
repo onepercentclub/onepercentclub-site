@@ -200,7 +200,7 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
 
     prepopulated_fields = {"slug": ("title",)}
 
-    list_filter = ('phase', 'partner_organization', 'is_campaign')
+    list_filter = ('phase', 'partner_organization', 'is_campaign', 'payout_rule')
     list_display = ('get_title_display', 'get_owner_display', 'coach', 'phase', 'funded', 'is_campaign', 'created')
 
     search_fields = ('title', 'owner__first_name', 'owner__last_name', 'partner_organization__name')
@@ -209,7 +209,7 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
 
     readonly_fields = ('project_owner', 'pitch_view', 'plan_view', 'campaign_view', 'funded')
 
-    fields = readonly_fields + ('owner', 'coach', 'title', 'slug', 'phase', 'partner_organization', 'is_campaign')
+    fields = readonly_fields + ('owner', 'payout_rule', 'coach', 'title', 'slug', 'phase', 'partner_organization', 'is_campaign')
 
     def queryset(self, request):
         # Optimization: Select related fields that are used in admin specific display fields.

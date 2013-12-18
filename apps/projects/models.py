@@ -48,6 +48,15 @@ class ProjectPhases(DjangoChoices):
     failed = ChoiceItem('failed', label=_("Failed"))
 
 
+class PayoutRules(DjangoChoices):
+    old = ChoiceItem('old', label=_("Old 1%/5%"))
+    five = ChoiceItem('five', label=_("5%"))
+    seven = ChoiceItem('seven', label=_("7%"))
+    twelve = ChoiceItem('twelve', label=_("12%"))
+    unknown = ChoiceItem('unknown', label=_("Unknown"))
+    other = ChoiceItem('other', label=_("Other"))
+
+
 class ProjectPhaseLog(models.Model):
     """ Log when a project reaches a certain phase """
 
@@ -115,6 +124,7 @@ class Project(models.Model):
 
     title = models.CharField(_("title"), max_length=255, unique=True)
     slug = models.SlugField(_("slug"), max_length=100, unique=True)
+    payout_rule = models.CharField(_("Payout rule"), max_length=20, choices=PayoutRules.choices, help_text=_("The payout rule for this project."), blank=True, null=True)
 
     phase = models.CharField(_("phase"), max_length=20, choices=ProjectPhases.choices, help_text=_("Phase this project is in right now."))
 

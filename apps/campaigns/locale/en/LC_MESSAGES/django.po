@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-11 12:23+0100\n"
+"POT-Creation-Date: 2013-12-18 10:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,25 +30,33 @@ msgid "end"
 msgstr ""
 
 #: models.py:16
+msgid "homepage"
+msgstr ""
+
+#: models.py:16
+msgid "Style for homepage, e.g. 'livestream', 'video'"
+msgstr ""
+
+#: models.py:18
 msgid "target (in cents)"
 msgstr ""
 
-#: models.py:19
+#: models.py:21
 msgid "created"
 msgstr ""
 
-#: models.py:20
+#: models.py:22
 msgid "updated"
 msgstr ""
 
-#: models.py:21
+#: models.py:23
 msgid "deleted"
 msgstr ""
 
-#: models.py:24
+#: models.py:26
 msgid "campaign"
 msgstr ""
 
-#: models.py:25
+#: models.py:27
 msgid "campaigns"
 msgstr ""

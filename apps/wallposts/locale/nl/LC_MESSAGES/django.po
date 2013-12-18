@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: onepercentclub-site\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-05 15:49+0100\n"
-"PO-Revision-Date: 2013-12-11 13:11+0000\n"
+"POT-Creation-Date: 2013-12-18 10:23+0100\n"
+"PO-Revision-Date: 2013-12-18 09:30+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub-site/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -22,11 +22,11 @@ msgstr ""
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: admin.py:130
+#: admin.py:133
 msgid "Author"
 msgstr "Auteur"
 
-#: admin.py:140
+#: admin.py:143
 msgid "project link"
 msgstr "project link"
 
@@ -242,6 +242,7 @@ msgstr "\n\n\nHi %(receiver_name)s,<br/>\n<br/>\n<strong>%(author_name)s</strong
 
 #: templates/reactions.hbs:24 templates/wallposts.hbs:67
 #: templates/wallposts.hbs.py:135 templates/wallposts.hbs:210
+#: templates/wallposts.hbs.py:263
 msgid "Delete"
 msgstr "Verwijderen"
 
@@ -333,10 +334,18 @@ msgstr "Fundraiser"
 msgid "Donation"
 msgstr "Donatie"
 
-#: templates/wallposts.hbs:192
+#: templates/wallposts.hbs:192 templates/wallposts.hbs.py:245
 msgid "Someone"
 msgstr "Iemand"
 
 #: templates/wallposts.hbs:196
 msgid "made a donation"
 msgstr "heeft een donatie gedaan"
+
+#: templates/wallposts.hbs:235
+msgid "Voucher"
+msgstr "Kadobon"
+
+#: templates/wallposts.hbs:249
+msgid "used a gift card"
+msgstr "heeft een kadobon gebruikt"
