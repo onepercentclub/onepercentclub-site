@@ -221,6 +221,15 @@ class Order(models.Model):
 
     @property
     def latest_payment(self):
+        """
+        Note: this might not always be the related succesful payment.
+
+        Potential fail case: user starts payment with one method, then creates
+        another before finishing. Does not finish second one but payment for
+        first one succeeds. Now this method still returns the value of the latest
+        initiated method.
+        """
+
         if self.payments.count() > 0:
             return self.payments.order_by('-created').all()[0]
         return None
