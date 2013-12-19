@@ -12,7 +12,6 @@ from django.utils.encoding import force_text
 from django.http import HttpResponseRedirect
 
 from .utils.admin import ExtendibleModelAdminMixin
-from .forms import CSVImportForm
 
 
 class IncrementalCSVImportMixin(ExtendibleModelAdminMixin):
