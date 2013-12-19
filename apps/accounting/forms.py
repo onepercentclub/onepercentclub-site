@@ -126,12 +126,15 @@ class DocdataPaymentImportForm(CSVImportForm):
             # Decimal fields can be None, not empty
             instance.tpcd = None
 
-    def skip_instance(self, instance):
-        # Make sure period ID is not already present
-        triple_deal_reference = instance.triple_deal_reference
+        if not instance.tpci:
+            # Decimal fields can be None, not empty
+            instance.tpci = None
 
+    def skip_instance(self, instance):
         if self.model.objects.filter(
-            triple_deal_reference=triple_deal_reference
+            triple_deal_reference=instance.triple_deal_reference,
+            merchant_reference=instance.merchant_reference,
+            payment_type=instance.payment_type
         ).exists():
 
             # Already exists, skip

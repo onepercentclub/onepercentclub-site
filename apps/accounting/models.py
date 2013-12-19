@@ -71,12 +71,12 @@ class DocdataPayment(models.Model):
     """ Docdata payment as incrementally imported from CSV. """
 
     merchant_reference = models.CharField(
-        _('merchant reference'), max_length=35, unique=True
+        _('merchant reference'), max_length=35, db_index=True
     )
     triple_deal_reference = models.PositiveIntegerField(
-        _('Triple Deal reference'), unique=True
+        _('Triple Deal reference'), db_index=True
     )
-    payment_type = models.CharField(_('type'), max_length=15)
+    payment_type = models.CharField(_('type'), max_length=15, db_index=True)
     amount_registered = models.DecimalField(
         _('amount registered'), max_digits=14, decimal_places=2
     )
@@ -95,8 +95,12 @@ class DocdataPayment(models.Model):
     currency_tpcd = models.CharField(
         _('currency of TPCD'), max_length=3, blank=True
     )
-    tpci = models.DecimalField(_('TPCI'), max_digits=14, decimal_places=2)
-    currency_tpci = models.CharField(_('currency of TPCI'), max_length=3)
+    tpci = models.DecimalField(
+        _('TPCI'), max_digits=14, decimal_places=2, blank=True, null=True
+    )
+    currency_tpci = models.CharField(
+        _('currency of TPCI'), max_length=3, blank=True
+    )
     docdata_fee = models.DecimalField(
         _('Docdata payments fee'), max_digits=14, decimal_places=2
     )
@@ -105,6 +109,9 @@ class DocdataPayment(models.Model):
     )
 
     class Meta:
+        unique_together = (
+            'merchant_reference', 'triple_deal_reference', 'payment_type'
+        )
         verbose_name = _('Docdata payment')
         verbose_name_plural = _('Docdata payments')
 
