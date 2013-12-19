@@ -1,6 +1,8 @@
 from django.contrib import messages, admin
 from django.contrib.contenttypes.models import ContentType
 
+from django.db import transaction
+
 from django.conf.urls import url, patterns
 from django.shortcuts import render
 
@@ -53,6 +55,7 @@ class IncrementalCSVImportMixin(ExtendibleModelAdminMixin):
 
         return self.import_form
 
+    @transaction.commit_on_success
     def import_view(self, request):
         """ Render or process import form. """
 
