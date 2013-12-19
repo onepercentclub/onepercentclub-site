@@ -6,7 +6,6 @@ import itertools
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from .utils.utf8_csv import UnicodeReader
 from .utils.common import has_duplicate_items
 
 
@@ -132,7 +131,7 @@ class CSVImportForm(forms.Form):
             )
 
         # Read CSV file
-        reader = UnicodeReader(csv_file,
+        reader = csv.reader(csv_file,
             dialect=dialect, encoding=self.charset
         )
 
