@@ -9,6 +9,11 @@ from django.conf import settings
 
 from fund.models import Donation
 
+"""
+These scripts will be superseded by functionality implemented in the
+admin framework. However, it seemed important to retain historical
+queries for reference purposes.
+"""
 
 def run():
     year = 2013
