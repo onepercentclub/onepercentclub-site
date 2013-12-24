@@ -201,7 +201,7 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
 
     list_filter = ('phase', 'partner_organization', 'is_campaign', 'payout_rule')
-    list_display = ('get_title_display', 'get_owner_display', 'coach', 'phase', 'funded', 'is_campaign', 'created')
+    list_display = ('get_title_display', 'get_owner_display', 'coach', 'phase', 'funded', 'payout_rule', 'is_campaign', 'created')
 
     search_fields = ('title', 'owner__first_name', 'owner__last_name', 'partner_organization__name')
 
