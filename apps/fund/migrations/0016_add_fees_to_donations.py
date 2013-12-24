@@ -28,14 +28,15 @@ class Migration(SchemaMigration):
         # Now set the fees for all the paid donations.
         donations = orm.Donation.objects
         donations = donations.filter(status='paid').filter(created__gt=pytz.utc.localize(datetime(2013, 1, 1, 0, 0, 0)))
+        donations = donations.filter(project_id=1504)
         # donations = donations.filter(status='paid')
 
         for donation in donations:
             project = donation.project
             if not project.payout_rule:
-                project.payout_rule = 'old'
-                if project.phase == 'campaign':
-                    project.payout_rule = 'five'
+                project.payout_rule = 'five'
+                if project.phase == 'failed':
+                    project.payout_rule = 'old'
                 if hasattr(project, 'projectresult'):
                     created = project.projectresult.created
                     if created < pytz.utc.localize(datetime(2013, 8, 7, 0, 0, 0)):

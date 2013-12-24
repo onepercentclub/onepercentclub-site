@@ -29,8 +29,25 @@ class Payout(models.Model):
     status = models.CharField(_("status"), max_length=20, choices=PayoutLineStatuses.choices)
     created = CreationDateTimeField(_("Created"))
     updated = ModificationDateTimeField(_("Updated"))
-    amount = models.PositiveIntegerField(_("Amount"))
+
     currency = models.CharField(_("Currency"), max_length=3)
+
+    amount_raised = models.PositiveIntegerField(_("Amount raised"), help_text=_("Amount raised at date created."))
+    amount_payout = models.PositiveIntegerField(_("Amount"), help_text=_("Amount to be payed out."))
+
+    bank_fee = models.PositiveIntegerField(_("Bank fee"), help_text=_("Bank transaction fee."))
+    psp_fee = models.PositiveIntegerField(_("PSP fee"), help_text=("Payment service provider fee."))
+    organization_fee = models.PositiveIntegerField(_("Organization fee"), help_text=_("1%Club fee."))
+
+    amount_organizaton = models.PositiveIntegerField(_("Organization amount"), help_text=_("1%Club fee - failed payments."))
+
+    failed_payments = models.PositiveIntegerField(_("Failed amount"),
+                                                  help_text=_("Payments that failed after the project was payed."))
+
+
+    def current_amount_safe(self):
+        return '?'
+
 
     sender_account_number = models.CharField(max_length=100)
     receiver_account_number = models.CharField(max_length=100, blank=True)
@@ -46,28 +63,17 @@ class Payout(models.Model):
     description_line3 = models.CharField(max_length=100, blank=True, default="")
     description_line4 = models.CharField(max_length=100, blank=True, default="")
 
-    @property
-    def amount_payout(self):
-        return '%.2f' % (float(self.amount) / 100)
 
     @property
-    def amount_raised(self):
-        return '%.2f' % (float(self.amount) / settings.PROJECT_PAYOUT_RATE / 100)
-
-    @property
-    def current_amount_safe(self):
-        return '%.2f' % (self.project.projectcampaign.money_safe * settings.PROJECT_PAYOUT_RATE / 100)
+    def amount_safe(self):
+        return '%.2f' % (self.project.projectcampaign.money_safe * settings.PROJECT_PAYOUT_RATE)
 
     @property
     def is_valid(self):
-        # TODO: Do a more advanced check. Maybe use IBAN check by a B. Q. Konrath?
         if self.receiver_account_iban and self.receiver_account_bic:
             return True
         return False
 
-    @property
-    def amount_safe(self):
-        return int(round(self.project.projectcampaign.money_safe * settings.PROJECT_PAYOUT_RATE))
 
     def __unicode__(self):
         date = self.created.strftime('%d-%m-%Y')

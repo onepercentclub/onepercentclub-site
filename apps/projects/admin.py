@@ -130,7 +130,7 @@ class ProjectCampaignAdmin(admin.ModelAdmin):
     list_filter = ('status',)
     list_display = ('project', 'status', 'created')
 
-    readonly_fields = ('edit_project', 'project_owner')
+    readonly_fields = ('edit_project', 'project_owner', 'created')
     fields = readonly_fields + ('status', 'deadline', 'money_asked', 'currency')
 
     def edit_project(self, obj):
@@ -165,6 +165,9 @@ class ProjectResultAdmin(admin.ModelAdmin):
 
     readonly_fields = ('edit_project', 'project_owner')
     fields = readonly_fields + ('status',)
+
+    search_fields = ('project__title', )
+
 
     def edit_project(self, obj):
         object = obj.project
