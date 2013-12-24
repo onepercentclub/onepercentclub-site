@@ -45,12 +45,14 @@ payment_method_icon_mapping = {
 
 class DonationAdmin(admin.ModelAdmin):
     date_hierarchy = 'updated'
-    list_display = ('updated', 'ready', 'project', 'user', 'amount_override', 'status', 'type', 'payment_method_override')
+    list_display = ('updated', 'ready', 'project', 'user', 'amount_euro', 'status', 'type', 'payment_method_override')
     list_filter = (DonationStatusFilter, 'donation_type')
     ordering = ('-ready', '-updated')
     raw_id_fields = ('user', 'project', 'fundraiser', 'voucher')
-    readonly_fields = ('view_order', 'created', 'updated', 'ready')
-    fields = readonly_fields + ('status', 'donation_type', 'amount', 'currency', 'user', 'project', 'fundraiser', 'voucher')
+    readonly_fields = ('view_order', 'created', 'updated', 'ready', 'bank_fee_euro', 'psp_fee_euro',
+                       'organization_fee_euro', 'amount_euro')
+    fields = readonly_fields + ('status', 'donation_type', 'user', 'project', 'fundraiser',
+                                'voucher')
     search_fields = ('user__first_name', 'user__last_name', 'user__email', 'project__title')
 
     def view_order(self, obj):
@@ -59,11 +61,29 @@ class DonationAdmin(admin.ModelAdmin):
 
     view_order.allow_tags = True
 
-    def amount_override(self, obj):
+    def bank_fee_euro(self, obj):
+        language = translation.get_language().split('-')[0]
+        return format_currency(obj.bank_fee / 100.0, obj.currency, locale=language)
+
+    def psp_fee_euro(self, obj):
+        language = translation.get_language().split('-')[0]
+        return format_currency(obj.psp_fee / 100.0, obj.currency, locale=language)
+
+    def organization_fee_euro(self, obj):
+        language = translation.get_language().split('-')[0]
+        if obj.organization_fee < 0:
+            amount = format_currency(obj.organization_fee / 100.0, obj.currency, locale=language)
+            return '<span style="color:red">- %s</span>' % amount
+        return format_currency(obj.organization_fee / 100.0, obj.currency, locale=language)
+
+    organization_fee_euro.allow_tags = True
+    organization_fee_euro.short_description = '1%Fee'
+
+    def amount_euro(self, obj):
         language = translation.get_language().split('-')[0]
         return format_currency(obj.amount / 100.0, obj.currency, locale=language)
 
-    amount_override.short_description = 'amount'
+    amount_euro.short_description = 'amount'
 
     def type(self, obj):
         recurring = obj.donation_type == Donation.DonationTypes.recurring
