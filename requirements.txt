@@ -3,6 +3,9 @@
 Django==1.5.4
 Pillow==2.1.0
 
+# Mercurial for Bitbucket installs
+mercurial==2.8.1
+
 django-localflavor==1.0
 
 django_extensions==1.1.1
