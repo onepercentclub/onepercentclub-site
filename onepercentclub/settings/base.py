@@ -530,6 +530,7 @@ FLUENT_DASHBOARD_APP_ICONS = {
     'organizations/organization': 'icons/flaticons_stroke/SVGs/suitcase-1.svg',
     'organizations/organizationmember': 'icons/flaticons_stroke/SVGs/group-1.svg',
     'projects/partnerorganization': 'icons/flaticons_stroke/SVGs/compose-3.svg',
+    'fundraisers/fundraiser': 'icons/flaticons_stroke/SVGs/money-2.svg',
 
     # Wall Posts
     'wallposts/wallpost': 'icons/flaticons_stroke/SVGs/paragraph-text-1.svg',
@@ -564,6 +565,7 @@ FLUENT_DASHBOARD_APP_ICONS = {
     'pages/contactmessage': 'icons/flaticons_stroke/SVGs/mail-2.svg',
     'quotes/quote': 'icons/flaticons_stroke/SVGs/post-comment-2.svg',
     'statistics/statistic': 'icons/flaticons_stroke/SVGs/graph-1.svg',
+    'campaigns/campaign': 'icons/flaticons_stroke/SVGs/megaphone-1.svg',
 
     # Site Settings
     'sites/site': 'icons/flaticons_stroke/SVGs/browser-2.svg',
