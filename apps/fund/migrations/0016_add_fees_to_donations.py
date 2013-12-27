@@ -27,9 +27,8 @@ class Migration(SchemaMigration):
 
         # Now set the fees for all the paid donations.
         donations = orm.Donation.objects
-        donations = donations.filter(status='paid').filter(created__gt=pytz.utc.localize(datetime(2013, 1, 1, 0, 0, 0)))
-        donations = donations.filter(project_id=1504)
-        # donations = donations.filter(status='paid')
+        donations = donations.filter(status__in=['paid', 'pending'])
+        donations = donations.filter(created__gt=pytz.utc.localize(datetime(2013, 1, 1, 0, 0, 0)))
 
         for donation in donations:
             project = donation.project

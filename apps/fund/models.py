@@ -136,7 +136,7 @@ class Donation(models.Model):
 
     bank_fee = models.IntegerField(_("Bank fee"), help_text=_("Bank transaction fee."), default=0)
     psp_fee = models.IntegerField(_("PSP fee"), help_text=("Payment service provider fee."), default=0)
-    organization_fee = models.IntegerField(_("Organization fee"), help_text=_("1%Club fee"), default=0)
+    organization_fee = models.IntegerField(_("Organization fee"), help_text=_("1%Club fee.  "), default=0)
 
     @property
     def payment_method(self):
