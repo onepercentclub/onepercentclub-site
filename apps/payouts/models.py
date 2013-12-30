@@ -90,11 +90,11 @@ class Payout(models.Model):
         if self.status == self.PayoutLineStatuses.new:
             self.amount_raised = Decimal(donations.filter(status__in=['paid', 'pending']).aggregate(sum=Sum('amount'))['sum']) / 100
             if self.project.payout_rule == PayoutRules.five:
-                self.amount =  self.amount_raised * Decimal(.95)
+                self.amount =  self.amount_raised * Decimal('0.95')
             if self.project.payout_rule == PayoutRules.seven:
-                self.amount = self.amount_raised * Decimal(.93)
+                self.amount = self.amount_raised * Decimal('0.93')
             if self.project.payout_rule == PayoutRules.twelve:
-                self.amount = self.amount_raised * Decimal(.88)
+                self.amount = self.amount_raised * Decimal('0.88')
 
         if len(donations.filter(status__in=['pending'])):
             self.amount_failed = None
