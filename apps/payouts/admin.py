@@ -1,15 +1,16 @@
 import logging
-from apps.payouts.models import create_sepa_xml
+from apps.projects.models import PayoutRules
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.utils import timezone
 from django.utils.translation import ugettext as _
-from .models import BankMutation, BankMutationLine
+from .models import BankMutation, BankMutationLine, create_sepa_xml
 
 logger = logging.getLogger(__name__)
 
 from django.contrib import admin
+from django.contrib.admin import widgets
 
 from .models import Payout
 
@@ -21,18 +22,18 @@ class PayoutAdmin(admin.ModelAdmin):
 
     list_filter = ['status']
 
-    actions = ['export_sepa']
+    actions = ['export_sepa', 'recalculate_fees']
 
-    list_display = ['payout', 'ok', 'donation_overview', 'project',
-                    'amount_raised', 'amount_payout', 'current_amount_safe',
+    list_display = ['payout', 'ok', 'donation_overview', 'project', 'amount',
                     'receiver_account_number', 'invoice_reference', 'status']
 
-    readonly_fields = ['donation_overview', 'project_link', 'organization', 'amount_raised',  'amount_payout', 'amount_safe']
+    readonly_fields = ['donation_overview', 'project_link', 'organization', 'amount_raised', 'psp_fee', 'bank_fee',
+                       'organization_fee', 'amount_failed', 'amount_organization',
+                       'pending_donation_overview', 'payout_rule']
 
-    fields = readonly_fields + ['status', 'receiver_account_number', 'receiver_account_iban', 'receiver_account_bic',
+    fields = readonly_fields + ['status',  'amount', 'receiver_account_number', 'receiver_account_iban', 'receiver_account_bic',
                                 'receiver_account_country', 'invoice_reference', 'description_line1',
                                 'description_line2', 'description_line3', 'description_line4']
-
 
     def organization(self, obj):
         object = obj.project.projectplan.organization
@@ -47,6 +48,13 @@ class PayoutAdmin(admin.ModelAdmin):
 
     donation_overview.allow_tags = True
 
+
+    def pending_donation_overview(self, obj):
+        return "<a href='/admin/fund/donation/?project=%s&status__exact=pending'>%s</a>" % (obj.project.id, obj.amount_pending)
+
+    pending_donation_overview.allow_tags = True
+
+
     def project_link(self, obj):
         object = obj.project
         url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name), args=[object.id])
@@ -54,6 +62,9 @@ class PayoutAdmin(admin.ModelAdmin):
 
     project_link.allow_tags = True
     project_link.short_description = _('project')
+
+    def payout_rule(self, obj):
+        return PayoutRules.values[obj.project.payout_rule]
 
     def ok(self, obj):
         if obj.is_valid:
@@ -70,7 +81,7 @@ class PayoutAdmin(admin.ModelAdmin):
 
     def export_sepa(self, request, queryset):
         """
-        Dowload a sepa file with selected ProjectPayments
+        Download a sepa file with selected ProjectPayments
         """
         objs = queryset.all()
         if not request.user.is_staff:
@@ -82,6 +93,16 @@ class PayoutAdmin(admin.ModelAdmin):
         return response
 
     export_sepa.short_description = "Export SEPA file."
+
+    def recalculate_fees(self, request, queryset):
+        for payout in queryset.all():
+            payout.calculate_fees()
+        rows_updated = len(queryset)
+        if rows_updated == 1:
+            message_bit = "1 payout was"
+        else:
+            message_bit = "%s payouts were" % rows_updated
+        self.message_user(request, "Fees for %s successfully recalculated." % message_bit)
 
 admin.site.register(Payout, PayoutAdmin)
 

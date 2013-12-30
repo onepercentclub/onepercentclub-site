@@ -134,6 +134,10 @@ class Donation(models.Model):
     objects = models.Manager()
     valid_donations = ValidDonationsManager()
 
+    bank_fee = models.IntegerField(_("Bank fee"), help_text=_("Bank transaction fee."), default=0)
+    psp_fee = models.IntegerField(_("PSP fee"), help_text=("Payment service provider fee."), default=0)
+    organization_fee = models.IntegerField(_("Organization fee"), help_text=_("1%Club fee.  "), default=0)
+
     @property
     def payment_method(self):
         """ The DocData payment method. """
@@ -197,6 +201,22 @@ class Donation(models.Model):
             self.ready = None
 
         super(Donation, self).save(*args, **kwargs)
+
+
+    def calculate_fees(self):
+        count = len(self.order.donations.all())
+        payout_rule = self.project.payout_rule
+        payment = self.order.latest_payment
+        self.bank_fee = round(payment.fee / count)
+        self.psp_fee = round(settings.PSP_FEE /count)
+        if payout_rule == 'five':
+            self.organization_fee = round(self.amount * .05) - self.psp_fee - self.bank_fee
+        if payout_rule == 'seven':
+            self.organization_fee = round(self.amount * .07) - self.psp_fee - self.bank_fee
+        if payout_rule == 'twelve':
+            self.organization_fee = round(self.amount * .12) - self.psp_fee - self.bank_fee
+        self.save()
+
 
 
 class OrderStatuses(DjangoChoices):
@@ -425,6 +445,7 @@ def process_payment_status_changed(sender, instance, old_status, new_status, **k
 
         # Donations.
         for donation in order.donations.all():
+
             donation.status = DonationStatuses.paid
             donation.save()
 

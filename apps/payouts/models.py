@@ -1,6 +1,8 @@
-from apps.projects.models import Project, ProjectPhases
+from decimal import Decimal
+from apps.projects.models import Project, ProjectPhases, PayoutRules
 from apps.sepa.sepa import SepaDocument, SepaAccount
 from django.conf import settings
+from django.db.models.aggregates import Sum
 from django.utils import timezone
 from django.db import models
 from django.utils.translation import ugettext as _
@@ -10,6 +12,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 import csv
 from dateutil.relativedelta import relativedelta
+
 
 class Payout(models.Model):
     """
@@ -29,8 +32,22 @@ class Payout(models.Model):
     status = models.CharField(_("status"), max_length=20, choices=PayoutLineStatuses.choices)
     created = CreationDateTimeField(_("Created"))
     updated = ModificationDateTimeField(_("Updated"))
-    amount = models.PositiveIntegerField(_("Amount"))
+
     currency = models.CharField(_("Currency"), max_length=3)
+
+    amount_raised = models.IntegerField(_("Amount raised"),
+                                        help_text=_("Amount raised at the time this payout was created."))
+    amount = models.DecimalField(_("Amount"), max_digits=12, decimal_places=2, help_text=_("Amount to be payed out."))
+
+    bank_fee = models.DecimalField(_("Bank fee"), max_digits=12, decimal_places=2, help_text=_("Bank transaction fee."))
+    psp_fee = models.DecimalField(_("PSP fee"), max_digits=12, decimal_places=2, help_text=("Payment service provider fee."))
+    organization_fee = models.DecimalField(_("Organization fee"), max_digits=12, decimal_places=2, help_text=_("1%Club fee."))
+
+    amount_organization = models.DecimalField(_("Organization amount"), max_digits=12, decimal_places=2, null=True,
+                                                     help_text=_("1%Club fee - failed payments."))
+
+    amount_failed = models.DecimalField(_("Failed amount"), max_digits=12, decimal_places=2, null=True,
+                                                  help_text=_("Payments that failed after the project was payed."))
 
     sender_account_number = models.CharField(max_length=100)
     receiver_account_number = models.CharField(max_length=100, blank=True)
@@ -46,32 +63,52 @@ class Payout(models.Model):
     description_line3 = models.CharField(max_length=100, blank=True, default="")
     description_line4 = models.CharField(max_length=100, blank=True, default="")
 
-    @property
-    def amount_payout(self):
-        return '%.2f' % (float(self.amount) / 100)
 
     @property
-    def amount_raised(self):
-        return '%.2f' % (float(self.amount) / settings.PROJECT_PAYOUT_RATE / 100)
-
-    @property
-    def current_amount_safe(self):
-        return '%.2f' % (self.project.projectcampaign.money_safe * settings.PROJECT_PAYOUT_RATE / 100)
+    def amount_safe(self):
+        return '%.2f' % (self.project.projectcampaign.money_safe * settings.PROJECT_PAYOUT_RATE)
 
     @property
     def is_valid(self):
-        # TODO: Do a more advanced check. Maybe use IBAN check by a B. Q. Konrath?
         if self.receiver_account_iban and self.receiver_account_bic:
             return True
         return False
 
     @property
-    def amount_safe(self):
-        return int(round(self.project.projectcampaign.money_safe * settings.PROJECT_PAYOUT_RATE))
+    def amount_pending(self):
+        donations = self.project.donation_set
+        return donations.filter(status__in=['pending']).aggregate(sum=Sum('amount'))['sum'] / 100
+
+    def calculate_fees(self):
+        donations = self.project.donation_set
+        self.psp_fee = Decimal(donations.filter(status__in=['paid', 'pending']).aggregate(sum=Sum('psp_fee'))['sum']) / 100
+        self.bank_fee = Decimal(donations.filter(status__in=['paid', 'pending']).aggregate(sum=Sum('bank_fee'))['sum']) / 100
+        self.organization_fee = Decimal(donations.filter(status__in=['paid', 'pending']).aggregate(sum=Sum('organization_fee'))['sum']) / 100
+        self.amount_raised = Decimal(donations.filter(status__in=['paid', 'pending']).aggregate(sum=Sum('amount'))['sum']) / 100
+
+        # Only update the amount for payout if it isn't in progress yet.
+        if self.status == self.PayoutLineStatuses.new:
+            self.amount_raised = Decimal(donations.filter(status__in=['paid', 'pending']).aggregate(sum=Sum('amount'))['sum']) / 100
+            if self.project.payout_rule == PayoutRules.five:
+                self.amount =  self.amount_raised * Decimal(.95)
+            if self.project.payout_rule == PayoutRules.seven:
+                self.amount = self.amount_raised * Decimal(.93)
+            if self.project.payout_rule == PayoutRules.twelve:
+                self.amount = self.amount_raised * Decimal(.88)
+
+        if len(donations.filter(status__in=['pending'])):
+            self.amount_failed = None
+            self.amount_organization = None
+        else:
+            new_amount_raised  = Decimal(donations.filter(status__in=['paid']).aggregate(sum=Sum('amount'))['sum']) / 100
+            self.amount_organization = self.amount_raised - self.amount - self.bank_fee - self.psp_fee
+            self.amount_failed = self.organization_fee - self.amount_organization
+
+        self.save()
 
     def __unicode__(self):
         date = self.created.strftime('%d-%m-%Y')
-        return  self.invoice_reference + " : " + date + " : " + self.receiver_account_number + " : EUR " + str(self.amount_payout)
+        return  self.invoice_reference + " : " + date + " : " + self.receiver_account_number + " : " + str(self.amount)
 
 
 class BankMutationLine(models.Model):
@@ -100,7 +137,6 @@ class BankMutationLine(models.Model):
     def __unicode__(self):
         return str(self.start_date) + " " + self.dc + " : " + self.account_name + " [" + self.account_number + "]  " + \
             " EUR " + str(self.amount)
-
 
 
 class BankMutation(models.Model):
