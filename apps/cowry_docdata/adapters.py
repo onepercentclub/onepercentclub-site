@@ -648,7 +648,7 @@ class WebDirectDocDataDirectDebitPaymentAdapter(DocDataPaymentAdapter):
 def update_docdata_webdirect_direct_debit_payment(payment, payment_id, recurring_payment):
     # The delay is here to give DocData some time to call our status changed API which creates the
     # DocDataWebDirectDirectDebit object.
-    time.sleep(6)
+    time.sleep(2)
     try:
         ddpayment = DocDataWebDirectDirectDebit.objects.get(payment_id=payment_id)
     except DocDataWebDirectDirectDebit.DoesNotExist:

@@ -153,6 +153,7 @@ def correct_donation_amounts(popular_projects, recurring_order, recurring_paymen
     num_donations = recurring_order.donations.count()
     amount_per_project = math.floor(recurring_payment.amount / num_donations)
     donations = recurring_order.donations.all()
+    logger.info("Really! {0} donations".format(len(donations)))
     for i in range(0, num_donations - 1):
         donation = donations[i]
         project = Project.objects.get(id=donation.project_id)
@@ -163,8 +164,6 @@ def correct_donation_amounts(popular_projects, recurring_order, recurring_paymen
         donation.donation_type = Donation.DonationTypes.recurring
         donation.save()
         remaining_amount -= donation.amount
-
-    # Update the last donation with the remaining amount.
     update_last_donation(donations[num_donations - 1], remaining_amount, popular_projects)
 
 
@@ -276,10 +275,10 @@ def process_monthly_donations(recurring_payments_queryset, send_email):
         # matches the RecurringDirectDebitPayment.
         if recurring_payment.amount != recurring_order.total:
             # Cleanup the Order if there's an error.
-            if top_three_donation:
-                remove_order(recurring_order)
             error_message = "RecurringDirectDebitPayment amount: {0} does not equal recurring Order amount: {1} for '{2}'. Not processing this recurring donation.".format(
                 recurring_payment.amount, recurring_order.total, recurring_payment)
+            if top_three_donation:
+                remove_order(recurring_order)
             logger.error(error_message)
             recurring_donation_errors.append(RecurringDonationError(recurring_payment, error_message))
             continue
