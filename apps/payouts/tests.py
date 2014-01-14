@@ -54,6 +54,12 @@ class PayoutTestCase(TestCase):
         # Save it
         payout.save()
 
+    def test_unicode(self):
+        """ Test unicode() on payout. """
+
+        payout = G(Payout)
+        self.assertTrue(unicode(payout))
+
     def test_create_payout(self):
         """
         Test automatically generating a payout.
