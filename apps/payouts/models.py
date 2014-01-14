@@ -10,13 +10,13 @@ from django.utils.translation import ugettext as _
 from django.dispatch import receiver
 
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
-from djchoices import DjangoChoices, ChoiceItem
 
 from apps.projects.models import Project, ProjectPhases
 from apps.sepa.sepa import SepaDocument, SepaAccount
 
 from .fields import MoneyField
 from .utils import money_from_cents
+from .choices import PayoutLineStatuses, PayoutRules
 
 
 class Payout(models.Model):
@@ -25,16 +25,18 @@ class Payout(models.Model):
     Project payouts are checked manually. Selected projects can be exported to a SEPA file.
     """
 
-    class PayoutLineStatuses(DjangoChoices):
-        new = ChoiceItem('new', label=_("New"))
-        progress = ChoiceItem('progress', label=_("Progress"))
-        completed = ChoiceItem('completed', label=_("Completed"))
-
     planned = models.DateField(_("Planned"), help_text=_("Date that this batch should be processed."))
 
     project = models.ForeignKey('projects.Project')
 
-    status = models.CharField(_("status"), max_length=20, choices=PayoutLineStatuses.choices)
+    payout_rule = models.CharField(
+        _("Payout rule"), max_length=20,
+        choices=PayoutRules.choices,
+        help_text=_("The payout rule for this project.")
+    )
+
+    status = models.CharField(
+        _("status"), max_length=20, choices=PayoutLineStatuses.choices)
     created = CreationDateTimeField(_("Created"))
     updated = ModificationDateTimeField(_("Updated"))
 
@@ -158,14 +160,16 @@ def create_payout_for_fully_funded_project(sender, instance, created, **kwargs):
             project.projectcampaign.money_donated
         )
         try:
+            # Update existing Payout
             line = Payout.objects.get(project=project)
-            if line.status == Payout.PayoutLineStatuses.new:
+            if line.status == PayoutLineStatuses.new:
                 line.planned = next_date
                 line.save()
         except Payout.DoesNotExist:
+            # Create new Payout
             line = Payout.objects.create(
                 planned=next_date, project=project,
-                status=Payout.PayoutLineStatuses.new,
+                status=PayoutLineStatuses.new,
                 amount_raised=amount_raised
             )
 
