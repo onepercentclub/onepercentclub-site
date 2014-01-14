@@ -15,11 +15,13 @@ from djchoices import DjangoChoices, ChoiceItem
 from apps.projects.models import Project, ProjectPhases
 from apps.sepa.sepa import SepaDocument, SepaAccount
 
+from .fields import MoneyField
+
 
 class Payout(models.Model):
     """
-        A projects is payed after it's fully funded in the first batch (2x/month).
-        Project payouts are checked manually. Selected projects can be exported to a SEPA file.
+    A projects is payed after it's fully funded in the first batch (2x/month).
+    Project payouts are checked manually. Selected projects can be exported to a SEPA file.
     """
 
     class PayoutLineStatuses(DjangoChoices):
@@ -34,8 +36,8 @@ class Payout(models.Model):
     status = models.CharField(_("status"), max_length=20, choices=PayoutLineStatuses.choices)
     created = CreationDateTimeField(_("Created"))
     updated = ModificationDateTimeField(_("Updated"))
-    amount = models.PositiveIntegerField(_("Amount"))
-    currency = models.CharField(_("Currency"), max_length=3)
+
+    amount = MoneyField(_("Amount"))
 
     sender_account_number = models.CharField(max_length=100)
     receiver_account_number = models.CharField(max_length=100, blank=True)
@@ -146,6 +148,7 @@ def create_payout_for_fully_funded_project(sender, instance, created, **kwargs):
     now = timezone.now()
 
     # Check projects in phase Act that have asked for money.
+    # import ipdb; ipdb.set_trace()
     if project.phase == ProjectPhases.act and project.projectcampaign.money_asked:
         if now.day <= 15:
             next_date = timezone.datetime(now.year, now.month, 15)
