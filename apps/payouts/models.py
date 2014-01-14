@@ -38,7 +38,9 @@ class Payout(models.Model):
     created = CreationDateTimeField(_("Created"))
     updated = ModificationDateTimeField(_("Updated"))
 
-    amount = MoneyField(_("Amount"))
+    amount_raised = MoneyField(
+        _("amount raised"), help_text=_('Amount raised when Payout was created.')
+    )
 
     sender_account_number = models.CharField(max_length=100)
     receiver_account_number = models.CharField(max_length=100, blank=True)
@@ -57,10 +59,6 @@ class Payout(models.Model):
     @property
     def amount_payout(self):
         return '%.2f' % (float(self.amount) / 100)
-
-    @property
-    def amount_raised(self):
-        return '%.2f' % (float(self.amount) / settings.PROJECT_PAYOUT_RATE / 100)
 
     @property
     def current_amount_safe(self):
@@ -156,8 +154,8 @@ def create_payout_for_fully_funded_project(sender, instance, created, **kwargs):
         else:
             next_date = timezone.datetime(now.year, now.month, 1) + relativedelta(months=1)
 
-        amount = money_from_cents(
-            project.projectcampaign.money_donated * settings.PROJECT_PAYOUT_RATE
+        amount_raised = money_from_cents(
+            project.projectcampaign.money_donated
         )
         try:
             line = Payout.objects.get(project=project)
@@ -168,7 +166,7 @@ def create_payout_for_fully_funded_project(sender, instance, created, **kwargs):
             line = Payout.objects.create(
                 planned=next_date, project=project,
                 status=Payout.PayoutLineStatuses.new,
-                amount=amount
+                amount_raised=amount_raised
             )
 
             organization = project.projectplan.organization

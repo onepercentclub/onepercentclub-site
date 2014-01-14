@@ -78,4 +78,4 @@ class PayoutTestCase(TestCase):
 
         # Check the project and the amount
         self.assertEquals(payout.project, self.project)
-        self.assertEquals(payout.amount, Decimal('14.25'))
+        self.assertEquals(payout.amount_raised, Decimal('15.00'))
