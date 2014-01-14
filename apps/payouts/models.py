@@ -170,9 +170,8 @@ def create_payout_for_fully_funded_project(sender, instance, created, **kwargs):
             payout = Payout.objects.get(project=project)
 
             if payout.status == PayoutLineStatuses.new:
-                # Update planned payout date and payout rule for new Payouts
+                # Update planned payout date for new Payouts
                 payout.planned = next_date
-                payout.payout_rule = payout_rule
                 payout.save()
 
         except Payout.DoesNotExist:
