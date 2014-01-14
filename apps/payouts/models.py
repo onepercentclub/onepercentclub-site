@@ -156,8 +156,6 @@ def create_payout_for_fully_funded_project(sender, instance, created, **kwargs):
         else:
             next_date = timezone.datetime(now.year, now.month, 1) + relativedelta(months=1)
 
-        day = timezone.datetime.strftime(now, '%d%m%Y')
-
         amount = money_from_cents(
             project.projectcampaign.money_donated * settings.PROJECT_PAYOUT_RATE
         )
