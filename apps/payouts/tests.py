@@ -8,7 +8,9 @@ from apps.projects.models import (
     Project, ProjectPhases, ProjectCampaign, ProjectPlan
 )
 from apps.fund.models import Donation, DonationStatuses
+
 from .models import Payout
+from .choices import PayoutRules
 
 
 class PayoutTestCase(TestCase):
@@ -79,3 +81,38 @@ class PayoutTestCase(TestCase):
         # Check the project and the amount
         self.assertEquals(payout.project, self.project)
         self.assertEquals(payout.amount_raised, Decimal('15.00'))
+
+    def test_create_payment_rule_five(self):
+        """ Fully funded projects should get payment rule five. """
+
+        # Set status of donation to paid
+        self.donation.status = DonationStatuses.paid
+        self.donation.save()
+
+        # Update campaign donations
+        self.campaign.update_money_donated()
+
+        # Update phase to act.
+        self.project.phase = ProjectPhases.act
+        self.project.save()
+
+        payout = Payout.objects.all()[0]
+        self.assertEquals(payout.payout_rule, PayoutRules.five)
+
+    def test_create_payment_rule_twelve(self):
+        """ Not fully funded projects should get payment rule twelve. """
+
+        # Set status of donation to paid
+        self.donation.amount = 1400
+        self.donation.status = DonationStatuses.paid
+        self.donation.save()
+
+        # Update campaign donations
+        self.campaign.update_money_donated()
+
+        # Update phase to act.
+        self.project.phase = ProjectPhases.act
+        self.project.save()
+
+        payout = Payout.objects.all()[0]
+        self.assertEquals(payout.payout_rule, PayoutRules.twelve)

@@ -156,34 +156,47 @@ def create_payout_for_fully_funded_project(sender, instance, created, **kwargs):
         else:
             next_date = timezone.datetime(now.year, now.month, 1) + relativedelta(months=1)
 
+        if project.projectcampaign.money_donated >= project.projectcampaign.money_asked:
+            # Fully funded, set payout rule to 5
+            payout_rule = PayoutRules.five
+        else:
+            payout_rule = PayoutRules.twelve
+
         amount_raised = money_from_cents(
             project.projectcampaign.money_donated
         )
         try:
             # Update existing Payout
-            line = Payout.objects.get(project=project)
-            if line.status == PayoutLineStatuses.new:
-                line.planned = next_date
-                line.save()
+            payout = Payout.objects.get(project=project)
+
+            if payout.status == PayoutLineStatuses.new:
+                # Update planned payout date and payout rule for new Payouts
+                payout.planned = next_date
+                payout.payout_rule = payout_rule
+                payout.save()
+
         except Payout.DoesNotExist:
+
             # Create new Payout
-            line = Payout.objects.create(
-                planned=next_date, project=project,
+            payout = Payout.objects.create(
+                planned=next_date,
+                project=project,
                 status=PayoutLineStatuses.new,
-                amount_raised=amount_raised
+                amount_raised=amount_raised,
+                payout_rule=payout_rule
             )
 
             organization = project.projectplan.organization
-            line.receiver_account_bic = organization.account_bic
-            line.receiver_account_iban = organization.account_iban
-            line.receiver_account_number = organization.account_number
-            line.receiver_account_name = organization.account_name
-            line.receiver_account_city = organization.account_city
-            line.receiver_account_country = organization.account_bank_country
-            line.invoice_reference = 'PP'
-            line.save()
-            line.invoice_reference = str(project.id) + '-' + str(line.id)
-            line.save()
+            payout.receiver_account_bic = organization.account_bic
+            payout.receiver_account_iban = organization.account_iban
+            payout.receiver_account_number = organization.account_number
+            payout.receiver_account_name = organization.account_name
+            payout.receiver_account_city = organization.account_city
+            payout.receiver_account_country = organization.account_bank_country
+            payout.invoice_reference = 'PP'
+            payout.save()
+            payout.invoice_reference = str(project.id) + '-' + str(payout.id)
+            payout.save()
 
 
 def create_sepa_xml(payouts):
