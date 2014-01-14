@@ -1,4 +1,5 @@
 import csv
+import decimal
 
 from dateutil.relativedelta import relativedelta
 
@@ -15,7 +16,7 @@ from apps.projects.models import Project, ProjectPhases
 from apps.sepa.sepa import SepaDocument, SepaAccount
 
 from .fields import MoneyField
-from .utils import money_from_cents, get_fee_percentage
+from .utils import money_from_cents, round_money, get_fee_percentage
 from .choices import PayoutLineStatuses, PayoutRules
 
 
@@ -105,19 +106,26 @@ class Payout(models.Model):
         self.save()
 
     @property
-    def current_amount_safe(self):
-        return '%.2f' % (self.project.projectcampaign.money_safe * settings.PROJECT_PAYOUT_RATE / 100)
+    def safe_amount_payable(self):
+        """ Realtime amount of safe donations received. """
+        # Get amount as Decimal
+        safe_amount = money_from_cents(self.project.projectcampaign.money_safe)
+
+        # Calculate fee factor
+        fee_factor = decimal.Decimal('1.00') - get_fee_percentage(self.payout_rule)
+
+        # Round it
+        safe_amount = round_money(safe_amount * fee_factor)
+
+        return safe_amount
 
     @property
     def is_valid(self):
+        """ Whether or not payment details are complete. """
         # TODO: Do a more advanced check. Maybe use IBAN check by a B. Q. Konrath?
         if self.receiver_account_iban and self.receiver_account_bic:
             return True
         return False
-
-    @property
-    def amount_safe(self):
-        return int(round(self.project.projectcampaign.money_safe * settings.PROJECT_PAYOUT_RATE))
 
     def __unicode__(self):
         date = self.created.strftime('%d-%m-%Y')
