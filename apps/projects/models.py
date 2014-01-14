@@ -453,26 +453,45 @@ class ProjectCampaign(models.Model):
     # The amount donated that is secure.
     @property
     def money_safe(self):
+        """
+        Returns current amount of money from paid donations. (realtime)
+        """
+
         if self.money_asked == 0:
+            # No money asked, no money safe
             return 0
+
         donations = Donation.objects.filter(project=self.project)
         donations = donations.filter(status__in=[DonationStatuses.paid])
         total = donations.aggregate(sum=Sum('amount'))
+
         if not total['sum']:
+            # No donations, manually set amount
             return 0
+
         return total['sum']
 
     def update_money_donated(self):
+        """ Update amount based on paid and pending donations. """
+
         donations = Donation.objects.filter(project=self.project)
-        donations = donations.filter(status__in=[DonationStatuses.paid, DonationStatuses.pending])
+        donations = donations.filter(
+            status__in=[DonationStatuses.paid, DonationStatuses.pending]
+        )
         total = donations.aggregate(sum=Sum('amount'))
+
         if not total['sum']:
+            # No donations, manually set amount
             self.money_donated = 0
         else:
             self.money_donated = total['sum']
+
         self.money_needed = self.money_asked - self.money_donated
+
         if self.money_needed < 0:
+            # Should never be less than zero
             self.money_needed = 0
+
         self.save()
 
 
