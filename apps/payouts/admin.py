@@ -11,26 +11,28 @@ from django.utils.translation import ugettext as _
 from apps.payouts.models import create_sepa_xml
 
 from .models import Payout, BankMutation, BankMutationLine
+from .choices import PayoutLineStatuses
 
 
 class PayoutAdmin(admin.ModelAdmin):
+    date_hierarchy = 'created'
 
     model = Payout
     can_delete = False
 
-    list_filter = ['status']
+    list_filter = ['status', 'payout_rule']
 
-    actions = ['export_sepa']
+    actions = ['export_sepa', 'recalculate_amounts']
 
     list_display = [
         'payout', 'ok', 'donation_overview', 'project',
-        'amount_raised', 'amount_payout', 'current_amount_safe',
+        'amount_raised', 'organization_fee', 'amount_payable', 'safe_amount_payable',
         'receiver_account_number', 'invoice_reference', 'status'
     ]
 
     readonly_fields = [
-        'donation_overview', 'project_link', 'organization', 'amount_raised',
-        'amount_payout', 'amount_safe'
+        'donation_overview', 'project_link', 'organization', 'payout_rule',
+        'amount_raised', 'organization_fee', 'amount_payable', 'safe_amount_payable'
     ]
 
     fields = readonly_fields + [
@@ -88,6 +90,26 @@ class PayoutAdmin(admin.ModelAdmin):
         return response
 
     export_sepa.short_description = "Export SEPA file."
+
+    def recalculate_amounts(self, request, queryset):
+        # Only recalculate for 'new' payouts
+        filter_args = {'status': PayoutLineStatuses.new}
+        qs_new = queryset.all().filter(**filter_args)
+
+        for payout in qs_new:
+            payout.calculate_amounts()
+
+        message = (
+            "Fees for %(new_payouts)d new payouts were recalculated. "
+            "%(skipped_payouts)d progressing or closed payouts have been skipped."
+        ) % {
+            'new_payouts': qs_new.count(),
+            'skipped_payouts': queryset.exclude(**filter_args).count()
+        }
+
+        self.message_user(request, message)
+
+    recalculate_amounts.short_description = _("Recalculate amounts for new payouts.")
 
 admin.site.register(Payout, PayoutAdmin)
 
