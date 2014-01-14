@@ -121,7 +121,7 @@ class Payout(models.Model):
 
     def __unicode__(self):
         date = self.created.strftime('%d-%m-%Y')
-        return  self.invoice_reference + " : " + date + " : " + self.receiver_account_number + " : EUR " + str(self.amount_payout)
+        return  self.invoice_reference + " : " + date + " : " + self.receiver_account_number + " : EUR " + str(self.amount_payable)
 
 
 class BankMutationLine(models.Model):
