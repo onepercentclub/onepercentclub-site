@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.test import TestCase
 
 from django_dynamic_fixture import N, G
@@ -58,16 +60,22 @@ class PayoutTestCase(TestCase):
         # No payouts should exist yet as project is not in act phase yet
         self.assertFalse(Payout.objects.exists())
 
-        # Update phase to act.
-        self.project.phase = ProjectPhases.act
-        self.project.save()
-
         # Set status of donation to paid
         self.donation.status = DonationStatuses.paid
         self.donation.save()
+
+        # Update campaign donations
+        self.campaign.update_money_donated()
+
+        # Update phase to act.
+        self.project.phase = ProjectPhases.act
+        self.project.save()
 
         # Payout should have been created
         self.assertEquals(Payout.objects.count(), 1)
 
         payout = Payout.objects.all()[0]
+
+        # Check the project and the amount
         self.assertEquals(payout.project, self.project)
+        self.assertEquals(payout.amount, Decimal('14.25'))
