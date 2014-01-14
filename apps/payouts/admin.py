@@ -1,17 +1,16 @@
 import logging
-from apps.payouts.models import create_sepa_xml
+logger = logging.getLogger(__name__)
+
+from django.contrib import admin
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.utils import timezone
 from django.utils.translation import ugettext as _
-from .models import BankMutation, BankMutationLine
 
-logger = logging.getLogger(__name__)
+from apps.payouts.models import create_sepa_xml
 
-from django.contrib import admin
-
-from .models import Payout
+from .models import Payout, BankMutation, BankMutationLine
 
 
 class PayoutAdmin(admin.ModelAdmin):
@@ -23,15 +22,22 @@ class PayoutAdmin(admin.ModelAdmin):
 
     actions = ['export_sepa']
 
-    list_display = ['payout', 'ok', 'donation_overview', 'project',
-                    'amount_raised', 'amount_payout', 'current_amount_safe',
-                    'receiver_account_number', 'invoice_reference', 'status']
+    list_display = [
+        'payout', 'ok', 'donation_overview', 'project',
+        'amount_raised', 'amount_payout', 'current_amount_safe',
+        'receiver_account_number', 'invoice_reference', 'status'
+    ]
 
-    readonly_fields = ['donation_overview', 'project_link', 'organization', 'amount_raised',  'amount_payout', 'amount_safe']
+    readonly_fields = [
+        'donation_overview', 'project_link', 'organization', 'amount_raised',
+        'amount_payout', 'amount_safe'
+    ]
 
-    fields = readonly_fields + ['status', 'receiver_account_number', 'receiver_account_iban', 'receiver_account_bic',
-                                'receiver_account_country', 'invoice_reference', 'description_line1',
-                                'description_line2', 'description_line3', 'description_line4']
+    fields = readonly_fields + [
+        'status', 'receiver_account_number', 'receiver_account_iban', 'receiver_account_bic',
+        'receiver_account_country', 'invoice_reference', 'description_line1',
+        'description_line2', 'description_line3', 'description_line4'
+    ]
 
 
     def organization(self, obj):
@@ -113,7 +119,9 @@ class BankMutationLineAdmin(admin.ModelAdmin):
     can_delete = False
     extra = 0
 
-    list_display = ['start_date', 'matched', 'dc', 'transaction_type', 'amount', 'invoice_reference', 'account_number', 'account_name']
+    list_display = [
+        'start_date', 'matched', 'dc', 'transaction_type', 'amount', 'invoice_reference', 'account_number', 'account_name'
+    ]
 
     def has_add_permission(self, request):
         return False
@@ -125,9 +133,11 @@ class BankMutationLineAdmin(admin.ModelAdmin):
 
     matched.allow_tags = True
 
-    readonly_fields = ['bank_mutation', 'amount', 'dc', 'transaction_type', 'account_number', 'account_name',
-                       'start_date', 'matched', 'issuer_account_number', 'currency', 'invoice_reference',
-                       'description_line1', 'description_line2', 'description_line3', 'description_line4']
+    readonly_fields = [
+        'bank_mutation', 'amount', 'dc', 'transaction_type', 'account_number', 'account_name',
+       'start_date', 'matched', 'issuer_account_number', 'currency', 'invoice_reference',
+       'description_line1', 'description_line2', 'description_line3', 'description_line4'
+    ]
     #fields = readonly_fields
 
 admin.site.register(BankMutationLine, BankMutationLineAdmin)
