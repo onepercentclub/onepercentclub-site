@@ -68,8 +68,8 @@ class PayoutTestCase(TestCase):
         # No payouts should exist yet as project is not in act phase yet
         self.assertFalse(Payout.objects.exists())
 
-        # Set status of donation to paid
-        self.donation.status = DonationStatuses.paid
+        # Set status of donation to pending
+        self.donation.status = DonationStatuses.pending
         self.donation.save()
 
         # Update campaign donations
@@ -126,3 +126,68 @@ class PayoutTestCase(TestCase):
         self.assertEquals(payout.payout_rule, PayoutRules.twelve)
         self.assertEquals(payout.organization_fee, Decimal('1.68'))
         self.assertEquals(payout.amount_payable, Decimal('12.32'))
+
+    def test_safe_amount_new(self):
+        """ Test safe_amount_payable for new donations. """
+
+        # Set status of donation to paid
+        self.donation.status = DonationStatuses.new
+        self.donation.save()
+
+        # Update campaign donations
+        self.campaign.update_money_donated()
+
+        # Update phase to act.
+        self.project.phase = ProjectPhases.act
+        self.project.save()
+
+        # Fetch payout
+        payout = Payout.objects.all()[0]
+
+        # No money is even pending
+        self.assertEquals(payout.amount_payable, Decimal('0.00'))
+        self.assertEquals(payout.safe_amount_payable, Decimal('0.00'))
+
+    def test_safe_amount_pending(self):
+        """ Test safe_amount_payable for pending donations. """
+
+        # Set status of donation to paid
+        self.donation.status = DonationStatuses.pending
+        self.donation.save()
+
+        # Update campaign donations
+        self.campaign.update_money_donated()
+
+        # Update phase to act.
+        self.project.phase = ProjectPhases.act
+        self.project.save()
+
+        # Fetch payout
+        payout = Payout.objects.all()[0]
+
+        # No money is even pending
+        self.assertEquals(payout.amount_payable, Decimal('14.25'))
+        self.assertEquals(payout.safe_amount_payable, Decimal('0.00'))
+
+    def test_safe_amount_paid(self):
+        """ Test safe_amount_payable for paid donations. """
+
+        # Set status of donation to paid
+        self.donation.status = DonationStatuses.paid
+        self.donation.save()
+
+        # Update campaign donations
+        self.campaign.update_money_donated()
+
+        # Update phase to act.
+        self.project.phase = ProjectPhases.act
+        self.project.save()
+
+        # Fetch payout
+        payout = Payout.objects.all()[0]
+
+        # No money is safe - just yet
+        self.assertEquals(payout.amount_payable, Decimal('14.25'))
+        self.assertEquals(payout.safe_amount_payable, Decimal('14.25'))
+
+
