@@ -16,6 +16,7 @@ from apps.projects.models import Project, ProjectPhases
 from apps.sepa.sepa import SepaDocument, SepaAccount
 
 from .fields import MoneyField
+from .utils import money_from_cents
 
 
 class Payout(models.Model):
@@ -157,15 +158,20 @@ def create_payout_for_fully_funded_project(sender, instance, created, **kwargs):
 
         day = timezone.datetime.strftime(now, '%d%m%Y')
 
-        amount = round(project.projectcampaign.money_donated * settings.PROJECT_PAYOUT_RATE)
+        amount = money_from_cents(
+            project.projectcampaign.money_donated * settings.PROJECT_PAYOUT_RATE
+        )
         try:
             line = Payout.objects.get(project=project)
             if line.status == Payout.PayoutLineStatuses.new:
                 line.planned = next_date
                 line.save()
         except Payout.DoesNotExist:
-            line = Payout.objects.create(planned=next_date, project=project, status=Payout.PayoutLineStatuses.new,
-                                         amount=amount)
+            line = Payout.objects.create(
+                planned=next_date, project=project,
+                status=Payout.PayoutLineStatuses.new,
+                amount=amount
+            )
 
             organization = project.projectplan.organization
             line.receiver_account_bic = organization.account_bic
