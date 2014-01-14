@@ -15,7 +15,7 @@ from apps.projects.models import Project, ProjectPhases
 from apps.sepa.sepa import SepaDocument, SepaAccount
 
 from .fields import MoneyField
-from .utils import money_from_cents
+from .utils import money_from_cents, get_fee_percentage
 from .choices import PayoutLineStatuses, PayoutRules
 
 
@@ -41,7 +41,18 @@ class Payout(models.Model):
     updated = ModificationDateTimeField(_("Updated"))
 
     amount_raised = MoneyField(
-        _("amount raised"), help_text=_('Amount raised when Payout was created.')
+        _("amount raised"),
+        help_text=_('Amount raised when Payout was created or last recalculated.')
+    )
+
+    organization_fee = MoneyField(
+        _("organization fee"),
+        help_text=_('Fee substracted from amount raised for the organization.')
+    )
+
+    amount_payable = MoneyField(
+        _("amount payable"),
+        help_text=_('Payable amount; raised amount minus organization fee.')
     )
 
     sender_account_number = models.CharField(max_length=100)
@@ -58,9 +69,40 @@ class Payout(models.Model):
     description_line3 = models.CharField(max_length=100, blank=True, default="")
     description_line4 = models.CharField(max_length=100, blank=True, default="")
 
-    @property
-    def amount_payout(self):
-        return '%.2f' % (float(self.amount) / 100)
+    def calculate_amounts(self):
+        """
+        Calculate amounts according to payment_rule.
+
+        Updates:
+          - payout_rule
+          - amount_raised
+          - organization_fee
+          - amount_payable
+
+        Should only be called for Payouts with status 'new'.
+        """
+        assert self.status == PayoutLineStatuses.new, \
+            'Can only recalculate for new Payout.'
+
+        # Campaign shorthand
+        campaign = self.project.projectcampaign
+
+        if campaign.money_donated >= campaign.money_asked:
+            # Fully funded, set payout rule to 5
+            self.payout_rule = PayoutRules.five
+        else:
+            self.payout_rule = PayoutRules.twelve
+
+        fee_factor = get_fee_percentage(self.payout_rule)
+
+        self.amount_raised = money_from_cents(
+            campaign.money_donated
+        )
+
+        self.organization_fee = self.amount_raised * fee_factor
+        self.amount_payable = self.amount_raised - self.organization_fee
+
+        self.save()
 
     @property
     def current_amount_safe(self):
@@ -156,15 +198,6 @@ def create_payout_for_fully_funded_project(sender, instance, created, **kwargs):
         else:
             next_date = timezone.datetime(now.year, now.month, 1) + relativedelta(months=1)
 
-        if project.projectcampaign.money_donated >= project.projectcampaign.money_asked:
-            # Fully funded, set payout rule to 5
-            payout_rule = PayoutRules.five
-        else:
-            payout_rule = PayoutRules.twelve
-
-        amount_raised = money_from_cents(
-            project.projectcampaign.money_donated
-        )
         try:
             # Update existing Payout
             payout = Payout.objects.get(project=project)
@@ -177,14 +210,16 @@ def create_payout_for_fully_funded_project(sender, instance, created, **kwargs):
         except Payout.DoesNotExist:
 
             # Create new Payout
-            payout = Payout.objects.create(
+            payout = Payout(
                 planned=next_date,
                 project=project,
                 status=PayoutLineStatuses.new,
-                amount_raised=amount_raised,
-                payout_rule=payout_rule
             )
 
+            # Calculate amounts
+            payout.calculate_amounts()
+
+            # Set payment details
             organization = project.projectplan.organization
             payout.receiver_account_bic = organization.account_bic
             payout.receiver_account_iban = organization.account_iban
@@ -193,6 +228,8 @@ def create_payout_for_fully_funded_project(sender, instance, created, **kwargs):
             payout.receiver_account_city = organization.account_city
             payout.receiver_account_country = organization.account_bank_country
             payout.invoice_reference = 'PP'
+
+            # Make sure we have id's for invoice reference
             payout.save()
             payout.invoice_reference = str(project.id) + '-' + str(payout.id)
             payout.save()

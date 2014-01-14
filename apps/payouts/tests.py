@@ -98,6 +98,8 @@ class PayoutTestCase(TestCase):
 
         payout = Payout.objects.all()[0]
         self.assertEquals(payout.payout_rule, PayoutRules.five)
+        self.assertEquals(payout.organization_fee, Decimal('0.75'))
+        self.assertEquals(payout.amount_payable, Decimal('14.25'))
 
     def test_create_payment_rule_twelve(self):
         """ Not fully funded projects should get payment rule twelve. """
@@ -116,3 +118,5 @@ class PayoutTestCase(TestCase):
 
         payout = Payout.objects.all()[0]
         self.assertEquals(payout.payout_rule, PayoutRules.twelve)
+        self.assertEquals(payout.organization_fee, Decimal('1.68'))
+        self.assertEquals(payout.amount_payable, Decimal('12.32'))
