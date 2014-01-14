@@ -1,15 +1,20 @@
-from apps.projects.models import Project, ProjectPhases
-from apps.sepa.sepa import SepaDocument, SepaAccount
+import csv
+
+from dateutil.relativedelta import relativedelta
+
 from django.conf import settings
-from django.utils import timezone
 from django.db import models
+from django.db.models.signals import post_save
+from django.utils import timezone
 from django.utils.translation import ugettext as _
+from django.dispatch import receiver
+
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from djchoices import DjangoChoices, ChoiceItem
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-import csv
-from dateutil.relativedelta import relativedelta
+
+from apps.projects.models import Project, ProjectPhases
+from apps.sepa.sepa import SepaDocument, SepaAccount
+
 
 class Payout(models.Model):
     """
@@ -179,7 +184,7 @@ def create_sepa_xml(payouts):
     sepa.set_debtor(debtor)
     sepa.set_info(message_identification=batch_id, payment_info_id=batch_id)
     sepa.set_initiating_party(name=settings.SEPA['name'], id=settings.SEPA['id'])
-    
+
     for line in payouts.all():
         creditor = SepaAccount(name=line.receiver_account_name, iban=line.receiver_account_iban,
                                bic=line.receiver_account_bic)
