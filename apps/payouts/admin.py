@@ -15,6 +15,7 @@ from .choices import PayoutLineStatuses
 
 
 class PayoutAdmin(admin.ModelAdmin):
+    date_hierarchy = 'created'
 
     model = Payout
     can_delete = False
@@ -25,7 +26,7 @@ class PayoutAdmin(admin.ModelAdmin):
 
     list_display = [
         'payout', 'ok', 'donation_overview', 'project',
-        'amount_raised', 'amount_payable', 'safe_amount_payable',
+        'amount_raised', 'organization_fee', 'amount_payable', 'safe_amount_payable',
         'receiver_account_number', 'invoice_reference', 'status'
     ]
 
