@@ -51,7 +51,32 @@ class InvoiceReferenceBase(models.Model):
         self.save()
 
 
-class Payout(InvoiceReferenceBase, models.Model):
+class CompletedDateTimeBase(models.Model):
+    """
+    Abstract base class for Payout objects logging when the status is changed
+    from progress to completed in a 'completed' field.
+    """
+
+    # The timestamp the order changed to completed. This is auto-set in the save() method.
+    completed = models.DateTimeField(
+        _("Closed"), blank=True, editable=False, null=True
+    )
+
+    class Meta:
+        abstract = True
+
+    def save(self, *args, **kwargs):
+        if self.status == PayoutLineStatuses.completed and not self.completed:
+            # No completed date was set and our current status is completed
+            self.completed = timezone.now()
+
+        assert not self.completed or self.status == PayoutLineStatuses.completed, \
+            'Completed is set but status is not completed.'
+
+        super(CompletedDateTimeBase, self).save(*args, **kwargs)
+
+
+class Payout(InvoiceReferenceBase, CompletedDateTimeBase, models.Model):
     """
     A projects is payed after it's fully funded in the first batch (2x/month).
     Project payouts are checked manually. Selected projects can be exported to a SEPA file.
@@ -172,7 +197,7 @@ class Payout(InvoiceReferenceBase, models.Model):
         return  self.invoice_reference + " : " + date + " : " + self.receiver_account_number + " : EUR " + str(self.amount_payable)
 
 
-class OrganizationPayout(InvoiceReferenceBase, models.Model):
+class OrganizationPayout(InvoiceReferenceBase, CompletedDateTimeBase, models.Model):
     """
     Payouts for organization fees minus costs to the organization spanning
     a particular span of time.
