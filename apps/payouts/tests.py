@@ -88,6 +88,25 @@ class PayoutTestCase(TestCase):
         self.assertEquals(payout.project, self.project)
         self.assertEquals(payout.amount_raised, Decimal('15.00'))
 
+    def test_invoice_reference(self):
+        """ Test generating invoice_reference. """
+        # Set status of donation to paid
+        self.donation.status = DonationStatuses.pending
+        self.donation.save()
+
+        # Update campaign donations
+        self.campaign.update_money_donated()
+
+        # Update phase to act.
+        self.project.phase = ProjectPhases.act
+        self.project.save()
+
+        # Fetch payout
+        payout = Payout.objects.all()[0]
+
+        self.assertIn(str(self.project.id), payout.invoice_reference)
+        self.assertIn(str(payout.id), payout.invoice_reference)
+
     def test_create_payment_rule_five(self):
         """ Fully funded projects should get payment rule five. """
 
