@@ -384,17 +384,20 @@ class OrganizationPayout(PayoutBase):
         if self.start_date >= self.end_date:
             raise ValidationError(_('Start date should be earlier than date.'))
 
-        # There should be no holes in periods between payouts
-        try:
-            latest = self.__class__.objects.latest()
-            next_date = latest.end_date + datetime.timedelta(day=1)
+        if not self.id:
+            # Validation for new objects
 
-            if next_date != self.start_date:
-                raise ValidationError(_('The next payout period should start the day after the end of the previous period.'))
+            # There should be no holes in periods between payouts
+            try:
+                latest = self.__class__.objects.latest()
+                next_date = latest.end_date + datetime.timedelta(days=1)
 
-        except self.__class__.DoesNotExist:
-            # No earlier payouts exist
-            pass
+                if next_date != self.start_date:
+                    raise ValidationError(_('The next payout period should start the day after the end of the previous period.'))
+
+            except self.__class__.DoesNotExist:
+                # No earlier payouts exist
+                pass
 
         # TODO: Prevent overlaps
 
