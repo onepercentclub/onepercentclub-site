@@ -304,6 +304,8 @@ class OrganizationPayout(InvoiceReferenceBase, CompletedDateTimeBase, models.Mod
             # No earlier payouts exist
             pass
 
+        # TODO: Prevent overlaps
+
     def __unicode__(self):
         return u'%(invoice_reference)s from %(start_date)s to %(end_date)s' % {
             'invoice_reference': self.invoice_reference,
