@@ -232,6 +232,7 @@ class OrganizationPayout(PayoutBase):
 
     Note: Start and end dates are inclusive.
     """
+
     start_date = models.DateField(_('start date'))
     end_date = models.DateField(_('end date'))
 
