@@ -188,10 +188,7 @@ class BankMutation(models.Model):
         return "Bank Mutations " + str(self.created.strftime('%B %Y'))
 
 
-
-
-
-
+# TODO: These should probably be methods of some model somewhere
 def create_sepa_xml(payouts):
     batch_id = timezone.datetime.strftime(timezone.now(), '%Y%m%d%H%I%S')
     sepa = SepaDocument(type='CT')
