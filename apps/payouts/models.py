@@ -39,10 +39,10 @@ class InvoiceReferenceBase(models.Model):
 
         return unicode(self.id)
 
-    def save_invoice_reference(self, auto_save=False):
+    def update_invoice_reference(self, auto_save=False, save=True):
         """
-        Generate and save invoice reference. Automatically saves to generate
-        an id when auto_save is set.
+        Generate and save (when save=True) invoice reference.
+        Automatically saves to generate an id when auto_save is set.
         """
 
         if auto_save and not self.id:
@@ -52,7 +52,9 @@ class InvoiceReferenceBase(models.Model):
         assert not self.invoice_reference, 'Invoice reference already set!'
 
         self.invoice_reference = self.generate_invoice_reference()
-        self.save()
+
+        if save:
+            self.save()
 
 
 class CompletedDateTimeBase(models.Model):

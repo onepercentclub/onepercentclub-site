@@ -53,4 +53,4 @@ def create_payout_for_fully_funded_project(sender, instance, created, **kwargs):
             payout.receiver_account_country = organization.account_bank_country
 
             # Generate invoice reference, saves twice
-            payout.save_invoice_reference(auto_save=True)
+            payout.update_invoice_reference(auto_save=True)
