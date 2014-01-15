@@ -10,7 +10,7 @@ from django.utils.translation import ugettext as _
 
 from apps.payouts.models import create_sepa_xml
 
-from .models import Payout, BankMutation, BankMutationLine
+from .models import Payout, OrganizationPayout, BankMutation, BankMutationLine
 from .choices import PayoutLineStatuses
 
 
@@ -112,6 +112,51 @@ class PayoutAdmin(admin.ModelAdmin):
     recalculate_amounts.short_description = _("Recalculate amounts for new payouts.")
 
 admin.site.register(Payout, PayoutAdmin)
+
+
+class OrganizationPayoutAdmin(admin.ModelAdmin):
+    can_delete = False
+
+    date_hierarchy = 'start_date'
+
+    list_filter = ['status', ]
+
+    list_display = [
+        'invoice_reference', 'start_date', 'end_date',
+        'organization_fee_incl', 'psp_fee_incl',
+        'other_costs_incl', 'payable_amount_incl'
+    ]
+
+    readonly_fields = [
+        'invoice_reference', 'organization_fee_excl', 'organization_fee_vat', 'organization_fee_incl',
+        'psp_fee_excl', 'psp_fee_vat', 'psp_fee_incl',
+        'payable_amount_excl', 'payable_amount_vat', 'payable_amount_incl',
+        'other_costs_vat'
+    ]
+
+    actions = ['recalculate_amounts']
+
+    def recalculate_amounts(self, request, queryset):
+        # Only recalculate for 'new' payouts
+        filter_args = {'status': PayoutLineStatuses.new}
+        qs_new = queryset.all().filter(**filter_args)
+
+        for payout in qs_new:
+            payout.calculate_amounts()
+
+        message = (
+            "Amounts for %(new_payouts)d new payouts were recalculated. "
+            "%(skipped_payouts)d progressing or closed payouts have been skipped."
+        ) % {
+            'new_payouts': qs_new.count(),
+            'skipped_payouts': queryset.exclude(**filter_args).count()
+        }
+
+        self.message_user(request, message)
+
+    recalculate_amounts.short_description = _("Recalculate amounts for new payouts.")
+
+admin.site.register(OrganizationPayout, OrganizationPayoutAdmin)
 
 
 class BankMutationAdmin(admin.ModelAdmin):
