@@ -232,6 +232,51 @@ class PayoutTestCase(TestCase):
 class OrganizationPayoutTestCase(TestCase):
     """ Test case for OrganizationPayout. """
 
+    def create_payout(self):
+        """
+        Helper method creating a completed Payout with organization fee
+        of 0.75.
+        """
+
+        self.project = G(
+            Project
+        )
+
+        self.campaign = G(
+            ProjectCampaign,
+            project=self.project,
+            money_asked=1500
+        )
+
+        self.projectplan = G(
+            ProjectPlan,
+            project=self.project
+        )
+
+        # Update phase to campaign.
+        self.project.phase = ProjectPhases.campaign
+        self.project.save()
+
+        self.donation = G(
+            Donation,
+            project=self.project,
+            voucher=None,
+            donation_type=Donation.DonationTypes.one_off,
+            amount=1500,
+            status=DonationStatuses.paid
+        )
+
+        # Progress to act phase, creating a Payout
+        self.project.phase = ProjectPhases.act
+        self.project.save()
+
+        # Change payout status to complete
+        self.payout = Payout.objects.all()[0]
+        self.payout.status = PayoutLineStatuses.completed
+        self.payout.save()
+
+        return self.payout
+
     def test_save(self):
         """ Test saving a payout. """
 
@@ -271,4 +316,24 @@ class OrganizationPayoutTestCase(TestCase):
 
         # Completed date should now be set
         self.assertTrue(payout.completed)
+
+    def test_get_organization_fee(self):
+        """ Test calculation of the organization fee from Payouts. """
+
+        # Create a Payout to calculate organization fee over
+        payout = self.create_payout()
+
+        # Generate an OrganizationPayout with period the Payout's completed date
+        payout = N(
+            OrganizationPayout,
+            completed=None,
+            start_date=payout.completed - datetime.timedelta(days=1),
+            end_date=payout.completed + datetime.timedelta(days=1)
+        )
+
+        # See whether the aggregate organization fee corresponds
+        self.assertEquals(
+            payout._get_organization_fee(), decimal.Decimal('0.75')
+        )
+
 
