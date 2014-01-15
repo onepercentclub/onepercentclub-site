@@ -14,6 +14,7 @@ from django_extensions.db.fields import ModificationDateTimeField, CreationDateT
 
 from apps.projects.models import Project
 from apps.sepa.sepa import SepaDocument, SepaAccount
+from apps.cowry.models import Payment, PaymentStatuses
 
 from .fields import MoneyField
 from .utils import money_from_cents, round_money, get_fee_percentage
@@ -265,6 +266,46 @@ class OrganizationPayout(InvoiceReferenceBase, CompletedDateTimeBase, models.Mod
 
         # Return aggregated value or 0.00
         return aggregate.get('organization_fee__sum', decimal.Decimal('0.00'))
+
+    def _get_psp_fee(self):
+        """
+        Calculate and return Payment Service Provider fee from
+        payments relating through orders to donations which became irrevocably
+        paid during the OrganizationPayout period, excluding VAT.
+
+        This method should *only* be called from calculate_amounts().
+        """
+        # Allowed payment statusus (statusus generating fees)
+        # In apps.cowry_docdata.adapters it appears that fees are only
+        # calculated for the paid status, with implementation for chargedback
+        # coming. There are probably other fees
+        allowed_statusus = (
+            PaymentStatuses.paid,
+            PaymentStatuses.chargedback,
+            PaymentStatuses.refunded
+        )
+
+        payments = Payment.objects.filter(
+            status__in=allowed_statusus
+        )
+
+        # Do a silly trick by filtering the date the donation became paid
+        # (the only place where the Docdata closed/paid status is matched).
+        payments = payments.filter(
+            order__donations__ready__gte=self.start_date,
+            order__donations__ready__lte=self.end_date
+        )
+
+        # Make sure this does not create additional objects
+        payments = payments.distinct()
+
+        # Aggregate the variable fees and count the amount of payments
+        aggregate = payments.aggregate(models.Sum('fee'))
+
+        # Aggregated value (in cents) or 0
+        fee = aggregate.get('fee__sum', 0)
+
+        return money_from_cents(fee)
 
     def calculate_amounts(self):
         """
