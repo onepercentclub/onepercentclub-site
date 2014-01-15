@@ -315,8 +315,9 @@ class OrganizationPayout(InvoiceReferenceBase, CompletedDateTimeBase, models.Mod
         assert self.status == PayoutLineStatuses.new, \
             'Can only recalculate for new Payout.'
 
-
-        # TODO
+        # Calculate original values
+        self.organization_fee_incl = self._get_organization_fee()
+        self.psp_fee_excl = self._get_psp_fee()
 
         self.save()
 
