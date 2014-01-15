@@ -80,22 +80,12 @@ class CompletedDateTimeBase(models.Model):
         super(CompletedDateTimeBase, self).save(*args, **kwargs)
 
 
-class Payout(InvoiceReferenceBase, CompletedDateTimeBase, models.Model):
+class PayoutBase(InvoiceReferenceBase, CompletedDateTimeBase, models.Model):
     """
-    A projects is payed after it's fully funded in the first batch (2x/month).
-    Project payouts are checked manually. Selected projects can be exported to a SEPA file.
+    Common abstract base class for Payout and OrganizationPayout.
     """
-
     planned = models.DateField(_("Planned"),
         help_text=_("Date on which this batch should be processed.")
-    )
-
-    project = models.ForeignKey('projects.Project')
-
-    payout_rule = models.CharField(
-        _("Payout rule"), max_length=20,
-        choices=PayoutRules.choices,
-        help_text=_("The payout rule for this project.")
     )
 
     status = models.CharField(
@@ -104,6 +94,24 @@ class Payout(InvoiceReferenceBase, CompletedDateTimeBase, models.Model):
     )
     created = CreationDateTimeField(_("Created"))
     updated = ModificationDateTimeField(_("Updated"))
+
+    class Meta:
+        abstract = True
+
+
+class Payout(PayoutBase):
+    """
+    A projects is payed after it's fully funded in the first batch (2x/month).
+    Project payouts are checked manually. Selected projects can be exported to a SEPA file.
+    """
+
+    project = models.ForeignKey('projects.Project')
+
+    payout_rule = models.CharField(
+        _("Payout rule"), max_length=20,
+        choices=PayoutRules.choices,
+        help_text=_("The payout rule for this project.")
+    )
 
     amount_raised = MoneyField(
         _("amount raised"),
@@ -203,7 +211,7 @@ class Payout(InvoiceReferenceBase, CompletedDateTimeBase, models.Model):
         return  self.invoice_reference + " : " + date + " : " + self.receiver_account_number + " : EUR " + str(self.amount_payable)
 
 
-class OrganizationPayout(InvoiceReferenceBase, CompletedDateTimeBase, models.Model):
+class OrganizationPayout(PayoutBase):
     """
     Payouts for organization fees minus costs to the organization spanning
     a particular span of time.
@@ -218,19 +226,8 @@ class OrganizationPayout(InvoiceReferenceBase, CompletedDateTimeBase, models.Mod
 
     Note: Start and end dates are inclusive.
     """
-    planned = models.DateField(_("Planned"),
-        help_text=_("Date on which this batch should be processed.")
-    )
-
     start_date = models.DateField(_('start date'))
     end_date = models.DateField(_('end date'))
-
-    status = models.CharField(
-        _("status"), max_length=20, choices=PayoutLineStatuses.choices,
-        default=PayoutLineStatuses.new
-    )
-    created = CreationDateTimeField(_("Created"))
-    updated = ModificationDateTimeField(_("Updated"))
 
     organization_fee_excl = MoneyField(_('organization fee excluding VAT'))
     organization_fee_vat = MoneyField(_('organization fee VAT'))
