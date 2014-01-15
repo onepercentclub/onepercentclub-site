@@ -19,7 +19,7 @@ from apps.cowry.models import Payment, PaymentStatuses
 from .fields import MoneyField
 from .utils import (
     money_from_cents, round_money, get_fee_percentage,
-    calculate_vat, calculate_vat_exclusive
+    calculate_vat, calculate_vat_exclusive, date_timezone_aware
 )
 from .choices import PayoutLineStatuses, PayoutRules
 
@@ -262,7 +262,8 @@ class OrganizationPayout(InvoiceReferenceBase, CompletedDateTimeBase, models.Mod
         """
         # Get Payouts
         payouts = Payout.objects.filter(
-            completed__gte=self.start_date, completed__lte=self.end_date
+            completed__gte=date_timezone_aware(self.start_date),
+            completed__lte=date_timezone_aware(self.end_date)
         )
 
         # Aggregate value
@@ -296,8 +297,8 @@ class OrganizationPayout(InvoiceReferenceBase, CompletedDateTimeBase, models.Mod
         # Do a silly trick by filtering the date the donation became paid
         # (the only place where the Docdata closed/paid status is matched).
         payments = payments.filter(
-            order__donations__ready__gte=self.start_date,
-            order__donations__ready__lte=self.end_date
+            order__donations__ready__gte=date_timezone_aware(self.start_date),
+            order__donations__ready__lte=date_timezone_aware(self.end_date)
         )
 
         # Make sure this does not create additional objects
