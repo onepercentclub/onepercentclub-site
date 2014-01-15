@@ -37,8 +37,7 @@ def create_payout_for_fully_funded_project(sender, instance, created, **kwargs):
             # Create new Payout
             payout = Payout(
                 planned=next_date,
-                project=project,
-                status=PayoutLineStatuses.new,
+                project=project
             )
 
             # Calculate amounts
