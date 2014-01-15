@@ -411,14 +411,12 @@ class OrganizationPayoutTestCase(TestCase):
 
         # Generate an OrganizationPayout with period containing the payment's
         # creation date.
-        org_payout = N(
+        org_payout = G(
             OrganizationPayout,
             completed=None,
             start_date=self.today - datetime.timedelta(days=1),
             end_date=self.today + datetime.timedelta(days=1)
         )
-
-        org_payout.calculate_amounts()
 
         self.assertEquals(
             org_payout.organization_fee_incl, decimal.Decimal('0.75')

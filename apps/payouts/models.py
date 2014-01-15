@@ -273,7 +273,11 @@ class OrganizationPayout(InvoiceReferenceBase, CompletedDateTimeBase, models.Mod
         aggregate = payouts.aggregate(models.Sum('organization_fee'))
 
         # Return aggregated value or 0.00
-        return aggregate.get('organization_fee__sum', decimal.Decimal('0.00'))
+        fee = aggregate.get(
+            'organization_fee__sum', decimal.Decimal('0.00')
+        ) or decimal.Decimal('0.00')
+
+        return fee
 
     def _get_psp_fee(self):
         """
@@ -311,16 +315,13 @@ class OrganizationPayout(InvoiceReferenceBase, CompletedDateTimeBase, models.Mod
         aggregate = payments.aggregate(models.Sum('fee'))
 
         # Aggregated value (in cents) or 0
-        fee = aggregate.get('fee__sum', 0)
+        fee = aggregate.get('fee__sum', 0) or 0
 
         return money_from_cents(fee)
 
-    def calculate_amounts(self):
+    def calculate_amounts(self, save=True):
         """
-        Calculate amounts.
-
-        Updates:
-         ...
+        Calculate amounts. If save=True, saves the result.
 
         Should only be called for Payouts with status 'new'.
         """
@@ -330,6 +331,9 @@ class OrganizationPayout(InvoiceReferenceBase, CompletedDateTimeBase, models.Mod
         # Calculate original values
         self.organization_fee_incl = self._get_organization_fee()
         self.psp_fee_excl = self._get_psp_fee()
+
+        assert isinstance(self.organization_fee_incl, decimal.Decimal)
+        assert isinstance(self.psp_fee_excl, decimal.Decimal)
 
         # VAT calculations
         self.organization_fee_excl = calculate_vat_exclusive(self.organization_fee_incl)
@@ -360,7 +364,8 @@ class OrganizationPayout(InvoiceReferenceBase, CompletedDateTimeBase, models.Mod
             self.organization_fee_incl - self.psp_fee_incl - self.other_costs_incl
         )
 
-        self.save()
+        if save:
+            self.save()
 
     def clean(self):
         """ Validate date span consistency. """
@@ -382,6 +387,15 @@ class OrganizationPayout(InvoiceReferenceBase, CompletedDateTimeBase, models.Mod
             pass
 
         # TODO: Prevent overlaps
+
+    def save(self, *args, **kwargs):
+        """ Calculate values on first creation. """
+
+        if not self.id and self.status == PayoutLineStatuses.new:
+            # No id? Not previously saved
+            self.calculate_amounts(save=False)
+
+        super(OrganizationPayout, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return u'%(invoice_reference)s from %(start_date)s to %(end_date)s' % {
@@ -417,7 +431,6 @@ class BankMutationLine(models.Model):
     def __unicode__(self):
         return str(self.start_date) + " " + self.dc + " : " + self.account_name + " [" + self.account_number + "]  " + \
             " EUR " + str(self.amount)
-
 
 
 class BankMutation(models.Model):
