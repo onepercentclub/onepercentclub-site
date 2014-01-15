@@ -68,7 +68,9 @@ class Payout(InvoiceReferenceBase, models.Model):
     )
 
     status = models.CharField(
-        _("status"), max_length=20, choices=PayoutLineStatuses.choices)
+        _("status"), max_length=20, choices=PayoutLineStatuses.choices,
+        default=PayoutLineStatuses.new
+    )
     created = CreationDateTimeField(_("Created"))
     updated = ModificationDateTimeField(_("Updated"))
 
@@ -190,7 +192,9 @@ class OrganizationPayout(InvoiceReferenceBase, models.Model):
     end_date = models.DateField(_('end date'))
 
     status = models.CharField(
-        _("status"), max_length=20, choices=PayoutLineStatuses.choices)
+        _("status"), max_length=20, choices=PayoutLineStatuses.choices,
+        default=PayoutLineStatuses.new
+    )
     created = CreationDateTimeField(_("Created"))
     updated = ModificationDateTimeField(_("Updated"))
 
