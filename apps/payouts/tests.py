@@ -454,6 +454,62 @@ class OrganizationPayoutTestCase(TestCase):
             org_payout.payable_amount_incl, decimal.Decimal('0.15')
         )
 
+    def test_other_costs_excl(self):
+        """ Test calculations for other costs excluding VAT. """
+
+        # Create a Payout to calculate organization fee over
+        self.create_payout()
+        self.create_payment()
+
+        # Generate an OrganizationPayout with period containing the payment's
+        # creation date.
+        org_payout = G(
+            OrganizationPayout,
+            completed=None,
+            start_date=self.today - datetime.timedelta(days=1),
+            end_date=self.today + datetime.timedelta(days=1)
+        )
+
+        org_payout.other_costs_excl = decimal.Decimal('1.00')
+
+        org_payout.calculate_amounts()
+
+        self.assertEquals(
+            org_payout.other_costs_incl, decimal.Decimal('1.21')
+        )
+
+        self.assertEquals(
+            org_payout.other_costs_vat, decimal.Decimal('0.21')
+        )
+
+    def test_other_costs_incl(self):
+        """ Test calculations for other costs including VAT. """
+
+        # Create a Payout to calculate organization fee over
+        self.create_payout()
+        self.create_payment()
+
+        # Generate an OrganizationPayout with period containing the payment's
+        # creation date.
+        org_payout = G(
+            OrganizationPayout,
+            completed=None,
+            start_date=self.today - datetime.timedelta(days=1),
+            end_date=self.today + datetime.timedelta(days=1)
+        )
+
+        org_payout.other_costs_incl = decimal.Decimal('1.21')
+
+        org_payout.calculate_amounts()
+
+        self.assertEquals(
+            org_payout.other_costs_excl, decimal.Decimal('1.00')
+        )
+
+        self.assertEquals(
+            org_payout.other_costs_vat, decimal.Decimal('0.21')
+        )
+
     def test_invoice_reference(self):
         """ Test generating invoice_reference. """
 
