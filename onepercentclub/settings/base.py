@@ -605,6 +605,9 @@ COWRY_PAYMENT_METHODS = {
     },
 }
 
+# Default VAT percentage as string (used in payouts)
+VAT_RATE = '0.21'
+
 # Settings for organization bank account. Please set this in secrets.py
 # SEPA = {
 #     'iban': '',
