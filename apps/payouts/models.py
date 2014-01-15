@@ -397,6 +397,25 @@ class OrganizationPayout(PayoutBase):
                 # No earlier payouts exist
                 pass
 
+        else:
+            # Validation for existing objects
+
+            # Check for consistency before changing into 'progress'.
+            old_status = self.__class__.objects.get(id=self.id).status
+
+            if (
+                old_status == PayoutLineStatuses.new and
+                self.status == PayoutLineStatuses.progress
+            ):
+                # Old status: new
+                # New status: progress
+
+                # Check consistency of other costs
+                if (
+                    self.other_costs_incl - self.other_costs_excl != self.other_costs_vat
+                ):
+                    raise ValidationError(_('Other costs have changed, please recalculate before progessing.'))
+
         # TODO: Prevent overlaps
 
     def save(self, *args, **kwargs):
