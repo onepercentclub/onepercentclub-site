@@ -17,7 +17,10 @@ from apps.sepa.sepa import SepaDocument, SepaAccount
 from apps.cowry.models import Payment, PaymentStatuses
 
 from .fields import MoneyField
-from .utils import money_from_cents, round_money, get_fee_percentage
+from .utils import (
+    money_from_cents, round_money, get_fee_percentage,
+    calculate_vat, calculate_vat_exclusive
+)
 from .choices import PayoutLineStatuses, PayoutRules
 
 
@@ -320,6 +323,35 @@ class OrganizationPayout(InvoiceReferenceBase, CompletedDateTimeBase, models.Mod
         # Calculate original values
         self.organization_fee_incl = self._get_organization_fee()
         self.psp_fee_excl = self._get_psp_fee()
+
+        # VAT calculations
+        self.organization_fee_excl = calculate_vat_exclusive(self.organization_fee_incl)
+        self.organization_fee_vat = self.organization_fee_incl - self.organization_fee_excl
+
+        self.psp_fee_vat = calculate_vat(self.psp_fee_excl)
+        self.psp_fee_incl = self.psp_fee_excl + self.psp_fee_vat
+
+        # Conditionally calculate VAT for other_costs
+        if self.other_costs_incl and not self.other_costs_excl:
+            # Inclusive VAT set, calculate exclusive
+            self.other_costs_excl = calculate_vat_exclusive(self.other_costs_incl)
+            self.other_costs_vat = self.other_costs_incl - self.other_costs_excl
+
+        elif self.other_costs_excl and not self.other_costs_incl:
+            # Exclusive VAT set, calculate inclusive
+            self.other_costs_vat = calculate_vat(self.other_costs_excl)
+            self.other_costs_incl = self.other_costs_excl + self.other_costs_vat
+
+        # Calculate payable amount
+        self.payable_amount_excl =  (
+            self.organization_fee_excl - self.psp_fee_excl - self.other_costs_excl
+        )
+        self.payable_amount_vat =  (
+            self.organization_fee_vat - self.psp_fee_vat - self.other_costs_vat
+        )
+        self.payable_amount_incl = (
+            self.organization_fee_incl - self.psp_fee_incl - self.other_costs_incl
+        )
 
         self.save()
 
