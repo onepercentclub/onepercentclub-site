@@ -52,9 +52,6 @@ def create_payout_for_fully_funded_project(sender, instance, created, **kwargs):
             payout.receiver_account_name = organization.account_name
             payout.receiver_account_city = organization.account_city
             payout.receiver_account_country = organization.account_bank_country
-            payout.invoice_reference = 'PP'
 
-            # Make sure we have id's for invoice reference
-            payout.save()
-            payout.invoice_reference = str(project.id) + '-' + str(payout.id)
-            payout.save()
+            # Generate invoice reference, saves twice
+            payout.update_invoice_reference(auto_save=True)
