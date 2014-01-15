@@ -235,30 +235,28 @@ class OrganizationPayout(PayoutBase):
     start_date = models.DateField(_('start date'))
     end_date = models.DateField(_('end date'))
 
-    organization_fee_excl = MoneyField(
-        _('organization fee excluding VAT'),
-        help_text=_(
-            'Set either this value or inclusive VAT, make sure recalculate afterwards.'
-        )
-    )
+    organization_fee_excl = MoneyField(_('organization fee excluding VAT'))
     organization_fee_vat = MoneyField(_('organization fee VAT'))
-    organization_fee_incl = MoneyField(
-        _('organization fee including VAT'),
-        help_text=_(
-            'Set either this value or exclusive VAT, make sure recalculate afterwards.'
-        )
-    )
+    organization_fee_incl = MoneyField(_('organization fee including VAT'))
 
     psp_fee_excl = MoneyField(_('PSP fee excluding VAT'))
     psp_fee_vat = MoneyField(_('PSP fee VAT'))
     psp_fee_incl = MoneyField(_('PSP fee including VAT'))
 
     other_costs_excl = MoneyField(
-        _('other costs excluding VAT'), default=decimal.Decimal('0.00'))
+        _('other costs excluding VAT'), default=decimal.Decimal('0.00'),
+        help_text=_(
+            'Set either this value or inclusive VAT, make sure recalculate afterwards.'
+        )
+    )
     other_costs_vat = MoneyField(
         _('other costs VAT'), default=decimal.Decimal('0.00'))
     other_costs_incl = MoneyField(
-        _('other costs including VAT'), default=decimal.Decimal('0.00'))
+        _('other costs including VAT'), default=decimal.Decimal('0.00'),
+        help_text=_(
+            'Set either this value or exclusive VAT, make sure recalculate afterwards.'
+        )
+    )
 
     payable_amount_excl = MoneyField(_('payable amount excluding VAT'))
     payable_amount_vat = MoneyField(_('payable amount VAT'))
@@ -272,9 +270,12 @@ class OrganizationPayout(PayoutBase):
     psp_fee_vat = MoneyField(_('PSP fee VAT'))
     psp_fee_incl = MoneyField(_('PSP fee including VAT'))
 
-    other_costs_excl = MoneyField(_('other costs excluding VAT'))
-    other_costs_vat = MoneyField(_('other costs VAT'))
-    other_costs_incl = MoneyField(_('other costs including VAT'))
+    other_costs_excl = MoneyField(
+        _('other costs excluding VAT'), default=decimal.Decimal('0.00'))
+    other_costs_vat = MoneyField(
+        _('other costs VAT'), default=decimal.Decimal('0.00'))
+    other_costs_incl = MoneyField(
+        _('other costs including VAT'), default=decimal.Decimal('0.00'))
 
     payable_amount_excl = MoneyField(_('payable amount excluding VAT'))
     payable_amount_vat = MoneyField(_('payable amount VAT'))
