@@ -10,6 +10,9 @@ from apps.projects.models import (
 )
 from apps.fund.models import Donation, DonationStatuses
 
+from apps.cowry import factory
+from apps.cowry.models import PaymentStatuses
+
 from .models import Payout, OrganizationPayout
 from .choices import PayoutRules, PayoutLineStatuses
 
@@ -232,10 +235,9 @@ class PayoutTestCase(TestCase):
 class OrganizationPayoutTestCase(TestCase):
     """ Test case for OrganizationPayout. """
 
-    def create_payout(self):
+    def create_donation(self):
         """
-        Helper method creating a completed Payout with organization fee
-        of 0.75.
+        Helper method creating and returning a paid donation.
         """
 
         self.project = G(
@@ -265,6 +267,42 @@ class OrganizationPayoutTestCase(TestCase):
             amount=1500,
             status=DonationStatuses.paid
         )
+
+        self.order = self.donation.order
+
+        return self.order
+
+    def create_payment(self):
+        """
+        Helper method creating a payment (and donation and order) and setting
+        the payment status to paid.
+        """
+
+        self.create_donation()
+
+        # Source: apps.cowry_docdata.tests
+        self.payment = factory.create_payment_object(
+            self.order, 'dd-webmenu', amount=2000, currency='EUR')
+        self.payment.country = 'NL'
+        self.payment.city = 'Amsterdam'
+        self.payment.address = 'Dam'
+        self.payment.postal_code = '1001AM'
+        self.payment.first_name = 'Nijntje'
+        self.payment.last_name = 'het Konijntje'
+        self.payment.email = 'nijntje@hetkonijntje.nl'
+        self.payment.fee = 75
+        self.payment.status = PaymentStatuses.paid
+        self.payment.save()
+
+        return self.payment
+
+    def create_payout(self):
+        """
+        Helper method creating a completed Payout with organization fee
+        of 0.75.
+        """
+
+        self.create_donation()
 
         # Progress to act phase, creating a Payout
         self.project.phase = ProjectPhases.act
@@ -323,8 +361,9 @@ class OrganizationPayoutTestCase(TestCase):
         # Create a Payout to calculate organization fee over
         payout = self.create_payout()
 
-        # Generate an OrganizationPayout with period the Payout's completed date
-        payout = N(
+        # Generate an OrganizationPayout with period containing
+        # the Payout's completed date
+        org_payout = N(
             OrganizationPayout,
             completed=None,
             start_date=payout.completed - datetime.timedelta(days=1),
@@ -333,7 +372,26 @@ class OrganizationPayoutTestCase(TestCase):
 
         # See whether the aggregate organization fee corresponds
         self.assertEquals(
-            payout._get_organization_fee(), decimal.Decimal('0.75')
+            org_payout._get_organization_fee(), decimal.Decimal('0.75')
         )
 
+    def test_get_psp_fee(self):
+        """" Test calculation of PSP fees from Orders. """
 
+        payment = self.create_payment()
+
+        # Assure the fees are as expected (0.75)
+        self.assertEquals(payment.fee, 75)
+
+        # Generate an OrganizationPayout with period containing the payment's
+        # creation date.
+        org_payout = N(
+            OrganizationPayout,
+            completed=None,
+            start_date=payment.created - datetime.timedelta(days=1),
+            end_date=payment.created + datetime.timedelta(days=1)
+        )
+
+        self.assertEquals(
+            org_payout._get_psp_fee(), decimal.Decimal('0.75')
+        )
