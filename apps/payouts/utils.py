@@ -47,6 +47,7 @@ def get_fee_percentage(rule):
     # Other
     raise NotImplementedError('Payment rule not implemented yet.')
 
+
 def calculate_vat(amount):
     """
     Calculate VAT over exclusive amount according to default percentage.
@@ -56,6 +57,7 @@ def calculate_vat(amount):
     """
 
     return round_money(amount * VAT_RATE)
+
 
 def calculate_vat_inclusive(amount):
     """
@@ -68,6 +70,7 @@ def calculate_vat_inclusive(amount):
     factor = VAT_RATE + decimal.Decimal('1.00')
 
     return round_money(amount * factor)
+
 
 def calculate_vat_exclusive(amount):
     """
