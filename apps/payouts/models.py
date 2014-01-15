@@ -1,18 +1,15 @@
 import csv
 import decimal
 
-from dateutil.relativedelta import relativedelta
-
 from django.conf import settings
 from django.db import models
 from django.db.models.signals import post_save
 from django.utils import timezone
 from django.utils.translation import ugettext as _
-from django.dispatch import receiver
 
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 
-from apps.projects.models import Project, ProjectPhases
+from apps.projects.models import Project
 from apps.sepa.sepa import SepaDocument, SepaAccount
 
 from .fields import MoneyField
@@ -192,55 +189,7 @@ class BankMutation(models.Model):
 
 
 
-@receiver(post_save, weak=False, sender=Project)
-def create_payout_for_fully_funded_project(sender, instance, created, **kwargs):
 
-    project = instance
-    now = timezone.now()
-
-    # Check projects in phase Act that have asked for money.
-    # import ipdb; ipdb.set_trace()
-    if project.phase == ProjectPhases.act and project.projectcampaign.money_asked:
-        if now.day <= 15:
-            next_date = timezone.datetime(now.year, now.month, 15)
-        else:
-            next_date = timezone.datetime(now.year, now.month, 1) + relativedelta(months=1)
-
-        try:
-            # Update existing Payout
-            payout = Payout.objects.get(project=project)
-
-            if payout.status == PayoutLineStatuses.new:
-                # Update planned payout date for new Payouts
-                payout.planned = next_date
-                payout.save()
-
-        except Payout.DoesNotExist:
-
-            # Create new Payout
-            payout = Payout(
-                planned=next_date,
-                project=project,
-                status=PayoutLineStatuses.new,
-            )
-
-            # Calculate amounts
-            payout.calculate_amounts()
-
-            # Set payment details
-            organization = project.projectplan.organization
-            payout.receiver_account_bic = organization.account_bic
-            payout.receiver_account_iban = organization.account_iban
-            payout.receiver_account_number = organization.account_number
-            payout.receiver_account_name = organization.account_name
-            payout.receiver_account_city = organization.account_city
-            payout.receiver_account_country = organization.account_bank_country
-            payout.invoice_reference = 'PP'
-
-            # Make sure we have id's for invoice reference
-            payout.save()
-            payout.invoice_reference = str(project.id) + '-' + str(payout.id)
-            payout.save()
 
 
 def create_sepa_xml(payouts):
@@ -278,3 +227,13 @@ def match_debit_mutations():
         except Payout.DoesNotExist:
             pass
 
+
+# Connect signals after defining models
+# Ref:  http://stackoverflow.com/a/9851875
+# Note: for newer Django, put this in module initialization code
+# https://docs.djangoproject.com/en/dev/topics/signals/#django.dispatch.receiver
+from .signals import create_payout_for_fully_funded_project
+
+post_save.connect(
+    create_payout_for_fully_funded_project, weak=False, sender=Project
+)
