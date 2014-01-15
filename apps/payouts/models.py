@@ -14,9 +14,13 @@ from django_extensions.db.fields import ModificationDateTimeField, CreationDateT
 
 from apps.projects.models import Project
 from apps.sepa.sepa import SepaDocument, SepaAccount
+from apps.cowry.models import Payment, PaymentStatuses
 
 from .fields import MoneyField
-from .utils import money_from_cents, round_money, get_fee_percentage
+from .utils import (
+    money_from_cents, round_money, get_fee_percentage,
+    calculate_vat, calculate_vat_exclusive, date_timezone_aware
+)
 from .choices import PayoutLineStatuses, PayoutRules
 
 
@@ -43,30 +47,50 @@ class InvoiceReferenceBase(models.Model):
 
         if auto_save and not self.id:
             # Save to generate self.id
-            self.save()
+            super(InvoiceReferenceBase, self).save()
 
         assert not self.invoice_reference, 'Invoice reference already set!'
 
         self.invoice_reference = self.generate_invoice_reference()
 
         if save:
-            self.save()
+            super(InvoiceReferenceBase, self).save()
 
 
-class Payout(InvoiceReferenceBase, models.Model):
+class CompletedDateTimeBase(models.Model):
     """
-    A projects is payed after it's fully funded in the first batch (2x/month).
-    Project payouts are checked manually. Selected projects can be exported to a SEPA file.
+    Abstract base class for Payout objects logging when the status is changed
+    from progress to completed in a 'completed' field.
     """
 
-    planned = models.DateField(_("Planned"), help_text=_("Date that this batch should be processed."))
+    # The timestamp the order changed to completed. This is auto-set in the save() method.
+    completed = models.DateField(
+        _("Closed"), blank=True, null=True, help_text=_(
+            'Book date when the bank transaction was confirmed and '
+            'the payout has been set to completed.'
+        )
+    )
 
-    project = models.ForeignKey('projects.Project')
+    class Meta:
+        abstract = True
 
-    payout_rule = models.CharField(
-        _("Payout rule"), max_length=20,
-        choices=PayoutRules.choices,
-        help_text=_("The payout rule for this project.")
+    def save(self, *args, **kwargs):
+        if self.status == PayoutLineStatuses.completed and not self.completed:
+            # No completed date was set and our current status is completed
+            self.completed = timezone.now()
+
+        assert not self.completed or self.status == PayoutLineStatuses.completed, \
+            'Completed is set but status is not completed.'
+
+        super(CompletedDateTimeBase, self).save(*args, **kwargs)
+
+
+class PayoutBase(InvoiceReferenceBase, CompletedDateTimeBase, models.Model):
+    """
+    Common abstract base class for Payout and OrganizationPayout.
+    """
+    planned = models.DateField(_("Planned"),
+        help_text=_("Date on which this batch should be processed.")
     )
 
     status = models.CharField(
@@ -75,6 +99,24 @@ class Payout(InvoiceReferenceBase, models.Model):
     )
     created = CreationDateTimeField(_("Created"))
     updated = ModificationDateTimeField(_("Updated"))
+
+    class Meta:
+        abstract = True
+
+
+class Payout(PayoutBase):
+    """
+    A projects is payed after it's fully funded in the first batch (2x/month).
+    Project payouts are checked manually. Selected projects can be exported to a SEPA file.
+    """
+
+    project = models.ForeignKey('projects.Project')
+
+    payout_rule = models.CharField(
+        _("Payout rule"), max_length=20,
+        choices=PayoutRules.choices,
+        help_text=_("The payout rule for this project.")
+    )
 
     amount_raised = MoneyField(
         _("amount raised"),
@@ -104,7 +146,7 @@ class Payout(InvoiceReferenceBase, models.Model):
     description_line3 = models.CharField(max_length=100, blank=True, default="")
     description_line4 = models.CharField(max_length=100, blank=True, default="")
 
-    def calculate_amounts(self):
+    def calculate_amounts(self, save=True):
         """
         Calculate amounts according to payment_rule.
 
@@ -137,7 +179,8 @@ class Payout(InvoiceReferenceBase, models.Model):
         self.organization_fee = self.amount_raised * fee_factor
         self.amount_payable = self.amount_raised - self.organization_fee
 
-        self.save()
+        if save:
+            self.save()
 
     def generate_invoice_reference(self):
         """ Generate invoice reference from project and payout id's. """
@@ -174,7 +217,7 @@ class Payout(InvoiceReferenceBase, models.Model):
         return  self.invoice_reference + " : " + date + " : " + self.receiver_account_number + " : EUR " + str(self.amount_payable)
 
 
-class OrganizationPayout(InvoiceReferenceBase, models.Model):
+class OrganizationPayout(PayoutBase):
     """
     Payouts for organization fees minus costs to the organization spanning
     a particular span of time.
@@ -189,47 +232,161 @@ class OrganizationPayout(InvoiceReferenceBase, models.Model):
 
     Note: Start and end dates are inclusive.
     """
-
     start_date = models.DateField(_('start date'))
     end_date = models.DateField(_('end date'))
 
-    status = models.CharField(
-        _("status"), max_length=20, choices=PayoutLineStatuses.choices,
-        default=PayoutLineStatuses.new
+    organization_fee_excl = MoneyField(
+        _('organization fee excluding VAT'),
+        help_text=_(
+            'Set either this value or inclusive VAT, make sure recalculate afterwards.'
+        )
     )
-    created = CreationDateTimeField(_("Created"))
-    updated = ModificationDateTimeField(_("Updated"))
+    organization_fee_vat = MoneyField(_('organization fee VAT'))
+    organization_fee_incl = MoneyField(
+        _('organization fee including VAT'),
+        help_text=_(
+            'Set either this value or exclusive VAT, make sure recalculate afterwards.'
+        )
+    )
+
+    psp_fee_excl = MoneyField(_('PSP fee excluding VAT'))
+    psp_fee_vat = MoneyField(_('PSP fee VAT'))
+    psp_fee_incl = MoneyField(_('PSP fee including VAT'))
+
+    other_costs_excl = MoneyField(
+        _('other costs excluding VAT'), default=decimal.Decimal('0.00'))
+    other_costs_vat = MoneyField(
+        _('other costs VAT'), default=decimal.Decimal('0.00'))
+    other_costs_incl = MoneyField(
+        _('other costs including VAT'), default=decimal.Decimal('0.00'))
+
+    payable_amount_excl = MoneyField(_('payable amount excluding VAT'))
+    payable_amount_vat = MoneyField(_('payable amount VAT'))
+    payable_amount_incl = MoneyField(_('payable amount including VAT'))
 
     class Meta:
         unique_together = ('start_date', 'end_date')
         get_latest_by = 'end_date'
         ordering = ['start_date']
 
-    def calculate_amounts(self):
+    def _get_organization_fee(self):
         """
-        Calculate amounts.
+        Calculate and return the organization fee for Payouts within this
+        OrganizationPayout's period, including VAT.
 
-        Updates:
-         ...
+        This method should *only* be called from calculate_amounts().
+        """
+        # Get Payouts
+        payouts = Payout.objects.filter(
+            completed__gte=self.start_date,
+            completed__lte=self.end_date
+        )
+
+        # Aggregate value
+        aggregate = payouts.aggregate(models.Sum('organization_fee'))
+
+        # Return aggregated value or 0.00
+        fee = aggregate.get(
+            'organization_fee__sum', decimal.Decimal('0.00')
+        ) or decimal.Decimal('0.00')
+
+        return fee
+
+    def _get_psp_fee(self):
+        """
+        Calculate and return Payment Service Provider fee from
+        payments relating through orders to donations which became irrevocably
+        paid during the OrganizationPayout period, excluding VAT.
+
+        This method should *only* be called from calculate_amounts().
+        """
+        # Allowed payment statusus (statusus generating fees)
+        # In apps.cowry_docdata.adapters it appears that fees are only
+        # calculated for the paid status, with implementation for chargedback
+        # coming. There are probably other fees
+        allowed_statusus = (
+            PaymentStatuses.paid,
+            PaymentStatuses.chargedback,
+            PaymentStatuses.refunded
+        )
+
+        payments = Payment.objects.filter(
+            status__in=allowed_statusus
+        )
+
+        # Do a silly trick by filtering the date the donation became paid
+        # (the only place where the Docdata closed/paid status is matched).
+        payments = payments.filter(
+            order__donations__ready__gte=date_timezone_aware(self.start_date),
+            order__donations__ready__lte=date_timezone_aware(self.end_date)
+        )
+
+        # Make sure this does not create additional objects
+        payments = payments.distinct()
+
+        # Aggregate the variable fees and count the amount of payments
+        aggregate = payments.aggregate(models.Sum('fee'))
+
+        # Aggregated value (in cents) or 0
+        fee = aggregate.get('fee__sum', 0) or 0
+
+        return money_from_cents(fee)
+
+    def calculate_amounts(self, save=True):
+        """
+        Calculate amounts. If save=True, saves the result.
 
         Should only be called for Payouts with status 'new'.
         """
         assert self.status == PayoutLineStatuses.new, \
             'Can only recalculate for new Payout.'
 
+        # Calculate original values
+        self.organization_fee_incl = self._get_organization_fee()
+        self.psp_fee_excl = self._get_psp_fee()
 
-        # TODO
+        assert isinstance(self.organization_fee_incl, decimal.Decimal)
+        assert isinstance(self.psp_fee_excl, decimal.Decimal)
 
-        self.save()
+        # VAT calculations
+        self.organization_fee_excl = calculate_vat_exclusive(self.organization_fee_incl)
+        self.organization_fee_vat = self.organization_fee_incl - self.organization_fee_excl
 
-    def generate_invoice_reference(self):
-        """ Generate invoice reference from project and payout id's. """
-        assert self.id
+        self.psp_fee_vat = calculate_vat(self.psp_fee_excl)
+        self.psp_fee_incl = self.psp_fee_excl + self.psp_fee_vat
 
-        return u'%(year)d-OP%(payout_id)04d' % {
-            'year': self.created.year,
-            'payout_id': self.id
-        }
+        # Conditionally calculate VAT for other_costs
+        if self.other_costs_incl and not self.other_costs_excl:
+            # Inclusive VAT set, calculate exclusive
+            self.other_costs_excl = calculate_vat_exclusive(self.other_costs_incl)
+            self.other_costs_vat = self.other_costs_incl - self.other_costs_excl
+
+        elif self.other_costs_excl and not self.other_costs_incl:
+            # Exclusive VAT set, calculate inclusive
+            self.other_costs_vat = calculate_vat(self.other_costs_excl)
+            self.other_costs_incl = self.other_costs_excl + self.other_costs_vat
+
+        # Calculate payable amount
+        self.payable_amount_excl =  (
+            self.organization_fee_excl - self.psp_fee_excl - self.other_costs_excl
+        )
+        self.payable_amount_vat =  (
+            self.organization_fee_vat - self.psp_fee_vat - self.other_costs_vat
+        )
+        self.payable_amount_incl = (
+            self.organization_fee_incl - self.psp_fee_incl - self.other_costs_incl
+        )
+
+        if save:
+            self.save()
+
+    def _check_consistency(self):
+        """ Check for consistency on the object. """
+
+        if (
+            self.other_costs_incl - self.other_costs_excl != self.other_costs_vat
+        ):
+            raise ValidationError(_('Other costs have changed, please recalculate before progessing.'))
 
     def clean(self):
         """ Validate date span consistency. """
@@ -238,17 +395,59 @@ class OrganizationPayout(InvoiceReferenceBase, models.Model):
         if self.start_date >= self.end_date:
             raise ValidationError(_('Start date should be earlier than date.'))
 
-        # There should be no holes in periods between payouts
-        try:
-            latest = self.__class__.objects.latest()
-            next_date = latest.end_date + datetime.timedelta(day=1)
+        if not self.id:
+            # Validation for new objects
 
-            if next_date != self.start_date:
-                raise ValidationError(_('The next payout period should start the day after the end of the previous period.'))
+            # There should be no holes in periods between payouts
+            try:
+                latest = self.__class__.objects.latest()
+                next_date = latest.end_date + datetime.timedelta(days=1)
+
+                if next_date != self.start_date:
+                    raise ValidationError(_('The next payout period should start the day after the end of the previous period.'))
+
+            except self.__class__.DoesNotExist:
+                # No earlier payouts exist
+                pass
+
+        # Check for consistency before changing into 'progress'.
+        try:
+            old_status = self.__class__.objects.get(id=self.id).status
+
+            if (
+                old_status == PayoutLineStatuses.new and
+                self.status == PayoutLineStatuses.progress
+            ):
+                # Old status: new
+                # New status: progress
+
+                # Do consistency check!
+                self._check_consistency()
 
         except self.__class__.DoesNotExist:
-            # No earlier payouts exist
+            # No previous object exists
             pass
+
+        # TODO: Prevent overlaps
+
+    def save(self, *args, **kwargs):
+        """
+        Calculate values on first creation and generate invoice reference.
+        """
+
+        if not self.id:
+            # No id? Not previously saved
+
+            if self.status == PayoutLineStatuses.new:
+                # This exists mainly for testing reasons, payouts should
+                # always be created new
+                self.calculate_amounts(save=False)
+
+            if not self.invoice_reference:
+                # Conditionally creat invoice reference
+                self.update_invoice_reference(auto_save=True, save=False)
+
+        super(OrganizationPayout, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return u'%(invoice_reference)s from %(start_date)s to %(end_date)s' % {
@@ -284,7 +483,6 @@ class BankMutationLine(models.Model):
     def __unicode__(self):
         return str(self.start_date) + " " + self.dc + " : " + self.account_name + " [" + self.account_number + "]  " + \
             " EUR " + str(self.amount)
-
 
 
 class BankMutation(models.Model):
