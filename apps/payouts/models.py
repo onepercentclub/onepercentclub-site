@@ -1,6 +1,9 @@
 import csv
 import decimal
 
+import datetime
+
+from django.core.exceptions import ValidationError
 from django.conf import settings
 from django.db import models
 from django.db.models.signals import post_save
@@ -167,7 +170,7 @@ class Payout(InvoiceReferenceBase, models.Model):
         return  self.invoice_reference + " : " + date + " : " + self.receiver_account_number + " : EUR " + str(self.amount_payable)
 
 
-class OrganizationPayout(models.Model):
+class OrganizationPayout(InvoiceReferenceBase, models.Model):
     """
     Payouts for organization fees minus costs to the organization spanning
     a particular span of time.
@@ -179,14 +182,22 @@ class OrganizationPayout(models.Model):
 
     Other costs (i.e. international banking fees) can be manually specified
     either excluding or including VAT.
+
+    Note: Start and end dates are inclusive.
     """
+
+    start_date = models.DateField(_('start date'))
+    end_date = models.DateField(_('end date'))
 
     status = models.CharField(
         _("status"), max_length=20, choices=PayoutLineStatuses.choices)
     created = CreationDateTimeField(_("Created"))
     updated = ModificationDateTimeField(_("Updated"))
 
-    invoice_reference = models.CharField(max_length=100)
+    class Meta:
+        unique_together = ('start_date', 'end_date')
+        get_latest_by = 'end_date'
+        ordering = ['start_date']
 
     def calculate_amounts(self):
         """
@@ -204,6 +215,25 @@ class OrganizationPayout(models.Model):
         # TODO
 
         self.save()
+
+    def clean(self):
+        """ Validate date span consistency. """
+
+        # End date should lie after start_date
+        if self.start_date >= self.end_date:
+            raise ValidationError(_('Start date should be earlier than date.'))
+
+        # There should be no holes in periods between payouts
+        try:
+            latest = self.__class__.objects.latest()
+            next_date = latest.end_date + datetime.timedelta(day=1)
+
+            if next_date != self.start_date:
+                raise ValidationError(_('The next payout period should start the day after the end of the previous period.'))
+
+        except self.__class__.DoesNotExist:
+            # No earlier payouts exist
+            pass
 
     def __unicode__(self):
         return u'%(invoice_reference)s from %(start_date)s to %(end_date)s' % {

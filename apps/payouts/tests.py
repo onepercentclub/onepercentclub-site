@@ -1,4 +1,5 @@
-from decimal import Decimal
+import decimal
+import datetime
 
 from django.test import TestCase
 
@@ -9,7 +10,7 @@ from apps.projects.models import (
 )
 from apps.fund.models import Donation, DonationStatuses
 
-from .models import Payout
+from .models import Payout, OrganizationPayout
 from .choices import PayoutRules
 
 
@@ -51,6 +52,9 @@ class PayoutTestCase(TestCase):
         # Generate new payout
         payout = N(Payout)
 
+        # Validate
+        payout.clean()
+
         # Save it
         payout.save()
 
@@ -86,7 +90,7 @@ class PayoutTestCase(TestCase):
 
         # Check the project and the amount
         self.assertEquals(payout.project, self.project)
-        self.assertEquals(payout.amount_raised, Decimal('15.00'))
+        self.assertEquals(payout.amount_raised, decimal.Decimal('15.00'))
 
     def test_invoice_reference(self):
         """ Test generating invoice_reference. """
@@ -123,8 +127,8 @@ class PayoutTestCase(TestCase):
 
         payout = Payout.objects.all()[0]
         self.assertEquals(payout.payout_rule, PayoutRules.five)
-        self.assertEquals(payout.organization_fee, Decimal('0.75'))
-        self.assertEquals(payout.amount_payable, Decimal('14.25'))
+        self.assertEquals(payout.organization_fee, decimal.Decimal('0.75'))
+        self.assertEquals(payout.amount_payable, decimal.Decimal('14.25'))
 
     def test_create_payment_rule_twelve(self):
         """ Not fully funded projects should get payment rule twelve. """
@@ -143,8 +147,8 @@ class PayoutTestCase(TestCase):
 
         payout = Payout.objects.all()[0]
         self.assertEquals(payout.payout_rule, PayoutRules.twelve)
-        self.assertEquals(payout.organization_fee, Decimal('1.68'))
-        self.assertEquals(payout.amount_payable, Decimal('12.32'))
+        self.assertEquals(payout.organization_fee, decimal.Decimal('1.68'))
+        self.assertEquals(payout.amount_payable, decimal.Decimal('12.32'))
 
     def test_safe_amount_new(self):
         """ Test safe_amount_payable for new donations. """
@@ -164,8 +168,8 @@ class PayoutTestCase(TestCase):
         payout = Payout.objects.all()[0]
 
         # No money is even pending
-        self.assertEquals(payout.amount_payable, Decimal('0.00'))
-        self.assertEquals(payout.safe_amount_payable, Decimal('0.00'))
+        self.assertEquals(payout.amount_payable, decimal.Decimal('0.00'))
+        self.assertEquals(payout.safe_amount_payable, decimal.Decimal('0.00'))
 
     def test_safe_amount_pending(self):
         """ Test safe_amount_payable for pending donations. """
@@ -185,8 +189,8 @@ class PayoutTestCase(TestCase):
         payout = Payout.objects.all()[0]
 
         # No money is even pending
-        self.assertEquals(payout.amount_payable, Decimal('14.25'))
-        self.assertEquals(payout.safe_amount_payable, Decimal('0.00'))
+        self.assertEquals(payout.amount_payable, decimal.Decimal('14.25'))
+        self.assertEquals(payout.safe_amount_payable, decimal.Decimal('0.00'))
 
     def test_safe_amount_paid(self):
         """ Test safe_amount_payable for paid donations. """
@@ -206,7 +210,32 @@ class PayoutTestCase(TestCase):
         payout = Payout.objects.all()[0]
 
         # No money is safe - just yet
-        self.assertEquals(payout.amount_payable, Decimal('14.25'))
-        self.assertEquals(payout.safe_amount_payable, Decimal('14.25'))
+        self.assertEquals(payout.amount_payable, decimal.Decimal('14.25'))
+        self.assertEquals(payout.safe_amount_payable, decimal.Decimal('14.25'))
 
+
+class OrganizationPayoutTestCase(TestCase):
+    """ Test case for OrganizationPayout. """
+
+    def test_save(self):
+        """ Test saving a payout. """
+
+        # Generate new payout
+        payout = N(
+            OrganizationPayout,
+            start_date=datetime.date(2013, 01, 01),
+            end_date=datetime.date(2013, 01, 31)
+        )
+
+        # Validate
+        payout.clean()
+
+        # Save it
+        payout.save()
+
+    def test_unicode(self):
+        """ Test unicode() on payout. """
+
+        payout = G(OrganizationPayout)
+        self.assertTrue(unicode(payout))
 
