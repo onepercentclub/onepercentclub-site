@@ -49,6 +49,8 @@ class PayoutTestCase(TestCase):
             amount=1500
         )
 
+        super(PayoutTestCase, self).setUp()
+
     def test_save(self):
         """ Test saving a payout. """
 
@@ -235,6 +237,13 @@ class PayoutTestCase(TestCase):
 class OrganizationPayoutTestCase(TestCase):
     """ Test case for OrganizationPayout. """
 
+    def setUp(self):
+        """ Setup reference to today. """
+
+        self.today = datetime.datetime.now().date()
+
+        super(OrganizationPayoutTestCase, self).setUp()
+
     def create_donation(self):
         """
         Helper method creating and returning a paid donation.
@@ -290,7 +299,7 @@ class OrganizationPayoutTestCase(TestCase):
         self.payment.first_name = 'Nijntje'
         self.payment.last_name = 'het Konijntje'
         self.payment.email = 'nijntje@hetkonijntje.nl'
-        self.payment.fee = 75
+        self.payment.fee = 50
         self.payment.status = PaymentStatuses.paid
         self.payment.save()
 
@@ -359,15 +368,15 @@ class OrganizationPayoutTestCase(TestCase):
         """ Test calculation of the organization fee from Payouts. """
 
         # Create a Payout to calculate organization fee over
-        payout = self.create_payout()
+        self.create_payout()
 
         # Generate an OrganizationPayout with period containing
         # the Payout's completed date
         org_payout = N(
             OrganizationPayout,
             completed=None,
-            start_date=payout.completed - datetime.timedelta(days=1),
-            end_date=payout.completed + datetime.timedelta(days=1)
+            start_date=self.today - datetime.timedelta(days=1),
+            end_date=self.today + datetime.timedelta(days=1)
         )
 
         # See whether the aggregate organization fee corresponds
@@ -378,20 +387,43 @@ class OrganizationPayoutTestCase(TestCase):
     def test_get_psp_fee(self):
         """" Test calculation of PSP fees from Orders. """
 
-        payment = self.create_payment()
-
-        # Assure the fees are as expected (0.75)
-        self.assertEquals(payment.fee, 75)
+        self.create_payment()
 
         # Generate an OrganizationPayout with period containing the payment's
         # creation date.
         org_payout = N(
             OrganizationPayout,
             completed=None,
-            start_date=payment.created - datetime.timedelta(days=1),
-            end_date=payment.created + datetime.timedelta(days=1)
+            start_date=self.today - datetime.timedelta(days=1),
+            end_date=self.today + datetime.timedelta(days=1)
         )
 
         self.assertEquals(
-            org_payout._get_psp_fee(), decimal.Decimal('0.75')
+            org_payout._get_psp_fee(), decimal.Decimal('0.50')
+        )
+
+    def test_calculate_amounts(self):
+        """ Test calculation of amounts. """
+
+        # Create a Payout to calculate organization fee over
+        self.create_payout()
+        self.create_payment()
+
+        # Generate an OrganizationPayout with period containing the payment's
+        # creation date.
+        org_payout = N(
+            OrganizationPayout,
+            completed=None,
+            start_date=self.today - datetime.timedelta(days=1),
+            end_date=self.today + datetime.timedelta(days=1)
+        )
+
+        org_payout.calculate_amounts()
+
+        self.assertEquals(
+            org_payout.organization_fee_incl, decimal.Decimal('0.75')
+        )
+
+        self.assertEquals(
+            org_payout.psp_fee_excl, decimal.Decimal('0.50')
         )
