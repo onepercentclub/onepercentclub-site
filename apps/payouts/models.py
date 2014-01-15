@@ -143,7 +143,7 @@ class Payout(PayoutBase):
     description_line3 = models.CharField(max_length=100, blank=True, default="")
     description_line4 = models.CharField(max_length=100, blank=True, default="")
 
-    def calculate_amounts(self):
+    def calculate_amounts(self, save=True):
         """
         Calculate amounts according to payment_rule.
 
@@ -176,7 +176,8 @@ class Payout(PayoutBase):
         self.organization_fee = self.amount_raised * fee_factor
         self.amount_payable = self.amount_raised - self.organization_fee
 
-        self.save()
+        if save:
+            self.save()
 
     def generate_invoice_reference(self):
         """ Generate invoice reference from project and payout id's. """
