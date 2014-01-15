@@ -86,7 +86,9 @@ class Payout(InvoiceReferenceBase, CompletedDateTimeBase, models.Model):
     Project payouts are checked manually. Selected projects can be exported to a SEPA file.
     """
 
-    planned = models.DateField(_("Planned"), help_text=_("Date that this batch should be processed."))
+    planned = models.DateField(_("Planned"),
+        help_text=_("Date on which this batch should be processed.")
+    )
 
     project = models.ForeignKey('projects.Project')
 
@@ -216,6 +218,9 @@ class OrganizationPayout(InvoiceReferenceBase, CompletedDateTimeBase, models.Mod
 
     Note: Start and end dates are inclusive.
     """
+    planned = models.DateField(_("Planned"),
+        help_text=_("Date on which this batch should be processed.")
+    )
 
     start_date = models.DateField(_('start date'))
     end_date = models.DateField(_('end date'))
