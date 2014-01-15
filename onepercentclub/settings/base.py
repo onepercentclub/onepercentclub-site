@@ -605,9 +605,6 @@ COWRY_PAYMENT_METHODS = {
     },
 }
 
-# The rate that is payed out to projects
-PROJECT_PAYOUT_RATE = 0.95
-
 # Settings for organization bank account. Please set this in secrets.py
 # SEPA = {
 #     'iban': '',
