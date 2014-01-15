@@ -17,7 +17,40 @@ from .utils import money_from_cents, round_money, get_fee_percentage
 from .choices import PayoutLineStatuses, PayoutRules
 
 
-class Payout(models.Model):
+class InvoiceReferenceBase(models.Model):
+    """ Abstract base class for generating an invoice reference. """
+
+    invoice_reference = models.CharField(max_length=100)
+
+    class Meta:
+        abstract = True
+
+    def generate_invoice_reference(self):
+        """ Generate invoice reference. """
+
+        assert self.id, 'Object should be saved first.'
+
+        return unicode(self.id)
+
+    def update_invoice_reference(self, auto_save=False, save=True):
+        """
+        Generate and save (when save=True) invoice reference.
+        Automatically saves to generate an id when auto_save is set.
+        """
+
+        if auto_save and not self.id:
+            # Save to generate self.id
+            self.save()
+
+        assert not self.invoice_reference, 'Invoice reference already set!'
+
+        self.invoice_reference = self.generate_invoice_reference()
+
+        if save:
+            self.save()
+
+
+class Payout(InvoiceReferenceBase, models.Model):
     """
     A projects is payed after it's fully funded in the first batch (2x/month).
     Project payouts are checked manually. Selected projects can be exported to a SEPA file.
@@ -61,7 +94,6 @@ class Payout(models.Model):
     receiver_account_city = models.CharField(max_length=100)
     receiver_account_country = models.CharField(max_length=100, null=True)
 
-    invoice_reference = models.CharField(max_length=100)
     description_line1 = models.CharField(max_length=100, blank=True, default="")
     description_line2 = models.CharField(max_length=100, blank=True, default="")
     description_line3 = models.CharField(max_length=100, blank=True, default="")
@@ -102,6 +134,14 @@ class Payout(models.Model):
 
         self.save()
 
+    def generate_invoice_reference(self):
+        """ Generate invoice reference from project and payout id's. """
+        assert self.id
+        assert self.project
+        assert self.project.id
+
+        return u'%d-%d' % (self.project.id, self.id)
+
     @property
     def safe_amount_payable(self):
         """ Realtime amount of safe donations received. """
@@ -127,6 +167,52 @@ class Payout(models.Model):
     def __unicode__(self):
         date = self.created.strftime('%d-%m-%Y')
         return  self.invoice_reference + " : " + date + " : " + self.receiver_account_number + " : EUR " + str(self.amount_payable)
+
+
+class OrganizationPayout(models.Model):
+    """
+    Payouts for organization fees minus costs to the organization spanning
+    a particular span of time.
+
+    Organization fees are calculated from completed Payouts to projects and
+    are originally including VAT.
+
+    PSP costs are calculated from orders and are originally excluding VAT.
+
+    Other costs (i.e. international banking fees) can be manually specified
+    either excluding or including VAT.
+    """
+
+    status = models.CharField(
+        _("status"), max_length=20, choices=PayoutLineStatuses.choices)
+    created = CreationDateTimeField(_("Created"))
+    updated = ModificationDateTimeField(_("Updated"))
+
+    invoice_reference = models.CharField(max_length=100)
+
+    def calculate_amounts(self):
+        """
+        Calculate amounts.
+
+        Updates:
+         ...
+
+        Should only be called for Payouts with status 'new'.
+        """
+        assert self.status == PayoutLineStatuses.new, \
+            'Can only recalculate for new Payout.'
+
+
+        # TODO
+
+        self.save()
+
+    def __unicode__(self):
+        return u'%(invoice_reference)s from %(start_date)s to %(end_date)s' % {
+            'invoice_reference': self.invoice_reference,
+            'start_date': self.start_date,
+            'end_date': self.end_date
+        }
 
 
 class BankMutationLine(models.Model):
