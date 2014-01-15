@@ -425,3 +425,15 @@ class OrganizationPayoutTestCase(TestCase):
         self.assertEquals(
             org_payout.psp_fee_excl, decimal.Decimal('0.50')
         )
+
+    def test_invoice_reference(self):
+        """ Test generating invoice_reference. """
+
+        org_payout = G(
+            OrganizationPayout,
+            completed=None, invoice_reference='',
+            start_date=self.today - datetime.timedelta(days=1),
+            end_date=self.today + datetime.timedelta(days=1)
+        )
+
+        self.assertIn(str(org_payout.id), org_payout.invoice_reference)

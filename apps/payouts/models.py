@@ -47,14 +47,14 @@ class InvoiceReferenceBase(models.Model):
 
         if auto_save and not self.id:
             # Save to generate self.id
-            self.save()
+            super(InvoiceReferenceBase, self).save()
 
         assert not self.invoice_reference, 'Invoice reference already set!'
 
         self.invoice_reference = self.generate_invoice_reference()
 
         if save:
-            self.save()
+            super(InvoiceReferenceBase, self).save()
 
 
 class CompletedDateTimeBase(models.Model):
@@ -389,11 +389,21 @@ class OrganizationPayout(PayoutBase):
         # TODO: Prevent overlaps
 
     def save(self, *args, **kwargs):
-        """ Calculate values on first creation. """
+        """
+        Calculate values on first creation and generate invoice reference.
+        """
 
-        if not self.id and self.status == PayoutLineStatuses.new:
+        if not self.id:
             # No id? Not previously saved
-            self.calculate_amounts(save=False)
+
+            if self.status == PayoutLineStatuses.new:
+                # This exists mainly for testing reasons, payouts should
+                # always be created new
+                self.calculate_amounts(save=False)
+
+            if not self.invoice_reference:
+                # Conditionally creat invoice reference
+                self.update_invoice_reference(auto_save=True, save=False)
 
         super(OrganizationPayout, self).save(*args, **kwargs)
 
