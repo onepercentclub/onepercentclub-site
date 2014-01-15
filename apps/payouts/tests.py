@@ -419,11 +419,39 @@ class OrganizationPayoutTestCase(TestCase):
         )
 
         self.assertEquals(
+            org_payout.organization_fee_excl, decimal.Decimal('0.62')
+        )
+
+        self.assertEquals(
+            org_payout.organization_fee_vat, decimal.Decimal('0.13')
+        )
+
+        self.assertEquals(
             org_payout.organization_fee_incl, decimal.Decimal('0.75')
         )
 
         self.assertEquals(
             org_payout.psp_fee_excl, decimal.Decimal('0.50')
+        )
+
+        self.assertEquals(
+            org_payout.psp_fee_vat, decimal.Decimal('0.10')
+        )
+
+        self.assertEquals(
+            org_payout.psp_fee_incl, decimal.Decimal('0.60')
+        )
+
+        self.assertEquals(
+            org_payout.payable_amount_excl, decimal.Decimal('0.12')
+        )
+
+        self.assertEquals(
+            org_payout.payable_amount_vat, decimal.Decimal('0.03')
+        )
+
+        self.assertEquals(
+            org_payout.payable_amount_incl, decimal.Decimal('0.15')
         )
 
     def test_invoice_reference(self):
