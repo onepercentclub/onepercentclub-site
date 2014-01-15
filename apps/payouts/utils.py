@@ -1,6 +1,8 @@
 import decimal
+import datetime
 
 from django.conf import settings
+from django.utils import timezone
 
 from .choices import PayoutRules
 
@@ -78,3 +80,17 @@ def calculate_vat_exclusive(amount):
     factor = VAT_RATE + decimal.Decimal('1.00')
 
     return round_money(amount / factor)
+
+
+def date_timezone_aware(date):
+    """
+    Create timezone aware datetime equivalent of date, corresponding
+    with midnight.
+    """
+    midnight = datetime.time(0, 0)
+    default_zone = timezone.get_default_timezone()
+
+    dt = datetime.datetime.combine(date, midnight)
+    dt = timezone.make_aware(dt, default_zone)
+
+    return dt
