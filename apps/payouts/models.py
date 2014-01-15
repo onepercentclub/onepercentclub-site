@@ -223,6 +223,26 @@ class OrganizationPayout(InvoiceReferenceBase, CompletedDateTimeBase, models.Mod
     created = CreationDateTimeField(_("Created"))
     updated = ModificationDateTimeField(_("Updated"))
 
+    organization_fee_excl = MoneyField(_('organization fee excluding VAT'))
+    organization_fee_vat = MoneyField(_('organization fee VAT'))
+    organization_fee_incl = MoneyField(_('organization fee including VAT'))
+
+    bank_fee_excl = MoneyField(_('PSP bank fee excluding VAT'))
+    bank_fee_vat = MoneyField(_('PSP bank fee VAT'))
+    bank_fee_incl = MoneyField(_('PSP bank fee including VAT'))
+
+    psp_fee_excl = MoneyField(_('PSP fee excluding VAT'))
+    psp_fee_vat = MoneyField(_('PSP fee VAT'))
+    psp_fee_incl = MoneyField(_('PSP fee including VAT'))
+
+    other_costs_excl = MoneyField(_('other costs excluding VAT'))
+    other_costs_vat = MoneyField(_('other costs VAT'))
+    other_costs_incl = MoneyField(_('other costs including VAT'))
+
+    payable_amount_excl = MoneyField(_('payable amount excluding VAT'))
+    payable_amount_vat = MoneyField(_('payable amount VAT'))
+    payable_amount_incl = MoneyField(_('payable amount including VAT'))
+
     class Meta:
         unique_together = ('start_date', 'end_date')
         get_latest_by = 'end_date'
