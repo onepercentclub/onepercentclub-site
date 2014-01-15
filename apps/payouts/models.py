@@ -250,6 +250,24 @@ class OrganizationPayout(InvoiceReferenceBase, CompletedDateTimeBase, models.Mod
         get_latest_by = 'end_date'
         ordering = ['start_date']
 
+    def _get_organization_fee(self):
+        """
+        Calculate and return the organization fee for Payouts within this
+        OrganizationPayout's period, including VAT.
+
+        This method should *only* be called from calculate_amounts().
+        """
+        # Get Payouts
+        payouts = Payout.objects.filter(
+            completed__gte=self.start_date, completed__lte=self.end_date
+        )
+
+        # Aggregate value
+        aggregate = payouts.aggregate(models.Sum('organization_fee'))
+
+        # Return aggregated value or 0.00
+        return aggregate.get('organization_fee__sum', decimal.Decimal('0.00'))
+
     def calculate_amounts(self):
         """
         Calculate amounts.
