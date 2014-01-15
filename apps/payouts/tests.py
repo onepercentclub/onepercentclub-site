@@ -11,7 +11,7 @@ from apps.projects.models import (
 from apps.fund.models import Donation, DonationStatuses
 
 from .models import Payout, OrganizationPayout
-from .choices import PayoutRules
+from .choices import PayoutRules, PayoutLineStatuses
 
 
 class PayoutTestCase(TestCase):
@@ -50,7 +50,7 @@ class PayoutTestCase(TestCase):
         """ Test saving a payout. """
 
         # Generate new payout
-        payout = N(Payout)
+        payout = N(Payout, completed=None)
 
         # Validate
         payout.clean()
@@ -61,8 +61,23 @@ class PayoutTestCase(TestCase):
     def test_unicode(self):
         """ Test unicode() on payout. """
 
-        payout = G(Payout)
+        payout = G(Payout, completed=None)
         self.assertTrue(unicode(payout))
+
+    def test_completed(self):
+        """ Test the transition to completed. """
+
+        payout = G(Payout, completed=None, status=PayoutLineStatuses.progress)
+        payout.save()
+
+        self.assertFalse(payout.completed)
+
+        # Change status to completed
+        payout.status = PayoutLineStatuses.completed
+        payout.save()
+
+        # Completed date should now be set
+        self.assertTrue(payout.completed)
 
     def test_create_payout(self):
         """
@@ -223,6 +238,7 @@ class OrganizationPayoutTestCase(TestCase):
         # Generate new payout
         payout = N(
             OrganizationPayout,
+            completed=None,
             start_date=datetime.date(2013, 01, 01),
             end_date=datetime.date(2013, 01, 31)
         )
@@ -236,6 +252,23 @@ class OrganizationPayoutTestCase(TestCase):
     def test_unicode(self):
         """ Test unicode() on payout. """
 
-        payout = G(OrganizationPayout)
+        payout = G(OrganizationPayout, completed=None)
         self.assertTrue(unicode(payout))
+
+    def test_completed(self):
+        """ Test the transition to completed. """
+
+        payout = G(
+            OrganizationPayout, completed=None, status=PayoutLineStatuses.progress
+        )
+        payout.save()
+
+        self.assertFalse(payout.completed)
+
+        # Change status to completed
+        payout.status = PayoutLineStatuses.completed
+        payout.save()
+
+        # Completed date should now be set
+        self.assertTrue(payout.completed)
 
