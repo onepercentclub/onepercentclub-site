@@ -5,52 +5,54 @@ from south.v2 import DataMigration
 from django.db import models
 
 class Migration(DataMigration):
-    # Dictionary with known id -> completed date pairs
-    completed_dates = {
-        # A colourful future for disadvantaged children in Nicaragua
-        1824: datetime.date(2013, 12, 31),
-        # Bamboe voor de Ambachtsschool
-        1543: datetime.date(2013, 9, 30),
-        # Bandung Barat project
-        1415: datetime.date(2013, 12, 18),
-        # Betere locatie, meer kansen!
-        1625: datetime.date(2013, 9, 30),
-        # Bouwen voor boeken!
-        1482: datetime.date(2013, 10, 15),
-        # Clean Lighting and Phone Recharging Initiative - Cameroon
-        1634: datetime.date(2013, 9, 30),
-        # Computercursus voor dove scholieren!
-        1534: datetime.date(2013, 12, 3),
-        # Empower the Women and Youth of Rakhine State (Myanmar)
-        1849: datetime.date(2013, 12, 17),
-        # Future Stars Project
-        1376: datetime.date(2013, 12, 2),
-        # GIVE A CUSHION TOO!
-        1660: datetime.date(2013, 9, 27),
-        # Goodget - Improving Daily Life
-        1429: datetime.date(2013, 12, 18),
-        # Heerlijk Helder Water Pompen
-        1614: datetime.date(2013, 10, 15),
-        # Hope From The Farm
-        1380: datetime.date(2013, 12, 31),
-        # Independence for HIV-orphans!
-        1628: datetime.date(2013, 9, 30),
-        # Two water enterprises Northern Cambodia
-        1495: datetime.date(2013, 12, 18),
-        # Watertank voor schoolkinderen
-        1350: datetime.date(2013, 12, 18),
-        # a school + building skills for the Sherpa people in Nepal
-        1804: datetime.date(2013, 12, 3),
-        # livelihood and women empowerment program (LWEP)
-        1607: datetime.date(2013, 12, 31),
-    }
-
     def forwards(self, orm):
         """ Set closed days for past payouts. """
-        # Last day of December in 2013
-        last_day = datetime.date(2013, 12, 31)
+        # Dictionary with known id -> completed date pairs
+        completed_dates = {
+            # A colourful future for disadvantaged children in Nicaragua
+            1824: datetime.date(2013, 12, 31),
+            # Bamboe voor de Ambachtsschool
+            1543: datetime.date(2013, 9, 30),
+            # Bandung Barat project
+            1415: datetime.date(2013, 12, 18),
+            # Betere locatie, meer kansen!
+            1625: datetime.date(2013, 9, 30),
+            # Bouwen voor boeken!
+            1482: datetime.date(2013, 10, 15),
+            # Clean Lighting and Phone Recharging Initiative - Cameroon
+            1634: datetime.date(2013, 9, 30),
+            # Computercursus voor dove scholieren!
+            1534: datetime.date(2013, 12, 3),
+            # Empower the Women and Youth of Rakhine State (Myanmar)
+            1849: datetime.date(2013, 12, 17),
+            # Future Stars Project
+            1376: datetime.date(2013, 12, 2),
+            # GIVE A CUSHION TOO!
+            1660: datetime.date(2013, 9, 27),
+            # Goodget - Improving Daily Life
+            1429: datetime.date(2013, 12, 18),
+            # Heerlijk Helder Water Pompen
+            1614: datetime.date(2013, 10, 15),
+            # Hope From The Farm
+            1380: datetime.date(2013, 12, 31),
+            # Independence for HIV-orphans!
+            1628: datetime.date(2013, 9, 30),
+            # Two water enterprises Northern Cambodia
+            1495: datetime.date(2013, 12, 18),
+            # Watertank voor schoolkinderen
+            1350: datetime.date(2013, 12, 18),
+            # a school + building skills for the Sherpa people in Nepal
+            1804: datetime.date(2013, 12, 3),
+            # livelihood and women empowerment program (LWEP)
+            1607: datetime.date(2013, 12, 31),
+        }
 
-        orm.Payout.objects.filter(completed=None).update(completed=last_day)
+        # The above are project id's
+        payouts = orm.Payout.objects.filter(project_id__in=completed_dates.keys()).distinct()
+
+        for payout in payouts:
+            payout.completed = completed_dates[payout.project.id]
+            payout.save()
 
     def backwards(self, orm):
         """ Do nothing; all generated fields are nonexistent anyways. """
