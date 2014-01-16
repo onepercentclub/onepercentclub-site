@@ -15,6 +15,7 @@ from apps.cowry.models import PaymentStatuses
 
 from .models import Payout, OrganizationPayout
 from .choices import PayoutRules, PayoutLineStatuses
+from .utils import date_timezone_aware
 
 
 class PayoutTestCase(TestCase):
@@ -132,7 +133,10 @@ class PayoutTestCase(TestCase):
         self.assertIn(str(payout.id), payout.invoice_reference)
 
     def test_create_payment_rule_five(self):
-        """ Fully funded projects should get payment rule five. """
+        """ Legacy projects should get payment rule five. """
+
+        # Use date before 2014-1-1
+        self.campaign.created = date_timezone_aware(datetime.date(2013, 1, 1))
 
         # Set status of donation to paid
         self.donation.status = DonationStatuses.paid
@@ -149,6 +153,25 @@ class PayoutTestCase(TestCase):
         self.assertEquals(payout.payout_rule, PayoutRules.five)
         self.assertEquals(payout.organization_fee, decimal.Decimal('0.75'))
         self.assertEquals(payout.amount_payable, decimal.Decimal('14.25'))
+
+    def test_create_payment_rule_seven(self):
+        """ Fully funded projects should get payment rule seven. """
+
+        # Set status of donation to paid
+        self.donation.status = DonationStatuses.paid
+        self.donation.save()
+
+        # Update campaign donations
+        self.campaign.update_money_donated()
+
+        # Update phase to act.
+        self.project.phase = ProjectPhases.act
+        self.project.save()
+
+        payout = Payout.objects.all()[0]
+        self.assertEquals(payout.payout_rule, PayoutRules.seven)
+        self.assertEquals(payout.organization_fee, decimal.Decimal('1.05'))
+        self.assertEquals(payout.amount_payable, decimal.Decimal('13.95'))
 
     def test_create_payment_rule_twelve(self):
         """ Not fully funded projects should get payment rule twelve. """
@@ -209,7 +232,7 @@ class PayoutTestCase(TestCase):
         payout = Payout.objects.all()[0]
 
         # No money is even pending
-        self.assertEquals(payout.amount_payable, decimal.Decimal('14.25'))
+        self.assertEquals(payout.amount_payable, decimal.Decimal('13.95'))
         self.assertEquals(payout.safe_amount_payable, decimal.Decimal('0.00'))
 
     def test_safe_amount_paid(self):
@@ -230,8 +253,8 @@ class PayoutTestCase(TestCase):
         payout = Payout.objects.all()[0]
 
         # No money is safe - just yet
-        self.assertEquals(payout.amount_payable, decimal.Decimal('14.25'))
-        self.assertEquals(payout.safe_amount_payable, decimal.Decimal('14.25'))
+        self.assertEquals(payout.amount_payable, decimal.Decimal('13.95'))
+        self.assertEquals(payout.safe_amount_payable, decimal.Decimal('13.95'))
 
 
 class OrganizationPayoutTestCase(TestCase):
@@ -381,7 +404,7 @@ class OrganizationPayoutTestCase(TestCase):
 
         # See whether the aggregate organization fee corresponds
         self.assertEquals(
-            org_payout._get_organization_fee(), decimal.Decimal('0.75')
+            org_payout._get_organization_fee(), decimal.Decimal('1.05')
         )
 
     def test_get_psp_fee(self):
@@ -419,15 +442,15 @@ class OrganizationPayoutTestCase(TestCase):
         )
 
         self.assertEquals(
-            org_payout.organization_fee_excl, decimal.Decimal('0.62')
+            org_payout.organization_fee_excl, decimal.Decimal('0.87')
         )
 
         self.assertEquals(
-            org_payout.organization_fee_vat, decimal.Decimal('0.13')
+            org_payout.organization_fee_vat, decimal.Decimal('0.18')
         )
 
         self.assertEquals(
-            org_payout.organization_fee_incl, decimal.Decimal('0.75')
+            org_payout.organization_fee_incl, decimal.Decimal('1.05')
         )
 
         self.assertEquals(
@@ -443,15 +466,15 @@ class OrganizationPayoutTestCase(TestCase):
         )
 
         self.assertEquals(
-            org_payout.payable_amount_excl, decimal.Decimal('0.12')
+            org_payout.payable_amount_excl, decimal.Decimal('0.37')
         )
 
         self.assertEquals(
-            org_payout.payable_amount_vat, decimal.Decimal('0.03')
+            org_payout.payable_amount_vat, decimal.Decimal('0.08')
         )
 
         self.assertEquals(
-            org_payout.payable_amount_incl, decimal.Decimal('0.15')
+            org_payout.payable_amount_incl, decimal.Decimal('0.45')
         )
 
     def test_other_costs_excl(self):
