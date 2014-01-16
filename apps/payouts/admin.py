@@ -36,7 +36,7 @@ class PayoutAdmin(admin.ModelAdmin):
     ]
 
     fields = readonly_fields + [
-        'status', 'receiver_account_number', 'receiver_account_iban', 'receiver_account_bic',
+        'status', 'completed', 'receiver_account_number', 'receiver_account_iban', 'receiver_account_bic',
         'receiver_account_country', 'invoice_reference', 'description_line1',
         'description_line2', 'description_line3', 'description_line4'
     ]

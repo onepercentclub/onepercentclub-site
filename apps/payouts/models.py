@@ -64,8 +64,11 @@ class CompletedDateTimeBase(models.Model):
     """
 
     # The timestamp the order changed to completed. This is auto-set in the save() method.
-    completed = models.DateTimeField(
-        _("Closed"), blank=True, editable=False, null=True
+    completed = models.DateField(
+        _("Closed"), blank=True, null=True, help_text=_(
+            'Book date when the bank transaction was confirmed and '
+            'the payout has been set to completed.'
+        )
     )
 
     class Meta:
@@ -275,8 +278,8 @@ class OrganizationPayout(PayoutBase):
         """
         # Get Payouts
         payouts = Payout.objects.filter(
-            completed__gte=date_timezone_aware(self.start_date),
-            completed__lte=date_timezone_aware(self.end_date)
+            completed__gte=self.start_date,
+            completed__lte=self.end_date
         )
 
         # Aggregate value
