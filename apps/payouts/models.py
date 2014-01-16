@@ -449,6 +449,15 @@ class OrganizationPayout(PayoutBase):
 
         super(OrganizationPayout, self).save(*args, **kwargs)
 
+    def generate_invoice_reference(self):
+        """ Generate invoice reference from project and payout id's. """
+        assert self.id
+
+        return u'%(year)d-OP%(payout_id)04d' % {
+            'year': self.created.year,
+            'payout_id': self.id
+        }
+
     def __unicode__(self):
         return u'%(invoice_reference)s from %(start_date)s to %(end_date)s' % {
             'invoice_reference': self.invoice_reference,

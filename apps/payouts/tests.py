@@ -521,3 +521,4 @@ class OrganizationPayoutTestCase(TestCase):
         )
 
         self.assertIn(str(org_payout.id), org_payout.invoice_reference)
+        self.assertIn(str(self.today.year), org_payout.invoice_reference)
