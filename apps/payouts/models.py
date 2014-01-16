@@ -380,14 +380,6 @@ class OrganizationPayout(PayoutBase):
         if save:
             self.save()
 
-    def _check_consistency(self):
-        """ Check for consistency on the object. """
-
-        if (
-            self.other_costs_incl - self.other_costs_excl != self.other_costs_vat
-        ):
-            raise ValidationError(_('Other costs have changed, please recalculate before progessing.'))
-
     def clean(self):
         """ Validate date span consistency. """
 
@@ -410,8 +402,10 @@ class OrganizationPayout(PayoutBase):
                 # No earlier payouts exist
                 pass
 
-        # Check for consistency before changing into 'progress'.
-        try:
+        else:
+            # Validation for existing objects
+
+            # Check for consistency before changing into 'progress'.
             old_status = self.__class__.objects.get(id=self.id).status
 
             if (
@@ -421,12 +415,11 @@ class OrganizationPayout(PayoutBase):
                 # Old status: new
                 # New status: progress
 
-                # Do consistency check!
-                self._check_consistency()
-
-        except self.__class__.DoesNotExist:
-            # No previous object exists
-            pass
+                # Check consistency of other costs
+                if (
+                    self.other_costs_incl - self.other_costs_excl != self.other_costs_vat
+                ):
+                    raise ValidationError(_('Other costs have changed, please recalculate before progessing.'))
 
         # TODO: Prevent overlaps
 
