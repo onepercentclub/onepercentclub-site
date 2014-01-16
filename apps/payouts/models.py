@@ -254,11 +254,15 @@ class OrganizationPayout(PayoutBase):
     psp_fee_incl = MoneyField(_('PSP fee including VAT'))
 
     other_costs_excl = MoneyField(
-        _('other costs excluding VAT'), default=decimal.Decimal('0.00'))
+        _('other costs excluding VAT'), default=decimal.Decimal('0.00'),
+        help_text=_('Automatically calculated from inclusive amount when set to \'0.00\'.')
+    )
     other_costs_vat = MoneyField(
         _('other costs VAT'), default=decimal.Decimal('0.00'))
     other_costs_incl = MoneyField(
-        _('other costs including VAT'), default=decimal.Decimal('0.00'))
+        _('other costs including VAT'), default=decimal.Decimal('0.00'),
+        help_text=_('Automatically calculated from exclusive amount when set to \'0.00\'.')
+    )
 
     payable_amount_excl = MoneyField(_('payable amount excluding VAT'))
     payable_amount_vat = MoneyField(_('payable amount VAT'))
