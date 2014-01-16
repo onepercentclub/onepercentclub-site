@@ -36,38 +36,6 @@ class Migration(DataMigration):
         # Other
         raise NotImplementedError('Payment rule not implemented yet.')
 
-    def _get_payout_rule(self, obj):
-        """
-        Return the payout rule considering the current state of the Payout.
-
-        Note: this should *only* be called internally.
-        """
-        assert obj.project
-        assert hasattr(obj.project, 'projectcampaign'), 'Project has no campaign.'
-
-        # Campaign shorthand
-        campaign = obj.project.projectcampaign
-
-        # 1st of January 2014
-        start_2014 = date_timezone_aware(datetime.date(2014, 1, 1))
-
-        if campaign.created >= start_2014:
-            # New rules per 2014
-
-            if campaign.money_donated >= campaign.money_asked:
-                # Fully funded
-
-                # New default payout rule is 7 percent
-                return PayoutRules.seven
-
-            else:
-                # Not fully funded
-                return PayoutRules.twelve
-
-        # Campaign started before 2014
-        # Always 5 percent
-        return PayoutRules.five
-
     def forwards(self, orm):
         """
         Reconstruct organization fee and raised amount from amount_payable.
