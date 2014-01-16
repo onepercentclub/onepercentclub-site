@@ -136,6 +136,25 @@ class OrganizationPayoutAdmin(admin.ModelAdmin):
 
     actions = ['recalculate_amounts']
 
+    def get_readonly_fields(self, request, obj=None):
+        """
+        Make all fields except for status and completed readonly when status
+        is 'progress' or 'completed'.
+        """
+        if obj and obj.status in (
+            PayoutLineStatuses.progress, PayoutLineStatuses.completed
+        ):
+            # Construct list of all fields
+            fieldsets = self.get_fieldsets(request, obj)
+            fields = []
+
+            for fieldset in fieldsets:
+                fields += list(fieldset.fields)
+
+
+
+
+
     def recalculate_amounts(self, request, queryset):
         # Only recalculate for 'new' payouts
         filter_args = {'status': PayoutLineStatuses.new}
