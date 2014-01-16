@@ -27,7 +27,7 @@ class PayoutAdmin(admin.ModelAdmin):
     list_display = [
         'payout', 'ok', 'donation_overview', 'project',
         'amount_raised', 'organization_fee', 'amount_payable', 'safe_amount_payable',
-        'receiver_account_number', 'invoice_reference', 'status'
+        'receiver_account_number', 'invoice_reference', 'status', 'completed'
     ]
 
     readonly_fields = [
