@@ -18,7 +18,7 @@ from apps.cowry.models import Payment, PaymentStatuses
 
 from .fields import MoneyField
 from .utils import (
-    money_from_cents, round_money, get_fee_percentage,
+    money_from_cents, round_money,
     calculate_vat, calculate_vat_exclusive, date_timezone_aware
 )
 from .choices import PayoutLineStatuses, PayoutRules
@@ -146,6 +146,61 @@ class Payout(PayoutBase):
     description_line3 = models.CharField(max_length=100, blank=True, default="")
     description_line4 = models.CharField(max_length=100, blank=True, default="")
 
+    def _get_fee_percentage(self):
+        """
+        Get fee percentag according to the current PayoutRule.
+
+        Note: this should *only* be called internally.
+        """
+        assert self.payout_rule
+
+        if self.payout_rule == PayoutRules.five:
+            # 5%
+            return decimal.Decimal('0.05')
+
+        elif self.payout_rule == PayoutRules.seven:
+            # 7%
+            return decimal.Decimal('0.07')
+
+        elif self.payout_rule == PayoutRules.twelve:
+            # 12%
+            return decimal.Decimal('0.12')
+
+        # Other
+        raise NotImplementedError('Payment rule not implemented yet.')
+
+    def _get_payout_rule(self):
+        """
+        Return the payout rule considering the current state of the Payout.
+
+        Note: this should *only* be called internally.
+        """
+        assert self.project
+        assert self.project.projectcampaign
+
+        # Campaign shorthand
+        campaign = self.project.projectcampaign
+
+        # 1st of January 2014
+        start_2014 = date_timezone_aware(datetime.date(2014, 1, 1))
+
+        if campaign.created >= start_2014:
+            # New rules per 2014
+
+            if campaign.money_donated >= campaign.money_asked:
+                # Fully funded
+
+                # New default payout rule is 7 percent
+                return PayoutRules.seven
+
+            else:
+                # Not fully funded
+                return PayoutRules.twelve
+
+        # Campaign started before 2014
+        # Always 5 percent
+        return PayoutRules.five
+
     def calculate_amounts(self, save=True):
         """
         Calculate amounts according to payment_rule.
@@ -164,13 +219,8 @@ class Payout(PayoutBase):
         # Campaign shorthand
         campaign = self.project.projectcampaign
 
-        if campaign.money_donated >= campaign.money_asked:
-            # Fully funded, set payout rule to 5
-            self.payout_rule = PayoutRules.five
-        else:
-            self.payout_rule = PayoutRules.twelve
-
-        fee_factor = get_fee_percentage(self.payout_rule)
+        self.payout_rule = self._get_payout_rule()
+        fee_factor = self._get_fee_percentage()
 
         self.amount_raised = money_from_cents(
             campaign.money_donated
@@ -197,7 +247,7 @@ class Payout(PayoutBase):
         safe_amount = money_from_cents(self.project.projectcampaign.money_safe)
 
         # Calculate fee factor
-        fee_factor = decimal.Decimal('1.00') - get_fee_percentage(self.payout_rule)
+        fee_factor = decimal.Decimal('1.00') - self._get_fee_percentage()
 
         # Round it
         safe_amount = round_money(safe_amount * fee_factor)
@@ -272,7 +322,7 @@ class OrganizationPayout(PayoutBase):
         Calculate and return the organization fee for Payouts within this
         OrganizationPayout's period, including VAT.
 
-        This method should *only* be called from calculate_amounts().
+        Note: this should *only* be called internally.
         """
         # Get Payouts
         payouts = Payout.objects.filter(
@@ -296,7 +346,7 @@ class OrganizationPayout(PayoutBase):
         payments relating through orders to donations which became irrevocably
         paid during the OrganizationPayout period, excluding VAT.
 
-        This method should *only* be called from calculate_amounts().
+        Note: this should *only* be called internally.
         """
         # Allowed payment statusus (statusus generating fees)
         # In apps.cowry_docdata.adapters it appears that fees are only
