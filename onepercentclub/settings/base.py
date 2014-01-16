@@ -605,8 +605,8 @@ COWRY_PAYMENT_METHODS = {
     },
 }
 
-# The rate that is payed out to projects
-PROJECT_PAYOUT_RATE = 0.95
+# Default VAT percentage as string (used in payouts)
+VAT_RATE = '0.21'
 
 # Settings for organization bank account. Please set this in secrets.py
 # SEPA = {
