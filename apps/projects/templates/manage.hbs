@@ -114,8 +114,8 @@ Do you have a smart idea to make a contribution to your community? An idea to ta
 
                 <p>
 {% blocktrans %}
-1%Club offers you tools to engage your crowd to turn your smart idea in to reality.<br />
-Are you ready to invest time and effort in succeeding? Double check our <a href="/#!/pages/faq-projects">FAQ</a> and pitch your smart idea here!
+Well, you came to the right place. 1%Club offers you the opportunity to raise funds in an easy and fun way.<br />
+Read more about our features, service fees and and other useful stuff <a href="/#!/pages/faq-projects">here</a>. See online soon!
 {% endblocktrans %}
                 </p>
 
@@ -156,17 +156,13 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
                 {{/if}}
             </div>
             <sidebar class="l-sidebar">
-                <h3>{% trans "WHEN YOUR SMART IDEA..." %}</h3>
+                <h3>{% trans "Any preconditions?<br/>Yes, but just a few:" %}</h3>
                 <ul>
-                    <li>{% trans "Might seem small, but will have a big social impact" %}</li>
-                    <li>{% trans "Is concrete and thus has a clear start and end" %}</li>
-                    <li>{% trans "Needs on off investment to make it self-sufficient and sustainable on the long term" %}</li>
-                    <li>{% trans "Takes place in one of these developing countries" %}</li>
-                    <li>{% trans "Is managed and owned locally" %}</li>
-                    <li>{% trans "Needs people, special know-how and skills" %}</li>
-                    <li>{% trans "Needs some cash to get started (up to €5000)" %}</li>
+                    <li>{% trans "Your project creates a better world" %}</li>
+                    <li>{% trans "You can tell and show us how the money will be spent" %}</li>
+                    <li>{% trans "You need between €250 and €1,000,000 to make it happen" %}</li>
+                    <li>{% trans "You are ready to rumble" %}</li>
                 </ul>
-                {% trans "...your idea fits right in with 1%Club!" %}
             </sidebar>
         </div>
     </div>
@@ -629,7 +625,7 @@ Are you ready to invest time and effort in succeeding? Double check our <a href=
             <li class="control-group">
                 <label class="control-label">{% trans "Country" %}</label>
                 <div class="controls">
-                    {{view App.ProjectCountrySelectView valueBinding="country" classBinding="errors.country.length:error"}}
+                    {{view App.CountrySelectView valueBinding="country" classBinding="errors.country.length:error"}}
                 </div>
                 {{#if errors.country }}
                     <div class="has-errors">{{#each errors.country }}<p>{{this}}</p>{{/each}}</div>
@@ -1206,8 +1202,6 @@ detailed insight in your budget as it will only make your credibility go up. Jus
 before you start; be realistic in your crowdfunding goal. Better a smaller amount and make it then a
 large amount and have nothing in the end. Also, there are certain things not allowed to ask money for.
 Check them in our <a href="/#!/pages/faq-projects">FAQ</a>.
-<br/>
-Please add 5% administration fee to your budget. The total amount, including the fee, cannot exceed 5.000 Euro.
 {% endblocktrans %}
         </p>
     </legend>
@@ -1253,7 +1247,7 @@ Please add 5% administration fee to your budget. The total amount, including the
             <p>&euro; {{totalBudget}}</p>
             {{#if totalBudget}}
                 {{#unless validBudget}}
-                    <div class="has-errors"><p>{% trans "Total budget shouldn't be over 5000 euro." %}</p></div>
+                    <div class="has-errors"><p>{% trans "Total budget should be between 250 and 1,000,000 euro." %}</p></div>
                 {{/unless}}
             {{else}}
                 <div class="has-errors"><p>{% trans "Start adding items to your budget." %}</p></div>
