@@ -8,8 +8,6 @@ from django.db import models
 
 from ..choices import PayoutRules
 
-from ..utils import date_timezone_aware
-
 
 class Migration(DataMigration):
 
@@ -41,7 +39,10 @@ class Migration(DataMigration):
         Reconstruct organization fee and raised amount from amount_payable.
         """
         for payout in orm.Payout.objects.all():
-            if not payout.organization_fee and not payout.amount_raised:
+            if not payout.organization_fee and not payout.amount_raised and not payout.payout_rule:
+                # Default payout rule to 5%
+                payout.payout_rule = PayoutRules.five
+
                 # Payout rule found, calculate fees
                 fee_factor = self._get_fee_percentage(payout.payout_rule)
                 inverse_factor = decimal.Decimal('1.00') - fee_factor
