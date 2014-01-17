@@ -7,6 +7,10 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
+    depends_on = [
+        ('payouts', '0006_completed_dates')
+    ]
+
     def forwards(self, orm):
         # Deleting field 'Project.payout_rule'
         db.delete_column(u'projects_project', 'payout_rule')
