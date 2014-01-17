@@ -11,9 +11,12 @@ def money_from_cents(amount):
     """
     Convert monetary amount from cents into a Decimal working
     with the MoneyField.
+
+    >>> money_from_cents(1000)
+    Decimal('10')
     """
 
-    return decimal.Decimal(amount/100.0)
+    return decimal.Decimal(str(amount/100))
 
 
 def round_money(amount):
