@@ -156,14 +156,13 @@ Read more about our features, service fees and and other useful stuff <a href="/
                 {{/if}}
             </div>
             <sidebar class="l-sidebar">
-                <h3>{% trans "Any preconditions? Yes, but just a few:" %}</h3>
+                <h3>{% trans "Any preconditions?<br/>Yes, but just a few:" %}</h3>
                 <ul>
                     <li>{% trans "Your project creates a better world" %}</li>
                     <li>{% trans "You can tell and show us how the money will be spent" %}</li>
-                    <li>{% trans "You need between € 250 and € 1,000,000 to make it happen" %}</li>
+                    <li>{% trans "You need between €250 and €1,000,000 to make it happen" %}</li>
                     <li>{% trans "You are ready to rumble" %}</li>
                 </ul>
-                {% trans "...your idea fits right in with 1%Club!" %}
             </sidebar>
         </div>
     </div>
@@ -626,7 +625,7 @@ Read more about our features, service fees and and other useful stuff <a href="/
             <li class="control-group">
                 <label class="control-label">{% trans "Country" %}</label>
                 <div class="controls">
-                    {{view App.ProjectCountrySelectView valueBinding="country" classBinding="errors.country.length:error"}}
+                    {{view App.CountrySelectView valueBinding="country" classBinding="errors.country.length:error"}}
                 </div>
                 {{#if errors.country }}
                     <div class="has-errors">{{#each errors.country }}<p>{{this}}</p>{{/each}}</div>
@@ -1203,8 +1202,6 @@ detailed insight in your budget as it will only make your credibility go up. Jus
 before you start; be realistic in your crowdfunding goal. Better a smaller amount and make it then a
 large amount and have nothing in the end. Also, there are certain things not allowed to ask money for.
 Check them in our <a href="/#!/pages/faq-projects">FAQ</a>.
-<br/>
-Please add 5% administration fee to your budget. The total amount, including the fee, cannot exceed 5.000 Euro.
 {% endblocktrans %}
         </p>
     </legend>
@@ -1250,7 +1247,7 @@ Please add 5% administration fee to your budget. The total amount, including the
             <p>&euro; {{totalBudget}}</p>
             {{#if totalBudget}}
                 {{#unless validBudget}}
-                    <div class="has-errors"><p>{% trans "Total budget shouldn't be over 5000 euro." %}</p></div>
+                    <div class="has-errors"><p>{% trans "Total budget should be between 250 and 1,000,000 euro." %}</p></div>
                 {{/unless}}
             {{else}}
                 <div class="has-errors"><p>{% trans "Start adding items to your budget." %}</p></div>
