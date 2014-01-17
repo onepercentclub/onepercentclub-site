@@ -48,15 +48,6 @@ class ProjectPhases(DjangoChoices):
     failed = ChoiceItem('failed', label=_("Failed"))
 
 
-class PayoutRules(DjangoChoices):
-    old = ChoiceItem('old', label=_("Old 1%/5%"))
-    five = ChoiceItem('five', label=_("5%"))
-    seven = ChoiceItem('seven', label=_("7%"))
-    twelve = ChoiceItem('twelve', label=_("12%"))
-    unknown = ChoiceItem('unknown', label=_("Unknown"))
-    other = ChoiceItem('other', label=_("Other"))
-
-
 class ProjectPhaseLog(models.Model):
     """ Log when a project reaches a certain phase """
 
@@ -124,7 +115,6 @@ class Project(models.Model):
 
     title = models.CharField(_("title"), max_length=255, unique=True)
     slug = models.SlugField(_("slug"), max_length=100, unique=True)
-    payout_rule = models.CharField(_("Payout rule"), max_length=20, choices=PayoutRules.choices, help_text=_("The payout rule for this project."), blank=True, null=True)
 
     phase = models.CharField(_("phase"), max_length=20, choices=ProjectPhases.choices, help_text=_("Phase this project is in right now."))
 
@@ -453,26 +443,45 @@ class ProjectCampaign(models.Model):
     # The amount donated that is secure.
     @property
     def money_safe(self):
+        """
+        Returns current amount of money from paid donations. (realtime)
+        """
+
         if self.money_asked == 0:
+            # No money asked, no money safe
             return 0
+
         donations = Donation.objects.filter(project=self.project)
         donations = donations.filter(status__in=[DonationStatuses.paid])
         total = donations.aggregate(sum=Sum('amount'))
+
         if not total['sum']:
+            # No donations, manually set amount
             return 0
+
         return total['sum']
 
     def update_money_donated(self):
+        """ Update amount based on paid and pending donations. """
+
         donations = Donation.objects.filter(project=self.project)
-        donations = donations.filter(status__in=[DonationStatuses.paid, DonationStatuses.pending])
+        donations = donations.filter(
+            status__in=[DonationStatuses.paid, DonationStatuses.pending]
+        )
         total = donations.aggregate(sum=Sum('amount'))
+
         if not total['sum']:
+            # No donations, manually set amount
             self.money_donated = 0
         else:
             self.money_donated = total['sum']
+
         self.money_needed = self.money_asked - self.money_donated
+
         if self.money_needed < 0:
+            # Should never be less than zero
             self.money_needed = 0
+
         self.save()
 
 

@@ -1,37 +1,46 @@
 import logging
-from apps.payouts.models import create_sepa_xml
+logger = logging.getLogger(__name__)
+
+from django.contrib import admin
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.utils import timezone
 from django.utils.translation import ugettext as _
-from .models import BankMutation, BankMutationLine
 
-logger = logging.getLogger(__name__)
+from apps.payouts.models import create_sepa_xml
 
-from django.contrib import admin
-
-from .models import Payout
+from .models import Payout, OrganizationPayout, BankMutation, BankMutationLine
+from .choices import PayoutLineStatuses
 
 
 class PayoutAdmin(admin.ModelAdmin):
+    date_hierarchy = 'created'
 
     model = Payout
     can_delete = False
 
-    list_filter = ['status']
+    list_filter = ['status', 'payout_rule']
 
-    actions = ['export_sepa']
+    actions = ['export_sepa', 'recalculate_amounts']
 
-    list_display = ['payout', 'ok', 'donation_overview', 'project',
-                    'amount_raised', 'amount_payout', 'current_amount_safe',
-                    'receiver_account_number', 'invoice_reference', 'status']
+    list_display = [
+        'payout', 'ok', 'donation_overview', 'project',
+        'amount_raised', 'organization_fee', 'amount_payable', 'safe_amount_payable',
+        'receiver_account_number', 'invoice_reference', 'status', 'completed'
+    ]
 
-    readonly_fields = ['donation_overview', 'project_link', 'organization', 'amount_raised',  'amount_payout', 'amount_safe']
+    readonly_fields = [
+        'donation_overview', 'project_link', 'organization',
+        'safe_amount_payable'
+    ]
 
-    fields = readonly_fields + ['status', 'receiver_account_number', 'receiver_account_iban', 'receiver_account_bic',
-                                'receiver_account_country', 'invoice_reference', 'description_line1',
-                                'description_line2', 'description_line3', 'description_line4']
+    fields = readonly_fields + [
+        'amount_raised', 'organization_fee', 'amount_payable', 'payout_rule',
+        'status', 'completed', 'receiver_account_number', 'receiver_account_iban', 'receiver_account_bic',
+        'receiver_account_country', 'invoice_reference', 'description_line1',
+        'description_line2', 'description_line3', 'description_line4'
+    ]
 
 
     def organization(self, obj):
@@ -83,7 +92,72 @@ class PayoutAdmin(admin.ModelAdmin):
 
     export_sepa.short_description = "Export SEPA file."
 
+    def recalculate_amounts(self, request, queryset):
+        # Only recalculate for 'new' payouts
+        filter_args = {'status': PayoutLineStatuses.new}
+        qs_new = queryset.all().filter(**filter_args)
+
+        for payout in qs_new:
+            payout.calculate_amounts()
+
+        message = (
+            "Fees for %(new_payouts)d new payouts were recalculated. "
+            "%(skipped_payouts)d progressing or closed payouts have been skipped."
+        ) % {
+            'new_payouts': qs_new.count(),
+            'skipped_payouts': queryset.exclude(**filter_args).count()
+        }
+
+        self.message_user(request, message)
+
+    recalculate_amounts.short_description = _("Recalculate amounts for new payouts.")
+
 admin.site.register(Payout, PayoutAdmin)
+
+
+class OrganizationPayoutAdmin(admin.ModelAdmin):
+    can_delete = False
+
+    date_hierarchy = 'start_date'
+
+    list_filter = ['status', ]
+
+    list_display = [
+        'invoice_reference', 'start_date', 'end_date',
+        'organization_fee_incl', 'psp_fee_incl',
+        'other_costs_incl', 'payable_amount_incl'
+    ]
+
+    readonly_fields = [
+        'invoice_reference', 'organization_fee_excl', 'organization_fee_vat', 'organization_fee_incl',
+        'psp_fee_excl', 'psp_fee_vat', 'psp_fee_incl',
+        'payable_amount_excl', 'payable_amount_vat', 'payable_amount_incl',
+        'other_costs_vat'
+    ]
+
+    actions = ['recalculate_amounts']
+
+    def recalculate_amounts(self, request, queryset):
+        # Only recalculate for 'new' payouts
+        filter_args = {'status': PayoutLineStatuses.new}
+        qs_new = queryset.all().filter(**filter_args)
+
+        for payout in qs_new:
+            payout.calculate_amounts()
+
+        message = (
+            "Amounts for %(new_payouts)d new payouts were recalculated. "
+            "%(skipped_payouts)d progressing or closed payouts have been skipped."
+        ) % {
+            'new_payouts': qs_new.count(),
+            'skipped_payouts': queryset.exclude(**filter_args).count()
+        }
+
+        self.message_user(request, message)
+
+    recalculate_amounts.short_description = _("Recalculate amounts for new payouts.")
+
+admin.site.register(OrganizationPayout, OrganizationPayoutAdmin)
 
 
 class BankMutationAdmin(admin.ModelAdmin):
@@ -113,7 +187,9 @@ class BankMutationLineAdmin(admin.ModelAdmin):
     can_delete = False
     extra = 0
 
-    list_display = ['start_date', 'matched', 'dc', 'transaction_type', 'amount', 'invoice_reference', 'account_number', 'account_name']
+    list_display = [
+        'start_date', 'matched', 'dc', 'transaction_type', 'amount', 'invoice_reference', 'account_number', 'account_name'
+    ]
 
     def has_add_permission(self, request):
         return False
@@ -125,9 +201,11 @@ class BankMutationLineAdmin(admin.ModelAdmin):
 
     matched.allow_tags = True
 
-    readonly_fields = ['bank_mutation', 'amount', 'dc', 'transaction_type', 'account_number', 'account_name',
-                       'start_date', 'matched', 'issuer_account_number', 'currency', 'invoice_reference',
-                       'description_line1', 'description_line2', 'description_line3', 'description_line4']
+    readonly_fields = [
+        'bank_mutation', 'amount', 'dc', 'transaction_type', 'account_number', 'account_name',
+       'start_date', 'matched', 'issuer_account_number', 'currency', 'invoice_reference',
+       'description_line1', 'description_line2', 'description_line3', 'description_line4'
+    ]
     #fields = readonly_fields
 
 admin.site.register(BankMutationLine, BankMutationLineAdmin)
