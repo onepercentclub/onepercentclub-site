@@ -36,8 +36,8 @@ sorl-thumbnail==11.12
 # http://pypi.python.org/pypi/django-choices/
 django-choices==1.1.11
 
-# http://pypi.python.org/pypi/surlex/0.1.2
-surlex==0.1.2
+# http://pypi.python.org/pypi/surlex/0.2.0
+surlex==0.2.0
 
 # http://pypi.python.org/pypi/South
 south==0.8.1
