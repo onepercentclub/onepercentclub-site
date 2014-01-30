@@ -241,18 +241,20 @@ class Payout(PayoutBase):
         return u'%d-%d' % (self.project.id, self.id)
 
     @property
-    def safe_amount_payable(self):
-        """ Realtime amount of safe donations received. """
+    def amount_safe(self):
+        """ Realtime amount of safe ('paid') donations. """
         # Get amount as Decimal
-        safe_amount = money_from_cents(self.project.projectcampaign.money_safe)
+        amount = money_from_cents(self.project.projectcampaign.money_safe)
 
-        # Calculate fee factor
-        fee_factor = decimal.Decimal('1.00') - self._get_fee_percentage()
+        return amount
 
-        # Round it
-        safe_amount = round_money(safe_amount * fee_factor)
+    @property
+    def amount_pending(self):
+        """ Realtime amount of pending donations. """
+        # Get amount as Decimal
+        amount = money_from_cents(self.project.projectcampaign.money_pending)
 
-        return safe_amount
+        return amount
 
     @property
     def is_valid(self):

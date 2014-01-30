@@ -194,8 +194,8 @@ class PayoutTestCase(TestCase):
         self.assertEquals(payout.organization_fee, decimal.Decimal('1.68'))
         self.assertEquals(payout.amount_payable, decimal.Decimal('12.32'))
 
-    def test_safe_amount_new(self):
-        """ Test safe_amount_payable for new donations. """
+    def test_amounts_new(self):
+        """ Test amounts for new donations. """
 
         # Set status of donation to paid
         self.donation.status = DonationStatuses.new
@@ -212,11 +212,13 @@ class PayoutTestCase(TestCase):
         payout = Payout.objects.all()[0]
 
         # No money is even pending
+        self.assertEquals(payout.amount_raised, decimal.Decimal('0.00'))
         self.assertEquals(payout.amount_payable, decimal.Decimal('0.00'))
-        self.assertEquals(payout.safe_amount_payable, decimal.Decimal('0.00'))
+        self.assertEquals(payout.amount_pending, decimal.Decimal('0.00'))
+        self.assertEquals(payout.amount_safe, decimal.Decimal('0.00'))
 
-    def test_safe_amount_pending(self):
-        """ Test safe_amount_payable for pending donations. """
+    def test_amounts_pending(self):
+        """ Test amounts for pending donations. """
 
         # Set status of donation to paid
         self.donation.status = DonationStatuses.pending
@@ -232,12 +234,14 @@ class PayoutTestCase(TestCase):
         # Fetch payout
         payout = Payout.objects.all()[0]
 
-        # No money is even pending
+        # Money is pending but not paid
+        self.assertEquals(payout.amount_raised, decimal.Decimal('15.00'))
         self.assertEquals(payout.amount_payable, decimal.Decimal('13.95'))
-        self.assertEquals(payout.safe_amount_payable, decimal.Decimal('0.00'))
+        self.assertEquals(payout.amount_pending, decimal.Decimal('15.00'))
+        self.assertEquals(payout.amount_safe, decimal.Decimal('0.00'))
 
-    def test_safe_amount_paid(self):
-        """ Test safe_amount_payable for paid donations. """
+    def test_amounts_paid(self):
+        """ Test amounts for paid donations. """
 
         # Set status of donation to paid
         self.donation.status = DonationStatuses.paid
@@ -253,9 +257,11 @@ class PayoutTestCase(TestCase):
         # Fetch payout
         payout = Payout.objects.all()[0]
 
-        # No money is safe - just yet
+        # Money is safe now, nothing's pending
+        self.assertEquals(payout.amount_raised, decimal.Decimal('15.00'))
         self.assertEquals(payout.amount_payable, decimal.Decimal('13.95'))
-        self.assertEquals(payout.safe_amount_payable, decimal.Decimal('13.95'))
+        self.assertEquals(payout.amount_pending, decimal.Decimal('0.00'))
+        self.assertEquals(payout.amount_safe, decimal.Decimal('15.00'))
 
 
 class OrganizationPayoutTestCase(TestCase):
