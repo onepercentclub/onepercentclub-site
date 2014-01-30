@@ -52,7 +52,7 @@ def link_to(value, url_name, view_args=(), view_kwargs={}, query={}, short_descr
             assert isinstance(value, basestring)
             new_value = getattr(obj, value)
 
-        return '<a href="{0}">{1}</a>'.format(url, new_value)
+        return u'<a href="{0}">{1}</a>'.format(url, new_value)
 
     # Decorate function
     prop.allow_tags = True

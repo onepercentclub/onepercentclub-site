@@ -146,6 +146,10 @@ class Payout(PayoutBase):
     description_line3 = models.CharField(max_length=100, blank=True, default="")
     description_line4 = models.CharField(max_length=100, blank=True, default="")
 
+    class Meta:
+        get_latest_by = 'created'
+        ordering = ['-created']
+
     def _get_fee_percentage(self):
         """
         Get fee percentag according to the current PayoutRule.
@@ -244,7 +248,9 @@ class Payout(PayoutBase):
     def amount_safe(self):
         """ Realtime amount of safe ('paid') donations. """
         # Get amount as Decimal
-        amount = money_from_cents(self.project.projectcampaign.money_safe)
+        amount = round_money(
+            money_from_cents(self.project.projectcampaign.money_safe)
+        )
 
         return amount
 
@@ -252,7 +258,9 @@ class Payout(PayoutBase):
     def amount_pending(self):
         """ Realtime amount of pending donations. """
         # Get amount as Decimal
-        amount = money_from_cents(self.project.projectcampaign.money_pending)
+        amount = round_money(
+            money_from_cents(self.project.projectcampaign.money_pending)
+        )
 
         return amount
 

@@ -8,30 +8,30 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.utils import timezone
 from django.utils.translation import ugettext as _
+from django.utils.text import Truncator
 
 from apps.payouts.models import create_sepa_xml
 
 from .models import Payout, OrganizationPayout, BankMutation, BankMutationLine
 from .choices import PayoutLineStatuses
-from .admin_filters import PendingDonationsPayoutFilter
+from .admin_filters import PendingDonationsPayoutFilter, HasIBANPayoutFilter
 from .admin_utils import link_to
 
 
-class PayoutAdminBase(admin.ModelAdmin):
-    """ Common Admin base class for Payout and OrganizationPayout. """
+class PayoutAdmin(admin.ModelAdmin):
+    model = Payout
+
+    search_fields = [
+        'invoice_reference', 'project__title',
+        'project__projectplan__organization__name'
+    ]
 
     date_hierarchy = 'updated'
-    search_fields = ['invoice_reference']
-
-
-class PayoutAdmin(PayoutAdminBase):
-    date_hierarchy = 'created'
-
-    model = Payout
     can_delete = False
 
     list_filter = [
-        'status', 'payout_rule', PendingDonationsPayoutFilter
+        'status', 'payout_rule',
+        PendingDonationsPayoutFilter, HasIBANPayoutFilter
     ]
 
     actions = ['export_sepa', 'recalculate_amounts']
@@ -39,11 +39,15 @@ class PayoutAdmin(PayoutAdminBase):
     list_display = [
         'payout', 'status', 'admin_project', 'amount_payable',
         'admin_amount_raised', 'admin_amount_pending', 'is_pending',
-        'payout_rule', 'updated' #'is_iban'
+        'payout_rule', 'updated', 'admin_has_iban'
+    ]
+
+    list_display_links = [
+        'payout',
     ]
 
     readonly_fields = [
-        'admin_project', 'admin_organization',
+        'admin_project', 'admin_organization', 'created', 'updated',
         'admin_amount_safe', 'admin_amount_pending'
     ]
 
@@ -94,10 +98,15 @@ class PayoutAdmin(PayoutAdminBase):
     )
 
     # Link to project
-    admin_project = link_to(
-        'project', 'admin:projects_project_change',
-        view_args=lambda obj: (obj.project.id, )
-    )
+    def admin_project(self, obj):
+        """ Link to project in front end. """
+        project = obj.project
+
+        return u'<a href="/#!/projects/{0}">{1}</a>'.format(
+            project.slug, Truncator(unicode(project)).chars(35)
+        )
+    admin_project.allow_tags = True
+    admin_project.short_description = _('project')
 
     # Link to organization
     admin_organization = link_to(
@@ -106,6 +115,14 @@ class PayoutAdmin(PayoutAdminBase):
         view_args=lambda obj: (obj.id, ),
         short_description=_('organization')
     )
+
+    def admin_has_iban(self, obj):
+        if obj.receiver_account_iban:
+            return True
+
+        return False
+    admin_has_iban.short_description = _('has IBAN')
+    admin_has_iban.boolean = True
 
     def payout(self, obj):
         return "View/Edit"
@@ -151,8 +168,10 @@ class PayoutAdmin(PayoutAdminBase):
 admin.site.register(Payout, PayoutAdmin)
 
 
-class OrganizationPayoutAdmin(PayoutAdminBase):
+class OrganizationPayoutAdmin(admin.ModelAdmin):
     can_delete = False
+
+    search_fields = ['invoice_reference']
 
     date_hierarchy = 'start_date'
 
