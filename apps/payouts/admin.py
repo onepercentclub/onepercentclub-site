@@ -1,6 +1,8 @@
 import logging
 logger = logging.getLogger(__name__)
 
+import decimal
+
 from django.contrib import admin
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
@@ -12,6 +14,7 @@ from apps.payouts.models import create_sepa_xml
 
 from .models import Payout, OrganizationPayout, BankMutation, BankMutationLine
 from .choices import PayoutLineStatuses
+from .admin_filters import PendingDonationsPayoutFilter
 
 
 class PayoutAdminBase(admin.ModelAdmin):
@@ -27,13 +30,15 @@ class PayoutAdmin(PayoutAdminBase):
     model = Payout
     can_delete = False
 
-    list_filter = ['status', 'payout_rule']
+    list_filter = [
+        'status', 'payout_rule', PendingDonationsPayoutFilter
+    ]
 
     actions = ['export_sepa', 'recalculate_amounts']
 
     list_display = [
         'payout', 'status', 'project',
-        'amount_raised', 'amount_payable', 'amount_pending', #'is_pending',
+        'amount_raised', 'amount_payable', 'amount_pending', 'is_pending',
         'payout_rule', 'updated' #'is_iban'
     ]
 
@@ -48,6 +53,15 @@ class PayoutAdmin(PayoutAdminBase):
         'receiver_account_country', 'invoice_reference', 'description_line1',
         'description_line2', 'description_line3', 'description_line4'
     ]
+
+    def is_pending(self, obj):
+        """ Whether or not there is no amount pending. """
+        if obj.amount_pending == decimal.Decimal('0.00'):
+            return False
+
+        return True
+    is_pending.boolean = True
+    is_pending.short_description = _('pending')
 
     def organization(self, obj):
         obj = obj.project.projectplan.organization
