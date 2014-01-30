@@ -4,8 +4,10 @@
 # https://www.rabobank.com/en/images/SEPA%20Credit%20Transfer%20format%20description%20v1.0.pdf
 
 from decimal import Decimal
+
+from django.utils.timezone import datetime
+
 from xml.etree.ElementTree import Element, SubElement, tostring
-from django.utils import timezone
 
 
 class CreditTransfer(object):
@@ -203,7 +205,7 @@ class SepaDocument(object):
 
         SubElement(grp_hdr, 'MsgId').text = str(self.message_identification)
 
-        SubElement(grp_hdr, 'CreDtTm').text = timezone.datetime.strftime(timezone.now(), '%Y-%m-%dT%H:%I:%S')
+        SubElement(grp_hdr, 'CreDtTm').text = datetime.strftime(datetime.now(), '%Y-%m-%dT%H:%I:%S')
 
         if self.is_test:
             prtry = SubElement(grp_hdr, 'Prtry').text = 'TEST'
@@ -239,7 +241,7 @@ class SepaDocument(object):
                 lcl_instr = SubElement(pmt_inf, 'LclInstr')
                 SubElement(lcl_instr, 'Cd').text = self._local_instrument_code
 
-            SubElement(pmt_inf, 'ReqdExctnDt').text = timezone.datetime.strftime(timezone.now(), '%Y-%m-%d')
+            SubElement(pmt_inf, 'ReqdExctnDt').text = datetime.strftime(datetime.now(), '%Y-%m-%d')
 
             dbtr = SubElement(pmt_inf, 'Dbtr')
             SubElement(dbtr, 'Nm').text = self.debtor.name

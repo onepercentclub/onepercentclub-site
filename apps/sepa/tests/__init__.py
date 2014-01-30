@@ -1,1 +1,1 @@
-from .integration import CalculateMoneyDonatedTest
+from .integration import CalculateMoneyDonatedTests, ExampleXMLTest

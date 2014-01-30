@@ -1,18 +1,37 @@
 import os
-
-from django.test import TestCase
+import unittest
 
 from lxml import etree
 
 from apps.sepa.sepa import SepaAccount, SepaDocument
+from .base import SepaXMLTestMixin
 
 
-class CalculateMoneyDonatedTest(TestCase):
+class ExampleXMLTest(SepaXMLTestMixin, unittest.TestCase):
+    """ Attempt to test recreating an example XML file """
 
     def setUp(self):
-        directory = os.path.dirname(__file__)
-        xsd_file = os.path.join(directory, 'pain.001.001.03.xsd')
-        self.xmlschema = etree.XMLSchema(file=xsd_file)
+        super(ExampleXMLTest, self).setUp()
+
+        # Read and validate example XML file
+        example_file = os.path.join(self.directory, 'example.xml')
+        self.example = etree.parse(example_file)
+
+        self.xmlschema.assertValid(self.example)
+
+    def test_generate_example(self):
+        """ Attempt to recreate example XML file. """
+        pass
+
+
+class CalculateMoneyDonatedTests(SepaXMLTestMixin, unittest.TestCase):
+    """
+    Generate and attempt to validate an XML file modelled after actual
+    transactions
+    """
+
+    def setUp(self):
+        super(CalculateMoneyDonatedTests, self).setUp()
 
         self.some_account = {
             'name': '1%%CLUB',
