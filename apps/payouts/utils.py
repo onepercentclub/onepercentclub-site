@@ -16,6 +16,9 @@ def money_from_cents(amount):
     Decimal('10')
     """
 
+    # Make sure integer work too
+    amount = float(amount)
+
     return decimal.Decimal(str(amount/100))
 
 

@@ -140,12 +140,9 @@
             </a>
         </li>
         <li class="start-your-project">
-            <a {{ action 'showPage' 'pitch'}}>
+            {{#linkTo 'myPitchNew'}}
                 {% trans "Start your project" %}
-            </a>
-{#            {{#linkTo 'myPitchNew'}}#}
-{#                {% trans "Start your project" %}#}
-{#            {{/linkTo}}#}
+            {{/linkTo}}
         </li>
     </ul>
 {% endblock_verbatim %}

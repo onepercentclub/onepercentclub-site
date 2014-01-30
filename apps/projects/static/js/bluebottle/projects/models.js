@@ -527,7 +527,7 @@ App.MyProjectPlan = DS.Model.extend({
     }.property('budgetLines.@each.amount'),
 
     validBudget: function(){
-        if (this.get('totalBudget') > 0 &&  this.get('totalBudget') <= 5000 ){
+        if (this.get('totalBudget') > 250 &&  this.get('totalBudget') <= 1000000 ){
             return true;
         }
         return false;

@@ -352,14 +352,14 @@ class OrganizationPayout(PayoutBase):
         # In apps.cowry_docdata.adapters it appears that fees are only
         # calculated for the paid status, with implementation for chargedback
         # coming. There are probably other fees
-        allowed_statusus = (
+        allowed_statuses = (
             PaymentStatuses.paid,
             PaymentStatuses.chargedback,
             PaymentStatuses.refunded
         )
 
         payments = Payment.objects.filter(
-            status__in=allowed_statusus
+            status__in=allowed_statuses
         )
 
         # Do a silly trick by filtering the date the donation became paid
