@@ -7,7 +7,7 @@ from decimal import Decimal
 
 from django.utils.timezone import datetime
 
-from xml.etree.ElementTree import Element, SubElement, tostring
+from lxml.etree import Element, SubElement, tostring
 
 
 class CreditTransfer(object):
@@ -189,9 +189,13 @@ class SepaDocument(object):
         """
         This were all is put together into an xml.
         """
-        document = Element('Document')
-        document.set('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance')
-        document.set('xmlns', 'urn:iso:std:iso:20022:tech:xsd:pain.001.001.03')
+        namespaces = {
+            # Default
+            None: 'urn:iso:std:iso:20022:tech:xsd:pain.001.001.03',
+            'xsi': 'http://www.w3.org/2001/XMLSchema-instance'
+        }
+
+        document = Element('Document', nsmap=namespaces)
 
         if self._type is 'CT':
             main = SubElement(document, 'CstmrCdtTrfInitn')
@@ -208,7 +212,8 @@ class SepaDocument(object):
         SubElement(grp_hdr, 'CreDtTm').text = datetime.strftime(datetime.now(), '%Y-%m-%dT%H:%I:%S')
 
         if self.is_test:
-            prtry = SubElement(grp_hdr, 'Prtry').text = 'TEST'
+            # Is this a test transaction?
+            SubElement(grp_hdr, 'Prtry').text = 'TEST'
 
         SubElement(grp_hdr, 'NbOfTxs').text = str(len(self._credit_transfers))
 
