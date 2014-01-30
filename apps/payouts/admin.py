@@ -5,7 +5,6 @@ import decimal
 
 from django.contrib import admin
 from django.core.exceptions import PermissionDenied
-from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.utils import timezone
 from django.utils.translation import ugettext as _
@@ -15,6 +14,7 @@ from apps.payouts.models import create_sepa_xml
 from .models import Payout, OrganizationPayout, BankMutation, BankMutationLine
 from .choices import PayoutLineStatuses
 from .admin_filters import PendingDonationsPayoutFilter
+from .admin_utils import link_to
 
 
 class PayoutAdminBase(admin.ModelAdmin):
@@ -37,14 +37,14 @@ class PayoutAdmin(PayoutAdminBase):
     actions = ['export_sepa', 'recalculate_amounts']
 
     list_display = [
-        'payout', 'status', 'project',
-        'amount_raised', 'amount_payable', 'amount_pending', 'is_pending',
+        'payout', 'status', 'admin_project', 'amount_payable',
+        'admin_amount_raised', 'admin_amount_pending', 'is_pending',
         'payout_rule', 'updated' #'is_iban'
     ]
 
     readonly_fields = [
-        'donation_overview', 'project_link', 'organization',
-        'amount_safe'
+        'admin_project', 'admin_organization',
+        'admin_amount_safe', 'admin_amount_pending'
     ]
 
     fields = readonly_fields + [
@@ -63,33 +63,49 @@ class PayoutAdmin(PayoutAdminBase):
     is_pending.boolean = True
     is_pending.short_description = _('pending')
 
-    def organization(self, obj):
-        obj = obj.project.projectplan.organization
-        url = reverse('admin:%s_%s_change' % (obj._meta.app_label, obj._meta.module_name), args=[obj.id])
-        return "<a href='%s'>%s</a>" % (str(url), obj.name)
+    # Link to all donations for project
+    admin_amount_raised = link_to(
+        'amount_raised', 'admin:fund_donation_changelist',
+        query=lambda obj: {
+            'project': obj.project.id,
+            'status__exact': 'all'
+        },
+        short_description=_('amount raised')
+    )
 
-    organization.allow_tags = True
+    # Link to pending donations for project
+    admin_amount_pending = link_to(
+        'amount_pending', 'admin:fund_donation_changelist',
+        query=lambda obj: {
+            'project': obj.project.id,
+            'status__exact': 'pending'
+        },
+        short_description=_('amount pending')
+    )
 
+    # Link to paid donations for project
+    admin_amount_safe = link_to(
+        'amount_safe', 'admin:fund_donation_changelist',
+        query=lambda obj: {
+            'project': obj.project.id,
+            'status__exact': 'paid'
+        },
+        short_description=_('amount safe')
+    )
 
-    def donation_overview(self, obj):
-        return "<a href='/admin/fund/donation/?project=%s'>Donations</a>" % str(obj.project.id)
+    # Link to project
+    admin_project = link_to(
+        'project', 'admin:projects_project_change',
+        view_args=lambda obj: (obj.project.id, )
+    )
 
-    donation_overview.allow_tags = True
-
-    def project_link(self, obj):
-        obj = obj.project
-        url = reverse('admin:%s_%s_change' %(obj._meta.app_label,  obj._meta.module_name), args=[obj.id])
-        return "<a href='%s'>%s</a>" % (str(url), obj.title)
-
-    project_link.allow_tags = True
-    project_link.short_description = _('project')
-
-    def ok(self, obj):
-        if obj.is_valid:
-            return "OK"
-        return "-"
-
-    donation_overview.allow_tags = True
+    # Link to organization
+    admin_organization = link_to(
+        lambda obj: obj.project.projectplan.organization,
+        'admin:organizations_organization_change',
+        view_args=lambda obj: (obj.id, ),
+        short_description=_('organization')
+    )
 
     def payout(self, obj):
         return "View/Edit"
