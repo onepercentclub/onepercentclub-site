@@ -46,17 +46,37 @@ class PayoutAdmin(admin.ModelAdmin):
         'payout',
     ]
 
+
     readonly_fields = [
         'admin_project', 'admin_organization', 'created', 'updated',
         'admin_amount_safe', 'admin_amount_pending'
     ]
 
-    fields = readonly_fields + [
-        'amount_raised', 'organization_fee', 'amount_payable', 'payout_rule',
-        'status', 'completed', 'receiver_account_number', 'receiver_account_iban', 'receiver_account_bic',
-        'receiver_account_country', 'invoice_reference', 'description_line1',
-        'description_line2', 'description_line3', 'description_line4'
-    ]
+    fieldsets = (
+        (None, {
+            'fields': (
+                'admin_project', 'admin_organization',
+                'status', 'invoice_reference'
+            )
+        }),
+        (_('Dates'), {
+            'fields': (
+                'created', 'updated', 'completed',
+            )
+        }),
+        (_('Realtime amounts'), {
+            'fields': ('admin_amount_safe', 'admin_amount_pending')
+        }),
+        (_('Payout amounts'), {
+            'fields': ('amount_raised', 'organization_fee', 'amount_payable', 'payout_rule')
+        }),
+        (_('Payment details'), {
+            'fields': (
+                'receiver_account_country', 'receiver_account_number', 'receiver_account_iban', 'receiver_account_bic',
+                'description_line1', 'description_line2', 'description_line3', 'description_line4'
+            )
+        })
+    )
 
     def is_pending(self, obj):
         """ Whether or not there is no amount pending. """
