@@ -210,6 +210,39 @@ class OrganizationPayoutAdmin(admin.ModelAdmin):
         'other_costs_vat'
     ]
 
+    fieldsets = (
+        (None, {
+            'fields': (
+                'status', 'invoice_reference'
+            )
+        }),
+        (_('Dates'), {
+            'fields': (
+                'start_date', 'end_date', 'planned', 'completed'
+            )
+        }),
+        (_('Organization fee'), {
+            'fields': (
+                'organization_fee_excl', 'organization_fee_vat', 'organization_fee_incl'
+            )
+        }),
+        (_('PSP fee'), {
+            'fields': (
+                'psp_fee_excl', 'psp_fee_vat', 'psp_fee_incl'
+            )
+        }),
+        (_('Other costs'), {
+            'fields': (
+                'other_costs_excl', 'other_costs_vat', 'other_costs_incl'
+            )
+        }),
+        (_('Amount payable'), {
+            'fields': (
+                'payable_amount_excl', 'payable_amount_vat', 'payable_amount_incl'
+            )
+        })
+    )
+
     actions = ['recalculate_amounts']
 
     def recalculate_amounts(self, request, queryset):
