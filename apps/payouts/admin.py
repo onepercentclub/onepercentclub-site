@@ -14,7 +14,14 @@ from .models import Payout, OrganizationPayout, BankMutation, BankMutationLine
 from .choices import PayoutLineStatuses
 
 
-class PayoutAdmin(admin.ModelAdmin):
+class PayoutAdminBase(admin.ModelAdmin):
+    """ Common Admin base class for Payout and OrganizationPayout. """
+
+    date_hierarchy = 'updated'
+    search_fields = ['invoice_reference']
+
+
+class PayoutAdmin(PayoutAdminBase):
     date_hierarchy = 'created'
 
     model = Payout
@@ -25,14 +32,14 @@ class PayoutAdmin(admin.ModelAdmin):
     actions = ['export_sepa', 'recalculate_amounts']
 
     list_display = [
-        'payout', 'ok', 'donation_overview', 'project',
-        'amount_raised', 'organization_fee', 'amount_payable', 'safe_amount_payable',
-        'receiver_account_number', 'invoice_reference', 'status', 'completed'
+        'payout', 'status', 'project',
+        'amount_raised', 'amount_payable', 'amount_pending', #'is_pending',
+        'payout_rule', 'updated' #'is_iban'
     ]
 
     readonly_fields = [
         'donation_overview', 'project_link', 'organization',
-        'safe_amount_payable'
+        'amount_safe'
     ]
 
     fields = readonly_fields + [
@@ -41,7 +48,6 @@ class PayoutAdmin(admin.ModelAdmin):
         'receiver_account_country', 'invoice_reference', 'description_line1',
         'description_line2', 'description_line3', 'description_line4'
     ]
-
 
     def organization(self, obj):
         obj = obj.project.projectplan.organization
@@ -115,7 +121,7 @@ class PayoutAdmin(admin.ModelAdmin):
 admin.site.register(Payout, PayoutAdmin)
 
 
-class OrganizationPayoutAdmin(admin.ModelAdmin):
+class OrganizationPayoutAdmin(PayoutAdminBase):
     can_delete = False
 
     date_hierarchy = 'start_date'
