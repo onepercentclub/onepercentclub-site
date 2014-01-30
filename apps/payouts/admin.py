@@ -44,9 +44,9 @@ class PayoutAdmin(admin.ModelAdmin):
 
 
     def organization(self, obj):
-        object = obj.project.projectplan.organization
-        url = reverse('admin:%s_%s_change' % (object._meta.app_label, object._meta.module_name), args=[object.id])
-        return "<a href='%s'>%s</a>" % (str(url), object.name)
+        obj = obj.project.projectplan.organization
+        url = reverse('admin:%s_%s_change' % (obj._meta.app_label, obj._meta.module_name), args=[obj.id])
+        return "<a href='%s'>%s</a>" % (str(url), obj.name)
 
     organization.allow_tags = True
 
@@ -57,9 +57,9 @@ class PayoutAdmin(admin.ModelAdmin):
     donation_overview.allow_tags = True
 
     def project_link(self, obj):
-        object = obj.project
-        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name), args=[object.id])
-        return "<a href='%s'>%s</a>" % (str(url), object.title)
+        obj = obj.project
+        url = reverse('admin:%s_%s_change' %(obj._meta.app_label,  obj._meta.module_name), args=[obj.id])
+        return "<a href='%s'>%s</a>" % (str(url), obj.title)
 
     project_link.allow_tags = True
     project_link.short_description = _('project')
