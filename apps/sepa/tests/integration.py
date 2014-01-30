@@ -1,14 +1,21 @@
-from apps.sepa.sepa import SepaAccount
+import os
+
 from django.test import TestCase
-from xml.etree import ElementTree
-from sepa import SepaDocument
+
+from lxml import etree
+
+from apps.sepa.sepa import SepaAccount, SepaDocument
 
 
 class CalculateMoneyDonatedTest(TestCase):
 
     def setUp(self):
+        directory = os.path.dirname(__file__)
+        xsd_file = os.path.join(directory, 'pain.001.001.03.xsd')
+        self.xmlschema = etree.XMLSchema(file=xsd_file)
+
         self.some_account = {
-            'name': '1%CLUB',
+            'name': '1%%CLUB',
             'iban': 'NL45RABO0132207044',
             'bic': 'RABONL2U',
             'id': 'A01'
@@ -40,14 +47,12 @@ class CalculateMoneyDonatedTest(TestCase):
             'remittance_info': 'my info'
         }
 
-    def test_payments_sepa(self):
-
-        message_id = 'BATCH-1234'
+        self.message_id = 'BATCH-1234'
         payment_id = 'PAYMENTS TODAY'
 
         # Create base for SEPA
         sepa = SepaDocument(type='CT')
-        sepa.set_info(message_identification=message_id, payment_info_id=payment_id)
+        sepa.set_info(message_identification=self.message_id, payment_info_id=payment_id)
         sepa.set_initiating_party(name=self.some_account['name'], id=self.some_account['id'])
 
         some_account = SepaAccount(name=self.some_account['name'], iban=self.some_account['iban'],
@@ -70,12 +75,15 @@ class CalculateMoneyDonatedTest(TestCase):
                                  remittance_information=self.payment2['remittance_info'])
 
         # Now lets get the xml for these payments
-        xml = sepa.as_xml()
+        self.xml = sepa.as_xml()
+
+    def test_parse_xml(self):
+        """ Test parsing the generated XML """
 
         # Still no errors? Lets check the xml.
-        tree = ElementTree.XML(xml)
+        tree = etree.XML(self.xml)
 
-        self.assertEqual(tree[0][0][0].text, message_id)
+        self.assertEqual(tree[0][0][0].text, self.message_id)
 
         # We should have two payments
         self.assertEqual(tree[0][0][2].text, "2")
@@ -88,3 +96,9 @@ class CalculateMoneyDonatedTest(TestCase):
         # Now lets check The second payment IBANs
         self.assertEqual(tree[0][2][5][0][0].text, self.some_account['iban'])
         self.assertEqual(tree[0][2][8][4][0][0].text, self.third_account['iban'])
+
+    def test_validate_xml(self):
+        """ Assert the XML is valid according to schema """
+
+        tree = etree.XML(self.xml)
+        self.xmlschema.assertValid(tree)
