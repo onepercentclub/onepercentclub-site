@@ -14,7 +14,9 @@ class ExampleXMLTest(SepaXMLTestMixin, unittest.TestCase):
         super(ExampleXMLTest, self).setUp()
 
         # Read and validate example XML file
-        example_file = os.path.join(self.directory, 'example.xml')
+        example_file = os.path.join(
+            self.directory, 'BvN-pain.001.001.03-example-message.xml'
+        )
         self.example = etree.parse(example_file)
 
         self.xmlschema.assertValid(self.example)
