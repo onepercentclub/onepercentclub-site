@@ -310,7 +310,7 @@ class PayoutLogTestCase(TestCase):
     """ Test case for PayoutLog. """
 
     def setUp(self):
-        self.payout = G(Payout, completed=None)
+        self.payout = G(Payout, status=PayoutLineStatuses.new, completed=None)
 
         super(PayoutLogTestCase, self).setUp()
 
@@ -325,6 +325,35 @@ class PayoutLogTestCase(TestCase):
 
         # Save it
         obj.save()
+
+    def test_initial(self):
+        """ Test whether an initial PayoutLog is created for payout """
+
+        self.assertEquals(PayoutLog.objects.count(), 1)
+
+        payout_log = PayoutLog.objects.all()[0]
+
+        self.assertEquals(payout_log.payout, self.payout)
+        self.assertEquals(payout_log.old_status, None)
+        self.assertEquals(payout_log.new_status, self.payout.status)
+        self.assertLessEqual(payout_log.date - self.payout.updated,
+            datetime.timedelta(seconds=20))
+
+    def test_update(self):
+        """ Test whether a status update on payout updates log. """
+
+        self.payout.status = PayoutLineStatuses.progress
+        self.payout.save()
+
+        self.assertEquals(PayoutLog.objects.count(), 2)
+
+        payout_log = self.payout.log_set.latest()
+
+        self.assertEquals(payout_log.payout, self.payout)
+        self.assertEquals(payout_log.old_status, PayoutLineStatuses.new)
+        self.assertEquals(payout_log.new_status, PayoutLineStatuses.progress)
+        self.assertLessEqual(payout_log.date - self.payout.updated,
+            datetime.timedelta(seconds=20))
 
 
 class OrganizationPayoutTestCase(TestCase):
