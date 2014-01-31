@@ -49,7 +49,7 @@ class PayoutAdmin(admin.ModelAdmin):
 
     readonly_fields = [
         'admin_project', 'admin_organization', 'created', 'updated',
-        'admin_amount_safe', 'admin_amount_pending'
+        'admin_amount_safe', 'admin_amount_pending', 'admin_amount_failed'
     ]
 
     fieldsets = (
@@ -65,7 +65,9 @@ class PayoutAdmin(admin.ModelAdmin):
             )
         }),
         (_('Realtime amounts'), {
-            'fields': ('admin_amount_safe', 'admin_amount_pending')
+            'fields': (
+                'admin_amount_safe', 'admin_amount_pending', 'admin_amount_failed'
+            )
         }),
         (_('Payout amounts'), {
             'fields': ('amount_raised', 'organization_fee', 'amount_payable', 'payout_rule')
@@ -80,7 +82,7 @@ class PayoutAdmin(admin.ModelAdmin):
 
     def is_pending(self, obj):
         """ Whether or not there is no amount pending. """
-        if obj.amount_pending == decimal.Decimal('0.00'):
+        if obj.get_amount_pending() == decimal.Decimal('0.00'):
             return False
 
         return True
@@ -99,7 +101,7 @@ class PayoutAdmin(admin.ModelAdmin):
 
     # Link to pending donations for project
     admin_amount_pending = link_to(
-        'amount_pending', 'admin:fund_donation_changelist',
+        lambda obj: obj.get_amount_pending(), 'admin:fund_donation_changelist',
         query=lambda obj: {
             'project': obj.project.id,
             'status__exact': 'pending'
@@ -109,12 +111,22 @@ class PayoutAdmin(admin.ModelAdmin):
 
     # Link to paid donations for project
     admin_amount_safe = link_to(
-        'amount_safe', 'admin:fund_donation_changelist',
+        lambda obj: obj.get_amount_safe(), 'admin:fund_donation_changelist',
         query=lambda obj: {
             'project': obj.project.id,
             'status__exact': 'paid'
         },
         short_description=_('amount safe')
+    )
+
+    # Link to failed donations for project
+    admin_amount_failed = link_to(
+        lambda obj: obj.get_amount_failed(), 'admin:fund_donation_changelist',
+        query=lambda obj: {
+            'project': obj.project.id,
+            'status__exact': 'failed'
+        },
+        short_description=_('amount failed')
     )
 
     # Link to project

@@ -220,15 +220,10 @@ class Payout(PayoutBase):
         assert self.status == PayoutLineStatuses.new, \
             'Can only recalculate for new Payout.'
 
-        # Campaign shorthand
-        campaign = self.project.projectcampaign
-
         self.payout_rule = self._get_payout_rule()
         fee_factor = self._get_fee_percentage()
 
-        self.amount_raised = money_from_cents(
-            campaign.money_donated
-        )
+        self.amount_raised = self.get_amount_raised()
 
         self.organization_fee = self.amount_raised * fee_factor
         self.amount_payable = self.amount_raised - self.organization_fee
@@ -244,8 +239,17 @@ class Payout(PayoutBase):
 
         return u'%d-%d' % (self.project.id, self.id)
 
-    @property
-    def amount_safe(self):
+    def get_amount_raised(self):
+        """ Realtime amount of raised ('paid', 'pending') donations. """
+
+        # Get amount as Decimal
+        amount = round_money(
+            money_from_cents(self.project.projectcampaign.money_donated)
+        )
+
+        return amount
+
+    def get_amount_safe(self):
         """ Realtime amount of safe ('paid') donations. """
         # Get amount as Decimal
         amount = round_money(
@@ -254,8 +258,7 @@ class Payout(PayoutBase):
 
         return amount
 
-    @property
-    def amount_pending(self):
+    def get_amount_pending(self):
         """ Realtime amount of pending donations. """
         # Get amount as Decimal
         amount = round_money(
@@ -263,6 +266,24 @@ class Payout(PayoutBase):
         )
 
         return amount
+
+    def get_amount_failed(self):
+        """
+        Realtime difference between saved amount_raised, safe and pending.
+
+        Note: amount_raised is the saved property, other values are realtime.
+        """
+
+        amount_safe = self.get_amount_safe()
+        amount_pending = self.get_amount_pending()
+
+        amount_failed = self.amount_raised - amount_safe - amount_pending
+
+        if amount_failed <= decimal.Decimal('0.00'):
+            # Should never be less than 0
+            return decimal.Decimal('0.00')
+
+        return amount_failed
 
     def __unicode__(self):
         date = self.created.strftime('%d-%m-%Y')

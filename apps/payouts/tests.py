@@ -214,13 +214,15 @@ class PayoutTestCase(TestCase):
         # No money is even pending
         self.assertEquals(payout.amount_raised, decimal.Decimal('0.00'))
         self.assertEquals(payout.amount_payable, decimal.Decimal('0.00'))
-        self.assertEquals(payout.amount_pending, decimal.Decimal('0.00'))
-        self.assertEquals(payout.amount_safe, decimal.Decimal('0.00'))
+
+        self.assertEquals(payout.get_amount_pending(), decimal.Decimal('0.00'))
+        self.assertEquals(payout.get_amount_safe(), decimal.Decimal('0.00'))
+        self.assertEquals(payout.get_amount_failed(), decimal.Decimal('0.00'))
 
     def test_amounts_pending(self):
         """ Test amounts for pending donations. """
 
-        # Set status of donation to paid
+        # Set status of donation
         self.donation.status = DonationStatuses.pending
         self.donation.save()
 
@@ -237,8 +239,45 @@ class PayoutTestCase(TestCase):
         # Money is pending but not paid
         self.assertEquals(payout.amount_raised, decimal.Decimal('15.00'))
         self.assertEquals(payout.amount_payable, decimal.Decimal('13.95'))
-        self.assertEquals(payout.amount_pending, decimal.Decimal('15.00'))
-        self.assertEquals(payout.amount_safe, decimal.Decimal('0.00'))
+
+        self.assertEquals(payout.get_amount_pending(), decimal.Decimal('15.00'))
+        self.assertEquals(payout.get_amount_safe(), decimal.Decimal('0.00'))
+        self.assertEquals(payout.get_amount_failed(), decimal.Decimal('0.00'))
+
+    def test_amounts_failed(self):
+        """
+        Test amounts for pending donation changed into failed after creating payout.
+        """
+
+        # Set status of donation to pending first
+        self.donation.status = DonationStatuses.pending
+        self.donation.save()
+
+        # Update campaign donations
+        self.campaign.update_money_donated()
+
+        # Update phase to act.
+        self.project.phase = ProjectPhases.act
+        self.project.save()
+
+        # Set status of donation to failed
+        self.donation.status = DonationStatuses.failed
+        self.donation.save()
+
+        # Update campaign donations
+        self.campaign.update_money_donated()
+
+        # Fetch payout
+        payout = Payout.objects.all()[0]
+
+        # Saved amounts should be same as pending
+        self.assertEquals(payout.amount_raised, decimal.Decimal('15.00'))
+        self.assertEquals(payout.amount_payable, decimal.Decimal('13.95'))
+
+        # Realtime amounts should be different
+        self.assertEquals(payout.get_amount_pending(), decimal.Decimal('0.00'))
+        self.assertEquals(payout.get_amount_safe(), decimal.Decimal('0.00'))
+        self.assertEquals(payout.get_amount_failed(), decimal.Decimal('15.00'))
 
     def test_amounts_paid(self):
         """ Test amounts for paid donations. """
@@ -260,8 +299,10 @@ class PayoutTestCase(TestCase):
         # Money is safe now, nothing's pending
         self.assertEquals(payout.amount_raised, decimal.Decimal('15.00'))
         self.assertEquals(payout.amount_payable, decimal.Decimal('13.95'))
-        self.assertEquals(payout.amount_pending, decimal.Decimal('0.00'))
-        self.assertEquals(payout.amount_safe, decimal.Decimal('15.00'))
+
+        self.assertEquals(payout.get_amount_pending(), decimal.Decimal('0.00'))
+        self.assertEquals(payout.get_amount_safe(), decimal.Decimal('15.00'))
+        self.assertEquals(payout.get_amount_failed(), decimal.Decimal('0.00'))
 
 
 class OrganizationPayoutTestCase(TestCase):
