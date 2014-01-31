@@ -1,5 +1,8 @@
 import decimal
 import datetime
+import doctest
+
+from lxml import etree
 
 from django.test import TestCase
 
@@ -13,6 +16,8 @@ from apps.fund.models import Donation, DonationStatuses
 from apps.cowry import factory
 from apps.cowry.models import PaymentStatuses
 
+from apps.sepa.tests.base import SepaXMLTestMixin
+
 from .models import (
     Payout, PayoutLog, OrganizationPayout, OrganizationPayoutLog
 )
@@ -20,7 +25,7 @@ from .choices import PayoutRules, PayoutLineStatuses
 from .utils import date_timezone_aware
 
 
-class PayoutTestCase(TestCase):
+class PayoutTestCase(SepaXMLTestMixin, TestCase):
     """ Testcase for Payouts. """
 
     def setUp(self):
