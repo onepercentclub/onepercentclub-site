@@ -34,7 +34,7 @@ class CalculateMoneyDonatedTests(SepaXMLTestMixin, unittest.TestCase):
         super(CalculateMoneyDonatedTests, self).setUp()
 
         self.some_account = {
-            'name': '1%%CLUB',
+            'name': '1%CLUB',
             'iban': 'NL45RABO0132207044',
             'bic': 'RABONL2U',
             'id': 'A01'
