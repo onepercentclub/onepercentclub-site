@@ -298,7 +298,7 @@ class BankMutationAdmin(admin.ModelAdmin):
     readonly_fields = ['debit_lines', 'credit_lines']
     fields = readonly_fields + ['mut_file', ]
 
-admin.site.register(BankMutation, BankMutationAdmin)
+# admin.site.register(BankMutation, BankMutationAdmin)
 
 
 class BankMutationLineAdmin(admin.ModelAdmin):
@@ -328,5 +328,5 @@ class BankMutationLineAdmin(admin.ModelAdmin):
     ]
     #fields = readonly_fields
 
-admin.site.register(BankMutationLine, BankMutationLineAdmin)
+# admin.site.register(BankMutationLine, BankMutationLineAdmin)
 
