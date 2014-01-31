@@ -12,14 +12,35 @@ from django.utils.text import Truncator
 
 from apps.payouts.models import create_sepa_xml
 
-from .models import Payout, OrganizationPayout, BankMutation, BankMutationLine
+from .models import (
+    Payout, PayoutLog, OrganizationPayout, OrganizationPayoutLog,
+    BankMutation, BankMutationLine
+)
 from .choices import PayoutLineStatuses
 from .admin_filters import PendingDonationsPayoutFilter, HasIBANPayoutFilter
 from .admin_utils import link_to
 
 
+class PayoutLogBase(admin.TabularInline):
+    extra = 0
+    max_num = 0
+    can_delete = False
+    fields = ['date', 'old_status', 'new_status']
+    readonly_fields = fields
+
+
+class PayoutLogInline(PayoutLogBase):
+    model = PayoutLog
+
+
+class OrganizationPayoutLogInline(PayoutLogBase):
+    model = OrganizationPayoutLog
+
+
 class PayoutAdmin(admin.ModelAdmin):
     model = Payout
+
+    inlines = [PayoutLogInline]
 
     search_fields = [
         'invoice_reference', 'project__title',
@@ -201,6 +222,8 @@ admin.site.register(Payout, PayoutAdmin)
 
 
 class OrganizationPayoutAdmin(admin.ModelAdmin):
+    inlines = [OrganizationPayoutLogInline]
+
     can_delete = False
 
     search_fields = ['invoice_reference']
