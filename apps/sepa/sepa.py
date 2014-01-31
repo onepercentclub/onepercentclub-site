@@ -224,65 +224,241 @@ class SepaDocument(object):
         # Credit Transfer Transactions Information
         # Rabobank wants only one transaction per payment info so we create multiple payment infos here.
         for transfer in self._credit_transfers:
+            # PaymentInformation
             pmt_inf = SubElement(main, 'PmtInf')
+
+            # PaymentInformationIdentification
+            # PmtInfId
 
             if self.category_purpose_code:
                 cd = SubElement(pmt_inf, 'Cd')
                 SubElement(cd, 'CtgyPurp').text = self.category_purpose_code
 
+            # PaymentMethod
             SubElement(pmt_inf, 'PmtMtd').text = self._payment_method
+
+            # BatchBooking [optional]
+            # BtchBookg
+
+            # NumberofTransactions
             SubElement(pmt_inf, 'NbOfTxs').text = "1"
 
+            # ControlSum [optional]
+            # CtrlSum
+
+            # PaymentTypeInformation
             pmt_tp_inf = SubElement(pmt_inf, 'PmtTpInf')
+
+            # InstructionPriority [optional]
+            # InstrPrty
+
+            # ServiceLevel
             svc_lvl = SubElement(pmt_tp_inf, 'SvcLvl')
+
+            # Code
             SubElement(svc_lvl, 'Cd').text = 'SEPA'
 
             if self._local_instrument_code:
+                # LocalInstrument
                 lcl_instr = SubElement(pmt_inf, 'LclInstr')
+
+                # Code
                 SubElement(lcl_instr, 'Cd').text = self._local_instrument_code
 
+                # Proprietary [otional]
+                # Prtry
+
+            # CategoryPurpose [optional
+            # CtgyPurp
+            #
+            #  - Cd Code
+            #  - Prtry Proprietary
+
+            # RequestedExecutionDate
             SubElement(pmt_inf, 'ReqdExctnDt').text = datetime.strftime(datetime.now(), '%Y-%m-%d')
 
+            # Debtor
             dbtr = SubElement(pmt_inf, 'Dbtr')
+
+            # Name
             SubElement(dbtr, 'Nm').text = self.debtor.name
 
+            # PostalAddress [optional]
+            # PstlAdr
+            #
+            # - Country [optional]
+            # - Ctry
+            #
+            # - AddressLine [optional]
+            # - AdrLine
+
+            # Identification [optional]
+            # Id
+
+            # DebtorAccount
             dbtr_acct = SubElement(pmt_inf, 'DbtrAcct')
+
+            # Identification
             dbtr_id = SubElement(dbtr_acct, 'Id')
+
+            # IBAN
             SubElement(dbtr_id, 'IBAN').text = self.debtor.iban
+
+            # Currency
             SubElement(dbtr_acct, 'Ccy').text = self.currency
 
+            # DebtorAgent
             dbtr_agt = SubElement(pmt_inf, 'DbtrAgt')
+
+            # FinancialInstitutionIdentification
             fin_isnstn_id = SubElement(dbtr_agt, 'FinInstnId')
+
+            # BIC
             SubElement(fin_isnstn_id, 'BIC').text = self.debtor.bic
 
+            # UltimateDebtor [optional]
+            # UltmtDbtr
+            # - Name
+            # - Nm
+            #
+            # - Identification
+            # - Id
+
+            # ChargeBearer
             SubElement(pmt_inf, 'ChrgBr').text = 'SLEV'
 
+            # Confvert monetary amount
             amount = self._int_to_currency(transfer.amount)
 
+            # CTTransactionInformation
             cd_trf_tx_inf = SubElement(pmt_inf, 'CdtTrfTxInf')
 
+            # PaymentIdentification
             pmt_id = SubElement(cd_trf_tx_inf, 'PmtId')
+
+            # InstructionIdentification
             SubElement(pmt_id, 'InstrId').text = transfer.transfer_id
+
+            # End to End Identification
             SubElement(pmt_id, 'EndToEndId').text = transfer.end_to_end_id
 
+            # PaymentTypeInformation [optional]
+            # PmtTpInf
+
+            # ServiceLevel
+            # SvcLvl [optional]
+            #
+            # - Code
+            # - Cd
+
+            # LocalInstrument [optional]
+            # LclInstrm
+            #
+            # - Code
+            # - Cd
+            #
+            # - Proprietary
+            # - Prtry
+
+            # CategoryPurpose [optional]
+            # CtgyPurp
+            #
+            # - Code
+            # - Cd
+
+            # Amount
             amt = SubElement(cd_trf_tx_inf, 'Amt')
+
+            # InstructedAmount
             instd_amt = SubElement(amt, 'InstdAmt', {'Ccy': transfer.currency})
             instd_amt.text = amount
 
+            # Charge Bearer [optional]
+            # ChrgBr
+
+            # UltimateDebtor [optional]
+            # UltmtDbtr
+            # - Name
+            # - Nm
+            #
+            # - Identification
+            # - Id
+
+            # Creditor Agent
             cdtr_agt = SubElement(cd_trf_tx_inf, 'CdtrAgt')
+
+            # FinancialInstitutionIdentification
             fin_inst_id = SubElement(cdtr_agt, 'FinInstnId')
+
+            # BIC
             bic = SubElement(fin_inst_id, 'BIC')
             bic.text = transfer.creditor.bic
 
+            # Creditor
             cdrt = SubElement(cd_trf_tx_inf, 'Cdtr')
+
+            # Name
             SubElement(cdrt, 'Nm').text = transfer.creditor.name
 
+            # PostalAddress [optional]
+            # PstlAdr
+            #
+            # - Country [optional]
+            # - Ctry
+            #
+            # - AddressLine [optional]
+            # - AdrLine
+
+            # Identification [optional]
+            # Id
+
+            # Creditor Account
             cdtr_acct = SubElement(cd_trf_tx_inf, 'CdtrAcct')
+
+            # Id
             cdtr_id = SubElement(cdtr_acct, 'Id')
+
+            # IBAN
             SubElement(cdtr_id, 'IBAN').text = transfer.creditor.iban
 
+            # Currency [optional]
+            # Ccy
+
+            # Name [optional]
+            # Nm
+
+            # UltimateDebtor [optional]
+            # UltmtDbtr
+            # - Name
+            # - Nm
+            #
+            # - Identification
+            # - Id
+
+            # Purpose [optional]
+            # Purp
+            #
+            # - Code
+            # - Cd
+
+            # RemittanceInformation
             rmt_inf = SubElement(cd_trf_tx_inf, 'RmtInf')
+
+            # Unstructured
             SubElement(rmt_inf, 'Ustrd').text = transfer.remittance_information
+
+            # Structured (optional)
+            #
+            # - CreditorReferenceInformation (optional)
+            #
+            # - - Type
+            # - - Tp
+            #
+            # - - - CodeOrProprietary
+            # - - - CdOrPrtry
+            # - - - - Code
+            # - - - Issuer
+            # - - Reference
 
             SubElement(cd_trf_tx_inf, 'ChrgBr').text = 'SLEV'
 
