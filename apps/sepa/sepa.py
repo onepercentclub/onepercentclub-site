@@ -212,10 +212,6 @@ class SepaDocument(object):
 
         SubElement(grp_hdr, 'CreDtTm').text = datetime.strftime(datetime.now(), '%Y-%m-%dT%H:%I:%S')
 
-        if self.is_test:
-            # Is this a test transaction?
-            SubElement(grp_hdr, 'Prtry').text = 'TEST'
-
         SubElement(grp_hdr, 'NbOfTxs').text = str(len(self._credit_transfers))
 
         SubElement(grp_hdr, 'CtrlSum').text = self._int_to_currency(self._header_control_sum_cents)
