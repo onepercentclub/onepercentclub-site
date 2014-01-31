@@ -3,7 +3,7 @@ import decimal
 
 import datetime
 
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.conf import settings
 from django.db import models
 from django.db.models.signals import post_save
@@ -102,6 +102,82 @@ class PayoutBase(InvoiceReferenceBase, CompletedDateTimeBase, models.Model):
 
     class Meta:
         abstract = True
+
+    def _get_old_status(self):
+        """ Get previous status based on state change logs. """
+
+        assert self.pk
+
+        try:
+            latest_state_change = self.log_set.latest()
+            return latest_state_change.new_status
+
+        except ObjectDoesNotExist:
+            # First state change, no previous state
+            return None
+
+    def _log_status_change(self):
+        """ Log the change from one status to another. """
+
+        old_status = self._get_old_status()
+
+        if old_status != self.status:
+            # Create log entry
+            log_entry = self.log_set.model(
+                payout=self,
+                old_status=old_status, new_status=self.status
+            )
+            log_entry.save()
+
+            return log_entry
+
+    def save(self, *args, **kwargs):
+        """
+        Make sure we log a state change after saving.
+        """
+
+        result = super(PayoutBase, self).save(*args, **kwargs)
+
+        self._log_status_change()
+
+        return result
+
+
+class PayoutLogBase(models.Model):
+    """
+    Abstract base class for logging state changes.
+
+    Requires a 'payout' ForeignKey with related_name='log_set' to be defined.
+    """
+
+    class Meta:
+        verbose_name = _('state change')
+        verbose_name_plural = _('state changes')
+        abstract = True
+
+        ordering = ['-date']
+        get_latest_by = 'date'
+
+    date = CreationDateTimeField(_("date"))
+
+    old_status = models.CharField(
+        _("old status"), max_length=20, choices=PayoutLineStatuses.choices,
+        blank=True, null=True
+    )
+
+    new_status = models.CharField(
+        _("new status"), max_length=20, choices=PayoutLineStatuses.choices,
+    )
+
+    def __unicode__(self):
+        return _(
+            u'%(payout)s on %(date)s from %(old_status)s to %(new_status)s' % {
+                'payout': unicode(self.payout),
+                'date': self.date,
+                'old_status': self.old_status,
+                'new_status': self.new_status,
+            }
+        )
 
 
 class Payout(PayoutBase):
@@ -288,6 +364,10 @@ class Payout(PayoutBase):
     def __unicode__(self):
         date = self.created.strftime('%d-%m-%Y')
         return  self.invoice_reference + " : " + date + " : " + self.receiver_account_number + " : EUR " + str(self.amount_payable)
+
+
+class PayoutLog(PayoutLogBase):
+    payout = models.ForeignKey(Payout, related_name='log_set')
 
 
 class OrganizationPayout(PayoutBase):
@@ -529,6 +609,10 @@ class OrganizationPayout(PayoutBase):
             'start_date': self.start_date,
             'end_date': self.end_date
         }
+
+
+class OrganizationPayoutLog(PayoutLogBase):
+    payout = models.ForeignKey(OrganizationPayout, related_name='log_set')
 
 
 class BankMutationLine(models.Model):

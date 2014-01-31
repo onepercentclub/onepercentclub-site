@@ -13,7 +13,9 @@ from apps.fund.models import Donation, DonationStatuses
 from apps.cowry import factory
 from apps.cowry.models import PaymentStatuses
 
-from .models import Payout, OrganizationPayout
+from .models import (
+    Payout, PayoutLog, OrganizationPayout, OrganizationPayoutLog
+)
 from .choices import PayoutRules, PayoutLineStatuses
 from .utils import date_timezone_aware
 
@@ -302,6 +304,27 @@ class PayoutTestCase(TestCase):
         self.assertEquals(payout.get_amount_pending(), decimal.Decimal('0.00'))
         self.assertEquals(payout.get_amount_safe(), decimal.Decimal('15.00'))
         self.assertEquals(payout.get_amount_failed(), decimal.Decimal('0.00'))
+
+
+class PayoutLogTestCase(TestCase):
+    """ Test case for PayoutLog. """
+
+    def setUp(self):
+        self.payout = G(Payout, completed=None)
+
+        super(PayoutLogTestCase, self).setUp()
+
+    def test_save(self):
+        """ Test saving a PayoutLog. """
+
+        # Generate new payout
+        obj = N(PayoutLog, payout=self.payout)
+
+        # Validate
+        obj.clean()
+
+        # Save it
+        obj.save()
 
 
 class OrganizationPayoutTestCase(TestCase):
