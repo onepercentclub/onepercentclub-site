@@ -306,19 +306,20 @@ class PayoutTestCase(TestCase):
         self.assertEquals(payout.get_amount_failed(), decimal.Decimal('0.00'))
 
 
-class PayoutLogTestCase(TestCase):
-    """ Test case for PayoutLog. """
-
+class PayoutLogMixin(object):
+    """
+    Base class for testing payout logs for Payout and OrganizationPayout.
+    """
     def setUp(self):
-        self.payout = G(Payout, status=PayoutLineStatuses.new, completed=None)
+        self.payout = G(self.obj_class, status=PayoutLineStatuses.new, completed=None)
 
-        super(PayoutLogTestCase, self).setUp()
+        super(PayoutLogMixin, self).setUp()
 
     def test_save(self):
         """ Test saving a PayoutLog. """
 
         # Generate new payout
-        obj = N(PayoutLog, payout=self.payout)
+        obj = N(self.log_class, payout=self.payout)
 
         # Validate
         obj.clean()
@@ -327,11 +328,11 @@ class PayoutLogTestCase(TestCase):
         obj.save()
 
     def test_initial(self):
-        """ Test whether an initial PayoutLog is created for payout """
+        """ Test whether an initial self.log_class is created for payout """
 
-        self.assertEquals(PayoutLog.objects.count(), 1)
+        self.assertEquals(self.log_class.objects.count(), 1)
 
-        payout_log = PayoutLog.objects.all()[0]
+        payout_log = self.log_class.objects.all()[0]
 
         self.assertEquals(payout_log.payout, self.payout)
         self.assertEquals(payout_log.old_status, None)
@@ -345,7 +346,7 @@ class PayoutLogTestCase(TestCase):
         self.payout.status = PayoutLineStatuses.progress
         self.payout.save()
 
-        self.assertEquals(PayoutLog.objects.count(), 2)
+        self.assertEquals(self.log_class.objects.count(), 2)
 
         payout_log = self.payout.log_set.latest()
 
@@ -354,6 +355,20 @@ class PayoutLogTestCase(TestCase):
         self.assertEquals(payout_log.new_status, PayoutLineStatuses.progress)
         self.assertLessEqual(payout_log.date - self.payout.updated,
             datetime.timedelta(seconds=20))
+
+
+class PayoutLogTestCase(PayoutLogMixin, TestCase):
+    """ Test case for PayoutLog. """
+
+    obj_class = Payout
+    log_class = PayoutLog
+
+
+class OrganizationPayoutLogTestCase(PayoutLogMixin, TestCase):
+    """ Test case for PayoutLog. """
+
+    obj_class = OrganizationPayout
+    log_class = OrganizationPayoutLog
 
 
 class OrganizationPayoutTestCase(TestCase):
