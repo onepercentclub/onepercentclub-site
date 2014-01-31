@@ -377,12 +377,12 @@ class Payout(PayoutBase):
 
         sepa.set_debtor(debtor)
         sepa.set_info(message_identification=batch_id, payment_info_id=batch_id)
-        sepa.set_initiating_party(name=settings.SEPA['name'], id=settings.SEPA['id'])
+        sepa.set_initiating_party(name=settings.SEPA['name'])
 
         for line in qs.all():
             creditor = SepaAccount(name=line.receiver_account_name, iban=line.receiver_account_iban,
                                    bic=line.receiver_account_bic)
-            sepa.add_credit_transfer(creditor=creditor, amount=line.amount, creditor_payment_id=line.invoice_reference)
+            sepa.add_credit_transfer(creditor=creditor, amount=line.amount_payable, creditor_payment_id=line.invoice_reference)
 
         return sepa.as_xml()
 

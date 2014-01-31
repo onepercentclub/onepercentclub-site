@@ -288,6 +288,13 @@ class PayoutTestCase(SepaXMLTestMixin, TestCase):
     def test_amounts_paid(self):
         """ Test amounts for paid donations. """
 
+        # Setup organization
+        organization = self.project.projectplan.organization
+        organization.account_name = 'Funny organization'
+        organization.account_iban = 'NL90ABNA0111111111'
+        organization.account_bic = 'ABNANL2A'
+        organization.save()
+
         # Set status of donation to paid
         self.donation.status = DonationStatuses.paid
         self.donation.save()
