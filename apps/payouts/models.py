@@ -264,14 +264,6 @@ class Payout(PayoutBase):
 
         return amount
 
-    @property
-    def is_valid(self):
-        """ Whether or not payment details are complete. """
-        # TODO: Do a more advanced check. Maybe use IBAN check by a B. Q. Konrath?
-        if self.receiver_account_iban and self.receiver_account_bic:
-            return True
-        return False
-
     def __unicode__(self):
         date = self.created.strftime('%d-%m-%Y')
         return  self.invoice_reference + " : " + date + " : " + self.receiver_account_number + " : EUR " + str(self.amount_payable)
