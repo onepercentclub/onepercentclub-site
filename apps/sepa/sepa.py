@@ -221,8 +221,6 @@ class SepaDocument(object):
             SubElement(initg_pty, 'Id').text = self.initiating_party.id
             SubElement(initg_pty, 'Nm').text = self.initiating_party.name
 
-        SubElement(grp_hdr, 'Grpg').text = 'SNGL'
-
         # Credit Transfer Transactions Information
         # Rabobank wants only one transaction per payment info so we create multiple payment infos here.
         for transfer in self._credit_transfers:
