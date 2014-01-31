@@ -2,6 +2,8 @@ import decimal
 import datetime
 import doctest
 
+from lxml import etree
+
 from django.test import TestCase
 
 from django_dynamic_fixture import N, G
@@ -14,12 +16,14 @@ from apps.fund.models import Donation, DonationStatuses
 from apps.cowry import factory
 from apps.cowry.models import PaymentStatuses
 
+from apps.sepa.tests.base import SepaXMLTestMixin
+
 from .models import Payout, OrganizationPayout
 from .choices import PayoutRules, PayoutLineStatuses
 from .utils import date_timezone_aware
 
 
-class PayoutTestCase(TestCase):
+class PayoutTestCase(SepaXMLTestMixin, TestCase):
     """ Testcase for Payouts. """
 
     def setUp(self):
@@ -256,6 +260,43 @@ class PayoutTestCase(TestCase):
         # No money is safe - just yet
         self.assertEquals(payout.amount_payable, decimal.Decimal('13.95'))
         self.assertEquals(payout.safe_amount_payable, decimal.Decimal('13.95'))
+
+    def test_create_sepa_xml(self):
+        """ Smoketest creation of SEPA XML. """
+
+        # Setup organization
+        organization = self.project.projectplan.organization
+        organization.account_name = 'Funny organization'
+        organization.account_iban = 'NL90ABNA0111111111'
+        organization.account_bic = 'ABNANL2A'
+        organization.save()
+
+        # Set status of donation to paid
+        self.donation.status = DonationStatuses.paid
+        self.donation.save()
+
+        # Update campaign donations
+        self.campaign.update_money_donated()
+
+        # Update phase to act.
+        self.project.phase = ProjectPhases.act
+        self.project.save()
+
+        # Generate XML
+        xml = Payout.create_sepa_xml(Payout.objects.all())
+
+        tree = etree.XML(xml)
+        self.xmlschema.assertValid(tree)
+
+        # Test content
+        main = tree[0]
+        header = main[0]
+
+        # Number of transactions
+        self.assertEqual(header[2].text, "1")
+
+        # Total amount
+        self.assertEqual(header[3].text, '13.95')
 
 
 class OrganizationPayoutTestCase(TestCase):

@@ -8,8 +8,6 @@ from django.http import HttpResponse
 from django.utils import timezone
 from django.utils.translation import ugettext as _
 
-from apps.payouts.models import create_sepa_xml
-
 from .models import Payout, OrganizationPayout, BankMutation, BankMutationLine
 from .choices import PayoutLineStatuses
 
@@ -87,7 +85,7 @@ class PayoutAdmin(admin.ModelAdmin):
         response = HttpResponse(mimetype='text/xml')
         date = timezone.datetime.strftime(timezone.now(), '%Y%m%d%H%I%S')
         response['Content-Disposition'] = 'attachment; filename=payments_sepa%s.xml' % date
-        response.write(create_sepa_xml(objs))
+        response.write(Payout.create_sepa_xml(objs))
         return response
 
     export_sepa.short_description = "Export SEPA file."

@@ -158,3 +158,6 @@ unicodecsv==0.9.4
 
 # Automatically generate fixtures for use in tests
 django-dynamic-fixture==1.6.5
+
+# LXML for generating and validating proper SEPA exports
+lxml==3.2.3
