@@ -97,8 +97,8 @@ class PayoutBase(InvoiceReferenceBase, CompletedDateTimeBase, models.Model):
         _("status"), max_length=20, choices=PayoutLineStatuses.choices,
         default=PayoutLineStatuses.new
     )
-    created = CreationDateTimeField(_("Created"))
-    updated = ModificationDateTimeField(_("Updated"))
+    created = CreationDateTimeField(_("created"))
+    updated = ModificationDateTimeField(_("updated"))
 
     class Meta:
         abstract = True
