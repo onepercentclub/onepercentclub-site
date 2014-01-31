@@ -74,13 +74,18 @@ class CompletedDateTimeBase(models.Model):
     class Meta:
         abstract = True
 
+    def clean(self):
+        """ Validate completed/completed date consistency. """
+
+        if self.completed and self.status != PayoutLineStatuses.completed:
+            raise ValidationError(
+                _('Closed date is set but status is not completed.')
+            )
+
     def save(self, *args, **kwargs):
         if self.status == PayoutLineStatuses.completed and not self.completed:
             # No completed date was set and our current status is completed
             self.completed = timezone.now()
-
-        assert not self.completed or self.status == PayoutLineStatuses.completed, \
-            'Completed is set but status is not completed.'
 
         super(CompletedDateTimeBase, self).save(*args, **kwargs)
 
@@ -574,6 +579,8 @@ class OrganizationPayout(PayoutBase):
                     raise ValidationError(_('Other costs have changed, please recalculate before progessing.'))
 
         # TODO: Prevent overlaps
+
+        super(OrganizationPayout, self).clean()
 
     def save(self, *args, **kwargs):
         """
