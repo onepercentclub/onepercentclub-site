@@ -438,7 +438,8 @@ class SepaDocument(object):
             rmt_inf = SubElement(cd_trf_tx_inf, 'RmtInf')
 
             # Unstructured
-            SubElement(rmt_inf, 'Ustrd').text = transfer.remittance_information
+            if transfer.remittance_information:
+                SubElement(rmt_inf, 'Ustrd').text = transfer.remittance_information
 
             # Structured (optional)
             #
