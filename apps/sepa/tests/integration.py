@@ -104,19 +104,48 @@ class CalculateMoneyDonatedTests(SepaXMLTestMixin, unittest.TestCase):
         # Still no errors? Lets check the xml.
         tree = etree.XML(self.xml)
 
-        self.assertEqual(tree[0][0][0].text, self.message_id)
+        main = tree[0]
+
+        self.assertEqual(main.tag,
+            '{urn:iso:std:iso:20022:tech:xsd:pain.001.001.03}CstmrCdtTrfInitn'
+        )
+
+        header = main[0]
+
+        self.assertEqual(header.tag,
+            '{urn:iso:std:iso:20022:tech:xsd:pain.001.001.03}GrpHdr')
+        self.assertEqual(header[0].text, self.message_id)
 
         # We should have two payments
-        self.assertEqual(tree[0][0][2].text, "2")
+        self.assertEqual(header[2].text, "2")
 
         # Total amount should be the sum of two payments coverted to euros
         total = self.payment1['amount'] + self.payment2['amount']
         total = "%.2f" % (total / 100)
-        self.assertEqual(tree[0][0][3].text, total)
+        self.assertEqual(header[3].text, total)
 
         # Now lets check The second payment IBANs
-        self.assertEqual(tree[0][2][5][0][0].text, self.some_account['iban'])
-        self.assertEqual(tree[0][2][8][4][0][0].text, self.third_account['iban'])
+        second_payment = main[2]
+
+        namespaces = {
+            # Default
+            'pain': 'urn:iso:std:iso:20022:tech:xsd:pain.001.001.03',
+            'xsi': 'http://www.w3.org/2001/XMLSchema-instance'
+        }
+
+        self.assertEqual(
+            second_payment.find(
+                'pain:DbtrAcct/pain:Id/pain:IBAN', namespaces=namespaces
+            ).text,
+            self.some_account['iban']
+        )
+
+        self.assertEqual(
+            second_payment.find(
+                'pain:CdtTrfTxInf/pain:CdtrAcct/pain:Id/pain:IBAN', namespaces=namespaces
+            ).text,
+            self.third_account['iban']
+        )
 
     def test_validate_xml(self):
         """ Assert the XML is valid according to schema """
