@@ -15,9 +15,6 @@ class CreditTransfer(object):
     SEPA Credit Transfer Transaction Information.
     """
 
-    # string Payment ID.
-    transfer_id = None
-
     end_to_end_id = None
 
     currency = None
@@ -30,9 +27,6 @@ class DirectDebit(object):
     """
     SEPA (Direct) Debit Transfer Transaction Information.
     """
-
-    # string Payment ID.
-    transfer_id = None
 
     end_to_end_id = None
 
@@ -227,6 +221,7 @@ class SepaDocument(object):
 
             # PaymentInformationIdentification
             # PmtInfId
+            SubElement(pmt_inf, 'PmtInfId').text = transfer.creditor_payment_id
 
             if self.category_purpose_code:
                 cd = SubElement(pmt_inf, 'Cd')
@@ -335,7 +330,7 @@ class SepaDocument(object):
             pmt_id = SubElement(cd_trf_tx_inf, 'PmtId')
 
             # InstructionIdentification
-            SubElement(pmt_id, 'InstrId').text = transfer.transfer_id
+            # InstrId [optional]
 
             # End to End Identification
             SubElement(pmt_id, 'EndToEndId').text = transfer.end_to_end_id
