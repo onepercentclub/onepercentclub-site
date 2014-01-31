@@ -48,7 +48,6 @@ class InitiatingParty(object):
 
     def __init__(self, *args, **kwargs):
         self.name = kwargs['name']
-        self.id = kwargs['id']
 
 
 class SepaAccount(object):
@@ -219,7 +218,6 @@ class SepaDocument(object):
         assert self.initiating_party
         initg_pty = SubElement(grp_hdr, 'InitgPty')
         SubElement(initg_pty, 'Nm').text = self.initiating_party.name
-        SubElement(initg_pty, 'Id').text = self.initiating_party.id
 
         # Credit Transfer Transactions Information
         # Rabobank wants only one transaction per payment info so we create multiple payment infos here.
