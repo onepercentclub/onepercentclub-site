@@ -1,5 +1,6 @@
 import os
 import unittest
+import decimal
 
 from lxml import etree
 
@@ -57,13 +58,13 @@ class CalculateMoneyDonatedTests(SepaXMLTestMixin, unittest.TestCase):
         }
 
         self.payment1 = {
-            'amount': 500000,
+            'amount': decimal.Decimal('50.00'),
             'id': 'PAYMENT 1253675',
             'remittance_info': 'some info'
         }
 
         self.payment2 = {
-            'amount': 75000,
+            'amount': decimal.Decimal('25.00'),
             'id': 'PAYMENT 234532',
             'remittance_info': 'my info'
         }
@@ -120,9 +121,7 @@ class CalculateMoneyDonatedTests(SepaXMLTestMixin, unittest.TestCase):
         self.assertEqual(header[2].text, "2")
 
         # Total amount should be the sum of two payments coverted to euros
-        total = self.payment1['amount'] + self.payment2['amount']
-        total = "%.2f" % (total / 100)
-        self.assertEqual(header[3].text, total)
+        self.assertEqual(header[3].text, '75.00')
 
         # Now lets check The second payment IBANs
         second_payment = main[2]

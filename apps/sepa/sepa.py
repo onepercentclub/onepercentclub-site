@@ -3,7 +3,7 @@
 # It takes specifics for Rabobank (The Netherlands)
 # https://www.rabobank.com/en/images/SEPA%20Credit%20Transfer%20format%20description%20v1.0.pdf
 
-from decimal import Decimal
+import decimal
 
 from django.utils.timezone import datetime
 
@@ -74,7 +74,7 @@ class SepaDocument(object):
     currency = 'EUR'
 
     # Total amount of all transactions
-    _header_control_sum_cents = 0
+    _header_control_sum = decimal.Decimal('0.00')
 
     # Array to hold the transfers
     _credit_transfers = []
@@ -135,9 +135,9 @@ class SepaDocument(object):
         return tostring(self._generate_xml(),
             xml_declaration=True, encoding='UTF-8', pretty_print=True)
 
-    def get_header_control_sum_cents(self):
+    def get_header_control_sum(self):
         """ Get the header control sum in cents """
-        return self._header_control_sum_cents
+        return self._header_control_sum
 
     def add_direct_debit(self, *args, **kwargs):
         """ Add a direct debit transaction. """
@@ -147,7 +147,8 @@ class SepaDocument(object):
         transfer = DirectDebit()
 
         transfer.creditor_payment_id = kwargs['creditor_payment_id']
-        transfer.amount = kwargs['amount']
+
+        transfer.amount = decimal.Decimal(kwargs['amount'])
 
         transfer.creditor = kwargs['creditor']
 
@@ -157,7 +158,7 @@ class SepaDocument(object):
         transfer.remittance_information = getattr(kwargs, 'remittance_information', '')
 
         self._credit_transfers.append(transfer)
-        self._header_control_sum_cents += transfer.amount
+        self._header_control_sum += transfer.amount
 
 
     def add_credit_transfer(self, *args, **kwargs):
@@ -168,7 +169,7 @@ class SepaDocument(object):
         transfer = CreditTransfer()
 
         transfer.creditor_payment_id = kwargs['creditor_payment_id']
-        transfer.amount = kwargs['amount']
+        transfer.amount = decimal.Decimal(kwargs['amount'])
         transfer.creditor = kwargs['creditor']
 
         transfer.end_to_end_id = str(self.message_identification) + '-' + str(len(self._credit_transfers))
@@ -177,7 +178,7 @@ class SepaDocument(object):
         transfer.remittance_information = getattr(kwargs, 'remittance_information', '')
 
         self._credit_transfers.append(transfer)
-        self._header_control_sum_cents += transfer.amount
+        self._header_control_sum += transfer.amount
 
     def _generate_xml(self):
         """
@@ -207,7 +208,7 @@ class SepaDocument(object):
 
         SubElement(grp_hdr, 'NbOfTxs').text = str(len(self._credit_transfers))
 
-        SubElement(grp_hdr, 'CtrlSum').text = self._int_to_currency(self._header_control_sum_cents)
+        SubElement(grp_hdr, 'CtrlSum').text = str(self._header_control_sum)
 
         assert self.initiating_party
         initg_pty = SubElement(grp_hdr, 'InitgPty')
@@ -320,9 +321,6 @@ class SepaDocument(object):
             # ChargeBearer
             SubElement(pmt_inf, 'ChrgBr').text = 'SLEV'
 
-            # Confvert monetary amount
-            amount = self._int_to_currency(transfer.amount)
-
             # CTTransactionInformation
             cd_trf_tx_inf = SubElement(pmt_inf, 'CdtTrfTxInf')
 
@@ -364,7 +362,7 @@ class SepaDocument(object):
 
             # InstructedAmount
             instd_amt = SubElement(amt, 'InstdAmt', {'Ccy': transfer.currency})
-            instd_amt.text = amount
+            instd_amt.text = str(transfer.amount)
 
             # Charge Bearer [optional]
             # ChrgBr
@@ -455,11 +453,3 @@ class SepaDocument(object):
             # - - Reference
 
         return document
-
-    def _int_to_currency(self, amount):
-        """ Format an integer as a euro value. """
-        amount = Decimal(Decimal(amount) / 100)
-        return "%.2f" % amount
-
-
-
