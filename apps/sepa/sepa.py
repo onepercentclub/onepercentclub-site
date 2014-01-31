@@ -454,8 +454,6 @@ class SepaDocument(object):
             # - - - Issuer
             # - - Reference
 
-            SubElement(cd_trf_tx_inf, 'ChrgBr').text = 'SLEV'
-
         return document
 
     def _int_to_currency(self, amount):
