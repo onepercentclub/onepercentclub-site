@@ -139,7 +139,8 @@ class SepaDocument(object):
 
     def as_xml(self):
         """ Return the XML string. """
-        return tostring(self._generate_xml())
+        return tostring(self._generate_xml(),
+            xml_declaration=True, encoding='UTF-8', pretty_print=True)
 
     def get_header_control_sum_cents(self):
         """ Get the header control sum in cents """
