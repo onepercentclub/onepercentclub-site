@@ -176,9 +176,9 @@ class PayoutLogBase(models.Model):
 
     def __unicode__(self):
         return _(
-            u'%(payout)s on %(date)s from %(old_status)s to %(new_status)s' % {
+            u'Status change of \'%(payout)s\' on %(date)s from %(old_status)s to %(new_status)s' % {
                 'payout': unicode(self.payout),
-                'date': self.date,
+                'date': self.date.strftime('%d-%m-%Y'),
                 'old_status': self.old_status,
                 'new_status': self.new_status,
             }
