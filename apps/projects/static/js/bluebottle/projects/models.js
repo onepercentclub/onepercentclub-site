@@ -377,7 +377,7 @@ App.MyProjectPitch = DS.Model.extend({
 
     validBasics: function(){
         if (this.get('title') &&  this.get('pitch') && this.get('description') &&
-            this.get('theme') && this.get('tags.length') && this.get('need')){
+            this.get('theme') && this.get('tags.length') && this.get('need'))  {
             return true;
         }
         return false;
@@ -512,12 +512,14 @@ App.MyProjectPlan = DS.Model.extend({
     moneyNeeded: DS.attr('string'),
     campaign: DS.attr('string'),
 
+    deadline: DS.attr('date'),
+
     validCampaign: function(){
-        if (this.get('moneyNeeded') &&  this.get('campaign')){
+        if (this.get('moneyNeeded') &&  this.get('campaign') && this.get('deadline') ){
             return true;
         }
         return false;
-    }.property('moneyNeeded', 'campaign'),
+    }.property('moneyNeeded', 'campaign', 'deadline'),
 
     // Budget
     budgetLines: DS.hasMany('App.MyProjectBudgetLine'),

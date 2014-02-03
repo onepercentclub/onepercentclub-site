@@ -87,7 +87,7 @@ class ProjectPlanSerializer(TaggableSerializerMixin, serializers.ModelSerializer
         model = ProjectPlan
         fields = ('id', 'project', 'title', 'pitch', 'theme', 'tags', 'description', 'country', 'latitude', 'longitude',
                   'need', 'effects', 'future', 'for_who', 'reach', 'status', 'image', 'organization', 'ambassadors',
-                  'budget_lines', 'money_needed', 'campaign')
+                  'budget_lines', 'money_needed', 'campaign', 'deadline')
 
 
 class ManageProjectPlanSerializer(ProjectPlanSerializer):

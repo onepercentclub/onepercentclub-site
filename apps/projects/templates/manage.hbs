@@ -1179,6 +1179,9 @@ Need more tips and tricks? Read our <a href="/#!/pages/faq-projects">FAQ</a>.<br
                     <div class="has-errors">{{#each errors.campaign }}<p>{{this}}</p>{{/each}}</div>
                 {{/if}}
             </li>
+
+            {{bb-datepicker hint='What will be the deadline for your project?'
+                label='Deadline' valueBinding=deadline placeholder='Enter date' minDate=0 maxDate="+100D" }}
         </ul>
     </fieldset>
 
@@ -1429,9 +1432,6 @@ Tell us how much you plan to raise and how long you want to campaign. Please spe
                     <div class="has-errors">{{#each errors.pitch }}<p>{{this}}</p>{{/each}}</div>
                 {{/if}}
             </li>
-
-            {{bb-datepicker hint='What will be the deadline for your project?'
-                label='Deadline' valueBinding=deadline placeholder='Enter date' minDate=0 maxDate="+100D" }}
 
             <li class="control-group has-popover" data-content="{% trans "A short description should at least tell something about a person, place, mitvation and activity. The simplest story would be: [Person] in [place] needs help to [activity] because [motivation]." %}">
                 <label class="control-label wide">{% trans "Short explanation: Why, what and how" %}</label>

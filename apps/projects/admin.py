@@ -78,7 +78,7 @@ class ProjectPlanAdmin(admin.ModelAdmin):
     list_display = ('title', 'status', 'created')
     fields = ('edit_project', 'project_owner', 'project_organization', 'status', 'title', 'pitch', 'need', 'theme',
               'description', 'effects', 'for_who', 'future', 'reach', 'latitude', 'longitude', 'country', 'image',
-              'video_url', 'money_needed', 'campaign', 'tags', 'budget_total')
+              'video_url', 'money_needed', 'campaign', 'deadline', 'tags', 'budget_total')
     readonly_fields = ('edit_project', 'project_owner', 'project_organization', 'budget_total')
     inlines = (ProjectBudgetInline,)
 

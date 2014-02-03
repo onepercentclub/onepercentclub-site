@@ -127,8 +127,6 @@ class Project(models.Model):
 
     is_campaign = models.BooleanField(default=False, help_text=_("Project is part of a campaign and gets special promotion."))
 
-    deadline = models.DateTimeField(_('deadline'), null=True, blank=True)
-
     objects = ProjectManager()
 
     _original_phase = None
@@ -337,6 +335,8 @@ class ProjectPlan(models.Model):
     need = models.CharField(_("Project need"), null=True, max_length=20, choices=ProjectNeedChoices.choices, default=ProjectNeedChoices.both)
     theme = models.ForeignKey(ProjectTheme, blank=True, null=True, verbose_name=_("theme"), help_text=_("Select one of the themes "))
     tags = TaggableManager(blank=True, verbose_name=_("tags"), help_text=_("Add tags"))
+
+    deadline = models.DateTimeField(_('deadline'), null=True, blank=True)
 
     # Extended Description
     description = models.TextField(_("why, what and how"), help_text=_("Blow us away with the details!"), blank=True)
