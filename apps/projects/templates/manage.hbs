@@ -1430,6 +1430,9 @@ Tell us how much you plan to raise and how long you want to campaign. Please spe
                 {{/if}}
             </li>
 
+            {{bb-datepicker hint='What will be the deadline for your project?'
+                label='Deadline' valueBinding=deadline placeholder='Enter date' minDate=0 maxDate="+100D" }}
+
             <li class="control-group has-popover" data-content="{% trans "A short description should at least tell something about a person, place, mitvation and activity. The simplest story would be: [Person] in [place] needs help to [activity] because [motivation]." %}">
                 <label class="control-label wide">{% trans "Short explanation: Why, what and how" %}</label>
                 <div class="controls wide">

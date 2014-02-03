@@ -127,6 +127,8 @@ class Project(models.Model):
 
     is_campaign = models.BooleanField(default=False, help_text=_("Project is part of a campaign and gets special promotion."))
 
+    deadline = models.DateTimeField(_('deadline'), null=True, blank=True)
+
     objects = ProjectManager()
 
     _original_phase = None

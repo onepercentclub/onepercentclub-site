@@ -203,6 +203,8 @@ App.Project = DS.Model.extend({
 
     wallposts: DS.hasMany('App.WallPost'),
 
+    deadline: DS.attr("date"),
+
     taskCount: DS.attr('number'),
 
     isCampaign: DS.attr('boolean'),
@@ -217,6 +219,7 @@ App.Project = DS.Model.extend({
     getProject: function(){
         return App.Project.find(this.get('id'));
     }.property('id')
+
 
 
 });

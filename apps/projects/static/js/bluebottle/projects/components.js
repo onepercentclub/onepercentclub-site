@@ -18,3 +18,5 @@ App.BbProgressbarComponent = Ember.Component.extend({
         this.$('.slider-progress').animate({'width': width}, 1000);
     }
 });
+
+

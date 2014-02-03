@@ -140,7 +140,7 @@ class ProjectSerializer(serializers.ModelSerializer):
         model = Project
         fields = (
             'id', 'created', 'title', 'owner', 'coach', 'plan', 'campaign', 'phase', 'popularity',
-            'task_count', 'meta_data', 'is_campaign',
+            'task_count', 'meta_data', 'is_campaign', 'deadline',
         )
 
 
