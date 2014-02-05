@@ -48,7 +48,6 @@ class ProjectPreviewList(generics.ListAPIView):
         elif ordering == 'popularity':
             qs = qs.order_by('-popularity')
 
-
         country = self.request.QUERY_PARAMS.get('country', None)
         if country:
             qs = qs.filter(projectplan__country=country)
@@ -63,6 +62,9 @@ class ProjectPreviewList(generics.ListAPIView):
                            Q(projectplan__pitch__icontains=text) |
                            Q(projectplan__description__icontains=text) |
                            Q(projectplan__title__icontains=text))
+
+        # only projects which are approved should be visible
+        qs = qs.filter(pk__in=ProjectPlan.objects.filter(status=ProjectPlan.PlanStatuses.approved).values("project"))
 
         qs = qs.exclude(phase=ProjectPhases.pitch)
         qs = qs.exclude(phase=ProjectPhases.failed)
