@@ -51,7 +51,6 @@ App = Em.Application.create({
         });
         this.initSelectViews();
         this.setLocale(locale);
-        this.initSelectViews();
     },
 
     initSelectViews: function() {
@@ -76,12 +75,13 @@ App = Em.Application.create({
                 content: list
             });
         });
-        // Get a filtered list of countries that can apply for a project ('oda' countries).
-        var filteredList = App.Country.filter(function(item) {return item.get('oda')});
 
-        App.ProjectCountrySelectView.reopen({
-            content: filteredList
+        App.ProjectSearchCountry.find().then(function(list) {
+            App.ProjectCountrySelectView.reopen({
+                content: list
+            });
         });
+
     },
 
     setLocale: function(locale) {

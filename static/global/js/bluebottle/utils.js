@@ -23,6 +23,9 @@ App.CountryCodeSelectView = Em.Select.extend({
     prompt: gettext("Pick a country")
 });
 
+App.ProjectSearchCountry = App.Country.extend({
+    url: "projects/countries"
+});
 
 App.ProjectCountrySelectView = Em.Select.extend({
     content:  [{"id": "0", "name": "--loading--"}],
