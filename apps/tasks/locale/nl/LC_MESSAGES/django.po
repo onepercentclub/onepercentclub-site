@@ -482,7 +482,7 @@ msgid "Description"
 msgstr "Beschrijving"
 
 #: templates/tasks.hbs:649
-msgid "Dead line"
+msgid "Deadline"
 msgstr "Deadline"
 
 #: templates/tasks.hbs:680 templates/tasks.hbs.py:855
