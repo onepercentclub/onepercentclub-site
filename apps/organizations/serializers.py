@@ -2,7 +2,7 @@ from django_iban.validators import iban_validator, swift_bic_validator
 from rest_framework import serializers
 
 from bluebottle.bluebottle_drf2.serializers import PrivateFileSerializer
-from bluebottle.bluebottle_utils.serializers import AddressSerializer, URLField
+from bluebottle.utils.serializers import AddressSerializer, URLField
 
 from .models import Organization, OrganizationDocument
 

@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.utils import timezone
 from rest_framework import status
-from bluebottle.bluebottle_utils.tests import generate_random_slug
+from bluebottle.utils.tests import generate_random_slug
 from apps.projects.tests import ProjectTestsMixin
 from .models import Task
 import json

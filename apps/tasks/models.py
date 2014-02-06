@@ -9,7 +9,7 @@ from django_extensions.db.fields import ModificationDateTimeField, CreationDateT
 from djchoices.choices import DjangoChoices, ChoiceItem
 from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
 
-from bluebottle.bluebottle_utils.utils import clean_for_hashtag
+from bluebottle.utils.utils import clean_for_hashtag
 
 
 class Skill(models.Model):

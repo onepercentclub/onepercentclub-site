@@ -12,7 +12,7 @@ from sorl.thumbnail import ImageField
 from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
 
 
-from bluebottle.bluebottle_utils.serializers import MLStripper
+from bluebottle.utils.serializers import MLStripper
 from bluebottle.geo.models import Country
 
 

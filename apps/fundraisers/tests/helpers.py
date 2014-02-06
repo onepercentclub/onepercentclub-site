@@ -1,5 +1,5 @@
 from django.utils import timezone
-from bluebottle.bluebottle_utils.tests import generate_random_slug
+from bluebottle.utils.tests import generate_random_slug
 
 from ..models import FundRaiser
 

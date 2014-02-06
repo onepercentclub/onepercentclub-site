@@ -1,4 +1,4 @@
-from bluebottle.bluebottle_utils.managers import GenericForeignKeyManagerMixin
+from bluebottle.utils.managers import GenericForeignKeyManagerMixin
 from django.db import models
 from polymorphic import PolymorphicManager
 

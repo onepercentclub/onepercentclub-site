@@ -42,7 +42,7 @@ from .base import *
 # DKIM_DOMAIN = ""
 # DKIM_SELECTOR = ""
 
-# EMAIL_BACKEND = 'apps.bluebottle_utils.email_backend.DKIMBackend'
+# EMAIL_BACKEND = 'apps.utils.email_backend.DKIMBackend'
 
 
 

@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.utils.unittest.case import skipUnless
 from django.conf import settings
 
-from bluebottle.bluebottle_utils.tests import UserTestsMixin
+from bluebottle.utils.tests import UserTestsMixin
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 
 from apps.fund.models import DonationStatuses, Donation, OrderStatuses

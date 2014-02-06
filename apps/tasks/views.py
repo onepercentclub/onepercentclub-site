@@ -1,6 +1,6 @@
 from bluebottle.bluebottle_drf2.permissions import IsAuthorOrReadOnly
 from bluebottle.bluebottle_drf2.views import RetrieveUpdateDeleteAPIView
-from bluebottle.bluebottle_utils.utils import get_client_ip
+from bluebottle.utils.utils import get_client_ip
 from apps.projects.permissions import IsProjectOwnerOrReadOnly
 from apps.tasks.models import Task, TaskMember, TaskFile, Skill
 from apps.tasks.permissions import  IsTaskAuthorOrReadOnly

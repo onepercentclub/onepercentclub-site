@@ -27,6 +27,8 @@
 
 {% block handlebars_templates %}
     {% include  "accounts/base.hbs" %}
+    {% include  "utils/base.hbs" %}
+
     {% include  "homepage.hbs" %}
     {% include  "wallposts.hbs" %}
     {% include  "reactions.hbs" %}
@@ -34,7 +36,6 @@
     {% include  "projects.hbs" %}
     {% include  "orders.hbs" %}
     {% include  "donations.hbs" %}
-    {% include  "utils.hbs" %}
     {% include  "blogs.hbs" %}
     {% include  "manage.hbs" %}
     {% include  "vouchers.hbs" %}
@@ -55,6 +56,13 @@
 {% block ember_scripts %}
 
     {{ block.super }}
+
+    <script type="text/javascript" src="{% static "js/bluebottle/accounts/models.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/accounts/controllers.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/accounts/views.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/accounts/routes.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bluebottle/accounts/components.js" %}"></script>
+
 
     <script type="text/javascript" src="{% static "js/bluebottle/projects/models.js" %}"></script>
     <script type="text/javascript" src="{% static "js/bluebottle/projects/controllers.js" %}"></script>

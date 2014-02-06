@@ -4,7 +4,7 @@ from apps.vouchers.serializers import VoucherSerializer, OrderCurrentVoucherSeri
 from bluebottle.accounts.serializers import UserPreviewSerializer
 from bluebottle.bluebottle_drf2.serializers import EuroField
 from apps.projects.models import ProjectPhases
-from bluebottle.bluebottle_utils.serializers import MetaField
+from bluebottle.utils.serializers import MetaField
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
 from .models import Donation, DonationStatuses, Order, OrderStatuses, RecurringDirectDebitPayment
