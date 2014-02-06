@@ -88,9 +88,9 @@ class ProjectCountryList(generics.ListAPIView):
     def get_queryset(self):
         qs = super(ProjectCountryList, self).get_queryset()
         return qs.filter(pk__in=ProjectPlan.objects.filter(status=ProjectPlan.PlanStatuses.approved)
-                .exclude(project__phase=ProjectPhases.pitch)
-                .exclude(project__phase=ProjectPhases.failed)
-                .distinct('country').values('country'))
+                                                    .exclude(project__phase=ProjectPhases.pitch)
+                                                    .exclude(project__phase=ProjectPhases.failed)
+                                                    .distinct('country').values('country'))
 
 class ProjectList(generics.ListAPIView):
     model = Project
