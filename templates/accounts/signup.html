@@ -12,8 +12,11 @@
 
 {% block user_created_message %}
     <h1>{% trans "Thanks for signing up!" %}</h1>
-    <p>
-        {% trans "We've sent you an email. Please click <strong>Activate Profile</strong> in the email we just sent you." %}
+    <p>{% blocktrans %}
+            We've sent you an email. In this mail you'll find a link to confirm your registration. <br />
+            So what are you waiting for? You’re just one click away from being the newest member of 1%Club!<br /><br />
+            (Nothing in your inbox? Check your Spam folder or Junk E-mail)
+        {% endblocktrans %}
     </p>
 {% endblock user_created_message %}
 
