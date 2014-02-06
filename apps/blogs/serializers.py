@@ -4,7 +4,7 @@ from rest_framework import serializers
 
 from bluebottle.accounts.serializers import UserPreviewSerializer
 from bluebottle.bluebottle_drf2.serializers import SorlImageField
-from bluebottle.bluebottle_utils.serializers import MetaField
+from bluebottle.utils.serializers import MetaField
 
 
 from .models import BlogPost

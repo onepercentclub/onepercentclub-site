@@ -10,7 +10,7 @@ from fluent_contents.models import PlaceholderField
 from fluent_contents.rendering import render_placeholder
 
 
-from bluebottle.bluebottle_utils.serializers import MLStripper
+from bluebottle.utils.serializers import MLStripper
 
 
 class Page(models.Model):

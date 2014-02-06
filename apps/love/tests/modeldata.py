@@ -3,7 +3,7 @@ Tests for the love app concerning model data.
 """
 from bluebottle.accounts.models import BlueBottleUser
 from apps.love.models import LoveDeclaration
-from bluebottle.bluebottle_utils.tests import CustomSettingsTestCase
+from bluebottle.utils.tests import CustomSettingsTestCase
 from .models import TestBlogPost
 
 
