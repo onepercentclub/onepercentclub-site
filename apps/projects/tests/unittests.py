@@ -4,7 +4,7 @@ from decimal import Decimal
 from django.test import TestCase, RequestFactory
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import status
-from bluebottle.bluebottle_utils.tests import UserTestsMixin, generate_random_slug
+from bluebottle.utils.tests import UserTestsMixin, generate_random_slug
 
 from apps.organizations.tests import OrganizationTestsMixin
 from apps.wallposts.models import TextWallPost

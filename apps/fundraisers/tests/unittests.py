@@ -8,7 +8,7 @@ from django.test import TestCase
 
 from rest_framework import status
 
-from bluebottle.bluebottle_utils.tests import UserTestsMixin
+from bluebottle.utils.tests import UserTestsMixin
 
 from apps.donations.tests.helpers import DonationTestsMixin
 from apps.fund.models import DonationStatuses, Donation

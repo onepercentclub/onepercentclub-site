@@ -12,17 +12,16 @@ handler500 = 'onepercentclub.views.handler500'
 
 
 urlpatterns = patterns('',
-    # Put language-independent-views here.
 
-    # The api urls are in the / url namespace so that they're not redirected to /en/.
+    url(r'^api/users/', include('bluebottle.accounts.urls.api')),
+    url(r'^api/utils/', include('bluebottle.utils.urls.api')),
+    url(r'^api/geo/', include('bluebottle.geo.urls.api')),
+
     url(r'^api/projects/', include('apps.projects.urlsapi')),
     url(r'^api/blogs/', include('apps.blogs.urlsapi')),
-    url(r'^api/users/', include('bluebottle.accounts.urlsapi')),
     url(r'^api/wallposts/', include('apps.wallposts.urlsapi')),
     url(r'^api/fund/', include('apps.fund.urlsapi')),
     url(r'^api/fundraisers/', include('apps.fundraisers.urlsapi')),
-    url(r'^api/utils/', include('bluebottle.bluebottle_utils.urlsapi')),
-    url(r'^api/geo/', include('bluebottle.geo.urlsapi')),
     url(r'^api/tasks/', include('apps.tasks.urlsapi')),
     url(r'^api/organizations/', include('apps.organizations.urlsapi')),
     url(r'^api/pages/', include('apps.pages.urlsapi')),
@@ -77,7 +76,7 @@ urlpatterns += i18n_patterns('',
     url(r'^projects/', include('apps.projects.urls')),
 
     # Organization urls for downloading private documents
-    url(r'^documents/', include('bluebottle.bluebottle_utils.urls')),
+    url(r'^documents/', include('bluebottle.utils.urls.main')),
     url(r'^documents/', include('apps.organizations.urls')),
 
     # handlebar templates

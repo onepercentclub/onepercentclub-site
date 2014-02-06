@@ -4,7 +4,7 @@ from apps.wallposts.models import TextWallPost, MediaWallPost, MediaWallPostPhot
 from apps.wallposts.permissions import IsConnectedWallPostAuthorOrReadOnly
 from apps.wallposts.serializers import TextWallPostSerializer, MediaWallPostSerializer, MediaWallPostPhotoSerializer
 from bluebottle.bluebottle_drf2.permissions import IsAuthorOrReadOnly, AllowNone
-from bluebottle.bluebottle_utils.utils import set_author_editor_ip, get_client_ip
+from bluebottle.utils.utils import set_author_editor_ip, get_client_ip
 from rest_framework import permissions
 from bluebottle.bluebottle_drf2.views import ListCreateAPIView, RetrieveUpdateDeleteAPIView, ListAPIView
 from apps.projects.models import Project

@@ -1,7 +1,7 @@
 from django.template import Context, Template
 
 from bluebottle.accounts.serializers import UserPreviewSerializer
-from bluebottle.bluebottle_utils.serializers import MetaField
+from bluebottle.utils.serializers import MetaField
 
 
 from apps.pages.models import ContactMessage

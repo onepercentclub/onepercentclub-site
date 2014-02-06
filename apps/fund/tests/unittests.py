@@ -8,7 +8,7 @@ from django.test.client import Client
 from django.utils import unittest
 from django.utils import timezone
 from django.test.utils import override_settings
-from bluebottle.bluebottle_utils.tests import UserTestsMixin
+from bluebottle.utils.tests import UserTestsMixin
 from apps.projects.tests import ProjectTestsMixin
 from apps.projects.models import Project
 from rest_framework import status

@@ -7,7 +7,7 @@ from polymorphic.admin import PolymorphicParentModelAdmin, PolymorphicChildModel
 from sorl.thumbnail.admin.compat import AdminImageMixin
 
 
-from bluebottle.bluebottle_utils.utils import set_author_editor_ip
+from bluebottle.utils.utils import set_author_editor_ip
 
 
 from apps.wallposts.models import SystemWallPost

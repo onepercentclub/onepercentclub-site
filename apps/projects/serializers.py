@@ -8,7 +8,7 @@ from bluebottle.accounts.serializers import UserPreviewSerializer
 from bluebottle.bluebottle_drf2.serializers import (SorlImageField, SlugGenericRelatedField, PolymorphicSerializer, EuroField,
                                               TagSerializer, ImageSerializer, TaggableSerializerMixin)
 from bluebottle.geo.models import Country
-from bluebottle.bluebottle_utils.serializers import MetaField
+from bluebottle.utils.serializers import MetaField
 
 
 from apps.fund.models import Donation

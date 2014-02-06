@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from bluebottle.bluebottle_utils.validators import validate_postal_code
+from bluebottle.utils.validators import validate_postal_code
 from .models import DocDataPaymentOrder
 
 
