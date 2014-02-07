@@ -240,8 +240,14 @@ INSTALLED_APPS = (
     # Password auth from old PHP site.
     'legacyauth',
 
+    #Apps extending bluebottle base apps
+    'apps.members', #Extends bluebottle.accounts
+    'apps.onepercent_tasks',
+
     # bluebottle apps
     'bluebottle.accounts',
+    'bluebottle.tasks',
+
     # 'app' without models to hold the site-wide bluebottle templates (base.html for example)
     'bluebottle.common',
 
@@ -263,7 +269,7 @@ INSTALLED_APPS = (
     'apps.payouts',
     'apps.sepa',
 
-    'apps.tasks',
+    #'apps.tasks',
     'apps.banners',
     'apps.quotes',
     'apps.statistics',
@@ -285,9 +291,9 @@ INSTALLED_APPS = (
 )
 
 # Custom User model
-AUTH_USER_MODEL = 'accounts.BlueBottleUser'
+AUTH_USER_MODEL = 'members.OnepercentUser'
 PROJECTS_PROJECT_MODEL = 'projects.Project'
-TASKS_TASK_MODEL = 'tasks.Task'
+TASKS_TASK_MODEL = 'onepercent_tasks.OnepercentTask'
 ORGANIZATIONS_ORGANIZATION_MODEL = 'organizations.Organization'
 
 
@@ -473,7 +479,7 @@ FLUENT_DASHBOARD_APP_GROUPS = (
     }),
     (_('Tasks'), {
         'models': (
-            'apps.tasks.*',
+            'apps.onepercent_tasks.*',
         ),
         'module': 'fluent_dashboard.modules.AppIconList',
         'collapsible': False,
@@ -482,7 +488,7 @@ FLUENT_DASHBOARD_APP_GROUPS = (
         'models': (
             'django.contrib.auth.*',
             'registration.*',
-            'bluebottle.accounts.*',
+            'members.*',
         ),
         'module': 'fluent_dashboard.modules.AppIconList',
         'collapsible': False,
