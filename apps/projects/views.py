@@ -1,3 +1,5 @@
+from bluebottle.geo.models import Country
+from bluebottle.geo.serializers import CountrySerializer
 import django_filters
 
 from django.db.models.query_utils import Q
@@ -46,7 +48,6 @@ class ProjectPreviewList(generics.ListAPIView):
         elif ordering == 'popularity':
             qs = qs.order_by('-popularity')
 
-
         country = self.request.QUERY_PARAMS.get('country', None)
         if country:
             qs = qs.filter(projectplan__country=country)
@@ -61,6 +62,9 @@ class ProjectPreviewList(generics.ListAPIView):
                            Q(projectplan__pitch__icontains=text) |
                            Q(projectplan__description__icontains=text) |
                            Q(projectplan__title__icontains=text))
+
+        # only projects which are approved should be visible
+        qs = qs.filter(pk__in=ProjectPlan.objects.filter(status=ProjectPlan.PlanStatuses.approved).values("project"))
 
         qs = qs.exclude(phase=ProjectPhases.pitch)
         qs = qs.exclude(phase=ProjectPhases.failed)
@@ -77,6 +81,16 @@ class ProjectPreviewDetail(generics.RetrieveAPIView):
         qs = qs.exclude(phase=ProjectPhases.pitch)
         return qs
 
+class ProjectCountryList(generics.ListAPIView):
+    model = Country
+    serializer_class = CountrySerializer
+
+    def get_queryset(self):
+        qs = super(ProjectCountryList, self).get_queryset()
+        return qs.filter(pk__in=ProjectPlan.objects.filter(status=ProjectPlan.PlanStatuses.approved)
+                                                    .exclude(project__phase=ProjectPhases.pitch)
+                                                    .exclude(project__phase=ProjectPhases.failed)
+                                                    .distinct('country').values('country'))
 
 class ProjectList(generics.ListAPIView):
     model = Project
