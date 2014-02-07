@@ -477,7 +477,7 @@ msgid "Description"
 msgstr ""
 
 #: templates/tasks.hbs:649
-msgid "Dead line"
+msgid "Deadline"
 msgstr ""
 
 #: templates/tasks.hbs:680 templates/tasks.hbs.py:855
