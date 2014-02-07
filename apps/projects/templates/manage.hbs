@@ -58,7 +58,7 @@
                                 {{#if project.pitch.isBeingReviewed}}
 								{% trans "Your pitch is in review now." %}
 								  <br/>
-								  {% trans "We'll get back to you soon!" %}
+								  {% trans "We'll get back to you within 3 business days!" %}
 								{{else}}
 	                              {{#linkTo "myProjectPitch.basics" project tagName="a" class="btn btn-iconed"}}
 	                                <span class="flaticon solid pencil-3"></span>
@@ -1575,7 +1575,7 @@ Tell us how much you plan to raise and how long you want to campaign. Please spe
         <article class="l-content">
             <header class="l-page-header">
                 <h2>{% trans "Your pitch is in review now" %}</h2>
-                <p>{% trans "We'll get back to you soon!" %}</p>
+                <p>{% trans "We'll get back to you within 3 business days!" %}</p>
             </header>
         </article>
     </div>
