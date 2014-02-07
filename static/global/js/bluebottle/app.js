@@ -192,9 +192,9 @@ App.ApplicationController = Ember.Controller.extend({
     needs: ['currentUser', 'currentOrder', 'myProjectList'],
     display_message: false,
 
-    news: function() {
-        return App.NewsPreview.find({language: App.get('language')});
-    }.property(),
+//    news: function() {
+//        return App.News.find({language: App.get('language')});
+//    }.property(),
 
     displayMessage: (function() {
         if (this.get('display_message') == true) {
