@@ -51,7 +51,7 @@ class ProjectPhases(DjangoChoices):
 class ProjectPhaseLog(models.Model):
     """ Log when a project reaches a certain phase """
 
-    project = models.ForeignKey('projects.Project')
+    project = models.ForeignKey('onepercent_projects.Project')
     phase = models.CharField(_("phase"), max_length=20, choices=ProjectPhases.choices)
     created = CreationDateTimeField(_("created"), help_text=_("When this phase was reached."))
 
@@ -118,7 +118,7 @@ class Project(models.Model):
 
     phase = models.CharField(_("phase"), max_length=20, choices=ProjectPhases.choices, help_text=_("Phase this project is in right now."))
 
-    partner_organization = models.ForeignKey('projects.PartnerOrganization', null=True, blank=True)
+    partner_organization = models.ForeignKey('onepercent_projects.PartnerOrganization', null=True, blank=True)
 
     created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
     updated = ModificationDateTimeField()
@@ -281,7 +281,7 @@ class ProjectPitch(models.Model):
         rejected = ChoiceItem('rejected', label=_("Rejected"))
         approved = ChoiceItem('approved', label=_("Approved"))
 
-    project = models.OneToOneField("projects.Project", verbose_name=_("project"))
+    project = models.OneToOneField("onepercent_projects.Project", verbose_name=_("project"))
     status = models.CharField(_("status"), max_length=20, choices=PitchStatuses.choices)
 
     created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
@@ -322,7 +322,7 @@ class ProjectPlan(models.Model):
         needs_work = ChoiceItem('needs_work', label=_("Needs work"))
         approved = ChoiceItem('approved', label=_("Approved"))
 
-    project = models.OneToOneField("projects.Project", verbose_name=_("project"))
+    project = models.OneToOneField("onepercent_projects.Project", verbose_name=_("project"))
     status = models.CharField(_("status"), max_length=20, choices=PlanStatuses.choices)
 
     created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
@@ -373,7 +373,7 @@ class ProjectCampaign(models.Model):
         realized = ChoiceItem('realized', label=_("Realized"))
         closed = ChoiceItem('closed', label=_("Closed"))
 
-    project = models.OneToOneField("projects.Project", verbose_name=_("project"))
+    project = models.OneToOneField("onepercent_projects.Project", verbose_name=_("project"))
     status = models.CharField(_("status"), max_length=20, choices=CampaignStatuses.choices)
 
     deadline = models.DateTimeField(null=True)
@@ -502,7 +502,7 @@ class ProjectResult(models.Model):
         realized = ChoiceItem('realized', label=_("Realized"))
         closed = ChoiceItem('closed', label=_("Closed"))
 
-    project = models.OneToOneField("projects.Project", verbose_name=_("project"))
+    project = models.OneToOneField("onepercent_projects.Project", verbose_name=_("project"))
     status = models.CharField(_("status"), max_length=20, choices=ResultStatuses.choices)
 
     created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))

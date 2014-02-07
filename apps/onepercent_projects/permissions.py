@@ -1,4 +1,4 @@
-from apps.projects.models import ProjectPitch, ProjectPhases, ProjectPlan
+from apps.onepercent_projects.models import ProjectPitch, ProjectPhases, ProjectPlan
 from django.core.exceptions import ImproperlyConfigured
 from rest_framework import permissions
 from .models import Project

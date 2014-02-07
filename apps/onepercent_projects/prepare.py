@@ -1,5 +1,5 @@
-from apps.projects.models import Project, ProjectPhases
-from apps.projects.serializers import ProjectPreviewSerializer
+from apps.onepercent_projects.models import Project, ProjectPhases
+from apps.onepercent_projects.serializers import ProjectPreviewSerializer
 
 
 def prepare_money_donated():

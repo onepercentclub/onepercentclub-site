@@ -11,10 +11,10 @@ from django.views.generic.detail import DetailView
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
-from apps.projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador, ProjectBudgetLine, ProjectPhases, ProjectCampaign, ProjectTheme
+from apps.onepercent_projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador, ProjectBudgetLine, ProjectPhases, ProjectCampaign, ProjectTheme
 from apps.fund.models import Donation, DonationStatuses
-from apps.projects.serializers import ProjectSupporterSerializer, ManageProjectSerializer, ManageProjectPitchSerializer, ManageProjectPlanSerializer, ProjectPlanSerializer, ProjectPitchSerializer, ProjectAmbassadorSerializer, ProjectBudgetLineSerializer, ProjectPreviewSerializer, ProjectCampaignSerializer, ProjectThemeSerializer
-from apps.projects.permissions import IsProjectOwner, NoRunningProjectsOrReadOnly, EditablePitchOrReadOnly, EditablePlanOrReadOnly
+from apps.onepercent_projects.serializers import ProjectSupporterSerializer, ManageProjectSerializer, ManageProjectPitchSerializer, ManageProjectPlanSerializer, ProjectPlanSerializer, ProjectPitchSerializer, ProjectAmbassadorSerializer, ProjectBudgetLineSerializer, ProjectPreviewSerializer, ProjectCampaignSerializer, ProjectThemeSerializer
+from apps.onepercent_projects.permissions import IsProjectOwner, NoRunningProjectsOrReadOnly, EditablePitchOrReadOnly, EditablePlanOrReadOnly
 from apps.fundraisers.models import FundRaiser
 
 from .models import Project

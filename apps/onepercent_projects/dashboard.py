@@ -3,7 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 from admin_tools.dashboard.modules import DashboardModule
-from apps.projects.models import (Project, ProjectPitch, ProjectPlan, 
+from apps.onepercent_projects.models import (Project, ProjectPitch, ProjectPlan,
                                   ProjectResult, ProjectCampaign, ProjectPhases)
 
 
