@@ -69,7 +69,7 @@ App.ThemeSelectView = Em.Select.extend({
     content: App.ThemeList,
     optionValuePath: "content.id",
     optionLabelPath: "content.title",
-    prompt: "Pick a theme"
+    prompt: gettext("Pick a theme")
 });
 
 
