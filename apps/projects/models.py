@@ -440,19 +440,21 @@ class ProjectCampaign(models.Model):
             count += len(donations.all())
         return count
 
-    # The amount donated that is secure.
-    @property
-    def money_safe(self):
+    def get_money_total(self, status_in=None):
         """
-        Returns current amount of money from paid donations. (realtime)
+        Calculate the total (realtime) amount of money for donations,
+        optionally filtered by status.
         """
 
         if self.money_asked == 0:
-            # No money asked, no money safe
+            # No money asked, return 0
             return 0
 
-        donations = Donation.objects.filter(project=self.project)
-        donations = donations.filter(status__in=[DonationStatuses.paid])
+        donations = self.project.donation_set.all()
+
+        if status_in:
+            donations = donations.filter(status__in=status_in)
+
         total = donations.aggregate(sum=Sum('amount'))
 
         if not total['sum']:
@@ -461,20 +463,28 @@ class ProjectCampaign(models.Model):
 
         return total['sum']
 
+    @property
+    def money_safe(self):
+        """
+        Returns the realtime total amount for paid donations.
+        """
+
+        return self.get_money_total([DonationStatuses.paid])
+
+    @property
+    def money_pending(self):
+        """
+        Returns the realtime total amount for pending donations.
+        """
+
+        return self.get_money_total([DonationStatuses.pending])
+
     def update_money_donated(self):
         """ Update amount based on paid and pending donations. """
 
-        donations = Donation.objects.filter(project=self.project)
-        donations = donations.filter(
-            status__in=[DonationStatuses.paid, DonationStatuses.pending]
-        )
-        total = donations.aggregate(sum=Sum('amount'))
-
-        if not total['sum']:
-            # No donations, manually set amount
-            self.money_donated = 0
-        else:
-            self.money_donated = total['sum']
+        self.money_donated = self.get_money_total([
+            DonationStatuses.paid, DonationStatuses.pending
+        ])
 
         self.money_needed = self.money_asked - self.money_donated
 

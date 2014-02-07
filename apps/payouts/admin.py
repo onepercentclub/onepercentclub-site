@@ -1,75 +1,181 @@
 import logging
 logger = logging.getLogger(__name__)
 
+import decimal
+
 from django.contrib import admin
 from django.core.exceptions import PermissionDenied
-from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.utils import timezone
 from django.utils.translation import ugettext as _
+from django.utils.text import Truncator
 
 from apps.payouts.models import create_sepa_xml
 
-from .models import Payout, OrganizationPayout, BankMutation, BankMutationLine
+from .models import (
+    Payout, PayoutLog, OrganizationPayout, OrganizationPayoutLog,
+    BankMutation, BankMutationLine
+)
 from .choices import PayoutLineStatuses
+from .admin_filters import PendingDonationsPayoutFilter, HasIBANPayoutFilter
+from .admin_utils import link_to
+
+
+class PayoutLogBase(admin.TabularInline):
+    extra = 0
+    max_num = 0
+    can_delete = False
+    fields = ['date', 'old_status', 'new_status']
+    readonly_fields = fields
+
+
+class PayoutLogInline(PayoutLogBase):
+    model = PayoutLog
+
+
+class OrganizationPayoutLogInline(PayoutLogBase):
+    model = OrganizationPayoutLog
 
 
 class PayoutAdmin(admin.ModelAdmin):
-    date_hierarchy = 'created'
-
     model = Payout
+
+    inlines = [PayoutLogInline]
+
+    search_fields = [
+        'invoice_reference', 'project__title',
+        'project__projectplan__organization__name'
+    ]
+
+    date_hierarchy = 'updated'
     can_delete = False
 
-    list_filter = ['status', 'payout_rule']
+    list_filter = [
+        'status', 'payout_rule',
+        PendingDonationsPayoutFilter, HasIBANPayoutFilter
+    ]
 
     actions = ['export_sepa', 'recalculate_amounts']
 
     list_display = [
-        'payout', 'ok', 'donation_overview', 'project',
-        'amount_raised', 'organization_fee', 'amount_payable', 'safe_amount_payable',
-        'receiver_account_number', 'invoice_reference', 'status', 'completed'
+        'payout', 'status', 'admin_project', 'amount_payable',
+        'admin_amount_raised', 'admin_amount_pending', 'is_pending',
+        'payout_rule', 'updated', 'admin_has_iban'
     ]
+
+    list_display_links = [
+        'payout',
+    ]
+
 
     readonly_fields = [
-        'donation_overview', 'project_link', 'organization',
-        'safe_amount_payable'
+        'admin_project', 'admin_organization', 'created', 'updated',
+        'admin_amount_safe', 'admin_amount_pending', 'admin_amount_failed'
     ]
 
-    fields = readonly_fields + [
-        'amount_raised', 'organization_fee', 'amount_payable', 'payout_rule',
-        'status', 'completed', 'receiver_account_number', 'receiver_account_iban', 'receiver_account_bic',
-        'receiver_account_country', 'invoice_reference', 'description_line1',
-        'description_line2', 'description_line3', 'description_line4'
-    ]
+    fieldsets = (
+        (None, {
+            'fields': (
+                'admin_project', 'admin_organization',
+                'status', 'invoice_reference'
+            )
+        }),
+        (_('Dates'), {
+            'fields': (
+                'created', 'updated', 'completed',
+            )
+        }),
+        (_('Realtime amounts'), {
+            'fields': (
+                'admin_amount_safe', 'admin_amount_pending', 'admin_amount_failed'
+            )
+        }),
+        (_('Payout amounts'), {
+            'fields': ('amount_raised', 'organization_fee', 'amount_payable', 'payout_rule')
+        }),
+        (_('Payment details'), {
+            'fields': (
+                'receiver_account_country', 'receiver_account_number', 'receiver_account_iban', 'receiver_account_bic',
+                'description_line1', 'description_line2', 'description_line3', 'description_line4'
+            )
+        })
+    )
 
+    def is_pending(self, obj):
+        """ Whether or not there is no amount pending. """
+        if obj.get_amount_pending() == decimal.Decimal('0.00'):
+            return False
 
-    def organization(self, obj):
-        object = obj.project.projectplan.organization
-        url = reverse('admin:%s_%s_change' % (object._meta.app_label, object._meta.module_name), args=[object.id])
-        return "<a href='%s'>%s</a>" % (str(url), object.name)
+        return True
+    is_pending.boolean = True
+    is_pending.short_description = _('pending')
 
-    organization.allow_tags = True
+    # Link to all donations for project
+    admin_amount_raised = link_to(
+        'amount_raised', 'admin:fund_donation_changelist',
+        query=lambda obj: {
+            'project': obj.project.id,
+            'status__exact': 'all'
+        },
+        short_description=_('amount raised')
+    )
 
+    # Link to pending donations for project
+    admin_amount_pending = link_to(
+        lambda obj: obj.get_amount_pending(), 'admin:fund_donation_changelist',
+        query=lambda obj: {
+            'project': obj.project.id,
+            'status__exact': 'pending'
+        },
+        short_description=_('amount pending')
+    )
 
-    def donation_overview(self, obj):
-        return "<a href='/admin/fund/donation/?project=%s'>Donations</a>" % str(obj.project.id)
+    # Link to paid donations for project
+    admin_amount_safe = link_to(
+        lambda obj: obj.get_amount_safe(), 'admin:fund_donation_changelist',
+        query=lambda obj: {
+            'project': obj.project.id,
+            'status__exact': 'paid'
+        },
+        short_description=_('amount safe')
+    )
 
-    donation_overview.allow_tags = True
+    # Link to failed donations for project
+    admin_amount_failed = link_to(
+        lambda obj: obj.get_amount_failed(), 'admin:fund_donation_changelist',
+        query=lambda obj: {
+            'project': obj.project.id,
+            'status__exact': 'failed'
+        },
+        short_description=_('amount failed')
+    )
 
-    def project_link(self, obj):
-        object = obj.project
-        url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name), args=[object.id])
-        return "<a href='%s'>%s</a>" % (str(url), object.title)
+    # Link to project
+    def admin_project(self, obj):
+        """ Link to project in front end. """
+        project = obj.project
 
-    project_link.allow_tags = True
-    project_link.short_description = _('project')
+        return u'<a href="/#!/projects/{0}">{1}</a>'.format(
+            project.slug, Truncator(unicode(project)).chars(35)
+        )
+    admin_project.allow_tags = True
+    admin_project.short_description = _('project')
 
-    def ok(self, obj):
-        if obj.is_valid:
-            return "OK"
-        return "-"
+    # Link to organization
+    admin_organization = link_to(
+        lambda obj: obj.project.projectplan.organization,
+        'admin:organizations_organization_change',
+        view_args=lambda obj: (obj.id, ),
+        short_description=_('organization')
+    )
 
-    donation_overview.allow_tags = True
+    def admin_has_iban(self, obj):
+        if obj.receiver_account_iban:
+            return True
+
+        return False
+    admin_has_iban.short_description = _('has IBAN')
+    admin_has_iban.boolean = True
 
     def payout(self, obj):
         return "View/Edit"
@@ -116,7 +222,11 @@ admin.site.register(Payout, PayoutAdmin)
 
 
 class OrganizationPayoutAdmin(admin.ModelAdmin):
+    inlines = [OrganizationPayoutLogInline]
+
     can_delete = False
+
+    search_fields = ['invoice_reference']
 
     date_hierarchy = 'start_date'
 
@@ -134,6 +244,39 @@ class OrganizationPayoutAdmin(admin.ModelAdmin):
         'payable_amount_excl', 'payable_amount_vat', 'payable_amount_incl',
         'other_costs_vat'
     ]
+
+    fieldsets = (
+        (None, {
+            'fields': (
+                'status', 'invoice_reference'
+            )
+        }),
+        (_('Dates'), {
+            'fields': (
+                'start_date', 'end_date', 'planned', 'completed'
+            )
+        }),
+        (_('Organization fee'), {
+            'fields': (
+                'organization_fee_excl', 'organization_fee_vat', 'organization_fee_incl'
+            )
+        }),
+        (_('PSP fee'), {
+            'fields': (
+                'psp_fee_excl', 'psp_fee_vat', 'psp_fee_incl'
+            )
+        }),
+        (_('Other costs'), {
+            'fields': (
+                'other_costs_excl', 'other_costs_vat', 'other_costs_incl'
+            )
+        }),
+        (_('Amount payable'), {
+            'fields': (
+                'payable_amount_excl', 'payable_amount_vat', 'payable_amount_incl'
+            )
+        })
+    )
 
     actions = ['recalculate_amounts']
 
@@ -178,7 +321,7 @@ class BankMutationAdmin(admin.ModelAdmin):
     readonly_fields = ['debit_lines', 'credit_lines']
     fields = readonly_fields + ['mut_file', ]
 
-admin.site.register(BankMutation, BankMutationAdmin)
+# admin.site.register(BankMutation, BankMutationAdmin)
 
 
 class BankMutationLineAdmin(admin.ModelAdmin):
@@ -208,5 +351,5 @@ class BankMutationLineAdmin(admin.ModelAdmin):
     ]
     #fields = readonly_fields
 
-admin.site.register(BankMutationLine, BankMutationLineAdmin)
+# admin.site.register(BankMutationLine, BankMutationLineAdmin)
 
