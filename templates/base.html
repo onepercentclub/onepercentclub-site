@@ -26,17 +26,18 @@
 {% endblock %}
 
 {% block handlebars_templates %}
-    {% include  "accounts/base.hbs" %}
-    {% include  "utils/base.hbs" %}
 
-    {% include  "homepage.hbs" %}
-    {% include  "wallposts.hbs" %}
-    {% include  "reactions.hbs" %}
+    {{ block.super }}
+
+{#    {% include  "wallposts.hbs" %}#}
+{#    {% include  "reactions.hbs" %}#}
 {#    {% include  "tasks.hbs" %}#}
+
+    {% include  "blogs.hbs" %}
+    {% include  "homepage.hbs" %}
     {% include  "projects.hbs" %}
     {% include  "orders.hbs" %}
     {% include  "donations.hbs" %}
-    {% include  "blogs.hbs" %}
     {% include  "manage.hbs" %}
     {% include  "vouchers.hbs" %}
     {% include  "pages.hbs" %}

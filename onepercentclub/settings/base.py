@@ -176,8 +176,10 @@ X_FRAME_OPTIONS = 'DENY'
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     # Makes the 'request' variable (the current HttpRequest) available in templates.
     'django.core.context_processors.request',
-    'django.core.context_processors.i18n'
+    'django.core.context_processors.i18n',
+    'bluebottle.utils.context_processors.installed_apps_context_processor',
 )
+
 
 ROOT_URLCONF = 'onepercentclub.urls'
 
@@ -247,13 +249,16 @@ INSTALLED_APPS = (
     # bluebottle apps
     'bluebottle.accounts',
     'bluebottle.tasks',
-
-    # 'app' without models to hold the site-wide bluebottle templates (base.html for example)
     'bluebottle.common',
-
-    'apps.blogs',
-    'apps.bluebottle_dashboard',
+    'bluebottle.wallposts',
     'bluebottle.utils',
+    'bluebottle.geo',
+
+
+    'apps.onepercent_tasks',
+    'apps.blogs',
+
+    'apps.bluebottle_dashboard',
     'apps.contentplugins',
     'apps.love',
     'apps.organizations',
@@ -263,13 +268,10 @@ INSTALLED_APPS = (
     'apps.fundraisers',
     'apps.donations',
     'apps.vouchers',
-    'bluebottle.geo',
     'apps.hbtemplates',
-    'apps.wallposts',
     'apps.payouts',
     'apps.sepa',
 
-    #'apps.tasks',
     'apps.banners',
     'apps.quotes',
     'apps.statistics',
