@@ -240,6 +240,9 @@ INSTALLED_APPS = (
     # Password auth from old PHP site.
     'legacyauth',
 
+    #Apps extending bluebottle base apps
+    'apps.members', #Extends bluebottle.accounts
+
     # bluebottle apps
     'bluebottle.accounts',
     # 'app' without models to hold the site-wide bluebottle templates (base.html for example)
@@ -285,7 +288,7 @@ INSTALLED_APPS = (
 )
 
 # Custom User model
-AUTH_USER_MODEL = 'accounts.BlueBottleUser'
+AUTH_USER_MODEL = 'members.OnepercentUser'
 PROJECTS_PROJECT_MODEL = 'projects.Project'
 TASKS_TASK_MODEL = 'tasks.Task'
 ORGANIZATIONS_ORGANIZATION_MODEL = 'organizations.Organization'
