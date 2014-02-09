@@ -11,19 +11,19 @@ from django.views.generic.detail import DetailView
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
-from apps.onepercent_projects.models import ProjectPitch, ProjectPlan, ProjectAmbassador, ProjectBudgetLine, ProjectPhases, ProjectCampaign, ProjectTheme
+from apps.onepercent_projects.models import ProjectPitch, ProjectPlan, ProjectBudgetLine, ProjectPhases, ProjectCampaign, ProjectTheme
 from apps.fund.models import Donation, DonationStatuses
-from apps.onepercent_projects.serializers import ProjectSupporterSerializer, ManageProjectSerializer, ManageProjectPitchSerializer, ManageProjectPlanSerializer, ProjectPlanSerializer, ProjectPitchSerializer, ProjectAmbassadorSerializer, ProjectBudgetLineSerializer, ProjectPreviewSerializer, ProjectCampaignSerializer, ProjectThemeSerializer
+from apps.onepercent_projects.serializers import ProjectSupporterSerializer, ManageProjectSerializer, ManageProjectPlanSerializer, ProjectPlanSerializer,  ProjectPreviewSerializer, ProjectCampaignSerializer, ProjectThemeSerializer
 from apps.onepercent_projects.permissions import IsProjectOwner, NoRunningProjectsOrReadOnly, EditablePitchOrReadOnly, EditablePlanOrReadOnly
 from apps.fundraisers.models import FundRaiser
 
-from .models import Project
+from .models import OnePercentProject
 from .serializers import ProjectSerializer, ProjectDonationSerializer
 
 # API views
 
 class ProjectPreviewList(generics.ListAPIView):
-    model = Project
+    model = OnePercentProject
     serializer_class = ProjectPreviewSerializer
     paginate_by = 8
     paginate_by_param = 'page_size'
@@ -32,7 +32,7 @@ class ProjectPreviewList(generics.ListAPIView):
     filter_fields = ('phase', )
 
     def get_queryset(self):
-        qs = Project.objects
+        qs = OnePercentProject.objects
 
         # For some reason the query fails if the country filter is defined before this.
         ordering = self.request.QUERY_PARAMS.get('ordering', None)
@@ -73,7 +73,7 @@ class ProjectPreviewList(generics.ListAPIView):
 
 
 class ProjectPreviewDetail(generics.RetrieveAPIView):
-    model = Project
+    model = OnePercentProject
     serializer_class = ProjectPreviewSerializer
 
     def get_queryset(self):
@@ -93,7 +93,7 @@ class ProjectCountryList(generics.ListAPIView):
                                                     .distinct('country').values('country'))
 
 class ProjectList(generics.ListAPIView):
-    model = Project
+    model = OnePercentProject
     serializer_class = ProjectSerializer
     paginate_by = 10
     filter_fields = ('phase', )
@@ -105,18 +105,13 @@ class ProjectList(generics.ListAPIView):
 
 
 class ProjectDetail(generics.RetrieveAPIView):
-    model = Project
+    model = OnePercentProject
     serializer_class = ProjectSerializer
 
     def get_queryset(self):
         qs = super(ProjectDetail, self).get_queryset()
         qs = qs.exclude(phase=ProjectPhases.pitch)
         return qs
-
-
-class ProjectPitchDetail(generics.RetrieveAPIView):
-    model = ProjectPitch
-    serializer_class = ProjectPitchSerializer
 
 
 class ProjectPlanDetail(generics.RetrieveAPIView):
@@ -138,14 +133,14 @@ class ProjectSupporterList(generics.ListAPIView):
         project_slug = self.request.QUERY_PARAMS.get('project', None)
         if project_slug:
             try:
-                project = Project.objects.get(slug=project_slug)
+                project = OnePercentProject.objects.get(slug=project_slug)
                 filter_kwargs['project'] = project
-            except Project.DoesNotExist:
+            except OnePercentProject.DoesNotExist:
                 raise Http404(_(u"No %(verbose_name)s found matching the query") %
                               {'verbose_name': queryset.model._meta.verbose_name})
         else:
             raise Http404(_(u"No %(verbose_name)s found matching the query") %
-                          {'verbose_name': Project._meta.verbose_name})
+                          {'verbose_name': OnePercentProject._meta.verbose_name})
 
         fundraiser_id = self.request.QUERY_PARAMS.get('fundraiser', None)
         if fundraiser_id:
@@ -191,7 +186,7 @@ class ProjectDonationList(ProjectSupporterList):
 
 
 class ManageProjectList(generics.ListCreateAPIView):
-    model = Project
+    model = OnePercentProject
     serializer_class = ManageProjectSerializer
     permission_classes = (IsAuthenticated, NoRunningProjectsOrReadOnly, )
     paginate_by = 10
@@ -210,43 +205,15 @@ class ManageProjectList(generics.ListCreateAPIView):
 
 
 class ManageProjectDetail(generics.RetrieveUpdateAPIView):
-    model = Project
+    model = OnePercentProject
     serializer_class = ManageProjectSerializer
     permission_classes = (IsProjectOwner, )
-
-
-class ManageProjectPitchDetail(generics.RetrieveUpdateAPIView):
-    model = ProjectPitch
-    serializer_class = ManageProjectPitchSerializer
-    permission_classes = (EditablePitchOrReadOnly, IsProjectOwner, )
 
 
 class ManageProjectPlanDetail(generics.RetrieveUpdateAPIView):
     model = ProjectPlan
     serializer_class = ManageProjectPlanSerializer
     permission_classes = (EditablePlanOrReadOnly, IsProjectOwner, )
-
-
-class ManageProjectAmbassadorList(generics.ListCreateAPIView):
-    model = ProjectAmbassador
-    serializer_class = ProjectAmbassadorSerializer
-    paginate_by = 20
-
-
-class ManageProjectAmbassadorDetail(generics.RetrieveUpdateDestroyAPIView):
-    model = ProjectAmbassador
-    serializer_class = ProjectAmbassadorSerializer
-
-
-class ManageProjectBudgetLinetList(generics.ListCreateAPIView):
-    model = ProjectBudgetLine
-    serializer_class = ProjectBudgetLineSerializer
-    paginate_by = 20
-
-
-class ManageProjectBudgetLineDetail(generics.RetrieveUpdateDestroyAPIView):
-    model = ProjectBudgetLine
-    serializer_class = ProjectBudgetLineSerializer
 
 
 class ManageProjectCampaignDetail(generics.RetrieveUpdateAPIView):
@@ -259,12 +226,12 @@ class ManageProjectCampaignDetail(generics.RetrieveUpdateAPIView):
 
 class ProjectDetailView(DetailView):
     """ This is the project view that search engines will use. """
-    model = Project
+    model = OnePercentProject
     template_name = 'project_detail.html'
 
 
 class ProjectIframeView(DetailView):
-    model = Project
+    model = OnePercentProject
     template_name = 'project_iframe.html'
 
     @method_decorator(xframe_options_exempt)

@@ -9,8 +9,8 @@ from django.utils import unittest
 from django.utils import timezone
 from django.test.utils import override_settings
 from bluebottle.utils.tests import UserTestsMixin
-from apps.projects.tests import ProjectTestsMixin
-from apps.projects.models import Project
+from apps.onepercent_projects.tests import ProjectTestsMixin
+from apps.onepercent_projects.models import OnePercentProject
 from rest_framework import status
 from ..models import Order, OrderStatuses, DonationStatuses, RecurringDirectDebitPayment
 
@@ -202,13 +202,13 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
 
         self._make_api_donation(self.some_user, project=self.some_project, amount=350)
         # Reload the project from db adn check phase / money_needed
-        project = Project.objects.get(pk=self.some_project.id)
+        project = OnePercentProject.objects.get(pk=self.some_project.id)
         self.assertEqual(project.phase, 'campaign')
         self.assertEqual(project.projectcampaign.money_needed, 15000)
 
         self._make_api_donation(self.another_user, project=self.some_project, amount=150)
         # Reload the project from db and check phase / money_needed
-        project = Project.objects.get(pk=self.some_project.id)
+        project = OnePercentProject.objects.get(pk=self.some_project.id)
         self.assertEqual(project.phase, 'act')
         self.assertEqual(project.projectcampaign.money_needed, 0)
 

@@ -10,6 +10,7 @@ App.Slide = DS.Model.extend({
     language: DS.attr('string'),
     style: DS.attr('string'),
     sequence: DS.attr('number'),
+    style: DS.attr('string'),
     tab_text: DS.attr('string'),
     link_text: DS.attr('string'),
     link_url: DS.attr('string'),

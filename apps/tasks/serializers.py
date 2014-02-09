@@ -1,14 +1,10 @@
-from bluebottle.bluebottle_drf2.serializers import PrimaryKeyGenericRelatedField, TagSerializer, FileSerializer, TaggableSerializerMixin
+from bluebottle.bluebottle_drf2.serializers import TagSerializer, FileSerializer, TaggableSerializerMixin
 from bluebottle.accounts.serializers import UserPreviewSerializer
 from bluebottle.utils.serializers import MetaField
 
 
-from apps.projects.serializers import ProjectPreviewSerializer
+from apps.onepercent_projects.serializers import ProjectPreviewSerializer
 from apps.tasks.models import Task, TaskMember, TaskFile, Skill
-from apps.wallposts.serializers import TextWallPostSerializer, WallPostListSerializer
-from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import ObjectDoesNotExist, ValidationError
-from django.utils.encoding import smart_text
 from rest_framework import serializers
 
 
@@ -69,18 +65,5 @@ class SkillSerializer(serializers.ModelSerializer):
     class Meta:
         model = Skill
         fields = ('id', 'name')
-
-
-# Task WallPost serializers
-
-class TaskWallPostSerializer(TextWallPostSerializer):
-    """ TextWallPostSerializer with task specific customizations. """
-
-    url = serializers.HyperlinkedIdentityField(view_name='task-twallpost-detail')
-    task = PrimaryKeyGenericRelatedField(Task)
-
-    class Meta(TextWallPostSerializer.Meta):
-        # Add the project slug field.
-        fields = TextWallPostSerializer.Meta.fields + ('task', )
 
 

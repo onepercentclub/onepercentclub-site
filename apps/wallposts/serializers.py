@@ -1,7 +1,7 @@
 # from apps.fund.serializers import DonationSerializer
 from apps.fund.models import Donation
 from apps.fundraisers.serializers import FundRaiserSerializer
-from apps.projects.models import Project
+from apps.onepercent_projects.models import OnePercentProject
 from bluebottle.accounts.serializers import UserPreviewSerializer
 from bluebottle.bluebottle_drf2.serializers import OEmbedField, PolymorphicSerializer, ContentTextField, PhotoSerializer
 from django.contrib.contenttypes.models import ContentType
@@ -75,8 +75,8 @@ class WallPostParentIdField(serializers.IntegerField):
         if not value.isnumeric():
             # Assume a project slug here
             try:
-                project = Project.objects.get(slug=value)
-            except Project.DoesNotExist:
+                project = OnePercentProject.objects.get(slug=value)
+            except OnePercentProject.DoesNotExist:
                 raise ValidationError("No project with that slug")
             value = project.id
         return value

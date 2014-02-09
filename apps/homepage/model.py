@@ -1,15 +1,14 @@
-from apps.fund.models import Donation
-from django.db.models.aggregates import Sum
 from django.utils.timezone import now
-from django.core.cache import cache
 
 from apps.banners.models import Slide
 from apps.campaigns.models import Campaign
 from apps.fundraisers.models import FundRaiser
-from apps.projects.models import Project
 from apps.quotes.models import Quote
 from apps.statistics.models import Statistic
 
+from bluebottle.projects import get_project_model
+
+PROJECT_MODEL = get_project_model()
 
 # Instead of serving all the objects separately we combine Slide, Quote and Stats into a dummy object
 
@@ -24,7 +23,7 @@ class HomePage(object):
             self.stats = stats[0]
         else:
             self.stats = None
-        projects = Project.objects.filter(phase='campaign').order_by('?')
+        projects = PROJECT_MODEL.objects.filter(phase='campaign').order_by('?')
         if len(projects) > 4:
             self.projects = projects[0:4]
         elif len(projects) > 0:

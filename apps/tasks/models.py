@@ -48,7 +48,7 @@ class Task(models.Model):
 
     people_needed = models.PositiveIntegerField(_("people needed"), default=1, help_text=_("How many people are needed for this task?"))
 
-    project = models.ForeignKey('projects.Project')
+    project = models.ForeignKey(settings.PROJECTS_PROJECT_MODEL)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='author')
     created = CreationDateTimeField(_("created"), help_text=_("When this task was created?"))
     updated = ModificationDateTimeField(_("updated"))
@@ -65,7 +65,7 @@ class Task(models.Model):
         self._original_status = self.status
 
     def get_meta_title(self, **kwargs):
-        from apps.projects.models import ProjectPlan
+        from apps.onepercent_projects.models import ProjectPlan
         try:
             plan = self.project.projectplan
             country = plan.country.name if plan.country else ''
@@ -79,7 +79,7 @@ class Task(models.Model):
 
     def get_fb_title(self, **kwargs):
         # Circular imports
-        from apps.projects.models import ProjectPlan
+        from apps.onepercent_projects.models import ProjectPlan
 
         try:
             plan = self.project.projectplan
@@ -93,7 +93,7 @@ class Task(models.Model):
 
     def get_tweet(self, **kwargs):
         # Circular imports
-        from apps.projects.models import ProjectPlan
+        from apps.onepercent_projects.models import ProjectPlan
 
         """
         {URL} is replaced in Ember to fill in the page url, avoiding the

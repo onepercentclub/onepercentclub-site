@@ -11,7 +11,7 @@ from apps.campaigns.models import Campaign
 from apps.fund.models import Donation, DonationStatuses, Order
 from apps.fundraisers.tests.helpers import FundRaiserTestsMixin
 
-from apps.projects.tests.unittests import ProjectTestsMixin
+from apps.onepercent_projects.tests.unittests import ProjectTestsMixin
 
 
 class HomepageTestCase(FundRaiserTestsMixin, ProjectTestsMixin, TestCase):

@@ -3,7 +3,7 @@ from django.db.models.signals import post_save
 from django.dispatch.dispatcher import receiver
 from apps.wallposts.models import SystemWallPost
 
-from .models import Donation, DonationStatuses
+from apps.fund.models import Donation, DonationStatuses
 
 @receiver(post_save, weak=False, sender=Donation)
 def create_donation_post(sender, instance, **kwargs):

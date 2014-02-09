@@ -1,9 +1,9 @@
-from apps.onepercent_projects.models import Project, ProjectPhases
+from apps.onepercent_projects.models import OnePercentProject, ProjectPhases
 from apps.onepercent_projects.serializers import ProjectPreviewSerializer
 
 
 def prepare_money_donated():
-    projects = Project.objects.filter(phase__in=[ProjectPhases.campaign, ProjectPhases.act,
+    projects = OnePercentProject.objects.filter(phase__in=[ProjectPhases.campaign, ProjectPhases.act,
                                                  ProjectPhases.results, ProjectPhases.realized]).all()
 
     for project in projects:
@@ -15,7 +15,7 @@ def prepare_money_donated():
 
 
 def prepare_project_images():
-    projects = Project.objects.exclude(phase__in=[ProjectPhases.pitch, ProjectPhases.failed]).all()
+    projects = OnePercentProject.objects.exclude(phase__in=[ProjectPhases.pitch, ProjectPhases.failed]).all()
 
     for project in projects:
         try:

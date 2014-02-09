@@ -1,4 +1,3 @@
-from bluebottle.accounts.models import BlueBottleUser
 from apps.tasks.models import Task, TaskMember, TaskFile, Skill
 from django.contrib import admin
 from django.forms import ModelForm

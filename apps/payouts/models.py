@@ -12,7 +12,6 @@ from django.utils.translation import ugettext as _
 
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 
-from apps.projects.models import Project
 from apps.sepa.sepa import SepaDocument, SepaAccount
 from apps.cowry.models import Payment, PaymentStatuses
 
@@ -22,6 +21,10 @@ from .utils import (
     calculate_vat, calculate_vat_exclusive, date_timezone_aware
 )
 from .choices import PayoutLineStatuses, PayoutRules
+
+from bluebottle.projects import get_project_model
+
+PROJECT_MODEL = get_project_model()
 
 
 class InvoiceReferenceBase(models.Model):
@@ -191,7 +194,7 @@ class Payout(PayoutBase):
     Project payouts are checked manually. Selected projects can be exported to a SEPA file.
     """
 
-    project = models.ForeignKey('projects.Project')
+    project = models.ForeignKey(PROJECT_MODEL)
 
     payout_rule = models.CharField(
         _("Payout rule"), max_length=20,
@@ -724,5 +727,5 @@ def match_debit_mutations():
 from .signals import create_payout_for_fully_funded_project
 
 post_save.connect(
-    create_payout_for_fully_funded_project, weak=False, sender=Project
+    create_payout_for_fully_funded_project, weak=False, sender=PROJECT_MODEL
 )

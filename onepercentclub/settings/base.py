@@ -232,19 +232,21 @@ INSTALLED_APPS = (
     'social_auth',
     'statici18n',
     'django.contrib.humanize',
-#    'django_tools',
+    'django_tools',
 
     # Cowry Payments
-    'apps.cowry',
-    'apps.cowry_docdata',
-    'apps.cowry_docdata_legacy',
+    # 'apps.cowry',
+    # 'apps.cowry_docdata',
+    # 'apps.cowry_docdata_legacy',
 
     # Password auth from old PHP site.
     'legacyauth',
 
     #Apps extending bluebottle base apps
-    'apps.members', #Extends bluebottle.accounts
+    'apps.members', # Extends bluebottle.accounts
     'apps.onepercent_tasks',
+    'apps.onepercent_projects',
+    'apps.blogs',
 
     # bluebottle apps
     'bluebottle.accounts',
@@ -253,16 +255,11 @@ INSTALLED_APPS = (
     'bluebottle.wallposts',
     'bluebottle.utils',
     'bluebottle.geo',
-
-
-    'apps.onepercent_tasks',
-    'apps.blogs',
+    'bluebottle.projects',
 
     'apps.bluebottle_dashboard',
     'apps.contentplugins',
-    'apps.love',
     'apps.organizations',
-    'apps.projects',
     'apps.campaigns',
     'apps.fund',
     'apps.fundraisers',
@@ -294,7 +291,7 @@ INSTALLED_APPS = (
 
 # Custom User model
 AUTH_USER_MODEL = 'members.OnepercentUser'
-PROJECTS_PROJECT_MODEL = 'projects.Project'
+PROJECTS_PROJECT_MODEL = 'onepercent_projects.OnepercentProject'
 TASKS_TASK_MODEL = 'onepercent_tasks.OnepercentTask'
 ORGANIZATIONS_ORGANIZATION_MODEL = 'organizations.Organization'
 

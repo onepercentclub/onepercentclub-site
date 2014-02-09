@@ -11,7 +11,7 @@ from apps.wallposts.models import TextWallPost
 from apps.fund.models import DonationStatuses, Donation, Order
 from apps.onepercent_projects.models import ProjectPlan, ProjectCampaign
 
-from ..models import Project, ProjectPhases, ProjectPitch
+from ..models import OnePercentProject, ProjectPhases, ProjectPitch
 
 
 class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
@@ -30,15 +30,15 @@ class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
 
         if not slug:
             slug = generate_random_slug()
-            while Project.objects.filter(slug=slug).exists():
+            while OnePercentProject.objects.filter(slug=slug).exists():
                 slug = generate_random_slug()
 
         if not title:
             title = generate_random_slug()
-            while Project.objects.filter(title=title).exists():
+            while OnePercentProject.objects.filter(title=title).exists():
                 title = generate_random_slug()
 
-        project = Project(owner=owner, title=title, slug=slug, phase=phase)
+        project = OnePercentProject(owner=owner, title=title, slug=slug, phase=phase)
         project.save()
 
         project.projectpitch.title = title
@@ -72,7 +72,7 @@ class ProjectWallPostTestsMixin(ProjectTestsMixin):
             project = self.create_project()
         if not author:
             author = self.create_user()
-        content_type = ContentType.objects.get_for_model(Project)
+        content_type = ContentType.objects.get_for_model(OnePercentProject)
         wallpost = TextWallPost(content_type=content_type, object_id=project.id, author=author)
         wallpost.text = text
         wallpost.save()
@@ -242,7 +242,7 @@ class ProjectManageApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.assertEquals(response.status_code, status.HTTP_403_FORBIDDEN, response)
 
         # Set the project to plan phase from the backend
-        project = Project.objects.get(slug=project_slug)
+        project = OnePercentProject.objects.get(slug=project_slug)
         project.phase = ProjectPhases.plan
         project.save()
 

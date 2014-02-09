@@ -32,13 +32,13 @@
 {#    {% include  "wallposts.hbs" %}#}
 {#    {% include  "reactions.hbs" %}#}
 {#    {% include  "tasks.hbs" %}#}
+{#    {% include  "projects.hbs" %}#}
+{#    {% include  "manage.hbs" %}#}
 
     {% include  "blogs.hbs" %}
     {% include  "homepage.hbs" %}
-    {% include  "projects.hbs" %}
     {% include  "orders.hbs" %}
     {% include  "donations.hbs" %}
-    {% include  "manage.hbs" %}
     {% include  "vouchers.hbs" %}
     {% include  "pages.hbs" %}
     {% include  "fundraisers.hbs" %}
@@ -58,33 +58,15 @@
 
     {{ block.super }}
 
-    <script type="text/javascript" src="{% static "js/bluebottle/accounts/models.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/accounts/controllers.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/accounts/views.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/accounts/routes.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/accounts/components.js" %}"></script>
+    {# Addition for Bluebottle JS #}
+    <script type="text/javascript" src="{% static "js/projects/models.js" %}"></script>
 
 
-    <script type="text/javascript" src="{% static "js/bluebottle/projects/models.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/projects/controllers.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/projects/views.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/projects/routes.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/projects/components.js" %}"></script>
-
-    <script type="text/javascript" src="{% static "js/bluebottle/wallposts/models.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/wallposts/controllers.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/wallposts/views.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/wallposts/routes.js" %}"></script>
-
+    {# Apps not in Bluebottle #}
     <script type="text/javascript" src="{% static "js/bluebottle/blogs/models.js" %}"></script>
     <script type="text/javascript" src="{% static "js/bluebottle/blogs/controllers.js" %}"></script>
     <script type="text/javascript" src="{% static "js/bluebottle/blogs/views.js" %}"></script>
     <script type="text/javascript" src="{% static "js/bluebottle/blogs/routes.js" %}"></script>
-
-    <script type="text/javascript" src="{% static "js/bluebottle/tasks/models.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/tasks/controllers.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/tasks/views.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/tasks/routes.js" %}"></script>
 
     <script type="text/javascript" src="{% static "js/bluebottle/orders/models.js" %}"></script>
     <script type="text/javascript" src="{% static "js/bluebottle/orders/controllers.js" %}"></script>

@@ -1,5 +1,5 @@
 from fluent_dashboard.dashboard import FluentIndexDashboard
-from apps.projects.dashboard import SubmittedPitches, SubmittedPlans, FundedProjects, StartedCampaigns
+from apps.onepercent_projects.dashboard import SubmittedPitches, SubmittedPlans, FundedProjects, StartedCampaigns
 from apps.tasks.dashboard import RecentTasks
 
 

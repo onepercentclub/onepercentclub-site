@@ -12,7 +12,7 @@ from apps.fund.models import DonationStatuses
 
 class FundRaiser(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("initiator"), help_text=_("Project owner"))
-    project = models.ForeignKey('projects.Project', verbose_name=_("project"))
+    project = models.ForeignKey(settings.PROJECTS_PROJECT_MODEL, verbose_name=_("project"))
 
     title = models.CharField(_("title"), max_length=255)
     description = models.TextField(_("description"), blank=True)

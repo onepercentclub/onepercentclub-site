@@ -1,11 +1,9 @@
 import datetime
-from apps.tasks.models import Task
-from babel.numbers import format_currency
+from bluebottle.projects.models import BaseProject
 from django.db import models
 from django.db.models.aggregates import Count, Sum
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.utils import translation
 from django.utils.http import urlquote
 from django.utils.translation import ugettext as _
 from django.conf import settings
@@ -13,7 +11,7 @@ from django_extensions.db.fields import ModificationDateTimeField, CreationDateT
 from djchoices import DjangoChoices, ChoiceItem
 from sorl.thumbnail import ImageField
 from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
-from apps.fund.models import Donation, DonationStatuses
+#from apps.fund.models import Donation, DonationStatuses
 from django.template.defaultfilters import slugify
 from django.utils import timezone
 from .mails import mail_project_funded_internal
@@ -33,6 +31,8 @@ class ProjectTheme(models.Model):
         return self.name
 
     class Meta:
+        db_table = 'projects_projecttheme'
+        app_label = 'projects'
         ordering = ['name']
         verbose_name = _("project theme")
         verbose_name_plural = _("project themes")
@@ -46,24 +46,6 @@ class ProjectPhases(DjangoChoices):
     results = ChoiceItem('results', label=_("Results"))
     realized = ChoiceItem('realized', label=_("Realised"))
     failed = ChoiceItem('failed', label=_("Failed"))
-
-
-class ProjectPhaseLog(models.Model):
-    """ Log when a project reaches a certain phase """
-
-    project = models.ForeignKey('onepercent_projects.Project')
-    phase = models.CharField(_("phase"), max_length=20, choices=ProjectPhases.choices)
-    created = CreationDateTimeField(_("created"), help_text=_("When this phase was reached."))
-
-    class Meta:
-        unique_together = (('project', 'phase'),)
-
-    def __unicode__(self):
-        return "%s - %s - %s" % (
-                self.project.title,
-                self.phase,
-                self.created
-            )
 
 
 class ProjectManager(models.Manager):
@@ -106,22 +88,39 @@ class ProjectManager(models.Manager):
         return qs
 
 
-class Project(models.Model):
+class OnePercentProject(BaseProject):
     """ The base Project model. """
 
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("initiator"), help_text=_("Project owner"), related_name="owner")
+    # owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("initiator"), help_text=_("Project owner"), related_name="owner")
 
     coach = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("coach"), help_text=_("Assistent at 1%OFFICE"), related_name="team_member", null=True, blank=True)
 
-    title = models.CharField(_("title"), max_length=255, unique=True)
-    slug = models.SlugField(_("slug"), max_length=100, unique=True)
+    # title = models.CharField(_("title"), max_length=255, unique=True)
+    # slug = models.SlugField(_("slug"), max_length=100, unique=True)
 
     phase = models.CharField(_("phase"), max_length=20, choices=ProjectPhases.choices, help_text=_("Phase this project is in right now."))
 
     partner_organization = models.ForeignKey('onepercent_projects.PartnerOrganization', null=True, blank=True)
 
-    created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
-    updated = ModificationDateTimeField()
+    latitude = models.DecimalField(
+        _('latitude'), max_digits=21, decimal_places=18, null=True, blank=True)
+    longitude = models.DecimalField(
+        _('longitude'), max_digits=21, decimal_places=18, null=True, blank=True)
+
+    reach = models.PositiveIntegerField(
+        _('Reach'), help_text=_('How many people do you expect to reach?'),
+        blank=True, null=True)
+
+    video_url = models.URLField(
+        _('video'), max_length=100, blank=True, null=True, default='',
+        help_text=_("Do you have a video pitch or a short movie that "
+                    "explains your project? Cool! We can't wait to see it! "
+                    "You can paste the link to YouTube or Vimeo video here"))
+
+    deadline = models.DateTimeField(_('deadline'), null=True, blank=True)
+
+    # created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
+    # updated = ModificationDateTimeField()
 
     popularity = models.FloatField(null=False, default=0)
 
@@ -132,7 +131,7 @@ class Project(models.Model):
     _original_phase = None
 
     def __init__(self, *args, **kwargs):
-        super(Project, self).__init__(*args, **kwargs)
+        super(OnePercentProject, self).__init__(*args, **kwargs)
         # we do this for efficiency reasons. Comparing with the object in database
         # through a pre_save handler is expensive because it requires at least one
         # extra query. The phase logging is handled in a post_save only when it's
@@ -183,11 +182,15 @@ class Project(models.Model):
 
     @property
     def task_count(self):
-        return len(self.task_set.filter(status=Task.TaskStatuses.open).all())
+        from bluebottle.tasks import get_task_model
+        TASK_MODEL = get_task_model()
+        return len(self.onepercenttask_set.filter(status=TASK_MODEL.TaskStatuses.open).all())
 
     @property
     def get_open_tasks(self):
-        return self.task_set.filter(status=Task.TaskStatuses.open).all()
+        from bluebottle.tasks import get_task_model
+        TASK_MODEL = get_task_model()
+        return self.onepercenttask_set.filter(status=TASK_MODEL.TaskStatuses.open).all()
 
     @property
     def date_funded(self):
@@ -248,6 +251,7 @@ class Project(models.Model):
         return tweet
 
     class Meta:
+        db_table = 'projects_project'
         ordering = ['title']
         verbose_name = _("project")
         verbose_name_plural = _("projects")
@@ -256,7 +260,7 @@ class Project(models.Model):
         if not self.slug:
             original_slug = slugify(self.title)
             counter = 2
-            qs = Project.objects
+            qs = OnePercentProject.objects
             while qs.filter(slug = original_slug).exists():
                 original_slug = '%s-%d' % (original_slug, counter)
                 counter += 1
@@ -264,7 +268,48 @@ class Project(models.Model):
 
         if not self.phase:
             self.phase = ProjectPhases.pitch
-        super(Project, self).save(*args, **kwargs)
+        super(OnePercentProject, self).save(*args, **kwargs)
+
+
+class ProjectBudgetLine(models.Model):
+    """
+    BudgetLine: Entries to the Project Budget sheet.
+    This is the budget for the amount asked from this
+    website.
+    """
+    project = models.ForeignKey(settings.PROJECTS_PROJECT_MODEL)
+    description = models.CharField(_('description'), max_length=255, default='')
+    currency = models.CharField(max_length=3, default='EUR')
+    amount = models.PositiveIntegerField(_('amount (in cents)'))
+
+    created = CreationDateTimeField()
+    updated = ModificationDateTimeField()
+
+    class Meta:
+        verbose_name = _('budget line')
+        verbose_name_plural = _('budget lines')
+
+    def __unicode__(self):
+        return u'{0} - {1}'.format(self.description, self.amount / 100.0)
+
+
+class ProjectPhaseLog(models.Model):
+    """ Log when a project reaches a certain phase """
+
+    project = models.ForeignKey(settings.PROJECTS_PROJECT_MODEL)
+    phase = models.CharField(_("phase"), max_length=20, choices=ProjectPhases.choices)
+    created = CreationDateTimeField(_("created"), help_text=_("When this phase was reached."))
+
+    class Meta:
+        db_table = 'projects_projectphaselog'
+        unique_together = (('project', 'phase'),)
+
+    def __unicode__(self):
+        return "%s - %s - %s" % (
+                self.project.title,
+                self.phase,
+                self.created
+            )
 
 
 class ProjectNeedChoices(DjangoChoices):
@@ -281,7 +326,7 @@ class ProjectPitch(models.Model):
         rejected = ChoiceItem('rejected', label=_("Rejected"))
         approved = ChoiceItem('approved', label=_("Approved"))
 
-    project = models.OneToOneField("onepercent_projects.Project", verbose_name=_("project"))
+    project = models.OneToOneField(settings.PROJECTS_PROJECT_MODEL, verbose_name=_("project"))
     status = models.CharField(_("status"), max_length=20, choices=PitchStatuses.choices)
 
     created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
@@ -309,6 +354,7 @@ class ProjectPitch(models.Model):
         return self.title
 
     class Meta:
+        db_table = 'projects_projectpitch'
         verbose_name = _('pitch')
         verbose_name_plural = _('pitches')
 
@@ -322,7 +368,7 @@ class ProjectPlan(models.Model):
         needs_work = ChoiceItem('needs_work', label=_("Needs work"))
         approved = ChoiceItem('approved', label=_("Approved"))
 
-    project = models.OneToOneField("onepercent_projects.Project", verbose_name=_("project"))
+    project = models.OneToOneField(settings.PROJECTS_PROJECT_MODEL, verbose_name=_("project"))
     status = models.CharField(_("status"), max_length=20, choices=PlanStatuses.choices)
 
     created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
@@ -362,6 +408,7 @@ class ProjectPlan(models.Model):
         return self.title
 
     class Meta:
+        db_table = 'projects_projectplan'
         verbose_name = _('plan')
         verbose_name_plural = _('plans')
 
@@ -373,7 +420,7 @@ class ProjectCampaign(models.Model):
         realized = ChoiceItem('realized', label=_("Realized"))
         closed = ChoiceItem('closed', label=_("Closed"))
 
-    project = models.OneToOneField("onepercent_projects.Project", verbose_name=_("project"))
+    project = models.OneToOneField(settings.PROJECTS_PROJECT_MODEL, verbose_name=_("project"))
     status = models.CharField(_("status"), max_length=20, choices=CampaignStatuses.choices)
 
     deadline = models.DateTimeField(null=True)
@@ -494,6 +541,9 @@ class ProjectCampaign(models.Model):
 
         self.save()
 
+    class Meta:
+        db_table = 'projects_projectcampaign'
+
 
 class ProjectResult(models.Model):
 
@@ -502,11 +552,14 @@ class ProjectResult(models.Model):
         realized = ChoiceItem('realized', label=_("Realized"))
         closed = ChoiceItem('closed', label=_("Closed"))
 
-    project = models.OneToOneField("onepercent_projects.Project", verbose_name=_("project"))
+    project = models.OneToOneField(settings.PROJECTS_PROJECT_MODEL, verbose_name=_("project"))
     status = models.CharField(_("status"), max_length=20, choices=ResultStatuses.choices)
 
     created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
     updated = ModificationDateTimeField(_('updated'))
+
+    class Meta:
+        db_table = 'projects_projectresult'
 
 
 class PartnerOrganization(models.Model):
@@ -524,6 +577,7 @@ class PartnerOrganization(models.Model):
         return self.project_set.exclude(phase__in=['pitch', 'failed']).all()
 
     class Meta:
+        db_table = 'projects_partnerorganization'
         verbose_name = _("partner organization")
         verbose_name_plural = _("partner organizations")
 
@@ -533,43 +587,7 @@ class PartnerOrganization(models.Model):
         return self.slug
 
 
-class ProjectAmbassador(models.Model):
-    """
-    People that are named as an ambassador.
-    """
-    project_plan = models.ForeignKey(ProjectPlan)
-    name = models.CharField(_("name"), max_length=255)
-    email = models.EmailField(_("email"))
-    description = models.TextField(_("description"))
-
-
-class ProjectBudgetLine(models.Model):
-    """
-    BudgetLine: Entries to the Project Budget sheet.
-    This is the budget for the amount asked from this
-    website.
-    """
-    project_plan = models.ForeignKey(ProjectPlan)
-    description = models.CharField(_("description"), max_length=255, default='')
-    currency = models.CharField(max_length=3, default='EUR')
-    amount = models.PositiveIntegerField(_("amount (in cents)"))
-
-    created = CreationDateTimeField()
-    updated = ModificationDateTimeField()
-
-    class Meta:
-        verbose_name = _("budget line")
-        verbose_name_plural = _("budget lines")
-
-    def __unicode__(self):
-        language = translation.get_language().split('-')[0]
-        if not language:
-            language = 'en'
-        return u'{0} - {1}'.format(self.description,
-                                   format_currency(self.amount / 100.0, self.currency, locale=language))
-
-
-@receiver(post_save, weak=False, sender=Project, dispatch_uid="log-project-phase")
+@receiver(post_save, weak=False, sender=OnePercentProject, dispatch_uid="log-project-phase")
 def log_project_phase(sender, instance, created, **kwargs):
     """ Log the project phases when they change """
     if instance.phase != instance._original_phase or created:
@@ -582,7 +600,7 @@ def log_project_phase(sender, instance, created, **kwargs):
         # This needs to be in this method instead of in its own method because 'instance._original_phase' is modified
         # below which makes it impossible to use 'instance._original_phase' condition in another post_save method.
         if instance._original_phase == ProjectPhases.campaign and phase == ProjectPhases.act:
-            project_funded.send(sender=Project, instance=instance, first_time_funded=log_created)
+            project_funded.send(sender=OnePercentProject, instance=instance, first_time_funded=log_created)
 
         # set the new phase as 'original', as subsequent saves can occur,
         # leading to unique_constraints being violated (plan_status_status_changed)
@@ -590,12 +608,12 @@ def log_project_phase(sender, instance, created, **kwargs):
         instance._original_phase = instance.phase
 
 
-@receiver(project_funded, weak=False, sender=Project, dispatch_uid="email-project-team-project-funded")
+@receiver(project_funded, weak=False, sender=OnePercentProject, dispatch_uid="email-project-team-project-funded")
 def email_project_team_project_funded(sender, instance, first_time_funded, **kwargs):
     mail_project_funded_internal(instance)
 
 
-@receiver(post_save, weak=False, sender=Project)
+@receiver(post_save, weak=False, sender=OnePercentProject)
 def progress_project_phase(sender, instance, created, **kwargs):
     # Skip all post save logic during fixture loading.
     if kwargs.get('raw', False):
@@ -727,25 +745,25 @@ def update_project_after_campaign_updated(sender, instance, created, **kwargs):
     instance.project.save()
 
 
-# Change project phase according to donated amount
-@receiver(post_save, weak=False, sender=Donation)
-def update_project_after_donation(sender, instance, created, **kwargs):
-    # Skip all post save logic during fixture loading.
-    if kwargs.get('raw', False):
-        return
-
-    project = instance.project
-    campaign = project.projectcampaign
-
-    # Don't look at donations that are just created.
-    if instance.status not in [DonationStatuses.in_progress, DonationStatuses.new]:
-        campaign.update_money_donated()
-        project.update_popularity()
-
-    if campaign.money_asked <= campaign.money_donated:
-        project.phase = ProjectPhases.act
-        project.save()
-    # Never (automatically) move the project back to Campaign phase.
-    #else:
-    #    project.phase = ProjectPhases.campaign
-    #    project.save()
+# # Change project phase according to donated amount
+# @receiver(post_save, weak=False, sender=Donation)
+# def update_project_after_donation(sender, instance, created, **kwargs):
+#     # Skip all post save logic during fixture loading.
+#     if kwargs.get('raw', False):
+#         return
+#
+#     project = instance.project
+#     campaign = project.projectcampaign
+#
+#     # Don't look at donations that are just created.
+#     if instance.status not in [DonationStatuses.in_progress, DonationStatuses.new]:
+#         campaign.update_money_donated()
+#         project.update_popularity()
+#
+#     if campaign.money_asked <= campaign.money_donated:
+#         project.phase = ProjectPhases.act
+#         project.save()
+#     # Never (automatically) move the project back to Campaign phase.
+#     #else:
+#     #    project.phase = ProjectPhases.campaign
+#     #    project.save()
