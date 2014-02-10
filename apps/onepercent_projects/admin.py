@@ -5,16 +5,16 @@ from sorl.thumbnail.admin import AdminImageMixin
 import logging
 
 from .models import PartnerOrganization
-from onepercent_projects.models import OnePercentProject
+# from onepercent_projects.models import OnePercentProject
 
 logger = logging.getLogger(__name__)
 
 
-class OnePercentProjectAdmin(BaseProjectAdmin):
-
-    raw_id_fields = ('owner', 'organization', 'coach')
-
-admin.site.register(OnePercentProject, OnePercentProjectAdmin)
+# class OnePercentProjectAdmin(BaseProjectAdmin):
+#
+#     raw_id_fields = ('owner', 'organization', 'coach')
+#
+# admin.site.register(OnePercentProject, OnePercentProjectAdmin)
 
 class PartnerOrganizationAdmin(AdminImageMixin, admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
@@ -22,4 +22,4 @@ class PartnerOrganizationAdmin(AdminImageMixin, admin.ModelAdmin):
 
 admin.site.register(PartnerOrganization, PartnerOrganizationAdmin)
 
-admin.site.register(ProjectPhase)
+# admin.site.register(ProjectPhase)

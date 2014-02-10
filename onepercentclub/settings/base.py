@@ -452,7 +452,8 @@ FLUENT_DASHBOARD_APP_GROUPS = (
     }),
     (_('Projects'), {
         'models': (
-            'apps.projects.models.*',
+            'apps.onepercent_projects.*',
+            'apps.projects.*',
             'apps.fundraisers.*',
             'apps.organizations.*',
         ),
