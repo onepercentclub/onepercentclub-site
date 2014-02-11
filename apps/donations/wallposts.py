@@ -1,7 +1,7 @@
 from django.contrib.contenttypes.models import ContentType
 from django.db.models.signals import post_save
 from django.dispatch.dispatcher import receiver
-from apps.wallposts.models import SystemWallPost
+from bluebottle.wallposts.models import SystemWallPost
 
 from apps.fund.models import Donation, DonationStatuses
 

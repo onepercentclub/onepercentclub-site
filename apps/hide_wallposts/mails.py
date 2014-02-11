@@ -39,7 +39,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from apps.onepercent_projects.models import OnePercentProject
 from apps.tasks.models import Task
-from apps.wallposts.models import TextWallPost, Reaction
+from bluebottle.wallposts.models import TextWallPost, Reaction
 from apps.mail import send_mail
 
 

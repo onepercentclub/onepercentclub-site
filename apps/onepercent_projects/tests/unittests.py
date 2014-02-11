@@ -7,7 +7,7 @@ from rest_framework import status
 from bluebottle.utils.tests import UserTestsMixin, generate_random_slug
 
 from apps.organizations.tests import OrganizationTestsMixin
-from apps.wallposts.models import TextWallPost
+from bluebottle.wallposts.models import TextWallPost
 from apps.fund.models import DonationStatuses, Donation, Order
 from apps.onepercent_projects.models import ProjectPlan, ProjectCampaign
 

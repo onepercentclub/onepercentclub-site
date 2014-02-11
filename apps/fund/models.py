@@ -459,7 +459,7 @@ def link_anonymous_donations(sender, user, request, **kwargs):
     """
     dd_orders = DocDataPaymentOrder.objects.filter(email=user.email).all()
 
-    from apps.wallposts.models import SystemWallPost
+    from bluebottle.wallposts.models import SystemWallPost
 
     wallposts = None
     for dd_order in dd_orders:

@@ -10,7 +10,7 @@ from sorl.thumbnail.admin.compat import AdminImageMixin
 from bluebottle.utils.utils import set_author_editor_ip
 
 
-from apps.wallposts.models import SystemWallPost
+from bluebottle.wallposts.models import SystemWallPost
 from .models import WallPost, MediaWallPost, TextWallPost, MediaWallPostPhoto, Reaction
 
 

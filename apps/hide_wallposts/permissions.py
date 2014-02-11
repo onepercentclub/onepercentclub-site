@@ -1,4 +1,4 @@
-from apps.wallposts.models import WallPost, MediaWallPost
+from bluebottle.wallposts.models import WallPost, MediaWallPost
 from rest_framework import permissions
 
 

@@ -1,4 +1,4 @@
-from apps.wallposts.views import WallPostDetail, TextWallPostList, MediaWallPostList, MediaWallPostPhotoList, MediaWallPostPhotoDetail
+from bluebottle.wallposts.views import WallPostDetail, TextWallPostList, MediaWallPostList, MediaWallPostPhotoList, MediaWallPostPhotoDetail
 from django.conf.urls import patterns, url
 from surlex.dj import surl
 from .views import ReactionList, ReactionDetail, WallPostList

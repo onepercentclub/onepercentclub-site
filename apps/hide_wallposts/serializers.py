@@ -7,7 +7,7 @@ from bluebottle.bluebottle_drf2.serializers import OEmbedField, PolymorphicSeria
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import serializers
 from django.core.exceptions import ValidationError
-from apps.wallposts.models import WallPost, SystemWallPost
+from bluebottle.wallposts.models import WallPost, SystemWallPost
 
 from .models import MediaWallPost, TextWallPost, MediaWallPostPhoto, Reaction
 

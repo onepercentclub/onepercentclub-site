@@ -13,8 +13,8 @@ from bluebottle.utils.serializers import MetaField
 
 from apps.fund.models import Donation
 from apps.onepercent_projects.models import ProjectPitch, ProjectPlan, ProjectCampaign, ProjectTheme
-from apps.wallposts.models import TextWallPost, MediaWallPost
-from apps.wallposts.serializers import TextWallPostSerializer, MediaWallPostSerializer
+from bluebottle.wallposts.models import TextWallPost, MediaWallPost
+from bluebottle.wallposts.serializers import TextWallPostSerializer, MediaWallPostSerializer
 
 from .models import OnePercentProject
 
