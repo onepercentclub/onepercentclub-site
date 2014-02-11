@@ -1,6 +1,5 @@
 import logging
 import random
-from apps.vouchers.models import VoucherStatuses
 
 from django.conf import settings
 from django.db import models
@@ -17,11 +16,14 @@ from djchoices import DjangoChoices, ChoiceItem
 from babel.numbers import format_currency
 from registration.signals import user_activated
 
-from bluebottle.accounts.models import BlueBottleUser
-
 from apps.cowry.models import PaymentStatuses, Payment
 from apps.cowry.signals import payment_status_changed
 from apps.cowry_docdata.models import DocDataPaymentOrder
+from apps.vouchers.models import VoucherStatuses
+
+from django.contrib.auth import get_user_model
+
+USER_MODEL = get_user_model()
 
 from .fields import DutchBankAccountField
 
@@ -69,7 +71,7 @@ class RecurringDirectDebitPayment(models.Model):
                                          active_status)
 
 
-@receiver(post_save, weak=False, sender=BlueBottleUser)
+@receiver(post_save, weak=False, sender=USER_MODEL)
 def cancel_recurring_payment_user_soft_delete(sender, instance, created, **kwargs):
     if created:
         return
@@ -80,7 +82,7 @@ def cancel_recurring_payment_user_soft_delete(sender, instance, created, **kwarg
         recurring_payment.save()
 
 
-@receiver(post_delete, weak=False, sender=BlueBottleUser)
+@receiver(post_delete, weak=False, sender=USER_MODEL)
 def cancel_recurring_payment_user_delete(sender, instance, **kwargs):
 
     if hasattr(instance, 'recurringdirectdebitpayment'):
@@ -116,7 +118,7 @@ class Donation(models.Model):
 
     # User is just a cache of the order user.
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("User"), null=True, blank=True)
-    project = models.ForeignKey('projects.Project', verbose_name=_("Project"))
+    project = models.ForeignKey(settings.PROJECTS_PROJECT_MODEL, verbose_name=_("Project"))
     fundraiser = models.ForeignKey('fundraisers.FundRaiser', verbose_name=_("fund raiser"), null=True, blank=True)
 
     status = models.CharField(_("Status"), max_length=20, choices=DonationStatuses.choices, default=DonationStatuses.new, db_index=True)
@@ -457,7 +459,7 @@ def link_anonymous_donations(sender, user, request, **kwargs):
     """
     dd_orders = DocDataPaymentOrder.objects.filter(email=user.email).all()
 
-    from apps.wallposts.models import SystemWallPost
+    from bluebottle.wallposts.models import SystemWallPost
 
     wallposts = None
     for dd_order in dd_orders:

@@ -16,13 +16,14 @@ urlpatterns = patterns('',
     url(r'^api/users/', include('bluebottle.accounts.urls.api')),
     url(r'^api/utils/', include('bluebottle.utils.urls.api')),
     url(r'^api/geo/', include('bluebottle.geo.urls.api')),
+    url(r'^api/projects/', include('bluebottle.projects.urls.api')),
+    url(r'^api/wallposts/', include('bluebottle.wallposts.urls.api')),
+    url(r'^api/tasks/', include('bluebottle.tasks.urls.api')),
 
-    url(r'^api/projects/', include('apps.projects.urlsapi')),
+    # url(r'^api/projects/', include('apps.onepercent_projects.urlsapi')),
     url(r'^api/blogs/', include('apps.blogs.urlsapi')),
-    url(r'^api/wallposts/', include('apps.wallposts.urlsapi')),
     url(r'^api/fund/', include('apps.fund.urlsapi')),
     url(r'^api/fundraisers/', include('apps.fundraisers.urlsapi')),
-    url(r'^api/tasks/', include('apps.tasks.urlsapi')),
     url(r'^api/organizations/', include('apps.organizations.urlsapi')),
     url(r'^api/pages/', include('apps.pages.urlsapi')),
     url(r'^api/partners/', include('apps.partners.urlsapi')),
@@ -73,7 +74,7 @@ urlpatterns += i18n_patterns('',
     url(r'^accounts/', include('django.contrib.auth.urls', namespace='accounts')),
 
     # Project view that search engines will use.
-    url(r'^projects/', include('apps.projects.urls')),
+    url(r'^projects/', include('apps.onepercent_projects.urls')),
 
     # Organization urls for downloading private documents
     url(r'^documents/', include('bluebottle.utils.urls.main')),

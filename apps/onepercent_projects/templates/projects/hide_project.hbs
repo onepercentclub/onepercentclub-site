@@ -1,0 +1,124 @@
+{% load bb_ember %}
+{% load i18n %}
+{% load static %}
+
+
+{% tplhandlebars "project" %}
+
+    <div id="project-detail">
+        <div class="l-section detail project-detail-main">
+            <section class="l-wrapper">
+
+                {{# if video_html }}
+                    <figure class="project-image">
+                        {{{ video_html }}}
+                    </figure>
+                {{ else }}
+                    <figure class="project-image">
+                        <img {{bindAttr src="image.large"}} width="100%" alt="Photo" />
+                    </figure>
+                {{/if}}
+
+                <article class="project-info">
+
+                    <div class="project-meta">
+                        {{!--}}
+                        <span class="project-deadline"><span class="flaticon stroke time-1"></span> {{daysToGo}}</span>
+                        {{--}}
+                        <span class="project-location"><span class="flaticon solid location-pin-1"></span> {{country.name}}</span>
+                        <span class="project-theme"><span class="flaticon solid tag-2"></span> {{theme.name}}</span>
+                    </div>
+
+                    <h1 class="project-title">{{title}}</h1>
+                    <p class="project-description">{{pitch}}</p>
+                    <p class="project-plan-link"><span class="flaticon solid book-4"></span> {{#link-to 'projectPlan'}}{% trans "Read full project plan" %}{{/link-to}}
+                </article>
+            </section>
+        </div>
+
+        <div class="l-section detail" id="project-members">
+            <section class="l-wrapper">
+
+                <ul class="member-list">
+                    <li class="member-initiator">
+                        <ul>
+                            <li>
+                                <a {{action 'openInBigBox' 'userModal' owner }} class="member">
+                                    <figure class="member-avatar"><img {{bindAttr src="owner.getAvatar"}} /></figure>
+                                    <h4>{% trans "Initiator" %}</h4>
+                                    <strong class="member-name">{{owner.full_name}}</strong>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                {{#if deadline}}
+                <div class="project-deadline">
+                    <span class="flaticon solid stopwatch-1"></span>
+                    <span class="text">
+                        <big>{{daysToGo}}</big> day(s) left<br />
+                        <small>to support this project</small>
+                    </span>
+                </div>
+                {{/if}}
+            </section>
+        </div>
+
+        <nav class="l-section" id="project-actions">
+            <div class="l-wrapper">
+
+                <ul class="tabs four">
+                    {% if 'wallposts' in bb_apps %}
+                    {% block_verbatim 'project_wallpost_tab' %}
+                        <li class="tab-updates">
+                            {{#link-to 'project.index'}}
+                                <span class="tab-icon amount">{{wallpost_count}}</span>
+                                <strong class="tab-title">
+                                    {% trans "Updates" %}
+
+                                    {{#if wallpost_count}}
+                                        {{#if controllers.projectIndex.firstObject.isLoaded}}
+                                            <em class="tab-subtitle">{{localize controllers.projectIndex.firstObject.created formatting="X"}}</em>
+                                        {{/if}}
+                                    {{else}}
+                                        <em class="tab-subtitle">{% trans "No updates" %}</em>
+                                    {{/if}}
+                                </strong>
+                            {{/link-to}}
+                        </li>
+                    {% endblock_verbatim %}
+                    {% endif %}
+                    {% if 'tasks' in bb_apps %}
+                    {% block_verbatim 'project_task_tab' %}
+                        <li class="tab-tasks">
+                            {{#if taskCount}}
+                                {{#link-to 'projectTasks'}}
+                                    <span class="tab-icon">{{taskCount}}</span>
+                                    <strong class="tab-title">Tasks <em class="tab-subtitle">{% trans "Skills needed" %}</em></strong>
+                                {{/link-to}}
+                            {{else}}
+                                {{#link-to 'projectTasks'}}
+                                    <span class="tab-icon">0</span>
+                                    <strong class="tab-title">Tasks <em class="tab-subtitle">{% trans "No skills needed" %}</em></strong>
+                                {{/link-to}}
+                            {{/if}}
+                        </li>
+                    {% endblock_verbatim %}
+                    {% endif %}
+                    <li class="tab-plan">
+                        {{#link-to "projectPlan"}}
+                            <span class="tab-icon"><span class="flaticon solid document-2"></span></span>
+                            <strong class="tab-title">Project Plan <em class="tab-subtitle">{% trans "Read full plan" %}</em></strong>
+                        {{/link-to}}
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+
+
+        {{outlet}}
+
+    </div>
+
+{% endtplhandlebars %}

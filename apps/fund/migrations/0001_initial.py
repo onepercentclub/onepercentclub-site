@@ -8,8 +8,8 @@ from django.db import models
 class Migration(SchemaMigration):
 
     depends_on = (
-        ('projects', '0001_initial'),
-        ('cowry', '0001_initial'),
+        # ('projects', '0001_initial'),
+        # ('cowry', '0001_initial'),
     )
 
     def forwards(self, orm):

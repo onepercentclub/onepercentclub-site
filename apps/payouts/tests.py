@@ -1,20 +1,21 @@
 import decimal
 import datetime
-import doctest
 
 from django.test import TestCase
 
 from django_dynamic_fixture import N, G
 
-from apps.projects.models import (
-    Project, ProjectPhases, ProjectCampaign, ProjectPlan
+from apps.onepercent_projects.models import (
+    OnePercentProject, ProjectPhases, ProjectCampaign, ProjectPlan
 )
 from apps.fund.models import Donation, DonationStatuses
 
 from apps.cowry import factory
 from apps.cowry.models import PaymentStatuses
 
-from .models import Payout, OrganizationPayout
+from .models import (
+    Payout, PayoutLog, OrganizationPayout, OrganizationPayoutLog
+)
 from .choices import PayoutRules, PayoutLineStatuses
 from .utils import date_timezone_aware
 
@@ -25,7 +26,7 @@ class PayoutTestCase(TestCase):
     def setUp(self):
         """ Setup a project ready for payout. """
         self.project = G(
-            Project
+            OnePercentProject
         )
 
         self.campaign = G(
@@ -194,8 +195,8 @@ class PayoutTestCase(TestCase):
         self.assertEquals(payout.organization_fee, decimal.Decimal('1.68'))
         self.assertEquals(payout.amount_payable, decimal.Decimal('12.32'))
 
-    def test_safe_amount_new(self):
-        """ Test safe_amount_payable for new donations. """
+    def test_amounts_new(self):
+        """ Test amounts for new donations. """
 
         # Set status of donation to paid
         self.donation.status = DonationStatuses.new
@@ -212,13 +213,17 @@ class PayoutTestCase(TestCase):
         payout = Payout.objects.all()[0]
 
         # No money is even pending
+        self.assertEquals(payout.amount_raised, decimal.Decimal('0.00'))
         self.assertEquals(payout.amount_payable, decimal.Decimal('0.00'))
-        self.assertEquals(payout.safe_amount_payable, decimal.Decimal('0.00'))
 
-    def test_safe_amount_pending(self):
-        """ Test safe_amount_payable for pending donations. """
+        self.assertEquals(payout.get_amount_pending(), decimal.Decimal('0.00'))
+        self.assertEquals(payout.get_amount_safe(), decimal.Decimal('0.00'))
+        self.assertEquals(payout.get_amount_failed(), decimal.Decimal('0.00'))
 
-        # Set status of donation to paid
+    def test_amounts_pending(self):
+        """ Test amounts for pending donations. """
+
+        # Set status of donation
         self.donation.status = DonationStatuses.pending
         self.donation.save()
 
@@ -232,12 +237,51 @@ class PayoutTestCase(TestCase):
         # Fetch payout
         payout = Payout.objects.all()[0]
 
-        # No money is even pending
+        # Money is pending but not paid
+        self.assertEquals(payout.amount_raised, decimal.Decimal('15.00'))
         self.assertEquals(payout.amount_payable, decimal.Decimal('13.95'))
-        self.assertEquals(payout.safe_amount_payable, decimal.Decimal('0.00'))
 
-    def test_safe_amount_paid(self):
-        """ Test safe_amount_payable for paid donations. """
+        self.assertEquals(payout.get_amount_pending(), decimal.Decimal('15.00'))
+        self.assertEquals(payout.get_amount_safe(), decimal.Decimal('0.00'))
+        self.assertEquals(payout.get_amount_failed(), decimal.Decimal('0.00'))
+
+    def test_amounts_failed(self):
+        """
+        Test amounts for pending donation changed into failed after creating payout.
+        """
+
+        # Set status of donation to pending first
+        self.donation.status = DonationStatuses.pending
+        self.donation.save()
+
+        # Update campaign donations
+        self.campaign.update_money_donated()
+
+        # Update phase to act.
+        self.project.phase = ProjectPhases.act
+        self.project.save()
+
+        # Set status of donation to failed
+        self.donation.status = DonationStatuses.failed
+        self.donation.save()
+
+        # Update campaign donations
+        self.campaign.update_money_donated()
+
+        # Fetch payout
+        payout = Payout.objects.all()[0]
+
+        # Saved amounts should be same as pending
+        self.assertEquals(payout.amount_raised, decimal.Decimal('15.00'))
+        self.assertEquals(payout.amount_payable, decimal.Decimal('13.95'))
+
+        # Realtime amounts should be different
+        self.assertEquals(payout.get_amount_pending(), decimal.Decimal('0.00'))
+        self.assertEquals(payout.get_amount_safe(), decimal.Decimal('0.00'))
+        self.assertEquals(payout.get_amount_failed(), decimal.Decimal('15.00'))
+
+    def test_amounts_paid(self):
+        """ Test amounts for paid donations. """
 
         # Set status of donation to paid
         self.donation.status = DonationStatuses.paid
@@ -253,9 +297,78 @@ class PayoutTestCase(TestCase):
         # Fetch payout
         payout = Payout.objects.all()[0]
 
-        # No money is safe - just yet
+        # Money is safe now, nothing's pending
+        self.assertEquals(payout.amount_raised, decimal.Decimal('15.00'))
         self.assertEquals(payout.amount_payable, decimal.Decimal('13.95'))
-        self.assertEquals(payout.safe_amount_payable, decimal.Decimal('13.95'))
+
+        self.assertEquals(payout.get_amount_pending(), decimal.Decimal('0.00'))
+        self.assertEquals(payout.get_amount_safe(), decimal.Decimal('15.00'))
+        self.assertEquals(payout.get_amount_failed(), decimal.Decimal('0.00'))
+
+
+class PayoutLogMixin(object):
+    """
+    Base class for testing payout logs for Payout and OrganizationPayout.
+    """
+    def setUp(self):
+        self.payout = G(self.obj_class, status=PayoutLineStatuses.new, completed=None)
+
+        super(PayoutLogMixin, self).setUp()
+
+    def test_save(self):
+        """ Test saving a PayoutLog. """
+
+        # Generate new payout
+        obj = N(self.log_class, payout=self.payout)
+
+        # Validate
+        obj.clean()
+
+        # Save it
+        obj.save()
+
+    def test_initial(self):
+        """ Test whether an initial self.log_class is created for payout """
+
+        self.assertEquals(self.log_class.objects.count(), 1)
+
+        payout_log = self.log_class.objects.all()[0]
+
+        self.assertEquals(payout_log.payout, self.payout)
+        self.assertEquals(payout_log.old_status, None)
+        self.assertEquals(payout_log.new_status, self.payout.status)
+        self.assertLessEqual(payout_log.date - self.payout.updated,
+            datetime.timedelta(seconds=20))
+
+    def test_update(self):
+        """ Test whether a status update on payout updates log. """
+
+        self.payout.status = PayoutLineStatuses.progress
+        self.payout.save()
+
+        self.assertEquals(self.log_class.objects.count(), 2)
+
+        payout_log = self.payout.log_set.latest()
+
+        self.assertEquals(payout_log.payout, self.payout)
+        self.assertEquals(payout_log.old_status, PayoutLineStatuses.new)
+        self.assertEquals(payout_log.new_status, PayoutLineStatuses.progress)
+        self.assertLessEqual(payout_log.date - self.payout.updated,
+            datetime.timedelta(seconds=20))
+
+
+class PayoutLogTestCase(PayoutLogMixin, TestCase):
+    """ Test case for PayoutLog. """
+
+    obj_class = Payout
+    log_class = PayoutLog
+
+
+class OrganizationPayoutLogTestCase(PayoutLogMixin, TestCase):
+    """ Test case for PayoutLog. """
+
+    obj_class = OrganizationPayout
+    log_class = OrganizationPayoutLog
 
 
 class OrganizationPayoutTestCase(TestCase):
@@ -274,7 +387,7 @@ class OrganizationPayoutTestCase(TestCase):
         """
 
         self.project = G(
-            Project
+            OnePercentProject
         )
 
         self.campaign = G(

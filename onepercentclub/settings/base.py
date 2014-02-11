@@ -176,7 +176,8 @@ X_FRAME_OPTIONS = 'DENY'
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     # Makes the 'request' variable (the current HttpRequest) available in templates.
     'django.core.context_processors.request',
-    'django.core.context_processors.i18n'
+    'django.core.context_processors.i18n',
+    'bluebottle.utils.context_processors.installed_apps_context_processor',
 )
 
 ROOT_URLCONF = 'onepercentclub.urls'
@@ -230,7 +231,7 @@ INSTALLED_APPS = (
     'social_auth',
     'statici18n',
     'django.contrib.humanize',
-#    'django_tools',
+    'django_tools',
 
     # Cowry Payments
     'apps.cowry',
@@ -241,35 +242,32 @@ INSTALLED_APPS = (
     'legacyauth',
 
     #Apps extending bluebottle base apps
-    'apps.members', #Extends bluebottle.accounts
+    'apps.members', # Extends bluebottle.accounts
     'apps.onepercent_tasks',
+    'apps.onepercent_projects',
+    'apps.blogs',
 
     # bluebottle apps
     'bluebottle.accounts',
     'bluebottle.tasks',
-
-    # 'app' without models to hold the site-wide bluebottle templates (base.html for example)
     'bluebottle.common',
-
-    'apps.blogs',
-    'apps.bluebottle_dashboard',
+    'bluebottle.wallposts',
     'bluebottle.utils',
+    'bluebottle.geo',
+    'bluebottle.projects',
+
+    'apps.bluebottle_dashboard',
     'apps.contentplugins',
-    'apps.love',
     'apps.organizations',
-    'apps.projects',
     'apps.campaigns',
     'apps.fund',
     'apps.fundraisers',
     'apps.donations',
     'apps.vouchers',
-    'bluebottle.geo',
     'apps.hbtemplates',
-    'apps.wallposts',
     'apps.payouts',
     'apps.sepa',
 
-    #'apps.tasks',
     'apps.banners',
     'apps.quotes',
     'apps.statistics',
@@ -292,7 +290,7 @@ INSTALLED_APPS = (
 
 # Custom User model
 AUTH_USER_MODEL = 'members.OnepercentUser'
-PROJECTS_PROJECT_MODEL = 'projects.Project'
+PROJECTS_PROJECT_MODEL = 'onepercent_projects.OnepercentProject'
 TASKS_TASK_MODEL = 'onepercent_tasks.OnepercentTask'
 ORGANIZATIONS_ORGANIZATION_MODEL = 'organizations.Organization'
 
@@ -453,7 +451,8 @@ FLUENT_DASHBOARD_APP_GROUPS = (
     }),
     (_('Projects'), {
         'models': (
-            'apps.projects.models.*',
+            'apps.onepercent_projects.*',
+            'apps.projects.*',
             'apps.fundraisers.*',
             'apps.organizations.*',
         ),

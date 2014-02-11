@@ -3,7 +3,7 @@ import decimal
 
 import datetime
 
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.conf import settings
 from django.db import models
 from django.db.models.signals import post_save
@@ -12,7 +12,6 @@ from django.utils.translation import ugettext as _
 
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 
-from apps.projects.models import Project
 from apps.sepa.sepa import SepaDocument, SepaAccount
 from apps.cowry.models import Payment, PaymentStatuses
 
@@ -22,6 +21,10 @@ from .utils import (
     calculate_vat, calculate_vat_exclusive, date_timezone_aware
 )
 from .choices import PayoutLineStatuses, PayoutRules
+
+from bluebottle.projects import get_project_model
+
+PROJECT_MODEL = get_project_model()
 
 
 class InvoiceReferenceBase(models.Model):
@@ -74,13 +77,18 @@ class CompletedDateTimeBase(models.Model):
     class Meta:
         abstract = True
 
+    def clean(self):
+        """ Validate completed/completed date consistency. """
+
+        if self.completed and self.status != PayoutLineStatuses.completed:
+            raise ValidationError(
+                _('Closed date is set but status is not completed.')
+            )
+
     def save(self, *args, **kwargs):
         if self.status == PayoutLineStatuses.completed and not self.completed:
             # No completed date was set and our current status is completed
             self.completed = timezone.now()
-
-        assert not self.completed or self.status == PayoutLineStatuses.completed, \
-            'Completed is set but status is not completed.'
 
         super(CompletedDateTimeBase, self).save(*args, **kwargs)
 
@@ -97,11 +105,87 @@ class PayoutBase(InvoiceReferenceBase, CompletedDateTimeBase, models.Model):
         _("status"), max_length=20, choices=PayoutLineStatuses.choices,
         default=PayoutLineStatuses.new
     )
-    created = CreationDateTimeField(_("Created"))
-    updated = ModificationDateTimeField(_("Updated"))
+    created = CreationDateTimeField(_("created"))
+    updated = ModificationDateTimeField(_("updated"))
 
     class Meta:
         abstract = True
+
+    def _get_old_status(self):
+        """ Get previous status based on state change logs. """
+
+        assert self.pk
+
+        try:
+            latest_state_change = self.log_set.latest()
+            return latest_state_change.new_status
+
+        except ObjectDoesNotExist:
+            # First state change, no previous state
+            return None
+
+    def _log_status_change(self):
+        """ Log the change from one status to another. """
+
+        old_status = self._get_old_status()
+
+        if old_status != self.status:
+            # Create log entry
+            log_entry = self.log_set.model(
+                payout=self,
+                old_status=old_status, new_status=self.status
+            )
+            log_entry.save()
+
+            return log_entry
+
+    def save(self, *args, **kwargs):
+        """
+        Make sure we log a state change after saving.
+        """
+
+        result = super(PayoutBase, self).save(*args, **kwargs)
+
+        self._log_status_change()
+
+        return result
+
+
+class PayoutLogBase(models.Model):
+    """
+    Abstract base class for logging state changes.
+
+    Requires a 'payout' ForeignKey with related_name='log_set' to be defined.
+    """
+
+    class Meta:
+        verbose_name = _('state change')
+        verbose_name_plural = _('state changes')
+        abstract = True
+
+        ordering = ['-date']
+        get_latest_by = 'date'
+
+    date = CreationDateTimeField(_("date"))
+
+    old_status = models.CharField(
+        _("old status"), max_length=20, choices=PayoutLineStatuses.choices,
+        blank=True, null=True
+    )
+
+    new_status = models.CharField(
+        _("new status"), max_length=20, choices=PayoutLineStatuses.choices,
+    )
+
+    def __unicode__(self):
+        return _(
+            u'Status change of \'%(payout)s\' on %(date)s from %(old_status)s to %(new_status)s' % {
+                'payout': unicode(self.payout),
+                'date': self.date.strftime('%d-%m-%Y'),
+                'old_status': self.old_status,
+                'new_status': self.new_status,
+            }
+        )
 
 
 class Payout(PayoutBase):
@@ -110,7 +194,7 @@ class Payout(PayoutBase):
     Project payouts are checked manually. Selected projects can be exported to a SEPA file.
     """
 
-    project = models.ForeignKey('projects.Project')
+    project = models.ForeignKey(PROJECT_MODEL)
 
     payout_rule = models.CharField(
         _("Payout rule"), max_length=20,
@@ -145,6 +229,10 @@ class Payout(PayoutBase):
     description_line2 = models.CharField(max_length=100, blank=True, default="")
     description_line3 = models.CharField(max_length=100, blank=True, default="")
     description_line4 = models.CharField(max_length=100, blank=True, default="")
+
+    class Meta:
+        get_latest_by = 'created'
+        ordering = ['-created']
 
     def _get_fee_percentage(self):
         """
@@ -216,15 +304,10 @@ class Payout(PayoutBase):
         assert self.status == PayoutLineStatuses.new, \
             'Can only recalculate for new Payout.'
 
-        # Campaign shorthand
-        campaign = self.project.projectcampaign
-
         self.payout_rule = self._get_payout_rule()
         fee_factor = self._get_fee_percentage()
 
-        self.amount_raised = money_from_cents(
-            campaign.money_donated
-        )
+        self.amount_raised = self.get_amount_raised()
 
         self.organization_fee = self.amount_raised * fee_factor
         self.amount_payable = self.amount_raised - self.organization_fee
@@ -240,31 +323,59 @@ class Payout(PayoutBase):
 
         return u'%d-%d' % (self.project.id, self.id)
 
-    @property
-    def safe_amount_payable(self):
-        """ Realtime amount of safe donations received. """
+    def get_amount_raised(self):
+        """ Realtime amount of raised ('paid', 'pending') donations. """
+
         # Get amount as Decimal
-        safe_amount = money_from_cents(self.project.projectcampaign.money_safe)
+        amount = round_money(
+            money_from_cents(self.project.projectcampaign.money_donated)
+        )
 
-        # Calculate fee factor
-        fee_factor = decimal.Decimal('1.00') - self._get_fee_percentage()
+        return amount
 
-        # Round it
-        safe_amount = round_money(safe_amount * fee_factor)
+    def get_amount_safe(self):
+        """ Realtime amount of safe ('paid') donations. """
+        # Get amount as Decimal
+        amount = round_money(
+            money_from_cents(self.project.projectcampaign.money_safe)
+        )
 
-        return safe_amount
+        return amount
 
-    @property
-    def is_valid(self):
-        """ Whether or not payment details are complete. """
-        # TODO: Do a more advanced check. Maybe use IBAN check by a B. Q. Konrath?
-        if self.receiver_account_iban and self.receiver_account_bic:
-            return True
-        return False
+    def get_amount_pending(self):
+        """ Realtime amount of pending donations. """
+        # Get amount as Decimal
+        amount = round_money(
+            money_from_cents(self.project.projectcampaign.money_pending)
+        )
+
+        return amount
+
+    def get_amount_failed(self):
+        """
+        Realtime difference between saved amount_raised, safe and pending.
+
+        Note: amount_raised is the saved property, other values are realtime.
+        """
+
+        amount_safe = self.get_amount_safe()
+        amount_pending = self.get_amount_pending()
+
+        amount_failed = self.amount_raised - amount_safe - amount_pending
+
+        if amount_failed <= decimal.Decimal('0.00'):
+            # Should never be less than 0
+            return decimal.Decimal('0.00')
+
+        return amount_failed
 
     def __unicode__(self):
         date = self.created.strftime('%d-%m-%Y')
         return  self.invoice_reference + " : " + date + " : " + self.receiver_account_number + " : EUR " + str(self.amount_payable)
+
+
+class PayoutLog(PayoutLogBase):
+    payout = models.ForeignKey(Payout, related_name='log_set')
 
 
 class OrganizationPayout(PayoutBase):
@@ -472,6 +583,8 @@ class OrganizationPayout(PayoutBase):
 
         # TODO: Prevent overlaps
 
+        super(OrganizationPayout, self).clean()
+
     def save(self, *args, **kwargs):
         """
         Calculate values on first creation and generate invoice reference.
@@ -506,6 +619,10 @@ class OrganizationPayout(PayoutBase):
             'start_date': self.start_date,
             'end_date': self.end_date
         }
+
+
+class OrganizationPayoutLog(PayoutLogBase):
+    payout = models.ForeignKey(OrganizationPayout, related_name='log_set')
 
 
 class BankMutationLine(models.Model):
@@ -610,5 +727,5 @@ def match_debit_mutations():
 from .signals import create_payout_for_fully_funded_project
 
 post_save.connect(
-    create_payout_for_fully_funded_project, weak=False, sender=Project
+    create_payout_for_fully_funded_project, weak=False, sender=PROJECT_MODEL
 )

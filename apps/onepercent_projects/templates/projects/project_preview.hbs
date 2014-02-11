@@ -1,0 +1,56 @@
+{% load bb_ember %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "project_preview" %}
+
+    <li class="project-item">
+
+        {{#linkTo 'project' getProject }}
+            <span class="project-header">
+
+                <figure class="project-image">
+                    <img {{bindAttr src="image" }} />
+                </figure>
+
+                <span class="project-title">
+                    <h3>{{title}}</h3>
+                    <span class="project-location"><span class="flaticon solid location-pin-1"></span> {{country.name}}</span>
+                </span>
+            </span>
+
+            <span {{bindAttr class=":project-status phase"}}>
+                {{#if isPhasePlan}}
+                    <span class="project-phase"><span class="flaticon solid lightbulb-3"></span> <strong>{% trans "New" %}</strong> <em>{% trans "Smart Idea" %}</em></span>
+                {{/if}}
+
+                {{#if isStatusCampaign}}
+                    {{#if money_asked }}
+                        <div class="project-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
+                        <span class="project-fund-amount"><strong>&euro;{{localize campaign.money_needed}}</strong> <em>{% trans "To go" %}</em></span>
+                    {{/if}}
+                    {{#if deadline }}
+                        <span class="project-days-left"><span class="flaticon solid clock-1"></span> <strong>{{campaign.daysToGo}}</strong> <em>{% trans "days" %}</em></span>
+                    {{/if}}
+                {{/if}}
+
+                {{#if isStatusCompleted}}
+                    <span class="project-phase"><span class="flaticon solid lightbulb-3"></span> <strong>{% trans "Project funded" %}</strong> <em>{% trans "Being realized" %}</em></span>
+                {{/if}}
+            </span>
+
+            <span class="project-description">
+                {{{pitch}}}
+
+                <span class="project-view">{% trans "View project" %}</span>
+            </span>
+
+        {{/linkTo}}
+
+        {{#if taskCount}}
+            <a class="project-tasks"><span class="flaticon solid wrench-1"></span> <strong>{{taskCount}}</strong> <em>{% trans "task(s) available" %}</em></a>
+        {{/if}}
+    </li>
+
+{% endtplhandlebars %}
+
