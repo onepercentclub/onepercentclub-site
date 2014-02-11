@@ -608,13 +608,13 @@ COWRY_PAYMENT_METHODS = {
 # Default VAT percentage as string (used in payouts)
 VAT_RATE = '0.21'
 
-# Settings for organization bank account. Please set this in secrets.py
-# SEPA = {
-#     'iban': '',
-#     'bic': '',
-#     'name': '',
-#     'id': ''
-# }
+# No way bank details are secret.
+# Put them in a convenient (version controlled) place
+SEPA = {
+    'iban': 'NL45RABO0132207044',
+    'bic': 'RABONL2U',
+    'name': '1%%CLUB',
+}
 
 # Salesforce app settings
 SALESFORCE_QUERY_TIMEOUT = 3
