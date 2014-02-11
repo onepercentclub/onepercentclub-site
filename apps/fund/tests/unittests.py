@@ -208,7 +208,7 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
 
         self._make_api_donation(self.another_user, project=self.some_project, amount=150)
         # Reload the project from db and check phase / money_needed
-        project = OnePercentProject.objects.get(pk=self.some_project.id)
+        project = Project.objects.get(pk=self.some_project.id)
         self.assertEqual(project.phase, 'act')
         self.assertEqual(project.projectcampaign.money_needed, 0)
 

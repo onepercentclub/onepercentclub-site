@@ -180,7 +180,6 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'bluebottle.utils.context_processors.installed_apps_context_processor',
 )
 
-
 ROOT_URLCONF = 'onepercentclub.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
@@ -235,9 +234,9 @@ INSTALLED_APPS = (
     'django_tools',
 
     # Cowry Payments
-    # 'apps.cowry',
-    # 'apps.cowry_docdata',
-    # 'apps.cowry_docdata_legacy',
+    'apps.cowry',
+    'apps.cowry_docdata',
+    'apps.cowry_docdata_legacy',
 
     # Password auth from old PHP site.
     'legacyauth',
