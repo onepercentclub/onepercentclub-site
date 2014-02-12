@@ -1,7 +1,7 @@
-from apps.onepercent_projects.models import ProjectPitch, ProjectPhases, ProjectPlan
+from apps.projects.models import ProjectPitch, ProjectPhases, ProjectPlan
 from django.core.exceptions import ImproperlyConfigured
 from rest_framework import permissions
-from .models import OnePercentProject
+from .models import Project
 
 
 class BaseIsUser(permissions.BasePermission):
@@ -34,7 +34,7 @@ class IsProjectOwner(permissions.BasePermission):
     Allows access only to project owner.
     """
     def has_object_permission(self, request, view, obj):
-        if isinstance(obj, OnePercentProject):
+        if isinstance(obj, Project):
             return obj.owner == request.user
         return obj.project.owner == request.user
 
@@ -65,7 +65,7 @@ class IsOwner(permissions.BasePermission):
     """
     def has_object_permission(self, request, view, obj):
         # Test for project model object-level permissions.
-        return isinstance(obj, OnePercentProject) and obj.owner == request.user
+        return isinstance(obj, Project) and obj.owner == request.user
 
 
 class IsProjectOwnerOrReadOnly(permissions.BasePermission):
@@ -80,8 +80,8 @@ class IsProjectOwnerOrReadOnly(permissions.BasePermission):
             project_slug = request.QUERY_PARAMS.get('project', None)
         if project_slug:
             try:
-                project = OnePercentProject.objects.get(slug=project_slug)
-            except OnePercentProject.DoesNotExist:
+                project = Project.objects.get(slug=project_slug)
+            except Project.DoesNotExist:
                 return None
         else:
             return None
@@ -103,7 +103,7 @@ class IsProjectOwnerOrReadOnly(permissions.BasePermission):
             return True
 
         # Test for project model object-level permissions.
-        return isinstance(obj, OnePercentProject) and obj.owner == request.user
+        return isinstance(obj, Project) and obj.owner == request.user
 
 
 class NoRunningProjectsOrReadOnly(permissions.BasePermission):
@@ -113,7 +113,7 @@ class NoRunningProjectsOrReadOnly(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
 
-        project = OnePercentProject.objects.filter(owner=request.user)
+        project = Project.objects.filter(owner=request.user)
 
         if len(project.filter(phase__in=[ProjectPhases.pitch, ProjectPhases.plan, ProjectPhases.campaign, ProjectPhases.act, ProjectPhases.results]).all()):
             return False

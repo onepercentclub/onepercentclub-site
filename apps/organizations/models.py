@@ -13,7 +13,6 @@ from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as
 from bluebottle.utils.models import Address
 from django.core.files.storage import FileSystemStorage
 
-
 class Organization(models.Model):
     """
     Organizations can run Projects. An organization has one or more members.

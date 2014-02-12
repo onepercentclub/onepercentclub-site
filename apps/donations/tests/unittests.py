@@ -3,7 +3,7 @@ import re
 from django.test import TestCase
 from django.core import mail
 
-from apps.onepercent_projects.tests import ProjectTestsMixin
+from apps.projects.tests import ProjectTestsMixin
 from apps.fund.models import Donation, DonationStatuses
 from apps.fundraisers.tests.helpers import FundRaiserTestsMixin
 

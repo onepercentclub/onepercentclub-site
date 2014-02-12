@@ -3,7 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 from admin_tools.dashboard.modules import DashboardModule
-from apps.onepercent_projects.models import (OnePercentProject, ProjectPitch, ProjectPlan,
+from apps.projects.models import (Project, ProjectPitch, ProjectPlan,
                                   ProjectResult, ProjectCampaign, ProjectPhases)
 
 
@@ -17,7 +17,7 @@ class RecentProjects(DashboardModule):
         super(RecentProjects, self).__init__(title, **kwargs)
 
     def init_with_context(self, context):
-        qs = OnePercentProject.objects.order_by('-created')
+        qs = Project.objects.order_by('-created')
         self.children = qs[:self.limit]
         if not len(self.children):
             self.pre_content = _('No recent projects.')
@@ -91,12 +91,12 @@ class FundedProjects(DashboardModule):
 
     def init_with_context(self, context):
 
-        qs1 = OnePercentProject.objects.filter(
+        qs1 = Project.objects.filter(
                 Q(projectphaselog__phase=ProjectPhases.act)
             ).order_by('-projectphaselog__created')[:self.limit]
 
         qs1_project_ids = qs1.values_list('id', flat=True)
-        qs2 = OnePercentProject.objects.filter(
+        qs2 = Project.objects.filter(
                 projectresult__status = ProjectResult.ResultStatuses.running
             ).exclude(
                 projectresult = None

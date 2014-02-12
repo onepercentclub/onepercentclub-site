@@ -37,7 +37,7 @@ from django.template import Context
 from django.utils import translation
 from django.utils.translation import ugettext_lazy as _
 
-from apps.onepercent_projects.models import OnePercentProject
+from apps.projects.models import Project
 from apps.tasks.models import Task
 from bluebottle.wallposts.models import TextWallPost, Reaction
 from apps.mail import send_mail
@@ -53,7 +53,7 @@ def new_wallpost_notification(sender, instance, created, **kwargs):
     site = 'https://' + Site.objects.get_current().domain
 
     # Project Wall Post
-    if isinstance(post.content_object, OnePercentProject):
+    if isinstance(post.content_object, Project):
         project = post.content_object
         project_owner = project.owner
     
@@ -98,7 +98,7 @@ def new_reaction_notification(sender, instance, created, **kwargs):
     post = instance.wallpost
 
     # Project Wall Post
-    if isinstance(post.content_object, OnePercentProject):
+    if isinstance(post.content_object, Project):
         project = post.content_object
         project_owner = project.owner
 

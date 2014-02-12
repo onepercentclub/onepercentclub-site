@@ -1,11 +1,11 @@
-from bluebottle.projects.admin import BaseProjectAdmin
-from bluebottle.projects.models import ProjectPhase
+from bluebottle.bb_projects.admin import BaseProjectAdmin
+from bluebottle.bb_projects.models import ProjectPhase
 from django.contrib import admin
 from sorl.thumbnail.admin import AdminImageMixin
 import logging
 
 from .models import PartnerOrganization
-# from onepercent_projects.models import OnePercentProject
+# from projects.models import OnePercentProject
 
 logger = logging.getLogger(__name__)
 

@@ -1,7 +1,7 @@
 from django.db import models
 
 
-from bluebottle.accounts.models import BlueBottleBaseUser
+from bluebottle.bb_accounts.models import BlueBottleBaseUser
 
 class OnepercentUser(BlueBottleBaseUser):
 

@@ -1,22 +1,19 @@
 from django.contrib.contenttypes.models import ContentType
-
-
 from rest_framework import serializers
 
-
-from bluebottle.accounts.serializers import UserPreviewSerializer
+from bluebottle.bb_accounts.serializers import UserPreviewSerializer
 from bluebottle.bluebottle_drf2.serializers import (SorlImageField, SlugGenericRelatedField, PolymorphicSerializer, EuroField,
                                               TagSerializer, ImageSerializer, TaggableSerializerMixin)
 from bluebottle.geo.models import Country
 from bluebottle.utils.serializers import MetaField
-
-
-from apps.fund.models import Donation
-from apps.onepercent_projects.models import ProjectPitch, ProjectPlan, ProjectCampaign, ProjectTheme
 from bluebottle.wallposts.models import TextWallPost, MediaWallPost
 from bluebottle.wallposts.serializers import TextWallPostSerializer, MediaWallPostSerializer
 
-from .models import OnePercentProject
+from bluebottle.bb_projects.serializers import ProjectSerializer as BaseProjectSerializer
+
+from apps.fund.models import Donation
+from apps.projects.models import ProjectPitch, ProjectPlan, ProjectCampaign, ProjectTheme
+from .models import Project
 
 
 class ProjectCountrySerializer(serializers.ModelSerializer):
@@ -67,7 +64,7 @@ class ProjectCampaignSerializer(serializers.ModelSerializer):
         fields = ('id', 'project', 'money_asked', 'money_donated', 'money_needed', 'deadline', 'status')
 
 
-class ProjectSerializer(serializers.ModelSerializer):
+class ProjectSerializer(BaseProjectSerializer):
     id = serializers.CharField(source='slug', read_only=True)
 
     owner = UserPreviewSerializer()
@@ -91,10 +88,10 @@ class ProjectSerializer(serializers.ModelSerializer):
         super(ProjectSerializer, self).__init__(*args, **kwargs)
 
     class Meta:
-        model = OnePercentProject
+        model = Project
         fields = (
             'id', 'created', 'title', 'owner', 'coach', 'plan', 'campaign', 'phase', 'popularity',
-            'task_count', 'meta_data', 'is_campaign',
+            'task_count', 'meta_data', 'is_campaign', 'latitude', 'longitude'
         )
 
 
@@ -109,7 +106,7 @@ class ProjectPreviewSerializer(serializers.ModelSerializer):
     task_count = serializers.IntegerField(source='task_count')
 
     class Meta:
-        model = OnePercentProject
+        model = Project
         fields = ('id', 'title', 'image', 'phase', 'campaign', 'pitch', 'popularity', 'country', 'task_count',
                   'is_campaign')
 
@@ -152,7 +149,7 @@ class ManageProjectSerializer(serializers.ModelSerializer):
     coach = serializers.PrimaryKeyRelatedField(source='coach', read_only=True)
 
     class Meta:
-        model = OnePercentProject
+        model = Project
         fields = ('id', 'created', 'title', 'url', 'phase', 'pitch', 'plan', 'campaign', 'coach')
 
 
@@ -161,7 +158,7 @@ class ManageProjectSerializer(serializers.ModelSerializer):
 class ProjectTextWallPostSerializer(TextWallPostSerializer):
     """ TextWallPostSerializer with project specific customizations. """
 
-    project = SlugGenericRelatedField(to_model=OnePercentProject)
+    project = SlugGenericRelatedField(to_model=Project)
     url = serializers.HyperlinkedIdentityField(view_name='project-textwallpost-detail')
 
     class Meta(TextWallPostSerializer.Meta):
@@ -170,7 +167,7 @@ class ProjectTextWallPostSerializer(TextWallPostSerializer):
 
     def save(self, **kwargs):
         # Save the project content type on save.
-        project_type = ContentType.objects.get_for_model(OnePercentProject)
+        project_type = ContentType.objects.get_for_model(Project)
         self.object.content_type_id = project_type.id
         return super(ProjectTextWallPostSerializer, self).save(**kwargs)
 
@@ -178,7 +175,7 @@ class ProjectTextWallPostSerializer(TextWallPostSerializer):
 class ProjectMediaWallPostSerializer(MediaWallPostSerializer):
     """ MediaWallPostSerializer with project specific customizations. """
 
-    project = SlugGenericRelatedField(to_model=OnePercentProject)
+    project = SlugGenericRelatedField(to_model=Project)
     url = serializers.HyperlinkedIdentityField(view_name='project-mediawallpost-detail')
 
     class Meta(MediaWallPostSerializer.Meta):
@@ -187,7 +184,7 @@ class ProjectMediaWallPostSerializer(MediaWallPostSerializer):
 
     def save(self, **kwargs):
         # Save the project content type on save.
-        project_type = ContentType.objects.get_for_model(OnePercentProject)
+        project_type = ContentType.objects.get_for_model(Project)
         self.object.content_type_id = project_type.id
         return super(ProjectMediaWallPostSerializer, self).save(**kwargs)
 

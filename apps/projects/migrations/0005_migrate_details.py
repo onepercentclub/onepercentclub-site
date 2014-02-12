@@ -1,48 +1,30 @@
-# -*- coding: utf-8 -*-
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+from ubuntuone.storageprotocol.errors import DoesNotExistError
+from south.v2 import DataMigration
+from django.core.exceptions import ObjectDoesNotExist
 
 
-class Migration(SchemaMigration):
+class Migration(DataMigration):
 
     def forwards(self, orm):
-        # Adding field 'OnePercentProject.status'
-        db.add_column('projects_project', 'status',
-                      self.gf('django.db.models.fields.related.ForeignKey')(default=1, to=orm['projects.ProjectPhase']),
-                      keep_default=False)
-        db.add_column('projects_project', 'theme',
-                      self.gf('django.db.models.fields.related.ForeignKey')(default=1, to=orm['projects.ProjectTheme']),
-                      keep_default=False)
-        db.add_column('projects_project', 'pitch',
-                      self.gf('django.db.models.fields.TextField')(default='', blank=True),
-                      keep_default=False)
-        db.add_column('projects_project', 'favorite',
-                      self.gf('django.db.models.fields.BooleanField')(default=True),
-                      keep_default=False)
-        db.add_column('projects_project', 'description',
-                      self.gf('django.db.models.fields.TextField')(default='', blank=True),
-                      keep_default=False)
-        db.add_column('projects_project', 'image',
-                      self.gf('sorl.thumbnail.fields.ImageField')(default='', max_length=255, blank=True),
-                      keep_default=False)
-        db.add_column('projects_project', 'organization',
-                      self.gf('django.db.models.fields.related.ForeignKey')(to=orm['organizations.Organization'], null=True, blank=True),
-                      keep_default=False)
-        db.add_column('projects_project', 'country',
-                      self.gf('django.db.models.fields.related.ForeignKey')(to=orm['geo.Country'], null=True, blank=True),
-                      keep_default=False)
+        for project in orm['projects.onepercentproject'].objects.all():
+            try:
+                project.projectplan
+                project.description = project.projectplan.description
+                project.pitch = project.projectplan.pitch
+                project.country = project.projectplan.country
+                project.latitude = project.projectplan.latitude
+                project.longitude = project.projectplan.longitude
+                project.reach = project.projectplan.reach
+                project.video_url = project.projectplan.video_url
+                project.image = project.projectplan.image
+                project.organization = project.projectplan.organization
 
-    def backwards(self, orm):
-        db.delete_column('projects_project', 'status_id')
-        db.delete_column('projects_project', 'theme_id')
-        db.delete_column('projects_project', 'pitch')
-        db.delete_column('projects_project', 'favorite')
-        db.delete_column('projects_project', 'description')
-        db.delete_column('projects_project', 'image')
-        db.delete_column('projects_project', 'organization')
-        db.delete_column('projects_project', 'country')
+            except ObjectDoesNotExist:
+                pass
+            project.save()
+
+    def backwards(self):
+        pass
 
 
     models = {
@@ -126,29 +108,34 @@ class Migration(SchemaMigration):
             'website': ('django.db.models.fields.URLField', [], {'max_length': '200', 'blank': 'True'}),
             'why': ('django.db.models.fields.TextField', [], {'max_length': '265', 'blank': 'True'})
         },
-        u'onepercent_projects.onepercentproject': {
+        u'projects.onepercentproject': {
             'Meta': {'ordering': "['title']", 'object_name': 'OnePercentProject', 'db_table': "'projects_project'"},
             'coach': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'team_member'", 'null': 'True', 'to': u"orm['members.OnepercentUser']"}),
             'country': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['geo.Country']", 'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            'deadline': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'favorite': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'image': ('sorl.thumbnail.fields.ImageField', [], {'max_length': '255', 'blank': 'True'}),
             'is_campaign': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'latitude': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '21', 'decimal_places': '18', 'blank': 'True'}),
+            'longitude': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '21', 'decimal_places': '18', 'blank': 'True'}),
             'organization': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['organizations.Organization']", 'null': 'True', 'blank': 'True'}),
             'owner': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'owner'", 'to': u"orm['members.OnepercentUser']"}),
-            'partner_organization': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['onepercent_projects.PartnerOrganization']", 'null': 'True', 'blank': 'True'}),
+            'partner_organization': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['projects.PartnerOrganization']", 'null': 'True', 'blank': 'True'}),
             'phase': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
             'pitch': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'popularity': ('django.db.models.fields.FloatField', [], {'default': '0'}),
+            'reach': ('django.db.models.fields.PositiveIntegerField', [], {'null': 'True', 'blank': 'True'}),
             'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '100'}),
             'status': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['projects.ProjectPhase']"}),
             'theme': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['projects.ProjectTheme']", 'null': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'}),
-            'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'})
+            'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            'video_url': ('django.db.models.fields.URLField', [], {'default': "''", 'max_length': '100', 'null': 'True', 'blank': 'True'})
         },
-        u'onepercent_projects.partnerorganization': {
+        u'projects.partnerorganization': {
             'Meta': {'object_name': 'PartnerOrganization', 'db_table': "'projects_partnerorganization'"},
             'description': ('django.db.models.fields.TextField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -156,17 +143,17 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'}),
             'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '100'})
         },
-        u'onepercent_projects.projectbudgetline': {
+        u'projects.projectbudgetline': {
             'Meta': {'object_name': 'ProjectBudgetLine'},
             'amount': ('django.db.models.fields.PositiveIntegerField', [], {}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'currency': ('django.db.models.fields.CharField', [], {'default': "'EUR'", 'max_length': '3'}),
             'description': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '255'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'project': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['onepercent_projects.OnePercentProject']"}),
+            'project': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['projects.OnePercentProject']"}),
             'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'})
         },
-        u'onepercent_projects.projectcampaign': {
+        u'projects.projectcampaign': {
             'Meta': {'object_name': 'ProjectCampaign', 'db_table': "'projects_projectcampaign'"},
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'currency': ('django.db.models.fields.CharField', [], {'default': "'EUR'", 'max_length': "'10'"}),
@@ -176,18 +163,18 @@ class Migration(SchemaMigration):
             'money_donated': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
             'money_needed': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
             'payout_date': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
-            'project': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['onepercent_projects.OnePercentProject']", 'unique': 'True'}),
+            'project': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['projects.OnePercentProject']", 'unique': 'True'}),
             'status': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
             'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'})
         },
-        u'onepercent_projects.projectphaselog': {
+        u'projects.projectphaselog': {
             'Meta': {'unique_together': "(('project', 'phase'),)", 'object_name': 'ProjectPhaseLog', 'db_table': "'projects_projectphaselog'"},
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'phase': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
-            'project': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['onepercent_projects.OnePercentProject']"})
+            'project': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['projects.OnePercentProject']"})
         },
-        u'onepercent_projects.projectpitch': {
+        u'projects.projectpitch': {
             'Meta': {'object_name': 'ProjectPitch', 'db_table': "'projects_projectpitch'"},
             'country': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['geo.Country']", 'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
@@ -198,14 +185,14 @@ class Migration(SchemaMigration):
             'longitude': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '21', 'decimal_places': '18', 'blank': 'True'}),
             'need': ('django.db.models.fields.CharField', [], {'default': "'both'", 'max_length': '20', 'null': 'True'}),
             'pitch': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'project': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['onepercent_projects.OnePercentProject']", 'unique': 'True'}),
+            'project': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['projects.OnePercentProject']", 'unique': 'True'}),
             'status': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
             'theme': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['projects.ProjectTheme']", 'null': 'True', 'blank': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'video_url': ('django.db.models.fields.URLField', [], {'default': "''", 'max_length': '100', 'blank': 'True'})
         },
-        u'onepercent_projects.projectplan': {
+        u'projects.projectplan': {
             'Meta': {'object_name': 'ProjectPlan', 'db_table': "'projects_projectplan'"},
             'campaign': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'country': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['geo.Country']", 'null': 'True', 'blank': 'True'}),
@@ -222,7 +209,7 @@ class Migration(SchemaMigration):
             'need': ('django.db.models.fields.CharField', [], {'default': "'both'", 'max_length': '20', 'null': 'True'}),
             'organization': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['organizations.Organization']", 'null': 'True', 'blank': 'True'}),
             'pitch': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'project': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['onepercent_projects.OnePercentProject']", 'unique': 'True'}),
+            'project': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['projects.OnePercentProject']", 'unique': 'True'}),
             'reach': ('django.db.models.fields.PositiveIntegerField', [], {'null': 'True', 'blank': 'True'}),
             'status': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
             'theme': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['projects.ProjectTheme']", 'null': 'True', 'blank': 'True'}),
@@ -230,11 +217,11 @@ class Migration(SchemaMigration):
             'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'video_url': ('django.db.models.fields.URLField', [], {'default': "''", 'max_length': '100', 'null': 'True', 'blank': 'True'})
         },
-        u'onepercent_projects.projectresult': {
+        u'projects.projectresult': {
             'Meta': {'object_name': 'ProjectResult', 'db_table': "'projects_projectresult'"},
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'project': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['onepercent_projects.OnePercentProject']", 'unique': 'True'}),
+            'project': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['projects.OnePercentProject']", 'unique': 'True'}),
             'status': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
             'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'})
         },
@@ -305,4 +292,4 @@ class Migration(SchemaMigration):
         }
     }
 
-    complete_apps = ['onepercent_projects']
+    complete_apps = ['projects', 'projects']
