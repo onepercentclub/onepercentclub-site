@@ -6,7 +6,7 @@ from apps.fundraisers.models import FundRaiser
 from apps.quotes.models import Quote
 from apps.statistics.models import Statistic
 
-from bluebottle.projects import get_project_model
+from bluebottle.bb_projects import get_project_model
 
 PROJECT_MODEL = get_project_model()
 

@@ -1,9 +1,9 @@
 # coding=utf-8
-from apps.onepercent_projects.serializers import ProjectPreviewSerializer
+from apps.projects.serializers import ProjectPreviewSerializer
 from apps.vouchers.serializers import VoucherSerializer, OrderCurrentVoucherSerializer
-from bluebottle.accounts.serializers import UserPreviewSerializer
+from bluebottle.bb_accounts.serializers import UserPreviewSerializer
 from bluebottle.bluebottle_drf2.serializers import EuroField
-from apps.onepercent_projects.models import ProjectPhases
+from apps.projects.models import ProjectPhases
 from bluebottle.utils.serializers import MetaField
 from django.utils.translation import ugettext as _
 from rest_framework import serializers

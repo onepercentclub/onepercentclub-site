@@ -14,7 +14,7 @@ from bluebottle.geo import models as geo_models
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 
 
-from ..models import OnePercentProject, ProjectPhases, ProjectTheme
+from ..models import Project, ProjectPhases, ProjectTheme
 from .unittests import ProjectTestsMixin
 
 
@@ -100,7 +100,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
 
         # Create dict of projects in the database.
         expected_projects = []
-        for p in OnePercentProject.objects.filter(phase=ProjectPhases.campaign).order_by('popularity')[:len(web_projects)]:
+        for p in Project.objects.filter(phase=ProjectPhases.campaign).order_by('popularity')[:len(web_projects)]:
             expected_projects.append({
                 'title': p.title.upper(),  # Uppercase the title for comparison.
                 'money_needed': int(round(p.projectcampaign.money_needed / 100.0)),

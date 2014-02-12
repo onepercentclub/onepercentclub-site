@@ -22,7 +22,7 @@ from .utils import (
 )
 from .choices import PayoutLineStatuses, PayoutRules
 
-from bluebottle.projects import get_project_model
+from bluebottle.bb_projects import get_project_model
 
 PROJECT_MODEL = get_project_model()
 

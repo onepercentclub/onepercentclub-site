@@ -243,18 +243,20 @@ INSTALLED_APPS = (
 
     #Apps extending bluebottle base apps
     'apps.members', # Extends bluebottle.accounts
-    'apps.onepercent_tasks',
-    'apps.onepercent_projects',
+    'apps.tasks',
+    'apps.projects',
     'apps.blogs',
 
     # bluebottle apps
-    'bluebottle.accounts',
-    'bluebottle.tasks',
+    'bluebottle.bb_accounts',
+    'bluebottle.bb_tasks',
+    'bluebottle.bb_projects',
+# FIXME: Use this
+#    'bluebottle.bb_organizations',
     'bluebottle.common',
     'bluebottle.wallposts',
     'bluebottle.utils',
     'bluebottle.geo',
-    'bluebottle.projects',
 
     'apps.bluebottle_dashboard',
     'apps.contentplugins',
@@ -290,8 +292,8 @@ INSTALLED_APPS = (
 
 # Custom User model
 AUTH_USER_MODEL = 'members.OnepercentUser'
-PROJECTS_PROJECT_MODEL = 'onepercent_projects.OnepercentProject'
-TASKS_TASK_MODEL = 'onepercent_tasks.OnepercentTask'
+PROJECTS_PROJECT_MODEL = 'projects.Project'
+TASKS_TASK_MODEL = 'tasks.Task'
 ORGANIZATIONS_ORGANIZATION_MODEL = 'organizations.Organization'
 
 
@@ -451,7 +453,7 @@ FLUENT_DASHBOARD_APP_GROUPS = (
     }),
     (_('Projects'), {
         'models': (
-            'apps.onepercent_projects.*',
+            'apps.projects.*',
             'apps.projects.*',
             'apps.fundraisers.*',
             'apps.organizations.*',
@@ -478,7 +480,7 @@ FLUENT_DASHBOARD_APP_GROUPS = (
     }),
     (_('Tasks'), {
         'models': (
-            'apps.onepercent_tasks.*',
+            'apps.tasks.*',
         ),
         'module': 'fluent_dashboard.modules.AppIconList',
         'collapsible': False,

@@ -1,8 +1,8 @@
 import logging
 from registration.models import RegistrationProfile
-from bluebottle.accounts.models import BlueBottleUser
+from bluebottle.bb_accounts.models import BlueBottleUser
 from apps.cowry_docdata.models import payment_method_mapping
-from apps.onepercent_projects.models import OnePercentProject, ProjectBudgetLine, ProjectCampaign, ProjectPitch, ProjectPlan, \
+from apps.projects.models import Project, ProjectBudgetLine, ProjectCampaign, ProjectPitch, ProjectPlan, \
     ProjectPhases, ProjectAmbassador
 from apps.organizations.models import Organization
 from apps.tasks.models import Task, TaskMember
@@ -208,7 +208,7 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
     error_count = 0
     success_count = 0
 
-    projects = OnePercentProject.objects.all()
+    projects = Project.objects.all()
 
     if sync_from_datetime:
         projects = projects.filter(updated__gte=sync_from_datetime)

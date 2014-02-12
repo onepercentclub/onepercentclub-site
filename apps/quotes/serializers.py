@@ -1,4 +1,4 @@
-from bluebottle.accounts.serializers import UserPreviewSerializer
+from bluebottle.bb_accounts.serializers import UserPreviewSerializer
 from fluent_contents.rendering import render_placeholder
 from rest_framework import serializers
 from .models import Quote

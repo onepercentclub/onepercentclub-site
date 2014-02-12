@@ -1,4 +1,4 @@
-from bluebottle.accounts.serializers import (
+from bluebottle.bb_accounts.serializers import (
     UserProfileSerializer as BaseUserProfileSerializer)
 
 class UserProfileSerializer(BaseUserProfileSerializer):

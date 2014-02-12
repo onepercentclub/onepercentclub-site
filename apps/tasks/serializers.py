@@ -1,4 +1,4 @@
-from bluebottle.tasks.serializers import TaskSerializer
+from bluebottle.bb_tasks.serializers import TaskSerializer
 
 class OnepercentTaskSerializer(TaskSerializer):
 

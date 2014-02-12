@@ -1,5 +1,5 @@
 import datetime
-from bluebottle.projects.models import BaseProject
+from bluebottle.bb_projects.models import BaseProject
 from django.db import models
 from django.db.models.aggregates import Count, Sum
 from django.db.models.signals import post_save
@@ -88,19 +88,13 @@ class ProjectManager(models.Manager):
         return qs
 
 
-class OnePercentProject(BaseProject):
+class Project(BaseProject):
     """ The base Project model. """
 
-    # owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("initiator"), help_text=_("Project owner"), related_name="owner")
-
     coach = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("coach"), help_text=_("Assistent at 1%OFFICE"), related_name="team_member", null=True, blank=True)
-
-    # title = models.CharField(_("title"), max_length=255, unique=True)
-    # slug = models.SlugField(_("slug"), max_length=100, unique=True)
-
     phase = models.CharField(_("phase"), max_length=20, choices=ProjectPhases.choices, help_text=_("Phase this project is in right now."))
 
-    partner_organization = models.ForeignKey('onepercent_projects.PartnerOrganization', null=True, blank=True)
+    partner_organization = models.ForeignKey('projects.PartnerOrganization', null=True, blank=True)
 
     latitude = models.DecimalField(
         _('latitude'), max_digits=21, decimal_places=18, null=True, blank=True)
@@ -119,9 +113,6 @@ class OnePercentProject(BaseProject):
 
     deadline = models.DateTimeField(_('deadline'), null=True, blank=True)
 
-    # created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
-    # updated = ModificationDateTimeField()
-
     popularity = models.FloatField(null=False, default=0)
 
     is_campaign = models.BooleanField(default=False, help_text=_("Project is part of a campaign and gets special promotion."))
@@ -131,7 +122,7 @@ class OnePercentProject(BaseProject):
     _original_phase = None
 
     def __init__(self, *args, **kwargs):
-        super(OnePercentProject, self).__init__(*args, **kwargs)
+        super(Project, self).__init__(*args, **kwargs)
         # we do this for efficiency reasons. Comparing with the object in database
         # through a pre_save handler is expensive because it requires at least one
         # extra query. The phase logging is handled in a post_save only when it's
@@ -182,13 +173,13 @@ class OnePercentProject(BaseProject):
 
     @property
     def task_count(self):
-        from bluebottle.tasks import get_task_model
+        from bluebottle.bb_tasks import get_task_model
         TASK_MODEL = get_task_model()
         return len(self.onepercenttask_set.filter(status=TASK_MODEL.TaskStatuses.open).all())
 
     @property
     def get_open_tasks(self):
-        from bluebottle.tasks import get_task_model
+        from bluebottle.bb_tasks import get_task_model
         TASK_MODEL = get_task_model()
         return self.onepercenttask_set.filter(status=TASK_MODEL.TaskStatuses.open).all()
 
@@ -251,6 +242,7 @@ class OnePercentProject(BaseProject):
         return tweet
 
     class Meta:
+        default_serializer = 'projects.OnePercentProject.serialzer.ProjectSerializer'
         db_table = 'projects_project'
         ordering = ['title']
         verbose_name = _("project")
@@ -260,7 +252,7 @@ class OnePercentProject(BaseProject):
         if not self.slug:
             original_slug = slugify(self.title)
             counter = 2
-            qs = OnePercentProject.objects
+            qs = Project.objects
             while qs.filter(slug = original_slug).exists():
                 original_slug = '%s-%d' % (original_slug, counter)
                 counter += 1
@@ -268,7 +260,7 @@ class OnePercentProject(BaseProject):
 
         if not self.phase:
             self.phase = ProjectPhases.pitch
-        super(OnePercentProject, self).save(*args, **kwargs)
+        super(Project, self).save(*args, **kwargs)
 
 
 class ProjectBudgetLine(models.Model):
@@ -587,7 +579,7 @@ class PartnerOrganization(models.Model):
         return self.slug
 
 
-@receiver(post_save, weak=False, sender=OnePercentProject, dispatch_uid="log-project-phase")
+@receiver(post_save, weak=False, sender=Project, dispatch_uid="log-project-phase")
 def log_project_phase(sender, instance, created, **kwargs):
     """ Log the project phases when they change """
     if instance.phase != instance._original_phase or created:
@@ -600,7 +592,7 @@ def log_project_phase(sender, instance, created, **kwargs):
         # This needs to be in this method instead of in its own method because 'instance._original_phase' is modified
         # below which makes it impossible to use 'instance._original_phase' condition in another post_save method.
         if instance._original_phase == ProjectPhases.campaign and phase == ProjectPhases.act:
-            project_funded.send(sender=OnePercentProject, instance=instance, first_time_funded=log_created)
+            project_funded.send(sender=Project, instance=instance, first_time_funded=log_created)
 
         # set the new phase as 'original', as subsequent saves can occur,
         # leading to unique_constraints being violated (plan_status_status_changed)
@@ -608,12 +600,12 @@ def log_project_phase(sender, instance, created, **kwargs):
         instance._original_phase = instance.phase
 
 
-@receiver(project_funded, weak=False, sender=OnePercentProject, dispatch_uid="email-project-team-project-funded")
+@receiver(project_funded, weak=False, sender=Project, dispatch_uid="email-project-team-project-funded")
 def email_project_team_project_funded(sender, instance, first_time_funded, **kwargs):
     mail_project_funded_internal(instance)
 
 
-@receiver(post_save, weak=False, sender=OnePercentProject)
+@receiver(post_save, weak=False, sender=Project)
 def progress_project_phase(sender, instance, created, **kwargs):
     # Skip all post save logic during fixture loading.
     if kwargs.get('raw', False):

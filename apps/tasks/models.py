@@ -1,9 +1,9 @@
 from django.db import models
-from bluebottle.tasks.models import BaseTask
+from bluebottle.bb_tasks.models import BaseTask
 from django.utils.translation import ugettext as _
 
 
-class OnepercentTask(BaseTask):
+class Task(BaseTask):
     """
     Extended Task model for onepercent club
     """
@@ -16,4 +16,4 @@ class OnepercentTask(BaseTask):
 
     class Meta:
         db_table = 'tasks_task'
-        default_serializer = 'apps.onepercent_tasks.serializers.TaskSerializer'
+        default_serializer = 'apps.tasks.serializers.TaskSerializer'

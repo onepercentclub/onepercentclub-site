@@ -13,7 +13,7 @@ from apps.cowry_docdata.adapters import WebDirectDocDataDirectDebitPaymentAdapte
 from apps.cowry_docdata.exceptions import DocDataPaymentException
 from apps.cowry_docdata.models import DocDataPaymentOrder
 from apps.fund.models import RecurringDirectDebitPayment, Order, OrderStatuses, Donation
-from apps.onepercent_projects.models import OnePercentProject, ProjectPhases
+from apps.projects.models import Project, ProjectPhases
 from ...mails import mail_monthly_donation_processed_notification
 
 
@@ -96,7 +96,7 @@ def update_last_donation(donation, remaining_amount, popular_projects):
     Updates the last donation with the remaining amount of the payment. If the donation is more than the project
     needs, the project will be filled and the balance will be used to fill the popular projects recursively.
     """
-    project = OnePercentProject.objects.get(id=donation.project_id)
+    project = Project.objects.get(id=donation.project_id)
 
     # Base case.
     if project.projectcampaign.money_donated + remaining_amount <= project.projectcampaign.money_asked or \
@@ -131,7 +131,7 @@ def create_recurring_order(user, projects, order=None):
         order = Order.objects.create(status=OrderStatuses.recurring, user=user, recurring=True)
 
     for p in projects:
-        project = OnePercentProject.objects.get(id=p.id)
+        project = Project.objects.get(id=p.id)
         if project.phase == ProjectPhases.campaign:
             Donation.objects.create(user=user, project=project, amount=0, currency='EUR',
                                     donation_type=Donation.DonationTypes.recurring, order=order)
@@ -156,7 +156,7 @@ def correct_donation_amounts(popular_projects, recurring_order, recurring_paymen
     logger.info("Really! {0} donations".format(len(donations)))
     for i in range(0, num_donations - 1):
         donation = donations[i]
-        project = OnePercentProject.objects.get(id=donation.project_id)
+        project = Project.objects.get(id=donation.project_id)
         if project.projectcampaign.money_donated + amount_per_project > project.projectcampaign.money_asked:
             donation.amount = project.projectcampaign.money_asked - project.projectcampaign.money_donated
         else:
@@ -181,7 +181,7 @@ def process_monthly_donations(recurring_payments_queryset, send_email):
     webdirect_payment_adapter = WebDirectDocDataDirectDebitPaymentAdapter()
 
     # Fixed lists of the popular projects.
-    popular_projects_all = list(OnePercentProject.objects.filter(phase=ProjectPhases.campaign).order_by('-popularity'))
+    popular_projects_all = list(Project.objects.filter(phase=ProjectPhases.campaign).order_by('-popularity'))
     top_three_projects = popular_projects_all[:3]
     popular_projects_rest = popular_projects_all[3:]
 
@@ -237,7 +237,7 @@ def process_monthly_donations(recurring_payments_queryset, send_email):
 
         # Remove donations to projects that are no longer in the campaign phase.
         for donation in recurring_order.donations.all():
-            project = OnePercentProject.objects.get(id=donation.project.id)
+            project = Project.objects.get(id=donation.project.id)
             if project.phase != ProjectPhases.campaign:
                 donation.delete()
 

@@ -1,7 +1,7 @@
 """
 Tests for the love app concerning model data.
 """
-from bluebottle.accounts.models import BlueBottleUser
+from bluebottle.bb_accounts.models import BlueBottleUser
 from apps.love.models import LoveDeclaration
 from bluebottle.utils.tests import CustomSettingsTestCase
 from .models import TestBlogPost

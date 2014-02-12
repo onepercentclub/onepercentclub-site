@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from bluebottle.accounts.serializers import UserPreviewSerializer
+from bluebottle.bb_accounts.serializers import UserPreviewSerializer
 from bluebottle.bluebottle_drf2.serializers import EuroField, ImageSerializer, OEmbedField
 
 from bluebottle.utils.serializers import MetaField

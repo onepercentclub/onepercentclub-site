@@ -7,7 +7,7 @@ from bluebottle.bluebottle_drf2.permissions import IsAuthorOrReadOnly, AllowNone
 from bluebottle.utils.utils import set_author_editor_ip, get_client_ip
 from rest_framework import permissions
 from bluebottle.bluebottle_drf2.views import ListCreateAPIView, RetrieveUpdateDeleteAPIView, ListAPIView
-from apps.onepercent_projects.models import OnePercentProject
+from apps.projects.models import Project
 from .models import WallPost, Reaction
 from .serializers import ReactionSerializer, WallPostSerializer
 
@@ -35,8 +35,8 @@ class WallPostList(ListAPIView):
         parent_id = self.request.QUERY_PARAMS.get('parent_id', None)
         if parent_type == 'project' and parent_id:
             try:
-                project = OnePercentProject.objects.get(slug=parent_id)
-            except OnePercentProject.DoesNotExist:
+                project = Project.objects.get(slug=parent_id)
+            except Project.DoesNotExist:
                 return WallPost.objects.none()
             queryset = queryset.filter(object_id=project.id)
 
@@ -59,8 +59,8 @@ class TextWallPostList(ListCreateAPIView):
         parent_id = self.request.QUERY_PARAMS.get('parent_id', None)
         if parent_type == 'project' and parent_id:
             try:
-                project = OnePercentProject.objects.get(slug=parent_id)
-            except OnePercentProject.DoesNotExist:
+                project = Project.objects.get(slug=parent_id)
+            except Project.DoesNotExist:
                 return WallPost.objects.none()
             queryset = queryset.filter(object_id=project.id)
 

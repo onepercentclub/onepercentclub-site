@@ -1,6 +1,6 @@
 from django.template import Context, Template
 
-from bluebottle.accounts.serializers import UserPreviewSerializer
+from bluebottle.bb_accounts.serializers import UserPreviewSerializer
 from bluebottle.utils.serializers import MetaField
 
 
