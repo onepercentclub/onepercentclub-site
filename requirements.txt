@@ -1,4 +1,4 @@
--e git://github.com/onepercentclub/bluebottle.git@vbook-0.32#egg=bluebottle
+-e git://github.com/onepercentclub/bluebottle.git@refaktor#egg=bluebottle
 
 Django==1.5.4
 Pillow==2.1.0
