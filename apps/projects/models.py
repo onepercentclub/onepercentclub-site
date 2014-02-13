@@ -1,5 +1,5 @@
 import datetime
-from bluebottle.bb_projects.models import BaseProject
+from bluebottle.bb_projects.models import BaseProject, ProjectTheme
 from django.db import models
 from django.db.models.aggregates import Count, Sum
 from django.db.models.signals import post_save
@@ -16,26 +16,6 @@ from django.template.defaultfilters import slugify
 from django.utils import timezone
 from .mails import mail_project_funded_internal
 from .signals import project_funded
-
-
-class ProjectTheme(models.Model):
-    """ Themes for Projects. """
-
-    # The name is marked as unique so that users can't create duplicate theme names.
-    name = models.CharField(_("name"), max_length=100, unique=True)
-    name_nl = models.CharField(_("name"), max_length=100, unique=True)
-    slug = models.SlugField(_("slug"), max_length=100, unique=True)
-    description = models.TextField(_("description"), blank=True)
-
-    def __unicode__(self):
-        return self.name
-
-    class Meta:
-        db_table = 'projects_projecttheme'
-        app_label = 'projects'
-        ordering = ['name']
-        verbose_name = _("project theme")
-        verbose_name_plural = _("project themes")
 
 
 class ProjectPhases(DjangoChoices):
@@ -171,17 +151,17 @@ class Project(BaseProject):
             count = count + len(donations.all())
         return count
 
-    @property
-    def task_count(self):
-        from bluebottle.bb_tasks import get_task_model
-        TASK_MODEL = get_task_model()
-        return len(self.onepercenttask_set.filter(status=TASK_MODEL.TaskStatuses.open).all())
-
-    @property
-    def get_open_tasks(self):
-        from bluebottle.bb_tasks import get_task_model
-        TASK_MODEL = get_task_model()
-        return self.onepercenttask_set.filter(status=TASK_MODEL.TaskStatuses.open).all()
+    # @property
+    # def task_count(self):
+    #     from bluebottle.bb_tasks import get_task_model
+    #     TASK_MODEL = get_task_model()
+    #     return len(self.onepercenttask_set.filter(status=TASK_MODEL.TaskStatuses.open).all())
+    #
+    # @property
+    # def get_open_tasks(self):
+    #     from bluebottle.bb_tasks import get_task_model
+    #     TASK_MODEL = get_task_model()
+    #     return self.onepercenttask_set.filter(status=TASK_MODEL.TaskStatuses.open).all()
 
     @property
     def date_funded(self):
@@ -242,8 +222,6 @@ class Project(BaseProject):
         return tweet
 
     class Meta:
-        default_serializer = 'projects.OnePercentProject.serialzer.ProjectSerializer'
-        db_table = 'projects_project'
         ordering = ['title']
         verbose_name = _("project")
         verbose_name_plural = _("projects")

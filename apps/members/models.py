@@ -1,14 +1,8 @@
 from django.db import models
-
-
 from bluebottle.bb_accounts.models import BlueBottleBaseUser
 
-class OnepercentUser(BlueBottleBaseUser):
-
-    class Meta:
-        db_table = 'accounts_bluebottleuser'
-        default_serializer = 'apps.members.serializers.UserProfileSerializer'
-
+class Member(BlueBottleBaseUser):
+    pass
 
 
 
