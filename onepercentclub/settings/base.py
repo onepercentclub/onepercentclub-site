@@ -156,7 +156,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'bluebottle.accounts.middleware.LocaleMiddleware',
+    'bluebottle.bb_accounts.middleware.LocaleMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     # https://docs.djangoproject.com/en/1.4/ref/clickjacking/
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -241,18 +241,20 @@ INSTALLED_APPS = (
     # Password auth from old PHP site.
     'legacyauth',
 
-    #Apps extending bluebottle base apps
-    'apps.members', # Extends bluebottle.accounts
+    # Apps extending Bluebottle base models
+    'apps.members',
     'apps.tasks',
     'apps.projects',
     'apps.blogs',
 
-    # bluebottle apps
+    # Bluebottle apps with abstract models
     'bluebottle.bb_accounts',
     'bluebottle.bb_tasks',
     'bluebottle.bb_projects',
 # FIXME: Use this
 #    'bluebottle.bb_organizations',
+
+    # Other Bluebottle apps
     'bluebottle.common',
     'bluebottle.wallposts',
     'bluebottle.utils',
@@ -291,7 +293,7 @@ INSTALLED_APPS = (
 )
 
 # Custom User model
-AUTH_USER_MODEL = 'members.OnepercentUser'
+AUTH_USER_MODEL = 'members.Member'
 PROJECTS_PROJECT_MODEL = 'projects.Project'
 TASKS_TASK_MODEL = 'tasks.Task'
 ORGANIZATIONS_ORGANIZATION_MODEL = 'organizations.Organization'
@@ -527,7 +529,7 @@ ADMIN_TOOLS_THEMING_CSS = 'css/admin/dashboard.css'
 # download http://download.kde.org/stable/4.9.0/src/oxygen-icons-4.9.0.tar.xz It's LGPL3 licensed.
 FLUENT_DASHBOARD_APP_ICONS = {
     # Members
-    'accounts/bluebottleuser': 'icons/flaticons_stroke/SVGs/user-1.svg',
+    'members/member': 'icons/flaticons_stroke/SVGs/user-1.svg',
     'auth/group': 'icons/flaticons_stroke/SVGs/group-1.svg',
     'registration/registrationprofile': 'icons/flaticons_stroke/SVGs/add-user-1.svg',
 
