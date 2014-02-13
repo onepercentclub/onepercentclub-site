@@ -9,6 +9,24 @@
 
 {% endtplhandlebars %}
 
+{% tplhandlebars "components/bb-datepicker" %}
+    {{#bb-form-field hint=hint label=label errors=errors}}
+        {{view App.CustomDatePicker minDateBinding=minDate valueBinding=valueBinding placeholderBinding=placeholder maxDateBinding=maxDate}}
+    {{/bb-form-field}}
+{% endtplhandlebars %}
+
+{% tplhandlebars "components/bb-form-field" %}
+    <li class="control-group has-popover" {{bindAttr data-content=hint}}>
+        <label class="control-label">{{label}}</label>
+        <div {{bindAttr class=":controls className"}}>
+            {{yield}}
+        </div>
+        {{#if errors }}
+            <div class="has-errors">{{#each errors }}<p>{{this}}</p>{{/each}}</div>
+        {{/if}}
+    </li>
+{% endtplhandlebars %}
+
 
 {% tplhandlebars "project_preview" %}
 
@@ -542,3 +560,5 @@
     </div>
 
 {% endtplhandlebars %}
+
+

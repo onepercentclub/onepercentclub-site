@@ -203,3 +203,47 @@ App.MyProjectPlanSubmitView = Em.View.extend(App.PopOverMixin, {
     templateName: 'my_project_plan_submit'
 });
 
+
+
+// See/Use App.DatePicker
+App.DatePickerValue = Ember.TextField.extend({
+    type: 'hidden',
+    valueBinding: "parentView.value"
+});
+
+// See/Use App.DatePicker
+App.DatePickerWidget = Ember.TextField.extend({
+
+    dateBinding: "parentView.value",
+    configBinding: "parentView.config",
+
+    didInsertElement: function(){
+        var config = this.get('config');
+        this.$().datepicker(config);
+        this.$().datepicker('setDate', this.get('date'));
+    },
+
+    change: function(){
+        this.set('date', this.$().datepicker('getDate'));
+    }
+});
+
+// This renders a TextField with the localized date.
+// On click it will use jQuery UI date picker dialog so the user can select a date.
+// valueBinding should bind to a  DS.attr('date') property of an Ember model.
+App.DatePicker = Ember.ContainerView.extend({
+    config: {changeMonth: true, changeYear: true, yearRange: "c-100:c+10"},
+    childViews: [App.DatePickerValue, App.DatePickerWidget]
+});
+
+App.CustomDatePicker = App.DatePicker.extend({
+    init: function(){
+        this._super();
+        if (this.get("minDate") != undefined) {
+            this.config.minDate = this.get("minDate");
+        }
+        if (this.get("maxDate") != undefined) {
+            this.config.maxDate = this.get("maxDate");
+        }
+    }
+});

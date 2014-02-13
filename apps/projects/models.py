@@ -336,6 +336,8 @@ class ProjectPlan(models.Model):
     theme = models.ForeignKey(ProjectTheme, blank=True, null=True, verbose_name=_("theme"), help_text=_("Select one of the themes "))
     tags = TaggableManager(blank=True, verbose_name=_("tags"), help_text=_("Add tags"))
 
+    deadline = models.DateTimeField(_('deadline'), null=True, blank=True)
+
     # Extended Description
     description = models.TextField(_("why, what and how"), help_text=_("Blow us away with the details!"), blank=True)
     effects = models.TextField(_("effects"), help_text=_("What will be the Impact? How will your Smart Idea change the lives of people?"), blank=True)
