@@ -13,14 +13,13 @@ handler500 = 'onepercentclub.views.handler500'
 
 urlpatterns = patterns('',
 
-    url(r'^api/users/', include('bluebottle.accounts.urls.api')),
+    url(r'^api/users/', include('bluebottle.bb_accounts.urls.api')),
     url(r'^api/utils/', include('bluebottle.utils.urls.api')),
     url(r'^api/geo/', include('bluebottle.geo.urls.api')),
-    url(r'^api/projects/', include('bluebottle.projects.urls.api')),
+    url(r'^api/projects/', include('bluebottle.bb_projects.urls.api')),
     url(r'^api/wallposts/', include('bluebottle.wallposts.urls.api')),
-    url(r'^api/tasks/', include('bluebottle.tasks.urls.api')),
+    url(r'^api/tasks/', include('bluebottle.bb_tasks.urls.api')),
 
-    # url(r'^api/projects/', include('apps.projects.urlsapi')),
     url(r'^api/blogs/', include('apps.blogs.urlsapi')),
     url(r'^api/fund/', include('apps.fund.urlsapi')),
     url(r'^api/fundraisers/', include('apps.fundraisers.urlsapi')),

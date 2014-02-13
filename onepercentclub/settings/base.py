@@ -156,7 +156,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'bluebottle.accounts.middleware.LocaleMiddleware',
+    'bluebottle.bb_accounts.middleware.LocaleMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     # https://docs.djangoproject.com/en/1.4/ref/clickjacking/
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -529,7 +529,7 @@ ADMIN_TOOLS_THEMING_CSS = 'css/admin/dashboard.css'
 # download http://download.kde.org/stable/4.9.0/src/oxygen-icons-4.9.0.tar.xz It's LGPL3 licensed.
 FLUENT_DASHBOARD_APP_ICONS = {
     # Members
-    'accounts/bluebottleuser': 'icons/flaticons_stroke/SVGs/user-1.svg',
+    'members/member': 'icons/flaticons_stroke/SVGs/user-1.svg',
     'auth/group': 'icons/flaticons_stroke/SVGs/group-1.svg',
     'registration/registrationprofile': 'icons/flaticons_stroke/SVGs/add-user-1.svg',
 
