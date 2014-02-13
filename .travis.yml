@@ -11,7 +11,7 @@ env:
 install:
   - "pip install --upgrade setuptools --use-mirrors"
   - "pip install $DJANGO --use-mirrors"
-  - "pip install -r requirements.txt --use-mirrors"
+  - "pip install --use-mirrors --allow-all-external --allow-unverified django-admin-tools -r requirements.txt"
   - "pip install Pillow --use-mirrors"
   - "touch onepercentclub/settings/secrets.py"
 
