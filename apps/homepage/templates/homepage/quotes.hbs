@@ -1,0 +1,46 @@
+{% load bb_ember %}
+{% load i18n %}
+{% load static %}
+
+
+{% tplhandlebars "home_quotes" %}
+
+
+    <div class="l-section home-quotes">
+        <section class="l-wrapper">
+            <div class="l-full">
+
+                <header class="section-header">
+                	<h1>{% trans "Share a little." %} <em>{%  trans "Change the world." %}</em></h1>
+            	</header>
+
+                <div class="quote">
+                    <figure>
+                        <img {{ bindAttr src="quote.user.getAvatar" alt="quote.user.full_name" }} />
+                    </figure>
+
+                    <article>
+                        <p class="quote-name">{{ quote.user.full_name }}</p>
+                        <p class="quote-content">{{ quote.quote }}</p>
+                    </article>
+                </div>
+
+                {{#linkTo 'projectList' class="btn btn-iconed one"}}
+                    <span class="flaticon stroke zoom-2"></span> {% trans "Find projects" %}
+                {{/linkTo}}
+
+    			{{#linkTo 'taskList' class="btn btn-iconed two"}}
+                    <span class="flaticon solid wrench-1"></span> {% trans "Find tasks" %}
+                {{/linkTo}}
+
+                {# <a class="" {{action 'showPage' 'befriend'}} href="/#!/pages/befriend"> #}
+                {{#link-to 'userMonthlyProjects' class="btn btn-iconed three"}}
+                    <span class="flaticon solid heart-1"></span> {% trans "Befriend us" %}
+                {{/link-to}}
+                </a>
+            </div>
+        </section>
+    </div>
+
+
+{% endtplhandlebars %}
