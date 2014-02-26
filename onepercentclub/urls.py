@@ -25,8 +25,6 @@ urlpatterns += patterns('',
 
     # Homepage API urls
     url(r'^api/homepage/', include('apps.homepage.urls.api')),
-    url(r'^api/banners/', include('apps.banners.urlsapi')),
-    url(r'^api/quotes/', include('apps.quotes.urlsapi')),
     url(r'^api/stats', include('apps.statistics.urlsapi')),
 
     # API for DocData Status Changed Notifications.

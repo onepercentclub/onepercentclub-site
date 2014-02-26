@@ -10,8 +10,8 @@ from django.conf import settings
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from djchoices import DjangoChoices, ChoiceItem
 from sorl.thumbnail import ImageField
-from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
-#from apps.fund.models import Donation, DonationStatuses
+from taggit.managers import TaggableManager
+from apps.fund.models import Donation, DonationStatuses
 from django.template.defaultfilters import slugify
 from django.utils import timezone
 from .mails import mail_project_funded_internal

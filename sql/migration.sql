@@ -209,13 +209,27 @@ CREATE TABLE tasks_task_members (
 );
 
 ALTER TABLE tasks_taskmember RENAME TO bb_tasks_taskmember;
-ALTER SEQUENCE tasks_taskmember_id_seq OWNED BY bb_tasks_taskmember.id;
+ALTER SEQUENCE tasks_taskmember_id_seq RENAME TO bb_tasks_taskmember_id_seq;
 ALTER TABLE bb_tasks_taskmember ADD COLUMN	time_spent double precision;
 
 
 -- Task Skill
 
 ALTER TABLE tasks_skill RENAME TO bb_tasks_skill;
+
+--
+-- SLIDES
+--
+
+ALTER TABLE banners_slide RENAME TO slides_slide;
+ALTER INDEX banners_slide_pkey RENAME TO slides_slide_pkey;
+ALTER INDEX banners_slide_author_id RENAME TO slides_slide_author_id;
+ALTER INDEX banners_slide_publication_date RENAME TO slides_slide_publication_date;
+ALTER INDEX banners_slide_publication_end_date RENAME TO slides_slide_publication_end_date;
+ALTER INDEX banners_slide_slug RENAME TO slides_slide_slug;
+ALTER INDEX banners_slide_slug_like RENAME TO slides_slide_slug_like;
+ALTER INDEX banners_slide_status RENAME TO slides_slide_status;
+ALTER INDEX banners_slide_status_like RENAME TO slides_slide_status_like;
 
 
 
