@@ -259,6 +259,8 @@ INSTALLED_APPS = (
     'bluebottle.wallposts',
     'bluebottle.utils',
     'bluebottle.geo',
+    'bluebottle.quotes',
+    'bluebottle.slides',
 
     'apps.bluebottle_dashboard',
     'apps.contentplugins',
@@ -272,8 +274,6 @@ INSTALLED_APPS = (
     'apps.payouts',
     'apps.sepa',
 
-    'apps.banners',
-    'apps.quotes',
     'apps.statistics',
     'apps.pages',
     'apps.homepage',

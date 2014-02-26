@@ -6,19 +6,14 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 from .views import HomeView
 
+from bluebottle.urls.core import urlpatterns
+
 admin.autodiscover()
 
 handler500 = 'onepercentclub.views.handler500'
 
 
-urlpatterns = patterns('',
-
-    url(r'^api/users/', include('bluebottle.bb_accounts.urls.api')),
-    url(r'^api/utils/', include('bluebottle.utils.urls.api')),
-    url(r'^api/geo/', include('bluebottle.geo.urls.api')),
-    url(r'^api/projects/', include('bluebottle.bb_projects.urls.api')),
-    url(r'^api/wallposts/', include('bluebottle.wallposts.urls.api')),
-    url(r'^api/tasks/', include('bluebottle.bb_tasks.urls.api')),
+urlpatterns += patterns('',
 
     url(r'^api/blogs/', include('apps.blogs.urlsapi')),
     url(r'^api/fund/', include('apps.fund.urlsapi')),
@@ -29,7 +24,7 @@ urlpatterns = patterns('',
 
 
     # Homepage API urls
-    url(r'^api/homepage/', include('apps.homepage.urlsapi')),
+    url(r'^api/homepage/', include('apps.homepage.urls.api')),
     url(r'^api/banners/', include('apps.banners.urlsapi')),
     url(r'^api/quotes/', include('apps.quotes.urlsapi')),
     url(r'^api/stats', include('apps.statistics.urlsapi')),

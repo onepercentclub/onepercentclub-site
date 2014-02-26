@@ -1,10 +1,12 @@
 from bluebottle.bb_projects.serializers import ProjectPreviewSerializer
+from bluebottle.quotes.serializers import QuoteSerializer
+from bluebottle.slides.serializers import SlideSerializer
 
-from apps.banners.serializers import SlideSerializer
 from apps.campaigns.serializers import CampaignSerializer
 from apps.fundraisers.serializers import FundRaiserSerializer
-from apps.quotes.serializers import QuoteSerializer
 from apps.statistics.serializers import StatisticSerializer
+
+
 
 from rest_framework import serializers
 

@@ -2,24 +2,32 @@
 {% load i18n %}
 {% load static %}
 
-
-
 {% tplhandlebars "home" %}
 
     <div id="home">
         {{#if slides }}
-            {{view App.HomeBannerView }}
+            {{view App.SlideListView }}
+        {{else}}
+            No slides
         {{/if }}
 
-        {{#if project }}
-            {{view App.HomeProjectView }}
+        {{bb-project-map}}
+
+		{{#if projects}}
+            {{view App.HomeProjectListView }}
+		{{else}}
+			No Projects
+		{{/if}}
+
+
+        {{#if quotes }}
+            {{#each quote in quotes}}
+                {{view App.QuoteListView }}
+            {{/each}}
+        {{else}}
+            No quotes
         {{/if }}
 
-        {{#if quote }}
-            {{view App.HomeQuotesView }}
-        {{/if }}
-
-        {{!-- this must always be visible --}}
         {{#if impact }}
             {{view App.HomeImpactView }}
         {{/if }}
