@@ -1,12 +1,10 @@
 language: python
 
 python:
-  # - "2.6.5" # fails to activate virtualenv...
   - "2.7"
 
 env:
   - DJANGO=django==1.5.4
-  - DJANGO=https://github.com/django/django/archive/master.zip
 
 install:
   - "pip install --upgrade setuptools --use-mirrors"
@@ -15,13 +13,9 @@ install:
   - "pip install Pillow --use-mirrors"
   - "touch onepercentclub/settings/secrets.py"
 
-matrix:
-  allow_failures:
-    - env: DJANGO=https://github.com/django/django/archive/master.zip
-
 before_script:
   - npm install
 
 script:
-  - python ./manage.py test --settings=onepercentclub.settings.travis
-  - grunt travis  # add --force to overlook JS test failures
+  - python ./manage.py test --settings=onepercentclub.settings.travis -v 0
+  - grunt travis # add --force to overlook JS test failures
