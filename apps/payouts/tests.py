@@ -2,8 +2,6 @@ import decimal
 import datetime
 import doctest
 
-from lxml import etree
-
 from django.test import TestCase
 
 from django_dynamic_fixture import N, G
