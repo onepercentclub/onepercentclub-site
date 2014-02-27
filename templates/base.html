@@ -29,8 +29,9 @@
 
     {{ block.super }}
 
+    {% include  "homepage/base.hbs" %}
+
     {% include  "blogs.hbs" %}
-    {% include  "homepage.hbs" %}
     {% include  "orders.hbs" %}
     {% include  "donations.hbs" %}
     {% include  "vouchers.hbs" %}
@@ -57,6 +58,11 @@
 
 
     {# Apps not in Bluebottle #}
+    <script type="text/javascript" src="{% static 'js/bluebottle/homepage/models.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/homepage/controllers.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/homepage/views.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/homepage/routes.js' %}"></script>
+
     <script type="text/javascript" src="{% static 'js/bluebottle/blogs/models.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bluebottle/blogs/controllers.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bluebottle/blogs/views.js' %}"></script>

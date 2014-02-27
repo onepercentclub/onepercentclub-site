@@ -24,7 +24,7 @@ from .choices import PayoutLineStatuses, PayoutRules
 
 from bluebottle.bb_projects import get_project_model
 
-PROJECT_MODEL = get_project_model()
+# PROJECT_MODEL = get_project_model()
 
 
 class InvoiceReferenceBase(models.Model):
@@ -194,7 +194,7 @@ class Payout(PayoutBase):
     Project payouts are checked manually. Selected projects can be exported to a SEPA file.
     """
 
-    project = models.ForeignKey(PROJECT_MODEL)
+    project = models.ForeignKey(settings.PROJECTS_PROJECT_MODEL)
 
     payout_rule = models.CharField(
         _("Payout rule"), max_length=20,
@@ -726,6 +726,6 @@ def match_debit_mutations():
 # https://docs.djangoproject.com/en/dev/topics/signals/#django.dispatch.receiver
 from .signals import create_payout_for_fully_funded_project
 
-post_save.connect(
-    create_payout_for_fully_funded_project, weak=False, sender=PROJECT_MODEL
-)
+# post_save.connect(
+#     create_payout_for_fully_funded_project, weak=False, sender=PROJECT_MODEL
+# )

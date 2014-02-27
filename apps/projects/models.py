@@ -10,8 +10,8 @@ from django.conf import settings
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from djchoices import DjangoChoices, ChoiceItem
 from sorl.thumbnail import ImageField
-from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
-#from apps.fund.models import Donation, DonationStatuses
+from taggit.managers import TaggableManager
+from apps.fund.models import Donation, DonationStatuses
 from django.template.defaultfilters import slugify
 from django.utils import timezone
 from .mails import mail_project_funded_internal
@@ -72,7 +72,7 @@ class Project(BaseProject):
     """ The base Project model. """
 
     coach = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("coach"), help_text=_("Assistent at 1%OFFICE"), related_name="team_member", null=True, blank=True)
-    phase = models.CharField(_("phase"), max_length=20, choices=ProjectPhases.choices, help_text=_("Phase this project is in right now."))
+    phase = models.CharField(_("phase"), max_length=20, default='pitch', choices=ProjectPhases.choices, help_text=_("Phase this project is in right now."))
 
     partner_organization = models.ForeignKey('projects.PartnerOrganization', null=True, blank=True)
 
