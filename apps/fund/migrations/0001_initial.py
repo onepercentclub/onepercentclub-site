@@ -7,6 +7,10 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
+    depends_on = (
+        ('fundraisers', '0001_initial'),
+    )
+
     def forwards(self, orm):
         # Adding model 'RecurringDirectDebitPayment'
         db.create_table(u'fund_recurringdirectdebitpayment', (
@@ -40,7 +44,6 @@ class Migration(SchemaMigration):
             ('ready', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
             ('donation_type', self.gf('django.db.models.fields.CharField')(default='one_off', max_length=20, db_index=True)),
             ('order', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='donations', null=True, to=orm['fund.Order'])),
-            ('voucher', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['vouchers.Voucher'], null=True, blank=True)),
         ))
         db.send_create_signal(u'fund', ['Donation'])
 
@@ -122,7 +125,6 @@ class Migration(SchemaMigration):
             'status': ('django.db.models.fields.CharField', [], {'default': "'new'", 'max_length': '20', 'db_index': 'True'}),
             'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['members.Member']", 'null': 'True', 'blank': 'True'}),
-            'voucher': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['vouchers.Voucher']", 'null': 'True', 'blank': 'True'})
         },
         u'fund.order': {
             'Meta': {'ordering': "('-updated',)", 'object_name': 'Order'},
@@ -271,25 +273,6 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'object_id': ('django.db.models.fields.IntegerField', [], {'db_index': 'True'}),
             'tag': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "u'taggit_taggeditem_items'", 'to': u"orm['taggit.Tag']"})
-        },
-        u'vouchers.voucher': {
-            'Meta': {'object_name': 'Voucher'},
-            'amount': ('django.db.models.fields.PositiveIntegerField', [], {}),
-            'code': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100', 'blank': 'True'}),
-            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'currency': ('django.db.models.fields.CharField', [], {'default': "'EUR'", 'max_length': '3'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'language': ('django.db.models.fields.CharField', [], {'default': "'en'", 'max_length': '2'}),
-            'message': ('django.db.models.fields.TextField', [], {'default': "''", 'max_length': '500', 'blank': 'True'}),
-            'order': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'vouchers'", 'null': 'True', 'to': u"orm['fund.Order']"}),
-            'receiver': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'receiver'", 'null': 'True', 'to': u"orm['members.Member']"}),
-            'receiver_email': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
-            'receiver_name': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100', 'blank': 'True'}),
-            'sender': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'sender'", 'null': 'True', 'to': u"orm['members.Member']"}),
-            'sender_email': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
-            'sender_name': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100', 'blank': 'True'}),
-            'status': ('django.db.models.fields.CharField', [], {'default': "'new'", 'max_length': '20', 'db_index': 'True'}),
-            'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'})
         }
     }
 

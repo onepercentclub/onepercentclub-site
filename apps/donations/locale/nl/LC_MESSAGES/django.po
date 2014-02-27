@@ -6,14 +6,14 @@
 # dokterbob <mathijs@mathijsfietst.nl>, 2012
 # gannetson <loek@1procentclub.nl>, 2013
 # nieja <niels@1procentclub.nl>, 2013
-# nieja <niels@1procentclub.nl>, 2013
+# nieja <niels@1procentclub.nl>, 2013-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: onepercentclub-site\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-27 14:05+0100\n"
-"PO-Revision-Date: 2013-11-27 12:52+0000\n"
-"Last-Translator: gannetson <loek@1procentclub.nl>\n"
+"POT-Creation-Date: 2014-02-11 11:39+0100\n"
+"PO-Revision-Date: 2014-02-13 08:57+0000\n"
+"Last-Translator: nieja <niels@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub-site/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,11 +21,11 @@ msgstr ""
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: mails.py:52
+#: mails.py:81
 msgid "Anonymous"
 msgstr "Anoniem"
 
-#: mails.py:57 mails.py:67
+#: mails.py:86 mails.py:96
 msgid "You received a new donation"
 msgstr "Je hebt een nieuwe donatie ontvangen"
 
@@ -272,7 +272,7 @@ msgid ""
 "<br/>\n"
 "Cheers,<br/>\n"
 "1%%Club\n"
-msgstr ""
+msgstr "\nHi!,<br/>\n<br/>\nJe hebt zojuist een donatie van EUR %(amount)s ontvangen van %(donor_name)s!<br/>\n<br/>\nBedank je supporter direct met een persoonlijk berichtje op je <a href=\"%(site)s%(link)s\">projectpagina</a>.<br/>\n<br/>\nGroet!<br/>\n1%%Club\n"
 
 #: templates/new_oneoff_donation.mail.txt:2
 #, python-format
@@ -286,7 +286,7 @@ msgid ""
 "\n"
 "Cheers,\n"
 "1%%Club\n"
-msgstr ""
+msgstr "\nHi!,<br/>\n<br/>\nJe hebt zojuist een donatie van EUR %(amount)s ontvangen van %(donor_name)s!<br/>\n<br/>\nBedank je supporter direct met een persoonlijk berichtje op je <a href=\"%(site)s%(link)s\">projectpagina</a>.<br/>\n<br/>\nGroet!<br/>\n1%%Club\n"
 
 #: templates/new_oneoff_donation_fundraiser.mail.html:5
 #, python-format
@@ -300,7 +300,7 @@ msgid ""
 "<br/>\n"
 "Cheers,<br/>\n"
 "1%%Club\n"
-msgstr ""
+msgstr "\nHi!,<br/>\n<br/>\nJe hebt zojuist een donatie van EUR %(amount)s ontvangen van %(donor_name)s!<br/>\n<br/>\nBedank je supporter direct met een persoonlijk berichtje op je <a href=\"%(site)s%(link)s\">fundraise-pagina</a>.<br/>\n<br/>\nGroet!<br/>\n1%%Club\n"
 
 #: templates/new_oneoff_donation_fundraiser.mail.txt:2
 #, python-format
@@ -314,4 +314,4 @@ msgid ""
 "\n"
 "Cheers,\n"
 "1%%Club\n"
-msgstr ""
+msgstr "\nHi!,<br/>\n<br/>\nJe hebt zojuist een donatie van EUR %(amount)s ontvangen van %(donor_name)s!<br/>\n<br/>\nBedank je supporter direct met een persoonlijk berichtje op je <a href=\"%(site)s%(link)s\">fundraise-pagina</a>.<br/>\n<br/>\nGroet!<br/>\n1%%Club\n"

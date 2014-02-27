@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: onepercentclub-site\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-18 10:23+0100\n"
-"PO-Revision-Date: 2013-12-18 09:29+0000\n"
+"POT-Creation-Date: 2014-02-11 11:39+0100\n"
+"PO-Revision-Date: 2014-02-11 10:31+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub-site/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -151,16 +151,15 @@ msgstr "Fund-racers gefinished"
 msgid "Projects fully funded"
 msgstr "Projecten gerealiseerd"
 
-#: templates/homepage.hbs:335 templates/homepage.hbs.py:437
+#: templates/homepage.hbs:335
 msgid ""
-" The Crazy Campaign Days: 20 teams who will fund 20 world-changing projects "
-"within 5 days. Totally crazy!"
-msgstr "De Crazy Campaign Days: 20 teams laten 20 concrete world-changing projecten van start gaan. Totally crazy!"
+"The Crazy Campaign Days: 20 teams funding 18 world-changing projects within "
+"5 days. Totally crazy! Thank you!"
+msgstr ""
 
-#: templates/homepage.hbs:336 templates/homepage.hbs.py:387
-#: templates/homepage.hbs:438
-msgid "Pick a crazy fund-racer and support"
-msgstr "Kies een crazy fund-racer en support"
+#: templates/homepage.hbs:336
+msgid "Can't get enough? Pick a fund-racer"
+msgstr ""
 
 #: templates/homepage.hbs:379 templates/homepage.hbs.py:430
 msgid "Hours"
@@ -179,3 +178,13 @@ msgid ""
 "The Crazy Campaign Days: 20 teams who will fund 20 world-changing projects "
 "within 5 days. Totally crazy!"
 msgstr "Crazy Campaign Days: 20 teams die in 5 dagen 20 wereldverbeterende projecten vol storten. Helemaal crazy!"
+
+#: templates/homepage.hbs:387 templates/homepage.hbs.py:438
+msgid "Pick a crazy fund-racer and support"
+msgstr "Kies een crazy fund-racer en support"
+
+#: templates/homepage.hbs:437
+msgid ""
+" The Crazy Campaign Days: 20 teams who will fund 20 world-changing projects "
+"within 5 days. Totally crazy!"
+msgstr "De Crazy Campaign Days: 20 teams laten 20 concrete world-changing projecten van start gaan. Totally crazy!"

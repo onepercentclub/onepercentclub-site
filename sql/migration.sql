@@ -175,42 +175,29 @@ UPDATE projects_project p
 -- Task File
 
 ALTER TABLE tasks_taskfile RENAME TO bb_tasks_taskfile;
+ALTER SEQUENCE tasks_taskfile_id_seq RENAME TO bb_tasks_taskfile_id_seq;
 
-ALTER SEQUENCE tasks_taskfile_id_seq OWNED BY bb_tasks_taskfile.id;
-
-CREATE SEQUENCE tasks_task_files_id_seq
-	START WITH 1
-	INCREMENT BY 1
-	NO MAXVALUE
-	NO MINVALUE
-	CACHE 1;
-
-CREATE TABLE tasks_task_files (
-	id integer DEFAULT nextval('tasks_task_files_id_seq'::regclass) NOT NULL,
-	task_id integer NOT NULL,
-	taskfile_id integer NOT NULL
+-- Add new M2M table for task files
+CREATE TABLE "tasks_task_files" (
+    "id" serial NOT NULL PRIMARY KEY,
+    "task_id" integer NOT NULL,
+    "taskfile_id" integer NOT NULL REFERENCES "bb_tasks_taskfile" ("id") DEFERRABLE INITIALLY DEFERRED,
+    UNIQUE ("task_id", "taskfile_id")
 );
-
-ALTER SEQUENCE tasks_task_files_id_seq OWNED BY tasks_task_files.id;
 
 -- Task Member
-
-CREATE SEQUENCE tasks_task_members_id_seq
-	START WITH 1
-	INCREMENT BY 1
-	NO MAXVALUE
-	NO MINVALUE
-	CACHE 1;
-
-CREATE TABLE tasks_task_members (
-	id integer DEFAULT nextval('tasks_task_members_id_seq'::regclass) NOT NULL,
-	task_id integer NOT NULL,
-	taskmember_id integer NOT NULL
-);
 
 ALTER TABLE tasks_taskmember RENAME TO bb_tasks_taskmember;
 ALTER SEQUENCE tasks_taskmember_id_seq RENAME TO bb_tasks_taskmember_id_seq;
 ALTER TABLE bb_tasks_taskmember ADD COLUMN	time_spent double precision;
+
+-- Add new M2M table for task members
+CREATE TABLE "tasks_task_members" (
+    "id" serial NOT NULL PRIMARY KEY,
+    "task_id" integer NOT NULL,
+    "taskmember_id" integer NOT NULL REFERENCES "bb_tasks_taskmember" ("id") DEFERRABLE INITIALLY DEFERRED,
+    UNIQUE ("task_id", "taskmember_id")
+);
 
 
 -- Task Skill
@@ -230,7 +217,6 @@ ALTER INDEX banners_slide_slug RENAME TO slides_slide_slug;
 ALTER INDEX banners_slide_slug_like RENAME TO slides_slide_slug_like;
 ALTER INDEX banners_slide_status RENAME TO slides_slide_status;
 ALTER INDEX banners_slide_status_like RENAME TO slides_slide_status_like;
-
 
 
 --
