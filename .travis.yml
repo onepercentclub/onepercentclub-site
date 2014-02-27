@@ -23,5 +23,5 @@ before_script:
   - npm install
 
 script:
-  - python ./manage.py test --settings=onepercentclub.settings.travis -v 2
-  - grunt travis --verbose # add --force to overlook JS test failures
+  - python ./manage.py test --settings=onepercentclub.settings.travis
+  - grunt travis  # add --force to overlook JS test failures
