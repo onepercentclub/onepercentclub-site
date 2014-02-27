@@ -1,11 +1,10 @@
 
 # SECRET_KEY and DATABASES needs to be defined before the base settings is imported.
-SECRET_KEY = 'hbqnTEq+m7Tk61bvRV/TLANr3i0WZ6hgBXDh3aYpSU8m+E1iCtlU3Q=='
+SECRET_KEY = 'hbqnTEq+m7Tk61bvRxcvxcvm+E1iCtlU3Q=='
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': ':memory:',
+        'ENGINE': 'django.db.backends.sqlite3'
     },
 }
 
