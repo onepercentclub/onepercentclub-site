@@ -654,3 +654,55 @@ class FailedProjectTest(ProjectTestsMixin, TestCase):
         self.some_project.projectplan.save()
 
         self.assertEqual(self.some_project.phase, ProjectPhases.failed)
+
+
+class ProjectStatusChangeTest(ProjectTestsMixin, TestCase):
+    def setUp(self):
+        self.some_project = self.create_project(money_asked=5000)
+        self.some_project.allow_overfunding = False
+        self.some_project.save()
+
+        self.another_project = self.create_project(money_asked=5000)
+        self.another_project.allow_overfunding = True
+        self.another_project.save()
+
+        self.some_user = self.create_user()
+
+    def test_project_closes_when_target_hit(self):
+        self.assertEqual(self.some_project.phase, ProjectPhases.campaign)
+        donation = self._create_donation(user=self.some_user, project=self.some_project, amount=1500,
+                                         status=DonationStatuses.paid)
+        donation = self._create_donation(user=self.some_user, project=self.some_project, amount=3505,
+                                         status=DonationStatuses.paid)
+        self.assertEqual(self.some_project.projectcampaign.money_needed, 0)
+        # Target hit! Project should be closed.
+        self.assertEqual(self.some_project.phase, ProjectPhases.act)
+
+
+    def test_project_allow_overfunding_when_target_hit(self):
+        self.assertEqual(self.some_project.phase, ProjectPhases.campaign)
+        donation = self._create_donation(user=self.some_user, project=self.another_project, amount=1500,
+                                         status=DonationStatuses.paid)
+        donation = self._create_donation(user=self.some_user, project=self.another_project, amount=3505,
+                                         status=DonationStatuses.paid)
+        self.assertEqual(self.another_project.projectcampaign.money_needed, 0)
+        # Target hit! Project should still be open for over-funding.
+        self.assertEqual(self.another_project.phase, ProjectPhases.campaign)
+
+
+    def _create_donation(self, user=None, amount=None, project=None, status=DonationStatuses.new):
+        """ Helper method for creating donations."""
+        if not project:
+            project = self.create_project()
+            project.save()
+
+        if not user:
+            user = self.create_user()
+
+        if not amount:
+            amount = Decimal('10.00')
+
+        order = Order.objects.create()
+        donation = Donation.objects.create(user=user, amount=amount, status=status, project=project, order=order)
+
+        return donation

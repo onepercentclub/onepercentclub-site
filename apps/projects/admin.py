@@ -209,7 +209,8 @@ class ProjectAdmin(AdminImageMixin, admin.ModelAdmin):
 
     readonly_fields = ('project_owner', 'pitch_view', 'plan_view', 'campaign_view', 'funded')
 
-    fields = readonly_fields + ('owner', 'coach', 'title', 'slug', 'phase', 'partner_organization', 'is_campaign')
+    fields = readonly_fields + ('owner', 'allow_overfunding', 'coach', 'title', 'slug', 'phase',
+                                'partner_organization', 'is_campaign')
 
     def queryset(self, request):
         # Optimization: Select related fields that are used in admin specific display fields.

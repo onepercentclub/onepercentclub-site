@@ -116,6 +116,9 @@ class Project(models.Model):
     title = models.CharField(_("title"), max_length=255, unique=True)
     slug = models.SlugField(_("slug"), max_length=100, unique=True)
 
+    allow_overfunding = models.BooleanField(_("allow overfunding"), default=False,
+                                       help_text=_("Don't close the project when the target amount is hit."))
+
     phase = models.CharField(_("phase"), max_length=20, choices=ProjectPhases.choices, help_text=_("Phase this project is in right now."))
 
     partner_organization = models.ForeignKey('projects.PartnerOrganization', null=True, blank=True)
@@ -744,10 +747,7 @@ def update_project_after_donation(sender, instance, created, **kwargs):
         campaign.update_money_donated()
         project.update_popularity()
 
-    if campaign.money_asked <= campaign.money_donated:
+    # If money target is hit and allow_funding set to false close the project.
+    if campaign.money_asked <= campaign.money_donated and not project.allow_overfunding:
         project.phase = ProjectPhases.act
         project.save()
-    # Never (automatically) move the project back to Campaign phase.
-    #else:
-    #    project.phase = ProjectPhases.campaign
-    #    project.save()

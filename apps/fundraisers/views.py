@@ -15,6 +15,7 @@ class FundRaiserListView(ListCreateAPIView):
     serializer_class = FundRaiserSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     paginate_by = 4
+    paginate_by_param = 'page_size'
 
     def get_queryset(self, queryset=None):
         queryset = super(FundRaiserListView, self).get_queryset(queryset)
