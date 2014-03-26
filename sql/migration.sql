@@ -168,38 +168,6 @@ UPDATE projects_project p
   AND p.phase <> 'pitch' AND pp.theme_id IS NOT NULL;
 
 
---
--- TASKS
---
-
--- Task File
-
-ALTER TABLE tasks_taskfile RENAME TO bb_tasks_taskfile;
-ALTER SEQUENCE tasks_taskfile_id_seq RENAME TO bb_tasks_taskfile_id_seq;
-
--- Add new M2M table for task files
-CREATE TABLE "tasks_task_files" (
-    "id" serial NOT NULL PRIMARY KEY,
-    "task_id" integer NOT NULL,
-    "taskfile_id" integer NOT NULL REFERENCES "bb_tasks_taskfile" ("id") DEFERRABLE INITIALLY DEFERRED,
-    UNIQUE ("task_id", "taskfile_id")
-);
-
--- Task Member
-
-ALTER TABLE tasks_taskmember RENAME TO bb_tasks_taskmember;
-ALTER SEQUENCE tasks_taskmember_id_seq RENAME TO bb_tasks_taskmember_id_seq;
-ALTER TABLE bb_tasks_taskmember ADD COLUMN	time_spent double precision;
-
--- Add new M2M table for task members
-CREATE TABLE "tasks_task_members" (
-    "id" serial NOT NULL PRIMARY KEY,
-    "task_id" integer NOT NULL,
-    "taskmember_id" integer NOT NULL REFERENCES "bb_tasks_taskmember" ("id") DEFERRABLE INITIALLY DEFERRED,
-    UNIQUE ("task_id", "taskmember_id")
-);
-
-
 -- Task Skill
 
 ALTER TABLE tasks_skill RENAME TO bb_tasks_skill;

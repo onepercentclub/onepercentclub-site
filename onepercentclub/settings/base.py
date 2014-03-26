@@ -204,11 +204,10 @@ INSTALLED_APPS = (
     # 3rd party apps
     'django_extensions',
     'django_extensions.tests',
-    'debug_toolbar',
     'raven.contrib.django',
     'djcelery',
     'south',
-    'django_nose',
+    # 'django_nose',
     'compressor',
     'sorl.thumbnail',
     'taggit',
@@ -245,14 +244,12 @@ INSTALLED_APPS = (
     'apps.members',
     'apps.tasks',
     'apps.projects',
-    'apps.blogs',
 
     # Bluebottle apps with abstract models
     'bluebottle.bb_accounts',
     'bluebottle.bb_tasks',
     'bluebottle.bb_projects',
-# FIXME: Use this
-#    'bluebottle.bb_organizations',
+    'bluebottle.bb_organizations',
 
     # Other Bluebottle apps
     'bluebottle.common',
@@ -266,8 +263,8 @@ INSTALLED_APPS = (
     'apps.contentplugins',
     'apps.organizations',
     'apps.campaigns',
-    'apps.fund',
     'apps.fundraisers',
+    'apps.fund',
     'apps.donations',
     'apps.vouchers',
     'apps.hbtemplates',
@@ -275,7 +272,8 @@ INSTALLED_APPS = (
     'apps.sepa',
 
     'apps.statistics',
-    'apps.pages',
+    #'apps.pages',
+    #'apps.blogs',
     'apps.homepage',
     'apps.redirects',
     'apps.partners',
@@ -296,7 +294,13 @@ INSTALLED_APPS = (
 AUTH_USER_MODEL = 'members.Member'
 PROJECTS_PROJECT_MODEL = 'projects.Project'
 TASKS_TASK_MODEL = 'tasks.Task'
+TASKS_SKILL_MODEL = 'tasks.Skill'
+TASKS_TASKMEMBER_MODEL = 'tasks.TaskMember'
+TASKS_TASKFILE_MODEL = 'tasks.TaskFile'
 ORGANIZATIONS_ORGANIZATION_MODEL = 'organizations.Organization'
+ORGANIZATIONS_DOCUMENT_MODEL = 'organizations.OrganizationDocument'
+ORGANIZATIONS_MEMBER_MODEL = 'organizations.OrganizationMember'
+
 
 
 # A sample logging configuration. The only tangible logging
