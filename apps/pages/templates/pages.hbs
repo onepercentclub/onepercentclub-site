@@ -149,18 +149,19 @@
 
 
 {% tplhandlebars "partner" %}
-    <div class="l-section" id="partner-detail">
+    <div class="l-section detail" id="partner-detail">
         <section class="l-wrapper">
-        
-            <figure class="image">
-                <img {{bindAttr src="image.large"}} />
+
+            <figure class="project-image l-half">
+                    <img {{bindAttr src="image.large"}} />
             </figure>
-            
-            <article>
-                <h1>{{name}}</h1>
-                <p>{{linebreaks description formatting='br'}}</p>
-            </article>
-            
+
+            <div class="l-half">
+                <article>
+                    <h1>{{name}}</h1>
+                    <p>{{linebreaks description formatting='br'}}</p>
+                </article>
+            </div>
         </section>
 
         <section class="l-wrapper">

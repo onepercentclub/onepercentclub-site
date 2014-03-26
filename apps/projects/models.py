@@ -11,7 +11,7 @@ from django_extensions.db.fields import ModificationDateTimeField, CreationDateT
 from djchoices import DjangoChoices, ChoiceItem
 from sorl.thumbnail import ImageField
 from taggit.managers import TaggableManager
-from apps.fund.models import Donation, DonationStatuses
+#from apps.fund.models import Donation, DonationStatuses
 from django.template.defaultfilters import slugify
 from django.utils import timezone
 from .mails import mail_project_funded_internal
@@ -71,7 +71,7 @@ class ProjectManager(models.Manager):
 class Project(BaseProject):
     """ The base Project model. """
 
-    coach = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("coach"), help_text=_("Assistent at 1%OFFICE"), related_name="team_member", null=True, blank=True)
+    # coach = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("coach"), help_text=_("Assistent at 1%OFFICE"), related_name="team_member", null=True, blank=True)
     phase = models.CharField(_("phase"), max_length=20, default='pitch', choices=ProjectPhases.choices, help_text=_("Phase this project is in right now."))
 
     partner_organization = models.ForeignKey('projects.PartnerOrganization', null=True, blank=True)
@@ -151,17 +151,17 @@ class Project(BaseProject):
             count = count + len(donations.all())
         return count
 
-    # @property
-    # def task_count(self):
-    #     from bluebottle.bb_tasks import get_task_model
-    #     TASK_MODEL = get_task_model()
-    #     return len(self.onepercenttask_set.filter(status=TASK_MODEL.TaskStatuses.open).all())
-    #
-    # @property
-    # def get_open_tasks(self):
-    #     from bluebottle.bb_tasks import get_task_model
-    #     TASK_MODEL = get_task_model()
-    #     return self.onepercenttask_set.filter(status=TASK_MODEL.TaskStatuses.open).all()
+    @property
+    def task_count(self):
+        from bluebottle.utils.utils import get_task_model
+        TASK_MODEL = get_task_model()
+        return len(self.onepercenttask_set.filter(status=TASK_MODEL.TaskStatuses.open).all())
+
+    @property
+    def get_open_tasks(self):
+        from bluebottle.utils.utils import get_task_model
+        TASK_MODEL = get_task_model()
+        return self.onepercenttask_set.filter(status=TASK_MODEL.TaskStatuses.open).all()
 
     @property
     def date_funded(self):
@@ -262,25 +262,25 @@ class ProjectBudgetLine(models.Model):
     def __unicode__(self):
         return u'{0} - {1}'.format(self.description, self.amount / 100.0)
 
-
-class ProjectPhaseLog(models.Model):
-    """ Log when a project reaches a certain phase """
-
-    project = models.ForeignKey(settings.PROJECTS_PROJECT_MODEL)
-    phase = models.CharField(_("phase"), max_length=20, choices=ProjectPhases.choices)
-    created = CreationDateTimeField(_("created"), help_text=_("When this phase was reached."))
-
-    class Meta:
-        db_table = 'projects_projectphaselog'
-        unique_together = (('project', 'phase'),)
-
-    def __unicode__(self):
-        return "%s - %s - %s" % (
-                self.project.title,
-                self.phase,
-                self.created
-            )
-
+#
+# class ProjectPhaseLog(models.Model):
+#     """ Log when a project reaches a certain phase """
+#
+#     project = models.ForeignKey(settings.PROJECTS_PROJECT_MODEL)
+#     phase = models.CharField(_("phase"), max_length=20, choices=ProjectPhases.choices)
+#     created = CreationDateTimeField(_("created"), help_text=_("When this phase was reached."))
+#
+#     class Meta:
+#         db_table = 'projects_projectphaselog'
+#         unique_together = (('project', 'phase'),)
+#
+#     def __unicode__(self):
+#         return "%s - %s - %s" % (
+#                 self.project.title,
+#                 self.phase,
+#                 self.created
+#             )
+#
 
 class ProjectNeedChoices(DjangoChoices):
     skills = ChoiceItem('skills', label=_("Skills and expertise"))

@@ -1,7 +1,9 @@
--e git://github.com/onepercentclub/bluebottle.git@refaktor#egg=bluebottle
+-e git://github.com/onepercentclub/bluebottle.git@release/bb-refaktor#egg=bluebottle
 
+pip
 Django==1.5.4
 Pillow==2.1.0
+mercurial==2.9.1
 
 django-localflavor==1.0
 

@@ -22,9 +22,9 @@ from .utils import (
 )
 from .choices import PayoutLineStatuses, PayoutRules
 
-from bluebottle.bb_projects import get_project_model
+from bluebottle.utils.utils import get_project_model
 
-# PROJECT_MODEL = get_project_model()
+PROJECT_MODEL = get_project_model()
 
 
 class InvoiceReferenceBase(models.Model):

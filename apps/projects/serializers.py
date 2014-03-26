@@ -90,7 +90,7 @@ class ProjectSerializer(BaseProjectSerializer):
     class Meta:
         model = Project
         fields = (
-            'id', 'created', 'title', 'owner', 'coach', 'plan', 'campaign', 'phase', 'popularity',
+            'id', 'created', 'title', 'owner', 'coach', 'plan', 'campaign', 'status', 'popularity',
             'task_count', 'meta_data', 'is_campaign', 'latitude', 'longitude'
         )
 
@@ -107,7 +107,7 @@ class ProjectPreviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Project
-        fields = ('id', 'title', 'image', 'phase', 'campaign', 'pitch', 'popularity', 'country', 'task_count',
+        fields = ('id', 'title', 'image', 'status', 'campaign', 'pitch', 'popularity', 'country', 'task_count',
                   'is_campaign')
 
 
@@ -139,7 +139,7 @@ class ManageProjectSerializer(serializers.ModelSerializer):
     id = serializers.CharField(source='slug', read_only=True)
 
     url = serializers.HyperlinkedIdentityField(view_name='project-manage-detail')
-    phase = serializers.CharField(read_only=True)
+    status = serializers.CharField(read_only=True)
 
     pitch = serializers.PrimaryKeyRelatedField(source='projectpitch', read_only=True)
     plan = serializers.PrimaryKeyRelatedField(source='projectplan', read_only=True)
@@ -150,7 +150,7 @@ class ManageProjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Project
-        fields = ('id', 'created', 'title', 'url', 'phase', 'pitch', 'plan', 'campaign', 'coach')
+        fields = ('id', 'created', 'title', 'url', 'status', 'pitch', 'plan', 'campaign', 'coach')
 
 
 # Serializers for ProjectWallPosts:
