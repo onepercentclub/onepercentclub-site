@@ -168,9 +168,12 @@ UPDATE projects_project p
   AND p.phase <> 'pitch' AND pp.theme_id IS NOT NULL;
 
 
--- Task Skill
+--
+-- TASKS
+--
 
-ALTER TABLE tasks_skill RENAME TO bb_tasks_skill;
+ALTER TABLE tasks_taskmember ADD COLUMN time_spent INTEGER DEFAULT 0 NOT NULL;
+
 
 --
 -- SLIDES
