@@ -246,25 +246,25 @@ class ProjectBudgetLine(models.Model):
     def __unicode__(self):
         return u'{0} - {1}'.format(self.description, self.amount / 100.0)
 
-#
-# class ProjectPhaseLog(models.Model):
-#     """ Log when a project reaches a certain phase """
-#
-#     project = models.ForeignKey(settings.PROJECTS_PROJECT_MODEL)
-#     phase = models.CharField(_("phase"), max_length=20, choices=ProjectPhases.choices)
-#     created = CreationDateTimeField(_("created"), help_text=_("When this phase was reached."))
-#
-#     class Meta:
-#         db_table = 'projects_projectphaselog'
-#         unique_together = (('project', 'phase'),)
-#
-#     def __unicode__(self):
-#         return "%s - %s - %s" % (
-#                 self.project.title,
-#                 self.phase,
-#                 self.created
-#             )
-#
+
+class ProjectPhaseLog(models.Model):
+    """ Log when a project reaches a certain phase """
+
+    project = models.ForeignKey(settings.PROJECTS_PROJECT_MODEL)
+    phase = models.CharField(_("phase"), max_length=20, choices=ProjectPhases.choices)
+    created = CreationDateTimeField(_("created"), help_text=_("When this phase was reached."))
+
+    class Meta:
+        db_table = 'projects_projectphaselog'
+        unique_together = (('project', 'phase'),)
+
+    def __unicode__(self):
+        return "%s - %s - %s" % (
+                self.project.title,
+                self.phase,
+                self.created
+            )
+
 
 class ProjectNeedChoices(DjangoChoices):
     skills = ChoiceItem('skills', label=_("Skills and expertise"))
