@@ -258,6 +258,7 @@ INSTALLED_APPS = (
     'bluebottle.geo',
     'bluebottle.quotes',
     'bluebottle.slides',
+    'bluebottle.pages',
 
     'apps.bluebottle_dashboard',
     'apps.contentplugins',

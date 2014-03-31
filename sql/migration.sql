@@ -209,6 +209,13 @@ ALTER TABLE geo_region ALTER COLUMN numeric_code DROP NOT NULL;
 ALTER TABLE geo_subregion ALTER COLUMN numeric_code DROP NOT NULL;
 
 
+-- Pages
+ALTER TABLE pages_page
+	ADD COLUMN full_page boolean DEFAULT FALSE;
+
+UPDATE pages_page set full_page = TRUE WHERE slug IN ('about', 'get-involved');
+
+
 ------------
 -- TODO: See if we need these DB changes
 
