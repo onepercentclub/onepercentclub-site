@@ -52,6 +52,7 @@ class FundRaiserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FundRaiser
+        order = ('-amount_donated', '-created')
         fields = ('id', 'owner', 'project', 'title', 'description', 'image',
                   'video_html', 'video_url', 'amount', 'amount_donated', 'deadline', 'meta_data')
 

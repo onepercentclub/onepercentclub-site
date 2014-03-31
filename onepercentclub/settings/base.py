@@ -203,7 +203,6 @@ INSTALLED_APPS = (
     # 3rd party apps
     'django_extensions',
     'django_extensions.tests',
-    'debug_toolbar',
     'raven.contrib.django',
     'djcelery',
     'south',

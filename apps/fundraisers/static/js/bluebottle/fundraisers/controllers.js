@@ -45,6 +45,11 @@ App.FundRaiserEditController = App.FundRaiserNewController.extend({
 });
 
 
+App.ProjectFundRaiserAllController = Em.ArrayController.extend({
+});
+
+
+
 App.ProjectFundRaiserListController = Em.ArrayController.extend({
     needs: ['project'],
 	fundraisersLoaded: function(sender, key) {
@@ -53,7 +58,30 @@ App.ProjectFundRaiserListController = Em.ArrayController.extend({
 		} else {
 			this.set('model', null);
 		}
-	}.observes('fundraisers.isLoaded')
+	}.observes('fundraisers.isLoaded'),
+
+    actions: {
+        showAllFundraisers: function(project){
+            // Get the controller or create one
+            var controller = this.controllerFor('projectFundRaiserAll');
+            controller.set('model', App.FundRaiser.find({project: project.get('id'), page_size: 200}));
+
+            // Get the view. This should be defined.
+            var view = App.ProjectFundRaiserAllView.create();
+            view.set('controller', controller);
+
+            var modalPaneTemplate = ['<div class="modal-wrapper"><a class="modal-close" rel="close">&times;</a>{{view view.bodyViewClass}}</div>'].join("\n");
+
+            Bootstrap.ModalPane.popup({
+                classNames: ['modal', 'large'],
+                defaultTemplate: Em.Handlebars.compile(modalPaneTemplate),
+                bodyViewClass: view,
+                secondary: 'Close'
+            });
+
+        }
+    }
+
 });
 
 
@@ -102,5 +130,5 @@ App.FundRaiserIndexController = Em.ArrayController.extend({
 
 
 App.MyFundRaiserListController = Em.ArrayController.extend({
-    needs: ['currentUser']
+    needs: ['currentUser'],
 });
