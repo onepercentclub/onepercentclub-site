@@ -6,7 +6,9 @@ ALTER TABLE accounts_bluebottleuser RENAME TO members_member;
 ALTER TABLE members_member
 	ADD COLUMN skypename character varying(32) DEFAULT '' NOT NULL,
 	ADD COLUMN facebook character varying(50) DEFAULT '' NOT NULL,
-	ADD COLUMN twitter character varying(15) DEFAULT '' NOT NULL;
+	ADD COLUMN twitter character varying(15) DEFAULT '' NOT NULL,
+	ALTER COLUMN available_time DROP NOT NULL,
+	ALTER COLUMN contribution DROP NOT NULL;
 
 -- Renaming indexes & sequences
 ALTER INDEX accounts_bluebottleuser_pkey RENAME TO members_member_pkey;
