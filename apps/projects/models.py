@@ -155,13 +155,13 @@ class Project(BaseProject):
     def task_count(self):
         from bluebottle.utils.utils import get_task_model
         TASK_MODEL = get_task_model()
-        return len(self.onepercenttask_set.filter(status=TASK_MODEL.TaskStatuses.open).all())
+        return TASK_MODEL.objects.filter(project=self).exclude(status=TASK_MODEL.TaskStatuses.closed).count()
 
     @property
     def get_open_tasks(self):
         from bluebottle.utils.utils import get_task_model
         TASK_MODEL = get_task_model()
-        return self.onepercenttask_set.filter(status=TASK_MODEL.TaskStatuses.open).all()
+        return TASK_MODEL.objects.filter(project=self).filter(status=TASK_MODEL.TaskStatuses.open).all()
 
     @property
     def date_funded(self):
@@ -185,22 +185,6 @@ class Project(BaseProject):
         bits = url.split('/')
         url = "/".join(bits[:2] + ['#!'] + bits[2:])
         return url
-
-    def get_meta_title(self, **kwargs):
-        plan = self.projectplan
-        return u"%(name_project)s | %(theme)s | %(country)s" % {
-            'name_project': self.title,
-            'theme': plan.theme.name if plan.theme else '',
-            'country': plan.country.name if plan.country else '',
-        }
-
-    def get_fb_title(self, **kwargs):
-        plan = self.projectplan
-        title = _(u"{name_project} in {country}").format(
-                    name_project = self.title,
-                    country = plan.country.name if plan.country else '',
-                )
-        return title
 
     def get_tweet(self, **kwargs):
         """ Build the tweet text for the meta data """
