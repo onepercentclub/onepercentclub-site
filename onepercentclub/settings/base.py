@@ -245,6 +245,10 @@ INSTALLED_APPS = (
     'apps.tasks',
     'apps.projects',
 
+    # apps overriding bluebottle functionality should come before the bluebottle entries
+    # (template loaders pick the first template they find)
+    'apps.core',
+
     # Bluebottle apps with abstract models
     'bluebottle.bb_accounts',
     'bluebottle.bb_tasks',
@@ -258,6 +262,8 @@ INSTALLED_APPS = (
     'bluebottle.geo',
     'bluebottle.quotes',
     'bluebottle.slides',
+    'bluebottle.pages',
+    'bluebottle.news',
 
     'apps.bluebottle_dashboard',
     'apps.contentplugins',
@@ -272,8 +278,6 @@ INSTALLED_APPS = (
     'apps.sepa',
 
     'apps.statistics',
-    #'apps.pages',
-    #'apps.blogs',
     'apps.homepage',
     'apps.redirects',
     'apps.partners',

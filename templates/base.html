@@ -53,7 +53,7 @@
 
     {# Addition for Bluebottle JS #}
     <script type="text/javascript" src="{% static 'js/projects/models.js' %}"></script>
-
+    <script type="text/javascript" src="{% static 'js/bluebottle/app_overrides.js' %}"></script>
 
     {# Apps not in Bluebottle #}
     <script type="text/javascript" src="{% static 'js/bluebottle/homepage/models.js' %}"></script>
@@ -61,20 +61,10 @@
     <script type="text/javascript" src="{% static 'js/bluebottle/homepage/views.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bluebottle/homepage/routes.js' %}"></script>
 
-    <script type="text/javascript" src="{% static 'js/bluebottle/blogs/models.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/bluebottle/blogs/controllers.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/bluebottle/blogs/views.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/bluebottle/blogs/routes.js' %}"></script>
-
     <script type="text/javascript" src="{% static 'js/bluebottle/orders/models.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bluebottle/orders/controllers.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bluebottle/orders/views.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bluebottle/orders/routes.js' %}"></script>
-
-    <script type="text/javascript" src="{% static 'js/bluebottle/pages/models.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/bluebottle/pages/controllers.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/bluebottle/pages/views.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/bluebottle/pages/routes.js' %}"></script>
 
     <script type="text/javascript" src="{% static 'js/bluebottle/donations/models.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bluebottle/donations/controllers.js' %}"></script>
@@ -97,9 +87,6 @@
     <script type="text/javascript" src="{% static 'js/bluebottle/campaigns/views.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bluebottle/campaigns/routes.js' %}"></script>
     {% endcomment %}
-
-    <script type="text/javascript" src="{{ STATIC_URL }}js/bluebottle/vouchers.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/bluebottle/homepage.js"></script>
     
     <script type="text/javascript" src="{{ STATIC_URL }}js/plugins/jquery.countdown.js"></script>
 {% endblock %}
