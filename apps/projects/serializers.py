@@ -68,7 +68,6 @@ class ProjectSerializer(BaseProjectSerializer):
     id = serializers.CharField(source='slug', read_only=True)
 
     owner = UserPreviewSerializer()
-    coach = UserPreviewSerializer()
 
     plan = ProjectPlanSerializer(source='projectplan')
     campaign = ProjectCampaignSerializer(source='projectcampaign')
@@ -90,7 +89,7 @@ class ProjectSerializer(BaseProjectSerializer):
     class Meta:
         model = Project
         fields = (
-            'id', 'created', 'title', 'owner', 'coach', 'plan', 'campaign', 'status', 'popularity',
+            'id', 'created', 'title', 'owner', 'plan', 'campaign', 'status', 'popularity',
             'task_count', 'meta_data', 'is_campaign', 'latitude', 'longitude'
         )
 
@@ -146,11 +145,9 @@ class ManageProjectSerializer(serializers.ModelSerializer):
     campaign = serializers.PrimaryKeyRelatedField(source='projectcampaign', read_only=True)
     result = serializers.PrimaryKeyRelatedField(source='projectresult', read_only=True)
 
-    coach = serializers.PrimaryKeyRelatedField(source='coach', read_only=True)
-
     class Meta:
         model = Project
-        fields = ('id', 'created', 'title', 'url', 'status', 'pitch', 'plan', 'campaign', 'coach')
+        fields = ('id', 'created', 'title', 'url', 'status', 'pitch', 'plan', 'campaign')
 
 
 # Serializers for ProjectWallPosts:
