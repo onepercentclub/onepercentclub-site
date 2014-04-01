@@ -250,14 +250,15 @@ INSTALLED_APPS = (
     'apps.core',
 
     # Other Bluebottle apps
-    'bluebottle.common',
-    'bluebottle.wallposts',
     'bluebottle.utils',
+    'bluebottle.common',
+    'bluebottle.contentplugins',
     'bluebottle.geo',
-    'bluebottle.quotes',
-    'bluebottle.slides',
     'bluebottle.pages',
+    'bluebottle.wallposts', # Define wall posts before projects/tasks that depend on it.
     'bluebottle.news',
+    'bluebottle.slides',
+    'bluebottle.quotes',
 
     # Bluebottle apps with abstract models
     'bluebottle.bb_accounts',
