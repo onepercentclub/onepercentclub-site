@@ -249,12 +249,6 @@ INSTALLED_APPS = (
     # (template loaders pick the first template they find)
     'apps.core',
 
-    # Bluebottle apps with abstract models
-    'bluebottle.bb_accounts',
-    'bluebottle.bb_tasks',
-    'bluebottle.bb_projects',
-    'bluebottle.bb_organizations',
-
     # Other Bluebottle apps
     'bluebottle.common',
     'bluebottle.wallposts',
@@ -264,6 +258,12 @@ INSTALLED_APPS = (
     'bluebottle.slides',
     'bluebottle.pages',
     'bluebottle.news',
+
+    # Bluebottle apps with abstract models
+    'bluebottle.bb_accounts',
+    'bluebottle.bb_organizations',
+    'bluebottle.bb_projects',
+    'bluebottle.bb_tasks',
 
     'apps.bluebottle_dashboard',
     'apps.contentplugins',
