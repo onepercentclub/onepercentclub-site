@@ -249,21 +249,22 @@ INSTALLED_APPS = (
     # (template loaders pick the first template they find)
     'apps.core',
 
+    # Other Bluebottle apps
+    'bluebottle.utils',
+    'bluebottle.common',
+    'bluebottle.contentplugins',
+    'bluebottle.geo',
+    'bluebottle.pages',
+    'bluebottle.wallposts', # Define wall posts before projects/tasks that depend on it.
+    'bluebottle.news',
+    'bluebottle.slides',
+    'bluebottle.quotes',
+
     # Bluebottle apps with abstract models
     'bluebottle.bb_accounts',
     'bluebottle.bb_tasks',
     'bluebottle.bb_projects',
     'bluebottle.bb_organizations',
-
-    # Other Bluebottle apps
-    'bluebottle.common',
-    'bluebottle.wallposts',
-    'bluebottle.utils',
-    'bluebottle.geo',
-    'bluebottle.quotes',
-    'bluebottle.slides',
-    'bluebottle.pages',
-    'bluebottle.news',
 
     'apps.bluebottle_dashboard',
     'apps.contentplugins',
