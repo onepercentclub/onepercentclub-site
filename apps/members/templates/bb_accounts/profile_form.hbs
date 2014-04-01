@@ -7,6 +7,39 @@
     <p>{% trans "Personalise your account so 1%Members can get to know you." %}</p>
 {% endblock form_meta %}
 
+{% block_verbatim fieldset1 %}
+    <fieldset>
+        <ul>
+            <li class="control-group">
+                <label class="control-label">
+                    {% trans "Name" %}
+                </label>
+
+                <div class="controls">
+                    {{view Em.TextField valueBinding="first_name" placeholder="{% trans 'First name' %}"
+                    class="inline-prepend" classBinding="errors.first_name.length:error"}}
+
+                    {{view Em.TextField valueBinding="last_name" placeholder="{% trans 'Surname' %}"
+                    class="inline-append" classBinding="errors.last_name.length:error"}}
+                </div>
+            </li>
+            <li class="control-group profile-picture-container">
+                <label class="control-label">
+                    {% trans "Profile Picture" %}
+                </label>
+
+                <div class="controls file-upload">
+                    <figure class="member-avatar"><img {{bindAttr src="getAvatar"}} /></figure>
+                    <a class="btn-link btn-upload">
+                        {{view App.UploadFile contentBinding="this" name="picture" id="picture" accept="image/*" fileBinding="picture"}}
+                        <span class="flaticon solid upload-document-1"></span>
+                        {% trans "Upload picture" %}
+                    </a>
+                </div>
+            </li>
+    </ul>
+    </fieldset>
+{% endblock_verbatim fieldset1 %}
 
 {% block_verbatim profile_fields %}
     
