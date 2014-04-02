@@ -301,7 +301,10 @@ class Payout(PayoutBase):
         assert self.status == PayoutLineStatuses.new, \
             'Can only recalculate for new Payout.'
 
-        self.payout_rule = self._get_payout_rule()
+        # Set payout rule if none set.
+        if not self.payout_rule:
+            self.payout_rule = self._get_payout_rule()
+
         fee_factor = self._get_fee_percentage()
 
         self.amount_raised = self.get_amount_raised()
