@@ -15,12 +15,11 @@ handler500 = 'onepercentclub.views.handler500'
 
 urlpatterns += patterns('',
 
-    url(r'^api/blogs/', include('apps.blogs.urlsapi')),
     url(r'^api/fund/', include('apps.fund.urlsapi')),
     url(r'^api/fundraisers/', include('apps.fundraisers.urlsapi')),
     url(r'^api/organizations/', include('apps.organizations.urlsapi')),
     url(r'^api/partners/', include('apps.partners.urlsapi')),
-
+    url(r'^api/', include('apps.projects.urls.api')),
 
     # Homepage API urls
     url(r'^api/homepage/', include('apps.homepage.urls.api')),
@@ -65,7 +64,7 @@ urlpatterns += i18n_patterns('',
     url(r'^accounts/', include('django.contrib.auth.urls', namespace='accounts')),
 
     # Project view that search engines will use.
-    url(r'^projects/', include('apps.projects.urls')),
+    url(r'^projects/', include('apps.projects.urls.seo')),
 
     # Organization urls for downloading private documents
     url(r'^documents/', include('bluebottle.utils.urls.main')),
