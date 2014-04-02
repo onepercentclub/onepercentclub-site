@@ -187,7 +187,7 @@
     <div class='all-fundraisers'>
         <h4>{% trans "Fundraisers" %}</h4>
         {{#each fundraiser in controller}}
-            {{#link-to "fundRaiser" fundraiser classNames='member'}}
+            <a {{action "showFundraiser" fundraiser}} class='member'>
                 <div class="fundraiser-item">
                     <figure class="fundraiser-image">
                         <img  {{bindAttr src="fundraiser.image.small"}}>
@@ -203,7 +203,7 @@
                         </div>
                     </div>
                 </div>
-            {{/link-to}}
+            </a>
         {{/each}}
     </div>
 {% endtplhandlebars %}

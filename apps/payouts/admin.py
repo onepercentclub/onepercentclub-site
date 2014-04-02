@@ -163,7 +163,7 @@ class PayoutAdmin(admin.ModelAdmin):
     admin_organization = link_to(
         lambda obj: obj.project.projectplan.organization,
         'admin:organizations_organization_change',
-        view_args=lambda obj: (obj.id, ),
+        view_args=lambda obj: (obj.project.projectplan.organization.id, ),
         short_description=_('organization')
     )
 

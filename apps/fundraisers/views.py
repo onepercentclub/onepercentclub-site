@@ -17,6 +17,10 @@ class FundRaiserListView(ListCreateAPIView):
     paginate_by = 4
     paginate_by_param = 'page_size'
 
+    # because we overwrite get_queryset, this is ignored
+    # TODO: Write cleaner code that takes this argument into account.
+    # ordering = ('-created', )
+
     def get_queryset(self, queryset=None):
         queryset = super(FundRaiserListView, self).get_queryset(queryset)
 
@@ -36,8 +40,7 @@ class FundRaiserListView(ListCreateAPIView):
         if user_id:
             filter_kwargs['owner__pk'] = user_id
 
-        # randomize results?
-        return queryset.filter(**filter_kwargs).order_by('?')
+        return queryset.filter(**filter_kwargs).order_by('-created')
 
     def pre_save(self, obj):
         if not self.request.user.is_authenticated():

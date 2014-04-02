@@ -46,12 +46,18 @@ App.FundRaiserEditController = App.FundRaiserNewController.extend({
 
 
 App.ProjectFundRaiserAllController = Em.ArrayController.extend({
+    actions: {
+        showFundraiser: function(fundraiser){
+            $('.modal-close').click();
+            this.transitionToRoute('fundRaiser', fundraiser);
+        }
+    }
 });
 
 
 
 App.ProjectFundRaiserListController = Em.ArrayController.extend({
-    needs: ['project'],
+    needs: ['project', 'projectFundRaiserAll'],
 	fundraisersLoaded: function(sender, key) {
 		if (this.get(key)) {
 			this.set('model', this.get('fundraisers').toArray());
@@ -63,7 +69,7 @@ App.ProjectFundRaiserListController = Em.ArrayController.extend({
     actions: {
         showAllFundraisers: function(project){
             // Get the controller or create one
-            var controller = this.controllerFor('projectFundRaiserAll');
+            var controller = this.get('controllers.projectFundRaiserAll');
             controller.set('model', App.FundRaiser.find({project: project.get('id'), page_size: 200}));
 
             // Get the view. This should be defined.
