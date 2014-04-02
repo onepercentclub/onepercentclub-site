@@ -606,8 +606,12 @@ REST_FRAMEWORK = {
     # Don't do basic authentication.
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
-    )
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
 }
+
 
 COWRY_RETURN_URL_BASE = 'http://127.0.0.1:8000'
 
