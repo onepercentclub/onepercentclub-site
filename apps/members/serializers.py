@@ -2,23 +2,23 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from bluebottle.bb_accounts.serializers import (UserProfileSerializer as BaseUserProfileSerializer,
                                                 UserSettingsSerializer as BaseUserSettingsSerializer)
-from bluebottle.geo.models import Country
 from .models import UserAddress
+from bluebottle.geo.serializers import CountrySerializer
 
 USER_MODEL = get_user_model()
 
 
-class CountrySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Country
-        fields = ('name',)
+# class CountrySerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Country
+#         fields = ('name',)
 
 class UserAddressSerializer(serializers.ModelSerializer):
-    country = CountrySerializer(source="country")
+    #country = CountrySerializer()
 
     class Meta:
         model = UserAddress
-        fields = ('line1','line2', 'address_type', 'city', 'state', 'country', 'postal_code')
+        fields = ('id', 'line1','line2', 'address_type', 'city', 'state', 'country', 'postal_code')
 
 class UserProfileSerializer(BaseUserProfileSerializer):
 
