@@ -56,8 +56,7 @@
                     <strong class="amount-asked">&euro;{{localize amount_asked}}</strong>
                     {% trans "raised" %}
                 </p>
-
-                <div class="project-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
+                {{bb-progressbar targetValue=amount_asked currentValue=amount_donated}}
             </div>
 
             <div class="project-action">

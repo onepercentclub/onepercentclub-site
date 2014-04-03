@@ -47,16 +47,16 @@ class ProjectSerializer(BaseProjectSerializer):
 
 class ProjectPreviewSerializer(serializers.ModelSerializer):
     id = serializers.CharField(source='slug', read_only=True)
-    image = SorlImageField('projectplan.image', '400x300', crop='center')
-    country = ProjectCountrySerializer(source='projectplan.country')
-    pitch = serializers.CharField(source='projectplan.pitch')
+    image = SorlImageField('image', '400x300', crop='center')
+    country = ProjectCountrySerializer(source='country')
+    pitch = serializers.CharField(source='pitch')
 
     task_count = serializers.IntegerField(source='task_count')
 
     class Meta:
         model = PROJECT_MODEL
         fields = ('id', 'title', 'image', 'status', 'pitch', 'popularity', 'country', 'task_count',
-                  'is_campaign')
+                  'is_campaign', 'amount_asked', 'amount_donated', 'amount_needed')
 
 
 class ProjectSupporterSerializer(serializers.ModelSerializer):
