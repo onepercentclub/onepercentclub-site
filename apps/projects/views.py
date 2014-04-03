@@ -64,7 +64,7 @@ class ProjectPreviewList(generics.ListAPIView):
                            Q(projectplan__title__icontains=text))
 
         # only projects which are approved should be visible
-        qs = qs.filter(pk__in=ProjectPlan.objects.filter(status=ProjectPlan.PlanStatuses.approved).values("project"))
+        qs = qs.filter(pk__in=ProjectPlan.objects.exclude(status=ProjectPlan.PlanStatuses.rejected).values("project"))
 
         qs = qs.exclude(phase=ProjectPhases.pitch)
         qs = qs.exclude(phase=ProjectPhases.failed)
