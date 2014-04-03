@@ -8,11 +8,6 @@ from bluebottle.geo.serializers import CountrySerializer
 USER_MODEL = get_user_model()
 
 
-# class CountrySerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Country
-#         fields = ('name',)
-
 class UserAddressSerializer(serializers.ModelSerializer):
     #country = CountrySerializer()
 
