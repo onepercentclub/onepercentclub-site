@@ -11,10 +11,11 @@ from django.views.generic.detail import DetailView
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
-from apps.projects.models import ProjectPitch, ProjectPlan, ProjectBudgetLine, ProjectPhases, ProjectCampaign, ProjectTheme
+from apps.projects.models import ProjectBudgetLine, ProjectPhases, ProjectTheme
 from apps.fund.models import Donation, DonationStatuses
-from apps.projects.serializers import ProjectSupporterSerializer, ManageProjectSerializer, ManageProjectPlanSerializer, ProjectPlanSerializer,  ProjectPreviewSerializer, ProjectCampaignSerializer, ProjectThemeSerializer
-from apps.projects.permissions import IsProjectOwner, NoRunningProjectsOrReadOnly, EditablePitchOrReadOnly, EditablePlanOrReadOnly
+from apps.projects.serializers import (
+    ProjectSupporterSerializer, ManageProjectSerializer, ProjectPreviewSerializer, ProjectThemeSerializer)
+from apps.projects.permissions import IsProjectOwner
 from apps.fundraisers.models import FundRaiser
 
 from .models import Project
@@ -51,24 +52,21 @@ class ProjectPreviewList(generics.ListAPIView):
 
         country = self.request.QUERY_PARAMS.get('country', None)
         if country:
-            qs = qs.filter(projectplan__country=country)
+            qs = qs.filter(country=country)
 
         theme = self.request.QUERY_PARAMS.get('theme', None)
         if theme:
-            qs = qs.filter(projectplan__theme_id=theme)
+            qs = qs.filter(theme_id=theme)
 
         text = self.request.QUERY_PARAMS.get('text', None)
         if text:
             qs = qs.filter(Q(title__icontains=text) |
-                           Q(projectplan__pitch__icontains=text) |
-                           Q(projectplan__description__icontains=text) |
-                           Q(projectplan__title__icontains=text))
+                           Q(pitch__icontains=text) |
+                           Q(description__icontains=text) |
+                           Q(title__icontains=text))
 
-        # only projects which are approved should be visible
-        qs = qs.filter(pk__in=ProjectPlan.objects.filter(status=ProjectPlan.PlanStatuses.approved).values("project"))
-
-        qs = qs.exclude(phase=ProjectPhases.pitch)
-        qs = qs.exclude(phase=ProjectPhases.failed)
+        # only projects which are in a viewable status should be visible
+        qs = qs.filter(status__viewable=True).values("project")
 
         return qs
 
@@ -89,10 +87,7 @@ class ProjectCountryList(generics.ListAPIView):
 
     def get_queryset(self):
         qs = super(ProjectCountryList, self).get_queryset()
-        return qs.filter(pk__in=ProjectPlan.objects.filter(status=ProjectPlan.PlanStatuses.approved)
-                                                    .exclude(project__phase=ProjectPhases.pitch)
-                                                    .exclude(project__phase=ProjectPhases.failed)
-                                                    .distinct('country').values('country'))
+        return qs.filter(pk__in=Project.objects.filter(status__viewable=True).distinct('country').values('country'))
 
 
 class ProjectList(generics.ListAPIView):
@@ -115,11 +110,6 @@ class ProjectDetail(generics.RetrieveAPIView):
         qs = super(ProjectDetail, self).get_queryset()
         qs = qs.exclude(phase=ProjectPhases.pitch)
         return qs
-
-
-class ProjectPlanDetail(generics.RetrieveAPIView):
-    model = ProjectPlan
-    serializer_class = ProjectPlanSerializer
 
 
 class ProjectSupporterList(generics.ListAPIView):
@@ -191,7 +181,7 @@ class ProjectDonationList(ProjectSupporterList):
 class ManageProjectList(generics.ListCreateAPIView):
     model = Project
     serializer_class = ManageProjectSerializer
-    permission_classes = (IsAuthenticated, NoRunningProjectsOrReadOnly, )
+    permission_classes = (IsAuthenticated, )
     paginate_by = 10
 
     def get_queryset(self):
@@ -211,18 +201,6 @@ class ManageProjectDetail(generics.RetrieveUpdateAPIView):
     model = Project
     serializer_class = ManageProjectSerializer
     permission_classes = (IsProjectOwner, )
-
-
-class ManageProjectPlanDetail(generics.RetrieveUpdateAPIView):
-    model = ProjectPlan
-    serializer_class = ManageProjectPlanSerializer
-    permission_classes = (EditablePlanOrReadOnly, IsProjectOwner, )
-
-
-class ManageProjectCampaignDetail(generics.RetrieveUpdateAPIView):
-    model = ProjectCampaign
-    serializer_class = ProjectCampaignSerializer
-    permission_classes = (EditablePlanOrReadOnly, IsProjectOwner, )
 
 
 # Django template Views
