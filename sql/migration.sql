@@ -12,7 +12,7 @@ CREATE SEQUENCE accounts_timeavailable_id_seq
 	NO MINVALUE
 	CACHE 1;
 
-
+  
 CREATE TABLE bb_accounts_timeavailable (
 	id integer DEFAULT nextval('accounts_timeavailable_id_seq'::regclass) UNIQUE NOT NULL,
 	type character varying(100) NOT NULL,
@@ -32,9 +32,7 @@ INSERT INTO bb_accounts_timeavailable (id, type, description) VALUES
 
 
 -- Members
-
 ALTER TABLE accounts_bluebottleuser RENAME TO members_member;
-ALTER TABLE members_member RENAME COLUMN availability to availability_old;
 
 ALTER TABLE members_member
 	ADD COLUMN skypename character varying(32) DEFAULT '' NOT NULL,
@@ -46,6 +44,43 @@ ALTER TABLE members_member
 	ADD CONSTRAINT time_available_id FOREIGN KEY (time_available_id)
 	  REFERENCES bb_accounts_timeavailable (id) MATCH SIMPLE
     ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY DEFERRED;
+
+-- move info of availability to time_available
+
+UPDATE members_member SET time_available_id =
+  (SELECT ta.id FROM bb_accounts_timeavailable as ta WHERE ta.type = '1-4_hours_week')
+  WHERE availability = '1-4_hours_week';
+
+UPDATE members_member SET time_available_id =
+  (SELECT ta.id FROM bb_accounts_timeavailable as ta WHERE ta.type = '5-8_hours_week')
+  WHERE availability = '5-8_hours_week';
+
+UPDATE members_member SET time_available_id =
+  (SELECT ta.id FROM bb_accounts_timeavailable as ta WHERE ta.type = '9-16_hours_week')
+  WHERE availability = '9-16_hours_week';
+
+UPDATE members_member SET time_available_id =
+  (SELECT ta.id FROM bb_accounts_timeavailable as ta WHERE ta.type = '1-4_hours_month')
+  WHERE availability = '1-4_hours_month';
+
+UPDATE members_member SET time_available_id =
+  (SELECT ta.id FROM bb_accounts_timeavailable as ta WHERE ta.type = '5-8_hours_month')
+  WHERE availability = '5-8_hours_month';
+
+UPDATE members_member SET time_available_id =
+  (SELECT ta.id FROM bb_accounts_timeavailable as ta WHERE ta.type = '9-16_hours_month')
+  WHERE availability = '9-16_hours_month';
+
+UPDATE members_member SET time_available_id =
+  (SELECT ta.id FROM bb_accounts_timeavailable as ta WHERE ta.type = 'lots_of_time')
+  WHERE availability = 'lots_of_time';
+
+UPDATE members_member SET time_available_id =
+  (SELECT ta.id FROM bb_accounts_timeavailable as ta WHERE ta.type = 'depends')
+  WHERE availability = 'depends';
+
+-- delete old availability field
+ALTER TABLE members_member DROP COLUMN availability;
 
 
 -- Renaming indexes & sequences
