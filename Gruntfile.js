@@ -27,7 +27,7 @@ module.exports = function (grunt) {
           interrupt: true,
           debounceDelay: 250
         }
-      }
+      },
       scss: {
         files: ['/static/global/**/*'],
         tasks: ['compass:dev'],
@@ -99,7 +99,7 @@ module.exports = function (grunt) {
         files: ['apps/**/*.hbs'],
         dest: 'static/build/js/lib/tmpl.min.js'
       }
-    }
+    },
     compass: {
       // live
       dist: {
