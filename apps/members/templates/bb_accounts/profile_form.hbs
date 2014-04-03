@@ -111,23 +111,12 @@
         </legend>
 
         <ul>
-            <li class="control-group">
-                <label class="control-label">
-                    {% trans "Time available" %}
-                </label>
+            {{#bb-form-field label='Time available' errors=errors.time_available}}
+                {{view Em.Select name='timeavailable' contentBinding="availableTimes" selectionBinding="time_available"
+                classBinding="errors.timeavailable:error" optionValuePath="content.id" optionLabelPath="content.description"
+                prompt="Pick a time slots"}}
+            {{/bb-form-field}}
 
-                <div class="controls">
-                    {{view Em.Select
-                        contentBinding="timeAvailableList"
-                        optionValuePath="content.value"
-                        optionLabelPath="content.name"
-                        valueBinding="availability"}}
-                </div>
-
-                {{#if errors.availability}}
-                    <div class="has-errors">{{#each errors.availability}}<p>{{this}}</p>{{/each}}</div>
-                {{/if}}
-            </li>
         </ul>
     </fieldset>
 {% endblock_verbatim extra_fieldsets %}
