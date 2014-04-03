@@ -1,4 +1,4 @@
-from bluebottle.tests.utils import SeleniumTestCase
+from bluebottle.test.utils import SeleniumTestCase
 
 
 class OnePercentSeleniumTestCase(SeleniumTestCase):
