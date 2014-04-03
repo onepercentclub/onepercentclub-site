@@ -2,13 +2,86 @@
 -- MEMBERS
 --
 
+-- Time Available
+-- Project Phase
+
+CREATE SEQUENCE accounts_timeavailable_id_seq
+	START WITH 1
+	INCREMENT BY 1
+	NO MAXVALUE
+	NO MINVALUE
+	CACHE 1;
+
+  
+CREATE TABLE bb_accounts_timeavailable (
+	id integer DEFAULT nextval('accounts_timeavailable_id_seq'::regclass) UNIQUE NOT NULL,
+	type character varying(100) NOT NULL,
+	description character varying(400) NOT NULL
+);
+
+-- Set Default times available
+INSERT INTO bb_accounts_timeavailable (id, type, description) VALUES
+  (1, '1-4_hours_week', '1-4 hours per week'),
+  (2, '5-8_hours_week', '5-8 hours per week'),
+  (3, '9-16_hours_week', '9-16 hours week'),
+  (4, '1-4_hours_month', '1-4 hours month'),
+  (6, '5-8_hours_month', '5-8 hours month'),
+  (7, '9-16_hours_month', '9-16 hours month'),
+  (8, 'lots_of_time', 'I have all the time in the world. Bring it on :D'),
+  (9, 'depends', 'It depends on the content of the tasks. Challenge me!');
+
+
+-- Members
 ALTER TABLE accounts_bluebottleuser RENAME TO members_member;
+
 ALTER TABLE members_member
 	ADD COLUMN skypename character varying(32) DEFAULT '' NOT NULL,
 	ADD COLUMN facebook character varying(50) DEFAULT '' NOT NULL,
 	ADD COLUMN twitter character varying(15) DEFAULT '' NOT NULL,
-	ALTER COLUMN available_time DROP NOT NULL,
-	ALTER COLUMN contribution DROP NOT NULL;
+	DROP COLUMN available_time,
+	ALTER COLUMN contribution DROP NOT NULL,
+	ADD COLUMN time_available_id integer,
+	ADD CONSTRAINT time_available_id FOREIGN KEY (time_available_id)
+	  REFERENCES bb_accounts_timeavailable (id) MATCH SIMPLE
+    ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY DEFERRED;
+
+-- move info of availability to time_available
+
+UPDATE members_member SET time_available_id =
+  (SELECT ta.id FROM bb_accounts_timeavailable as ta WHERE ta.type = '1-4_hours_week')
+  WHERE availability = '1-4_hours_week';
+
+UPDATE members_member SET time_available_id =
+  (SELECT ta.id FROM bb_accounts_timeavailable as ta WHERE ta.type = '5-8_hours_week')
+  WHERE availability = '5-8_hours_week';
+
+UPDATE members_member SET time_available_id =
+  (SELECT ta.id FROM bb_accounts_timeavailable as ta WHERE ta.type = '9-16_hours_week')
+  WHERE availability = '9-16_hours_week';
+
+UPDATE members_member SET time_available_id =
+  (SELECT ta.id FROM bb_accounts_timeavailable as ta WHERE ta.type = '1-4_hours_month')
+  WHERE availability = '1-4_hours_month';
+
+UPDATE members_member SET time_available_id =
+  (SELECT ta.id FROM bb_accounts_timeavailable as ta WHERE ta.type = '5-8_hours_month')
+  WHERE availability = '5-8_hours_month';
+
+UPDATE members_member SET time_available_id =
+  (SELECT ta.id FROM bb_accounts_timeavailable as ta WHERE ta.type = '9-16_hours_month')
+  WHERE availability = '9-16_hours_month';
+
+UPDATE members_member SET time_available_id =
+  (SELECT ta.id FROM bb_accounts_timeavailable as ta WHERE ta.type = 'lots_of_time')
+  WHERE availability = 'lots_of_time';
+
+UPDATE members_member SET time_available_id =
+  (SELECT ta.id FROM bb_accounts_timeavailable as ta WHERE ta.type = 'depends')
+  WHERE availability = 'depends';
+
+-- delete old availability field
+ALTER TABLE members_member DROP COLUMN availability;
+
 
 -- Renaming indexes & sequences
 ALTER INDEX accounts_bluebottleuser_pkey RENAME TO members_member_pkey;
@@ -122,7 +195,19 @@ ALTER TABLE projects_project
 	ADD COLUMN longitude numeric(21,18),
 	ADD COLUMN reach integer,
 	ADD COLUMN video_url character varying(100),
-	ADD COLUMN deadline timestamp with time zone;
+	ADD COLUMN deadline timestamp with time zone,
+  ADD COLUMN amount_asked numeric(12,2) DEFAULT 0.00 NOT NULL,
+  ADD COLUMN amount_donated numeric(12,2) DEFAULT 0.00 NOT NULL,
+  ADD COLUMN amount_needed numeric(12,2) DEFAULT 0.00 NOT NULL;
+
+
+
+-- Organization
+
+ALTER TABLE organizations_organization
+  ALTER COLUMN description SET DEFAULT ''
+  ALTER COLUMN legal_status SET DEFAULT '';
+
 
 
 -- Migrate phases to status
@@ -170,6 +255,16 @@ UPDATE projects_project p
   AND p.phase <> 'pitch' AND pp.theme_id IS NOT NULL;
 
 
+-- Migrate ProjectCampaign
+
+UPDATE projects_project p
+  SET amount_asked = (pc.money_asked / 100),
+      amount_donated = (pc.money_donated / 100),
+      amount_needed = (pc.money_needed / 100)
+  FROM projects_projectcampaign AS pc
+  WHERE pc.project_id = p.id;
+
+
 --
 -- TASKS
 --
@@ -201,6 +296,13 @@ ALTER TABLE geo_country ALTER COLUMN numeric_code DROP NOT NULL;
 ALTER TABLE geo_region ALTER COLUMN numeric_code DROP NOT NULL;
 
 ALTER TABLE geo_subregion ALTER COLUMN numeric_code DROP NOT NULL;
+
+
+-- Pages
+ALTER TABLE pages_page
+	ADD COLUMN full_page boolean DEFAULT FALSE;
+
+UPDATE pages_page set full_page = TRUE WHERE slug IN ('about', 'get-involved');
 
 
 ------------

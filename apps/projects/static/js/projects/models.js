@@ -1,5 +1,9 @@
 App.Project.reopen({
-    url: "projects",
+
+    amount_asked: DS.attr('number'),
+    amount_donated: DS.attr('number'),
+    amount_needed: DS.attr('number'),
+
     isFundable: Em.computed.equal('status', 6),
 
     isStatusPlan: Em.computed.equal('status.id', 5),
