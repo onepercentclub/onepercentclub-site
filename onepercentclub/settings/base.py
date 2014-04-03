@@ -277,7 +277,7 @@ INSTALLED_APPS = (
     'apps.donations',
     'apps.vouchers',
     'apps.hbtemplates',
-    'apps.payouts',
+    #'apps.payouts',
     'apps.sepa',
 
     'apps.statistics',

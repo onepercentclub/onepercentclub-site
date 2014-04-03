@@ -122,7 +122,11 @@ ALTER TABLE projects_project
 	ADD COLUMN longitude numeric(21,18),
 	ADD COLUMN reach integer,
 	ADD COLUMN video_url character varying(100),
-	ADD COLUMN deadline timestamp with time zone;
+	ADD COLUMN deadline timestamp with time zone,
+  ADD COLUMN amount_asked numeric(12,2) DEFAULT 0.00 NOT NULL,
+  ADD COLUMN amount_donated numeric(12,2) DEFAULT 0.00 NOT NULL,
+  ADD COLUMN amount_needed numeric(12,2) DEFAULT 0.00 NOT NULL;
+
 
 
 -- Organization
@@ -176,6 +180,16 @@ UPDATE projects_project p
   FROM projects_projectplan AS pp
   WHERE pp.project_id = p.id
   AND p.phase <> 'pitch' AND pp.theme_id IS NOT NULL;
+
+
+-- Migrate ProjectCampaign
+
+UPDATE projects_project p
+  SET amount_asked = (pc.money_asked / 100),
+      amount_donated = (pc.money_donated / 100),
+      amount_needed = (pc.money_needed / 100)
+  FROM projects_projectcampaign AS pc
+  WHERE pc.project_id = p.id;
 
 
 --

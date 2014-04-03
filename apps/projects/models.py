@@ -92,10 +92,14 @@ class Project(BaseProject):
                     "You can paste the link to YouTube or Vimeo video here"))
 
     deadline = models.DateTimeField(_('deadline'), null=True, blank=True)
-
     popularity = models.FloatField(null=False, default=0)
-
     is_campaign = models.BooleanField(default=False, help_text=_("Project is part of a campaign and gets special promotion."))
+
+    # For convenience and performance we also store money donated and needed here.
+    amount_asked = models.PositiveIntegerField(default=0)
+    amount_donated = models.PositiveIntegerField(default=0)
+    amount_needed = models.PositiveIntegerField(default=0)
+
 
     objects = ProjectManager()
 
@@ -155,13 +159,13 @@ class Project(BaseProject):
     def task_count(self):
         from bluebottle.utils.utils import get_task_model
         TASK_MODEL = get_task_model()
-        return TASK_MODEL.objects.filter(project=self).exclude(status=TASK_MODEL.TaskStatuses.closed).count()
+        return len(self.task_set.filter(status=TASK_MODEL.TaskStatuses.open).all())
 
     @property
     def get_open_tasks(self):
         from bluebottle.utils.utils import get_task_model
         TASK_MODEL = get_task_model()
-        return TASK_MODEL.objects.filter(project=self).filter(status=TASK_MODEL.TaskStatuses.open).all()
+        return self.task_set.filter(status=TASK_MODEL.TaskStatuses.open).all()
 
     @property
     def date_funded(self):
@@ -207,8 +211,7 @@ class Project(BaseProject):
 
     class Meta:
         ordering = ['title']
-        verbose_name = _("project")
-        verbose_name_plural = _("projects")
+        default_serializer = 'apps.projects.serializers.ProjectSerializer'
 
     def save(self, *args, **kwargs):
         if not self.slug:
