@@ -266,8 +266,6 @@ INSTALLED_APPS = (
     'bluebottle.bb_projects',
     'bluebottle.bb_tasks',
 
-    'bluebottle.pages',
-
     'apps.bluebottle_dashboard',
     'apps.contentplugins',
     'apps.organizations',
