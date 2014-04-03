@@ -149,20 +149,25 @@
 
 
 {% tplhandlebars "partner" %}
-    <div class="l-section" id="partner-detail">
+    <div class="l-section detail">
         <section class="l-wrapper">
-        
-            <figure class="image">
-                <img {{bindAttr src="image.large"}} />
-            </figure>
-            
-            <article>
-                <h1>{{name}}</h1>
-                <p>{{linebreaks description formatting='br'}}</p>
-            </article>
-            
-        </section>
 
+            <figure class="project-image l-half">
+                <img {{bindAttr src="image.full"}} width="100%" alt="Photo" />
+            </figure>
+
+            <div class="l-half">
+
+                <article class="project-info">
+                    <h1 class="project-title" style="color:black">{{name}}</h1>
+                    <p class="project-description">{{linebreaks description formatting='br'}}</p>
+                </article>
+
+            </div>
+        </section>
+    </div>
+
+    <div>
         <section class="l-wrapper">
             <ul id="search-results">
                 {{#each project in projects}}
@@ -172,5 +177,6 @@
                 {{/each}}
             </ul>
         </section>
-    </div>
+     </div>
+
 {% endtplhandlebars %}
