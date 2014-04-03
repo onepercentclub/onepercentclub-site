@@ -9,7 +9,6 @@ USER_MODEL = get_user_model()
 
 
 class UserAddressSerializer(serializers.ModelSerializer):
-    #country = CountrySerializer()
 
     class Meta:
         model = UserAddress

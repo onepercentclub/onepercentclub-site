@@ -43,8 +43,6 @@ urlpatterns += patterns('',
     url(r'^', include('django.conf.urls.i18n')),
 )
 
-print "pats", urlpatterns
-
 urlpatterns += patterns('loginas.views',
     url(r"^login/user/(?P<user_id>.+)/$", "user_login", name="loginas-user-login"),
 )
