@@ -1,5 +1,3 @@
-from bluebottle.bb_projects.models import ProjectPhase
-from .serializers import ManageProjectSerializer
 from bluebottle.geo.models import Country
 from bluebottle.geo.serializers import CountrySerializer
 import django_filters
@@ -13,7 +11,7 @@ from django.views.generic.detail import DetailView
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
-from apps.projects.models import ProjectTheme
+from apps.projects.models import ProjectBudgetLine, ProjectPhases, ProjectTheme
 from apps.fund.models import Donation, DonationStatuses
 from apps.projects.serializers import (
     ProjectSupporterSerializer, ProjectPreviewSerializer, ProjectThemeSerializer)
@@ -60,7 +58,7 @@ class ProjectPreviewList(generics.ListAPIView):
 
         # only projects which are in a viewable status should be visible
         qs = qs.filter(status__viewable=True)
-
+        
         return qs
 
 
@@ -70,17 +68,17 @@ class ProjectPreviewDetail(generics.RetrieveAPIView):
 
     def get_queryset(self):
         qs = super(ProjectPreviewDetail, self).get_queryset()
-        qs = qs.exclude(status=ProjectPhase.objects.get(slug="plan-new"))
+        qs = qs.filter(status__viewable=True)
         return qs
 
 
-# class ProjectCountryList(generics.ListAPIView):
-#     model = Country
-#     serializer_class = CountrySerializer
-#
-#     def get_queryset(self):
-#         qs = super(ProjectCountryList, self).get_queryset()
-#         return qs.filter(pk__in=Project.objects.filter(status__viewable=True).distinct('country').values('country'))
+class ProjectCountryList(generics.ListAPIView):
+    model = Country
+    serializer_class = CountrySerializer
+
+    def get_queryset(self):
+        qs = super(ProjectCountryList, self).get_queryset()
+        return qs.filter(pk__in=Project.objects.filter(status__viewable=True).distinct('country').values('country'))
 
 
 class ProjectList(generics.ListAPIView):
@@ -91,7 +89,7 @@ class ProjectList(generics.ListAPIView):
 
     def get_queryset(self):
         qs = super(ProjectList, self).get_queryset()
-        qs = qs.exclude(status=ProjectPhase.objects.get(slug="plan-new"))
+        qs = qs.filter(status__viewable=True)
         return qs
 
 
@@ -101,7 +99,7 @@ class ProjectDetail(generics.RetrieveAPIView):
 
     def get_queryset(self):
         qs = super(ProjectDetail, self).get_queryset()
-        qs = qs.exclude(status=ProjectPhase.objects.get(slug="plan-new"))
+        qs = qs.filter(status__viewable=True)
         return qs
 
 
@@ -169,6 +167,31 @@ class ProjectDonationList(ProjectSupporterList):
             return queryset.none()
 
         return queryset.filter(**filter_kwargs)
+
+
+class ManageProjectList(generics.ListCreateAPIView):
+    model = Project
+    serializer_class = ManageProjectSerializer
+    permission_classes = (IsAuthenticated, )
+    paginate_by = 10
+
+    def get_queryset(self):
+        """
+        Overwrite the default to only return the Projects the currently logged in user owns.
+        """
+        queryset = super(ManageProjectList, self).get_queryset()
+        queryset = queryset.filter(owner=self.request.user)
+        queryset = queryset.order_by('-created')
+        return queryset
+
+    def pre_save(self, obj):
+        obj.owner = self.request.user
+
+
+class ManageProjectDetail(generics.RetrieveUpdateAPIView):
+    model = Project
+    serializer_class = ManageProjectSerializer
+    permission_classes = (IsProjectOwner, )
 
 
 # Django template Views

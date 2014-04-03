@@ -156,7 +156,7 @@ CREATE TABLE bb_projects_projectphase (
 	active boolean NOT NULL,
 	editable boolean NOT NULL,
 	viewable boolean NOT NULL,
-  slug character varying(200) NOT NULL
+    slug character varying(200) NOT NULL
 );
 
 -- Set default phases
@@ -197,13 +197,12 @@ ALTER TABLE projects_project
 	ADD COLUMN reach integer,
 	ADD COLUMN video_url character varying(100),
 	ADD COLUMN deadline timestamp with time zone,
-  ADD COLUMN amount_asked numeric(12,2) DEFAULT 0.00 NOT NULL,
-  ADD COLUMN amount_donated numeric(12,2) DEFAULT 0.00 NOT NULL,
-  ADD COLUMN amount_needed numeric(12,2) DEFAULT 0.00 NOT NULL,
-  ADD COLUMN effects text DEFAULT '',
-  ADD COLUMN for_who text DEFAULT '',
-  ADD COLUMN future text DEFAULT '';
-
+    ADD COLUMN amount_asked numeric(12,2) DEFAULT 0.00 NOT NULL,
+    ADD COLUMN amount_donated numeric(12,2) DEFAULT 0.00 NOT NULL,
+    ADD COLUMN amount_needed numeric(12,2) DEFAULT 0.00 NOT NULL,
+    ADD COLUMN effects text DEFAULT '',
+    ADD COLUMN for_who text DEFAULT '',
+    ADD COLUMN future text DEFAULT '';
 
 
 

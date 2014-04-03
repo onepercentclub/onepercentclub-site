@@ -9,13 +9,13 @@
         <section class="l-wrapper">
 
             {{# if video_html }}
-            <figure class="project-image">
-                {{{ video_html }}}
-            </figure>
+                <figure class="project-image">
+                    {{{ video_html }}}
+                </figure>
             {{ else }}
-            <figure class="project-image">
-                <img {{bindAttr src="image.large"}} width="100%" alt="Photo" />
-            </figure>
+                <figure class="project-image">
+                    <img {{bindAttr src="image.large"}} width="100%" alt="Photo" />
+                </figure>
             {{/if}}
 
             <article class="project-info">
@@ -52,9 +52,9 @@
 
             <div class="project-fund">
                 <p class="project-fund-amount">
-                    <strong class="amount-donated">&euro;{{localize campaign.money_donated}}</strong>
+                    <strong class="amount-donated">&euro;{{localize amount_donated}}</strong>
                     {% trans "of" %}
-                    <strong class="amount-asked">&euro;{{localize campaign.money_asked}}</strong>
+                    <strong class="amount-asked">&euro;{{localize amount_asked}}</strong>
                     {% trans "raised" %}
                 </p>
 

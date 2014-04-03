@@ -19,7 +19,8 @@ App.Project.reopen({
 
     isStatusCampaign: Em.computed.equal('status.id', '5'),
     isStatusCompleted: Em.computed.equal('status.id', '7')
-});
+}
+);
 
 App.MyProject.reopen({
     image: DS.attr('image'),
