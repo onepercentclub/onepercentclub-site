@@ -306,8 +306,6 @@ ORGANIZATIONS_ORGANIZATION_MODEL = 'organizations.Organization'
 ORGANIZATIONS_DOCUMENT_MODEL = 'organizations.OrganizationDocument'
 ORGANIZATIONS_MEMBER_MODEL = 'organizations.OrganizationMember'
 
-
-
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error when DEBUG=False.
