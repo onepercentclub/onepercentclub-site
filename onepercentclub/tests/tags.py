@@ -1,11 +1,11 @@
+from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
 from django.utils import unittest
+from bluebottle.test.factory_models.projects import ProjectFactory
+from bluebottle.test.factory_models.organizations_factories import OrganizationFactory
 from taggit.models import Tag
-from bluebottle.bb_accounts.tests import UserTestsMixin
-from apps.organizations.tests import OrganizationTestsMixin
-from apps.projects.tests import ProjectTestsMixin
 
 
-class TestTags(unittest.TestCase, ProjectTestsMixin, OrganizationTestsMixin, UserTestsMixin):
+class TestTags(unittest.TestCase):
     """ Tests for tags. """
 
     def tearDown(self):
@@ -22,16 +22,16 @@ class TestTags(unittest.TestCase, ProjectTestsMixin, OrganizationTestsMixin, Use
         # Add the same tag to the 3 models we're currently tagging.
         tag_name = "Tag1"
 
-        user = self.create_user()
+        user = BlueBottleUserFactory.create()
         user.tags.add(tag_name)
         user.save()
 
-        organization = self.create_organization()
+        organization = OrganizationFactory.create()
         organization.save()
 
         organization.tags.add(tag_name)
 
-        project = self.create_project()
+        project = ProjectFactory.create()
         project.save()
 
         project.projectpitch.tags.add(tag_name)
@@ -55,7 +55,7 @@ class TestTags(unittest.TestCase, ProjectTestsMixin, OrganizationTestsMixin, Use
 
         tag_name = "Tag2"
 
-        project = self.create_project()
+        project = ProjectFactory.create()
         project.save()
 
         # Add the same tag two times.
