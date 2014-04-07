@@ -37,14 +37,14 @@
     <section class="l-wrapper">
         <div class="project-status">
 
-            {{#if campaign.deadline}}
+            {{#if deadline}}
                 {{#if isCampaign}}
                 <div class="project-days-left">
-                    <strong><span class="flaticon solid stopwatch-1"></span> {{campaign.daysToGo}} <em>{% trans "days to go" %}!</em></strong>
+                    <strong><span class="flaticon solid stopwatch-1"></span> {{daysToGo}} <em>{% trans "days to go" %}!</em></strong>
                 </div>
                 {{else}}
                 <div class="project-days-left">
-                    <strong><span class="flaticon solid clock-1"></span> {{campaign.daysToGo}} <em>{% trans "days to go" %}</em></strong>
+                    <strong><span class="flaticon solid clock-1"></span> {{daysToGo}} <em>{% trans "days to go" %}</em></strong>
                 </div>
                 {{/if}}
             {{/if}}
@@ -56,13 +56,14 @@
                     <strong class="amount-asked">&euro;{{localize amount_asked}}</strong>
                     {% trans "raised" %}
                 </p>
-
-                <div class="project-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
+                {{bb-progressbar targetValue=amount_asked currentValue=amount_donated}}
             </div>
 
-            <div class="project-action">
-                <a href='#' {{ action 'addDonation' this }} class="btn btn-primary btn-iconed"><span class="flaticon solid wallet-1"></span> {% trans "Support project" %}</a>
-            </div>
+            {{#if isFunding}}
+                <div class="project-action">
+                    <a href='#' {{ action 'addDonation' this }} class="btn btn-primary btn-iconed"><span class="flaticon solid wallet-1"></span> {% trans "Support project" %}</a>
+                </div>
+            {{/if}}
         </div>
     </section>
 

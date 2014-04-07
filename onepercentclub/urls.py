@@ -6,12 +6,18 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 from .views import HomeView
 
-from bluebottle.urls.core import urlpatterns
+from bluebottle.urls.core import urlpatterns as bb_urlpatterns
 
 admin.autodiscover()
 
 handler500 = 'onepercentclub.views.handler500'
 
+#Put the members urls before the bluebottle urls
+urlpatterns = patterns('',
+    url(r'^api/users/', include('apps.members.urls.api')),
+)
+
+urlpatterns += bb_urlpatterns
 
 urlpatterns += patterns('',
 
@@ -19,9 +25,12 @@ urlpatterns += patterns('',
     url(r'^api/fundraisers/', include('apps.fundraisers.urlsapi')),
     url(r'^api/organizations/', include('apps.organizations.urlsapi')),
     url(r'^api/partners/', include('apps.partners.urlsapi')),
+
     url(r'^api/', include('apps.projects.urls.api')),
 
+
     # Homepage API urls
+    url(r'^api/projects/', include('apps.projects.urls.api')),
     url(r'^api/homepage/', include('apps.homepage.urls.api')),
     url(r'^api/stats', include('apps.statistics.urlsapi')),
 
