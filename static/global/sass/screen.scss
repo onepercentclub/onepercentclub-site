@@ -5,6 +5,8 @@
 
 /* ========================= Includes ============================= */
 
+@import "1procentclub/variables"; /* 1%Club overrides */
+
 
 /* Compass */
 @import "compass/utilities";
@@ -13,6 +15,7 @@
 
 /* Variables & Mixins */
 @import "variables";
+
 @import "mixins/grid";
 @import "mixins/utilities";
 
@@ -75,10 +78,11 @@
 @import "pages/fmo";
 
 /* Temp */
-@import "campaigns/crazy-campaign-2013";
+// @import "campaigns/crazy-campaign-2013";
 @import "campaigns/easter_eggs";
-@import "campaigns/ticker";
+// @import "campaigns/ticker";
 
 /* Plugins */
 @import "plugins/jquery-ui";
 @import "plugins/colorbox";
+
