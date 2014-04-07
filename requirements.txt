@@ -1,4 +1,4 @@
--e git://github.com/onepercentclub/bluebottle.git@release/bb-refaktor#egg=bluebottle
+-e git://github.com/onepercentclub/bluebottle.git@1.0.1#egg=bluebottle
 
 pip
 mercurial==2.9.1
@@ -92,5 +92,5 @@ unicodecsv==0.9.4
 # Automatically generate fixtures for use in tests
 django-dynamic-fixture==1.6.5
 
-#Use factories for testing
+# Use factories for testing
 factory-boy==2.3.1

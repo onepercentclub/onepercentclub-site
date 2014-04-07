@@ -53,7 +53,6 @@
 
     {# Addition for Bluebottle JS #}
     <script type="text/javascript" src="{% static 'js/projects/models.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/tasks/models.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bluebottle/app_overrides.js' %}"></script>
 
     {# Apps not in Bluebottle #}
@@ -172,11 +171,6 @@
         <li>
             <a {{action 'showPage' 'business'}} href="/#!/pages/business">
                 {% trans "1%Business" %}
-            </a>
-        </li>
-        <li>
-            <a href="http://onepercentblog.com/" target="_blank">
-                {% trans "1%Blog" %}
             </a>
         </li>
         <li>

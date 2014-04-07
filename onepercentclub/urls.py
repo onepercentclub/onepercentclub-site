@@ -30,6 +30,7 @@ urlpatterns += patterns('',
 
 
     # Homepage API urls
+    url(r'^api/projects/', include('apps.projects.urls.api')),
     url(r'^api/homepage/', include('apps.homepage.urls.api')),
     url(r'^api/stats', include('apps.statistics.urlsapi')),
 

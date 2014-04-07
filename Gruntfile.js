@@ -115,7 +115,7 @@ module.exports = function (grunt) {
           noLineComments: true,
           environment: 'production',
           raw: 'preferred_syntax = :scss\n', // Use `raw` since it's not directly available
-          importPath: ["../bluebottle/bluebottle/common/static/sass"]      
+          importPath: ["../bluebottle/bluebottle/common/static/sass"]
         }
       },
       // development
@@ -130,8 +130,8 @@ module.exports = function (grunt) {
           outputStyle: 'expanded',
           relativeAssets: true,
           noLineComments: false,
-          raw: 'preferred_syntax = :scss\n', // Use `raw` since it's not directly available  
-          importPath: ["../bluebottle/bluebottle/common/static/sass"]      
+          raw: 'preferred_syntax = :scss\n', // Use `raw` since it's not directly available        
+          importPath: ["../bluebottle/bluebottle/common/static/sass"]
         }
       }
     }    

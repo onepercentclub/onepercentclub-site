@@ -44,7 +44,7 @@ class ProjectPreviewList(generics.ListAPIView):
         elif ordering == 'title':
             qs = qs.order_by('title')
         elif ordering == 'deadline':
-            qs = qs.order_by('projectcampaign__deadline')
+            qs = qs.order_by('deadline')
         elif ordering == 'money_needed':
             qs = qs.order_by('money_needed')
         elif ordering == 'popularity':
@@ -66,7 +66,7 @@ class ProjectPreviewList(generics.ListAPIView):
                            Q(title__icontains=text))
 
         # only projects which are in a viewable status should be visible
-        qs = qs.filter(status__viewable=True).values("project")
+        qs = qs.filter(status__viewable=True)
 
         return qs
 
