@@ -205,7 +205,7 @@ ALTER TABLE projects_project
 -- Organization
 
 ALTER TABLE organizations_organization
-  ALTER COLUMN description SET DEFAULT ''
+  ALTER COLUMN description SET DEFAULT '',
   ALTER COLUMN legal_status SET DEFAULT '';
 
 
