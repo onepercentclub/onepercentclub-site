@@ -606,10 +606,7 @@ REST_FRAMEWORK = {
     # Don't do basic authentication.
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
-    ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
+    )
 }
 
 
