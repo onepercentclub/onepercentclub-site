@@ -8,6 +8,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify'); 
   grunt.loadNpmTasks('grunt-microlib');
   grunt.loadNpmTasks('grunt-contrib-compass');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Project configuration.
   grunt.initConfig({
@@ -35,7 +36,7 @@ module.exports = function (grunt) {
       	options: {
 	      livereload: false,
 	    },
-        files: ['static/global/sass/**/*'],
+        files: ['static/global/sass/**/*',"../bluebottle/bluebottle/common/static/sass/**/*"],
         tasks: ['compass:dev'],
       },
       css: {

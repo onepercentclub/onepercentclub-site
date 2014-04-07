@@ -3,7 +3,6 @@
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 /* ========================= Includes ============================= */
-/* 1%Club overrides */
 /* Compass */
 /* line 17, ../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
@@ -71,6 +70,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 /* Variables & Mixins */
+/* 1%Club overrides */
 /* =========== Semantic fluid grid */
 /*
 
@@ -1542,45 +1542,45 @@ h1 {
   font-size: 2.5em;
   color: #ff619a;
 }
-/* line 75, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+/* line 74, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
 h1 em {
   font-family: "Futura W01 Book", "Trebuchet MS", Helvetica, Arial, sans-serif;
   color: #00c051;
 }
 
-/* line 81, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+/* line 80, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
 h2 {
   font-size: 1.75em;
   color: #00c051;
 }
 
-/* line 86, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+/* line 85, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
 h3 {
   font-size: 1.25em;
   color: #444444;
 }
 
-/* line 91, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+/* line 90, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
 h4 {
   font-size: 1em;
 }
 
-/* line 99, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+/* line 98, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
 a {
   color: #00c051;
   text-decoration: underline;
   cursor: hand;
   cursor: pointer;
 }
-/* line 105, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+/* line 104, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
 a a:visited {
   color: #00c051;
 }
-/* line 109, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+/* line 108, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
 a:hover {
   color: #ff619a;
 }
-/* line 113, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+/* line 112, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
 a:active {
   position: relative;
   top: 1px;
@@ -1600,35 +1600,35 @@ a:active {
 .dl-horizontal {
   *zoom: 1;
 }
-/* line 128, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+/* line 127, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
 .dl-horizontal dt {
   float: left;
   clear: left;
   text-align: right;
 }
 
-/* line 135, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+/* line 134, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
 ul {
   margin: 1em 0 2em 2em;
 }
-/* line 138, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+/* line 137, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
 ul > li {
   padding-left: 2em;
   margin: 1em 0;
   background: url('../images/list-item.png?1385836665') transparent no-repeat 0 0;
 }
 
-/* line 145, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+/* line 144, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
 ol {
   margin: 1em 0 2em 2em;
 }
-/* line 148, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+/* line 147, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
 ol > li {
   list-style: decimal;
   margin: 0.25em 0;
 }
 
-/* line 156, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+/* line 155, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
 dl {
   font-size: 0.875em;
   border-bottom: 1px solid #cccccc;
@@ -1647,7 +1647,7 @@ dl:after {
 dl {
   *zoom: 1;
 }
-/* line 162, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+/* line 161, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
 dl > dt {
   text-transform: uppercase;
   color: #999999;
@@ -1660,11 +1660,11 @@ dl > dt {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/* line 171, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+/* line 170, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
 dl > dt .flaticon {
   margin-right: 0.25em;
 }
-/* line 177, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+/* line 176, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
 dl > dd {
   float: left;
   width: 58.33333%;
@@ -1672,7 +1672,7 @@ dl > dd {
   margin-right: 0%;
 }
 
-/* line 187, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+/* line 186, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
 hr {
   margin: 1.5em 0;
   border: 0;
@@ -1680,40 +1680,40 @@ hr {
   border-bottom: 1px solid white;
 }
 
-/* line 198, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+/* line 197, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
 abbr[title],
 abbr[data-original-title] {
   cursor: help;
   border-bottom: 1px dotted #cccccc;
 }
 
-/* line 203, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+/* line 202, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
 abbr.initialism {
   font-size: 90%;
   text-transform: uppercase;
 }
 
-/* line 209, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+/* line 208, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
 blockquote {
   padding: 0 0 0 1em;
   margin: 1em 0;
   border-left: 5px solid #e9e9e9;
 }
-/* line 214, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+/* line 213, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
 blockquote p {
   margin-bottom: 0;
 }
-/* line 218, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+/* line 217, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
 blockquote small {
   display: block;
   line-height: 1.5em;
   color: #cccccc;
 }
-/* line 222, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+/* line 221, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
 blockquote small:before {
   content: '\2014 \00A0';
 }
-/* line 228, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+/* line 227, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
 blockquote.pull-right {
   float: right;
   padding-right: 15px;
@@ -1721,21 +1721,21 @@ blockquote.pull-right {
   border-right: 5px solid #e9e9e9;
   border-left: 0;
 }
-/* line 235, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+/* line 234, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
 blockquote.pull-right p,
 blockquote.pull-right small {
   text-align: right;
 }
-/* line 239, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+/* line 238, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
 blockquote.pull-right small:before {
   content: '';
 }
-/* line 242, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+/* line 241, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
 blockquote.pull-right small:after {
   content: '\00A0 \2014';
 }
 
-/* line 253, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+/* line 252, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
 q:before,
 q:after,
 blockquote:before,
@@ -1743,12 +1743,12 @@ blockquote:after {
   content: "";
 }
 
-/* line 258, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+/* line 257, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
 .flaticon {
   vertical-align: middle;
 }
 
-/* line 262, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+/* line 261, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
 .well {
   padding: 1em;
   background-color: #e9e9e9;
@@ -1767,7 +1767,7 @@ blockquote:after {
   *zoom: 1;
 }
 
-/* line 267, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+/* line 266, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
 .flaticon {
   vertical-align: middle;
 }

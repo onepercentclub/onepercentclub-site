@@ -5,8 +5,6 @@
 
 /* ========================= Includes ============================= */
 
-@import "1procentclub/variables"; /* 1%Club overrides */
-
 
 /* Compass */
 @import "compass/utilities";
@@ -15,10 +13,9 @@
 
 /* Variables & Mixins */
 @import "variables";
-
+@import "1procentclub/variables"; /* 1%Club overrides */
 @import "mixins/grid";
 @import "mixins/utilities";
-
 
 /* Icons */
 @import "icons/flaticons-social";
