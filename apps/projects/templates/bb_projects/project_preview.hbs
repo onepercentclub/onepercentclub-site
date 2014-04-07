@@ -6,7 +6,7 @@
 
     <li class="project-item">
 
-        {{#linkTo 'project' getProject }}
+        {{#linkTo 'project' id }}
             <span class="project-header">
 
                 <figure class="project-image">
@@ -25,12 +25,12 @@
                 {{/if}}
 
                 {{#if isStatusCampaign}}
-                    {{#if money_asked }}
-                        <div class="project-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
-                        <span class="project-fund-amount"><strong>&euro;{{localize campaign.money_needed}}</strong> <em>{% trans "To go" %}</em></span>
+                    {{#if amount_asked }}
+                        {{bb-progressbar targetValue=amount_asked currentValue=amount_donated}}
+                        <span class="project-fund-amount"><strong>&euro;{{localize amount_needed}}</strong> <em>{% trans "To go" %}</em></span>
                     {{/if}}
                     {{#if deadline }}
-                        <span class="project-days-left"><span class="flaticon solid clock-1"></span> <strong>{{campaign.daysToGo}}</strong> <em>{% trans "days" %}</em></span>
+                        <span class="project-days-left"><span class="flaticon solid clock-1"></span> <strong>{{daysToGo}}</strong> <em>{% trans "days" %}</em></span>
                     {{/if}}
                 {{/if}}
 
@@ -47,8 +47,8 @@
 
         {{/linkTo}}
 
-        {{#if taskCount}}
-            <a class="project-tasks"><span class="flaticon solid wrench-1"></span> <strong>{{taskCount}}</strong> <em>{% trans "task(s) available" %}</em></a>
+        {{#if task_count}}
+            <a class="project-tasks"><span class="flaticon solid wrench-1"></span> <strong>{{task_count}}</strong> <em>{% trans "task(s) available" %}</em></a>
         {{/if}}
     </li>
 

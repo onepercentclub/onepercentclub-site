@@ -4,13 +4,19 @@ App.Project.reopen({
     amount_donated: DS.attr('number'),
     amount_needed: DS.attr('number'),
 
-    isFundable: Em.computed.equal('status', 6),
+    task_count: DS.attr('number'),
 
-    isStatusPlan: Em.computed.equal('status.id', 5),
-    isStatusCampaign: Em.computed.equal('status.id', 6),
-    isStatusCompleted: Em.computed.equal('status.id', 8)
+    isFundable: Em.computed.equal('status.id', '6'),
+
+    isStatusPlan: Em.computed.equal('status.id', '5'),
+    isStatusCampaign: Em.computed.equal('status.id', '6'),
+    isStatusCompleted: Em.computed.equal('status.id', '8')
 
 });
+
+App.ProjectPreview.reopen({
+    url: 'projects/previews'
+})
 
 App.MyProject.reopen({
     image: DS.attr('image'),
