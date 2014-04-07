@@ -29,7 +29,7 @@ module.exports = function (grunt) {
         }
       },
       scss: {
-        files: ['/static/global/**/*'],
+        files: ['static/global/sass/**/*'],
         tasks: ['compass:dev'],
       }
     },
