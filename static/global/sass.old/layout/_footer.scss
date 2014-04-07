@@ -1,0 +1,158 @@
+// FOOTER
+
+#footer {
+	position: relative;
+	background-color: $gray-lighter;
+    
+    ul, li {
+    	margin: 0;
+        padding: 0;
+        list-style: none;
+        background-image: none;
+    }
+    
+	.footer-content {
+	    @include grid(48,1);
+	    padding: $base-padding*2 0;
+	    color: $gray;
+	    
+	    hr {
+	        margin: $base-margin*2 0;
+	    }
+	
+	    ul {
+	        margin: 0;
+	        list-style: none;
+	    }
+	    
+		h3 {
+		    font-size: $base-font-size;
+		    margin-bottom: $base-margin/2;
+		    color: $gray-darker;
+		}
+	}
+	
+	.footer-menu {
+	    @include clearfix;
+	    color: $gray;
+	    text-transform: uppercase;
+	    
+	    a {
+			color: $gray;
+			text-decoration: none;
+			
+			&:hover, &:active {
+				color: $gray-darker;
+			}
+	    }
+	
+	    > li {
+	        @include grid(12);
+	    }
+	    
+	    .start-your-project {
+		    margin-top: $base-margin;
+		    font-family: $font-family-heavy;
+	    }
+	}
+	
+	.footer-news {
+		text-transform: uppercase;
+		
+		a {
+			text-decoration: none;
+		}
+	}
+	
+	.footer-news,
+	.footer-join-us {
+	    @include grid(24);
+	    position: relative;
+	
+	    .btn {
+	        float: right;
+	    }
+	}
+	
+	.footer-join-us ul {
+		@include grid(24);
+	}
+		
+	iframe {
+		width: 38% !important;
+		float: left;
+	}
+	
+	.footer-social-links {
+	    @include clear;
+	    clear: both;
+		padding-top: $base-margin;
+		
+	    li {
+	        display: inline;
+	        
+	        a {
+	            @include transition(all 0.2s ease-out);
+	            display: inline-block;
+    	        margin-right: $base-margin/4;
+	            padding-top: $base-margin/2;
+	            float: left;
+	            width: 2em;
+	            height: 2em;
+	            text-align: center;
+	            font-size: $font-size-medium;
+	            background-color: $gray;
+	            
+	             &:hover {
+	                background-color: $color-text;
+	            }
+	        }
+	        
+	        .flaticon {
+	            color: $white;
+	        }
+	    }
+	}
+	
+	// COPYRIGHT
+	.copyright {
+		position: absolute;
+		bottom: 0;
+		background-color: $black;
+		width: 100%;
+		
+	    ul {
+	        @include grid(48,1);
+	        font-size: $font-size-smallest;
+	        margin-bottom: 0;
+	        color: $white;
+	        list-style: none;
+	
+	        li {
+	            margin-right: $base-margin;
+	            padding: $base-padding 0;
+	            float: left;
+	            line-height: 1;
+	
+	            &:last-child {
+	                float: right;
+	                margin-right: 0;
+	            }
+	
+	            a {
+	                color: $gray;
+	                text-decoration: underline;
+	
+	                &.feedback {
+	                    color: $color-secondary;
+	                    text-transform: uppercase;
+	                }
+	                
+	                &:hover, &:active {
+		                color: $gray-lighter;
+	                }
+	            }
+	        }
+	    }
+	}
+}

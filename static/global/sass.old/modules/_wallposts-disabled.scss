@@ -1,0 +1,204 @@
+//
+// Wallposts
+// --------------------------------------------------
+
+#wallpost-form {
+    @include clear;
+	
+	fieldset {
+        padding: 0;
+        background-color: $gray-lighter;
+        padding: $base-padding $base-padding*2;
+	}
+	
+    ul {
+        padding: 0;
+    }
+    
+    .control-group {
+	    
+	    .control-label {
+	        display: none;
+		    @include grid(48,1,1);
+	    }
+	    
+	    .controls {
+		    @include clear;
+		    @include grid(48,0,0);
+	    }
+    }
+    
+    .form-wallpost-photos {
+        @include clear;
+
+        .form-wallpost-photo {
+            display: block;
+            @include grid(12,0,1);
+            margin-top: $base-margin;
+            margin-bottom: $base-margin;
+            @include allowmanage;
+        }
+    }
+    
+    .btn-submit {
+        float: right;
+    }
+}
+
+#wallposts {
+	@include clear;
+	padding-top: $base-padding*2;
+	
+	.wallpost {
+	    @include clear;
+	    position: relative;
+	    padding: $base-padding 0 $base-padding/2 0;
+	    
+	    header {
+            position: relative;
+            
+            .wallpost-member {
+                @include clear;
+                
+                .member-avatar {
+                    @include grid(12,2,4);
+                    position: absolute;
+                    left: 0;
+                    background: red;
+                }
+            
+                .member-name {
+                    @include prepend(12);
+                }
+            }
+            
+            .wallpost-meta {
+                position: absolute;
+                top: 0;
+                right: 0;
+                float: right;
+                text-align: right;
+                color: $gray;
+                font-style: normal;
+                font-size: $font-size-smallest;
+                text-transform: uppercase;
+            }
+            
+            .timestamp {
+                font-style: normal;
+            }
+                            
+            .manage-delete {
+                color: $gray;
+                
+                &:hover {
+                    color: $color-text;
+                }
+            }
+            
+        }
+        
+        &:hover {
+            
+            header .manage {
+                display: block;
+            }
+            
+        }
+	    
+        .wallpost-content {
+            @include grid(48,12,0);
+            margin-bottom: $base-margin/2;
+            word-wrap: break-word;
+        
+            p {
+                margin: 0;
+                padding: 0;
+                display: inline;
+            }   
+        
+            br {
+                display: none !important;
+            }
+        }
+        
+        .wallpost-reactions {
+            @include clear;
+            @include grid(48,12,0);
+        }
+        
+        .login-box {
+            opacity: 0;
+            @include transition(opacity 0.2s ease-out);
+            color: $gray;
+            padding-bottom: $base-padding;
+        }
+        
+        &:hover .login-box {
+            opacity: 1;
+        }
+        
+        &.wallpost-system {
+            
+            .wallpost-member {
+                padding-bottom: $base-padding;
+                @include grid(48,12,0);
+                
+                .member {
+                    display: inline;
+                    float: none;
+                    
+                    .member-name {
+                        font-family: $base-font-family;
+                        margin: 0;
+                    }
+                }
+            }
+            
+            .wallpost-fundraiser-link {
+            	text-decoration: none;
+            	font-family: $font-family-heavy;
+            	color: $gray-dark;
+            	
+            	&:hover, &:active {
+	            	color: $color-primary;
+            	}
+            }
+
+            .wallpost-system-type {
+                position: absolute;
+                left: 0;
+                top: 0;
+                @include prepend(2);
+                color: $gray-light;
+                text-transform: uppercase;
+                
+                .flaticon {
+                    margin-right: $base-margin/4;
+                }
+            }
+            .wallpost-system-message {
+                padding-bottom: $base-padding;
+                @include grid(48,12,0);
+
+                color: $gray-light;
+                text-transform: uppercase;
+
+            }
+            .login-box {
+                display: none;
+            }
+        }
+	}
+	
+	.btn-more {
+	    margin-top: $base-margin;
+	    padding-top: $base-padding;
+    	@include grid(48,12,0);
+    	text-align: center;
+    	
+    	small {
+        	color: $gray;
+    	}
+	}
+}

@@ -1,0 +1,222 @@
+//
+// Buttons & special 
+// --------------------------------------------------
+
+// Default button
+.btn {
+    @include transition(all 0.1s ease-out);
+    @include border-radius(1px);
+	position: relative;
+	font-family: $font-family-heavy;
+    font-size: $font-size-large;
+    line-height: $base-line-height;
+    padding: $base-padding/2 $base-padding;
+    display: inline-block;
+    border: 1px solid darken($color-secondary, 5%);
+    background-color: $color-secondary;
+    color: $white;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    overflow: hidden;
+    vertical-align: top;
+    
+    // Button with an icon
+	&.btn-iconed {
+		position: relative;
+		padding-left: $base-padding*3.5;
+		
+		.flaticon, .icon {
+			padding: 0 $base-padding/2 0 $base-padding/2;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 2em;
+			height: 100%;
+			line-height: 2.25em;
+	        display: inline-block;
+	        background: darken($color-secondary, 5%);
+	        color: lighten($color-secondary, 5%);
+	        text-align: center;
+			vertical-align: middle;
+	    }
+	    
+	    .flaticon {
+	        font-size: 24px;
+	    }
+	    
+	    .icon {
+	    	font-family: $font-family-bold;
+	    	font-size: 32px;
+	    	font-style: normal;
+	    }
+	    
+	    &:hover {
+    	
+        	.flaticon, .icon {
+            	background: #333;
+            	color: $white;
+			}
+		}
+
+		&:active {
+		    padding-left: $base-padding*3.5;
+		    
+			.flaticon, .icon {
+            	background: darken($black, 5%);
+				color: $gray-darker;
+			}
+		
+		}
+	}
+    
+    // Primary buttons
+    &.btn-primary {
+    	border: 1px solid darken($color-primary, 5%);
+		background-color: $color-primary;
+		
+		.flaticon, .icon {
+			background: darken($color-primary, 5%);
+			color: lighten($color-primary, 10%);
+		}
+	}
+	
+    // Button states
+	&:hover {
+    	border-color: $black;
+    	background-color: $gray-darker;
+    	color: $white;
+	}
+	
+	&:focus {
+    	outline: 0;
+	}
+
+    &:active {
+    	top: 0;
+        background: $gray-darkest;
+        color: $gray-dark;
+        border-top-width: 0.30em;
+        border-color: $black;
+        padding: $base-padding/2 $base-padding ($base-padding/2 - 0.25em) $base-padding;
+    }
+    
+    // Needed for position changing on active
+    &:before {
+	    content: '';
+	    position: absolute;
+	    top: 0;
+	    right: 0;
+	    bottom: 0;
+	    left: 0;
+	}
+	
+	// Disabled buttons
+    &.disabled, &[disabled], &.disabled:hover, &[disabled]:hover, &.disabled:active, &[disabled]:active {
+	    border-top-width: 1px;
+    	top: auto;
+        border-color: $gray-light;
+        background-color: $gray-light;
+        color: $gray-lighter;
+        cursor: default;
+        padding: $base-padding/2 $base-padding;
+        
+        .flaticon, .icon {
+			background: darken($gray-light, 5%);
+			color: $gray-lighter;
+		}
+		
+		&.btn-iconed {
+		    padding-left: $base-padding*3.5;
+		}
+    }
+}
+
+	
+// Upload button (we hide everything and make a button out of it)
+.btn-upload {
+    position: relative;
+    
+    input {
+        @include opacity(0);
+        cursor: pointer;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        z-index: 10;
+        width: auto;
+    }
+}
+    
+ 
+// Allignment
+
+.btn-submit, .btn-next, .btn-save {
+    float: right;
+}
+
+.btn-cancel {
+    float: left;
+}
+
+.btn-add {
+    
+}
+
+.btn-show-more {
+    
+}
+
+btn-login {
+    
+}
+
+.btn-login {
+	display: inline-block;
+	padding: $base-padding/2 0;
+	color: $color-text;
+	font-size: $base-font-size;
+	text-decoration: none;
+	margin: $base-margin 0;
+	
+	.flaticon {
+		float: left;
+		margin-right: $base-margin/2;
+	}
+	
+	strong {
+		color: $color-secondary;
+	}
+	
+	&:hover, &:hover strong {
+		color: $color-primary;
+	}
+}
+
+
+// Other buttons (links)
+
+
+.btn-link {
+    display: inline-block;
+    font-size: $font-size-large;
+    color: $color-text;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    padding: $base-padding/2 0;
+
+    .flaticon {
+     	margin-right: $base-margin/4;
+    }
+    
+    small {
+        
+    }
+    
+    &:hover, &:active {
+        color: $color-secondary;
+    }
+}

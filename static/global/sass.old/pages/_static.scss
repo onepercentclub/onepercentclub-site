@@ -1,0 +1,88 @@
+//
+// Global static pages
+// --------------------------------------------------
+
+
+// Page header
+// -------------------------
+
+.l-page-header, .page-header {
+    position: relative;
+  	margin: $base-margin*2 0 $base-margin 0;
+}
+
+
+// Page navigation
+// -------------------------
+
+.page-nav {
+	margin-top: $base-margin*2;
+	border-left: 1px solid $gray-lighter;
+	font-size: $font-size-small;
+	
+	h3 {
+		color: $color-heading;
+		margin: $base-margin/2 $base-margin*1.6;
+	}
+
+	ul{ 
+		padding: 0;
+		margin: 0;
+		list-style: none;
+		background: none;
+		border-top: 1px solid $white;
+		margin-bottom: $base-padding;
+	
+		li {
+		    @include resetlist;
+			padding: 0;
+			margin: 0;
+			list-style: none;
+			background: none;
+			
+			ul {
+				margin-left: $base-padding;
+			}
+	
+			a {
+				clear: both;
+				position: relative;
+				display: block;
+				padding: $base-padding/2 $base-padding*2;
+				text-transform: uppercase;
+				color: $gray;
+				text-decoration: none;
+				
+				em {
+    				font-style: normal;
+				}
+			}
+		}
+	
+		&:hover li a {
+			color: $color-text;
+	
+			&:hover, &:active {
+				color: $white;
+				background: $color-secondary;
+			}
+		}
+	}
+	
+	.page-pagination {
+	    margin: $base-margin/2 $base-margin*2;
+    	
+    	.page-pagination-previous, .page-pagination-next {
+        	text-decoration: none;
+        	text-transform: uppercase;
+    	}
+    	
+    	.page-pagination-previous {
+        	float: left;
+    	}
+    	
+    	.page-pagination-next {
+        	float: right;
+    	}
+	}
+}

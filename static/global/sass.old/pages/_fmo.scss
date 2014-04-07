@@ -1,0 +1,23 @@
+//
+// FMO Page
+// --------------------------------------------------
+
+#fmo {
+	
+	// Carousel overwrite
+	.carousel .carousel-item {
+		height: 500px;
+	}
+	
+	#fmo-contest .carousel-video {
+		margin-top: $base-margin;
+	}
+	
+    #fmo-cocreation .carousel-image {
+        background: image-url("pages/fmo/fmo-logo.png") transparent no-repeat  120px 30%;
+    }
+    
+    #fmo-about .carousel-image {
+        background: image-url("pages/fmo/fmo-cocreation.jpg") transparent no-repeat 0 0;
+    }
+}

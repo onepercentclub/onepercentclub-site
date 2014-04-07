@@ -1,0 +1,150 @@
+//
+// Manage projects enviroment
+// --------------------------------------------------
+
+form#manage-project-new {
+    font-size: $font-size-large;
+}
+
+#manage-project {
+	
+    .manage-project-sidebar {
+        @include grid(16,1,1);
+        
+        h4 {
+            padding: $base-padding $base-padding*1.5;
+            color: $white;
+            background: $color-secondary;
+            
+            .flaticon {
+                margin-right: $base-margin/2;
+            }
+        }
+        
+        p {
+            padding: $base-padding $base-padding*1.5; 
+        }
+    
+        .btn {
+            margin-top: $base-margin;
+            float: left;
+        }
+    }
+    
+    .manage-project-nav {
+        padding: 0;
+        margin: 0;
+        border-top: 1px solid $white;
+        
+        li {
+            @include resetlist;
+            
+            a {
+            	text-decoration: underline;
+                display: block;
+                padding: $base-padding $base-padding;
+                background-color: $white;
+                color: $gray;
+                border-bottom: 1px solid $white;
+                font-family: $font-family-heavy;
+                text-decoration: none;
+                text-transform: uppercase;
+                
+                em {
+                	display: inline-block;
+    	            width: 26px;
+    	            height: 26px;
+    				vertical-align: middle;
+    				margin-right: 2px;
+                }
+                
+                .is-unfinished {
+    	            background-image: $icons;
+    				background-repeat: no-repeat;
+    				background-position: sprite-position($icons, dashboard-is-unfinished, 0, 0);
+                }
+                
+                .is-in-progress {
+    	            background-image: $icons;
+    				background-repeat: no-repeat;
+    				background-position: sprite-position($icons, dashboard-is-in-progress, 0, 0);
+                }
+                
+                .is-finished {
+                    color: $color-secondary;
+    	            background-image: $icons;
+    				background-repeat: no-repeat;
+    				background-position: sprite-position($icons, dashboard-is-finished, 0, 0);
+                }
+                
+                &.active {
+                    background-color: $gray-lighter;
+                    color: $color-heading;
+                }
+                
+                &.disabled {
+                    color: $gray;
+                }
+            }
+        }
+    }
+    
+    .manage-project-overview {
+        @include prepend(2);
+    }
+    
+    .manage-project-status {
+        margin-top: $base-margin/2;
+    }
+    
+    // Place errors on left
+    .has-errors {
+        right: auto;
+        left: -54%;
+        @include grid(24);
+        
+        &:after {
+            left: auto;
+            right: -14px;
+            background: image-url("form-error-back-arrow-right.png") transparent no-repeat 0 0;
+        }
+    }
+}
+
+.toolbox {
+    clear: right;
+    @include grid(24,1,1);
+    margin-top: $base-margin*2;
+    background-color: $gray-lighter;
+    
+    .toolbox-title {
+        padding: $base-padding $base-padding*2;
+        background-color: $gray-light;
+        color: $white;
+        margin: 0;
+    }
+
+    .toolbox-content {
+        padding: $base-padding $base-padding*2;
+    }
+}
+
+.map-picker {
+    width: 100%;
+    height: 350px;
+}
+
+.map-look-up {
+    position: absolute;
+    top: 4px;
+    left: 100px;
+    font-size: 13px;
+    
+    input {
+        width: 300px;
+    }
+    
+    button {
+        
+    }
+}

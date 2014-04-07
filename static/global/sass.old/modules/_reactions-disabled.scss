@@ -1,0 +1,148 @@
+//
+// Reactions
+// --------------------------------------------------
+
+.reaction-form {
+    @include clear;
+    position: relative;
+    padding: 0;
+    background-color: $gray-lighter;
+    
+    fieldset {
+        padding: 0;
+        margin: $base-margin;
+        
+        ul, li {
+            position: relative;
+            margin: 0;
+            padding: 0;
+        }
+    }
+    
+    .member-avatar {
+        top: 0;
+        left: 0;
+        width: 40px;
+        position: absolute;
+        border: 1px solid $input-border;
+        @include transition(all 0.1s ease-out);
+    }
+    
+    textarea {
+        padding-left: 50px;
+        overflow: hidden;
+        height: 40px;
+    }
+    
+    button {
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+    
+        bottom: 0;
+        right: 0;
+        font-size: $base-font-size;
+        @include transition(opacity 0.1s ease-out);
+        
+        &:active {
+            top: auto; // overwrite default behavior
+        }
+    }
+    
+    &.is-selected {
+        
+        .member-avatar {
+          border-color: $color-secondary;
+          width: 70px;
+        }
+        
+        textarea {
+            height: 70px;
+            padding-left: 80px;
+        }
+        
+        button {
+            opacity: 1;
+            z-index: 2;
+        }
+    }
+}
+
+.reactions {
+    @include clear;
+    font-size: $font-size-small;
+    position: relative;
+    margin: 0;
+    
+    .reaction {
+        @include clear;
+        @include resetlist;
+        display: block;
+        position: relative;
+        margin-bottom: 1px;
+        background-color: $gray-lighter;
+        padding: $base-padding;
+        
+        header {
+            @include clear;
+            
+            .reaction-member {
+                @include grid(28,0,0);
+                
+                .member-avatar {
+                    @include grid(9,0,2);
+                    position: absolute;
+                    left: 0;
+                }
+            
+                .member-name {
+                    @include prepend(10);
+                    width: 100%;
+                    color: $gray;
+                }
+            }
+            
+            .reaction-meta {
+                @include grid(20,1,0);
+                text-align: right;
+                color: $gray;
+                font-style: normal;
+                font-size: $font-size-smallest;
+                text-transform: uppercase; 
+                
+                .manage-delete {
+                    color: $gray;
+                
+                    &:hover {
+                        color: $color-text;
+                    }
+                }
+            }
+        }
+        
+        &:hover {
+            
+            .manage {
+                display: block;
+            }
+        }
+        
+        .reaction-content {
+            @include clear;
+            @include prepend(6);
+            vertical-align: baseline;
+            word-wrap: break-word;
+            
+            .text {
+                margin: 0;
+                padding: 0;
+            }
+            
+            p {
+                margin: 0;
+                padding: 0;
+                margin-bottom: $base-margin/2;
+            }
+        }
+    }
+}
