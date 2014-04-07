@@ -20,6 +20,9 @@ module.exports = function (grunt) {
       // watch: { configFile: 'test/js/config/unit.js', singleRun:false, autoWatch: true, keepalive: true }
     },
     watch: {
+      options: {
+	    livereload: true,
+	  },
       scripts: {
         files: ['apps/static/script/**/*.js', 'ember/static/script/templates/*.handlebars'],
         tasks: ['dev'],
@@ -29,9 +32,15 @@ module.exports = function (grunt) {
         }
       },
       scss: {
+      	options: {
+	      livereload: false,
+	    },
         files: ['static/global/sass/**/*'],
         tasks: ['compass:dev'],
-      }
+      },
+      css: {
+        files: ['static/global/css/**/*.css']
+      },
     },
     hashres: {
       options: {
