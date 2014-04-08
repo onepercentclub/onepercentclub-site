@@ -24,31 +24,31 @@ class ProjectManager(models.Manager):
 
         if field == 'amount_asked':
             qs = self.get_query_set()
-            qs = qs.filter(status__in=[ProjectPhase.object.get(slug="campaign"),
-                                       ProjectPhase.object.get(slug="done-completed"),
-                                       ProjectPhase.object.get(slug="done-incomplete")])
+            qs = qs.filter(status__in=[ProjectPhase.objects.get(slug="campaign"),
+                                       ProjectPhase.objects.get(slug="done-completed"),
+                                       ProjectPhase.objects.get(slug="done-incomplete")])
             qs = qs.order_by('amount_asked')
             return qs
 
         if field == 'deadline':
             qs = self.get_query_set()
-            qs = qs.filter(status=ProjectPhase.object.get(slug="campaign"))
+            qs = qs.filter(status=ProjectPhase.objects.get(slug="campaign"))
             qs = qs.order_by('deadline')
-            qs = qs.filter(status=ProjectPhase.object.get(slug="campaign"))
+            qs = qs.filter(status=ProjectPhase.objects.get(slug="campaign"))
             return qs
 
         if field == 'amount_needed':
             qs = self.get_query_set()
             qs = qs.order_by('amount_needed')
             qs = qs.filter(amount_needed__gt=0)
-            qs = qs.filter(status=ProjectPhase.object.get(slug="campaign"))
+            qs = qs.filter(status=ProjectPhase.objects.get(slug="campaign"))
             return qs
 
         if field == 'newest':
             qs = self.get_query_set()
             qs = qs.order_by('amount_needed')
             qs = qs.filter(amount_needed__gt=0)
-            qs = qs.filter(status=ProjectPhase.object.get(slug="campaign"))
+            qs = qs.filter(status=ProjectPhase.objects.get(slug="campaign"))
             return qs
 
         if field == 'donations':

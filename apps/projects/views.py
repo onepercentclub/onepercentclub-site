@@ -33,7 +33,7 @@ class ProjectPreviewList(generics.ListAPIView):
     paginate_by_param = 'page_size'
     max_paginate_by = 100
 
-    filter_fields = ('status', )
+    filter_fields = ('status', 'country', 'theme' )
 
     def get_queryset(self):
         qs = Project.objects
@@ -47,25 +47,16 @@ class ProjectPreviewList(generics.ListAPIView):
             qs = qs.order_by('title')
         elif ordering == 'deadline':
             qs = qs.order_by('deadline')
-        elif ordering == 'money_needed':
-            qs = qs.order_by('money_needed')
+        elif ordering == 'amount_needed':
+            qs = qs.order_by('amount_needed')
         elif ordering == 'popularity':
             qs = qs.order_by('-popularity')
-
-        country = self.request.QUERY_PARAMS.get('country', None)
-        if country:
-            qs = qs.filter(country=country)
-
-        theme = self.request.QUERY_PARAMS.get('theme', None)
-        if theme:
-            qs = qs.filter(theme_id=theme)
 
         text = self.request.QUERY_PARAMS.get('text', None)
         if text:
             qs = qs.filter(Q(title__icontains=text) |
                            Q(pitch__icontains=text) |
-                           Q(description__icontains=text) |
-                           Q(title__icontains=text))
+                           Q(description__icontains=text))
 
         # only projects which are in a viewable status should be visible
         qs = qs.filter(status__viewable=True)
@@ -83,13 +74,13 @@ class ProjectPreviewDetail(generics.RetrieveAPIView):
         return qs
 
 
-class ProjectCountryList(generics.ListAPIView):
-    model = Country
-    serializer_class = CountrySerializer
-
-    def get_queryset(self):
-        qs = super(ProjectCountryList, self).get_queryset()
-        return qs.filter(pk__in=Project.objects.filter(status__viewable=True).distinct('country').values('country'))
+# class ProjectCountryList(generics.ListAPIView):
+#     model = Country
+#     serializer_class = CountrySerializer
+#
+#     def get_queryset(self):
+#         qs = super(ProjectCountryList, self).get_queryset()
+#         return qs.filter(pk__in=Project.objects.filter(status__viewable=True).distinct('country').values('country'))
 
 
 class ProjectList(generics.ListAPIView):
