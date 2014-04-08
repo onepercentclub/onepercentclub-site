@@ -1,4 +1,6 @@
 module.exports = function (grunt) {
+  var sassOutputStyle = grunt.option('output_style') || 'expanded';
+  console.log(sassOutputStyle);
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-ember-template-compiler');
   grunt.loadNpmTasks('grunt-hashres');
@@ -117,12 +119,12 @@ module.exports = function (grunt) {
           cssDir: 'css',
           imagesDir: 'images',          
           javascriptsDir: 'js',          
-          outputStyle: 'compressed',
+          outputStyle: sassOutputStyle,
           relativeAssets: true,
           noLineComments: true,
           environment: 'production',
           raw: 'preferred_syntax = :scss\n', // Use `raw` since it's not directly available
-          importPath: ["../bluebottle/bluebottle/common/static/sass"]      
+          importPath: ["env/src/bluebottle/bluebottle/common/static/sass"]      
         }
       },
       // development
@@ -134,7 +136,7 @@ module.exports = function (grunt) {
           cssDir: 'css',
           imagesDir: 'images',          
           javascriptsDir: 'js',          
-          outputStyle: 'expanded',
+          outputStyle: sassOutputStyle,
           relativeAssets: true,
           noLineComments: false,
           raw: 'preferred_syntax = :scss\n', // Use `raw` since it's not directly available  
@@ -144,6 +146,7 @@ module.exports = function (grunt) {
     }    
   });
 
+
   grunt.registerTask('default', ['dev']);
   grunt.registerTask('build', ['bower:install', 'concat:dist']);
   // Add emberhandlebars to dev once it is working
@@ -151,4 +154,9 @@ module.exports = function (grunt) {
   grunt.registerTask('travis', ['build', 'karma:ci']);
   grunt.registerTask('local', ['dev', 'watch']);
   grunt.registerTask('deploy', ['concat:dist', 'uglify:dist', 'hashres']);
+  grunt.registerTask('render-sass:dev', ['compass:dev']);
+  grunt.registerTask('render-sass:test', ['compass:dist']);
+  grunt.registerTask('render-sass:live', ['compass:dist'], function() {
+    sassOutputStyle = "compressed";
+  });
 }
