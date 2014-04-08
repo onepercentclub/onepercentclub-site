@@ -44,7 +44,7 @@ class PayoutAdmin(admin.ModelAdmin):
 
     search_fields = [
         'invoice_reference', 'project__title',
-        'project__projectplan__organization__name'
+        'project__organization__name'
     ]
 
     date_hierarchy = 'updated'
@@ -163,7 +163,7 @@ class PayoutAdmin(admin.ModelAdmin):
 
     # Link to organization
     admin_organization = link_to(
-        lambda obj: obj.project.projectplan.organization,
+        lambda obj: obj.project.organization,
         'admin:organizations_organization_change',
         view_args=lambda obj: (obj.id, ),
         short_description=_('organization')

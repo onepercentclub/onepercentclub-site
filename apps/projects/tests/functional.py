@@ -39,8 +39,8 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
 
         for slug, title in self.projects.items():
             project = self.create_project(title=title, slug=slug, money_asked=100000, owner=self.user)
-            project.projectcampaign.money_donated = 0
-            project.projectcampaign.save()
+            project.amount_donated = 0
+            project.save()
 
     def visit_project_list_page(self, lang_code=None):
         self.visit_path('/projects', lang_code)
@@ -103,7 +103,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         for p in Project.objects.filter(phase=ProjectPhases.campaign).order_by('popularity')[:len(web_projects)]:
             expected_projects.append({
                 'title': p.title.upper(),  # Uppercase the title for comparison.
-                'money_needed': int(round(p.projectcampaign.money_needed / 100.0)),
+                'money_needed': int(round(p.amount_needed / 100.0)),
             })
 
         # Compare all projects found on the web page with those in the database, in the same order.

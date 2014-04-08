@@ -90,11 +90,9 @@ class FundedProjects(DashboardModule):
         super(FundedProjects, self).__init__(title, **kwargs)
 
     def init_with_context(self, context):
-        # a Project has only one status
 
         qs1 = Project.objects.filter(
                 Q(status=ProjectPhase.objects.get(slug="done-complete"))
-                # Q(projectphaselog__phase=ProjectPhases.act)
             ).order_by('-created')[:self.limit]
 
         qs1_project_ids = qs1.values_list('id', flat=True)

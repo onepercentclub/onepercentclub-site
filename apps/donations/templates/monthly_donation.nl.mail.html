@@ -12,7 +12,7 @@ Op {{ date }} is een bedrag {{ amount }} van je rekening afgeschreven. Hieronder
 
 {% for donation in order.donations.all %}
     <a href="{{ site }}/go/projects/{{ donation.project.slug }}">{{ donation.project.title }}</a>
-    in {{ donation.project.projectplan.country.name }}.<br/>
+    in {{ donation.project.country.name }}.<br/>
 {%  endfor %}
 
 <br/><br/>

@@ -5,6 +5,7 @@ import traceback
 import sys
 from collections import namedtuple
 from optparse import make_option
+from bluebottle.bb_projects.models import ProjectPhase
 
 import os
 from django.core.management.base import BaseCommand
@@ -13,7 +14,7 @@ from apps.cowry_docdata.adapters import WebDirectDocDataDirectDebitPaymentAdapte
 from apps.cowry_docdata.exceptions import DocDataPaymentException
 from apps.cowry_docdata.models import DocDataPaymentOrder
 from apps.fund.models import RecurringDirectDebitPayment, Order, OrderStatuses, Donation
-from apps.projects.models import Project, ProjectPhases
+from apps.projects.models import Project,
 from ...mails import mail_monthly_donation_processed_notification
 
 
@@ -99,7 +100,7 @@ def update_last_donation(donation, remaining_amount, popular_projects):
     project = Project.objects.get(id=donation.project_id)
 
     # Base case.
-    if project.projectcampaign.money_donated + remaining_amount <= project.projectcampaign.money_asked or \
+    if project.amount_donated + remaining_amount <= project.amount_asked or \
             len(popular_projects) == 0:
         # The remaining amount won't fill up the project or we have no more projects to try. We're done.
         logger.debug(u"Donation is less than project '{0}' needs. No further adjustments are needed.".format(project.title))
@@ -112,7 +113,7 @@ def update_last_donation(donation, remaining_amount, popular_projects):
     else:
         # Fill up the project.
         logger.debug(u"Donation is more than project '{0}' needs. Filling up project and creating new donation.".format(project.title))
-        donation.amount = project.projectcampaign.money_asked - project.projectcampaign.money_donated
+        donation.amount = project.amount_asked - project.amount_donated
         donation.donation_type = Donation.DonationTypes.recurring
         donation.save()
 
@@ -132,7 +133,7 @@ def create_recurring_order(user, projects, order=None):
 
     for p in projects:
         project = Project.objects.get(id=p.id)
-        if project.phase == ProjectPhases.campaign:
+        if project.phase == ProjectPhase.objects.get(slug="campaign"):
             Donation.objects.create(user=user, project=project, amount=0, currency='EUR',
                                     donation_type=Donation.DonationTypes.recurring, order=order)
     return order
@@ -157,8 +158,8 @@ def correct_donation_amounts(popular_projects, recurring_order, recurring_paymen
     for i in range(0, num_donations - 1):
         donation = donations[i]
         project = Project.objects.get(id=donation.project_id)
-        if project.projectcampaign.money_donated + amount_per_project > project.projectcampaign.money_asked:
-            donation.amount = project.projectcampaign.money_asked - project.projectcampaign.money_donated
+        if project.amount_donated + amount_per_project > project.amount_asked:
+            donation.amount = project.amount_asked - project.amount_donated
         else:
             donation.amount = amount_per_project
         donation.donation_type = Donation.DonationTypes.recurring
@@ -181,7 +182,7 @@ def process_monthly_donations(recurring_payments_queryset, send_email):
     webdirect_payment_adapter = WebDirectDocDataDirectDebitPaymentAdapter()
 
     # Fixed lists of the popular projects.
-    popular_projects_all = list(Project.objects.filter(phase=ProjectPhases.campaign).order_by('-popularity'))
+    popular_projects_all = list(Project.objects.filter(status=ProjectPhase.objects.get(slug="campaign")).order_by('-popularity'))
     top_three_projects = popular_projects_all[:3]
     popular_projects_rest = popular_projects_all[3:]
 
@@ -238,7 +239,7 @@ def process_monthly_donations(recurring_payments_queryset, send_email):
         # Remove donations to projects that are no longer in the campaign phase.
         for donation in recurring_order.donations.all():
             project = Project.objects.get(id=donation.project.id)
-            if project.phase != ProjectPhases.campaign:
+            if project.phase != ProjectPhase.objects.get(slug="campaign"):
                 donation.delete()
 
         if recurring_order.donations.count() > 0:

@@ -20,7 +20,7 @@ class BaseIsUser(permissions.BasePermission):
             raise ImproperlyConfigured('The "IsUser" permission should provide a field attribute.')
 
         o = obj
-        for f in field.split('.'):
+        for f in self.field.split('.'):
             o = getattr(o, f, None)
 
         return o == request.user
@@ -37,27 +37,6 @@ class IsProjectOwner(permissions.BasePermission):
         if isinstance(obj, Project):
             return obj.owner == request.user
         return obj.project.owner == request.user
-
-
-class EditablePitchOrReadOnly(permissions.BasePermission):
-    """
-    Allows access only if pitch is new
-    """
-    def has_object_permission(self, request, view, obj):
-        if request.method in permissions.SAFE_METHODS:
-            return True
-        return obj.status == ProjectPhase.objects.get(slug='plan-new')
-
-
-class EditablePlanOrReadOnly(permissions.BasePermission):
-    """
-    Allows access only if plan has status new or needs_work
-    """
-    def has_object_permission(self, request, view, obj):
-        if request.method in permissions.SAFE_METHODS:
-            return True
-        return obj.status in [ProjectPhase.objects.get(slug='plan-new'),
-                              ProjectPhase.objects.get(slug='plan-needs-work')]
 
 
 class IsOwner(permissions.BasePermission):
@@ -116,7 +95,9 @@ class NoRunningProjectsOrReadOnly(permissions.BasePermission):
 
         project = Project.objects.filter(owner=request.user)
 
-        if len(project.filter(phase__in=[ProjectPhases.pitch, ProjectPhases.plan, ProjectPhases.campaign, ProjectPhases.act, ProjectPhases.results]).all()):
+        if len(project.filter(status__in=[ProjectPhase.objects.get(slug="plan-new"),
+                                         ProjectPhase.objects.get(slug="campaign"),
+                                         ProjectPhase.objects.get(slug="done-complete")]).all()):
             return False
 
         return True
