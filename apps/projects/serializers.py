@@ -26,14 +26,14 @@ class ProjectCountrySerializer(serializers.ModelSerializer):
 class ProjectSerializer(BaseProjectSerializer):
     id = serializers.CharField(source='slug', read_only=True)
     task_count = serializers.IntegerField(source='task_count')
-    country = ProjectCountrySerializer(source='project.country')
+    country = ProjectCountrySerializer(source='country')
 
     meta_data = MetaField(
             title = 'get_meta_title',
             fb_title = 'get_fb_title',
-            description = 'project__pitch',
-            keywords = 'project__tags',
-            image_source = 'project__image',
+            description = 'pitch',
+            keywords = 'tags',
+            image_source = 'image',
             tweet = 'get_tweet',
             )
 
