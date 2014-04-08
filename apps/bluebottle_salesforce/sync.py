@@ -2,8 +2,7 @@ import logging
 from registration.models import RegistrationProfile
 from bluebottle.bb_accounts.models import BlueBottleUser
 from apps.cowry_docdata.models import payment_method_mapping
-from apps.projects.models import Project, ProjectBudgetLine, ProjectCampaign, ProjectPitch, ProjectPlan, \
-    ProjectPhases, ProjectAmbassador
+from apps.projects.models import Project
 from apps.organizations.models import Organization
 from apps.tasks.models import Task, TaskMember
 from apps.fund.models import Donation, DonationStatuses, RecurringDirectDebitPayment
@@ -233,7 +232,7 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
             sfproject.amount_at_the_moment = "%01.2f" % (project_campaign.money_donated / 100)
             sfproject.amount_requested = "%01.2f" % (project_campaign.money_asked / 100)
             sfproject.amount_still_needed = "%01.2f" % (project_campaign.money_needed / 100)
-            if project.phase == ProjectPhases.campaign:
+            if project.status == ProjectPhase.objects.get(slug="campaign"):
                 sfproject.date_project_deadline = project_campaign.deadline
 
         try:

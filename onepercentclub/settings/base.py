@@ -545,7 +545,7 @@ FLUENT_DASHBOARD_APP_ICONS = {
 
     # Projects
     'projects/project': 'icons/flaticons_stroke/SVGs/notebook-1.svg',
-    'projects/projectpitch': 'icons/flaticons_stroke/SVGs/lightbulb-3.svg',
+    # 'projects/projectpitch': 'icons/flaticons_stroke/SVGs/lightbulb-3.svg',
     'projects/projectplan': 'icons/flaticons_stroke/SVGs/notebook-3.svg',
     'projects/projecttheme': 'icons/flaticons_stroke/SVGs/leaf-1.svg',
     'projects/projectcampaign': 'icons/flaticons_stroke/SVGs/megaphone-1.svg',

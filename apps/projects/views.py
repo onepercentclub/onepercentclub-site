@@ -1,3 +1,5 @@
+from bluebottle.bb_projects.models import ProjectPhase
+from bluebottle.bb_projects.serializers import ManageProjectSerializer
 from bluebottle.geo.models import Country
 from bluebottle.geo.serializers import CountrySerializer
 import django_filters
@@ -11,10 +13,10 @@ from django.views.generic.detail import DetailView
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
-from apps.projects.models import ProjectBudgetLine, ProjectPhases, ProjectTheme
+from apps.projects.models import ProjectTheme
 from apps.fund.models import Donation, DonationStatuses
 from apps.projects.serializers import (
-    ProjectSupporterSerializer, ManageProjectSerializer, ProjectPreviewSerializer, ProjectThemeSerializer)
+    ProjectSupporterSerializer, ProjectPreviewSerializer, ProjectThemeSerializer)
 from apps.projects.permissions import IsProjectOwner
 from apps.fundraisers.models import FundRaiser
 
@@ -31,7 +33,7 @@ class ProjectPreviewList(generics.ListAPIView):
     paginate_by_param = 'page_size'
     max_paginate_by = 100
 
-    filter_fields = ('phase', )
+    filter_fields = ('status', )
 
     def get_queryset(self):
         qs = Project.objects
@@ -77,7 +79,7 @@ class ProjectPreviewDetail(generics.RetrieveAPIView):
 
     def get_queryset(self):
         qs = super(ProjectPreviewDetail, self).get_queryset()
-        qs = qs.exclude(phase=ProjectPhases.pitch)
+        qs = qs.exclude(status=ProjectPhase.objects.get(slug="plan-new"))
         return qs
 
 
@@ -94,11 +96,11 @@ class ProjectList(generics.ListAPIView):
     model = Project
     serializer_class = ProjectSerializer
     paginate_by = 10
-    filter_fields = ('phase', )
+    filter_fields = ('status', )
 
     def get_queryset(self):
         qs = super(ProjectList, self).get_queryset()
-        qs = qs.exclude(phase=ProjectPhases.pitch)
+        qs = qs.exclude(status=ProjectPhase.objects.get(slug="plan-new"))
         return qs
 
 
@@ -108,7 +110,7 @@ class ProjectDetail(generics.RetrieveAPIView):
 
     def get_queryset(self):
         qs = super(ProjectDetail, self).get_queryset()
-        qs = qs.exclude(phase=ProjectPhases.pitch)
+        qs = qs.exclude(status=ProjectPhase.objects.get(slug="plan-new"))
         return qs
 
 

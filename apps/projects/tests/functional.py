@@ -115,22 +115,21 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         # create project (with pitch)
         slug = 'picture-upload'
         project = self.create_project(title='Test picture upload', owner=self.user, phase='pitch', slug=slug)
-        pitch = project.projectpitch # raises error if no pitch is present
         # create theme
-        pitch.theme = ProjectTheme.objects.create(name='Tests', name_nl='Testen', slug='tests')
+        project.theme = ProjectTheme.objects.create(name='Tests', name_nl='Testen', slug='tests')
         # create country etc.
         region = geo_models.Region.objects.create(name='Foo', numeric_code=123)
         subregion = geo_models.SubRegion.objects.create(name='Bar', numeric_code=456, region=region)
-        pitch.country = geo_models.Country.objects.create(
+        project.country = geo_models.Country.objects.create(
                             name='baz',
                             subregion=subregion,
                             numeric_code=789,
                             alpha2_code='AF',
                             oda_recipient=True)
 
-        pitch.latitude = '52.3731'
-        pitch.longitude = '4.8922'
-        pitch.save()
+        project.latitude = '52.3731'
+        project.longitude = '4.8922'
+        project.save()
 
 
 

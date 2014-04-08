@@ -1,5 +1,5 @@
 import datetime
-from bluebottle.bb_projects.models import BaseProject, ProjectTheme
+from bluebottle.bb_projects.models import BaseProject, ProjectTheme, ProjectPhase
 from django.db import models
 from django.db.models.aggregates import Count, Sum
 from django.db.models.signals import post_save
@@ -18,45 +18,47 @@ from .mails import mail_project_funded_internal
 from .signals import project_funded
 
 
-class ProjectPhases(DjangoChoices):
-    pitch = ChoiceItem('pitch', label=_("Pitch"))
-    plan = ChoiceItem('plan', label=_("Plan"))
-    campaign = ChoiceItem('campaign', label=_("Campaign"))
-    act = ChoiceItem('act', label=_("Act"))
-    results = ChoiceItem('results', label=_("Results"))
-    realized = ChoiceItem('realized', label=_("Realised"))
-    failed = ChoiceItem('failed', label=_("Failed"))
-
+# class ProjectPhases(DjangoChoices):
+#     pitch = ChoiceItem('pitch', label=_("Pitch"))
+#     plan = ChoiceItem('plan', label=_("Plan"))
+#     campaign = ChoiceItem('campaign', label=_("Campaign"))
+#     act = ChoiceItem('act', label=_("Act"))
+#     results = ChoiceItem('results', label=_("Results"))
+#     realized = ChoiceItem('realized', label=_("Realised"))
+#     failed = ChoiceItem('failed', label=_("Failed"))
+#
 
 class ProjectManager(models.Manager):
 
     def order_by(self, field):
 
-        if field == 'money_asked':
+        if field == 'amount_asked':
             qs = self.get_query_set()
-            qs = qs.filter(phase__in=[ProjectPhases.campaign, ProjectPhases.act, ProjectPhases.results, ProjectPhases.realized])
-            qs = qs.order_by('projectcampaign__money_asked')
+            qs = qs.filter(status__in=[ProjectPhase.object.get(slug="campaign"),
+                                       ProjectPhase.object.get(slug="done-completed"),
+                                       ProjectPhase.object.get(slug="done-incomplete")])
+            qs = qs.order_by('amount_asked')
             return qs
 
         if field == 'deadline':
             qs = self.get_query_set()
-            qs = qs.filter(phase=ProjectPhases.campaign)
-            qs = qs.order_by('projectcampaign__deadline')
-            qs = qs.filter(phase='campaign')
+            qs = qs.filter(status=ProjectPhase.object.get(slug="campaign"))
+            qs = qs.order_by('deadline')
+            qs = qs.filter(status=ProjectPhase.object.get(slug="campaign"))
             return qs
 
-        if field == 'money_needed':
+        if field == 'amount_needed':
             qs = self.get_query_set()
-            qs = qs.order_by('projectcampaign__money_needed')
-            qs = qs.filter(projectcampaign__money_needed__gt=0)
-            qs = qs.filter(phase='campaign')
+            qs = qs.order_by('amount_needed')
+            qs = qs.filter(amount_needed__gt=0)
+            qs = qs.filter(status=ProjectPhase.object.get(slug="campaign"))
             return qs
 
         if field == 'newest':
             qs = self.get_query_set()
-            qs = qs.order_by('projectcampaign__money_needed')
-            qs = qs.filter(projectcampaign__money_needed__gt=0)
-            qs = qs.filter(phase='campaign')
+            qs = qs.order_by('amount_needed')
+            qs = qs.filter(amount_needed__gt=0)
+            qs = qs.filter(status=ProjectPhase.object.get(slug="campaign"))
             return qs
 
         if field == 'donations':
@@ -72,7 +74,9 @@ class Project(BaseProject):
     """ The base Project model. """
 
     # coach = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("coach"), help_text=_("Assistent at 1%OFFICE"), related_name="team_member", null=True, blank=True)
-    phase = models.CharField(_("phase"), max_length=20, default='pitch', choices=ProjectPhases.choices, help_text=_("Phase this project is in right now."))
+
+    # It's project status foreign key to ProjectPhase
+    # phase = models.CharField(_("phase"), max_length=20, default='pitch', choices=ProjectPhases.choices, help_text=_("Phase this project is in right now."))
 
     partner_organization = models.ForeignKey('projects.PartnerOrganization', null=True, blank=True)
 
@@ -100,18 +104,12 @@ class Project(BaseProject):
     amount_donated = models.PositiveIntegerField(default=0)
     amount_needed = models.PositiveIntegerField(default=0)
 
+    # TODO: add
+    effects = models.TextField(_("effects"), help_text=_("What will be the Impact? How will your Smart Idea change the lives of people?"), blank=True, null=True)
+    for_who = models.TextField(_("for who"), help_text=_("Describe your target group"), blank=True, null=True)
+    future = models.TextField(_("future"), help_text=_("How will this project be self-sufficient and sustainable in the long term?"), blank=True, null=True)
 
     objects = ProjectManager()
-
-    _original_phase = None
-
-    def __init__(self, *args, **kwargs):
-        super(Project, self).__init__(*args, **kwargs)
-        # we do this for efficiency reasons. Comparing with the object in database
-        # through a pre_save handler is expensive because it requires at least one
-        # extra query. The phase logging is handled in a post_save only when it's
-        # needed!
-        self._original_phase = self.phase
 
     def __unicode__(self):
         if self.title:
@@ -169,14 +167,14 @@ class Project(BaseProject):
 
     @property
     def date_funded(self):
-        try:
-            log = self.projectphaselog_set.get(phase=ProjectPhases.act)
-            return log.created
-        except ProjectPhaseLog.DoesNotExist:
-            # fall back to creation date of the projectresult
-            if self.projectresult:
-                return self.projectresult.created
-        return None
+        # try:
+        #     log = self.projectphaselog_set.get(phase=ProjectPhases.act)
+        #     return log.created
+        # except ProjectPhaseLog.DoesNotExist:
+        #     # fall back to creation date of the projectresult
+        #     if self.projectresult:
+        #         return self.projectresult.created
+        return self.created
 
     @models.permalink
     def get_absolute_url(self):
@@ -223,8 +221,8 @@ class Project(BaseProject):
                 counter += 1
             self.slug = original_slug
 
-        if not self.phase:
-            self.phase = ProjectPhases.pitch
+        if not self.status:
+            self.status = ProjectPhase.objects.get(slug="plan-new")
         super(Project, self).save(*args, **kwargs)
 
 
@@ -250,23 +248,23 @@ class ProjectBudgetLine(models.Model):
         return u'{0} - {1}'.format(self.description, self.amount / 100.0)
 
 
-class ProjectPhaseLog(models.Model):
-    """ Log when a project reaches a certain phase """
-
-    project = models.ForeignKey(settings.PROJECTS_PROJECT_MODEL)
-    phase = models.CharField(_("phase"), max_length=20, choices=ProjectPhases.choices)
-    created = CreationDateTimeField(_("created"), help_text=_("When this phase was reached."))
-
-    class Meta:
-        db_table = 'projects_projectphaselog'
-        unique_together = (('project', 'phase'),)
-
-    def __unicode__(self):
-        return "%s - %s - %s" % (
-                self.project.title,
-                self.phase,
-                self.created
-            )
+# class ProjectPhaseLog(models.Model):
+#     """ Log when a project reaches a certain phase """
+#
+#     project = models.ForeignKey(settings.PROJECTS_PROJECT_MODEL)
+#     phase = models.CharField(_("phase"), max_length=20, choices=ProjectPhases.choices)
+#     created = CreationDateTimeField(_("created"), help_text=_("When this phase was reached."))
+#
+#     class Meta:
+#         db_table = 'projects_projectphaselog'
+#         unique_together = (('project', 'phase'),)
+#
+#     def __unicode__(self):
+#         return "%s - %s - %s" % (
+#                 self.project.title,
+#                 self.phase,
+#                 self.created
+#             )
 
 
 class ProjectNeedChoices(DjangoChoices):
@@ -275,47 +273,49 @@ class ProjectNeedChoices(DjangoChoices):
     both = ChoiceItem('both', label=_("Both"))
 
 
-class ProjectPitch(models.Model):
+# TODO: delete
+# class ProjectPitch(models.Model):
+#
+#     class PitchStatuses(DjangoChoices):
+#         new = ChoiceItem('new', label=_("New"))
+#         submitted = ChoiceItem('submitted', label=_("Submitted"))
+#         rejected = ChoiceItem('rejected', label=_("Rejected"))
+#         approved = ChoiceItem('approved', label=_("Approved"))
+#
+#     project = models.OneToOneField(settings.PROJECTS_PROJECT_MODEL, verbose_name=_("project"))
+#     status = models.CharField(_("status"), max_length=20, choices=PitchStatuses.choices)
+#
+#     created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
+#     updated = ModificationDateTimeField(_('updated'))
+#
+#     # Basics
+#     title = models.CharField(_("title"), max_length=100, help_text=_("Be short, creative, simple and memorable"))
+#     pitch = models.TextField(_("pitch"), blank=True, help_text=_("Pitch your smart idea in one sentence"))
+#     description = models.TextField(_("why, what and how"), help_text=_("Blow us away with the details!"), blank=True)
+#
+#     need = models.CharField(_("Project need"), null=True, max_length=20, choices=ProjectNeedChoices.choices, default=ProjectNeedChoices.both)
+#     theme = models.ForeignKey(ProjectTheme, blank=True, null=True, verbose_name=_("theme"), help_text=_("Select one of the themes "))
+#     tags = TaggableManager(blank=True, verbose_name=_("tags"), help_text=_("Add tags"))
+#
+#     # Location
+#     latitude = models.DecimalField(_("latitude"), max_digits=21, decimal_places=18, null=True, blank=True)
+#     longitude = models.DecimalField(_("longitude"), max_digits=21, decimal_places=18, null=True, blank=True)
+#     country = models.ForeignKey('geo.Country', blank=True, null=True)
+#
+#     # Media
+#     image = ImageField(_("picture"), max_length=255, blank=True, null=True, upload_to='project_images/', help_text=_("Upload the picture that best describes your smart idea!"))
+#     video_url = models.URLField(_("video"), max_length=100, blank=True, default='', help_text=_("Do you have a video pitch or a short movie that explains your project. Cool! We can't wait to see it. You can paste the link to the YouTube or Vimeo video here"))
+#
+#     def __unicode__(self):
+#         return self.title
+#
+#     class Meta:
+#         db_table = 'projects_projectpitch'
+#         verbose_name = _('pitch')
+#         verbose_name_plural = _('pitches')
 
-    class PitchStatuses(DjangoChoices):
-        new = ChoiceItem('new', label=_("New"))
-        submitted = ChoiceItem('submitted', label=_("Submitted"))
-        rejected = ChoiceItem('rejected', label=_("Rejected"))
-        approved = ChoiceItem('approved', label=_("Approved"))
 
-    project = models.OneToOneField(settings.PROJECTS_PROJECT_MODEL, verbose_name=_("project"))
-    status = models.CharField(_("status"), max_length=20, choices=PitchStatuses.choices)
-
-    created = CreationDateTimeField(_("created"), help_text=_("When this project was created."))
-    updated = ModificationDateTimeField(_('updated'))
-
-    # Basics
-    title = models.CharField(_("title"), max_length=100, help_text=_("Be short, creative, simple and memorable"))
-    pitch = models.TextField(_("pitch"), blank=True, help_text=_("Pitch your smart idea in one sentence"))
-    description = models.TextField(_("why, what and how"), help_text=_("Blow us away with the details!"), blank=True)
-
-    need = models.CharField(_("Project need"), null=True, max_length=20, choices=ProjectNeedChoices.choices, default=ProjectNeedChoices.both)
-    theme = models.ForeignKey(ProjectTheme, blank=True, null=True, verbose_name=_("theme"), help_text=_("Select one of the themes "))
-    tags = TaggableManager(blank=True, verbose_name=_("tags"), help_text=_("Add tags"))
-
-    # Location
-    latitude = models.DecimalField(_("latitude"), max_digits=21, decimal_places=18, null=True, blank=True)
-    longitude = models.DecimalField(_("longitude"), max_digits=21, decimal_places=18, null=True, blank=True)
-    country = models.ForeignKey('geo.Country', blank=True, null=True)
-
-    # Media
-    image = ImageField(_("picture"), max_length=255, blank=True, null=True, upload_to='project_images/', help_text=_("Upload the picture that best describes your smart idea!"))
-    video_url = models.URLField(_("video"), max_length=100, blank=True, default='', help_text=_("Do you have a video pitch or a short movie that explains your project. Cool! We can't wait to see it. You can paste the link to the YouTube or Vimeo video here"))
-
-    def __unicode__(self):
-        return self.title
-
-    class Meta:
-        db_table = 'projects_projectpitch'
-        verbose_name = _('pitch')
-        verbose_name_plural = _('pitches')
-
-
+# TODO: delete
 class ProjectPlan(models.Model):
 
     class PlanStatuses(DjangoChoices):
@@ -370,6 +370,7 @@ class ProjectPlan(models.Model):
         verbose_name_plural = _('plans')
 
 
+# TODO: delete
 class ProjectCampaign(models.Model):
 
     class CampaignStatuses(DjangoChoices):
@@ -502,6 +503,7 @@ class ProjectCampaign(models.Model):
         db_table = 'projects_projectcampaign'
 
 
+# TODO: delete
 class ProjectResult(models.Model):
 
     class ResultStatuses(DjangoChoices):
@@ -531,7 +533,7 @@ class PartnerOrganization(models.Model):
 
     @property
     def projects(self):
-        return self.project_set.exclude(phase__in=['pitch', 'failed']).all()
+        return self.project_set.exclude(status__in=[ProjectPhase.objects.get(slug="plan-new"),ProjectPhase.objects.get(slug="done-stopped")]).all()
 
     class Meta:
         db_table = 'projects_partnerorganization'
@@ -544,25 +546,25 @@ class PartnerOrganization(models.Model):
         return self.slug
 
 
-@receiver(post_save, weak=False, sender=Project, dispatch_uid="log-project-phase")
-def log_project_phase(sender, instance, created, **kwargs):
-    """ Log the project phases when they change """
-    if instance.phase != instance._original_phase or created:
-        phase = getattr(ProjectPhases, instance.phase)
-        # get or create to handle IntegrityErrors (unique constraints)
-        # manually reverting a project phase causes violations of the constraint
-        log_instance, log_created = instance.projectphaselog_set.get_or_create(phase=phase)
-
-        # Send the project_funded signal if the campaign phase has ended and the act phased is starting.
-        # This needs to be in this method instead of in its own method because 'instance._original_phase' is modified
-        # below which makes it impossible to use 'instance._original_phase' condition in another post_save method.
-        if instance._original_phase == ProjectPhases.campaign and phase == ProjectPhases.act:
-            project_funded.send(sender=Project, instance=instance, first_time_funded=log_created)
-
-        # set the new phase as 'original', as subsequent saves can occur,
-        # leading to unique_constraints being violated (plan_status_status_changed)
-        # for example
-        instance._original_phase = instance.phase
+# @receiver(post_save, weak=False, sender=Project, dispatch_uid="log-project-phase")
+# def log_project_phase(sender, instance, created, **kwargs):
+#     """ Log the project phases when they change """
+#     if instance.phase != instance._original_phase or created:
+#         phase = getattr(ProjectPhases, instance.phase)
+#         # get or create to handle IntegrityErrors (unique constraints)
+#         # manually reverting a project phase causes violations of the constraint
+#         log_instance, log_created = instance.projectphaselog_set.get_or_create(phase=phase)
+#
+#         # Send the project_funded signal if the campaign phase has ended and the act phased is starting.
+#         # This needs to be in this method instead of in its own method because 'instance._original_phase' is modified
+#         # below which makes it impossible to use 'instance._original_phase' condition in another post_save method.
+#         if instance._original_phase == ProjectPhases.campaign and phase == ProjectPhases.act:
+#             project_funded.send(sender=Project, instance=instance, first_time_funded=log_created)
+#
+#         # set the new phase as 'original', as subsequent saves can occur,
+#         # leading to unique_constraints being violated (plan_status_status_changed)
+#         # for example
+#         instance._original_phase = instance.phase
 
 
 @receiver(project_funded, weak=False, sender=Project, dispatch_uid="email-project-team-project-funded")
@@ -570,139 +572,139 @@ def email_project_team_project_funded(sender, instance, first_time_funded, **kwa
     mail_project_funded_internal(instance)
 
 
-@receiver(post_save, weak=False, sender=Project)
-def progress_project_phase(sender, instance, created, **kwargs):
-    # Skip all post save logic during fixture loading.
-    if kwargs.get('raw', False):
-        return
+# @receiver(post_save, weak=False, sender=Project)
+# def progress_project_phase(sender, instance, created, **kwargs):
+#     # Skip all post save logic during fixture loading.
+#     if kwargs.get('raw', False):
+#         return
+#
+#     # If a new project is created it should have a pitch
+#     try:
+#         instance.projectpitch
+#     except ProjectPitch.DoesNotExist:
+#         instance.projectpitch = ProjectPitch(project=instance)
+#         instance.projectpitch.title = instance.title
+#         instance.projectpitch.status = ProjectPitch.PitchStatuses.new
+#         instance.projectpitch.save()
+#
+#     if instance.phase == ProjectPhases.pitch:
+#         # If project is rolled back to Pitch (e.g. from Plan) then adjust Pitch status.
+#         if instance.projectpitch.status == ProjectPitch.PitchStatuses.approved:
+#             instance.projectpitch.status = ProjectPitch.PitchStatuses.new
+#             instance.projectpitch.save()
+#
+#     # If phase progresses to 'plan' we should create and populate a ProjectPlan.
+#     if instance.phase == ProjectPhases.plan:
+#         try:
+#             instance.projectplan
+#         except ProjectPlan.DoesNotExist:
+#             # Create a ProjectPlan if it's not there yet
+#             instance.projectplan = ProjectPlan.objects.create(project=instance)
+#             instance.projectplan.status = ProjectPlan.PlanStatuses.new
+#             # Get the Pitch and copy over all fields to the new Plan
+#             try:
+#                 for field in ['country', 'title', 'description', 'image', 'latitude', 'longitude', 'need', 'pitch',
+#                               'image', 'video_url', 'theme']:
+#                     setattr(instance.projectplan, field, getattr(instance.projectpitch, field))
+#                 instance.projectplan.save()
+#                 # After the plan is saved we can add tags
+#                 for tag in instance.projectpitch.tags.all():
+#                     instance.projectplan.tags.add(tag.name)
+#
+#                 if instance.projectpitch.status != ProjectPitch.PitchStatuses.approved:
+#                     instance.projectpitch.status = ProjectPitch.PitchStatuses.approved
+#                     instance.projectpitch.save()
+#
+#             except ProjectPitch.DoesNotExist:
+#                 # This would normally only happen during migrations, so please ignore.
+#                 pass
+#
+#     # If phase progresses to 'campaign' we should change status on ProjectPlan.
+#     if instance.phase == ProjectPhases.campaign:
+#         try:
+#             # Set the correct statuses and save pitch and plan
+#             if instance.projectplan.status != ProjectPlan.PlanStatuses.approved:
+#                 instance.projectplan.status = ProjectPlan.PlanStatuses.approved
+#                 instance.projectplan.save()
+#
+#             if instance.projectpitch.status != ProjectPitch.PitchStatuses.approved:
+#                 instance.projectpitch.status = ProjectPitch.PitchStatuses.approved
+#                 instance.projectpitch.save()
+#         except ProjectPlan.DoesNotExist:
+#             # This would normally only happen during migrations, so please ignore.
+#             pass
+#
+#         # If we don't have a Campaign then create one and set the deadline and money_asked (based on ProjectBudgetLines).
+#         try:
+#             instance.projectcampaign
+#         except ProjectCampaign.DoesNotExist:
+#             # Set Campaign to running and set the Deadline and MoneyAsked (based on ProjectBudgetLines).
+#             instance.projectcampaign = ProjectCampaign.objects.create(project=instance)
+#             instance.projectcampaign.status = ProjectCampaign.CampaignStatuses.running
+#             instance.projectcampaign.deadline = timezone.now() + timezone.timedelta(days=180)
+#
+#             budget = instance.projectplan.projectbudgetline_set
+#             if len(budget.all()):
+#                 budget = budget.aggregate(sum=Sum('amount'))['sum']
+#             else:
+#                 budget = 0
+#             instance.projectcampaign.money_asked = budget
+#             instance.projectcampaign.currency = 'EUR'
+#             instance.projectcampaign.save()
 
-    # If a new project is created it should have a pitch
-    try:
-        instance.projectpitch
-    except ProjectPitch.DoesNotExist:
-        instance.projectpitch = ProjectPitch(project=instance)
-        instance.projectpitch.title = instance.title
-        instance.projectpitch.status = ProjectPitch.PitchStatuses.new
-        instance.projectpitch.save()
-
-    if instance.phase == ProjectPhases.pitch:
-        # If project is rolled back to Pitch (e.g. from Plan) then adjust Pitch status.
-        if instance.projectpitch.status == ProjectPitch.PitchStatuses.approved:
-            instance.projectpitch.status = ProjectPitch.PitchStatuses.new
-            instance.projectpitch.save()
-
-    # If phase progresses to 'plan' we should create and populate a ProjectPlan.
-    if instance.phase == ProjectPhases.plan:
-        try:
-            instance.projectplan
-        except ProjectPlan.DoesNotExist:
-            # Create a ProjectPlan if it's not there yet
-            instance.projectplan = ProjectPlan.objects.create(project=instance)
-            instance.projectplan.status = ProjectPlan.PlanStatuses.new
-            # Get the Pitch and copy over all fields to the new Plan
-            try:
-                for field in ['country', 'title', 'description', 'image', 'latitude', 'longitude', 'need', 'pitch',
-                              'image', 'video_url', 'theme']:
-                    setattr(instance.projectplan, field, getattr(instance.projectpitch, field))
-                instance.projectplan.save()
-                # After the plan is saved we can add tags
-                for tag in instance.projectpitch.tags.all():
-                    instance.projectplan.tags.add(tag.name)
-
-                if instance.projectpitch.status != ProjectPitch.PitchStatuses.approved:
-                    instance.projectpitch.status = ProjectPitch.PitchStatuses.approved
-                    instance.projectpitch.save()
-
-            except ProjectPitch.DoesNotExist:
-                # This would normally only happen during migrations, so please ignore.
-                pass
-
-    # If phase progresses to 'campaign' we should change status on ProjectPlan.
-    if instance.phase == ProjectPhases.campaign:
-        try:
-            # Set the correct statuses and save pitch and plan
-            if instance.projectplan.status != ProjectPlan.PlanStatuses.approved:
-                instance.projectplan.status = ProjectPlan.PlanStatuses.approved
-                instance.projectplan.save()
-
-            if instance.projectpitch.status != ProjectPitch.PitchStatuses.approved:
-                instance.projectpitch.status = ProjectPitch.PitchStatuses.approved
-                instance.projectpitch.save()
-        except ProjectPlan.DoesNotExist:
-            # This would normally only happen during migrations, so please ignore.
-            pass
-
-        # If we don't have a Campaign then create one and set the deadline and money_asked (based on ProjectBudgetLines).
-        try:
-            instance.projectcampaign
-        except ProjectCampaign.DoesNotExist:
-            # Set Campaign to running and set the Deadline and MoneyAsked (based on ProjectBudgetLines).
-            instance.projectcampaign = ProjectCampaign.objects.create(project=instance)
-            instance.projectcampaign.status = ProjectCampaign.CampaignStatuses.running
-            instance.projectcampaign.deadline = timezone.now() + timezone.timedelta(days=180)
-
-            budget = instance.projectplan.projectbudgetline_set
-            if len(budget.all()):
-                budget = budget.aggregate(sum=Sum('amount'))['sum']
-            else:
-                budget = 0
-            instance.projectcampaign.money_asked = budget
-            instance.projectcampaign.currency = 'EUR'
-            instance.projectcampaign.save()
-
-
-@receiver(post_save, weak=False, sender=ProjectPitch)
-def pitch_status_status_changed(sender, instance, created, **kwargs):
-    # Skip all post save logic during fixture loading.
-    if kwargs.get('raw', False):
-        return
-
-    project_saved = False
-
-    # If Pitch is approved, move Project to Plan phase.
-    if instance.status == ProjectPitch.PitchStatuses.approved:
-        if instance.project.phase == ProjectPhases.pitch:
-            instance.project.phase = ProjectPhases.plan
-            instance.project.save()
-    # plan/pitch rejected -> project failed
-    elif instance.status == ProjectPitch.PitchStatuses.rejected and instance.project.phase != ProjectPhases.failed:
-        instance.project.phase = ProjectPhases.failed
-        instance.project.save()
-
-    # Ensure the project 'updated' field is updated for the Saleforce sync script.
-    if not project_saved:
-        instance.project.save()
-
-
-@receiver(post_save, weak=False, sender=ProjectPlan)
-def plan_status_status_changed(sender, instance, created, **kwargs):
-
-    project_saved = False
-
-    # If plan is approved the move Project to Campaign phase.
-    if instance.status == ProjectPlan.PlanStatuses.approved:
-        if instance.project.phase == ProjectPhases.plan:
-            instance.project.phase = ProjectPhases.campaign
-            instance.project.save()
-            project_saved = True
-    # plan/pitch rejected -> project failed
-    elif instance.status == ProjectPlan.PlanStatuses.rejected and instance.project.phase != ProjectPhases.failed:
-        instance.project.phase = ProjectPhases.failed
-        instance.project.save()
-        project_saved = True
-
-    # Ensure the project 'updated' field is updated for the Saleforce sync script.
-    if not project_saved:
-        instance.project.save()
+#
+# @receiver(post_save, weak=False, sender=ProjectPitch)
+# def pitch_status_status_changed(sender, instance, created, **kwargs):
+#     # Skip all post save logic during fixture loading.
+#     if kwargs.get('raw', False):
+#         return
+#
+#     project_saved = False
+#
+#     # If Pitch is approved, move Project to Plan phase.
+#     if instance.status == ProjectPitch.PitchStatuses.approved:
+#         if instance.project.phase == ProjectPhases.pitch:
+#             instance.project.phase = ProjectPhases.plan
+#             instance.project.save()
+#     # plan/pitch rejected -> project failed
+#     elif instance.status == ProjectPitch.PitchStatuses.rejected and instance.project.phase != ProjectPhases.failed:
+#         instance.project.phase = ProjectPhases.failed
+#         instance.project.save()
+#
+#     # Ensure the project 'updated' field is updated for the Saleforce sync script.
+#     if not project_saved:
+#         instance.project.save()
 
 
-@receiver(post_save, weak=False, sender=ProjectCampaign, dispatch_uid="update-project-after-campaign-updated")
-def update_project_after_campaign_updated(sender, instance, created, **kwargs):
-    """ Ensure the project 'updated' field is updated for the Salesforce sync script. """
-    instance.project.save()
+# @receiver(post_save, weak=False, sender=ProjectPlan)
+# def plan_status_status_changed(sender, instance, created, **kwargs):
+#
+#     project_saved = False
+#
+#     # If plan is approved the move Project to Campaign phase.
+#     if instance.status == ProjectPlan.PlanStatuses.approved:
+#         if instance.project.phase == ProjectPhases.plan:
+#             instance.project.phase = ProjectPhases.campaign
+#             instance.project.save()
+#             project_saved = True
+#     # plan/pitch rejected -> project failed
+#     elif instance.status == ProjectPlan.PlanStatuses.rejected and instance.project.phase != ProjectPhases.failed:
+#         instance.project.phase = ProjectPhases.failed
+#         instance.project.save()
+#         project_saved = True
+#
+#     # Ensure the project 'updated' field is updated for the Saleforce sync script.
+#     if not project_saved:
+#         instance.project.save()
+
+#
+# @receiver(post_save, weak=False, sender=ProjectCampaign, dispatch_uid="update-project-after-campaign-updated")
+# def update_project_after_campaign_updated(sender, instance, created, **kwargs):
+#     """ Ensure the project 'updated' field is updated for the Salesforce sync script. """
+#     instance.project.save()
 
 
-# # Change project phase according to donated amount
+# Change project phase according to donated amount
 # @receiver(post_save, weak=False, sender=Donation)
 # def update_project_after_donation(sender, instance, created, **kwargs):
 #     # Skip all post save logic during fixture loading.

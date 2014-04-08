@@ -38,7 +38,7 @@
 
                         <span class="project-header">
                             <figure class="project-image">
-                                <img {{bindAttr src="project.pitch.image.square" alt="project.pitch.title"}} />
+                                <img {{bindAttr src="project.image.square" alt="project.title"}} />
                             </figure>
                             <h2 class="project-title">
                                 {{ project.title }}
@@ -52,10 +52,10 @@
                         </span>
 
 				        <div class="project-actions">
-				        	{% trans "Phase" %}: <strong>{{ project.phase }}</strong> |
+				        	{% trans "Phase" %}: <strong>{{ project.status }}</strong> |
 			                {{#if project.isPhasePitch}}
-			                	{% trans "Status:" %} <strong>{{project.plan.status}}</strong>
-                                {{#if project.pitch.isBeingReviewed}}
+			                	{% trans "Status:" %} <strong>{{project.status}}</strong>
+                                {{#if project.isBeingReviewed}}
 								{% trans "Your pitch is in review now." %}
 								  <br/>
 								  {% trans "We'll get back to you within 3 business days!" %}
@@ -68,7 +68,7 @@
 	                        {{/if}}
 
 	                        {{#if project.isPhasePlan}}
-	                            {% trans "Status:" %} <strong>{{project.plan.status}}</strong>
+	                            {% trans "Status:" %} <strong>{{project.status}}</strong>
 	                            {{#linkTo "myProjectPlan" project tagName="a" class="btn btn-iconed right"}}
 	                                <span class="flaticon solid pencil-3"></span>
 	                                {% trans "Continue plan" %}
@@ -76,7 +76,7 @@
 	                        {{/if}}
 
 	                        {{#if project.isPhaseCampaign}}
-	                            {% trans "Status:" %} <strong>{{project.campaign.status}}</strong>
+	                            {% trans "Status:" %} <strong>{{project.status}}</strong>
 	                            {{#linkTo "myProjectCampaign" project tagName="a" class="btn btn-iconed right"}}
 	                                <span class="flaticon solid pencil-3"></span>
 	                                {% trans "Campaigning" %}

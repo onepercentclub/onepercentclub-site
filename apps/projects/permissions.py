@@ -1,4 +1,4 @@
-from apps.projects.models import ProjectPitch, ProjectPhases, ProjectPlan
+from bluebottle.bb_projects.models import ProjectPhase
 from django.core.exceptions import ImproperlyConfigured
 from rest_framework import permissions
 from .models import Project
@@ -46,7 +46,7 @@ class EditablePitchOrReadOnly(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
             return True
-        return obj.status == ProjectPitch.PitchStatuses.new
+        return obj.status == ProjectPhase.objects.get(slug='plan-new')
 
 
 class EditablePlanOrReadOnly(permissions.BasePermission):
@@ -56,7 +56,8 @@ class EditablePlanOrReadOnly(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
             return True
-        return obj.status in [ProjectPlan.PlanStatuses.new, ProjectPlan.PlanStatuses.needs_work]
+        return obj.status in [ProjectPhase.objects.get(slug='plan-new'),
+                              ProjectPhase.objects.get(slug='plan-needs-work')]
 
 
 class IsOwner(permissions.BasePermission):
