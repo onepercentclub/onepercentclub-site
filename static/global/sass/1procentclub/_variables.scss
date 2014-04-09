@@ -6,45 +6,48 @@
 // Grays
 // --------------------------------
 
-$black                                                     : #000; 
-$gray-darkest                                              : #222;     
-$gray-darker                                               : #444;
-$gray-dark                                                 : #666;
-$gray                                                      : #999;
-$gray-light                                                : #ccc;
-$gray-lighter                                              : #e9e9e9;
-$white                                                     : #fff;
+$black                                 : #000;
+$gray-darkest                          : #222;
+$gray-darker                           : #444;
+$gray-dark                             : #666;
+$gray                                  : #999;
+$gray-light                            : #ccc;
+$gray-lighter                          : #e9e9e9;
+$white                                 : #fff;
                                                        
 // Colors                                                       
 // --------------------------------                             
 
-$color-primary                                             : #ff619a; // Pink
-$color-secondary                                           : #00c051; // Green
+$color-primary                         : #ff619a; // Pink
+$color-secondary                       : #00c051; // Green
                                                                    
-$color-error                                               : #b84040;
-$color-success                                             : #5da423;
-$color-deselect                                            : #bfbfbf;
+$color-error                           : #b84040;
+$color-success                         : #5da423;
+$color-deselect                        : #bfbfbf;
                                                                 
 // Social                                                       
 // ----------------------------------                           
                                                                 
-$facebook-blue                                             : #45619d;                  
-$twitter-blue                                              : #33b9e2;
+$facebook-blue                         : #45619d;
+$twitter-blue                          : #33b9e2;
                                                                 
 // Typography                                                   
 // --------------------------------                             
                                                                 
-$font-family                                               : 'Futura W01 Book', 'Trebuchet MS', Helvetica, Arial, sans-serif;
-$font-family-heavy                                         : 'Futura W02 Heavy', 'Trebuchet MS', Helvetica, Arial, sans-serif;          
-$font-family-bold                                          : 'Futura W01 Bold', 'Trebuchet MS', Helvetica, Arial, sans-serif;   
-$font-family-small                                         : 'Trebuchet MS', Helvetica, Arial, sans-serif;
+$font-family                           : 'Futura W01 Book', 'Trebuchet MS', Helvetica, Arial, sans-serif;
+$font-family-heavy                     : 'Futura W02 Heavy', 'Trebuchet MS', Helvetica, Arial, sans-serif;
+$font-family-bold                      : 'Futura W01 Bold', 'Trebuchet MS', Helvetica, Arial, sans-serif;
+$font-family-small                     : 'Trebuchet MS', Helvetica, Arial, sans-serif;
                                                                 
-$base-font-size                                            : 1em;
-$base-font-family                                          : $font-family;
-$base-line-height                                          : 1.5em;
+$base-font-size                        : 1em;
+$base-font-family                      : $font-family;
+$base-line-height                      : 1.5em;
 
 // Wallposts                                       
 // --------------------------------   
-$wallposts-bg-color: $gray-lighter;
-$wallposts-wallpost-bg-color: $white;                          
-$wallposts-wallpost-system-bg-color: $white;
+$wallposts-bg-color                    : $gray-lighter;
+$wallposts-wallpost-bg-color           : $white;
+$wallposts-wallpost-system-bg-color    : $white;
+$wallposts-wallpost-important-bg-color : $white;
+
+$carousel-nav-item-active-bg-color: $gray-light;
