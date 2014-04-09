@@ -206,6 +206,7 @@ ALTER TABLE projects_project
 
 
 
+
 -- Organization
 
 ALTER TABLE organizations_organization
@@ -277,6 +278,11 @@ UPDATE projects_project p
       reach = pp.reach
   FROM projects_projectplan as pp
   WHERE pp.project_id = p.id;
+
+-- Now drop phase
+
+ALTER TABLE projects_project DROP COLUMN phase;
+
 
 --
 -- TASKS

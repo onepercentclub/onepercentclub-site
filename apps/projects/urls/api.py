@@ -3,7 +3,8 @@ from django.conf.urls import patterns, url, include
 from surlex.dj import surl
 from ..views import (ProjectDetail, ProjectList, ProjectSupporterList, ProjectDonationList)
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
     url(r'^projects/$', ProjectList.as_view(), name='project-list'),
     surl(r'^projects/<slug:s>$', ProjectDetail.as_view(), name='project-detail'),
 
