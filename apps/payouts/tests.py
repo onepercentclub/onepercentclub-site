@@ -5,9 +5,8 @@ from django.test import TestCase
 
 from django_dynamic_fixture import N, G
 
-from apps.projects.models import (
-    Project, ProjectPhases, ProjectCampaign, ProjectPlan
-)
+from apps.projects.models import Project
+
 from apps.fund.models import Donation, DonationStatuses
 
 from apps.cowry import factory
@@ -19,7 +18,7 @@ from .models import (
 from .choices import PayoutRules, PayoutLineStatuses
 from .utils import date_timezone_aware
 
-
+# TODO: fix
 class PayoutTestCase(TestCase):
     """ Testcase for Payouts. """
 

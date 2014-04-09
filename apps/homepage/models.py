@@ -1,3 +1,4 @@
+from bluebottle.bb_projects.models import ProjectPhase
 from django.utils.timezone import now
 
 from bluebottle.slides.models import Slide
@@ -24,7 +25,7 @@ class HomePage(object):
             self.stats = stats[0]
         else:
             self.stats = None
-        projects = PROJECT_MODEL.objects.filter(phase='campaign').order_by('?')
+        projects = PROJECT_MODEL.objects.filter(status=ProjectPhase.objects.get(slug="campaign")).order_by('?')
         if len(projects) > 4:
             self.projects = projects[0:4]
         elif len(projects) > 0:

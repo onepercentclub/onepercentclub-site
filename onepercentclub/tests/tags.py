@@ -34,7 +34,7 @@ class TestTags(unittest.TestCase):
         project = ProjectFactory.create()
         project.save()
 
-        project.projectpitch.tags.add(tag_name)
+        project.tags.add(tag_name)
 
         # Check that we only have one tag created.
         self.assertEquals(1, Tag.objects.count())
@@ -59,8 +59,8 @@ class TestTags(unittest.TestCase):
         project.save()
 
         # Add the same tag two times.
-        project.projectpitch.tags.add(tag_name)
-        project.projectpitch.tags.add(tag_name)
+        project.tags.add(tag_name)
+        project.tags.add(tag_name)
 
         # Check that we only have one tag created.
-        self.assertEquals(1, project.projectpitch.tags.count())
+        self.assertEquals(1, project.tags.count())

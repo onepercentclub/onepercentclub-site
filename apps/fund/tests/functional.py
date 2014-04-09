@@ -36,9 +36,9 @@ class DonationSeleniumTests(DonationTestsMixin, ProjectTestsMixin, UserTestsMixi
             project = self.create_project(title=title, slug=slug, money_asked=50000)  # EUR 500.00
             self._projects.append(project)
 
-            project.projectcampaign.money_donated = 500  # EUR 5.00
-            project.projectcampaign.save()
-            project.phase = 'campaign'
+            project.amount_donated = 500  # EUR 5.00
+            project.save()
+            project.status = 'campaign'
 
         self.some_user = self.create_user()
         self.another_user = self.create_user()

@@ -328,12 +328,13 @@ class Payout(PayoutBase):
 
         # Get amount as Decimal
         amount = round_money(
-            money_from_cents(self.project.projectcampaign.money_donated)
+            money_from_cents(self.project.amount_donated)
         )
 
         return amount
 
     def get_amount_safe(self):
+        #TODO: what is this?
         """ Realtime amount of safe ('paid') donations. """
         # Get amount as Decimal
         amount = round_money(

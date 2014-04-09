@@ -1,10 +1,10 @@
+from bluebottle.bb_projects.models import ProjectPhase
 from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
 
 
 from admin_tools.dashboard.modules import DashboardModule
-from apps.projects.models import (Project, ProjectPitch, ProjectPlan,
-                                  ProjectResult, ProjectCampaign, ProjectPhases)
+from apps.projects.models import Project
 
 
 class RecentProjects(DashboardModule):
@@ -34,8 +34,8 @@ class SubmittedPitches(DashboardModule):
         super(SubmittedPitches, self).__init__(title, **kwargs)
 
     def init_with_context(self, context):
-        qs = ProjectPitch.objects.order_by('created')
-        qs = qs.filter(status=ProjectPitch.PitchStatuses.submitted)
+        qs = Project.objects.order_by('created')
+        qs = qs.filter(status=ProjectPhase.objects.get(slug="plan-submitted"))
         self.children = qs[:self.limit]
         if not len(self.children):
             self.pre_content = _('No submitted pitches.')
@@ -52,8 +52,8 @@ class SubmittedPlans(DashboardModule):
         super(SubmittedPlans, self).__init__(title, **kwargs)
 
     def init_with_context(self, context):
-        qs = ProjectPlan.objects.order_by('created')
-        qs = qs.filter(status=ProjectPlan.PlanStatuses.submitted)
+        qs = Project.objects.order_by('created')
+        qs = qs.filter(status=ProjectPhase.objects.get(slug="plan-submitted"))
 
         self.children = qs[:self.limit]
         if not len(self.children):
@@ -71,8 +71,8 @@ class StartedCampaigns(DashboardModule):
         super(StartedCampaigns, self).__init__(title, **kwargs)
 
     def init_with_context(self, context):
-        qs = ProjectCampaign.objects.order_by('-created')
-        qs = qs.filter(status=ProjectCampaign.CampaignStatuses.running)
+        qs = Project.objects.order_by('-created')
+        qs = qs.filter(status=ProjectPhase.objects.get(slug="campaign"))
 
         self.children = qs[:self.limit]
         if not len(self.children):
@@ -92,17 +92,15 @@ class FundedProjects(DashboardModule):
     def init_with_context(self, context):
 
         qs1 = Project.objects.filter(
-                Q(projectphaselog__phase=ProjectPhases.act)
-            ).order_by('-projectphaselog__created')[:self.limit]
+                Q(status=ProjectPhase.objects.get(slug="done-complete"))
+            ).order_by('-created')[:self.limit]
 
         qs1_project_ids = qs1.values_list('id', flat=True)
-        qs2 = Project.objects.filter(
-                projectresult__status = ProjectResult.ResultStatuses.running
-            ).exclude(
-                projectresult = None
+
+        qs2 = Project.objects.filter(status=ProjectPhase.objects.get(slug="campaign")
             ).exclude(
                 id__in = qs1_project_ids
-            ).order_by('-projectresult__created')[:self.limit]
+            ).order_by('-created')[:self.limit]
 
         projects = list(qs1) + list(qs2)
 

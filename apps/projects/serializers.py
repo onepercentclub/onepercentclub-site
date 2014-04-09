@@ -26,14 +26,14 @@ class ProjectCountrySerializer(serializers.ModelSerializer):
 class ProjectSerializer(BaseProjectSerializer):
     id = serializers.CharField(source='slug', read_only=True)
     task_count = serializers.IntegerField(source='task_count')
-    country = ProjectCountrySerializer(source='projectplan.country')
+    country = ProjectCountrySerializer(source='country')
 
     meta_data = MetaField(
             title = 'get_meta_title',
             fb_title = 'get_fb_title',
-            description = 'projectplan__pitch',
-            keywords = 'projectplan__tags',
-            image_source = 'projectplan__image',
+            description = 'pitch',
+            keywords = 'tags',
+            image_source = 'image',
             tweet = 'get_tweet',
             )
 
@@ -81,20 +81,4 @@ class ProjectDonationSerializer(serializers.ModelSerializer):
         model = Donation
         fields = ('member', 'date_donated', 'amount',)
 
-
-class ManageProjectSerializer(serializers.ModelSerializer):
-
-    id = serializers.CharField(source='slug', read_only=True)
-
-    url = serializers.HyperlinkedIdentityField(view_name='project-manage-detail')
-    status = serializers.CharField(read_only=True)
-
-    pitch = serializers.PrimaryKeyRelatedField(source='projectpitch', read_only=True)
-    plan = serializers.PrimaryKeyRelatedField(source='projectplan', read_only=True)
-    campaign = serializers.PrimaryKeyRelatedField(source='projectcampaign', read_only=True)
-    result = serializers.PrimaryKeyRelatedField(source='projectresult', read_only=True)
-
-    class Meta:
-        model = PROJECT_MODEL
-        fields = ('id', 'created', 'title', 'url', 'status', 'pitch', 'plan', 'campaign', 'coach')
 

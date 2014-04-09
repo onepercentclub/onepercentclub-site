@@ -29,8 +29,8 @@ class HomepageTestCase(FundRaiserTestsMixin, ProjectTestsMixin, OnePercentSeleni
 
         for slug, title in self.projects.items():
             project = self.create_project(title=title, slug=slug, money_asked=100000, owner=self.user)
-            project.projectcampaign.money_donated = 0
-            project.projectcampaign.save()
+            project.amount_donated = 0
+            project.save()
 
     def test_homepage_without_campaign(self):
         self.visit_homepage()
