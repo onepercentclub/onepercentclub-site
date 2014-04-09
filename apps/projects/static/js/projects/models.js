@@ -1,5 +1,7 @@
 App.Project.reopen({
+	url: "projects",
 
+    deadline: DS.attr('date'),
     amount_asked: DS.attr('number'),
     amount_donated: DS.attr('number'),
     amount_needed: DS.attr('number'),
@@ -22,8 +24,20 @@ App.MyProject.reopen({
     image: DS.attr('image'),
     video: DS.attr('string'),
 
+	init: function () {
+        this._super();
+
+        this.validatedFieldsProperty('validGoal', this.get('requiredGoalFields'));
+        this.missingFieldsProperty('missingFieldsGoal', this.get('requiredGoalFields'));
+	},
+
+	valid: function(){
+        return (this.get('') && this.get('validPitch') && this.get('validGoal'));
+    }.property('validStory', 'validPitch', 'validGoal'),
+
     requiredStoryFields: ['description', 'goal', 'destination_impact'],
-    requiredPitchFields: ['title', 'pitch', 'image', 'theme', 'tags.length', 'deadline', 'country', 'latitude', 'longitude'],
+	requiredGoalFields: ['amount_asked', 'deadline'],
+    requiredPitchFields: ['title', 'pitch', 'image', 'theme', 'tags.length', 'country', 'latitude', 'longitude'],
 
     friendlyFieldNames: {
         'title' : 'Title',
