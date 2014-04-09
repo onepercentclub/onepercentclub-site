@@ -45,3 +45,9 @@ SOUTH_TESTS_MIGRATE = False
 
 SKIP_BB_FUNCTIONAL_TESTS = False
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ':memory:',
+        },
+}
