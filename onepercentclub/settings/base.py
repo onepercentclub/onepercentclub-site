@@ -265,6 +265,7 @@ INSTALLED_APPS = (
     'bluebottle.bb_organizations',
     'bluebottle.bb_projects',
     'bluebottle.bb_tasks',
+    'bluebottle.pages',
 
     'apps.bluebottle_dashboard',
     'apps.contentplugins',
@@ -606,10 +607,7 @@ REST_FRAMEWORK = {
     # Don't do basic authentication.
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
-    ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
+    )
 }
 
 

@@ -9,7 +9,7 @@ from django.template.defaultfilters import slugify
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from django_iban.fields import IBANField, SWIFTBICField
 from djchoices import DjangoChoices, ChoiceItem
-from taggit_autocomplete_modified.managers import TaggableManagerAutocomplete as TaggableManager
+
 
 from bluebottle.utils.models import Address
 from django.core.files.storage import FileSystemStorage
