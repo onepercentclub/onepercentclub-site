@@ -1,3 +1,4 @@
+from bluebottle.bb_projects.models import ProjectPhase
 import mock
 
 from django.http import HttpResponse
@@ -5,7 +6,6 @@ from django.test import TestCase, RequestFactory, LiveServerTestCase
 from django.test.utils import override_settings
 from django.utils.text import slugify
 
-from apps.projects.models import ProjectPlan, ProjectPhases
 from apps.projects.tests import ProjectTestsMixin
 from .middleware import HASHBANG, ESCAPED_FRAGMENT, HashbangMiddleware
 
@@ -56,7 +56,7 @@ class CrawlableTests(ProjectTestsMixin, LiveServerTestCase):
             project.projectplan.status = 'approved'
             project.projectplan.save()
 
-            project.phase = ProjectPhases.campaign
+            project.phase = ProjectPhase.objects.get(slug="campaign")
             project.save()
 
         self.project_url = '%s/en/#!/projects' % self.live_server_url

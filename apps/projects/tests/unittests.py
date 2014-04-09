@@ -1,5 +1,6 @@
 import json
 from decimal import Decimal
+from bluebottle.bb_projects.models import ProjectPhase
 
 from django.test import TestCase, RequestFactory
 from django.contrib.contenttypes.models import ContentType
@@ -9,9 +10,8 @@ from bluebottle.utils.tests import UserTestsMixin, generate_random_slug
 from apps.organizations.tests import OrganizationTestsMixin
 from bluebottle.wallposts.models import TextWallPost
 from apps.fund.models import DonationStatuses, Donation, Order
-from apps.projects.models import ProjectPlan, ProjectCampaign
 
-from ..models import Project, ProjectPhases, ProjectPitch
+from ..models import Project
 
 
 class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
@@ -41,9 +41,9 @@ class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
         project = Project(owner=owner, title=title, slug=slug, phase=phase)
         project.save()
 
-        project.projectpitch.title = title
-        project.projectpitch.status = ProjectPitch.PitchStatuses.new
-        project.projectpitch.save()
+        project.title = title
+        project.status = ProjectPhase.objects.get(slug="plan-new")
+        project.save()
 
         if money_asked:
 
@@ -58,7 +58,7 @@ class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
             project.projectcampaign.save()
             project.projectcampaign.update_money_donated()
 
-            project.phase = ProjectPhases.campaign
+            project.status = ProjectPhase.objects.get(slug="campaign")
             project.save()
 
         return project
@@ -98,7 +98,7 @@ class ProjectApiIntegrationTest(ProjectTestsMixin, TestCase):
                 project.projectplan = ProjectPlan(title=project.title)
                 project.projectplan.status = 'approved'
                 project.projectplan.save()
-                project.phase = ProjectPhases.campaign
+                project.status = ProjectPhase.objects.get(slug="campaign")
                 project.save()
             else:
                 project.projectplan = ProjectPlan(title=project.title)
@@ -148,7 +148,7 @@ class ProjectApiIntegrationTest(ProjectTestsMixin, TestCase):
 
         # Test that combination of arguments works
         response = self.client.get(self.projects_url + '?ordering=deadline&phase=campaign&country=101')
-        self.assertEquals(response.status_code, 200)                                   
+        self.assertEquals(response.status_code, 200)
 
     def test_project_detail_view(self):
         """ Tests retrieving a project detail from the API. """
@@ -229,7 +229,7 @@ class ProjectManageApiIntegrationTest(ProjectTestsMixin, TestCase):
         pitch_data['status'] = 'approved'
         response = self.client.put(pitch_url, json.dumps(pitch_data), 'application/json')
         self.assertEquals(response.status_code, status.HTTP_400_BAD_REQUEST, response)
-        
+
         # Ok, let's try to submit it. We have to submit all previous data again too.
         pitch_data['status'] = 'submitted'
         response = self.client.put(pitch_url, json.dumps(pitch_data), 'application/json')
@@ -588,7 +588,7 @@ class CalculateProjectMoneyDonatedTest(ProjectTestsMixin, TestCase):
         first_donation = self._create_donation(user=self.some_user, project=self.some_project, amount=1500,
                                                status=DonationStatuses.new)
         self.assertEqual(self.some_project.projectcampaign.money_donated, 0)
-        
+
 
         # Create a new donation of 25 in status 'in_progress'. project money donated should be 0.
         second_donation = self._create_donation(user=self.some_user, project=self.some_project, amount=2500,
@@ -630,7 +630,7 @@ class ProjectPhaseLoggerTest(ProjectTestsMixin, TestCase):
     def test_phase_change_logged(self):
         # One phase should be logged due to creation of the project
         self.assertEqual(1, self.some_project.projectphaselog_set.count())
-        
+
         # change the phase, it should be logged
         self.some_project.phase = ProjectPhases.plan
         self.some_project.save()

@@ -1,5 +1,6 @@
 import csv
 import logging
+from bluebottle.bb_projects.models import ProjectPhase
 
 import os
 from registration.models import RegistrationProfile
@@ -9,8 +10,7 @@ from apps.fund.models import Donation, DonationStatuses, RecurringDirectDebitPay
 from apps.vouchers.models import Voucher, VoucherStatuses
 from apps.organizations.models import Organization
 from bluebottle.bb_accounts.models import BlueBottleUser
-from apps.projects.models import Project, ProjectCampaign, ProjectPitch, ProjectPlan, ProjectBudgetLine, \
-    ProjectAmbassador, ProjectPhases
+
 from apps.tasks.models import Task, TaskMember
 
 logger = logging.getLogger('bluebottle.salesforce')
@@ -218,184 +218,56 @@ def generate_projects_csv_file(path, loglevel):
     with open(os.path.join(path, filename), 'wb') as csv_outfile:
         csvwriter = csv.writer(csv_outfile, quoting=csv.QUOTE_ALL)
 
-        csvwriter.writerow(["Project_External_ID__c", "Project_name__c", "Project_Owner__c", "Status_project__c",
-                            "Country_in_which_the_project_is_located__c", "Describe_the_project_in_one_sentence__c",
-                            "Organization__c", "NumberOfPeopleReachedDirect__c", "Amount_at_the_moment__c",
-                            "Amount_requested__c", "Amount_still_needed__c", "Project_created_date__c",
-                            "Target_group_s_of_the_project__c", "Describe_where_the_money_is_needed_for__c",
-                            "Projecturl__c", "Tags__c",
-                            "Contribution_project_in_reducing_poverty__c", "Sustainability__c",
-                            "Extensive_project_description__c", "Name_referral_1__c", "Description_referral_1__c",
-                            "E_mail_address_referral_1__c", "Name_referral_2__c", "Description_referral_2__c",
-                            "E_mail_address_referral_2__c", "Name_referral_3__c", "Description_referral_3__c",
-                            "E_mail_address_referral_3__c", "Date_pitch_created__c", "Date_pitch_submitted__c",
-                            "Date_pitch_approved__c", "Date_pitch_rejected__c", "Date_plan_submitted__c",
-                            "Date_plan_approved__c", "Date_plan_rejected__c", "Date_project_act__c",
-                            "Date_project_realized__c", "Date_project_failed__c", "Date_project_result__c",
+        csvwriter.writerow(["Project_External_ID__c",
+                            "Project_name__c",
+                            "Project_Owner__c",
+                            "Status_project__c",
+                            "Country_in_which_the_project_is_located__c",
+                            "Describe_the_project_in_one_sentence__c",
+                            "Organization__c",
+                            "NumberOfPeopleReachedDirect__c",
+                            "Amount_at_the_moment__c",
+                            "Amount_requested__c",
+                            "Amount_still_needed__c",
+                            "Project_created_date__c",
+                            "Target_group_s_of_the_project__c",
+                            "Projecturl__c",
+                            "Tags__c",
+                            "Contribution_project_in_reducing_poverty__c",
+                            "Sustainability__c",
+                            "Extensive_project_description__c",
+                            "Date_project_updated__c",
                             "Date_project_deadline__c"])
 
         projects = Project.objects.all()
-
         logger.info("Exporting {0} Project objects to {1}".format(projects.count(), filename))
 
         for project in projects:
-            try:
-                date_project_act = ''
-                date_project_realized = ''
-                date_project_failed = ''
-                date_project_result = ''
-                date_project_deadline = ''
-                if project.phase == ProjectPhases.act:
-                    date_project_act = project.updated
-                elif project.phase == ProjectPhases.realized:
-                    date_project_realized = project.updated
-                elif project.phase == ProjectPhases.failed:
-                    date_project_failed = project.updated
-                elif project.phase == ProjectPhases.results:
-                    date_project_result = project.updated
+            for tag in project.tags.all():
+                tags = str(tag) + ", " + tags
+            csvwriter.writerow([project.id,
+                                project.title.encode("utf-8"),
+                                project.owner.id,
+                                project.status.name,
+                                project.country.name.encode("utf-8"),
+                                project.pitch.encode("utf-8"),
+                                project.organization.id,
+                                project.reach,
+                                "%01.2f" % (project.amount_donated / 100),
+                                "%01.2f" % (project.amount_asked / 100),
+                                "%01.2f" % (project.amount_needed / 100),
+                                project.created.date(),
+                                project.for_who.encode("utf-8"),
+                                "http://www.onepercentclub.com/en/#!/projects/{0}".format(project.slug),
+                                tags,
+                                project.effects.encode("utf-8"),
+                                project.future.encode("utf-8"),
+                                project.description.encode("utf-8"),
+                                project.updated,
+                                project.deadline.date()])
 
-                try:
-                    project_campaign = ProjectCampaign.objects.get(project=project)
-                    amount_at_the_moment = "%01.2f" % (project_campaign.money_donated / 100)
-                    amount_requested = "%01.2f" % (project_campaign.money_asked / 100)
-                    amount_still_needed = "%01.2f" % (project_campaign.money_needed / 100)
-                    if project.phase == ProjectPhases.campaign:
-                        date_project_deadline = project_campaign.deadline.date()
-                except ProjectCampaign.DoesNotExist:
-                    amount_at_the_moment = ''
-                    amount_requested = ''
-                    amount_still_needed = ''
 
-                tags = ''
-                date_pitch_created = ''
-                date_pitch_submitted = ''
-                date_pitch_approved = ''
-                date_pitch_rejected = ''
-                try:
-                    project_pitch = ProjectPitch.objects.get(project=project)
-                    if project_pitch.country:
-                        country_in_which_the_project_is_located = project_pitch.country.name
-                    else:
-                        country_in_which_the_project_is_located = ''
-                    describe_the_project_in_one_sentence = project_pitch.pitch[:5000]
-                    extensive_project_description = project_pitch.description
-
-                    if project_pitch.status == ProjectPitch.PitchStatuses.new:
-                        date_pitch_created = project_pitch.created
-                    elif project_pitch.status == ProjectPitch.PitchStatuses.submitted:
-                        date_pitch_submitted = project_pitch.updated
-                    elif project_pitch.status == ProjectPitch.PitchStatuses.approved:
-                        date_pitch_approved = project_pitch.updated
-                    elif project_pitch.status == ProjectPitch.PitchStatuses.rejected:
-                        date_pitch_created = project_pitch.updated
-
-                    for tag in project_pitch.tags.all():
-                        tags = str(tag) + ", " + tags
-                except ProjectPitch.DoesNotExist:
-                    country_in_which_the_project_is_located = ''
-                    describe_the_project_in_one_sentence = ''
-                    extensive_project_description = ''
-
-                organization_id = ''
-                name_referral_1 = ''
-                description_referral_1 = ''
-                email_address_referral_1 = ''
-                name_referral_2 = ''
-                description_referral_2 = ''
-                email_address_referral_2 = ''
-                name_referral_3 = ''
-                description_referral_3 = ''
-                email_address_referral_3 = ''
-                date_plan_submitted = ''
-                date_plan_approved = ''
-                date_plan_rejected = ''
-                try:
-                    project_plan = ProjectPlan.objects.get(project=project)
-                    for_who = project_plan.for_who
-                    money_needed_for = project_plan.money_needed
-                    number_of_people_reached_direct = project_plan.reach
-                    contribution_project_in_reducing_poverty = project_plan.effects
-                    sustainability = project_plan.future
-
-                    if project_plan.status == ProjectPlan.PlanStatuses.submitted:
-                        date_plan_submitted = project_plan.updated
-                    elif project_plan.status == ProjectPlan.PlanStatuses.approved:
-                        date_plan_approved = project_plan.updated
-                    elif project_plan.status == ProjectPlan.PlanStatuses.rejected:
-                        date_plan_rejected = project_plan.updated
-
-                    if project_plan.organization:
-                        organization_id = project_plan.organization.id
-
-                    # Project referrals (ambassador) - expected are three or less related values
-                    try:
-                        project_ambs = ProjectAmbassador.objects.filter(project_plan=project_plan)
-                        if project_ambs.count() > 0:
-                            name_referral_1 = project_ambs[0].name
-                            description_referral_1 = project_ambs[0].description
-                            email_address_referral_1 = project_ambs[0].email
-                        if project_ambs.count() > 1:
-                            name_referral_2 = project_ambs[1].name
-                            description_referral_2 = project_ambs[1].description
-                            email_address_referral_2 = project_ambs[1].email
-                        if project_ambs.count() > 2:
-                            name_referral_3 = project_ambs[2].name
-                            description_referral_3 = project_ambs[2].description
-                            email_address_referral_3 = project_ambs[2].email
-                    except ProjectAmbassador.DoesNotExist:
-                        pass
-                except ProjectPlan.DoesNotExist:
-                    for_who = ''
-                    money_needed_for = ''
-                    number_of_people_reached_direct = ''
-                    contribution_project_in_reducing_poverty = ''
-                    sustainability = ''
-
-                csvwriter.writerow([project.id,
-                                    project.title.encode("utf-8"),
-                                    project.owner.id,
-                                    ProjectPhases.values[project.phase].title(),
-                                    country_in_which_the_project_is_located.encode("utf-8"),
-                                    describe_the_project_in_one_sentence.encode("utf-8"),
-                                    organization_id,
-                                    number_of_people_reached_direct,
-                                    amount_at_the_moment,
-                                    amount_requested,
-                                    amount_still_needed,
-                                    project.created.date(),
-                                    for_who.encode("utf-8"),
-                                    money_needed_for.encode("utf-8"),
-                                    "http://www.onepercentclub.com/en/#!/projects/{0}".format(project.slug),
-                                    tags,
-                                    contribution_project_in_reducing_poverty.encode("utf-8"),
-                                    sustainability.encode("utf-8"),
-                                    extensive_project_description.encode("utf-8"),
-                                    name_referral_1.encode("utf-8"),
-                                    description_referral_1.encode("utf-8"),
-                                    email_address_referral_1.encode("utf-8"),
-                                    name_referral_2.encode("utf-8"),
-                                    description_referral_2.encode("utf-8"),
-                                    email_address_referral_2.encode("utf-8"),
-                                    name_referral_3.encode("utf-8"),
-                                    description_referral_3.encode("utf-8"),
-                                    email_address_referral_3.encode("utf-8"),
-                                    date_pitch_created,
-                                    date_pitch_submitted,
-                                    date_pitch_approved,
-                                    date_pitch_rejected,
-                                    date_plan_submitted,
-                                    date_plan_approved,
-                                    date_plan_rejected,
-                                    date_project_act,
-                                    date_project_realized,
-                                    date_project_failed,
-                                    date_project_result,
-                                    date_project_deadline])
-                success_count += 1
-            except Exception as e:
-                error_count += 1
-                logger.error("Error while saving project id {0}: ".format(project.id) + str(e))
-
+            success_count += 1
     return success_count, error_count
 
 

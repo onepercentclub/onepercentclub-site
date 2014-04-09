@@ -1,9 +1,8 @@
 import logging
 from registration.models import RegistrationProfile
-from bluebottle.bb_accounts.models import BlueBottleUser
+from bluebottle.bb_accounts.models import BlueBottleBaseUser
 from apps.cowry_docdata.models import payment_method_mapping
-from apps.projects.models import Project, ProjectBudgetLine, ProjectCampaign, ProjectPitch, ProjectPlan, \
-    ProjectPhases, ProjectAmbassador
+from apps.projects.models import Project, ProjectBudgetLine
 from apps.organizations.models import Organization
 from apps.tasks.models import Task, TaskMember
 from apps.fund.models import Donation, DonationStatuses, RecurringDirectDebitPayment
@@ -11,6 +10,7 @@ from apps.vouchers.models import Voucher, VoucherStatuses
 
 from apps.bluebottle_salesforce.models import SalesforceOrganization, SalesforceContact, SalesforceProject, \
     SalesforceDonation, SalesforceProjectBudget, SalesforceTask, SalesforceTaskMembers, SalesforceVoucher
+from bluebottle.bb_projects.models import ProjectPhase
 
 logger = logging.getLogger('bluebottle.salesforce')
 
@@ -85,7 +85,7 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
     error_count = 0
     success_count = 0
 
-    users = BlueBottleUser.objects.all()
+    users = BlueBottleBaseUser.objects.all()
 
     if sync_from_datetime:
         users = users.filter(updated__gte=sync_from_datetime)
@@ -102,7 +102,7 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
             contact = SalesforceContact()
 
         # Determine and set user type (person, group, foundation, school, company, ... )
-        contact.category1 = BlueBottleUser.UserType.values[user.user_type].title()
+        contact.category1 = BlueBottleBaseUser.UserType.values[user.user_type].title()
 
         # SF Layout: Profile section.
         contact.first_name = user.first_name
@@ -112,14 +112,14 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
             contact.last_name = "1%MEMBER"
 
         if user.gender == "male":
-            contact.gender = BlueBottleUser.Gender.values['male'].title()
+            contact.gender = BlueBottleBaseUser.Gender.values['male'].title()
         elif user.gender == "female":
-            contact.gender = BlueBottleUser.Gender.values['female'].title()
+            contact.gender = BlueBottleBaseUser.Gender.values['female'].title()
         else:
             contact.gender = ""
 
         if user.availability:
-            contact.availability = BlueBottleUser.Availability.values[user.availability].title()
+            contact.availability = BlueBottleBaseUser.Availability.values[user.availability].title()
         else:
             contact.availability = ""
 
@@ -225,16 +225,11 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
             sfproject = SalesforceProject()
 
         # SF Layout: 1%CLUB Project Detail section.
-        try:
-            project_campaign = ProjectCampaign.objects.get(project=project)
-        except ProjectCampaign.DoesNotExist:
-            pass
-        else:
-            sfproject.amount_at_the_moment = "%01.2f" % (project_campaign.money_donated / 100)
-            sfproject.amount_requested = "%01.2f" % (project_campaign.money_asked / 100)
-            sfproject.amount_still_needed = "%01.2f" % (project_campaign.money_needed / 100)
-            if project.phase == ProjectPhases.campaign:
-                sfproject.date_project_deadline = project_campaign.deadline
+        sfproject.amount_at_the_moment = "%01.2f" % (project.amount_donated / 100)
+        sfproject.amount_requested = "%01.2f" % (project.amount_asked / 100)
+        sfproject.amount_still_needed = "%01.2f" % (project.amount_needed / 100)
+        if project.status == ProjectPhase.objects.get(slug="campaign"):
+            sfproject.date_project_deadline = project.deadline
 
         try:
             sfproject.project_owner = SalesforceContact.objects.get(external_id=project.owner.id)
@@ -243,95 +238,66 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
                                                                                                  project.id))
 
         sfproject.project_name = project.title
-        sfproject.status_project = ProjectPhases.values[project.phase].title()
+        sfproject.status_project = project.status__name
 
         # SF Layout: Summary Project Details section.
-        try:
-            project_pitch = ProjectPitch.objects.get(project=project)
-        except ProjectPitch.DoesNotExist:
-            pass
-        else:
-            if project_pitch.country:
-                sfproject.country_in_which_the_project_is_located = project_pitch.country.name
-            sfproject.describe_the_project_in_one_sentence = project_pitch.pitch[:5000]
-            sfproject.extensive_project_description = project_pitch.description
 
-            # Set pitch status dates
-            if project_pitch.status == ProjectPitch.PitchStatuses.new and not sfproject.date_pitch_created:
-                sfproject.date_pitch_created = project_pitch.created
-            elif project_pitch.status == ProjectPitch.PitchStatuses.submitted and not sfproject.date_pitch_submitted:
-                sfproject.date_pitch_submitted = project_pitch.updated
-            elif project_pitch.status == ProjectPitch.PitchStatuses.approved and not sfproject.date_pitch_approved:
-                sfproject.date_pitch_approved = project_pitch.updated
-            elif project_pitch.status == ProjectPitch.PitchStatuses.rejected and not sfproject.date_pitch_created:
-                sfproject.date_pitch_rejected = project_pitch.updated
+        if project.country:
+            sfproject.country_in_which_the_project_is_located = project.country.name
+        sfproject.describe_the_project_in_one_sentence = project.pitch[:5000]
+        sfproject.extensive_project_description = project.description
 
-            sfproject.tags = ""
-            for tag in project_pitch.tags.all():
-                sfproject.tags = str(tag) + ", " + sfproject.tags
+        # Set pitch status dates
+        if project.status == ProjectPhase.objects.get(slug="plan-new") and not sfproject.date_pitch_created:
+            sfproject.date_pitch_created = project.created
+        elif project.status == ProjectPhase.objects.get(slug="plan-submitted") and not sfproject.date_pitch_submitted:
+            sfproject.date_pitch_submitted = project.updated
+        elif project.status == ProjectPhase.objects.get(slug="campaign") and not sfproject.date_pitch_approved:
+            sfproject.date_pitch_approved = project.updated
+        elif project.status == ProjectPhase.objects.get(slug="plan-rejected") and not sfproject.date_pitch_created:
+            sfproject.date_pitch_rejected = project.updated
 
-        try:
-            project_plan = ProjectPlan.objects.get(project=project)
-        except ProjectPlan.DoesNotExist:
-            sfproject.organization_account = None
-        else:
-            sfproject.target_group_s_of_the_project = project_plan.for_who
-            sfproject.number_of_people_reached_direct = project_plan.reach
-            sfproject.describe_where_the_money_is_needed_for = project_plan.money_needed
-            sfproject.sustainability = project_plan.future
-            sfproject.contribution_project_in_reducing_poverty = project_plan.effects
+        sfproject.tags = ""
+        for tag in project.tags.all():
+            sfproject.tags = str(tag) + ", " + sfproject.tags
 
-            # Set plan status dates
-            if project_plan.status == ProjectPlan.PlanStatuses.submitted and not sfproject.date_plan_submitted:
-                sfproject.date_plan_submitted = project_plan.updated
-            elif project_plan.status == ProjectPlan.PlanStatuses.approved and not sfproject.date_plan_approved:
-                sfproject.date_plan_approved = project_plan.updated
-            elif project_plan.status == ProjectPlan.PlanStatuses.rejected and not sfproject.date_plan_rejected:
-                sfproject.date_plan_rejected = project_plan.updated
+        sfproject.target_group_s_of_the_project = project.for_who
+        sfproject.number_of_people_reached_direct = project.reach
+        sfproject.describe_where_the_money_is_needed_for = project.money_needed
+        sfproject.sustainability = project.future
+        sfproject.contribution_project_in_reducing_poverty = project.effects
 
-            # Project referrals (ambassador) - expected are three or less related values
+        # Set plan status dates
+        if project.status == ProjectPhase.objects.get(slug="plan-submitted") and not sfproject.date_plan_submitted:
+            sfproject.date_plan_submitted = project.updated
+        elif project.status == ProjectPhase.objects.get(slug="campaign") and not sfproject.date_plan_approved:
+            sfproject.date_plan_approved = project.updated
+        elif project.status == ProjectPhase.objects.get(slug="plan-rejected") and not sfproject.date_plan_rejected:
+            sfproject.date_plan_rejected = project.updated
+
+        if project.organization:
             try:
-                project_ambs = ProjectAmbassador.objects.filter(project_plan=project_plan)
-                if project_ambs.count() > 0:
-                    sfproject.name_referral_1 = project_ambs[0].name
-                    sfproject.description_referral_1 = project_ambs[0].description
-                    sfproject.email_address_referral_1 = project_ambs[0].email
-                if project_ambs.count() > 1:
-                    sfproject.name_referral_2 = project_ambs[1].name
-                    sfproject.description_referral_2 = project_ambs[1].description
-                    sfproject.email_address_referral_2 = project_ambs[1].email
-                if project_ambs.count() > 2:
-                    sfproject.name_referral_3 = project_ambs[2].name
-                    sfproject.description_referral_3 = project_ambs[2].description
-                    sfproject.email_address_referral_3 = project_ambs[2].email
-            except ProjectAmbassador.DoesNotExist:
-                pass
-
-            # TODO: determine what should be in project number_of_people_reached_indirect?
-            # sfproject.number_of_people_reached_indirect = (project.fundphase.impact_indirect_male +
-            #                                                project.fundphase.impact_indirect_female)
-            if project_plan.organization:
-                try:
-                    sfproject.organization_account = SalesforceOrganization.objects.get(
-                        external_id=project_plan.organization.id)
-                except SalesforceOrganization.DoesNotExist:
-                    logger.error("Unable to find organization id {0} in Salesforce for project id {1}".format(
-                        project_plan.organization.id, project.id))
+                sfproject.organization_account = SalesforceOrganization.objects.get(
+                    external_id=project.organization.id)
+            except SalesforceOrganization.DoesNotExist:
+                logger.error("Unable to find organization id {0} in Salesforce for project id {1}".format(
+                    project.organization.id, project.id))
 
         sfproject.project_url = "http://www.onepercentclub.com/en/#!/projects/{0}".format(project.slug)
 
         # Unknown: sfproject.third_half_project =
         # Unknown: sfproject.earth_charther_project =
 
+        #TODO: this doesn't make a lot of sense since act, realized and results are the same status now (done-completed)
         # Set project status dates
         sfproject.project_created_date = project.created
-        if project.phase == ProjectPhases.act and not sfproject.date_project_act:
+        if project.phase == ProjectPhase.objects.get(slug="done-completed") and not sfproject.date_project_act:
             sfproject.date_project_act = project.updated
-        elif project.phase == ProjectPhases.realized and not sfproject.date_project_realized:
+        elif project.phase == ProjectPhase.objects.get(slug="done-completed") and not sfproject.date_project_realized:
             sfproject.date_project_realized = project.updated
-        elif project.phase == ProjectPhases.failed and not sfproject.date_project_failed:
+        elif project.phase == ProjectPhase.objects.get(slug="done-stopped") and not sfproject.date_project_failed:
             sfproject.date_project_failed = project.updated
-        elif project.phase == ProjectPhases.results and not sfproject.date_project_result:
+        elif project.phase == ProjectPhase.objects.get(slug="done-completed") and not sfproject.date_project_result:
             sfproject.date_project_result = project.updated
 
         # SF Layout: Other section.

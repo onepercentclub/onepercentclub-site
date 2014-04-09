@@ -1,4 +1,5 @@
 from dateutil.relativedelta import relativedelta
+from bluebottle.bb_projects.models import ProjectPhase
 
 from django.utils import timezone
 
@@ -16,7 +17,8 @@ def create_payout_for_fully_funded_project(sender, instance, created, **kwargs):
 
     # Check projects in phase Act that have asked for money.
     # import ipdb; ipdb.set_trace()
-    if project.phase == ProjectPhases.act and project.projectcampaign.money_asked:
+    if project.status == ProjectPhase.objects.get(slug="done-complete") and \
+                         project.money_asked:
         if now.day <= 15:
             next_date = timezone.datetime(now.year, now.month, 15)
         else:
@@ -44,7 +46,7 @@ def create_payout_for_fully_funded_project(sender, instance, created, **kwargs):
             payout.calculate_amounts()
 
             # Set payment details
-            organization = project.projectplan.organization
+            organization = project.organization
             payout.receiver_account_bic = organization.account_bic
             payout.receiver_account_iban = organization.account_iban
             payout.receiver_account_number = organization.account_number

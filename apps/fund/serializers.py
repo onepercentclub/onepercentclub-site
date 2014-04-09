@@ -3,7 +3,7 @@ from apps.projects.serializers import ProjectPreviewSerializer
 from apps.vouchers.serializers import VoucherSerializer, OrderCurrentVoucherSerializer
 from bluebottle.bb_accounts.serializers import UserPreviewSerializer
 from bluebottle.bluebottle_drf2.serializers import EuroField
-from apps.projects.models import ProjectPhases
+from apps.projects.models import ProjectPhase
 from bluebottle.utils.serializers import MetaField
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
@@ -63,7 +63,7 @@ class DonationSerializer(serializers.ModelSerializer):
 
     def validate_project(self, attrs, source):
         value = attrs[source]
-        if value.phase != ProjectPhases.campaign:
+        if value.phase != ProjectPhase.objects.get(slug="campaign"):
             raise serializers.ValidationError(_("You can only donate a project in the campaign phase."))
         return attrs
 
@@ -102,7 +102,7 @@ class RecurringDonationSerializer(serializers.ModelSerializer):
 
     def validate_project(self, attrs, source):
         value = attrs[source]
-        if value.phase != ProjectPhases.campaign:
+        if value.phase != ProjectPhase.objects.get(slug="campaign"):
             raise serializers.ValidationError(_("You can only donate a project in the campaign phase."))
         return attrs
 
