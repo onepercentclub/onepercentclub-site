@@ -9179,8 +9179,9 @@ table td td {
 /* line 323, ../../../../bluebottle/bluebottle/common/static/sass/pages/_account.scss */
 #account .account-header {
   padding: 1em 0;
+  padding-bottom: 0;
 }
-/* line 326, ../../../../bluebottle/bluebottle/common/static/sass/pages/_account.scss */
+/* line 327, ../../../../bluebottle/bluebottle/common/static/sass/pages/_account.scss */
 #account .account-avatar {
   float: left;
   width: 12.5%;
@@ -9188,11 +9189,11 @@ table td td {
   margin-right: 2.08333%;
   border: none;
 }
-/* line 329, ../../../../bluebottle/bluebottle/common/static/sass/pages/_account.scss */
+/* line 330, ../../../../bluebottle/bluebottle/common/static/sass/pages/_account.scss */
 #account .account-avatar img {
   display: block;
 }
-/* line 333, ../../../../bluebottle/bluebottle/common/static/sass/pages/_account.scss */
+/* line 334, ../../../../bluebottle/bluebottle/common/static/sass/pages/_account.scss */
 #account .account-title {
   margin: 0;
   float: left;
@@ -9200,11 +9201,11 @@ table td td {
   margin-left: 0%;
   margin-right: 0%;
 }
-/* line 336, ../../../../bluebottle/bluebottle/common/static/sass/pages/_account.scss */
+/* line 337, ../../../../bluebottle/bluebottle/common/static/sass/pages/_account.scss */
 #account .account-title h2 {
   margin: none;
 }
-/* line 340, ../../../../bluebottle/bluebottle/common/static/sass/pages/_account.scss */
+/* line 341, ../../../../bluebottle/bluebottle/common/static/sass/pages/_account.scss */
 #account .account-preview {
   margin-bottom: 2em;
   float: left;
@@ -9213,7 +9214,7 @@ table td td {
   margin-right: 2.08333%;
   text-align: right;
 }
-/* line 345, ../../../../bluebottle/bluebottle/common/static/sass/pages/_account.scss */
+/* line 346, ../../../../bluebottle/bluebottle/common/static/sass/pages/_account.scss */
 #account .tabs {
   *zoom: 1;
 }
@@ -9231,12 +9232,12 @@ table td td {
   clear: both;
 }
 
-/* line 351, ../../../../bluebottle/bluebottle/common/static/sass/pages/_account.scss */
+/* line 352, ../../../../bluebottle/bluebottle/common/static/sass/pages/_account.scss */
 #SkypeButton_Call img {
   margin: 0 !important;
   margin-bottom: 1em;
 }
-/* line 356, ../../../../bluebottle/bluebottle/common/static/sass/pages/_account.scss */
+/* line 357, ../../../../bluebottle/bluebottle/common/static/sass/pages/_account.scss */
 #SkypeButton_Call ul li {
   padding-left: 0;
   text-indent: 0;
