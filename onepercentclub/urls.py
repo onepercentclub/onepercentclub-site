@@ -24,6 +24,7 @@ urlpatterns += patterns('',
     url(r'^api/fund/', include('apps.fund.urlsapi')),
     url(r'^api/fundraisers/', include('apps.fundraisers.urlsapi')),
     url(r'^api/organizations/', include('apps.organizations.urlsapi')),
+    #url(r'^api/pages/', include('apps.pages.urlsapi')),
     url(r'^api/partners/', include('apps.partners.urlsapi')),
 
     url(r'^api/', include('apps.projects.urls.api')),

@@ -210,6 +210,14 @@ ALTER TABLE organizations_organization
 
 
 
+-- Organization
+
+ALTER TABLE organizations_organization
+  ALTER COLUMN description SET DEFAULT ''
+  ALTER COLUMN legal_status SET DEFAULT '';
+
+
+
 -- Migrate phases to status
 
 UPDATE projects_project SET status_id = 1 WHERE phase IN ('pitch', 'plan');
