@@ -14,7 +14,7 @@ from bluebottle.geo import models as geo_models
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 
 
-from ..models import Project, ProjectPhases, ProjectTheme
+from ..models import Project, ProjectTheme
 from .unittests import ProjectTestsMixin
 
 
