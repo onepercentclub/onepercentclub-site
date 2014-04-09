@@ -2251,9 +2251,7 @@ text.align-center {
   -o-transition: all 0.2s ease-in;
   transition: all 0.2s ease-in;
   margin: 0;
-  margin-top: 1em;
   padding: 1em;
-  padding-bottom: 2em;
   white-space: nowrap;
   color: #bfbfbf;
   font-family: "Futura W01 Bold", "Trebuchet MS", Helvetica, Arial, sans-serif;
@@ -2263,14 +2261,14 @@ text.align-center {
   border: 1px solid black;
   border-bottom-color: #393939;
 }
-/* line 80, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 78, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-main > li a:hover, #nav .nav-main > li a:active, #nav .nav-main > li a.is-active, #nav .nav-main > li a:visited:hover, #nav .nav-main > li a:visited:active, #nav .nav-main > li a:visited.is-active {
   border-color: #393939;
   border-bottom-color: #222222;
   color: white;
   background-color: #222222;
 }
-/* line 89, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 87, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions {
   float: left;
   width: 31.25%;
@@ -2278,7 +2276,7 @@ text.align-center {
   margin-right: 2.08333%;
   color: white;
 }
-/* line 93, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 91, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-signup-login {
   padding: 1em 0 0 0;
   float: left;
@@ -2286,39 +2284,39 @@ text.align-center {
   color: #bfbfbf;
   white-space: nowrap;
 }
-/* line 100, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 98, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-signup-login a {
   padding: 0.25em 0.5em;
   margin: 0 0.5em;
   text-decoration: none;
   font-family: "Futura W02 Heavy", "Trebuchet MS", Helvetica, Arial, sans-serif;
 }
-/* line 106, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 104, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-signup-login a:hover, #nav .nav-actions .nav-signup-login a:active, #nav .nav-actions .nav-signup-login a.is-active {
   color: #444444;
   background-color: white;
 }
-/* line 112, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 110, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-signup-login .nav-signup {
   color: white;
   background-color: #ff619a;
 }
-/* line 117, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 115, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-signup-login .nav-login {
   color: white;
   background-color: #00c051;
 }
-/* line 124, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 122, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-language {
   padding: 2.1em 0 0 0;
 }
-/* line 127, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 125, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-language li {
   display: inline;
   text-align: right;
   font-size: 0.75em;
 }
-/* line 132, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 130, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-language li a {
   width: auto;
   display: inline-block;
@@ -2330,21 +2328,21 @@ text.align-center {
   color: #cccccc;
   text-decoration: none;
 }
-/* line 143, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 141, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-language li a:hover, #nav .nav-actions .nav-language li a:active {
   color: white;
   border-color: white;
 }
-/* line 149, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 147, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-language li.active a {
   color: black;
   background-color: #cccccc;
 }
-/* line 153, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 151, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-language li.active a:hover, #nav .nav-actions .nav-language li.active a:active {
   background-color: black;
 }
-/* line 160, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 158, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member {
   position: relative;
   height: 2em;
@@ -2352,7 +2350,7 @@ text.align-center {
   float: right;
   font-family: "Futura W01 Bold", "Trebuchet MS", Helvetica, Arial, sans-serif;
 }
-/* line 167, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 165, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member .nav-member-dropdown {
   position: relative;
   z-index: 999;
@@ -2362,7 +2360,7 @@ text.align-center {
   padding: 0 16px 0 0;
   background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAAJCAYAAADpeqZqAAAAb0lEQVQoz2NgaDVngOJwIA5F4iNjWyBugPOhjGAg/gPFoVg0fAbi/0BcBdPkCsQ/oYL/0TQia4DhZJCEKBBfQJMAaWzCouExECvDnIBN43+sGpD8REgjQgOaJlwaUTVg0YSuEVMDDk0wjVuxagBiAFeciJvQD09BAAAAAElFTkSuQmCC") #00c051 no-repeat 90% 50%;
 }
-/* line 176, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 174, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member .nav-member-dropdown img {
   width: 2em;
   height: 2em;
@@ -2372,12 +2370,12 @@ text.align-center {
   border-style: solid;
   border-color: black;
 }
-/* line 186, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 184, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member .nav-member-dropdown strong {
   display: inline-block;
   padding: 0.25em 1em;
 }
-/* line 192, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 190, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member .nav-member-dropdown-menu {
   display: none;
   position: absolute;
@@ -2392,11 +2390,11 @@ text.align-center {
   border-style: solid;
   border-color: #00c051;
 }
-/* line 206, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 204, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member .nav-member-dropdown-menu > li {
   font-size: 0.875em;
 }
-/* line 209, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 207, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member .nav-member-dropdown-menu > li > a {
   display: block;
   padding: 0.5em;
@@ -2404,44 +2402,44 @@ text.align-center {
   color: #444444;
   text-decoration: none;
 }
-/* line 216, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 214, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member .nav-member-dropdown-menu > li > a:hover {
   color: #00c051;
 }
-/* line 223, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 221, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member .nav-member-dropdown-menu .nav-member-switch-language {
   color: white;
   font-weight: normal;
   background: #00c051;
   padding: 0.5em;
 }
-/* line 229, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 227, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member .nav-member-dropdown-menu .nav-member-switch-language .nav-language {
   display: inline;
 }
-/* line 234, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 232, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member .nav-member-dropdown-menu .nav-member-switch-language .nav-language li a {
   color: white;
 }
-/* line 237, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 235, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member .nav-member-dropdown-menu .nav-member-switch-language .nav-language li a:hover, #nav .nav-actions .nav-member .nav-member-dropdown-menu .nav-member-switch-language .nav-language li a:active {
   color: black;
   border-color: black;
 }
-/* line 243, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 241, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member .nav-member-dropdown-menu .nav-member-switch-language .nav-language li.active a {
   color: #00c051;
   background-color: white;
 }
-/* line 247, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 245, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member .nav-member-dropdown-menu .nav-member-switch-language .nav-language li.active a:hover, #nav .nav-actions .nav-member .nav-member-dropdown-menu .nav-member-switch-language .nav-language li.active a:active {
   background-color: black;
 }
-/* line 258, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 256, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member:hover .nav-member-dropdown img {
   border-color: #00c051;
 }
-/* line 262, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 260, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member:hover .nav-member-dropdown {
   background-color: white;
   color: #444444;
@@ -2453,20 +2451,20 @@ text.align-center {
   border-style: solid;
   border-color: #00c051;
 }
-/* line 275, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 273, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member:hover .nav-member-dropdown .flaticon {
   color: #00c051;
 }
-/* line 280, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 278, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member:hover .nav-member-dropdown-menu {
   display: block !important;
 }
-/* line 286, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 284, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-cart {
   display: block;
   margin: 1.8em;
 }
-/* line 290, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 288, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-cart .nav-cart-count {
   display: inline-block;
   width: 1.5em;
@@ -2481,7 +2479,7 @@ text.align-center {
   -o-border-radius: 1.5em;
   border-radius: 1.5em;
 }
-/* line 301, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 299, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-cart a {
   display: inline-block;
   color: #ff619a;
@@ -2489,7 +2487,7 @@ text.align-center {
   text-decoration: none;
   font-family: "Futura W02 Heavy", "Trebuchet MS", Helvetica, Arial, sans-serif;
 }
-/* line 308, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 306, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-cart a:hover, #nav .nav-actions .nav-cart a:active {
   color: white;
 }
@@ -5343,7 +5341,7 @@ table td td {
 
 /* line 206, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 #wallposts {
-  background-color: white;
+  background-color: #e9e9e9;
   padding: 1em 0;
 }
 /* line 211, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
@@ -5523,8 +5521,10 @@ table td td {
   padding: 1em;
   padding-bottom: 0;
   margin-bottom: 1em;
+  color: #444444;
+  background-color: white;
 }
-/* line 340, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 342, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .wallpost-header {
   margin-bottom: 1em;
 }
@@ -5541,13 +5541,13 @@ table td td {
 .wallpost .wallpost-header {
   *zoom: 1;
 }
-/* line 345, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 347, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .wallpost-header .wallpost-member {
   width: 100px;
   float: left;
   margin-right: 1em;
 }
-/* line 351, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 353, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .wallpost-header .wallpost-member .member-function {
   display: block;
   text-align: center;
@@ -5555,43 +5555,43 @@ table td td {
   background: #e9e9e9;
   color: white;
 }
-/* line 362, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 364, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .wallpost-header .wallpost-meta .wallpost-author {
   text-transform: none;
   color: #ff619a;
   display: inline;
 }
-/* line 368, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 370, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .wallpost-header .wallpost-meta .wallpost-timestamp {
   color: #999999;
   font-size: 0.875em;
 }
-/* line 373, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 375, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .wallpost-header .wallpost-meta .wallpost-edit {
   float: right;
   text-decoration: none;
   padding: 0.5em;
 }
-/* line 380, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 382, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .wallpost-header .wallpost-title {
   text-transform: none;
   color: black;
 }
-/* line 388, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 390, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .wallpost-content .photo-viewer .cover {
   float: left;
   width: 100%;
   margin-left: 0%;
   margin-right: 0%;
 }
-/* line 394, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 396, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .wallpost-reactions {
   margin: -1em;
   margin-top: 0;
   margin-bottom: 0;
   position: relative;
 }
-/* line 402, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 404, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .wallpost-reactions .reactions:after {
   left: 50px;
   bottom: 100%;
@@ -5605,23 +5605,24 @@ table td td {
   border-width: 10px;
   margin-left: -10px;
 }
-/* line 418, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 420, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost.wallpost-system {
-  background-color: #ff619a;
+  background-color: white;
 }
-/* line 422, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 424, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost.important {
   border: 1px solid #ff619a;
+  background-color: #e9e9e9;
 }
-/* line 426, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 429, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost.important .wallpost-author {
   color: #00c051;
 }
-/* line 429, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 432, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost.important .wallpost-title {
   color: #ff619a;
 }
-/* line 434, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 437, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .wallpost-buttons {
   margin: 0 -1em;
   padding: 1em;
@@ -5629,30 +5630,30 @@ table td td {
   color: white;
   text-transform: uppercase;
 }
-/* line 442, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 445, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .wallpost-buttons .btn {
   padding: 0.25em 0.5em;
   vertical-align: middle;
 }
-/* line 446, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 449, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .wallpost-buttons .status {
   text-transform: none;
   float: right;
 }
-/* line 452, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 455, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .file-link {
   margin: 0 1em;
   color: #999999;
 }
-/* line 457, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 460, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .file-link a {
   color: #999999;
 }
-/* line 462, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 465, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .btn-spacer {
   margin: 0 0.5em;
 }
-/* line 466, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 469, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .wallpost-delete, .wallpost .reaction-delete {
   float: right;
   text-decoration: none;
@@ -9753,4 +9754,86 @@ form#manage-project-new {
   height: 100%;
   display: block;
   border: 0;
+}
+
+/* 1procentclub overrides */
+/* line 5, ../sass/1procentclub/layout/_header.scss */
+#nav .nav-main > li a {
+  margin-top: 1em;
+  padding-bottom: 2em;
+}
+
+/* line 3, ../sass/1procentclub/pages/_project-detail.scss */
+#project-detail .project-status {
+  padding: 0.25em 0;
+}
+/* line 6, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_utilities.scss */
+#project-detail .project-status:after, #project-detail .project-status:before {
+  content: "";
+  display: table;
+}
+/* line 10, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_utilities.scss */
+#project-detail .project-status:after {
+  clear: both;
+}
+/* line 13, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_utilities.scss */
+#project-detail .project-status {
+  *zoom: 1;
+}
+/* line 8, ../sass/1procentclub/pages/_project-detail.scss */
+#project-detail .project-days-left {
+  float: left;
+  width: 20.83333%;
+  margin-left: 2.08333%;
+  margin-right: 2.08333%;
+  color: #cccccc;
+  margin-top: 0.5em;
+}
+/* line 13, ../sass/1procentclub/pages/_project-detail.scss */
+#project-detail .project-days-left strong {
+  font-size: 2em;
+}
+/* line 16, ../sass/1procentclub/pages/_project-detail.scss */
+#project-detail .project-days-left strong em {
+  font-size: 0.5em;
+  font-family: "Futura W01 Book", "Trebuchet MS", Helvetica, Arial, sans-serif;
+}
+/* line 23, ../sass/1procentclub/pages/_project-detail.scss */
+#project-detail .project-fund {
+  float: left;
+  width: 25%;
+  margin-left: 2.08333%;
+  margin-right: 2.08333%;
+}
+/* line 28, ../sass/1procentclub/pages/_project-detail.scss */
+#project-detail .project-fund-amount .amount-donated {
+  font-size: 1.5em;
+}
+/* line 34, ../sass/1procentclub/pages/_project-detail.scss */
+#project-detail .project-meta {
+  float: left;
+  width: 58.33333%;
+  margin-left: 0%;
+  margin-right: 0%;
+}
+/* line 36, ../sass/1procentclub/pages/_project-detail.scss */
+#project-detail .project-meta .project-location {
+  float: left;
+  width: 37.5%;
+  margin-left: 0%;
+  margin-right: 4.16667%;
+}
+/* line 39, ../sass/1procentclub/pages/_project-detail.scss */
+#project-detail .project-meta .project-theme {
+  float: left;
+  width: 54.16667%;
+  margin-left: 0%;
+  margin-right: 4.16667%;
+}
+/* line 44, ../sass/1procentclub/pages/_project-detail.scss */
+#project-detail .project-share {
+  float: left;
+  width: 41.66667%;
+  margin-left: 0%;
+  margin-right: 0%;
 }

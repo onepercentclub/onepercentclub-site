@@ -5,8 +5,8 @@
 
 /* ========================= Includes ============================= */
 
-@import "1procentclub/variables"; /* 1%Club overrides */
 
+@import "1procentclub/variables"; /* 1%Club overrides */
 
 /* Compass */
 @import "compass/utilities";
@@ -87,5 +87,8 @@
 @import "plugins/jquery-ui";
 @import "plugins/colorbox";
 
-@import "1procentclub/fixes";
+/* 1procentclub overrides */
 
+@import "1procentclub/layout/header";
+
+@import "1procentclub/pages/project-detail";
