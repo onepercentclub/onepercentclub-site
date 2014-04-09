@@ -197,20 +197,20 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
     @override_settings(COWRY_PAYMENT_METHODS=default_payment_methods)
     @unittest.skipUnless(run_docdata_tests, 'DocData credentials not set or not online')
     def test_donation_status_changes(self):
-        self.assertEqual(self.some_project.projectcampaign.money_needed, 50000)
-        self.assertEqual(self.some_project.phase, 'campaign')
+        self.assertEqual(self.some_project.amount_needed, 50000)
+        self.assertEqual(self.some_project.status, 'campaign')
 
         self._make_api_donation(self.some_user, project=self.some_project, amount=350)
         # Reload the project from db adn check phase / money_needed
         project = Project.objects.get(pk=self.some_project.id)
-        self.assertEqual(project.phase, 'campaign')
-        self.assertEqual(project.projectcampaign.money_needed, 15000)
+        self.assertEqual(project.status, 'campaign')
+        self.assertEqual(project.amount_needed, 15000)
 
         self._make_api_donation(self.another_user, project=self.some_project, amount=150)
         # Reload the project from db and check phase / money_needed
         project = Project.objects.get(pk=self.some_project.id)
-        self.assertEqual(project.phase, 'act')
-        self.assertEqual(project.projectcampaign.money_needed, 0)
+        self.assertEqual(project.status, 'act')
+        self.assertEqual(project.amount_needed, 0)
 
     @override_settings(COWRY_PAYMENT_METHODS=default_payment_methods)
     @unittest.skipUnless(run_docdata_tests, 'DocData credentials not set or not online')

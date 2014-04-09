@@ -25,8 +25,7 @@ class HomepageTestCase(FundRaiserTestsMixin, ProjectTestsMixin, TestCase):
 
         self.project = self.create_project(title=title, slug=slugify(title), money_asked=100000, owner=self.user)
         self.project.is_campaign = True
-        self.project.projectcampaign.money_donated = 0
-        self.project.projectcampaign.save()
+        self.project.money_donated = 0
         self.project.save()
 
         self.homepage_url = '/api/homepage/en'
