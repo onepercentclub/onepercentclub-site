@@ -20,16 +20,16 @@
 
             <article class="project-info">
                 <div class="project-meta">
-					{{!--}}
-					<span class="project-deadline"><span class="flaticon stroke time-1"></span> {{daysToGo}}</span>
-					{{--}}
                     <span class="project-location"><span class="flaticon solid location-pin-1"></span> {{country.name}}</span>
                     <span class="project-theme"><span class="flaticon solid tag-2"></span> {{theme.name}}</span>
+                </div>
+                <div class="project-share">
+                    {{view App.SocialShareView}}
                 </div>
 
                 <h1 class="project-title">{{title}}</h1>
                 <p class="project-description">{{pitch}}</p>
-				<p class="project-plan-link"><span class="flaticon solid book-4"></span><a {{action openInScalableBox "projectPlan" this}}>{% trans "Read full project plan" %}</a>
+				<p class="project-plan-link"><span class="flaticon solid book-4"></span>&nbsp;<a {{action openInScalableBox "projectPlan" this}}>{% trans "Read full project plan" %}</a>
             </article>
         </section>
 	</div>
