@@ -4357,7 +4357,7 @@ table td td {
 /* line 100, ../../../../bluebottle/bluebottle/common/static/sass/modules/_carousel.scss */
 .carousel-nav-section .carousel-nav .carousel-nav-item.is-active {
   position: relative;
-  background: #e9e9e9;
+  background: #cccccc;
   color: white;
 }
 /* line 105, ../../../../bluebottle/bluebottle/common/static/sass/modules/_carousel.scss */
@@ -4370,7 +4370,7 @@ table td td {
   left: 49%;
   width: 0;
   border-width: 12px;
-  border-bottom-color: #e9e9e9;
+  border-bottom-color: #cccccc;
 }
 /* line 118, ../../../../bluebottle/bluebottle/common/static/sass/modules/_carousel.scss */
 .carousel-nav-section .carousel-nav .carousel-nav-item:first-of-type {
@@ -5612,7 +5612,7 @@ table td td {
 /* line 424, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost.important {
   border: 1px solid #ff619a;
-  background-color: #e9e9e9;
+  background-color: white;
 }
 /* line 429, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost.important .wallpost-author {
