@@ -8,11 +8,13 @@
 
         {{#linkTo 'project' id }}
             <span class="project-header">
-
                 <figure class="project-image">
-                    <img {{bindAttr src="image" }} />
+                    {{#if image.small.length}}
+                        <img {{bindAttr src="image.small" }} />
+                    {{else}}
+                        <img {{bindAttr src="image" }} />
+                    {{/if}}
                 </figure>
-
                 <span class="project-title">
                     <h3>{{title}}</h3>
                     <span class="project-location"><span class="flaticon solid location-pin-1"></span> {{country.name}}</span>
@@ -20,24 +22,21 @@
             </span>
 
             <span {{bindAttr class=":project-status phase"}}>
-                {{#if isPhasePlan}}
-                    <span class="project-phase"><span class="flaticon solid lightbulb-3"></span> <strong>{% trans "New" %}</strong> <em>{% trans "Smart Idea" %}</em></span>
+
+                {{#if amount_asked }}
+                    {{bb-progressbar targetValue=amount_asked currentValue=amount_donated}}
+                    <span class="project-fund-amount"><strong>&euro;{{localize amount_needed}}</strong> <em>{% trans "To go" %}</em></span>
                 {{/if}}
 
-                {{#if isStatusCampaign}}
-                    {{#if amount_asked }}
-                        {{bb-progressbar targetValue=amount_asked currentValue=amount_donated}}
-                        <span class="project-fund-amount"><strong>&euro;{{localize amount_needed}}</strong> <em>{% trans "To go" %}</em></span>
-                    {{/if}}
-                    {{#if deadline }}
-                        <span class="project-days-left"><span class="flaticon solid clock-1"></span> <strong>{{daysToGo}}</strong> <em>{% trans "days" %}</em></span>
-                    {{/if}}
+                {{#if deadline }}
+                    <span class="project-days-left"><span class="flaticon solid clock-1"></span> <strong>{{daysToGo}}</strong> <em>{% trans "days" %}</em></span>
                 {{/if}}
 
                 {{#if isStatusCompleted}}
                     <span class="project-phase"><span class="flaticon solid lightbulb-3"></span> <strong>{% trans "Project funded" %}</strong> <em>{% trans "Being realized" %}</em></span>
                 {{/if}}
             </span>
+
 
             <span class="project-description">
                 {{{pitch}}}
