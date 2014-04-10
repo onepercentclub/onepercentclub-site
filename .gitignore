@@ -55,6 +55,7 @@ onepercentclub/settings/secrets.py
 
 # Misc stuff
 env
+src
 docs/_build
 .idea
 .noseids
