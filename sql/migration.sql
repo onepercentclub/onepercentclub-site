@@ -204,7 +204,22 @@ ALTER TABLE projects_project
   ADD COLUMN for_who text DEFAULT '',
   ADD COLUMN future text DEFAULT '';
 
+ALTER TABLE projects_project
+  ADD COLUMN language_id integer;
 
+
+ALTER TABLE projects_project ADD CONSTRAINT "project_projects_language_id_refs_language_id" 
+  FOREIGN KEY ("language_id") 
+  REFERENCES "utils_language" ("id") DEFERRABLE INITIALLY DEFERRED;
+
+-- Language
+
+CREATE TABLE utils_language (
+    id serial NOT NULL PRIMARY KEY,
+    code varchar(2) NOT NULL,
+    language_name varchar(100) NOT NULL,
+    native_name varchar(100) NOT NULL
+)
 
 -- Organization
 
