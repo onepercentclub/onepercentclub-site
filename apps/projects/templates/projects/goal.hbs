@@ -1,0 +1,42 @@
+{% load bb_ember %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "my_project_goal" %}
+
+    {{#unless isPhasePlanNew}}
+        {{bb-flash data=flash}}
+    {{/unless}}
+
+    <legend>
+        <strong>
+            {% trans 'Goal & Budget' %}
+        </strong>
+    </legend>
+    
+    <fieldset>
+        <ul>
+
+            {% bb_component 'bb-text-field' valueBinding='amount_asked' name='amount_asked' label=_('Crowdfunding goal') undertext=_('Pick an amount between &nbsp; &euro; 250 - &euro; 1.000.000') placeholder=_(' &euro; ') errorsBinding='errors.amount_asked' %}
+        </ul>
+    </fieldset>
+
+    <fieldset>
+        <ul>
+
+            {% bb_component 'bb-datepicker' hint=_('Select the ending date of your project') valueBinding='deadline' name='deadline' label=_('Deadline') errorsBinding='errors.deadline' minDate=_('c') %}
+        </ul>
+    </fieldset>
+
+    <fieldset>
+        <ul>
+
+            another field
+        </ul>
+    </fieldset>
+
+    {% block_verbatim goal_footer %}
+        {{ partial '_my_project_save_edit_footer'}}
+    {% endblock_verbatim %}
+
+{% endtplhandlebars %}

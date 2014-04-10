@@ -1,0 +1,103 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "my_project" %}
+    <div class="l-section" id="project-dashboard">
+        <article id="campaign-create">
+
+            <header class="campaign-header l-section">
+
+                <div class="l-wrapper">
+
+					<h1 class="page-title">
+						{% trans "My projects"%} <small>&rsaquo; {{ title }}</small>
+					</h1>
+                    <div class="page-actions" style="padding:0px; margin-top:40px">
+                        {{#if isPhasePlanNew}}
+                            {{#if canPreview}}
+                                <a class="btn btn-modest campaign-preview-button" {{action openInScalableBox "projectPlan" this.model}}>
+                                    <span class="flaticon solid eye-1"></span>
+                                    {% trans 'Preview' %}
+                                </a>
+                            {{/if}}
+                        {{else}}
+
+                            {{#if id}}
+                                {{#link-to "project" id class="btn btn-modest campaign-link-button"}}
+                                <span class="flaticon solid eye-1"></span>
+                                {% trans 'Go to campaign' %}
+                                {{/link-to}}
+                            {{/if}}
+
+                        {{/if}}
+                    </div>
+                    <ul id="campaign-steps" class="{{#if isPhasePlanNew}} steps {{else}} tabs {{/if}}">
+                        {{#if isPhasePlanNew}}
+                            <li class="tab">{{#link-to "myProject.start" classBinding=":tab-link :validated"}}
+                                {{#if validStart}}
+                                    <span class="flaticon solid checkmark-1 "></span>
+                                {{/if}}
+                                {% trans "Start" %}
+                            {{/link-to}}</li>
+                        {{/if}}
+
+                        <li class="tab">{{#link-to "myProject.pitch" classBinding=":tab-link validPitch:validated"}}
+                            {{#if validPitch}}
+                                {{#if isPhasePlanNew}}<span class="flaticon solid checkmark-1"></span>{{/if}}
+                            {{/if}}
+                            {% trans "Project" %}
+                        {{/link-to}}</li>
+
+                        <li class="tab">{{#link-to "myProject.goal" classBinding=":tab-link validGoal:validated"}}
+                            {{#if validGoal}}
+                                {{#if isPhasePlanNew}}<span class="flaticon solid checkmark-1"></span>{{/if}}
+                            {{/if}}
+                            {% trans "Goal" %}
+                        {{/link-to}}</li>
+
+                        <li class="tab">{{#link-to "myProject.story" classBinding=":tab-link validStory:validated"}}
+                            {{#if validStory}}
+                                {{#if isPhasePlanNew}}<span class="flaticon solid checkmark-1"></span>{{/if}}
+                            {{/if}}
+                            {% trans "Description" %}
+                        {{/link-to}}</li>
+
+                        <li class="tab">{{#link-to "myProject.organisation" classBinding=":tab-link validOrganization:validated"}}
+                            {{#if validOrganization}}
+                                {{#if isPhasePlanNew}}<span class="flaticon solid checkmark-1"></span>{{/if}}
+                            {{/if}}
+                            {% trans "Organisation" %}
+                        {{/link-to}}</li>
+
+                        {{#if this.controller.isSubmittable}}
+                           <li class="tab">{{#link-to "myProject.submit" classBinding=":tab-link validSubmit:validated"}}
+                                {{#if validsubmit}}
+                                    <span class="flaticon solid checkmark-1"></span>
+                                {{/if}}
+                                {% trans "Submit" %}
+                            {{/link-to}}</li>
+                        {{/if}}
+
+                    </ul>
+                </div>
+			</header>
+
+            <section class="l-section">
+                <div class="l-wrapper">
+                    <div class="l-content">
+                        <form>
+                            {{outlet}}
+                        </form>
+                    </div>
+                    {{ partial '_my_project_sidebar' }}
+                </div>
+            </section>
+
+
+        </article>
+
+    </div>
+
+{% endtplhandlebars %}
+

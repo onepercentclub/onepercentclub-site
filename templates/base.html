@@ -29,12 +29,12 @@
 
     {{ block.super }}
 
-    {% include  "homepage/base.hbs" %}
-
-    {% include  "orders.hbs" %}
-    {% include  "donations.hbs" %}
-    {% include  "vouchers.hbs" %}
-    {% include  "fundraisers.hbs" %}
+    {% include "homepage/base.hbs" %}
+    {% include "projects/goal.hbs" %}
+    {% include "orders.hbs" %}
+    {% include "donations.hbs" %}
+    {% include "vouchers.hbs" %}
+    {% include "fundraisers.hbs" %}
 {% endblock handlebars_templates %}
 
 {% block_verbatim nav_main %}
@@ -52,8 +52,11 @@
     {{ block.super }}
 
     {# Addition for Bluebottle JS #}
-    <script type="text/javascript" src="{% static 'js/projects/models.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bluebottle/app_overrides.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/projects/models.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/projects/controllers.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/projects/views.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/projects/routes.js' %}"></script>
 
     {# Apps not in Bluebottle #}
     <script type="text/javascript" src="{% static 'js/bluebottle/homepage/models.js' %}"></script>
