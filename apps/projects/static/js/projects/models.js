@@ -4,7 +4,8 @@ App.Project.reopen({
     deadline: DS.attr('date'),
     amount_asked: DS.attr('number'),
 
-	isValidAmountAsked: Ember.computed.lte('amount_asked', 1000000),
+	maxAmountAsked: Ember.computed.lte('amount_asked', 1000000),
+	minAmountAsked: Ember.computed.gte('amount_asked', 250),
 
     amount_donated: DS.attr('number'),
 
@@ -41,7 +42,7 @@ App.MyProject.reopen({
     }.property('validStory', 'validPitch', 'validGoal'),
 
     requiredStoryFields: ['description', 'goal', 'destination_impact'],
-	requiredGoalFields: ['amount_asked', 'deadline', 'isValidAmountAsked'],
+	requiredGoalFields: ['amount_asked', 'deadline', 'maxAmountAsked', 'minAmountAsked'],
     requiredPitchFields: ['title', 'pitch', 'image', 'theme', 'tags.length', 'country', 'latitude', 'longitude'],
 
     friendlyFieldNames: {
