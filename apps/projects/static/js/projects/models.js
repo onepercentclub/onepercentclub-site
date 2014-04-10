@@ -15,7 +15,7 @@ App.Project.reopen({
 });
 
 App.ProjectPreview.reopen({
-    url: 'projects/previews'
+    url: 'bb_projects/previews'
 })
 
 App.MyProject.reopen({
