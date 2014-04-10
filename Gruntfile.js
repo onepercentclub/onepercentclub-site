@@ -7,6 +7,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-bower-task'); 
   grunt.loadNpmTasks('grunt-contrib-uglify'); 
   grunt.loadNpmTasks('grunt-microlib');
+  grunt.loadNpmTasks('grunt-contrib-compass');
 
   // Project configuration.
   grunt.initConfig({
@@ -26,6 +27,10 @@ module.exports = function (grunt) {
           interrupt: true,
           debounceDelay: 250
         }
+      },
+      scss: {
+        files: ['/static/global/**/*'],
+        tasks: ['compass:dev'],
       }
     },
     hashres: {
@@ -94,7 +99,42 @@ module.exports = function (grunt) {
         files: ['apps/**/*.hbs'],
         dest: 'static/build/js/lib/tmpl.min.js'
       }
-    }
+    },
+    compass: {
+      // live
+      dist: {
+        options: {
+          httpPath: '/static/assets/',
+          basePath: 'static/global',
+          sassDir: 'sass',
+          cssDir: 'css',
+          imagesDir: 'images',          
+          javascriptsDir: 'js',          
+          outputStyle: 'compressed',
+          relativeAssets: true,
+          noLineComments: true,
+          environment: 'production',
+          raw: 'preferred_syntax = :scss\n', // Use `raw` since it's not directly available
+          importPath: ["../bluebottle/bluebottle/common/static/sass"]
+        }
+      },
+      // development
+      dev: {
+        options: {
+          httpPath: '/static/assets/',
+          basePath: 'static/global',
+          sassDir: 'sass',
+          cssDir: 'css',
+          imagesDir: 'images',          
+          javascriptsDir: 'js',          
+          outputStyle: 'expanded',
+          relativeAssets: true,
+          noLineComments: false,
+          raw: 'preferred_syntax = :scss\n', // Use `raw` since it's not directly available        
+          importPath: ["../bluebottle/bluebottle/common/static/sass"]
+        }
+      }
+    }    
   });
 
   grunt.registerTask('default', ['dev']);
