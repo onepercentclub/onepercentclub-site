@@ -189,9 +189,12 @@ class Project(BaseProject):
 
         return tweet
 
-    class Meta:
+    class Meta(BaseProject.Meta):
         ordering = ['title']
         default_serializer = 'apps.projects.serializers.ProjectSerializer'
+        preview_serializer = 'apps.projects.serializers.ProjectPreviewSerializer'
+        manage_serializer = 'apps.projects.serializers.ManageProjectSerializer'
+
 
     def save(self, *args, **kwargs):
         if not self.slug:
