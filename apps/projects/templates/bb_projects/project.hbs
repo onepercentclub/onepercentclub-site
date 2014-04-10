@@ -37,17 +37,15 @@
     <section class="l-wrapper">
         <div class="project-status">
 
+            <div class="project-days-left">
             {{#if campaign.deadline}}
                 {{#if isCampaign}}
-                <div class="project-days-left">
                     <strong><span class="flaticon solid stopwatch-1"></span> {{campaign.daysToGo}} <em>{% trans "days to go" %}!</em></strong>
-                </div>
                 {{else}}
-                <div class="project-days-left">
                     <strong><span class="flaticon solid clock-1"></span> {{campaign.daysToGo}} <em>{% trans "days to go" %}</em></strong>
-                </div>
                 {{/if}}
             {{/if}}
+            </div>
 
             <div class="project-fund">
                 <p class="project-fund-amount">
