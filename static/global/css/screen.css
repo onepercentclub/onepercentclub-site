@@ -5365,7 +5365,7 @@ table td td {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background-color: white;
+  background-color: #e9e9e9;
 }
 /* line 590, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 #project-plan .project-plan-navigation {
@@ -5458,8 +5458,8 @@ table td td {
 #project-plan .project-plan-main-container {
   position: relative;
   *zoom: 1;
-  margin: 1em;
-  margin-top: 3em;
+  padding: 1em;
+  padding-top: 3em;
   float: left;
   width: 41.66667%;
   margin-left: 0%;
@@ -7481,7 +7481,7 @@ table td td {
 /* line 42, ../../../../bluebottle/bluebottle/common/static/sass/pages/_campaign-create.scss */
 #campaign-create .campaign-footer {
   padding: 1em;
-  background: #666666;
+  background: #e9e9e9;
   padding: 1em;
 }
 /* line 6, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_utilities.scss */
