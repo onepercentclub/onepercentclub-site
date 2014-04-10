@@ -1,7 +1,7 @@
 App.Project.reopen({
 	url: "projects",
 
-    deadline: DS.attr('date'),
+	deadline: DS.attr('date'),
     amount_asked: DS.attr('number'),
     amount_donated: DS.attr('number'),
     amount_needed: DS.attr('number'),
