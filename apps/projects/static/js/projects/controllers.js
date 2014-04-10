@@ -7,7 +7,7 @@ App.MyProjectGoalController = App.StandardTabController.extend({
     nextStep: 'myProject.story',
 
     canSave: function () {
-        return !!this.get('model.title');
+		return !!this.get('model.title');
     }.property('model.title')
 });
 
