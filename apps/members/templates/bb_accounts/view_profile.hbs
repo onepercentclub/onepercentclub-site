@@ -79,32 +79,44 @@
                         {{/if}}
 					</p>
 	            </div>
-
-	            <div class="account-details">
+	            
+ 				<div class="account-details">
+	            	{{#if location}}
 	                <dl>
 	                    <dt><span class="flaticon solid location-pin-1"></span> {% trans "Location" %}</dt>
 	                    <dd>{{location}}&nbsp;</dd>
 					</dl>
+					{{/if}}
+					{{#if themes_list}}
 					<dl>
 	                    <dt><span class="flaticon solid heart-1"></span> {% trans "Fav themes" %}</dt>
-	                    <dd>TODO&nbsp;</dd>
+	                    <dd>{{themes_list}}&nbsp;</dd>
 					</dl>
+					{{/if}}
+					{{#if countries_list}}
 					<dl>
 	                    <dt><span class="flaticon solid earth-1"></span>{% trans "Fav countries" %}</dt>
-	                    <dd>TODO&nbsp;</dd>
+	                    <dd>{{countries_list}}&nbsp;</dd>
 					</dl>
+					{{/if}}
+					{{#if availability}}
 					<dl>
 	                    <dt><span class="flaticon solid stopwatch-1"></span>{% trans "Time available" %}</dt>
-	                    <dd>{{time_available.description}}&nbsp;</dd>
+	                    <dd>{{time_available}}&nbsp;</dd>
 					</dl>
+					{{/if}}
+					{{#if skills_list}}
 					<dl>
 	                    <dt><span class="flaticon solid skill-1"></span>{% trans "Expertise" %}</dt>
-	                    <dd>TODO&nbsp;</dd>
+	                    <dd>{{skills_list}}</dd>
 					</dl>
+					{{/if}}
+					{{#if tags_list}}
 					<dl>
 	                    <dt><span class="flaticon solid tag-2"></span>{% trans "Tags" %}</dt>
-	                    <dd>TODO&nbsp;</dd>
+	                    <dd>{{tags_list}}&nbsp;</dd>
 	                </dl>
+	                {{/if}}
 	            </div>
 
 	        </section>

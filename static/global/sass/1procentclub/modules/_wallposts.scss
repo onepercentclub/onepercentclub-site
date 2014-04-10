@@ -1,0 +1,26 @@
+#wallposts {
+
+	.wallpost {
+
+		// Make the login box fade in on hover
+        .login-box {
+            opacity: 0;
+            @include transition(opacity 0.2s ease-out);
+            color: $gray;
+            padding-bottom: $base-padding;
+            margin-left: $base-margin;
+        }
+        
+        &:hover .login-box {
+            opacity: 1;
+        }
+
+        &.important, &.system {
+
+        }
+    }
+
+    .btn-more {
+    	margin-left: $base-margin;
+    }
+}
