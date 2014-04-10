@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-18 10:23+0100\n"
+"POT-Creation-Date: 2014-04-10 16:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -143,13 +143,12 @@ msgstr ""
 msgid "Projects fully funded"
 msgstr ""
 
-#: templates/homepage.hbs:335 templates/homepage.hbs.py:437
-msgid " The Crazy Campaign Days: 20 teams who will fund 20 world-changing projects within 5 days. Totally crazy!"
+#: templates/homepage.hbs:335
+msgid "The Crazy Campaign Days: 20 teams funding 18 world-changing projects within 5 days. Totally crazy! Thank you!"
 msgstr ""
 
-#: templates/homepage.hbs:336 templates/homepage.hbs.py:387
-#: templates/homepage.hbs:438
-msgid "Pick a crazy fund-racer and support"
+#: templates/homepage.hbs:336
+msgid "Can't get enough? Pick a fund-racer"
 msgstr ""
 
 #: templates/homepage.hbs:379 templates/homepage.hbs.py:430
@@ -166,4 +165,12 @@ msgstr ""
 
 #: templates/homepage.hbs:386
 msgid "The Crazy Campaign Days: 20 teams who will fund 20 world-changing projects within 5 days. Totally crazy!"
+msgstr ""
+
+#: templates/homepage.hbs:387 templates/homepage.hbs.py:438
+msgid "Pick a crazy fund-racer and support"
+msgstr ""
+
+#: templates/homepage.hbs:437
+msgid " The Crazy Campaign Days: 20 teams who will fund 20 world-changing projects within 5 days. Totally crazy!"
 msgstr ""
