@@ -13,9 +13,9 @@
 
 /* Variables & Mixins */
 @import "variables";
+@import "1procentclub/variables"; /* 1%Club overrides */
 @import "mixins/grid";
 @import "mixins/utilities";
-
 
 /* Icons */
 @import "icons/flaticons-social";
@@ -75,10 +75,11 @@
 @import "pages/fmo";
 
 /* Temp */
-@import "campaigns/crazy-campaign-2013";
+// @import "campaigns/crazy-campaign-2013";
 @import "campaigns/easter_eggs";
-@import "campaigns/ticker";
+// @import "campaigns/ticker";
 
 /* Plugins */
 @import "plugins/jquery-ui";
 @import "plugins/colorbox";
+

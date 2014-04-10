@@ -8,6 +8,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify'); 
   grunt.loadNpmTasks('grunt-microlib');
   grunt.loadNpmTasks('grunt-contrib-compass');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Project configuration.
   grunt.initConfig({
@@ -20,6 +21,9 @@ module.exports = function (grunt) {
       // watch: { configFile: 'test/js/config/unit.js', singleRun:false, autoWatch: true, keepalive: true }
     },
     watch: {
+      options: {
+	    livereload: true,
+	  },
       scripts: {
         files: ['apps/static/script/**/*.js', 'ember/static/script/templates/*.handlebars'],
         tasks: ['dev'],
@@ -29,9 +33,15 @@ module.exports = function (grunt) {
         }
       },
       scss: {
-        files: ['/static/global/**/*'],
+      	options: {
+	      livereload: false,
+	    },
+        files: ['static/global/sass/**/*',"../bluebottle/bluebottle/common/static/sass/**/*"],
         tasks: ['compass:dev'],
-      }
+      },
+      css: {
+        files: ['static/global/css/**/*.css']
+      },
     },
     hashres: {
       options: {
