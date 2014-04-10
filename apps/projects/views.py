@@ -1,5 +1,4 @@
 from bluebottle.bb_projects.models import ProjectPhase
-#from bluebottle.bb_projects.serializers import ManageProjectSerializer
 from .serializers import ManageProjectSerializer
 from bluebottle.geo.models import Country
 from bluebottle.geo.serializers import CountrySerializer
