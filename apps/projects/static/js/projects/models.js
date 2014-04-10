@@ -21,10 +21,6 @@ App.Project.reopen({
     isStatusCompleted: Em.computed.equal('status.id', '7')
 });
 
-App.ProjectPreview.reopen({
-    url: 'projects/previews'
-})
-
 App.MyProject.reopen({
     image: DS.attr('image'),
     video: DS.attr('string'),
