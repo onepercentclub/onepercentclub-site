@@ -14,10 +14,6 @@ App.Project.reopen({
 
 });
 
-App.ProjectPreview.reopen({
-    url: 'bb_projects/previews'
-})
-
 App.MyProject.reopen({
     image: DS.attr('image'),
     video: DS.attr('string'),
