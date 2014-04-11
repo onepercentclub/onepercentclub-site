@@ -3704,7 +3704,7 @@ textarea[readonly] {
   overflow: hidden;
   border-bottom: 1px solid #e9e9e9;
 }
-/* line 138, ../../../../bluebottle/bluebottle/common/static/sass/base/_tabs.scss */
+/* line 137, ../../../../bluebottle/bluebottle/common/static/sass/base/_tabs.scss */
 .steps li {
   padding-left: 0;
   text-indent: 0;
@@ -3719,7 +3719,7 @@ textarea[readonly] {
 .steps li li {
   list-style: none;
 }
-/* line 143, ../../../../bluebottle/bluebottle/common/static/sass/base/_tabs.scss */
+/* line 142, ../../../../bluebottle/bluebottle/common/static/sass/base/_tabs.scss */
 .steps li a {
   position: relative;
   background-color: white;
@@ -3731,40 +3731,40 @@ textarea[readonly] {
   color: #666666;
   display: block;
 }
-/* line 154, ../../../../bluebottle/bluebottle/common/static/sass/base/_tabs.scss */
+/* line 153, ../../../../bluebottle/bluebottle/common/static/sass/base/_tabs.scss */
 .steps li a .flaticon {
   color: white;
   border-radius: 50%;
   padding: 0.5em;
   text-align: center;
 }
-/* line 161, ../../../../bluebottle/bluebottle/common/static/sass/base/_tabs.scss */
+/* line 160, ../../../../bluebottle/bluebottle/common/static/sass/base/_tabs.scss */
 .steps li a.validated {
   background-color: #5da423;
   color: white;
 }
-/* line 165, ../../../../bluebottle/bluebottle/common/static/sass/base/_tabs.scss */
+/* line 164, ../../../../bluebottle/bluebottle/common/static/sass/base/_tabs.scss */
 .steps li a.validated .flaticon {
   color: white;
 }
-/* line 169, ../../../../bluebottle/bluebottle/common/static/sass/base/_tabs.scss */
+/* line 168, ../../../../bluebottle/bluebottle/common/static/sass/base/_tabs.scss */
 .steps li a.validated:after {
   border-left-color: #5da423;
 }
-/* line 174, ../../../../bluebottle/bluebottle/common/static/sass/base/_tabs.scss */
+/* line 173, ../../../../bluebottle/bluebottle/common/static/sass/base/_tabs.scss */
 .steps li a.active, .steps li a:hover {
   background-color: #444444;
   color: white;
 }
-/* line 178, ../../../../bluebottle/bluebottle/common/static/sass/base/_tabs.scss */
+/* line 177, ../../../../bluebottle/bluebottle/common/static/sass/base/_tabs.scss */
 .steps li a.active .flaticon, .steps li a:hover .flaticon {
   color: white;
 }
-/* line 182, ../../../../bluebottle/bluebottle/common/static/sass/base/_tabs.scss */
+/* line 181, ../../../../bluebottle/bluebottle/common/static/sass/base/_tabs.scss */
 .steps li a.active:after, .steps li a:hover:after {
   border-left-color: #444444;
 }
-/* line 187, ../../../../bluebottle/bluebottle/common/static/sass/base/_tabs.scss */
+/* line 186, ../../../../bluebottle/bluebottle/common/static/sass/base/_tabs.scss */
 .steps li a:after, .steps li a:before {
   content: " ";
   left: 100%;
@@ -3779,7 +3779,7 @@ textarea[readonly] {
   margin-top: -25px;
   z-index: 2;
 }
-/* line 202, ../../../../bluebottle/bluebottle/common/static/sass/base/_tabs.scss */
+/* line 201, ../../../../bluebottle/bluebottle/common/static/sass/base/_tabs.scss */
 .steps li a:before {
   border-left-color: #e9e9e9;
   left: 100%;
@@ -3787,7 +3787,7 @@ textarea[readonly] {
   border-width: 27px;
   margin-top: -27px;
 }
-/* line 212, ../../../../bluebottle/bluebottle/common/static/sass/base/_tabs.scss */
+/* line 211, ../../../../bluebottle/bluebottle/common/static/sass/base/_tabs.scss */
 .steps li:last-of-type a:after, .steps li:last-of-type a:before {
   display: none;
 }
@@ -6003,7 +6003,7 @@ table td td {
   color: black;
 }
 
-/* line 43, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 42, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 .task-item {
   display: block;
   position: relative;
@@ -6013,13 +6013,13 @@ table td td {
   overflow: hidden;
   height: 260px;
 }
-/* line 52, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 51, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 .task-item a {
   display: block;
   border: 1px solid #cccccc;
   text-decoration: none;
 }
-/* line 58, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 57, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 .task-item .task-category {
   background-color: #00c051;
   color: white;
@@ -6027,7 +6027,7 @@ table td td {
   margin: 0;
   font-size: 0.875em;
 }
-/* line 66, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 65, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 .task-item .task-header {
   display: block;
   position: relative;
@@ -6039,7 +6039,7 @@ table td td {
   -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
 }
-/* line 74, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 73, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 .task-item .task-header .task-title {
   z-index: 11;
   width: 100%;
@@ -6050,14 +6050,14 @@ table td td {
   background-color: rgba(0, 0, 0, 0.7);
   color: white;
 }
-/* line 84, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 83, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 .task-item .task-header .task-title h3 {
   font-size: 1em;
   color: white;
   padding: 0;
   margin: 0;
 }
-/* line 91, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 90, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 .task-item .task-header .task-title h4 {
   font-size: 0.875em;
   text-transform: none;
@@ -6065,7 +6065,7 @@ table td td {
   margin: 0;
   font-family: "Futura W01 Book", "Trebuchet MS", Helvetica, Arial, sans-serif;
 }
-/* line 100, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 99, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 .task-item .task-header .task-image {
   position: relative;
   display: block;
@@ -6073,14 +6073,14 @@ table td td {
   height: 160px;
   text-align: center;
 }
-/* line 107, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 106, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 .task-item .task-header .task-image img {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
 }
-/* line 117, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 116, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 .task-item .task-status {
   height: 100px;
   padding: 0.5em 1em;
@@ -6088,7 +6088,7 @@ table td td {
   display: block;
   color: #444444;
 }
-/* line 125, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 124, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 .task-item .task-meta {
   color: #999999;
   text-transform: uppercase;
@@ -6121,7 +6121,7 @@ table td td {
 .task-item .task-meta {
   *zoom: 1;
 }
-/* line 133, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 132, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 .task-item .task-meta li {
   padding-left: 0;
   text-indent: 0;
@@ -6138,7 +6138,7 @@ table td td {
 .task-item .task-meta li li {
   list-style: none;
 }
-/* line 143, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 142, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 .task-item .task-description {
   display: none;
   font-family: "Futura W02 Heavy", "Trebuchet MS", Helvetica, Arial, sans-serif;
@@ -6153,7 +6153,7 @@ table td td {
   overflow: hidden;
   z-index: 100;
 }
-/* line 158, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 157, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 .task-item .task-description .task-view {
   position: absolute;
   display: block;
@@ -6164,25 +6164,25 @@ table td td {
   text-transform: uppercase;
   padding: 0.5em 1em;
 }
-/* line 170, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 169, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 .task-item:hover, .task-item:active {
   background-color: black;
 }
-/* line 173, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 172, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 .task-item:hover .task-image, .task-item:active .task-image {
   zoom: 3;
   height: 999px;
 }
-/* line 178, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 177, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 .task-item:hover .task-title, .task-item:hover .task-status, .task-item:hover .task-category, .task-item:active .task-title, .task-item:active .task-status, .task-item:active .task-category {
   display: none;
 }
-/* line 182, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 181, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 .task-item:hover .task-description, .task-item:active .task-description {
   display: block;
 }
 
-/* line 193, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 192, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 .task-preview {
   font-size: 0.875em;
   margin-bottom: 1em;
@@ -6201,11 +6201,11 @@ table td td {
 .task-preview {
   *zoom: 1;
 }
-/* line 199, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 198, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 .task-preview .task-member-status, .task-preview .task-content, .task-preview .task-arrow {
   min-height: 90px;
 }
-/* line 203, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 202, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 .task-preview .task-member-status {
   float: left;
   width: 16.66667%;
@@ -6216,20 +6216,20 @@ table td td {
   color: white;
   padding: 1em 0;
 }
-/* line 210, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 209, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 .task-preview .task-member-status big {
   font-weight: bold;
   font-size: 2.5em;
   display: block;
   line-height: 1.125em;
 }
-/* line 217, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 216, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 .task-preview .task-member-status small {
   display: block;
   font-size: 0.75em;
   line-height: 1.125em;
 }
-/* line 224, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 223, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 .task-preview .task-content {
   float: left;
   width: 75%;
@@ -6238,16 +6238,16 @@ table td td {
   padding: 1em;
   background-color: white;
 }
-/* line 230, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 229, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 .task-preview .task-title {
   margin-top: 0;
 }
-/* line 234, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 233, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 .task-preview .task-theme {
   font-size: 0.875em;
   color: #666666;
 }
-/* line 239, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 238, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 .task-preview .task-arrow {
   float: left;
   width: 8.33333%;
@@ -6261,15 +6261,15 @@ table td td {
   vertical-align: middle;
   padding: 0.75em 0;
 }
-/* line 249, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 248, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 .task-preview .task-arrow .flaticon {
   display: inline-block;
 }
-/* line 254, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 253, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 .task-preview .task-status {
   color: #ff619a;
 }
-/* line 258, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 257, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 .task-preview .task-status, .task-preview .task-time-needed, .task-preview .task-deadline {
   float: left;
   width: 29.16667%;
@@ -6277,7 +6277,7 @@ table td td {
   margin-right: 4.16667%;
 }
 
-/* line 263, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 262, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 #task-list {
   position: relative;
   margin: 0;
@@ -6285,48 +6285,48 @@ table td td {
   color: #444444;
   background-color: white;
 }
-/* line 270, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 269, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 #task-list h3 {
   margin-bottom: 0;
   display: inline-block;
   padding-bottom: 0;
   color: #444444;
 }
-/* line 277, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 276, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 #task-list p {
   padding: 0;
 }
-/* line 281, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 280, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 #task-list .task-create {
   position: absolute;
   top: 0;
   right: 0;
   margin-top: 1em;
 }
-/* line 289, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 288, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 #task-list .task-list-wrapper {
   position: relative;
   border-bottom: 1px solid white;
   padding: 0 1em 1em 1em;
   margin: 0;
 }
-/* line 295, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 294, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 #task-list .task-list-wrapper.task-list-open {
   background-color: #e9e9e9;
 }
-/* line 299, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 298, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 #task-list .task-list-wrapper.task-list-closed {
   background-color: #e9e9e9;
 }
-/* line 302, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 301, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 #task-list .task-list-wrapper.task-list-closed .task-preview {
   background-color: #999999;
 }
-/* line 305, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 304, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 #task-list .task-list-wrapper.task-list-closed .task-preview .task-member-status {
   background-color: #999999;
 }
-/* line 309, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
+/* line 308, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 #task-list .task-list-wrapper.task-list-closed .task-preview .task-arrow {
   background: #999999;
 }
@@ -6648,6 +6648,135 @@ table td td {
   border-top-color: #ff619a;
   border-width: 6px;
   margin-left: -6px;
+}
+
+/* line 1, ../../../../bluebottle/bluebottle/common/static/sass/modules/_image-upload.scss */
+.image-upload {
+  height: 150px;
+  margin-bottom: 1em;
+  overflow: hidden;
+}
+/* line 8, ../../../../bluebottle/bluebottle/common/static/sass/modules/_image-upload.scss */
+.image-upload .image-upload-drag, .image-upload .image-upload-controls {
+  float: left;
+  width: 50%;
+  margin-left: 0%;
+  margin-right: 0%;
+  padding: 1em;
+  height: 150px;
+}
+/* line 14, ../../../../bluebottle/bluebottle/common/static/sass/modules/_image-upload.scss */
+.image-upload .image-upload-drag {
+  text-align: center;
+  padding-top: 2em;
+  color: #999999;
+}
+/* line 18, ../../../../bluebottle/bluebottle/common/static/sass/modules/_image-upload.scss */
+.image-upload .image-upload-drag figure {
+  position: absolute;
+  float: left;
+  width: 50%;
+  margin-left: 0%;
+  margin-right: 0%;
+  height: 150px;
+  top: 1px;
+  left: 1px;
+  overflow: hidden;
+}
+/* line 26, ../../../../bluebottle/bluebottle/common/static/sass/modules/_image-upload.scss */
+.image-upload .image-upload-drag .flaticon {
+  display: block;
+  text-shadow: 1px 1px white;
+  font-size: 5em;
+}
+/* line 33, ../../../../bluebottle/bluebottle/common/static/sass/modules/_image-upload.scss */
+.image-upload .image-upload-controls {
+  float: left;
+  width: 50%;
+  margin-left: 0%;
+  margin-right: 0%;
+  padding: 1em;
+  background-color: white;
+  text-align: center;
+  position: relative;
+}
+/* line 40, ../../../../bluebottle/bluebottle/common/static/sass/modules/_image-upload.scss */
+.image-upload .image-upload-controls .image-upload-controls-instructions {
+  margin-bottom: 0.5em;
+}
+/* line 44, ../../../../bluebottle/bluebottle/common/static/sass/modules/_image-upload.scss */
+.image-upload .image-upload-controls .image-upload-controls-browse {
+  color: #00c051;
+  display: block;
+  font-weight: bold;
+  text-decoration: none;
+  margin-bottom: 0.5em;
+}
+/* line 52, ../../../../bluebottle/bluebottle/common/static/sass/modules/_image-upload.scss */
+.image-upload .image-upload-controls .image-upload-controls-allowed {
+  display: block;
+  color: #999999;
+}
+/* line 58, ../../../../bluebottle/bluebottle/common/static/sass/modules/_image-upload.scss */
+.image-upload:after {
+  position: absolute;
+  content: ' ';
+  -webkit-box-shadow: inset 0 0 3px #999999;
+  -moz-box-shadow: inset 0 0 3px #999999;
+  box-shadow: inset 0 0 3px #999999;
+  border: 1px solid #999999;
+  pointer-events: none;
+  width: 100%;
+  height: 150px;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+/* line 1, ../../../../bluebottle/bluebottle/common/static/sass/modules/_document-upload.scss */
+.document-upload {
+  padding: 1em;
+  -webkit-box-shadow: inset 0 0 3px #999999;
+  -moz-box-shadow: inset 0 0 3px #999999;
+  box-shadow: inset 0 0 3px #999999;
+  background-color: white;
+  border: 1px solid #999999;
+}
+/* line 7, ../../../../bluebottle/bluebottle/common/static/sass/modules/_document-upload.scss */
+.document-upload .files li {
+  padding-left: 0;
+  text-indent: 0;
+  background-image: none;
+  margin-bottom: 0;
+  margin-top: 0;
+  list-style: none;
+  padding: 1em;
+  background-color: #e9e9e9;
+  color: #222222;
+}
+/* line 36, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_utilities.scss */
+.document-upload .files li li {
+  list-style: none;
+}
+/* line 12, ../../../../bluebottle/bluebottle/common/static/sass/modules/_document-upload.scss */
+.document-upload .files li .delete {
+  text-decoration: none;
+  float: right;
+  color: #666666;
+}
+/* line 19, ../../../../bluebottle/bluebottle/common/static/sass/modules/_document-upload.scss */
+.document-upload .upload {
+  display: block;
+  text-align: center;
+  color: #00c051;
+  margin: 1em;
+  text-decoration: none;
+}
+/* line 26, ../../../../bluebottle/bluebottle/common/static/sass/modules/_document-upload.scss */
+.document-upload .allowed {
+  display: block;
+  color: #999999;
+  text-align: center;
 }
 
 /* Pages */
@@ -8322,18 +8451,18 @@ table td td {
   color: #666666;
 }
 
-/* line 25, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 26, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail {
   background-color: #222222;
   color: white;
 }
-/* line 31, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 32, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail #task-details {
   padding: 2em 0;
   background-color: #222222;
   color: white;
 }
-/* line 37, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 38, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail h1, #task-detail h2, #task-detail h3 {
   text-transform: none;
   color: white;
@@ -8341,34 +8470,34 @@ table td td {
   margin: 0;
   margin-bottom: 0.25em;
 }
-/* line 45, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 46, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail dl {
   border-bottom: 1px solid #444444;
 }
-/* line 50, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 51, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail dl dt {
   float: left;
   width: 6.25%;
   margin-left: 0%;
   margin-right: 2.08333%;
 }
-/* line 53, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 54, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail dl dd {
   float: left;
   width: 89.58333%;
   margin-left: 2.08333%;
   margin-right: 0%;
 }
-/* line 58, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 59, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail .l-content {
   margin-top: 2em;
   padding-top: 1em;
 }
-/* line 63, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 64, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail .task-project {
   color: #999999;
 }
-/* line 67, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 68, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail .task-badge {
   border: 2px solid white;
   position: relative;
@@ -8390,7 +8519,7 @@ table td td {
 #task-detail .task-badge {
   *zoom: 1;
 }
-/* line 73, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 74, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail .task-badge .task-status {
   padding: 0.5em;
   text-align: center;
@@ -8398,23 +8527,23 @@ table td td {
   width: 100%;
   border-bottom: 2px solid white;
 }
-/* line 81, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 82, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail .task-sidebar {
   float: left;
   width: 31.25%;
   margin-left: 0%;
   margin-right: 2.08333%;
 }
-/* line 84, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 85, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail .edit-task {
   text-align: right;
   padding: 1em 0;
 }
-/* line 87, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 88, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail .edit-task a {
   text-decoration: none;
 }
-/* line 109, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 110, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail .task-description {
   position: relative;
   float: left;
@@ -8423,7 +8552,7 @@ table td td {
   margin-right: 2.08333%;
   margin-bottom: 2em;
 }
-/* line 116, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 117, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail .task-description .task-read-more {
   text-decoration: none;
   color: #999999;
@@ -8435,7 +8564,7 @@ table td td {
   padding-right: 4em;
   padding-left: 1em;
 }
-/* line 151, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 152, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail .task-section {
   margin-bottom: 1em;
 }
@@ -8452,15 +8581,15 @@ table td td {
 #task-detail .task-section {
   *zoom: 1;
 }
-/* line 160, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 161, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail .task-meta p {
   color: #999999;
 }
-/* line 225, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 226, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail .task-files {
   margin: 0;
 }
-/* line 228, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 229, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail .task-files .task-file {
   padding-left: 0;
   text-indent: 0;
@@ -8473,7 +8602,7 @@ table td td {
 #task-detail .task-files .task-file li {
   list-style: none;
 }
-/* line 231, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 232, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail .task-files .task-file a {
   display: block;
   text-decoration: none;
@@ -8493,44 +8622,44 @@ table td td {
 #task-detail .task-files .task-file a {
   *zoom: 1;
 }
-/* line 239, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 240, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail .task-files .task-file:last-of-type a {
   border: none;
 }
-/* line 243, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 244, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail .task-files .task-file .file-size, #task-detail .task-files .task-file .file-author, #task-detail .task-files .task-file .time-applied {
   font-size: 0.75em;
   text-transform: uppercase;
   font-style: normal;
   color: #999999;
 }
-/* line 252, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 253, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail .task-action {
   float: left;
   width: 29.16667%;
   margin-left: 2.08333%;
   margin-right: 2.08333%;
   float: right;
-  margin: 1em 0;
+  margin-top: 1em;
 }
-/* line 257, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 258, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail .task-action .btn {
   font-family: "Futura W01 Bold", "Trebuchet MS", Helvetica, Arial, sans-serif;
   white-space: nowrap;
   font-size: 1.5em;
   display: block;
 }
-/* line 263, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 264, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail .task-action .btn .flaticon {
   color: white;
   font-size: 1.2em;
 }
-/* line 270, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 271, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail #task-members {
   background-color: #444444;
   padding: 1em 0;
 }
-/* line 275, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 276, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail #task-members .task-members-list {
   float: left;
   width: 62.5%;
@@ -8538,27 +8667,27 @@ table td td {
   margin-right: 2.08333%;
   float: left;
 }
-/* line 281, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 282, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail #task-members .member-initiator {
   float: left;
   width: 35.41667%;
   margin-left: 0%;
   margin-right: 2.08333%;
 }
-/* line 284, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 285, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail #task-members .member-assigned {
   float: left;
   width: 37.5%;
   margin-left: 0%;
   margin-right: 0%;
 }
-/* line 289, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 290, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail #wallposts {
   background-color: #cccccc;
   padding: 1em 0;
   color: black;
 }
-/* line 295, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 296, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail #wallposts .wallposts-timeline {
   float: left;
   width: 62.5%;
@@ -8566,7 +8695,7 @@ table td td {
   margin-right: 2.08333%;
   float: left;
 }
-/* line 300, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 301, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail #wallposts .wallposts-important {
   float: left;
   width: 62.5%;
@@ -8574,11 +8703,11 @@ table td td {
   margin-right: 2.08333%;
   float: right;
 }
-/* line 305, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 306, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail #wallposts .wallpost-action {
   border: 1px dashed #999999;
 }
-/* line 308, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
+/* line 309, ../../../../bluebottle/bluebottle/common/static/sass/pages/_task-detail.scss */
 #task-detail #wallposts .wallpost-author, #task-detail #wallposts .wallpost-title {
   color: #ff619a;
 }
