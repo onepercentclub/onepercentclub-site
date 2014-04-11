@@ -221,6 +221,9 @@ CREATE TABLE utils_language (
     native_name varchar(100) NOT NULL
 )
 
+INSERT INTO bb_accounts_timeavailable (id, code, language_name, native_name) VALUES
+  (1, 'en', 'English', 'English'),
+  (2, 'nl', 'Dutch', 'Nederlands');
 
 -- Organization
 
