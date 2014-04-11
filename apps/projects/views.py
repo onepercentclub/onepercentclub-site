@@ -1,5 +1,5 @@
 from bluebottle.bb_projects.models import ProjectPhase
-from bluebottle.bb_projects.serializers import ManageProjectSerializer
+from .serializers import ManageProjectSerializer
 from bluebottle.geo.models import Country
 from bluebottle.geo.serializers import CountrySerializer
 import django_filters
@@ -169,31 +169,6 @@ class ProjectDonationList(ProjectSupporterList):
             return queryset.none()
 
         return queryset.filter(**filter_kwargs)
-
-
-class ManageProjectList(generics.ListCreateAPIView):
-    model = Project
-    serializer_class = ManageProjectSerializer
-    permission_classes = (IsAuthenticated, )
-    paginate_by = 10
-
-    def get_queryset(self):
-        """
-        Overwrite the default to only return the Projects the currently logged in user owns.
-        """
-        queryset = super(ManageProjectList, self).get_queryset()
-        queryset = queryset.filter(owner=self.request.user)
-        queryset = queryset.order_by('-created')
-        return queryset
-
-    def pre_save(self, obj):
-        obj.owner = self.request.user
-
-
-class ManageProjectDetail(generics.RetrieveUpdateAPIView):
-    model = Project
-    serializer_class = ManageProjectSerializer
-    permission_classes = (IsProjectOwner, )
 
 
 # Django template Views

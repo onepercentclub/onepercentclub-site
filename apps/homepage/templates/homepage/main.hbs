@@ -17,13 +17,8 @@
 			No Projects
 		{{/if}}
 
-
         {{#if quotes }}
-            {{#each quote in quotes}}
-                {{view App.QuoteListView }}
-            {{/each}}
-        {{else}}
-            No quotes
+            {{view App.HomeQuotesView }}
         {{/if }}
 
         {{#if impact }}
