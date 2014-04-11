@@ -1,0 +1,60 @@
+{% load bb_ember %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "my_project_pitch" %}
+    
+    {{#unless isPhasePlanNew}}
+        {{bb-flash data=flash}}
+    {{/unless}}
+
+    <legend>
+        <strong>
+            {% trans 'Project Basics' %}
+        </strong>
+    </legend>
+    
+    <fieldset>
+        <ul>
+            {% bb_component 'bb-text-field' label=_('Title') name='title' valueBinding='title' placeholder=_('Title') errorsBinding='errors.title' maxlength=255 hint=_('Make it short, creative, simple and memorable.') %}
+
+            {% bb_component 'bb-text-area' rows=8 label=_('Description') name='pitch' valueBinding='pitch' hint=_('Describe your smart idea in one paragraph.') placeholder=_('Tell us in one paragraph where you need to the money for.') errorsBinding='errors.pitch' maxlength=200 %}
+        </ul>
+    </fieldset>
+    <fieldset>
+        <ul>
+            {% bb_component 'bb-upload-image' name='img_upload' label=_('Picture') hint=_('Upload the picture that best describes your campaign.') fileBinding='image' image_url='image.large' buttonLabel=_('Upload picture') errorsBinding='errors.image' %}
+
+            {% bb_component 'bb-video-link' label=_('Video') name='video' hint=_('Add a video if you want. Make it sparkling! Your energy will be your best selling point.') placeholder=_('Not required') valueBinding='video_url' video_html='video_html' errorsBinding='errors.video' %}
+        </ul>
+    </fieldset>
+    <fieldset>
+        <ul>
+            {% bb_block_component label='Theme' errors='errors.theme' %}
+                {{view App.ThemeSelectView name='theme' selectionBinding="theme" classBinding="errors.theme.length:error"
+                prompt='Select one of the themes.'}}
+            {% endbb_block_component %}
+
+                {{#bb-form-field hint='Add some tags that characterise your project.' label='Tags' errors=errors.tags}}
+                {{view App.TagWidget tagsBinding="tags" name='tags' classBinding="errors.tags.length:error" prompt='Add some tags that characterise your project.'}}
+            {{/bb-form-field}}
+        </ul>
+    </fieldset>
+
+    <fieldset>
+        <ul>
+
+            {% bb_component 'bb-map-picker' modelBinding='controller.model' latitudeBinding='latitude' longitudeBinding='longitude' hint=_('Select the location on the map. You can use the search to find your location.') label=_('Location') errorsBinding='errors.location' className='small' %}
+
+            {{#bb-form-field hint='Select a country.' label='Country' errorsBinding='errors.country' }}
+                {{view App.CountrySelectView selectionBinding=country name='country' classBinding="errors.country.length:error"}}
+            {{/bb-form-field}}
+            
+        </ul>
+    </fieldset>
+
+    {% block_verbatim pitch_footer %}
+        {{ partial '_my_project_save_edit_footer'}}
+    {% endblock_verbatim %}
+
+{% endtplhandlebars %}

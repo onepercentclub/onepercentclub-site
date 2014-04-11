@@ -6,10 +6,13 @@ from bluebottle.bluebottle_drf2.serializers import (SorlImageField, SlugGenericR
 from bluebottle.geo.models import Country
 from bluebottle.utils.serializers import MetaField
 
-from bluebottle.bb_projects.serializers import ProjectSerializer as BaseProjectSerializer, ProjectThemeSerializer
+from bluebottle.bb_projects.serializers import  ProjectThemeSerializer
 from apps.fund.models import Donation
 
 from bluebottle.utils.utils import get_project_model
+from bluebottle.bb_projects.serializers import (ProjectSerializer as BaseProjectSerializer,
+                                                ManageProjectSerializer as BaseManageProjectSerializer,
+                                                ProjectPreviewSerializer as BaseProjectPreviewSerializer)
 
 PROJECT_MODEL = get_project_model()
 
@@ -24,40 +27,30 @@ class ProjectCountrySerializer(serializers.ModelSerializer):
 
 
 class ProjectSerializer(BaseProjectSerializer):
-    id = serializers.CharField(source='slug', read_only=True)
     task_count = serializers.IntegerField(source='task_count')
     country = ProjectCountrySerializer(source='country')
 
-    meta_data = MetaField(
-            title = 'get_meta_title',
-            fb_title = 'get_fb_title',
-            description = 'pitch',
-            keywords = 'tags',
-            image_source = 'image',
-            tweet = 'get_tweet',
-            )
-
-    def __init__(self, *args, **kwargs):
-        super(ProjectSerializer, self).__init__(*args, **kwargs)
-
-    class Meta:
-        model = PROJECT_MODEL
+    class Meta(BaseProjectSerializer):
+        model = BaseProjectSerializer.Meta.model
         fields = BaseProjectSerializer.Meta.fields + ('task_count', 'amount_asked', 'amount_donated', 'amount_needed')
 
 
-class ProjectPreviewSerializer(serializers.ModelSerializer):
-    id = serializers.CharField(source='slug', read_only=True)
-    image = SorlImageField('image', '400x300', crop='center')
-    country = ProjectCountrySerializer(source='country')
-    pitch = serializers.CharField(source='pitch')
-
+class ProjectPreviewSerializer(BaseProjectPreviewSerializer):
     task_count = serializers.IntegerField(source='task_count')
 
-    class Meta:
-        model = PROJECT_MODEL
+    class Meta(BaseProjectPreviewSerializer):
+        model = BaseProjectPreviewSerializer.Meta.model
         fields = ('id', 'title', 'image', 'status', 'pitch', 'popularity', 'country', 'task_count',
-                  'is_campaign', 'amount_asked', 'amount_donated', 'amount_needed')
+                  'is_campaign', 'amount_asked', 'amount_donated', 'amount_needed', 'deadline')
 
+class ManageProjectSerializer(BaseManageProjectSerializer):
+    amount_asked = serializers.CharField(required=False)
+    amount_donated = serializers.CharField(required=False)
+    amount_needed = serializers.CharField(required=False)
+
+    class Meta(BaseManageProjectSerializer):
+        model = BaseManageProjectSerializer.Meta.model
+        fields = BaseManageProjectSerializer.Meta.fields + ('amount_asked', 'amount_donated', 'amount_needed')
 
 class ProjectSupporterSerializer(serializers.ModelSerializer):
     """
