@@ -286,6 +286,16 @@ ALTER TABLE projects_project DROP COLUMN phase;
 -- Add 'story' column to projects
 alter table projects_project ADD COLUMN story text;
 
+
+-- Move the Why What How, Effects and Future fields to Story field
+
+UPDATE projects_project p
+  SET story = '<h2>Why, What and How</h2>' || project.description || '</br></br><h2>Effects</h2>' || project.effects || '</br></br><h2>Future</h2>' || project.future
+  FROM projects_project as project
+  WHERE project.id = p.id;
+
+--
+
 --
 -- TASKS
 --
