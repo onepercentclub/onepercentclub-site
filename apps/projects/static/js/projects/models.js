@@ -4,6 +4,8 @@ App.Project.reopen({
     deadline: DS.attr('date'),
     amount_asked: DS.attr('number'),
 
+    story: DS.attr('string'),
+
     maxAmountAsked: Ember.computed.lte('amount_asked', 1000000),
     minAmountAsked: Ember.computed.gte('amount_asked', 250),
 
