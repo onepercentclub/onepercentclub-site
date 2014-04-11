@@ -1,0 +1,153 @@
+//
+// Task detail page
+// --------------------------------------------------
+
+#task-detail {
+	
+	.l-content {
+    	margin-top: $base-padding*2;
+        padding-top: $base-margin;
+	}
+	
+	.task-status {
+		display: block;
+		@include grid(12,2,4);
+		
+	   .flaticon {
+            font-size: 40px;
+            display: block;
+        }
+        
+        padding: $base-padding 0;
+        background-color: $gray-lighter;
+        color: $white;
+        text-align: center;
+        text-transform: uppercase;
+    }
+    
+	.task-description {
+		@include grid(36,0,0);
+	}
+	
+	#wallposts {
+	    @include clear;
+	    clear: both;
+    	
+    	#wallpost-form {
+    	    @include clear;
+            clear: both;
+        	@include grid(48,12,0);
+        	margin-bottom: $base-margin*2;
+        	
+        	.btn {
+            	float: right;
+        	}
+    	}
+    	
+    	.wallpost {
+        	@include clear;
+            clear: both;
+    	}
+	}
+	
+	// Sidebar
+	.task-section {
+	    @include clear;
+	    background-color: $gray-lighter;
+	    margin-bottom: $base-margin;
+		padding: $base-padding $base-padding*2;
+		
+	}
+	
+	.task-meta {
+		p {
+			color: $gray;
+		}
+	}
+	
+	.task-members {
+	    margin: 0;
+				
+		.task-member {
+		    @include resetlist;
+            position: relative;
+			@include clear;
+            display: block;
+            padding: $base-padding/2 0;
+            border-bottom: 1px solid $gray-light;
+            
+             &:last-of-type {
+                //border: none;
+            }
+            
+            a {
+                text-decoration: none;
+            }
+            
+			.member {
+			    float: left;
+				text-transform: uppercase;
+				
+				.member-avatar {
+				    display: inline-block;
+					width: 40px;
+					padding: 0;
+					float: left;
+					margin-right: $base-margin/2;
+				}
+				
+				.timestamp {
+				    font-style: normal;
+    				color: $gray;
+                    text-transform: uppercase;
+                    font-size: $font-size-smallest;
+				}
+				
+				.member-status {
+    				font-style: normal;
+    				color: $color-primary;
+                    text-transform: uppercase;
+                    font-size: $font-size-smallest;
+				}
+			}
+			
+	        .task-edit-status {
+				color: $gray;
+				font-size: $font-size-smallest;
+				text-transform: uppercase;
+				float: right;
+				
+				&:hover, &:active {
+    				color: $color-text;
+				}
+	        }
+		}
+	}
+	
+	.task-files {
+        margin: 0;
+        
+        .task-file {
+            @include resetlist;
+            
+            a {
+                @include clear;
+                display: block;
+                text-decoration: none;
+                padding: $base-padding/2 0;
+                border-bottom: 1px solid $gray-light;
+            }
+                            
+            &:last-of-type a {
+                border: none;
+            }
+            
+			.file-size, .file-author, .time-applied {
+				font-size: $font-size-smallest;
+				text-transform: uppercase;
+				font-style: normal;
+				color: $gray;
+			}
+        }	
+	}
+}

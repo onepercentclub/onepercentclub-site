@@ -1,0 +1,60 @@
+//
+// Base set
+// --------------------------------------------------
+
+* { 
+	-moz-box-sizing: border-box; 
+	-webkit-box-sizing: border-box; 
+	box-sizing: border-box; 
+}
+
+.is-loading-small {
+    float: left;
+    display: inline-block;
+    padding: $base-padding/2 0;
+    
+    img {
+        width: 16px;
+        margin-right: $base-margin/2;
+    }
+    
+    strong {
+        display: none;
+    }
+}
+
+.is-loading-big {
+    @include clear;
+    display: block;
+    width: 100%;
+    padding: $base-padding*4 0;
+    text-align: center;
+    
+    img {
+        width: 100px;
+    }
+    
+    strong {
+        display: none;
+    }
+}
+
+.is-saved {
+    float: left;
+    display: inline-block;
+    padding: $base-padding/2 0;
+}
+
+.fade {
+    @include opacity(0);
+    
+    &.fade.in {
+        @include opacity(1);
+    }
+    
+    &.fade.out {
+        @include opacity(0);
+    }
+}
+
+// Show message users using older Internet Explorer (8<)

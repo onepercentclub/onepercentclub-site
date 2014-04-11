@@ -1,0 +1,84 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+/* ========================= Includes ============================= */
+
+
+/* Compass */
+@import "compass/utilities";
+@import "compass/reset";
+@import "compass/css3";
+
+/* Variables & Mixins */
+@import "variables";
+@import "mixins/grid";
+@import "mixins/utilities";
+
+
+/* Icons */
+@import "icons/flaticons-social";
+@import "icons/flaticons-solid";
+@import "icons/flaticons-stroke";
+@import "icons/icons-sprites";
+
+
+/* Base */
+@import "base/reset";
+@import "base/base";
+@import "base/type";
+@import "base/media";
+@import "states/states";
+
+
+/* Main Layout */
+@import "layout/layout";
+@import "layout/header";
+@import "layout/footer";
+@import "base/forms";
+@import "base/buttons";
+@import "base/tabs";
+@import "base/modals";
+@import "base/tables";
+@import "base/popovers";
+@import "base/dropdowns";
+
+
+/* Modules */
+@import "modules/carousel";
+@import "modules/members";
+@import "modules/projects";
+@import "modules/wallposts";
+@import "modules/reactions";
+@import "modules/tasks";
+@import "modules/share";
+@import "modules/project-iframe";
+@import "modules/owner-actions";
+@import "modules/maps";
+
+/* Pages */
+@import "pages/home";
+@import "pages/static";
+@import "pages/static-onepage";
+@import "pages/signup";
+@import "pages/search";
+@import "pages/project-detail";
+@import "pages/project-detail-fundraiser";
+@import "pages/task-detail";
+@import "pages/fund";
+@import "pages/fund-thanks";
+@import "pages/profile";
+@import "pages/account";
+@import "pages/news";
+@import "pages/manage";
+@import "pages/fmo";
+
+/* Temp */
+@import "campaigns/crazy-campaign-2013";
+@import "campaigns/easter_eggs";
+@import "campaigns/ticker";
+
+/* Plugins */
+@import "plugins/jquery-ui";
+@import "plugins/colorbox";

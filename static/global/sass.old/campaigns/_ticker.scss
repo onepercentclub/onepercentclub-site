@@ -1,0 +1,53 @@
+.ticker {
+    ul {
+       margin: 0px;
+    }
+    ul>li {
+        &:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        margin: 20px;
+        clear: both;
+        background: none;
+        padding-left: 0px;
+        .amount {
+            font-size: 70px;
+            padding: 50px;
+            font-weight: 600;
+            color: #ff619a;
+            float: right;
+        }
+        h2 {
+            font-size: 30px;
+            color: black;
+            .date, .project-title {
+                color: #777;
+                font-size: 30px;
+            }
+            .project-title {
+                line-height: 1em;
+            }
+            .date {
+                color: #aaa;
+                text-transform: lowercase;
+                line-height: 1.8em;
+            }
+        }
+    }
+    .member-image {
+        float: left;
+        width: 150px;
+        height: 150px;
+        margin-right: 20px;
+
+    }
+    .project-image {
+        float: right;
+        width: 200px;
+        height: 146px;
+        margin-right: 20px;
+
+    }
+}

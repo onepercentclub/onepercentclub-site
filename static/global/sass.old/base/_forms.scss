@@ -1,0 +1,451 @@
+//
+// All form elemenets & errors
+// --------------------------------------------------
+
+form {
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        
+        li {
+            @include resetlist();
+        }
+    }
+}
+	
+fieldset {	
+    background-color: $form-background;
+    padding: $base-padding/2 0;
+    margin-bottom: 1px;
+
+    &:last-of-type {
+    	padding-bottom: $base-padding;
+        margin-bottom: $base-margin;
+    }
+    
+    .fieldset-content {
+        @include grid(48,2,2);
+        padding: $base-padding/2 0;
+    }
+}
+
+// When outside of fieldset (usally only the first)
+legend {
+    position: relative;
+	padding: $base-padding*3/2 $base-padding*2;
+	background-color: $white;
+	width: 100%;
+		
+	strong {
+		display: block;
+		font-family: $font-family-heavy;
+		font-size: $font-size-medium;
+        color: $color-secondary;
+        text-transform: uppercase;
+    }
+
+    p {
+        margin: 0;
+    }
+}
+
+// Legend inside fieldset
+fieldset legend {
+    background-color: $gray-light;
+      
+    strong {
+        color: $white;
+    }
+}
+
+.control-group {
+    @include clear;
+    padding-bottom: $base-padding/2;
+    position: relative;
+
+    &:first-child {
+        padding-top: $base-padding;
+    }
+
+    .control-label {
+        @include grid(12, 2, 1);
+        padding: $base-padding/2 0;
+        font-family: $font-family-heavy;
+        
+        &.wide {
+            @include grid(48,2,2);
+        }
+    }
+
+    .controls {
+        position: relative;
+        @include grid(36,1,2);
+        float: right;
+        
+        &.wide {
+            @include grid(48,2,2);
+        }
+
+        .inline-prepend {
+            @include grid(24,0,1);
+        }
+
+        .inline-append {
+            @include grid(24,1,0);
+        }
+    }
+}
+
+.message {
+    display: block;
+    @include clear;
+    position: relative;
+    color: $color-text-light;
+    font-family: $font-family-heavy;
+    padding: $base-padding $base-padding*2;
+    margin-top: 1px;
+    margin-bottom: $base-margin;
+    background-color: $color-secondary;
+    
+    .message-close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: $base-padding $base-padding;
+        color: $color-text-light;
+        text-decoration: none;
+        
+        &:hover, &:active {
+            color: $white;
+        }
+    }
+    
+    .message-title {
+        font-family: $font-family-bold;
+    }
+    
+    .message-content {
+        font-family: $font-family-heavy;
+    }
+    
+    &.is-error {
+        background-color: $color-error;
+    }
+}
+
+// Error inline
+p.error, label.error {
+    display: block;
+    margin: 0 0 $base-padding/2 0;
+    background-color: $color-error;
+    padding: $base-padding/2 $base-padding;
+    color: $white;
+    font-size: $font-size-small;
+    font-family: $font-family-heavy;
+}
+
+
+// Errors on right side
+.has-errors {
+    @include grid(24);
+    z-index: 10;
+    position: absolute;
+    right: -50%;
+    @include single-box-shadow( rgba(0,0,0,0.25) , 0, 0, 12px, 0px);
+
+
+    background-color: $color-error;
+    border: 1px solid darken($color-error, 10%);
+    padding: $base-padding/2 $base-padding;
+    color: $white;
+    font-size: $font-size-small;
+    font-family: $font-family-heavy;
+	
+    p {
+        margin: 0;
+    }
+
+    &:after {
+        top: 7px;
+        position: absolute;
+        display: block;
+        left: -14px;
+        width: 14px;
+        height: 23px;
+        background: image-url("form-error-back-arrow.png") transparent no-repeat 0 0;
+        content: ' ';
+    }
+}
+
+// Inputs & Textareas
+// -------------------------
+
+textarea {
+    overflow: auto;
+    resize: none;
+    vertical-align: top;
+    display: block;
+}
+
+
+// Hide default arrow
+select {
+    // Webkit
+	-webkit-appearance: none;
+	-webkit-border-radius: 0;
+	-webkit-box-shadow: none;
+	-webkit-padding-end: $base-padding;
+	-webkit-padding-start: $base-padding;
+	-webkit-user-select: none;
+	
+	// Firefox
+	-moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+    
+	background-image: image-url("select-arrow.png");
+	background-position: center right;
+	background-repeat: no-repeat;
+	
+	&:hover, &:focus {
+		border-color: $color-secondary;
+		background-image: image-url("select-arrow-hover.png");
+	}
+}
+
+// Hide default arrow IE 10
+select::-ms-expand {
+	visibility: hidden;
+}
+
+select,
+option,
+textarea,
+input[type=text],
+input[type=password],
+input[type=number],
+input[type=search],
+input[type=email],
+input[type=tel],
+input[type=url] {
+    color: $gray-darker;
+    border: 1px solid $input-border;
+    font-family: $base-font-family;
+    width: 100%;
+    padding: $base-padding/2 $base-padding;
+    background-color: $white;
+    @include transition(all 0.2s ease-out);
+    @include box-shadow(inset 2px 2px 0 rgba($black, 0.05));
+    
+    & + .flaticon {
+        @include transition(all 0.2s ease-out);
+    }
+
+    &:hover, &:focus {
+        border-color: $color-secondary;
+        outline: 0;
+        color: $gray-darker;
+        @include box-shadow(none);
+        
+        & + .flaticon {
+            color: $color-secondary !important;
+        }
+    }
+
+    &.error {
+        border-color: $color-error;
+    }
+}
+
+::-webkit-input-placeholder { color: $gray-light; }
+::-moz-placeholder { color: $gray-light; }
+:-ms-input-placeholder { color: $gray-light; }
+input:-moz-placeholder { color: $gray-light; }
+textarea:-moz-placeholder { color: $gray-light; }
+
+
+// Tags
+// -------------------------
+
+.tags {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-indent: 0;
+    
+    li {
+        @include resetlist;
+        display: inline-block;
+        padding: $base-padding/2 $base-padding/2 $base-padding/2 $base-padding;
+        margin: 0 $base-margin/4 $base-margin/2 0;
+        color: $white;
+        font-size: $font-size-small;
+        text-transform: uppercase;
+        background-color: $color-secondary;
+        
+        .flaticon {
+            margin-right: $base-margin/2;
+        }
+        
+        .delete {
+            color: $white;
+            cursor: pointer;
+            
+            &:hover {
+                color: $color-primary;
+            }
+        }
+    }
+}
+
+.btn-tag, .btn-modest {
+    font-size: $font-size-small !important;
+}
+
+input.tag {
+    width: 200px;
+}
+
+
+// Checkboxes & Radios
+// -------------------------
+
+// We got our own fancy checkbox & radio, so hide the fugly ones.
+label.checkbox,
+label.radio {
+    float: left;
+	cursor: hand;
+	cursor: pointer;
+    display: block;
+    margin-bottom: $base-margin/2;
+    margin-right: $base-margin;
+        
+    span {
+        display: inline-block;
+        height: 2em;
+        line-height: 2em;
+        cursor: hand;
+        cursor: pointer;
+        background-image: $icons;
+        background-repeat: no-repeat;
+        text-indent: 2em + $base-padding/2;
+    }
+    
+    input[type="checkbox"],
+    input[type="radio"] {
+        display: none;
+    }
+
+    input[type="checkbox"] + span {
+    	background-position: sprite-position($icons, form-checkbox-default, 0, 0);
+    }
+    
+    input[type="radio"] + span {
+    	background-position: sprite-position($icons, form-radio-default, 0, 0);
+    }
+    
+    input[type="checkbox"]:checked + span {
+    	background-position: sprite-position($icons, form-checkbox-checked, 0, 0);
+    }
+    
+    input[type="radio"]:checked + span {
+    	background-position: sprite-position($icons, form-radio-checked, 0, 0);
+    }
+}
+
+// Differt view for radio buttons
+.radio-select {
+
+    label {
+        margin: 0 0 0 -1px;
+        
+        span {
+            display: block;
+            padding: 0;
+            background: none;
+            height: auto;
+            line-height: $base-line-height;
+            text-indent: 0;
+            
+            margin: 0;
+            padding: $base-padding/2 $base-padding;
+            color: $white;
+            border: 1px solid darken($gray-light, 5%);
+            background-color: $gray-light;
+            cursor: pointer;
+            @include border-radius(1px);
+            text-align: center;
+            
+        }
+        
+        input[type=radio]:checked + span {
+            position: relative;
+            border-color: darken($color-secondary, 5%);
+            font-family: $font-family-heavy;
+            background: $color-secondary;
+            z-index: 10;
+        }
+        
+    }
+    
+    
+}
+
+// Special groups for horizontal views
+.radio-group, .radio-select {
+    
+    &.two {
+        label{
+            @include grid(24);
+        }
+    }
+    
+    &.three {
+        label{
+            @include grid(16);
+        }
+    }
+    
+    &.four {
+        label {
+            @include grid(12);
+        }
+    }
+}
+
+
+// Disabled state
+// -------------------------
+
+input[disabled],
+select[disabled],
+textarea[disabled],
+input[readonly],
+select[readonly],
+textarea[readonly] {
+    cursor: not-allowed;
+    background-color: $input-disabled-background;
+}
+
+
+// Other form elements
+// -------------------------
+    
+.agree {
+    margin-bottom: 0;
+}
+
+.file-upload {
+    
+    .member-avatar {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    
+    .btn-upload {
+        margin-left: $base-margin*2;
+    }
+    
+}

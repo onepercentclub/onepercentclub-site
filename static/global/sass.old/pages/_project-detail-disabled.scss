@@ -1,0 +1,129 @@
+//
+// Project detail
+// --------------------------------------------------
+
+.detail {
+    @include clearfix;
+    padding-top: $base-padding;
+    
+    .project-meta {
+        float: left;
+        font-family: $font-family-heavy;
+    }
+    
+    #share {
+        float: left;
+    }
+    
+    .project-title {
+        clear: both;
+        font-size: $font-size-larger;
+    }
+    
+    .project-status {
+        @include clear;
+        padding: $base-padding/4 0;
+    }
+    
+    .project-days-left {
+        @include grid(12,1,1);
+    	color: $gray-light;
+    	margin-top: $base-margin/2;
+    	
+    	strong {
+    	    font-size: 2em;
+    	    
+    	    em {
+        	    font-size: 0.5em;
+        	    font-family: $base-font-family;
+            }
+    	}
+    }
+    
+    .project-fund {
+        @include grid(14,1,1);
+    }
+    
+    .project-fund-amount {
+    
+        .amount-donated {
+            font-size: 1.5em;
+        }
+    }
+    
+    .project-action {
+        @include grid(22,1,1);
+        float: right;
+        
+        .btn {
+            font-family: $font-family-bold;
+            white-space: nowrap;
+            font-size: 1.5em;
+            display: block;
+            
+            .flaticon {
+                color: $white;
+                font-size: 1.2em;
+            }
+        }
+    }
+}
+
+#project-detail {
+    background-color: $gray-darkest;
+    color: $color-text-light;
+    
+    .project-image img {
+       border: 1px solid $gray-lighter; 
+    }
+    
+    .project-title {
+        color: $white;
+    }
+    
+    .project-days-left {
+    	color: $gray-light;
+    	
+    	strong {
+    	    color: $gray-lighter;
+    	    
+    	    em {
+        	    color: $gray-light;  
+            }
+    	}
+    }
+    
+    .project-fund-amount {
+    	color: $gray-light;
+    
+        .amount-donated {
+            color: $color-text-light;
+        }
+        
+        strong {
+            color: $gray-light;
+        }
+    }
+    
+    #project-members {
+        background-color: $gray-darker;
+    }
+}
+
+#project-members {
+    padding: $base-padding 0;
+    background-color: $gray-darker;
+    
+    .project-member-list {
+        @include grid(48,1,1);
+    }
+}
+
+#project-actions {
+    border-top: 1px solid $gray-light;
+    background-color: $gray-lighter;
+    
+    .tabs {
+        @include grid(48,1,1);
+    }
+}

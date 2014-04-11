@@ -1,0 +1,188 @@
+//
+// Global search 
+// --------------------------------------------------
+
+#search {
+    @include clear;
+    background-color: $gray-lighter;
+}
+
+#search-form {
+    @include grid(48,1,0);
+    padding: $base-padding 0;
+    	
+    .control {
+        @include grid(12,0,1);
+        position: relative;
+        
+        input {
+			height: 40px;
+			padding-left: 40px;
+		}
+        
+        select {
+            height: 40px;
+            text-transform: capitalize;
+            padding-left: 40px;
+        }
+        
+        select option:first-child {
+            color: $gray;
+            text-transform: none;
+        }
+        
+        select option:selected {
+            font-family: $font-family-heavy;
+        }
+        
+        .flaticon {
+    		position: absolute;
+    		top: 2px;
+    		left: 10px;
+            font-size: 22px;
+            display: block;
+            color: $gray-light;
+            text-align: center;
+            line-height: 40px;
+        }
+    }
+}
+
+#search-navigation {
+    @include clearfix;
+    @include grid(48,1,0);
+    padding-top: $base-padding*2;
+    text-transform: uppercase;
+
+    .compact & {
+        padding-top: $base-padding;
+    }
+
+	header {
+    	@include grid(8,0,0);
+    	
+    	h2 {
+        	margin: 0;
+        	padding: 0;
+        	color: $color-heading;
+
+        	em {
+            	color: $gray-light;
+                font-style: normal;
+        	}
+    	}
+    	h4 {
+        	margin: 0;
+        	padding: 0;
+        	color: $color-heading;
+
+        	em {
+            	color: $gray-light;
+                font-style: normal;
+        	}
+    	}
+
+	}
+	
+    .search-reset {
+        font-size: $font-size-smallest;
+        color: $gray;
+        text-decoration: none;
+    }
+        
+    .search-sort {
+    	@include grid(28,0,0);
+    	margin-top: $base-margin;
+        text-align: center;
+		font-size: $font-size-small;
+        color: $gray;
+		
+        a {
+            margin-left: $base-padding/2;
+            text-decoration: none;
+            
+            &.active {
+                text-decoration: underline;
+                font-weight: 300;
+            }
+        }
+    }
+    
+    .search-pagination {
+    	@include grid(11,1,0);
+    	text-align: right;
+    	vertical-align: middle;
+    	margin-top: $base-margin;
+		font-size: $font-size-small;
+		
+    	.search-showing {
+    		margin-right: $base-padding;
+	    	position: relative;
+    	}
+    	
+    	.next-page,
+    	.previous-page {
+	    	font-size: 1.5em;
+			color: $gray-lighter;
+	    	text-decoration: none;
+	    	vertical-align: middle;
+		}
+		
+		a.next-page,
+		a.previous-page {
+			color: $gray-darker;
+			
+			&:hover, &:active {
+		    	color: $color-primary;
+		    }
+	    }
+    }
+}
+
+#search-results {
+    @include grid(48,1,0);
+    margin-top: $base-margin*2;
+
+    .compact {
+        margin-top: $base-margin;
+    }
+
+    .project-item, .task-item {
+        background-image: none;
+        padding: 0;
+        @include grid(12,0,1);
+        
+        
+    }
+    
+    .project-item {
+    
+        &:hover {
+            background-color: $black;
+            
+            .project-image {
+                zoom: 3;
+                height: 999px;
+            }
+            
+            .project-title, .project-location, .project-status {
+                display: none;
+            }
+            
+            .project-description {
+        	    display: block;
+            }
+        }
+    }
+    
+    .no-results {
+        @include resetlist;
+        padding: $base-padding 0;
+        text-align: center;
+        color: $gray;
+        font-family: $font-family-heavy;
+        font-size: $font-size-large;
+    }
+}
+    
+    

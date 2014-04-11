@@ -1,0 +1,218 @@
+/* =========== Global Layout */
+
+body { 
+    overflow-y: scroll;
+}
+
+// Global Layout Elements
+// -------------------------
+
+#main {
+	
+}
+
+#content {
+	
+}
+
+.l-section {
+    width: 100%;
+	min-width: $min-width;
+	max-width: 100%;
+}
+
+.l-wrapper {
+	@include clear;
+	position: relative;
+	min-width: $min-width;
+	max-width: $max-width;
+	margin: 0 auto;
+	height: 100%;
+}
+
+.l-content, .l-header {
+	@include grid(32,1,1);
+}
+
+.l-sidebar {
+	@include grid(16,1,1);
+	margin-top: $base-padding*2;
+}
+
+.l-results {
+	
+}
+
+.l-results-item {
+	
+}
+/* =========== Content Layout */
+
+// Specific Layout Elements
+// -------------------------
+
+.l-full {
+	@include grid(48,1,1);
+}
+
+.l-two-third {
+	@include grid(32,1,1);
+}
+
+.l-half {
+	@include grid(24,1,1);
+}
+
+.l-one-third {
+	@include grid(16,1,1);
+}
+
+.l-quarter {
+	@include grid(12,1,1);
+}
+
+.l-center {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+// Sticky Footer
+// -------------------------
+
+html, body {
+  	height: 100%;
+}
+
+#main {
+  	min-height: 100%;
+  	margin-bottom: -632px; // equal to footer height + 2x margin */
+  	padding-bottom: $base-margin*2;
+}
+
+#main:after {
+  	content: "";
+  	display: block;
+}
+
+#footer, #main:after {
+  	height: 600px;
+}
+
+#footer {
+	margin-top: 32px;
+	clear: both;
+}
+
+
+// Reusable layout for content 
+// (classes are assigned by backend)
+// -------------------------
+
+.image {
+	
+	img {
+    	width: 100%;
+    	position: relative;
+    	vertical-align: middle;
+    }
+}
+
+.text {
+    //white-space: pre-line;
+}
+
+.text a {
+    
+}
+
+.text.align-float-left {
+	@include grid(24,0,2);
+    float: left;
+}
+
+.text.align-float-right {
+	@include grid(24,0,2);
+    float: right;
+}
+
+text.align-center {
+	clear: both;
+	@include grid(24,12,12);
+}
+
+.image.align-float-left {
+	@include grid(16,0,2);
+    float: left;
+    clear: both;
+
+    img {
+    	width: 100%;
+    	position: relative;
+    	vertical-align: middle;
+    }
+
+    + .text {
+    	clear: right !important;
+	    @include grid(32,0);
+    }
+}
+
+.image.align-float-right {
+	@include grid(16,1);
+    float: right;
+    clear: both;
+
+    img {
+    	width: 100%;
+    	position: relative;
+    	vertical-align: middle;
+    }
+
+    + .text {
+    	clear: left !important;
+	    @include grid(32,0); 
+
+		h3 {
+			padding-top: 0 !important;
+		}
+    }
+}
+
+.image.align-center {
+	clear: both;
+	
+    img {
+	    width: 100%;
+    }
+
+}
+
+.left { float: left; }
+.right { float: right; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.text-center { text-align: center; }
+.nowrap { white-space: nowrap; }
+
+
+// Responsive 
+// TODO ?
+// -------------------------
+
+
+/* Tablets */
+@media only screen and (max-width: 960px) {
+    //body { font-size: 14px; }
+}
+
+/* Phones */
+@media only screen and (max-width: 520px) {
+    //header, div.container section { @include grid-reset; }
+}
+
+/* Retina */
+@media only screen and (-webkit-min-device-pixel-ratio : 2), only screen and (min-device-pixel-ratio : 2) {
+    
+}
+

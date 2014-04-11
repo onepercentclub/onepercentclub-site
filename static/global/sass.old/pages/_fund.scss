@@ -1,0 +1,186 @@
+//
+// Funding steps (overwrites modules)
+// --------------------------------------------------
+
+#fund {
+    margin-bottom: $base-margin*2;
+    
+    .l-content {
+        position: relative;
+        
+        .btn-login {
+            z-index: 10;
+        }
+    }
+    
+    .fund-header {
+        background-color: $gray-lighter;
+        padding-top: $base-padding;
+        
+        h1 {
+            color: $color-heading;
+        }
+    }
+    
+    // Placeholder when donation list is empty
+    .fund-empty {
+        @include clear;
+        @include transition(all 0.2s ease-out);
+        margin: $base-margin 0;
+        padding: $base-padding 0;
+        
+        .flaticon, .icon {
+			@include grid(12,1,1);
+			@include transition(all 0.2s ease-out);
+			text-align: center;
+			font-size: 5em;
+			line-height: 1em;
+			color: $gray-lighter;
+		}
+        
+        legend, a {
+			@include grid(36,1,1);
+            color: $color-text;
+            text-decoration: none;
+			
+			strong {
+    			text-transform: uppercase;
+    			color: $color-primary;
+    			@include transition(all 0.2s ease-out);
+			}
+        }
+        
+        a:hover, a:active {
+            
+            .flaticon {
+                color: $gray;
+            }
+            
+            strong {
+                color: $color-secondary;
+            }
+            
+        }
+    }
+    
+    .btn-login {
+        top: 0;
+        right: 0;
+        position: absolute;
+        float: right;
+    }
+    
+    .is-loading-small {
+        @include prepend(2);
+    }
+}
+
+    
+// Total amount bar
+.fund-total {
+    @include clear;
+    clear: both;
+	text-transform: uppercase;
+	padding: 0;
+	margin: 0;
+	background-color: transparent;
+	
+	.fund-total-label {
+	    @include clear;
+	    @include grid(24,0,0);
+	    float: left;
+        line-height: $base-line-height;
+        padding: 0 $base-padding/1.5;
+        font-size: $font-size-larger;
+        color: $gray;
+        background-color: $gray-lighter;
+        padding: $base-padding/2 $base-padding $base-padding/2 $base-padding*1.6;
+	}
+	
+	.fund-total-amount {
+	    @include clear;
+	    @include grid(24,0,0);
+	    position: relative;
+        text-align: right;
+        float: right;
+        line-height: $base-line-height;
+		font-family: $font-family-bold;
+		font-size: $font-size-larger;
+		background-color: $gray-lighter;
+        color: $gray;
+        padding: $base-padding/2 $base-padding*1.6 $base-padding/2 $base-padding/2;
+	}
+	
+	.currency {
+    	font-style: normal;
+	}
+	
+	.fund-amount-control {
+    	margin-top: 0;
+    	@include grid(24,1,0);
+	}
+
+}
+
+
+// Payment select (TODO: move to make modular?)
+.tabs-vertical {
+    @include grid(16,1,0);
+    margin-top: 0;
+    
+    .tab-item {
+        @include clear;
+        display: block;
+        width: 100%;
+        
+        .radio {
+            width: 100%;
+            margin: 0;
+            padding: $base-padding $base-padding;
+            font-family: $font-family-heavy;
+            
+            &.selected {
+                background-color: $gray-lighter;
+            }    
+        }
+    }
+}
+
+
+.tab-content {
+    @include clear;
+    @include grid(32,0,0);
+    min-height: 16em;
+    background-color: $gray-lighter;
+    padding: $base-padding $base-padding *2;
+    
+    .radio {
+        @include grid(24,0,1);
+    }
+    
+    ul {
+        @include clear;
+    }
+    
+    .btn-proceed {
+        float: right;
+        clear: both;
+        margin-top: $base-margin;
+    }
+}
+
+// Monthly donation
+#fund-monthly {
+    
+    legend {
+        padding: 0;
+    }
+    
+    .fund-monthly-details {
+        margin-top: $base-margin*2;
+    }
+}
+
+.fund-monthly-cancel {
+   font-size: $font-size-small;
+}
