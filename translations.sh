@@ -51,7 +51,6 @@ case "$1" in
             $MAKEJSMESSAGES
 
             mv locale ../
-
             ;;
 
         push)

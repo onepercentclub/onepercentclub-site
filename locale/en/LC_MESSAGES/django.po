@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-18 10:23+0100\n"
+"POT-Creation-Date: 2014-04-10 16:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -70,6 +70,10 @@ msgstr ""
 #: base.html:124
 #, python-format
 msgid "What is 1%%CLUB?"
+msgstr ""
+
+#: base.html:145
+msgid "Start your project"
 msgstr ""
 
 #: base.html:153
@@ -369,11 +373,17 @@ msgstr ""
 msgid "Thanks for signing up!"
 msgstr ""
 
-#: accounts/signup.html:16
-msgid "We've sent you an email. Please click <strong>Activate Profile</strong> in the email we just sent you."
+#: accounts/signup.html:15
+#, python-format
+msgid ""
+"\n"
+"            We've sent you an email. In this mail you'll find a link to confirm your registration. <br />\n"
+"            So what are you waiting for? You’re just one click away from being the newest member of 1%%Club!<br /><br />\n"
+"            (Nothing in your inbox? Check your Spam folder or Junk E-mail)\n"
+"        "
 msgstr ""
 
-#: accounts/signup.html:23
+#: accounts/signup.html:26
 #, python-format
 msgid ""
 "\n"
@@ -381,29 +391,29 @@ msgid ""
 "    "
 msgstr ""
 
-#: accounts/signup.html:31
+#: accounts/signup.html:34
 msgid "Have an account?"
 msgstr ""
 
-#: accounts/signup.html:31
+#: accounts/signup.html:34
 msgid "Log in here"
-msgstr ""
-
-#: accounts/signup.html:36
-#, python-format
-msgid "Why join 1%%Club?"
-msgstr ""
-
-#: accounts/signup.html:38
-msgid "It's easy to find projects you like."
 msgstr ""
 
 #: accounts/signup.html:39
 #, python-format
+msgid "Why join 1%%Club?"
+msgstr ""
+
+#: accounts/signup.html:41
+msgid "It's easy to find projects you like."
+msgstr ""
+
+#: accounts/signup.html:42
+#, python-format
 msgid "A fun and personal way to share your 1%%."
 msgstr ""
 
-#: accounts/signup.html:40
+#: accounts/signup.html:43
 msgid "You'll receive updates on the progress of the projects you support."
 msgstr ""
 
@@ -427,6 +437,10 @@ msgstr ""
 #: registration/activation_email.html:56
 #, python-format
 msgid "Your activation code will expire in %(expiration_days)s days."
+msgstr ""
+
+#: registration/activation_email.html:57
+msgid "If the link isn't working for you please copy and paste this url into your browser: "
 msgstr ""
 
 #: registration/logged_out.html:9
