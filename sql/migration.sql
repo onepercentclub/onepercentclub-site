@@ -283,6 +283,8 @@ UPDATE projects_project p
 
 ALTER TABLE projects_project DROP COLUMN phase;
 
+-- Add 'story' column to projects
+alter table projects_project ADD COLUMN story text;
 
 --
 -- TASKS

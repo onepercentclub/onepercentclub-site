@@ -69,6 +69,8 @@ class Project(BaseProject):
 
     partner_organization = models.ForeignKey('projects.PartnerOrganization', null=True, blank=True)
 
+
+
     latitude = models.DecimalField(
         _('latitude'), max_digits=21, decimal_places=18, null=True, blank=True)
     longitude = models.DecimalField(
@@ -92,6 +94,8 @@ class Project(BaseProject):
     amount_asked = models.PositiveIntegerField(default=0)
     amount_donated = models.PositiveIntegerField(default=0)
     amount_needed = models.PositiveIntegerField(default=0)
+
+    story = models.TextField(_("story"), help_text=_("This is the help text for the story field"), blank=True, null=True)
 
     # TODO: add
     effects = models.TextField(_("effects"), help_text=_("What will be the Impact? How will your Smart Idea change the lives of people?"), blank=True, null=True)
