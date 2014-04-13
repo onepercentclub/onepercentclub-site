@@ -11,7 +11,6 @@ from django.views.generic.detail import DetailView
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
-from apps.projects.models import ProjectBudgetLine, ProjectPhases, ProjectTheme
 from apps.fund.models import Donation, DonationStatuses
 from apps.projects.serializers import (
     ProjectSupporterSerializer, ProjectPreviewSerializer, ProjectThemeSerializer)
@@ -169,31 +168,6 @@ class ProjectDonationList(ProjectSupporterList):
         return queryset.filter(**filter_kwargs)
 
 
-class ManageProjectList(generics.ListCreateAPIView):
-    model = Project
-    serializer_class = ManageProjectSerializer
-    permission_classes = (IsAuthenticated, )
-    paginate_by = 10
-
-    def get_queryset(self):
-        """
-        Overwrite the default to only return the Projects the currently logged in user owns.
-        """
-        queryset = super(ManageProjectList, self).get_queryset()
-        queryset = queryset.filter(owner=self.request.user)
-        queryset = queryset.order_by('-created')
-        return queryset
-
-    def pre_save(self, obj):
-        obj.owner = self.request.user
-
-
-class ManageProjectDetail(generics.RetrieveUpdateAPIView):
-    model = Project
-    serializer_class = ManageProjectSerializer
-    permission_classes = (IsProjectOwner, )
-
-
 # Django template Views
 
 class ProjectDetailView(DetailView):
@@ -221,14 +195,4 @@ class ProjectIframeView(DetailView):
 #             mimetype='application/xml',
 #             **response_kwargs)
 
-
-class ProjectThemeList(generics.ListAPIView):
-    model = ProjectTheme
-    serializer_class = ProjectThemeSerializer
-
-
-
-class ProjectThemeDetail(generics.RetrieveAPIView):
-    model = ProjectTheme
-    serializer_class = ProjectThemeSerializer
 
