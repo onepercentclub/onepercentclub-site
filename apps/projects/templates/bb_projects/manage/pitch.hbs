@@ -30,12 +30,9 @@
     </fieldset>
     <fieldset>
         <ul>
-            {% bb_block_component label='Theme' errors='errors.theme' %}
-                {{view App.ThemeSelectView name='theme' selectionBinding="theme" classBinding="errors.theme.length:error"
-                prompt='Select one of the themes.'}}
-            {% endbb_block_component %}
+            {% bb_component 'bb-select-generic' valueProperty="'content.id'" labelProperty="'content.name'" options='allThemes' value='theme' name='theme' label=_('Theme') prompt=_('Select one of the themes.') errorsBinding='errors.theme' %}
 
-                {{#bb-form-field hint='Add some tags that characterise your project.' label='Tags' errors=errors.tags}}
+            {{#bb-form-field hint='Add some tags that characterise your project.' label='Tags' errors=errors.tags}}
                 {{view App.TagWidget tagsBinding="tags" name='tags' classBinding="errors.tags.length:error" prompt='Add some tags that characterise your project.'}}
             {{/bb-form-field}}
         </ul>
