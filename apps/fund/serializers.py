@@ -3,7 +3,7 @@ from apps.projects.serializers import ProjectPreviewSerializer
 from apps.vouchers.serializers import VoucherSerializer, OrderCurrentVoucherSerializer
 from bluebottle.bb_accounts.serializers import UserPreviewSerializer
 from bluebottle.bluebottle_drf2.serializers import EuroField
-from apps.projects.models import ProjectPhase
+from bluebottle.bb_projects.models import ProjectPhase
 from bluebottle.utils.serializers import MetaField
 from django.utils.translation import ugettext as _
 from rest_framework import serializers

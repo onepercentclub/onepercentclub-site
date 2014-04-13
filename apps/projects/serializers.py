@@ -32,7 +32,8 @@ class ProjectSerializer(BaseProjectSerializer):
 
     class Meta(BaseProjectSerializer):
         model = BaseProjectSerializer.Meta.model
-        fields = BaseProjectSerializer.Meta.fields + ('task_count', 'amount_asked', 'amount_donated', 'amount_needed')
+        fields = BaseProjectSerializer.Meta.fields + ('task_count', 'amount_asked', 'amount_donated', 'amount_needed',
+                                                      'story', 'status')
 
 
 class ProjectPreviewSerializer(BaseProjectPreviewSerializer):
@@ -41,16 +42,18 @@ class ProjectPreviewSerializer(BaseProjectPreviewSerializer):
     class Meta(BaseProjectPreviewSerializer):
         model = BaseProjectPreviewSerializer.Meta.model
         fields = ('id', 'title', 'image', 'status', 'pitch', 'popularity', 'country', 'task_count',
-                  'is_campaign', 'amount_asked', 'amount_donated', 'amount_needed', 'deadline')
+                  'is_campaign', 'amount_asked', 'amount_donated', 'amount_needed', 'deadline', 'status')
+
 
 class ManageProjectSerializer(BaseManageProjectSerializer):
     amount_asked = serializers.CharField(required=False)
-    amount_donated = serializers.CharField(required=False)
-    amount_needed = serializers.CharField(required=False)
+    amount_donated = serializers.CharField(read_only=True)
+    amount_needed = serializers.CharField(read_only=True)
 
     class Meta(BaseManageProjectSerializer):
         model = BaseManageProjectSerializer.Meta.model
-        fields = BaseManageProjectSerializer.Meta.fields + ('amount_asked', 'amount_donated', 'amount_needed')
+        fields = BaseManageProjectSerializer.Meta.fields + ('amount_asked', 'amount_donated', 'amount_needed', 'story')
+
 
 class ProjectSupporterSerializer(serializers.ModelSerializer):
     """
@@ -73,5 +76,4 @@ class ProjectDonationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Donation
         fields = ('member', 'date_donated', 'amount',)
-
 

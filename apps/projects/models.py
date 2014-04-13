@@ -1,5 +1,5 @@
 import datetime
-from bluebottle.bb_projects.models import BaseProject, ProjectTheme, ProjectPhase
+from bluebottle.bb_projects.models import BaseProject, ProjectTheme
 from django.db import models
 from django.db.models.aggregates import Count, Sum
 from django.db.models.signals import post_save
@@ -69,6 +69,8 @@ class Project(BaseProject):
 
     partner_organization = models.ForeignKey('projects.PartnerOrganization', null=True, blank=True)
 
+
+
     latitude = models.DecimalField(
         _('latitude'), max_digits=21, decimal_places=18, null=True, blank=True)
     longitude = models.DecimalField(
@@ -92,6 +94,8 @@ class Project(BaseProject):
     amount_asked = models.PositiveIntegerField(default=0)
     amount_donated = models.PositiveIntegerField(default=0)
     amount_needed = models.PositiveIntegerField(default=0)
+
+    story = models.TextField(_("story"), help_text=_("This is the help text for the story field"), blank=True, null=True)
 
     # TODO: add
     effects = models.TextField(_("effects"), help_text=_("What will be the Impact? How will your Smart Idea change the lives of people?"), blank=True, null=True)
@@ -156,6 +160,7 @@ class Project(BaseProject):
 
     @property
     def date_funded(self):
+        # FIXME: This is wrong. Date funded != date created.
         return self.created
 
     @models.permalink
@@ -169,6 +174,20 @@ class Project(BaseProject):
         bits = url.split('/')
         url = "/".join(bits[:2] + ['#!'] + bits[2:])
         return url
+
+    def get_meta_title(self, **kwargs):
+        return u"%(name_project)s | %(theme)s | %(country)s" % {
+            'name_project': self.title,
+            'theme': self.theme.name if self.theme else '',
+            'country': self.country.name if self.country else '',
+        }
+
+    def get_fb_title(self, **kwargs):
+        title = _(u"{name_project} in {country}").format(
+                    name_project = self.title,
+                    country = self.country.name if self.country else '',
+                )
+        return title
 
     def get_tweet(self, **kwargs):
         """ Build the tweet text for the meta data """
@@ -194,7 +213,6 @@ class Project(BaseProject):
         default_serializer = 'apps.projects.serializers.ProjectSerializer'
         preview_serializer = 'apps.projects.serializers.ProjectPreviewSerializer'
         manage_serializer = 'apps.projects.serializers.ManageProjectSerializer'
-
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -232,6 +250,8 @@ class ProjectBudgetLine(models.Model):
     def __unicode__(self):
         return u'{0} - {1}'.format(self.description, self.amount / 100.0)
 
+# FIXME: ProjectPhaseLog was removed here
+# Add a nice function/model/way to store status changes.
 
 class ProjectNeedChoices(DjangoChoices):
     skills = ChoiceItem('skills', label=_("Skills and expertise"))
