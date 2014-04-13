@@ -166,11 +166,11 @@ INSERT INTO bb_projects_projectphase (id, name, description, sequence, active, e
   (2, 'Plan - Submitted', '', 2, true, false, false, 'plan-submitted'),
   (3, 'Plan - Needs Work', '', 3, true, true, false, 'plan-needs-work'),
   (4, 'Plan - Rejected', '', 4, true, false, false, 'plan-rejected'),
-  (6, 'Campaign', '', 5, true, true, true, 'campaign'),
-  (7, 'Stopped', '', 6, true, false, false, 'stopped'),
-  (8, 'Done - Complete', '', 7, true, true, true, 'done-complete'),
-  (9, 'Done - Incomplete', '', 8, true, false, true, 'done-incomplete'),
-  (10, 'Done - Stopped', '', 9, true, false, false, 'done-stopped');
+  (5, 'Campaign', '', 5, true, true, true, 'campaign'),
+  (6, 'Stopped', '', 6, true, false, false, 'stopped'),
+  (7, 'Done - Complete', '', 7, true, true, true, 'done-complete'),
+  (8, 'Done - Incomplete', '', 8, true, false, true, 'done-incomplete'),
+  (9, 'Done - Stopped', '', 9, true, false, false, 'done-stopped');
 
 -- Project Theme
 
@@ -191,7 +191,7 @@ ALTER TABLE projects_project
 	ADD COLUMN image character varying(255) DEFAULT '' NOT NULL,
 	ADD COLUMN organization_id integer,
 	ADD COLUMN country_id integer,
-	ADD COLUMN theme_id integer DEFAULT 0 NOT NULL,
+	ADD COLUMN theme_id integer,
 	ADD COLUMN latitude numeric(21,18),
 	ADD COLUMN longitude numeric(21,18),
 	ADD COLUMN reach integer,
@@ -205,11 +205,6 @@ ALTER TABLE projects_project
   ADD COLUMN future text DEFAULT '',
   ADD COLUMN language_id integer;
 
-
-ALTER TABLE projects_project ADD CONSTRAINT "project_projects_language_id_refs_language_id" 
-  FOREIGN KEY ("language_id") 
-  REFERENCES "utils_language" ("id") DEFERRABLE INITIALLY DEFERRED;
-
 -- Language
 
 CREATE TABLE utils_language (
@@ -217,11 +212,15 @@ CREATE TABLE utils_language (
     code varchar(2) NOT NULL,
     language_name varchar(100) NOT NULL,
     native_name varchar(100) NOT NULL
-)
+);
 
-INSERT INTO bb_accounts_timeavailable (id, code, language_name, native_name) VALUES
+INSERT INTO utils_language (id, code, language_name, native_name) VALUES
   (1, 'en', 'English', 'English'),
   (2, 'nl', 'Dutch', 'Nederlands');
+
+ALTER TABLE projects_project ADD CONSTRAINT "project_projects_language_id_refs_language_id" 
+  FOREIGN KEY ("language_id") 
+  REFERENCES "utils_language" ("id") DEFERRABLE INITIALLY DEFERRED;
 
 -- Organization
 

@@ -30,7 +30,7 @@ class ProjectPreviewList(generics.ListAPIView):
     paginate_by_param = 'page_size'
     max_paginate_by = 100
 
-    filter_fields = ('status', 'country', 'theme' )
+    filter_fields = ('status', 'country', 'theme')
 
     def get_queryset(self):
         qs = Project.objects

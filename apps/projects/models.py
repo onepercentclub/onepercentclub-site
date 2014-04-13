@@ -176,18 +176,16 @@ class Project(BaseProject):
         return url
 
     def get_meta_title(self, **kwargs):
-        plan = self.projectplan
         return u"%(name_project)s | %(theme)s | %(country)s" % {
             'name_project': self.title,
-            'theme': plan.theme.name if plan.theme else '',
-            'country': plan.country.name if plan.country else '',
+            'theme': self.theme.name if self.theme else '',
+            'country': self.country.name if self.country else '',
         }
 
     def get_fb_title(self, **kwargs):
-        plan = self.projectplan
         title = _(u"{name_project} in {country}").format(
                     name_project = self.title,
-                    country = plan.country.name if plan.country else '',
+                    country = self.country.name if self.country else '',
                 )
         return title
 
