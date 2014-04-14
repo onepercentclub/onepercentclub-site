@@ -42,7 +42,7 @@ django-fluent-dashboard==0.3.2
 # WARNING: Make sure it's installed in your environment and not system-wide!
 #          The Fabric script depends on gitpython which needs to be available.
 fabric
-gitpython
+GitPython==0.3.2.RC1
 
 # Cowry dependencies.
 django_countries==1.5
