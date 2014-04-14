@@ -73,16 +73,17 @@ module.exports = function (grunt) {
     concat: {
       dist: {
         src: [
-          'static/global/js/vendor/jquery-1.8.3.js',
+          'static/build/js/components/jquery/jquery.js',
           'static/build/js/components/jquery-mockjax/jquery.mockjax.js',
           'static/build/js/components/pavlov/pavlov.js',
-          'static/global/js/vendor/handlebars-1.0.0.js',
-          'static/global/js/vendor/ember-v1.0.0.js',
-          'static/global/js/vendor/ember-data-v0.14.js',
-          'static/global/js/vendor/ember-data-drf2-adapter.js',
-          'static/global/js/plugins/ember.hashbang.js',
-          'static/global/js/vendor/globalize.js',
-          'static/global/jsi18n/en/*.js',
+          'bluebottle/common/static/js/vendor/handlebars-1.0.0.js',
+          'bluebottle/common/static/js/vendor/ember-v1.0.0.js',
+          'bluebottle/common/static/js/vendor/ember-data-v0.14.js',
+          'bluebottle/common/static/js/vendor/ember-data-drf2-adapter.js',
+          'bluebottle/common/static/js/vendor/ember-meta.js',
+          'bluebottle/common/static/js/plugins/ember.hashbang.js',
+          'bluebottle/common/static/js/vendor/globalize.js',
+          'bluebottle/common/static/jsi18n/en-us/*.js',
         ],
         dest: 'static/build/js/lib/deps.js'
       }
