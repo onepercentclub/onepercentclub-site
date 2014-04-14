@@ -1,5 +1,4 @@
 App.Project.reopen({
-    url: "projects",
 
     deadline: DS.attr('date'),
     amount_asked: DS.attr('number', {defaultValue: 0}),
