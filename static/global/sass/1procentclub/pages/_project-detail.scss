@@ -45,3 +45,12 @@
         @include grid(20,0,0);
     }
 }
+
+#project-members {
+    .member-list {
+        @include grid(48,1,1);
+        .member-initiator {
+            @include grid(14,0,1);
+        }
+    }
+}

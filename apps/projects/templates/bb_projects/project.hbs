@@ -41,15 +41,17 @@
     <section class="l-wrapper">
         <div class="project-status">
 
-            <div class="project-days-left">
             {{#if deadline}}
                 {{#if isCampaign}}
-                    <strong><span class="flaticon solid stopwatch-1"></span> {{daysToGo}} <em>{% trans "days to go" %}!</em></strong>
+                    <div class="project-days-left">
+                        <strong><span class="flaticon solid stopwatch-1"></span> {{daysToGo}} <em>{% trans "days to go" %}!</em></strong>
+                    </div>
                 {{else}}
-                    <strong><span class="flaticon solid clock-1"></span> {{daysToGo}} <em>{% trans "days to go" %}</em></strong>
+                    <div class="project-days-left">
+                        <strong><span class="flaticon solid clock-1"></span> {{daysToGo}} <em>{% trans "days to go" %}</em></strong>
+                    </div>
                 {{/if}}
             {{/if}}
-            </div>
 
             <div class="project-fund">
                 <p class="project-fund-amount">
@@ -61,11 +63,11 @@
                 {{bb-progressbar targetValue=amount_asked currentValue=amount_donated}}
             </div>
 
-            {{#if isFunding}}
+            {{!--#if isFunding--}}
                 <div class="project-action">
                     <a href='#' {{ action 'addDonation' this }} class="btn btn-primary btn-iconed"><span class="flaticon solid wallet-1"></span> {% trans "Support project" %}</a>
                 </div>
-            {{/if}}
+            {{!--/if--}}
         </div>
     </section>
 
@@ -84,15 +86,65 @@
 		                </li>
 		            </ul>
 		        </li>
+
+                <li class="project-member-fundraisers">
+
+                    <h4>
+                        Fundraisers
+                        <em>
+                            <a data-ember-action="405">
+                                 Total
+                            </a>
+                        </em>
+                    </h4>
+
+                    
+                    <ul>
+                        <li id="ember5269" class="ember-view">
+                            <a id="ember5279" class="ember-view member" href="#!/fundraisers/3">
+                                <span>
+                                    <span class="member-avatar">
+                                        <img src="http://onepercentclub.com/static/media/cache/f3/fb/f3fbe3ca80815511b1af621992de7bf5.jpg" alt="Mijnwebwinkel " data-original-title="" title="">
+                                    </span>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                
+                
+                    <a id="ember5138" class="ember-view fundraiser-become" href="#!/projects/sun4food/new-fundraiser">
+                        Become a fundraiser
+                    </a>
+                    
+                </li>
+
+                <li class="project-member-supporters">
+                    <h4>Supporters <em> Total</em></h4>
+                    <ul>
+                        <li>
+                            <a class="member" data-title="guest" data-content="6 days ago" title="">
+                                <span class="member-avatar">
+                                    <img src="/static/assets/images/default-avatar.png" alt="Guest">
+                                </span>
+                            </a>
+                        </li>                        
+                        <li>
+                            <a class="member" data-title="guest" data-content="6 days ago" title="">
+                                <span class="member-avatar">
+                                    <img src="/static/assets/images/default-avatar.png" alt="Guest">
+                                </span>
+                            </a>
+                        </li>                        
+                        <li>
+                            <a class="member" data-title="guest" data-content="6 days ago" title="">
+                                <span class="member-avatar">
+                                    <img src="/static/assets/images/default-avatar.png" alt="Guest">
+                                </span>
+                            </a>
+                        </li>                        
+                    </ul>
+                </li>
 			</ul>
-			{{#if deadline}}
-				<div class="project-deadline">
-					<span class="flaticon solid stopwatch-1"></span>
-					<span class="text">
-						{{daysToGoText daysToGo}}
-					</span>
-				</div>
-			{{/if}}
 		</section>
     </div>
 

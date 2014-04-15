@@ -9999,6 +9999,150 @@ form#manage-project-new {
   margin-top: 1em;
 }
 
+/* line 3, ../sass/1procentclub/modules/_projects.scss */
+.member-list li.project-member-fundraisers {
+  float: left;
+  width: 27.08333%;
+  margin-left: 0%;
+  margin-right: 2.08333%;
+}
+/* line 7, ../sass/1procentclub/modules/_projects.scss */
+.member-list li.project-member-supporters {
+  float: left;
+  width: 39.58333%;
+  margin-left: 2.08333%;
+  margin-right: 0%;
+  margin-right: 0;
+  float: right;
+}
+/* line 15, ../sass/1procentclub/modules/_projects.scss */
+.member-list li.project-member-fundraisers ul, .member-list li.project-member-supporters ul {
+  margin-bottom: 0.25em;
+}
+/* line 6, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_utilities.scss */
+.member-list li.project-member-fundraisers ul:after, .member-list li.project-member-fundraisers ul:before, .member-list li.project-member-supporters ul:after, .member-list li.project-member-supporters ul:before {
+  content: "";
+  display: table;
+}
+/* line 10, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_utilities.scss */
+.member-list li.project-member-fundraisers ul:after, .member-list li.project-member-supporters ul:after {
+  clear: both;
+}
+/* line 13, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_utilities.scss */
+.member-list li.project-member-fundraisers ul, .member-list li.project-member-supporters ul {
+  *zoom: 1;
+}
+/* line 20, ../sass/1procentclub/modules/_projects.scss */
+.member-list li.project-member-fundraisers .member, .member-list li.project-member-supporters .member {
+  width: 45px;
+  height: 45px;
+  color: #444444;
+  vertical-align: middle;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: normal;
+  line-height: 1em;
+}
+/* line 30, ../sass/1procentclub/modules/_projects.scss */
+.member-list li.project-member-fundraisers .member strong, .member-list li.project-member-supporters .member strong {
+  color: #ff619a;
+}
+/* line 34, ../sass/1procentclub/modules/_projects.scss */
+.member-list li.project-member-fundraisers .member em, .member-list li.project-member-supporters .member em {
+  font-style: normal;
+}
+/* line 40, ../sass/1procentclub/modules/_projects.scss */
+.member-list li.project-member-fundraisers .member:hover img, .member-list li.project-member-supporters .member:hover img {
+  margin-top: 4px;
+}
+/* line 46, ../sass/1procentclub/modules/_projects.scss */
+.member-list li.project-member-fundraisers .member:before, .member-list li.project-member-supporters .member:before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+/* line 56, ../sass/1procentclub/modules/_projects.scss */
+.member-list li.project-member-fundraisers .popover {
+  width: 460px;
+}
+/* line 59, ../sass/1procentclub/modules/_projects.scss */
+.member-list li.project-member-fundraisers .popover .fundraiser-image {
+  float: left;
+  width: 22.91667%;
+  margin-left: 0%;
+  margin-right: 2.08333%;
+  float: left;
+  margin-bottom: 1em;
+}
+/* line 64, ../sass/1procentclub/modules/_projects.scss */
+.member-list li.project-member-fundraisers .popover .fundraiser-image img {
+  border: 1px solid white;
+}
+/* line 70, ../sass/1procentclub/modules/_projects.scss */
+.member-list li.project-member-fundraisers .popover .fundraiser-content {
+  float: left;
+  width: 72.91667%;
+  margin-left: 0%;
+  margin-right: 2.08333%;
+  margin-bottom: 1em;
+}
+/* line 75, ../sass/1procentclub/modules/_projects.scss */
+.member-list li.project-member-fundraisers .popover .fundraiser-title {
+  font-size: 1.25em;
+  color: #00c051;
+  font-family: "Futura W02 Heavy", "Trebuchet MS", Helvetica, Arial, sans-serif;
+}
+/* line 81, ../sass/1procentclub/modules/_projects.scss */
+.member-list li.project-member-fundraisers .popover .fundraiser-name {
+  font-size: 1em;
+  font-family: "Futura W02 Heavy", "Trebuchet MS", Helvetica, Arial, sans-serif;
+}
+/* line 86, ../sass/1procentclub/modules/_projects.scss */
+.member-list li.project-member-fundraisers .popover .project-fund-amount {
+  margin-top: 1em;
+  color: #999999;
+  font-size: 0.875em;
+}
+/* line 91, ../sass/1procentclub/modules/_projects.scss */
+.member-list li.project-member-fundraisers .popover .project-fund-amount strong {
+  color: #444444;
+}
+/* line 105, ../sass/1procentclub/modules/_projects.scss */
+.member-list li.project-member-supporters .popover {
+  width: 240px;
+  text-align: center;
+}
+/* line 109, ../sass/1procentclub/modules/_projects.scss */
+.member-list li.project-member-supporters .popover .popover-title {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+/* line 114, ../sass/1procentclub/modules/_projects.scss */
+.member-list li.project-member-supporters .popover .popover-content {
+  margin-top: 0;
+  padding-top: 0;
+}
+/* line 120, ../sass/1procentclub/modules/_projects.scss */
+.member-list li .fundraiser-become {
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  font-family: "Futura W02 Heavy", "Trebuchet MS", Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
+  display: inline-block;
+  color: #ff619a;
+  padding-right: 16px;
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAALCAYAAABCm8wlAAAAfElEQVQoz2P4nziLAYgNgXgfEItD+XAMImyA+D0Q/wfi60Asia5gPVQShm8AsRSyAk4g3oGm6BYQy8AUgDA7EG9DU3QHiOWQHcQDxG/RFO1FNmErmuRdmAkcQLwdixtkYW5YjSZ5E4ilkX1hBMRv8IUDCOsC8X4glkAPSQDpL9be9X9n1gAAAABJRU5ErkJggg==") transparent no-repeat 100% 50%;
+}
+/* line 129, ../sass/1procentclub/modules/_projects.scss */
+.member-list li .fundraiser-become:hover, .member-list li .fundraiser-become:active {
+  padding-right: 20px;
+  text-decoration: none;
+}
+
 /* line 6, ../sass/1procentclub/modules/_wallposts.scss */
 #wallposts .wallpost .login-box {
   opacity: 0;
@@ -10113,6 +10257,21 @@ form#manage-project-new {
   width: 41.66667%;
   margin-left: 0%;
   margin-right: 0%;
+}
+
+/* line 50, ../sass/1procentclub/pages/_project-detail.scss */
+#project-members .member-list {
+  float: left;
+  width: 95.83333%;
+  margin-left: 2.08333%;
+  margin-right: 2.08333%;
+}
+/* line 52, ../sass/1procentclub/pages/_project-detail.scss */
+#project-members .member-list .member-initiator {
+  float: left;
+  width: 27.08333%;
+  margin-left: 0%;
+  margin-right: 2.08333%;
 }
 
 /* line 2, ../sass/1procentclub/pages/_task-detail.scss */
