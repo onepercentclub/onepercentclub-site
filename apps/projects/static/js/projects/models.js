@@ -1,24 +1,32 @@
 App.Project.reopen({
-//    url: "projects",
 
     deadline: DS.attr('date'),
     amount_asked: DS.attr('number', {defaultValue: 0}),
-    amount_donated: DS.attr('number'),
-    amount_needed: DS.attr('number'),
-
-    story: DS.attr('string'),
 
     maxAmountAsked: Ember.computed.lte('amount_asked', 1000000),
     minAmountAsked: Ember.computed.gte('amount_asked', 250),
 
-    task_count: DS.attr('number'),
+    amount_donated: DS.attr('number', {defaultValue: 0}),
+	amount_needed: DS.attr('number', {defaultValue: 0}),
 
-    isFunding: Em.computed.equal('status.id', '5'),
+	calculatedAmountNeeded: function() {
+		    return this.get('amount_asked') - this.get('amount_donated');
+    }.property('amount_asked', 'amount_donated'),
+
+	task_count: DS.attr('number'),
+
+    isFundable: Em.computed.equal('status.id', '5'),
 
     isStatusCampaign: Em.computed.equal('status.id', '5'),
-    isStatusCompleted: Em.computed.equal('status.id', '7')
-}
-);
+    isStatusCompleted: Em.computed.equal('status.id', '7'),
+
+	save: function () {
+		// the amount_needed is calculated here and not in the server
+		this.set('amount_needed', this.get('calculatedAmountNeeded'));
+		this._super();
+	}
+
+});
 
 App.MyProject.reopen({
     image: DS.attr('image'),
@@ -52,11 +60,4 @@ App.MyProject.reopen({
         'destination_impact' : 'Destination impact'
     }
 
-});
-
-App.ProjectPreview.reopen({
-    deadline: DS.attr('date'),
-    amount_asked: DS.attr('number', {defaultValue: 0}),
-    amount_donated: DS.attr('number'),
-    amount_needed: DS.attr('number')
 });
