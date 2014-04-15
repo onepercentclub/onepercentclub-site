@@ -25,7 +25,7 @@
     </fieldset>
     <fieldset>
         <ul>
-            {% bb_component 'bb-upload-image' name='img_upload' label=_('Picture') hint=_('Upload the picture that best describes your campaign.') fileBinding='image' image_url='image.large' buttonLabel=_('Upload picture') errorsBinding='errors.image' %}
+            {% bb_component 'bb-upload-display-image' name='img_upload' label=_('Picture') hint=_('Upload the picture that best describes your campaign.') fileBinding='image' buttonLabel=_('Upload picture') errorsBinding='errors.image' %}
 
             {% bb_component 'bb-video-link' label=_('Video') name='video' hint=_('Add a video if you want. Make it sparkling! Your energy will be your best selling point.') placeholder=_('Not required') valueBinding='video_url' video_html='video_html' errorsBinding='errors.video' %}
         </ul>

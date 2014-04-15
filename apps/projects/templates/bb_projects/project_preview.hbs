@@ -9,11 +9,13 @@
         {{#linkTo 'project' id }}
             <span class="project-header">
                 <figure class="project-image">
-                    {{#if image.small.length}}
-                        <img {{bindAttr src="image.small" }} />
-                    {{else}}
-                        <img {{bindAttr src="image" }} />
-                    {{/if}}
+                       {{#if image.small.length}}
+                            <img {{bindAttr src="image.small"}} />
+                        {{else}}
+                            <div class="previewUpload" style="background-position:center; background-size: contain;">
+                            </div>
+                            <img {{bindAttr src="image" }} />
+                        {{/if}}
                 </figure>
                 <span class="project-title">
                     <h3>{{title}}</h3>
