@@ -309,7 +309,7 @@ def prepare_django():
         run('chmod a+rw static/media')
 
         run_web('./manage.py syncdb --migrate --noinput --settings=%s' % env.django_settings)
-        run_web('./manage.py collectstatic -l -v 0 --noinput --settings=%s' % env.django_settings)
+        run_web('./manage.py collectstatic --clear -l -v 0 --noinput --settings=%s' % env.django_settings)
 
         # Disabled for now; it unjustly deletes cached thumbnails
         # prune_unreferenced_files()
