@@ -57,8 +57,8 @@
 @import "modules/project-iframe";
 @import "modules/owner-actions";
 @import "modules/maps";
-@import "modules/image-upload";
-@import "modules/document-upload";
+// @import "modules/image-upload";
+// @import "modules/document-upload";
 
 /* Pages */
 @import "pages/home";
@@ -92,3 +92,5 @@
 
 @import "1procentclub/modules/wallposts";
 @import "1procentclub/pages/project-detail";
+@import "1procentclub/pages/task-detail";
+@import "1procentclub/pages/profile";
