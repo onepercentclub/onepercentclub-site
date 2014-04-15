@@ -1,3 +1,4 @@
+from apps.projects.models import ProjectBudgetLine
 from bluebottle.bb_accounts.serializers import UserPreviewSerializer
 from rest_framework import serializers
 
@@ -45,15 +46,26 @@ class ProjectPreviewSerializer(BaseProjectPreviewSerializer):
                   'is_campaign', 'amount_asked', 'amount_donated', 'amount_needed', 'deadline', 'status')
 
 
+class ProjectBudgetLineSerializer(serializers.ModelSerializer):
+
+    amount = EuroField()
+    project = serializers.SlugRelatedField(slug_field='slug')
+
+    class Meta:
+        model = ProjectBudgetLine
+        fields = ('id', 'project', 'description', 'amount')
+
+
 class ManageProjectSerializer(BaseManageProjectSerializer):
     amount_asked = serializers.CharField(required=False)
     amount_donated = serializers.CharField(read_only=True)
     amount_needed = serializers.CharField(read_only=True)
+    budget_lines = ProjectBudgetLineSerializer(many=True, source='projectbudgetline_set', read_only=True)
 
     class Meta(BaseManageProjectSerializer):
         model = BaseManageProjectSerializer.Meta.model
-        fields = BaseManageProjectSerializer.Meta.fields + ('amount_asked', 'amount_donated', 'amount_needed', 'story')
-
+        fields = BaseManageProjectSerializer.Meta.fields + ('amount_asked', 'amount_donated', 'amount_needed',
+                                                            'story', 'budget_lines')
 
 class ProjectSupporterSerializer(serializers.ModelSerializer):
     """
