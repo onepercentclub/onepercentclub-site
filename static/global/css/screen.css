@@ -1,89 +1,45 @@
-/* Welcome to Compass.
- * In this file you should write your main styles. (or centralize your imports)
- * Import this file using the following HTML or equivalent:
- * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
-/* ========================= Includes ============================= */
-/* Compass */
-/* line 17, ../../../../../.rvm/gems/ruby-2.0.0-p451/gems/compass-0.12.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font: inherit;
-  font-size: 100%;
-  vertical-align: baseline;
-}
-
-/* line 22, ../../../../../.rvm/gems/ruby-2.0.0-p451/gems/compass-0.12.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-html {
-  line-height: 1;
-}
-
-/* line 24, ../../../../../.rvm/gems/ruby-2.0.0-p451/gems/compass-0.12.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-ol, ul {
-  list-style: none;
-}
-
-/* line 26, ../../../../../.rvm/gems/ruby-2.0.0-p451/gems/compass-0.12.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-/* line 28, ../../../../../.rvm/gems/ruby-2.0.0-p451/gems/compass-0.12.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-caption, th, td {
-  text-align: left;
-  font-weight: normal;
-  vertical-align: middle;
-}
-
-/* line 30, ../../../../../.rvm/gems/ruby-2.0.0-p451/gems/compass-0.12.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-q, blockquote {
-  quotes: none;
-}
-/* line 103, ../../../../../.rvm/gems/ruby-2.0.0-p451/gems/compass-0.12.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-q:before, q:after, blockquote:before, blockquote:after {
-  content: "";
-  content: none;
-}
-
-/* line 32, ../../../../../.rvm/gems/ruby-2.0.0-p451/gems/compass-0.12.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-a img {
-  border: none;
-}
-
-/* line 116, ../../../../../.rvm/gems/ruby-2.0.0-p451/gems/compass-0.12.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
-  display: block;
-}
-
-/* Variables & Mixins */
-/* 1%Club overrides */
-/* =========== Semantic fluid grid */
 /*
+Syntax error: Invalid CSS after "...gins/colorbox";": expected selector or at-rule, was "<<<<<<< HEAD"
+        on line 88 of /Users/jakob/code/onepercentclub-site/static/global/sass/screen.scss
 
-    Use '@include grid(12, 2)' to make a column. 
-    The first unit (12) is the column width.
-    The second unit (2) is the margin on both sides.
-    The margin will be auto substracted from the column width.
-    So don't recalculate the column width if you change your margin.
-    
-    To set different margins on both sides use '@include grid(12, 2, 3)'.
-    You can also use negative margins.
-    
+Backtrace:
+/Users/jakob/code/onepercentclub-site/static/global/sass/screen.scss:88
+/Users/jakob/.rvm/gems/ruby-2.1.1/gems/sass-3.2.18/lib/sass/scss/parser.rb:1147:in `expected'
+/Users/jakob/.rvm/gems/ruby-2.1.1/gems/sass-3.2.18/lib/sass/scss/parser.rb:1085:in `expected'
+/Users/jakob/.rvm/gems/ruby-2.1.1/gems/sass-3.2.18/lib/sass/scss/parser.rb:28:in `parse'
+/Users/jakob/.rvm/gems/ruby-2.1.1/gems/sass-3.2.18/lib/sass/engine.rb:342:in `_to_tree'
+/Users/jakob/.rvm/gems/ruby-2.1.1/gems/sass-3.2.18/lib/sass/engine.rb:315:in `_render'
+/Users/jakob/.rvm/gems/ruby-2.1.1/gems/sass-3.2.18/lib/sass/engine.rb:262:in `render'
+/Users/jakob/.rvm/gems/ruby-2.1.1/gems/compass-0.12.4/lib/compass/compiler.rb:139:in `block (2 levels) in compile'
+/Users/jakob/.rvm/gems/ruby-2.1.1/gems/compass-0.12.4/lib/compass/compiler.rb:126:in `timed'
+/Users/jakob/.rvm/gems/ruby-2.1.1/gems/compass-0.12.4/lib/compass/compiler.rb:138:in `block in compile'
+/Users/jakob/.rvm/gems/ruby-2.1.1/gems/compass-0.12.4/lib/compass/logger.rb:45:in `red'
+/Users/jakob/.rvm/gems/ruby-2.1.1/gems/compass-0.12.4/lib/compass/compiler.rb:137:in `compile'
+/Users/jakob/.rvm/gems/ruby-2.1.1/gems/compass-0.12.4/lib/compass/compiler.rb:118:in `compile_if_required'
+/Users/jakob/.rvm/gems/ruby-2.1.1/gems/compass-0.12.4/lib/compass/compiler.rb:103:in `block (2 levels) in run'
+/Users/jakob/.rvm/gems/ruby-2.1.1/gems/compass-0.12.4/lib/compass/compiler.rb:101:in `each'
+/Users/jakob/.rvm/gems/ruby-2.1.1/gems/compass-0.12.4/lib/compass/compiler.rb:101:in `block in run'
+/Users/jakob/.rvm/gems/ruby-2.1.1/gems/compass-0.12.4/lib/compass/compiler.rb:126:in `timed'
+/Users/jakob/.rvm/gems/ruby-2.1.1/gems/compass-0.12.4/lib/compass/compiler.rb:100:in `run'
+/Users/jakob/.rvm/gems/ruby-2.1.1/gems/compass-0.12.4/lib/compass/commands/update_project.rb:45:in `perform'
+/Users/jakob/.rvm/gems/ruby-2.1.1/gems/compass-0.12.4/lib/compass/commands/base.rb:18:in `execute'
+/Users/jakob/.rvm/gems/ruby-2.1.1/gems/compass-0.12.4/lib/compass/commands/project_base.rb:19:in `execute'
+/Users/jakob/.rvm/gems/ruby-2.1.1/gems/compass-0.12.4/lib/compass/exec/sub_command_ui.rb:43:in `perform!'
+/Users/jakob/.rvm/gems/ruby-2.1.1/gems/compass-0.12.4/lib/compass/exec/sub_command_ui.rb:15:in `run!'
+/Users/jakob/.rvm/gems/ruby-2.1.1/gems/compass-0.12.4/bin/compass:30:in `block in <top (required)>'
+/Users/jakob/.rvm/gems/ruby-2.1.1/gems/compass-0.12.4/bin/compass:44:in `call'
+/Users/jakob/.rvm/gems/ruby-2.1.1/gems/compass-0.12.4/bin/compass:44:in `<top (required)>'
+/Users/jakob/.rvm/gems/ruby-2.1.1/bin/compass:23:in `load'
+/Users/jakob/.rvm/gems/ruby-2.1.1/bin/compass:23:in `<main>'
+/Users/jakob/.rvm/gems/ruby-2.1.1/bin/ruby_executable_hooks:15:in `eval'
+/Users/jakob/.rvm/gems/ruby-2.1.1/bin/ruby_executable_hooks:15:in `<main>'
 */
+<<<<<<< HEAD
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Syntax error: Invalid CSS after \"...gins/colorbox\";\": expected selector or at-rule, was \"<<<<<<< HEAD\"\A         on line 88 of /Users/jakob/code/onepercentclub-site/static/global/sass/screen.scss"; }
+=======
 /* reset your grid */
 /* need to reset floats */
 /* Icons */
@@ -1615,7 +1571,7 @@ ul {
 ul > li {
   padding-left: 2em;
   margin: 1em 0;
-  background: url('../images/list-item.png?1397116255') transparent no-repeat 0 0;
+  background: url('../images/list-item.png?1396513147') transparent no-repeat 0 0;
 }
 
 /* line 144, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
@@ -2251,7 +2207,9 @@ text.align-center {
   -o-transition: all 0.2s ease-in;
   transition: all 0.2s ease-in;
   margin: 0;
+  margin-top: 1em;
   padding: 1em;
+  padding-bottom: 2em;
   white-space: nowrap;
   color: #bfbfbf;
   font-family: "Futura W01 Bold", "Trebuchet MS", Helvetica, Arial, sans-serif;
@@ -2261,14 +2219,14 @@ text.align-center {
   border: 1px solid black;
   border-bottom-color: #393939;
 }
-/* line 78, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 80, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-main > li a:hover, #nav .nav-main > li a:active, #nav .nav-main > li a.is-active, #nav .nav-main > li a:visited:hover, #nav .nav-main > li a:visited:active, #nav .nav-main > li a:visited.is-active {
   border-color: #393939;
   border-bottom-color: #222222;
   color: white;
   background-color: #222222;
 }
-/* line 87, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 89, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions {
   float: left;
   width: 31.25%;
@@ -2276,7 +2234,7 @@ text.align-center {
   margin-right: 2.08333%;
   color: white;
 }
-/* line 91, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 93, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-signup-login {
   padding: 1em 0 0 0;
   float: left;
@@ -2284,39 +2242,39 @@ text.align-center {
   color: #bfbfbf;
   white-space: nowrap;
 }
-/* line 98, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 100, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-signup-login a {
   padding: 0.25em 0.5em;
   margin: 0 0.5em;
   text-decoration: none;
   font-family: "Futura W02 Heavy", "Trebuchet MS", Helvetica, Arial, sans-serif;
 }
-/* line 104, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 106, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-signup-login a:hover, #nav .nav-actions .nav-signup-login a:active, #nav .nav-actions .nav-signup-login a.is-active {
   color: #444444;
   background-color: white;
 }
-/* line 110, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 112, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-signup-login .nav-signup {
   color: white;
   background-color: #ff619a;
 }
-/* line 115, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 117, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-signup-login .nav-login {
   color: white;
   background-color: #00c051;
 }
-/* line 122, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 124, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-language {
   padding: 2.1em 0 0 0;
 }
-/* line 125, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 127, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-language li {
   display: inline;
   text-align: right;
   font-size: 0.75em;
 }
-/* line 130, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 132, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-language li a {
   width: auto;
   display: inline-block;
@@ -2328,21 +2286,21 @@ text.align-center {
   color: #cccccc;
   text-decoration: none;
 }
-/* line 141, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 143, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-language li a:hover, #nav .nav-actions .nav-language li a:active {
   color: white;
   border-color: white;
 }
-/* line 147, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 149, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-language li.active a {
   color: black;
   background-color: #cccccc;
 }
-/* line 151, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 153, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-language li.active a:hover, #nav .nav-actions .nav-language li.active a:active {
   background-color: black;
 }
-/* line 158, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 160, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member {
   position: relative;
   height: 2em;
@@ -2350,7 +2308,7 @@ text.align-center {
   float: right;
   font-family: "Futura W01 Bold", "Trebuchet MS", Helvetica, Arial, sans-serif;
 }
-/* line 165, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 167, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member .nav-member-dropdown {
   position: relative;
   z-index: 999;
@@ -2360,7 +2318,7 @@ text.align-center {
   padding: 0 16px 0 0;
   background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAAJCAYAAADpeqZqAAAAb0lEQVQoz2NgaDVngOJwIA5F4iNjWyBugPOhjGAg/gPFoVg0fAbi/0BcBdPkCsQ/oYL/0TQia4DhZJCEKBBfQJMAaWzCouExECvDnIBN43+sGpD8REgjQgOaJlwaUTVg0YSuEVMDDk0wjVuxagBiAFeciJvQD09BAAAAAElFTkSuQmCC") #00c051 no-repeat 90% 50%;
 }
-/* line 174, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 176, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member .nav-member-dropdown img {
   width: 2em;
   height: 2em;
@@ -2370,12 +2328,12 @@ text.align-center {
   border-style: solid;
   border-color: black;
 }
-/* line 184, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 186, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member .nav-member-dropdown strong {
   display: inline-block;
   padding: 0.25em 1em;
 }
-/* line 190, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 192, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member .nav-member-dropdown-menu {
   display: none;
   position: absolute;
@@ -2390,11 +2348,11 @@ text.align-center {
   border-style: solid;
   border-color: #00c051;
 }
-/* line 204, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 206, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member .nav-member-dropdown-menu > li {
   font-size: 0.875em;
 }
-/* line 207, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 209, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member .nav-member-dropdown-menu > li > a {
   display: block;
   padding: 0.5em;
@@ -2402,44 +2360,44 @@ text.align-center {
   color: #444444;
   text-decoration: none;
 }
-/* line 214, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 216, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member .nav-member-dropdown-menu > li > a:hover {
   color: #00c051;
 }
-/* line 221, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 223, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member .nav-member-dropdown-menu .nav-member-switch-language {
   color: white;
   font-weight: normal;
   background: #00c051;
   padding: 0.5em;
 }
-/* line 227, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 229, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member .nav-member-dropdown-menu .nav-member-switch-language .nav-language {
   display: inline;
 }
-/* line 232, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 234, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member .nav-member-dropdown-menu .nav-member-switch-language .nav-language li a {
   color: white;
 }
-/* line 235, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 237, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member .nav-member-dropdown-menu .nav-member-switch-language .nav-language li a:hover, #nav .nav-actions .nav-member .nav-member-dropdown-menu .nav-member-switch-language .nav-language li a:active {
   color: black;
   border-color: black;
 }
-/* line 241, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 243, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member .nav-member-dropdown-menu .nav-member-switch-language .nav-language li.active a {
   color: #00c051;
   background-color: white;
 }
-/* line 245, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 247, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member .nav-member-dropdown-menu .nav-member-switch-language .nav-language li.active a:hover, #nav .nav-actions .nav-member .nav-member-dropdown-menu .nav-member-switch-language .nav-language li.active a:active {
   background-color: black;
 }
-/* line 256, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 258, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member:hover .nav-member-dropdown img {
   border-color: #00c051;
 }
-/* line 260, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 262, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member:hover .nav-member-dropdown {
   background-color: white;
   color: #444444;
@@ -2451,20 +2409,20 @@ text.align-center {
   border-style: solid;
   border-color: #00c051;
 }
-/* line 273, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 275, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member:hover .nav-member-dropdown .flaticon {
   color: #00c051;
 }
-/* line 278, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 280, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-member:hover .nav-member-dropdown-menu {
   display: block !important;
 }
-/* line 284, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 286, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-cart {
   display: block;
   margin: 1.8em;
 }
-/* line 288, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 290, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-cart .nav-cart-count {
   display: inline-block;
   width: 1.5em;
@@ -2479,7 +2437,7 @@ text.align-center {
   -o-border-radius: 1.5em;
   border-radius: 1.5em;
 }
-/* line 299, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 301, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-cart a {
   display: inline-block;
   color: #ff619a;
@@ -2487,7 +2445,7 @@ text.align-center {
   text-decoration: none;
   font-family: "Futura W02 Heavy", "Trebuchet MS", Helvetica, Arial, sans-serif;
 }
-/* line 306, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
+/* line 308, ../../../../bluebottle/bluebottle/common/static/sass/layout/_header.scss */
 #nav .nav-actions .nav-cart a:hover, #nav .nav-actions .nav-cart a:active {
   color: white;
 }
@@ -2784,19 +2742,24 @@ fieldset .fieldset-content {
   margin-right: 0%;
 }
 
-/* line 64, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 63, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+fieldset {
+  background-color: #e9e9e9;
+}
+/* line 65, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 fieldset .fieldset-tabs {
   margin-bottom: -0.5em;
 }
 
-/* line 70, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 71, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 legend {
   position: relative;
   padding: 1.5em 2em;
   background-color: white;
   width: 100%;
+  color: #666666;
 }
-/* line 76, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 77, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 legend strong {
   display: block;
   font-family: "Futura W02 Heavy", "Trebuchet MS", Helvetica, Arial, sans-serif;
@@ -2804,21 +2767,21 @@ legend strong {
   color: #00c051;
   text-transform: uppercase;
 }
-/* line 84, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 85, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 legend p {
   margin: 0;
 }
 
-/* line 90, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 91, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 fieldset legend {
   background-color: #cccccc;
 }
-/* line 93, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 94, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 fieldset legend strong {
   color: white;
 }
 
-/* line 98, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 99, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .control-group {
   padding-bottom: 0.5em;
   position: relative;
@@ -2836,11 +2799,11 @@ fieldset legend strong {
 .control-group {
   *zoom: 1;
 }
-/* line 103, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 104, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .control-group:first-child {
   padding-top: 1em;
 }
-/* line 107, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 108, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .control-group .control-label {
   float: left;
   width: 18.75%;
@@ -2849,14 +2812,14 @@ fieldset legend strong {
   padding: 0.5em 0;
   font-family: "Futura W02 Heavy", "Trebuchet MS", Helvetica, Arial, sans-serif;
 }
-/* line 112, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 113, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .control-group .control-label.wide {
   float: left;
   width: 91.66667%;
   margin-left: 4.16667%;
   margin-right: 4.16667%;
 }
-/* line 117, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 118, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .control-group .controls {
   position: relative;
   float: left;
@@ -2865,39 +2828,39 @@ fieldset legend strong {
   margin-right: 4.16667%;
   float: right;
 }
-/* line 123, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 124, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .control-group .controls.controls-inline input, .control-group .controls.controls-inline select {
   margin-bottom: 1em;
 }
-/* line 128, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 129, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .control-group .controls.wide {
   float: left;
   width: 91.66667%;
   margin-left: 4.16667%;
   margin-right: 4.16667%;
 }
-/* line 132, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 133, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .control-group .controls .inline-prepend {
   float: left;
   width: 47.91667%;
   margin-left: 0%;
   margin-right: 2.08333%;
 }
-/* line 136, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 137, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .control-group .controls .inline-append {
   float: left;
   width: 47.91667%;
   margin-left: 2.08333%;
   margin-right: 0%;
 }
-/* line 139, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 140, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .control-group .controls .inline-onethird {
   float: left;
   width: 31.25%;
   margin-left: 0%;
   margin-right: 2.08333%;
 }
-/* line 142, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 143, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .control-group .controls .inline-twothirds {
   float: left;
   width: 64.58333%;
@@ -2905,7 +2868,7 @@ fieldset legend strong {
   margin-right: 0%;
 }
 
-/* line 149, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 150, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .flash.success {
   text-align: center;
   padding: 10px;
@@ -2916,7 +2879,7 @@ fieldset legend strong {
   font-weight: bold;
 }
 
-/* line 160, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 161, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .message {
   display: block;
   position: relative;
@@ -2940,7 +2903,7 @@ fieldset legend strong {
 .message {
   *zoom: 1;
 }
-/* line 171, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 172, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .message .message-close {
   position: absolute;
   top: 0;
@@ -2949,24 +2912,24 @@ fieldset legend strong {
   color: #f4f4f4;
   text-decoration: none;
 }
-/* line 179, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 180, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .message .message-close:hover, .message .message-close:active {
   color: white;
 }
-/* line 184, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 185, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .message .message-title {
   font-family: "Futura W01 Bold", "Trebuchet MS", Helvetica, Arial, sans-serif;
 }
-/* line 188, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 189, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .message .message-content {
   font-family: "Futura W02 Heavy", "Trebuchet MS", Helvetica, Arial, sans-serif;
 }
-/* line 192, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 193, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .message.is-error {
   background-color: #b84040;
 }
 
-/* line 198, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 199, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 p.error, label.error {
   display: block;
   margin: 0 0 0.5em 0;
@@ -2977,7 +2940,7 @@ p.error, label.error {
   font-family: "Futura W02 Heavy", "Trebuchet MS", Helvetica, Arial, sans-serif;
 }
 
-/* line 210, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 211, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .has-errors {
   float: left;
   width: 50%;
@@ -2997,11 +2960,11 @@ p.error, label.error {
   font-family: "Futura W02 Heavy", "Trebuchet MS", Helvetica, Arial, sans-serif;
   z-index: 100;
 }
-/* line 224, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 225, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .has-errors p {
   margin: 0;
 }
-/* line 228, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 229, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .has-errors:after {
   top: 7px;
   position: absolute;
@@ -3009,11 +2972,11 @@ p.error, label.error {
   left: -14px;
   width: 14px;
   height: 23px;
-  background: url('../images/form-error-back-arrow.png?1397116255') transparent no-repeat 0 0;
+  background: url('../images/form-error-back-arrow.png?1396513147') transparent no-repeat 0 0;
   content: ' ';
 }
 
-/* line 243, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 244, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 textarea {
   overflow: auto;
   resize: none;
@@ -3021,7 +2984,7 @@ textarea {
   display: block;
 }
 
-/* line 252, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 253, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 select {
   -webkit-appearance: none;
   -webkit-border-radius: 0;
@@ -3032,22 +2995,22 @@ select {
   -moz-appearance: none;
   text-indent: 1px;
   text-overflow: '';
-  background-image: url('../images/select-arrow.png?1397116255');
+  background-image: url('../images/select-arrow.png?1396513147');
   background-position: center right;
   background-repeat: no-repeat;
 }
-/* line 270, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 271, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 select:hover, select:focus {
   border-color: #00c051;
-  background-image: url('../images/select-arrow-hover.png?1397116255');
+  background-image: url('../images/select-arrow-hover.png?1396513147');
 }
 
-/* line 277, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 278, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 select::-ms-expand {
   visibility: hidden;
 }
 
-/* line 290, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 291, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 select,
 option,
 textarea,
@@ -3072,7 +3035,7 @@ input[type=url] {
   -moz-box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.05);
   box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.05);
 }
-/* line 300, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 301, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 select + .flaticon,
 option + .flaticon,
 textarea + .flaticon,
@@ -3088,7 +3051,7 @@ input[type=url] + .flaticon {
   -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
 }
-/* line 304, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 305, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 select:hover, select:focus,
 option:hover,
 option:focus,
@@ -3115,7 +3078,7 @@ input[type=url]:focus {
   -moz-box-shadow: none;
   box-shadow: none;
 }
-/* line 310, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 311, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 select:hover + .flaticon, select:focus + .flaticon,
 option:hover + .flaticon,
 option:focus + .flaticon,
@@ -3137,7 +3100,7 @@ input[type=url]:hover + .flaticon,
 input[type=url]:focus + .flaticon {
   color: #00c051 !important;
 }
-/* line 315, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 316, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 select.error,
 option.error,
 textarea.error,
@@ -3151,44 +3114,44 @@ input[type=url].error {
   border-color: #b84040;
 }
 
-/* line 320, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 321, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 ::-webkit-input-placeholder {
   color: #cccccc;
 }
 
-/* line 321, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 322, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 ::-moz-placeholder {
   color: #cccccc;
 }
 
-/* line 322, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 323, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 :-ms-input-placeholder {
   color: #cccccc;
 }
 
-/* line 323, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 324, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 input:-moz-placeholder {
   color: #cccccc;
 }
 
-/* line 324, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 325, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 textarea:-moz-placeholder {
   color: #cccccc;
 }
 
-/* line 326, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 327, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 input[type=range] {
   width: 100%;
 }
 
-/* line 329, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 330, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 input[type=range]::-webkit-slider-thumb {
   background: #00c051;
   height: 30px;
   width: 30px;
 }
 
-/* line 371, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 372, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .tags {
   list-style: none;
   margin: 0;
@@ -3196,7 +3159,7 @@ input[type=range]::-webkit-slider-thumb {
   text-indent: 0;
   margin-top: 0.5em;
 }
-/* line 378, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 379, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .tags li {
   padding-left: 0;
   text-indent: 0;
@@ -3220,11 +3183,11 @@ input[type=range]::-webkit-slider-thumb {
 .tags li li {
   list-style: none;
 }
-/* line 393, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 394, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .tags li .flaticon {
   text-shadow: 0 0 1px #222222;
 }
-/* line 396, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 397, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .tags li .delete {
   color: white;
   cursor: pointer;
@@ -3245,28 +3208,28 @@ input[type=range]::-webkit-slider-thumb {
   -moz-box-shadow: inset 0 0 2px #666666;
   box-shadow: inset 0 0 2px #666666;
 }
-/* line 414, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 415, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .tags li .delete:hover {
   color: #ff619a;
   background-color: #ff619a;
 }
 
-/* line 422, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 423, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .btn.add-tag {
   margin: 0 1em;
 }
 
-/* line 425, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 426, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .btn-tag, .btn-modest {
   font-size: 0.875em !important;
 }
 
-/* line 429, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 430, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 input.tag {
   width: 200px;
 }
 
-/* line 439, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 440, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 label.checkbox,
 label.radio {
   float: left;
@@ -3276,7 +3239,7 @@ label.radio {
   margin-bottom: 0.5em;
   margin-right: 1em;
 }
-/* line 447, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 448, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 label.checkbox span,
 label.radio span {
   display: inline-block;
@@ -3288,39 +3251,39 @@ label.radio span {
   background-repeat: no-repeat;
   text-indent: 2.5em;
 }
-/* line 459, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 460, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 label.checkbox input[type="checkbox"],
 label.checkbox input[type="radio"],
 label.radio input[type="checkbox"],
 label.radio input[type="radio"] {
   display: none;
 }
-/* line 463, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 464, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 label.checkbox input[type="checkbox"] + span,
 label.radio input[type="checkbox"] + span {
   background-position: 0 -2321px;
 }
-/* line 467, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 468, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 label.checkbox input[type="radio"] + span,
 label.radio input[type="radio"] + span {
   background-position: 0 -1912px;
 }
-/* line 471, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 472, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 label.checkbox input[type="checkbox"]:checked + span,
 label.radio input[type="checkbox"]:checked + span {
   background-position: 0 -2139px;
 }
-/* line 475, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 476, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 label.checkbox input[type="radio"]:checked + span,
 label.radio input[type="radio"]:checked + span {
   background-position: 0 -1850px;
 }
 
-/* line 483, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 484, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .radio-select label {
   margin: 0 0 0 -1px;
 }
-/* line 486, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 487, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .radio-select label span {
   display: block;
   padding: 0;
@@ -3341,7 +3304,7 @@ label.radio input[type="radio"]:checked + span {
   border-radius: 1px;
   text-align: center;
 }
-/* line 505, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 506, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .radio-select label input[type=radio]:checked + span {
   position: relative;
   border-color: #00a746;
@@ -3350,21 +3313,21 @@ label.radio input[type="radio"]:checked + span {
   z-index: 10;
 }
 
-/* line 522, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 523, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .radio-group.two label, .radio-select.two label {
   float: left;
   width: 50%;
   margin-left: 0%;
   margin-right: 0%;
 }
-/* line 528, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 529, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .radio-group.three label, .radio-select.three label {
   float: left;
   width: 33.33333%;
   margin-left: 0%;
   margin-right: 0%;
 }
-/* line 534, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 535, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .radio-group.four label, .radio-select.four label {
   float: left;
   width: 25%;
@@ -3372,7 +3335,7 @@ label.radio input[type="radio"]:checked + span {
   margin-right: 0%;
 }
 
-/* line 549, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 550, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 input[disabled],
 select[disabled],
 textarea[disabled],
@@ -3383,17 +3346,17 @@ textarea[readonly] {
   background-color: #e9e9e9;
 }
 
-/* line 558, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 559, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .agree {
   margin-bottom: 0;
 }
 
-/* line 564, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 565, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .file-upload .member-avatar {
   display: inline-block;
   vertical-align: middle;
 }
-/* line 569, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
+/* line 570, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 .file-upload .btn-upload {
   margin-left: 2em;
 }
@@ -3941,44 +3904,45 @@ textarea[readonly] {
 .modal-header .modal-title, .modal-header h3 {
   font-size: 1.75em;
   color: #ff619a;
+  color: #e9e9e9;
 }
 
-/* line 116, ../../../../bluebottle/bluebottle/common/static/sass/base/_modals.scss */
+/* line 117, ../../../../bluebottle/bluebottle/common/static/sass/base/_modals.scss */
 .modal-body {
   position: relative;
   overflow-y: auto;
 }
-/* line 122, ../../../../bluebottle/bluebottle/common/static/sass/base/_modals.scss */
+/* line 123, ../../../../bluebottle/bluebottle/common/static/sass/base/_modals.scss */
 .modal-body form, .modal-body fieldset, .modal-body legend {
   padding: 0;
   margin: 0;
   background: none;
 }
-/* line 128, ../../../../bluebottle/bluebottle/common/static/sass/base/_modals.scss */
+/* line 129, ../../../../bluebottle/bluebottle/common/static/sass/base/_modals.scss */
 .modal-body .control-label {
   float: left;
   width: 33.33333%;
   margin-left: 0%;
   margin-right: 0%;
 }
-/* line 131, ../../../../bluebottle/bluebottle/common/static/sass/base/_modals.scss */
+/* line 132, ../../../../bluebottle/bluebottle/common/static/sass/base/_modals.scss */
 .modal-body .control-label.wide {
   width: 100% !important;
   margin: 0 !important;
 }
-/* line 137, ../../../../bluebottle/bluebottle/common/static/sass/base/_modals.scss */
+/* line 138, ../../../../bluebottle/bluebottle/common/static/sass/base/_modals.scss */
 .modal-body .controls {
   float: left;
   width: 66.66667%;
   margin-left: 0%;
   margin-right: 0%;
 }
-/* line 140, ../../../../bluebottle/bluebottle/common/static/sass/base/_modals.scss */
+/* line 141, ../../../../bluebottle/bluebottle/common/static/sass/base/_modals.scss */
 .modal-body .controls.wide {
   width: 100% !important;
   margin: 0 !important;
 }
-/* line 146, ../../../../bluebottle/bluebottle/common/static/sass/base/_modals.scss */
+/* line 147, ../../../../bluebottle/bluebottle/common/static/sass/base/_modals.scss */
 .modal-body .has-errors {
   display: block;
   left: auto;
@@ -3989,7 +3953,7 @@ textarea[readonly] {
   right: 0;
 }
 
-/* line 158, ../../../../bluebottle/bluebottle/common/static/sass/base/_modals.scss */
+/* line 159, ../../../../bluebottle/bluebottle/common/static/sass/base/_modals.scss */
 .modal-footer {
   margin-bottom: 0;
   background-color: #e9e9e9;
@@ -4008,24 +3972,24 @@ textarea[readonly] {
 .modal-footer {
   *zoom: 1;
 }
-/* line 165, ../../../../bluebottle/bluebottle/common/static/sass/base/_modals.scss */
+/* line 166, ../../../../bluebottle/bluebottle/common/static/sass/base/_modals.scss */
 .modal-footer a:not(.btn) {
   line-height: 3em;
   color: #00c051;
 }
-/* line 169, ../../../../bluebottle/bluebottle/common/static/sass/base/_modals.scss */
+/* line 170, ../../../../bluebottle/bluebottle/common/static/sass/base/_modals.scss */
 .modal-footer a:not(.btn):hover, .modal-footer a:not(.btn):active {
   color: #444444;
 }
-/* line 174, ../../../../bluebottle/bluebottle/common/static/sass/base/_modals.scss */
+/* line 175, ../../../../bluebottle/bluebottle/common/static/sass/base/_modals.scss */
 .modal-footer .btn {
   float: right;
 }
-/* line 177, ../../../../bluebottle/bluebottle/common/static/sass/base/_modals.scss */
+/* line 178, ../../../../bluebottle/bluebottle/common/static/sass/base/_modals.scss */
 .modal-footer .btn.btn-primary {
   float: right;
 }
-/* line 181, ../../../../bluebottle/bluebottle/common/static/sass/base/_modals.scss */
+/* line 182, ../../../../bluebottle/bluebottle/common/static/sass/base/_modals.scss */
 .modal-footer .btn.btn-secondary {
   float: left;
 }
@@ -5032,11 +4996,12 @@ table td td {
   width: 100%;
   bottom: 0;
   left: 0;
+  color: white;
   background-color: #00c051;
   text-transform: uppercase;
   padding: 0.5em 1em;
 }
-/* line 329, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 330, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .project-item .project-tasks {
   display: block;
   position: absolute;
@@ -5050,26 +5015,26 @@ table td td {
   color: #999999;
   font-size: 0.75em;
 }
-/* line 342, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 343, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .project-item .project-tasks strong {
   color: #444444;
   font-weight: bold;
   font-style: normal;
 }
-/* line 348, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 349, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .project-item .project-tasks em {
   font-style: normal;
 }
-/* line 352, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 353, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .project-item .project-tasks:hover, .project-item .project-tasks:active {
   color: #444444;
 }
 
-/* line 368, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 369, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .project-slider {
   background-color: white;
 }
-/* line 371, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 372, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .project-slider .project-slider-prev, .project-slider .project-slider-next {
   position: absolute;
   text-indent: -119988px;
@@ -5089,12 +5054,12 @@ table td td {
   cursor: pointer;
   background-color: #e9e9e9;
 }
-/* line 384, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 385, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .project-slider .project-slider-prev:hover, .project-slider .project-slider-next:hover {
   background-color: #ff619a;
   color: white;
 }
-/* line 390, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 391, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .project-slider .project-slider-prev {
   margin-left: 2.08333%;
   left: 0;
@@ -5102,7 +5067,7 @@ table td td {
   background-position: 10px -2195px;
   background-repeat: no-repeat;
 }
-/* line 398, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 399, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .project-slider .project-slider-next {
   margin-right: 2.08333%;
   right: 0;
@@ -5110,14 +5075,14 @@ table td td {
   background-repeat: no-repeat;
   background-position: 12px -2255px;
 }
-/* line 405, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 406, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .project-slider .project-image {
   float: left;
   width: 41.66667%;
   margin-left: 8.33333%;
   margin-right: 0%;
 }
-/* line 408, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 409, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .project-slider .project-info {
   float: left;
   width: 41.66667%;
@@ -5125,13 +5090,13 @@ table td td {
   margin-right: 8.33333%;
 }
 
-/* line 418, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 419, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .project-list {
   list-style: none;
   background-color: white;
   margin: 1em 0;
 }
-/* line 424, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 425, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .project-list .project-list-item {
   padding-left: 0;
   text-indent: 0;
@@ -5200,7 +5165,7 @@ table td td {
 .project-list .project-list-item:hover .manage-delete {
   display: block;
 }
-/* line 439, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 440, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .project-list .project-list-item .project-header {
   float: left;
   width: 62.5%;
@@ -5208,7 +5173,7 @@ table td td {
   margin-right: 2.08333%;
   text-decoration: none;
 }
-/* line 443, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 444, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .project-list .project-list-item .project-header .project-image {
   float: left;
   width: 22.91667%;
@@ -5216,80 +5181,80 @@ table td td {
   margin-right: 2.08333%;
   float: left;
 }
-/* line 447, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 448, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .project-list .project-list-item .project-header .project-info {
   float: left;
   width: 75%;
   margin-left: 0%;
   margin-right: 0%;
 }
-/* line 449, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 450, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .project-list .project-list-item .project-header .project-info a {
   text-decoration: none;
 }
-/* line 453, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 454, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .project-list .project-list-item .project-header .project-title, .project-list .project-list-item .project-header .fundraiser-title {
   text-transform: uppercase;
   margin-top: 0;
   padding: 0;
   color: #444444;
 }
-/* line 460, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 461, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .project-list .project-list-item .project-header .fundraiser-subtitle {
   font-family: "Futura W01 Book", "Trebuchet MS", Helvetica, Arial, sans-serif;
   color: #999999;
   font-size: 0.875em;
 }
-/* line 465, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 466, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .project-list .project-list-item .project-header .fundraiser-subtitle em {
   font-family: "Futura W02 Heavy", "Trebuchet MS", Helvetica, Arial, sans-serif;
 }
-/* line 470, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 471, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .project-list .project-list-item .project-header .project-location, .project-list .project-list-item .project-header .project-status, .project-list .project-list-item .project-header .project-preview {
   margin-top: 0.5em;
   color: #999999;
   display: block;
 }
-/* line 478, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 479, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .project-list .project-list-item .fund-amount, .project-list .project-list-item .project-actions {
   float: left;
   width: 33.33333%;
   margin-left: 0%;
   margin-right: 0%;
 }
-/* line 482, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 483, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .project-list .project-list-item .project-actions {
   color: #999999;
 }
-/* line 485, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 486, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .project-list .project-list-item .project-actions .btn-link {
   padding: 0.25em;
   width: 100%;
   text-align: left;
 }
-/* line 492, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 493, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .project-list .project-list-item .fund-amount-divided {
   padding: 0.5em;
   font-size: 1.75em;
 }
-/* line 497, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 498, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .project-list .project-list-item:hover, .project-list .project-list-item.is-highlighted {
   border-color: #e9e9e9 !important;
 }
-/* line 500, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 501, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .project-list .project-list-item:hover .project-header h2, .project-list .project-list-item.is-highlighted .project-header h2 {
   color: #ff619a !important;
 }
-/* line 505, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 506, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .project-list .project-list-item:first-of-type {
   border-top: 1px solid white;
 }
-/* line 509, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 510, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .project-list .project-list-item:last-of-type {
   border-bottom-color: white;
 }
 
-/* line 519, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 520, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 #project-plan header {
   margin-top: 2em;
   float: left;
@@ -5297,23 +5262,23 @@ table td td {
   margin-left: 2.08333%;
   margin-right: 2.08333%;
 }
-/* line 524, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 525, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 #project-plan article {
   margin-bottom: 1em;
   clear: none !important;
 }
-/* line 529, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 530, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 #project-plan article br {
   content: " " !important;
   display: block !important;
   margin-bottom: 1.5em !important;
 }
-/* line 535, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 536, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 #project-plan article img {
   width: 100%;
 }
 
-/* line 544, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 545, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .task-list .task {
   border: 1px solid #cccccc;
   background-color: #666666;
@@ -5322,7 +5287,7 @@ table td td {
   margin-left: 0%;
   margin-right: 0%;
 }
-/* line 551, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 552, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .task-list .task .task-status {
   float: left;
   width: 25%;
@@ -5332,7 +5297,7 @@ table td td {
   color: #666666;
   text-transform: uppercase;
 }
-/* line 558, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 559, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .task-list .task .task-content {
   float: left;
   width: 75%;
@@ -5340,18 +5305,18 @@ table td td {
   margin-right: 0%;
   color: #cccccc;
 }
-/* line 562, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 563, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .task-list .task .task-content .task-name {
   color: white;
 }
-/* line 566, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 567, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .task-list .task .task-content .task-time-needed {
   float: left;
   width: 33.33333%;
   margin-left: 0%;
   margin-right: 0%;
 }
-/* line 569, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 570, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 .task-list .task .task-content .task-time-deadline {
   float: left;
   width: 33.33333%;
@@ -5359,7 +5324,7 @@ table td td {
   margin-right: 0%;
 }
 
-/* line 582, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 583, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 #project-plan {
   position: relative;
   width: 100%;
@@ -5367,7 +5332,7 @@ table td td {
   overflow: hidden;
   background-color: #e9e9e9;
 }
-/* line 590, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 591, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 #project-plan .project-plan-navigation {
   float: left;
   width: 25%;
@@ -5377,16 +5342,16 @@ table td td {
   min-height: 100%;
   background-color: #e9e9e9;
 }
-/* line 598, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 599, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 #project-plan .project-plan-navigation .project-plan-title {
   position: relative;
   padding: 1em;
 }
-/* line 601, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 602, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 #project-plan .project-plan-navigation .project-plan-title h4 {
   color: #00c051;
 }
-/* line 604, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 605, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 #project-plan .project-plan-navigation .project-plan-title:after {
   left: 100%;
   top: 60px;
@@ -5401,11 +5366,11 @@ table td td {
   margin-top: -10px;
   z-index: 10;
 }
-/* line 619, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 620, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 #project-plan .project-plan-navigation .project-plan-navigation-links {
   padding: 1em 0;
 }
-/* line 621, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 622, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 #project-plan .project-plan-navigation .project-plan-navigation-links li {
   padding-left: 0;
   text-indent: 0;
@@ -5419,17 +5384,17 @@ table td td {
 #project-plan .project-plan-navigation .project-plan-navigation-links li li {
   list-style: none;
 }
-/* line 624, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 625, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 #project-plan .project-plan-navigation .project-plan-navigation-links li a {
   display: block;
   text-decoration: none;
   padding: 0.5em 2em;
 }
-/* line 628, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 629, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 #project-plan .project-plan-navigation .project-plan-navigation-links li a.active {
   background: white;
 }
-/* line 633, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 634, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 #project-plan .project-plan-navigation .project-plan-navigation-links .project-plan-download-pdf {
   margin-top: 2em;
 }
@@ -5446,7 +5411,7 @@ table td td {
 #project-plan .project-plan-navigation .project-plan-navigation-links .project-plan-download-pdf {
   *zoom: 1;
 }
-/* line 636, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 637, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 #project-plan .project-plan-navigation .project-plan-navigation-links .project-plan-download-pdf a {
   border: 2px solid #ff619a;
   padding: 0.5em 1em;
@@ -5454,7 +5419,7 @@ table td td {
   text-decoration: none;
   float: right;
 }
-/* line 647, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 648, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 #project-plan .project-plan-main-container {
   position: relative;
   *zoom: 1;
@@ -5479,7 +5444,7 @@ table td td {
 #project-plan .project-plan-main-container:after {
   clear: both;
 }
-/* line 654, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 655, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 #project-plan .project-plan-main-container .project-plan-main {
   position: relative;
   padding: 0 2em;
@@ -5488,20 +5453,20 @@ table td td {
   overflow-x: hidden;
   color: #444444;
 }
-/* line 661, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 662, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 #project-plan .project-plan-main-container .project-plan-main p {
   text-align: justify;
 }
-/* line 665, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 666, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 #project-plan .project-plan-main-container .project-plan-main h3:first-of-type {
   font-size: 1.75em;
   margin-top: 0;
 }
-/* line 670, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 671, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 #project-plan .project-plan-main-container .project-plan-main h1, #project-plan .project-plan-main-container .project-plan-main h2, #project-plan .project-plan-main-container .project-plan-main h3, #project-plan .project-plan-main-container .project-plan-main h4, #project-plan .project-plan-main-container .project-plan-main h5, #project-plan .project-plan-main-container .project-plan-main h6 {
   color: #ff619a;
 }
-/* line 674, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 675, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 #project-plan .project-plan-main-container .project-plan-back-link {
   position: absolute;
   top: 10px;
@@ -5509,14 +5474,14 @@ table td td {
   text-decoration: none;
   text-transform: uppercase;
 }
-/* line 680, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 681, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 #project-plan .project-plan-main-container .project-plan-back-link .flaticon {
   text-align: center;
   vertical-align: middle;
   font-size: 1.75em;
   margin-left: 0.5em;
 }
-/* line 689, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 690, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 #project-plan .project-plan-map {
   float: left;
   width: 25%;
@@ -5525,15 +5490,15 @@ table td td {
   content: " ";
 }
 
-/* line 697, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 698, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 #project-dashboard {
   margin-bottom: 6em;
 }
-/* line 700, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 701, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 #project-dashboard .campaign-header {
   background-color: #e9e9e9;
 }
-/* line 703, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
+/* line 704, ../../../../bluebottle/bluebottle/common/static/sass/modules/_projects.scss */
 #project-dashboard .campaign-header .page-title {
   float: left;
   width: 95.83333%;
@@ -6685,6 +6650,135 @@ table td td {
   margin-left: -6px;
 }
 
+/* line 1, ../../../../bluebottle/bluebottle/common/static/sass/modules/_image-upload.scss */
+.image-upload {
+  height: 150px;
+  margin-bottom: 1em;
+  overflow: hidden;
+}
+/* line 8, ../../../../bluebottle/bluebottle/common/static/sass/modules/_image-upload.scss */
+.image-upload .image-upload-drag, .image-upload .image-upload-controls {
+  float: left;
+  width: 50%;
+  margin-left: 0%;
+  margin-right: 0%;
+  padding: 1em;
+  height: 150px;
+}
+/* line 14, ../../../../bluebottle/bluebottle/common/static/sass/modules/_image-upload.scss */
+.image-upload .image-upload-drag {
+  text-align: center;
+  padding-top: 2em;
+  color: #999999;
+}
+/* line 18, ../../../../bluebottle/bluebottle/common/static/sass/modules/_image-upload.scss */
+.image-upload .image-upload-drag figure {
+  position: absolute;
+  float: left;
+  width: 50%;
+  margin-left: 0%;
+  margin-right: 0%;
+  height: 150px;
+  top: 1px;
+  left: 1px;
+  overflow: hidden;
+}
+/* line 26, ../../../../bluebottle/bluebottle/common/static/sass/modules/_image-upload.scss */
+.image-upload .image-upload-drag .flaticon {
+  display: block;
+  text-shadow: 1px 1px white;
+  font-size: 5em;
+}
+/* line 33, ../../../../bluebottle/bluebottle/common/static/sass/modules/_image-upload.scss */
+.image-upload .image-upload-controls {
+  float: left;
+  width: 50%;
+  margin-left: 0%;
+  margin-right: 0%;
+  padding: 1em;
+  background-color: white;
+  text-align: center;
+  position: relative;
+}
+/* line 40, ../../../../bluebottle/bluebottle/common/static/sass/modules/_image-upload.scss */
+.image-upload .image-upload-controls .image-upload-controls-instructions {
+  margin-bottom: 0.5em;
+}
+/* line 44, ../../../../bluebottle/bluebottle/common/static/sass/modules/_image-upload.scss */
+.image-upload .image-upload-controls .image-upload-controls-browse {
+  color: #00c051;
+  display: block;
+  font-weight: bold;
+  text-decoration: none;
+  margin-bottom: 0.5em;
+}
+/* line 52, ../../../../bluebottle/bluebottle/common/static/sass/modules/_image-upload.scss */
+.image-upload .image-upload-controls .image-upload-controls-allowed {
+  display: block;
+  color: #999999;
+}
+/* line 58, ../../../../bluebottle/bluebottle/common/static/sass/modules/_image-upload.scss */
+.image-upload:after {
+  position: absolute;
+  content: ' ';
+  -webkit-box-shadow: inset 0 0 3px #999999;
+  -moz-box-shadow: inset 0 0 3px #999999;
+  box-shadow: inset 0 0 3px #999999;
+  border: 1px solid #999999;
+  pointer-events: none;
+  width: 100%;
+  height: 150px;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+/* line 1, ../../../../bluebottle/bluebottle/common/static/sass/modules/_document-upload.scss */
+.document-upload {
+  padding: 1em;
+  -webkit-box-shadow: inset 0 0 3px #999999;
+  -moz-box-shadow: inset 0 0 3px #999999;
+  box-shadow: inset 0 0 3px #999999;
+  background-color: white;
+  border: 1px solid #999999;
+}
+/* line 7, ../../../../bluebottle/bluebottle/common/static/sass/modules/_document-upload.scss */
+.document-upload .files li {
+  padding-left: 0;
+  text-indent: 0;
+  background-image: none;
+  margin-bottom: 0;
+  margin-top: 0;
+  list-style: none;
+  padding: 1em;
+  background-color: #e9e9e9;
+  color: #222222;
+}
+/* line 36, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_utilities.scss */
+.document-upload .files li li {
+  list-style: none;
+}
+/* line 12, ../../../../bluebottle/bluebottle/common/static/sass/modules/_document-upload.scss */
+.document-upload .files li .delete {
+  text-decoration: none;
+  float: right;
+  color: #666666;
+}
+/* line 19, ../../../../bluebottle/bluebottle/common/static/sass/modules/_document-upload.scss */
+.document-upload .upload {
+  display: block;
+  text-align: center;
+  color: #00c051;
+  margin: 1em;
+  text-decoration: none;
+}
+/* line 26, ../../../../bluebottle/bluebottle/common/static/sass/modules/_document-upload.scss */
+.document-upload .allowed {
+  display: block;
+  color: #999999;
+  text-align: center;
+}
+
 /* Pages */
 /* line 7, ../../../../bluebottle/bluebottle/common/static/sass/pages/_home.scss */
 #home .home-projects, #home .home-quotes, #home .home-impact {
@@ -6709,15 +6803,15 @@ table td td {
 }
 /* line 17, ../../../../bluebottle/bluebottle/common/static/sass/pages/_home.scss */
 #home #new-website .carousel-image {
-  background: url('../images/pages/homepage/home-back-new-website.png?1397116255') transparent no-repeat 120px 30%;
+  background: url('../images/pages/homepage/home-back-new-website.png?1396513147') transparent no-repeat 120px 30%;
 }
 /* line 21, ../../../../bluebottle/bluebottle/common/static/sass/pages/_home.scss */
 #home #find-project .carousel-image {
-  background: url('../images/pages/homepage/home-back-find-project.jpg?1397116255') transparent no-repeat 0 0;
+  background: url('../images/pages/homepage/home-back-find-project.jpg?1396513147') transparent no-repeat 0 0;
 }
 /* line 25, ../../../../bluebottle/bluebottle/common/static/sass/pages/_home.scss */
 #home #smart-idea .carousel-image {
-  background: url('../images/pages/homepage/home-back-smart-idea.png?1397116255') transparent no-repeat 120px 30%;
+  background: url('../images/pages/homepage/home-back-smart-idea.png?1396513147') transparent no-repeat 120px 30%;
 }
 /* line 30, ../../../../bluebottle/bluebottle/common/static/sass/pages/_home.scss */
 #home .project-slider {
@@ -6728,7 +6822,7 @@ table td td {
 }
 /* line 35, ../../../../bluebottle/bluebottle/common/static/sass/pages/_home.scss */
 #home .home-quotes {
-  background-image: url('../images/world.png?1397116255');
+  background-image: url('../images/world.png?1396513147');
   background-repeat: no-repeat;
   background-position: 50% 1em;
   background-color: #e9e9e9;
@@ -9626,7 +9720,7 @@ form#manage-project-new {
 #manage-project .has-errors:after {
   left: auto;
   right: -14px;
-  background: url('../images/form-error-back-arrow-right.png?1397116255') transparent no-repeat 0 0;
+  background: url('../images/form-error-back-arrow-right.png?1396513147') transparent no-repeat 0 0;
 }
 
 /* line 118, ../../../../bluebottle/bluebottle/common/static/sass/pages/_manage.scss */
@@ -9679,11 +9773,11 @@ form#manage-project-new {
 }
 /* line 16, ../../../../bluebottle/bluebottle/common/static/sass/pages/_fmo.scss */
 #fmo #fmo-cocreation .carousel-image {
-  background: url('../images/pages/fmo/fmo-logo.png?1397116255') transparent no-repeat 120px 30%;
+  background: url('../images/pages/fmo/fmo-logo.png?1396513147') transparent no-repeat 120px 30%;
 }
 /* line 20, ../../../../bluebottle/bluebottle/common/static/sass/pages/_fmo.scss */
 #fmo #fmo-about .carousel-image {
-  background: url('../images/pages/fmo/fmo-cocreation.jpg?1397116255') transparent no-repeat 0 0;
+  background: url('../images/pages/fmo/fmo-cocreation.jpg?1396513147') transparent no-repeat 0 0;
 }
 
 /* Temp */
@@ -9965,15 +10059,22 @@ form#manage-project-new {
   border: 0;
 }
 
-/* 1procentclub overrides */
+/* line 2, ../sass/1procentclub/base/_tabs.scss */
+#campaign-steps.steps li a {
+  float: left;
+  width: 16.66667%;
+  margin-left: 0%;
+  margin-right: 0%;
+}
+
 /* line 5, ../sass/1procentclub/layout/_header.scss */
 #nav .nav-main > li a {
   margin-top: 1em;
   padding-bottom: 2em;
 }
 /* line 14, ../sass/1procentclub/layout/_header.scss */
-#nav .nav-actions .nav-signup-login {
-  padding-top: 2em;
+#nav .nav-actions .nav-member {
+  margin-top: 1.8em;
 }
 
 /* line 6, ../sass/1procentclub/modules/_wallposts.scss */
@@ -10070,3 +10171,4 @@ form#manage-project-new {
   margin-left: 0%;
   margin-right: 0%;
 }
+>>>>>>> some homepage and important wallposts

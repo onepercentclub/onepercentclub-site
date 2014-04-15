@@ -12,8 +12,8 @@
 @import "compass/css3";
 
 /* Variables & Mixins */
-@import "variables";
 @import "1procentclub/variables"; /* 1%Club overrides */
+@import "variables";
 @import "mixins/grid";
 @import "mixins/utilities";
 
@@ -57,6 +57,8 @@
 @import "modules/project-iframe";
 @import "modules/owner-actions";
 @import "modules/maps";
+@import "modules/image-upload";
+@import "modules/document-upload";
 
 /* Pages */
 @import "pages/home";
@@ -85,10 +87,8 @@
 @import "plugins/jquery-ui";
 @import "plugins/colorbox";
 
-/* 1procentclub overrides */
-
+@import "1procentclub/base/tabs";
 @import "1procentclub/layout/header";
 
 @import "1procentclub/modules/wallposts";
-
 @import "1procentclub/pages/project-detail";
