@@ -51,11 +51,14 @@ $wallposts-wallpost-bg-color               : $white;
 $wallposts-wallpost-system-color           : $white;
 $wallposts-wallpost-system-bg-color        : $color-primary;
 $wallposts-wallpost-system-border-color    : $color-primary;
+$wallposts-wallpost-system-author-color    : $white;
+$wallposts-wallpost-system-title-color     : $white;
 
 $wallposts-wallpost-important-color        : $white !default;
 $wallposts-wallpost-important-bg-color     : $color-secondary !default;
 $wallposts-wallpost-important-border-color : $color-secondary !default;
-
+$wallposts-wallpost-important-author-color : $white;
+$wallposts-wallpost-important-title-color  : $white;
 $carousel-nav-item-active-bg-color         : $gray-light;
 $account-header-title-color                : $color-primary;
 

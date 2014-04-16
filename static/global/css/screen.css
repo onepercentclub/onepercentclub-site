@@ -5769,43 +5769,43 @@ table td td {
   background: #e9e9e9;
   color: white;
 }
-/* line 364, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
-.wallpost .wallpost-header .wallpost-meta .wallpost-author {
+/* line 363, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+.wallpost .wallpost-header .wallpost-author {
   text-transform: none;
   color: #ff619a;
   display: inline;
 }
-/* line 370, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
-.wallpost .wallpost-header .wallpost-meta .wallpost-timestamp {
+/* line 369, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+.wallpost .wallpost-header .wallpost-timestamp {
   color: #999999;
   font-size: 0.875em;
 }
-/* line 375, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
-.wallpost .wallpost-header .wallpost-meta .wallpost-edit {
+/* line 374, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+.wallpost .wallpost-header .wallpost-edit {
   float: right;
   text-decoration: none;
   padding: 0.5em;
 }
-/* line 382, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 380, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .wallpost-header .wallpost-title {
   text-transform: none;
   color: black;
 }
-/* line 390, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 388, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .wallpost-content .photo-viewer .cover {
   float: left;
   width: 100%;
   margin-left: 0%;
   margin-right: 0%;
 }
-/* line 396, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 394, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .wallpost-reactions {
   margin: -1em;
   margin-top: 0;
   margin-bottom: 0;
   position: relative;
 }
-/* line 404, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 402, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .wallpost-reactions .reactions:after {
   left: 50px;
   bottom: 100%;
@@ -5819,27 +5819,35 @@ table td td {
   border-width: 10px;
   margin-left: -10px;
 }
-/* line 420, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 418, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost.wallpost-system {
   border: 1px solid #ff619a;
   color: white;
   background-color: #ff619a;
 }
-/* line 426, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 422, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+.wallpost.wallpost-system .wallpost-author, .wallpost.wallpost-system .member-name {
+  color: white;
+}
+/* line 425, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+.wallpost.wallpost-system .wallpost-title {
+  color: white;
+}
+/* line 430, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost.important {
   border: 1px solid #00c051;
   color: white;
   background-color: #00c051;
 }
-/* line 432, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
-.wallpost.important .wallpost-author {
-  color: #00c051;
+/* line 436, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+.wallpost.important .wallpost-author, .wallpost.important .member-name {
+  color: white;
 }
-/* line 435, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 439, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost.important .wallpost-title {
-  color: #ff619a;
+  color: white;
 }
-/* line 440, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 444, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .wallpost-buttons {
   margin: 0 -1em;
   padding: 1em;
@@ -5847,30 +5855,30 @@ table td td {
   color: white;
   text-transform: uppercase;
 }
-/* line 448, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 452, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .wallpost-buttons .btn {
   padding: 0.25em 0.5em;
   vertical-align: middle;
 }
-/* line 452, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 456, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .wallpost-buttons .status {
   text-transform: none;
   float: right;
 }
-/* line 458, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 462, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .file-link {
   margin: 0 1em;
   color: #999999;
 }
-/* line 463, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 467, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .file-link a {
   color: #999999;
 }
-/* line 468, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 472, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .btn-spacer {
   margin: 0 0.5em;
 }
-/* line 472, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 476, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .wallpost-delete, .wallpost .reaction-delete {
   float: right;
   text-decoration: none;
@@ -6261,7 +6269,7 @@ table td td {
   background-color: #00c051;
   text-align: center;
   color: white;
-  padding: 1em 0;
+  padding: 1em;
 }
 /* line 208, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
 .task-preview .task-member-status big {
@@ -6357,7 +6365,7 @@ table td td {
 #task-list .task-list-wrapper {
   position: relative;
   border-bottom: 1px solid white;
-  padding: 0 1em 1em 1em;
+  padding: 1em 0;
   margin: 0;
 }
 /* line 296, ../../../../bluebottle/bluebottle/common/static/sass/modules/_tasks.scss */
@@ -10170,15 +10178,15 @@ form#manage-project-new {
 #wallposts .wallpost:hover .login-box {
   opacity: 1;
 }
-/* line 22, ../sass/1procentclub/modules/_wallposts.scss */
+/* line 18, ../sass/1procentclub/modules/_wallposts.scss */
 #wallposts .wallpost .wallpost-author {
   text-transform: uppercase;
 }
-/* line 27, ../sass/1procentclub/modules/_wallposts.scss */
+/* line 23, ../sass/1procentclub/modules/_wallposts.scss */
 #wallposts .btn-more {
   margin-left: 1em;
 }
-/* line 34, ../sass/1procentclub/modules/_wallposts.scss */
+/* line 30, ../sass/1procentclub/modules/_wallposts.scss */
 #wallposts #wallpost-form .tabs .tab-item a {
   color: #00c051;
   background: white;
@@ -10186,16 +10194,16 @@ form#manage-project-new {
   text-transform: uppercase;
   padding: 1em 0.5em;
 }
-/* line 42, ../sass/1procentclub/modules/_wallposts.scss */
+/* line 38, ../sass/1procentclub/modules/_wallposts.scss */
 #wallposts #wallpost-form .tabs .tab-item.active a {
   color: #ff619a;
 }
-/* line 48, ../sass/1procentclub/modules/_wallposts.scss */
+/* line 44, ../sass/1procentclub/modules/_wallposts.scss */
 #wallposts #wallpost-form .video-container, #wallposts #wallpost-form .photos-container {
   background: white;
   border: 1px solid #cccccc;
 }
-/* line 52, ../sass/1procentclub/modules/_wallposts.scss */
+/* line 48, ../sass/1procentclub/modules/_wallposts.scss */
 #wallposts #wallpost-form .btn-upload {
   color: #ff619a;
 }
