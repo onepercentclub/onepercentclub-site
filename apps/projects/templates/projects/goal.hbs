@@ -30,11 +30,46 @@
 
     <fieldset>
         <ul>
-
-            another field
+            <li class="control-group fieldset-content">
+                <label>Budget breakdown <small>Please specify all the things you need money for</small></label>
+                <hr>
+                <table class="campaign-budget-breakdown">
+                    <tbody>
+                        {{#each line in budgetLines}}
+                            <tr>
+                                <td>{{line.description}}</td>
+                                <td><strong class="left">€</strong> <span class="right">{{localize line.amount}}</span></td>
+                                <td>
+                                    <a {{action removeBudgetLine line href=true}} class="right flaticon stroke trash-2"></a>
+                                </td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>Total</td>
+                            <td><strong class="left">€</strong> <span class="right">{{localize budgetTotal}}</span></td>
+                            <td><span class="right">of € {{localize amount_asked}}</span></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </li>
         </ul>
     </fieldset>
 
+    <fieldset>
+        <ul>
+            <li class="control-group fieldset-content">
+                <div class="campaign-budget-description">
+                    {{view Em.TextField valueBinding='budgetLineNew.description' type="text" name="description" placeholder="Description of item" }}
+                </div>
+                <div class="campaign-budget-amount">
+                    {{view Em.TextField valueBinding='budgetLineNew.amount' type="number" name="amount" placeholder="€ Amount" }}
+                </div>
+                <a {{action addBudgetLine}} class="btn btn-modest add-budget"><span class="flaticon solid plus-2"></span> Add</a>
+            </li>
+        </ul>
+    </fieldset>
     {% block_verbatim goal_footer %}
         {{ partial '_my_project_save_edit_footer'}}
     {% endblock_verbatim %}

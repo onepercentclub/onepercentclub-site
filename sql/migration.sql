@@ -228,8 +228,6 @@ ALTER TABLE organizations_organization
   ALTER COLUMN description SET DEFAULT '',
   ALTER COLUMN legal_status SET DEFAULT '';
 
-
-
 -- Migrate phases to status
 
 UPDATE projects_project SET status_id = 1 WHERE phase IN ('pitch', 'plan');
@@ -299,7 +297,7 @@ UPDATE projects_project p
 ALTER TABLE projects_project DROP COLUMN phase;
 
 -- Add 'story' column to projects
-alter table projects_project ADD COLUMN story text;
+ALTER TABLE projects_project ADD COLUMN story text;
 
 
 -- Move the Why What How, Effects and Future fields to Story field
@@ -309,7 +307,25 @@ UPDATE projects_project p
   FROM projects_project as project
   WHERE project.id = p.id;
 
---
+-- Migrate Budget Lines
+
+-- Reference project instead of project plan
+ALTER TABLE projects_projectbudgetline
+  ADD COLUMN project_id INTEGER NULL;
+
+UPDATE projects_projectbudgetline pbl
+  SET project_id = (
+    SELECT project_id FROM projects_projectplan pp
+    WHERE pp.id = pbl.project_plan_id);
+
+-- Remove now obsolete project_plan_id
+
+ALTER TABLE projects_projectbudgetline
+  DROP COLUMN project_plan_id;
+
+-- At foreign key constraint
+
+
 
 --
 -- TASKS

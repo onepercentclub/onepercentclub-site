@@ -1,3 +1,9 @@
+App.Adapter.map('App.MyProject', {
+    tags: {embedded: 'load'},
+    country: {embedded: 'load'},
+    budgetLines: {embedded: 'load'}
+});
+
 App.Project.reopen({
 
     deadline: DS.attr('date'),
@@ -28,9 +34,27 @@ App.Project.reopen({
 
 });
 
+
+App.MyProjectBudgetLine = DS.Model.extend({
+    url: 'projects/budgetlines',
+
+    project: DS.belongsTo('App.MyProject'),
+    description: DS.attr('string'),
+    amount: DS.attr('number')
+});
+
+
 App.MyProject.reopen({
     image: DS.attr('image'),
     video: DS.attr('string'),
+    budgetLines: DS.hasMany('App.MyProjectBudgetLine'),
+
+    budgetTotal: function(){
+        var lines = this.get('budgetLines');
+        return lines.reduce(function(prev, line){
+            return (prev || 0) + (line.get('amount')/1 || 0);
+        });
+    }.property('budgetLines.@each.amount'),
 
     init: function () {
         this._super();

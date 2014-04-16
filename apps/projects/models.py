@@ -250,14 +250,9 @@ class ProjectBudgetLine(models.Model):
     def __unicode__(self):
         return u'{0} - {1}'.format(self.description, self.amount / 100.0)
 
+
 # FIXME: ProjectPhaseLog was removed here
 # Add a nice function/model/way to store status changes.
-
-class ProjectNeedChoices(DjangoChoices):
-    skills = ChoiceItem('skills', label=_("Skills and expertise"))
-    finance = ChoiceItem('finance', label=_("Crowdfunding campaign"))
-    both = ChoiceItem('both', label=_("Both"))
-
 
 class PartnerOrganization(models.Model):
     """
