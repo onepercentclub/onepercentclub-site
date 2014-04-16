@@ -54,3 +54,16 @@
         }
     }
 }
+
+#task-list {
+    .task-preview {
+        overflow: hidden;
+        height: 90px;
+        .task-member-status {
+            padding: (1.20 * $base-padding) $base-padding;
+        }
+        .task-arrow {
+            padding: ($base-padding * 0.80) 0;   
+        }
+    }
+}
