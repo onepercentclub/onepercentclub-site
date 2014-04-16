@@ -47,8 +47,16 @@ $base-line-height                      : 1.5em;
 // --------------------------------   
 $wallposts-bg-color                    : $gray-lighter;
 $wallposts-wallpost-bg-color           : $white;
-$wallposts-wallpost-system-bg-color    : $white;
-$wallposts-wallpost-important-bg-color : $white;
+// $wallposts-wallpost-system-bg-color    : $white;
+// $wallposts-wallpost-important-bg-color : $white;
 
 $carousel-nav-item-active-bg-color: $gray-light;
 $account-header-title-color: $color-primary;
+
+$wallposts-wallpost-system-color: $white;
+$wallposts-wallpost-system-bg-color: $color-primary;
+$wallposts-wallpost-system-border-color: $color-primary;
+
+$wallposts-wallpost-important-color: $white !default;
+$wallposts-wallpost-important-bg-color: $color-secondary !default;
+$wallposts-wallpost-important-border-color: $color-secondary !default;

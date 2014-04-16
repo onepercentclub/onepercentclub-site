@@ -5821,22 +5821,25 @@ table td td {
 }
 /* line 420, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost.wallpost-system {
-  background-color: white;
-}
-/* line 424, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
-.wallpost.important {
   border: 1px solid #ff619a;
-  background-color: white;
+  color: white;
+  background-color: #ff619a;
 }
-/* line 429, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 426, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+.wallpost.important {
+  border: 1px solid #00c051;
+  color: white;
+  background-color: #00c051;
+}
+/* line 432, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost.important .wallpost-author {
   color: #00c051;
 }
-/* line 432, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 435, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost.important .wallpost-title {
   color: #ff619a;
 }
-/* line 437, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 440, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .wallpost-buttons {
   margin: 0 -1em;
   padding: 1em;
@@ -5844,30 +5847,30 @@ table td td {
   color: white;
   text-transform: uppercase;
 }
-/* line 445, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 448, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .wallpost-buttons .btn {
   padding: 0.25em 0.5em;
   vertical-align: middle;
 }
-/* line 449, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 452, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .wallpost-buttons .status {
   text-transform: none;
   float: right;
 }
-/* line 455, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 458, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .file-link {
   margin: 0 1em;
   color: #999999;
 }
-/* line 460, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 463, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .file-link a {
   color: #999999;
 }
-/* line 465, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 468, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .btn-spacer {
   margin: 0 0.5em;
 }
-/* line 469, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
+/* line 472, ../../../../bluebottle/bluebottle/common/static/sass/modules/_wallposts.scss */
 .wallpost .wallpost-delete, .wallpost .reaction-delete {
   float: right;
   text-decoration: none;
@@ -10167,11 +10170,15 @@ form#manage-project-new {
 #wallposts .wallpost:hover .login-box {
   opacity: 1;
 }
-/* line 23, ../sass/1procentclub/modules/_wallposts.scss */
+/* line 22, ../sass/1procentclub/modules/_wallposts.scss */
+#wallposts .wallpost .wallpost-author {
+  text-transform: uppercase;
+}
+/* line 27, ../sass/1procentclub/modules/_wallposts.scss */
 #wallposts .btn-more {
   margin-left: 1em;
 }
-/* line 30, ../sass/1procentclub/modules/_wallposts.scss */
+/* line 34, ../sass/1procentclub/modules/_wallposts.scss */
 #wallposts #wallpost-form .tabs .tab-item a {
   color: #00c051;
   background: white;
@@ -10179,16 +10186,16 @@ form#manage-project-new {
   text-transform: uppercase;
   padding: 1em 0.5em;
 }
-/* line 38, ../sass/1procentclub/modules/_wallposts.scss */
+/* line 42, ../sass/1procentclub/modules/_wallposts.scss */
 #wallposts #wallpost-form .tabs .tab-item.active a {
   color: #ff619a;
 }
-/* line 44, ../sass/1procentclub/modules/_wallposts.scss */
+/* line 48, ../sass/1procentclub/modules/_wallposts.scss */
 #wallposts #wallpost-form .video-container, #wallposts #wallpost-form .photos-container {
   background: white;
   border: 1px solid #cccccc;
 }
-/* line 48, ../sass/1procentclub/modules/_wallposts.scss */
+/* line 52, ../sass/1procentclub/modules/_wallposts.scss */
 #wallposts #wallpost-form .btn-upload {
   color: #ff619a;
 }
