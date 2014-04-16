@@ -4,7 +4,7 @@
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 /* ========================= Includes ============================= */
 /* Compass */
-/* line 17, ../../../../../.rvm/gems/ruby-2.1.1/gems/compass-0.12.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 17, ../../../../../.rvm/gems/ruby-2.0.0-p451/gems/compass-0.12.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -26,45 +26,45 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-/* line 22, ../../../../../.rvm/gems/ruby-2.1.1/gems/compass-0.12.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 22, ../../../../../.rvm/gems/ruby-2.0.0-p451/gems/compass-0.12.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html {
   line-height: 1;
 }
 
-/* line 24, ../../../../../.rvm/gems/ruby-2.1.1/gems/compass-0.12.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 24, ../../../../../.rvm/gems/ruby-2.0.0-p451/gems/compass-0.12.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;
 }
 
-/* line 26, ../../../../../.rvm/gems/ruby-2.1.1/gems/compass-0.12.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 26, ../../../../../.rvm/gems/ruby-2.0.0-p451/gems/compass-0.12.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 28, ../../../../../.rvm/gems/ruby-2.1.1/gems/compass-0.12.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 28, ../../../../../.rvm/gems/ruby-2.0.0-p451/gems/compass-0.12.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
-/* line 30, ../../../../../.rvm/gems/ruby-2.1.1/gems/compass-0.12.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 30, ../../../../../.rvm/gems/ruby-2.0.0-p451/gems/compass-0.12.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none;
 }
-/* line 103, ../../../../../.rvm/gems/ruby-2.1.1/gems/compass-0.12.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 103, ../../../../../.rvm/gems/ruby-2.0.0-p451/gems/compass-0.12.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
   content: none;
 }
 
-/* line 32, ../../../../../.rvm/gems/ruby-2.1.1/gems/compass-0.12.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 32, ../../../../../.rvm/gems/ruby-2.0.0-p451/gems/compass-0.12.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none;
 }
 
-/* line 116, ../../../../../.rvm/gems/ruby-2.1.1/gems/compass-0.12.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 116, ../../../../../.rvm/gems/ruby-2.0.0-p451/gems/compass-0.12.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
   display: block;
 }
@@ -1615,7 +1615,7 @@ ul {
 ul > li {
   padding-left: 2em;
   margin: 1em 0;
-  background: url('../images/list-item.png?1396513147') transparent no-repeat 0 0;
+  background: url('../images/list-item.png?1397116255') transparent no-repeat 0 0;
 }
 
 /* line 144, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
@@ -3016,7 +3016,7 @@ p.error, label.error {
   left: -14px;
   width: 14px;
   height: 23px;
-  background: url('../images/form-error-back-arrow.png?1396513147') transparent no-repeat 0 0;
+  background: url('../images/form-error-back-arrow.png?1397116255') transparent no-repeat 0 0;
   content: ' ';
 }
 
@@ -3039,14 +3039,14 @@ select {
   -moz-appearance: none;
   text-indent: 1px;
   text-overflow: '';
-  background-image: url('../images/select-arrow.png?1396513147');
+  background-image: url('../images/select-arrow.png?1397116255');
   background-position: center right;
   background-repeat: no-repeat;
 }
 /* line 271, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
 select:hover, select:focus {
   border-color: #00c051;
-  background-image: url('../images/select-arrow-hover.png?1396513147');
+  background-image: url('../images/select-arrow-hover.png?1397116255');
 }
 
 /* line 278, ../../../../bluebottle/bluebottle/common/static/sass/base/_forms.scss */
@@ -3948,7 +3948,7 @@ textarea[readonly] {
 .modal-header .modal-title, .modal-header h3 {
   font-size: 1.75em;
   color: #ff619a;
-  color: #e9e9e9;
+  background-color: #e9e9e9;
 }
 
 /* line 117, ../../../../bluebottle/bluebottle/common/static/sass/base/_modals.scss */
@@ -6721,15 +6721,15 @@ table td td {
 }
 /* line 17, ../../../../bluebottle/bluebottle/common/static/sass/pages/_home.scss */
 #home #new-website .carousel-image {
-  background: url('../images/pages/homepage/home-back-new-website.png?1396513147') transparent no-repeat 120px 30%;
+  background: url('../images/pages/homepage/home-back-new-website.png?1397116255') transparent no-repeat 120px 30%;
 }
 /* line 21, ../../../../bluebottle/bluebottle/common/static/sass/pages/_home.scss */
 #home #find-project .carousel-image {
-  background: url('../images/pages/homepage/home-back-find-project.jpg?1396513147') transparent no-repeat 0 0;
+  background: url('../images/pages/homepage/home-back-find-project.jpg?1397116255') transparent no-repeat 0 0;
 }
 /* line 25, ../../../../bluebottle/bluebottle/common/static/sass/pages/_home.scss */
 #home #smart-idea .carousel-image {
-  background: url('../images/pages/homepage/home-back-smart-idea.png?1396513147') transparent no-repeat 120px 30%;
+  background: url('../images/pages/homepage/home-back-smart-idea.png?1397116255') transparent no-repeat 120px 30%;
 }
 /* line 30, ../../../../bluebottle/bluebottle/common/static/sass/pages/_home.scss */
 #home .project-slider {
@@ -6740,7 +6740,7 @@ table td td {
 }
 /* line 35, ../../../../bluebottle/bluebottle/common/static/sass/pages/_home.scss */
 #home .home-quotes {
-  background-image: url('../images/world.png?1396513147');
+  background-image: url('../images/world.png?1397116255');
   background-repeat: no-repeat;
   background-position: 50% 1em;
   background-color: #e9e9e9;
@@ -9099,7 +9099,7 @@ table td td {
 .account-header .account-title {
   margin-top: 1.5em;
   text-transform: none;
-  color: #444444;
+  color: #ff619a;
 }
 /* line 89, ../../../../bluebottle/bluebottle/common/static/sass/pages/_account.scss */
 .account-header .account-edit-link {
@@ -9638,7 +9638,7 @@ form#manage-project-new {
 #manage-project .has-errors:after {
   left: auto;
   right: -14px;
-  background: url('../images/form-error-back-arrow-right.png?1396513147') transparent no-repeat 0 0;
+  background: url('../images/form-error-back-arrow-right.png?1397116255') transparent no-repeat 0 0;
 }
 
 /* line 118, ../../../../bluebottle/bluebottle/common/static/sass/pages/_manage.scss */
@@ -9691,11 +9691,11 @@ form#manage-project-new {
 }
 /* line 16, ../../../../bluebottle/bluebottle/common/static/sass/pages/_fmo.scss */
 #fmo #fmo-cocreation .carousel-image {
-  background: url('../images/pages/fmo/fmo-logo.png?1396513147') transparent no-repeat 120px 30%;
+  background: url('../images/pages/fmo/fmo-logo.png?1397116255') transparent no-repeat 120px 30%;
 }
 /* line 20, ../../../../bluebottle/bluebottle/common/static/sass/pages/_fmo.scss */
 #fmo #fmo-about .carousel-image {
-  background: url('../images/pages/fmo/fmo-cocreation.jpg?1396513147') transparent no-repeat 0 0;
+  background: url('../images/pages/fmo/fmo-cocreation.jpg?1397116255') transparent no-repeat 0 0;
 }
 
 /* Temp */
@@ -9999,6 +9999,15 @@ form#manage-project-new {
   margin-top: 1em;
 }
 
+/* line 2, ../sass/1procentclub/modules/_account.scss */
+#profile-preview .member-name {
+  text-transform: uppercase;
+}
+/* line 5, ../sass/1procentclub/modules/_account.scss */
+#profile-preview ul.account-achievements {
+  margin: 0;
+}
+
 /* line 3, ../sass/1procentclub/modules/_projects.scss */
 .member-list li.project-member-fundraisers {
   float: left;
@@ -10184,6 +10193,12 @@ form#manage-project-new {
   color: #ff619a;
 }
 
+/* line 3, ../sass/1procentclub/pages/_account.scss */
+.account-header .account-title {
+  margin-top: 1em;
+  text-transform: uppercase;
+}
+
 /* line 3, ../sass/1procentclub/pages/_project-detail.scss */
 #project-detail .project-status {
   padding: 0.25em 0;
@@ -10300,7 +10315,7 @@ form#manage-project-new {
 }
 /* line 13, ../sass/1procentclub/pages/_profile.scss */
 .account-achievements .account-achievements-projects {
-  background-image: url('../images/illustrations/ideas-pink.svg?1396513147');
+  background-image: url('../images/illustrations/ideas-pink.svg?1397116255');
 }
 /* line 16, ../sass/1procentclub/pages/_profile.scss */
 .account-achievements .account-achievements-tasks {
@@ -10308,5 +10323,5 @@ form#manage-project-new {
 }
 /* line 19, ../sass/1procentclub/pages/_profile.scss */
 .account-achievements .account-achievements-time {
-  background-image: url('../images/illustrations/hours-green.svg?1396513147');
+  background-image: url('../images/illustrations/hours-green.svg?1397116255');
 }
