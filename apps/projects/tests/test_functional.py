@@ -13,10 +13,12 @@ from django.utils.unittest.case import skipUnless
 from bluebottle.geo import models as geo_models
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 
+from onepercentclub.tests.utils import OnePercentSeleniumTestCase
+from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
+from bluebottle.test.factory_models.projects import ProjectThemeFactory, ProjectPhaseFactory
+from ..tests.factory_models.project_factories import OnePercentProjectFactory
 
 from ..models import Project, ProjectTheme
-from .unittests import ProjectTestsMixin
-
 
 import os
 import time
@@ -24,11 +26,14 @@ import time
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
         'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
-class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
+class ProjectSeleniumTests(OnePercentSeleniumTestCase):
     """
     Selenium tests for Projects.
     """
     def setUp(self):
+        self.phase_1 = ProjectPhaseFactory.create(sequence=1, name='Plan - New')
+        self.phase_2 = ProjectPhaseFactory.create(sequence=2, name='Campaign')
+
         self.projects = dict([(slugify(title), title) for title in [
            u'Mobile payments for everyone 2!', u'Schools for children 2',  u'Women first 2'
         ]])
@@ -38,8 +43,8 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
         self.user = User.objects.create_user('johndoe@example.com', 'secret', primary_language='en')
 
         for slug, title in self.projects.items():
-            project = self.create_project(title=title, slug=slug, money_asked=100000, owner=self.user)
-            project.amount_donated = 0
+            project = OnePercentProjectFactory.create(title=title, slug=slug, 
+                            amount_asked=100000, owner=self.user, amount_donated=0)
             project.save()
 
     def visit_project_list_page(self, lang_code=None):
@@ -100,7 +105,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
 
         # Create dict of projects in the database.
         expected_projects = []
-        for p in Project.objects.filter(phase=ProjectPhases.campaign).order_by('popularity')[:len(web_projects)]:
+        for p in Project.objects.filter(phase=self.phase_2).order_by('popularity')[:len(web_projects)]:
             expected_projects.append({
                 'title': p.title.upper(),  # Uppercase the title for comparison.
                 'money_needed': int(round(p.amount_needed / 100.0)),
@@ -114,7 +119,7 @@ class ProjectSeleniumTests(ProjectTestsMixin, OnePercentSeleniumTestCase):
 
         # create project (with pitch)
         slug = 'picture-upload'
-        project = self.create_project(title='Test picture upload', owner=self.user, phase='pitch', slug=slug)
+        project = OnePercentProjectFactory.create(title='Test picture upload', owner=self.user, phase=self.phase_1, slug=slug)
         # create theme
         project.theme = ProjectTheme.objects.create(name='Tests', name_nl='Testen', slug='tests')
         # create country etc.
