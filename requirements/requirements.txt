@@ -18,13 +18,6 @@ pytz==2013b
 # http://pypi.python.org/pypi/surlex/0.2.0
 surlex==0.2.0
 
-
-# Jenkins integration
-django-jenkins==0.14.0
-
-# Coverage in tests
-coverage==3.6
-
 # Legacy authentication module for authenticating users from the old PHP site.
 # https://github.com/onepercentclub/legacyauth/archive/3f2406c50dead25a748fb2433de55b73a9162f18.zip
 -e git://github.com/onepercentclub/legacyauth.git@3f2406c50dead25a748fb2433de55b73a9162f18#egg=legacyauth
