@@ -95,6 +95,7 @@ class Project(BaseProject):
     amount_donated = models.PositiveIntegerField(default=0)
     amount_needed = models.PositiveIntegerField(default=0)
 
+    allow_overfunding = models.BooleanField(default=True)
     story = models.TextField(_("story"), help_text=_("This is the help text for the story field"), blank=True, null=True)
 
     # TODO: add

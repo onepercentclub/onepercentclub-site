@@ -45,3 +45,25 @@
         @include grid(20,0,0);
     }
 }
+
+#project-members {
+    .member-list {
+        @include grid(48,1,1);
+        .member-initiator {
+            @include grid(14,0,1);
+        }
+    }
+}
+
+#task-list {
+    .task-preview {
+        overflow: hidden;
+        height: 90px;
+        .task-member-status {
+            padding: (1.20 * $base-padding) $base-padding;
+        }
+        .task-arrow {
+            padding: ($base-padding * 0.80) 0;   
+        }
+    }
+}

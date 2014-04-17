@@ -1,0 +1,135 @@
+.member-list {    
+    li {
+        &.project-member-fundraisers {
+            @include grid(14,0,1);
+        }
+        
+        &.project-member-supporters {
+            @include grid(20,1,0);
+            margin-right: 0;   
+            float: right;
+        }
+        
+        &.project-member-fundraisers, &.project-member-supporters {
+            
+            ul {
+                @include clear;
+                margin-bottom: $base-margin/4;
+            }
+            
+            .member {
+                width: 45px;
+                height: 45px;
+                color: $color-text;
+                vertical-align: middle;
+                text-align: center;
+                text-transform: uppercase;
+                white-space: normal;
+                line-height: 1em;
+        
+                strong {
+                    color: $color-primary;
+                }
+        
+                em {
+                    font-style: normal;
+                }
+                    
+                &:hover {
+                
+                    img {
+                        margin-top: 4px;
+                    }
+                }
+                
+                // Needed for position changing on active
+                &:before {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                }
+            }
+        }
+        
+        &.project-member-fundraisers .popover {
+            width: 460px;
+            
+            .fundraiser-image {
+                @include grid(12,0,1);
+                float: left;
+                margin-bottom: $base-margin;
+                
+                img { 
+                    border: 1px solid $white;
+                }
+            }
+            
+
+            .fundraiser-content {
+                @include grid(36,0,1);
+                margin-bottom: $base-margin;
+            }
+            
+            .fundraiser-title {
+                font-size: $font-size-large;
+                color: $color-secondary;
+                font-family: $font-family-heavy;
+            }
+            
+            .fundraiser-name {
+                font-size: $base-font-size;
+                font-family: $font-family-heavy;
+            }
+            
+            .project-fund-amount {
+                margin-top: $base-margin;
+                color: $gray;
+                font-size: $font-size-small;
+                
+                strong {
+                    color: $gray-darker;
+                }
+                
+                .amount-donated {
+                    
+                }
+                
+                .amount-asked {
+                    
+                }
+            }
+        }
+        
+        &.project-member-supporters .popover {
+            width: 240px;
+            text-align: center;
+            
+            .popover-title {
+                margin-bottom: 0;
+                padding-bottom: 0;
+            }
+            
+            .popover-content {
+                margin-top: 0;
+                padding-top: 0;
+            }
+        }
+        
+        .fundraiser-become {
+            @include transition(all 0.2s ease-out);
+            font-family: $font-family-heavy;
+            text-transform: uppercase;
+            display: inline-block;
+            color: $color-primary;
+            padding-right: 16px;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAALCAYAAABCm8wlAAAAfElEQVQoz2P4nziLAYgNgXgfEItD+XAMImyA+D0Q/wfi60Asia5gPVQShm8AsRSyAk4g3oGm6BYQy8AUgDA7EG9DU3QHiOWQHcQDxG/RFO1FNmErmuRdmAkcQLwdixtkYW5YjSZ5E4ilkX1hBMRv8IUDCOsC8X4glkAPSQDpL9be9X9n1gAAAABJRU5ErkJggg==') transparent no-repeat 100% 50%;
+            
+            &:hover, &:active {
+                padding-right: 20px;
+                text-decoration: none;
+            }
+        }
+    }
+}

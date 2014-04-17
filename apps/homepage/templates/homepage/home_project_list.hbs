@@ -11,7 +11,7 @@
 
             {% block_verbatim header_text %}
 			<header class="section-header">
-				<h2>{% trans "Choose your project" %}</h2>
+				<h1>{% trans "Choose your project" %}</h1>
 				<p>{% trans "Support it with your time, knowledge or money and receive real-time updates." %}</p>
 			</header>
 		    {% endblock_verbatim %}
@@ -43,13 +43,35 @@
 						</h2>
 						<p class="project-description">{{pitch}}</p>
 
-						<div class="project-action">
-							{{#link-to 'project' id class="btn btn-primary btn-iconed"}}
-							<span class="flaticon solid wallet-1"></span> {% trans "View project" %}
-							{{/link-to}}
-						</div>
 					</article>
 
+                    <div class="project-status l-full">
+
+                        <div class="project-days-left l-one-third">
+                        	&nbsp;
+	                        {{#if deadline}}
+    						<strong><span class="flaticon solid clock-1"></span> {{campaign.daysToGo}}</strong>
+    						<em>{% trans "days to go" %}</em>
+    						{{/if}}
+    					</div>
+
+    					<div class="project-fund l-one-third">
+                            <p class="project-fund-amount">
+                                <strong class="amount-donated">&euro;{{localize amount_donated}}</strong>
+                                {% trans "of" %}
+                                <strong class="amount-asked">&euro;{{localize amount_asked}}</strong>
+                                {% trans "raised" %}
+                            </p>
+			                {{bb-progressbar targetValue=amount_asked currentValue=amount_donated}}
+
+                            {{!-- <div class="project-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div> --}}
+    					</div>
+
+                        <div class="project-action l-one-third">
+    					    <a href='#' {{ action 'addDonation' project }} class="btn btn-primary btn-iconed"><span class="flaticon solid wallet-1"></span> {% trans "Support" %}</a>
+                        </div>
+
+					</div>
 				</div>
 				{{/each}}
 			</div>
