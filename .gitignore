@@ -87,3 +87,6 @@ static/global/compass_app_log.txt
 
 ghostdriver.log
 /exports
+
+# ignore the screen.css file
+static/global/css/screen.css
