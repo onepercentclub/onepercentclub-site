@@ -1,88 +1,24 @@
 import json
-from decimal import Decimal
-from bluebottle.bb_projects.models import ProjectPhase
 
+from decimal import Decimal
 from django.test import TestCase, RequestFactory
 from django.contrib.contenttypes.models import ContentType
-from rest_framework import status
-from bluebottle.utils.tests import UserTestsMixin, generate_random_slug
+from django.core.urlresolvers import reverse
 
-from apps.organizations.tests import OrganizationTestsMixin
-from bluebottle.wallposts.models import TextWallPost
-from apps.fund.models import DonationStatuses, Donation, Order
+from rest_framework import status
+
+from bluebottle.utils.utils import get_taskmember_model, get_skill_model
+from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
+from bluebottle.test.factory_models.projects import ProjectThemeFactory, ProjectPhaseFactory
+from ..tests.factory_models.project_factories import OnePercentProjectFactory
 
 from ..models import Project
 
 
-class ProjectTestsMixin(OrganizationTestsMixin, UserTestsMixin):
-    """ Mixin base class for tests using projects. """
-
-    def create_project(self, organization=None, owner=None, title=None, phase='pitch', slug=None, money_asked=0):
-        """
-        Create a 'default' project with some standard values so it can be
-        saved to the database, but allow for overriding.
-
-        The returned object is saved to the database.
-        """
-        if not owner:
-            # Create a new user with a random username
-            owner = self.create_user()
-
-        if not slug:
-            slug = generate_random_slug()
-            while Project.objects.filter(slug=slug).exists():
-                slug = generate_random_slug()
-
-        if not title:
-            title = generate_random_slug()
-            while Project.objects.filter(title=title).exists():
-                title = generate_random_slug()
-
-        project = Project(owner=owner, title=title, slug=slug, phase=phase)
-        project.save()
-
-        project.title = title
-        project.status = ProjectPhase.objects.get(slug="plan-new")
-        project.save()
-
-        if money_asked:
-
-            project.projectplan = ProjectPlan(title=project.title, project=project)
-            project.projectplan.status = 'approved'
-
-            # add an organization so we can create pay-outs
-            project.projectplan.organization = self.create_organization()
-            project.projectplan.save()
-
-            project.projectcampaign = ProjectCampaign(status='running', project=project, money_asked=money_asked)
-            project.projectcampaign.save()
-            project.projectcampaign.update_money_donated()
-
-            project.status = ProjectPhase.objects.get(slug="campaign")
-            project.save()
-
-        return project
-
-
-class ProjectWallPostTestsMixin(ProjectTestsMixin):
-    """ Mixin base class for tests using wallposts. """
-
-    def create_project_text_wallpost(self, text='Some smart comment.', project=None, author=None):
-        if not project:
-            project = self.create_project()
-        if not author:
-            author = self.create_user()
-        content_type = ContentType.objects.get_for_model(Project)
-        wallpost = TextWallPost(content_type=content_type, object_id=project.id, author=author)
-        wallpost.text = text
-        wallpost.save()
-        return wallpost
-
 # RequestFactory used for integration tests.
 factory = RequestFactory()
 
-
-class ProjectApiIntegrationTest(ProjectTestsMixin, TestCase):
+class ProjectEndpointTestCase(TestCase):
     """
     Integration tests for the Project API.
     """
@@ -91,22 +27,29 @@ class ProjectApiIntegrationTest(ProjectTestsMixin, TestCase):
         """
         Create 26 Project instances.
         """
+        self.user = BlueBottleUserFactory.create()
+
+        self.phase_1 = ProjectPhaseFactory.create(slug='campaign')
+        self.phase_2 = ProjectPhaseFactory.create(slug='plan')
+        self.phase_2.viewable = False
+
+        self.theme_1 = ProjectThemeFactory.create()
+
         for char in 'abcdefghijklmnopqrstuvwxyz':
-            project = self.create_project(title=char * 3, slug=char * 3)
+            project = OnePercentProjectFactory.create(title=char * 3, slug=char * 3,
+                        status=self.phase_1, theme=self.theme_1)
+
             if ord(char) % 2 == 1:
                 # Put half of the projects in the campaign phase.
-                project.projectplan = ProjectPlan(title=project.title)
-                project.projectplan.status = 'approved'
-                project.projectplan.save()
-                project.status = ProjectPhase.objects.get(slug="campaign")
-                project.save()
+                project.status = self.phase_1
             else:
-                project.projectplan = ProjectPlan(title=project.title)
-                project.projectplan.save()
-                project.phase = ProjectPhases.plan
-                project.save()
+                project.status = self.phase_2
 
-        self.projects_url = '/api/projects/projects/'
+            project.save()
+
+        self.projects_url = reverse('project_list')
+
+class ProjectApiIntegrationTest(ProjectEndpointTestCase):
 
     def test_project_list_view(self):
         """
@@ -129,7 +72,7 @@ class ProjectApiIntegrationTest(ProjectTestsMixin, TestCase):
         """
 
         # Tests that the phase filter works.
-        response = self.client.get(self.projects_url + '?phase=plan')
+        response = self.client.get('%s?status=%i' % (self.projects_url, self.phase_2.id))
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 13)
         self.assertEquals(len(response.data['results']), 10)
@@ -163,17 +106,20 @@ class ProjectApiIntegrationTest(ProjectTestsMixin, TestCase):
         self.assertEquals(response.status_code, status.HTTP_200_OK)
 
 
-class ProjectManageApiIntegrationTest(ProjectTestsMixin, TestCase):
+class ProjectManageApiIntegrationTest(TestCase):
     """
     Integration tests for the Project API.
     """
 
     def setUp(self):
-        self.some_user = self.create_user()
-        self.another_user = self.create_user()
+        self.some_user = BlueBottleUserFactory.create()
+        self.another_user = BlueBottleUserFactory.create()
 
-        self.manage_projects_url = '/api/projects/manage/'
-        self.manage_pitches_url = '/api/projects/pitches/manage/'
+        self.phase_1 = ProjectPhaseFactory.create(sequence=1, name='Plan - New')
+        self.phase_2 = ProjectPhaseFactory.create(sequence=2, name='Plan - Submitted')
+        self.phase_3 = ProjectPhaseFactory.create(sequence=3, name='Campaign')
+
+        self.manage_projects_url = reverse('project_manage_list')
 
     def test_pitch_create(self):
         """
@@ -181,7 +127,7 @@ class ProjectManageApiIntegrationTest(ProjectTestsMixin, TestCase):
         """
 
         # Check that a new user doesn't have any projects to manage
-        self.client.login(username=self.some_user.email, password='password')
+        self.client.login(username=self.some_user.email, password='testing')
         response = self.client.get(self.manage_projects_url)
         self.assertEquals(response.data['count'], 0)
 
@@ -192,94 +138,86 @@ class ProjectManageApiIntegrationTest(ProjectTestsMixin, TestCase):
         # Check that it's there, in pitch phase, has got a pitch but no plan yet.
         response = self.client.get(self.manage_projects_url)
         self.assertEquals(response.data['count'], 1)
-        self.assertEquals(response.data['results'][0]['phase'], ProjectPhases.pitch)
-        self.assertEquals(response.data['results'][0]['plan'], None)
+        self.assertEquals(response.data['results'][0]['status'], self.phase_1.id)
+        self.assertEquals(response.data['results'][0]['pitch'], '')
 
-        # Get the pitch
-        pitch_id = response.data['results'][0]['pitch']
-        response = self.client.get(self.manage_pitches_url + str(pitch_id))
+        # Get the project
+        project_id = response.data['results'][0]['id']
+        response = self.client.get(self.manage_projects_url + str(project_id))
         self.assertEquals(response.status_code, status.HTTP_200_OK, response)
         self.assertEquals(response.data['title'], 'This is my smart idea')
 
         # Let's check that another user can't get this pitch
         self.client.logout()
-        self.client.login(username=self.another_user.email, password='password')
-        response = self.client.get(self.manage_pitches_url + str(pitch_id))
+        self.client.login(username=self.another_user.email, password='testing')
+        response = self.client.get(reverse('project_manage_detail', kwargs={'slug': project_id}))
         self.assertEquals(response.status_code, status.HTTP_403_FORBIDDEN, response)
 
         # Let's create a pitch for this other user
         response = self.client.post(self.manage_projects_url, {'title': 'My idea is way smarter!'})
-        project_slug = response.data['id']
-        project_url = self.manage_projects_url + project_slug
+        project_url = reverse('project_manage_detail', kwargs={'slug': response.data['slug']})
         self.assertEquals(response.data['title'], 'My idea is way smarter!')
-        pitch_id = response.data['pitch']
-        pitch_url = self.manage_pitches_url + str(pitch_id)
 
         # Add some values to this pitch
-        pitch_data = {'title': 'My idea is quite smart!', 'latitude': '52.987245', 'longitude': '-5.8754',
-                      'pitch': 'Lorem ipsum, bla bla ', 'description': 'Some more text'}
-        response = self.client.put(pitch_url, json.dumps(pitch_data), 'application/json')
+        project_data = {'title': response.data['title']}
+        project_data['pitch'] = 'Lorem ipsum, bla bla '
+        project_data['description'] = 'Some more text'
+        response = self.client.put(project_url, json.dumps(project_data), 'application/json')
         self.assertEquals(response.status_code, status.HTTP_200_OK, response)
-
-        # Let's try to be smart and create another pitch. This should fail. You can have only have one running project.
-        response = self.client.post(self.manage_projects_url, {'title': 'I am such a smart ass...'})
-        self.assertEquals(response.status_code, status.HTTP_403_FORBIDDEN, response)
 
         # Back to the previous pitch. Try to cheat and put it to status approved.
-        pitch_data['status'] = 'approved'
-        response = self.client.put(pitch_url, json.dumps(pitch_data), 'application/json')
-        self.assertEquals(response.status_code, status.HTTP_400_BAD_REQUEST, response)
+        project_data['status'] = self.phase_3.id
+        response = self.client.put(project_url, json.dumps(project_data), 'application/json')
+        self.assertEquals(response.data['status'], self.phase_1.id, 'status should be reset to previous value')
 
         # Ok, let's try to submit it. We have to submit all previous data again too.
-        pitch_data['status'] = 'submitted'
-        response = self.client.put(pitch_url, json.dumps(pitch_data), 'application/json')
+        project_data['status'] = self.phase_2.id
+        response = self.client.put(project_url, json.dumps(project_data), 'application/json')
         self.assertEquals(response.status_code, status.HTTP_200_OK, response)
-        self.assertEquals(response.data['status'], 'submitted')
+        self.assertEquals(response.data['status'], self.phase_2.id)
 
-        # Changing this pitch specs for this project should fail now.
-        pitch_data['title'] = 'Changed title'
-        response = self.client.put(pitch_url, json.dumps(pitch_data), 'application/json')
-        self.assertEquals(response.status_code, status.HTTP_403_FORBIDDEN, response)
+        # Changing the slug for this project should just reset it to the previous value
+        project_data['slug'] = 'a-new-slug-should-not-be-possible'
+        response_2 = self.client.put(project_url, json.dumps(project_data), 'application/json')
+        self.assertEquals(response_2.data['slug'], response.data['slug'], 'changing the slug should not be possible')
 
         # Set the project to plan phase from the backend
-        project = Project.objects.get(slug=project_slug)
-        project.phase = ProjectPhases.plan
+        project = Project.objects.get(slug=response.data.get('slug'))
+        project.status = self.phase_3
         project.save()
 
         # Let's look at the project again. It should have a project plan and be in plan phase.
         response = self.client.get(project_url)
         self.assertEquals(response.status_code, status.HTTP_200_OK, response)
-        self.assertEquals(response.data['phase'], ProjectPhases.plan)
-        plan_id = response.data['plan']
-        self.assertIsNotNone(plan_id)
+        self.assertEquals(response.data['status'], self.phase_3.id)
 
 
-class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
+class ProjectWallPostApiIntegrationTest(TestCase):
     """
     Integration tests for the Project Media WallPost API.
     """
 
     def setUp(self):
-        self.some_project = self.create_project(slug='someproject')
-        self.another_project = self.create_project(slug='anotherproject')
+        self.some_project = OnePercentProjectFactory.create(slug='someproject')
+        self.another_project = OnePercentProjectFactory.create(slug='anotherproject')
 
-        self.some_user = self.create_user()
-        self.another_user = self.create_user()
+        self.some_user = BlueBottleUserFactory.create()
+        self.another_user = BlueBottleUserFactory.create()
 
         self.some_photo = 'apps/projects/test_images/loading.gif'
         self.another_photo = 'apps/projects/test_images/upload.png'
 
-        self.media_wallposts_url = '/api/wallposts/mediawallposts/'
-        self.media_wallpost_photos_url = '/api/wallposts/photos/'
+        self.media_wallposts_url = reverse('media_wallpost_list')
+        self.media_wallpost_photos_url = reverse('mediawallpost_photo_list')   
 
-        self.text_wallposts_url = '/api/wallposts/textwallposts/'
-        self.wallposts_url = '/api/wallposts/'
+        self.text_wallposts_url = reverse('text_wallpost_list')
+        self.wallposts_url = reverse('wallpost_list')
 
     def test_project_media_wallpost_crud(self):
         """
         Tests for creating, retrieving, updating and deleting a Project Media WallPost.
         """
-        self.client.login(username=self.some_project.owner.email, password='password')
+        self.client.login(username=self.some_project.owner.email, password='testing')
 
         # Create a Project Media WallPost by Project Owner
         # Note: This test will fail when we require at least a video and/or a text but that's what we want.
@@ -312,7 +250,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         response = self.client.post(self.media_wallposts_url, {'title': wallpost_title, 'parent_type': 'project', 'parent_id': self.some_project.slug})
         project_wallpost_detail_url = "{0}{1}".format(self.wallposts_url, str(response.data['id']))
         self.client.logout()
-        self.client.login(username=self.some_user.email, password='password')
+        self.client.login(username=self.some_user.email, password='testing')
         response = self.client.get(project_wallpost_detail_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['title'], wallpost_title)
@@ -328,7 +266,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
 
         # Write Project Media WallPost by Project Owner to another Project should fail
         # self.client.logout()
-        # self.client.login(username=self.some_project.owner.email, password='password')
+        # self.client.login(username=self.some_project.owner.email, password='testing')
         # new_wallpost_title = 'This is not my project, although I do have a project'
         # response = self.client.post(self.media_wallposts_url, {'title': new_wallpost_title, 'parent_type': 'project', 'parent_id': self.another_project.slug})
         # self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
@@ -337,7 +275,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         second_wallpost_title = "My project rocks!"
         response = self.client.post(self.media_wallposts_url, {'title': second_wallpost_title, 'parent_type': 'project', 'parent_id': self.some_project.slug})
         self.client.logout()
-        self.client.login(username=self.some_user.email, password='password')
+        self.client.login(username=self.some_user.email, password='testing')
         response = self.client.put(project_wallpost_detail_url, {'title': new_wallpost_title, 'parent_type': 'project', 'parent_id': self.some_project.slug})
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
@@ -346,7 +284,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response)
 
         # Retrieve a list of the two Project Media WallPosts that we've just added should work
-        response = self.client.get(self.wallposts_url,  {'project': self.some_project.slug})
+        response = self.client.get(self.wallposts_url,  {'parent_type': 'project', 'parent_id': self.some_project.slug})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(len(response.data['results']), 2)
         self.assertEqual(response.data['results'][0]['title'], second_wallpost_title)
@@ -357,7 +295,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         """
         Test connecting photos to wallposts
         """
-        self.client.login(username=self.some_project.owner.email, password='password')
+        self.client.login(username=self.some_project.owner.email, password='testing')
 
         # Typically the photos are uploaded before the wallpost is uploaded so we simulate that here
         photo_file = open(self.some_photo, mode='rb')
@@ -389,7 +327,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
 
         # Create a wallpost by another user
         self.client.logout()
-        self.client.login(username=self.another_project.owner.email, password='password')
+        self.client.login(username=self.another_project.owner.email, password='testing')
         wallpost_title = 'Muy project is waaaaaay better!'
         response = self.client.post(self.media_wallposts_url, {'title': wallpost_title, 'parent_type': 'project', 'parent_id': self.another_project.slug})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
@@ -405,7 +343,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
 
         # Make sure the first user can't connect it's picture to someone else's wallpost
         self.client.logout()
-        self.client.login(username=self.some_project.owner.email, password='password')
+        self.client.login(username=self.some_project.owner.email, password='testing')
         response = self.client.put(another_photo_detail_url, json.dumps({'mediawallpost': another_wallpost_id}), 'application/json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
@@ -433,7 +371,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         response = self.client.post(self.text_wallposts_url, {'text': text1, 'parent_type': 'project', 'parent_id': self.some_project.slug})
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-        self.client.login(username=self.some_user.email, password='password')
+        self.client.login(username=self.some_user.email, password='testing')
 
         # Create TextWallPost as a logged in member should be allowed
         response = self.client.post(self.text_wallposts_url, {'text': text1, 'parent_type': 'project', 'parent_id': self.some_project.slug})
@@ -453,7 +391,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         self.assertTrue(text1 in response.data['text'])
 
         self.client.logout()
-        self.client.login(username=self.another_user.email, password='password')
+        self.client.login(username=self.another_user.email, password='testing')
 
         # Retrieve text wallpost through projectwallposts api by another user
         wallpost_detail_url = "{0}{1}".format(self.wallposts_url, str(response.data['id']))
@@ -481,7 +419,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         self.assertTrue(text2a in response.data['text'])
 
         self.client.logout()
-        self.client.login(username=self.some_user.email, password='password')
+        self.client.login(username=self.some_user.email, password='testing')
 
         # Update TextWallPost by another user (not the author) is not allowed
         text2b = 'Mess this up!'
@@ -495,7 +433,7 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         """
 
         # Create a bunch of Project Text WallPosts
-        self.client.login(username=self.some_user.email, password='password')
+        self.client.login(username=self.some_user.email, password='testing')
         for char in 'abcdefghijklmnopqrstuv':
             text = char * 15
             self.client.post(self.text_wallposts_url, {'text': text, 'parent_type': 'project', 'parent_id': self.some_project.slug})
@@ -503,14 +441,14 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         self.client.logout()
 
         # And a bunch of Project Media WallPosts
-        self.client.login(username=self.some_project.owner.email, password='password')
+        self.client.login(username=self.some_project.owner.email, password='testing')
         for char in 'wxyz':
             title = char * 15
             self.client.post(self.media_wallposts_url, {'title': title, 'parent_type': 'project', 'parent_id': self.some_project.slug})
 
         # Retrieve a list of the 26 Project WallPosts
         # View Project WallPost list works for author
-        response = self.client.get(self.wallposts_url,  {'project': self.some_project.slug})
+        response = self.client.get(self.wallposts_url,  {'parent_type': 'project', 'parent_id': self.some_project.slug})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data['results']), 5)
         self.assertEqual(response.data['count'], 26)
@@ -527,18 +465,18 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND, response.data)
 
         # WallPost List count should have decreased after deleting one
-        response = self.client.get(self.wallposts_url,  {'project': self.some_project.slug})
+        response = self.client.get(self.wallposts_url,  {'parent_type': 'project', 'parent_id': self.some_project.slug})
         self.assertEqual(response.data['count'], 25)
 
         # View Project WallPost list works for guests.
         self.client.logout()
-        response = self.client.get(self.wallposts_url,  {'project': self.some_project.slug})
+        response = self.client.get(self.wallposts_url,  {'parent_type': 'project', 'parent_id': self.some_project.slug})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(len(response.data['results']), 5)
         self.assertEqual(response.data['count'], 25)
 
         # Test filtering wallposts by different projects works.
-        self.client.login(username=self.another_project.owner.email, password='password')
+        self.client.login(username=self.another_project.owner.email, password='testing')
         for char in 'ABCD':
             title = char * 15
             self.client.post(self.media_wallposts_url, {'title': title, 'parent_type': 'project', 'parent_id': self.another_project.slug})
@@ -548,109 +486,3 @@ class ProjectWallPostApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestC
         response = self.client.get(self.wallposts_url,  {'parent_type': 'project', 'parent_id': self.another_project.slug})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['count'], 4)
-
-
-class CalculateProjectMoneyDonatedTest(ProjectTestsMixin, TestCase):
-
-    def setUp(self):
-        self.some_project = self.create_project(money_asked=500000)
-        self.another_project = self.create_project(money_asked=500000)
-
-        self.some_user = self.create_user()
-        self.another_user = self.create_user()
-
-    def test_nr_days_remaining(self):
-        import datetime
-        today = datetime.datetime.now()
-        self.assertEqual(self.some_project.projectcampaign.nr_days_remaining, 0)
-        self.some_project.projectcampaign.deadline = today + datetime.timedelta(days=15)
-        self.assertEqual(self.some_project.projectcampaign.nr_days_remaining, 15)
-
-    def test_percentage_funded(self):
-        """ Check that the percentages are calculated correctly """
-        self.assertEqual(self.some_project.projectcampaign.percentage_funded, 0.0)
-        campaign = self.some_project.projectcampaign
-        campaign.money_donated = 10000
-        self.assertEqual(campaign.percentage_funded, 2.0)
-        campaign.money_donated = 500000
-        self.assertEqual(campaign.percentage_funded, 100.0)
-        campaign.money_donated = 1000000
-        self.assertEqual(campaign.percentage_funded, 100.0)
-
-    def test_donated_amount(self):
-        # Some project have money_asked of 5000000 (cents that is)
-        self.assertEqual(self.some_project.projectcampaign.money_asked, 500000)
-
-        # A project without donations should have money_donated of 0
-        self.assertEqual(self.some_project.projectcampaign.money_donated, 0)
-
-        # Create a new donation of 15 in status 'new'. project money donated should be 0
-        first_donation = self._create_donation(user=self.some_user, project=self.some_project, amount=1500,
-                                               status=DonationStatuses.new)
-        self.assertEqual(self.some_project.projectcampaign.money_donated, 0)
-
-
-        # Create a new donation of 25 in status 'in_progress'. project money donated should be 0.
-        second_donation = self._create_donation(user=self.some_user, project=self.some_project, amount=2500,
-                                                status=DonationStatuses.in_progress)
-        self.assertEqual(self.some_project.projectcampaign.money_donated, 0)
-
-        # Setting the first donation to status 'paid' money donated should be 1500
-        first_donation.status = DonationStatuses.paid
-        first_donation.save()
-        self.assertEqual(self.some_project.projectcampaign.money_donated, 1500)
-
-        # Setting the second donation to status 'pending' money donated should be 40
-        second_donation.status = DonationStatuses.pending
-        second_donation.save()
-        self.assertEqual(self.some_project.projectcampaign.money_donated, 4000)
-
-    def _create_donation(self, user=None, amount=None, project=None, status=DonationStatuses.new):
-        """ Helper method for creating donations."""
-        if not project:
-            project = self.create_project()
-            project.save()
-
-        if not user:
-            user = self.create_user()
-
-        if not amount:
-            amount = Decimal('10.00')
-
-        order = Order.objects.create()
-        donation = Donation.objects.create(user=user, amount=amount, status=status, project=project, order=order)
-
-        return donation
-
-
-class ProjectPhaseLoggerTest(ProjectTestsMixin, TestCase):
-    def setUp(self):
-        self.some_project = self.create_project()
-
-    def test_phase_change_logged(self):
-        # One phase should be logged due to creation of the project
-        self.assertEqual(1, self.some_project.projectphaselog_set.count())
-
-        # change the phase, it should be logged
-        self.some_project.phase = ProjectPhases.plan
-        self.some_project.save()
-
-        self.assertEqual(2, self.some_project.projectphaselog_set.count())
-
-
-class FailedProjectTest(ProjectTestsMixin, TestCase):
-    """ Verify that the project is marked as failed when pitch/plan is rejected """
-    def setUp(self):
-        self.some_project = self.create_project(phase='plan')
-
-    def test_pitch_rejected(self):
-        self.some_project.projectpitch.status = ProjectPitch.PitchStatuses.rejected
-        self.some_project.projectpitch.save()
-        self.assertEqual(self.some_project.phase, ProjectPhases.failed)
-
-
-    def test_plan_rejected(self):
-        self.some_project.projectplan.status = ProjectPlan.PlanStatuses.rejected
-        self.some_project.projectplan.save()
-
-        self.assertEqual(self.some_project.phase, ProjectPhases.failed)
