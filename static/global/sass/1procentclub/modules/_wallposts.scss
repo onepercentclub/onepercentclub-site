@@ -2,6 +2,8 @@
 
 	.wallpost {
 
+        @include clearfix;
+        
 		// Make the login box fade in on hover
         .login-box {
             opacity: 0;
