@@ -11,12 +11,12 @@ from django_extensions.db.fields import ModificationDateTimeField, CreationDateT
 from djchoices import DjangoChoices, ChoiceItem
 from sorl.thumbnail import ImageField
 from taggit.managers import TaggableManager
-#from apps.fund.models import Donation, DonationStatuses
 from django.template.defaultfilters import slugify
 from django.utils import timezone
 from .mails import mail_project_funded_internal
 from .signals import project_funded
 
+from apps.fund.models import DonationStatuses, Donation
 
 class ProjectManager(models.Manager):
 
@@ -128,6 +128,44 @@ class Project(BaseProject):
         else:
             self.popularity = 0
         self.save()
+
+    def update_money_donated(self):
+        """ Update amount based on paid and pending donations. """
+
+        self.amount_donated = self.get_money_total([
+            DonationStatuses.paid, DonationStatuses.pending
+        ])
+
+        self.amount_needed = self.amount_asked - self.amount_donated
+
+        if self.amount_needed < 0:
+            # Should never be less than zero
+            self.amount_needed = 0
+
+        self.save()
+
+    def get_money_total(self, status_in=None):
+        """
+        Calculate the total (realtime) amount of money for donations,
+        optionally filtered by status.
+        """
+
+        if self.amount_asked == 0:
+            # No money asked, return 0
+            return 0
+
+        donations = self.donation_set.all()
+
+        if status_in:
+            donations = donations.filter(status__in=status_in)
+
+        total = donations.aggregate(sum=Sum('amount'))
+
+        if not total['sum']:
+            # No donations, manually set amount
+            return 0
+
+        return total['sum']
 
     @property
     def supporters_count(self, with_guests=True):
@@ -282,6 +320,26 @@ class PartnerOrganization(models.Model):
         if self.name:
             return self.name
         return self.slug
+
+
+# Change project phase according to donated amount
+@receiver(post_save, weak=False, sender=Donation)
+def update_project_after_donation(sender, instance, created, **kwargs):
+    # Skip all post save logic during fixture loading.
+    if kwargs.get('raw', False):
+        return
+
+    project = instance.project
+
+    # Don't look at donations that are just created.
+    if instance.status not in [DonationStatuses.in_progress, DonationStatuses.new]:
+        project.update_money_donated()
+        project.update_popularity()
+
+    # If money target is hit and allow_funding set to false close the project.
+    if project.amount_asked <= project.amount_donated and not project.allow_overfunding:
+        project.phase = ProjectPhases.act
+        project.save()
 
 
 @receiver(project_funded, weak=False, sender=Project, dispatch_uid="email-project-team-project-funded")

@@ -3,18 +3,21 @@ import re
 from django.test import TestCase
 from django.core import mail
 
-from apps.projects.tests import ProjectTestsMixin
 from apps.fund.models import Donation, DonationStatuses
 from apps.fundraisers.tests.helpers import FundRaiserTestsMixin
+
+from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
+from bluebottle.test.factory_models.projects import ProjectThemeFactory, ProjectPhaseFactory
+from ..tests.factory_models.project_factories import OnePercentProjectFactory
 
 from .helpers import DonationTestsMixin
 
 
-class DonationMailTests(TestCase, ProjectTestsMixin, DonationTestsMixin, FundRaiserTestsMixin):
+class DonationMailTests(TestCase, DonationTestsMixin, FundRaiserTestsMixin):
     def setUp(self):
-        self.project_owner = self.create_user(email='projectowner@example.com', primary_language='en')
-        self.project = self.create_project(money_asked=50000, owner=self.project_owner)
-        self.user = self.create_user(first_name='Jane')
+        self.project_owner = BlueBottleUserFactory.create(email='projectowner@example.com', primary_language='en')
+        self.project = OnePercentProjectFactory.create(money_asked=50000, owner=self.project_owner)
+        self.user = BlueBottleUserFactory.create(first_name='Jane')
 
     def test_mail_owner_on_new_donation(self):
         donation = self.create_donation(self.user, self.project, donation_type=Donation.DonationTypes.one_off)
