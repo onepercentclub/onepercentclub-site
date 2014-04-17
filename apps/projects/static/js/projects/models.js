@@ -1,6 +1,5 @@
 App.Adapter.map('App.MyProject', {
     tags: {embedded: 'load'},
-    country: {embedded: 'load'},
     budgetLines: {embedded: 'load'}
 });
 
