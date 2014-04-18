@@ -3,41 +3,49 @@ from django.test.client import MULTIPART_CONTENT
 import os
 import json
 
+from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
+
 from django.test import TestCase
 
 from rest_framework import status
 
 from bluebottle.utils.tests import UserTestsMixin
 
-from apps.donations.tests.helpers import DonationTestsMixin
+from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
+from bluebottle.test.factory_models.projects import ProjectThemeFactory, ProjectPhaseFactory
+from onepercentclub.tests.factory_models.fundraiser_factories import FundRaiserFactory
+from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
+from onepercentclub.tests.factory_models.donation_factories import DonationFactory
+
 from apps.fund.models import DonationStatuses, Donation
-from apps.projects.tests.unittests import ProjectTestsMixin
-
-from .helpers import FundRaiserTestsMixin
 
 
-class FundRaiserApiIntegrationTest(FundRaiserTestsMixin, DonationTestsMixin, ProjectTestsMixin, UserTestsMixin, TestCase):
+class FundRaiserApiIntegrationTest(TestCase):
     """
     Integration tests for the fundraiser API.
     """
 
     def setUp(self):
         """ Create two project instances """
-        self.some_project = self.create_project(money_asked=50000)
-        self.another_project = self.create_project(money_asked=75000)
+        self.phase_1 = ProjectPhaseFactory.create(sequence=1, name='Plan - New')
+        self.phase_2 = ProjectPhaseFactory.create(sequence=2, name='Plan - Submitted')
+        self.phase_3 = ProjectPhaseFactory.create(sequence=3, name='Campaign')
 
-        self.some_user = self.create_user()
-        self.another_user = self.create_user()
+        self.some_project = OnePercentProjectFactory.create(amount_asked=50000, status=self.phase_3)
+        self.another_project = OnePercentProjectFactory.create(amount_asked=75000, status=self.phase_3)
 
-        self.fundraiser = self.create_fundraiser(self.some_user, self.some_project)
-        self.fundraiser2 = self.create_fundraiser(self.another_user, self.another_project)
+        self.some_user = BlueBottleUserFactory.create()
+        self.another_user = BlueBottleUserFactory.create()
 
-        self.current_donations_url = '/api/fund/orders/current/donations/'
-        self.current_order_url = '/api/fund/orders/current'
-        self.fundraiser_list_url = '/api/fundraisers/'
-        self.fundraiser_url = '/api/fundraisers/{0}'.format(self.fundraiser.pk)
-        self.fundraiser2_url = '/api/fundraisers/{0}'.format(self.fundraiser2.pk)
+        self.fundraiser = FundRaiserFactory.create(owner=self.some_user, project=self.some_project)
+        self.fundraiser2 = FundRaiserFactory.create(owner=self.another_user, project=self.another_project)
+
+        self.current_donations_url = reverse('fund-order-current-donation-list')
+        self.current_order_url = reverse('fund-order-current-detail')
+        self.fundraiser_list_url = reverse('fundraiser-list')
+        self.fundraiser_url = reverse('fundraiser-detail', kwargs={'pk': self.fundraiser.pk})
+        self.fundraiser2_url = reverse('fundraiser-detail', kwargs={'pk': self.fundraiser2.pk})
 
     def test_project_fundraisers(self):
         """ Test if the correct fundraisers are returned for a project """
@@ -58,7 +66,7 @@ class FundRaiserApiIntegrationTest(FundRaiserTestsMixin, DonationTestsMixin, Pro
         url_fundraisers = self.fundraiser_list_url + '?project=' + self.some_project.slug
 
         # First make sure we have a current order
-        self.client.login(username=self.some_user.email, password='password')
+        self.client.login(username=self.some_user.email, password='testing')
         response = self.client.get(self.current_order_url)
 
         # Create a Donation
@@ -114,9 +122,9 @@ class FundRaiserApiIntegrationTest(FundRaiserTestsMixin, DonationTestsMixin, Pro
         """
         Test the list of supporters of a project when a fundraiser donation was made.
         """
-        self.create_donation(user=self.some_user, project=self.some_project, status=DonationStatuses.paid)
+        DonationFactory.create(user=self.some_user, project=self.some_project, status=DonationStatuses.paid)
 
-        self.create_donation(user=self.some_user, project=self.some_project, status=DonationStatuses.paid,
+        DonationFactory.create(user=self.some_user, project=self.some_project, status=DonationStatuses.paid,
                 fundraiser=self.fundraiser)
 
         project_supporter_url = '{0}?project={1}'.format(reverse('project-supporter-list'), self.some_project.slug)
@@ -132,9 +140,9 @@ class FundRaiserApiIntegrationTest(FundRaiserTestsMixin, DonationTestsMixin, Pro
         """
         Test the list of supporters for a specific fundraiser.
         """
-        self.create_donation(user=self.some_user, project=self.some_project, status=DonationStatuses.paid)
+        DonationFactory.create(user=self.some_user, project=self.some_project, status=DonationStatuses.paid)
 
-        fundraise_donation = self.create_donation(user=self.some_user, project=self.some_project, status=DonationStatuses.paid,
+        fundraise_donation = DonationFactory.create(user=self.some_user, project=self.some_project, status=DonationStatuses.paid,
                 fundraiser=self.fundraiser)
 
         project_supporter_url = '{0}?project={1}&fundraiser={2}'.format(
@@ -153,11 +161,9 @@ class FundRaiserApiIntegrationTest(FundRaiserTestsMixin, DonationTestsMixin, Pro
         """
         Test the list of donations for a specific fundraiser.
         """
-        self.assertTrue(self.client.login(username=self.some_user.email, password='password'))
+        self.assertTrue(self.client.login(username=self.some_user.email, password='testing'))
 
-        self.create_donation(user=self.some_user, project=self.some_project, status=DonationStatuses.paid)
-
-        fundraise_donation = self.create_donation(user=self.some_user, project=self.some_project, status=DonationStatuses.paid,
+        fundraise_donation = DonationFactory.create(user=self.some_user, project=self.some_project, status=DonationStatuses.paid,
                 fundraiser=self.fundraiser)
 
         project_donation_url = '{0}?project={1}&fundraiser={2}'.format(
@@ -165,20 +171,28 @@ class FundRaiserApiIntegrationTest(FundRaiserTestsMixin, DonationTestsMixin, Pro
             self.some_project.slug,
             fundraise_donation.fundraiser.pk,
         )
-        response = self.client.get(project_donation_url)
 
+        print Donation.objects.get(pk=fundraise_donation.pk).fundraiser
+        print "------------------"
+
+        print Donation.objects.get(pk=fundraise_donation.pk).project.slug
+        print "------------------"
+        print project_donation_url
+
+        response = self.client.get(project_donation_url)
         json_data = json.loads(response.content)
+
         # Only expect the donation for the fundraiser to show up.
         self.assertEqual(len(json_data['results']), 1)
         self.assertTrue('amount' in json_data['results'][0])
         self.assertEqual(json_data['results'][0]['amount'], '1.00')
 
     def test_donations_for_fundraiser_anonymous(self):
-        self.assertTrue(self.client.login(username=self.another_user.email, password='password'))
+        self.assertTrue(self.client.login(username=self.another_user.email, password='testing'))
 
-        self.create_donation(user=self.some_user, project=self.some_project, status=DonationStatuses.paid)
+        DonationFactory.create(user=self.some_user, project=self.some_project, status=DonationStatuses.paid)
 
-        fundraise_donation = self.create_donation(user=self.some_user, project=self.some_project,
+        fundraise_donation = DonationFactory.create(user=self.some_user, project=self.some_project,
                                                   status=DonationStatuses.paid, fundraiser=self.fundraiser)
 
         project_donation_url = '{0}?project={1}&fundraiser={2}'.format(
@@ -189,11 +203,15 @@ class FundRaiserApiIntegrationTest(FundRaiserTestsMixin, DonationTestsMixin, Pro
         response = self.client.get(project_donation_url)
 
         json_data = json.loads(response.content)
+
+        print json_data
+        print "==========-----------=============="
+
         # Only expect the donation for the fundraiser to show up.
         self.assertEqual(len(json_data['results']), 0)
 
     def test_donations_for_fundraiser_not_owner(self):
-        fundraise_donation = self.create_donation(user=self.some_user, project=self.some_project, status=DonationStatuses.paid,
+        fundraise_donation = DonationFactory.create(user=self.some_user, project=self.some_project, status=DonationStatuses.paid,
                 fundraiser=self.fundraiser)
 
         project_donation_url = '{0}?project={1}&fundraiser={2}'.format(
@@ -201,6 +219,7 @@ class FundRaiserApiIntegrationTest(FundRaiserTestsMixin, DonationTestsMixin, Pro
             self.some_project.slug,
             fundraise_donation.fundraiser.pk,
         )
+
         response = self.client.get(project_donation_url)
 
         json_data = json.loads(response.content)
@@ -248,7 +267,7 @@ class FundRaiserApiIntegrationTest(FundRaiserTestsMixin, DonationTestsMixin, Pro
         """
         Test create fundraiser, via fundraiser list API, as authenticated user.
         """
-        self.assertTrue(self.client.login(username=self.some_user.email, password='password'))
+        self.assertTrue(self.client.login(username=self.some_user.email, password='testing'))
 
         # Construct data
         deadline = (timezone.now() + timezone.timedelta(days=14)).strftime('%Y-%m-%dT%H:%M:%S')
@@ -321,7 +340,7 @@ class FundRaiserApiIntegrationTest(FundRaiserTestsMixin, DonationTestsMixin, Pro
     def test_update_fundraiser_authenticated_owner(self):
         self.assertEqual(self.some_user, self.fundraiser.owner)
 
-        self.assertTrue(self.client.login(username=self.some_user.email, password='password'))
+        self.assertTrue(self.client.login(username=self.some_user.email, password='testing'))
 
         # Construct data
         deadline = timezone.now() + timezone.timedelta(days=14)

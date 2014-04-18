@@ -16,7 +16,7 @@ from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
 from bluebottle.test.factory_models.projects import ProjectThemeFactory, ProjectPhaseFactory
-from ..tests.factory_models.project_factories import OnePercentProjectFactory
+from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
 
 from ..models import Project, ProjectTheme
 
@@ -105,7 +105,7 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
 
         # Create dict of projects in the database.
         expected_projects = []
-        for p in Project.objects.filter(phase=self.phase_2).order_by('popularity')[:len(web_projects)]:
+        for p in Project.objects.filter(status=self.phase_2).order_by('popularity')[:len(web_projects)]:
             expected_projects.append({
                 'title': p.title.upper(),  # Uppercase the title for comparison.
                 'money_needed': int(round(p.amount_needed / 100.0)),
@@ -119,7 +119,7 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
 
         # create project (with pitch)
         slug = 'picture-upload'
-        project = OnePercentProjectFactory.create(title='Test picture upload', owner=self.user, phase=self.phase_1, slug=slug)
+        project = OnePercentProjectFactory.create(title='Test picture upload', owner=self.user, status=self.phase_1, slug=slug)
         # create theme
         project.theme = ProjectTheme.objects.create(name='Tests', name_nl='Testen', slug='tests')
         # create country etc.
@@ -142,9 +142,7 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         # navigation itself has been tested before...
         self.visit_path('/my/projects/')
 
-        self.browser.find_link_by_itext('continue pitch').first.click()
-
-        self.browser.find_link_by_itext('Media').first.click()
+        self.browser.find_link_by_itext('edit').first.click()
 
         # get preview div
         preview = self.browser.find_by_css('div.image-preview').first

@@ -4,7 +4,7 @@ from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
 from bluebottle.test.factory_models.projects import ProjectThemeFactory, ProjectPhaseFactory
 from bluebottle.utils.utils import get_project_model
 
-from ..tests.factory_models.project_factories import OnePercentProjectFactory
+from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
 
 from apps.fund.models import DonationStatuses, Donation, Order
 
@@ -67,35 +67,3 @@ class CalculateProjectMoneyDonatedTest(TestCase):
 
         return donation
 
-
-class ProjectPhaseLoggerTest(TestCase):
-    def setUp(self):
-        self.some_project = OnePercentProjectFactory.create()
-
-    def test_phase_change_logged(self):
-        # One phase should be logged due to creation of the project
-        self.assertEqual(1, self.some_project.projectphaselog_set.count())
-
-        # change the phase, it should be logged
-        self.some_project.phase = ProjectPhases.plan
-        self.some_project.save()
-
-        self.assertEqual(2, self.some_project.projectphaselog_set.count())
-
-
-class FailedProjectTest(TestCase):
-    """ Verify that the project is marked as failed when pitch/plan is rejected """
-    def setUp(self):
-        self.some_project = OnePercentProjectFactory.create(phase='plan')
-
-    def test_pitch_rejected(self):
-        self.some_project.projectpitch.status = ProjectPitch.PitchStatuses.rejected
-        self.some_project.projectpitch.save()
-        self.assertEqual(self.some_project.phase, ProjectPhases.failed)
-
-
-    def test_plan_rejected(self):
-        self.some_project.projectplan.status = ProjectPlan.PlanStatuses.rejected
-        self.some_project.projectplan.save()
-
-        self.assertEqual(self.some_project.phase, ProjectPhases.failed)

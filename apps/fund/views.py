@@ -107,9 +107,14 @@ class DonationList(generics.ListAPIView):
     model = Donation
     serializer_class = DonationSerializer
     permission_classes = (IsUser,)
+    paginate_by = 10
 
     def get_queryset(self):
         qs = super(DonationList, self).get_queryset()
+
+        if isinstance(self.request.user, AnonymousUser):
+             return qs.none()
+
         return qs.filter(user=self.request.user)
 
 

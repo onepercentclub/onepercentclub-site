@@ -8,7 +8,7 @@ from apps.fundraisers.tests.helpers import FundRaiserTestsMixin
 
 from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
 from bluebottle.test.factory_models.projects import ProjectThemeFactory, ProjectPhaseFactory
-from ..tests.factory_models.project_factories import OnePercentProjectFactory
+from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
 
 from .helpers import DonationTestsMixin
 
