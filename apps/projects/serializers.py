@@ -65,7 +65,7 @@ class ManageProjectSerializer(BaseManageProjectSerializer):
     class Meta(BaseManageProjectSerializer):
         model = BaseManageProjectSerializer.Meta.model
         fields = BaseManageProjectSerializer.Meta.fields + ('amount_asked', 'amount_donated', 'amount_needed',
-                                                            'story', 'budget_lines')
+                                                            'story', 'budget_lines', 'deadline')
 
 class ProjectSupporterSerializer(serializers.ModelSerializer):
     """
