@@ -156,7 +156,9 @@ module.exports = function (grunt) {
   grunt.registerTask('deploy', ['concat:dist', 'uglify:dist', 'hashres']);
   grunt.registerTask('render-sass:dev', ['compass:dev']);
   grunt.registerTask('render-sass:test', ['compass:dist']);
-  grunt.registerTask('render-sass:live', ['compass:dist'], function() {
+  grunt.registerTask('render-sass:live', 'Alias for "compass:dist" task with compressed sass.', function() {
     sassOutputStyle = "compressed";
+
+    grunt.task.run('compass:dist');
   });
 }
