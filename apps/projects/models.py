@@ -95,6 +95,7 @@ class Project(BaseProject):
     amount_donated = models.PositiveIntegerField(default=0)
     amount_needed = models.PositiveIntegerField(default=0)
 
+    allow_overfunding = models.BooleanField(default=True)
     story = models.TextField(_("story"), help_text=_("This is the help text for the story field"), blank=True, null=True)
 
     # TODO: add
@@ -288,14 +289,9 @@ class ProjectBudgetLine(models.Model):
     def __unicode__(self):
         return u'{0} - {1}'.format(self.description, self.amount / 100.0)
 
+
 # FIXME: ProjectPhaseLog was removed here
 # Add a nice function/model/way to store status changes.
-
-class ProjectNeedChoices(DjangoChoices):
-    skills = ChoiceItem('skills', label=_("Skills and expertise"))
-    finance = ChoiceItem('finance', label=_("Crowdfunding campaign"))
-    both = ChoiceItem('both', label=_("Both"))
-
 
 class PartnerOrganization(models.Model):
     """

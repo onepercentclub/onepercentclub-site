@@ -45,9 +45,24 @@ $base-line-height                      : 1.5em;
 
 // Wallposts                                       
 // --------------------------------   
-$wallposts-bg-color                    : $gray-lighter;
-$wallposts-wallpost-bg-color           : $white;
-$wallposts-wallpost-system-bg-color    : $white;
-$wallposts-wallpost-important-bg-color : $white;
+$wallposts-bg-color                           : $gray-lighter;
+$wallposts-wallpost-bg-color                  : $white;
 
-$carousel-nav-item-active-bg-color: $gray-light;
+$wallposts-wallpost-system-color              : $white;
+$wallposts-wallpost-system-bg-color           : $color-primary;
+$wallposts-wallpost-system-border-color       : transparent;
+$wallposts-wallpost-system-author-color       : $white;
+$wallposts-wallpost-system-title-color        : $white;
+$wallposts-wallpost-system-timestamp-color    : $white;
+
+$wallposts-wallpost-important-color           : $white;
+$wallposts-wallpost-important-bg-color        : $color-secondary;
+$wallposts-wallpost-important-border-color    : transparent;
+$wallposts-wallpost-important-author-color    : $white;
+$wallposts-wallpost-important-title-color     : $white;
+$carousel-nav-item-active-bg-color            : $gray-light;
+$account-header-title-color                   : $color-primary;
+$wallposts-wallpost-important-timestamp-color : $white;
+
+$reactions-reaction-member-name-color         : $color-secondary;
+$reactions-color         : $black;
