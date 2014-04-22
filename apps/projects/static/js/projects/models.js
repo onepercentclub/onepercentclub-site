@@ -35,7 +35,7 @@ App.Project.reopen({
 
 
 App.MyProjectBudgetLine = DS.Model.extend({
-    url: 'projects/budgetlines',
+    url: 'bb_projects/budgetlines',
 
     project: DS.belongsTo('App.MyProject'),
     description: DS.attr('string'),

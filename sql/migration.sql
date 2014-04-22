@@ -299,6 +299,9 @@ ALTER TABLE projects_project DROP COLUMN phase;
 -- Add 'story' column to projects
 ALTER TABLE projects_project ADD COLUMN story text;
 
+-- Add 'allow overfunding' column to projects
+ALTER TABLE projects_project ADD COLUMN allow_overfunding boolean DEFAULT TRUE;
+
 
 -- Move the Why What How, Effects and Future fields to Story field
 

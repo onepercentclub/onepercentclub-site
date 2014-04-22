@@ -21,7 +21,7 @@ urlpatterns += bb_urlpatterns
 
 urlpatterns += patterns('',
 
-    url(r'^api/projects/', include('apps.projects.urls.api')),
+    url(r'^api/bb_projects/', include('apps.projects.urls.api')),
 
     url(r'^api/fund/', include('apps.fund.urlsapi')),
     url(r'^api/fundraisers/', include('apps.fundraisers.urlsapi')),
