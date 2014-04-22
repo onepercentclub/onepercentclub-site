@@ -3,7 +3,7 @@ import re
 from django.test import TestCase
 from django.core import mail
 
-from apps.fund.models import Donation, DonationStatuses
+# from apps.fund.models import Donation, DonationStatuses
 
 from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
 from bluebottle.test.factory_models.projects import ProjectThemeFactory, ProjectPhaseFactory

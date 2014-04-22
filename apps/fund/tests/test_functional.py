@@ -10,16 +10,17 @@ from django.conf import settings
 from django.utils.text import slugify
 from django.utils.unittest.case import skipUnless
 
-from apps.fund.models import DonationStatuses, Donation, OrderStatuses
-from apps.donations.tests.helpers import DonationTestsMixin
-from .unittests import ProjectTestsMixin, UserTestsMixin
-
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
+
+from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
+from bluebottle.test.factory_models.projects import ProjectThemeFactory, ProjectPhaseFactory
+from onepercentclub.tests.factory_models.fundraiser_factories import FundRaiserFactory
+from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
             'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
-class DonationSeleniumTests(DonationTestsMixin, ProjectTestsMixin, UserTestsMixin, OnePercentSeleniumTestCase):
+class DonationSeleniumTests(OnePercentSeleniumTestCase):
     """
     Selenium tests for Projects.
     """
@@ -32,16 +33,18 @@ class DonationSeleniumTests(DonationTestsMixin, ProjectTestsMixin, UserTestsMixi
             u'Women first', u'Mobile payments for everyone!', u'Schools for children'
         ]])
 
+        self.phase_campaign = ProjectPhaseFactory.create(sequence=1, name='Campaign')
+
         for slug, title in self.projects.items():
-            project = self.create_project(title=title, slug=slug, money_asked=50000)  # EUR 500.00
+            project = OnePercentProjectFactory.create(title=title, slug=slug, amount_asked=500)
             self._projects.append(project)
 
             project.amount_donated = 500  # EUR 5.00
             project.save()
-            project.status = 'campaign'
+            project.status = self.phase_campaign
 
-        self.some_user = self.create_user()
-        self.another_user = self.create_user()
+        self.some_user = BlueBottleUserFactory.create()
+        self.another_user = BlueBottleUserFactory.create()
 
         self.donate_details = {'firstname': 'Pietje',
                                'lastname': 'Paulusma',
