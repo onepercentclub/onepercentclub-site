@@ -4,16 +4,13 @@ from django.test import TestCase
 from django.core import mail
 
 from apps.fund.models import Donation, DonationStatuses
-from apps.fundraisers.tests.helpers import FundRaiserTestsMixin
 
 from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
 from bluebottle.test.factory_models.projects import ProjectThemeFactory, ProjectPhaseFactory
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
 
-from .helpers import DonationTestsMixin
 
-
-class DonationMailTests(TestCase, DonationTestsMixin, FundRaiserTestsMixin):
+class DonationMailTests(TestCase):
     def setUp(self):
         self.project_owner = BlueBottleUserFactory.create(email='projectowner@example.com', primary_language='en')
         self.project = OnePercentProjectFactory.create(money_asked=50000, owner=self.project_owner)

@@ -7,6 +7,7 @@ from django.conf import settings
 from django.utils.unittest.case import skipUnless
 
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
+from bluebottle.test.factory_models.projects import ProjectThemeFactory, ProjectPhaseFactory
 
 from apps.campaigns.models import Campaign
 from apps.fundraisers.tests.helpers import FundRaiserTestsMixin
@@ -19,6 +20,8 @@ class HomepageTestCase(FundRaiserTestsMixin, ProjectTestsMixin, OnePercentSeleni
     """ Test that the homepage doesn't error out if no/a campaign is available """
 
     def setUp(self):
+        self.phase_1 = ProjectPhaseFactory.create(sequence=1, name='Campaign')
+
         self.projects = dict([(slugify(title), title) for title in [
            u'Mobile payments for everyone 2!', u'Schools for children 2',  u'Women first 2'
         ]])

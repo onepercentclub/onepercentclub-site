@@ -1,30 +1,29 @@
 import json
+
+from django.test import TestCase
+from django.core.urlresolvers import reverse
+from django.test.utils import override_settings
+
 from apps.cowry.factory import _adapter_for_payment_method
 from apps.cowry.models import PaymentStatuses
 from apps.cowry_docdata.adapters import default_payment_methods
 from apps.cowry_docdata.tests import run_docdata_tests
-from django.test import TestCase
-from django.test.client import Client
-from django.utils import unittest
-from django.utils import timezone
-from django.test.utils import override_settings
-from bluebottle.utils.tests import UserTestsMixin
-from apps.projects.tests import ProjectTestsMixin
-from apps.projects.models import Project
-from rest_framework import status
-from ..models import Order, OrderStatuses, DonationStatuses, RecurringDirectDebitPayment
+
+from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
+from bluebottle.test.factory_models.projects import ProjectThemeFactory, ProjectPhaseFactory
+from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
 
 
-class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
+class CartApiIntegrationTest(TestCase):
     """
     Integration tests for the adding Donations to an Order (a cart in this case).
     """
     def setUp(self):
-        self.some_project = self.create_project(money_asked=50000)
-        self.another_project = self.create_project(money_asked=75000)
+        self.some_project = OnePercentProjectFactory.create(money_asked=50000)
+        self.another_project = OnePercentProjectFactory.create(money_asked=75000)
 
-        self.some_user = self.create_user()
-        self.another_user = self.create_user()
+        self.some_user = BlueBottleUserFactory.create()
+        self.another_user = BlueBottleUserFactory.create()
 
         self.current_donations_url = '/api/fund/orders/current/donations/'
         self.current_order_url = '/api/fund/orders/current'
@@ -464,39 +463,14 @@ class CartApiIntegrationTest(ProjectTestsMixin, UserTestsMixin, TestCase):
 
         return order_id
 
-
-class RecurringPaymentTest(UserTestsMixin, TestCase):
-    def setUp(self):
-        self.user = self.create_user()
-
-    def test_post_save_disabled(self):
-        recurring_payment = RecurringDirectDebitPayment(user=self.user, active=True, name="ABC", city="DEF", account=123)
-        recurring_payment.save()
-
-        self.assertTrue(recurring_payment.active)
-        self.user.deleted = timezone.now()
-        self.user.save()
-        recurring_payment = RecurringDirectDebitPayment.objects.get(user=self.user)
-        self.assertFalse(recurring_payment.active)
-
-    def test_post_delete_removed(self):
-        recurring_payment = RecurringDirectDebitPayment(user=self.user, active=True, name="GHI", city="JKL", account=456)
-        recurring_payment.save()
-
-        self.assertTrue(recurring_payment.active)
-        self.user.delete()
-        recurring_payment = RecurringDirectDebitPayment.objects.filter(user=self.user)
-        self.assertEqual(len(recurring_payment), 0)
-
-
-class RecurringOrderApiTest(ProjectTestsMixin, TestCase):
+class RecurringOrderApiTest(TestCase):
 
     def setUp(self):
-        self.some_project = self.create_project(money_asked=50000)
-        self.another_project = self.create_project(money_asked=75000)
+        self.some_project = OnePercentProjectFactory.create(money_asked=50000)
+        self.another_project = OnePercentProjectFactory.create(money_asked=75000)
 
-        self.some_user = self.create_user()
-        self.another_user = self.create_user()
+        self.some_user = BlueBottleUserFactory.create()
+        self.another_user = BlueBottleUserFactory.create()
 
         self.recurring_order_url_base = '/api/fund/recurring/orders/'
         self.recurring_donation_url_base = '/api/fund/recurring/donations/'
@@ -597,12 +571,4 @@ class RecurringOrderApiTest(ProjectTestsMixin, TestCase):
         response = self.client.get(self.recurring_order_url_base)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['count'], 0)
-
-
-
-
-
-
-
-        
 

@@ -241,8 +241,8 @@ INSTALLED_APPS = (
     'legacyauth',
 
     'apps.vouchers',
-    'apps.fundraisers',
     'apps.fund',
+    'apps.fundraisers',
     'apps.donations',
 
     # Apps extending Bluebottle base models

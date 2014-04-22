@@ -12,7 +12,7 @@ from apps.fund.models import Donation, DonationStatuses
 from apps.cowry import factory
 from apps.cowry.models import PaymentStatuses
 
-from .models import (
+from ..models import (
     Payout, PayoutLog, OrganizationPayout, OrganizationPayoutLog
 )
 from .choices import PayoutRules, PayoutLineStatuses

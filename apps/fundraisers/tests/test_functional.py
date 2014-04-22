@@ -11,6 +11,8 @@ from apps.fund.models import DonationStatuses, Donation, OrderStatuses
 from apps.projects.tests.unittests import ProjectTestsMixin
 from apps.donations.tests.helpers import DonationTestsMixin
 
+from bluebottle.test.factory_models.projects import ProjectThemeFactory, ProjectPhaseFactory
+
 from ..models import FundRaiser
 from .helpers import FundRaiserTestsMixin
 
@@ -25,6 +27,8 @@ class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsM
         """
         Create initial data.
         """
+        self.phase_1 = ProjectPhaseFactory.create(sequence=1, name='Campaign')
+
         self.project_with_fundraiser = self.create_project(money_asked=50000)
         self.project_without_fundraiser = self.create_project(money_asked=75000)
 
