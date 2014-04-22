@@ -86,6 +86,7 @@
 /* Plugins */
 @import "plugins/jquery-ui";
 @import "plugins/colorbox";
+@import "plugins/jslider";
 
 @import "1procentclub/base/tabs";
 @import "1procentclub/layout/header";
@@ -94,8 +95,4 @@
 @import "1procentclub/modules/account";
 @import "1procentclub/modules/projects";
 @import "1procentclub/modules/wallposts";
-
-@import "1procentclub/pages/account";
 @import "1procentclub/pages/project-detail";
-@import "1procentclub/pages/task-detail";
-@import "1procentclub/pages/profile";

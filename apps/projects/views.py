@@ -1,3 +1,4 @@
+from apps.projects.models import ProjectBudgetLine
 from bluebottle.geo.models import Country
 from bluebottle.geo.serializers import CountrySerializer
 import django_filters
@@ -13,7 +14,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from apps.fund.models import Donation, DonationStatuses
 from apps.projects.serializers import (
-    ProjectSupporterSerializer, ProjectPreviewSerializer, ProjectThemeSerializer)
+    ProjectSupporterSerializer, ProjectPreviewSerializer, ProjectThemeSerializer, ProjectBudgetLineSerializer)
 from apps.projects.permissions import IsProjectOwner
 from apps.fundraisers.models import FundRaiser
 
@@ -168,8 +169,19 @@ class ProjectDonationList(ProjectSupporterList):
         return queryset.filter(**filter_kwargs)
 
 
-# Django template Views
+class ManageProjectBudgetLineList(generics.ListCreateAPIView):
+    model = ProjectBudgetLine
+    serializer_class = ProjectBudgetLineSerializer
+    paginate_by = 50
 
+
+class ManageProjectBudgetLineDetail(generics.RetrieveUpdateDestroyAPIView):
+    model = ProjectBudgetLine
+    serializer_class = ProjectBudgetLineSerializer
+    permission_classes = (IsProjectOwner, )
+
+
+# Django template Views
 class ProjectDetailView(DetailView):
     """ This is the project view that search engines will use. """
     model = Project
@@ -184,15 +196,16 @@ class ProjectIframeView(DetailView):
     def dispatch(self, *args, **kwargs):
         return super(ProjectIframeView, self).dispatch(*args, **kwargs)
 
-# class MacroMicroListView(ListView):
-#     model = Project
-#     queryset = Project.objects.filter(partner_organization__slug='macro_micro')
-#
-#
-#     def render_to_response(self, context, **response_kwargs):
-#         return super(MacroMicroListView, self).render_to_response(
-#             context,
-#             mimetype='application/xml',
-#             **response_kwargs)
+
+class MacroMicroListView(generics.ListAPIView):
+    model = Project
+    queryset = Project.objects.filter(partner_organization__slug='macro_micro')
+
+
+    def render_to_response(self, context, **response_kwargs):
+        return super(MacroMicroListView, self).render_to_response(
+            context,
+            mimetype='application/xml',
+            **response_kwargs)
 
 
