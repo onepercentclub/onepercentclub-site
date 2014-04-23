@@ -226,7 +226,26 @@ ALTER TABLE projects_project ADD CONSTRAINT "project_projects_language_id_refs_l
 
 ALTER TABLE organizations_organization
   ALTER COLUMN description SET DEFAULT '',
-  ALTER COLUMN legal_status SET DEFAULT '';
+  ALTER COLUMN legal_status SET DEFAULT '',
+  ADD COLUMN account_holder_name character varying(255) DEFAULT '',
+  ADD COLUMN account_holder_address character varying(255) DEFAULT '',
+  ADD COLUMN account_holder_postal_code character varying(20) DEFAULT '',
+  ADD COLUMN account_holder_city character varying(255) DEFAULT '',
+  ADD COLUMN account_holder_country_id integer,
+  ADD COLUMN account_bank_postal_code character varying(20) DEFAULT '',
+  ADD COLUMN account_bank_city character varying(255) DEFAULT '';
+
+-- Migrate old fields into new ones:
+-- account_name                              -> account_holder_name
+UPDATE organizations_organization SET account_holder_name = account_name;
+-- account_city                              -> account_holder_city
+UPDATE organizations_organization SET account_holder_city = account_city;
+
+
+-- DROP old column after migration
+ALTER TABLE organizations_organization DROP COLUMN account_name;
+ALTER TABLE organizations_organization DROP COLUMN account_city;
+
 
 -- Migrate phases to status
 

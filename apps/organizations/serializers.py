@@ -57,7 +57,7 @@ class ManageOrganizationSerializer(OrganizationSerializer):
         fields = ('id', 'name', 'slug', 'description', 'website', 'email', 'twitter', 'facebook', 'skype',
                   'legal_status', 'registration',
                   'address_line1', 'address_line2', 'city', 'state', 'country', 'postal_code',
-                  'account_bank_name', 'account_bank_address', 'account_bank_country', 'account_iban', 'account_bic',
-                  'account_number', 'account_name', 'account_city', 'account_other', 'documents')
-
-
+                  'account_holder_name', 'account_holder_address', 'account_holder_postal_code', 'account_holder_city',
+                  'account_holder_country', 'account_iban', 'account_bic', 'account_number', 'account_bank_name',
+                  'account_bank_address', 'account_bank_postal_code', 'account_bank_city', 'account_bank_country',
+                  'account_other', 'documents')
