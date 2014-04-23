@@ -42,9 +42,7 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         self.user = BlueBottleUserFactory.create(email='johndoe@example.com', primary_language='en')
 
         for slug, title in self.projects.items():
-            project = OnePercentProjectFactory.create(title=title, slug=slug, 
-                            amount_asked=1000, owner=self.user, amount_donated=0)
-            project.save()
+            project = OnePercentProjectFactory.create(title=title, slug=slug, owner=self.user, amount_asked=1000)
 
     def visit_project_list_page(self, lang_code=None):
         self.visit_path('/projects', lang_code)
@@ -90,24 +88,21 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         web_projects = []
         for p in self.browser.find_by_css('#search-results .project-item'):
             title = p.find_by_css('h3').first.text
-            # Somehow an empty project slips into this list. Skip that one.
-            # FIXME: Find out what causes this and fix it!
-            if title:
-                needed = convert_money_to_int(p.find_by_css('.project-fund-amount').first.text)
-                web_projects.append({
-                    'title': title,
-                    'money_needed': needed,
-                })
+            needed = convert_money_to_int(p.find_by_css('.project-fund-amount').first.text)
+            web_projects.append({
+                'title': title,
+                'amount_needed': needed,
+            })
 
         # Make sure there are some projects to compare.
         self.assertTrue(len(web_projects) > 0)
 
         # Create dict of projects in the database.
         expected_projects = []
-        for p in Project.objects.filter(status=self.phase_2).order_by('popularity')[:len(web_projects)]:
+        for p in Project.objects.order_by('popularity')[:len(web_projects)]:
             expected_projects.append({
                 'title': p.title.upper(),  # Uppercase the title for comparison.
-                'money_needed': int(round(p.amount_needed / 100.0)),
+                'amount_needed': int(round(p.amount_needed / 100.0)),
             })
 
         # Compare all projects found on the web page with those in the database, in the same order.

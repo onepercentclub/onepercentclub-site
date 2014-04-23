@@ -92,7 +92,7 @@ class FundRaiserApiIntegrationTest(TestCase):
         # donation is not pending or paid yet
         self.assertEqual('0.00', response.data['results'][0]['amount_donated'])
 
-        donation = Donation.objects.get(pk=1)
+        donation = Donation.objects.order_by('created').all()[0]
         donation.status = DonationStatuses.pending
         donation.save()
 
@@ -110,7 +110,7 @@ class FundRaiserApiIntegrationTest(TestCase):
         self.assertEqual('5.00', response.data['results'][0]['amount_donated'])
 
         # check that pending and paid are correctly summed
-        donation = Donation.objects.get(pk=2)
+        donation = Donation.objects.order_by('created').all()[1]
         donation.status = DonationStatuses.pending
         donation.save()
 
@@ -172,13 +172,6 @@ class FundRaiserApiIntegrationTest(TestCase):
             fundraise_donation.fundraiser.pk,
         )
 
-        print Donation.objects.get(pk=fundraise_donation.pk).fundraiser
-        print "------------------"
-
-        print Donation.objects.get(pk=fundraise_donation.pk).project.slug
-        print "------------------"
-        print project_donation_url
-
         response = self.client.get(project_donation_url)
         json_data = json.loads(response.content)
 
@@ -203,9 +196,6 @@ class FundRaiserApiIntegrationTest(TestCase):
         response = self.client.get(project_donation_url)
 
         json_data = json.loads(response.content)
-
-        print json_data
-        print "==========-----------=============="
 
         # Only expect the donation for the fundraiser to show up.
         self.assertEqual(len(json_data['results']), 0)

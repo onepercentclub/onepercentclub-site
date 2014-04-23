@@ -1,4 +1,5 @@
 from bluebottle.bb_projects.models import ProjectPhase
+from bluebottle.test.factory_models.projects import ProjectPhaseFactory
 import mock
 
 from django.http import HttpResponse
@@ -15,7 +16,9 @@ def escape_url(url):
 
 
 class HashbangMiddlewareTests(TestCase):
+
     def setUp(self):
+        ProjectPhaseFactory.create(name='Campaign')
         self.rf = RequestFactory()
         self.middleware = HashbangMiddleware()
 
@@ -45,6 +48,7 @@ class CrawlableTests(LiveServerTestCase):
     Tests one of the most complex pages, project list, with and without escaped fragments.
     """
     def setUp(self):
+        ProjectPhaseFactory.create(name='Campaign')
         self.projects = dict([(slugify(title), title) for title in [
             u'Women first', u'Mobile payments for everyone!', u'Schools for children '
         ]])
