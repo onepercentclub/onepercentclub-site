@@ -4,6 +4,7 @@ Functional tests using Selenium.
 
 See: ``docs/testing/selenium.rst`` for details.
 """
+from bluebottle.test.factory_models.utils import LanguageFactory
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.utils.text import slugify
@@ -38,13 +39,11 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
            u'Mobile payments for everyone 2!', u'Schools for children 2',  u'Women first 2'
         ]])
 
-        User = get_user_model()
-        # Create and activate user.
-        self.user = User.objects.create_user('johndoe@example.com', 'secret', primary_language='en')
+        self.user = BlueBottleUserFactory.create(email='johndoe@example.com', primary_language='en')
 
         for slug, title in self.projects.items():
             project = OnePercentProjectFactory.create(title=title, slug=slug, 
-                            amount_asked=100000, owner=self.user, amount_donated=0)
+                            amount_asked=1000, owner=self.user, amount_donated=0)
             project.save()
 
     def visit_project_list_page(self, lang_code=None):
@@ -114,65 +113,12 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         # Compare all projects found on the web page with those in the database, in the same order.
         self.assertListEqual(web_projects, expected_projects)
 
-    def test_upload_pitch_picture(self):
-        """ Test that pitch picture uploads work. """
-
-        # create project (with pitch)
-        slug = 'picture-upload'
-        project = OnePercentProjectFactory.create(title='Test picture upload', owner=self.user, status=self.phase_1, slug=slug)
-        # create theme
-        project.theme = ProjectTheme.objects.create(name='Tests', name_nl='Testen', slug='tests')
-        # create country etc.
-        region = geo_models.Region.objects.create(name='Foo', numeric_code=123)
-        subregion = geo_models.SubRegion.objects.create(name='Bar', numeric_code=456, region=region)
-        project.country = geo_models.Country.objects.create(
-                            name='baz',
-                            subregion=subregion,
-                            numeric_code=789,
-                            alpha2_code='AF',
-                            oda_recipient=True)
-
-        project.latitude = '52.3731'
-        project.longitude = '4.8922'
-        project.save()
-
-
-
-        self.login(self.user.email, 'secret')
-        # navigation itself has been tested before...
-        self.visit_path('/my/projects/')
-
-        self.browser.find_link_by_itext('edit').first.click()
-
-        # get preview div
-        preview = self.browser.find_by_css('div.image-preview').first
-        self.assertTrue(preview.has_class('empty'))
-
-        file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'kitten_snow.jpg')
-        self.browser.attach_file('image', file_path)
-
-        # test if preview is there
-        self.assertFalse(preview.has_class('empty'))
-        img = preview.find_by_tag('img').first
-        self.assertNotEqual(img['src'], '%simages/empty.png' % settings.STATIC_URL)
-
-        # save
-        self.browser.find_by_tag('form').first.find_by_tag('button').first.click()
-
-        # return to media form
-        time.sleep(2) # link has to update
-        self.browser.find_link_by_itext('media').first.click()
-
-        # check that the src of the image is correctly set (no base64 stuff)
-        src = self.browser.find_by_css('div.image-preview').first.find_by_tag('img').first['src']
-        self.assertEqual('.jpg', src[-4:])
-
     @skipUnless(getattr(settings, 'SELENIUM_WEBDRIVER') == 'firefox',
         'PhantomJS keeps hanging on the file uploads, probably bug in selenium/phantomjs')
     def test_upload_multiple_wallpost_images(self):
         """ Test uploading multiple images in a media wallpost """
 
-        self.login(self.user.email, 'secret')
+        self.login(self.user.email, 'testing')
         self.visit_project_list_page()
 
         # pick a project
@@ -231,3 +177,230 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         self.assertEqual(self.browser.url, meta_url['content'])
 
         # TODO: check that the default description is overwritten, add description to plan
+
+
+
+@skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
+            'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
+class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
+    """
+    Selenium tests for Projects.
+    """
+    fixtures = ['booking_project_phases.json']
+
+    def setUp(self):
+        self.user = BlueBottleUserFactory.create()
+        self.theme1 = ProjectThemeFactory.create()
+        self.theme2 = ProjectThemeFactory.create()
+
+        self.language1 = LanguageFactory.create()
+        self.language2 = LanguageFactory.create()
+
+        self.login(self.user.email, 'testing')
+
+        self.project_data = {
+            'title': 'Velit esse cillum dolore',
+            'slug': 'velit-esse-cillum-dolore',
+            'pitch': 'Quis aute iure reprehenderit in voluptate eu fugiat nulla pariatur.',
+            'tags': ['okoali', 'kertan', 'lorem'],
+            'description': 'Stet clita kasd gubergren.\nNo sea takimata sanctus est Lorem ipsum dolor sit amet. Sanctus sea sed takimata ut vero voluptua.\n\nStet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Sanctus sea sed takimata ut vero voluptua. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+            'goal': 'Lorem ipsum dolor sit amet. Sanctus sea sed takimata ut vero voluptua. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+            'destination_impact': 'Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
+            'amount_asked': 5000,
+            'budget': [
+                {'description': 'Ghaks', 'amount': 4000},
+                {'description': 'Rausno', 'amount': 500},
+                {'description': 'Jama Jurnoader', 'amount': 500}
+                ]
+            }
+
+    def test_create_project(self):
+        """
+        Test to load the first page for creating a project.
+        """
+
+        self.visit_path('/my/projects')
+        self.assertTrue(self.browser.is_text_present('CREATE NEW PROJECT', wait_time=15))
+
+
+        # Click "Pitch Smart Idea" btn
+        self.browser.find_by_id("create_project").first.click()
+
+        self.assertTrue(self.browser.is_text_present('PROJECT START', wait_time=5))
+
+        self.assertEqual(self.browser.url, '{0}/en/#!/my/projects/new/start'.format(self.live_server_url))
+
+
+        time.sleep(3)
+        self.browser.find_by_css(".btn-primary").first.click()
+
+        time.sleep(2)
+
+        # self.assertTrue(self.browser.is_text_present('Title', wait_time=5))
+
+        self.browser.select('language', 2)
+        self.browser.fill('title', self.project_data['title'])
+        self.browser.fill('pitch', self.project_data['pitch'])
+
+        btn = self.browser.attach_file('img_upload', '{0}/apps/projects/test_images/upload.png'.format(settings.PROJECT_ROOT))
+
+        time.sleep(2)
+
+        # Splinter takes the value of the select option
+        self.browser.select('theme', 2)
+
+        for tag in self.project_data['tags']:
+            self.browser.fill('tag', tag)
+            self.browser.find_by_css("button.add-tag").first.click()
+
+        #self.browser.select('country', 1)
+
+        self.browser.find_by_css('button.next').first.click()
+
+        self.assertTrue(self.browser.is_text_present('GOAL', wait_time=5))
+
+        # Goal & Budget
+
+        self.browser.fill('amount_asked', self.project_data['amount_asked'])
+
+        # Pick a deadline next month
+        self.assertTrue(self.scroll_to_and_click_by_css(".btn-date-picker"))
+
+        # Wait for date picker popup
+        self.assertTrue(self.browser.is_element_present_by_css("#ui-datepicker-div"))
+
+        # Click Next to get a date in the future
+        self.browser.find_by_css("[title=Next]").first.click()
+        self.assertTrue(self.browser.is_text_present("10"))
+        self.browser.find_link_by_text("10").first.click()
+
+
+        for line in self.project_data['budget']:
+            self.browser.fill('budget_line_amount', line['amount'])
+            self.browser.fill('budget_line_description', line['description'])
+            time.sleep(1)
+            self.browser.find_by_css("a.add-budget").first.click()
+
+
+        self.browser.find_by_css("button.next").first.click()
+
+        self.assertTrue(self.browser.is_text_present('PROJECT DESCRIPTION', wait_time=50))
+        self.assertEqual(self.browser.url,
+                         '{0}/en/#!/my/projects/{1}/story'.format(self.live_server_url,
+                                                                  self.project_data['slug']))
+
+        story = self.browser.find_by_css('.redactor_redactor').first
+        story.type(self.project_data['description'])
+
+        self.browser.find_by_css("button.next").first.click()
+
+        self.assertTrue(self.browser.is_text_present('ORGANISATION', wait_time=5))
+
+        self.assertEqual(self.browser.url, '{0}/en/#!/my/projects/{1}/organisation'.format(self.live_server_url,
+                                                                                           self.project_data['slug']))
+        organisation = {
+            "name": "Test Organization",
+            "email": "harold@testorg.com",
+            "phone": "123456789",
+            "website": "http://www.testorg.com",
+            "twitter": "@testorg",
+            "facebook": "testorg",
+            "skype": "testorg"
+        }
+
+        self.browser.fill('name', organisation['name'])
+        self.browser.fill('email', organisation['email'])
+        self.browser.fill('phone', organisation['phone'])
+        self.browser.fill('website', organisation['website'])
+        self.browser.fill('twitter', organisation['twitter'])
+        self.browser.fill('facebook', organisation['facebook'])
+        self.browser.fill('skype', organisation['skype'])
+
+        self.browser.find_by_css("button.next").first.click()
+
+        self.assertTrue(self.browser.is_text_present('Please fill in all information before submitting', wait_time=5))
+        self.assertEqual(self.browser.url,
+                         '{0}/en/#!/my/projects/{1}/submit'.format(self.live_server_url,
+                                                                   self.project_data['slug']))
+
+        # confirm the project record was created
+        # TODO: Also check it has the expected fields.
+        Project.objects.filter(slug=self.project_data['slug']).exists()
+
+
+@skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
+            'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
+class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
+    """
+    Selenium tests for Projects.
+    """
+    def setUp(self):
+        self.user = BlueBottleUserFactory.create()
+        self.login(self.user.email, 'testing')
+
+        self.project = OnePercentProjectFactory.create()
+        self.project.owner = BlueBottleUserFactory.create()
+        self.project.save()
+
+        self.post1 = {
+            'text': 'Ziltch emit doler omit et dametis!'
+        }
+        self.post2 = {
+            'title': 'Hora est',
+            'text': 'Rolum dohar in amuet redicer...'
+        }
+
+    def test_write_wall_post(self):
+        """
+        Test to write wall-posts on project page
+        """
+        self.visit_path('/projects/{0}'.format(self.project.slug))
+        self.assertTrue(self.browser.is_text_present(self.project.title, wait_time=5))
+        self.assertTrue(self.browser.is_text_present('Post a new comment on wall', wait_time=5))
+
+        self.browser.find_by_css(".wallpost-post-update").click()
+        self.assertTrue(self.browser.is_text_present('Post', wait_time=5))
+
+        # Write wallpost as normal user
+        self.browser.fill('wallpost-update', self.post1['text'])
+        self.browser.find_by_css("button.btn-save").first.click()
+
+        post = self.browser.find_by_css("article.wallpost").first
+
+        self.assertEqual(post.find_by_css('.wallpost-author').text, self.user.short_name)
+        self.assertEqual(post.find_by_css('.text p').text, self.post1['text'])
+
+        self.logout()
+
+        # Login as the project owner
+        self.login(self.project.owner.email, 'testing')
+
+        # Should see the post by the first user.
+        self.visit_path('/projects/{0}'.format(self.project.slug))
+        post = self.browser.find_by_css("article.wallpost").first
+        self.assertEqual(post.find_by_css('.wallpost-author').text, self.user.short_name)
+        self.assertEqual(post.find_by_css('.text p').text, self.post1['text'])
+
+        # Post as project owner
+        self.browser.find_by_css(".wallpost-post-update").click()
+        self.assertTrue(self.browser.is_text_present('Post', wait_time=5))
+
+        self.browser.fill('wallpost-title', self.post2['title'])
+        self.browser.fill('wallpost-update', self.post2['text'])
+        self.browser.find_by_css("button.btn-save").first.click()
+
+        # Check that the new wallpost is there
+        self.assertTrue(self.browser.is_text_present('INITIATOR', wait_time=5))
+        # Wait for title, so we're sure the animation is finished.
+        self.assertTrue(self.browser.is_text_present(self.post2['title'], wait_time=5))
+        post = self.browser.find_by_css("article.wallpost")[0]
+
+        self.assertEqual(post.find_by_css('.wallpost-author').text, self.project.owner.short_name)
+        self.assertEqual(post.find_by_css('.wallpost-title').text, self.post2['title'])
+        self.assertEqual(post.find_by_css('.text p').text, self.post2['text'])
+
+        # And the first post should still be shown as second
+        post = self.browser.find_by_css("article.wallpost")[1]
+        self.assertEqual(post.find_by_css('.wallpost-author').text, self.user.short_name)
+        self.assertEqual(post.find_by_css('.text p').text, self.post1['text'])
+

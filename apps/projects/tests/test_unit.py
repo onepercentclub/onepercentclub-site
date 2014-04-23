@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
-from bluebottle.test.factory_models.projects import ProjectThemeFactory, ProjectPhaseFactory
+from bluebottle.test.factory_models.projects import ProjectPhaseFactory
 from bluebottle.utils.utils import get_project_model
 
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
@@ -9,6 +9,7 @@ from onepercentclub.tests.factory_models.project_factories import OnePercentProj
 from apps.fund.models import DonationStatuses, Donation, Order
 
 PROJECT_MODEL = get_project_model()
+
 
 class CalculateProjectMoneyDonatedTest(TestCase):
 

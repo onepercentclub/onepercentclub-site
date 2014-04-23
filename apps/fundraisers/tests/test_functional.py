@@ -8,18 +8,15 @@ from bluebottle.utils.tests import UserTestsMixin
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 
 from apps.fund.models import DonationStatuses, Donation, OrderStatuses
-from apps.projects.tests.unittests import ProjectTestsMixin
-from apps.donations.tests.helpers import DonationTestsMixin
 
 from bluebottle.test.factory_models.projects import ProjectThemeFactory, ProjectPhaseFactory
 
 from ..models import FundRaiser
-from .helpers import FundRaiserTestsMixin
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
         'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
-class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsMixin, DonationTestsMixin, OnePercentSeleniumTestCase):
+class FundRaiserSeleniumTest(OnePercentSeleniumTestCase):
     """
     Integration tests for the fundraiser API.
     """

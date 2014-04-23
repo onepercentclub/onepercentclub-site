@@ -61,10 +61,10 @@
         <ul>
             <li class="control-group fieldset-content">
                 <div class="campaign-budget-description">
-                    {{view Em.TextField valueBinding='budgetLineNew.description' type="text" name="description" placeholder="Description of item" }}
+                    {{view Em.TextField valueBinding='budgetLineNew.description' type="text" name="budget_line_description" placeholder="Description of item" }}
                 </div>
                 <div class="campaign-budget-amount">
-                    {{view Em.TextField valueBinding='budgetLineNew.amount' type="number" name="amount" placeholder="€ Amount" }}
+                    {{view Em.TextField valueBinding='budgetLineNew.amount' type="number" name="budget_line_amount" placeholder="€ Amount" }}
                 </div>
                 <a {{action addBudgetLine}} class="btn btn-modest add-budget"><span class="flaticon solid plus-2"></span> Add</a>
             </li>
