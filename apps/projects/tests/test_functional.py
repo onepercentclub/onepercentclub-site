@@ -187,6 +187,7 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         self.user = BlueBottleUserFactory.create()
         self.theme1 = ProjectThemeFactory.create()
         self.theme2 = ProjectThemeFactory.create()
+        self.theme3 = ProjectThemeFactory.create()
 
         self.language1 = LanguageFactory.create()
         self.language2 = LanguageFactory.create()

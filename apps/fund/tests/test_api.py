@@ -3,6 +3,7 @@ import json
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
+from django.utils import unittest
 
 from apps.cowry.factory import _adapter_for_payment_method
 from apps.cowry.models import PaymentStatuses

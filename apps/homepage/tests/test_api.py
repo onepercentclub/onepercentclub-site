@@ -22,7 +22,7 @@ class HomepageTestCase(TestCase):
         self.user = User.objects.create_user('johndoe@example.com', 'secret', primary_language='en')
         title = u'Mobile payments for everyone 2!'
 
-        self.project = OnePercentProjectFactory.create(title=title, slug=slugify(title), money_asked=100000, owner=self.user)
+        self.project = OnePercentProjectFactory.create(title=title, slug=slugify(title), amount_asked=100000, owner=self.user)
         self.project.is_campaign = True
         self.project.money_donated = 0
         self.project.save()
@@ -59,7 +59,7 @@ class HomepageTestCase(TestCase):
         Donation.objects.create(amount=5000, user=self.user, project=self.project,
                                 status=DonationStatuses.paid, order=order, ready=now+timedelta(weeks=2))
 
-        self.project_with_fundraiser = OnePercentProjectFactory.create(money_asked=50000)
+        self.project_with_fundraiser = OnePercentProjectFactory.create(amount_asked=50000)
         self.project_with_fundraiser.is_campaign = True
         self.project_with_fundraiser.save()
         self.fundraiser = FundRaiserFactory.create(self.user, self.project_with_fundraiser)

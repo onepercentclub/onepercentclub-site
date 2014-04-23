@@ -10,8 +10,6 @@ from django.test import TestCase
 
 from rest_framework import status
 
-from bluebottle.utils.tests import UserTestsMixin
-
 from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
 from bluebottle.test.factory_models.projects import ProjectThemeFactory, ProjectPhaseFactory
 from onepercentclub.tests.factory_models.fundraiser_factories import FundRaiserFactory
