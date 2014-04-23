@@ -4,17 +4,16 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.utils import timezone
 from django.utils.text import slugify
+from onepercentclub.tests.factory_models.fundraiser_factories import FundRaiserFactory
+from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
 
 from rest_framework import status
 
 from apps.campaigns.models import Campaign
 from apps.fund.models import Donation, DonationStatuses, Order
-from apps.fundraisers.tests.helpers import FundRaiserTestsMixin
-
-from apps.projects.tests.unittests import ProjectTestsMixin
 
 
-class HomepageTestCase(FundRaiserTestsMixin, ProjectTestsMixin, TestCase):
+class HomepageTestCase(TestCase):
     """ Test that the homepage doesn't error out if no/a campaign is available """
 
     def setUp(self):
@@ -23,7 +22,7 @@ class HomepageTestCase(FundRaiserTestsMixin, ProjectTestsMixin, TestCase):
         self.user = User.objects.create_user('johndoe@example.com', 'secret', primary_language='en')
         title = u'Mobile payments for everyone 2!'
 
-        self.project = self.create_project(title=title, slug=slugify(title), money_asked=100000, owner=self.user)
+        self.project = OnePercentProjectFactory.create(title=title, slug=slugify(title), money_asked=100000, owner=self.user)
         self.project.is_campaign = True
         self.project.money_donated = 0
         self.project.save()
@@ -60,10 +59,10 @@ class HomepageTestCase(FundRaiserTestsMixin, ProjectTestsMixin, TestCase):
         Donation.objects.create(amount=5000, user=self.user, project=self.project,
                                 status=DonationStatuses.paid, order=order, ready=now+timedelta(weeks=2))
 
-        self.project_with_fundraiser = self.create_project(money_asked=50000)
+        self.project_with_fundraiser = OnePercentProjectFactory.create(money_asked=50000)
         self.project_with_fundraiser.is_campaign = True
         self.project_with_fundraiser.save()
-        self.fundraiser = self.create_fundraiser(self.user, self.project_with_fundraiser)
+        self.fundraiser = FundRaiserFactory.create(self.user, self.project_with_fundraiser)
 
         response = self.client.get(self.homepage_url)
         self.assertNotEqual(None, response.data['campaign'])
