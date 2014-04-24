@@ -1,13 +1,11 @@
 import json
+from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
 
 from django.test import TestCase
 from django.test.client import Client
 from django.utils import unittest
 from django.utils import timezone
 
-from bluebottle.utils.tests import UserTestsMixin
-
-from apps.projects.tests import ProjectTestsMixin
 from apps.projects.models import Project
 
 from ..models import Order, OrderStatuses, DonationStatuses, RecurringDirectDebitPayment
@@ -15,9 +13,9 @@ from ..models import Order, OrderStatuses, DonationStatuses, RecurringDirectDebi
 from rest_framework import status
 
 
-class RecurringPaymentTest(UserTestsMixin, TestCase):
+class RecurringPaymentTest(TestCase):
     def setUp(self):
-        self.user = self.create_user()
+        self.user = BlueBottleUserFactory.create()
 
     def test_post_save_disabled(self):
         recurring_payment = RecurringDirectDebitPayment(user=self.user, active=True, name="ABC", city="DEF", account=123)

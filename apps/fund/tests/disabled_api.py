@@ -3,6 +3,8 @@ import json
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
+from django.utils import unittest
+from rest_framework import status
 
 from apps.cowry.factory import _adapter_for_payment_method
 from apps.cowry.models import PaymentStatuses
@@ -19,8 +21,8 @@ class CartApiIntegrationTest(TestCase):
     Integration tests for the adding Donations to an Order (a cart in this case).
     """
     def setUp(self):
-        self.some_project = OnePercentProjectFactory.create(money_asked=50000)
-        self.another_project = OnePercentProjectFactory.create(money_asked=75000)
+        self.some_project = OnePercentProjectFactory.create(amount_asked=50000)
+        self.another_project = OnePercentProjectFactory.create(amount_asked=75000)
 
         self.some_user = BlueBottleUserFactory.create()
         self.another_user = BlueBottleUserFactory.create()
@@ -466,8 +468,8 @@ class CartApiIntegrationTest(TestCase):
 class RecurringOrderApiTest(TestCase):
 
     def setUp(self):
-        self.some_project = OnePercentProjectFactory.create(money_asked=50000)
-        self.another_project = OnePercentProjectFactory.create(money_asked=75000)
+        self.some_project = OnePercentProjectFactory.create(amount_asked=50000)
+        self.another_project = OnePercentProjectFactory.create(amount_asked=75000)
 
         self.some_user = BlueBottleUserFactory.create()
         self.another_user = BlueBottleUserFactory.create()

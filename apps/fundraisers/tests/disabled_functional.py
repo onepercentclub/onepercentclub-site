@@ -1,25 +1,26 @@
+from bluebottle.bb_projects.models import ProjectPhase
+from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
+from onepercentclub.tests.factory_models.donation_factories import DonationFactory
+from onepercentclub.tests.factory_models.fundraiser_factories import FundRaiserFactory
+from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
 import os
 from django.utils import timezone
 
 from django.utils.unittest.case import skipUnless
 from django.conf import settings
 
-from bluebottle.utils.tests import UserTestsMixin
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 
 from apps.fund.models import DonationStatuses, Donation, OrderStatuses
-from apps.projects.tests.unittests import ProjectTestsMixin
-from apps.donations.tests.helpers import DonationTestsMixin
 
 from bluebottle.test.factory_models.projects import ProjectThemeFactory, ProjectPhaseFactory
 
 from ..models import FundRaiser
-from .helpers import FundRaiserTestsMixin
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
         'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
-class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsMixin, DonationTestsMixin, OnePercentSeleniumTestCase):
+class FundRaiserSeleniumTest(OnePercentSeleniumTestCase):
     """
     Integration tests for the fundraiser API.
     """
@@ -27,15 +28,13 @@ class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsM
         """
         Create initial data.
         """
-        self.phase_1 = ProjectPhaseFactory.create(sequence=1, name='Campaign')
+        self.project_with_fundraiser = OnePercentProjectFactory.create(amount_asked=50000)
+        self.project_without_fundraiser = OnePercentProjectFactory.create(amount_asked=75000)
 
-        self.project_with_fundraiser = self.create_project(money_asked=50000)
-        self.project_without_fundraiser = self.create_project(money_asked=75000)
+        self.some_user = BlueBottleUserFactory.create()
+        self.another_user = BlueBottleUserFactory.create()
 
-        self.some_user = self.create_user()
-        self.another_user = self.create_user()
-
-        self.fundraiser = self.create_fundraiser(self.some_user, self.project_with_fundraiser)
+        self.fundraiser = FundRaiserFactory.create(owner=self.some_user, project=self.project_with_fundraiser)
 
         self.project_with_fundraiser_url = '/projects/{0}'.format(self.project_with_fundraiser.slug)
         self.project_without_fundraiser_url = '/projects/{0}'.format(self.project_without_fundraiser.slug)
@@ -63,7 +62,7 @@ class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsM
         """
         Test create a fundraiser for a project as authenticated user.
         """
-        self.login(username=self.some_user.email, password='password')
+        self.login(username=self.some_user.email, password='testing')
 
         self.visit_path(self.project_with_fundraiser_url)
 
@@ -103,7 +102,7 @@ class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsM
         """
         Test edit a fundraiser that the user does not own.
         """
-        self.login(username=self.another_user.email, password='password')
+        self.login(username=self.another_user.email, password='testing')
 
         self.visit_path(self.fundraiser_url)
 
@@ -120,7 +119,7 @@ class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsM
         """
         Test edit a fundraiser that the user owns.
         """
-        self.login(username=self.some_user.email, password='password')
+        self.login(username=self.some_user.email, password='testing')
 
         self.visit_path(self.fundraiser_url)
 
@@ -194,7 +193,7 @@ class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsM
         """
         Test create donation for fundraise action.
         """
-        self.login(username=self.some_user.email, password='password')
+        self.login(username=self.some_user.email, password='testing')
 
         self.visit_path(self.fundraiser_url)
 
@@ -224,7 +223,7 @@ class FundRaiserSeleniumTest(FundRaiserTestsMixin, ProjectTestsMixin, UserTestsM
         # TODO: Test rest of the flow?
 
         # Create dummy donation, so we can validate the thank you page.
-        donation = self.create_donation(self.some_user, self.project_with_fundraiser)
+        donation = DonationFactory.create(user=self.some_user, project=self.project_with_fundraiser)
         donation.fundraiser = self.fundraiser
         donation.order.status = OrderStatuses.current
         donation.order.closed = None

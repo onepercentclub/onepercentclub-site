@@ -1,23 +1,25 @@
+from onepercentclub.tests.factory_models.donation_factories import DonationFactory
+from onepercentclub.tests.factory_models.fundraiser_factories import FundRaiserFactory
 import re
 
 from django.test import TestCase
 from django.core import mail
 
-# from apps.fund.models import Donation, DonationStatuses
-
+from apps.fund.models import Donation, DonationStatuses
 from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
-from bluebottle.test.factory_models.projects import ProjectThemeFactory, ProjectPhaseFactory
+
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
+
 
 
 class DonationMailTests(TestCase):
     def setUp(self):
         self.project_owner = BlueBottleUserFactory.create(email='projectowner@example.com', primary_language='en')
-        self.project = OnePercentProjectFactory.create(money_asked=50000, owner=self.project_owner)
+        self.project = OnePercentProjectFactory.create(amount_asked=50000, owner=self.project_owner)
         self.user = BlueBottleUserFactory.create(first_name='Jane')
 
     def test_mail_owner_on_new_donation(self):
-        donation = self.create_donation(self.user, self.project, donation_type=Donation.DonationTypes.one_off)
+        donation = DonationFactory.create(user=self.user, project=self.project, donation_type=Donation.DonationTypes.one_off)
 
         # Mailbox should not contain anything.
         self.assertEqual(len(mail.outbox), 0)
@@ -41,7 +43,7 @@ class DonationMailTests(TestCase):
         self.assertTrue(self.user.first_name in message.body)
 
     def test_single_mail_on_new_donation(self):
-        donation = self.create_donation(self.user, self.project, donation_type=Donation.DonationTypes.one_off)
+        donation = DonationFactory.create(user=self.user, project=self.project, donation_type=Donation.DonationTypes.one_off)
 
         # Mailbox should not contain anything.
         self.assertEqual(len(mail.outbox), 0)
@@ -60,9 +62,10 @@ class DonationMailTests(TestCase):
         self.assertEqual(len(mail.outbox), 1)
 
     def test_single_mail_on_new_fundraiser_donation(self):
-        self.fundraiser_owner = self.create_user(email='fundraiserowner@example.com', primary_language='en')
-        fundraiser = self.create_fundraiser(self.fundraiser_owner, self.project)
-        donation = self.create_donation(self.user, self.project, donation_type=Donation.DonationTypes.one_off, fundraiser=fundraiser)
+
+        self.fundraiser_owner = BlueBottleUserFactory.create(email='fundraiserowner@example.com', primary_language='en')
+        fundraiser = FundRaiserFactory.create(owner=self.fundraiser_owner, project=self.project)
+        donation = DonationFactory.create(user=self.user, project=self.project, donation_type=Donation.DonationTypes.one_off, fundraiser=fundraiser)
 
         # Mailbox should not contain anything.
         self.assertEqual(len(mail.outbox), 0)

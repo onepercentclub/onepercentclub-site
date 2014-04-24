@@ -1,5 +1,5 @@
 import datetime
-from bluebottle.bb_projects.models import BaseProject, ProjectTheme
+from bluebottle.bb_projects.models import BaseProject, ProjectTheme, ProjectPhase
 from django.db import models
 from django.db.models.aggregates import Count, Sum
 from django.db.models.signals import post_save
@@ -17,6 +17,7 @@ from .mails import mail_project_funded_internal
 from .signals import project_funded
 
 from apps.fund.models import DonationStatuses, Donation
+
 
 class ProjectManager(models.Manager):
 
@@ -265,6 +266,9 @@ class Project(BaseProject):
 
         if not self.status:
             self.status = ProjectPhase.objects.get(slug="plan-new")
+
+        if not self.deadline:
+            self.deadline = timezone.now() + datetime.timedelta(days=30)
         super(Project, self).save(*args, **kwargs)
 
 
