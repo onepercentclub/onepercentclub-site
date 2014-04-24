@@ -4,22 +4,16 @@ Functional tests using Selenium.
 
 See: ``docs/testing/selenium.rst`` for details.
 """
-from bluebottle.test.factory_models.utils import LanguageFactory
 from django.conf import settings
-from django.contrib.auth import get_user_model
 from django.utils.text import slugify
 from django.utils.unittest.case import skipUnless
 
 
-from bluebottle.geo import models as geo_models
-from onepercentclub.tests.utils import OnePercentSeleniumTestCase
-
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
-from bluebottle.test.factory_models.projects import ProjectThemeFactory, ProjectPhaseFactory
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
 
-from ..models import Project, ProjectTheme
+from ..models import Project
 
 import os
 import time
@@ -32,8 +26,7 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
     Selenium tests for Projects.
     """
     def setUp(self):
-        self.phase_1 = ProjectPhaseFactory.create(sequence=1, name='Plan - New')
-        self.phase_2 = ProjectPhaseFactory.create(sequence=2, name='Campaign')
+        self.init_projects()
 
         self.projects = dict([(slugify(title), title) for title in [
            u'Mobile payments for everyone 2!', u'Schools for children 2',  u'Women first 2'
@@ -181,16 +174,11 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
     """
     Selenium tests for Projects.
     """
-    fixtures = ['booking_project_phases.json']
 
     def setUp(self):
-        self.user = BlueBottleUserFactory.create()
-        self.theme1 = ProjectThemeFactory.create()
-        self.theme2 = ProjectThemeFactory.create()
-        self.theme3 = ProjectThemeFactory.create()
 
-        self.language1 = LanguageFactory.create()
-        self.language2 = LanguageFactory.create()
+        self.init_projects()
+        self.user = BlueBottleUserFactory.create()
 
         self.login(self.user.email, 'testing')
 
@@ -216,7 +204,7 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         """
 
         self.visit_path('/my/projects')
-        self.assertTrue(self.browser.is_text_present('CREATE NEW PROJECT', wait_time=15))
+        self.assertTrue(self.browser.is_text_present('CREATE NEW PROJECT', wait_time=5))
 
 
         # Click "Pitch Smart Idea" btn
@@ -226,13 +214,9 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
 
         self.assertEqual(self.browser.url, '{0}/en/#!/my/projects/new/start'.format(self.live_server_url))
 
-
-        time.sleep(3)
         self.browser.find_by_css(".btn-primary").first.click()
 
-        time.sleep(2)
-
-        # self.assertTrue(self.browser.is_text_present('Title', wait_time=5))
+        self.assertTrue(self.browser.is_text_present('Title', wait_time=5))
 
         self.browser.select('language', 2)
         self.browser.fill('title', self.project_data['title'])
@@ -303,6 +287,7 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
             "facebook": "testorg",
             "skype": "testorg"
         }
+
 
         self.browser.fill('name', organisation['name'])
         self.browser.fill('email', organisation['email'])

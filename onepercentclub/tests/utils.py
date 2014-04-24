@@ -1,8 +1,20 @@
 from bluebottle.test.factory_models.projects import ProjectPhaseFactory
 from bluebottle.test.utils import SeleniumTestCase
+from django.test import TestCase
+from onepercentclub.tests.factory_models.project_factories import OnePercentProjectTestInit
+
+
+class OnePercentTestCase(TestCase):
+
+    def init_projects(self):
+        OnePercentProjectTestInit()
 
 
 class OnePercentSeleniumTestCase(SeleniumTestCase):
+
+    def init_projects(self):
+        OnePercentProjectTestInit()
+
     def login(self, username, password):
         """
         Perform login operation on the website.
@@ -11,10 +23,7 @@ class OnePercentSeleniumTestCase(SeleniumTestCase):
         :param password: The user's password
         :return: ``True`` if login was successful.
         """
-        # We need some project phases to get things going
-        phase = ProjectPhaseFactory.create(name='Campaign')
-        phase = ProjectPhaseFactory.create(name='Plan Submitted')
-
+        self.init_projects()
         self.visit_homepage()
 
         # Find the link to the signup button page and click it.
@@ -39,7 +48,6 @@ class OnePercentSeleniumTestCase(SeleniumTestCase):
         :param lang_code: A two letter language code as used in the URL.
         :return: ``True`` if the homepage could be visited.
         """
-
         self.visit_path('', lang_code)
 
         # # Check if the homepage opened, and the dynamically loaded content appeared.

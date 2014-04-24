@@ -276,7 +276,7 @@ INSTALLED_APPS = (
     'apps.contentplugins',
     'apps.campaigns',
     'apps.hbtemplates',
-    #'apps.payouts',
+    'apps.payouts',
     'apps.sepa',
     'apps.statistics',
     'apps.homepage',

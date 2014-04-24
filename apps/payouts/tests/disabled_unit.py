@@ -19,14 +19,18 @@ from ..models import (
 from ..choices import PayoutRules, PayoutLineStatuses
 from onepercentclub.tests.factory_models.donation_factories import DonationFactory
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
+from onepercentclub.tests.utils import OnePercentTestCase
 from ..utils import date_timezone_aware
 
-# TODO: fix
-class PayoutTestCase(TestCase):
+
+class PayoutTestCase(OnePercentTestCase):
     """ Testcase for Payouts. """
 
     def setUp(self):
         """ Setup a project ready for payout. """
+
+        self.init_projects()
+
         self.project = OnePercentProjectFactory.create()
 
         # Update phase to campaign.
@@ -158,9 +162,6 @@ class PayoutTestCase(TestCase):
         self.donation.status = DonationStatuses.paid
         self.donation.save()
 
-        # Update campaign donations
-        self.campaign.update_money_donated()
-
         # Update phase to act.
         self.project.status = ProjectPhase.objects.get(slug='done-complete')
         self.project.save()
@@ -176,9 +177,6 @@ class PayoutTestCase(TestCase):
         # Set status of donation to paid
         self.donation.status = DonationStatuses.new
         self.donation.save()
-
-        # Update campaign donations
-        self.campaign.update_money_donated()
 
         # Update phase to act.
         self.project.status = ProjectPhase.objects.get(slug='done-complete')
@@ -201,9 +199,6 @@ class PayoutTestCase(TestCase):
         # Set status of donation
         self.donation.status = DonationStatuses.pending
         self.donation.save()
-
-        # Update campaign donations
-        self.campaign.update_money_donated()
 
         # Update phase to act.
         self.project.status = ProjectPhase.objects.get(slug='done-complete')
@@ -229,9 +224,6 @@ class PayoutTestCase(TestCase):
         self.donation.status = DonationStatuses.pending
         self.donation.save()
 
-        # Update campaign donations
-        self.campaign.update_money_donated()
-
         # Update phase to act.
         self.project.status = ProjectPhase.objects.get(slug='done-complete')
         self.project.save()
@@ -239,9 +231,6 @@ class PayoutTestCase(TestCase):
         # Set status of donation to failed
         self.donation.status = DonationStatuses.failed
         self.donation.save()
-
-        # Update campaign donations
-        self.campaign.update_money_donated()
 
         # Fetch payout
         payout = Payout.objects.all()[0]
@@ -261,9 +250,6 @@ class PayoutTestCase(TestCase):
         # Set status of donation to paid
         self.donation.status = DonationStatuses.paid
         self.donation.save()
-
-        # Update campaign donations
-        self.campaign.update_money_donated()
 
         # Update phase to act.
         self.project.status = ProjectPhase.objects.get(slug='done-complete')
