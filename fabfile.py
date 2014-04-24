@@ -10,6 +10,7 @@ from git import Repo
 from fabric.api import env, roles, sudo, prefix, cd, task, require, run, local, put, prompt, abort
 from fabric.contrib.console import confirm
 from fabric.colors import green, red
+from fabric.operations import get
 from contextlib import contextmanager
 
 
@@ -22,7 +23,8 @@ env.roledefs = {
     'production': ['production.onepercentclub.com'],
     'staging': ['staging.onepercentclub.com'],
     'testing': ['testing.onepercentclub.com'],
-    'dev': ['dev.onepercentclub.com']
+    'dev': ['dev.onepercentclub.com'],
+    'backup': ['backups@bluebucket.onepercentclub.com']
 }
 
 # Admin user
@@ -483,3 +485,27 @@ def deploy_production(revspec=None):
 
     # Deploy complete, tag commit
     tag_commit(commit.hexsha, tag)
+
+
+@roles('backup')
+@task
+def get_db():
+    backup_dir = "/home/backups/onepercentclub-backups/onepercentsite/current"
+    with cd(backup_dir):
+        output = run("ls *.bz2")
+        print "Output: ", output
+        try:
+            filename = output.split()[0]
+        except IndexError:
+            print "No database backup file found"
+
+        if filename:
+            get(remote_path="{0}/{1}".format(backup_dir, filename), local_path="./dump.sql.bz2")
+            unpack_db()
+
+def unpack_db(filename="dump.sql.bz2"):
+    try:
+        local("gunzip {0}".format(filename))
+    except IndexError:
+        print "No database file found"
+
