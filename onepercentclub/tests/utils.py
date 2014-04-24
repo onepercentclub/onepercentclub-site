@@ -1,6 +1,7 @@
 from bluebottle.test.factory_models.projects import ProjectPhaseFactory
 from bluebottle.test.utils import SeleniumTestCase
 from django.test import TestCase
+from django.utils.unittest.case import skipIf
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectTestInit
 
 
@@ -40,6 +41,11 @@ class OnePercentSeleniumTestCase(SeleniumTestCase):
         self.browser.find_by_value('Login').first.click()
 
         return self.browser.is_text_present('MY 1%', wait_time=10)
+
+    def logout(self):
+        return self.browser.visit('%(url)s/en/accounts/logout/' % {
+            'url': self.live_server_url
+        })
 
     def visit_homepage(self, lang_code=None):
         """
