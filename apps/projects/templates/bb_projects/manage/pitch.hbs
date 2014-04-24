@@ -45,9 +45,7 @@
 
             {% bb_component 'bb-map-picker' modelBinding='controller.model' latitudeBinding='latitude' longitudeBinding='longitude' hint=_('Select the location on the map. You can use the search to find your location.') label=_('Location') errorsBinding='errors.location' className='small' %}
 
-            {{#bb-form-field hint='Select a country.' label='Country' errorsBinding='errors.country' }}
-                {{view App.CountrySelectView selectionBinding=country name='country' classBinding="errors.country.length:error"}}
-            {{/bb-form-field}}
+            {% bb_component 'bb-select-country' label=_('Country') name='country' selectionBinding='country' errorsBinding='errors.country' maxlength=255 %}
             
         </ul>
     </fieldset>
