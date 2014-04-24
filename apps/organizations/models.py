@@ -21,16 +21,6 @@ class Organization(BaseOrganization):
     """
     registration = models.FileField(upload_to='organizations/registrations', storage=FileSystemStorage(location=settings.PRIVATE_MEDIA_ROOT), null=True, blank=True)
 
-    account_bank_name = models.CharField(_("account bank name"), max_length=255, blank=True)
-    account_bank_address = models.CharField(_("account bank address"), max_length=255, blank=True)
-    account_bank_country = models.ForeignKey('geo.Country', blank=True, null=True, related_name="account_bank_country")
-    account_iban = IBANField(_("account IBAN"), blank=True)
-    account_bic = SWIFTBICField(_("account SWIFT-BIC"), blank=True)
-    account_number = models.CharField(_("account number"), max_length=255, blank=True)
-    account_name = models.CharField(_("account name"), max_length=255, blank=True)
-    account_city = models.CharField(_("account city"), max_length=255, blank=True)
-    account_other = models.CharField(_("account information that doesn't fit in the other field"), max_length=255, blank=True)
-
     def __unicode__(self):
         return self.name
 

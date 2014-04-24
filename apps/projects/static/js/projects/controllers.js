@@ -56,6 +56,7 @@ App.MyProjectGoalController = App.StandardTabController.extend({
 });
 
 App.MyProjectStoryController.reopen({
-    previousStep: 'myProject.goal'
+    previousStep: 'myProject.goal',
+	nextStep: 'myProject.organisation'
 });
 
