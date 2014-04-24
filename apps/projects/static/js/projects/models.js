@@ -66,7 +66,7 @@ App.MyProject.reopen({
         return (this.get('') && this.get('validPitch') && this.get('validGoal'));
     }.property('validStory', 'validPitch', 'validGoal'),
 
-    requiredStoryFields: ['description', 'goal', 'destination_impact'],
+    requiredStoryFields: ['story'],
     requiredGoalFields: ['amount_asked', 'deadline', 'maxAmountAsked', 'minAmountAsked'],
     requiredPitchFields: ['title', 'pitch', 'image', 'theme', 'tags.length', 'country', 'latitude', 'longitude'],
 
