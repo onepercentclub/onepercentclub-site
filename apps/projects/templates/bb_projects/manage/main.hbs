@@ -70,24 +70,12 @@
                             {% trans "Organisation" %}
                         {{/link-to}}</li>
 
-                        <li class="tab">
-                            {{#if organization.inEurope}}
-                                {{#link-to "myProject.bank" classBinding=":tab-link validEuropeanBankOrganization:validated"}}
-                                    {{#if validEuropeanBankOrganization}}
-                                        {{#if isPhasePlanNew}}<span class="flaticon solid checkmark-1"></span>{{/if}}
-                                    {{/if}}
-                                    {% trans "Bank" %}
-                                {{/link-to}}
-                            {{else}}
-                                {{#link-to "myProject.bank" classBinding=":tab-link validNotEuropeanBankOrganization:validated"}}
-                                    {{#if validNotEuropeanBankOrganization}}
-                                        {{#if isPhasePlanNew}}<span class="flaticon solid checkmark-1"></span>{{/if}}
-                                    {{/if}}
-                                    {% trans "Bank" %}
-                                {{/link-to}}
+                        <li class="tab">{{#link-to "myProject.bank" classBinding=":tab-link organization.validBank:validated"}}
+                            {{#if organization.validBank}}
+                                {{#if isPhasePlanNew}}<span class="flaticon solid checkmark-1"></span>{{/if}}
                             {{/if}}
-                        </li>
-
+                            {% trans "Bank" %}
+                        {{/link-to}}</li>
 
                         {{#if this.controller.isSubmittable}}
                            <li class="tab">{{#link-to "myProject.submit" classBinding=":tab-link validSubmit:validated"}}
