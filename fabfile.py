@@ -501,7 +501,7 @@ def get_db():
 
         if filename:
             get(remote_path="{0}/{1}".format(backup_dir, filename), local_path="./dump.sql.bz2")
-
+            unpack_db()
 
 def unpack_db(filename="dump.sql.bz2"):
     try:
