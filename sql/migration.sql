@@ -304,6 +304,11 @@ ALTER TABLE pages_page
 
 UPDATE pages_page set full_page = TRUE WHERE slug IN ('about', 'get-involved');
 
+-- Rename old User Address model
+ALTER TABLE accounts_useraddress RENAME TO members_useraddress;
+
+
+
 
 ------------
 -- TODO: See if we need these DB changes
