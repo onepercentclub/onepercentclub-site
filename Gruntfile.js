@@ -81,10 +81,6 @@ module.exports = function (grunt) {
           'static/build/js/components/ember-data/index.js',
           'static/build/js/components/ember-data-drf2-adapter/ember-data-drf2-adapter.js',
           'static/build/js/components/globalize/lib/globalize.js',
-
-          // 'bluebottle/common/static/js/vendor/ember-meta.js',
-          // 'bluebottle/common/static/js/plugins/ember.hashbang.js',
-          // 'bluebottle/common/static/jsi18n/en-us/*.js',
         ],
         dest: 'static/build/js/lib/deps.js'
       }
