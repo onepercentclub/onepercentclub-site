@@ -6,12 +6,11 @@ python:
 
 env:
   - DJANGO=django==1.5.4
-  - DJANGO=https://github.com/django/django/archive/master.zip
 
 install:
   - "pip install --upgrade setuptools --use-mirrors"
   - "pip install $DJANGO --use-mirrors"
-  - "pip install --use-mirrors --allow-all-external --allow-unverified django-admin-tools -r requirements.txt"
+  - "pip install --use-mirrors --allow-all-external --allow-unverified django-admin-tools -r requirements/ci_requirements.txt"
   - "pip install Pillow --use-mirrors"
   - "touch onepercentclub/settings/secrets.py"
 
@@ -24,4 +23,4 @@ before_script:
 
 script:
   - python ./manage.py test --settings=onepercentclub.settings.travis -v 1
-  - grunt travis --verbose # add --force to overlook JS test failures
+  - grunt travis --verbose --force # remove --force to fail build on JS failures

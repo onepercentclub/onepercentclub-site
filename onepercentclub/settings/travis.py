@@ -16,4 +16,4 @@ from .base import *
 #
 
 # Disable Selenium testing for now on Travis because it fails inconsistent.
-SELENIUM_TESTS = False
+# SELENIUM_TESTS = False

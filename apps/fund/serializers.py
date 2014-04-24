@@ -1,4 +1,5 @@
 # coding=utf-8
+from apps.fundraisers.serializers import FundRaiserPreviewSerializer
 from apps.projects.serializers import ProjectPreviewSerializer
 from apps.vouchers.serializers import VoucherSerializer, OrderCurrentVoucherSerializer
 from bluebottle.bb_accounts.serializers import UserPreviewSerializer
@@ -8,6 +9,30 @@ from bluebottle.utils.serializers import MetaField
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
 from .models import Donation, DonationStatuses, Order, OrderStatuses, RecurringDirectDebitPayment
+
+
+class ProjectSupporterSerializer(serializers.ModelSerializer):
+    """
+    For displaying donations on project and member pages.
+    """
+    member = UserPreviewSerializer(source='user')
+    project = ProjectPreviewSerializer(source='project') # NOTE: is this really necessary?
+    date_donated = serializers.DateTimeField(source='ready')
+
+    class Meta:
+        model = Donation
+        fields = ('date_donated', 'project',  'member',)
+
+
+class ProjectDonationSerializer(serializers.ModelSerializer):
+    member = UserPreviewSerializer(source='user')
+    date_donated = serializers.DateTimeField(source='ready')
+    amount = EuroField(source='amount')
+
+    class Meta:
+        model = Donation
+        fields = ('member', 'date_donated', 'amount',)
+
 
 
 # TODO Create a Serializer that takes an order id for the current order to make this resource RESTful.
@@ -63,7 +88,7 @@ class DonationSerializer(serializers.ModelSerializer):
 
     def validate_project(self, attrs, source):
         value = attrs[source]
-        if value.phase != ProjectPhase.objects.get(slug="campaign"):
+        if value.status != ProjectPhase.objects.get(slug="campaign"):
             raise serializers.ValidationError(_("You can only donate a project in the campaign phase."))
         return attrs
 
@@ -113,7 +138,6 @@ class RecurringDonationSerializer(serializers.ModelSerializer):
         if not order.status == OrderStatuses.recurring:
             raise serializers.ValidationError(_("Can only Recurring Donations to an active Recurring Order (status recurring)."))
         return attrs
-
 
 
 class NestedDonationSerializer(DonationSerializer):

@@ -240,6 +240,11 @@ INSTALLED_APPS = (
     # Password auth from old PHP site.
     'legacyauth',
 
+    'apps.vouchers',
+    'apps.fund',
+    'apps.fundraisers',
+    'apps.donations',
+
     # Apps extending Bluebottle base models
     'apps.members',
     'apps.tasks',
@@ -270,14 +275,9 @@ INSTALLED_APPS = (
     'apps.bluebottle_dashboard',
     'apps.contentplugins',
     'apps.campaigns',
-    'apps.fundraisers',
-    'apps.fund',
-    'apps.donations',
-    'apps.vouchers',
     'apps.hbtemplates',
-    #'apps.payouts',
+    'apps.payouts',
     'apps.sepa',
-
     'apps.statistics',
     'apps.homepage',
     'apps.redirects',

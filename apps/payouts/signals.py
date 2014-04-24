@@ -3,8 +3,6 @@ from bluebottle.bb_projects.models import ProjectPhase
 
 from django.utils import timezone
 
-from apps.projects.models import ProjectPhases
-
 from .models import Payout
 from .choices import PayoutLineStatuses
 

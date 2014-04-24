@@ -7,7 +7,10 @@ from apps.cowry.models import PaymentStatuses, Payment
 from apps.cowry.serializers import PaymentSerializer
 from apps.cowry_docdata.models import DocDataPaymentOrder
 from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer
-from apps.fund.serializers import DonationInfoSerializer, NestedDonationSerializer, RecurringOrderSerializer, RecurringDonationSerializer
+from apps.fund.serializers import DonationInfoSerializer, NestedDonationSerializer, RecurringOrderSerializer, RecurringDonationSerializer, \
+    ProjectDonationSerializer
+from apps.fundraisers.models import FundRaiser
+from apps.projects.serializers import ProjectSupporterSerializer
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.auth.signals import user_logged_in
 from django.db import transaction
@@ -16,9 +19,13 @@ from rest_framework import exceptions, status, permissions, response, generics
 from django.utils.translation import ugettext as _
 from .models import Donation, Order, OrderStatuses, DonationStatuses, RecurringDirectDebitPayment
 from .permissions import IsUser
+from rest_framework.permissions import IsAuthenticated
 from .serializers import DonationSerializer, OrderSerializer, RecurringDirectDebitPaymentSerializer, \
     OrderCurrentSerializer, OrderCurrentDonationSerializer
 
+from bluebottle.utils.utils import get_project_model
+
+PROJECT_MODEL = get_project_model()
 
 logger = logging.getLogger(__name__)
 
@@ -107,9 +114,14 @@ class DonationList(generics.ListAPIView):
     model = Donation
     serializer_class = DonationSerializer
     permission_classes = (IsUser,)
+    paginate_by = 10
 
     def get_queryset(self):
         qs = super(DonationList, self).get_queryset()
+
+        if isinstance(self.request.user, AnonymousUser):
+             return qs.none()
+
         return qs.filter(user=self.request.user)
 
 
@@ -117,6 +129,74 @@ class DonationDetail(generics.RetrieveUpdateDestroyAPIView):
     model = Donation
     serializer_class = DonationSerializer
     permission_classes = (IsUser,)
+
+
+class ProjectSupporterList(generics.ListAPIView):
+    model = Donation
+    serializer_class = ProjectSupporterSerializer
+    paginate_by = 10
+    filter_fields = ('status', )
+
+    def get_queryset(self):
+        queryset = super(ProjectSupporterList, self).get_queryset()
+
+        filter_kwargs = {}
+
+        project_slug = self.request.QUERY_PARAMS.get('project', None)
+        if project_slug:
+            try:
+                project = PROJECT_MODEL.objects.get(slug=project_slug)
+                filter_kwargs['project'] = project
+            except PROJECT_MODEL.DoesNotExist:
+                raise Http404(_(u"No %(verbose_name)s found matching the query") %
+                              {'verbose_name': queryset.model._meta.verbose_name})
+        else:
+            raise Http404(_(u"No %(verbose_name)s found matching the query") %
+                          {'verbose_name': PROJECT_MODEL._meta.verbose_name})
+
+        fundraiser_id = self.request.QUERY_PARAMS.get('fundraiser', None)
+        if fundraiser_id:
+            try:
+                fundraiser = FundRaiser.objects.get(project=project, pk=fundraiser_id)
+                filter_kwargs['fundraiser'] = fundraiser
+            except FundRaiser.DoesNotExist:
+                raise Http404(_(u"No %(verbose_name)s found matching the query") %
+                              {'verbose_name': FundRaiser._meta.verbose_name})
+
+        queryset = queryset.filter(**filter_kwargs)
+        queryset = queryset.order_by("-ready")
+        queryset = queryset.filter(status__in=[DonationStatuses.paid, DonationStatuses.pending])
+
+        return queryset
+
+
+class ProjectDonationList(ProjectSupporterList):
+    """
+    Returns a list of donations made to this project or fundraiser action.
+    """
+    serializer_class = ProjectDonationSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+
+        # The super handles basic filtering.
+        queryset = super(ProjectDonationList, self).get_queryset()
+
+        project_slug = self.request.QUERY_PARAMS.get('project', None)
+        fundraiser_id = self.request.QUERY_PARAMS.get('fundraiser', None)
+
+        filter_kwargs = {}
+
+        if fundraiser_id:
+            filter_kwargs['fundraiser__owner'] = self.request.user
+        elif project_slug:
+            filter_kwargs['project__owner'] = self.request.user
+        else:
+            return queryset.none()
+
+        return queryset.filter(**filter_kwargs)
+
+
 
 
 # Recurring Orders

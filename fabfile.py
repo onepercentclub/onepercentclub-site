@@ -294,7 +294,7 @@ def prepare_django():
     with virtualenv():
         # TODO: Filter out the following messages:
         # "Could not find a tag or branch '<commit_id>', assuming commit."
-        run('pip install -q --allow-all-external --allow-unverified django-admin-tools -r requirements.txt')
+        run('pip install -q --allow-all-external --allow-unverified django-admin-tools -r requirements/requirements.txt')
 
         # Remove and compile the .pyc files.
         run('find . -name \*.pyc -delete')

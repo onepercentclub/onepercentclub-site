@@ -73,16 +73,14 @@ module.exports = function (grunt) {
     concat: {
       dist: {
         src: [
-          'static/global/js/vendor/jquery-1.8.3.js',
+          'static/build/js/components/jquery/jquery.js',
           'static/build/js/components/jquery-mockjax/jquery.mockjax.js',
           'static/build/js/components/pavlov/pavlov.js',
-          'static/global/js/vendor/handlebars-1.0.0.js',
-          'static/global/js/vendor/ember-v1.0.0.js',
-          'static/global/js/vendor/ember-data-v0.14.js',
-          'static/global/js/vendor/ember-data-drf2-adapter.js',
-          'static/global/js/plugins/ember.hashbang.js',
-          'static/global/js/vendor/globalize.js',
-          'static/global/jsi18n/en/*.js',
+          'static/build/js/components/handlebars/handlebars.js',
+          'static/build/js/components/ember/ember.js',
+          'static/build/js/components/ember-data/index.js',
+          'static/build/js/components/ember-data-drf2-adapter/ember-data-drf2-adapter.js',
+          'static/build/js/components/globalize/lib/globalize.js',
         ],
         dest: 'static/build/js/lib/deps.js'
       }
