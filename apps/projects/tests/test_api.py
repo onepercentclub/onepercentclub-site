@@ -1,9 +1,11 @@
 import json
 
 from decimal import Decimal
+from bluebottle.bb_projects.models import ProjectPhase
 from django.test import TestCase, RequestFactory
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
+from onepercentclub.tests.utils import OnePercentTestCase
 
 from rest_framework import status
 
@@ -18,7 +20,8 @@ from ..models import Project
 # RequestFactory used for integration tests.
 factory = RequestFactory()
 
-class ProjectEndpointTestCase(TestCase):
+
+class ProjectEndpointTestCase(OnePercentTestCase):
     """
     Integration tests for the Project API.
     """
@@ -27,17 +30,14 @@ class ProjectEndpointTestCase(TestCase):
         """
         Create 26 Project instances.
         """
+        self.init_projects()
         self.user = BlueBottleUserFactory.create()
 
-        self.phase_1 = ProjectPhaseFactory.create(slug='campaign')
-        self.phase_2 = ProjectPhaseFactory.create(slug='plan')
-        self.phase_2.viewable = False
-
-        self.theme_1 = ProjectThemeFactory.create()
+        self.phase_1 = ProjectPhase.objects.get(slug='campaign')
+        self.phase_2 = ProjectPhase.objects.get(slug='plan-new')
 
         for char in 'abcdefghijklmnopqrstuvwxyz':
-            project = OnePercentProjectFactory.create(title=char * 3, slug=char * 3,
-                        status=self.phase_1, theme=self.theme_1)
+            project = OnePercentProjectFactory.create(title=char * 3, slug=char * 3)
 
             if ord(char) % 2 == 1:
                 # Put half of the projects in the campaign phase.
@@ -48,6 +48,8 @@ class ProjectEndpointTestCase(TestCase):
             project.save()
 
         self.projects_url = reverse('project_list')
+
+
 
 class ProjectApiIntegrationTest(ProjectEndpointTestCase):
 
@@ -106,7 +108,7 @@ class ProjectApiIntegrationTest(ProjectEndpointTestCase):
         self.assertEquals(response.status_code, status.HTTP_200_OK)
 
 
-class ProjectManageApiIntegrationTest(TestCase):
+class ProjectManageApiIntegrationTest(OnePercentTestCase):
     """
     Integration tests for the Project API.
     """
@@ -115,15 +117,17 @@ class ProjectManageApiIntegrationTest(TestCase):
         self.some_user = BlueBottleUserFactory.create()
         self.another_user = BlueBottleUserFactory.create()
 
-        self.phase_1 = ProjectPhaseFactory.create(sequence=1, name='Plan - New')
-        self.phase_2 = ProjectPhaseFactory.create(sequence=2, name='Plan - Submitted')
-        self.phase_3 = ProjectPhaseFactory.create(sequence=3, name='Campaign')
+        self.init_projects()
+
+        self.phase_plan_new = ProjectPhase.objects.get(slug='plan-new')
+        self.phase_submitted = ProjectPhase.objects.get(slug='plan-submitted')
+        self.phase_campaign = ProjectPhase.objects.get(slug='campaign')
 
         self.manage_projects_url = reverse('project_manage_list')
 
-    def test_pitch_create(self):
+    def test_project_create(self):
         """
-        Tests for Project Pitch Create
+        Tests for Project Create
         """
 
         # Check that a new user doesn't have any projects to manage
@@ -138,7 +142,7 @@ class ProjectManageApiIntegrationTest(TestCase):
         # Check that it's there, in pitch phase, has got a pitch but no plan yet.
         response = self.client.get(self.manage_projects_url)
         self.assertEquals(response.data['count'], 1)
-        self.assertEquals(response.data['results'][0]['status'], self.phase_1.id)
+        self.assertEquals(response.data['results'][0]['status'], self.phase_plan_new.id)
         self.assertEquals(response.data['results'][0]['pitch'], '')
 
         # Get the project
@@ -158,23 +162,25 @@ class ProjectManageApiIntegrationTest(TestCase):
         project_url = reverse('project_manage_detail', kwargs={'slug': response.data['slug']})
         self.assertEquals(response.data['title'], 'My idea is way smarter!')
 
-        # Add some values to this pitch
-        project_data = {'title': response.data['title']}
-        project_data['pitch'] = 'Lorem ipsum, bla bla '
-        project_data['description'] = 'Some more text'
+        # Add some values to this project
+        project_data = {
+            'title': 'My idea is way smarter!',
+            'pitch': 'Lorem ipsum, bla bla ',
+            'description': 'Some more text'
+        }
         response = self.client.put(project_url, json.dumps(project_data), 'application/json')
         self.assertEquals(response.status_code, status.HTTP_200_OK, response)
 
         # Back to the previous pitch. Try to cheat and put it to status approved.
-        project_data['status'] = self.phase_3.id
+        project_data['status'] = self.phase_campaign.id
         response = self.client.put(project_url, json.dumps(project_data), 'application/json')
-        self.assertEquals(response.data['status'], self.phase_1.id, 'status should be reset to previous value')
+        self.assertEquals(response.data['status'], self.phase_plan_new.id, 'status should be reset to previous value')
 
         # Ok, let's try to submit it. We have to submit all previous data again too.
-        project_data['status'] = self.phase_2.id
+        project_data['status'] = self.phase_submitted.id
         response = self.client.put(project_url, json.dumps(project_data), 'application/json')
         self.assertEquals(response.status_code, status.HTTP_200_OK, response)
-        self.assertEquals(response.data['status'], self.phase_2.id)
+        self.assertEquals(response.data['status'], self.phase_submitted.id)
 
         # Changing the slug for this project should just reset it to the previous value
         project_data['slug'] = 'a-new-slug-should-not-be-possible'
@@ -183,13 +189,34 @@ class ProjectManageApiIntegrationTest(TestCase):
 
         # Set the project to plan phase from the backend
         project = Project.objects.get(slug=response.data.get('slug'))
-        project.status = self.phase_3
+        project.status = self.phase_campaign
         project.save()
 
-        # Let's look at the project again. It should have a project plan and be in plan phase.
+        # Let's look at the project again. It should be in campaign phase now.
         response = self.client.get(project_url)
         self.assertEquals(response.status_code, status.HTTP_200_OK, response)
-        self.assertEquals(response.data['status'], self.phase_3.id)
+        self.assertEquals(response.data['status'], self.phase_campaign.id)
+
+        # Trying to create a project with the same title should result in an error.
+        response = self.client.post(self.manage_projects_url, {'title': 'This is my smart idea'})
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
+        self.assertEquals(response.data['title'][0], 'Project with this Title already exists.')
+
+        # Anonymous user should be able to find this project.
+        self.client.logout()
+        response = self.client.get(project_url)
+        self.assertEquals(response.status_code, status.HTTP_200_OK, response)
+
+        # When we change status back to Plan - new it should not be visible by this user.
+        project = Project.objects.get(slug=response.data.get('slug'))
+        project.status = self.phase_plan_new
+        project.save()
+        response = self.client.get(project_url)
+        self.assertEquals(response.status_code, status.HTTP_404_NOT_FOUND, response)
+
+
+        self.client.login(username=self.another_user.email, password='testing')
+
 
 
 class ProjectWallPostApiIntegrationTest(TestCase):
