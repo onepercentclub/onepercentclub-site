@@ -1,0 +1,162 @@
+{% load bb_ember %}
+{% load i18n %}
+{% load static %}
+
+
+{% tplhandlebars "my_project_submit" %}
+
+{{#if valid}}
+    <legend>
+        <strong>{% trans "Review Plan" %}</strong>
+    </legend>
+    <fieldset>
+        <div class="fieldset-content">
+            <h3>{% trans "Final Check!" %}</h3>
+            {% trans "You are ready to submit your project now!" %}
+            {% trans "After you submitted your project you can immediately create your first task." %}
+        </div>
+
+    </fieldset>
+    <button {{bindAttr class=":btn :btn-iconed :btn-submit :btn-primary"}} {{action submitPlan}}><span class="flaticon solid right-2"></span>{% trans "Submit plan" %}</button>
+
+{{else}}
+    <ul class="missing-steps">
+        <li class="introduction">
+            <span class="flaticon solid post-comment-1"></span>
+            <div class="introduction-text">
+                <h3>Please fill in all information before submitting</h3>
+                <strong>The following information is still missing:</strong>
+            </div>
+        </li>
+        {{#unless validPitch}}
+            {{#each field in missingFieldsPitch}}
+                <li>
+                    <div class="category">
+                        {% trans "Project" %}
+                    </div>
+                    <div class="details">
+                        {{#link-to "myProject.pitch"}}{{field}}{{/link-to}} is not filled in.
+                    </div>
+                    <div class="action">
+                        {{#link-to "myProject.pitch"}}<span class="flaticon solid checkmark-2"></span> Let's fix this{{/link-to}}
+                    </div>
+                </li>
+            {{/each}}
+        {{/unless}}
+        {{#unless validGoal}}
+            {{#each field in missingFieldsGoal}}
+                <li>
+                    <div class="category">
+                        {% trans "Goal" %}
+                    </div>
+                    <div class="details">
+                        {{#link-to "myProject.goal"}}{{field}}{{/link-to}} is not filled in.
+                    </div>
+                    <div class="action">
+                        {{#link-to "myProject.goal"}}<span class="flaticon solid checkmark-2"></span> Let's fix this{{/link-to}}
+                    </div>
+                </li>
+            {{/each}}
+        {{/unless}}
+
+        {{#unless validStory}}
+            {{#each field in missingFieldsStory}}
+                <li>
+                    <div class="category">
+                        {% trans "Description" %}
+                    </div>
+                    <div class="details">
+                        {{#link-to "myProject.story"}}{{field}}{{/link-to}} is not filled in.
+                    </div>
+                    <div class="action">
+                        {{#link-to "myProject.story"}}<span class="flaticon solid checkmark-2"></span> Let's fix this{{/link-to}}
+                    </div>
+                </li>
+            {{/each}}
+        {{/unless}}
+
+
+        {{#if currentOrganization}}
+            <!--Organization Page-->
+            {{#unless currentOrganization.validOrganization}}
+                {{#each field in currentOrganization.missingFieldsOrganization}}
+                    <li>
+                        <div class="category">
+                            {% trans "Organisation" %}
+                        </div>
+                        <div class="details">
+                            {{#link-to "myProject.organisation"}}{{field}}{{/link-to}} is not filled in.
+                        </div>
+                        <div class="action">
+                            {{#link-to "myProject.organisation"}}<span class="flaticon solid checkmark-2"></span> Let's fix this{{/link-to}}
+                        </div>
+                    </li>
+                {{/each}}
+            {{/unless}}
+
+            <!--Bank Page-->
+            {{#unless currentOrganization.validBank}}
+                <!--Base Bank Info-->
+                {{#each field in currentOrganization.missingFieldsBaseBankOrganization}}
+                    <li>
+                        <div class="category">
+                            {% trans "Bank" %}
+                        </div>
+                        <div class="details">
+                            {{#link-to "myProject.bank"}}{{field}}{{/link-to}} is not filled in.
+                        </div>
+                        <div class="action">
+                            {{#link-to "myProject.bank"}}<span class="flaticon solid checkmark-2"></span> Let's fix this{{/link-to}}
+                        </div>
+                    </li>
+                {{/each}}
+                <!--Unless inEurope or outsideEurope are valid-->
+                {{#unless currentOrganization.validBankAccountInfo}}
+                    {{#if organization.inEurope}}
+                        {{#each field in currentOrganization.missingFieldsEuropeanBankOrganization}}
+                            <li>
+                                <div class="category">
+                                    {% trans "Bank" %}
+                                </div>
+                                <div class="details">
+                                    {{#link-to "myProject.bank"}}{{field}}{{/link-to}} is not filled in.
+                                </div>
+                                <div class="action">
+                                    {{#link-to "myProject.bank"}}<span class="flaticon solid checkmark-2"></span> Let's fix this{{/link-to}}
+                                </div>
+                            </li>
+                        {{/each}}
+                    {{else}}
+                        {{#each field in currentOrganization.missingFieldsNotEuropeanBankOrganization}}
+                        <li>
+                            <div class="category">
+                                {% trans "Bank" %}
+                            </div>
+                            <div class="details">
+                                {{#link-to "myProject.bank"}}{{field}}{{/link-to}} is not filled in.
+                            </div>
+                            <div class="action">
+                                {{#link-to "myProject.bank"}}<span class="flaticon solid checkmark-2"></span> Let's fix this{{/link-to}}
+                            </div>
+                        </li>
+                    {{/each}}
+                    {{/if}}
+                {{/unless}}
+            {{/unless}}
+        {{else}}
+            <li>
+                <div class="category">
+                    {% trans "Organisation" %}
+                </div>
+                <div class="details">
+                    {{#link-to "myProject.organisation"}}create a new organisation{{/link-to}}.
+                </div>
+                <div class="action">
+                    {{#link-to "myProject.organisation"}}<span class="flaticon solid checkmark-2"></span> Let's fix this{{/link-to}}
+                </div>
+            </li>
+        {{/if}}
+    </ul>
+{{/if}}
+
+{% endtplhandlebars %}
