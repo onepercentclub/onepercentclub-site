@@ -1,4 +1,5 @@
 import datetime
+from bluebottle.bb_projects.models import ProjectPhase
 from bluebottle.test.factory_models.utils import LanguageFactory
 import factory
 
@@ -10,36 +11,41 @@ from bluebottle.test.factory_models.projects import (
 from apps.projects.models import Project
 
 
-class OnePercentProjectFactory(ProjectFactory):
-    FACTORY_FOR = Project
-
-
 class OnePercentProjectTestInit():
     """
     Set up some basic models needed for project creation.
     """
 
-    phases = [{'name' :'Plan - New'},
-              {'name': 'Plan - Submitted'},
-              {'name': 'Plan - Rejected'},
-              {'name': 'Campaign'},
-              {'name': 'Stopped'},
-              {'name': 'Done - Complete'},
-              {'name': 'Done - Incomplete'}]
+    phase_data = [{'id': 1, 'name':'Plan - New'},
+              {'id': 2, 'name': 'Plan - Submitted'},
+              {'id': 3, 'name': 'Plan - Rejected'},
+              {'id': 4, 'name': 'Campaign'},
+              {'id': 5, 'name': 'Stopped'},
+              {'id': 6, 'name': 'Done - Complete'},
+              {'id': 7, 'name': 'Done - Incomplete'}]
 
-    themes = [{'name': 'Education'},
-              {'name': 'Environment'}]
+    theme_data = [{'id': 1, 'name': 'Education'},
+              {'id': 2, 'name': 'Environment'}]
 
-    languages = [{'code': 'en', 'language_name': 'English', 'native_name': 'English'},
-                 {'code': 'nl', 'language_name': 'Dutch', 'native_name': 'Nederlands'}]
+    language_data = [{'id': 1, 'code': 'en', 'language_name': 'English', 'native_name': 'English'},
+                 {'id': 2, 'code': 'nl', 'language_name': 'Dutch', 'native_name': 'Nederlands'}]
 
     def __init__(self):
 
-        for phase in self.phases:
+        for phase in self.phase_data:
             ProjectPhaseFactory.create(**phase)
 
-        for theme in self.themes:
+        for theme in self.theme_data:
             ProjectThemeFactory.create(**theme)
 
-        for language in self.languages:
+        for language in self.language_data:
             LanguageFactory.create(**language)
+
+
+
+class OnePercentProjectFactory(ProjectFactory):
+
+    FACTORY_FOR = Project
+
+    status = ProjectPhaseFactory.create(**OnePercentProjectTestInit.phase_data[0])
+    theme = ProjectThemeFactory.create(**OnePercentProjectTestInit.theme_data[0])

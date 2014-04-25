@@ -173,6 +173,7 @@ class ManageProjectBudgetLineList(generics.ListCreateAPIView):
     model = ProjectBudgetLine
     serializer_class = ProjectBudgetLineSerializer
     paginate_by = 50
+    permission_classes = (IsProjectOwner, )
 
 
 class ManageProjectBudgetLineDetail(generics.RetrieveUpdateDestroyAPIView):
