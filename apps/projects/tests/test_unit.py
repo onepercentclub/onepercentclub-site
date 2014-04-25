@@ -7,15 +7,16 @@ from bluebottle.utils.utils import get_project_model
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
 
 from apps.fund.models import DonationStatuses, Donation, Order
+from onepercentclub.tests.utils import OnePercentTestCase
 
 PROJECT_MODEL = get_project_model()
 
 
-class CalculateProjectMoneyDonatedTest(TestCase):
+class CalculateProjectMoneyDonatedTest(OnePercentTestCase):
 
     def setUp(self):
         # Required by Project model save method
-        self.phase = ProjectPhaseFactory.create(sequence=1, name='Plan - New')
+        self.init_projects()
 
         self.some_project = OnePercentProjectFactory.create(amount_asked=5000)
         self.another_project = OnePercentProjectFactory.create(amount_asked=5000)
