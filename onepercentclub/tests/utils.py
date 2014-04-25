@@ -1,20 +1,19 @@
 from bluebottle.test.factory_models.projects import ProjectPhaseFactory
 from bluebottle.test.utils import SeleniumTestCase
 from django.test import TestCase
-from django.utils.unittest.case import skipIf
-from onepercentclub.tests.factory_models.project_factories import OnePercentProjectTestInit
+from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
 
 
 class OnePercentTestCase(TestCase):
 
     def init_projects(self):
-        OnePercentProjectTestInit()
+        OnePercentProjectFactory.init_related_models()
 
 
 class OnePercentSeleniumTestCase(SeleniumTestCase):
 
     def init_projects(self):
-        OnePercentProjectTestInit()
+        OnePercentProjectFactory.init_related_models()
 
     def login(self, username, password):
         """
