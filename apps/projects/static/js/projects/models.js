@@ -63,8 +63,9 @@ App.MyProject.reopen({
     },
 
     valid: function(){
-        return (this.get('') && this.get('validPitch') && this.get('validGoal'));
-    }.property('validStory', 'validPitch', 'validGoal'),
+        return (this.get('') && this.get('validPitch') && this.get('validGoal') && this.get('organization.validOrganization')
+			&& this.get('organization.validBank'));
+    }.property('validStory', 'validPitch', 'validGoal', 'organization'),
 
     requiredStoryFields: ['story'],
     requiredGoalFields: ['amount_asked', 'deadline', 'maxAmountAsked', 'minAmountAsked'],
