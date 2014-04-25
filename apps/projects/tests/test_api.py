@@ -124,6 +124,7 @@ class ProjectManageApiIntegrationTest(OnePercentTestCase):
         self.phase_campaign = ProjectPhase.objects.get(slug='campaign')
 
         self.manage_projects_url = reverse('project_manage_list')
+        self.manage_budget_lines_url = reverse('project-budgetline-list')
 
     def test_project_create(self):
         """
@@ -190,6 +191,7 @@ class ProjectManageApiIntegrationTest(OnePercentTestCase):
         # Set the project to plan phase from the backend
         project = Project.objects.get(slug=response.data.get('slug'))
         project.status = self.phase_campaign
+        project_id = project.slug
         project.save()
 
         # Let's look at the project again. It should be in campaign phase now.
@@ -202,21 +204,62 @@ class ProjectManageApiIntegrationTest(OnePercentTestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
         self.assertEquals(response.data['title'][0], 'Project with this Title already exists.')
 
-        # Anonymous user should be able to find this project.
+        # Anonymous user should not be able to find this project through management API.
         self.client.logout()
         response = self.client.get(project_url)
-        self.assertEquals(response.status_code, status.HTTP_200_OK, response)
+        self.assertEquals(response.status_code, status.HTTP_403_FORBIDDEN, response)
 
-        # When we change status back to Plan - new it should not be visible by this user.
-        project = Project.objects.get(slug=response.data.get('slug'))
-        project.status = self.phase_plan_new
-        project.save()
+        # Also it should not be visible by the first user.
+        self.client.login(username=self.some_user.email, password='testing')
         response = self.client.get(project_url)
-        self.assertEquals(response.status_code, status.HTTP_404_NOT_FOUND, response)
+        self.assertEquals(response.status_code, status.HTTP_403_FORBIDDEN, response)
 
+    def test_project_budgetlines_crud(self):
+        self.client.login(username=self.some_user.email, password='testing')
+        project_data = {'title': 'Some project with a goal & budget'}
+        response = self.client.post(self.manage_projects_url, project_data)
+        self.assertEquals(response.data['title'], project_data['title'])
+        project_id = response.data['id']
+        project_url = '{0}{1}'.format(self.manage_projects_url, project_id)
 
+        # Check that there aren't any budgetlines
+        self.assertEquals(response.data['budget_lines'], [])
+
+        budget = [
+            {'project': project_id, 'description': 'Stuff', 'amount': 800},
+            {'project': project_id, 'description': 'Things', 'amount': 1200},
+            {'project': project_id, 'description': 'Random produce', 'amount': 170}
+        ]
+
+        for line in budget:
+            response = self.client.post(self.manage_budget_lines_url, line)
+            self.assertEquals(response.status_code, status.HTTP_201_CREATED, response)
+
+        # We should have 3 budget lines by now
+        response = self.client.get(project_url)
+        self.assertEquals(len(response.data['budget_lines']), 3)
+
+        # Let's change a budget_line
+        budget_line = response.data['budget_lines'][0]
+        budget_line['amount'] = 350
+        budget_line_url = "{0}{1}".format(self.manage_budget_lines_url, budget_line['id'])
+        response = self.client.put(budget_line_url, json.dumps(budget_line), 'application/json')
+        self.assertEquals(response.status_code, status.HTTP_200_OK, response)
+        self.assertEquals(response.data['amount'], '350.00')
+
+        # Now remove that line
+        response = self.client.delete(budget_line_url)
+        self.assertEquals(response.status_code, status.HTTP_204_NO_CONTENT, response)
+        # Should have 2  budget lines now
+        response = self.client.get(project_url)
+        self.assertEquals(len(response.data['budget_lines']), 2)
+
+        # Login as another user and try to add a budget line to this project.
+        self.client.logout()
         self.client.login(username=self.another_user.email, password='testing')
-
+        new_budget_line = {'project': project_id, 'description': 'I want in too', 'amount': 10000}
+        response = self.client.post(self.manage_budget_lines_url, line)
+        self.assertEquals(response.status_code, status.HTTP_403_FORBIDDEN, response)
 
 
 class ProjectWallPostApiIntegrationTest(TestCase):
