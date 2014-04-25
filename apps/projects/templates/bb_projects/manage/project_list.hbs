@@ -1,0 +1,84 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "my_project_list" %}
+
+    <div class="l-section" id="project-dashboard">
+
+    	{{partial "my_project_top"}}
+
+        <div class="l-wrapper">
+            {{#if isLoading}}
+                <div class="is-loading-big"><img src="{% get_static_prefix %}images/loading.gif" /> <strong>{% trans "Loading projects" %}</strong></div>
+            {{else}}
+                <div class="l-content">
+                    <header class="l-page-header">
+                        <h1>{% trans "Create new project" %}</h1>
+                        <p></p>
+                    </header>
+
+                    {{#link-to "myProject.start" 'new' elementId="create_project" tagName="button" class="btn btn-primary btn-iconed"}}
+                        <span class="flaticon solid lightbulb-3"></span>
+                        {% trans "Create new project" %}
+                    {{/link-to}}
+                </div>
+            {{/if}}
+
+            <div class="l-content">
+	            <ul class="project-list">
+	            	{{#each project in controller}}
+	                <li class="project-list-item">
+
+                        <div class="project-header">
+                            <figure class="project-image">
+								{{#if project.image.square}}
+                                    <img {{bindAttr src="project.image.square" alt="project.title"}} />
+								{{else}}
+								    &nbsp;
+								{{/if}}
+                            </figure>
+							<div class="project-info">
+	                            <h2 class="project-title">
+									{{ project.title }}
+								</h2>
+	                            {{#link-to 'project' project.id}}
+	                                <span class="flaticon solid eye-1"></span>
+	                                {% trans "View public page" %}
+	                            {{/link-to}}<br />
+							</div>
+                        </div>
+
+				        <div class="project-actions">
+				        	{% trans "Phase" %}: <strong>{{ project.status.name }}</strong>
+                            <br/>
+	                        {{#if project.editable}}
+	                            {{#link-to "myProject" project.id tagName="a" class="btn-link right"}}
+	                                <span class="flaticon solid pencil-3"></span>
+	                                {% trans "Edit" %}
+	                            {{/link-to}}
+
+                            {{else}}
+	                                <span class="flaticon solid lock-1"></span>
+	                                {% trans "Project is locked" %}
+	                        {{/if}}
+	                        {{#if project.viewable}}
+	                            {{#link-to "project" project.id class="btn-link right"}}
+	                                <span class="flaticon solid pencil-3"></span>
+	                                {% trans "Post update" %}
+	                            {{/link-to}}
+	                            {{#link-to "taskNew" project.id class="btn-link right"}}
+	                                <span class="flaticon solid pencil-3"></span>
+	                                {% trans "Create task" %}
+	                            {{/link-to}}
+	                        {{/if}}
+
+				        </div>
+				    </li>
+					{{/each}}
+	            </ul>
+			</div>
+        </div>
+    </div>
+
+{% endtplhandlebars %}

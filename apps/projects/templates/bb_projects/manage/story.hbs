@@ -1,7 +1,31 @@
-{% extends "bb_projects:bb_projects/manage/story.hbs" %}
-{% load bb_ember i18n %}
+{% load bb_ember %}
+{% load i18n %}
+{% load static %}
 
 
-{% block_verbatim project_story_fields %}
-  {% bb_component 'bb-text-area' extraClasses="'redactor'" rows=10 name='story' label=_('Story') undertext=_('Describe your project in more detail.') valueBinding='story' placeholder=_('Describe your project') errors='errors.description' maxlength=800 %}
-{% endblock_verbatim %}
+{% tplhandlebars "my_project_story" %}
+<div class="l-content">
+    <form>
+        {{#unless isPhasePlanNew}}
+            {{bb-flash data=flash}}
+        {{/unless}}
+
+        <legend>
+            <strong>{% trans "Campagin story & plan" %}</strong>
+            <p>{% trans "What’s your story? Time to blow your friends, colleagues and family away with the details! Tell the world why they should support you and your campaign!" %}</p>
+        </legend>
+
+        <fieldset>
+            <ul>
+                {% bb_component 'bb-text-area' rows=10 name='whywhat' label=_('Why, what and how?') undertext=_('Your full campaign plan') valueBinding='description' placeholder=_('Describe your project') errors='errors.description' maxlength=800 %}
+
+                {% bb_component 'bb-text-area' rows=5 label=_('Goal') name='goal' undertext=_('What do you want to achieve with this project and how will you measure your success?') valueBinding='goal' placeholder=_('Describe the goal of the project') maxlength=800 %}
+
+                {% bb_component 'bb-text-area' rows=5 label=_('Destination Impact') name='destination_impact' undertext=_('How will your project improve your destination, now and maybe even in the future?') placeholder=_('Describe how the project improves your destination') valueBinding='destination_impact' maxlength=800 %}
+            </ul>
+        </fieldset>
+    </form>
+    {{ partial '_my_project_save_edit_footer'}}
+</div>
+{{ partial '_my_project_sidebar_story' }}
+{% endtplhandlebars %}

@@ -1,0 +1,19 @@
+{% load bb_ember %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "my_project_rejected" %}
+
+
+    <div class="l-wrapper">
+        <article class="l-content">
+            <header class="page-header">
+                <h2>{% trans "We're sorry, your plan has been rejected." %}</h2>
+                <p>{% trans "Please contact us if you need support to define your smart idea." %}</p>
+            </header>
+        </article>
+    </div>
+
+
+{% endtplhandlebars %}
+

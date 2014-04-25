@@ -1,0 +1,28 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "_my_project_top" %}
+
+<div class="l-section campaign-header">
+    <nav class="l-wrapper">
+
+        <header>
+            <h1 class="page-title">{% trans "My projects"%}
+            {{#if title}}
+                &rsaquo; <small class="campaign-subtitle">{{ title }}</small>
+			{{/if}}
+            </h1>
+        </header>
+
+        {{!--#if id}}
+            <div class="steps">&nbsp;</div>
+            {{#link-to 'project' id href=true class="campaign-preview-button btn btn-modest"}}
+                <span class="flaticon solid eye-1"></span>
+                {% trans "View project" %}
+            {{/link-to}}
+        {{/if--}}
+    </nav>
+</div>
+
+{% endtplhandlebars %}

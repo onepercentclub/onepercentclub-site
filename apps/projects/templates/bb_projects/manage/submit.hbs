@@ -1,0 +1,96 @@
+{% load bb_ember %}
+{% load i18n %}
+{% load static %}
+
+{% load bb_ember %}
+{% load i18n %}
+{% load static %}
+
+
+{% tplhandlebars "my_project_submit" %}
+
+
+{{#if valid}}
+    <legend>
+        <strong>{% trans "Review Plan" %}</strong>
+    </legend>
+    <fieldset>
+        <div class="fieldset-content">
+            <h3>{% trans "Almost ready…" %}</h3>
+            <p>
+                {% blocktrans %}
+                Time for one last check! Make sure everything is filled in, all the details are correct and everything makes sense…
+When you click the SUBMIT button, you send your campaign for review. After we receive it, we’ll get back to you within 3 working days (maximum).
+                {% endblocktrans %}
+            <p>
+            <p>
+                {% blocktrans %}
+                After we’ve checked everything, you can start your crowdfunding campaign. Are you ready to rumble?
+                {% endblocktrans %}
+            </p>
+        </div>
+
+    </fieldset>
+    <button {{bindAttr class=":btn :btn-iconed :btn-submit :btn-primary"}} {{action submitPlan}}><span class="flaticon solid right-2"></span>{% trans "Submit campaign" %}</button>
+
+{{else}}
+    <ul class="missing-steps">
+        <li class="introduction">
+            <span class="flaticon solid post-comment-1"></span>
+            <div class="introduction-text">
+                <h3>Please fill in all information before submitting</h3>
+                <strong>The following information is still missing:</strong>
+            </div>
+        </li>
+        {{#unless validPitch}}
+            {{#each field in missingFieldsPitch}}
+                <li>
+                    <div class="category">
+                        {% trans "Project" %}
+                    </div>
+                    <div class="details">
+                        {{#link-to "myProject.pitch"}}{{field}}{{/link-to}} is not filled in.
+                    </div>
+                    <div class="action">
+                        {{#link-to "myProject.pitch"}}<span class="flaticon solid checkmark-2"></span> Let's fix this{{/link-to}}
+                    </div>
+                </li>
+            {{/each}}
+        {{/unless}}
+
+        {{#unless validStory}}
+            {{#each field in missingFieldsStory}}
+                <li>
+                    <div class="category">
+                        {% trans "Description" %}
+                    </div>
+                    <div class="details">
+                        {{#link-to "myProject.story"}}{{field}}{{/link-to}} is not filled in.
+                    </div>
+                    <div class="action">
+                        {{#link-to "myProject.story"}}<span class="flaticon solid checkmark-2"></span> Let's fix this{{/link-to}}
+                    </div>
+                </li>
+            {{/each}}
+        {{/unless}}
+
+        {{#unless validOrganization}}
+            {{#each field in missingFieldsOrganization}}
+                <li>
+                    <div class="category">
+                        {% trans "Organisation" %}
+                    </div>
+                    <div class="details">
+                        {{#link-to "myProject.organisation"}}{{field}}{{/link-to}} is not filled in.
+                    </div>
+                    <div class="action">
+                        {{#link-to "myProject.organisation"}}<span class="flaticon solid checkmark-2"></span> Let's fix this{{/link-to}}
+                    </div>
+                </li>
+            {{/each}}
+        {{/unless}}
+    </ul>
+
+{{/if}}
+
+{% endtplhandlebars %}

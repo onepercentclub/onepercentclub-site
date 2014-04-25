@@ -1,0 +1,96 @@
+{% load bb_ember %}
+{% load i18n %}
+{% load static %}
+
+
+{% tplhandlebars "my_project_organisation" %}
+<div class="l-content">
+    <form>
+    {{#unless isPhasePlanNew}}
+        {{bb-flash data=flash}}
+    {{/unless}}
+
+    <legend>
+        <strong>{% trans "Partner organisation" %}</strong>
+        <p>
+            {% trans "Give us the details about your partner organisation whose sole purpose in life it is to address the topic that you care about!" %}
+        </p>
+    </legend>
+
+    {{#if hasSelectableOrganizations}}
+        <fieldset>
+            <ul>
+                {{#bb-form-field classBinding="wide"}}
+                    {% trans "It appears that you already have an (other) organisation. Select it below or fill out the form to create a new one." %}
+                    {{view App.MyOrganizationSelectView name='organization' 
+                                                        contentBinding='selectableOrganizations'
+                                                        optionValuePath='content.id'
+                                                        optionLabelPath='content.nameOrDefault'
+                                                        selectionBinding='controller.selectedOrganization'}} 
+                    <button class="btn btn-modest add-org" {{action newOrganization}}>New</button>
+                {{/bb-form-field}}
+            </ul>
+        </fieldset>
+    {{/if}}
+
+
+    <fieldset>
+        <ul>
+            {% bb_component 'bb-text-field' label=_("Name") name='name' valueBinding='name' errorsBinding='errors.name' maxlength=255 hint=_("Name of your partner organisation") %}
+
+            {% bb_component 'bb-text-field' label=_("Contact name") name='contact_name' valueBinding='contact_name' errorsBinding='errors.contact_name' maxlength=255 hint=_("Name of your contact person") %}
+
+            {% bb_component 'bb-text-field' label=_("Email") name='email' valueBinding='email' errorsBinding='errors.email' maxlength=255 hint=_("E-mail of your contact person") %}
+
+            {% bb_component 'bb-text-field' label=_("Phone number") name='phone' valueBinding='phone_number' errorsBinding='errors.phone_number' hint=_("Phone number of your contact person") maxlength=255 %}
+
+            {% bb_component 'bb-text-field' label=_("Website") name='website' valueBinding='website' errorsBinding='errors.website' hint=_("Does your partner organization have a website?") maxlength=255 placeholder=_("http://") %}
+
+            {% bb_component 'bb-text-field' label=_("Twitter") name='twitter' valueBinding='twitter' errorsBinding='errors.twitter' hint=_("Does your partner organization have a twitter account?") maxlength=255 placeholder=_("@twitteraccount") %}
+
+            {% bb_component 'bb-text-field' label=_("Facebook") name='facebook' valueBinding='facebook' errorsBinding='errors.facebook' hint=_("Does your partner organization have a facebook group?") maxlength=255 placeholder=_("https://www.facebook.com/<groupname>") %}
+
+            {% bb_component 'bb-text-field' label=_("Skype") name='skype' valueBinding='skype' errorsBinding='errors.skype'  hint=_("Can we reach you on Skype?") maxlength=255 placeholder=_("Skype name") %}
+
+            </ul>
+        </fieldset>
+
+
+        <legend>
+            <strong>{% trans "Legal status" %}</strong>
+            <p>{% trans "Upload a document that identifies your contact person or your partner organisation. The document can be an ID, passport, memorandum of association or an other official document." %}</p>
+        </legend>
+
+
+        <fieldset>
+            <ul>
+                <li class="control-group has-popover" data-content="{% trans "please upload a copy of your passport. Make sure it's a valid one and we can read it clearly!" %}">
+                    <label class="control-label">
+                        {% trans "Partner Passport" %} ({{attachedDocuments.length}})<br />
+                        <small>
+                            {% trans ".jpg, .png or .pdf" %}
+                        </small>
+                    </label>
+
+                    <div class="controls manage-project-files">
+                        <a class="btn btn-iconed btn-upload">
+                            {{view App.UploadMultipleFiles name="documents" multiple=true}}
+                            <span class="flaticon solid upload-document-1"></span>
+                            {% trans "Upload scan(s)" %}
+                        </a>
+                        <br />
+                        {{#each doc in attachedDocuments}}
+                            <a {{action removeFile doc}}><span class="flaticon solid minus-2"></span></a>
+                            <a {{bindAttr href=doc.file.url}}>
+                                {{doc.file.name}} <small>{{doc.file.size}}</small><br/>
+                            </a>
+                        {{/each}}
+                    </div>
+                </li>
+            </ul>
+        </fieldset>
+    {{ partial '_my_project_save_edit_footer'}}
+    </form>
+</div>
+{% endtplhandlebars %}
+

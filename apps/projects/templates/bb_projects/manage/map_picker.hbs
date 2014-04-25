@@ -1,0 +1,13 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "map_picker" %}
+
+    <div class="map-picker"></div>
+    <div class="map-look-up">
+        {{view Em.TextField valueBinding="view.lookup" placeholder="Search your location."}}
+        <button {{action lookUpLocation target="view"}}> Search</button>
+    </div>
+
+{% endtplhandlebars %}

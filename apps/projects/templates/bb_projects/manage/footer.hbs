@@ -1,0 +1,30 @@
+{% load bb_ember %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "_my_project_footer" %}
+
+    <footer class="campaign-footer">
+        <div class="navigation">
+            <button {{bindAttr class=":btn :btn-modest :btn-primary :previous"}} {{action goToPreviousStep}}><span class="flaticon solid left-2"></span>{% trans "Previous" %}</button>
+            <button {{bindAttr class=":btn :btn-modest :btn-primary :next"}} {{action goToNextStep}}><span class="flaticon solid right-2"></span>{% trans "Next" %}</button>
+        </div>
+    </footer>
+{% endtplhandlebars %}
+
+{% tplhandlebars "_my_project_save_edit_footer" %}
+
+    <footer class="campaign-footer">
+
+        <div class="navigation">
+            {{#if isPhasePlanNew}}
+                <button {{bindAttr class=":btn :btn-modest :btn-primary :previous"}} {{action goToPreviousStep}}><span class="flaticon solid left-2"></span>{% trans "Previous" %}</button>
+                <button {{bindAttr class=":btn :btn-modest :btn-primary :next"}} {{action goToNextStep}}><span class="flaticon solid right-2"></span>{% trans "Next" %}</button>
+            {{ else }}
+                <button {{bindAttr class=":btn :btn-modest :btn-primary :next modelStatus"}} {{action save}}><span class="flaticon solid right-2"></span>{% trans "Save" %}</button>
+
+            {{/if}}
+        </div>
+    </footer>
+
+{% endtplhandlebars %}
