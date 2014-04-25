@@ -108,7 +108,7 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
     def test_upload_multiple_wallpost_images(self):
         """ Test uploading multiple images in a media wallpost """
 
-        self.login(self.user.email, 'testing')
+        self.assertTrue(self.login(self.user.email, 'testing'))
         self.visit_project_list_page()
 
         # pick a project
@@ -116,7 +116,13 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
 
         form = self.browser.find_by_id('wallpost-form')
 
-        self.browser.find_by_id('wallpost-title').first.fill('My wallpost')
+        self.browser.find_by_css('.wallpost-post-update').first.click()
+
+        # Wait for form to animate down
+        self.wait_for_element_css('#wallpost-title')
+
+        title = 'My wallpost'
+        self.browser.find_by_id('wallpost-title').first.fill(title)
         self.browser.find_by_id('wallpost-update').first.fill('These are some sample pictures from this non-existent project!')
 
         # verify that no previews are there yet
@@ -137,9 +143,7 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'chameleon.jpg')
         self.browser.attach_file('wallpost-photo', file_path)
 
-        # wait a bit, processing...
-        time.sleep(3)
-
+        self.wait_for_element_css('ul.form-wallpost-photos li')
         form = self.browser.find_by_id('wallpost-form')
         ul = form.find_by_css('ul.form-wallpost-photos').first
         previews = ul.find_by_tag('li')
@@ -150,7 +154,8 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
 
         # check if the wallpostis there
         wp = self.browser.find_by_css('article.wallpost').first
-        self.assertTrue(self.browser.is_text_present('MY WALLPOST'))
+
+        self.assertTrue(self.browser.is_text_present(title))
 
         num_photos = len(wp.find_by_css('ul.photo-viewer li.photo'))
         self.assertEqual(num_photos, 2)
