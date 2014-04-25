@@ -213,7 +213,6 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         self.visit_path('/my/projects')
         self.assertTrue(self.browser.is_text_present('CREATE NEW PROJECT', wait_time=5))
 
-
         # Click "Pitch Smart Idea" btn
         self.browser.find_by_id("create_project").first.click()
 
@@ -222,6 +221,10 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         time.sleep(2)
 
         self.browser.find_by_css("button.btn-primary").first.click()
+
+        ###
+        # Project Section
+        ###
 
         self.assertTrue(self.browser.is_text_present('PROJECT BASICS', wait_time=5))
 
@@ -246,8 +249,9 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
 
         self.assertTrue(self.browser.is_text_present('GOAL', wait_time=5))
 
-        # Goal & Budget
-
+        ###
+        # Goal Section
+        ###
         self.browser.fill('amount_asked', self.project_data['amount_asked'])
 
         # Pick a deadline next month
@@ -271,6 +275,9 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
 
         self.browser.find_by_css("button.next").first.click()
 
+        ###
+        # Description Section
+        ###
         self.assertTrue(self.browser.is_text_present('PROJECT DESCRIPTION', wait_time=50))
         self.assertEqual(self.browser.url,
                          '{0}/en/#!/my/projects/{1}/story'.format(self.live_server_url,
@@ -279,14 +286,13 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         story = self.browser.find_by_css('.redactor_redactor').first
         story.type(self.project_data['description'])
 
-        """
-        FIXME
         self.browser.find_by_css("button.next").first.click()
 
-        self.assertTrue(self.browser.is_text_present('ORGANISATION', wait_time=15))
+        ###
+        # Organisation Section
+        ###
+        self.wait_for_element_css('input[name="name"]')
 
-        self.assertEqual(self.browser.url, '{0}/en/#!/my/projects/{1}/organisation'.format(self.live_server_url,
-                                                                                           self.project_data['slug']))
         organisation = {
             "name": "Test Organization",
             "email": "harold@testorg.com",
@@ -297,7 +303,6 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
             "skype": "testorg"
         }
 
-
         self.browser.fill('name', organisation['name'])
         self.browser.fill('email', organisation['email'])
         self.browser.fill('phone', organisation['phone'])
@@ -306,11 +311,21 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         self.browser.fill('facebook', organisation['facebook'])
         self.browser.fill('skype', organisation['skype'])
 
-        self.browser.find_by_css("button.next").first.click()
-
-        self.assertTrue(self.browser.is_text_present('BANK DETAILS', wait_time=15))
+        btn = self.browser.attach_file('documents', '{0}/apps/projects/test_images/upload.png'.format(settings.PROJECT_ROOT))
 
         self.browser.find_by_css("button.next").first.click()
+
+
+        ###
+        # Bank Section
+        ###
+
+
+        self.browser.find_by_css("button.next").first.click()
+
+        ###
+        # Submit Section
+        ###
 
         self.assertTrue(self.browser.is_text_present('Please fill in all information before submitting', wait_time=15))
 
@@ -318,7 +333,7 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
                          '{0}/en/#!/my/projects/{1}/submit'.format(self.live_server_url,
                                                                    self.project_data['slug']))
 
-        """
+        
         # confirm the project record was created
         # TODO: Also check it has the expected fields.
         Project.objects.filter(slug=self.project_data['slug']).exists()
