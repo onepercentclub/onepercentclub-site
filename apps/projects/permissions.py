@@ -29,6 +29,21 @@ class BaseIsUser(permissions.BasePermission):
 IsUser = lambda x: type('IsUser', (BaseIsUser,), {'field': x})
 
 
+def get_project_from_request(request):
+    if request.DATA:
+        project_slug = request.DATA.get('project', None)
+    else:
+        project_slug = request.QUERY_PARAMS.get('project', None)
+    if project_slug:
+        try:
+            project = Project.objects.get(slug=project_slug)
+        except Project.DoesNotExist:
+            return None
+    else:
+        return None
+    return project
+
+
 class IsProjectOwner(permissions.BasePermission):
     """
     Allows access only to project owner.
@@ -36,7 +51,17 @@ class IsProjectOwner(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         if isinstance(obj, Project):
             return obj.owner == request.user
+        print obj.project.owner == request.user
         return obj.project.owner == request.user
+
+    def has_permission(self, request, view):
+        # Test for objects/lists related to a Project (e.g BudgetLines).
+        # Get the project from the request
+        project = get_project_from_request(request)
+        # If we don't have a project then don't complain.
+        if not project:
+            return True
+        return project.owner == request.user
 
 
 class IsOwner(permissions.BasePermission):
@@ -53,20 +78,6 @@ class IsProjectOwnerOrReadOnly(permissions.BasePermission):
     Allows access only to project owner.
     """
 
-    def _get_project_from_request(self, request):
-        if request.DATA:
-            project_slug = request.DATA.get('project', None)
-        else:
-            project_slug = request.QUERY_PARAMS.get('project', None)
-        if project_slug:
-            try:
-                project = Project.objects.get(slug=project_slug)
-            except Project.DoesNotExist:
-                return None
-        else:
-            return None
-        return project
-
     def has_permission(self, request, view):
         # Read permissions are allowed to any request, so we'll always allow GET, HEAD or OPTIONS requests.
         if request.method in permissions.SAFE_METHODS:
@@ -74,7 +85,7 @@ class IsProjectOwnerOrReadOnly(permissions.BasePermission):
 
         # Test for objects/lists related to a Project (e.g WallPosts).
         # Get the project form the request
-        project = self._get_project_from_request(request)
+        project = get_project_from_request(request)
         return project and project.owner == request.user
 
     def has_object_permission(self, request, view, obj):
@@ -85,21 +96,5 @@ class IsProjectOwnerOrReadOnly(permissions.BasePermission):
         # Test for project model object-level permissions.
         return isinstance(obj, Project) and obj.owner == request.user
 
-
-class NoRunningProjectsOrReadOnly(permissions.BasePermission):
-
-    def has_permission(self, request, view):
-        # Read permissions are allowed to any request, so we'll always allow GET, HEAD or OPTIONS requests.
-        if request.method in permissions.SAFE_METHODS:
-            return True
-
-        project = Project.objects.filter(owner=request.user)
-
-        if len(project.filter(status__in=[ProjectPhase.objects.get(slug="plan-new"),
-                                         ProjectPhase.objects.get(slug="campaign"),
-                                         ProjectPhase.objects.get(slug="done-complete")]).all()):
-            return False
-
-        return True
 
 

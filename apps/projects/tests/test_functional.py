@@ -4,6 +4,7 @@ Functional tests using Selenium.
 
 See: ``docs/testing/selenium.rst`` for details.
 """
+from bluebottle.utils.models import Language
 from django.conf import settings
 from django.utils.text import slugify
 from django.utils.unittest.case import skipUnless
@@ -322,6 +323,37 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         # TODO: Also check it has the expected fields.
         Project.objects.filter(slug=self.project_data['slug']).exists()
 
+    def test_change_project_goal(self):
+        project = OnePercentProjectFactory.create(title='Project Goal Changes', owner=self.user)
+        self.visit_path('/my/projects/{0}/goal'.format(project.slug))
+
+        # Check that deadline is set to 30 days now
+        days_left = self.browser.find_by_css('.project-days-left strong').first
+        self.assertEqual(days_left.text, '30')
+
+        # Let's pick a date
+        # Click Next to get a date in the future
+        self.assertTrue(self.scroll_to_and_click_by_css(".btn-date-picker"))
+        self.browser.find_by_css("[title=Prev]").first.click()
+        self.browser.find_by_css("[title=Prev]").first.click()
+        self.browser.find_by_css("[title=Prev]").first.click()
+        self.browser.find_by_css("[title=Next]").first.click()
+        self.assertTrue(self.browser.is_text_present("4"))
+        self.browser.find_link_by_text("4").first.click()
+        # remember the days left now
+        days_left1 = self.browser.find_by_css('.project-days-left strong').first.text
+
+        time.sleep(2)
+
+        self.assertTrue(self.scroll_to_and_click_by_css(".btn-date-picker"))
+        self.assertTrue(self.browser.is_text_present("14"))
+        self.browser.find_link_by_text("14").first.click()
+        days_left2 = self.browser.find_by_css('.project-days-left strong').first.text
+        days_diff = int(days_left2) - int(days_left1)
+
+        self.assertEqual(days_diff, 10)
+
+
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
@@ -335,8 +367,9 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
         self.user = BlueBottleUserFactory.create()
         self.login(self.user.email, 'testing')
 
-        self.project = OnePercentProjectFactory.create()
-        self.project.owner = BlueBottleUserFactory.create()
+        owner = BlueBottleUserFactory.create()
+
+        self.project = OnePercentProjectFactory.create(owner=owner)
         self.project.save()
 
         self.post1 = {
