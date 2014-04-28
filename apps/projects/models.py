@@ -136,7 +136,7 @@ class Project(BaseProject):
 
         self.amount_donated = self.get_money_total([
             DonationStatuses.paid, DonationStatuses.pending
-        ])
+        ]) / 100
 
         self.amount_needed = self.amount_asked - self.amount_donated
 
