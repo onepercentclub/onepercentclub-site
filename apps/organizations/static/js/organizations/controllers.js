@@ -9,7 +9,7 @@ App.MyProjectBankController.reopen({
 });
 
 App.MyProjectSubmitController.reopen({
-    needs: ['myProjectBank'],
+    needs: ['myProjectBank', 'myProjectOrganisation'],
     previousStep: 'myProject.bank'
 });
 
