@@ -357,11 +357,6 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
 
         # TODO: Add a test here to confirm that a valid project was completed by the user
         #       .... then create a new test for an invalid one.
-
-        self.assertEqual(self.browser.url,
-                         '{0}/en/#!/my/projects/{1}/submit'.format(self.live_server_url,
-                                                                   self.project_data['slug']))
-
         
         # confirm the project record was created
         # TODO: Also check it has the expected fields.
