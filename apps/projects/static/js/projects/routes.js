@@ -5,3 +5,16 @@ App.Router.map(function(){
 });
 
 App.MyProjectGoalRoute = App.MyProjectSubRoute.extend({});
+
+App.ProjectRoute.reopen({
+    renderTemplate: function() {
+        this._super();
+
+        var controller = this.controllerFor('ProjectFundRaiserList');
+        this.render('ProjectFundRaiserList', {
+            into: 'project',
+            outlet: 'fundraisers',
+            controller: controller
+        });
+    }
+})
