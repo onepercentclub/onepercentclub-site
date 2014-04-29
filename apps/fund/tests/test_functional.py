@@ -5,6 +5,7 @@ Functional tests using Selenium.
 See: ``docs/testing/selenium.rst`` for details.
 """
 import time
+from bluebottle.bb_projects.models import ProjectPhase
 
 from django.conf import settings
 from django.utils.text import slugify
@@ -13,7 +14,6 @@ from django.utils.unittest.case import skipUnless
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 
 from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
-from bluebottle.test.factory_models.projects import ProjectThemeFactory, ProjectPhaseFactory
 from onepercentclub.tests.factory_models.fundraiser_factories import FundRaiserFactory
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
 
@@ -28,20 +28,22 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
     fixtures = ['region_subregion_country_data.json'] # apps/geo/fixtures/
 
     def setUp(self):
+
+        self.init_projects()
+        self.phase_campaign = ProjectPhase.objects.get(slug='campaign')
+
         self._projects = []
         self.projects = dict([(slugify(title), title) for title in [
             u'Women first', u'Mobile payments for everyone!', u'Schools for children'
         ]])
-
-        self.phase_campaign = ProjectPhaseFactory.create(sequence=1, name='Campaign')
 
         for slug, title in self.projects.items():
             project = OnePercentProjectFactory.create(title=title, slug=slug, amount_asked=500)
             self._projects.append(project)
 
             project.amount_donated = 500  # EUR 5.00
-            project.save()
             project.status = self.phase_campaign
+            project.save()
 
         self.some_user = BlueBottleUserFactory.create()
         self.another_user = BlueBottleUserFactory.create()
@@ -64,15 +66,7 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
         """
         Test project donation by an anonymous user
         """
-        self.visit_project_list_page()
-
-        # Besides the waiting for JS to kick in, we also need to wait for the funds raised animation to finish.
-        time.sleep(2)
-
-        # Click through to the project and verify we can support the project
-        # and the fundraising values we expect
-
-        self.browser.find_by_css('span.project-header').first.click()  # First project in the list
+        self.visit_path('/projects/women-first')
         self.assertTrue(self.browser.is_text_present('WOMEN FIRST', wait_time=10))
         self.assertEqual(self.browser.find_by_css('h1.project-title').first.text, u'WOMEN FIRST')
 
@@ -168,7 +162,7 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
 
 
 
-        self.assertTrue(self.login(username=self.some_user.email, password='password'))
+        self.assertTrue(self.login(username=self.some_user.email, password='testing'))
 
         # Create dummy donation, so we can validate the thank you page.
         donation = self.create_donation(self.some_user, self._projects[0])

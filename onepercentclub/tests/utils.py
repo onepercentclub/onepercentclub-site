@@ -1,19 +1,67 @@
-from bluebottle.test.factory_models.projects import ProjectPhaseFactory
+from bluebottle.test.factory_models.projects import ProjectPhaseFactory, ProjectThemeFactory
 from bluebottle.test.utils import SeleniumTestCase
 from django.test import TestCase
-from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
+from bluebottle.test.factory_models.utils import LanguageFactory
 
 
 class OnePercentTestCase(TestCase):
 
     def init_projects(self):
-        OnePercentProjectFactory.init_related_models()
+        """
+        Set up some basic models needed for project creation.
+        """
+        phase_data = [{'name': 'Plan - New'},
+                      {'name': 'Plan - Submitted'},
+                      {'name': 'Plan - Rejected'},
+                      {'name': 'Campaign'},
+                      {'name': 'Stopped'},
+                      {'name': 'Done - Complete'},
+                      {'name': 'Done - Incomplete'}]
+
+        theme_data = [{'name': 'Education'},
+                      {'name': 'Environment'}]
+
+        language_data = [{'id': 1, 'code': 'en', 'language_name': 'English', 'native_name': 'English'},
+                         {'id': 2, 'code': 'nl', 'language_name': 'Dutch', 'native_name': 'Nederlands'}]
+
+        for phase in phase_data:
+            ProjectPhaseFactory.create(**phase)
+
+        for theme in theme_data:
+            ProjectThemeFactory.create(**theme)
+
+        for language in language_data:
+            LanguageFactory.create(**language)
 
 
 class OnePercentSeleniumTestCase(SeleniumTestCase):
 
     def init_projects(self):
-        OnePercentProjectFactory.init_related_models()
+        """
+        Set up some basic models needed for project creation.
+        """
+        phase_data = [{'id': 1, 'name': 'Plan - New'},
+                      {'id': 2, 'name': 'Plan - Submitted'},
+                      {'id': 3, 'name': 'Plan - Rejected'},
+                      {'id': 4, 'name': 'Campaign'},
+                      {'id': 5, 'name': 'Stopped'},
+                      {'id': 6, 'name': 'Done - Complete'},
+                      {'id': 7, 'name': 'Done - Incomplete'}]
+
+        theme_data = [{'id': 1, 'name': 'Education'},
+                      {'id': 2, 'name': 'Environment'}]
+
+        language_data = [{'id': 1, 'code': 'en', 'language_name': 'English', 'native_name': 'English'},
+                         {'id': 2, 'code': 'nl', 'language_name': 'Dutch', 'native_name': 'Nederlands'}]
+
+        for phase in phase_data:
+            ProjectPhaseFactory.create(**phase)
+
+        for theme in theme_data:
+            ProjectThemeFactory.create(**theme)
+
+        for language in language_data:
+            LanguageFactory.create(**language)
 
     def login(self, username, password):
         """

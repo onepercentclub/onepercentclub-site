@@ -1,5 +1,7 @@
+from bluebottle.bb_projects.models import ProjectPhase
 from django.utils import timezone
 from django.test.client import MULTIPART_CONTENT
+from onepercentclub.tests.utils import OnePercentTestCase
 import os
 import json
 
@@ -11,7 +13,6 @@ from django.test import TestCase
 from rest_framework import status
 
 from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
-from bluebottle.test.factory_models.projects import ProjectThemeFactory, ProjectPhaseFactory
 from onepercentclub.tests.factory_models.fundraiser_factories import FundRaiserFactory
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
 from onepercentclub.tests.factory_models.donation_factories import DonationFactory
@@ -19,19 +20,18 @@ from onepercentclub.tests.factory_models.donation_factories import DonationFacto
 from apps.fund.models import DonationStatuses, Donation
 
 
-class FundRaiserApiIntegrationTest(TestCase):
+class FundRaiserApiIntegrationTest(OnePercentTestCase):
     """
     Integration tests for the fundraiser API.
     """
 
     def setUp(self):
         """ Create two project instances """
-        self.phase_1 = ProjectPhaseFactory.create(sequence=1, name='Plan - New')
-        self.phase_2 = ProjectPhaseFactory.create(sequence=2, name='Plan - Submitted')
-        self.phase_3 = ProjectPhaseFactory.create(sequence=3, name='Campaign')
+        self.init_projects()
+        self.campaign_phase = ProjectPhase.objects.get(slug='campaign')
 
-        self.some_project = OnePercentProjectFactory.create(amount_asked=50000, status=self.phase_3)
-        self.another_project = OnePercentProjectFactory.create(amount_asked=75000, status=self.phase_3)
+        self.some_project = OnePercentProjectFactory.create(amount_asked=50000, status=self.campaign_phase)
+        self.another_project = OnePercentProjectFactory.create(amount_asked=75000, status=self.campaign_phase)
 
         self.some_user = BlueBottleUserFactory.create()
         self.another_user = BlueBottleUserFactory.create()

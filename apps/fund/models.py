@@ -495,7 +495,6 @@ def link_anonymous_donations(sender, user, request, **kwargs):
 user_activated.connect(link_anonymous_donations)
 
 
-
 @task
 def mail_monthly_donation_processed_notification(recurring_payment, recurring_order):
     # TODO: Use English base and the regular translation mechanism.

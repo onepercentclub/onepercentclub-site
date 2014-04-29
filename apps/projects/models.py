@@ -16,7 +16,7 @@ from django.utils import timezone
 from .mails import mail_project_funded_internal
 from .signals import project_funded
 
-from apps.fund.models import DonationStatuses, Donation
+from apps.fund.models import Donation, DonationStatuses
 
 
 class ProjectManager(models.Manager):
@@ -131,7 +131,7 @@ class Project(BaseProject):
             self.popularity = 0
         self.save()
 
-    def update_money_donated(self):
+    def update_money_donated(self, save=True):
         """ Update amount based on paid and pending donations. """
 
         self.amount_donated = self.get_money_total([
@@ -144,7 +144,8 @@ class Project(BaseProject):
             # Should never be less than zero
             self.amount_needed = 0
 
-        self.save()
+        if save:
+            self.save()
 
     def get_money_total(self, status_in=None):
         """
@@ -269,6 +270,7 @@ class Project(BaseProject):
 
         if not self.deadline:
             self.deadline = timezone.now() + datetime.timedelta(days=30)
+        self.update_money_donated(False)
         super(Project, self).save(*args, **kwargs)
 
 

@@ -1,7 +1,6 @@
 from django.test import TestCase
 
 from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
-from bluebottle.test.factory_models.projects import ProjectPhaseFactory
 from bluebottle.utils.utils import get_project_model
 
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory

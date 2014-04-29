@@ -11,7 +11,6 @@ from rest_framework import status
 
 from bluebottle.utils.utils import get_taskmember_model, get_skill_model
 from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
-from bluebottle.test.factory_models.projects import ProjectThemeFactory, ProjectPhaseFactory
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
 
 from ..models import Project
