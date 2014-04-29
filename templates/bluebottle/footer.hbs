@@ -1,0 +1,102 @@
+{% load i18n %}
+{% load bb_ember %}
+
+{% tplhandlebars "_footer" %}
+
+    <div class="l-section" id="footer">
+        <div class="l-wrapper">
+            <section class="footer-content">
+                <ul class="footer-menu">
+                    <li>
+                        <h3>{% blocktrans %}You care{% endblocktrans %}</h3>
+                        <ul>
+                            <li>
+                                {{#link-to 'page' 'how-it-works'}}
+                                    {% blocktrans %}How it works{% endblocktrans %}
+                                {{/link-to}}
+                            </li>
+
+                            <li>
+                                {{#link-to 'projectList'}}
+                                    {% blocktrans %}Projects{% endblocktrans %}
+								{{/link-to}}
+                            </li>
+                            <li>
+                                {{#link-to 'taskList'}}
+                                    {% blocktrans %}Skills{% endblocktrans %}
+								{{/link-to}}
+                            </li>
+                            <li>
+                                {{#link-to 'page' 'get-involved'}}
+                                    {% blocktrans %}Get involved{% endblocktrans %}
+                                {{/link-to}}
+                            </li>
+                            <li>
+                                {{#link-to 'myProject.start' 'new'}}
+                                    {% trans "Start a project" %}
+                                {{/link-to}}
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <h3>{% blocktrans %}We care{% endblocktrans %}</h3>
+                        <ul>
+                            <li>
+                                {{#link-to 'page' 'the-story'}}
+                                    {% trans "The story" %}
+                                {{/link-to}}
+                            </li>
+                            <li>
+                                {{#link-to 'page' 'meet-the-team'}}
+                                    {% trans "Meet the team" %}
+                                {{/link-to}}
+                            </li>
+                            <li>
+                                {{#link-to 'page' 'faq'}}
+                                    {% trans "Frequently asked questions" %}
+                                {{/link-to}}
+
+                            </li>
+                            <li>
+                                {{#link-to 'contactMessage'}}{% trans "Contact" %}{{/link-to}}
+                            </li>
+                        </ul>
+
+                    </li>
+
+                    <li>
+	                    <h3>{% trans "News" %}</h3>
+	                    <ul>
+	                    {{#each news}}
+	                        <li>
+	                            <a {{action 'showNews' this}}>
+	                                <span class="flaticon solid right-2"></span> {{ title }}
+	                            </a>
+	                        </li>
+	                    {{/each}}
+	                    </ul>
+                    </li>
+				</ul>
+
+            </section>
+        </div>
+
+        <div class="l-section copyright">
+            <div class="l-wrapper">
+                {% block_verbatim  'footer_copyright' %}
+                    <ul>
+                        {{#if GIT_COMMIT}}
+                            <li class="pull-left">Commit: <a target='_blank' href='https://github.com/onepercentclub/onepercentclub-site/commit/{{unbound GIT_COMMIT }}'>{{ GIT_COMMIT }}</a></li>
+                        {{/if}}
+                        <li class="pull-right">
+                            <a href="#!/contact">{% trans "Send us your feedback" %}</a>
+                        </li>
+                    </ul>
+                {% endblock_verbatim %}
+            </div>
+        </div>
+
+    </div>
+
+{% endtplhandlebars %}
