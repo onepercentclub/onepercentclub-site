@@ -55,5 +55,5 @@ class OnePercentSeleniumTestCase(SeleniumTestCase):
         """
         self.visit_path('', lang_code)
 
-        # # Check if the homepage opened, and the dynamically loaded content appeared.
+        # Check if the homepage opened, and the dynamically loaded content appeared.
         return self.wait_for_element_css('#home')

@@ -16,8 +16,8 @@ install:
   - "touch onepercentclub/settings/secrets.py"
 
 before_script:
-  - npm install
+  # - npm install
 
 script:
   - python ./manage.py test --settings=onepercentclub.settings.travis -v 1
-  - grunt travis --verbose --force # remove --force to fail build on JS failures
+  # - grunt travis --verbose # add --force to pass build on JS failures
