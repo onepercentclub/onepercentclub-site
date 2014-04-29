@@ -11,8 +11,11 @@ from django.utils.unittest.case import skipUnless
 
 
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
-from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
+
+from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
+from bluebottle.test.factory_models.geo import CountryFactory
+
 
 from ..models import Project
 
@@ -187,6 +190,9 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         self.init_projects()
         self.user = BlueBottleUserFactory.create()
 
+        self.country_1 = CountryFactory.create(name="Afghanistan")
+        self.country_2 = CountryFactory.create(name="Albania")
+
         self.login(self.user.email, 'testing')
 
         self.project_data = {
@@ -211,30 +217,27 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         """
 
         self.visit_path('/my/projects')
-        self.assertTrue(self.browser.is_text_present('CREATE NEW PROJECT', wait_time=5))
 
         # Click "Pitch Smart Idea" btn
+        self.assertTrue(self.is_visible('#create_project'))
         self.browser.find_by_id("create_project").first.click()
 
-        self.assertTrue(self.browser.is_text_present('PROJECT START', wait_time=5))
+        ###
+        # Intro Section
+        ###
 
-        time.sleep(2)
-
-        self.browser.find_by_css("button.btn-primary").first.click()
+        self.assertTrue(self.is_visible('section h1.page-title'))
+        self.scroll_to_and_click_by_css("button.btn-primary")
 
         ###
         # Project Section
         ###
-
-        self.assertTrue(self.browser.is_text_present('PROJECT BASICS', wait_time=5))
 
         self.browser.select('language', 2)
         self.browser.fill('title', self.project_data['title'])
         self.browser.fill('pitch', self.project_data['pitch'])
 
         btn = self.browser.attach_file('img_upload', '{0}/apps/projects/test_images/upload.png'.format(settings.PROJECT_ROOT))
-
-        time.sleep(2)
 
         # Splinter takes the value of the select option
         self.browser.select('theme', 2)
@@ -243,15 +246,16 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
             self.browser.fill('tag', tag)
             self.browser.find_by_css("button.add-tag").first.click()
 
-        #self.browser.select('country', 1)
+        self.browser.select('country', 1)
 
-        self.browser.find_by_css('button.next').first.click()
-
-        self.assertTrue(self.browser.is_text_present('GOAL', wait_time=5))
+        self.scroll_to_and_click_by_css("button.next")
 
         ###
         # Goal Section
         ###
+
+        self.assertTrue(self.is_visible('input[name="amount_asked"]'))
+
         self.browser.fill('amount_asked', self.project_data['amount_asked'])
 
         # Pick a deadline next month
@@ -272,13 +276,14 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
             time.sleep(1)
             self.browser.find_by_css("a.add-budget").first.click()
 
-
-        self.browser.find_by_css("button.next").first.click()
+        self.scroll_to_and_click_by_css("button.next")
 
         ###
         # Description Section
         ###
-        self.assertTrue(self.browser.is_text_present('PROJECT DESCRIPTION', wait_time=50))
+
+        self.assertTrue(self.is_visible('.redactor_editor'))
+
         self.assertEqual(self.browser.url,
                          '{0}/en/#!/my/projects/{1}/story'.format(self.live_server_url,
                                                                   self.project_data['slug']))
@@ -286,11 +291,12 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         story = self.browser.find_by_css('.redactor_redactor').first
         story.type(self.project_data['description'])
 
-        self.browser.find_by_css("button.next").first.click()
+        self.scroll_to_and_click_by_css("button.next")
 
         ###
         # Organisation Section
         ###
+
         self.wait_for_element_css('input[name="name"]')
 
         organisation = {
@@ -312,22 +318,45 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         self.browser.fill('skype', organisation['skype'])
 
         btn = self.browser.attach_file('documents', '{0}/apps/projects/test_images/upload.png'.format(settings.PROJECT_ROOT))
-
-        self.browser.find_by_css("button.next").first.click()
-
+ 
+        self.scroll_to_and_click_by_css("button.next")
 
         ###
         # Bank Section
         ###
 
+        bank_details = {
+            "name": "Test Organization",
+            "address": "144 Tolstraat",
+            "postcode": "1074 VM",
+            "city": "Amsterdam",
+            "iban": "NL91ABNA0417164300",
+            "bic": "ABNANL2AXXX"
+        }
 
-        self.browser.find_by_css("button.next").first.click()
+        self.assertTrue(self.is_visible('input[name="account-holder-name"]'))
+
+        self.browser.fill('account-holder-name', bank_details['name'])
+        self.browser.fill('account-holder-address', bank_details['address'])
+        self.browser.fill('account-holder-postcode', bank_details['postcode'])
+        self.browser.fill('account-holder-city', bank_details['city'])
+
+        self.scroll_to_and_click_by_css('select[name="account-holder-country"]')
+        self.browser.select('account-holder-country', 1)
+
+        self.scroll_to_and_click_by_css('ul.tab-control .tab-first a')
+        
+        self.browser.fill('account-iban', bank_details['iban'])
+        self.browser.fill('account-bic', bank_details['bic'])
+
+        self.scroll_to_and_click_by_css("button.next")
 
         ###
         # Submit Section
         ###
 
-        self.assertTrue(self.browser.is_text_present('Please fill in all information before submitting', wait_time=15))
+        # TODO: Add a test here to confirm that a valid project was completed by the user
+        #       .... then create a new test for an invalid one.
 
         self.assertEqual(self.browser.url,
                          '{0}/en/#!/my/projects/{1}/submit'.format(self.live_server_url,

@@ -8,7 +8,7 @@ App.MyProjectBankController.reopen({
     nextStep: 'myProject.submit'
 });
 
-App.MyProjectSubmitController = App.StandardTabController.extend({
+App.MyProjectSubmitController.reopen({
     needs: ['myProjectBank'],
     previousStep: 'myProject.bank'
 });
