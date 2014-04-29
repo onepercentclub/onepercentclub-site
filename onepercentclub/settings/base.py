@@ -178,6 +178,7 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',
     'django.core.context_processors.i18n',
     'bluebottle.utils.context_processors.installed_apps_context_processor',
+    'bluebottle.utils.context_processors.git_commit',
 )
 
 ROOT_URLCONF = 'onepercentclub.urls'
@@ -693,5 +694,4 @@ DEFAULT_TWITTER_HANDLE = TWITTER_HANDLES['nl']
 #
 # BlueBottle
 #
-
 
