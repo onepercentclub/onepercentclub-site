@@ -3,15 +3,15 @@ App.Adapter.map('App.FundRaiser', {
 });
 
 App.FundRaiser = DS.Model.extend({
-	url: 'fundraisers',
+    url: 'fundraisers',
 
-	project: DS.belongsTo('App.ProjectPreview'),
+    project: DS.belongsTo('App.ProjectPreview'),
     owner: DS.belongsTo('App.UserPreview'),
 
-	title: DS.attr('string'),
-	description: DS.attr('string'),
+    title: DS.attr('string'),
+    description: DS.attr('string'),
 
-	// Media
+    // Media
     image: DS.attr('image'),
     video_url: DS.attr('string', {defaultValue: ''}),
     video_html: DS.attr('string'),

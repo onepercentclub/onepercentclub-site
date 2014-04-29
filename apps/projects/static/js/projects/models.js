@@ -12,24 +12,27 @@ App.Project.reopen({
     minAmountAsked: Ember.computed.gte('amount_asked', 250),
 
     amount_donated: DS.attr('number', {defaultValue: 0}),
-	amount_needed: DS.attr('number', {defaultValue: 0}),
+    amount_needed: DS.attr('number', {defaultValue: 0}),
 
-	calculatedAmountNeeded: function() {
-		    return this.get('amount_asked') - this.get('amount_donated');
+    fundraisers: DS.belongsTo('App.Fundraiser'),
+
+    calculatedAmountNeeded: function() {
+        return this.get('amount_asked') - this.get('amount_donated');
     }.property('amount_asked', 'amount_donated'),
 
-	task_count: DS.attr('number'),
+    task_count: DS.attr('number'),
 
     isFundable: Em.computed.equal('status.id', '5'),
 
     isStatusCampaign: Em.computed.equal('status.id', '5'),
     isStatusCompleted: Em.computed.equal('status.id', '7'),
 
-	save: function () {
-		// the amount_needed is calculated here and not in the server
-		this.set('amount_needed', this.get('calculatedAmountNeeded'));
-		this._super();
-	}
+    save: function () {
+        // the amount_needed is calculated here and not in the server
+        this.set('amount_needed', this.get('calculatedAmountNeeded'));
+        
+        this._super();
+    }
 
 });
 
@@ -63,8 +66,10 @@ App.MyProject.reopen({
     },
 
     valid: function(){
-        return (this.get('') && this.get('validPitch') && this.get('validGoal') && this.get('organization.validOrganization')
-			&& this.get('organization.validBank'));
+        return (this.get('') && this.get('validPitch') && this.get('validGoal') 
+                             && this.get('organization.validOrganization')
+                             && this.get('organization.validBank'));
+        
     }.property('validStory', 'validPitch', 'validGoal', 'organization'),
 
     requiredStoryFields: ['story'],
