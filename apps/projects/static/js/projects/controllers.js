@@ -59,4 +59,3 @@ App.MyProjectStoryController.reopen({
     previousStep: 'myProject.goal',
 	nextStep: 'myProject.organisation'
 });
-

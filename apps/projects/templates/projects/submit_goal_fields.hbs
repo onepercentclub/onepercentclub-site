@@ -1,0 +1,21 @@
+{% load bb_ember %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "_my_project_submit_goal_fields" %}
+    {{#unless validGoal}}
+        {{#each field in missingFieldsGoal}}
+            <li>
+                <div class="category">
+                    {% trans "Goal" %}
+                </div>
+                <div class="details">
+                    {{#link-to "myProject.goal"}}{{field}}{{/link-to}} is not filled in.
+                </div>
+                <div class="action">
+                    {{#link-to "myProject.goal"}}<span class="flaticon solid checkmark-2"></span> Let's fix this{{/link-to}}
+                </div>
+            </li>
+        {{/each}}
+    {{/unless}}
+{% endtplhandlebars %}

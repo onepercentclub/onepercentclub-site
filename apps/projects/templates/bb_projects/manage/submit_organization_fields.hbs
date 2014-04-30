@@ -1,0 +1,87 @@
+{% load bb_ember %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "_my_project_submit_organization_fields" %}
+
+    {{#if currentOrganization}}
+        <!--Organization Page-->
+        {{#unless currentOrganization.validOrganization}}
+            {{#each field in currentOrganization.missingFieldsOrganization}}
+                <li>
+                    <div class="category">
+                        {% trans "Organisation" %}
+                    </div>
+                    <div class="details">
+                        {{#link-to "myProject.organisation"}}{{field}}{{/link-to}} is not filled in.
+                    </div>
+                    <div class="action">
+                        {{#link-to "myProject.organisation"}}<span class="flaticon solid checkmark-2"></span> Let's fix this{{/link-to}}
+                    </div>
+                </li>
+            {{/each}}
+        {{/unless}}
+
+        <!--Bank Page-->
+        {{#unless currentOrganization.validBank}}
+            <!--Base Bank Info-->
+            {{#each field in currentOrganization.missingFieldsBaseBankOrganization}}
+                <li>
+                    <div class="category">
+                        {% trans "Bank" %}
+                    </div>
+                    <div class="details">
+                        {{#link-to "myProject.bank"}}{{field}}{{/link-to}} is not filled in.
+                    </div>
+                    <div class="action">
+                        {{#link-to "myProject.bank"}}<span class="flaticon solid checkmark-2"></span> Let's fix this{{/link-to}}
+                    </div>
+                </li>
+            {{/each}}
+            <!--Unless inEurope or outsideEurope are valid-->
+            {{#unless currentOrganization.validBankAccountInfo}}
+                {{#if organization.inEurope}}
+                    {{#each field in currentOrganization.missingFieldsEuropeanBankOrganization}}
+                        <li>
+                            <div class="category">
+                                {% trans "Bank" %}
+                            </div>
+                            <div class="details">
+                                {{#link-to "myProject.bank"}}{{field}}{{/link-to}} is not filled in.
+                            </div>
+                            <div class="action">
+                                {{#link-to "myProject.bank"}}<span class="flaticon solid checkmark-2"></span> Let's fix this{{/link-to}}
+                            </div>
+                        </li>
+                    {{/each}}
+                {{else}}
+                    {{#each field in currentOrganization.missingFieldsNotEuropeanBankOrganization}}
+                    <li>
+                        <div class="category">
+                            {% trans "Bank" %}
+                        </div>
+                        <div class="details">
+                            {{#link-to "myProject.bank"}}{{field}}{{/link-to}} is not filled in.
+                        </div>
+                        <div class="action">
+                            {{#link-to "myProject.bank"}}<span class="flaticon solid checkmark-2"></span> Let's fix this{{/link-to}}
+                        </div>
+                    </li>
+                {{/each}}
+                {{/if}}
+            {{/unless}}
+        {{/unless}}
+    {{else}}
+        <li>
+            <div class="category">
+                {% trans "Organisation" %}
+            </div>
+            <div class="details">
+                {{#link-to "myProject.organisation"}}create a new organisation{{/link-to}}.
+            </div>
+            <div class="action">
+                {{#link-to "myProject.organisation"}}<span class="flaticon solid checkmark-2"></span> Let's fix this{{/link-to}}
+            </div>
+        </li>
+    {{/if}}
+{% endtplhandlebars %}
