@@ -161,8 +161,8 @@ class FundRaiserApiIntegrationTest(OnePercentTestCase):
         """
         self.assertTrue(self.client.login(username=self.some_user.email, password='testing'))
 
-        fundraise_donation = DonationFactory.create(user=self.some_user, project=self.some_project, status=DonationStatuses.paid,
-                fundraiser=self.fundraiser)
+        fundraise_donation = DonationFactory.create(user=self.some_user, project=self.some_project, amount=5000,
+                                                    status=DonationStatuses.paid, fundraiser=self.fundraiser)
 
         project_donation_url = '{0}?project={1}&fundraiser={2}'.format(
             reverse('project-donation-list'),
@@ -174,9 +174,11 @@ class FundRaiserApiIntegrationTest(OnePercentTestCase):
         json_data = json.loads(response.content)
 
         # Only expect the donation for the fundraiser to show up.
+        print json_data
+
         self.assertEqual(len(json_data['results']), 1)
         self.assertTrue('amount' in json_data['results'][0])
-        self.assertEqual(json_data['results'][0]['amount'], '1.00')
+        self.assertEqual(json_data['results'][0]['amount'], '50.00')
 
     def test_donations_for_fundraiser_anonymous(self):
         self.assertTrue(self.client.login(username=self.another_user.email, password='testing'))

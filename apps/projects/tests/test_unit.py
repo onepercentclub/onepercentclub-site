@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.test import TestCase
 
 from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
@@ -44,12 +45,12 @@ class CalculateProjectMoneyDonatedTest(OnePercentTestCase):
         # Setting the first donation to status 'paid' money donated should be 1500
         first_donation.status = DonationStatuses.paid
         first_donation.save()
-        self.assertEqual(self.some_project.amount_donated, 1500)
+        self.assertEqual(self.some_project.amount_donated, 15)
 
         # Setting the second donation to status 'pending' money donated should be 40
         second_donation.status = DonationStatuses.pending
         second_donation.save()
-        self.assertEqual(self.some_project.amount_donated, 4000)
+        self.assertEqual(self.some_project.amount_donated, 40)
 
     def _create_donation(self, user=None, amount=None, project=None, status=DonationStatuses.new):
         """ Helper method for creating donations."""
