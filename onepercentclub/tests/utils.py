@@ -1,52 +1,25 @@
+from bluebottle.bb_projects.models import ProjectPhase, ProjectTheme
 from bluebottle.test.factory_models.projects import ProjectPhaseFactory, ProjectThemeFactory
 from bluebottle.test.utils import SeleniumTestCase
+from bluebottle.utils.models import Language
 from django.test import TestCase
 from bluebottle.test.factory_models.utils import LanguageFactory
 
 
-class OnePercentTestCase(TestCase):
+class InitProjectDataMixin(object):
 
     def init_projects(self):
         """
         Set up some basic models needed for project creation.
         """
-        phase_data = [{'name': 'Plan - New'},
-                      {'name': 'Plan - Submitted'},
-                      {'name': 'Plan - Rejected'},
-                      {'name': 'Campaign'},
-                      {'name': 'Stopped'},
-                      {'name': 'Done - Complete'},
-                      {'name': 'Done - Incomplete'}]
-
-        theme_data = [{'name': 'Education'},
-                      {'name': 'Environment'}]
-
-        language_data = [{'id': 1, 'code': 'en', 'language_name': 'English', 'native_name': 'English'},
-                         {'id': 2, 'code': 'nl', 'language_name': 'Dutch', 'native_name': 'Nederlands'}]
-
-        for phase in phase_data:
-            ProjectPhaseFactory.create(**phase)
-
-        for theme in theme_data:
-            ProjectThemeFactory.create(**theme)
-
-        for language in language_data:
-            LanguageFactory.create(**language)
-
-
-class OnePercentSeleniumTestCase(SeleniumTestCase):
-
-    def init_projects(self):
-        """
-        Set up some basic models needed for project creation.
-        """
-        phase_data = [{'id': 1, 'name': 'Plan - New'},
-                      {'id': 2, 'name': 'Plan - Submitted'},
-                      {'id': 3, 'name': 'Plan - Rejected'},
-                      {'id': 4, 'name': 'Campaign'},
-                      {'id': 5, 'name': 'Stopped'},
-                      {'id': 6, 'name': 'Done - Complete'},
-                      {'id': 7, 'name': 'Done - Incomplete'}]
+        phase_data = [{'id': 1, 'name': 'Plan - New', 'viewable': False},
+                      {'id': 2, 'name': 'Plan - Submitted', 'viewable': False},
+                      {'id': 3, 'name': 'Plan - Rejected', 'viewable': False},
+                      {'id': 4, 'name': 'Plan - Accepted', 'viewable': True},
+                      {'id': 5, 'name': 'Campaign', 'viewable': True},
+                      {'id': 6, 'name': 'Stopped', 'viewable': False},
+                      {'id': 7, 'name': 'Done - Complete', 'viewable': True},
+                      {'id': 8, 'name': 'Done - Incomplete', 'viewable': True}]
 
         theme_data = [{'id': 1, 'name': 'Education'},
                       {'id': 2, 'name': 'Environment'}]
@@ -62,6 +35,13 @@ class OnePercentSeleniumTestCase(SeleniumTestCase):
 
         for language in language_data:
             LanguageFactory.create(**language)
+
+
+class OnePercentTestCase(InitProjectDataMixin, TestCase):
+    pass
+
+
+class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
 
     def login(self, username, password):
         """

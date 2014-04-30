@@ -16,7 +16,7 @@ from django.utils import timezone
 from .mails import mail_project_funded_internal
 from .signals import project_funded
 
-from apps.fund.models import Donation, DonationStatuses
+#from apps.fund.models import Donation, DonationStatuses
 
 
 class ProjectManager(models.Manager):
@@ -70,8 +70,6 @@ class Project(BaseProject):
 
     partner_organization = models.ForeignKey('projects.PartnerOrganization', null=True, blank=True)
 
-
-
     latitude = models.DecimalField(
         _('latitude'), max_digits=21, decimal_places=18, null=True, blank=True)
     longitude = models.DecimalField(
@@ -113,7 +111,7 @@ class Project(BaseProject):
 
     def update_popularity(self):
         last_month = timezone.now() - timezone.timedelta(days=30)
-        donations = Donation.objects.filter(status__in=[DonationStatuses.paid, DonationStatuses.pending])
+        donations = self.donation_set.filter(status__in=['paid', 'pending'])
         donations = donations.exclude(donation_type='recurring')
         donations = donations.filter(created__gte=last_month)
 
@@ -134,9 +132,7 @@ class Project(BaseProject):
     def update_money_donated(self, save=True):
         """ Update amount based on paid and pending donations. """
 
-        self.amount_donated = self.get_money_total([
-            DonationStatuses.paid, DonationStatuses.pending
-        ]) / 100
+        self.amount_donated = self.get_money_total(['paid', 'pending']) / 100
 
         self.amount_needed = self.amount_asked - self.amount_donated
 
@@ -174,15 +170,15 @@ class Project(BaseProject):
     def supporters_count(self, with_guests=True):
         # TODO: Replace this with a proper Supporters API
         # something like /projects/<slug>/donations
-        donations = Donation.objects.filter(project=self)
-        donations = donations.filter(status__in=[DonationStatuses.paid, DonationStatuses.in_progress])
+        donations = self.donation_set.objects.filter(project=self)
+        donations = donations.filter(status__in=['paid', 'pending'])
         donations = donations.filter(user__isnull=False)
         donations = donations.annotate(Count('user'))
         count = len(donations.all())
 
         if with_guests:
-            donations = Donation.objects.filter(project=self)
-            donations = donations.filter(status__in=[DonationStatuses.paid, DonationStatuses.in_progress])
+            donations = self.donation_set.objects.filter(project=self)
+            donations = donations.filter(status__in=['paid', 'pending'])
             donations = donations.filter(user__isnull=True)
             count = count + len(donations.all())
         return count
@@ -322,26 +318,6 @@ class PartnerOrganization(models.Model):
         if self.name:
             return self.name
         return self.slug
-
-
-# Change project phase according to donated amount
-@receiver(post_save, weak=False, sender=Donation)
-def update_project_after_donation(sender, instance, created, **kwargs):
-    # Skip all post save logic during fixture loading.
-    if kwargs.get('raw', False):
-        return
-
-    project = instance.project
-
-    # Don't look at donations that are just created.
-    if instance.status not in [DonationStatuses.in_progress, DonationStatuses.new]:
-        project.update_money_donated()
-        project.update_popularity()
-
-    # If money target is hit and allow_funding set to false close the project.
-    if project.amount_asked <= project.amount_donated and not project.allow_overfunding:
-        project.phase = ProjectPhases.act
-        project.save()
 
 
 @receiver(project_funded, weak=False, sender=Project, dispatch_uid="email-project-team-project-funded")

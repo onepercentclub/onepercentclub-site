@@ -49,7 +49,6 @@ class ProjectEndpointTestCase(OnePercentTestCase):
         self.projects_url = reverse('project_list')
 
 
-
 class ProjectApiIntegrationTest(ProjectEndpointTestCase):
 
     def test_project_list_view(self):

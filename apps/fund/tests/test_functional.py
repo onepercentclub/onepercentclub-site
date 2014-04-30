@@ -10,11 +10,10 @@ from bluebottle.bb_projects.models import ProjectPhase
 from django.conf import settings
 from django.utils.text import slugify
 from django.utils.unittest.case import skipUnless
-
+from onepercentclub.tests.factory_models.donation_factories import DonationFactory
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 
 from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
-from onepercentclub.tests.factory_models.fundraiser_factories import FundRaiserFactory
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
 
 
@@ -80,12 +79,11 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
 
         self.assertTrue(self.browser.is_text_present('LIKE TO GIVE', wait_time=10))
 
-        self.assertEqual(self.browser.find_by_css('h2.project-title').first.text, u'WOMEN FIRST')
+        self.assertEqual(self.browser.find_by_css('h2.project-title').first.text[:11], u'WOMEN FIRST')
 
         self.assertEqual(self.browser.find_by_css('.fund-amount-control label').first.text, u"I'D LIKE TO GIVE")
-        self.assertTrue(u'495' in self.browser.find_by_css('.fund-amount-needed').first.text)
-        input_field = self.browser.find_by_css('.fund-amount-control input').first
-        self.assertEqual(input_field['name'], u'fund-amount-1')
+        self.assertTrue(u'500' in self.browser.find_by_css('.fund-amount-needed').first.text)
+        input_field = self.browser.find_by_css('.fund-amount-input').first
         self.assertEqual(input_field['value'], u'20')
 
         # Change the amount we want to donate
@@ -134,48 +132,35 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
 
         # Click on the NEXT button
         self.browser.find_by_css('button.btn-next').first.click()
-        time.sleep(2)
         # Don't sign up. Skip this form.
         self.browser.find_link_by_partial_text('Skip').first.click()
 
         self.assertTrue(self.browser.is_text_present("YOU'RE ALMOST THERE!", wait_time=5))
 
         # Proceed with the payment
+        # Select Ideal + ABN Amro for payment
+        time.sleep(2)
 
-        # self.browser.find_link_by_partial_text('Proceed').first.click()
-        # self.assertTrue(self.browser.is_text_present('YOUR PAYMENT'))
-        # self.assertTrue(self.browser.url.find('https://test.docdatapayments.com/') != -1)
-        #
-        # # Select Ideal + ING for payment
-        #
-        # self.browser.find_by_css('div.paymentChoiceMenuRow.ideal').first.click()
-        # time.sleep(2)
-        # self.browser.find_by_css("div.paymentChoiceMenuRow.ideal select.flowHorizontal").first.click()
-        # time.sleep(2)
-        # self.browser.find_by_css("div.paymentChoiceMenuRow.ideal option[value=ING]").first.click()
-        # time.sleep(1)
-        # self.browser.find_link_by_text('to iDEAL').first.click()
-        #
-        # time.sleep(2)
-        #
-        # self.assertTrue(self.browser.url.find('https://test.tripledeal.com/') != -1)
+        self.scroll_to_and_click_by_css('.tabs-vertical .radio')
+        self.scroll_to_and_click_by_css('.fund-payment-item .radio')
 
-
+    def test_donation_thank_you_page(self):
 
         self.assertTrue(self.login(username=self.some_user.email, password='testing'))
 
         # Create dummy donation, so we can validate the thank you page.
-        donation = self.create_donation(self.some_user, self._projects[0])
-        donation.order.status = OrderStatuses.current
+        donation = DonationFactory.create(user=self.some_user, project=self._projects[0])
+        donation.order.status = 'current'
+        donation.order.user = self.some_user
         donation.order.closed = None
 
         from apps.cowry_docdata.models import DocDataPaymentOrder
         DocDataPaymentOrder.objects.create(order=donation.order, payment_order_id='dummy')
 
         donation.order.save()
-        donation.save()
 
         self.visit_path('/support/thanks/{0}'.format(donation.order.pk))
+
 
         # Validate thank you page.
         self.assertTrue(self.browser.is_text_present('WELL, YOU ROCK!'))
