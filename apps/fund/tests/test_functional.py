@@ -133,7 +133,7 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
         # Click on the NEXT button
         self.browser.find_by_css('button.btn-next').first.click()
 
-        self.assertTrue(self.browser.is_text_present("SKIP", wait_time=5))
+        self.assertTrue(self.browser.is_element_present_by_css('.profile .active', wait_time=10))
         # Don't sign up. Skip this form.
         self.browser.find_link_by_partial_text('Skip').first.click()
 
