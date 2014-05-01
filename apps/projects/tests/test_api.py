@@ -11,7 +11,6 @@ from rest_framework import status
 
 from bluebottle.utils.utils import get_taskmember_model, get_skill_model
 from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
-from bluebottle.test.factory_models.projects import ProjectThemeFactory, ProjectPhaseFactory
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
 
 from ..models import Project
@@ -33,22 +32,21 @@ class ProjectEndpointTestCase(OnePercentTestCase):
         self.init_projects()
         self.user = BlueBottleUserFactory.create()
 
-        self.phase_1 = ProjectPhase.objects.get(slug='campaign')
-        self.phase_2 = ProjectPhase.objects.get(slug='plan-new')
+        self.campaign_phase = ProjectPhase.objects.get(slug='campaign')
+        self.plan_phase = ProjectPhase.objects.get(slug='done-complete')
 
         for char in 'abcdefghijklmnopqrstuvwxyz':
             project = OnePercentProjectFactory.create(title=char * 3, slug=char * 3)
 
             if ord(char) % 2 == 1:
                 # Put half of the projects in the campaign phase.
-                project.status = self.phase_1
+                project.status = self.campaign_phase
             else:
-                project.status = self.phase_2
+                project.status = self.plan_phase
 
             project.save()
 
         self.projects_url = reverse('project_list')
-
 
 
 class ProjectApiIntegrationTest(ProjectEndpointTestCase):
@@ -74,7 +72,7 @@ class ProjectApiIntegrationTest(ProjectEndpointTestCase):
         """
 
         # Tests that the phase filter works.
-        response = self.client.get('%s?status=%i' % (self.projects_url, self.phase_2.id))
+        response = self.client.get('%s?status=%i' % (self.projects_url, self.plan_phase.id))
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         self.assertEquals(response.data['count'], 13)
         self.assertEquals(len(response.data['results']), 10)

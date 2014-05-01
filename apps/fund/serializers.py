@@ -127,7 +127,7 @@ class RecurringDonationSerializer(serializers.ModelSerializer):
 
     def validate_project(self, attrs, source):
         value = attrs[source]
-        if value.phase != ProjectPhase.objects.get(slug="campaign"):
+        if value.status != ProjectPhase.objects.get(slug="campaign"):
             raise serializers.ValidationError(_("You can only donate a project in the campaign phase."))
         return attrs
 

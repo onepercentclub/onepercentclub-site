@@ -7,7 +7,7 @@ from django.utils.translation import ugettext as _
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from sorl.thumbnail import ImageField
 
-from apps.fund.models import DonationStatuses
+#from apps.fund.models import DonationStatuses
 
 
 class FundRaiser(models.Model):
@@ -32,8 +32,8 @@ class FundRaiser(models.Model):
 
     @property
     def amount_donated(self):
-        # TODO: unittest
-        valid_statuses = (DonationStatuses.pending, DonationStatuses.paid)
+        # FIXME: Removed import of DonationStatuses because it was resulting in circular imports.
+        valid_statuses = ('pending', 'paid')
         donations = self.donation_set.filter(status__in=valid_statuses)
         if donations:
             total = donations.aggregate(sum=Sum('amount'))

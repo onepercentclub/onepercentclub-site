@@ -280,19 +280,19 @@
     {{else}}
         {{#linkTo 'project' project class="project-header" }}
             <figure class="project-image">
-                <img {{bindAttr src="project.plan.image.square" alt="project.title"}} />
+                <img {{bindAttr src="project.image.square" alt="project.title"}} />
             </figure>
             <h2 class="project-title">
                 {{ project.title }}
                 <em class="project-location">
-                    <span class="flaticon solid location-pin-1"></span> {{ project.plan.country.name }}
+                    <span class="flaticon solid location-pin-1"></span> {{ project.country.name }}
                 </em>
             </h2>
         {{/linkTo}}
     {{/if}}
 
     <div class="fund-amount">
-        <strong class="fund-amount-needed">&euro; {{ project.campaign.money_needed }}</strong> {% trans "is still needed"%}
+        <strong class="fund-amount-needed">&euro; {{ project.amount_needed }}</strong> {% trans "is still needed"%}
         <div class="fund-amount-control">
             {{#each error in errors.amount}}
                 <span class="has-errors">{{ error }}</span>
@@ -613,12 +613,12 @@
         {{else}}
             {{#linkTo 'project' donation.project class="project-header" }}
                 <figure class="project-image">
-                    <img {{bindAttr src="donation.project.plan.image.square" alt="project.title"}} />
+                    <img {{bindAttr src="donation.project.image.square" alt="project.title"}} />
                 </figure>
                 <h2 class="project-title">
                     {{ donation.project.title }}
                     <em class="project-location">
-                        <span class="flaticon solid location-pin-1"></span> {{ donation.project.plan.country.name }}
+                        <span class="flaticon solid location-pin-1"></span> {{ donation.project.country.name }}
                     </em>
                 </h2>
             {{/linkTo}}

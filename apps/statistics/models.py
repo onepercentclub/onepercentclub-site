@@ -1,4 +1,3 @@
-from apps.fund.models import Donation, DonationStatuses
 from django.core.cache import cache
 from django.db import models
 from django.db.models.aggregates import Sum
@@ -19,6 +18,8 @@ class Statistic(models.Model):
 
     @property
     def donated(self):
+        from apps.fund.models import Donation, DonationStatuses
+
         """ Add all donation amounts for all donations ever """
         if cache.get('donations-grant-total'):
             return cache.get('donations-grant-total')
