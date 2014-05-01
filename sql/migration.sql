@@ -392,6 +392,43 @@ UPDATE pages_page set full_page = TRUE WHERE slug IN ('about', 'get-involved');
 ALTER TABLE accounts_useraddress RENAME TO members_useraddress;
 
 
+--
+-- BLOG
+--
+
+-- Clean BlogPost table
+
+ALTER TABLE blogs_blogpost DROP COLUMN post_type;
+ALTER TABLE blogs_blogpost RENAME TO news_newsitem;
+
+
+-- Deleting old tables
+
+DROP TABLE blogs_blogpost_categories;
+DROP TABLE blogs_blogcategory;
+DROP TABLE blogs_blogpost_countries;
+
+-- Cleaning Permissions
+
+DELETE FROM auth_group_permissions WHERE permission_id = 457;
+DELETE FROM auth_group_permissions WHERE permission_id = 458;
+DELETE FROM auth_group_permissions WHERE permission_id = 459;
+DELETE FROM members_member_user_permissions WHERE permission_id = 457;
+DELETE FROM members_member_user_permissions WHERE permission_id = 458;
+DELETE FROM members_member_user_permissions WHERE permission_id = 459;
+DELETE FROM auth_permission WHERE content_type_id = 153;
+DELETE FROM django_content_type WHERE id = 153;
+DELETE FROM django_content_type WHERE id = 155;
+DELETE FROM django_content_type WHERE id = 156;
+
+
+-- Changing django_content_type to match the new 'newsitem' table
+
+UPDATE django_content_type
+  SET name = 'News',
+      app_label = 'news',
+      model = 'newsitem'
+  WHERE id = 154;
 
 
 ------------
