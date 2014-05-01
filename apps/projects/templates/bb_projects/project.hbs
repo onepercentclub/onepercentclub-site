@@ -83,35 +83,13 @@
 		                    </a>
 		                </li>
 		            </ul>
-		        </li>
-                {{!-- Static html for supporters + fundraisers start here --}}
-                <li class="project-member-fundraisers">
-                    <h4>
-                        Fundraisers
-                        <em>
-                            <a>
-                                1 Total
-                            </a>
-                        </em>
-                    </h4>
-                   
-                    <ul>
-                        <li id="ember5269" class="ember-view">
-                            <a id="ember5279" class="ember-view member" href="#!/fundraisers/3">
-                                <span>
-                                    <span class="member-avatar">
-                                        <img src="http://onepercentclub.com/static/media/cache/f3/fb/f3fbe3ca80815511b1af621992de7bf5.jpg" alt="Mijnwebwinkel " data-original-title="" title="">
-                                    </span>
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                
-                    <a id="ember5138" class="ember-view fundraiser-become" href="#!/projects/sun4food/new-fundraiser">
-                        Become a fundraiser
-                    </a>
                 </li>
 
+                <li class="project-member-fundraisers">
+                    {{outlet "fundraisers"}}
+                </li>
+
+                {{!-- Static html for supporters + fundraisers start here --}}
                 <li class="project-member-supporters">
                     <h4>Supporters <em>3 Total</em></h4>
                     <ul>

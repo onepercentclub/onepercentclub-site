@@ -21,7 +21,7 @@
 	<meta property="og:description" content="1%Club is the global crowdfunding and crowdsourcing platform where you can share a little and change the world, in your very own way. Pick any project you like, support it with 1% of your knowledge, money or time and follow the progress online." />
 	<meta property="og:site_name" content="1%Club - Share a little. Change the world" />
 	<meta property="fb:page_id" content="298248659856" />
-    <meta property="og:keywords" content="" />
+  <meta property="og:keywords" content="" />
 
 {% endblock %}
 
@@ -46,6 +46,13 @@
     </ul>
 {% endblock_verbatim %}
 
+{% block defaults_js %}
+    {{ block.super }}
+
+    <script type="text/javascript">
+        var GIT_COMMIT = '{{ GIT_COMMIT }}';
+    </script>
+{% endblock %}
 
 {% block ember_scripts %}
 
@@ -240,10 +247,10 @@
 {% endblock_verbatim %}
 
 
-{% block_verbatim  'footer_copyright' %}
+{% block_verbatim 'footer_copyright' %}
     <ul>
         <li>
-            &copy;2013 1%Club
+            &copy;2014 1%Club
         </li>
         <li>
             <a {{action 'showPage' 'terms-and-conditions'}} href="/#!/pages/terms-and-conditions">{% trans "General Conditions" %}</a>&nbsp;

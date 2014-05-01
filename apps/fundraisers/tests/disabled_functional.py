@@ -13,8 +13,6 @@ from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 
 from apps.fund.models import DonationStatuses, Donation, OrderStatuses
 
-from bluebottle.test.factory_models.projects import ProjectThemeFactory, ProjectPhaseFactory
-
 from ..models import FundRaiser
 
 

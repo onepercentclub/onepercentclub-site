@@ -527,8 +527,8 @@ class PaymentProfileCurrent(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
             latest_payment.last_name = self.request.user.last_name
 
             # Try to use the address from the profile if it's set.
-            address = self.request.user.address
-            if address:
+            if hasattr(self.request.user, 'address'):
+                address = self.request.user.address
                 latest_payment.address = address.line1
                 latest_payment.city = address.city
                 latest_payment.postal_code = address.postal_code

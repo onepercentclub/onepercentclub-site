@@ -1,0 +1,10 @@
+{% load bb_ember %}
+{% load i18n %}
+{% load static %}
+
+
+{% tplhandlebars "_my_project_story_fields" %}
+
+  	{% bb_component 'bb-text-area' extraClasses="'redactor'" rows=10 name='story' label=_('Story') undertext=_('Describe your project in more detail.') valueBinding='story' placeholder=_('Describe your project') errors='errors.description' maxlength=800 %}
+  	
+{% endtplhandlebars %}

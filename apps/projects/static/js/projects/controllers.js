@@ -37,6 +37,7 @@ App.MyProjectGoalController = App.StandardTabController.extend({
         return (totalBudget && !validBudget);
     }.property('validBudget', 'totalBudget'),
 
+
     actions: {
         addBudgetLine: function(){
             console.log('adding line');
@@ -57,5 +58,9 @@ App.MyProjectGoalController = App.StandardTabController.extend({
 
 App.MyProjectStoryController.reopen({
     previousStep: 'myProject.goal',
-	nextStep: 'myProject.organisation'
+    nextStep: 'myProject.organisation'
+});
+
+App.ProjectSupportersListController = Em.ArrayController.extend({
+    needs: ['project']
 });

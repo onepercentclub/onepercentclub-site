@@ -30,10 +30,9 @@ from apps.cowry.signals import payment_status_changed
 from apps.cowry_docdata.models import DocDataPaymentOrder
 from apps.vouchers.models import VoucherStatuses
 from django.contrib.auth import get_user_model
+from .fields import DutchBankAccountField
 
 USER_MODEL = get_user_model()
-
-from .fields import DutchBankAccountField
 
 
 logger = logging.getLogger(__name__)
@@ -495,7 +494,6 @@ def link_anonymous_donations(sender, user, request, **kwargs):
 user_activated.connect(link_anonymous_donations)
 
 
-
 @task
 def mail_monthly_donation_processed_notification(recurring_payment, recurring_order):
     # TODO: Use English base and the regular translation mechanism.
@@ -581,3 +579,19 @@ def new_oneoff_donation(sender, instance, **kwargs):
             donor_name=name,
             link='/go/projects/{0}'.format(donation.project.slug),
         )
+
+
+#Change project phase according to donated amount
+@receiver(post_save, weak=False, sender=Donation)
+def update_project_after_donation(sender, instance, created, **kwargs):
+    # Skip all post save logic during fixture loading.
+    if kwargs.get('raw', False):
+        return
+
+    project = instance.project
+
+    # Don't look at donations that are just created.
+    if instance.status not in [DonationStatuses.in_progress, DonationStatuses.new]:
+        project.update_money_donated()
+        project.update_popularity()
+

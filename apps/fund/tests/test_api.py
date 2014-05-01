@@ -1,28 +1,38 @@
 import json
+from bluebottle.bb_projects.models import ProjectPhase
 
 from django.test import TestCase
-from django.core.urlresolvers import reverse
+from django.test.client import Client
 from django.test.utils import override_settings
 from django.utils import unittest
+from onepercentclub.tests.utils import OnePercentTestCase
 from rest_framework import status
 
 from apps.cowry.factory import _adapter_for_payment_method
 from apps.cowry.models import PaymentStatuses
 from apps.cowry_docdata.adapters import default_payment_methods
 from apps.cowry_docdata.tests import run_docdata_tests
+from apps.fund.models import Order, DonationStatuses, OrderStatuses
+
 
 from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
-from bluebottle.test.factory_models.projects import ProjectThemeFactory, ProjectPhaseFactory
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
 
+from bluebottle.utils.utils import get_project_model
 
-class CartApiIntegrationTest(TestCase):
+PROJECT_MODEL = get_project_model()
+
+class CartApiIntegrationTest(OnePercentTestCase):
     """
     Integration tests for the adding Donations to an Order (a cart in this case).
     """
     def setUp(self):
-        self.some_project = OnePercentProjectFactory.create(amount_asked=50000)
-        self.another_project = OnePercentProjectFactory.create(amount_asked=75000)
+
+        self.init_projects()
+        self.phase_campaign = ProjectPhase.objects.get(slug='campaign')
+
+        self.some_project = OnePercentProjectFactory.create(amount_asked=500, status=self.phase_campaign)
+        self.another_project = OnePercentProjectFactory.create(amount_asked=750, status=self.phase_campaign)
 
         self.some_user = BlueBottleUserFactory.create()
         self.another_user = BlueBottleUserFactory.create()
@@ -46,7 +56,7 @@ class CartApiIntegrationTest(TestCase):
         Tests for creating, retrieving, updating and deleting a donation to shopping cart.
         """
         # First make sure we have a current order
-        self.client.login(username=self.some_user.email, password='password')
+        self.client.login(username=self.some_user.email, password='testing')
         response = self.client.get(self.current_order_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['status'], 'current')
@@ -112,7 +122,7 @@ class CartApiIntegrationTest(TestCase):
 
         # Another user should not see the cart of the first user
         self.client.logout()
-        self.client.login(username=self.another_user.email, password='password')
+        self.client.login(username=self.another_user.email, password='testing')
         # make a cart for this another user
         self.client.get(self.current_order_url)
         response = self.client.get(self.current_donations_url)
@@ -135,7 +145,7 @@ class CartApiIntegrationTest(TestCase):
         self.assertEqual(response.data['count'], 1)
 
         # Login as the first user and cart should only have the one donation from  the anonymous cart.
-        self.client.login(username=self.some_user.email, password='password')
+        self.client.login(username=self.some_user.email, password='testing')
         response = self.client.get(self.current_donations_url)
         self.assertEqual(response.data['count'], 1)
         self.assertEqual(response.data['results'][0]['amount'], '71.00')
@@ -149,7 +159,7 @@ class CartApiIntegrationTest(TestCase):
 
     def test_current_order_monthly(self):
         # Test setting a recurring order as logged in user.
-        self.client.login(username=self.some_user.email, password='password')
+        self.client.login(username=self.some_user.email, password='testing')
         response = self.client.get(self.current_order_url)
         self.assertEqual(response.data['recurring'], False)
         response = self.client.put(self.current_order_url, json.dumps({'recurring': True}), 'application/json')
@@ -198,19 +208,19 @@ class CartApiIntegrationTest(TestCase):
     @override_settings(COWRY_PAYMENT_METHODS=default_payment_methods)
     @unittest.skipUnless(run_docdata_tests, 'DocData credentials not set or not online')
     def test_donation_status_changes(self):
-        self.assertEqual(self.some_project.amount_needed, 50000)
-        self.assertEqual(self.some_project.status, 'campaign')
+        self.assertEqual(self.some_project.amount_needed, 500)
+        self.assertEqual(self.some_project.status.slug, 'campaign')
 
         self._make_api_donation(self.some_user, project=self.some_project, amount=350)
         # Reload the project from db adn check phase / money_needed
-        project = Project.objects.get(pk=self.some_project.id)
-        self.assertEqual(project.status, 'campaign')
-        self.assertEqual(project.amount_needed, 15000)
+        project = PROJECT_MODEL.objects.get(pk=self.some_project.id)
+        self.assertEqual(project.status.slug, 'campaign')
+        self.assertEqual(project.amount_needed, 150)
 
         self._make_api_donation(self.another_user, project=self.some_project, amount=150)
         # Reload the project from db and check phase / money_needed
-        project = Project.objects.get(pk=self.some_project.id)
-        self.assertEqual(project.status, 'act')
+        project = PROJECT_MODEL.objects.get(pk=self.some_project.id)
+        self.assertEqual(project.status.slug, 'campaign')
         self.assertEqual(project.amount_needed, 0)
 
     @override_settings(COWRY_PAYMENT_METHODS=default_payment_methods)
@@ -250,11 +260,11 @@ class CartApiIntegrationTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
 
         # Anonymous user 2 (from a second client) should be able to access their payment as well.
-        secondClient = Client()
-        order_id = self._make_api_donation(None, project=self.some_project, amount=150, client=secondClient)  # Anonymous donation.
-        response = secondClient.get('{0}{1}'.format(self.order_url_base, order_id))
+        second_client = Client()
+        order_id = self._make_api_donation(None, project=self.some_project, amount=150, client=second_client)  # Anonymous donation.
+        response = second_client.get('{0}{1}'.format(self.order_url_base, order_id))
         anonymous_payment_url_2 = '{0}{1}'.format(self.payment_url_base, response.data['payments'][0])
-        response = secondClient.get(anonymous_payment_url_2)
+        response = second_client.get(anonymous_payment_url_2)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
 
         # Anonymous user 1 should not be able to access the payment from anonymous user 2.
@@ -262,7 +272,7 @@ class CartApiIntegrationTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
         # Anonymous user 2 should not be able to access the payment from anonymous user 1.
-        response = secondClient.get(anonymous_payment_url_1)
+        response = second_client.get(anonymous_payment_url_1)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
     @override_settings(COWRY_PAYMENT_METHODS=default_payment_methods)
@@ -410,7 +420,7 @@ class CartApiIntegrationTest(TestCase):
 
         # Make sure we have a current order. The donation will be anonymous if no user is supplied.
         if user:
-            client.login(username=user.email, password='password')
+            client.login(username=user.email, password='testing')
         response = client.get(self.current_order_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['status'], 'current')
@@ -465,11 +475,16 @@ class CartApiIntegrationTest(TestCase):
 
         return order_id
 
-class RecurringOrderApiTest(TestCase):
+class RecurringOrderApiTest(OnePercentTestCase):
 
     def setUp(self):
-        self.some_project = OnePercentProjectFactory.create(amount_asked=50000)
-        self.another_project = OnePercentProjectFactory.create(amount_asked=75000)
+
+        self.init_projects()
+
+        self.phase_campaign = ProjectPhase.objects.get(slug='campaign')
+
+        self.some_project = OnePercentProjectFactory.create(amount_asked=500, status=self.phase_campaign)
+        self.another_project = OnePercentProjectFactory.create(amount_asked=750, status=self.phase_campaign)
 
         self.some_user = BlueBottleUserFactory.create()
         self.another_user = BlueBottleUserFactory.create()
@@ -496,7 +511,7 @@ class RecurringOrderApiTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
         # Create a Recurring Order for a authenticated user works.
-        self.client.login(username=self.some_user.email, password='password')
+        self.client.login(username=self.some_user.email, password='testing')
         response = self.client.post(self.recurring_order_url_base, json.dumps({}), 'application/json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
 
@@ -558,7 +573,7 @@ class RecurringOrderApiTest(TestCase):
 
         # Login as another user and try to load the order/donation for first user.
         self.client.logout()
-        self.client.login(username=self.another_user.email, password='password')
+        self.client.login(username=self.another_user.email, password='testing')
         response = self.client.get(order_url)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND, response.data)
         response = self.client.get(donation_url)

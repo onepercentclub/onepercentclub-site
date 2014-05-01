@@ -9,10 +9,12 @@ from django.conf import settings
 from django.utils.text import slugify
 from django.utils.unittest.case import skipUnless
 
-
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
-from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
+
+from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
+from bluebottle.test.factory_models.geo import CountryFactory
+
 
 from ..models import Project
 
@@ -108,7 +110,7 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
     def test_upload_multiple_wallpost_images(self):
         """ Test uploading multiple images in a media wallpost """
 
-        self.login(self.user.email, 'testing')
+        self.assertTrue(self.login(self.user.email, 'testing'))
         self.visit_project_list_page()
 
         # pick a project
@@ -116,7 +118,13 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
 
         form = self.browser.find_by_id('wallpost-form')
 
-        self.browser.find_by_id('wallpost-title').first.fill('My wallpost')
+        self.browser.find_by_css('.wallpost-post-update').first.click()
+
+        # Wait for form to animate down
+        self.wait_for_element_css('#wallpost-title')
+
+        title = 'My wallpost'
+        self.browser.find_by_id('wallpost-title').first.fill(title)
         self.browser.find_by_id('wallpost-update').first.fill('These are some sample pictures from this non-existent project!')
 
         # verify that no previews are there yet
@@ -137,9 +145,7 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'chameleon.jpg')
         self.browser.attach_file('wallpost-photo', file_path)
 
-        # wait a bit, processing...
-        time.sleep(3)
-
+        self.wait_for_element_css('ul.form-wallpost-photos li')
         form = self.browser.find_by_id('wallpost-form')
         ul = form.find_by_css('ul.form-wallpost-photos').first
         previews = ul.find_by_tag('li')
@@ -150,7 +156,8 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
 
         # check if the wallpostis there
         wp = self.browser.find_by_css('article.wallpost').first
-        self.assertTrue(self.browser.is_text_present('MY WALLPOST'))
+
+        self.assertTrue(self.browser.is_text_present(title))
 
         num_photos = len(wp.find_by_css('ul.photo-viewer li.photo'))
         self.assertEqual(num_photos, 2)
@@ -182,6 +189,9 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         self.init_projects()
         self.user = BlueBottleUserFactory.create()
 
+        self.country_1 = CountryFactory.create(name="Afghanistan")
+        self.country_2 = CountryFactory.create(name="Albania")
+
         self.login(self.user.email, 'testing')
 
         self.project_data = {
@@ -206,27 +216,27 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         """
 
         self.visit_path('/my/projects')
-        self.assertTrue(self.browser.is_text_present('CREATE NEW PROJECT', wait_time=5))
-
 
         # Click "Pitch Smart Idea" btn
+        self.assertTrue(self.is_visible('#create_project'))
         self.browser.find_by_id("create_project").first.click()
 
-        self.assertTrue(self.browser.is_text_present('PROJECT START', wait_time=5))
+        ###
+        # Intro Section
+        ###
 
-        time.sleep(2)
+        self.assertTrue(self.is_visible('section h1.page-title'))
+        self.scroll_to_and_click_by_css("button.btn-primary")
 
-        self.browser.find_by_css("button.btn-primary").first.click()
-
-        self.assertTrue(self.browser.is_text_present('PROJECT BASICS', wait_time=5))
+        ###
+        # Project Section
+        ###
 
         self.browser.select('language', 2)
         self.browser.fill('title', self.project_data['title'])
         self.browser.fill('pitch', self.project_data['pitch'])
 
         btn = self.browser.attach_file('img_upload', '{0}/apps/projects/test_images/upload.png'.format(settings.PROJECT_ROOT))
-
-        time.sleep(2)
 
         # Splinter takes the value of the select option
         self.browser.select('theme', 2)
@@ -235,13 +245,15 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
             self.browser.fill('tag', tag)
             self.browser.find_by_css("button.add-tag").first.click()
 
-        #self.browser.select('country', 1)
+        self.browser.select('country', 1)
 
-        self.browser.find_by_css('button.next').first.click()
+        self.scroll_to_and_click_by_css("button.next")
 
-        self.assertTrue(self.browser.is_text_present('GOAL', wait_time=5))
+        ###
+        # Goal Section
+        ###
 
-        # Goal & Budget
+        self.assertTrue(self.is_visible('input[name="amount_asked"]'))
 
         self.browser.fill('amount_asked', self.project_data['amount_asked'])
 
@@ -263,10 +275,14 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
             time.sleep(1)
             self.browser.find_by_css("a.add-budget").first.click()
 
+        self.scroll_to_and_click_by_css("button.next")
 
-        self.browser.find_by_css("button.next").first.click()
+        ###
+        # Description Section
+        ###
 
-        self.assertTrue(self.browser.is_text_present('PROJECT DESCRIPTION', wait_time=50))
+        self.assertTrue(self.is_visible('.redactor_editor'))
+
         self.assertEqual(self.browser.url,
                          '{0}/en/#!/my/projects/{1}/story'.format(self.live_server_url,
                                                                   self.project_data['slug']))
@@ -274,14 +290,14 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         story = self.browser.find_by_css('.redactor_redactor').first
         story.type(self.project_data['description'])
 
-        """
-        FIXME
-        self.browser.find_by_css("button.next").first.click()
+        self.scroll_to_and_click_by_css("button.next")
 
-        self.assertTrue(self.browser.is_text_present('ORGANISATION', wait_time=15))
+        ###
+        # Organisation Section
+        ###
 
-        self.assertEqual(self.browser.url, '{0}/en/#!/my/projects/{1}/organisation'.format(self.live_server_url,
-                                                                                           self.project_data['slug']))
+        self.wait_for_element_css('input[name="name"]')
+
         organisation = {
             "name": "Test Organization",
             "email": "harold@testorg.com",
@@ -292,7 +308,6 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
             "skype": "testorg"
         }
 
-
         self.browser.fill('name', organisation['name'])
         self.browser.fill('email', organisation['email'])
         self.browser.fill('phone', organisation['phone'])
@@ -301,19 +316,47 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         self.browser.fill('facebook', organisation['facebook'])
         self.browser.fill('skype', organisation['skype'])
 
-        self.browser.find_by_css("button.next").first.click()
+        btn = self.browser.attach_file('documents', '{0}/apps/projects/test_images/upload.png'.format(settings.PROJECT_ROOT))
+ 
+        self.scroll_to_and_click_by_css("button.next")
 
-        self.assertTrue(self.browser.is_text_present('BANK DETAILS', wait_time=15))
+        ###
+        # Bank Section
+        ###
 
-        self.browser.find_by_css("button.next").first.click()
+        bank_details = {
+            "name": "Test Organization",
+            "address": "144 Tolstraat",
+            "postcode": "1074 VM",
+            "city": "Amsterdam",
+            "iban": "NL91ABNA0417164300",
+            "bic": "ABNANL2AXXX"
+        }
 
-        self.assertTrue(self.browser.is_text_present('Please fill in all information before submitting', wait_time=15))
+        self.assertTrue(self.is_visible('input[name="account-holder-name"]'))
 
-        self.assertEqual(self.browser.url,
-                         '{0}/en/#!/my/projects/{1}/submit'.format(self.live_server_url,
-                                                                   self.project_data['slug']))
+        self.browser.fill('account-holder-name', bank_details['name'])
+        self.browser.fill('account-holder-address', bank_details['address'])
+        self.browser.fill('account-holder-postcode', bank_details['postcode'])
+        self.browser.fill('account-holder-city', bank_details['city'])
 
-        """
+        self.scroll_to_and_click_by_css('select[name="account-holder-country"]')
+        self.browser.select('account-holder-country', 1)
+
+        self.scroll_to_and_click_by_css('ul.tab-control .tab-first a')
+        
+        self.browser.fill('account-iban', bank_details['iban'])
+        self.browser.fill('account-bic', bank_details['bic'])
+
+        self.scroll_to_and_click_by_css("button.next")
+
+        ###
+        # Submit Section
+        ###
+
+        # TODO: Add a test here to confirm that a valid project was completed by the user
+        #       .... then create a new test for an invalid one.
+        
         # confirm the project record was created
         # TODO: Also check it has the expected fields.
         Project.objects.filter(slug=self.project_data['slug']).exists()
@@ -358,6 +401,8 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
     Selenium tests for Projects.
     """
     def setUp(self):
+        self.init_projects()
+
         super(ProjectWallPostSeleniumTests, self).setUp()
         self.user = BlueBottleUserFactory.create()
         self.login(self.user.email, 'testing')

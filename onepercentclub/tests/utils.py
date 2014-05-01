@@ -1,19 +1,47 @@
-from bluebottle.test.factory_models.projects import ProjectPhaseFactory
+from bluebottle.bb_projects.models import ProjectPhase, ProjectTheme
+from bluebottle.test.factory_models.projects import ProjectPhaseFactory, ProjectThemeFactory
 from bluebottle.test.utils import SeleniumTestCase
+from bluebottle.utils.models import Language
 from django.test import TestCase
-from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
+from bluebottle.test.factory_models.utils import LanguageFactory
 
 
-class OnePercentTestCase(TestCase):
-
-    def init_projects(self):
-        OnePercentProjectFactory.init_related_models()
-
-
-class OnePercentSeleniumTestCase(SeleniumTestCase):
+class InitProjectDataMixin(object):
 
     def init_projects(self):
-        OnePercentProjectFactory.init_related_models()
+        """
+        Set up some basic models needed for project creation.
+        """
+        phase_data = [{'id': 1, 'name': 'Plan - New', 'viewable': False},
+                      {'id': 2, 'name': 'Plan - Submitted', 'viewable': False},
+                      {'id': 3, 'name': 'Plan - Rejected', 'viewable': False},
+                      {'id': 4, 'name': 'Plan - Accepted', 'viewable': True},
+                      {'id': 5, 'name': 'Campaign', 'viewable': True},
+                      {'id': 6, 'name': 'Stopped', 'viewable': False},
+                      {'id': 7, 'name': 'Done - Complete', 'viewable': True},
+                      {'id': 8, 'name': 'Done - Incomplete', 'viewable': True}]
+
+        theme_data = [{'id': 1, 'name': 'Education'},
+                      {'id': 2, 'name': 'Environment'}]
+
+        language_data = [{'id': 1, 'code': 'en', 'language_name': 'English', 'native_name': 'English'},
+                         {'id': 2, 'code': 'nl', 'language_name': 'Dutch', 'native_name': 'Nederlands'}]
+
+        for phase in phase_data:
+            ProjectPhaseFactory.create(**phase)
+
+        for theme in theme_data:
+            ProjectThemeFactory.create(**theme)
+
+        for language in language_data:
+            LanguageFactory.create(**language)
+
+
+class OnePercentTestCase(InitProjectDataMixin, TestCase):
+    pass
+
+
+class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
 
     def login(self, username, password):
         """
@@ -55,33 +83,5 @@ class OnePercentSeleniumTestCase(SeleniumTestCase):
         """
         self.visit_path('', lang_code)
 
-        # # Check if the homepage opened, and the dynamically loaded content appeared.
-        # # Remember that
-        return self.browser.is_text_present('CHOOSE YOUR PROJECT', wait_time=10)
-
-    def assertDatePicked(self):
-        # Pick a deadline next month
-        self.assertTrue(self.scroll_to_and_click_by_css(".hasDatepicker"))
-
-        # Wait for date picker popup
-        self.assertTrue(self.browser.is_element_present_by_css("#ui-datepicker-div"))
-
-        # Click Next to get a date in the future
-        self.browser.find_by_css("[title=Next]").first.click()
-        self.assertTrue(self.browser.is_text_present("10"))
-        self.browser.find_link_by_text("10").first.click()
-
-    def scroll_to_and_click_by_css(self, selector):
-        if self.browser.is_element_present_by_css(selector):
-            element = self.browser.driver.find_element_by_css_selector(selector)
-            self.browser.execute_script("window.scrollTo(0,%s)" % element.location['y']);
-            element.click()
-            return True
-        else:
-            return False
-
-    def assert_css(self, selector, wait_time=5):
-        return self.assertTrue(self.browser.is_element_present_by_css(selector, wait_time=wait_time) )
-
-    def assert_text(self, text, wait_time=5):
-        return self.assertTrue(self.browser.is_text_present(text, wait_time=wait_time) )
+        # Check if the homepage opened, and the dynamically loaded content appeared.
+        return self.wait_for_element_css('#home')
