@@ -1,6 +1,16 @@
 #!/bin/sh
 # Generate, compile, fetch and upload PO-files for the site
 
+# Generate will create PO files.
+# It wil run through some modules that will group some apps together
+# e.g. Members:
+#    echo "Generating PO-files for members"
+#    cd "$APPS_ROOT/members"
+#    INCLUDES="--include=$BB_ROOT/bb_accounts"
+# It will cd to apps/members and then generate PO file including strings for bb_accounts
+
+
+
 SOURCE_LANGUAGE="en"
 MANAGE_PY="$PWD/manage.py"
 SETTINGS=""
@@ -17,12 +27,8 @@ COMPILEMESSAGES="$MANAGE_PY compilemessages $SETTINGS"
 COMPILEJSMESSAGES="$MANAGE_PY compilejsi18n $SETTINGS"
 APPS_DIR="apps"
 
-
-EXCLUDED_APPS=""
+# All apps that hold translations. This is used by `pull` and `compile`.
 APPS="projects members fundraisers organizations tasks homepage donations"
-
-
-# APPS="fund geo organizations projects homepage"
 
 case "$1" in
         generate)
@@ -30,21 +36,21 @@ case "$1" in
 
             echo "Generating PO-files for members"
             cd "$APPS_ROOT/members"
+            INCLUDES="--include=$BB_ROOT/bb_accounts"
             # Make the locale dir if it's not there.
             if [ ! -d "locale" ]; then
                 mkdir "locale"
             fi
-            INCLUDES="--include=$BB_ROOT/bb_accounts"
             $MANAGE_PY makemessages -l $SOURCE_LANGUAGE $INCLUDES --no-wrap -e hbs,html,txt $SETTINGS
 
 
             echo "Generating PO-files for projects"
             cd "$APPS_ROOT/projects"
+            INCLUDES="--include=$BB_ROOT/bb_projects"
             # Make the locale dir if it's not there.
             if [ ! -d "locale" ]; then
                 mkdir "locale"
             fi
-            INCLUDES="--include=$BB_ROOT/bb_projects"
             $MANAGE_PY makemessages -l $SOURCE_LANGUAGE $INCLUDES --no-wrap -e hbs,html,txt $SETTINGS
 
 
@@ -58,47 +64,48 @@ case "$1" in
 
 
             echo "Generating PO-files for organizations"
+            cd "$APPS_ROOT/organizations"
+            INCLUDES="--include=$BB_ROOT/bb_organizations"
             # Make the locale dir if it's not there.
             if [ ! -d "locale" ]; then
                 mkdir "locale"
             fi
-            cd "$APPS_ROOT/organizations"
-            INCLUDES="--include=$BB_ROOT/bb_organizations"
             $MANAGE_PY makemessages -l $SOURCE_LANGUAGE $INCLUDES --no-wrap -e hbs,html,txt $SETTINGS
 
 
             echo "Generating PO-files for tasks"
             cd "$APPS_ROOT/tasks"
+            INCLUDES="--include=$BB_ROOT/bb_tasks"
             # Make the locale dir if it's not there.
             if [ ! -d "locale" ]; then
                 mkdir "locale"
             fi
-            INCLUDES="--include=$BB_ROOT/bb_tasks"
             $MANAGE_PY makemessages -l $SOURCE_LANGUAGE $INCLUDES --no-wrap -e hbs,html,txt $SETTINGS
 
 
             echo "Generating PO-files for wallposts, pages, news and homepage"
             cd "$APPS_ROOT/homepage"
+            INCLUDES="--include=$APPS_ROOT/core/ --include=$BB_ROOT/wallposts --include=$BB_ROOT/pages --include=$BB_ROOT/quotes --include=$BB_ROOT/slides --include=$BB_ROOT/contact --include=$BB_ROOT/news"
             # Make the locale dir if it's not there.
             if [ ! -d "locale" ]; then
                 mkdir "locale"
             fi
-            INCLUDES="--include=$APPS_ROOT/core/ --include=$BB_ROOT/wallposts --include=$BB_ROOT/pages --include=$BB_ROOT/quotes --include=$BB_ROOT/slides --include=$BB_ROOT/contact --include=$BB_ROOT/news"
             $MANAGE_PY makemessages -l $SOURCE_LANGUAGE $INCLUDES --no-wrap -e hbs,html,txt $SETTINGS
 
 
             echo "Generating PO-files for donations and payments"
             cd "$APPS_ROOT/donations"
+            INCLUDES="--include=$APPS_ROOT/fund --include=$APPS_ROOT/payouts --include=$APPS_ROOT/cowry --include=$APPS_ROOT/cowry_docdata --include=$APPS_ROOT/cowry_docdata_legacy"
             # Make the locale dir if it's not there.
             if [ ! -d "locale" ]; then
                 mkdir "locale"
             fi
-            INCLUDES="--include=$APPS_ROOT/fund --include=$APPS_ROOT/payouts --include=$APPS_ROOT/cowry --include=$APPS_ROOT/cowry_docdata --include=$APPS_ROOT/cowry_docdata_legacy"
             $MANAGE_PY makemessages -l $SOURCE_LANGUAGE $INCLUDES --no-wrap -e hbs,html,txt $SETTINGS
 
 
             echo "Generating PO-file for javascripts"
             cd "$APPS_ROOT/core"
+
             # Make the locale dir if it's not there.
             if [ ! -d "locale" ]; then
                 mkdir "locale"
@@ -116,6 +123,8 @@ case "$1" in
         pull)
             echo "Fetching PO files from Transifex"
             tx pull -a
+
+            # Copy en_GB translations to en
             for APP_DIR in $APPS; do
                 DIR="apps/$APP_DIR"
                 cp $DIR/locale/en_GB/LC_MESSAGES/*.po $DIR/locale/en/LC_MESSAGES/
@@ -130,8 +139,6 @@ case "$1" in
                 (cd $DIR && $COMPILEMESSAGES)
             done
 
-            echo "Generating PO-file for templates"
-            $COMPILEMESSAGES
             echo "Generating PO-file for javascript"
             $COMPILEJSMESSAGES
 
