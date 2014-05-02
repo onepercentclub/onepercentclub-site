@@ -61,6 +61,11 @@ App.MyProjectStoryController.reopen({
     nextStep: 'myProject.organisation'
 });
 
-App.ProjectSupportersListController = Em.ArrayController.extend({
-    needs: ['project']
+App.ProjectSupporterListController = Em.Controller.extend({
+    needs: ['project'],
+
+    supporters: function(){
+        var project_id = this.get('controllers.project.id')
+        return App.ProjectSupporter.find({project: project_id});
+    }.property('controllers.project.id')
 });

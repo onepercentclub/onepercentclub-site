@@ -1,0 +1,17 @@
+{% load bb_ember %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "project_supporter" %}
+
+    {{#if supporter.member}}
+        <a class="member" {{action 'openInBigBox' 'userModal' supporter.member }} {{bindAttr data-title="supporter.member.full_name" data-content="supporter.time_since"}}>
+            <span class="member-avatar"><img {{bindAttr src="supporter.member.avatar" alt="supporter.member.full_name"}} /></span>
+        </a>
+    {{else}}
+        <a class="member" data-title="guest" {{bindAttr data-content="supporter.time_since"}}>
+            <span class="member-avatar"><img src="/static/assets/images/default-avatar.png"  alt="{% trans 'Guest' %}" /></span>
+        </a>
+    {{/if}}
+
+{% endtplhandlebars %}
