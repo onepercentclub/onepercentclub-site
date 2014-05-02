@@ -22,7 +22,6 @@ from .signals import project_funded
 class ProjectManager(models.Manager):
 
     def order_by(self, field):
-
         if field == 'amount_asked':
             qs = self.get_query_set()
             qs = qs.filter(status__in=[ProjectPhase.objects.get(slug="campaign"),
@@ -57,16 +56,18 @@ class ProjectManager(models.Manager):
             qs = qs.order_by('popularity')
             return qs
 
+        if field == 'popularity':
+            qs = self.get_query_set()
+            qs = qs.order_by('-popularity')
+            qs = qs.filter(amount_needed__gt=0)
+            qs = qs.filter(status=ProjectPhase.objects.get(slug="campaign"))
+            return qs
+
         qs = super(ProjectManager, self).order_by(field)
         return qs
 
 
 class Project(BaseProject):
-    """ The base Project model. """
-
-    # coach = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("coach"), help_text=_("Assistent at 1%OFFICE"), related_name="team_member", null=True, blank=True)
-
-    # It's project status foreign key to ProjectPhase
 
     partner_organization = models.ForeignKey('projects.PartnerOrganization', null=True, blank=True)
 
@@ -97,7 +98,7 @@ class Project(BaseProject):
     allow_overfunding = models.BooleanField(default=True)
     story = models.TextField(_("story"), help_text=_("This is the help text for the story field"), blank=True, null=True)
 
-    # TODO: add
+    # TODO: Remove these fields?
     effects = models.TextField(_("effects"), help_text=_("What will be the Impact? How will your Smart Idea change the lives of people?"), blank=True, null=True)
     for_who = models.TextField(_("for who"), help_text=_("Describe your target group"), blank=True, null=True)
     future = models.TextField(_("future"), help_text=_("How will this project be self-sufficient and sustainable in the long term?"), blank=True, null=True)
