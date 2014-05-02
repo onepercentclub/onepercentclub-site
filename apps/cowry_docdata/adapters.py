@@ -61,7 +61,7 @@ default_payment_methods = {
     },
 
     'dd-direct-debit': {
-        'id': 'DIRECT_DEBIT',
+        'id': 'SEPA_DIRECT_DEBIT',
         'profile': 'directdebit',
         'name': 'Direct Debit',
         'max_amount': 10000,  # €100
