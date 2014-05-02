@@ -133,6 +133,7 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
         # Click on the NEXT button
         self.browser.find_by_css('button.btn-next').first.click()
 
+        # FIXME: These tests fail on Travis.
         # self.assertTrue(self.browser.is_element_present_by_css('.btn-skip', wait_time=5))
         #
         # # Don't sign up. Skip this form.
