@@ -15,7 +15,7 @@ from apps.cowry_docdata.exceptions import DocDataPaymentException
 from apps.cowry_docdata.models import DocDataPaymentOrder
 from apps.fund.models import RecurringDirectDebitPayment, Order, OrderStatuses, Donation
 from apps.projects.models import Project
-from ...mails import mail_monthly_donation_processed_notification
+#from .mails import mail_monthly_donation_processed_notification
 
 
 logger = logging.getLogger(__name__)
@@ -133,7 +133,7 @@ def create_recurring_order(user, projects, order=None):
 
     for p in projects:
         project = Project.objects.get(id=p.id)
-        if project.phase == ProjectPhase.objects.get(slug="campaign"):
+        if project.status == ProjectPhase.objects.get(slug="campaign"):
             Donation.objects.create(user=user, project=project, amount=0, currency='EUR',
                                     donation_type=Donation.DonationTypes.recurring, order=order)
     return order
@@ -188,7 +188,7 @@ def process_monthly_donations(recurring_payments_queryset, send_email):
 
     logger.info("Config: Using these projects as 'Top Three':")
     for project in top_three_projects:
-        logger.info("  {0}".format(project.title))
+        logger.info("  {0}".format(project.title.encode("utf8")))
 
     # The main loop that processes each monthly donation.
     for recurring_payment in recurring_payments_queryset:
@@ -239,7 +239,7 @@ def process_monthly_donations(recurring_payments_queryset, send_email):
         # Remove donations to projects that are no longer in the campaign phase.
         for donation in recurring_order.donations.all():
             project = Project.objects.get(id=donation.project.id)
-            if project.phase != ProjectPhase.objects.get(slug="campaign"):
+            if project.status != ProjectPhase.objects.get(slug="campaign"):
                 donation.delete()
 
         if recurring_order.donations.count() > 0:
