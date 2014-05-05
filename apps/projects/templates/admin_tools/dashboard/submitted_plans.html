@@ -3,10 +3,10 @@
 {% block module_content %}
 <ul>
     {% spaceless %}
-    {% for plan in module.children %}
+    {% for project in module.children %}
     <li class="{% cycle 'odd' 'even' %}">
-        <span class="float-right">{{ plan.created|date }}</span>
-        <a href="{{ admin_url }}projects/projectplan/{{ plan.id }}" >{{ plan.title }}</a>
+        <span class="float-right">{{ project.submitted_date|date }}</span>
+        <a href="{{ admin_url }}projects/project/{{ project.id }}" >{{ project.title }}</a>
     </li>
     {% endfor %}
     {% endspaceless %}
