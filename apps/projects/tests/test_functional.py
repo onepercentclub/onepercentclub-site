@@ -11,6 +11,8 @@ from django.utils.unittest.case import skipUnless
 
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
+from apps.projects.models import Project
+from apps.organizations.models import Organization
 
 from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
 from bluebottle.test.factory_models.geo import CountryFactory
@@ -255,7 +257,14 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         # Goal Section
         ###
 
+        # Wait for next tab to load
         self.assertTrue(self.is_visible('input[name="amount_asked"]'))
+
+        # At this point the project should have been created in the backend... check now.
+        try:
+            Project.objects.get(slug='velit-esse-cillum-dolore')
+        except Project.DoesNotExist:
+            self.fail('Project should have been created')
 
         self.browser.fill('amount_asked', self.project_data['amount_asked'])
 
@@ -326,6 +335,15 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         # Bank Section
         ###
 
+        # Wait for next tab to load
+        self.assertTrue(self.is_visible('input[name="account-holder-name"]'))
+
+        # At this point the organization should have been created in the backend... check now.
+        try:
+            Organization.objects.get(name='Test Organization')
+        except Organization.DoesNotExist:
+            self.fail('Organization should have been created')
+
         bank_details = {
             "name": "Test Organization",
             "address": "144 Tolstraat",
@@ -334,8 +352,6 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
             "iban": "NL91ABNA0417164300",
             "bic": "ABNANL2AXXX"
         }
-
-        self.assertTrue(self.is_visible('input[name="account-holder-name"]'))
 
         self.browser.fill('account-holder-name', bank_details['name'])
         self.browser.fill('account-holder-address', bank_details['address'])
@@ -389,9 +405,7 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
 
         missing_items.first.find_by_css('.action a').click()
 
-        import ipdb; ipdb.set_trace()
         self.assertTrue(self.is_visible('select[name="language"]'), 'Should be redirected to the project pitch tab')
-
 
 
     def test_change_project_goal(self):
