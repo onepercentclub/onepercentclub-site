@@ -1,4 +1,5 @@
 import csv
+from decimal import Decimal
 import math
 import logging
 import traceback
@@ -15,8 +16,7 @@ from apps.cowry_docdata.exceptions import DocDataPaymentException
 from apps.cowry_docdata.models import DocDataPaymentOrder
 from apps.fund.models import RecurringDirectDebitPayment, Order, OrderStatuses, Donation
 from apps.projects.models import Project
-#from .mails import mail_monthly_donation_processed_notification
-
+from ...mails import mail_monthly_donation_processed_notification
 
 logger = logging.getLogger(__name__)
 
@@ -152,7 +152,7 @@ def correct_donation_amounts(popular_projects, recurring_order, recurring_paymen
     """
     remaining_amount = recurring_payment.amount
     num_donations = recurring_order.donations.count()
-    amount_per_project = math.floor(recurring_payment.amount / num_donations)
+    amount_per_project = Decimal(math.floor(recurring_payment.amount / num_donations))
     donations = recurring_order.donations.all()
     logger.info("Really! {0} donations".format(len(donations)))
     for i in range(0, num_donations - 1):
