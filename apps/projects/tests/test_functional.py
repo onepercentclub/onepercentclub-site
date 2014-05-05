@@ -232,6 +232,8 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         # Project Section
         ###
 
+        self.assertTrue(self.is_visible('select[name="language"]'))
+
         self.browser.select('language', 2)
         self.browser.fill('title', self.project_data['title'])
         self.browser.fill('pitch', self.project_data['pitch'])
@@ -360,6 +362,37 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         # confirm the project record was created
         # TODO: Also check it has the expected fields.
         Project.objects.filter(slug=self.project_data['slug']).exists()
+
+
+    def test_project_submit_visibility(self):
+        self.visit_path('/my/projects')
+
+        # Click "Pitch Smart Idea" btn
+        self.assertTrue(self.is_visible('#create_project'))
+        self.browser.find_by_id("create_project").first.click()
+
+        # Jumping to the end/submit page without valid project should hide submit button
+        self.browser.find_by_css("ul#campaign-steps .tab:last-of-type a").first.click()
+
+
+        # Should see list of missing fields and no submit button. 
+        # Use timeout of 0 to return immediately
+        self.assertTrue(self.is_visible('ul.missing-steps'), 'There should be a list of missing fields')
+
+        # Check there is no submit
+        self.assertFalse(self.is_visible('button.btn-submit', timeout=0), 'There should not be a submit button')
+
+        missing_items = self.browser.find_by_css('ul.missing-steps li:not(.introduction)')
+        self.assertTrue(len(missing_items) > 0, 'There should be missing items listed')
+        self.assertTrue(missing_items.first.find_by_css('.category').first.text == 'Project', 'The first missing item should related to the project')
+        self.assertTrue(missing_items.first.find_by_css('.details a').first.text == 'Title', 'The first missing item should be the project title')
+
+        missing_items.first.find_by_css('.action a').click()
+
+        import ipdb; ipdb.set_trace()
+        self.assertTrue(self.is_visible('select[name="language"]'), 'Should be redirected to the project pitch tab')
+
+
 
     def test_change_project_goal(self):
         project = OnePercentProjectFactory.create(title='Project Goal Changes', owner=self.user)
