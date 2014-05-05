@@ -23,6 +23,8 @@ ADMINS = (
     ('Loek van Gent', 'loek@1procentclub.nl'),
 )
 
+CONTACT_EMAIL = 'info@onepercentclub.com'
+
 MANAGERS = ADMINS
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
@@ -260,6 +262,7 @@ INSTALLED_APPS = (
     'bluebottle.utils',
     'bluebottle.common',
     'bluebottle.contentplugins',
+    'bluebottle.contact',
     'bluebottle.geo',
     'bluebottle.pages',
     'bluebottle.wallposts', # Define wall posts before projects/tasks that depend on it.
