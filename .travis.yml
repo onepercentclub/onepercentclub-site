@@ -19,5 +19,5 @@ before_script:
   # - npm install
 
 script:
-  - python ./manage.py test --settings=onepercentclub.settings.travis -v 1
+  - python ./manage.py test --settings=onepercentclub.settings.travis --failfast -v 1
   # - grunt travis --verbose # add --force to pass build on JS failures
