@@ -100,8 +100,7 @@ def update_last_donation(donation, remaining_amount, popular_projects):
     project = Project.objects.get(id=donation.project_id)
 
     # Base case.
-    if project.amount_donated + remaining_amount <= project.amount_asked or \
-            len(popular_projects) == 0:
+    if project.amount_donated + (remaining_amount/100) <= project.amount_asked or len(popular_projects) == 0:
         # The remaining amount won't fill up the project or we have no more projects to try. We're done.
         logger.debug(u"Donation is less than project '{0}' needs. No further adjustments are needed.".format(project.title))
         donation.amount = remaining_amount
@@ -113,7 +112,7 @@ def update_last_donation(donation, remaining_amount, popular_projects):
     else:
         # Fill up the project.
         logger.debug(u"Donation is more than project '{0}' needs. Filling up project and creating new donation.".format(project.title))
-        donation.amount = project.amount_asked - project.amount_donated
+        donation.amount = (project.amount_asked - project.amount_donated) * 100
         donation.donation_type = Donation.DonationTypes.recurring
         donation.save()
 
@@ -154,12 +153,12 @@ def correct_donation_amounts(popular_projects, recurring_order, recurring_paymen
     num_donations = recurring_order.donations.count()
     amount_per_project = Decimal(math.floor(recurring_payment.amount / num_donations))
     donations = recurring_order.donations.all()
-    logger.info("Really! {0} donations".format(len(donations)))
+    logger.info("Processing {0} donations".format(len(donations)))
     for i in range(0, num_donations - 1):
         donation = donations[i]
         project = Project.objects.get(id=donation.project_id)
-        if project.amount_donated + amount_per_project > project.amount_asked:
-            donation.amount = project.amount_asked - project.amount_donated
+        if project.amount_donated + (amount_per_project/100) > project.amount_asked:
+            donation.amount = 100 * (project.amount_asked - project.amount_donated)
         else:
             donation.amount = amount_per_project
         donation.donation_type = Donation.DonationTypes.recurring
