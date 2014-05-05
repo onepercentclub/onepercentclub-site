@@ -37,6 +37,7 @@ App.MyProjectGoalController = App.StandardTabController.extend({
         return (totalBudget && !validBudget);
     }.property('validBudget', 'totalBudget'),
 
+
     actions: {
         addBudgetLine: function(){
             console.log('adding line');
@@ -60,7 +61,11 @@ App.MyProjectStoryController.reopen({
     nextStep: 'myProject.organisation'
 });
 
+App.ProjectSupporterListController = Em.Controller.extend({
+    needs: ['project'],
 
-App.ProjectSupportersListController = Em.ArrayController.extend({
-    needs: ['project']
+    supporters: function(){
+        var project_id = this.get('controllers.project.id')
+        return App.ProjectSupporter.find({project: project_id});
+    }.property('controllers.project.id')
 });

@@ -21,6 +21,10 @@ App.Adapter.map('App.Ticker', {
     project: {embedded: 'load'},
     user: {embedded: 'load'}
 });
+App.Adapter.map('App.ProjectSupporter', {
+    project: {embedded: 'load'},
+    member: {embedded: 'load'}
+});
 
 
 App.Order = DS.Model.extend({
@@ -44,6 +48,20 @@ App.Donation = DS.Model.extend({
     status: DS.attr('string'),
     type: DS.attr('string'),
     order: DS.belongsTo('App.Order')
+});
+
+
+App.ProjectSupporter = DS.Model.extend({
+    url: 'fund/project-supporters',
+
+    project: DS.belongsTo('App.Project'),
+    fundraiser: DS.belongsTo('App.FundRaiser'),
+    member: DS.belongsTo('App.UserPreview'),
+    date_donated: DS.attr('date'),
+
+    time_since: function(){
+        return Globalize.format(this.get('date_donated'), 'X');
+    }.property('date_donated')
 });
 
 

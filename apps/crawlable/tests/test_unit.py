@@ -9,16 +9,18 @@ from django.utils.text import slugify
 
 from ..middleware import HASHBANG, ESCAPED_FRAGMENT, HashbangMiddleware
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
+from onepercentclub.tests.utils import OnePercentTestCase, OnePercentSeleniumTestCase
 
 
 def escape_url(url):
     return url.replace(HASHBANG, '?%s=' % ESCAPED_FRAGMENT)
 
 
-class HashbangMiddlewareTests(TestCase):
+class HashbangMiddlewareTests(OnePercentTestCase):
 
     def setUp(self):
-        ProjectPhaseFactory.create(name='Campaign')
+        self.init_projects()
+
         self.rf = RequestFactory()
         self.middleware = HashbangMiddleware()
 
@@ -43,12 +45,13 @@ class HashbangMiddlewareTests(TestCase):
         self.assertEqual(mock_get_driver.call_count, 1)
 
 
-class CrawlableTests(LiveServerTestCase):
+class CrawlableTests(OnePercentSeleniumTestCase):
     """
     Tests one of the most complex pages, project list, with and without escaped fragments.
     """
     def setUp(self):
-        ProjectPhaseFactory.create(name='Campaign')
+        self.init_projects()
+
         self.projects = dict([(slugify(title), title) for title in [
             u'Women first', u'Mobile payments for everyone!', u'Schools for children '
         ]])

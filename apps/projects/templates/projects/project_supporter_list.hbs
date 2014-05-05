@@ -1,0 +1,17 @@
+{% load bb_ember %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "project_supporter_list" %}
+
+    {{#if supporters.length}}
+        <li class="project-member-supporters">
+            <h4>{% trans "Supporters" %} <em>{{supporters.meta.total}} {% trans "Total" %}</em></h4>
+            <ul>
+                {{#each supporter in supporters}}
+                    {{view "App.ProjectSupporterView" }}
+                {{/each}}
+            </ul>
+        </li>
+    {{/if}}
+{% endtplhandlebars %}
