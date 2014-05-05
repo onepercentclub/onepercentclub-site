@@ -17,16 +17,31 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: templates/admin/base_site.html:4
-msgid "Django site admin"
+#: admin.py:78
+#, python-format
+msgid "%d new records have been imported, %d have been already imported and have been ignored."
 msgstr ""
 
-#: templates/admin/base_site.html:15
+#: admin.py:108
 #, python-format
-msgid "1%%Club"
+msgid "Import %s"
 msgstr ""
 
-#: templates/fluent_dashboard/modules/personal_text.html:4
+#: forms.py:47
+msgid "CSV file"
+msgstr ""
+
+#: forms.py:130
 #, python-format
-msgid "Welcome to the back-office of 1%%Club website."
+msgid "Could not read CSV file: %s"
+msgstr ""
+
+#: templates/admin/csv_import/change_list.html:8
+#, python-format
+msgid "Add %(name)s"
+msgstr ""
+
+#: utils/admin.py:25
+#, python-format
+msgid "%(name)s object with primary key %(key)r does not exist."
 msgstr ""

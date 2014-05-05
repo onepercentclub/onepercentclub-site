@@ -24,24 +24,6 @@ class RecentProjects(DashboardModule):
         self._initialized = True
 
 
-class SubmittedPitches(DashboardModule):
-    title = _('Recently Submitted Pitches')
-    template = 'admin_tools/dashboard/submitted_pitches.html'
-    limit = 10
-
-    def __init__(self, title=None, limit=10, **kwargs):
-        kwargs.update({'limit': limit})
-        super(SubmittedPitches, self).__init__(title, **kwargs)
-
-    def init_with_context(self, context):
-        qs = Project.objects.order_by('created')
-        qs = qs.filter(status=ProjectPhase.objects.get(slug="plan-submitted"))
-        self.children = qs[:self.limit]
-        if not len(self.children):
-            self.pre_content = _('No submitted pitches.')
-        self._initialized = True
-
-
 class SubmittedPlans(DashboardModule):
     title = _('Recently Submitted Plans')
     template = 'admin_tools/dashboard/submitted_plans.html'

@@ -61,7 +61,7 @@ default_payment_methods = {
     },
 
     'dd-direct-debit': {
-        'id': 'DIRECT_DEBIT',
+        'id': 'SEPA_DIRECT_DEBIT',
         'profile': 'directdebit',
         'name': 'Direct Debit',
         'max_amount': 10000,  # €100
@@ -609,7 +609,7 @@ class WebDirectDocDataDirectDebitPaymentAdapter(DocDataPaymentAdapter):
         amount._currency = payment.currency
         paymentRequestInput.paymentAmount = amount
 
-        paymentRequestInput.paymentMethod = 'DIRECT_DEBIT'
+        paymentRequestInput.paymentMethod = 'SEPA_DIRECT_DEBIT'
 
         directDebitPaymentInput = self.client.factory.create('ddp:directDebitPaymentInput')
         directDebitPaymentInput.iban = recurring_payment.iban
@@ -655,7 +655,7 @@ def update_docdata_webdirect_direct_debit_payment(payment, payment_id, recurring
         # Create the DocDataPayment object to save the info and statuses for the WebDirect payment.
         ddpayment = DocDataWebDirectDirectDebit()
         ddpayment.docdata_payment_order = payment
-        ddpayment.payment_method = 'DIRECT_DEBIT'
+        ddpayment.payment_method = 'SEPA_DIRECT_DEBIT'
         ddpayment.payment_id = payment_id
 
     ddpayment.account_city = recurring_payment.city

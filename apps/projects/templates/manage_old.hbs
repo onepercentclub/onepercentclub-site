@@ -1179,6 +1179,9 @@ Need more tips and tricks? Read our <a href="/#!/pages/faq-projects">FAQ</a>.<br
                     <div class="has-errors">{{#each errors.campaign }}<p>{{this}}</p>{{/each}}</div>
                 {{/if}}
             </li>
+
+            {{bb-datepicker hint='What will be the deadline for your project?'
+                label='Deadline' valueBinding=deadline placeholder='Enter date' minDate=0 maxDate="+100D" }}
         </ul>
     </fieldset>
 

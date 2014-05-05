@@ -3,10 +3,10 @@
 {% block module_content %}
 <ul>
     {% spaceless %}
-    {% for campaign in module.children %}
+    {% for project in module.children %}
     <li class="{% cycle 'odd' 'even' %}">
-        <span class="float-right">{{ campaign.created|date }}</span>
-        <a href="{{ admin_url }}projects/projectcampaign/{{ campaign.id }}" >{{ project.title }}</a>
+        <span class="float-right">{{ project.campaign_start|date }}</span>
+        <a href="{{ admin_url }}projects/project/{{ project.id }}" >{{ project.title }}</a>
     </li>
     {% endfor %}
     {% endspaceless %}
@@ -14,7 +14,7 @@
 
 <div class="dashboard-module-content">
     <p>
-        <a href="{{ admin_url }}projects/projectcampaign/">{%  trans "View all campaigns" %}</a>
+        <a href="{{ admin_url }}projects/project/?status__id__exact=5">{%  trans "View all campaigning" %}</a>
     </p>
 </div>
 

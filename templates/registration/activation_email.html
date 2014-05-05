@@ -53,7 +53,10 @@
 
         <tr>
             <td valign="top">
-                {% blocktrans %}Your activation code will expire in {{ expiration_days }} days.{% endblocktrans %}
+                {% blocktrans %}Your activation code will expire in {{ expiration_days }} days.{% endblocktrans %}<br />
+                {% blocktrans %}If the link isn't working for you please copy and paste this url into your browser: {% endblocktrans %}
+                {{ site }}/{{ LANGUAGE_CODE }}/#!/activate/{{ activation_key }}
+
             </td>
         </tr>
 

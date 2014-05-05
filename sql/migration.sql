@@ -318,10 +318,6 @@ ALTER TABLE projects_project DROP COLUMN phase;
 -- Add 'story' column to projects
 ALTER TABLE projects_project ADD COLUMN story text;
 
--- Add 'allow overfunding' column to projects
-ALTER TABLE projects_project ADD COLUMN allow_overfunding boolean DEFAULT TRUE;
-
-
 -- Move the Why What How, Effects and Future fields to Story field
 
 UPDATE projects_project p
@@ -429,6 +425,11 @@ UPDATE django_content_type
       app_label = 'news',
       model = 'newsitem'
   WHERE id = 154;
+
+
+
+-- Rename Contact table. It's in it's own app now.
+ALTER TABLE pages_contactmessage RENAME TO contact_contactmessage;
 
 
 ------------
