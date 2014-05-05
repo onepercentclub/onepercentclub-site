@@ -1,4 +1,5 @@
 import datetime
+from .fields import MoneyField
 from bluebottle.bb_projects.models import BaseProject, ProjectTheme, ProjectPhase
 from django.db import models
 from django.db.models.aggregates import Count, Sum
@@ -91,9 +92,9 @@ class Project(BaseProject):
     is_campaign = models.BooleanField(default=False, help_text=_("Project is part of a campaign and gets special promotion."))
 
     # For convenience and performance we also store money donated and needed here.
-    amount_asked = models.PositiveIntegerField(default=0)
-    amount_donated = models.PositiveIntegerField(default=0)
-    amount_needed = models.PositiveIntegerField(default=0)
+    amount_asked = MoneyField(default=0.00)
+    amount_donated = MoneyField(default=0.00)
+    amount_needed = MoneyField(default=0.00)
 
     allow_overfunding = models.BooleanField(default=True)
     story = models.TextField(_("story"), help_text=_("This is the help text for the story field"), blank=True, null=True)

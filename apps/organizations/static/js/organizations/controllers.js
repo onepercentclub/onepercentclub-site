@@ -1,5 +1,5 @@
 App.MyProjectOrganisationController.reopen({
-	previousStep: 'myProject.story',
+    previousStep: 'myProject.story',
     nextStep: 'myProject.bank'
 });
 

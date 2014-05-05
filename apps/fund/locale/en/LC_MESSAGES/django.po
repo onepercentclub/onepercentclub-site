@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-18 10:23+0100\n"
+"POT-Creation-Date: 2014-04-10 16:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -149,39 +149,39 @@ msgstr ""
 msgid "Order Number"
 msgstr ""
 
-#: models.py:259
+#: models.py:268
 msgid "GIFTCARDS"
 msgstr ""
 
-#: models.py:261
+#: models.py:270
 msgid "GIFTCARD"
 msgstr ""
 
-#: models.py:265
+#: models.py:274
 msgid "DONATIONS"
 msgstr ""
 
-#: models.py:267
+#: models.py:276
 msgid "DONATION"
 msgstr ""
 
-#: models.py:269
+#: models.py:278
 msgid "DONATIONS & GIFTCARDS"
 msgstr ""
 
-#: models.py:270
+#: models.py:279
 msgid "THANK YOU!"
 msgstr ""
 
-#: models.py:284
+#: models.py:293
 msgid "Couldn't generate a unique order number."
 msgstr ""
 
-#: models.py:311
+#: models.py:320
 msgid "I've just supported {title} {{URL}} via @{twitter_handle}"
 msgstr ""
 
-#: models.py:313
+#: models.py:322
 msgid "{{URL}} via @{twitter_handle}"
 msgstr ""
 

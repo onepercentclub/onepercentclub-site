@@ -219,7 +219,8 @@ class ActiveFilter(SimpleListFilter):
 
 
 class RecurringDirectDebitPaymentAdmin(admin.ModelAdmin):
-    list_display = ('user', 'active', 'amount_override')
+
+    list_display = ('user', 'active', 'amount_override', 'account', 'iban', 'iban_ok')
     list_filter = (ActiveFilter,)
     search_fields = ('user__email', 'user__username', 'user__first_name', 'user__last_name', 'account', 'iban', 'bic')
     raw_id_fields = ('user',)
@@ -230,5 +231,13 @@ class RecurringDirectDebitPaymentAdmin(admin.ModelAdmin):
         return format_currency(obj.amount / 100.0, obj.currency, locale=language)
 
     amount_override.short_description = 'amount'
+
+    def iban_ok(self, obj):
+        if obj.account in obj.iban:
+            return 'OK'
+        return 'CHECK IBAN'
+
+
+
 
 admin.site.register(RecurringDirectDebitPayment, RecurringDirectDebitPaymentAdmin)

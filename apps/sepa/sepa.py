@@ -3,18 +3,17 @@
 # It takes specifics for Rabobank (The Netherlands)
 # https://www.rabobank.com/en/images/SEPA%20Credit%20Transfer%20format%20description%20v1.0.pdf
 
-from decimal import Decimal
-from xml.etree.ElementTree import Element, SubElement, tostring
-from django.utils import timezone
+import decimal
+
+from django.utils.timezone import datetime
+
+from lxml.etree import Element, SubElement, tostring
 
 
 class CreditTransfer(object):
     """
     SEPA Credit Transfer Transaction Information.
     """
-
-    # string Payment ID.
-    transfer_id = None
 
     end_to_end_id = None
 
@@ -28,9 +27,6 @@ class DirectDebit(object):
     """
     SEPA (Direct) Debit Transfer Transaction Information.
     """
-
-    # string Payment ID.
-    transfer_id = None
 
     end_to_end_id = None
 
@@ -46,7 +42,6 @@ class InitiatingParty(object):
 
     def __init__(self, *args, **kwargs):
         self.name = kwargs['name']
-        self.id = kwargs['id']
 
 
 class SepaAccount(object):
@@ -79,7 +74,7 @@ class SepaDocument(object):
     currency = 'EUR'
 
     # Total amount of all transactions
-    _header_control_sum_cents = 0
+    _header_control_sum = decimal.Decimal('0.00')
 
     # Array to hold the transfers
     _credit_transfers = []
@@ -137,11 +132,12 @@ class SepaDocument(object):
 
     def as_xml(self):
         """ Return the XML string. """
-        return tostring(self._generate_xml())
+        return tostring(self._generate_xml(),
+            xml_declaration=True, encoding='UTF-8', pretty_print=True)
 
-    def get_header_control_sum_cents(self):
+    def get_header_control_sum(self):
         """ Get the header control sum in cents """
-        return self._header_control_sum_cents
+        return self._header_control_sum
 
     def add_direct_debit(self, *args, **kwargs):
         """ Add a direct debit transaction. """
@@ -151,7 +147,8 @@ class SepaDocument(object):
         transfer = DirectDebit()
 
         transfer.creditor_payment_id = kwargs['creditor_payment_id']
-        transfer.amount = kwargs['amount']
+
+        transfer.amount = decimal.Decimal(kwargs['amount'])
 
         transfer.creditor = kwargs['creditor']
 
@@ -161,7 +158,7 @@ class SepaDocument(object):
         transfer.remittance_information = getattr(kwargs, 'remittance_information', '')
 
         self._credit_transfers.append(transfer)
-        self._header_control_sum_cents += transfer.amount
+        self._header_control_sum += transfer.amount
 
 
     def add_credit_transfer(self, *args, **kwargs):
@@ -172,7 +169,7 @@ class SepaDocument(object):
         transfer = CreditTransfer()
 
         transfer.creditor_payment_id = kwargs['creditor_payment_id']
-        transfer.amount = kwargs['amount']
+        transfer.amount = decimal.Decimal(kwargs['amount'])
         transfer.creditor = kwargs['creditor']
 
         transfer.end_to_end_id = str(self.message_identification) + '-' + str(len(self._credit_transfers))
@@ -181,15 +178,19 @@ class SepaDocument(object):
         transfer.remittance_information = getattr(kwargs, 'remittance_information', '')
 
         self._credit_transfers.append(transfer)
-        self._header_control_sum_cents += transfer.amount
+        self._header_control_sum += transfer.amount
 
     def _generate_xml(self):
         """
         This were all is put together into an xml.
         """
-        document = Element('Document')
-        document.set('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance')
-        document.set('xmlns', 'urn:iso:std:iso:20022:tech:xsd:pain.001.001.03')
+        namespaces = {
+            # Default
+            None: 'urn:iso:std:iso:20022:tech:xsd:pain.001.001.03',
+            'xsi': 'http://www.w3.org/2001/XMLSchema-instance'
+        }
+
+        document = Element('Document', nsmap=namespaces)
 
         if self._type is 'CT':
             main = SubElement(document, 'CstmrCdtTrfInitn')
@@ -203,93 +204,252 @@ class SepaDocument(object):
 
         SubElement(grp_hdr, 'MsgId').text = str(self.message_identification)
 
-        SubElement(grp_hdr, 'CreDtTm').text = timezone.datetime.strftime(timezone.now(), '%Y-%m-%dT%H:%I:%S')
-
-        if self.is_test:
-            prtry = SubElement(grp_hdr, 'Prtry').text = 'TEST'
+        SubElement(grp_hdr, 'CreDtTm').text = datetime.strftime(datetime.now(), '%Y-%m-%dT%H:%I:%S')
 
         SubElement(grp_hdr, 'NbOfTxs').text = str(len(self._credit_transfers))
 
-        SubElement(grp_hdr, 'CtrlSum').text = self._int_to_currency(self._header_control_sum_cents)
+        SubElement(grp_hdr, 'CtrlSum').text = str(self._header_control_sum)
 
-        SubElement(grp_hdr, 'Grpg').text = 'SNGL'
-
-        if self.initiating_party:
-            initg_pty = SubElement(grp_hdr, 'InitgPty')
-            SubElement(initg_pty, 'Id').text = self.initiating_party.id
-            SubElement(initg_pty, 'Nm').text = self.initiating_party.name
+        assert self.initiating_party
+        initg_pty = SubElement(grp_hdr, 'InitgPty')
+        SubElement(initg_pty, 'Nm').text = self.initiating_party.name
 
         # Credit Transfer Transactions Information
         # Rabobank wants only one transaction per payment info so we create multiple payment infos here.
         for transfer in self._credit_transfers:
+            # PaymentInformation
             pmt_inf = SubElement(main, 'PmtInf')
+
+            # PaymentInformationIdentification
+            # PmtInfId
+            SubElement(pmt_inf, 'PmtInfId').text = transfer.creditor_payment_id
 
             if self.category_purpose_code:
                 cd = SubElement(pmt_inf, 'Cd')
                 SubElement(cd, 'CtgyPurp').text = self.category_purpose_code
 
+            # PaymentMethod
             SubElement(pmt_inf, 'PmtMtd').text = self._payment_method
+
+            # BatchBooking [optional]
+            # BtchBookg
+
+            # NumberofTransactions
             SubElement(pmt_inf, 'NbOfTxs').text = "1"
 
+            # ControlSum [optional]
+            # CtrlSum
+
+            # PaymentTypeInformation
             pmt_tp_inf = SubElement(pmt_inf, 'PmtTpInf')
+
+            # InstructionPriority [optional]
+            # InstrPrty
+
+            # ServiceLevel
             svc_lvl = SubElement(pmt_tp_inf, 'SvcLvl')
+
+            # Code
             SubElement(svc_lvl, 'Cd').text = 'SEPA'
 
             if self._local_instrument_code:
+                # LocalInstrument
                 lcl_instr = SubElement(pmt_inf, 'LclInstr')
+
+                # Code
                 SubElement(lcl_instr, 'Cd').text = self._local_instrument_code
 
-            SubElement(pmt_inf, 'ReqdExctnDt').text = timezone.datetime.strftime(timezone.now(), '%Y-%m-%d')
+                # Proprietary [otional]
+                # Prtry
 
+            # CategoryPurpose [optional
+            # CtgyPurp
+            #
+            #  - Cd Code
+            #  - Prtry Proprietary
+
+            # RequestedExecutionDate
+            SubElement(pmt_inf, 'ReqdExctnDt').text = datetime.strftime(datetime.now(), '%Y-%m-%d')
+
+            # Debtor
             dbtr = SubElement(pmt_inf, 'Dbtr')
+
+            # Name
             SubElement(dbtr, 'Nm').text = self.debtor.name
 
+            # PostalAddress [optional]
+            # PstlAdr
+            #
+            # - Country [optional]
+            # - Ctry
+            #
+            # - AddressLine [optional]
+            # - AdrLine
+
+            # Identification [optional]
+            # Id
+
+            # DebtorAccount
             dbtr_acct = SubElement(pmt_inf, 'DbtrAcct')
+
+            # Identification
             dbtr_id = SubElement(dbtr_acct, 'Id')
+
+            # IBAN
             SubElement(dbtr_id, 'IBAN').text = self.debtor.iban
+
+            # Currency
             SubElement(dbtr_acct, 'Ccy').text = self.currency
 
+            # DebtorAgent
             dbtr_agt = SubElement(pmt_inf, 'DbtrAgt')
+
+            # FinancialInstitutionIdentification
             fin_isnstn_id = SubElement(dbtr_agt, 'FinInstnId')
+
+            # BIC
             SubElement(fin_isnstn_id, 'BIC').text = self.debtor.bic
 
+            # UltimateDebtor [optional]
+            # UltmtDbtr
+            # - Name
+            # - Nm
+            #
+            # - Identification
+            # - Id
+
+            # ChargeBearer
             SubElement(pmt_inf, 'ChrgBr').text = 'SLEV'
 
-            amount = self._int_to_currency(transfer.amount)
-
+            # CTTransactionInformation
             cd_trf_tx_inf = SubElement(pmt_inf, 'CdtTrfTxInf')
 
+            # PaymentIdentification
             pmt_id = SubElement(cd_trf_tx_inf, 'PmtId')
-            SubElement(pmt_id, 'InstrId').text = transfer.transfer_id
+
+            # InstructionIdentification
+            # InstrId [optional]
+
+            # End to End Identification
             SubElement(pmt_id, 'EndToEndId').text = transfer.end_to_end_id
 
-            amt = SubElement(cd_trf_tx_inf, 'Amt')
-            instd_amt = SubElement(amt, 'InstdAmt', {'Ccy': transfer.currency})
-            instd_amt.text = amount
+            # PaymentTypeInformation [optional]
+            # PmtTpInf
 
+            # ServiceLevel
+            # SvcLvl [optional]
+            #
+            # - Code
+            # - Cd
+
+            # LocalInstrument [optional]
+            # LclInstrm
+            #
+            # - Code
+            # - Cd
+            #
+            # - Proprietary
+            # - Prtry
+
+            # CategoryPurpose [optional]
+            # CtgyPurp
+            #
+            # - Code
+            # - Cd
+
+            # Amount
+            amt = SubElement(cd_trf_tx_inf, 'Amt')
+
+            # InstructedAmount
+            instd_amt = SubElement(amt, 'InstdAmt', {'Ccy': transfer.currency})
+            instd_amt.text = str(transfer.amount)
+
+            # Charge Bearer [optional]
+            # ChrgBr
+
+            # UltimateDebtor [optional]
+            # UltmtDbtr
+            # - Name
+            # - Nm
+            #
+            # - Identification
+            # - Id
+
+            # Creditor Agent
             cdtr_agt = SubElement(cd_trf_tx_inf, 'CdtrAgt')
+
+            # FinancialInstitutionIdentification
             fin_inst_id = SubElement(cdtr_agt, 'FinInstnId')
+
+            # BIC
             bic = SubElement(fin_inst_id, 'BIC')
             bic.text = transfer.creditor.bic
 
+            # Creditor
             cdrt = SubElement(cd_trf_tx_inf, 'Cdtr')
+
+            # Name
             SubElement(cdrt, 'Nm').text = transfer.creditor.name
 
+            # PostalAddress [optional]
+            # PstlAdr
+            #
+            # - Country [optional]
+            # - Ctry
+            #
+            # - AddressLine [optional]
+            # - AdrLine
+
+            # Identification [optional]
+            # Id
+
+            # Creditor Account
             cdtr_acct = SubElement(cd_trf_tx_inf, 'CdtrAcct')
+
+            # Id
             cdtr_id = SubElement(cdtr_acct, 'Id')
+
+            # IBAN
             SubElement(cdtr_id, 'IBAN').text = transfer.creditor.iban
 
-            rmt_inf = SubElement(cd_trf_tx_inf, 'RmtInf')
-            SubElement(rmt_inf, 'Ustrd').text = transfer.remittance_information
+            # Currency [optional]
+            # Ccy
 
-            SubElement(cd_trf_tx_inf, 'ChrgBr').text = 'SLEV'
+            # Name [optional]
+            # Nm
+
+            # UltimateDebtor [optional]
+            # UltmtDbtr
+            # - Name
+            # - Nm
+            #
+            # - Identification
+            # - Id
+
+            # Purpose [optional]
+            # Purp
+            #
+            # - Code
+            # - Cd
+
+            # RemittanceInformation
+            rmt_inf = SubElement(cd_trf_tx_inf, 'RmtInf')
+
+            # Unstructured
+            if transfer.remittance_information:
+                SubElement(rmt_inf, 'Ustrd').text = transfer.remittance_information
+
+            # Structured (optional)
+            #
+            # - CreditorReferenceInformation (optional)
+            #
+            # - - Type
+            # - - Tp
+            #
+            # - - - CodeOrProprietary
+            # - - - CdOrPrtry
+            # - - - - Code
+            # - - - Issuer
+            # - - Reference
 
         return document
-
-    def _int_to_currency(self, amount):
-        """ Format an integer as a euro value. """
-        amount = Decimal(Decimal(amount) / 100)
-        return "%.2f" % amount
-
-
-

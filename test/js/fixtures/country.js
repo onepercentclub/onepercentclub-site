@@ -100,3 +100,5 @@ App.Country.FIXTURES = [
   {"id":99, "name":"Indonesia", "code":"ID", "oda":true},
   {"id":100, "name":"Iran", "code":"IR", "oda":true}
 ]
+
+App.ProjectSearchCountry.FIXTURES = App.Country.FIXTURES

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-18 10:23+0100\n"
+"POT-Creation-Date: 2014-04-10 16:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,58 +17,295 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: admin.py:56
+#: admin.py:81 admin.py:252
+msgid "Dates"
+msgstr ""
+
+#: admin.py:86
+msgid "Realtime amounts"
+msgstr ""
+
+#: admin.py:91
+msgid "Payout amounts"
+msgstr ""
+
+#: admin.py:94
+msgid "Payment details"
+msgstr ""
+
+#: admin.py:109
+msgid "pending"
+msgstr ""
+
+#: admin.py:118 models.py:203
+msgid "amount raised"
+msgstr ""
+
+#: admin.py:128
+msgid "amount pending"
+msgstr ""
+
+#: admin.py:138
+msgid "amount safe"
+msgstr ""
+
+#: admin.py:148
+msgid "amount failed"
+msgstr ""
+
+#: admin.py:160
 msgid "project"
 msgstr ""
 
-#: models.py:21
+#: admin.py:167
+msgid "organization"
+msgstr ""
+
+#: admin.py:175 admin_filters.py:52
+msgid "has IBAN"
+msgstr ""
+
+#: admin.py:217 admin.py:299
+msgid "Recalculate amounts for new payouts."
+msgstr ""
+
+#: admin.py:257
+msgid "Organization fee"
+msgstr ""
+
+#: admin.py:262
+msgid "PSP fee"
+msgstr ""
+
+#: admin.py:267
+msgid "Other costs"
+msgstr ""
+
+#: admin.py:272
+msgid "Amount payable"
+msgstr ""
+
+#: admin_filters.py:19
+msgid "Yes"
+msgstr ""
+
+#: admin_filters.py:20
+msgid "No"
+msgstr ""
+
+#: admin_filters.py:44
+msgid "pending donations"
+msgstr ""
+
+#: choices.py:8
+msgid "Old 1%/5%"
+msgstr ""
+
+#: choices.py:9
+msgid "5%"
+msgstr ""
+
+#: choices.py:10
+msgid "7%"
+msgstr ""
+
+#: choices.py:11
+msgid "12%"
+msgstr ""
+
+#: choices.py:12
+msgid "Unknown"
+msgstr ""
+
+#: choices.py:13
+msgid "Other"
+msgstr ""
+
+#: choices.py:18
 msgid "New"
 msgstr ""
 
-#: models.py:22
+#: choices.py:19
 msgid "Progress"
 msgstr ""
 
-#: models.py:23
+#: choices.py:20
 msgid "Completed"
 msgstr ""
 
-#: models.py:25
+#: models.py:68
+msgid "Closed"
+msgstr ""
+
+#: models.py:69
+msgid "Book date when the bank transaction was confirmed and the payout has been set to completed."
+msgstr ""
+
+#: models.py:82
+msgid "Closed date is set but status is not completed."
+msgstr ""
+
+#: models.py:97
 msgid "Planned"
 msgstr ""
 
-#: models.py:25
-msgid "Date that this batch should be processed."
+#: models.py:98
+msgid "Date on which this batch should be processed."
 msgstr ""
 
-#: models.py:29
+#: models.py:102
 msgid "status"
 msgstr ""
 
-#: models.py:30 models.py:79 models.py:108
+#: models.py:105
+msgid "created"
+msgstr ""
+
+#: models.py:106
+msgid "updated"
+msgstr ""
+
+#: models.py:159
+msgid "state change"
+msgstr ""
+
+#: models.py:160
+msgid "state changes"
+msgstr ""
+
+#: models.py:166
+msgid "date"
+msgstr ""
+
+#: models.py:169
+msgid "old status"
+msgstr ""
+
+#: models.py:174
+msgid "new status"
+msgstr ""
+
+#: models.py:179
+#, python-format
+msgid "Status change of '%(payout)s' on %(date)s from %(old_status)s to %(new_status)s"
+msgstr ""
+
+#: models.py:197
+msgid "Payout rule"
+msgstr ""
+
+#: models.py:199
+msgid "The payout rule for this project."
+msgstr ""
+
+#: models.py:204
+msgid "Amount raised when Payout was created or last recalculated."
+msgstr ""
+
+#: models.py:208
+msgid "organization fee"
+msgstr ""
+
+#: models.py:209
+msgid "Fee substracted from amount raised for the organization."
+msgstr ""
+
+#: models.py:213
+msgid "amount payable"
+msgstr ""
+
+#: models.py:214
+msgid "Payable amount; raised amount minus organization fee."
+msgstr ""
+
+#: models.py:429
+msgid "start date"
+msgstr ""
+
+#: models.py:430
+msgid "end date"
+msgstr ""
+
+#: models.py:432
+msgid "organization fee excluding VAT"
+msgstr ""
+
+#: models.py:433
+msgid "organization fee VAT"
+msgstr ""
+
+#: models.py:434
+msgid "organization fee including VAT"
+msgstr ""
+
+#: models.py:436
+msgid "PSP fee excluding VAT"
+msgstr ""
+
+#: models.py:437
+msgid "PSP fee VAT"
+msgstr ""
+
+#: models.py:438
+msgid "PSP fee including VAT"
+msgstr ""
+
+#: models.py:441
+msgid "other costs excluding VAT"
+msgstr ""
+
+#: models.py:443
+msgid "Set either this value or inclusive VAT, make sure recalculate afterwards."
+msgstr ""
+
+#: models.py:447
+msgid "other costs VAT"
+msgstr ""
+
+#: models.py:449
+msgid "other costs including VAT"
+msgstr ""
+
+#: models.py:451
+msgid "Set either this value or exclusive VAT, make sure recalculate afterwards."
+msgstr ""
+
+#: models.py:455
+msgid "payable amount excluding VAT"
+msgstr ""
+
+#: models.py:456
+msgid "payable amount VAT"
+msgstr ""
+
+#: models.py:457
+msgid "payable amount including VAT"
+msgstr ""
+
+#: models.py:581
+msgid "Start date should be earlier than date."
+msgstr ""
+
+#: models.py:592
+msgid "The next payout period should start the day after the end of the previous period."
+msgstr ""
+
+#: models.py:615
+msgid "Other costs have changed, please recalculate before progessing."
+msgstr ""
+
+#: models.py:663 models.py:691
 msgid "Created"
 msgstr ""
 
-#: models.py:31
-msgid "Updated"
-msgstr ""
-
-#: models.py:32
-msgid "Amount"
-msgstr ""
-
-#: models.py:33
-msgid "Currency"
-msgstr ""
-
-#: models.py:84
+#: models.py:668
 msgid "Date started"
 msgstr ""
 
-#: models.py:85
+#: models.py:669
 msgid "Debet/Credit"
 msgstr ""
 
-#: models.py:109
+#: models.py:692
 msgid "Uploaded mutation file"
 msgstr ""

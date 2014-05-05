@@ -265,7 +265,7 @@ App.PaymentSelectController = Em.ObjectController.extend({
         if (this.get('paymentProfile.country') == 'NL') {
             return [
                 {'id':'IDEAL', 'name': 'IDEAL'},
-                {'id':'DIRECT_DEBIT', 'name': 'Automatische Incasso'},
+                {'id':'SEPA_DIRECT_DEBIT', 'name': 'Automatische Incasso'},
                 {'id':'MASTERCARD', 'name': 'Mastercard'},
                 {'id':'VISA', 'name': 'Visa'}
             ];

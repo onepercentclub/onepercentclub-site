@@ -45,21 +45,56 @@ App.FundRaiserEditController = App.FundRaiserNewController.extend({
 });
 
 
+App.ProjectFundRaiserAllController = Em.ArrayController.extend({
+    actions: {
+        showFundraiser: function(fundraiser){
+            $('.modal-close').click();
+            this.transitionToRoute('fundRaiser', fundraiser);
+        }
+    }
+});
+
+
+
 App.ProjectFundRaiserListController = Em.ArrayController.extend({
-    needs: ['project'],
+    needs: ['project', 'projectFundRaiserAll'],
+
     project: Ember.computed.oneWay('controllers.project.model'), 
 
     fundraisers: function () {
         return App.FundRaiser.find({project: this.get('project.slug')});
     }.property('project'),
+    
+	fundraisersLoaded: function(sender, key) {
+		if (this.get(key)) {
+			this.set('model', this.get('fundraisers').toArray());
+		} else {
+			this.set('model', null);
+		}
+	}.observes('fundraisers.isLoaded'),
 
-    fundraisersLoaded: function(sender, key) {
-        if (this.get(key)) {
-            this.set('model', this.get('fundraisers').toArray());
-        } else {
-            this.set('model', null);
+    actions: {
+        showAllFundraisers: function(project){
+            // Get the controller or create one
+            var controller = this.get('controllers.projectFundRaiserAll');
+            controller.set('model', App.FundRaiser.find({project: project.get('id'), page_size: 200}));
+
+            // Get the view. This should be defined.
+            var view = App.ProjectFundRaiserAllView.create();
+            view.set('controller', controller);
+
+            var modalPaneTemplate = ['<div class="modal-wrapper"><a class="modal-close" rel="close">&times;</a>{{view view.bodyViewClass}}</div>'].join("\n");
+
+            Bootstrap.ModalPane.popup({
+                classNames: ['modal', 'large'],
+                defaultTemplate: Em.Handlebars.compile(modalPaneTemplate),
+                bodyViewClass: view,
+                secondary: 'Close'
+            });
+
         }
-    }.observes('fundraisers.isLoaded')
+    }
+
 });
 
 

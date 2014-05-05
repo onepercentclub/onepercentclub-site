@@ -304,7 +304,10 @@ class Payout(PayoutBase):
         assert self.status == PayoutLineStatuses.new, \
             'Can only recalculate for new Payout.'
 
-        self.payout_rule = self._get_payout_rule()
+        # Set payout rule if none set.
+        if not self.payout_rule:
+            self.payout_rule = self._get_payout_rule()
+
         fee_factor = self._get_fee_percentage()
 
         self.amount_raised = self.get_amount_raised()
@@ -369,6 +372,39 @@ class Payout(PayoutBase):
             return decimal.Decimal('0.00')
 
         return amount_failed
+
+    @classmethod
+    def create_sepa_xml(cls, qs):
+        """ Create a SEPA XML file for Payouts in QuerySet. """
+
+        batch_id = timezone.datetime.strftime(timezone.now(), '%Y%m%d%H%I%S')
+
+        sepa = SepaDocument(type='CT')
+        debtor = SepaAccount(
+            name=settings.SEPA['name'],
+            iban=settings.SEPA['iban'],
+            bic=settings.SEPA['bic']
+        )
+
+        sepa.set_debtor(debtor)
+        sepa.set_info(
+            message_identification=batch_id, payment_info_id=batch_id)
+        sepa.set_initiating_party(name=settings.SEPA['name'])
+
+        for payout in qs.all():
+            creditor = SepaAccount(
+                name=payout.receiver_account_name,
+                iban=payout.receiver_account_iban,
+                bic=payout.receiver_account_bic
+            )
+
+            sepa.add_credit_transfer(
+                creditor=creditor,
+                amount=payout.amount_payable,
+                creditor_payment_id=payout.invoice_reference
+            )
+
+        return sepa.as_xml()
 
     def __unicode__(self):
         date = self.created.strftime('%d-%m-%Y')
@@ -684,22 +720,7 @@ class BankMutation(models.Model):
         return "Bank Mutations " + str(self.created.strftime('%B %Y'))
 
 
-# TODO: These should probably be methods of some model somewhere
-def create_sepa_xml(payouts):
-    batch_id = timezone.datetime.strftime(timezone.now(), '%Y%m%d%H%I%S')
-    sepa = SepaDocument(type='CT')
-    debtor = SepaAccount(name=settings.SEPA['name'], iban=settings.SEPA['iban'], bic=settings.SEPA['bic'])
-    sepa.set_debtor(debtor)
-    sepa.set_info(message_identification=batch_id, payment_info_id=batch_id)
-    sepa.set_initiating_party(name=settings.SEPA['name'], id=settings.SEPA['id'])
-
-    for line in payouts.all():
-        creditor = SepaAccount(name=line.receiver_account_name, iban=line.receiver_account_iban,
-                               bic=line.receiver_account_bic)
-        sepa.add_credit_transfer(creditor=creditor, amount=line.amount, creditor_payment_id=line.invoice_reference)
-    return sepa.as_xml()
-
-
+# TODO: This should probably be methods of some model somewhere
 def match_debit_mutations():
     lines = BankMutationLine.objects.filter(dc='D', payout__isnull=True).all()
     for line in lines:

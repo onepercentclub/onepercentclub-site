@@ -1,0 +1,47 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-04-10 16:33+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: admin.py:78
+#, python-format
+msgid "%d new records have been imported, %d have been already imported and have been ignored."
+msgstr ""
+
+#: admin.py:108
+#, python-format
+msgid "Import %s"
+msgstr ""
+
+#: forms.py:47
+msgid "CSV file"
+msgstr ""
+
+#: forms.py:130
+#, python-format
+msgid "Could not read CSV file: %s"
+msgstr ""
+
+#: templates/admin/csv_import/change_list.html:8
+#, python-format
+msgid "Add %(name)s"
+msgstr ""
+
+#: utils/admin.py:25
+#, python-format
+msgid "%(name)s object with primary key %(key)r does not exist."
+msgstr ""

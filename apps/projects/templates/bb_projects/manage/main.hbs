@@ -34,56 +34,70 @@
                     </div>
                     <ul id="campaign-steps" class="{{#if isPhasePlanNew}} steps {{else}} tabs {{/if}}">
                         {{#if isPhasePlanNew}}
-                            <li class="tab">{{#link-to "myProject.start" classBinding=":tab-link :validated"}}
-                                {{#if validStart}}
-                                    <span class="flaticon solid checkmark-1 "></span>
-                                {{/if}}
-                                {% trans "Start" %}
-                            {{/link-to}}</li>
+                            <li class="tab">
+                                {{#link-to "myProject.start" classBinding=":tab-link :validated"}}
+                                    {{#if validStart}}
+                                        <span class="flaticon solid checkmark-1 "></span>
+                                    {{/if}}
+                                    {% trans "Start" %}
+                                {{/link-to}}
+                            </li>
                         {{/if}}
 
-                        <li class="tab">{{#link-to "myProject.pitch" classBinding=":tab-link validPitch:validated"}}
-                            {{#if validPitch}}
-                                {{#if isPhasePlanNew}}<span class="flaticon solid checkmark-1"></span>{{/if}}
-                            {{/if}}
-                            {% trans "Project" %}
-                        {{/link-to}}</li>
+                        <li class="tab">
+                            {{#link-to "myProject.pitch" classBinding=":tab-link validPitch:validated"}}
+                                {{#if validPitch}}
+                                    {{#if isPhasePlanNew}}<span class="flaticon solid checkmark-1"></span>{{/if}}
+                                {{/if}}
+                                {% trans "Project" %}
+                            {{/link-to}}
+                        </li>
 
-                        <li class="tab">{{#link-to "myProject.goal" classBinding=":tab-link validGoal:validated"}}
-                            {{#if validGoal}}
-                                {{#if isPhasePlanNew}}<span class="flaticon solid checkmark-1"></span>{{/if}}
-                            {{/if}}
-                            {% trans "Goal" %}
-                        {{/link-to}}</li>
+                        <li class="tab">
+                            {{#link-to "myProject.goal" classBinding=":tab-link validGoal:validated"}}
+                                {{#if validGoal}}
+                                    {{#if isPhasePlanNew}}<span class="flaticon solid checkmark-1"></span>{{/if}}
+                                {{/if}}
+                                {% trans "Goal" %}
+                            {{/link-to}}
+                        </li>
 
-                        <li class="tab">{{#link-to "myProject.story" classBinding=":tab-link validStory:validated"}}
-                            {{#if validStory}}
-                                {{#if isPhasePlanNew}}<span class="flaticon solid checkmark-1"></span>{{/if}}
-                            {{/if}}
-                            {% trans "Description" %}
-                        {{/link-to}}</li>
+                        <li class="tab">
+                            {{#link-to "myProject.story" classBinding=":tab-link validStory:validated"}}
+                                {{#if validStory}}
+                                    {{#if isPhasePlanNew}}<span class="flaticon solid checkmark-1"></span>{{/if}}
+                                {{/if}}
+                                {% trans "Description" %}
+                            {{/link-to}}
+                        </li>
 
-                        <li class="tab">{{#link-to "myProject.organisation" classBinding=":tab-link validOrganization:validated"}}
-                            {{#if validOrganization}}
-                                {{#if isPhasePlanNew}}<span class="flaticon solid checkmark-1"></span>{{/if}}
-                            {{/if}}
-                            {% trans "Organisation" %}
-                        {{/link-to}}</li>
+                        <li class="tab">
+                            {{#link-to "myProject.organisation" classBinding=":tab-link validOrganization:validated"}}
+                                {{#if validOrganization}}
+                                    {{#if isPhasePlanNew}}<span class="flaticon solid checkmark-1"></span>{{/if}}
+                                {{/if}}
+                                {% trans "Organisation" %}
+                            {{/link-to}}
+                        </li>
 
-                        <li class="tab">{{#link-to "myProject.bank" classBinding=":tab-link organization.validBank:validated"}}
-                            {{#if organization.validBank}}
-                                {{#if isPhasePlanNew}}<span class="flaticon solid checkmark-1"></span>{{/if}}
-                            {{/if}}
-                            {% trans "Bank" %}
-                        {{/link-to}}</li>
+                        <li class="tab">
+                            {{#link-to "myProject.bank" classBinding=":tab-link organization.validBank:validated"}}
+                                {{#if organization.validBank}}
+                                    {{#if isPhasePlanNew}}<span class="flaticon solid checkmark-1"></span>{{/if}}
+                                {{/if}}
+                                {% trans "Bank" %}
+                            {{/link-to}}
+                        </li>
 
                         {{#if this.controller.isSubmittable}}
-                           <li class="tab">{{#link-to "myProject.submit" classBinding=":tab-link validSubmit:validated"}}
-                                {{#if validsubmit}}
-                                    <span class="flaticon solid checkmark-1"></span>
-                                {{/if}}
-                                {% trans "Submit" %}
-                            {{/link-to}}</li>
+                            <li class="tab">
+                                {{#link-to "myProject.submit" classBinding=":tab-link validSubmit:validated"}}
+                                    {{#if validsubmit}}
+                                        <span class="flaticon solid checkmark-1"></span>
+                                    {{/if}}
+                                    {% trans "Submit" %}
+                                {{/link-to}}
+                            </li>
                         {{/if}}
                     </ul>
                 </div>

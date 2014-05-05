@@ -155,41 +155,73 @@
 
 
 {% tplhandlebars "project_fundraiser_list" %}
-    <h4>
-        {% trans "Fundraisers" %}
-        <em>
-            <a>
-                {{fundraisers.length}} Total
-            </a>
-        </em>
-    </h4>
-   
-   {{#if fundraisers.length}}
-        <ul>
-            {{#each fundraiser in controller}}
-                <li>
-                    {{render "projectFundRaiser" fundraiser}}
-                </li>
-            {{/each}}
-        </ul>
-    {{/if}}
+    <li class="project-member-fundraisers">
 
-    {{#linkTo "fundRaiserNew" project classNames='fundraiser-become'}}{% trans "Become a fundraiser" %}{{/linkTo}}
-    
+        <h4>
+            {% trans "Fundraisers" %}
+            <em>
+                <a {{action 'showAllFundraisers' controllers.project}}>
+                    {{fundraisers.meta.total}} {% trans "Total" %}
+                </a>
+            </em>
+        </h4>
+
+        {{#if fundraisers.length}}
+            <ul>
+                {{#each fundraiser in controller}}
+                    {{render "projectFundRaiser" fundraiser}}
+                {{/each}}
+            </ul>
+        {{/if}}
+        {{#if controllers.project.isFundable}}
+            {{#linkTo 'fundRaiserNew' controllers.project.id class="fundraiser-become"}}
+                {% trans "Become a fundraiser" %}
+            {{/linkTo}}
+        {{/if}}
+    </li>
+{% endtplhandlebars %}
+
+
+{% tplhandlebars "project_fundraiser_all" %}
+
+    <div class='all-fundraisers'>
+        <h4>{% trans "Fundraisers" %}</h4>
+        {{#each fundraiser in controller}}
+            <a {{action "showFundraiser" fundraiser}} class='member'>
+                <div class="fundraiser-item">
+                    <figure class="fundraiser-image">
+                        <img  {{bindAttr src="fundraiser.image.small"}}>
+                    </figure>
+                    <div class="fundraiser-content">
+                        <h1 class="fundraiser-title">{{fundraiser.title}}</h1>
+                        <h3 class="fundraiser-name">{% trans "by" %} {{fundraiser.owner.full_name}}</h3>
+                        <div class="project-fund-amount">
+                            <strong class="amount-donated">&euro;{{localize fundraiser.amount_donated}}</strong>
+                            {% trans "of" %}
+                            <strong class="amount-asked">&euro;{{localize fundraiser.amount}}</strong>
+                            {% trans "raised" %}
+                        </div>
+                    </div>
+                </div>
+            </a>
+        {{/each}}
+    </div>
 {% endtplhandlebars %}
 
 
 {% tplhandlebars "project_fundraiser_popup" %}
 
     <span id="fundraiser-detail">
-        <h3>{{owner.full_name}}</h3>
-        <img {{bindAttr src="image.large"}} />
-        <p class="project-fund-amount">
-            <strong class="amount-donated">&euro;{{localize amount_donated}}</strong>
-            {% trans "of" %}
-            <strong class="amount-asked">&euro;{{localize amount}}</strong>
-            {% trans "raised" %}
-        </p>
+        {{#link-to "fundRaiser" fundraiser classNames='member'}}
+            <h3>{{owner.full_name}}</h3>
+            <img {{bindAttr src="image.large"}} />
+            <p class="project-fund-amount">
+                <strong class="amount-donated">&euro;{{localize amount_donated}}</strong>
+                {% trans "of" %}
+                <strong class="amount-asked">&euro;{{localize amount}}</strong>
+                {% trans "raised" %}
+            </p>
+        {{/link-to}}
     </span>
 
 {% endtplhandlebars %}
