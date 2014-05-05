@@ -10,7 +10,6 @@ from django_extensions.db.fields import ModificationDateTimeField, CreationDateT
 from django_iban.fields import IBANField, SWIFTBICField
 from djchoices import DjangoChoices, ChoiceItem
 
-
 from bluebottle.utils.models import Address
 from django.core.files.storage import FileSystemStorage
 
@@ -28,6 +27,8 @@ class Organization(BaseOrganization):
         ordering = ['name']
         verbose_name = _("organization")
         verbose_name_plural = _("organizations")
+        default_serializer = 'apps.organizations.serializers.OrganizationSerializer'
+        manage_serializer = 'apps.organizations.serializers.ManageOrganizationSerializer'
 
     def full_clean(self, exclude=None):
         if not self.slug:

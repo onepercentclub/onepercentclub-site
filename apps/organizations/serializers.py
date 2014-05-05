@@ -6,13 +6,15 @@ from bluebottle.utils.serializers import AddressSerializer, URLField
 
 from .models import Organization, OrganizationDocument
 
+from bluebottle.bb_organizations.serializers import (OrganizationSerializer as BaseOrganizationSerializer,
+                                                     ManageOrganizationSerializer as BaseManageOrganizationSerializer)
 
-class OrganizationSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = Organization
-        fields = ('id', 'name', 'slug', 'description', 'website', 'twitter', 'facebook', 'skype')
+class OrganizationSerializer(BaseOrganizationSerializer):
 
+    class Meta(BaseOrganizationSerializer):
+        model = BaseOrganizationSerializer.Meta.model
+        fields = BaseOrganizationSerializer.Meta.fields
 
 
 class OrganizationDocumentSerializer(serializers.ModelSerializer):
@@ -24,21 +26,9 @@ class OrganizationDocumentSerializer(serializers.ModelSerializer):
         fields = ('id', 'organization', 'file')
 
 
-class ManageOrganizationSerializer(OrganizationSerializer):
+class ManageOrganizationSerializer(BaseManageOrganizationSerializer):
 
     slug = serializers.SlugField(required=False)
-
-    documents = OrganizationDocumentSerializer(many=True, source='organizationdocument_set', required=False)
-    registration = PrivateFileSerializer(required=False)
-
-    name = serializers.CharField(required=True)
-    description = serializers.CharField(required=False)
-    website = URLField(required=False)
-    email = serializers.EmailField(required=False)
-    twitter = serializers.CharField(required=False)
-    facebook = serializers.CharField(required=False)
-    skype = serializers.CharField(required=False)
-    legal_status = serializers.CharField(required=False)
 
     def validate_account_iban(self, attrs, source):
         value = attrs[source]
@@ -52,12 +42,10 @@ class ManageOrganizationSerializer(OrganizationSerializer):
             swift_bic_validator(value)
         return attrs
 
-    class Meta:
-        model = Organization
-        fields = ('id', 'name', 'slug', 'description', 'website', 'email', 'twitter', 'facebook', 'skype',
-                  'legal_status', 'registration',
-                  'address_line1', 'address_line2', 'city', 'state', 'country', 'postal_code',
-                  'account_holder_name', 'account_holder_address', 'account_holder_postal_code', 'account_holder_city',
-                  'account_holder_country', 'account_iban', 'account_bic', 'account_number', 'account_bank_name',
-                  'account_bank_address', 'account_bank_postal_code', 'account_bank_city', 'account_bank_country',
-                  'account_other', 'documents')
+    class Meta(BaseManageOrganizationSerializer):
+        model = BaseManageOrganizationSerializer.Meta.model
+        fields = BaseManageOrganizationSerializer.Meta.fields + ( 'account_holder_name', 'account_holder_address', 'account_holder_postal_code', 
+                    'account_holder_city', 'account_holder_country', 'account_iban', 'account_bic', 'account_number', 'account_bank_name',
+                    'account_bank_address', 'account_bank_postal_code', 'account_bank_city', 'account_bank_country', 'account_other' )
+        
+
