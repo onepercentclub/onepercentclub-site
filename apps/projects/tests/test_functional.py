@@ -405,7 +405,7 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
 
         missing_items.first.find_by_css('.action a').click()
 
-        self.assertTrue(self.is_visible('select[name="language"]'), 'Should be redirected to the project pitch tab')
+        self.assertTrue(self.is_visible('input[name="title"]'), 'Should be redirected to the project pitch tab')
 
 
     def test_change_project_goal(self):
