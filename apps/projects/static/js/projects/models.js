@@ -51,6 +51,8 @@ App.MyProject.reopen({
     video: DS.attr('string'),
     budgetLines: DS.hasMany('App.MyProjectBudgetLine'),
 
+    story: DS.attr('string', {defaultValue: gettext("<h3>Introduction</h3><p>Explain your campaign, tell something about the goal of the campaign. Supporters will wonder where the money is going to bewused for exactly.</p> <h3> Why?</h3> <p> Why is this campaign so important? Why would people want to support this campaign? Be concrete, urgent and personal.</p>")}),
+
     budgetTotal: function(){
         var lines = this.get('budgetLines');
         return lines.reduce(function(prev, line){
