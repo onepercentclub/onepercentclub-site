@@ -4,7 +4,7 @@ python:
   - "2.7"
 
 addons:
-  firefox: "27.0"
+  firefox: "26.0"
 
 env:
   - DJANGO=django==1.5.4
