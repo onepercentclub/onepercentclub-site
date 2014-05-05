@@ -581,6 +581,20 @@ class ChangeProjectStatuses(ProjectEndpointTestCase):
 
         self.assertTrue(project.date_submitted is not None)
 
+    def test_change_status_to_campaign(self):
+        """
+        Changing project status to campaign sets the campaign_started field
+        """
+        project = Project.objects.get(id=randint(1, Project.objects.count()))
+        self.assertTrue(project.date_submitted is not None)
+        self.assertTrue(project.campaign_started is None)
+
+        #Change status of project to Needs work
+        project.status = ProjectPhase.objects.get(slug="campaign")
+        project.save()
+
+        self.assertTrue(project.date_submitted is not None)
+        self.assertTrue(project.campaign_started is not None)
 
     def test_change_status_to_need_to_work(self):
         """
