@@ -88,5 +88,6 @@ django-dynamic-fixture==1.6.5
 # Use factories for testing
 factory-boy==2.3.1
 
+beautifulsoup4==4.3.2
 # LXML for generating and validating proper SEPA exports
 lxml==3.1.2
