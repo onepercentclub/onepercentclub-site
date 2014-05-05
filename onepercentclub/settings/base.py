@@ -5,7 +5,7 @@ import os
 # Import global settings for overriding without throwing away defaults
 from django.conf import global_settings
 from django.utils.translation import ugettext as _
-
+from admin_dashboard import *
 
 # Set PROJECT_ROOT to the dir of the current file
 # Find the project's containing directory and normalize it to refer to
@@ -608,7 +608,6 @@ REST_FRAMEWORK = {
     )
 }
 
-
 COWRY_RETURN_URL_BASE = 'http://127.0.0.1:8000'
 
 COWRY_PAYMENT_METHODS = {
@@ -694,4 +693,3 @@ DEFAULT_TWITTER_HANDLE = TWITTER_HANDLES['nl']
 #
 # BlueBottle
 #
-

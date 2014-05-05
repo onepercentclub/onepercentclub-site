@@ -1,5 +1,6 @@
 import decimal
 import datetime
+import doctest
 from bluebottle.bb_projects.models import ProjectPhase
 
 from django.test import TestCase
@@ -13,6 +14,9 @@ from apps.fund.models import Donation, DonationStatuses
 from apps.cowry import factory
 from apps.cowry.models import PaymentStatuses
 
+from apps.sepa.tests.base import SepaXMLTestMixin
+
+from .models import (
 from ..models import (
     Payout, PayoutLog, OrganizationPayout, OrganizationPayoutLog
 )
@@ -23,7 +27,7 @@ from onepercentclub.tests.utils import OnePercentTestCase
 from ..utils import date_timezone_aware
 
 
-class PayoutTestCase(OnePercentTestCase):
+class PayoutTestCase(SepaXMLTestMixin, OnePercentTestCase):
     """ Testcase for Payouts. """
 
     def setUp(self):
@@ -247,6 +251,13 @@ class PayoutTestCase(OnePercentTestCase):
     def test_amounts_paid(self):
         """ Test amounts for paid donations. """
 
+        # Setup organization
+        organization = self.project.projectplan.organization
+        organization.account_name = 'Funny organization'
+        organization.account_iban = 'NL90ABNA0111111111'
+        organization.account_bic = 'ABNANL2A'
+        organization.save()
+
         # Set status of donation to paid
         self.donation.status = DonationStatuses.paid
         self.donation.save()
@@ -330,6 +341,17 @@ class OrganizationPayoutLogTestCase(PayoutLogMixin, TestCase):
 
     obj_class = OrganizationPayout
     log_class = OrganizationPayoutLog
+
+    # FIXME: Figure out what should happen here
+        # # Test content
+        # main = tree[0]
+        # header = main[0]
+        #
+        # # Number of transactions
+        # self.assertEqual(header[2].text, "1")
+        #
+        # # Total amount
+        # self.assertEqual(header[3].text, '13.95')
 
 
 class OrganizationPayoutTestCase(TestCase):

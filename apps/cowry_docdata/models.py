@@ -13,6 +13,7 @@ payment_method_mapping = {
     'MASTERCARD': 'Mastercard',
     'VISA': 'Visa',
     'DIRECT_DEBIT': 'Direct debit',
+    'SEPA_DIRECT_DEBIT': 'Direct debit',
     'ideal-rabobank-1procentclub_nl': 'iDeal',
     'paypal-1procentclub_nl': 'PayPal',
     'omnipay-ems-visa-1procentclub_nl': 'Visa',
