@@ -431,6 +431,11 @@ UPDATE django_content_type
   WHERE id = 154;
 
 
+
+-- Rename Contact table. It's in it's own app now.
+ALTER TABLE pages_contactmessage RENAME TO contact_contactmessage;
+
+
 ------------
 -- TODO: See if we need these DB changes
 
