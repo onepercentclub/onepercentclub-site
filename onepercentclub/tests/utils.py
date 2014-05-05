@@ -1,19 +1,47 @@
-from bluebottle.test.factory_models.projects import ProjectPhaseFactory
+from bluebottle.bb_projects.models import ProjectPhase, ProjectTheme
+from bluebottle.test.factory_models.projects import ProjectPhaseFactory, ProjectThemeFactory
 from bluebottle.test.utils import SeleniumTestCase
+from bluebottle.utils.models import Language
 from django.test import TestCase
-from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
+from bluebottle.test.factory_models.utils import LanguageFactory
 
 
-class OnePercentTestCase(TestCase):
-
-    def init_projects(self):
-        OnePercentProjectFactory.init_related_models()
-
-
-class OnePercentSeleniumTestCase(SeleniumTestCase):
+class InitProjectDataMixin(object):
 
     def init_projects(self):
-        OnePercentProjectFactory.init_related_models()
+        """
+        Set up some basic models needed for project creation.
+        """
+        phase_data = [{'id': 1, 'name': 'Plan - New', 'viewable': False},
+                      {'id': 2, 'name': 'Plan - Submitted', 'viewable': False},
+                      {'id': 3, 'name': 'Plan - Rejected', 'viewable': False},
+                      {'id': 4, 'name': 'Plan - Accepted', 'viewable': True},
+                      {'id': 5, 'name': 'Campaign', 'viewable': True},
+                      {'id': 6, 'name': 'Stopped', 'viewable': False},
+                      {'id': 7, 'name': 'Done - Complete', 'viewable': True},
+                      {'id': 8, 'name': 'Done - Incomplete', 'viewable': True}]
+
+        theme_data = [{'id': 1, 'name': 'Education'},
+                      {'id': 2, 'name': 'Environment'}]
+
+        language_data = [{'id': 1, 'code': 'en', 'language_name': 'English', 'native_name': 'English'},
+                         {'id': 2, 'code': 'nl', 'language_name': 'Dutch', 'native_name': 'Nederlands'}]
+
+        for phase in phase_data:
+            ProjectPhaseFactory.create(**phase)
+
+        for theme in theme_data:
+            ProjectThemeFactory.create(**theme)
+
+        for language in language_data:
+            LanguageFactory.create(**language)
+
+
+class OnePercentTestCase(InitProjectDataMixin, TestCase):
+    pass
+
+
+class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
 
     def login(self, username, password):
         """

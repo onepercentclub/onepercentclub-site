@@ -32,7 +32,7 @@
 #         Tests for creating, retrieving, updating and deleting a voucher to shopping cart.
 #         """
 #         # First make sure we have a current order
-#         self.client.login(username=self.some_user.email, password='password')
+#         self.client.login(username=self.some_user.email, password='testing')
 #         response = self.client.get(self.current_order_url)
 #         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
 #         self.assertEqual(response.data['status'], 'current')

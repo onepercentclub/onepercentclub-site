@@ -9,7 +9,6 @@ from django.conf import settings
 from django.utils.text import slugify
 from django.utils.unittest.case import skipUnless
 
-
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
 
@@ -402,6 +401,8 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
     Selenium tests for Projects.
     """
     def setUp(self):
+        self.init_projects()
+
         super(ProjectWallPostSeleniumTests, self).setUp()
         self.user = BlueBottleUserFactory.create()
         self.login(self.user.email, 'testing')

@@ -89,34 +89,8 @@
                     {{outlet "fundraisers"}}
                 </li>
 
-                {{!-- Static html for supporters + fundraisers start here --}}
-                <li class="project-member-supporters">
-                    <h4>Supporters <em>3 Total</em></h4>
-                    <ul>
-                        <li>
-                            <a class="member" data-title="guest" data-content="6 days ago" title="">
-                                <span class="member-avatar">
-                                    <img src="/static/assets/images/default-avatar.png" alt="Guest">
-                                </span>
-                            </a>
-                        </li>                        
-                        <li>
-                            <a class="member" data-title="guest" data-content="6 days ago" title="">
-                                <span class="member-avatar">
-                                    <img src="/static/assets/images/default-avatar.png" alt="Guest">
-                                </span>
-                            </a>
-                        </li>                        
-                        <li>
-                            <a class="member" data-title="guest" data-content="6 days ago" title="">
-                                <span class="member-avatar">
-                                    <img src="/static/assets/images/default-avatar.png" alt="Guest">
-                                </span>
-                            </a>
-                        </li>                        
-                    </ul>
-                </li>
-                {{!-- Static html for fundraisers + supporters end here --}}
+                {{render "projectSupporterList"}}
+
 			</ul>
 		</section>
     </div>

@@ -1,0 +1,535 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: OnePercentClub\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-05-02 05:54+0200\n"
+"PO-Revision-Date: 2014-05-02 07:00+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../../apps/donations/static/js/bluebottle/donations/controllers.js.c:136
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:170
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/utils.js.c:168
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/donations/controllers.js.c:125
+msgid "Save changed data?"
+msgstr ""
+
+#: ../../apps/donations/static/js/bluebottle/donations/controllers.js.c:137
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:171
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/utils.js.c:169
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/donations/controllers.js.c:126
+msgid "You have some unsaved changes. Do you want to save before you leave?"
+msgstr ""
+
+#: ../../apps/donations/static/js/bluebottle/donations/controllers.js.c:138
+#: ../../apps/donations/static/js/bluebottle/donations/controllers.js.c:168
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:172
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:191
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/utils.js.c:170
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/utils.js.c:192
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/donations/controllers.js.c:127
+msgid "Save"
+msgstr ""
+
+#: ../../apps/donations/static/js/bluebottle/donations/controllers.js.c:139
+#: ../../apps/donations/static/js/bluebottle/donations/controllers.js.c:169
+#: ../../env/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/routes.js.c:59
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:173
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/admin/DateTimeShortcuts.js.c:92
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/admin/DateTimeShortcuts.js.c:204
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/app/reactions.js.c:77
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/app/wallposts.js.c:304
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/utils.js.c:171
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/donations/controllers.js.c:128
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/tasks/routes.js.c:53
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/wallposts/views.js.c:65
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/wallposts/views.js.c:125
+#: ../../env/src/bluebottle/bluebottle/wallposts/static/js/bluebottle/wallposts/views.js.c:42
+#: ../../env/src/bluebottle/bluebottle/wallposts/static/js/bluebottle/wallposts/views.js.c:120
+msgid "Cancel"
+msgstr ""
+
+#: ../../apps/donations/static/js/bluebottle/donations/controllers.js.c:157
+msgid "You're about to set a monthly donation.<br/><br/>"
+msgstr ""
+
+#: ../../apps/donations/static/js/bluebottle/donations/controllers.js.c:166
+msgid "Set my monthly donation"
+msgstr ""
+
+#: ../../apps/donations/static/js/bluebottle/donations/controllers.js.c:190
+msgid "Stop my monthly donation"
+msgstr ""
+
+#: ../../apps/donations/static/js/bluebottle/donations/controllers.js.c:191
+msgid ""
+"Thanks a lot for your support until now. You rock! We welcome you back "
+"anytime.<br /><br />Are you sure you want to stop your monthly support?"
+msgstr ""
+
+#: ../../apps/donations/static/js/bluebottle/donations/controllers.js.c:192
+msgid "Yes, stop my donation"
+msgstr ""
+
+#: ../../apps/donations/static/js/bluebottle/donations/controllers.js.c:193
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/donations/controllers.js.c:153
+msgid "No, continue"
+msgstr ""
+
+#: ../../apps/fundraisers/static/js/bluebottle/fundraisers/views.js.c:37
+msgid "by"
+msgstr ""
+
+#: ../../apps/fundraisers/static/js/bluebottle/fundraisers/views.js.c:40
+msgid "of"
+msgstr ""
+
+#: ../../apps/fundraisers/static/js/bluebottle/fundraisers/views.js.c:41
+msgid "raised"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:59
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/app/users.js.c:217
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/accounts/controllers.js.c:66
+msgid "Person"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:60
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/app/users.js.c:218
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/accounts/controllers.js.c:67
+msgid "Company"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:61
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/app/users.js.c:219
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/accounts/controllers.js.c:68
+msgid "Foundation"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:62
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/app/users.js.c:220
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/accounts/controllers.js.c:69
+msgid "School"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:63
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/app/users.js.c:221
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/accounts/controllers.js.c:70
+msgid "Club / Association"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:148
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/accounts/controllers.js.c:149
+msgid ""
+"YOU'VE GOT MAIL!<br /><br />We've sent you a link to reset your password, so"
+" check your mailbox.<br /><br />(No mail? It might have ended up in your "
+"spam folder)"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/routes.js.c:201
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/accounts/routes.js.c:216
+msgid "The token you provided is expired. Please reset your password again."
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:16
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/accounts/views.js.c:16
+msgid "Please use your email address to log in."
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/bb_organizations/static/js/bluebottle/bb_organizations/views.js.c:2
+msgid "Pick an organization"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/bb_projects/static/js/bluebottle/bb_projects/views.js.c:80
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/projects/views.js.c:71
+msgid "title"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/bb_projects/static/js/bluebottle/bb_projects/views.js.c:81
+msgid "amount needed"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/bb_projects/static/js/bluebottle/bb_projects/views.js.c:82
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/projects/views.js.c:73
+msgid "deadline"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/bb_projects/static/js/bluebottle/bb_projects/views.js.c:94
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/app/projects.js.c:441
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/projects/views.js.c:94
+msgid "Pick a phase"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/routes.js.c:56
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/tasks/routes.js.c:50
+msgid "Apply for task"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/routes.js.c:58
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/tasks/routes.js.c:52
+msgid "Apply"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/app.js.c:455
+msgid "Pick a language"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:110
+msgid "Successfully saved"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:2
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/utils.js.c:36
+msgid "15 minutes"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:3
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/utils.js.c:37
+msgid "half an hour"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:4
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/utils.js.c:38
+msgid "up to one hour"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:5
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/utils.js.c:39
+msgid "two hours"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:6
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/utils.js.c:40
+msgid "half a day"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:7
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/utils.js.c:41
+msgid "one day"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:8
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/utils.js.c:42
+msgid "two days"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:9
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/utils.js.c:43
+msgid "one week"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:10
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/utils.js.c:44
+msgid "two weeks"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:11
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/utils.js.c:45
+msgid "one month"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:189
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/utils.js.c:189
+msgid "Saving"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/common/static/js/plugins/handlebars.helpers.js.c:76
+msgid "Deadline<br /> reached"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/common/static/js/plugins/handlebars.helpers.js.c:80
+msgid "days"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/common/static/js/plugins/handlebars.helpers.js.c:81
+msgid "day"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/common/static/js/plugins/handlebars.helpers.js.c:83
+msgid "to support this project"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/geo/static/js/bluebottle/geo/views.js.c:4
+#: ../../env/src/bluebottle/bluebottle/geo/static/js/bluebottle/geo/views.js.c:16
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/utils.js.c:15
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/utils.js.c:23
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/utils.js.c:31
+msgid "Pick a country"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/SelectFilter2.js.c:45
+#, c-format
+msgid "Available %s"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/SelectFilter2.js.c:46
+#, c-format
+msgid ""
+"This is the list of available %s. You may choose some by selecting them in "
+"the box below and then clicking the \"Choose\" arrow between the two boxes."
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/SelectFilter2.js.c:53
+#, c-format
+msgid "Type into this box to filter down the list of available %s."
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/SelectFilter2.js.c:57
+msgid "Filter"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/SelectFilter2.js.c:61
+msgid "Choose all"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/SelectFilter2.js.c:61
+#, c-format
+msgid "Click to choose all %s at once."
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/SelectFilter2.js.c:67
+msgid "Choose"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/SelectFilter2.js.c:69
+msgid "Remove"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/SelectFilter2.js.c:75
+#, c-format
+msgid "Chosen %s"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/SelectFilter2.js.c:76
+#, c-format
+msgid ""
+"This is the list of chosen %s. You may remove some by selecting them in the "
+"box below and then clicking the \"Remove\" arrow between the two boxes."
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/SelectFilter2.js.c:80
+msgid "Remove all"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/SelectFilter2.js.c:80
+#, c-format
+msgid "Click to remove all chosen %s at once."
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/actions.js.c:18
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/actions.min.js.c:1
+msgid "%(sel)s of %(cnt)s selected"
+msgid_plural "%(sel)s of %(cnt)s selected"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/actions.js.c:109
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/actions.min.js.c:5
+msgid ""
+"You have unsaved changes on individual editable fields. If you run an "
+"action, your unsaved changes will be lost."
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/actions.js.c:121
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/actions.min.js.c:5
+msgid ""
+"You have selected an action, but you haven't saved your changes to "
+"individual fields yet. Please click OK to save. You'll need to re-run the "
+"action."
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/actions.js.c:123
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/actions.min.js.c:6
+msgid ""
+"You have selected an action, and you haven't made any changes on individual "
+"fields. You're probably looking for the Go button rather than the Save "
+"button."
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/calendar.js.c:26
+msgid ""
+"January February March April May June July August September October November"
+" December"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/calendar.js.c:27
+msgid "S M T W T F S"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/collapse.js.c:8
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/collapse.js.c:19
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/collapse.min.js.c:1
+msgid "Show"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/collapse.js.c:15
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/collapse.min.js.c:1
+msgid "Hide"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/admin/DateTimeShortcuts.js.c:49
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/admin/DateTimeShortcuts.js.c:85
+msgid "Now"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/admin/DateTimeShortcuts.js.c:53
+msgid "Clock"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/admin/DateTimeShortcuts.js.c:81
+msgid "Choose a time"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/admin/DateTimeShortcuts.js.c:86
+msgid "Midnight"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/admin/DateTimeShortcuts.js.c:87
+msgid "6 a.m."
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/admin/DateTimeShortcuts.js.c:88
+msgid "Noon"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/admin/DateTimeShortcuts.js.c:144
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/admin/DateTimeShortcuts.js.c:197
+msgid "Today"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/admin/DateTimeShortcuts.js.c:148
+msgid "Calendar"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/admin/DateTimeShortcuts.js.c:195
+msgid "Yesterday"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/admin/js/admin/DateTimeShortcuts.js.c:199
+msgid "Tomorrow"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/app/projects.js.c:430
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/projects/views.js.c:83
+msgid "Writing Plan"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/app/projects.js.c:431
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/projects/views.js.c:84
+msgid "Campaign"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/app/projects.js.c:432
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/projects/views.js.c:85
+msgid "Act"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/app/projects.js.c:433
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/projects/views.js.c:86
+msgid "Results"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/app/projects.js.c:434
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/projects/views.js.c:87
+msgid "Realised"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/app/reactions.js.c:74
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/app/wallposts.js.c:301
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/wallposts/views.js.c:62
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/wallposts/views.js.c:122
+#: ../../env/src/bluebottle/bluebottle/wallposts/static/js/bluebottle/wallposts/views.js.c:39
+#: ../../env/src/bluebottle/bluebottle/wallposts/static/js/bluebottle/wallposts/views.js.c:117
+msgid "Really?"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/app/reactions.js.c:75
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/wallposts/views.js.c:123
+#: ../../env/src/bluebottle/bluebottle/wallposts/static/js/bluebottle/wallposts/views.js.c:118
+msgid "Are you sure you want to delete this reaction?"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/app/reactions.js.c:76
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/app/wallposts.js.c:303
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/wallposts/views.js.c:64
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/wallposts/views.js.c:124
+#: ../../env/src/bluebottle/bluebottle/wallposts/static/js/bluebottle/wallposts/views.js.c:41
+#: ../../env/src/bluebottle/bluebottle/wallposts/static/js/bluebottle/wallposts/views.js.c:119
+msgid "Yes"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/app/users.js.c:196
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/accounts/controllers.js.c:45
+msgid "1-4 hours per week"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/app/users.js.c:197
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/accounts/controllers.js.c:46
+msgid "5-8 hours per week"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/app/users.js.c:198
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/accounts/controllers.js.c:47
+msgid "9-16 hours per week"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/app/users.js.c:199
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/accounts/controllers.js.c:48
+msgid "1-4 hours per month"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/app/users.js.c:200
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/accounts/controllers.js.c:49
+msgid "5-8 hours per month"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/app/users.js.c:201
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/accounts/controllers.js.c:50
+msgid "9-16 hours per month"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/app/users.js.c:202
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/accounts/controllers.js.c:51
+msgid "I have all the time in the world. Bring it on!"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/app/users.js.c:203
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/accounts/controllers.js.c:52
+msgid "It depends on the content of the tasks. Challenge me!"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/app/wallposts.js.c:302
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/wallposts/views.js.c:63
+#: ../../env/src/bluebottle/bluebottle/wallposts/static/js/bluebottle/wallposts/views.js.c:40
+msgid "Are you sure you want to delete this comment?"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/utils.js.c:62
+msgid "--loading--"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/donations/controllers.js.c:150
+msgid "Stop monthly support?"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/donations/controllers.js.c:151
+msgid "Are you sure you want to stop your monthly support?"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/donations/controllers.js.c:152
+msgid "Yes, stop it"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/test_files/assets/js/bluebottle/projects/views.js.c:72
+msgid "money needed"
+msgstr ""

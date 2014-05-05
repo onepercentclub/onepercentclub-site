@@ -1,0 +1,352 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# gannetson <loek@1procentclub.nl>, 2013
+# Liane <liane@onepercentclub.com>, 2014
+# gannetson <loek@1procentclub.nl>, 2013
+# nieja <niels@1procentclub.nl>, 2013
+# nieja <niels@1procentclub.nl>, 2013
+# onepercentclub <webmaster@1procentclub.nl>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: onepercentclub-site\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-04-10 16:33+0200\n"
+"PO-Revision-Date: 2014-02-13 09:56+0000\n"
+"Last-Translator: Liane <liane@onepercentclub.com>\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub-site/language/nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: admin.py:133
+msgid "Author"
+msgstr "Auteur"
+
+#: admin.py:143
+msgid "project link"
+msgstr "project link"
+
+#: mails.py:66
+#, python-format
+msgid "%(author)s has left a message on your project page."
+msgstr "%(author)s heeft een bericht op jouw projectpagina geplaatst."
+
+#: mails.py:84
+#, python-format
+msgid "%(author)s has left a message on your task page."
+msgstr "%(author)s heeft een bericht op de pagina van je taak geplaatst."
+
+#: mails.py:117
+#, python-format
+msgid "%(author)s commented on a post you reacted on."
+msgstr "%(author)s  heeft gereageerd op een bericht van jou."
+
+#: mails.py:131
+#, python-format
+msgid "%(author)s commented on your post."
+msgstr "%(author)s  heeft gereageerd op een bericht van jou."
+
+#: mails.py:145
+#, python-format
+msgid "%(author)s commented on your project page."
+msgstr "%(author)s  heeft gereageerd op je projectpagina."
+
+#: models.py:27 models.py:76 models.py:107
+msgid "author"
+msgstr "auteur"
+
+#: models.py:28 models.py:77 models.py:108
+msgid "editor"
+msgstr "editor"
+
+#: models.py:28
+msgid "The last user to edit this wallpost."
+msgstr "Gebruiker met de laatste wijziging bij wallpost"
+
+#: models.py:31 models.py:115
+msgid "created"
+msgstr "aangemaakt"
+
+#: models.py:32 models.py:116
+msgid "updated"
+msgstr "aangepast"
+
+#: models.py:33 models.py:74 models.py:117
+msgid "deleted"
+msgstr "verwijderd"
+
+#: models.py:34 models.py:75 models.py:118
+msgid "IP address"
+msgstr "IP-adres"
+
+#: models.py:37
+msgid "content type"
+msgstr "content type"
+
+#: models.py:38
+msgid "object ID"
+msgstr "object ID"
+
+#: models.py:77
+msgid "The last user to edit this wallpost photo."
+msgstr "De laatste gebruiker die deze wallpost heeft gewijzigd."
+
+#: models.py:93
+msgid "related type"
+msgstr "related type"
+
+#: models.py:94
+msgid "related ID"
+msgstr "related ID"
+
+#: models.py:108
+msgid "The last user to edit this reaction."
+msgstr "De laatste gebruiker die deze wallpost heeft gewijzigd."
+
+#: models.py:111
+msgid "reaction text"
+msgstr "reactie tekst"
+
+#: models.py:126
+msgid "Reaction"
+msgstr "Reactie"
+
+#: models.py:127
+msgid "Reactions"
+msgstr "Reacties"
+
+#: tests.py:261 tests.py:277
+msgid "Username"
+msgstr "Gebruikersnaam"
+
+#: templates/project_wallpost_new.mail.html:5
+#, python-format
+msgid ""
+"\n"
+"Hello %(receiver_name)s,<br/>\n"
+"<br/>\n"
+"%(author_name)s has left a message on your project page.<br/>\n"
+"<br/>\n"
+"You must be curious what! Don't wait any longer and check it out <a href=\"%(site)s%(link)s\">here on our website</a>.\n"
+"<br/>\n"
+"See you in a bit!<br/>\n"
+"<br/>\n"
+"Liane | 1%%Club\n"
+msgstr "\n\nHello %(receiver_name)s,<br/>\n<br/>\n%(author_name)s has left a message on your project page.<br/>\n<br/>\nYou must be curious what! Don't wait any longer and check it out <a href=\"%(site)s%(link)s\">here on our website</a>.\n<br/>\nSee you in a bit!<br/>\n<br/>\nLiane | 1%%Club\n"
+
+#: templates/project_wallpost_new.mail.txt:5
+#, python-format
+msgid ""
+"\n"
+"Hello %(receiver_name)s,\n"
+"\n"
+"%(author_name)s has left a message on your project page.\n"
+"\n"
+"You must be curious what! Don't wait any longer and check it out here:\n"
+"\n"
+"%(site)s%(link)s\n"
+"\n"
+"See you in a bit!\n"
+"\n"
+"Liane | 1%%Club\n"
+msgstr "\n\nHello %(receiver_name)s,\n<br/>\n%(author_name)s has left a message on your project page.\n<br/>\nYou must be curious what! Don't wait any longer and check it out here:<br/>\n<br/>\n%(site)s%(link)s<br/>\n<br/>\nSee you in a bit!<br/>\n<br/>\nLiane | 1%%Club\n"
+
+#: templates/project_wallpost_reaction_new.mail.html:5
+#, python-format
+msgid ""
+"\n"
+"Hello %(receiver_name)s,<br/>\n"
+"<br/>\n"
+"Yes, yes, yes! <b>%(author_name)s</b> commented on your wallpost.<br/>\n"
+"<br/>\n"
+"<a href=\"%(site)s%(link)s\">Go to our website</a> and read the reaction.<br/>\n"
+"<br/>\n"
+"See you in a bit!<br/>\n"
+"<br/>\n"
+"Liane | 1%%Club\n"
+msgstr "\n\nHi %(receiver_name)s,\n<br/>\nJa, ja, ja! <b>%(author_name)s</b> heeft gereageerd op een bericht van jou.<br/>\n<br/>\n<a href=\"%(site)s%(link)s\">Ga naar de website</a> en lees de reactie.<br/>\n<br/>\nTot zo!<br/>\n<br/>\nLiane | 1%%Club\n\n"
+
+#: templates/project_wallpost_reaction_new.mail.txt:5
+#, python-format
+msgid ""
+"\n"
+"Hello %(receiver_name)s,\n"
+"\n"
+"Yes, yes, yes! %(author_name)s commented on your wallpost.\n"
+"\n"
+"Click the link below to go to our website:\n"
+"\n"
+"%(site)s%(link)s\n"
+"\n"
+"See you in a bit!\n"
+"\n"
+"Liane | 1%%Club\n"
+"\n"
+msgstr "\n\nHi %(receiver_name)s,\n<br/>\nJa, ja, ja! <b>%(author_name)s</b> heeft gereageerd op een bericht van jou.<br/>\n<br/>\n<a href=\"%(site)s%(link)s\">Ga naar de website</a> en lees de reactie.<br/>\n<br/>\nTot zo!<br/>\n<br/>\nLiane | 1%%Club\n"
+
+#: templates/project_wallpost_reaction_project.mail.html:5
+#, python-format
+msgid ""
+"\n"
+"Hi %(receiver_name)s,<br/>\n"
+"<br/>\n"
+"<strong>%(author_name)s</strong> left a comment on your projectpage.<br/>\n"
+"<br/>\n"
+"<a href=\"%(site)s%(link)s\">Read the comment here</a> and continue the conversation!<br/>\n"
+"<br/>\n"
+"Liane | 1%%Club\n"
+msgstr "\n\nHi %(receiver_name)s,<br/>\n<br/>\n<strong>%(author_name)s</strong> heeft een bericht achtergelaten op je projectpagina.<br/>\n<br/>\n<a href=\"%(site)s%(link)s\">Lees hier de reactie</a> en ga het gesprek aan!<br/>\n<br/>\nLiane | 1%%Club\n"
+
+#: templates/project_wallpost_reaction_project.mail.txt:5
+#, python-format
+msgid ""
+"\n"
+"Hi %(receiver_name)s,\n"
+"\n"
+"%(author_name)s left a comment on your projectpage.\n"
+"\n"
+"Read the comment on our website and continue the conversation:\n"
+"%(site)s%(link)s\n"
+"\n"
+"Liane | 1%%Club\n"
+msgstr "\n\nHi %(receiver_name)s,<br/>\n<br/>\n<strong>%(author_name)s</strong> heeft een bericht achtergelaten op je projectpagina.<br/>\n<br/>\n<a href=\"%(site)s%(link)s\">Lees hier de reactie</a> en ga het gesprek aan!<br/>\n<br/>\nLiane | 1%%Club\n"
+
+#: templates/project_wallpost_reaction_same_wallpost.mail.html:5
+#, python-format
+msgid ""
+"\n"
+"Hi %(receiver_name)s,<br/>\n"
+"<br/>\n"
+"<strong>%(author_name)s</strong> left a comment on your message! <a href=\"%(site)s%(link)s\">Read the comment here.</a><br/>\n"
+"<br/>\n"
+"Liane | 1%%Club\n"
+msgstr "\nHi %(receiver_name)s,<br/>\n<br/>\n<strong>%(author_name)s</strong> heeft gereageerd op jouw bericht! <a href=\"%(site)s%(link)s\">Lees de reactie hier.</a><br/>\n<br/>\nLiane | 1%%Club\n\n"
+
+#: templates/project_wallpost_reaction_same_wallpost.mail.txt:5
+#, python-format
+msgid ""
+"\n"
+"Hi %(receiver_name)s,\n"
+"\n"
+"%(author_name)s left a comment on your message!\n"
+"\n"
+"Read the comment here:\n"
+"%(site)s%(link)s\n"
+"\n"
+"Liane | 1%%Club\n"
+msgstr "\n\n\nHi %(receiver_name)s,<br/>\n<br/>\n<strong>%(author_name)s</strong> heeft gereageerd op jouw bericht! <a href=\"%(site)s%(link)s\">Lees de reactie hier.</a><br/>\n<br/>\nLiane | 1%%Club\n"
+
+#: templates/reactions.hbs:24 templates/wallposts.hbs:67
+#: templates/wallposts.hbs.py:135 templates/wallposts.hbs:210
+#: templates/wallposts.hbs.py:263
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: templates/reactions.hbs:71
+msgid "Login"
+msgstr "Inloggen"
+
+#: templates/reactions.hbs:71
+msgid "member"
+msgstr "een profiel aan"
+
+#: templates/reactions.hbs:71
+msgid "to leave a reaction"
+msgstr "laat reactie achter"
+
+#: templates/task_wallpost_new.mail.html:5
+#, python-format
+msgid ""
+"\n"
+"Hello %(receiver_name)s,<br/>\n"
+"<br/>\n"
+"%(author_name)s has left a message on your task page.<br/>\n"
+"<br/>\n"
+"You must be curious what! Don't wait any longer and check it <a href=\"%(site)s%(link)s\">here on our website</a>.<br/>\n"
+"<br/>\n"
+"See you in a bit!<br/>\n"
+"<br/>\n"
+"Liane | 1%%Club\n"
+msgstr "\n⏎\nHi %(receiver_name)s,<br/>⏎\n<br/>⏎\n%(author_name)s heeft een bericht geplaatst op je taakpagina.<br/>⏎\n<br/>⏎\nJe zult vast willen wat! Wacht niet en ga direct naar <a href=\"%(site)s%(link)s\">de website</a>.<br/>⏎\n<br/>⏎\nTot zo!<br/>⏎\n<br/>⏎\nLiane | 1%%Club⏎\n"
+
+#: templates/task_wallpost_new.mail.txt:5
+#, python-format
+msgid ""
+"\n"
+"Hello %(receiver_name)s,\n"
+"\n"
+"%(author_name)s has left a message on your task page.\n"
+"\n"
+"You must be curious what! Don't wait any longer and check it out here:\n"
+"\n"
+"%(site)s%(link)s\n"
+"\n"
+"See you in a bit!\n"
+"\n"
+"Liane | 1%%Club\n"
+msgstr "\n\n\n\nHi %(receiver_name)s,<br/>\n%(author_name)s heeft een bericht geplaatst op je taakpagina.<br/>\nJe zult vast willen weten wat! Wacht niet en ga direct naar <a href=\"%(site)s%(link)s\">de website</a>.<br/>\nTot zo!<br/>\nLiane | 1%%Club\n"
+
+#: templates/wallposts.hbs:12
+msgid "Name of your update."
+msgstr "Titel"
+
+#: templates/wallposts.hbs:26
+msgid "Your update."
+msgstr "Jouw update"
+
+#: templates/wallposts.hbs:40
+msgid "Add link to video"
+msgstr "Voeg link naar video toe"
+
+#: templates/wallposts.hbs:54 templates/wallposts.hbs.py:79
+msgid "Upload photos"
+msgstr "Upload foto's"
+
+#: templates/wallposts.hbs:55
+msgid "format 620 x 380 minimum for best result"
+msgstr "een formaat van 620 x 380 voor het beste resultaat"
+
+#: templates/wallposts.hbs:63
+msgid "Error"
+msgstr "Error"
+
+#: templates/wallposts.hbs:69
+msgid "Loading photos&#8230;"
+msgstr "Laadt foto's&#8230;"
+
+#: templates/wallposts.hbs:86
+msgid "Post Update"
+msgstr "Plaats update"
+
+#: templates/wallposts.hbs:96 templates/wallposts.hbs.py:109
+msgid "Comment"
+msgstr "Reageer"
+
+#: templates/wallposts.hbs:179
+msgid "Fundraiser"
+msgstr "Fundraiser"
+
+#: templates/wallposts.hbs:181
+msgid "Donation"
+msgstr "Donatie"
+
+#: templates/wallposts.hbs:192 templates/wallposts.hbs.py:245
+msgid "Someone"
+msgstr "Iemand"
+
+#: templates/wallposts.hbs:196
+msgid "made a donation"
+msgstr "heeft een donatie gedaan"
+
+#: templates/wallposts.hbs:235
+msgid "Voucher"
+msgstr "Kadobon"
+
+#: templates/wallposts.hbs:249
+msgid "used a gift card"
+msgstr "heeft een kadobon gebruikt"
