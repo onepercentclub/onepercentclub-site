@@ -594,4 +594,5 @@ def update_project_after_donation(sender, instance, created, **kwargs):
     if instance.status not in [DonationStatuses.in_progress, DonationStatuses.new]:
         project.update_money_donated()
         project.update_popularity()
+        project.update_status_after_donation()
 

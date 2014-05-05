@@ -2,6 +2,7 @@ import datetime
 from .fields import MoneyField
 from bluebottle.bb_projects.models import BaseProject, ProjectTheme, ProjectPhase
 from django.db import models
+from django.db.models import Q
 from django.db.models.aggregates import Count, Sum
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -104,6 +105,11 @@ class Project(BaseProject):
     for_who = models.TextField(_("for who"), help_text=_("Describe your target group"), blank=True, null=True)
     future = models.TextField(_("future"), help_text=_("How will this project be self-sufficient and sustainable in the long term?"), blank=True, null=True)
 
+    date_submitted  = models.DateTimeField(_('Campaign Submitted'), null=True, blank=True)
+    campaign_started = models.DateTimeField(_('Campaign Started'), null=True, blank=True)
+    campaign_ended = models.DateTimeField(_('Campaign Ended'), null=True, blank=True)
+    campaign_funded = models.DateTimeField(_('Campaign Funded'), null=True, blank=True)
+
     objects = ProjectManager()
 
     def __unicode__(self):
@@ -130,6 +136,17 @@ class Project(BaseProject):
         else:
             self.popularity = 0
         self.save()
+
+    def update_status_after_donation(self):
+        if not self.campaign_funded and not self.campaign_ended and \
+                                            self.status not in ProjectPhase.objects.filter(Q(slug="done-complete") |
+                                                           Q(slug="done-incomplete") |
+                                                           Q(slug="done-stopped")) and self.amount_needed <= 0:
+            self.campaign_funded = timezone.now()
+
+            if not self.allow_overfunding:
+                self.status = ProjectPhase.objects.get(slug="done-complete")
+                self.campaign_ended = self.campaign_funded
 
     def update_money_donated(self, save=True):
         """ Update amount based on paid and pending donations. """
@@ -263,11 +280,30 @@ class Project(BaseProject):
                 counter += 1
             self.slug = original_slug
 
+        #There are 9 ProjectPhase objects: 1. Plan - New, 2. Plan - Submitted, 3. Plan - Needs Work, 4. Plan - Rejected,
+        #5. Campaign, 6. Stopped, 7. Done - Complete, 8. Done - Incomplete, 9. Done - Stopped.
         if not self.status:
             self.status = ProjectPhase.objects.get(slug="plan-new")
 
+        #If the project status is moved to New or Needs Work, clear the date_submitted field
+        if self.status in ProjectPhase.objects.filter(Q(slug="plan-new")|Q(slug="plan-needs-work")):
+            self.date_submitted = None
+
+        #Set the submitted date
+        if self.status == ProjectPhase.objects.get(slug="plan-submitted") and not self.date_submitted:
+            self.date_submitted = timezone.now()
+
+        #Set a default deadline of 30 days
         if not self.deadline:
             self.deadline = timezone.now() + datetime.timedelta(days=30)
+
+        #Project is not ended, complete, funded or stopped and its deadline has expired.
+        if not self.campaign_ended and self.status not in ProjectPhase.objects.filter(Q(slug="done-complete") |
+                                                           Q(slug="done-incomplete") |
+                                                           Q(slug="done-stopped")) and self.deadline < timezone.now():
+            self.status = ProjectPhase.objects.get(slug="done-incomplete")
+            self.campaign_ended = self.deadline
+
         self.update_money_donated(False)
         super(Project, self).save(*args, **kwargs)
 

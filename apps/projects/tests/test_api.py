@@ -1,10 +1,14 @@
 import json
+from random import randint
+from datetime import datetime, timedelta
 
 from decimal import Decimal
 from bluebottle.bb_projects.models import ProjectPhase
 from django.test import TestCase, RequestFactory
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
+from django.db.models import Q
+from django.utils import timezone
 from onepercentclub.tests.utils import OnePercentTestCase
 
 from rest_framework import status
@@ -12,6 +16,7 @@ from rest_framework import status
 from bluebottle.utils.utils import get_taskmember_model, get_skill_model
 from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
+from onepercentclub.tests.factory_models.donation_factories import DonationFactory
 
 from ..models import Project
 
@@ -36,13 +41,11 @@ class ProjectEndpointTestCase(OnePercentTestCase):
         self.plan_phase = ProjectPhase.objects.get(slug='done-complete')
 
         for char in 'abcdefghijklmnopqrstuvwxyz':
-            project = OnePercentProjectFactory.create(title=char * 3, slug=char * 3)
-
+            # Put half of the projects in the campaign phase.
             if ord(char) % 2 == 1:
-                # Put half of the projects in the campaign phase.
-                project.status = self.campaign_phase
+                project = OnePercentProjectFactory.create(title=char * 3, slug=char * 3, status=self.campaign_phase)
             else:
-                project.status = self.plan_phase
+                project = OnePercentProjectFactory.create(title=char * 3, slug=char * 3, status=self.plan_phase)
 
             project.save()
 
@@ -554,3 +557,126 @@ class ProjectWallPostApiIntegrationTest(TestCase):
         response = self.client.get(self.wallposts_url,  {'parent_type': 'project', 'parent_id': self.another_project.slug})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['count'], 4)
+
+
+class ChangeProjectStatuses(ProjectEndpointTestCase):
+
+    def set_date_submitted(self, project):
+        #Set a date_submitted value for the project
+        yesterday = datetime.now() - timedelta(days=1)
+        project.date_submitted = yesterday
+        project.save()
+        self.assertEquals(project.date_submitted, yesterday)
+
+    def test_change_status_to_submitted(self):
+        """
+        Changing project status to submitted sets the date_submitted field
+        """
+        project = Project.objects.get(id=randint(1, Project.objects.count()))
+        self.assertTrue(project.date_submitted is None)
+
+        #Change status of project to Needs work
+        project.status = ProjectPhase.objects.get(slug="plan-submitted")
+        project.save()
+
+        self.assertTrue(project.date_submitted is not None)
+
+
+    def test_change_status_to_need_to_work(self):
+        """
+        Changing status to needs work clears the date_submitted field of a project
+        """
+        project = Project.objects.get(id=randint(1, Project.objects.count()))
+        self.set_date_submitted(project)
+
+        #Change status of project to Needs work
+        project.status = ProjectPhase.objects.get(slug="plan-needs-work")
+        project.save()
+
+        self.assertEquals(project.date_submitted, None)
+
+    def test_change_status_to_new(self):
+        """
+        Changing status to new clears the date_submitted field of a project
+        """
+        project = Project.objects.get(id=randint(1, Project.objects.count()))
+        self.set_date_submitted(project)
+
+        #Change status of project to Needs work
+        project.status = ProjectPhase.objects.get(slug="plan-new")
+        project.save()
+
+        self.assertEquals(project.date_submitted, None)
+
+    def test_campaign_project_got_funded_no_overfunding(self):
+        """
+        A project gets a donation and gets funded. The project does not allow overfunding so the status changes,
+        the campaign funded field is populated and campaign_ended field is populated
+        """
+        project = OnePercentProjectFactory.create(title="testproject", slug="testproject",
+                                                  status=ProjectPhase.objects.get(slug="campaign"),
+                                                  amount_asked=100, allow_overfunding=False)
+
+        self.assertTrue(project.campaign_ended is None)
+        self.assertTrue(project.campaign_funded is None)
+
+        donation = DonationFactory.create(user=self.user, project=project, amount=10000)
+
+        self.assertTrue(project.campaign_ended is not None)
+        self.assertTrue(project.campaign_funded is not None)
+        self.assertEquals(project.status, ProjectPhase.objects.get(slug="done-complete"))
+
+    def test_campaign_project_got_funded_allow_overfunding(self):
+        """
+        A project gets funded and allows overfunding. The project status does not change, the campaign_funded field
+        is populated but the campaign_ended field is not populated
+        """
+        project = OnePercentProjectFactory.create(title="testproject", slug="testproject",
+                                                  status=ProjectPhase.objects.get(slug="campaign"),
+                                                  amount_asked=100)
+
+        self.assertTrue(project.campaign_ended is None)
+        self.assertTrue(project.campaign_funded is None)
+
+        donation = DonationFactory.create(user=self.user, project=project, amount=10000)
+
+        self.assertTrue(project.campaign_ended is None)
+        self.assertTrue(project.campaign_funded is not None)
+        self.assertEquals(project.status, ProjectPhase.objects.get(slug="campaign"))
+
+    def test_campaign_project_not_funded(self):
+        """
+        A donation is made but the project is not funded. The status doesn't change and neither the campaign_ended
+        or campaign_funded are populated.
+        """
+        project = OnePercentProjectFactory.create(title="testproject", slug="testproject",
+                                                  status=ProjectPhase.objects.get(slug="campaign"),
+                                                  amount_asked=100)
+
+        self.assertTrue(project.campaign_ended is None)
+        self.assertTrue(project.campaign_funded is None)
+
+        donation = DonationFactory.create(user=self.user, project=project, amount=99)
+
+        self.assertTrue(project.campaign_ended is None)
+        self.assertTrue(project.campaign_funded is None)
+        self.assertEquals(project.status, ProjectPhase.objects.get(slug="campaign"))
+
+    def test_project_expired(self):
+        """
+        The deadline of a project expires but its not funded. The status changes, the campaign_ended field is populated
+        with the deadline, the campaign_funded field is empty.
+        """
+        project = OnePercentProjectFactory.create(title="testproject", slug="testproject",
+                                                  status=ProjectPhase.objects.get(slug="campaign"),
+                                                  amount_asked=100)
+
+        self.assertTrue(project.campaign_ended is None)
+        self.assertTrue(project.campaign_funded is None)
+
+        project.deadline = timezone.now() - timedelta(days=10)
+        project.save()
+
+        self.assertEquals(project.campaign_ended, project.deadline)
+        self.assertTrue(project.campaign_funded is None)
+        self.assertEquals(project.status, ProjectPhase.objects.get(slug="done-incomplete"))
