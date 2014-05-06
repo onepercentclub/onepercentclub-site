@@ -1,0 +1,112 @@
+{% load i18n bb_ember static %}
+
+{% tplhandlebars "paymentProfile" %}
+
+    <div class="l-content">
+
+        {{#unless controllers.currentUser.isAuthenticated}}
+            <a {{action openInBox "login"}} class="btn-login"><span class="flaticon solid lock-1"></span> <strong>{% trans "Have an account?" %}</strong><br /> {%  trans "Log in here" %}</a>
+        {{/unless}}
+
+        <form>
+            <legend>
+                {{#if controllers.currentUser.isAuthenticated}}
+                    <strong>{% trans "Great that you are doing another donation!" %}</strong>
+                    <p>{% trans "Please verify your details" %}.</p>
+                {{else}}
+                    <strong>{% trans "Nice to meet you" %}</strong>
+                    <p>{% trans "To process your donation we need some information." %}</p>
+                {{/if}}
+            </legend>
+
+            <fieldset>
+
+                {{#if model.isLoaded}}
+                    <ul>
+                        <li class="control-group">
+                            <label class="control-label">{% trans "Your full name" %}</label>
+                            <div class="controls">
+                                {{view Em.TextField valueBinding="firstName" placeholder="First name" class="inline-prepend" classBinding="errors.first_name.length:error"}}
+                                {{view Em.TextField valueBinding="lastName" placeholder="Last name" class="inline-append" classBinding="errors.last_name.length:error"}}
+                            </div>
+                        </li>
+
+                        <li class="control-group">
+                            <label class="control-label">{% trans "Email" %}</label>
+                            <div class="controls">
+                                {{view Em.TextField valueBinding="email" placeholder="Email" classBinding="errors.email.length:error"}}
+                            </div>
+
+                            {{#if errors.email }}
+                                <div class="has-errors">{{#each errors.email }}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+                        </li>
+
+                        <li class="control-group">
+                            <label class="control-label">{% trans "Address" %}</label>
+                            <div class="controls">
+                                {{view Em.TextField valueBinding="address" placeholder="Address" classBinding="errors.address.length:error"}}
+                            </div>
+
+                            {{#if errors.address }}
+                                <div class="has-errors">{{#each errors.address }}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+                        </li>
+
+                        <li class="control-group">
+                            <label class="control-label">{% trans "Postal code" %}</label>
+                            <div class="controls">
+                                {{view Em.TextField valueBinding="postalCode" placeholder="Postal code" classBinding="errors.postal_code.length:error"}}
+                            </div>
+
+                            {{#if errors.postal_code }}
+                                <div class="has-errors">{{#each errors.postal_code }}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+                        </li>
+
+                        <li class="control-group">
+                            <label class="control-label">{% trans "City" %}</label>
+                            <div class="controls">
+                                {{view Em.TextField valueBinding="city" placeholder="City" classBinding="errors.city.length:error"}}
+                            </div>
+
+                            {{#if errors.city }}
+                                <div class="has-errors">{{#each errors.city }}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+                        </li>
+
+                        <li class="control-group">
+                            <label class="control-label">{% trans "Country" %}</label>
+                            <div class="controls">
+                                {{view App.CountryCodeSelectView valueBinding="country" placeholder="Country" classBinding="errors.country.length:error"}}
+                            </div>
+                            {{#if errors.country}}
+                                <div class="has-errors">{{#each errors.country}}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+                        </li>
+                    </ul>
+                {{/if}}
+            </fieldset>
+
+            {{#if isComplete }}
+                <button class="btn btn-primary btn-iconed btn-next"><span class="flaticon solid right-2"></span>{% trans 'Next Step' %}</button>
+            {{else}}
+                <button disabled class="btn btn-iconed btn-next"><span class="flaticon solid right-2"></span>{% trans "Next Step" %}</button>
+            {{/if}}
+
+        </form>
+    </div>
+
+{% comment %}
+    <div class="l-sidebar">
+
+        <h3>{% trans "Did you know?" %}</h3>
+        {{#if controllers.currentUser.isAuthenticated }}
+            <p>{% blocktrans %}"You're about to make a big impact! Did you know that every 1%Project has 6 months to reach its target? And, if the target isn't reached you will be able to support another project with this donation. If this is the case, you'll receive an email from us explaining the next steps.{% endblocktrans %}</p>
+        {{else}}
+            <p>{% blocktrans %}You're about to make a big impact! Did you know that every 1%Project has 6 months to reach its target? And, if the target isn't reached we'll make sure your donation will support a similar project.{% endblocktrans %}</p>
+        {{/if}}
+    </div>
+{% endcomment %}
+
+{% endtplhandlebars %}
