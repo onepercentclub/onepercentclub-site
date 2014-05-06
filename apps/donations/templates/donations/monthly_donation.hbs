@@ -1,0 +1,30 @@
+{% load i18n bb_ember static %}
+
+{% tplhandlebars "monthlyDonation" %}
+
+    {{#linkTo 'project' project class="project-header" }}
+        <figure class="project-image">
+            <img {{bindAttr src="project.plan.image.square" alt="project.title"}} />
+        </figure>
+        <h2 class="project-title">
+            {{ project.title }}
+            <em class="project-location">
+                <span class="flaticon solid location-pin-1"></span> {{ project.plan.country.name }}
+            </em>
+        </h2>
+    {{/linkTo}}
+
+    <div class="fund-amount">
+        <strong class="fund-amount-needed">&euro; {{ project.campaign.money_needed }}</strong> {% trans "is still needed"%}
+
+        <div class="fund-amount-divided">
+            {{#each error in errors.amount}}
+                <span class="has-errors">{{ error }}</span>
+            {{/each}}
+            <strong>&euro; {{ amount }}</strong>
+        </div>
+    </div>
+
+    <a {{ action "deleteDonation" this target="view" }} class="manage-delete"><span class="flaticon solid x-2"></span> <strong>{% trans "Delete" %}</strong></a></li>
+
+{% endtplhandlebars %}
