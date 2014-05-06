@@ -42,8 +42,12 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         for slug, title in self.projects.items():
             project = OnePercentProjectFactory.create(title=title, slug=slug, owner=self.user, amount_asked=1000)
 
-    def visit_project_list_page(self, lang_code=None):
+    def visit_project_list_page(self, lang_code=None, clear_filter=True):
         self.visit_path('/projects', lang_code)
+
+        # Don't filter projects
+        if clear_filter:
+            self.wait_for_element_css('#search-form .control:last-of-type option:first-of-type').click()
 
         self.assertTrue(self.browser.is_element_present_by_css('.project-item'),
                 'Cannot load the project list page.')
@@ -118,9 +122,10 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         self.assertTrue(self.login(self.user.email, 'testing'))
         self.visit_project_list_page()
 
-        # pick a project
-        self.browser.find_by_css('.project-item').first.find_by_tag('a').first.click()
+        # Load the first campaign
+        self.assertTrue(self.scroll_to_and_click_by_css(".project-item:first-of-type a"))
 
+        self.wait_for_element_css('#wallpost-form')
         form = self.browser.find_by_id('wallpost-form')
 
         self.browser.find_by_css('.wallpost-post-update').first.click()
@@ -422,7 +427,7 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         # Let's pick a date
         # Click Next to get a date in the future
         self.assertTrue(self.scroll_to_and_click_by_css(".btn-date-picker"))
-        self.assertTrue(self.click_by_css("[title=Prev]"))
+        self.assertTrue(self.scroll_to_and_click_by_css("[title=Prev]"))
 
         day_today = self.wait_for_element_css('td.ui-state-disabled.ui-datepicker-today').text
         element = self.wait_for_element_css('td[data-handler=selectDay]:first-of-type a')
