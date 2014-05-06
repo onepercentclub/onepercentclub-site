@@ -11,6 +11,8 @@ from django.utils.unittest.case import skipUnless
 
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
+from apps.projects.models import Project
+from apps.organizations.models import Organization
 
 from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
 from bluebottle.test.factory_models.geo import CountryFactory
@@ -40,8 +42,12 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         for slug, title in self.projects.items():
             project = OnePercentProjectFactory.create(title=title, slug=slug, owner=self.user, amount_asked=1000)
 
-    def visit_project_list_page(self, lang_code=None):
+    def visit_project_list_page(self, lang_code=None, clear_filter=True):
         self.visit_path('/projects', lang_code)
+
+        # Don't filter projects
+        if clear_filter:
+            self.wait_for_element_css('#search-form .control:last-of-type option:first-of-type').click()
 
         self.assertTrue(self.browser.is_element_present_by_css('.project-item'),
                 'Cannot load the project list page.')
@@ -54,6 +60,9 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
 
         # Find the link to the Projects page and click it.
         self.browser.find_link_by_text('1%Projects').first.click()
+
+        # Don't filter projects
+        self.wait_for_element_css('#search-form .control:last-of-type option:first-of-type').click() 
 
         # Validate that we are on the intended page.
         self.assertTrue(self.browser.is_element_present_by_css('.project-item'),
@@ -113,9 +122,10 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         self.assertTrue(self.login(self.user.email, 'testing'))
         self.visit_project_list_page()
 
-        # pick a project
-        self.browser.find_by_css('.project-item').first.find_by_tag('a').first.click()
+        # Load the first campaign
+        self.assertTrue(self.scroll_to_and_click_by_css(".project-item:first-of-type a"))
 
+        self.wait_for_element_css('#wallpost-form')
         form = self.browser.find_by_id('wallpost-form')
 
         self.browser.find_by_css('.wallpost-post-update').first.click()
@@ -232,6 +242,8 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         # Project Section
         ###
 
+        self.assertTrue(self.is_visible('select[name="language"]'))
+
         self.browser.select('language', 2)
         self.browser.fill('title', self.project_data['title'])
         self.browser.fill('pitch', self.project_data['pitch'])
@@ -253,7 +265,14 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         # Goal Section
         ###
 
+        # Wait for next tab to load
         self.assertTrue(self.is_visible('input[name="amount_asked"]'))
+
+        # At this point the project should have been created in the backend... check now.
+        try:
+            Project.objects.get(slug='velit-esse-cillum-dolore')
+        except Project.DoesNotExist:
+            self.fail('Project should have been created')
 
         self.browser.fill('amount_asked', self.project_data['amount_asked'])
 
@@ -324,6 +343,15 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         # Bank Section
         ###
 
+        # Wait for next tab to load
+        self.assertTrue(self.is_visible('input[name="account-holder-name"]'))
+
+        # At this point the organization should have been created in the backend... check now.
+        try:
+            Organization.objects.get(name='Test Organization')
+        except Organization.DoesNotExist:
+            self.fail('Organization should have been created')
+
         bank_details = {
             "name": "Test Organization",
             "address": "144 Tolstraat",
@@ -332,8 +360,6 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
             "iban": "NL91ABNA0417164300",
             "bic": "ABNANL2AXXX"
         }
-
-        self.assertTrue(self.is_visible('input[name="account-holder-name"]'))
 
         self.browser.fill('account-holder-name', bank_details['name'])
         self.browser.fill('account-holder-address', bank_details['address'])
@@ -361,6 +387,35 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         # TODO: Also check it has the expected fields.
         Project.objects.filter(slug=self.project_data['slug']).exists()
 
+
+    def test_project_submit_visibility(self):
+        self.visit_path('/my/projects')
+
+        # Click "Pitch Smart Idea" btn
+        self.assertTrue(self.is_visible('#create_project'))
+        self.browser.find_by_id("create_project").first.click()
+
+        # Jumping to the end/submit page without valid project should hide submit button
+        self.browser.find_by_css("ul#campaign-steps .tab:last-of-type a").first.click()
+
+
+        # Should see list of missing fields and no submit button. 
+        # Use timeout of 0 to return immediately
+        self.assertTrue(self.is_visible('ul.missing-steps'), 'There should be a list of missing fields')
+
+        # Check there is no submit
+        self.assertFalse(self.is_visible('button.btn-submit', timeout=0), 'There should not be a submit button')
+
+        missing_items = self.browser.find_by_css('ul.missing-steps li:not(.introduction)')
+        self.assertTrue(len(missing_items) > 0, 'There should be missing items listed')
+        self.assertTrue(missing_items.first.find_by_css('.category').first.text == 'Project', 'The first missing item should related to the project')
+        self.assertTrue(missing_items.first.find_by_css('.details a').first.text == 'Title', 'The first missing item should be the project title')
+
+        missing_items.first.find_by_css('.action a').click()
+
+        self.assertTrue(self.is_visible('input[name="title"]'), 'Should be redirected to the project pitch tab')
+
+
     def test_change_project_goal(self):
         project = OnePercentProjectFactory.create(title='Project Goal Changes', owner=self.user)
         self.visit_path('/my/projects/{0}/goal'.format(project.slug))
@@ -373,25 +428,16 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         # Click Next to get a date in the future
         self.assertTrue(self.scroll_to_and_click_by_css(".btn-date-picker"))
         self.browser.find_by_css("[title=Prev]").first.click()
-        self.browser.find_by_css("[title=Prev]").first.click()
-        self.browser.find_by_css("[title=Prev]").first.click()
-        self.browser.find_by_css("[title=Next]").first.click()
-        self.assertTrue(self.browser.is_text_present("4"))
-        self.browser.find_link_by_text("4").first.click()
-        # remember the days left now
-        days_left1 = self.browser.find_by_css('.project-days-left strong').first.text
 
-        time.sleep(2)
+        day_today = self.wait_for_element_css('td.ui-state-disabled.ui-datepicker-today').text
+        element = self.wait_for_element_css('td[data-handler=selectDay]:first-of-type a')
+        day_end = element.text
+        element.click()
 
-        self.assertTrue(self.scroll_to_and_click_by_css(".btn-date-picker"))
-        self.assertTrue(self.browser.is_text_present("14"))
-        self.browser.find_link_by_text("14").first.click()
-        days_left2 = self.browser.find_by_css('.project-days-left strong').first.text
-        days_diff = int(days_left2) - int(days_left1)
+        days_left = int(self.wait_for_element_css('.project-days-left strong').text)
+        days_diff = int(day_end) - int(day_today)
 
-        self.assertEqual(days_diff, 10)
-
-
+        self.assertEqual(days_diff, days_left)
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
