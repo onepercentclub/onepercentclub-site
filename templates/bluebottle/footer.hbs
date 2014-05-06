@@ -11,9 +11,9 @@
                         <h3>{% blocktrans %}It all starts with 1%{% endblocktrans %}</h3>
                         <ul>
                             <li>
-                                <a {{action 'showPage' 'about'}} href="/#!/pages/about">
-                                {% blocktrans %}What is 1%CLUB?{% endblocktrans %}
-                                </a>
+                                {{#link-to 'page' 'about'}}
+                                    {% trans "What is 1%CLUB?" %}
+                                {{/link-to}}
                             </li>
 
                             <li>
@@ -27,9 +27,9 @@
 								{{/link-to}}
                             </li>
                             <li>
-                                <a {{action 'showPage' 'get-involved'}} href="/#!/pages/get-involved">
+                                {{#link-to 'page' 'get-involved'}}
                                     {% trans "Get involved" %}
-                                </a>
+                                {{/link-to}}
                             </li>
                             <li class="start-your-project">
                                 {{#link-to 'myProject.start' 'new'}}
@@ -43,37 +43,39 @@
                         <h3>{% blocktrans %}About 1%Club{% endblocktrans %}</h3>
                         <ul>
                             <li>
-                                <a {{action 'showPage' 'story'}} href="/#!/pages/story">
-                                {% trans "Our story" %}
-                                </a>
+                                {{#link-to 'page' 'story'}}
+                                    {% trans "Our story" %}
+                                {{/link-to}}
                             </li>
                             <li>
-                                <a {{action 'showPage' 'faq'}} href="/#!/pages/faq">{% trans "Frequently Asked Questions" %}</a>
+                                {{#link-to 'page' 'faq'}}
+                                    {% trans "Frequently Asked Question" %}
+                                {{/link-to}}
                             </li>
                             <li>
-                                <a {{action 'showPage' 'meet-team'}} href="/#!/pages/meet-team">
-                                {% trans "Meet the team" %}
-                                </a>
+                                {{#link-to 'page' 'meet-team'}}
+                                    {% trans "Meet the team" %}
+                                {{/link-to}}
                             </li>
 
                             <li>
-                                <a {{action 'showPage' 'partners'}} href="/#!/pages/partners">
-                                {% trans "Partners" %}
-                                </a>
+                                {{#link-to 'page' 'partners'}}
+                                    {% trans "Partners" %}
+                                {{/link-to}}
                             </li>
                             <li>
-                                <a {{action 'showPage' 'press'}} href="/#!/pages/press">
-                                {% trans "Press" %}
-                                </a>
+                                {{#link-to 'page' 'press'}}
+                                    {% trans "Press" %}
+                                {{/link-to}}
                             </li>
                             <li>
-                                <a {{action 'showPage' 'work'}} href="/#!/pages/work">
-                                {% blocktrans %}Work at 1%CLUB{% endblocktrans %}
-                                </a>
+                                {{#link-to 'page' 'work'}}
+                                    {% trans "Work at 1%CLUB" %}
+                                {{/link-to}}
                             </li>
                             <li>
                                 {{#linkTo 'contactMessage' href=true}}
-                                {% trans "Contact" %}
+                                    {% trans "Contact" %}
                                 {{/linkTo}}
                             </li>
                         </ul>
@@ -83,9 +85,9 @@
                     <h3>{% trans "Discover 1%More" %}</h3>
                         <ul>
                             <li>
-                                <a {{action 'showPage' 'business'}} href="/#!/pages/business">
+                                {{#link-to 'page' 'business'}}
                                     {% trans "1%Business" %}
-                                </a>
+                                {{/link-to}}
                             </li>
                             <li>
                                 <a  href="http://onepercentblog.com" target="_blank">
@@ -156,14 +158,18 @@
                             &copy;2014 1%Club
                         </li>
                         <li>
-                            <a {{action 'showPage' 'terms-and-conditions'}} href="/#!/pages/terms-and-conditions">{% trans "General Conditions" %}</a>&nbsp;
-                            <a {{action 'showPage' 'privacy'}} href="/#!/pages/privacy">{% trans "Privacy Policy" %}</a>
+                            {{#link-to 'page' 'terms-and-conditions'}}
+                                {% trans "General Conditions" %}
+                            {{/link-to}} 
+                            {{#link-to 'page' 'privacy'}}
+                                {% trans "Privacy Policy" %}
+                            {{/link-to}}
                         </li>
                         {{#if GIT_COMMIT}}
                             <li class="pull-left">Commit: <a target='_blank' href='https://github.com/onepercentclub/onepercentclub-site/commit/{{unbound GIT_COMMIT }}'>{{ GIT_COMMIT }}</a></li>
                         {{/if}}
                         <li class="pull-right">
-                            <a href="#!/contact" class="feedback">{% trans "Give us feedback" %}</a>
+                            {{#link-to 'page' 'contact' class="feedback"}}{% trans "Give us feedback" %}{{/link-to}}
                         </li>
                     </ul>
                 {% endblock_verbatim %}
