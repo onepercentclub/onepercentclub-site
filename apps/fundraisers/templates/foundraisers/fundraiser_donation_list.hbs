@@ -1,0 +1,72 @@
+{% load i18n bb_ember static %}
+
+{% tplhandlebars "fundraiser_donation_list" %}
+
+    <div class="l-section" id="project-dashboard">
+
+        <div class="l-section account-header">
+            <nav class="l-wrapper">
+
+                <figure class="account-avatar"><img {{bindAttr src="controllers.currentUser.getAvatar"}} /></figure>
+
+                <header class="account-title">
+                    <h2>{% trans "My 1%" %} <em class="account-subtitle">{% trans "Fundraising" %}</em> <em class="account-subtitle">{% trans "Donations" %}</em></h2>
+                </header>
+
+                {{#linkTo 'fundRaiser' id class="account-preview btn-link"}}
+                    <span class="flaticon solid eye-1"></span>
+                    {% trans "Back to fundraiser" %}
+                {{/linkTo}}
+            </nav>
+        </div>
+
+        <div class="l-wrapper">
+            <div class="l-content">
+                {{#if controllers.currentUser.isAuthenticated}}
+                    <header class="l-page-header">
+                        <h1>{% trans "Donation overview" %}</h1>
+                        <p>
+                            {% blocktrans %}
+                            The people below supported your fundraiser
+                            {% endblocktrans %}
+                             "<strong>{{title}}</strong>".
+                        </p>
+                    </header>
+
+                    {{#if fundRaiseDonations.length}}
+
+	                    <table class="fund-history">
+			                {{#each donation in fundRaiseDonations}}
+			                	{{view "App.ProjectDonationView" }}
+                            {{/each}}
+			            </table>
+
+                    {{else}}
+                        <p>{% trans "Awww. No donations yet!" %}</p>
+                    {{/if}}
+
+                {{else}}
+                    <header class="l-page-header">
+                        <h1>{% trans "Donation overview" %}</h1>
+                        <p>
+                            {% blocktrans %}
+                                You are not authorised to view the donations.
+                            {% endblocktrans %}
+                        </p>
+                    </header>
+
+                    <p class="login-signup"><a href="/accounts/login">{% trans "Login" %}</a> {% trans "or become a" %} {{#linkTo "signup"}}{% trans "member" %}{{/linkTo}} {% trans "to start a fundraiser." %}</p>
+                {{/if}}
+            </div>
+
+            <sidebar class="l-sidebar">
+                <h2>{% trans "Fundraising for project" %}</h2>
+                <p>{% trans "You are fundraising for this project" %}</p>
+
+                {{render "projectPreview" project}}
+
+            </sidebar>
+        </div>
+    </div>
+
+{% endtplhandlebars %}
