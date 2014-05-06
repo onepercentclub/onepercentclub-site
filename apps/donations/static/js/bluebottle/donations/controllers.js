@@ -150,8 +150,23 @@ App.UserMonthlyProjectsController = Em.ObjectController.extend({
                 }
             });
         }
-     },
-     actions: {
+    },
+    actions: {
+        openProjectSelectModal: function() {
+            var route = this;
+            $('#project-select').addClass('modal-active').removeClass('is-hidden');
+            $('body').append('<div class="modal-backdrop"></div>');
+            $('.modal-backdrop').click(function(){
+                route.send('closeAllModals');
+            });
+        },
+
+        closeAllModals: function(){
+            $('.modal-active').removeClass('modal-active').addClass('is-hidden');
+            $('.modal-backdrop').fadeOut(200, function(){
+                this.remove();
+            });
+        },
         save: function(){
             var model = this.get('model');
             var message = gettext("You're about to set a monthly donation.<br/><br/>" +
