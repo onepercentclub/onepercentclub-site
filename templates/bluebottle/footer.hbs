@@ -8,77 +8,143 @@
             <section class="footer-content">
                 <ul class="footer-menu">
                     <li>
-                        <h3>{% blocktrans %}You care{% endblocktrans %}</h3>
+                        <h3>{% blocktrans %}It all starts with 1%{% endblocktrans %}</h3>
                         <ul>
                             <li>
-                                {{#link-to 'page' 'how-it-works'}}
-                                    {% blocktrans %}How it works{% endblocktrans %}
-                                {{/link-to}}
+                                <a {{action 'showPage' 'about'}} href="/#!/pages/about">
+                                {% blocktrans %}What is 1%CLUB?{% endblocktrans %}
+                                </a>
                             </li>
 
                             <li>
-                                {{#link-to 'projectList'}}
-                                    {% blocktrans %}Projects{% endblocktrans %}
-								{{/link-to}}
+                                {{#linkTo 'projectList'}}
+                                    {% blocktrans %}1%Projects{% endblocktrans %}
+                                {{/linkTo}}
                             </li>
                             <li>
                                 {{#link-to 'taskList'}}
-                                    {% blocktrans %}Skills{% endblocktrans %}
+                                    {% blocktrans %}1%Skills{% endblocktrans %}
 								{{/link-to}}
                             </li>
                             <li>
-                                {{#link-to 'page' 'get-involved'}}
-                                    {% blocktrans %}Get involved{% endblocktrans %}
-                                {{/link-to}}
+                                <a {{action 'showPage' 'get-involved'}} href="/#!/pages/get-involved">
+                                    {% trans "Get involved" %}
+                                </a>
                             </li>
-                            <li>
+                            <li class="start-your-project">
                                 {{#link-to 'myProject.start' 'new'}}
-                                    {% trans "Start a project" %}
+                                    {% trans "Start your project" %}
                                 {{/link-to}}
                             </li>
                         </ul>
                     </li>
 
                     <li>
-                        <h3>{% blocktrans %}We care{% endblocktrans %}</h3>
+                        <h3>{% blocktrans %}About 1%Club{% endblocktrans %}</h3>
                         <ul>
                             <li>
-                                {{#link-to 'page' 'the-story'}}
-                                    {% trans "The story" %}
-                                {{/link-to}}
+                                <a {{action 'showPage' 'story'}} href="/#!/pages/story">
+                                {% trans "Our story" %}
+                                </a>
                             </li>
                             <li>
-                                {{#link-to 'page' 'meet-the-team'}}
-                                    {% trans "Meet the team" %}
-                                {{/link-to}}
+                                <a {{action 'showPage' 'faq'}} href="/#!/pages/faq">{% trans "Frequently Asked Questions" %}</a>
                             </li>
                             <li>
-                                {{#link-to 'page' 'faq'}}
-                                    {% trans "Frequently asked questions" %}
-                                {{/link-to}}
+                                <a {{action 'showPage' 'meet-team'}} href="/#!/pages/meet-team">
+                                {% trans "Meet the team" %}
+                                </a>
+                            </li>
 
+                            <li>
+                                <a {{action 'showPage' 'partners'}} href="/#!/pages/partners">
+                                {% trans "Partners" %}
+                                </a>
                             </li>
                             <li>
-                                {{#link-to 'contactMessage'}}{% trans "Contact" %}{{/link-to}}
+                                <a {{action 'showPage' 'press'}} href="/#!/pages/press">
+                                {% trans "Press" %}
+                                </a>
+                            </li>
+                            <li>
+                                <a {{action 'showPage' 'work'}} href="/#!/pages/work">
+                                {% blocktrans %}Work at 1%CLUB{% endblocktrans %}
+                                </a>
+                            </li>
+                            <li>
+                                {{#linkTo 'contactMessage' href=true}}
+                                {% trans "Contact" %}
+                                {{/linkTo}}
                             </li>
                         </ul>
 
                     </li>
-
                     <li>
-	                    <h3>{% trans "News" %}</h3>
-	                    <ul>
-	                    {{#each news}}
-	                        <li>
-	                            <a {{action 'showNews' this}}>
-	                                <span class="flaticon solid right-2"></span> {{ title }}
-	                            </a>
-	                        </li>
-	                    {{/each}}
-	                    </ul>
+                    <h3>{% trans "Discover 1%More" %}</h3>
+                        <ul>
+                            <li>
+                                <a {{action 'showPage' 'business'}} href="/#!/pages/business">
+                                    {% trans "1%Business" %}
+                                </a>
+                            </li>
+                            <li>
+                                <a  href="http://onepercentblog.com" target="_blank">
+                                    {% trans "1%Blog" %}
+                                </a>
+                            </li>
+                            <li>
+                                <a  href="http://github.com/onepercentclub">
+                                    {% trans "1%Github" %}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                    <h3>{% blocktrans %}1%Social{% endblocktrans %}</h3>
+                        <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fonepercentclub&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;font&amp;colorscheme=light&amp;action=like&amp;height=21&amp;appId=265978350087756" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:21px;" allowTransparency="true"></iframe>
+                        <iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/tweet_button.html?url=https%3A%2F%2Fonepercentclub.com&text=" style="width:115px; height:21px;"></iframe>
+                        <ul class="footer-social-links">
+                            <li>
+                                <a href="http://www.facebook.com/onepercentclub" target="_blank">
+                                    <span class="flaticon social facebook-1"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://twitter.com/1percentclub" target="_blank">
+                                    <span class="flaticon social twitter-1"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://www.flickr.com/photos/1procentclub/" target="_blank">
+                                    <span class="flaticon social flickr-1"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://www.linkedin.com/groups?gid=1071287&trk=hb_side_g" target="_blank">
+                                    <span class="flaticon social linkedin-1"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://www.youtube.com/user/1Procentclub" target="_blank">
+                                    <span class="flaticon social youtube-1"></span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
 				</ul>
-
+                <hr>
+                <div class="footer-news">
+                    <ul>
+                    <h3>{% trans "1%News" %}</h3>
+                   {{#each news}}
+                        <li>
+                            <a {{action 'showNews' this}}>
+                                <span class="flaticon solid right-2"></span> {{ title }}
+                            </a>
+                        </li>
+                    {{/each}}
+                    </ul>
+                </div>
             </section>
         </div>
 
