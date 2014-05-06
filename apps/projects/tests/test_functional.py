@@ -57,6 +57,9 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         # Find the link to the Projects page and click it.
         self.browser.find_link_by_text('1%Projects').first.click()
 
+        # Don't filter projects
+        self.wait_for_element_css('#search-form .control:last-of-type option:first-of-type').click() 
+
         # Validate that we are on the intended page.
         self.assertTrue(self.browser.is_element_present_by_css('.project-item'),
                 'Cannot load the project list page.')
