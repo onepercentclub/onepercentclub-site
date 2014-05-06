@@ -152,11 +152,18 @@
             <div class="l-wrapper">
                 {% block_verbatim  'footer_copyright' %}
                     <ul>
+                        <li>
+                            &copy;2014 1%Club
+                        </li>
+                        <li>
+                            <a {{action 'showPage' 'terms-and-conditions'}} href="/#!/pages/terms-and-conditions">{% trans "General Conditions" %}</a>&nbsp;
+                            <a {{action 'showPage' 'privacy'}} href="/#!/pages/privacy">{% trans "Privacy Policy" %}</a>
+                        </li>
                         {{#if GIT_COMMIT}}
                             <li class="pull-left">Commit: <a target='_blank' href='https://github.com/onepercentclub/onepercentclub-site/commit/{{unbound GIT_COMMIT }}'>{{ GIT_COMMIT }}</a></li>
                         {{/if}}
                         <li class="pull-right">
-                            <a href="#!/contact">{% trans "Send us your feedback" %}</a>
+                            <a href="#!/contact" class="feedback">{% trans "Send us your feedback" %}</a>
                         </li>
                     </ul>
                 {% endblock_verbatim %}
