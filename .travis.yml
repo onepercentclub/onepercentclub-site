@@ -15,7 +15,7 @@ env:
 before_install:
   - "gem update --system"
   - "gem install sass compass"
-  - "npm install grunt-cli"
+  - "npm install grunt-cli grunt"
   - "grunt compass:dist"
   
 install:
