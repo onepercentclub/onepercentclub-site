@@ -1,0 +1,56 @@
+{% load i18n bb_ember static %}
+
+{% tplhandlebars "userDonation" %}
+
+    <div id="account">
+
+        <div class="l-section account-header">
+            <nav class="l-wrapper">
+                <figure class="account-avatar"><img {{bindAttr src="controllers.currentUser.getAvatar"}} /></figure>
+
+                <header class="account-title">
+                    <h2>{% blocktrans %}My 1%{% endblocktrans %}  <em class="account-subtitle">{% trans "Donations" %}</em></h2>
+                </header>
+
+                <ul class="tabs three">
+                    <li class="tab-item">
+                        {{#linkTo "userMonthlyProjects" }}
+                            <em class="tab-icon"><span class="flaticon solid wallet-1"></span></em>
+                            <strong class="tab-title">
+                                {% trans "Monthly Donation" %}
+                                <em class="tab-subtitle">{% trans "Select Projects" %}</em>
+                            </strong>
+                        {{/linkTo}}
+                    </li>
+
+                    <li class="tab-item">
+                        {{#linkTo "userMonthlyProfile" }}
+                            <em class="tab-icon"><span class="flaticon solid wallet-1"></span></em>
+                            <strong class="tab-title">
+                                {% trans "Donation Profile" %}
+                                <em class="tab-subtitle">{% trans "Payment Details" %}</em>
+                            </strong>
+                        {{/linkTo}}
+                    </li>
+
+                    <li class="tab-item first">
+                        {{#linkTo "userDonationHistory" }}
+                            <em class="tab-icon"><span class="flaticon solid wallet-1"></span></em>
+                            <strong class="tab-title">
+                                {% trans "Donations" %}
+                                <em class="tab-subtitle">{% trans "Donation History" %}</em>
+                            </strong>
+                        {{/linkTo}}
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="l-section account-details">
+            {{ outlet }}
+        </div>
+
+    </div>
+
+{% endtplhandlebars %}
+

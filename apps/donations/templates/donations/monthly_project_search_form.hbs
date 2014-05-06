@@ -1,0 +1,73 @@
+{% load i18n bb_ember static %}
+
+{% tplhandlebars "monthlyProjectSearchForm" %}
+
+    <div id="search">
+        <section>
+            <form id="search-form">
+                <div class="control">
+                    {{view Em.TextField valueBinding="text" placeholder="Search"}}
+                    <span class="flaticon stroke zoom-2"></span>
+                </div>
+                <div class="control">
+                    {{view App.CountrySelectView valueBinding="country" }}
+                    <span class="flaticon solid earth-1"></span>
+                </div>
+                <div class="control">
+                    {{view App.ThemeSelectView valueBinding="theme" }}
+                    <span class="flaticon stroke tag-2"></span>
+                </div>
+            </form>
+        </section>
+    </div>
+
+    <div>
+        <section>
+            <article id="search-navigation">
+
+            	<header>
+                	<h4>{% trans "Found" %} <em>{{controllers.monthlyProjectList.model.meta.total}}</em></h4>
+                    <a {{action 'clearForm'}} class="search-reset">
+                        <span class="flaticon solid x-2"></span> {% trans "Reset Search Filter" %}
+                    </a>
+            	</header>
+
+                <div class="search-sort">
+                    {% trans "Sort:" %}
+                    <a {{action 'sortOrder' 'popularity'}} {{bindAttr class="orderedByPopularity:active"}}>{% trans "Most popular" %}</a>
+                    {% comment %}
+                        Disabled because the currently approved design does not include sorting by title.
+                        Current design: https://www.dropbox.com/s/n34ndim6cdbm7vz/Project-Search-V2.png
+                        <a {{action 'sortOrder' 'title'}} {{bindAttr class="orderedByTitle:active"}}>{% trans "Title" %}</a>
+                    {% endcomment %}
+                    <a {{action 'sortOrder' 'newest'}} {{bindAttr class="orderedByNewest:active"}}>{% trans "Newest" %}</a>
+                    <a {{action 'sortOrder' 'needed'}} {{bindAttr class="orderedByNeeded:active"}}>{% trans "Almost funded" %}</a>
+                    <a {{action 'sortOrder' 'deadline'}} {{bindAttr class="orderedByDeadline:active"}}>{% trans "Near deadline" %}</a>
+                </div>
+
+                <div class="search-pagination">
+                	<span class="search-showing">{% trans "Showing" %} {{rangeStart}}-{{rangeEnd}}</span>
+                	<span class="search-pages-control">
+		                {{#if hasPreviousPage}}
+		                    <a {{action 'previousPage'}} class="previous-page">
+		                        <span class="flaticon solid left-circle-2"></span>
+		                    </a>
+		                {{else}}
+		                	<span class="previous-page"><span class="flaticon solid left-circle-2"></span></span>
+		                {{/if}}
+
+		                {{#if hasNextPage}}
+		                    <a {{action 'nextPage'}} class="next-page">
+		                        <span class="flaticon solid right-circle-2"></span>
+		                    </a>
+		                {{else}}
+		                	<span class="next-page"><span class="flaticon solid right-circle-2"></span></span>
+		                {{/if}}
+                	</span>
+                </div>
+
+            </article>
+        </section>
+    </div>
+
+{% endtplhandlebars %}

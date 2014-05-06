@@ -1,0 +1,62 @@
+{% load i18n bb_ember static %}
+
+{% tplhandlebars "userMonthlyProfile" %}
+
+    <section class="l-wrapper">
+        <div class="l-content">
+            <form>
+                {{#if model}}
+                    <legend>
+                        <strong>{% trans "Edit your payment info" %}</strong>
+                        <p>{% trans "Here you can change your bank account info and monthly donations." %}</p>
+                    </legend>
+
+                    <fieldset>
+                        <ul>
+                            <li class="control-group">
+                                <label class="control-label">{% trans "Account Name" %}</label>
+                                <div class="controls">
+                                    {{view Em.TextField valueBinding="name" placeholder="Full name as it appears on your bank account" classBinding="errors.name.length:error"}}
+                                </div>
+                                {{#if errors.name }}
+                                    <div class="has-errors">{{#each errors.name }}<p>{{this}}</p>{{/each}}</div>
+                                {{/if}}
+                            </li>
+
+                            <li class="control-group">
+                                <label class="control-label">{% trans "Account Number" %}</label>
+                                <div class="controls">
+                                    {{view Em.TextField valueBinding="account" placeholder="Your bank account number" classBinding="errors.account.length:error"}}
+                                </div>
+                                {{#if errors.account }}
+                                    <div class="has-errors">{{#each errors.account }}<p>{{this}}</p>{{/each}}</div>
+                                {{/if}}
+                            </li>
+
+                            <li class="control-group">
+                                <label class="control-label">{% trans "Account City" %}</label>
+                                <div class="controls">
+                                    {{view Em.TextField valueBinding="city" placeholder="City registered on your bank account" classBinding="errors.city.length:error"}}
+                                </div>
+                                {{#if errors.city }}
+                                    <div class="has-errors">{{#each errors.city }}<p>{{this}}</p>{{/each}}</div>
+                                {{/if}}
+                            </li>
+
+                        </ul>
+                    </fieldset>
+
+                    {{#if saved }}
+                        <div class="is-saved"><span class="flaticon solid checkmark-1"></span> <strong>{% trans "Monthly settings saved" %}</strong></div>
+                    {{/if}}
+
+                    <button {{bindAttr class=":btn :btn-iconed :btn-primary :btn-save isDirty::disabled"}} {{action 'save' model}}>
+                        <span class="flaticon solid checkmark-1"></span>
+                        {% trans "Save" %}
+                    </button>
+                {{/if }}
+            </form>
+        </div>
+    </section>
+
+{% endtplhandlebars %}
