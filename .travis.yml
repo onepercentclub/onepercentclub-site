@@ -3,11 +3,19 @@ language: python
 python:
   - "2.7"
 
+node_js:
+  - "0.10"
+
 addons:
   firefox: "26.0"
 
 env:
   - DJANGO=django==1.5.4
+
+before_install:
+  - "gem update --system"
+  - "gem install sass compass"
+  - "npm install -g grunt-cli"
 
 install:
   - "export DISPLAY=:99.0"
@@ -17,9 +25,7 @@ install:
   - "pip install --use-mirrors --allow-all-external --allow-unverified django-admin-tools -r requirements/ci_requirements.txt"
   - "pip install Pillow --use-mirrors"
   - "touch onepercentclub/settings/secrets.py"
-
-before_script:
-  # - npm install
+  - "grunt compass:dist"
 
 script:
   - python ./manage.py test --settings=onepercentclub.settings.travis --failfast -v 1
