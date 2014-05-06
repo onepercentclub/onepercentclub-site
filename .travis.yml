@@ -28,7 +28,7 @@ install:
   - "touch onepercentclub/settings/secrets.py"
   
 before_script:
-  - "pip show bluebottle"
+  - "echo `pip show bluebottle`"
   - "grunt compass:dist --bb_path=\"/home/travis/virtualenv/python2.7/lib/python2.7/site-packages/bluebottle/bluebottle/common/static/sass\""
   
 script:
