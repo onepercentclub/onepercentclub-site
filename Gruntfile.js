@@ -1,5 +1,6 @@
 module.exports = function (grunt) {
   var sassOutputStyle = grunt.option('output_style') || 'expanded';
+  var bluebottlePath = grunt.option('bb_path') || ["env/src/bluebottle/bluebottle/common/static/sass"];
 
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-ember-template-compiler');
@@ -125,7 +126,7 @@ module.exports = function (grunt) {
           noLineComments: true,
           environment: 'production',
           raw: 'preferred_syntax = :scss\n', // Use `raw` since it's not directly available
-          importPath: ["env/src/bluebottle/bluebottle/common/static/sass"],
+          importPath: bluebottlePath,
           force: true,     
         }
       },
@@ -142,7 +143,7 @@ module.exports = function (grunt) {
           relativeAssets: true,
           noLineComments: false,
           raw: 'preferred_syntax = :scss\n', // Use `raw` since it's not directly available  
-          importPath: ["../bluebottle/bluebottle/common/static/sass"],
+          importPath: bluebottlePath,
           force: false,
         }
       }
@@ -157,7 +158,11 @@ module.exports = function (grunt) {
   grunt.registerTask('travis', ['build', 'karma:ci']);
   grunt.registerTask('local', ['dev', 'watch']);
   grunt.registerTask('deploy', ['concat:dist', 'uglify:dist', 'hashres']);
-  grunt.registerTask('render-sass:dev', ['compass:dev']);
+  grunt.registerTask('render-sass:dev', 'Alias for "compass:dev" task with relative bluebottle path.', function () {
+    bluebottlePath = ["../bluebottle/bluebottle/common/static/sass"];
+
+    grunt.task.run('compass:dev');
+  });
   grunt.registerTask('render-sass:test', ['compass:dist']);
   grunt.registerTask('render-sass:live', 'Alias for "compass:dist" task with compressed sass.', function() {
     sassOutputStyle = "compressed";

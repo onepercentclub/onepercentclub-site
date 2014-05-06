@@ -3,6 +3,12 @@ language: python
 python:
   - "2.7"
 
+node_js:
+  - "0.10"
+
+addons:
+  firefox: "26.0"
+
 env:
   - DJANGO=django==1.5.4
 
@@ -14,10 +20,11 @@ install:
   - "pip install --use-mirrors --allow-all-external --allow-unverified django-admin-tools -r requirements/ci_requirements.txt"
   - "pip install Pillow --use-mirrors"
   - "touch onepercentclub/settings/secrets.py"
-
+  
 before_script:
-  # - npm install
-
+  - "echo `pip show bluebottle`"
+  - "grunt compass:dist --bb_path=\"/home/travis/virtualenv/python2.7/lib/python2.7/site-packages/bluebottle/bluebottle/common/static/sass\""
+  
 script:
   - python ./manage.py test --settings=onepercentclub.settings.travis -v 1
   # - grunt travis --verbose # add --force to pass build on JS failures
