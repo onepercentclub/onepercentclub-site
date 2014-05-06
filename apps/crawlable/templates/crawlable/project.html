@@ -1,0 +1,58 @@
+{% load thumbnail i18n %}
+
+<!DOCTYPE HTML>
+<html lang="nl">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width" />
+
+    <title>{{ project.title }}</title>
+
+
+    <meta name="description" content="{{ project.pitch }}" />
+    <meta name="author" content="1%Club" />
+	<meta name="keywords" content="crowdfunding, crowdsourcing, platform, onepercentclub" />
+
+	<link rel="shortcut icon" href="/static/assets/favicon.ico">
+	<link type="text/css" rel="stylesheet" href="https://fast.fonts.net/cssapi/35462e2c-8abd-4457-8837-d0d64a385759.css"/>
+
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="{{ project.get_absolute_frontend_url }}" />
+	<meta property="og:title" content="{{ project.title }}" />
+	{% thumbnail project.image "600x400" crop="center" as im %}
+        <meta property="og:image" content="{{ im.url }}" />
+    {% endthumbnail %}
+	<meta property="og:description" content="{{ project.pitch }}" />
+	<meta property="og:site_name" content="1%Club - Share a little. Change the world" />
+	<meta property="fb:page_id" content="298248659856" />
+    <meta property="og:keywords" content="" />
+
+</head>
+
+<body>
+
+    <h1>{{ project.title }}</h1>
+    {{ project.owner.get_full_name }}
+
+	{% thumbnail project.image "600x400" crop="center" as im %}
+        <img src="{{ im.url }}" />
+    {% endthumbnail %}
+
+    {{ project.story|safe }}
+
+    <h2>{% trans "Fundraisers" %}</h2>
+    {% for fundraiser in project.fundraiser_set.all %}
+        <a href="/?_escaped_fragment_=/fundraisers/{{ fundraiser.id }}">{{ fundraiser.title }}</a><br />
+        {{ fundraiser.owner.get_full_name }}
+        <br /><br />
+    {% endfor %}
+
+    <h2>{% trans "Tasks" %}</h2>
+    {% for task in project.task_set.all %}
+        <a href="/?_escaped_fragment_=/tasks/{{ task.id }}">{{ task.title }}</a><br />
+    {% endfor %}
+
+</body>
+</html>

@@ -288,6 +288,7 @@ INSTALLED_APPS = (
     'apps.partners',
     'apps.csvimport',
     'apps.accounting',
+    'apps.crawlable',
 
     # Custom dashboard
     'fluent_dashboard',

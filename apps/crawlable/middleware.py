@@ -1,4 +1,7 @@
 import logging
+from apps.projects.models import Project
+from apps.tasks.models import Task
+from django.template.response import SimpleTemplateResponse
 import re
 import time
 import os
@@ -126,6 +129,7 @@ class HashbangMiddleware(object):
     """
 
     def process_request(self, request):
+
         if request.method == 'GET' and ESCAPED_FRAGMENT in request.GET:
             original_url = request.build_absolute_uri()
             parsed_url = urlparse.urlparse(original_url)
@@ -133,6 +137,19 @@ class HashbangMiddleware(object):
             # Update URL with hashbang.
             query = dict(urlparse.parse_qsl(parsed_url.query))
             path = ''.join([parsed_url.path, HASHBANG, query.get(ESCAPED_FRAGMENT, '')])
+
+
+            # See if it's a page we now so that we can sent it back quickly.
+            route = parsed_url.query.split('/')
+
+            # Project page
+            if route[1] == 'projects' and len(route) > 2:
+                project = Project.objects.get(slug=route[2])
+                return SimpleTemplateResponse(template='crawlable/project.html', context={'project': project})
+            # Task page
+            if route[1] == 'tasks' and len(route) > 2:
+                task = Task.objects.get(id=route[2])
+                return SimpleTemplateResponse(template='crawlable/task.html', context={'task': task})
 
             # Update query string by removing the escaped fragment.
             if ESCAPED_FRAGMENT in query:
@@ -150,6 +167,7 @@ class HashbangMiddleware(object):
                 query,
                 parsed_url.fragment
             ])
+
 
             try:
                 driver = web_cache.get_driver()
