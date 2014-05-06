@@ -4,7 +4,7 @@
 
      <li class="project-item project-item-small">
 
-        <a {{action 'addProjectToMonthly' project.getProject}}>
+        {{#link-to 'addProjectToMonthly' project.id}}
             <span class="project-header">
 
             	<figure class="project-image">
@@ -13,7 +13,8 @@
 
                 <span class="project-title">
                 	<h3>{{project.title}}</h3>
-                    <span class="project-location"><span class="flaticon solid location-pin-1"></span> {{project.country.name}}</span>
+                    <span class="project-location">
+                        <span class="flaticon solid location-pin-1"></span> {{project.country}}</span>
                 </span>
             </span>
 
@@ -23,19 +24,19 @@
 	            {{/if}}
 
 	            {{#if project.isPhaseCampaign}}
-                    {{#if project.campaign.money_asked}}
+                    {{#if project.money_asked}}
                         <div class="project-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
-                        <span class="project-fund-amount"><strong>&euro;{{localize project.campaign.money_needed}}</strong> <em>{% trans "To go" %}</em></span>
+                        <span class="project-fund-amount"><strong>&euro;{{localize project.money_needed}}</strong> <em>{% trans "To go" %}</em></span>
                     {{/if}}
-                    {{#if project.campaign.deadline }}
-                        <span class="project-days-left"><span class="flaticon solid clock-1"></span> <strong>{{project.campaign.daysToGo}}</strong> <em>{% trans "days" %}</em></span>
+                    {{#if project.deadline }}
+                        <span class="project-days-left"><span class="flaticon solid clock-1"></span> <strong>{{project.daysToGo}}</strong> <em>{% trans "days" %}</em></span>
                     {{/if}}
 	            {{/if}}
 	        </span>
 
             <span class="project-description">{{{pitch}}}</span>
 
-        </a>
+        {{/link-to}}
     </li>
 
 {% endtplhandlebars %}
