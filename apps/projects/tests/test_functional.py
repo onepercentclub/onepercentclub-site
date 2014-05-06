@@ -419,26 +419,17 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         # Let's pick a date
         # Click Next to get a date in the future
         self.assertTrue(self.scroll_to_and_click_by_css(".btn-date-picker"))
-        self.browser.find_by_css("[title=Prev]").first.click()
-        self.browser.find_by_css("[title=Prev]").first.click()
-        self.browser.find_by_css("[title=Prev]").first.click()
-        self.browser.find_by_css("[title=Next]").first.click()
-        self.assertTrue(self.browser.is_text_present("4"))
-        self.browser.find_link_by_text("4").first.click()
-        # remember the days left now
-        days_left1 = self.browser.find_by_css('.project-days-left strong').first.text
+        self.assertTrue(self.click_by_css("[title=Prev]"))
 
-        time.sleep(2)
+        day_today = self.wait_for_element_css('td.ui-state-disabled.ui-datepicker-today').text
+        element = self.wait_for_element_css('td[data-handler=selectDay]:first-of-type a')
+        day_end = element.text
+        element.click()
 
-        self.assertTrue(self.scroll_to_and_click_by_css(".btn-date-picker"))
-        self.assertTrue(self.browser.is_text_present("14"))
-        self.browser.find_link_by_text("14").first.click()
-        days_left2 = self.browser.find_by_css('.project-days-left strong').first.text
-        days_diff = int(days_left2) - int(days_left1)
+        days_left = int(self.wait_for_element_css('.project-days-left strong').text)
+        days_diff = int(day_end) - int(day_today)
 
-        self.assertEqual(days_diff, 10)
-
-
+        self.assertEqual(days_diff, days_left)
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
