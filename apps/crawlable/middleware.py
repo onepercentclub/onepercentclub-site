@@ -143,11 +143,11 @@ class HashbangMiddleware(object):
             route = parsed_url.query.split('/')
 
             # Project page
-            if route[1] == 'projects':
+            if route[1] == 'projects' and len(route) > 2:
                 project = Project.objects.get(slug=route[2])
                 return SimpleTemplateResponse(template='crawlable/project.html', context={'project': project})
             # Task page
-            if route[1] == 'tasks':
+            if route[1] == 'tasks' and len(route) > 2:
                 task = Task.objects.get(id=route[2])
                 return SimpleTemplateResponse(template='crawlable/task.html', context={'task': task})
 
