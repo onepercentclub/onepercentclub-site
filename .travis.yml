@@ -29,8 +29,8 @@ install:
   
 before_script:
   - "echo `pip show bluebottle`"
-  - "grunt compass:dist --bb_path=\"/home/travis/virtualenv/python2.7/lib/python2.7/site-packages/bluebottle/bluebottle/common/static/sass\""
-  
+  - "grunt compass:dist --bb_path=\"`pip show bluebottle | grep Location | cut -b11-`/bluebottle/common/static/sass\""
+
 script:
   - python ./manage.py test --settings=onepercentclub.settings.travis --failfast -v 1
   # - grunt travis --verbose # add --force to pass build on JS failures
