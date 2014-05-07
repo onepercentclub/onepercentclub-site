@@ -263,12 +263,13 @@ class ProjectManageApiIntegrationTest(OnePercentTestCase):
         self.assertEquals(response.status_code, status.HTTP_403_FORBIDDEN, response)
 
 
-class ProjectWallPostApiIntegrationTest(TestCase):
+class ProjectWallPostApiIntegrationTest(OnePercentTestCase):
     """
     Integration tests for the Project Media WallPost API.
     """
 
     def setUp(self):
+        self.init_projects()
         self.some_project = OnePercentProjectFactory.create(slug='someproject')
         self.another_project = OnePercentProjectFactory.create(slug='anotherproject')
 
@@ -585,15 +586,14 @@ class ChangeProjectStatuses(ProjectEndpointTestCase):
         """
         Changing project status to campaign sets the campaign_started field
         """
-        project = Project.objects.get(id=randint(1, Project.objects.count()))
-        self.assertTrue(project.date_submitted is not None)
+        project = OnePercentProjectFactory.create(title="testproject", slug="testproject",
+                                                  status=ProjectPhase.objects.get(slug='plan-new'))
+        self.assertTrue(project.date_submitted is None)
         self.assertTrue(project.campaign_started is None)
 
-        #Change status of project to Needs work
         project.status = ProjectPhase.objects.get(slug="campaign")
         project.save()
 
-        self.assertTrue(project.date_submitted is not None)
         self.assertTrue(project.campaign_started is not None)
 
     def test_change_status_to_need_to_work(self):
