@@ -4,6 +4,8 @@ Functional tests using Selenium.
 
 See: ``docs/testing/selenium.rst`` for details.
 """
+from decimal import Decimal
+from bluebottle.bb_projects.models import ProjectPhase
 from bluebottle.utils.models import Language
 from django.conf import settings
 from django.utils.text import slugify
@@ -37,8 +39,11 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
 
         self.user = BlueBottleUserFactory.create(email='johndoe@example.com', primary_language='en')
 
+        campaign_phase = ProjectPhase.objects.get(slug='campaign')
+
         for slug, title in self.projects.items():
-            project = OnePercentProjectFactory.create(title=title, slug=slug, owner=self.user, amount_asked=1000)
+            project = OnePercentProjectFactory.create(title=title, slug=slug, owner=self.user,
+                                                      amount_asked=1000, status=campaign_phase)
 
     def visit_project_list_page(self, lang_code=None):
         self.visit_path('/projects', lang_code)
@@ -98,7 +103,7 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         for p in Project.objects.order_by('popularity')[:len(web_projects)]:
             expected_projects.append({
                 'title': p.title.upper(),  # Uppercase the title for comparison.
-                'amount_needed': int(round(p.amount_needed / 100.0)),
+                'amount_needed': int(round(p.amount_needed / Decimal(100.0))),
             })
 
         # Compare all projects found on the web page with those in the database, in the same order.
