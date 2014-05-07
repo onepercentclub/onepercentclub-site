@@ -25,3 +25,4 @@ class DonationFactory(factory.DjangoModelFactory):
     amount = 20
     project = factory.SubFactory(OnePercentProjectFactory)
     order = factory.SubFactory(OrderFactory)
+    status = 'pending'
