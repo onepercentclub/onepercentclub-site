@@ -59,11 +59,9 @@ App.ProjectFundRaiserAllController = Em.ArrayController.extend({
 App.ProjectFundRaiserListController = Em.ArrayController.extend({
     needs: ['project', 'projectFundRaiserAll'],
 
-    project: Ember.computed.oneWay('controllers.project.model'), 
-
     fundraisers: function () {
-        return App.FundRaiser.find({project: this.get('project.slug')});
-    }.property('project'),
+        return App.FundRaiser.find({project: this.get('controllers.project.id')});
+    }.property('controllers.project'),
     
 	fundraisersLoaded: function(sender, key) {
 		if (this.get(key)) {
@@ -102,6 +100,19 @@ App.FundRaiserDonationListController = Em.ObjectController.extend({
     needs: ['currentUser']
 });
 
+
+App.FundRaiserSupporterListController = Em.ArrayController.extend({
+    needs: ['fundRaiser'],
+
+    supporters: function(){
+        //var project_id = this.get('controllers.fundRaiser.project.id')
+        var fundraiser_id = this.get('controllers.fundRaiser.id')
+        //return App.ProjectSupporter.find({project: project_id});
+        return App.ProjectSupporter.find({fundraiser: fundraiser_id});
+    }.property('controllers.fundRaiser.id')
+
+
+});
 
 App.FundRaiserIndexController = Em.ArrayController.extend({
     needs: ['fundRaiser', 'currentUser'],

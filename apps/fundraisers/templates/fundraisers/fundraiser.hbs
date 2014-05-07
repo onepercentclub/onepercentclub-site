@@ -74,7 +74,7 @@
         </section>
     </div>
 
-   <div class="l-section detail" id="fundraiser-status">
+    <div class="l-section detail" id="fundraiser-status">
 
        <section class="l-wrapper">
 
@@ -98,22 +98,14 @@
                     {{/bb-progressbar}}
                 </div>
 
-                <ul class="project-member-list">
-                    {{#if fundRaiseSupporters.length}}
+                <ul class="member-list">
                     <li class="project-member-supporters">
-                        <h4>{% trans "Supporters" %} <em>{{supporters.meta.total}} {% trans "Total" %}</em></h4>
-                        <ul>
-                            {{#each supporter in fundRaiseSupporters}}
-                                {{view "App.ProjectSupporterView" }}
-                            {{/each}}
-                        </ul>
+                        {{render "fundRaiserSupporterList"}}
                     </li>
-                    {{/if}}
                 </ul>
             </div>
        </section>
-   </div>
-
+    </div>
 
     {{ outlet }}
 

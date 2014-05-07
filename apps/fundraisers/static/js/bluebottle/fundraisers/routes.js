@@ -28,12 +28,6 @@ App.FundRaiserRoute = Em.Route.extend(App.ScrollToTop, {
         // FIXME: Find out this -should- work.
         var fundraiser_id = params.fundraiser_id.split('?')[0];
         return App.FundRaiser.find(fundraiser_id);
-    },
-
-    setupController: function(controller, fundraiser) {
-        this._super(controller, fundraiser);
-        var project_id = fundraiser.get('project.id');
-        controller.set('fundRaiseSupporters', App.DonationPreview.find({project: project_id, fundraiser: fundraiser.id}));
     }
 });
 
