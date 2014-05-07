@@ -203,7 +203,8 @@ ALTER TABLE projects_project
   ADD COLUMN effects text DEFAULT '',
   ADD COLUMN for_who text DEFAULT '',
   ADD COLUMN future text DEFAULT '',
-  ADD COLUMN language_id integer;
+  ADD COLUMN language_id integer,
+  ADD COLUMN allow_overfunding boolean DEFAULT FALSE;
 
 -- Language
 
