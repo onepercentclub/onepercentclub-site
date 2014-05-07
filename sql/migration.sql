@@ -349,7 +349,11 @@ ALTER TABLE projects_projectbudgetline
 -- TASKS
 --
 
-ALTER TABLE tasks_taskmember ADD COLUMN time_spent INTEGER DEFAULT 0 NOT NULL;
+ALTER TABLE tasks_task DROP COLUMN expertise;
+
+ALTER TABLE tasks_taskmember
+  ADD COLUMN time_spent INTEGER DEFAULT 0 NOT NULL;
+
 
 
 --
