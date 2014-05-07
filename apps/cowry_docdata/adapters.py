@@ -213,13 +213,21 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
 
     def generate_merchant_order_reference(self, payment):
         other_payments = DocDataPaymentOrder.objects.filter(order=payment.order).exclude(id=payment.id).order_by('-merchant_order_reference')
+        dd_prefix = ''
+        if self.test:
+            try:
+                dd_prefix = settings.DOCDATA_PREFIX_NAME
+            except AttributeError:
+                logger.error("DOCDATA_PREFIX_NAME not set. Make sure secrets.py has a DOCDATA_PREFIX_NAME='<developer name>'")
+                return
+
         if not other_payments:
-            return '{0}-0'.format(payment.order.order_number)
+            return '{0}{1}-0'.format(dd_prefix, payment.order.order_number)
         else:
             latest_mor = other_payments[0].merchant_order_reference
             order_payment_nums = latest_mor.split('-')
             payment_num = int(order_payment_nums[1]) + 1
-            return '{0}-{1}'.format(payment.order.order_number, payment_num)
+            return '{0}{1}-{2}'.format(dd_prefix, payment.order.order_number, payment_num)
 
 
     # TODO Find a way to use UTF-8 / unicode strings with Suds to make this truly international.
@@ -296,7 +304,6 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
         # Execute create payment order request.
         reply = self.client.service.create(self.merchant, payment.merchant_order_reference, paymentPreferences,
                                            menuPreferences, shopper, amount, billTo, description)
-
 
         if hasattr(reply, 'createSuccess'):
             payment.payment_order_id = str(reply['createSuccess']['key'])

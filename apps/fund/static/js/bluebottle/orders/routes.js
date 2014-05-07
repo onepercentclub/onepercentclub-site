@@ -157,19 +157,15 @@ App.PaymentSelectRoute = Em.Route.extend({
 
 App.PaymentSelectPaymentErrorRoute = Em.Route.extend({
     beforeModel: function() {
+        var order = this.modelFor('currentOrder');
+        this.replaceWith('currentOrder.donationList');
         this.controllerFor('currentOrder').setProperties({
             display_message: true,
             isError: true,
             autoHideMessage: false,
-            message_content: 'There was an error with your payment. Please try again.'
+            message_content: gettext('There was an error with your payment. Please try again.')
         });
 
-        var order = this.modelFor('currentOrder');
-        if (order.get('isVoucherOrder')) {
-            this.replaceWith('currentOrder.voucherList');
-        } else {
-            this.replaceWith('currentOrder.donationList');
-        }
     }
 });
 
