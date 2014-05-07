@@ -136,6 +136,7 @@ class ProjectManageApiIntegrationTest(OnePercentTestCase):
 
         # Let's throw a pitch (create a project really)
         response = self.client.post(self.manage_projects_url, {'title': 'This is my smart idea'})
+        self.assertEquals(response.status_code, status.HTTP_201_CREATED, response)
         self.assertEquals(response.data['title'], 'This is my smart idea')
 
         # Check that it's there, in pitch phase, has got a pitch but no plan yet.

@@ -80,7 +80,7 @@ class ManageProjectSerializer(BaseManageProjectSerializer):
     amount_needed = serializers.CharField(read_only=True)
     budget_lines = ProjectBudgetLineSerializer(many=True, source='projectbudgetline_set', read_only=True)
 
-    story = StoryField()
+    story = StoryField(required=False)
 
     class Meta(BaseManageProjectSerializer):
         model = BaseManageProjectSerializer.Meta.model
