@@ -15,7 +15,24 @@ from bluebottle.bb_projects.serializers import (ProjectSerializer as BaseProject
                                                 ManageProjectSerializer as BaseManageProjectSerializer,
                                                 ProjectPreviewSerializer as BaseProjectPreviewSerializer)
 
+from bs4 import BeautifulSoup
+
 PROJECT_MODEL = get_project_model()
+
+class StoryField(serializers.WritableField):
+    def to_native(self, value):
+        """ Reading / Loading the story field """
+        return value
+
+    def from_native(self, data):
+        """ Saving the story text """
+        #Convert &gt; and &lt; back to HTML tags so Beautiful Soup can clean unwanted tags.
+        #Script tags are sent by redactor as "&lt;;script&gt;;", Iframe tags have just one semicolon.
+        data = data.replace("&lt;;", "<").replace("&gt;;", ">").replace("&lt;", "<").replace("&gt;", ">")
+        soup = BeautifulSoup(data, "html.parser")
+        [s.extract() for s in soup(['script', 'iframe'])]
+        return str(soup)
+
 
 
 class ProjectCountrySerializer(serializers.ModelSerializer):
@@ -30,6 +47,7 @@ class ProjectCountrySerializer(serializers.ModelSerializer):
 class ProjectSerializer(BaseProjectSerializer):
     task_count = serializers.IntegerField(source='task_count')
     country = ProjectCountrySerializer(source='country')
+    story = StoryField()
 
     class Meta(BaseProjectSerializer):
         model = BaseProjectSerializer.Meta.model
@@ -61,6 +79,8 @@ class ManageProjectSerializer(BaseManageProjectSerializer):
     amount_donated = serializers.CharField(read_only=True)
     amount_needed = serializers.CharField(read_only=True)
     budget_lines = ProjectBudgetLineSerializer(many=True, source='projectbudgetline_set', read_only=True)
+
+    story = StoryField()
 
     class Meta(BaseManageProjectSerializer):
         model = BaseManageProjectSerializer.Meta.model
