@@ -23,19 +23,18 @@ urlpatterns += patterns('',
 
     url(r'^api/bb_projects/', include('apps.projects.urls.api')),
 
-    url(r'^api/fund/', include('apps.fund.urlsapi')),
-    url(r'^api/fundraisers/', include('apps.fundraisers.urlsapi')),
-    url(r'^api/organizations/', include('apps.organizations.urlsapi')),
-    #url(r'^api/pages/', include('apps.pages.urlsapi')),
-    url(r'^api/partners/', include('apps.partners.urlsapi')),
+    url(r'^api/fund/', include('apps.fund.urls.api')),
+    url(r'^api/fundraisers/', include('apps.fundraisers.urls.api')),
+    url(r'^api/organizations/', include('apps.organizations.urls.api')),
+    url(r'^api/partners/', include('apps.partners.urls.api')),
 
     # Homepage API urls
     url(r'^api/homepage/', include('apps.homepage.urls.api')),
-    url(r'^api/stats', include('apps.statistics.urlsapi')),
+    url(r'^api/stats', include('apps.statistics.urls.api')),
 
     # API for DocData Status Changed Notifications.
-    url(r'^api/docdatastatuschanged/', include('apps.cowry_docdata.urlsapi')),
-    url(r'^api/docdatastatuschangedlegacy/', include('apps.cowry_docdata_legacy.urlsapi')),
+    url(r'^api/docdatastatuschanged/', include('apps.cowry_docdata.urls.api')),
+    url(r'^api/docdatastatuschangedlegacy/', include('apps.cowry_docdata_legacy.urls.api')),
 
     # Needed for the self-documenting API in Django Rest Framework.
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
@@ -76,13 +75,13 @@ urlpatterns += i18n_patterns('',
 
     # Organization urls for downloading private documents
     url(r'^documents/', include('bluebottle.utils.urls.main')),
-    url(r'^documents/', include('apps.organizations.urls')),
+    url(r'^documents/', include('apps.organizations.urls.documents')),
 
     # handlebar templates
     url(r'^templates/', include('apps.hbtemplates.urls')),
 
     # Urls for partner sites
-    url(r'^pp/', include('apps.partners.urls'))
+    url(r'^pp/', include('apps.partners.urls.partners'))
 
 )
 

@@ -1,7 +1,7 @@
-from .views import ManageOrganizationList, ManageOrganizationDetail, ManageOrganizationDocumentList, ManageOrganizationDocumentDetail
+from ..views import ManageOrganizationList, ManageOrganizationDetail, ManageOrganizationDocumentList, ManageOrganizationDocumentDetail
 from django.conf.urls import patterns, url, include
 from surlex.dj import surl
-from .views import OrganizationDetail, OrganizationList
+from ..views import OrganizationDetail, OrganizationList
 
 urlpatterns = patterns('',
     url(r'^$', OrganizationList.as_view(), name='organization-list'),
