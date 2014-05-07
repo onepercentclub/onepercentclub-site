@@ -30,12 +30,11 @@
     {{ block.super }}
 
     {% include "homepage/base.hbs" %}
+    {% include "fund/base.hbs" %}
+    {% include "fundraisers/base.hbs" %}
     {% include "projects/base.hbs" %}
     {% include "donations/base.hbs" %}
-
-    {% include "orders.hbs" %}
     {% include "vouchers.hbs" %}
-    {% include "fundraisers.hbs" %}
 {% endblock handlebars_templates %}
 
 {% block_verbatim nav_main %}

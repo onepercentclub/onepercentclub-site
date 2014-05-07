@@ -1,0 +1,38 @@
+{% load i18n bb_ember static %}
+
+{% tplhandlebars "fundRaiser/index" %}
+
+    <div id="l-section">
+        <section class="l-wrapper">
+        	<div class="l-content" id="wallposts">
+
+    	        {{#each item in controller itemController="wallPost"}}
+    	            {{#if item.isLoaded}}
+                        {{#if item.isSystemWallPost}}
+        	                {{view "App.SystemWallPostView"}}
+                        {{else}}
+        	                {{view "App.WallPostView"}}
+                        {{/if}}
+    	            {{/if}}
+    	        {{/each}}
+
+                {{#if canLoadMore}}
+                    <a {{action "showMore"}} class="btn-link btn-more">
+                        <span class="flaticon solid plus-2"></span> {% trans "Show more" %} <small>{{remainingItemCount}} {% trans "more" %}</small>
+                    </a>
+                {{/if}}
+
+        	</div>
+
+            <sidebar class="l-sidebar">
+                {{#if isOwner}}
+                	{{ render "fundRaiserMediaWallPostNew" }}
+                {{else}}
+                	{{ render "fundRaiserTextWallPostNew" }}
+                {{/if}}
+            </sidebar>
+
+        </section>
+    </div>
+
+{% endtplhandlebars %}

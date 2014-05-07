@@ -1,0 +1,23 @@
+{% load i18n bb_ember static %}
+
+{% tplhandlebars "_my_fundraiser_top" %}
+    <div class="l-section account-header">
+        <nav class="l-wrapper">
+
+            <figure class="account-avatar"><img {{bindAttr src="controllers.currentUser.getAvatar"}} /></figure>
+
+            <header class="account-title">
+                <h2>{% trans "My 1%" %} <em class="account-subtitle">{% trans "Fundraising" %}</em></h2>
+            </header>
+
+            {{#if id}}
+                {{#if title}}
+                    {{#linkTo 'fundRaiser' this class="account-preview btn-link"}}
+                        <span class="flaticon solid eye-1"></span>
+                        {% trans "Back to fundraiser" %}
+                    {{/linkTo}}
+                {{/if}}
+            {{/if}}
+        </nav>
+    </div>
+{% endtplhandlebars %}

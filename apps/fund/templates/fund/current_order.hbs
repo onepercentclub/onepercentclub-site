@@ -1,0 +1,92 @@
+{% load i18n bb_ember static %}
+
+{% tplhandlebars "currentOrder" %}
+    <div id="fund">
+        {{#if controller.isVoucherOrder}}
+            <div class="l-section">
+                <section class="l-wrapper">
+                    <div class="l-content">
+                        <header>
+                            <h1>{% trans "Order digital 1%GIFTCARDS" %}</h1>
+                        </header>
+                    </div>
+                    <sidebar class="l-sidebar">
+                        {{#linkTo 'currentOrder.donationList' tagName="a" class="btn-link"}}
+                            <span class="flaticon solid credit-card-1"></span> {% trans "Switch to donations" %}
+                        {{/linkTo}}
+                    </sidebar>
+                </section>
+            </div>
+        {{else}}
+            <div class="l-section fund-header">
+                <section class="l-wrapper">
+
+                    <header class="l-header">
+                        <h1>{% trans "Support" %}</h1>
+
+                        {{#if controllers.currentUser.isAuthenticated}}
+                        <ul class="tabs steps three">
+                        {{else}}
+                        <ul class="tabs steps four">
+                        {{/if}}
+
+                            {{#if controller.isVoucherOrder}}
+                                {%comment%}
+                                Voucher code is disabled for now.
+                                {{#view App.OrderNavView classNames="support"}}
+                                    {{#linkTo 'currentOrder.voucherList'}}{% trans "Gift Cards" %}{{/linkTo}}
+                                {{/view}}
+                                {%endcomment%}
+                            {{else}}
+                                {{#view App.OrderNavView classNames="support"}}
+                                    {{#linkTo 'currentOrder.donationList'}}<span class="flaticon solid menu-list-4"></span> {% trans "Projects" %}{{/linkTo}}
+                                {{/view}}
+                            {{/if}}
+
+                            {{#view App.OrderNavView classNames="details"}}
+                                {{#linkTo 'paymentProfile'}}<span class="flaticon solid mail-3"></span> {% trans "Details" %}{{/linkTo}}
+                            {{/view}}
+
+                            {{#unless controllers.currentUser.isAuthenticated}}
+                                {{#view App.OrderNavView classNames="profile"}}
+                                    {{#linkTo 'paymentSignup'}}<span class="flaticon solid user-1"></span> {% trans "Profile" %}{{/linkTo}}
+                                {{/view}}
+                            {{/unless}}
+
+                            {{#view App.OrderNavView classNames="payment"}}
+                                {{#linkTo 'paymentSelect'}}<span class="flaticon solid wallet-1"></span> {% trans "Payment" %}{{/linkTo}}
+                            {{/view}}
+                        </ul>
+                    </header>
+
+                    {%comment%}
+                    Voucher code is disabled for now.
+                    <sidebar class="l-sidebar">
+                        {{#linkTo 'voucherRedeem' tagName="a" class="btn-link"}}
+                            <span class="flaticon solid credit-card-1"></span> {% trans "I have a 1%GIFTCARD" %}
+                        {{/linkTo}}
+                    </sidebar>
+                    {%endcomment%}
+                </section>
+            </div>
+        {{/if}}
+
+        <div class="l-section">
+            <section class="l-wrapper">
+
+                {{#if display_message}}
+                    <div {{bindAttr class=":message :l-content isError"}}>
+                        <a {{ action hideMessage }} class="message-close" rel="close">&times;</a>
+
+                        <div class="message-content">
+                            {{ message_content }}
+                        </div>
+                    </div>
+                {{/if}}
+
+                {{ outlet }}
+
+            </section>
+        </div>
+    </div>
+{% endtplhandlebars %}

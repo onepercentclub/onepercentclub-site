@@ -1,0 +1,28 @@
+{% load i18n bb_ember static %}
+
+
+{% tplhandlebars "project_fundraiser_all" %}
+
+    <div class='all-fundraisers'>
+        <h4>{% trans "Fundraisers" %}</h4>
+        {{#each fundraiser in controller}}
+            <a {{action "showFundraiser" fundraiser}} class='member'>
+                <div class="fundraiser-item">
+                    <figure class="fundraiser-image">
+                        <img  {{bindAttr src="fundraiser.image.small"}}>
+                    </figure>
+                    <div class="fundraiser-content">
+                        <h1 class="fundraiser-title">{{fundraiser.title}}</h1>
+                        <h3 class="fundraiser-name">{% trans "by" %} {{fundraiser.owner.full_name}}</h3>
+                        <div class="project-fund-amount">
+                            <strong class="amount-donated">&euro;{{localize fundraiser.amount_donated}}</strong>
+                            {% trans "of" %}
+                            <strong class="amount-asked">&euro;{{localize fundraiser.amount}}</strong>
+                            {% trans "raised" %}
+                        </div>
+                    </div>
+                </div>
+            </a>
+        {{/each}}
+    </div>
+{% endtplhandlebars %}

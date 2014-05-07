@@ -1,0 +1,35 @@
+{% load i18n bb_ember static %}
+
+{% tplhandlebars "_thanksDonation" %}
+
+    <li class="project-list-item">
+        {{#if donation.fundraiser}}
+            {{#linkTo 'fundRaiser' donation.fundraiser class="project-header" }}
+                <figure class="project-image">
+                    <img {{bindAttr src="donation.fundraiser.image.square" alt="donation.fundraiser.title"}} />
+                </figure>
+                <h2 class="fundraiser-title">{{ donation.fundraiser.title }}</h2><br />
+	            <h3 class="fundraiser-subtitle">
+	                <em>{{ donation.fundraiser.owner.full_name }} {% trans "Fund-racing for" %}</em> {{ donation.project.title }}
+	            </h3>
+            {{/linkTo}}
+        {{else}}
+            {{#linkTo 'project' donation.project class="project-header" }}
+                <figure class="project-image">
+                    <img {{bindAttr src="donation.project.image.square" alt="project.title"}} />
+                </figure>
+                <h2 class="project-title">
+                    {{ donation.project.title }}
+                    <em class="project-location">
+                        <span class="flaticon solid location-pin-1"></span> {{ donation.project.country.name }}
+                    </em>
+                </h2>
+            {{/linkTo}}
+        {{/if}}
+
+        <div class="fund-amount">
+            {% trans "You supported"%} <strong class="fund-amount-needed">&euro;{{ donation.amount }}</strong>
+        </div>
+    </li>
+
+{% endtplhandlebars %}

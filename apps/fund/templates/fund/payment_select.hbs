@@ -1,0 +1,73 @@
+{% load i18n bb_ember static %}
+
+{% tplhandlebars "paymentSelect" %}
+
+    {{#if controllers.currentOrder.recurring }}
+        {{ outlet }}
+    {{else}}
+        <div class="l-content fund-payment-select">
+            <form>
+                <legend>
+                    <strong>{% trans "You're almost there!" %}</strong>
+                    <p>{% trans "We'll redirect you through our payment provider where you can finish your donation securely." %}</p>
+                </legend>
+
+                <ul class="tabs tabs-vertical">
+                    {{#view Em.RadioButtonGroup name="paymentMethod" selectedValueBinding="redirectPaymentMethod" class="radio-group-tabbed"}}
+                        {{#each redirectPaymentMethods}}
+                            <li class="tab-item">
+                                <label class="tab-title radio">{{view view.RadioButton valueBinding=id}} <span>{{name}}</span></label>
+                            </li>
+                        {{/each}}
+                    {{/view}}
+                </ul>
+
+
+
+                {{#if isIdeal}}
+                <div class="tab-content fund-payment-type">
+                    <h3>{% trans "Select your bank below" %}</h3>
+                    <p>{% trans "We'll redirect you through our payment provider where you can finish your donation securely." %}</p>
+                    <ul>
+                    {{#view Em.RadioButtonGroup name="issuerId" selectedValueBinding="idealIssuerId" class="radio-group-tabbed"}}
+                        {{#each idealIssuers}}
+                            <li class="fund-payment-item">
+                                <label class="radio">{{view view.RadioButton valueBinding=id}} <span>{{name}}</span></label>
+                            </li>
+                        {{/each}}
+                    {{/view}}
+                    </ul>
+
+                    {{#if idealIssuerId}}
+                        {{#if paymentInProgress }}
+                            <div class="is-loading-small"><img src="{% get_static_prefix %}images/loading.gif" /> <strong>{% trans "Processing payment&#8230;" %}</strong></div>
+                            <button disabled class="btn btn-primary btn-iconed btn-submit" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
+                        {{else}}
+                            <button class="btn btn-primary btn-iconed btn-proceed" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
+                        {{/if}}
+                    {{else}}
+                        <button class="btn btn-primary btn-iconed btn-proceed" disabled {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
+
+                    {{/if}}
+                </div>
+                {{else}}
+                    {{#if redirectPaymentMethod}}
+                    <div class="tab-content fund-payment-type">
+                        <h3>{% trans "You're almost there!" %}</h3>
+                        <p>{% trans "We'll redirect you through our payment provider where you can finish your donation securely." %}</p>
+
+                        {{#if paymentInProgress }}
+                            <div class="is-loading-small"><img src="{% get_static_prefix %}images/loading.gif" /> <strong>{% trans "Processing payment&#8230;" %}</strong></div>
+                            <button disabled class="btn btn-primary btn-iconed btn-submit" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
+                        {{else}}
+                            <button class="btn btn-primary btn-iconed btn-proceed" {{action "proceedWithPayment"}}><span class="flaticon solid right-2"></span>{% trans "Proceed with Payment" %}</button>
+                        {{/if}}
+                    </div>
+                    {{/if}}
+                {{/if}}
+            </form>
+        </div>
+    {{/if}}
+
+{% endtplhandlebars %}
+

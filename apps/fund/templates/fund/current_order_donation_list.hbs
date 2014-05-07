@@ -1,0 +1,57 @@
+{% load i18n bb_ember static %}
+
+{% tplhandlebars "current_order_donation_list" %}
+	<form class="l-content">
+
+        <ul class="project-list">
+        {{#each donation in controller }}
+            {{render "currentOrderDonation" donation}}
+        {{else}}
+
+        	<div class="fund-empty">
+            {{#linkTo 'projectList'}}
+                <em class="flaticon solid plus-2"></em>
+                <legend>
+                    <strong>{% trans "Choose a project to support" %}</strong>
+                    <p>{% trans "Choose a project and click 'Support this project' to add it to your list" %}.</p>
+                </legend>
+            {{/linkTo}}
+        	</div>
+        {{/each}}
+        </ul>
+
+        <fieldset class="fund-total">
+            <div class="fund-total-label">{% trans "Total" %}</div>
+            <div class="fund-total-amount"><em class="currency">&euro;</em> {{ singleTotal }}</div>
+        </fieldset>
+
+        {{#linkTo 'projectList' class="btn-link btn-add"}}<em class="flaticon solid plus-2"></em>
+            {{#if length }}
+                {%trans "Add another project" %}
+            {{else}}
+                {%trans "Add a project" %}
+            {{/if}}
+        {{/linkTo}}
+
+	    {{#if readyForPayment }}
+	        <button {{action nextStep}} type="button" class="btn btn-iconed btn-next"><span class="flaticon solid right-2"></span>{% trans "Next Step" %}</button>
+	    {{else}}
+	        <button disabled class="btn btn-iconed btn-next"><span class="flaticon solid right-2"></span>{% trans "Next Step" %}</button>
+	    {{/if}}
+
+	</form>
+
+    {% comment %}
+        <div class="l-sidebar">
+            {{#if controllers.currentUser.isAuthenticated}}
+                <h3>{% trans "Why not donate monthly?" %}</h3>
+                <p>{% blocktrans %}You're about to support a 1%Project. Great! Did you know you can also share a little every month? How? Choose 'monthly' and become a 1%Friend!{% endblocktrans %}</p>
+            {{else}}
+                <h3>Did you know?</h3>
+                <p>{% blocktrans %}You're about to support a 1%Project. Great! Did you know you can also share a little every month? How? By becoming a 1%Member and choosin' monthly.{% endblocktrans %}
+                <p class="btn-link">{{#linkTo 'signup'}}{% blocktrans %}Become a 1%Member{% endblocktrans %} <span class="flaticon solid right-angle-quote-1"></span>{{/linkTo}}</p>
+            {{/if}}
+        </div>
+    {% endcomment %}
+
+{% endtplhandlebars %}
