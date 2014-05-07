@@ -90,3 +90,6 @@ factory-boy==2.3.1
 
 # LXML for generating and validating proper SEPA exports
 lxml==3.1.2
+
+#Add latest version of Beautiful Soup 
+beautifulsoup4==4.3.2
