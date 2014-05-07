@@ -242,6 +242,7 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         # Project Section
         ###
 
+        self.assertTrue(self.is_visible('input[name="title"]'))
         self.assertTrue(self.is_visible('select[name="language"]'))
 
         self.browser.select('language', 2)
