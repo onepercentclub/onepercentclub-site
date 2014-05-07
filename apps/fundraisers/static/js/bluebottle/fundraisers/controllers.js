@@ -59,11 +59,9 @@ App.ProjectFundRaiserAllController = Em.ArrayController.extend({
 App.ProjectFundRaiserListController = Em.ArrayController.extend({
     needs: ['project', 'projectFundRaiserAll'],
 
-    project: Ember.computed.oneWay('controllers.project.model'), 
-
     fundraisers: function () {
-        return App.FundRaiser.find({project: this.get('project.slug')});
-    }.property('project'),
+        return App.FundRaiser.find({project: this.get('controllers.project.id')});
+    }.property('controllers.project'),
     
 	fundraisersLoaded: function(sender, key) {
 		if (this.get(key)) {
