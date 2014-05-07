@@ -133,3 +133,57 @@
         }
     }
 }
+
+.all-fundraisers {
+    margin: 18px;
+    max-height: 400px;
+    overflow: auto;
+    .fundraiser-item {
+        border-bottom: 1px solid $gray-light;
+        margin-bottom: 8px;
+        @include clearfix();
+
+        .fundraiser-image {
+            @include grid(8, 0, 1);
+            float: left;
+            margin-top: $base-margin;
+
+            img {
+                border: 1px solid $white;
+            }
+        }
+
+        .fundraiser-content {
+            @include grid(36, 0, 1);
+            margin-bottom: $base-margin;
+        }
+
+        .fundraiser-title {
+            font-size: $font-size-large;
+            color: $color-secondary;
+            font-family: $font-family-heavy;
+        }
+
+        .fundraiser-name {
+            font-size: $base-font-size;
+            font-family: $font-family-heavy;
+        }
+
+        .project-fund-amount {
+            color: $gray;
+            font-size: $font-size-small;
+
+            strong {
+                color: $gray-darker;
+            }
+
+            .amount-donated {
+
+            }
+
+            .amount-asked {
+
+            }
+        }
+    }
+}

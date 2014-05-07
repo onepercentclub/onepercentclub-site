@@ -2,8 +2,7 @@
 {% load i18n %}
 {% load static %}
 
-{% tplhandlebars "project_supporter_list" %}
-
+{% tplhandlebars "fundraiser_supporter_list" %}
     {{#if supporters.length}}
         <h4>{% trans "Supporters" %} <em>{{supporters.meta.total}} {% trans "Total" %}</em></h4>
         <ul>
