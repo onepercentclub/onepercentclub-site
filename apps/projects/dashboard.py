@@ -7,6 +7,8 @@ from admin_tools.dashboard.modules import DashboardModule
 from apps.projects.models import Project
 
 
+
+
 class RecentProjects(DashboardModule):
     title = _('Recently Created Projects')
     template = 'admin_tools/dashboard/recent_projects.html'
@@ -73,18 +75,8 @@ class FundedProjects(DashboardModule):
 
     def init_with_context(self, context):
 
-        qs1 = Project.objects.filter(
-                Q(status=ProjectPhase.objects.get(slug="done-complete"))
-            ).order_by('-created')[:self.limit]
-
-        qs1_project_ids = qs1.values_list('id', flat=True)
-
-        qs2 = Project.objects.filter(status=ProjectPhase.objects.get(slug="campaign")
-            ).exclude(
-                id__in = qs1_project_ids
-            ).order_by('-created')[:self.limit]
-
-        projects = list(qs1) + list(qs2)
+        qs = Project.objects.filter(campaign_funded__isnull=False).order_by('-campaign_funded')[:self.limit]
+        projects = list(qs)
 
         # sort the projects based on act phase reached or projectresult created
         sorted(projects, key=lambda project: project.date_funded, reverse=True)
