@@ -143,7 +143,15 @@ class ProjectSupporterList(generics.ListAPIView):
         filter_kwargs = {}
 
         project_slug = self.request.QUERY_PARAMS.get('project', None)
-        if project_slug:
+        fundraiser_id = self.request.QUERY_PARAMS.get('fundraiser', None)
+        if fundraiser_id:
+            try:
+                fundraiser = FundRaiser.objects.get(pk=fundraiser_id)
+                filter_kwargs['fundraiser'] = fundraiser
+            except FundRaiser.DoesNotExist:
+                raise Http404(_(u"No %(verbose_name)s found matching the query") %
+                              {'verbose_name': FundRaiser._meta.verbose_name})
+        elif project_slug:
             try:
                 project = PROJECT_MODEL.objects.get(slug=project_slug)
                 filter_kwargs['project'] = project
@@ -154,14 +162,6 @@ class ProjectSupporterList(generics.ListAPIView):
             raise Http404(_(u"No %(verbose_name)s found matching the query") %
                           {'verbose_name': PROJECT_MODEL._meta.verbose_name})
 
-        fundraiser_id = self.request.QUERY_PARAMS.get('fundraiser', None)
-        if fundraiser_id:
-            try:
-                fundraiser = FundRaiser.objects.get(project=project, pk=fundraiser_id)
-                filter_kwargs['fundraiser'] = fundraiser
-            except FundRaiser.DoesNotExist:
-                raise Http404(_(u"No %(verbose_name)s found matching the query") %
-                              {'verbose_name': FundRaiser._meta.verbose_name})
 
         queryset = queryset.filter(**filter_kwargs)
         queryset = queryset.order_by("-ready")

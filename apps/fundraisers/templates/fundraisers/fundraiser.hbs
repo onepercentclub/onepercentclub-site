@@ -1,0 +1,112 @@
+{% load i18n bb_ember static %}
+
+{% tplhandlebars "fundRaiser" %}
+
+    <div class="l-section detail" id="fundraiser-detail">
+        <section class="l-wrapper">
+
+            <div class="l-half">
+                <figure class="project-image">
+                    {{#if video_html}}
+                        {{{video_html}}}
+                    {{else}}
+                        <img {{bindAttr src="image.large"}} width="100%" alt="Photo" />
+                    {{/if}}
+                </figure>
+            </div>
+
+            <div class="l-half">
+                <article class="project-info">
+                    {{view App.SocialShareView}}
+                    {{#if isOwner}}
+                        <ul class="owner-settings">
+                            <li class="owner-settings-dropdown"><span class="flaticon solid settings-2"></span>
+                                <ul class="owner-settings-dropdown-menu">
+                                    <li>{{#linkTo 'fundRaiserEdit' id}}{% trans "Edit Fundraiser" %}{{/linkTo}}</li>
+                                    <li>{{#linkTo 'fundRaiserDonationList' id}}{% trans "View Donations" %}{{/linkTo}}</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    {{/if}}
+                    <h1 class="project-title">{{title}}</h1>
+                    <p class="project-description">{{description}}</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="l-wrapper">
+        	<div class="l-half">
+
+                <div class="fundraiser-project">
+                    <figure class="fundraiser-project-image"><img {{bindAttr src="project.image"}} width="100%" alt="Photo" /></figure>
+
+                    <div class="fundraiser-project-detail">
+                        <h4>{% trans "Fundraising for" %}</h4>
+                        <p>{{#linkTo 'project' project.getProject}}{{project.title}}{{/linkTo}}</p>
+                    </div>
+                </div>
+
+        	</div>
+
+        	<div class="l-half">
+                <article class="fundraiser-member">
+
+                    <figure class="member-avatar">
+                        <a href='#' {{action 'openInBigBox' 'userModal' owner }} class="TODO">
+                            <img {{bindAttr src="owner.getAvatar" alt="owner.full_name"}} />
+                            <strong class="member-name"><em>{% trans "Fundraiser" %}</em> {{owner.full_name}}</strong>
+                        </a>
+                    </figure>
+
+                    <div class="project-action">
+                        {{#if project.getProject.isPhaseCampaign}}
+                            <a href='#' {{ action 'addDonation' this.project this }} class="btn btn-primary btn-iconed">
+                                <span class="flaticon solid wallet-1"></span>
+                                {% trans "Support" %} {{owner.first_name}}
+                            </a>
+                        {{else}}
+                            <strong>{% trans "Project Funded" %}</strong>
+                        {{/if}}
+                    </div>
+                </article>
+        	</div>
+
+        </section>
+    </div>
+
+    <div class="l-section detail" id="fundraiser-status">
+
+       <section class="l-wrapper">
+
+            <div class="project-status">
+
+                {{#if deadline}}
+                <div class="project-days-left">
+                    <strong><span class="flaticon solid stopwatch-1"></span> {{daysToGo}} <em>{% trans "days to go" %}!</em></strong>
+                </div>
+                {{/if}}
+
+                <div class="project-fund">
+                    <p class="project-fund-amount">
+                        <strong class="amount-donated">&euro;{{localize amount_donated}}</strong>
+                        {% trans "of" %}
+                        <strong class="amount-asked">&euro;{{localize amount}}</strong>
+                        {% trans "raised" %}
+                    </p>
+
+                    {{#bb-progressbar class="project-fund-amount-slider" totalValue=amount currentValue=amount_donated}}
+                    {{/bb-progressbar}}
+                </div>
+
+                <ul class="member-list">
+                    <li class="project-member-supporters">
+                        {{render "fundRaiserSupporterList"}}
+                    </li>
+                </ul>
+            </div>
+       </section>
+    </div>
+
+    {{ outlet }}
+
+{% endtplhandlebars %}

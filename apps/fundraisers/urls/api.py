@@ -1,7 +1,7 @@
 from surlex.dj import surl
 from django.conf.urls import patterns, url
 
-from .views import FundRaiserListView, FundRaiserDetailView
+from ..views import FundRaiserListView, FundRaiserDetailView
 
 
 urlpatterns = patterns('',

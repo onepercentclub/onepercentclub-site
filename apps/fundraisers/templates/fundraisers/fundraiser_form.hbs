@@ -1,0 +1,31 @@
+{% load i18n bb_ember static %}
+
+{% tplhandlebars "fundraiser_form" %}
+    <fieldset>
+        <ul>
+            {% include "generic/form_field.html" with title="Title" placeholder="Title describes your fundraiser action in short" field_type="Em.TextField" field_name="title" %}
+
+            {% include "generic/form_field.html" with title="Description" placeholder="Tell a little more about your fundraise action" field_type="Em.TextArea" field_name="description" %}
+        </ul>
+    </fieldset>
+
+    <fieldset>
+        <ul>
+            {% include "generic/form_imagefield.html" with title="Image" field_name="image" help_text="Minimal of 800px wide" %}
+
+            {% include "generic/form_field.html" with title="Video" placeholder="http://" field_type="Em.TextField" field_name="video_url" help_text="Youtube or Vimeo link" %}
+        </ul>
+    </fieldset>
+
+    <fieldset>
+    	<legend>
+        	<strong>{% trans "Amount & deadline" %}</strong>
+			<p>{% trans "Be realistic and...show ambition!" %}</p>
+    	</legend>
+        <ul>
+            {% include "generic/form_field.html" with title="Amount to raise" placeholder="&euro;" field_type="Em.TextField" field_name="amount" %}
+
+            {% include "generic/form_field.html" with title="Deadline" placeholder="" field_type="App.FundRaiserDeadLineDatePicker" field_name="deadline" %}
+        </ul>
+    </fieldset>
+{% endtplhandlebars %}

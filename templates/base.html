@@ -30,12 +30,11 @@
     {{ block.super }}
 
     {% include "homepage/base.hbs" %}
+    {% include "fund/base.hbs" %}
+    {% include "fundraisers/base.hbs" %}
     {% include "projects/base.hbs" %}
     {% include "donations/base.hbs" %}
-
-    {% include "orders.hbs" %}
     {% include "vouchers.hbs" %}
-    {% include "fundraisers.hbs" %}
 {% endblock handlebars_templates %}
 
 {% block_verbatim nav_main %}
@@ -92,6 +91,10 @@
     <script type="text/javascript" src="{% static 'js/bluebottle/fundraisers/controllers.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bluebottle/fundraisers/views.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bluebottle/fundraisers/routes.js' %}"></script>
+
+    <!--partners-->
+    <script type="text/javascript" src="{% static 'js/bluebottle/partners/models.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/partners/routes.js' %}"></script>
 
     <script type="text/javascript" src="{% static 'js/bluebottle/vouchers/models.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bluebottle/vouchers/controllers.js' %}"></script>

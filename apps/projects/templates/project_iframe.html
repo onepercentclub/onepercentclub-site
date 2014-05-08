@@ -20,12 +20,12 @@
         
 	    <span class="item-status campaign">
 	        <div class="donate-status">
-			   {% with money_needed=object.amount_needed %}
+			   {% with amount_needed=object.amount_needed %}
 
-				  {% if money_needed %}
+				  {% if amount_needed %}
 	              <span class="donate-slider"><strong class="donate-progress" style="width: {{ object.projectcampaign.percentage_funded|floatformat:'2' }}%;">&nbsp;</strong></span>
 	              <p class="donate-amount">
-	                <span class="donated">€ {{ money_needed|floatformat:"0" }}</span>
+	                <span class="donated">€ {{ amount_needed|floatformat:"0" }}</span>
 	                {% trans "To go" %}
 	              </p>
 

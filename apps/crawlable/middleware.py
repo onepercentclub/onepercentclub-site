@@ -140,7 +140,7 @@ class HashbangMiddleware(object):
 
 
             # See if it's a page we now so that we can sent it back quickly.
-            route = parsed_url.query.split('/')
+            route = parsed_url.query.replace('%2F', '/').split('/')
 
             # Project page
             if route[1] == 'projects' and len(route) > 2:

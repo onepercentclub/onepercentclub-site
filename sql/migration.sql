@@ -203,7 +203,11 @@ ALTER TABLE projects_project
   ADD COLUMN effects text DEFAULT '',
   ADD COLUMN for_who text DEFAULT '',
   ADD COLUMN future text DEFAULT '',
-  ADD COLUMN language_id integer;
+  ADD COLUMN language_id integer,
+  ADD COLUMN date_submitted timestamp with time zone,
+  ADD COLUMN campaign_started timestamp with time zone,
+  ADD COLUMN campaign_ended timestamp with time zone,
+  ADD COLUMN campaign_funded timestamp with time zone;
 
 -- Language
 
@@ -252,7 +256,7 @@ ALTER TABLE organizations_organization DROP COLUMN account_city;
 UPDATE projects_project SET status_id = 1 WHERE phase IN ('pitch', 'plan');
 UPDATE projects_project SET status_id = 2 WHERE id in (SELECT project_id FROM projects_projectpitch WHERE status = 'submitted');
 UPDATE projects_project SET status_id = 5 WHERE phase = 'campaign';
-UPDATE projects_project SET status_id = 8 WHERE phase IN ('acts', 'results', 'realized');
+UPDATE projects_project SET status_id = 7 WHERE phase IN ('acts', 'results', 'realized');
 UPDATE projects_project SET status_id = 10 WHERE phase = 'failed';
 
 
@@ -297,7 +301,8 @@ UPDATE projects_project p
 UPDATE projects_project p
   SET amount_asked = (pc.money_asked / 100),
       amount_donated = (pc.money_donated / 100),
-      amount_needed = (pc.money_needed / 100)
+      amount_needed = (pc.money_needed / 100),
+      deadline = (pc.deadline)
   FROM projects_projectcampaign AS pc
   WHERE pc.project_id = p.id;
 
@@ -349,7 +354,11 @@ ALTER TABLE projects_projectbudgetline
 -- TASKS
 --
 
-ALTER TABLE tasks_taskmember ADD COLUMN time_spent INTEGER DEFAULT 0 NOT NULL;
+ALTER TABLE tasks_task DROP COLUMN expertise;
+
+ALTER TABLE tasks_taskmember
+  ADD COLUMN time_spent INTEGER DEFAULT 0 NOT NULL;
+
 
 
 --
