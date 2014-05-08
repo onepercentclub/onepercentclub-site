@@ -62,6 +62,7 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
             url = 'https://api.imgur.com/3/upload.json'
             filename = '/tmp/screenshot.png'
 
+            print 'Attempting to save screenshot...'
             self.browser.driver.save_screenshot(filename)
 
             response = requests.post(
