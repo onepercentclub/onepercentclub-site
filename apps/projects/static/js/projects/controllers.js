@@ -78,6 +78,10 @@ App.ProjectSupporterListController = Em.Controller.extend({
     }.property('controllers.project.id')
 });
 
+App.ProjectPlanController.reopen({
+    hasPdfDownload: false
+});
+
 App.ProjectSearchFormController.reopen({
     orderedByNeeded: function(){
         return (this.get('ordering') == 'amount_needed');
