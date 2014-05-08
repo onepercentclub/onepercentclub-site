@@ -419,6 +419,9 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
     def test_change_project_goal(self):
         project = OnePercentProjectFactory.create(title='Project Goal Changes', owner=self.user)
         self.visit_path('/my/projects/{0}/goal'.format(project.slug))
+        
+        print 'Project should be loaded!'
+        self.upload_screenshot()
 
         # Check that deadline is set to 30 days now
         days_left = self.browser.find_by_css('.project-days-left strong').first
@@ -428,7 +431,9 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         # Click Next to get a date in the future
         self.assertTrue(self.scroll_to_and_click_by_css(".btn-date-picker"))
 
+        print 'Date picker should be open!'
         self.upload_screenshot()
+        
         self.browser.find_by_css("[title=Prev]").first.click()
 
         day_today = self.wait_for_element_css('td.ui-state-disabled.ui-datepicker-today').text
