@@ -125,14 +125,14 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         self.assertTrue(self.login(self.user.email, 'testing'))
         self.visit_project_list_page()
 
-        print 'Project list should be loaded!'
-        self.upload_screenshot()
+        # print 'Project list should be loaded!'
+        # self.upload_screenshot()
 
         # Load the first campaign
         self.assertTrue(self.scroll_to_and_click_by_css(".project-item:first-of-type a"))
 
-        print 'Clicked first project in list!'
-        self.upload_screenshot()
+        # print 'Clicked first project in list!'
+        # self.upload_screenshot()
         
         # Wait for form link and then click
         self.wait_for_element_css('.wallpost-post-update').click()
@@ -141,8 +141,8 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         self.wait_for_element_css('#wallpost-form .wallpost-form')
         form = self.browser.find_by_id('wallpost-form')
 
-        print 'Wallpost form should be loaded!'
-        self.upload_screenshot()
+        # print 'Wallpost form should be loaded!'
+        # self.upload_screenshot()
 
         title = 'My wallpost'
         self.browser.find_by_id('wallpost-title').first.fill(title)
@@ -251,8 +251,8 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         # Click "Pitch Smart Idea" btn
         self.assertTrue(self.is_visible('#create_project'))
 
-        print 'My projects list should be loaded!'
-        self.upload_screenshot()
+        # print 'My projects list should be loaded!'
+        # self.upload_screenshot()
 
         self.browser.find_by_id("create_project").first.click()
 
@@ -260,8 +260,8 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         # Intro Section
         ###
 
-        print 'Project create intro section should be loaded!'
-        self.upload_screenshot()
+        # print 'Project create intro section should be loaded!'
+        # self.upload_screenshot()
 
         self.assertTrue(self.is_visible('section h1.page-title'))
         self.scroll_to_and_click_by_css("button.btn-primary")
@@ -270,8 +270,8 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         # Project Section
         ###
 
-        print 'Project create main section should be loaded!'
-        self.upload_screenshot()
+        # print 'Project create main section should be loaded!'
+        # self.upload_screenshot()
         
         self.assertTrue(self.is_visible('input[name="title"]'))
 
@@ -451,8 +451,8 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         project = OnePercentProjectFactory.create(title='Project Goal Changes', owner=self.user)
         self.visit_path('/my/projects/{0}/goal'.format(project.slug))
         
-        print 'Project should be loaded!'
-        self.upload_screenshot()
+        # print 'Project should be loaded!'
+        # self.upload_screenshot()
 
         # Check that deadline is set to 30 days now
         days_left = self.browser.find_by_css('.project-days-left strong').first
@@ -536,8 +536,8 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
         self.assertEqual(post.find_by_css('.text p').text, self.post1['text'])
 
         # Post as project owner
-        print 'Wallpost update should be loaded!'
-        self.upload_screenshot()
+        # print 'Wallpost update should be loaded!'
+        # self.upload_screenshot()
         
         self.browser.find_by_css(".wallpost-post-update").click()
         self.assertTrue(self.browser.is_text_present('Post', wait_time=5))
