@@ -77,3 +77,7 @@ App.ProjectSupporterListController = Em.Controller.extend({
         return App.ProjectSupporter.find({project: project_id});
     }.property('controllers.project.id')
 });
+
+App.ProjectPlanController.reopen({
+    hasPdfDownload: false
+});
