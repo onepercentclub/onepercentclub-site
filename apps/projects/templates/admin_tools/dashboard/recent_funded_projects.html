@@ -12,8 +12,7 @@
     {% spaceless %}
     {% for project in module.children %}
     <li class="{% cycle 'odd' 'even' %}">
-        <span class="float-right">{{ project.date_funded|date }}</span>
-        <a href="{{ admin_url }}projects/project/{{ project.id }}" >{{ project.title }}</a>
+        <a href="{{ admin_url }}projects/project/{{ project.id }}" >{{ project.title }}{% if project.campaign_funded %} - {{ project.campaign_funded }}{% endif %}</a>
     </li>
     {% endfor %}
     {% endspaceless %}

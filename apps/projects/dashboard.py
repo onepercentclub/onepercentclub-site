@@ -7,6 +7,8 @@ from admin_tools.dashboard.modules import DashboardModule
 from apps.projects.models import Project
 
 
+
+
 class RecentProjects(DashboardModule):
     title = _('Recently Created Projects')
     template = 'admin_tools/dashboard/recent_projects.html'
