@@ -98,7 +98,8 @@ class Project(BaseProject):
     amount_needed = MoneyField(default=0.00)
 
     allow_overfunding = models.BooleanField(default=True)
-    story = models.TextField(_("story"), help_text=_("This is the help text for the story field"), blank=True, null=True)
+    story = models.TextField(_("story"), help_text=_("This is the help text for the story field"), blank=True,
+                             null=True)
 
     # TODO: Remove these fields?
     effects = models.TextField(_("effects"), help_text=_("What will be the Impact? How will your Smart Idea change the lives of people?"), blank=True, null=True)

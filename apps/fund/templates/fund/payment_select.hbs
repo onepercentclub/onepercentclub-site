@@ -12,6 +12,24 @@
                     <p>{% trans "We'll redirect you through our payment provider where you can finish your donation securely." %}</p>
                 </legend>
 
+                <div class="l-section">
+                    <section class="l-wrapper">
+
+                        {{#if display_message}}
+                            <div {{bindAttr class=":message :l-content isError"}}>
+                                <a {{ action hideMessage }} class="message-close" rel="close">&times;</a>
+
+                                <div class="message-content">
+                                    {% trans "There was an error with your payment. Please try again." %}
+                                </div>
+                            </div>
+                        {{/if}}
+
+                        {{ outlet }}
+
+                    </section>
+                </div>
+
                 <ul class="tabs tabs-vertical">
                     {{#view Em.RadioButtonGroup name="paymentMethod" selectedValueBinding="redirectPaymentMethod" class="radio-group-tabbed"}}
                         {{#each redirectPaymentMethods}}

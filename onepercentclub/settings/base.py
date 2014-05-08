@@ -181,6 +181,7 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.i18n',
     'bluebottle.utils.context_processors.installed_apps_context_processor',
     'bluebottle.utils.context_processors.git_commit',
+    'bluebottle.utils.context_processors.conf_settings',
 )
 
 ROOT_URLCONF = 'onepercentclub.urls'

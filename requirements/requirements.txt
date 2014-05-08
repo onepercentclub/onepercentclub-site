@@ -1,4 +1,4 @@
--e git://github.com/onepercentclub/bluebottle.git@1.0.25#egg=bluebottle
+-e git://github.com/onepercentclub/bluebottle.git@1.0.26#egg=bluebottle
 
 pip
 mercurial==2.9.1
@@ -90,3 +90,6 @@ factory-boy==2.3.1
 
 # LXML for generating and validating proper SEPA exports
 lxml==3.1.2
+
+#Add latest version of Beautiful Soup 
+beautifulsoup4==4.3.2
