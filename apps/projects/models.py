@@ -210,6 +210,7 @@ class Project(BaseProject):
 
         return tweet
 
+
     class Meta(BaseProject.Meta):
         ordering = ['title']
         default_serializer = 'apps.projects.serializers.ProjectSerializer'

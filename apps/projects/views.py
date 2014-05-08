@@ -1,25 +1,14 @@
 from apps.projects.models import ProjectBudgetLine
-from bluebottle.geo.models import Country
-from bluebottle.geo.serializers import CountrySerializer
-import django_filters
 
-from django.db.models.query_utils import Q
 from django.utils.decorators import method_decorator
-from django.utils.translation import ugettext as _
-from django.http import Http404
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.generic.detail import DetailView
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated
 
-from apps.fund.models import Donation, DonationStatuses
-from apps.projects.serializers import (
-    ProjectSupporterSerializer, ProjectPreviewSerializer, ProjectThemeSerializer, ProjectBudgetLineSerializer)
+from apps.projects.serializers import  ProjectBudgetLineSerializer
 from apps.projects.permissions import IsProjectOwner
-from apps.fundraisers.models import FundRaiser
 
 from .models import Project
-from .serializers import ProjectSerializer, ProjectDonationSerializer
 
 
 class ManageProjectBudgetLineList(generics.ListCreateAPIView):

@@ -1,4 +1,3 @@
-from apps.homepage.views import HomePageDetail
 from apps.projects.views import ManageProjectBudgetLineDetail, ManageProjectBudgetLineList
 from django.conf.urls import patterns, url
 from surlex.dj import surl
