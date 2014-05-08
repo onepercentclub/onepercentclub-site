@@ -2,19 +2,28 @@
 
 {% tplhandlebars "fundRaiser/index" %}
 
-    <div id="l-section">
+    <div class="l-section" id="wallposts">
         <section class="l-wrapper">
-        	<div class="l-content" id="wallposts">
 
-    	        {{#each item in controller itemController="wallPost"}}
-    	            {{#if item.isLoaded}}
+            <div class="wallposts-list">
+
+                {{#if controllers.currentUser.isAuthenticated }}
+                    {{#if canAddMediaWallPost}}
+                        {{ render "mediaWallPostNew" parentId=parentId}}
+                    {{else}}
+                        {{ render "textWallPostNew" }}
+                    {{/if}}
+                {{/if}}
+
+                {{#each item in controller itemController="wallPost"}}
+                    {{#if item.isLoaded}}
                         {{#if item.isSystemWallPost}}
-        	                {{view "App.SystemWallPostView"}}
+                            {{view "App.SystemWallPostView"}}
                         {{else}}
-        	                {{view "App.WallPostView"}}
+                            {{view "App.MediaWallPostView"}}
                         {{/if}}
-    	            {{/if}}
-    	        {{/each}}
+                    {{/if}}
+                {{/each}}
 
                 {{#if canLoadMore}}
                     <a {{action "showMore"}} class="btn-link btn-more">
@@ -22,16 +31,7 @@
                     </a>
                 {{/if}}
 
-        	</div>
-
-            <sidebar class="l-sidebar">
-                {{#if isOwner}}
-                	{{ render "fundRaiserMediaWallPostNew" }}
-                {{else}}
-                	{{ render "fundRaiserTextWallPostNew" }}
-                {{/if}}
-            </sidebar>
-
+            </div>
         </section>
     </div>
 
