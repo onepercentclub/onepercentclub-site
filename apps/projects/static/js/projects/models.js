@@ -12,7 +12,7 @@ App.Project.reopen({
     minAmountAsked: Ember.computed.gte('amount_asked', 250),
 
     amount_donated: DS.attr('number', {defaultValue: 0}),
-    amount_needed: DS.attr('number', {defaultValue: 0}),
+    amount_needed: DS.attr('number', {defaultValue: this.get('amount_asked')}),
 
     fundraisers: DS.belongsTo('App.Fundraiser'),
 
