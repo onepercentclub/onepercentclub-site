@@ -264,7 +264,7 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         # Project Section
         ###
 
-        print 'Project create intro should be loaded!'
+        print 'Project create main section should be loaded!'
         self.upload_screenshot()
         
         self.assertTrue(self.is_visible('input[name="title"]'))
