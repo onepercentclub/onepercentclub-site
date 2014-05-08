@@ -250,6 +250,9 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         # Project Section
         ###
 
+        print 'Project create intro should be loaded!'
+        self.upload_screenshot()
+        
         self.assertTrue(self.is_visible('input[name="title"]'))
 
         self.browser.select('language', 2)
