@@ -133,6 +133,9 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         # Wait for form to animate down
         self.wait_for_element_css('#wallpost-title')
 
+        print 'Wallpost form should be loaded!'
+        self.upload_screenshot()
+
         title = 'My wallpost'
         self.browser.find_by_id('wallpost-title').first.fill(title)
         self.browser.find_by_id('wallpost-update').first.fill('These are some sample pictures from this non-existent project!')
@@ -505,6 +508,9 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
         self.assertEqual(post.find_by_css('.text p').text, self.post1['text'])
 
         # Post as project owner
+        print 'Wallpost update should be loaded!'
+        self.upload_screenshot()
+        
         self.browser.find_by_css(".wallpost-post-update").click()
         self.assertTrue(self.browser.is_text_present('Post', wait_time=5))
 
