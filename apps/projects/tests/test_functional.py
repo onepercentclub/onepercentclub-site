@@ -125,16 +125,18 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         self.assertTrue(self.login(self.user.email, 'testing'))
         self.visit_project_list_page()
 
+        print 'Project list should be loaded!'
+        self.upload_screenshot()
+
         # Load the first campaign
         self.assertTrue(self.scroll_to_and_click_by_css(".project-item:first-of-type a"))
-
-        self.wait_for_element_css('#wallpost-form')
-        form = self.browser.find_by_id('wallpost-form')
-
+        
+        # Wait for form link and then click
         self.wait_for_element_css('.wallpost-post-update').click()
 
         # Wait for form to animate down
-        self.wait_for_element_css('#wallpost-title')
+        self.wait_for_element_css('#wallpost-form')
+        form = self.browser.find_by_id('wallpost-form')
 
         print 'Wallpost form should be loaded!'
         self.upload_screenshot()
