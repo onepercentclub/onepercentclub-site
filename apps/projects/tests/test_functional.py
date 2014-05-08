@@ -247,6 +247,10 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
 
         # Click "Pitch Smart Idea" btn
         self.assertTrue(self.is_visible('#create_project'))
+
+        print 'My projects list should be loaded!'
+        self.upload_screenshot()
+
         self.browser.find_by_id("create_project").first.click()
 
         ###
