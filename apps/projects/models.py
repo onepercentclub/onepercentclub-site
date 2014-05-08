@@ -1,72 +1,19 @@
 import datetime
 from .fields import MoneyField
-from bluebottle.bb_projects.models import BaseProject, ProjectTheme, ProjectPhase
+from bluebottle.bb_projects.models import BaseProject, ProjectPhase
 from django.db import models
 from django.db.models import Q
 from django.db.models.aggregates import Count, Sum
-from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.http import urlquote
 from django.utils.translation import ugettext as _
 from django.conf import settings
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
-from djchoices import DjangoChoices, ChoiceItem
 from sorl.thumbnail import ImageField
-from taggit.managers import TaggableManager
 from django.template.defaultfilters import slugify
 from django.utils import timezone
 from .mails import mail_project_funded_internal
 from .signals import project_funded
-
-#from apps.fund.models import Donation, DonationStatuses
-
-
-class ProjectManager(models.Manager):
-
-    def order_by(self, field):
-        if field == 'amount_asked':
-            qs = self.get_query_set()
-            qs = qs.filter(status__in=[ProjectPhase.objects.get(slug="campaign"),
-                                       ProjectPhase.objects.get(slug="done-completed"),
-                                       ProjectPhase.objects.get(slug="done-incomplete")])
-            qs = qs.order_by('amount_asked')
-            return qs
-
-        if field == 'deadline':
-            qs = self.get_query_set()
-            qs = qs.filter(status=ProjectPhase.objects.get(slug="campaign"))
-            qs = qs.order_by('deadline')
-            qs = qs.filter(status=ProjectPhase.objects.get(slug="campaign"))
-            return qs
-
-        if field == 'amount_needed':
-            qs = self.get_query_set()
-            qs = qs.order_by('amount_needed')
-            qs = qs.filter(amount_needed__gt=0)
-            qs = qs.filter(status=ProjectPhase.objects.get(slug="campaign"))
-            return qs
-
-        if field == 'newest':
-            qs = self.get_query_set()
-            qs = qs.order_by('amount_needed')
-            qs = qs.filter(amount_needed__gt=0)
-            qs = qs.filter(status=ProjectPhase.objects.get(slug="campaign"))
-            return qs
-
-        if field == 'donations':
-            qs = self.get_query_set()
-            qs = qs.order_by('popularity')
-            return qs
-
-        if field == 'popularity':
-            qs = self.get_query_set()
-            qs = qs.order_by('-popularity')
-            qs = qs.filter(amount_needed__gt=0)
-            qs = qs.filter(status=ProjectPhase.objects.get(slug="campaign"))
-            return qs
-
-        qs = super(ProjectManager, self).order_by(field)
-        return qs
 
 
 class Project(BaseProject):
@@ -111,7 +58,6 @@ class Project(BaseProject):
     campaign_ended = models.DateTimeField(_('Campaign Ended'), null=True, blank=True)
     campaign_funded = models.DateTimeField(_('Campaign Funded'), null=True, blank=True)
 
-    objects = ProjectManager()
 
     def __unicode__(self):
         if self.title:
@@ -168,7 +114,6 @@ class Project(BaseProject):
         Calculate the total (realtime) amount of money for donations,
         optionally filtered by status.
         """
-
         if self.amount_asked == 0:
             # No money asked, return 0
             return 0
