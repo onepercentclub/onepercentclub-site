@@ -32,5 +32,5 @@ before_script:
   - "grunt compass:dist --bb_path=\"`pip show bluebottle | grep Location | cut -b11-`/bluebottle/common/static/sass\""
 
 script:
-  - python ./manage.py test --settings=onepercentclub.settings.travis --failfast -v 1
+  - python ./manage.py test --settings=onepercentclub.settings.travis -v 1 #--failfast
   # - grunt travis --verbose # add --force to pass build on JS failures
