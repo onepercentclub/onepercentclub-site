@@ -3,6 +3,7 @@ SECRET_KEY = 'hbqnTEq+m7Tk61bvRV/TLANr3i0WZ6hgBXDh3aYpSU8m+E1iCtlU3Q=='
 
 from .test_runner import *
 
+
 # Use firefox for running tests on Travis
 SELENIUM_WEBDRIVER = 'firefox'
 
