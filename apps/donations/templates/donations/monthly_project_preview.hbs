@@ -26,7 +26,7 @@
 	            {{#if project.isPhaseCampaign}}
                     {{#if project.money_asked}}
                         <div class="project-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
-                        <span class="project-fund-amount"><strong>&euro;{{localize project.money_needed}}</strong> <em>{% trans "To go" %}</em></span>
+                        <span class="project-fund-amount"><strong>&euro;{{localize project.amount_needed}}</strong> <em>{% trans "To go" %}</em></span>
                     {{/if}}
                     {{#if project.deadline }}
                         <span class="project-days-left"><span class="flaticon solid clock-1"></span> <strong>{{project.daysToGo}}</strong> <em>{% trans "days" %}</em></span>

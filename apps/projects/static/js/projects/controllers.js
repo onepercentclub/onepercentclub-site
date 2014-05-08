@@ -69,3 +69,9 @@ App.ProjectSupporterListController = Em.Controller.extend({
         return App.ProjectSupporter.find({project: project_id});
     }.property('controllers.project.id')
 });
+
+App.ProjectSearchFormController.reopen({
+    orderedByNeeded: function(){
+        return (this.get('ordering') == 'amount_needed');
+    }.property('ordering')
+});

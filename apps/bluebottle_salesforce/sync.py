@@ -263,7 +263,7 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
 
         sfproject.target_group_s_of_the_project = project.for_who
         sfproject.number_of_people_reached_direct = project.reach
-        sfproject.describe_where_the_money_is_needed_for = project.money_needed
+        sfproject.describe_where_the_money_is_needed_for = project.amount_needed
         sfproject.sustainability = project.future
         sfproject.contribution_project_in_reducing_poverty = project.effects
 
