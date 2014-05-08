@@ -181,6 +181,14 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
 
         # TODO: check that the default description is overwritten, add description to plan
 
+    def test_project_plan(self):
+        self.visit_path('/projects/schools-for-children-2')
+
+        element = self.wait_for_element_css('.project-plan-link a')
+        element.click()
+
+        self.wait_for_element_css('.project-plan-navigation-links')
+        self.assertTrue(self.browser.is_element_not_present_by_css('.project-plan-download-pdf'), 'PDF download should not be available')
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
