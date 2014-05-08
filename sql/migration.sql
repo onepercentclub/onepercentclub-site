@@ -301,7 +301,8 @@ UPDATE projects_project p
 UPDATE projects_project p
   SET amount_asked = (pc.money_asked / 100),
       amount_donated = (pc.money_donated / 100),
-      amount_needed = (pc.money_needed / 100)
+      amount_needed = (pc.money_needed / 100),
+      deadline = (pc.deadline)
   FROM projects_projectcampaign AS pc
   WHERE pc.project_id = p.id;
 

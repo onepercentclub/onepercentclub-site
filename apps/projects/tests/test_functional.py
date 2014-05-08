@@ -149,7 +149,9 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'chameleon.jpg')
         self.browser.attach_file('wallpost-photo', file_path)
 
-        self.wait_for_element_css('ul.form-wallpost-photos li')
+        # Wait for the second item to be added
+        self.wait_for_element_css('ul.form-wallpost-photos li:nth-child(2)')
+
         form = self.browser.find_by_id('wallpost-form')
         ul = form.find_by_css('ul.form-wallpost-photos').first
         previews = ul.find_by_tag('li')

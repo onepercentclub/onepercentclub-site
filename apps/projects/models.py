@@ -93,9 +93,9 @@ class Project(BaseProject):
     is_campaign = models.BooleanField(default=False, help_text=_("Project is part of a campaign and gets special promotion."))
 
     # For convenience and performance we also store money donated and needed here.
-    amount_asked = MoneyField(default=0.00)
-    amount_donated = MoneyField(default=0.00)
-    amount_needed = MoneyField(default=0.00)
+    amount_asked = MoneyField(default=0)
+    amount_donated = MoneyField(default=0)
+    amount_needed = MoneyField(default=0)
 
     allow_overfunding = models.BooleanField(default=True)
     story = models.TextField(_("story"), help_text=_("This is the help text for the story field"), blank=True,
