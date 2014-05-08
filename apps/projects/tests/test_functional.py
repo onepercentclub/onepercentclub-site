@@ -243,7 +243,6 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         ###
 
         self.assertTrue(self.is_visible('input[name="title"]'))
-        self.assertTrue(self.is_visible('select[name="language"]'))
 
         self.browser.select('language', 2)
         self.browser.fill('title', self.project_data['title'])
@@ -428,7 +427,9 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         # Let's pick a date
         # Click Next to get a date in the future
         self.assertTrue(self.scroll_to_and_click_by_css(".btn-date-picker"))
-        self.wait_for_element_css('.ui-datepicker-prev').click()
+
+        self.upload_screenshot()
+        self.browser.find_by_css("[title=Prev]").first.click()
 
         day_today = self.wait_for_element_css('td.ui-state-disabled.ui-datepicker-today').text
         element = self.wait_for_element_css('td[data-handler=selectDay]:first-of-type a')
