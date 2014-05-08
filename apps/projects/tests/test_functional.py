@@ -40,7 +40,6 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         self.user = BlueBottleUserFactory.create(email='johndoe@example.com', primary_language='en')
 
         campaign_phase = ProjectPhase.objects.get(slug='campaign')
-        print "Phase", campaign_phase
 
         for slug, title in self.projects.items():
             project = OnePercentProjectFactory.create(title=title, slug=slug, owner=self.user,
@@ -48,7 +47,6 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
 
     def visit_project_list_page(self, lang_code=None):
         self.visit_path('/projects', lang_code)
-        print "COUNT:", Project.objects.all().count()
         self.assertTrue(self.browser.is_element_present_by_css('.project-item'),
                 'Cannot load the project list page.')
 
@@ -60,10 +58,7 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
 
         # Find the link to the Projects page and click it.
         self.browser.find_link_by_text('1%Projects').first.click()
-        print "COUNT2:", Project.objects.all().count()
-        for p in Project.objects.all():
-            print p.status.slug
-            print p.viewable
+
         time.sleep(10)
         # Validate that we are on the intended page.
         self.assertTrue(self.browser.is_element_present_by_css('.project-item'), 'Cannot load the project list page.')

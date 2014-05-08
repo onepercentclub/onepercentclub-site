@@ -16,8 +16,8 @@ class InitProjectDataMixin(object):
                       {'id': 2, 'name': 'Plan - Submitted', 'viewable': False},
                       {'id': 3, 'name': 'Plan - Needs Work', 'viewable': False},
                       {'id': 4, 'name': 'Plan - Rejected', 'viewable': False},
-                      {'id': 5, 'name': 'Plan - Accepted', 'viewable': True},
-                      {'id': 6, 'name': 'Campaign', 'viewable': True},
+                      {'id': 6, 'name': 'Plan - Accepted', 'viewable': True},
+                      {'id': 5, 'name': 'Campaign', 'viewable': True},
                       {'id': 7, 'name': 'Stopped', 'viewable': False},
                       {'id': 8, 'name': 'Done - Complete', 'viewable': True},
                       {'id': 9, 'name': 'Done - Incomplete', 'viewable': True}]
