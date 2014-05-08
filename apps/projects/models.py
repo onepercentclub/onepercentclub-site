@@ -217,8 +217,7 @@ class Project(BaseProject):
 
     @property
     def date_funded(self):
-        # FIXME: This is wrong. Date funded != date created.
-        return self.created
+        return self.campaign_funded
 
     @models.permalink
     def get_absolute_url(self):
