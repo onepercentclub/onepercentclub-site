@@ -130,6 +130,9 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
 
         # Load the first campaign
         self.assertTrue(self.scroll_to_and_click_by_css(".project-item:first-of-type a"))
+
+        print 'Clicked first project in list!'
+        self.upload_screenshot()
         
         # Wait for form link and then click
         self.wait_for_element_css('.wallpost-post-update').click()
