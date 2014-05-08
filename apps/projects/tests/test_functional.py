@@ -257,6 +257,9 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         # Intro Section
         ###
 
+        print 'Project create intro section should be loaded!'
+        self.upload_screenshot()
+
         self.assertTrue(self.is_visible('section h1.page-title'))
         self.scroll_to_and_click_by_css("button.btn-primary")
 
