@@ -33,6 +33,7 @@
                         {{/if}}
                     </div>
                     <ul id="campaign-steps" class="{{#if isPhasePlanNew}} steps {{else}} tabs {{/if}}">
+                        {{!--
                         {{#if isPhasePlanNew}}
                             <li class="tab">
                                 {{#link-to "myProject.start" classBinding=":tab-link :validated"}}
@@ -43,6 +44,7 @@
                                 {{/link-to}}
                             </li>
                         {{/if}}
+                        --}}
 
                         <li class="tab">
                             {{#link-to "myProject.pitch" classBinding=":tab-link validPitch:validated"}}
@@ -111,6 +113,15 @@
                         </form>
                     </div>
                     {{ partial '_my_project_sidebar' }}
+                    {{#if tabBudget}}
+                        {{ partial '_my_project_sidebar_budget' }}
+                    {{/if}}
+                    {{#if tabPitch}}
+                        {{ partial '_my_project_sidebar_pitch' }}
+                    {{/if}}
+                    {{#if tabStory}}
+                        {{ partial '_my_project_sidebar_story' }}
+                    {{/if}}
                 </div>
             </section>
 

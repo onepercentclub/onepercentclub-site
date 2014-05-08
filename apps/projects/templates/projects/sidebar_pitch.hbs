@@ -1,0 +1,19 @@
+{% load bb_ember %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "_my_project_sidebar_pitch" %}
+
+    <aside class="l-sidebar">
+        <h4>{% trans "Tips" %}</h4>
+        {% blocktrans %}
+        <ul>
+            <li>The description is your ‘elevator pitch’, test it on your friends to see if it works.</li>
+            <li>Choose a strong photo and check it in the preview widget.</li>
+            <li>Always check for mistakes in the text.</li>
+        </ul>
+        <p>Find more tips in our <a href="https://onepercentclub.com/go/pages/faq-projects">FAQ &rsaquo;</a></p>
+        {% endblocktrans %}
+    </aside>
+
+{% endtplhandlebars %}

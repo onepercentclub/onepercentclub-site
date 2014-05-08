@@ -1,0 +1,20 @@
+{% load bb_ember %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "_my_project_sidebar_budget" %}
+
+    <aside class="l-sidebar">
+        <h4>{% trans "Tips" %}</h4>
+        {% blocktrans %}
+            <ul>
+                <li>Be realistic and choose a goal within your possibilities.</li>
+                <li>You can always raise more than the goal you set.</li>
+                <li>Organizing a fundraising event in the next 100 days? This could be a great day to end your campaign.</li>
+                <li>The budget specification is a great way to show your transparency</li>
+            </ul>
+            <p>Find more tips in our <a href="#!/pages/faq-projects">FAQ &rsaquo;</a></p>
+        {% endblocktrans %}
+    </aside>
+
+{% endtplhandlebars %}
