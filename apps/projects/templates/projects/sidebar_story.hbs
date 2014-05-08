@@ -1,0 +1,20 @@
+{% load bb_ember %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "_my_project_sidebar_story" %}
+
+    <aside class="l-sidebar">
+      <h4>{% trans "Tips" %}</h4>
+      {% blocktrans %}
+      <ul>
+          <li>Make your story easy to read, full of interesting details, but not too long.</li>
+          <li>Use headings and paragraphs that will add to your story and make your plan even stronger.</li>
+          <li>Explain – only if you want to – the effects of your campaign, your long-term strategy and who your target group is.</li>
+      </ul>
+      <p>Find more tips in our <a href="https://onepercentclub.com/go/pages/faq-projects">FAQ ></a></p>
+      {% endblocktrans %}
+
+    </aside>
+
+{% endtplhandlebars %}
