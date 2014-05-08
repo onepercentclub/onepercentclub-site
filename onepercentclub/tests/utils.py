@@ -54,8 +54,6 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
         client_id = os.environ.get('IMGUR_CLIENT_ID')
         client_key = os.environ.get('IMGUR_CLIENT_SECRET')
 
-        import ipdb;ipdb.set_trace()
-
         if client_id and client_key:
             client_auth = 'Client-ID {0}'.format(client_id)
             headers = {'Authorization': client_auth}
