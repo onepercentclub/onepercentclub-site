@@ -61,7 +61,7 @@ App.ProjectFundRaiserListController = Em.ArrayController.extend({
 
     fundraisers: function () {
         return App.FundRaiser.find({project: this.get('controllers.project.id')});
-    }.property('controllers.project'),
+    }.property('controllers.project.id'),
     
 	fundraisersLoaded: function(sender, key) {
 		if (this.get(key)) {

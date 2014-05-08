@@ -18,7 +18,7 @@
             {{/each}}
         </ul>
     {{/if}}
-    {{#if controllers.project.isFundable}}
+    {{#if controllers.project.isStatusCampaign}}
         {{#linkTo 'fundRaiserNew' controllers.project.id class="fundraiser-become"}}
             {% trans "Become a fundraiser" %}
         {{/linkTo}}
