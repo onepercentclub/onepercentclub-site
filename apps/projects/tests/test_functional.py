@@ -540,7 +540,7 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
         # self.upload_screenshot()
         
         self.browser.find_by_css(".wallpost-post-update").click()
-        self.assertTrue(self.browser.is_text_present('Post', wait_time=5))
+        self.wait_for_element_css('#wallpost-form .wallpost-form')
 
         self.browser.fill('wallpost-title', self.post2['title'])
         self.browser.fill('wallpost-update', self.post2['text'])
