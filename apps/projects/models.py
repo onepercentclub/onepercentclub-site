@@ -75,6 +75,7 @@ class ProjectManager(models.Manager):
                 qs = qs.filter(amount_needed__gt=0)
         elif ordering:
             qs = queryset.order_by(ordering)
+
         return qs
 
 
