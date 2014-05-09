@@ -136,16 +136,7 @@
 				</ul>
                 <hr>
                 <div class="footer-news">
-                    <h3>{% trans "1%News" %}</h3>
-                    <ul>
-                   {{#each news}}
-                        <li>
-                            <a {{action 'showNews' this}}>
-                                <span class="flaticon solid right-2"></span> {{ title }}
-                            </a>
-                        </li>
-                    {{/each}}
-                    </ul>
+                    {{render "newsPreviewList" }}
                 </div>
             </section>
         </div>
