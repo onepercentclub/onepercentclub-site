@@ -408,6 +408,9 @@ def deploy_testing(revspec='origin/master'):
     # Update site domain for self-reference to work
     set_site_domain()
 
+    # Add the current git commit hash to the settings file
+    add_git_commit()
+
     # Restart app server
     restart_site()
 
