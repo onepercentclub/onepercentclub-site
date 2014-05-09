@@ -1,0 +1,473 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+/* Icons */
+/* line 17, ../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 1, ../sass/_home.scss */
+html, body, #site {
+  height: 100%;
+}
+
+/* line 5, ../sass/_home.scss */
+h1 {
+  color: #ff619a;
+  font-size: 2.5em;
+  font-family: "Futura W01 Bold", "Trebuchet MS", Helvetica, Arial, sans-serif;
+}
+
+/* line 11, ../sass/_home.scss */
+h2 {
+  color: #8a9993;
+  font-size: 1.5em;
+  font-family: "Futura W01 Bold", "Trebuchet MS", Helvetica, Arial, sans-serif;
+}
+
+/* line 17, ../sass/_home.scss */
+a {
+  text-decoration: none;
+  color: #3c3c3c;
+}
+
+/* line 22, ../sass/_home.scss */
+input {
+  line-height: 30px;
+  border-radius: 6px;
+  padding-left: 40px;
+  border: solid 1px #ccc;
+}
+
+/* line 29, ../sass/_home.scss */
+#main {
+  min-height: 100%;
+  margin-bottom: -232px;
+  padding-bottom: 2em;
+}
+
+/* line 35, ../sass/_home.scss */
+.l-wrapper {
+  position: relative;
+  min-width: 900px;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100%;
+}
+
+/* line 43, ../sass/_home.scss */
+.l-section {
+  width: 100%;
+  min-width: 900px;
+  max-width: 100%;
+}
+
+/* line 49, ../sass/_home.scss */
+.section-header {
+  padding: 1em 0 0.5em 0;
+  text-align: center;
+}
+/* line 52, ../sass/_home.scss */
+.section-header.more-space {
+  padding: 3em 0 2.5em 0;
+}
+
+/* line 58, ../sass/_home.scss */
+#header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 80px;
+  background: #f5f4f6;
+  border-bottom: 1px solid white;
+  box-shadow: 0 1px 0 rgba(65, 65, 65, 0.1);
+  z-index: 9;
+}
+/* line 67, ../sass/_home.scss */
+#header #logo {
+  float: left;
+  width: 10.41667%;
+}
+/* line 70, ../sass/_home.scss */
+#header #logo .logo-link {
+  display: block;
+  padding: 1.2em 0 0 0;
+}
+/* line 73, ../sass/_home.scss */
+#header #logo .logo-link .logo-image {
+  height: 40px;
+  width: 125px;
+}
+/* line 80, ../sass/_home.scss */
+#header #nav {
+  padding: 2.2em 0 0 0;
+  font-family: "Futura W01 Bold", "Trebuchet MS", Helvetica, Arial, sans-serif;
+}
+/* line 83, ../sass/_home.scss */
+#header #nav .nav-main {
+  float: left;
+  width: 40%;
+  margin-left: 10%;
+  margin-right: 0%;
+  text-align: left;
+}
+/* line 89, ../sass/_home.scss */
+#header #nav .nav-main .nav-main-item {
+  display: inline;
+  margin-right: 3.9em;
+  color: #3c3c3c;
+}
+/* line 95, ../sass/_home.scss */
+#header #nav .nav-actions {
+  float: right;
+  width: 31.25%;
+  color: white;
+  text-align: right;
+}
+/* line 100, ../sass/_home.scss */
+#header #nav .nav-actions li {
+  display: inline;
+  color: #00c051;
+}
+/* line 104, ../sass/_home.scss */
+#header #nav .nav-actions .nav-signup {
+  margin-right: 3em;
+}
+/* line 107, ../sass/_home.scss */
+#header #nav .nav-actions .nav-search .nav-search-holder {
+  position: relative;
+  display: inherit;
+  float: left;
+  margin-top: -10px;
+}
+/* line 112, ../sass/_home.scss */
+#header #nav .nav-actions .nav-search .nav-search-holder .nav-search-glass {
+  position: absolute;
+  top: 11px;
+  left: 11px;
+}
+
+/* line 124, ../sass/_home.scss */
+.home-carousel {
+  width: 100%;
+  background: #f5f4f6;
+}
+/* line 127, ../sass/_home.scss */
+.home-carousel ul {
+  margin-top: 80px;
+}
+/* line 129, ../sass/_home.scss */
+.home-carousel ul li {
+  height: 506px;
+  overflow: hidden;
+}
+/* line 132, ../sass/_home.scss */
+.home-carousel ul li header {
+  position: relative;
+  width: 50%;
+  margin: auto;
+  padding-top: 20px;
+}
+/* line 137, ../sass/_home.scss */
+.home-carousel ul li header h1 {
+  position: absolute;
+  top: 50px;
+}
+/* line 142, ../sass/_home.scss */
+.home-carousel ul li .home-carousel-play {
+  position: absolute;
+  top: 168px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 16.333333%;
+  min-width: 194px;
+}
+/* line 150, ../sass/_home.scss */
+.home-carousel ul li .home-carousel-play .carousel-play-svg {
+  height: 55px;
+  float: left;
+  display: inline-block;
+}
+/* line 155, ../sass/_home.scss */
+.home-carousel ul li .home-carousel-play .carousel-play-text {
+  height: 55px;
+  float: right;
+  display: inline-block;
+  padding: 4px;
+  line-height: 22px;
+  font-family: "Futura W01 Bold", "Trebuchet MS", Helvetica, Arial, sans-serif;
+  text-align: left;
+}
+/* line 164, ../sass/_home.scss */
+.home-carousel ul li .home-carousel-play a {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  right: 4px;
+}
+/* line 172, ../sass/_home.scss */
+.home-carousel ul li .home-carousel-body {
+  width: 100%;
+  height: 100%;
+  background: #f5f4f6;
+}
+/* line 179, ../sass/_home.scss */
+.home-carousel .home-carousel-nav {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 80px;
+}
+/* line 186, ../sass/_home.scss */
+.home-carousel .home-carousel-nav span {
+  display: inline-block;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.7);
+  border: solid 1px white;
+}
+/* line 193, ../sass/_home.scss */
+.home-carousel .home-carousel-nav span.is-active {
+  background: white;
+}
+
+/* line 201, ../sass/_home.scss */
+.all-campaigns {
+  float: right;
+  margin: -17px 45px;
+  font-family: "Futura W01 Bold", "Trebuchet MS", Helvetica, Arial, sans-serif;
+  color: #d8d8d8;
+  font-size: 1em;
+}
+/* line 207, ../sass/_home.scss */
+.all-campaigns:after {
+  content: "\2192";
+  margin-left: 7px;
+}
+
+/* line 214, ../sass/_home.scss */
+.campaign-container {
+  font-family: "Futura W01 Bold", "Trebuchet MS", Helvetica, Arial, sans-serif;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  justify-content: space-around;
+}
+/* line 230, ../sass/_home.scss */
+.campaign-container .campaign-item {
+  background: #f5f4f6;
+  width: 250px;
+  height: 330px;
+  padding: 7px;
+  border-radius: 0 0 6px 6px;
+}
+/* line 236, ../sass/_home.scss */
+.campaign-container .campaign-item .campaign-item-holder {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: white;
+  border-radius: 0 0 6px 6px;
+  border: solid 1px #d8d8d8;
+}
+/* line 243, ../sass/_home.scss */
+.campaign-container .campaign-item .campaign-item-holder .header {
+  position: absolute;
+  overflow: hidden;
+  left: -3px;
+  width: 101.333333%;
+  height: 141px;
+  border: solid 1px #8a9993;
+  background: #8a9993;
+}
+/* line 251, ../sass/_home.scss */
+.campaign-container .campaign-item .campaign-item-holder .header img {
+  width: 100%;
+  position: relative;
+}
+/* line 255, ../sass/_home.scss */
+.campaign-container .campaign-item .campaign-item-holder .header:before {
+  position: absolute;
+  top: 45%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 40%;
+  text-align: center;
+  content: "Loading...";
+  font-size: .7em;
+  color: #f5f4f6;
+}
+/* line 268, ../sass/_home.scss */
+.campaign-container .campaign-item .campaign-item-holder .profile-photo {
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 51px;
+  height: 51px;
+  overflow: hidden;
+  border-radius: 50%;
+  top: 117px;
+  border: solid 2px white;
+}
+/* line 280, ../sass/_home.scss */
+.campaign-container .campaign-item .campaign-item-holder .profile-photo img {
+  width: 100%;
+}
+/* line 285, ../sass/_home.scss */
+.campaign-container .campaign-item .campaign-body {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 176px;
+  margin: auto;
+  padding: 10px;
+}
+/* line 292, ../sass/_home.scss */
+.campaign-container .campaign-item .campaign-body .profile-name {
+  display: block;
+  color: #8a9993;
+  text-align: center;
+}
+/* line 296, ../sass/_home.scss */
+.campaign-container .campaign-item .campaign-body .profile-name strong {
+  font-size: 16px;
+  color: #00c051;
+}
+/* line 301, ../sass/_home.scss */
+.campaign-container .campaign-item .campaign-body .campaign-body-names {
+  display: block;
+  text-align: center;
+  line-height: 29px;
+  font-weight: 800;
+}
+/* line 308, ../sass/_home.scss */
+.campaign-container .campaign-item .campaign-footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 4px;
+  margin: auto;
+  padding: 10px;
+}
+/* line 315, ../sass/_home.scss */
+.campaign-container .campaign-item .campaign-footer .campaign-fund-amount {
+  color: #8a9993;
+  font-size: .8em;
+}
+/* line 318, ../sass/_home.scss */
+.campaign-container .campaign-item .campaign-footer .campaign-fund-amount .amount-raised {
+  float: left;
+}
+/* line 321, ../sass/_home.scss */
+.campaign-container .campaign-item .campaign-footer .campaign-fund-amount .days-left {
+  float: right;
+}
+/* line 324, ../sass/_home.scss */
+.campaign-container .campaign-item .campaign-footer .campaign-fund-amount strong {
+  font-weight: 800;
+}
+/* line 328, ../sass/_home.scss */
+.campaign-container .campaign-item .campaign-footer .campaign-fund-amount-slider {
+  display: block;
+  overflow: hidden;
+  border-radius: 1em;
+  margin: 0 0 .5em 0;
+  background-color: transparent;
+  border: solid 1px #00c051;
+}
+/* line 335, ../sass/_home.scss */
+.campaign-container .campaign-item .campaign-footer .campaign-fund-amount-slider .slider-progress {
+  position: relative;
+  display: block;
+  border-radius: 1em 0 0 1em;
+  background-color: #00c051;
+  color: #fff;
+  text-align: right;
+  white-space: nowrap;
+  line-height: .7em;
+  height: .7em;
+}
+/* line 346, ../sass/_home.scss */
+.campaign-container .campaign-item .campaign-footer .campaign-fund-amount-slider.is-funded {
+  border-color: #ff619a;
+}
+/* line 348, ../sass/_home.scss */
+.campaign-container .campaign-item .campaign-footer .campaign-fund-amount-slider.is-funded .slider-progress {
+  background-color: #ff619a;
+}

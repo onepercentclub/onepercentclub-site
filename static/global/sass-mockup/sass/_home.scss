@@ -1,0 +1,356 @@
+html, body, #site {
+	height: 100%;
+}
+
+h1 {
+	color: $color-secondary;
+	font-size: 2.5em;
+	font-family: $font-family-bold;
+}
+
+h2 {
+	color: $gray-dark;
+	font-size: 1.5em;
+	font-family: $font-family-bold;
+}
+
+a {
+	text-decoration: none;
+	color: $black;
+}
+
+input {
+	line-height: 30px;
+	border-radius: 6px;
+	padding-left: 40px;
+	border: solid 1px #ccc;
+}
+
+#main {
+	min-height: 100%;
+	margin-bottom: -232px;
+	padding-bottom: 2em;
+}
+
+.l-wrapper {
+	position: relative;
+	min-width: 900px;
+	max-width: 1200px;
+	margin: 0 auto;
+	height: 100%;
+	}
+
+.l-section {
+	width: 100%;
+	min-width: 900px;
+	max-width: 100%;
+}
+
+.section-header {
+	padding: 1em 0 0.5em 0;
+	text-align: center;
+	&.more-space {
+		padding: 3em 0 2.5em 0;
+	}
+}
+
+// -------------------- HEADER --------------------
+#header {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 80px;
+	background: $gray-light;
+	border-bottom: 1px solid white;
+	box-shadow: 0 1px 0 rgba(65, 65, 65, .1);
+	z-index: 9;
+	#logo {
+		float: left;
+		width: 10.41667%;
+		.logo-link {
+			display: block;
+			padding: 1.2em 0 0 0;
+			.logo-image {
+				height: 40px;
+				width: 125px;
+			}
+		}
+		
+	}
+	#nav {
+		padding: 2.2em 0 0 0;
+		font-family: $font-family-bold;
+		.nav-main {
+			float: left;
+			width: 40%;
+			margin-left: 10%;
+			margin-right: 0%;
+			text-align: left;
+			.nav-main-item {
+				display: inline;
+				margin-right: 3.9em;
+				color: $black;
+			}
+		}
+		.nav-actions {
+			float: right;
+			width: 31.25%;
+			color: white;
+			text-align: right;
+			li {
+				display: inline;
+				color: $color-primary;
+			}
+			.nav-signup {
+				margin-right: 3em;
+			}.nav-search {
+				.nav-search-holder {
+					position: relative;
+					display: inherit;
+					float: left;
+					margin-top: -10px;
+					.nav-search-glass {
+						position: absolute;
+						top: 11px;
+						left: 11px;
+					}
+				}
+			}
+		}
+	}	
+}
+
+// -------------------- CAROUSEL --------------------
+.home-carousel {
+	width: 100%;
+	background: $gray-light;
+	ul {
+		margin-top: 80px;
+		li {
+			height: 506px;
+			overflow: hidden;
+			header {
+				position: relative;
+				width: 50%;
+				margin: auto;
+				padding-top: 20px;
+				h1 {
+					position: absolute;
+					top: 50px;
+				}
+			}
+			.home-carousel-play {
+				position: absolute;
+				top: 168px;
+				left: 0;
+				right: 0;
+				margin: auto;
+				width: 16.333333%;
+				min-width: 194px;
+				.carousel-play-svg {
+					height: 55px;
+					float: left;
+					display: inline-block;
+				}
+				.carousel-play-text {
+					height: 55px;
+					float: right;
+					display: inline-block;
+					padding: 4px;
+					line-height: 22px;
+					font-family: $font-family-bold;
+					text-align: left;
+				}
+				a {
+					position: absolute;
+					width: 100%;
+					height: 100%;
+					background: transparent;
+					right: 4px;
+				}
+			}
+			.home-carousel-body {
+				width: 100%;
+				height: 100%;
+				background: $gray-light;
+			}
+		}
+	}
+	.home-carousel-nav {
+		position: absolute;
+		bottom: 20px;
+		left: 0;
+		right: 0;
+		margin: auto;
+		width: 80px;
+		span {
+			display: inline-block;
+			height: 15px;
+			width: 15px;
+			border-radius: 50%;
+			background: rgba(255, 255, 255, .7);
+			border: solid 1px white;
+			&.is-active {
+				background: rgba(255, 255, 255, 1);
+			}
+		}
+	}
+}
+
+// -------------------- CAMPAIGNS --------------------
+.all-campaigns {
+	float: right;
+	margin: -17px 45px;
+	font-family: $font-family-bold;
+	color: $gray-border;
+	font-size: 1em;
+	&:after {
+		content: "\2192";
+		margin-left: 7px;
+	}
+}
+
+// TODO: Using compass box
+.campaign-container {
+	font-family: $font-family-bold;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+
+	display: -webkit-box;
+	display: -moz-box;
+
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+
+	-webkit-flex-flow: row wrap;
+	justify-content: space-around;
+
+	.campaign-item {
+		background: $gray-light;
+		width: 250px;
+		height: 330px;
+		padding: 7px;
+		border-radius: 0 0 6px 6px;
+		.campaign-item-holder {
+			position: relative;
+			width: 100%;
+			height: 100%;
+			background: white;
+			border-radius: 0 0 6px 6px;
+			border: solid 1px $gray-border;
+			.header {
+				position: absolute;
+				overflow: hidden;
+				left: -3px;
+				width: 101.333333%;
+				height: 141px;
+				border: solid 1px $gray-dark;
+				background: $gray-dark;
+				img {
+					width: 100%;
+					position: relative;
+				}
+				&:before {
+					position: absolute;
+					top: 45%;
+					left: 0;
+					right: 0;
+					margin: auto;
+					width: 40%;
+					text-align: center;
+					content: "Loading...";
+					font-size: .7em;
+					color: $gray-light;
+				}
+			}
+			.profile-photo {
+				display: inline-block;
+				position: absolute;
+				left: 0;
+				right: 0;
+				margin: auto;
+				width: 51px;
+				height: 51px;
+				overflow: hidden;
+				border-radius: 50%;
+				top: 117px;
+				border: solid 2px white;
+				img {
+					width: 100%;
+				}
+			}
+		}
+		.campaign-body {
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 176px;
+			margin: auto;
+			padding: 10px;
+			.profile-name {
+				display: block;
+				color: $gray-dark;
+				text-align: center;
+				strong {
+					font-size: 16px;
+					color: $color-primary;
+				}
+			}
+			.campaign-body-names {
+				display: block;
+				text-align: center;
+				line-height: 29px;
+				font-weight: 800;
+			}
+		}
+		.campaign-footer {
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: 4px;
+			margin: auto;
+			padding: 10px;
+			.campaign-fund-amount {
+				color: $gray-dark;
+				font-size:  .8em;
+				.amount-raised {
+					float: left;
+				}
+				.days-left {
+					float: right;
+				}
+				strong {
+					font-weight: 800;
+				}
+			}
+			.campaign-fund-amount-slider {
+				display: block;
+				overflow: hidden;
+				border-radius: 1em;
+				margin: 0 0 .5em 0;
+				background-color: transparent;
+				border: solid 1px $color-primary;
+				.slider-progress {
+					position: relative;
+					display: block;
+					border-radius: 1em 0 0 1em;
+					background-color: $color-primary;
+					color: #fff;
+					text-align: right;
+					white-space: nowrap;
+					line-height: .7em;
+					height: .7em;
+				}
+				&.is-funded {
+					border-color: $color-secondary;
+					.slider-progress {
+						background-color: $color-secondary;
+					}
+				}
+			}
+		}
+
+	}
+}

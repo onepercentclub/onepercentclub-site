@@ -1,0 +1,41 @@
+// ========================= Variables ==================================
+// SET YOUR EDITOR TO USING TABS AND TAB SIZE OF 4 FOR PROPER ALIGNMENT
+// OF THE VARIABLES BELOW
+
+// Grays
+// --------------------------------
+
+$black                                                     : #3C3C3C;
+$gray-dark                                                 : #8A9993;
+$gray-middle                                               : #E4EDE9;
+$gray-light                                                : #F5F4F6;
+$gray-border                                               : #D8D8D8;
+
+// Colors                                                       
+// --------------------------------                             
+
+$color-primary                                             : #00C051; // green
+$color-secondary                                           : #FF619A; // pink
+$color-secondary-shadow									   : #B42A5C; // shadow pink
+                                                                   
+$color-error                                               : #b84040 !default;
+$color-success                                             : #5da423 !default;
+$color-deselect                                            : #bfbfbf !default;
+                                                                
+// Social                                                       
+// ----------------------------------                           
+                                                                
+$facebook-blue                                             : #45619d !default;
+$twitter-blue                                              : #33b9e2 !default;
+
+// Typography                                                   
+// --------------------------------                             
+                                                                
+$font-family                                               : 'Futura W01 Book', 'Trebuchet MS', Helvetica, Arial, sans-serif;
+$font-family-heavy                                         : 'Futura W02 Heavy', 'Trebuchet MS', Helvetica, Arial, sans-serif;
+$font-family-bold                                          : 'Futura W01 Bold', 'Trebuchet MS', Helvetica, Arial, sans-serif;
+$font-family-small                                         : 'Trebuchet MS', Helvetica, Arial, sans-serif;
+                                                                
+$base-font-size                                            : 1em !default;
+$base-font-family                                          : $font-family !default;
+$base-line-height                                          : 1.5em !default;
