@@ -23,6 +23,30 @@ from .signals import project_funded
 
 class ProjectManager(models.Manager):
 
+    def search(self, query):
+        qs = super(ProjectManager, self).get_query_set()
+
+        # Apply filters
+        status = query.get('status', None)
+        if status:
+            qs = qs.filter(status_id=status)
+
+        country = query.get('country', None)
+        if country:
+            qs = qs.filter(country=country)
+
+        theme = query.get('theme', None)
+        if theme:
+            qs = qs.filter(theme_id=theme)
+
+        text = query.get('text', None)
+        if text:
+            qs = qs.filter(Q(title__icontains=text) |
+                           Q(pitch__icontains=text) |
+                           Q(description__icontains=text))
+
+        return self.order_by(query.get('ordering', None))
+
     def order_by(self, field):
         if field == 'amount_asked':
             qs = self.get_query_set()
