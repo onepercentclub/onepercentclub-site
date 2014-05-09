@@ -25,7 +25,11 @@
 					{{--}}
                     <span class="project-location"><span class="flaticon solid location-pin-1"></span> {{country.name}}</span>
                     <span class="project-theme"><span class="flaticon solid tag-2"></span> {{theme.name}}</span>
+                    {{# if isProjectOwner }}
+                        <span class="project-edit">{{#link-to "myProject" id}}<span class="flaticon solid settings-1"></span>{% trans 'Edit' %}{{/link-to}}</span>
+                    {{/if}}
                 </div>
+
                 <div class="project-share">
                     {{view App.SocialShareView}}
                 </div>
