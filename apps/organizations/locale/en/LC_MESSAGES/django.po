@@ -1,20 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-02 09:50+0200\n"
+"POT-Creation-Date: 2014-05-09 16:00+0200\n"
 "PO-Revision-Date: 2014-05-02 07:38+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
+"Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: en_GB\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:16
@@ -27,145 +27,145 @@ msgstr "Change:"
 msgid "Add:"
 msgstr "Add:"
 
-#: models.py:29
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:104
+#: models.py:28
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:108
 msgid "organization"
 msgstr "organization"
 
-#: models.py:30
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:105
+#: models.py:29
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:109
 msgid "organizations"
 msgstr "organizations"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:18
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:22
 msgid "Owner"
 msgstr "Owner"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:19
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:23
 msgid "Editor"
 msgstr "Editor"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:21
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:25
 msgid "user"
 msgstr "user"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:22
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:26
 msgid "function"
 msgstr "function"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:26
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:30
 msgid "organization member"
 msgstr "organization member"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:27
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:31
 msgid "organization members"
 msgstr "organization members"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:36
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:40
 msgid "author"
 msgstr "author"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:40
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:44
 msgid "organization document"
 msgstr "organization document"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:41
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:45
 msgid "organization documents"
 msgstr "organization documents"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:54
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:58
 msgid "name"
 msgstr "name"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:55
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:59
 msgid "slug"
 msgstr "slug"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:57
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:61
 msgid "created"
 msgstr "created"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:58
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:62
 msgid "updated"
 msgstr "updated"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:59
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:63
 msgid "deleted"
 msgstr "deleted"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:61
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:65
 msgid "partner organizations"
 msgstr "partner organizations"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:72
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:76
 msgid "phone number"
 msgstr "phone number"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:73
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:77
 msgid "website"
 msgstr "website"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:76
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:80
 msgid "twitter"
 msgstr "twitter"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:77
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:81
 msgid "facebook"
 msgstr "facebook"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:78
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:82
 msgid "skype"
 msgstr "skype"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:80
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:84
 msgid "tags"
 msgstr "tags"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:83
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:87
 msgid "account holder name"
 msgstr ""
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:84
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:88
 msgid "account holder address"
 msgstr ""
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:85
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:89
 msgid "account holder postal code"
 msgstr ""
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:86
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:90
 msgid "account holder city"
 msgstr ""
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:90
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:94
 msgid "account IBAN"
 msgstr "account IBAN"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:91
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:95
 msgid "account SWIFT-BIC"
 msgstr "account SWIFT-BIC"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:92
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:96
 msgid "account number"
 msgstr "account number"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:93
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:97
 msgid "account bank name"
 msgstr "account bank name"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:94
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:98
 msgid "account bank address"
 msgstr "account bank address"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:95
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:99
 msgid "account bank postal code"
 msgstr ""
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:96
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:100
 msgid "account bank city"
 msgstr ""
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:98
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:102
 msgid "account information that doesn't fit in the other field"
 msgstr "account information that doesn't fit in the other field"
 
@@ -340,9 +340,7 @@ msgid "Partner organisation"
 msgstr ""
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:15
-msgid ""
-"Give us the details about your partner organisation whose sole purpose in "
-"life it is to address the topic that you care about!"
+msgid "Give us the details about your partner organisation whose sole purpose in life it is to address the topic that you care about!"
 msgstr ""
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:22
@@ -354,9 +352,7 @@ msgid "Import:"
 msgstr ""
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:28
-msgid ""
-"It appears that you already have an (other) organisation. Select it below or"
-" fill out the form to create a new one."
+msgid "It appears that you already have an (other) organisation. Select it below or fill out the form to create a new one."
 msgstr ""
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:51
@@ -364,16 +360,11 @@ msgid "Legal status"
 msgstr ""
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:52
-msgid ""
-"Upload a document that identifies your contact person or your partner "
-"organisation. The document can be an ID, passport, memorandum of association"
-" or an other official document."
+msgid "Upload a document that identifies your contact person or your partner organisation. The document can be an ID, passport, memorandum of association or an other official document."
 msgstr ""
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:58
-msgid ""
-"please upload a copy of your passport. Make sure it's a valid one and we can"
-" read it clearly!"
+msgid "please upload a copy of your passport. Make sure it's a valid one and we can read it clearly!"
 msgstr ""
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:60
