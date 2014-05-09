@@ -16,13 +16,11 @@ App.Project.reopen({
 
     fundraisers: DS.belongsTo('App.Fundraiser'),
 
-    calculatedAmountNeeded: function() {
-        return this.get('amount_asked') - this.get('amount_donated');
-    }.property('amount_asked', 'amount_donated'),
-
     task_count: DS.attr('number'),
 
     isFundable: Em.computed.equal('status.id', '5'),
+
+    isStatusPlan: Em.computed.lt('status.id', '5'),
 
     isStatusCampaign: Em.computed.equal('status.id', '5'),
     isStatusCompleted: Em.computed.equal('status.id', '7'),

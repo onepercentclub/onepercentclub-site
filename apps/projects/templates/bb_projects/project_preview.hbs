@@ -27,10 +27,21 @@
 
                 {{#if isStatusCampaign }}
                     {{bb-progressbar targetValue=amount_asked currentValue=amount_donated}}
-                    <span class="project-fund-amount"><strong>&euro;{{localize calculatedAmountNeeded}}</strong> <em>{% trans "To go" %}</em></span>
+                    <span class="project-fund-amount"><strong>&euro;{{localize amount_donated}}</strong>  {% trans "of" %} {{localize amount_asked}} <em>{% trans "raised" %}</em></span>
                     <span class="project-days-left"><span class="flaticon solid clock-1"></span> <strong>{{daysToGo}}</strong> <em>{% trans "days" %}</em></span>
                 {{else}}
-                    <span class="project-phase"><span class="flaticon solid lightbulb-3"></span> <strong>{% trans "Project funded" %}</strong></span>
+                    {{#if isStatusPlan}}
+                        {{#if amount_asked}}
+                            {{bb-progressbar targetValue=amount_asked currentValue=amount_donated}}
+                            <span class="project-fund-amount"><strong>&euro; {{localize amount_donated}}</strong> {% trans "of" %} {{localize amount_asked}} <em>{% trans "raised" %}</em></span>
+                        {{/if}}
+                        {{#if deadline}}
+                            <span class="project-days-left"><span class="flaticon solid clock-1"></span> <strong>{{daysToGo}}</strong> <em>{% trans "days" %}</em></span>
+                        {{/if}}
+                    {{else}}
+
+                        <span class="project-phase"><span class="flaticon solid lightbulb-3"></span> <strong>{% trans "Project funded" %}</strong></span>
+                    {{/if}}
                 {{/if}}
             </span>
 
