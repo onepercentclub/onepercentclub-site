@@ -27,7 +27,7 @@
 
                 {{#if amount_asked }}
                     {{bb-progressbar targetValue=amount_asked currentValue=amount_donated}}
-                    <span class="project-fund-amount"><strong>&euro;{{localize calculatedAmountNeeded}}</strong> <em>{% trans "To go" %}</em></span>
+                    <span class="project-fund-amount"><strong>&euro;{{localize amount_donated}}</strong> <em>{% trans "raised" %}</em></span>
                 {{/if}}
 
                 {{#if deadline }}
