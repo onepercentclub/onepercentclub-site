@@ -6,8 +6,9 @@ from bluebottle.bluebottle_drf2.serializers import (SorlImageField, SlugGenericR
                                               TagSerializer, ImageSerializer, TaggableSerializerMixin)
 from bluebottle.geo.models import Country
 from bluebottle.utils.serializers import MetaField
+from bluebottle.bluebottle_drf2.serializers import OEmbedField
 
-from bluebottle.bb_projects.serializers import  ProjectThemeSerializer
+from bluebottle.bb_projects.serializers import ProjectThemeSerializer
 from apps.fund.models import Donation
 
 from bluebottle.utils.utils import get_project_model
@@ -79,12 +80,13 @@ class ManageProjectSerializer(BaseManageProjectSerializer):
     amount_donated = serializers.CharField(read_only=True)
     amount_needed = serializers.CharField(read_only=True)
     budget_lines = ProjectBudgetLineSerializer(many=True, source='projectbudgetline_set', read_only=True)
-
+    video_html = OEmbedField(source='video_url', maxwidth='560', maxheight='315')
     story = StoryField(required=False)
 
     class Meta(BaseManageProjectSerializer):
         model = BaseManageProjectSerializer.Meta.model
         fields = BaseManageProjectSerializer.Meta.fields + ('amount_asked', 'amount_donated', 'amount_needed',
+                                                            'video_url', 'video_html',
                                                             'story', 'budget_lines', 'deadline', 'latitude', 'longitude')
 
 class ProjectSupporterSerializer(serializers.ModelSerializer):
