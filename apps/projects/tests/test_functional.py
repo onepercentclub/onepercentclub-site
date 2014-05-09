@@ -88,10 +88,10 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         web_projects = []
         for p in self.browser.find_by_css('#search-results .project-item'):
             title = p.find_by_css('h3').first.text
-            needed = convert_money_to_int(p.find_by_css('.project-fund-amount').first.text)
+            needed = convert_money_to_int(p.find_by_css('.project-fund-amount em').first.text)
             web_projects.append({
                 'title': title,
-                'amount_needed': needed,
+                'amount_donated': needed,
             })
 
         # Make sure there are some projects to compare.
@@ -102,7 +102,7 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         for p in Project.objects.order_by('popularity')[:len(web_projects)]:
             expected_projects.append({
                 'title': p.title.upper(),  # Uppercase the title for comparison.
-                'amount_needed': int(round(p.amount_needed / Decimal(100.0))),
+                'amount_donated': int(round(p.amount_donated / Decimal(100.0))),
             })
 
         # Compare all projects found on the web page with those in the database, in the same order.
@@ -376,7 +376,8 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         Project.objects.filter(slug=self.project_data['slug']).exists()
 
     def test_change_project_goal(self):
-        project = OnePercentProjectFactory.create(title='Project Goal Changes', owner=self.user)
+        plan_phase = ProjectPhase.objects.get(slug='plan-new')
+        project = OnePercentProjectFactory.create(title='Project Goal Changes', owner=self.user, status=plan_phase)
         self.visit_path('/my/projects/{0}/goal'.format(project.slug))
 
         # Check that deadline is set to 30 days now
