@@ -1,21 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-02 10:40+0200\n"
+"POT-Creation-Date: 2014-05-09 16:00+0200\n"
 "PO-Revision-Date: 2014-05-02 07:49+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
+"Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: en_GB\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: templates/homepage/campaign.hbs:20 templates/homepage/campaign.hbs.py:62
@@ -32,9 +32,7 @@ msgid "Projects fully funded"
 msgstr ""
 
 #: templates/homepage/campaign.hbs:37
-msgid ""
-"The Crazy Campaign Days: 20 teams funding 18 world-changing projects within "
-"5 days. Totally crazy! Thank you!"
+msgid "The Crazy Campaign Days: 20 teams funding 18 world-changing projects within 5 days. Totally crazy! Thank you!"
 msgstr ""
 
 #: templates/homepage/campaign.hbs:38
@@ -54,9 +52,7 @@ msgid "Seconds"
 msgstr ""
 
 #: templates/homepage/campaign.hbs:88
-msgid ""
-"The Crazy Campaign Days: 20 teams who will fund 20 world-changing projects "
-"within 5 days. Totally crazy!"
+msgid "The Crazy Campaign Days: 20 teams who will fund 20 world-changing projects within 5 days. Totally crazy!"
 msgstr ""
 
 #: templates/homepage/campaign.hbs:89 templates/homepage/campaign.hbs:140
@@ -64,9 +60,7 @@ msgid "Pick a crazy fund-racer and support"
 msgstr ""
 
 #: templates/homepage/campaign.hbs:139
-msgid ""
-" The Crazy Campaign Days: 20 teams who will fund 20 world-changing projects "
-"within 5 days. Totally crazy!"
+msgid " The Crazy Campaign Days: 20 teams who will fund 20 world-changing projects within 5 days. Totally crazy!"
 msgstr ""
 
 #: templates/homepage/fundraisers.hbs:13
@@ -74,8 +68,7 @@ msgid "Our crazy fund-racers"
 msgstr ""
 
 #: templates/homepage/fundraisers.hbs:14
-msgid ""
-"Pick your favourite crazy fund-racer and support a world-changing project!"
+msgid "Pick your favourite crazy fund-racer and support a world-changing project!"
 msgstr ""
 
 #: templates/homepage/fundraisers.hbs:23
@@ -105,8 +98,7 @@ msgstr ""
 
 #: templates/homepage/home_project_list.hbs:15
 #: templates/homepage/project.hbs:14
-msgid ""
-"Support it with your time, knowledge or money and receive real-time updates."
+msgid "Support it with your time, knowledge or money and receive real-time updates."
 msgstr ""
 
 #: templates/homepage/home_project_list.hbs:54
@@ -148,9 +140,7 @@ msgid "Our impact"
 msgstr ""
 
 #: templates/homepage/impact.hbs:14
-msgid ""
-"We believe that if we all share a little, together we can change the world. "
-"We got this far already."
+msgid "We believe that if we all share a little, together we can change the world. We got this far already."
 msgstr ""
 
 #: templates/homepage/impact.hbs:21
@@ -207,6 +197,31 @@ msgstr ""
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/admin.py:143
 msgid "project link"
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/mails.py:67
+#, python-format
+msgid "%(author)s has left a message on your project page."
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/mails.py:85
+#, python-format
+msgid "%(author)s has left a message on your task page."
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/mails.py:118
+#, python-format
+msgid "%(author)s commented on a post you reacted on."
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/mails.py:132
+#, python-format
+msgid "%(author)s commented on your post."
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/mails.py:146
+#, python-format
+msgid "%(author)s commented on your project page."
 msgstr ""
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:29
@@ -894,21 +909,11 @@ msgstr ""
 #~ msgid "Internal server error"
 #~ msgstr "Internal server error"
 
-#~ msgid ""
-#~ "There was an error while trying to serve the requested page. Please try "
-#~ "again. If the error persists, please contact the webmaster about it. In any "
-#~ "case, we have been notified of this error."
-#~ msgstr ""
-#~ "There was an error while trying to serve the requested page. Please try "
-#~ "again. If the error persists, please contact the webmaster about it. In any "
-#~ "case, we have been notified of this error."
+#~ msgid "There was an error while trying to serve the requested page. Please try again. If the error persists, please contact the webmaster about it. In any case, we have been notified of this error."
+#~ msgstr "There was an error while trying to serve the requested page. Please try again. If the error persists, please contact the webmaster about it. In any case, we have been notified of this error."
 
-#~ msgid ""
-#~ "If you need assistance, you may reference this error as "
-#~ "<strong>%(error_id)s</strong>."
-#~ msgstr ""
-#~ "If you need assistance, you may reference this error as "
-#~ "<strong>%(error_id)s</strong>."
+#~ msgid "If you need assistance, you may reference this error as <strong>%(error_id)s</strong>."
+#~ msgstr "If you need assistance, you may reference this error as <strong>%(error_id)s</strong>."
 
 #~ msgid "What is 1%%"
 #~ msgstr "What is 1%%"
@@ -946,16 +951,8 @@ msgstr ""
 #~ msgid "Join 1%%Club"
 #~ msgstr "Join 1%%Club"
 
-#~ msgid ""
-#~ "1%%Club is the global crowdfunding and crowdsourcing platform where you can "
-#~ "share a little and change the world, in your very own way. Pick any project "
-#~ "you like, support it with 1%% of your knowledge, money or time and follow "
-#~ "the progress online. "
-#~ msgstr ""
-#~ "1%%Club is the global crowdfunding and crowdsourcing platform where you can "
-#~ "share a little and change the world, in your very own way. Pick any project "
-#~ "you like, support it with 1%% of your knowledge, money or time and follow "
-#~ "the progress online. "
+#~ msgid "1%%Club is the global crowdfunding and crowdsourcing platform where you can share a little and change the world, in your very own way. Pick any project you like, support it with 1%% of your knowledge, money or time and follow the progress online. "
+#~ msgstr "1%%Club is the global crowdfunding and crowdsourcing platform where you can share a little and change the world, in your very own way. Pick any project you like, support it with 1%% of your knowledge, money or time and follow the progress online. "
 
 #~ msgid "Select a project or task"
 #~ msgstr "Select a project or task"
@@ -1068,12 +1065,8 @@ msgstr ""
 #~ msgid "Location"
 #~ msgstr "Location"
 
-#~ msgid ""
-#~ "How much time are you willing to spend your 1%%Skills?<br/>Let us know so we"
-#~ " can provide you with some matching tasks from our projects."
-#~ msgstr ""
-#~ "How much time are you willing to spend your 1%%Skills?<br/>Let us know so we"
-#~ " can provide you with some matching tasks from our projects."
+#~ msgid "How much time are you willing to spend your 1%%Skills?<br/>Let us know so we can provide you with some matching tasks from our projects."
+#~ msgstr "How much time are you willing to spend your 1%%Skills?<br/>Let us know so we can provide you with some matching tasks from our projects."
 
 #~ msgid "Time available"
 #~ msgstr "Time available"
@@ -1090,18 +1083,8 @@ msgstr ""
 #~ msgid "Website"
 #~ msgstr "Website"
 
-#~ msgid ""
-#~ "1%%Club is the global platform where you can share a little and change the "
-#~ "world, in your vary own way. We ignite modern society to share 1%% and "
-#~ "support smart ideas from people in developing countries. We do this in a "
-#~ "new, open way, believing in the power of collaboration boosted by today's "
-#~ "technical possibilities. If we all share a little, we can change the world."
-#~ msgstr ""
-#~ "1%%Club is the global platform where you can share a little and change the "
-#~ "world, in your vary own way. We ignite modern society to share 1%% and "
-#~ "support smart ideas from people in developing countries. We do this in a "
-#~ "new, open way, believing in the power of collaboration boosted by today's "
-#~ "technical possibilities. If we all share a little, we can change the world."
+#~ msgid "1%%Club is the global platform where you can share a little and change the world, in your vary own way. We ignite modern society to share 1%% and support smart ideas from people in developing countries. We do this in a new, open way, believing in the power of collaboration boosted by today's technical possibilities. If we all share a little, we can change the world."
+#~ msgstr "1%%Club is the global platform where you can share a little and change the world, in your vary own way. We ignite modern society to share 1%% and support smart ideas from people in developing countries. We do this in a new, open way, believing in the power of collaboration boosted by today's technical possibilities. If we all share a little, we can change the world."
 
 #~ msgid "Thanks for signing up!"
 #~ msgstr "Thanks for signing up!"
@@ -1155,12 +1138,8 @@ msgstr ""
 #~ msgid "Your activation code will expire in %(expiration_days)s days."
 #~ msgstr "Your activation code will expire in %(expiration_days)s days."
 
-#~ msgid ""
-#~ "If the link isn't working for you please copy and paste this url into your "
-#~ "browser: "
-#~ msgstr ""
-#~ "If the link isn't working for you please copy and paste this url into your "
-#~ "browser: "
+#~ msgid "If the link isn't working for you please copy and paste this url into your browser: "
+#~ msgstr "If the link isn't working for you please copy and paste this url into your browser: "
 
 #~ msgid "Logged out."
 #~ msgstr "Logged out."
