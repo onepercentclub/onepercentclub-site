@@ -76,10 +76,11 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         time.sleep(2)
 
         def convert_money_to_int(money_text):
-            amount = money_text.strip(' TO GO').strip(u'€').strip(u'\u20ac').replace('.', '').replace(',', '')
+            amount = money_text.strip(u'€').strip(u'\u20ac').replace('.', '').replace(',', '')
             if not amount:
                 amount = 0
-            return int(amount)
+            return amount
+            #return int(amount)
 
         # NOTE: Due to a recent change, its harder to calculate/get the financiel data from the front end.
         # Hence, these calculations are commented. Perhaps enable in the future if this data becomes available again.
@@ -88,10 +89,10 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         web_projects = []
         for p in self.browser.find_by_css('#search-results .project-item'):
             title = p.find_by_css('h3').first.text
-            needed = convert_money_to_int(p.find_by_css('.project-fund-amount em').first.text)
+            needed = convert_money_to_int(p.find_by_css('.project-fund-amount strong').first.text)
             web_projects.append({
                 'title': title,
-                'amount_donated': needed,
+            #    'amount_donated': needed,
             })
 
         # Make sure there are some projects to compare.
@@ -102,7 +103,7 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         for p in Project.objects.order_by('popularity')[:len(web_projects)]:
             expected_projects.append({
                 'title': p.title.upper(),  # Uppercase the title for comparison.
-                'amount_donated': int(round(p.amount_donated / Decimal(100.0))),
+            #    'amount_donated': int(round(p.amount_donated / Decimal(100.0))),
             })
 
         # Compare all projects found on the web page with those in the database, in the same order.
