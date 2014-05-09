@@ -240,6 +240,7 @@ def update_git(commit):
         # Make sure only to fetch the required branch
         # This script should fail if we are updating to a non-deploy commit
         run('git fetch -q -p')
+        run('git reset --hard')
         run('git checkout -q %s' % commit.hexsha)
 
 
@@ -407,6 +408,9 @@ def deploy_testing(revspec='origin/master'):
 
     # Update site domain for self-reference to work
     set_site_domain()
+
+    # Add the current git commit hash to the settings file
+    add_git_commit()
 
     # Restart app server
     restart_site()
