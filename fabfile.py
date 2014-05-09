@@ -240,6 +240,7 @@ def update_git(commit):
         # Make sure only to fetch the required branch
         # This script should fail if we are updating to a non-deploy commit
         run('git fetch -q -p')
+        run('git reset --hard')
         run('git checkout -q %s' % commit.hexsha)
 
 
