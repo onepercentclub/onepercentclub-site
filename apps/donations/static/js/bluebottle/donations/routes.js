@@ -74,7 +74,7 @@ App.UserMonthlyProjectsRoute = Em.Route.extend({
         var store = this.get('store');
 
         // Set the top three projects
-        App.ProjectPreview.find({ordering: 'popularity', phase: 'campaign'}).then(function(projects) {
+        App.ProjectPreview.find({ordering: 'popularity', status: 5}).then(function(projects) {
             controller.set('topThreeProjects', projects.slice(0, 3));
         });
 
@@ -83,7 +83,7 @@ App.UserMonthlyProjectsRoute = Em.Route.extend({
 
         // Set Address
         App.CurrentUser.find('current').then(function(user) {
-            controller.set('address', App.UserSettings.find(user.get('id_for_ember')));
+            controller.set('profile', App.UserSettings.find(user.get('id_for_ember')));
         });
     },
     exit: function(transition){
@@ -92,6 +92,8 @@ App.UserMonthlyProjectsRoute = Em.Route.extend({
 
 });
 
+
+App.UserMonthlyProjectsIndexRoute = App.UserMonthlyProjectsRoute.extend({});
 
 App.UserMonthlyDonationListRoute = Em.Route.extend({
     model: function(params) {
