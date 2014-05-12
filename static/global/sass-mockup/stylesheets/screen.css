@@ -143,7 +143,7 @@ input {
   background: #f5f4f6;
   border-bottom: 1px solid white;
   box-shadow: 0 1px 0 rgba(65, 65, 65, 0.1);
-  z-index: 9;
+  z-index: 2;
 }
 /* line 67, ../sass/_home.scss */
 #header #logo {
@@ -328,13 +328,14 @@ input {
 }
 /* line 230, ../sass/_home.scss */
 .campaign-container .campaign-item {
-  background: #f5f4f6;
+  position: relative;
   width: 250px;
   height: 330px;
+  background: #f5f4f6;
   padding: 7px;
   border-radius: 0 0 6px 6px;
 }
-/* line 236, ../sass/_home.scss */
+/* line 237, ../sass/_home.scss */
 .campaign-container .campaign-item .campaign-item-holder {
   position: relative;
   width: 100%;
@@ -343,7 +344,7 @@ input {
   border-radius: 0 0 6px 6px;
   border: solid 1px #d8d8d8;
 }
-/* line 243, ../sass/_home.scss */
+/* line 244, ../sass/_home.scss */
 .campaign-container .campaign-item .campaign-item-holder .header {
   position: absolute;
   overflow: hidden;
@@ -352,13 +353,18 @@ input {
   height: 141px;
   border: solid 1px #8a9993;
   background: #8a9993;
+  opacity: 1;
+  -webkit-transition: opacity 0.2s ease-in-out;
+  -moz-transition: opacity 0.2s ease-in-out;
+  -o-transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
 }
-/* line 251, ../sass/_home.scss */
+/* line 254, ../sass/_home.scss */
 .campaign-container .campaign-item .campaign-item-holder .header img {
   width: 100%;
   position: relative;
 }
-/* line 255, ../sass/_home.scss */
+/* line 258, ../sass/_home.scss */
 .campaign-container .campaign-item .campaign-item-holder .header:before {
   position: absolute;
   top: 45%;
@@ -371,7 +377,7 @@ input {
   font-size: .7em;
   color: #f5f4f6;
 }
-/* line 268, ../sass/_home.scss */
+/* line 271, ../sass/_home.scss */
 .campaign-container .campaign-item .campaign-item-holder .profile-photo {
   display: inline-block;
   position: absolute;
@@ -384,12 +390,79 @@ input {
   border-radius: 50%;
   top: 117px;
   border: solid 2px white;
+  z-index: 4;
+  -webkit-transition: top 0.2s ease-in-out;
+  -moz-transition: top 0.2s ease-in-out;
+  -o-transition: top 0.2s ease-in-out;
+  transition: top 0.2s ease-in-out;
 }
-/* line 280, ../sass/_home.scss */
+/* line 285, ../sass/_home.scss */
 .campaign-container .campaign-item .campaign-item-holder .profile-photo img {
   width: 100%;
 }
-/* line 285, ../sass/_home.scss */
+/* line 289, ../sass/_home.scss */
+.campaign-container .campaign-item .campaign-item-holder .campaign-hover {
+  position: absolute;
+  height: 57%;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  z-index: 3;
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+/* line 301, ../sass/_home.scss */
+.campaign-container .campaign-item .campaign-item-holder .campaign-hover .campaign-hover-head {
+  margin: auto;
+  margin-top: 55px;
+  width: 100%;
+  height: auto;
+  text-align: center;
+  padding-bottom: 10px;
+}
+/* line 308, ../sass/_home.scss */
+.campaign-container .campaign-item .campaign-item-holder .campaign-hover .campaign-hover-head strong {
+  display: inline-block;
+  margin: auto;
+  width: 90%;
+  font-weight: 800;
+  font-size: 16px;
+}
+/* line 316, ../sass/_home.scss */
+.campaign-container .campaign-item .campaign-item-holder .campaign-hover .campaign-hover-body {
+  min-height: 190px;
+  font-size: 14px;
+  line-height: 18px;
+  color: #8a9993;
+}
+/* line 323, ../sass/_home.scss */
+.campaign-container .campaign-item .campaign-item-holder .campaign-hover p span {
+  display: block;
+  padding: 15px 12px 15px 12px;
+}
+/* line 327, ../sass/_home.scss */
+.campaign-container .campaign-item .campaign-item-holder .campaign-hover p .go-to-campaign {
+  display: block;
+  text-align: center;
+  font-size: 14px;
+  color: #ff619a;
+}
+/* line 332, ../sass/_home.scss */
+.campaign-container .campaign-item .campaign-item-holder .campaign-hover p .go-to-campaign:after {
+  content: "\2192";
+  margin-left: 7px;
+}
+/* line 337, ../sass/_home.scss */
+.campaign-container .campaign-item .campaign-item-holder .campaign-hover p:not(:last-child) {
+  border-bottom: solid 1px #d8d8d8;
+}
+/* line 343, ../sass/_home.scss */
 .campaign-container .campaign-item .campaign-body {
   position: absolute;
   left: 0;
@@ -397,26 +470,38 @@ input {
   top: 176px;
   margin: auto;
   padding: 10px;
+  -webkit-transition: top 0.2s ease-in-out;
+  -moz-transition: top 0.2s ease-in-out;
+  -o-transition: top 0.2s ease-in-out;
+  transition: top 0.2s ease-in-out;
 }
-/* line 292, ../sass/_home.scss */
+/* line 351, ../sass/_home.scss */
 .campaign-container .campaign-item .campaign-body .profile-name {
   display: block;
   color: #8a9993;
   text-align: center;
+  opacity: 1;
+  -webkit-transition: opacity 0.2s ease-in-out;
+  -moz-transition: opacity 0.2s ease-in-out;
+  -o-transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
 }
-/* line 296, ../sass/_home.scss */
+/* line 357, ../sass/_home.scss */
 .campaign-container .campaign-item .campaign-body .profile-name strong {
   font-size: 16px;
   color: #00c051;
 }
-/* line 301, ../sass/_home.scss */
+/* line 362, ../sass/_home.scss */
 .campaign-container .campaign-item .campaign-body .campaign-body-names {
   display: block;
+  width: 90%;
+  margin: 4px 0 0 0;
   text-align: center;
-  line-height: 29px;
+  line-height: 19px;
+  font-size: 13px;
   font-weight: 800;
 }
-/* line 308, ../sass/_home.scss */
+/* line 372, ../sass/_home.scss */
 .campaign-container .campaign-item .campaign-footer {
   position: absolute;
   left: 0;
@@ -424,25 +509,37 @@ input {
   bottom: 4px;
   margin: auto;
   padding: 10px;
+  opacity: 1;
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  -o-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
 }
-/* line 315, ../sass/_home.scss */
+/* line 381, ../sass/_home.scss */
 .campaign-container .campaign-item .campaign-footer .campaign-fund-amount {
   color: #8a9993;
   font-size: .8em;
 }
-/* line 318, ../sass/_home.scss */
+/* line 384, ../sass/_home.scss */
 .campaign-container .campaign-item .campaign-footer .campaign-fund-amount .amount-raised {
   float: left;
 }
-/* line 321, ../sass/_home.scss */
+/* line 387, ../sass/_home.scss */
 .campaign-container .campaign-item .campaign-footer .campaign-fund-amount .days-left {
   float: right;
 }
-/* line 324, ../sass/_home.scss */
+/* line 390, ../sass/_home.scss */
 .campaign-container .campaign-item .campaign-footer .campaign-fund-amount strong {
   font-weight: 800;
 }
-/* line 328, ../sass/_home.scss */
+/* line 393, ../sass/_home.scss */
+.campaign-container .campaign-item .campaign-footer .campaign-fund-amount .fully-funded {
+  display: block;
+  width: 100%;
+  text-align: center;
+  color: #ff619a;
+}
+/* line 400, ../sass/_home.scss */
 .campaign-container .campaign-item .campaign-footer .campaign-fund-amount-slider {
   display: block;
   overflow: hidden;
@@ -451,7 +548,7 @@ input {
   background-color: transparent;
   border: solid 1px #00c051;
 }
-/* line 335, ../sass/_home.scss */
+/* line 407, ../sass/_home.scss */
 .campaign-container .campaign-item .campaign-footer .campaign-fund-amount-slider .slider-progress {
   position: relative;
   display: block;
@@ -463,11 +560,49 @@ input {
   line-height: .7em;
   height: .7em;
 }
-/* line 346, ../sass/_home.scss */
+/* line 418, ../sass/_home.scss */
 .campaign-container .campaign-item .campaign-footer .campaign-fund-amount-slider.is-funded {
   border-color: #ff619a;
 }
-/* line 348, ../sass/_home.scss */
+/* line 420, ../sass/_home.scss */
 .campaign-container .campaign-item .campaign-footer .campaign-fund-amount-slider.is-funded .slider-progress {
   background-color: #ff619a;
+}
+/* line 429, ../sass/_home.scss */
+.campaign-container .campaign-item:hover .campaign-item-holder .header {
+  opacity: 0;
+}
+/* line 432, ../sass/_home.scss */
+.campaign-container .campaign-item:hover .campaign-item-holder .profile-photo {
+  top: -30px;
+}
+/* line 435, ../sass/_home.scss */
+.campaign-container .campaign-item:hover .campaign-item-holder .campaign-body {
+  top: 20px;
+  z-index: 4;
+}
+/* line 438, ../sass/_home.scss */
+.campaign-container .campaign-item:hover .campaign-item-holder .campaign-body .campaign-body-names {
+  opacity: 0;
+}
+/* line 442, ../sass/_home.scss */
+.campaign-container .campaign-item:hover .campaign-item-holder .campaign-footer {
+  opacity: 0;
+  bottom: -4px;
+}
+/* line 446, ../sass/_home.scss */
+.campaign-container .campaign-item:hover .campaign-item-holder .campaign-hover {
+  visibility: visible;
+  opacity: 1;
+  height: 100%;
+}
+/* line 453, ../sass/_home.scss */
+.campaign-container .campaign-item a.campaign-href {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
 }
