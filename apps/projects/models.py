@@ -23,49 +23,58 @@ from .signals import project_funded
 
 class ProjectManager(models.Manager):
 
-    def order_by(self, field):
-        if field == 'amount_asked':
-            qs = self.get_query_set()
-            qs = qs.filter(status__in=[ProjectPhase.objects.get(slug="campaign"),
+    def search(self, query):
+        qs = super(ProjectManager, self).get_query_set()
+        # Apply filters
+        status = query.get('status', None)
+        if status == 7:
+            qs = qs.filter(status_id_in=[7, 8])
+        elif status:
+            qs = qs.filter(status_id=status)
+
+        country = query.get('country', None)
+        if country:
+            qs = qs.filter(country=country)
+
+        theme = query.get('theme', None)
+        if theme:
+            qs = qs.filter(theme_id=theme)
+
+        text = query.get('text', None)
+        if text:
+            qs = qs.filter(Q(title__icontains=text) |
+                           Q(pitch__icontains=text) |
+                           Q(description__icontains=text))
+
+        return self._ordering(query.get('ordering', None), qs, status)
+
+    def _ordering(self, ordering, queryset, status):
+
+        if ordering == 'amount_asked':
+            qs = queryset.filter(status__in=[ProjectPhase.objects.get(slug="campaign"),
                                        ProjectPhase.objects.get(slug="done-completed"),
                                        ProjectPhase.objects.get(slug="done-incomplete")])
             qs = qs.order_by('amount_asked')
-            return qs
-
-        if field == 'deadline':
-            qs = self.get_query_set()
-            qs = qs.filter(status=ProjectPhase.objects.get(slug="campaign"))
+        elif ordering == 'deadline':
+            qs = queryset.filter(status=ProjectPhase.objects.get(slug="campaign"))
             qs = qs.order_by('deadline')
             qs = qs.filter(status=ProjectPhase.objects.get(slug="campaign"))
-            return qs
-
-        if field == 'amount_needed':
-            qs = self.get_query_set()
-            qs = qs.order_by('amount_needed')
+        elif ordering == 'amount_needed':
+            qs = queryset.order_by('amount_needed')
             qs = qs.filter(amount_needed__gt=0)
             qs = qs.filter(status=ProjectPhase.objects.get(slug="campaign"))
-            return qs
-
-        if field == 'newest':
-            qs = self.get_query_set()
-            qs = qs.order_by('amount_needed')
+        elif ordering == 'newest':
+            qs = queryset.order_by('amount_needed')
             qs = qs.filter(amount_needed__gt=0)
             qs = qs.filter(status=ProjectPhase.objects.get(slug="campaign"))
-            return qs
-
-        if field == 'donations':
-            qs = self.get_query_set()
-            qs = qs.order_by('popularity')
-            return qs
-
-        if field == 'popularity':
-            qs = self.get_query_set()
-            qs = qs.order_by('-popularity')
-            qs = qs.filter(amount_needed__gt=0)
-            qs = qs.filter(status=ProjectPhase.objects.get(slug="campaign"))
-            return qs
-
-        qs = super(ProjectManager, self).order_by(field)
+        elif ordering == 'donations':
+            qs = queryset.order_by('popularity')
+        elif ordering == 'popularity':
+            qs = queryset.order_by('-popularity')
+            if status == 5:
+                qs = qs.filter(amount_needed__gt=0)
+        elif ordering:
+            qs = queryset.order_by(ordering)
         return qs
 
 
