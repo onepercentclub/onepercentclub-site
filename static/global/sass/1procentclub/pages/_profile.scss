@@ -1,20 +1,10 @@
-.account-header {
-	.account-personal {
-		@include grid(24,0,0);
-	}
-	.account-avatar {
-		@include grid(12,0,2);
-	}
-}
 .account-achievements {
-	li {
-		padding-left: $base-padding*4.5;
-	}
+	
 	.account-achievements-projects {
-		background-image: image-url("illustrations/ideas-pink.svg");
+		background-image: image-url("illustrations/ideas-green.svg");
 	}
 	.account-achievements-tasks {
-		background-image: image-url("illustrations/icon-task.svg");
+		background-image: image-url("illustrations/tasks-green.svg");
 	}
 	.account-achievements-time {
 		background-image: image-url("illustrations/hours-green.svg");
