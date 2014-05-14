@@ -6,12 +6,14 @@ h1 {
 	color: $color-secondary;
 	font-size: 2.5em;
 	font-family: $font-family-bold;
+	font-weight: 900;
 }
 
 h2 {
 	color: $gray-dark;
 	font-size: 1.5em;
 	font-family: $font-family-bold;
+	font-weight: 900;
 }
 
 a {
@@ -59,7 +61,7 @@ input {
 	padding: 1em 0 0.5em 0;
 	text-align: center;
 	&.more-space {
-		padding: 3em 0 2.5em 0;
+		padding: 5em 0 2.5em 0;
 	}
 }
 
@@ -89,6 +91,7 @@ input {
 	#nav {
 		padding: 2.2em 0 0 0;
 		font-family: $font-family-bold;
+		font-weight: 700;
 		.nav-main {
 			float: left;
 			width: 40%;
@@ -168,6 +171,7 @@ input {
 					padding: 4px;
 					line-height: 22px;
 					font-family: $font-family-bold;
+					font-weight: 700;
 					text-align: left;
 				}
 				a {

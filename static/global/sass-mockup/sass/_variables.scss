@@ -29,12 +29,18 @@ $facebook-blue                                             : #45619d !default;
 $twitter-blue                                              : #33b9e2 !default;
 
 // Typography                                                   
-// --------------------------------                             
+// --------------------------------
+
+/*
+font-family:'L Futura W01';!
+font-family:'Neue Helvetica W01';!
+
+*/
                                                                 
-$font-family                                               : 'Futura W01 Book', 'Trebuchet MS', Helvetica, Arial, sans-serif;
-$font-family-heavy                                         : 'Futura W02 Heavy', 'Trebuchet MS', Helvetica, Arial, sans-serif;
-$font-family-bold                                          : 'Futura W01 Bold', 'Trebuchet MS', Helvetica, Arial, sans-serif;
-$font-family-small                                         : 'Trebuchet MS', Helvetica, Arial, sans-serif;
+$font-family                                               : 'L Futura W01', 'Trebuchet MS', Helvetica, Arial, sans-serif;
+$font-family-heavy                                         : 'L Futura W01', 'Trebuchet MS', Helvetica, Arial, sans-serif;
+$font-family-bold                                          : 'L Futura W01', 'Trebuchet MS', Helvetica, Arial, sans-serif;
+$font-family-body										   : 'Neue Helvetica W01';
                                                                 
 $base-font-size                                            : 1em !default;
 $base-font-family                                          : $font-family !default;
