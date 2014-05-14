@@ -549,19 +549,26 @@ input {
 // -------------------- CROWFUNDED --------------------
 #crowfunded {
 	position: relative;
-	min-height: 600px;
+	height: 600px;
 	z-index:2;
+	overflow: hidden;
+	.crowfunded-container {
+		height: 800px;
+		width: 120%;
+		margin: -70px;
+	}
 	.crowfunded-overlay {
 		position: absolute;
 		left: 0;
 		right: 0;
 		top: 0;
 		bottom: 0;
-		background-color: rgba(65, 65, 65, .8);
+ 		@include background-image(linear-gradient(rgba(65, 65, 65, .7), rgba(0,0,0, .9)));
 	}
 	img {
 		z-index: 1;
 		border: solid 1px black;
+		float: left;
 	}
 }
 

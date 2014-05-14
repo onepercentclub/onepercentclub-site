@@ -708,20 +708,32 @@ input {
 /* line 550, ../sass/_home.scss */
 #crowfunded {
   position: relative;
-  min-height: 600px;
+  height: 600px;
   z-index: 2;
+  overflow: hidden;
 }
-/* line 554, ../sass/_home.scss */
+/* line 555, ../sass/_home.scss */
+#crowfunded .crowfunded-container {
+  height: 800px;
+  width: 120%;
+  margin: -70px;
+}
+/* line 560, ../sass/_home.scss */
 #crowfunded .crowfunded-overlay {
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
-  background-color: rgba(65, 65, 65, 0.8);
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(65, 65, 65, 0.7)), color-stop(100%, rgba(0, 0, 0, 0.9)));
+  background-image: -webkit-linear-gradient(rgba(65, 65, 65, 0.7), rgba(0, 0, 0, 0.9));
+  background-image: -moz-linear-gradient(rgba(65, 65, 65, 0.7), rgba(0, 0, 0, 0.9));
+  background-image: -o-linear-gradient(rgba(65, 65, 65, 0.7), rgba(0, 0, 0, 0.9));
+  background-image: linear-gradient(rgba(65, 65, 65, 0.7), rgba(0, 0, 0, 0.9));
 }
-/* line 562, ../sass/_home.scss */
+/* line 568, ../sass/_home.scss */
 #crowfunded img {
   z-index: 1;
   border: solid 1px black;
+  float: left;
 }

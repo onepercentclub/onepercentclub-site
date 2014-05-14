@@ -318,11 +318,12 @@
 			</div>
 
 			<!-- Crowfunded-->
-			<div class="l-section" id="crowfunded">	
+			<div class="l-section" id="crowfunded">
 				<div class="crowfunded-container">
 					<img src="http://localhost:8000/static/assets/images/mockup-website/profile-photo.jpg">
 				</div>
 				<div class="crowfunded-overlay"></div>
+				<div class="crowfunded-tagline"></div>
 			</div>
 
 			<!-- Partner logo's-->
@@ -335,15 +336,16 @@
 	</div>
 
 	<script type="text/javascript">
-	var img = document.querySelector(".crowfunded-container img"),
-		count = 72, i, body = document.querySelector(".crowfunded-container"),;
-
+	var imgHolder = document.querySelector(".crowfunded-container img"),
+		count = 172, i, body = document.querySelector(".crowfunded-container");
+		
 		for (i = 0; i < count; i ++) {
-			//console.log(i);
-			body.appendChild('img');
+			var src = "http://localhost:8000/static/assets/images/mockup-website/profile-photo.jpg";
+			img = document.createElement("img");
+			img.setAttribute("src", src);
+			body.appendChild(img);
 		}
 
-	console.log(img, body);
 	</script>
 </body>
 </html>
