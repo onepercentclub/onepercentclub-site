@@ -195,7 +195,8 @@ input {
 		left: 0;
 		right: 0;
 		margin: auto;
-		width: 80px;
+		width: 100%;
+		text-align: center;
 		span {
 			display: inline-block;
 			height: 15px;
@@ -552,17 +553,17 @@ input {
 }
 
 // -------------------- CROWFUNDED --------------------
-#crowfunded {
+#crowdfunded {
 	position: relative;
 	height: 750px;
 	z-index:2;
 	overflow: hidden;
-	.crowfunded-container {
+	.crowdfunded-container {
 		height: 800px;
 		width: 120%;
 		margin: -70px;
 	}
-	.crowfunded-overlay {
+	.crowdfunded-overlay {
 		position: absolute;
 		left: 0;
 		right: 0;
@@ -570,7 +571,7 @@ input {
 		bottom: 0;
  		@include background-image(linear-gradient(rgba(65, 65, 65, .7), rgba(0,0,0, .9)));
 	}
-	.crowfunded-tagline {
+	.crowdfunded-tagline {
 		position: absolute;
 		top: 15%;
 		right: 0;
