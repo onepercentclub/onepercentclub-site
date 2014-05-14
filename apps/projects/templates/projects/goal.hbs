@@ -16,7 +16,6 @@
     
     <fieldset>
         <ul>
-
             {% bb_component 'bb-text-field' valueBinding='amount_asked' name='amount_asked' label=_('Crowdfunding goal') undertext=_('Pick an amount between &nbsp; &euro; 250 - &euro; 1.000.000') placeholder=_(' &euro; ') errorsBinding='errors.amount_asked' %}
         </ul>
     </fieldset>
@@ -31,8 +30,7 @@
     <fieldset>
         <ul>
             <li class="control-group fieldset-content">
-                <label>Budget breakdown <small>Please specify all the things you need money for</small></label>
-                <hr>
+                <label><strong>Budget breakdown</strong> <small>Please specify all the things you need money for</small></label>
                 <table class="campaign-budget-breakdown">
                     <tbody>
                         {{#each line in budgetLines}}

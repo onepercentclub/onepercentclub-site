@@ -32,11 +32,11 @@
 						{% trans "tasks" %}<br />
 						{% trans "realized" %}
 			        </li>
-			        <li class="account-achievements-time">
+{{!-- 			        <li class="account-achievements-time">
 			            <strong>{{user_statistics.hours_spent}}</strong>
 						{% trans "hours spent" %}<br /> 
 						{% trans "on" %} <em>{{user.statistics.tasks}}</em> {% trans "tasks" %}
-			        </li>
+			        </li> --}}
 	            </ul>
 	        </div>
 	    </div>
@@ -48,16 +48,17 @@
 	                <h2 class="account-about-header">{% trans "About" %}</h2>
 	                <p>{{about}}</p>
 
-	                <h3 class="account-why-header">{% trans "Is a ...organization... member because" %}</h3>
+	                {{!-- <h3 class="account-why-header">{% trans "Is a ...organization... member because" %}</h3> --}}
+	                <h3 class="account-why-header">{% trans "Why 1%Club" %}</h3>
 	                <p>{{why}}</p>
 
                     <p class="account-links">
-                        {{#if website}}
+{{!--                         {{#if website}}
                             <a class="account-website" {{bind-attr href=website title="get_website"}} target="_blank">
                                 <span class="flaticon stroke link-1"></span>
                                 {{ get_website }}
                             </a>
-                        {{/if}}
+                        {{/if}} --}}
                         {{#if facebook}}
                             <a class="account-facebook" {{bind-attr href="get_facebook"}} target="_blank">
                                 <span class="flaticon social facebook-1"></span>
@@ -83,6 +84,16 @@
 	                <dl>
 	                    <dt><span class="flaticon solid location-pin-1"></span> {% trans "Location" %}</dt>
 	                    <dd>{{location}}&nbsp;</dd>
+					</dl>
+					{{/if}}
+					{{#if website}}
+					<dl>
+						<dt><span class="flaticon solid link-1"></span> {% trans "Website" %}</dt>
+						<dd>
+							<a class="account-website" {{bind-attr href=website title="get_website"}} target="_blank">
+							{{ get_website }}
+							</a>
+						</dd>
 					</dl>
 					{{/if}}
 					{{#if themes_list}}

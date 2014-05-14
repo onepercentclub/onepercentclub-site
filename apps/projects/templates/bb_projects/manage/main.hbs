@@ -13,7 +13,7 @@
 					<h1 class="page-title">
 						{% trans "My projects"%} <small>&rsaquo; {{ title }}</small>
 					</h1>
-                    <div class="page-actions" style="padding:0px; margin-top:40px">
+                    <div class="page-actions">
                         {{#if isPhasePlanNew}}
                             {{#if canPreview}}
                                 <a class="btn btn-modest campaign-preview-button" {{action openInFullScreenBox "projectPlan" this.model}}>
@@ -32,13 +32,15 @@
 
                         {{/if}}
                     </div>
-                    <ul id="campaign-steps" class="{{#if isPhasePlanNew}} steps {{else}} tabs {{/if}}">
+                    <ul id="campaign-steps" class="{{#if isPhasePlanNew}} steps tabs {{else}} tabs {{/if}}">
                         {{!--
                         {{#if isPhasePlanNew}}
-                            <li class="tab">
+                            <li>
                                 {{#link-to "myProject.start" classBinding=":tab-link :validated"}}
                                     {{#if validStart}}
                                         <span class="flaticon solid checkmark-1 "></span>
+                                    {{else}}
+                                    	<span class="flaticon"></span>
                                     {{/if}}
                                     {% trans "Start" %}
                                 {{/link-to}}
@@ -46,57 +48,69 @@
                         {{/if}}
                         --}}
 
-                        <li class="tab">
+                        <li>
                             {{#link-to "myProject.pitch" classBinding=":tab-link validPitch:validated"}}
                                 {{#if validPitch}}
                                     {{#if isPhasePlanNew}}<span class="flaticon solid checkmark-1"></span>{{/if}}
+                                {{else}}
+                                	<span class="flaticon"></span>
                                 {{/if}}
                                 {% trans "Project" %}
                             {{/link-to}}
                         </li>
 
-                        <li class="tab">
+                        <li>
                             {{#link-to "myProject.goal" classBinding=":tab-link validGoal:validated"}}
                                 {{#if validGoal}}
                                     {{#if isPhasePlanNew}}<span class="flaticon solid checkmark-1"></span>{{/if}}
+                                {{else}}
+                                	<span class="flaticon"></span>
                                 {{/if}}
                                 {% trans "Goal" %}
                             {{/link-to}}
                         </li>
 
-                        <li class="tab">
+                        <li>
                             {{#link-to "myProject.story" classBinding=":tab-link validStory:validated"}}
                                 {{#if validStory}}
                                     {{#if isPhasePlanNew}}<span class="flaticon solid checkmark-1"></span>{{/if}}
+                                {{else}}
+                                	<span class="flaticon"></span>
                                 {{/if}}
                                 {% trans "Description" %}
                             {{/link-to}}
                         </li>
 
-                        <li class="tab">
+                        <li>
                             {{#link-to "myProject.organisation" classBinding=":tab-link validOrganization:validated"}}
                                 {{#if validOrganization}}
                                     {{#if isPhasePlanNew}}<span class="flaticon solid checkmark-1"></span>{{/if}}
+                                {{else}}
+                                	<span class="flaticon"></span>
                                 {{/if}}
                                 {% trans "Organisation" %}
                             {{/link-to}}
                         </li>
 
-                        <li class="tab">
+                        <li>
                             {{#link-to "myProject.bank" classBinding=":tab-link organization.validBank:validated"}}
                                 {{#if organization.validBank}}
                                     {{#if isPhasePlanNew}}<span class="flaticon solid checkmark-1"></span>{{/if}}
+                                {{else}}
+                                	<span class="flaticon"></span>
                                 {{/if}}
                                 {% trans "Bank" %}
                             {{/link-to}}
                         </li>
 
                         {{#if this.controller.isSubmittable}}
-                            <li class="tab">
+                            <li>
                                 {{#link-to "myProject.submit" classBinding=":tab-link validSubmit:validated"}}
                                     {{#if validsubmit}}
                                         <span class="flaticon solid checkmark-1"></span>
-                                    {{/if}}
+                                    {{else}}
+                                		<span class="flaticon"></span>
+									{{/if}}
                                     {% trans "Submit" %}
                                 {{/link-to}}
                             </li>
