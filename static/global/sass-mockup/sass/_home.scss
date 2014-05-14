@@ -24,6 +24,7 @@ a {
 		vertical-align: center;
 		border-radius: 8px;
 		color: white;
+		font-family: $font-family-bold;
 	}
 }
 
@@ -549,7 +550,7 @@ input {
 // -------------------- CROWFUNDED --------------------
 #crowfunded {
 	position: relative;
-	height: 600px;
+	height: 750px;
 	z-index:2;
 	overflow: hidden;
 	.crowfunded-container {
@@ -564,6 +565,29 @@ input {
 		top: 0;
 		bottom: 0;
  		@include background-image(linear-gradient(rgba(65, 65, 65, .7), rgba(0,0,0, .9)));
+	}
+	.crowfunded-tagline {
+		position: absolute;
+		top: 15%;
+		right: 0;
+		left: 0;
+		header {
+			margin: auto;
+			font-size: 2em;
+			z-index: 4;
+			text-align: center;
+			line-height: 93px;
+			h2 {
+				color: white;
+				strong {
+					font-weight: 700;
+				}
+			}
+		}
+		.join-us {
+			margin-top: 5em;
+			text-align: center;
+		}
 	}
 	img {
 		z-index: 1;
