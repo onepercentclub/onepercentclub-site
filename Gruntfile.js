@@ -23,6 +23,9 @@ module.exports = function (grunt) {
       // watch: { configFile: 'test/js/config/unit.js', singleRun:false, autoWatch: true, keepalive: true }
     },
     watch: {
+      options: {
+	    livereload: true,
+	  },
       scripts: {
         files: ['apps/static/script/**/*.js', 'ember/static/script/templates/*.handlebars'],
         tasks: ['dev'],
@@ -140,7 +143,7 @@ module.exports = function (grunt) {
           noLineComments: false,
           raw: 'preferred_syntax = :scss\n', // Use `raw` since it's not directly available  
           importPath: ["../bluebottle/bluebottle/common/static/sass"],
-          force: true,
+          force: false,
         }
       }
     }    
