@@ -17,6 +17,14 @@ h2 {
 a {
 	text-decoration: none;
 	color: $black;
+	&.btn {
+		display: inline;
+		background-color: $color-secondary;
+		padding: 1em;
+		vertical-align: center;
+		border-radius: 8px;
+		color: white;
+	}
 }
 
 input {
@@ -63,7 +71,7 @@ input {
 	background: $gray-light;
 	border-bottom: 1px solid white;
 	box-shadow: 0 1px 0 rgba(65, 65, 65, .1);
-	z-index: 2;
+	z-index: 5;
 	#logo {
 		float: left;
 		width: 10.41667%;
@@ -244,10 +252,8 @@ input {
 			.header {
 				position: absolute;
 				overflow: hidden;
-				left: -3px;
-				width: 101.333333%;
+				width: 100%;
 				height: 141px;
-				border: solid 1px $gray-dark;
 				background: $gray-dark;
 				opacity: 1;
 				@include single-transition(opacity, .2s ease-in-out);
@@ -460,4 +466,106 @@ input {
 			height: 100%;
 		}
 	}
+}
+
+// -------------------- CATEGORIES --------------------
+.tag-container {
+	margin: auto;
+	width: 90%;
+	text-align: center;
+	font-family: $font-family-bold;
+	.tag-item {
+		display: inline-block;
+		width: auto;
+		margin: 5px;
+		padding: 10px 7px;
+		border-radius: 8px;
+		border: solid 1px $gray-border;
+		background-color: white;
+		color: $color-primary;
+		@include single-transition(all, .1s ease-in-out);
+		&:hover {
+			background-color: $color-primary;
+			color: $gray-light;
+		}
+	}
+	.tag-browse-all {
+		display: inherit;
+		margin-top: 50px;
+		color: $gray-dark;
+		&:after {
+			content:  "\2192";
+			margin-left: 7px;
+		}
+	}
+}
+
+// -------------------- TOOLS --------------------
+.tools-container {
+	margin-top: 50px;
+	background-color: $gray-light;
+	.l-wrapper {
+		//@include clearfix;
+		.tools-row {
+			width: 100%;
+			margin: auto;
+			padding: 40px 0 40px 0;
+			@include clearfix;
+			&.small {
+				max-width: 600px;
+			}
+			.tools {
+				font-family: $font-family-bold;
+				color: $gray-dark;
+				width: 50%;
+				min-height: 100px;
+				&.left {
+					float: left;
+				}
+				&.right {
+					float: right;
+				}
+				.icon {
+					display: block;
+					float: left;
+					background: #ccc;
+					width: 75px;
+					height: 75px;
+					margin-right: 20px;
+				}
+				.content {
+					display: block;
+					width: 90%;
+					min-height: 80px;
+				}
+				strong {
+					font-weight: 700;
+				}
+			}
+		}
+	}
+}
+
+// -------------------- CROWFUNDED --------------------
+#crowfunded {
+	position: relative;
+	min-height: 600px;
+	z-index:2;
+	.crowfunded-overlay {
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		background-color: rgba(65, 65, 65, .8);
+	}
+	img {
+		z-index: 1;
+		border: solid 1px black;
+	}
+}
+
+// -------------------- PARTNER LOGO'S --------------------
+#partner-logos {
+
 }

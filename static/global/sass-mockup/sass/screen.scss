@@ -8,10 +8,15 @@
 //@import "icons/flaticons-solid";
 //@import "icons/flaticons-stroke";
 
+$blueprint-grid-width: 30px;
+
 @import "compass/utilities";
 @import "compass/reset";
 @import "compass/css3";
 @import "compass/css3/transition";
+@import "compass/css3/box";
+@import "blueprint/grid";
+@import "compass/utilities/general/clearfix";
 
 @import "variables";
 @import "home";
