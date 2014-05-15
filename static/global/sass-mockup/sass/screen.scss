@@ -17,6 +17,8 @@ $blueprint-grid-width: 30px;
 @import "compass/css3/box";
 @import "blueprint/grid";
 @import "compass/utilities/general/clearfix";
+@import "compass/layout/sticky-footer";
 
+@import "grid";
 @import "variables";
 @import "home";
