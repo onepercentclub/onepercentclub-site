@@ -45,7 +45,7 @@ input {
 
 .l-wrapper {
 	position: relative;
-	min-width: 900px;
+	min-width: 400px;
 	max-width: 1200px;
 	margin: 0 auto;
 	height: 100%;
@@ -53,7 +53,7 @@ input {
 
 .l-section {
 	width: 100%;
-	min-width: 900px;
+	min-width: 400px;
 	max-width: 100%;
 }
 
@@ -603,5 +603,64 @@ input {
 
 // -------------------- PARTNER LOGO'S --------------------
 #partner-logos {
+	background-color: $gray-light;
+	padding-bottom: 70px;
+}
 
+// -------------------- QUOTE CAROUSEL --------------------
+.quote-carousel {
+	position: relative;
+	margin: auto;
+	width: 90%;
+	background-color: white;
+	border-radius: 6px;
+	border: solid 1px $gray-border;
+	padding: 20px;
+	font-family: $font-family-bold;
+	@include clearfix;
+	.quote-carousel-content {
+		float: left;
+		padding: 0 6em 0 6em;
+		margin: auto;
+		.carousel-photo {
+			float: left;
+			width: 100px;
+			height: 100px;
+			img {
+				background-color: $gray-dark;
+			}
+		}
+		.carousel-quote {
+			float: left;
+			color: $color-primary;
+			line-height: 32px;
+			margin: 1.2em 0 0 2em;
+			strong {
+				display: inherit;
+				font-size: 20px;
+				font-weight: 700;
+			}
+			small {
+				color: $gray-dark;
+			}
+		}
+	}
+	.carousel-nav {
+		position: absolute;
+		top: 0;
+		width: 40px;
+		height: 100%;
+		&.left {
+			left: 40px;
+			margin: auto;
+			text-align: center;
+			padding-top: 60px;
+		}
+		&.right {
+			right: 40px;
+			margin: auto;
+			text-align: center;
+			padding-top: 60px;
+		}
+	}
 }

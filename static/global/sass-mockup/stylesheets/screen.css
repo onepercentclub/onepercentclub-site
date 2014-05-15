@@ -128,7 +128,7 @@ input {
 /* line 46, ../sass/_home.scss */
 .l-wrapper {
   position: relative;
-  min-width: 900px;
+  min-width: 400px;
   max-width: 1200px;
   margin: 0 auto;
   height: 100%;
@@ -137,7 +137,7 @@ input {
 /* line 54, ../sass/_home.scss */
 .l-section {
   width: 100%;
-  min-width: 900px;
+  min-width: 400px;
   max-width: 100%;
 }
 
@@ -775,4 +775,78 @@ input {
   z-index: 1;
   border: solid 1px black;
   float: left;
+}
+
+/* line 605, ../sass/_home.scss */
+#partner-logos {
+  background-color: #f5f4f6;
+  padding-bottom: 70px;
+}
+
+/* line 611, ../sass/_home.scss */
+.quote-carousel {
+  position: relative;
+  margin: auto;
+  width: 90%;
+  background-color: white;
+  border-radius: 6px;
+  border: solid 1px #d8d8d8;
+  padding: 20px;
+  font-family: "L Futura W01", "Trebuchet MS", Helvetica, Arial, sans-serif;
+  overflow: hidden;
+  *zoom: 1;
+}
+/* line 621, ../sass/_home.scss */
+.quote-carousel .quote-carousel-content {
+  float: left;
+  padding: 0 6em 0 6em;
+  margin: auto;
+}
+/* line 625, ../sass/_home.scss */
+.quote-carousel .quote-carousel-content .carousel-photo {
+  float: left;
+  width: 100px;
+  height: 100px;
+}
+/* line 629, ../sass/_home.scss */
+.quote-carousel .quote-carousel-content .carousel-photo img {
+  background-color: #8a9993;
+}
+/* line 633, ../sass/_home.scss */
+.quote-carousel .quote-carousel-content .carousel-quote {
+  float: left;
+  color: #00c051;
+  line-height: 32px;
+  margin: 1.2em 0 0 2em;
+}
+/* line 638, ../sass/_home.scss */
+.quote-carousel .quote-carousel-content .carousel-quote strong {
+  display: inherit;
+  font-size: 20px;
+  font-weight: 700;
+}
+/* line 643, ../sass/_home.scss */
+.quote-carousel .quote-carousel-content .carousel-quote small {
+  color: #8a9993;
+}
+/* line 648, ../sass/_home.scss */
+.quote-carousel .carousel-nav {
+  position: absolute;
+  top: 0;
+  width: 40px;
+  height: 100%;
+}
+/* line 653, ../sass/_home.scss */
+.quote-carousel .carousel-nav.left {
+  left: 40px;
+  margin: auto;
+  text-align: center;
+  padding-top: 60px;
+}
+/* line 659, ../sass/_home.scss */
+.quote-carousel .carousel-nav.right {
+  right: 40px;
+  margin: auto;
+  text-align: center;
+  padding-top: 60px;
 }
