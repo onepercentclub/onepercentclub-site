@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Translators:
 # Translators:
@@ -10,14 +10,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-14 10:02+0200\n"
+"POT-Creation-Date: 2014-05-15 15:09+0200\n"
 "PO-Revision-Date: 2014-05-14 08:04+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
+"Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: en_GB\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: templates/homepage/campaign.hbs:20 templates/homepage/campaign.hbs.py:62
@@ -34,9 +34,7 @@ msgid "Projects fully funded"
 msgstr "Campaigns fully funded"
 
 #: templates/homepage/campaign.hbs:37
-msgid ""
-"The Crazy Campaign Days: 20 teams funding 18 world-changing projects within "
-"5 days. Totally crazy! Thank you!"
+msgid "The Crazy Campaign Days: 20 teams funding 18 world-changing projects within 5 days. Totally crazy! Thank you!"
 msgstr "The Crazy Campaign Days: 20 teams funding 18 world-changing projects within 5 days. Totally crazy! Thank you!"
 
 #: templates/homepage/campaign.hbs:38
@@ -56,9 +54,7 @@ msgid "Seconds"
 msgstr "Seconds"
 
 #: templates/homepage/campaign.hbs:88
-msgid ""
-"The Crazy Campaign Days: 20 teams who will fund 20 world-changing projects "
-"within 5 days. Totally crazy!"
+msgid "The Crazy Campaign Days: 20 teams who will fund 20 world-changing projects within 5 days. Totally crazy!"
 msgstr "The Crazy Campaign Days: 20 teams who will fund 20 world-changing projects within 5 days. Totally crazy!"
 
 #: templates/homepage/campaign.hbs:89 templates/homepage/campaign.hbs:140
@@ -66,9 +62,7 @@ msgid "Pick a crazy fund-racer and support"
 msgstr "Pick a crazy fund-racer and support"
 
 #: templates/homepage/campaign.hbs:139
-msgid ""
-" The Crazy Campaign Days: 20 teams who will fund 20 world-changing projects "
-"within 5 days. Totally crazy!"
+msgid " The Crazy Campaign Days: 20 teams who will fund 20 world-changing projects within 5 days. Totally crazy!"
 msgstr " The Crazy Campaign Days: 20 teams who will fund 20 world-changing projects within 5 days. Totally crazy!"
 
 #: templates/homepage/fundraisers.hbs:13
@@ -76,8 +70,7 @@ msgid "Our crazy fund-racers"
 msgstr "Our crazy fund-racers"
 
 #: templates/homepage/fundraisers.hbs:14
-msgid ""
-"Pick your favourite crazy fund-racer and support a world-changing project!"
+msgid "Pick your favourite crazy fund-racer and support a world-changing project!"
 msgstr "Pick your favourite crazy fund-racer and support a world changing project!"
 
 #: templates/homepage/fundraisers.hbs:23
@@ -107,8 +100,7 @@ msgstr "Choose your campaign"
 
 #: templates/homepage/home_project_list.hbs:15
 #: templates/homepage/project.hbs:14
-msgid ""
-"Support it with your time, knowledge or money and receive real-time updates."
+msgid "Support it with your time, knowledge or money and receive real-time updates."
 msgstr "Support it with your time, knowledge or money and receive real-time updates."
 
 #: templates/homepage/home_project_list.hbs:54
@@ -150,9 +142,7 @@ msgid "Our impact"
 msgstr "Our impact"
 
 #: templates/homepage/impact.hbs:14
-msgid ""
-"We believe that if we all share a little, together we can change the world. "
-"We got this far already."
+msgid "We believe that if we all share a little, together we can change the world. We got this far already."
 msgstr "We believe that if we all share a little, together we can change the world. We got this far already."
 
 #: templates/homepage/impact.hbs:21
@@ -332,7 +322,17 @@ msgid ""
 "See you in a bit!<br/>\n"
 "<br/>\n"
 "Liane | 1%%Club\n"
-msgstr "\nHello %(receiver_name)s,<br/>\n<br/>\n%(author_name)s has left a message on your campaign page.<br/>\n<br/>\nYou must be curious what! Don't wait any longer and check it out <a href=\"%(site)s%(link)s\">here on our website</a>.\n<br/>\nSee you in a bit!<br/>\n<br/>\n1%%Club\n"
+msgstr ""
+"\n"
+"Hello %(receiver_name)s,<br/>\n"
+"<br/>\n"
+"%(author_name)s has left a message on your campaign page.<br/>\n"
+"<br/>\n"
+"You must be curious what! Don't wait any longer and check it out <a href=\"%(site)s%(link)s\">here on our website</a>.\n"
+"<br/>\n"
+"See you in a bit!<br/>\n"
+"<br/>\n"
+"1%%Club\n"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/project_wallpost_new.mail.txt.py:5
 #, python-format
@@ -349,7 +349,19 @@ msgid ""
 "See you in a bit!\n"
 "\n"
 "Liane | 1%%Club\n"
-msgstr "\nHello %(receiver_name)s,\n<br/>\n%(author_name)s has left a message on your campaign page.\n<br/>\nYou must be curious what! Don't wait any longer and check it out here:\n<br/>\n%(site)s%(link)s\n<br/>\nSee you in a bit!\n<br/>\n1%%Club\n"
+msgstr ""
+"\n"
+"Hello %(receiver_name)s,\n"
+"<br/>\n"
+"%(author_name)s has left a message on your campaign page.\n"
+"<br/>\n"
+"You must be curious what! Don't wait any longer and check it out here:\n"
+"<br/>\n"
+"%(site)s%(link)s\n"
+"<br/>\n"
+"See you in a bit!\n"
+"<br/>\n"
+"1%%Club\n"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/project_wallpost_reaction_new.mail.html.py:5
 #, python-format
@@ -364,7 +376,17 @@ msgid ""
 "See you in a bit!<br/>\n"
 "<br/>\n"
 "Liane | 1%%Club\n"
-msgstr "\nHello %(receiver_name)s,<br/>\n<br/>\nYes! <b>%(author_name)s</b> commented on your wallpost.<br/>\n<br/>\n<a href=\"%(site)s%(link)s\">Go to our website</a> and read the reaction.<br/>\n<br/>\nSee you in a bit!<br/>\n<br/>\n1%%Club\n"
+msgstr ""
+"\n"
+"Hello %(receiver_name)s,<br/>\n"
+"<br/>\n"
+"Yes! <b>%(author_name)s</b> commented on your wallpost.<br/>\n"
+"<br/>\n"
+"<a href=\"%(site)s%(link)s\">Go to our website</a> and read the reaction.<br/>\n"
+"<br/>\n"
+"See you in a bit!<br/>\n"
+"<br/>\n"
+"1%%Club\n"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/project_wallpost_reaction_new.mail.txt.py:5
 #, python-format
@@ -382,7 +404,19 @@ msgid ""
 "\n"
 "Liane | 1%%Club\n"
 "\n"
-msgstr "\nHello %(receiver_name)s,\n<br/>\nYes! %(author_name)s commented on your wallpost.\n<br/>\nClick the link below to go to our website:\n<br/>\n%(site)s%(link)s\n<br/>\nSee you in a bit!\n<br/>\n1%%Club\n"
+msgstr ""
+"\n"
+"Hello %(receiver_name)s,\n"
+"<br/>\n"
+"Yes! %(author_name)s commented on your wallpost.\n"
+"<br/>\n"
+"Click the link below to go to our website:\n"
+"<br/>\n"
+"%(site)s%(link)s\n"
+"<br/>\n"
+"See you in a bit!\n"
+"<br/>\n"
+"1%%Club\n"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/project_wallpost_reaction_project.mail.html.py:5
 #, python-format
@@ -395,7 +429,15 @@ msgid ""
 "<a href=\"%(site)s%(link)s\">Read the comment here</a> and continue the conversation!<br/>\n"
 "<br/>\n"
 "Liane | 1%%Club\n"
-msgstr "\nHi %(receiver_name)s,<br/>\n<br/>\n<strong>%(author_name)s</strong> left a comment on your campaign page.<br/>\n<br/>\n<a href=\"%(site)s%(link)s\">Read the comment here</a> and continue the conversation!<br/>\n<br/>\n1%%Club\n"
+msgstr ""
+"\n"
+"Hi %(receiver_name)s,<br/>\n"
+"<br/>\n"
+"<strong>%(author_name)s</strong> left a comment on your campaign page.<br/>\n"
+"<br/>\n"
+"<a href=\"%(site)s%(link)s\">Read the comment here</a> and continue the conversation!<br/>\n"
+"<br/>\n"
+"1%%Club\n"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/project_wallpost_reaction_project.mail.txt.py:5
 #, python-format
@@ -409,7 +451,16 @@ msgid ""
 "%(site)s%(link)s\n"
 "\n"
 "Liane | 1%%Club\n"
-msgstr "\nHi %(receiver_name)s,\n<br/>\n%(author_name)s left a comment on your campaign page.\n<br/>\nRead the comment on our website and continue the conversation:\n%(site)s%(link)s\n<br/>\n1%%Club\n"
+msgstr ""
+"\n"
+"Hi %(receiver_name)s,\n"
+"<br/>\n"
+"%(author_name)s left a comment on your campaign page.\n"
+"<br/>\n"
+"Read the comment on our website and continue the conversation:\n"
+"%(site)s%(link)s\n"
+"<br/>\n"
+"1%%Club\n"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/project_wallpost_reaction_same_wallpost.mail.html.py:5
 #, python-format
@@ -420,7 +471,13 @@ msgid ""
 "<strong>%(author_name)s</strong> left a comment on your message! <a href=\"%(site)s%(link)s\">Read the comment here.</a><br/>\n"
 "<br/>\n"
 "Liane | 1%%Club\n"
-msgstr "\nHi %(receiver_name)s,<br/>\n<br/>\n<strong>%(author_name)s</strong> left a comment on your message! <a href=\"%(site)s%(link)s\">Read the comment here.</a><br/>\n<br/>\n1%%Club\n"
+msgstr ""
+"\n"
+"Hi %(receiver_name)s,<br/>\n"
+"<br/>\n"
+"<strong>%(author_name)s</strong> left a comment on your message! <a href=\"%(site)s%(link)s\">Read the comment here.</a><br/>\n"
+"<br/>\n"
+"1%%Club\n"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/project_wallpost_reaction_same_wallpost.mail.txt.py:5
 #, python-format
@@ -434,7 +491,16 @@ msgid ""
 "%(site)s%(link)s\n"
 "\n"
 "Liane | 1%%Club\n"
-msgstr "\nHi %(receiver_name)s,\n<br/>\n%(author_name)s left a comment on your message!\n<br/>\nRead the comment here:\n%(site)s%(link)s\n<br/>\n1%%Club\n"
+msgstr ""
+"\n"
+"Hi %(receiver_name)s,\n"
+"<br/>\n"
+"%(author_name)s left a comment on your message!\n"
+"<br/>\n"
+"Read the comment here:\n"
+"%(site)s%(link)s\n"
+"<br/>\n"
+"1%%Club\n"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/task_wallpost_new.mail.html.py:5
 #, python-format
@@ -449,7 +515,17 @@ msgid ""
 "See you in a bit!<br/>\n"
 "<br/>\n"
 "Liane | 1%%Club\n"
-msgstr "\nHello %(receiver_name)s,<br/>\n<br/>\n%(author_name)s has left a message on your task page.<br/>\n<br/>\nYou must be curious what! Don't wait any longer and check it <a href=\"%(site)s%(link)s\">here on our website</a>.<br/>\n<br/>\nSee you in a bit!<br/>\n<br/>\n1%%Club\n"
+msgstr ""
+"\n"
+"Hello %(receiver_name)s,<br/>\n"
+"<br/>\n"
+"%(author_name)s has left a message on your task page.<br/>\n"
+"<br/>\n"
+"You must be curious what! Don't wait any longer and check it <a href=\"%(site)s%(link)s\">here on our website</a>.<br/>\n"
+"<br/>\n"
+"See you in a bit!<br/>\n"
+"<br/>\n"
+"1%%Club\n"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/task_wallpost_new.mail.txt.py:5
 #, python-format
@@ -466,7 +542,19 @@ msgid ""
 "See you in a bit!\n"
 "\n"
 "Liane | 1%%Club\n"
-msgstr "\nHello %(receiver_name)s,\n<br/>\n%(author_name)s has left a message on your task page.\n<br/>\nYou must be curious what! Don't wait any longer and check it out here:\n<br/>\n%(site)s%(link)s\n<br/>\nSee you in a bit!\n<br/>\n1%%Club\n"
+msgstr ""
+"\n"
+"Hello %(receiver_name)s,\n"
+"<br/>\n"
+"%(author_name)s has left a message on your task page.\n"
+"<br/>\n"
+"You must be curious what! Don't wait any longer and check it out here:\n"
+"<br/>\n"
+"%(site)s%(link)s\n"
+"<br/>\n"
+"See you in a bit!\n"
+"<br/>\n"
+"1%%Club\n"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/media_wallpost_new.hbs.py:10
 msgid "Post a new update on wall"
@@ -506,12 +594,12 @@ msgstr "member"
 msgid "to leave a reaction"
 msgstr "to leave a reaction"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/system_wallpost.hbs.py:34
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/system_wallpost.hbs.py:32
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/system_wallpost_voucher.hbs.py:23
 msgid "Someone"
 msgstr "Someone"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/system_wallpost.hbs.py:42
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/system_wallpost.hbs.py:40
 msgid "made a donation"
 msgstr "made a donation"
 
@@ -826,7 +914,10 @@ msgid ""
 "\n"
 "                            Send us a message or get in touch using the details below. Talk to you soon!\n"
 "                            "
-msgstr "\nSend us a message or get in touch using the details below. Talk to you soon!\n                            "
+msgstr ""
+"\n"
+"Send us a message or get in touch using the details below. Talk to you soon!\n"
+"                            "
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/contact/templates/contact/base.hbs.py:22
 msgid "Thanks for your message!. We'll get back to you soon"
@@ -871,7 +962,27 @@ msgid ""
 "    Chamber of Commerce number 34.26.78.95<br />\n"
 "    Phone(+31) 20 715 8980<br />\n"
 "</p>\n"
-msgstr "\n<p>\n    Email:<a href=\"mailto:info@onepercentclub.com?subject=Contact\">info@onepercentclub.com</a><br />\n    Twitter:<a href=\"https://twitter.com/1percentclub\">@1percentclub</a><br />\n    Facebook: <a href=\"http://www.facebook.com/onepercentclub\">/onepercentclub</a>\n</p>\n<p>\n    1%%Club Foundation<br />\n    's Gravenhekje 1a<br />\n    1011 TG Amsterdam<br />\n    The Netherlands<br />\n</p>\n<p>\n    Bank: Rabobank (Haarlem)<br />\n    Account number: NL45 RABO 01322070 44(donations)<br />\n    BIC: RABONL2U<br />\n    <br />\n    Chamber of Commerce number 34.26.78.95<br />\n    Phone(+31) 20 715 8980<br />\n</p>\n"
+msgstr ""
+"\n"
+"<p>\n"
+"    Email:<a href=\"mailto:info@onepercentclub.com?subject=Contact\">info@onepercentclub.com</a><br />\n"
+"    Twitter:<a href=\"https://twitter.com/1percentclub\">@1percentclub</a><br />\n"
+"    Facebook: <a href=\"http://www.facebook.com/onepercentclub\">/onepercentclub</a>\n"
+"</p>\n"
+"<p>\n"
+"    1%%Club Foundation<br />\n"
+"    's Gravenhekje 1a<br />\n"
+"    1011 TG Amsterdam<br />\n"
+"    The Netherlands<br />\n"
+"</p>\n"
+"<p>\n"
+"    Bank: Rabobank (Haarlem)<br />\n"
+"    Account number: NL45 RABO 01322070 44(donations)<br />\n"
+"    BIC: RABONL2U<br />\n"
+"    <br />\n"
+"    Chamber of Commerce number 34.26.78.95<br />\n"
+"    Phone(+31) 20 715 8980<br />\n"
+"</p>\n"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/news/models.py:28
 msgid "Main photo"
@@ -926,21 +1037,11 @@ msgstr ""
 #~ msgid "Internal server error"
 #~ msgstr "Internal server error"
 
-#~ msgid ""
-#~ "There was an error while trying to serve the requested page. Please try "
-#~ "again. If the error persists, please contact the webmaster about it. In any "
-#~ "case, we have been notified of this error."
-#~ msgstr ""
-#~ "There was an error while trying to serve the requested page. Please try "
-#~ "again. If the error persists, please contact the webmaster about it. In any "
-#~ "case, we have been notified of this error."
+#~ msgid "There was an error while trying to serve the requested page. Please try again. If the error persists, please contact the webmaster about it. In any case, we have been notified of this error."
+#~ msgstr "There was an error while trying to serve the requested page. Please try again. If the error persists, please contact the webmaster about it. In any case, we have been notified of this error."
 
-#~ msgid ""
-#~ "If you need assistance, you may reference this error as "
-#~ "<strong>%(error_id)s</strong>."
-#~ msgstr ""
-#~ "If you need assistance, you may reference this error as "
-#~ "<strong>%(error_id)s</strong>."
+#~ msgid "If you need assistance, you may reference this error as <strong>%(error_id)s</strong>."
+#~ msgstr "If you need assistance, you may reference this error as <strong>%(error_id)s</strong>."
 
 #~ msgid "What is 1%%"
 #~ msgstr "What is 1%%"
@@ -978,16 +1079,8 @@ msgstr ""
 #~ msgid "Join 1%%Club"
 #~ msgstr "Join 1%%Club"
 
-#~ msgid ""
-#~ "1%%Club is the global crowdfunding and crowdsourcing platform where you can "
-#~ "share a little and change the world, in your very own way. Pick any project "
-#~ "you like, support it with 1%% of your knowledge, money or time and follow "
-#~ "the progress online. "
-#~ msgstr ""
-#~ "1%%Club is the global crowdfunding and crowdsourcing platform where you can "
-#~ "share a little and change the world, in your very own way. Pick any project "
-#~ "you like, support it with 1%% of your knowledge, money or time and follow "
-#~ "the progress online. "
+#~ msgid "1%%Club is the global crowdfunding and crowdsourcing platform where you can share a little and change the world, in your very own way. Pick any project you like, support it with 1%% of your knowledge, money or time and follow the progress online. "
+#~ msgstr "1%%Club is the global crowdfunding and crowdsourcing platform where you can share a little and change the world, in your very own way. Pick any project you like, support it with 1%% of your knowledge, money or time and follow the progress online. "
 
 #~ msgid "Select a project or task"
 #~ msgstr "Select a project or task"
@@ -1097,12 +1190,8 @@ msgstr ""
 #~ msgid "Location"
 #~ msgstr "Location"
 
-#~ msgid ""
-#~ "How much time are you willing to spend your 1%%Skills?<br/>Let us know so we"
-#~ " can provide you with some matching tasks from our projects."
-#~ msgstr ""
-#~ "How much time are you willing to spend your 1%%Skills?<br/>Let us know so we"
-#~ " can provide you with some matching tasks from our projects."
+#~ msgid "How much time are you willing to spend your 1%%Skills?<br/>Let us know so we can provide you with some matching tasks from our projects."
+#~ msgstr "How much time are you willing to spend your 1%%Skills?<br/>Let us know so we can provide you with some matching tasks from our projects."
 
 #~ msgid "Time available"
 #~ msgstr "Time available"
@@ -1119,18 +1208,8 @@ msgstr ""
 #~ msgid "Website"
 #~ msgstr "Website"
 
-#~ msgid ""
-#~ "1%%Club is the global platform where you can share a little and change the "
-#~ "world, in your vary own way. We ignite modern society to share 1%% and "
-#~ "support smart ideas from people in developing countries. We do this in a "
-#~ "new, open way, believing in the power of collaboration boosted by today's "
-#~ "technical possibilities. If we all share a little, we can change the world."
-#~ msgstr ""
-#~ "1%%Club is the global platform where you can share a little and change the "
-#~ "world, in your vary own way. We ignite modern society to share 1%% and "
-#~ "support smart ideas from people in developing countries. We do this in a "
-#~ "new, open way, believing in the power of collaboration boosted by today's "
-#~ "technical possibilities. If we all share a little, we can change the world."
+#~ msgid "1%%Club is the global platform where you can share a little and change the world, in your vary own way. We ignite modern society to share 1%% and support smart ideas from people in developing countries. We do this in a new, open way, believing in the power of collaboration boosted by today's technical possibilities. If we all share a little, we can change the world."
+#~ msgstr "1%%Club is the global platform where you can share a little and change the world, in your vary own way. We ignite modern society to share 1%% and support smart ideas from people in developing countries. We do this in a new, open way, believing in the power of collaboration boosted by today's technical possibilities. If we all share a little, we can change the world."
 
 #~ msgid "Thanks for signing up!"
 #~ msgstr "Thanks for signing up!"
@@ -1184,12 +1263,8 @@ msgstr ""
 #~ msgid "Your activation code will expire in %(expiration_days)s days."
 #~ msgstr "Your activation code will expire in %(expiration_days)s days."
 
-#~ msgid ""
-#~ "If the link isn't working for you please copy and paste this url into your "
-#~ "browser: "
-#~ msgstr ""
-#~ "If the link isn't working for you please copy and paste this url into your "
-#~ "browser: "
+#~ msgid "If the link isn't working for you please copy and paste this url into your browser: "
+#~ msgstr "If the link isn't working for you please copy and paste this url into your browser: "
 
 #~ msgid "Logged out."
 #~ msgstr "Logged out."
