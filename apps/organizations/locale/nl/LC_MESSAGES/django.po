@@ -3,15 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Translators:
 # dokterbob <mathijs@mathijsfietst.nl>, 2012
+# Liane <liane@onepercentclub.com>, 2014
 # nieja <niels@1procentclub.nl>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-02 09:50+0200\n"
-"PO-Revision-Date: 2014-05-02 07:38+0000\n"
-"Last-Translator: gannetson <loek@1procentclub.nl>\n"
+"POT-Creation-Date: 2014-05-14 10:02+0200\n"
+"PO-Revision-Date: 2014-05-13 10:21+0000\n"
+"Last-Translator: Liane <liane@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,363 +31,363 @@ msgstr "Pas aan:"
 msgid "Add:"
 msgstr "Voeg toe:"
 
-#: models.py:29
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:104
+#: models.py:28
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:108
 msgid "organization"
 msgstr "organisatie"
 
-#: models.py:30
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:105
+#: models.py:29
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:109
 msgid "organizations"
 msgstr "organisaties"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:18
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:22
 msgid "Owner"
-msgstr "Eigenaar"
+msgstr "Campaigner"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:19
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:23
 msgid "Editor"
 msgstr "Editor"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:21
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:25
 msgid "user"
 msgstr "gebruiker"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:22
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:26
 msgid "function"
 msgstr "functie"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:26
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:30
 msgid "organization member"
 msgstr "organisatielid"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:27
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:31
 msgid "organization members"
 msgstr "organisatieleden"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:36
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:40
 msgid "author"
 msgstr "auteur"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:40
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:44
 msgid "organization document"
 msgstr "organisatie document"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:41
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:45
 msgid "organization documents"
 msgstr "organisatie documenten"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:54
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:58
 msgid "name"
 msgstr "naam"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:55
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:59
 msgid "slug"
 msgstr "slug"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:57
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:61
 msgid "created"
 msgstr "aangemaakt"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:58
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:62
 msgid "updated"
 msgstr "aangepast"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:59
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:63
 msgid "deleted"
 msgstr "verwijderd"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:61
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:65
 msgid "partner organizations"
 msgstr "partner organisaties"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:72
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:76
 msgid "phone number"
 msgstr "telefoonnummer"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:73
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:77
 msgid "website"
 msgstr "website"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:76
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:80
 msgid "twitter"
 msgstr "Twitter"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:77
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:81
 msgid "facebook"
 msgstr "Facebook"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:78
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:82
 msgid "skype"
 msgstr "Skype"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:80
-msgid "tags"
-msgstr "tags"
-
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:83
-msgid "account holder name"
-msgstr ""
-
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:84
+msgid "tags"
+msgstr "keywords"
+
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:87
+msgid "account holder name"
+msgstr "Naam rekeninghouder"
+
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:88
 msgid "account holder address"
-msgstr ""
+msgstr "Adres rekeninghouder"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:85
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:89
 msgid "account holder postal code"
-msgstr ""
-
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:86
-msgid "account holder city"
-msgstr ""
+msgstr "Postcode "
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:90
+msgid "account holder city"
+msgstr "Plaats"
+
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:94
 msgid "account IBAN"
-msgstr "IBAN rekening"
+msgstr "IBAN nummer"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:91
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:95
 msgid "account SWIFT-BIC"
-msgstr "account SWIFT-BIC"
+msgstr "SWIFT-BIC code"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:92
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:96
 msgid "account number"
 msgstr "Rekeningnummer"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:93
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:97
 msgid "account bank name"
 msgstr "Naam bank"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:94
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:98
 msgid "account bank address"
 msgstr "Plaats bank"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:95
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:99
 msgid "account bank postal code"
-msgstr ""
+msgstr "Postcode bank"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:96
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:100
 msgid "account bank city"
-msgstr ""
+msgstr "Plaats bank "
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:98
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/models.py:102
 msgid "account information that doesn't fit in the other field"
-msgstr "Rekeninginformatie die niet in het andere veld paste"
+msgstr "Rekening informatie die niet in het andere veld paste"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:9
 msgid "Bank details"
-msgstr ""
+msgstr "Bank gegevens "
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:16
 msgid "Organization name"
-msgstr ""
+msgstr "Naam van je organisatie "
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:16
 msgid "Name of your organisation"
-msgstr ""
+msgstr "Naam van je organisatie"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:21
 msgid "Account holder name"
-msgstr ""
+msgstr "Rekeninghouder "
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:21
 msgid "Account holder's full name"
-msgstr ""
+msgstr "Volledige naam van de rekeninghouder"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:23
 msgid "Account holder full address"
-msgstr ""
+msgstr "Adres rekeninghouder"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:23
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:59
 msgid "Street and number"
-msgstr ""
+msgstr "Straat en huisnummer "
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:25
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:61
 msgid "Zipcode"
-msgstr ""
+msgstr "Postcode"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:27
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:63
 msgid "City"
-msgstr ""
+msgstr "Woonplaats"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:45
 msgid "IBAN"
-msgstr ""
+msgstr "IBAN"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:45
 msgid "The IBAN code"
-msgstr ""
+msgstr "IBAN code"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:47
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:55
 msgid "BIC/SWIFT code"
-msgstr ""
+msgstr "BIC/SWIFT code"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:47
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:55
 msgid "addLink4Info"
-msgstr ""
+msgstr "Add link 4 info"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:47
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:55
 msgid "The BIC/SWIFT code contains 8 or 11 characters"
-msgstr ""
+msgstr "De BIC/SWIFT code heeft 8 of 11 karakters"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:53
 msgid "Account Number"
-msgstr ""
+msgstr "Rekeningnummer"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:53
 msgid "Can be found on your bank statement"
-msgstr ""
+msgstr "Is te vinden op je bankafschrift"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:57
 msgid "Bank name"
-msgstr ""
+msgstr "Bank"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:57
 msgid "Your bank's full name"
-msgstr ""
+msgstr "Naam bank"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:59
 msgid "Bank's full address"
-msgstr ""
+msgstr "Adres bank"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:75
 msgid "Extra Info"
-msgstr ""
+msgstr "Extra info"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:75
 msgid "If you have extra info"
-msgstr ""
+msgstr "Als je extra informatie hebt"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:81
 msgid "You should create an organisation profile first."
-msgstr ""
+msgstr "Maak eerst een organisatie profiel aan."
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:8
 msgid "Name"
-msgstr ""
+msgstr "Naam"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:8
 msgid "Name of your partner organisation"
-msgstr ""
+msgstr "Naam van je partner organisatie"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:10
 msgid "Email"
-msgstr ""
+msgstr "E-mail"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:10
 msgid "E-mail of your contact person"
-msgstr ""
+msgstr "E-mail van je contactpersoon"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:12
 msgid "Phone number"
-msgstr ""
+msgstr "Telefoonnummer"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:12
 msgid "Phone number of your contact person"
-msgstr ""
+msgstr "Telefoonnummer van je contactpersoon"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:14
 msgid "Website"
-msgstr ""
+msgstr "Website"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:14
 msgid "Does your partner organization have a website?"
-msgstr ""
+msgstr "Heeft je partner organisatie een website?"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:14
 msgid "http://"
-msgstr ""
+msgstr "http://"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:16
 msgid "Twitter"
-msgstr ""
+msgstr "Twitter"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:16
 msgid "Does your partner organization have a twitter account?"
-msgstr ""
+msgstr "Heeft je partner organisatie een Twitter account?"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:16
 msgid "@twitteraccount"
-msgstr ""
+msgstr "@twitteraccount"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:18
 msgid "Facebook"
-msgstr ""
+msgstr "Facebook"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:18
 msgid "Does your partner organization have a facebook group?"
-msgstr ""
+msgstr "Heeft je organisatie een Facebook groep?"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:18
 msgid "https://www.facebook.com/<groupname>"
-msgstr ""
+msgstr "https://www.facebook.com/<groupname>"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:20
 msgid "Skype"
-msgstr ""
+msgstr "Skype"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:20
 msgid "Can we reach you on Skype?"
-msgstr ""
+msgstr "Kunnen we je bereiken op Skype?"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:20
 msgid "Skype name"
-msgstr ""
+msgstr "Skype naam"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:13
 msgid "Partner organisation"
-msgstr ""
+msgstr "Partner organisatie"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:15
 msgid ""
 "Give us the details about your partner organisation whose sole purpose in "
 "life it is to address the topic that you care about!"
-msgstr ""
+msgstr "Geef ons de details van je partnerorganisatie."
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:22
 msgid "You can import this from a previous campaign: "
-msgstr ""
+msgstr "Je kunt dit importeren van een eerdere campagne:"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:22
 msgid "Import:"
-msgstr ""
+msgstr "Importeer:"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:28
 msgid ""
 "It appears that you already have an (other) organisation. Select it below or"
 " fill out the form to create a new one."
-msgstr ""
+msgstr "Het lijkt alsof je al een (andere) organisatie hebt. Selecteer deze hieronder of maak een nieuwe organisatie aan."
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:51
 msgid "Legal status"
-msgstr ""
+msgstr "Legitimatie"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:52
 msgid ""
 "Upload a document that identifies your contact person or your partner "
 "organisation. The document can be an ID, passport, memorandum of association"
 " or an other official document."
-msgstr ""
+msgstr " Upload een scan of kopie van je paspoort of ID. "
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:58
 msgid ""
 "please upload a copy of your passport. Make sure it's a valid one and we can"
 " read it clearly!"
-msgstr ""
+msgstr "Upload een scan of kopie van je paspoort of ID. "
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:60
 msgid "Partner Passport"
-msgstr ""
+msgstr "Paspoort van partner"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:62
 msgid ".jpg, .png or .pdf"
-msgstr ""
+msgstr ".jpg, .png or .pdf"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:70
 msgid "Upload scan(s)"
-msgstr ""
+msgstr "Upload scan(s)"

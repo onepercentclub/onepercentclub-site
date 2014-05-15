@@ -1,20 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# Translators:
+# nieja <niels@1procentclub.nl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-09 16:00+0200\n"
-"PO-Revision-Date: 2014-05-02 07:49+0000\n"
-"Last-Translator: gannetson <loek@1procentclub.nl>\n"
+"POT-Creation-Date: 2014-05-14 10:02+0200\n"
+"PO-Revision-Date: 2014-05-14 07:15+0000\n"
+"Last-Translator: nieja <niels@1procentclub.nl>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
-"Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: en_GB\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: dashboard.py:9
@@ -24,11 +26,11 @@ msgstr "Recently Created Tasks"
 
 #: dashboard.py:24
 msgid "No recent projects."
-msgstr "No recent projects."
+msgstr "No recent campaings."
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/dashboard.py:17
 msgid "Tasks"
-msgstr ""
+msgstr "Tasks"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/dashboard.py:45
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/my_tasks.hbs.py:28
@@ -43,11 +45,11 @@ msgstr "View all tasks"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/models.py:17
 msgid "english name"
-msgstr "english name"
+msgstr "English name"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/models.py:18
 msgid "dutch name"
-msgstr "dutch name"
+msgstr "Dutch name"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/models.py:19
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/models.py:84
@@ -100,15 +102,15 @@ msgstr "Comment"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/models.py:43
 msgid "Comment by task owner."
-msgstr "Comment by task owner."
+msgstr "Comment by campaigner."
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/models.py:45
 msgid "time spent"
-msgstr ""
+msgstr "time spent"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/models.py:45
 msgid "Time spent executing this task."
-msgstr ""
+msgstr "Time spent executing this task."
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/models.py:47
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/models.py:66
@@ -154,7 +156,7 @@ msgstr "Closed"
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:40
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_preview.hbs.py:39
 msgid "Completed"
-msgstr ""
+msgstr "Completed"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/models.py:83
 msgid "title"
@@ -162,7 +164,7 @@ msgstr "title"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/models.py:85
 msgid "end_goal"
-msgstr ""
+msgstr "end_goal"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/models.py:86
 msgid "location"
@@ -175,11 +177,11 @@ msgstr "people needed"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/models.py:96
 msgid "date status change"
-msgstr ""
+msgstr "date status change"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/models.py:99
 msgid "tags"
-msgstr "tags"
+msgstr "keywords"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/models.py:105
 msgid "time_needed"
@@ -187,7 +189,7 @@ msgstr "time_needed"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/models.py:106
 msgid "Estimated number of hours needed to perform this task."
-msgstr "Estimated number of hours needed to perform this task."
+msgstr "Estimated time to perform this task."
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/models.py:107
 msgid "Skill needed"
@@ -195,15 +197,15 @@ msgstr "Skill needed"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/models.py:111
 msgid "When this task was created?"
-msgstr "When this task was created?"
+msgstr "When was this task created?"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/models.py:118
 msgid "task"
-msgstr ""
+msgstr "task"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/models.py:119
 msgid "tasks"
-msgstr ""
+msgstr "tasks"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/taskmail.py:32
 #, python-format
@@ -223,7 +225,7 @@ msgstr "%(sender)s accepted you to complete the tasks you applied for."
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/taskmail.py:96
 #, python-format
 msgid "Good job! \"%(task)s\" is realized!."
-msgstr ""
+msgstr "Good job! \"%(task)s\" is realised!"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/task_member_accepted.mail.html.py:5
 #, python-format
@@ -243,7 +245,7 @@ msgid ""
 "Good luck!<br/>\n"
 "<br/>\n"
 "%(site_name)s\n"
-msgstr ""
+msgstr "\nHi %(receiver_name)s,<br/>\n<br/>\nWoohoo, you’re the one! The campaigner, %(sender_name)s, assigned the 1%%Task <a href=\"%(site)s%(link)s\">%(task_title)s</a> to you!\n<br/>\nGood luck and please keep us updated about the progress!\n<br/><br/>\nStart right away? Leave a short first reaction!\n<br/><br/>\n<a href=\"%(site)s%(link)s\">Go to task</a>.\n<br/>\n<br/>\nGood luck!<br/>\n<br/>\n%(site_name)s\n"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/task_member_accepted.mail.txt.py:5
 #, python-format
@@ -262,7 +264,7 @@ msgid ""
 "Good luck!\n"
 "\n"
 "%(site_name)s\n"
-msgstr ""
+msgstr "\nHi %(receiver_name)s,\n\nWoohoo, you’re the one! The campaigner, %(sender_name)s, assigned the task to you!\nGood luck and please keep us updated about the progress!\n\nStart right away? Leave a short first reaction!\n\nGo to task: %(site)s%(link)s.\n\nGood luck!\n\n%(site_name)s\n\n"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/task_member_applied.mail.html.py:5
 #, python-format
@@ -282,7 +284,7 @@ msgid ""
 "Good luck!<br/>\n"
 "<br/>\n"
 "%(site_name)s\n"
-msgstr ""
+msgstr "\nHello %(receiver_name)s,<br/>\n<br/>\n%(sender_name)s applied for your task <a href=\"%(site)s%(link)s\">%(task_title)s</a>.<br />\nBe sure to follow this up a.s.a.p.! <br/>\n<br/>\n<a href=\"%(site)s%(link)s\">Go to task</a>.\n<br/>\nAs motivation %(sender_name)s wrote:<br/>\n<br/><br/>\n<i>%(motivation)s</i>\n<br/><br/>\nGood luck!<br/>\n<br/>\n%(site_name)s\n"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/task_member_applied.mail.txt.py:5
 #, python-format
@@ -301,7 +303,7 @@ msgid ""
 "Good luck!\n"
 "\n"
 "%(site_name)s\n"
-msgstr ""
+msgstr "\nHello %(receiver_name)s,\n\n%(sender_name)s applied for your task \"%(task_title)s\".\nBe sure to follow this up a.s.a.p.!\n\nAs motivation %(sender_name)s wrote:\n%(motivation)s\n\nGo to task: %(site)s%(link)s.\n\nGood luck!\n\n%(site_name)s\n"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/task_member_rejected.mail.html.py:5
 #, python-format
@@ -317,7 +319,7 @@ msgid ""
 "Good luck!\n"
 "<br /><br />\n"
 "%(site_name)s\n"
-msgstr ""
+msgstr "\nHi %(receiver_name)s,\n<br /><br />\nUnfortunately the campaigner, %(sender_name)s, found someone else to perform the task '%(task_title)s', which you applied for.\nNo worries, we have some other really cool tasks that might be the perfect match for your skills.\n<br /><br />\nTake a look right here: %(site)s/#!/tasks\n<br /><br />\nGood luck!\n<br /><br />\n%(site_name)s\n"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/task_member_rejected.mail.txt.py:5
 #, python-format
@@ -333,7 +335,7 @@ msgid ""
 "Good luck!\n"
 "\n"
 "%(site_name)s\n"
-msgstr ""
+msgstr "\nHi %(receiver_name)s,\n\nUnfortunately the campaigner, %(sender_name)s, found someone else to perform the task '%(task_title)s', which you applied for.\nNo worries, we have some other really cool tasks that might be the perfect match for your skills.\n\nTake a look right here: %(site)s/#!/tasks\n\nGood luck!\n\n%(site_name)s\n"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/task_realized.mail.html.py:5
 #, python-format
@@ -351,7 +353,7 @@ msgid ""
 "Thank you!<br/>\n"
 "<br/>\n"
 "%(site.name)s\n"
-msgstr ""
+msgstr "\nHi %(receiver_name)s,<br/>\n<br/>\nGreat job! The campaigner, %(sender_name)s, has marked the task <a href=\"%(site)s%(link)s\">%(task_title)s</a> as realised. \n<br/>\nYou can add a short comment!\n<br/><br/>\n<a href=\"%(site)s%(link)s\">Go to the %(site_name)s Task</a>.\n<br/>\n<br/>\nThank you!<br/>\n<br/>\n%(site.name)s\n"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/task_realized.mail.txt.py:5
 #, python-format
@@ -368,12 +370,12 @@ msgid ""
 "Thank you!\n"
 "\n"
 "%(site.name)s\n"
-msgstr ""
+msgstr "\nHi %(receiver_name)s,\n\nGreat jobt! The project campaigner, %(sender_name)s, has marked the task \"%(task_title)s\" as realized. \n\nYou can still add a short comment!\n\nGo to %(site)s%(link)s\n\nThank you!\n\n%(site.name)s\n"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/my_tasks.hbs.py:13
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:12
 msgid "Task"
-msgstr ""
+msgstr "Task"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/my_tasks.hbs.py:15
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_activity.hbs.py:71
@@ -383,15 +385,15 @@ msgstr "Status"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/my_tasks.hbs.py:17
 msgid "Time spent (in hours)"
-msgstr ""
+msgstr "Time spent (in hours)"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/my_tasks.hbs.py:32
 msgid "Loading your tasks..."
-msgstr ""
+msgstr "Loading your tasks..."
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/project_tasks.hbs.py:85
 msgid "You're the project owner"
-msgstr "You're the project owner"
+msgstr "You're the campaigner"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/project_tasks.hbs.py:86
 msgid "You can add a new task"
@@ -403,27 +405,27 @@ msgstr "Add a task"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/project_tasks.hbs.py:100
 msgid "No tasks currently available for this project"
-msgstr "No tasks currently available for this project"
+msgstr "No tasks currently available for this campaign."
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:23
 msgid "For project"
-msgstr ""
+msgstr "For campaign"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:30
 msgid "Goal"
-msgstr ""
+msgstr "Goal"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:35
 msgid "Read more"
-msgstr ""
+msgstr "Read more"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:45
 msgid "Edit"
-msgstr ""
+msgstr "Edit"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:76
 msgid "Deadline passed"
-msgstr ""
+msgstr "Deadline passed"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:81
 msgid "No deadline"
@@ -431,23 +433,23 @@ msgstr "No deadline"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:101
 msgid "person needed"
-msgstr ""
+msgstr "person needed"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:104
 msgid "accepted"
-msgstr ""
+msgstr "accepted"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:124
 msgid "Initiator"
-msgstr ""
+msgstr "Initiator"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:135
 msgid "Assigned"
-msgstr ""
+msgstr "Assigned"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:172
 msgid "Edit task"
-msgstr ""
+msgstr "Edit task"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:178
 msgid "Apply for task"
@@ -455,11 +457,11 @@ msgstr "Apply for task"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_activity.hbs.py:8
 msgid "Files"
-msgstr ""
+msgstr "Files"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_activity.hbs.py:44
 msgid "Add file"
-msgstr ""
+msgstr "Add file"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_activity.hbs.py:50
 msgid "Task members"
@@ -467,15 +469,15 @@ msgstr "Task members"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_activity.hbs.py:88
 msgid "Accept"
-msgstr ""
+msgstr "Accept"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_activity.hbs.py:90
 msgid "Application pending..."
-msgstr ""
+msgstr "Application pending..."
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_activity.hbs.py:95
 msgid "Edit status"
-msgstr ""
+msgstr "Edit status"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:12
 msgid "Edit current task"
@@ -484,7 +486,7 @@ msgstr "Edit current task"
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:13
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_new.hbs.py:13
 msgid "For campaign:"
-msgstr ""
+msgstr "For campaign:"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:17
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_new.hbs.py:17
@@ -499,22 +501,22 @@ msgstr "Description"
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:50
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_new.hbs.py:19
 msgid "What do you need? Give a clear description of the task"
-msgstr ""
+msgstr "What do you need? Give a clear description of the task."
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:52
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_new.hbs.py:21
 msgid "Deliverable"
-msgstr ""
+msgstr "Deliverable"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:52
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_new.hbs.py:21
 msgid "What do you expect to have in the end?"
-msgstr ""
+msgstr "What do you expect to have in the end?"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:54
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_new.hbs.py:23
 msgid "People needed"
-msgstr ""
+msgstr "People needed"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:56
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_new.hbs.py:25
@@ -529,7 +531,7 @@ msgstr "Location"
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:58
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_new.hbs.py:27
 msgid "Can this be done online or on location?"
-msgstr ""
+msgstr "Can this be done online or on location?"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:63
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_new.hbs.py:31
@@ -544,7 +546,7 @@ msgstr "Skill"
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:93
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_new.hbs.py:57
 msgid "Tags"
-msgstr "Tags"
+msgstr "Keywords"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:105
 msgid "Save Task"
@@ -586,8 +588,12 @@ msgid "Reject"
 msgstr "Reject"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_member_apply.hbs.py:8
-msgid "Before you apply for this task, make sure that you can actually take the day off. Follow the standard procedure for this Booking.com Cares day, the same procedure as if you were taking a holiday. Are you sure you are available? Then share you motivation to do this task with the project initiator below!"
-msgstr ""
+msgid ""
+"Before you apply for this task, make sure that you can actually take the day"
+" off. Follow the standard procedure for this Booking.com Cares day, the same"
+" procedure as if you were taking a holiday. Are you sure you are available? "
+"Then share you motivation to do this task with the project initiator below!"
+msgstr "Before you apply for this task, make sure that you can actually take the day off. Follow the standard procedure for this Booking.com Cares day, the same procedure as if you were taking a holiday. Are you sure you are available? Then share you motivation to do this task with the project initiator below!"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_new.hbs.py:12
 msgid "Create new task"
@@ -595,7 +601,7 @@ msgstr "Create new task"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_new.hbs.py:17
 msgid "Be creative! And eh&hellip; avoid the word \"help"
-msgstr ""
+msgstr "Be creative! And avoid the word \"help''"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_new.hbs.py:70
 msgid "Create Task"
@@ -631,16 +637,16 @@ msgstr "Showing"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_summary.hbs.py:12
 msgid "Members"
-msgstr ""
+msgstr "People"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_summary.hbs.py:12
 msgid "assigned"
-msgstr ""
+msgstr "assigned"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_summary.hbs.py:15
 msgid "Task open to apply"
-msgstr ""
+msgstr "Task open to apply"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_summary.hbs.py:22
 msgid "Hour(s)"
-msgstr ""
+msgstr "Hour(s)"

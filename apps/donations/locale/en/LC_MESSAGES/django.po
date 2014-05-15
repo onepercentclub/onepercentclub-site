@@ -1,22 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
+# Translators:
 # Translators:
 # Translators:
 # Malou <malou@onepercentclub.com>, 2014
+# nieja <niels@1procentclub.nl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-09 16:00+0200\n"
-"PO-Revision-Date: 2014-05-09 13:33+0000\n"
-"Last-Translator: Malou <malou@onepercentclub.com>\n"
+"POT-Creation-Date: 2014-05-14 10:02+0200\n"
+"PO-Revision-Date: 2014-05-14 08:03+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
-"Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: en_GB\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: mails.py:81
@@ -42,16 +44,7 @@ msgid ""
 "<br/>\n"
 "Cheers,<br/>\n"
 "1%%Club\n"
-msgstr ""
-"\n"
-"Hello,<br/>\n"
-"<br/>\n"
-"You just received a EUR %(amount)s donation from %(donor_name)s!<br/>\n"
-"<br/>\n"
-"Quickly thank your supporter by posting a personal message on your <a href=\"%(site)s%(link)s\">campaign wall</a>.<br/>\n"
-"<br/>\n"
-"Cheers,<br/>\n"
-"1%%Club\n"
+msgstr "\nHello,<br/>\n<br/>\nYou just received a EUR %(amount)s donation from %(donor_name)s!<br/>\n<br/>\nQuickly thank your supporter by posting a personal message on your <a href=\"%(site)s%(link)s\">campaign wall</a>.<br/>\n<br/>\nCheers,<br/>\n1%%Club\n"
 
 #: templates/new_oneoff_donation.mail.txt:2
 #, python-format
@@ -65,16 +58,7 @@ msgid ""
 "\n"
 "Cheers,\n"
 "1%%Club\n"
-msgstr ""
-"\n"
-"Hello,\n"
-"\n"
-"You just received a EUR %(amount)s donation from %(donor_name)s!\n"
-"\n"
-"Quickly thank your supporter by posting a personal message on your campaign wall: %(site)s%(link)s.\n"
-"\n"
-"Cheers,\n"
-"1%%Club\n"
+msgstr "\nHello,\n\nYou just received a EUR %(amount)s donation from %(donor_name)s!\n\nQuickly thank your supporter by posting a personal message on your campaign wall: %(site)s%(link)s.\n\nCheers,\n1%%Club\n"
 
 #: templates/new_oneoff_donation_fundraiser.mail.html:5
 #, python-format
@@ -88,16 +72,7 @@ msgid ""
 "<br/>\n"
 "Cheers,<br/>\n"
 "1%%Club\n"
-msgstr ""
-"\n"
-"Hello,<br/>\n"
-"<br/>\n"
-"You just received a EUR %(amount)s donation from %(donor_name)s!<br/>\n"
-"<br/>\n"
-"Quickly thank your supporter by posting a personal message on your <a href=\"%(site)s%(link)s\">fundraiser wall</a>.<br/>\n"
-"<br/>\n"
-"Cheers,<br/>\n"
-"1%%Club\n"
+msgstr "\nHello,<br/>\n<br/>\nYou just received a EUR %(amount)s donation from %(donor_name)s!<br/>\n<br/>\nQuickly thank your supporter by posting a personal message on your <a href=\"%(site)s%(link)s\">fundraiser wall</a>.<br/>\n<br/>\nCheers,<br/>\n1%%Club\n"
 
 #: templates/new_oneoff_donation_fundraiser.mail.txt:2
 #, python-format
@@ -111,16 +86,7 @@ msgid ""
 "\n"
 "Cheers,\n"
 "1%%Club\n"
-msgstr ""
-"\n"
-"Hello,\n"
-"<br/>\n"
-"You just received a EUR %(amount)s donation from %(donor_name)s!\n"
-"<br/>\n"
-"Quickly thank your supporter by posting a personal message on your fundraiser wall: %(site)s%(link)s.\n"
-"<br/>\n"
-"Cheers, <br/>\n"
-"1%%Club\n"
+msgstr "\nHello,\n<br/>\nYou just received a EUR %(amount)s donation from %(donor_name)s!\n<br/>\nQuickly thank your supporter by posting a personal message on your fundraiser wall: %(site)s%(link)s.\n<br/>\nCheers, <br/>\n1%%Club\n"
 
 #: templates/donations/monthly_donation.hbs:18
 #: templates/donations/user_monthly_projects.hbs:74
@@ -138,21 +104,14 @@ msgid "No projects found."
 msgstr "No campaigns found."
 
 #: templates/donations/monthly_project_preview.hbs:23
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:101
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/choices.py:18
-#: /home/gannetson/Projects/onepercentclub-site/apps/cowry/models.py:10
-msgid "New"
-msgstr "New"
+msgid "of"
+msgstr ""
 
 #: templates/donations/monthly_project_preview.hbs:23
-msgid "Smart Idea"
-msgstr "Smart Idea"
+msgid "raised"
+msgstr ""
 
-#: templates/donations/monthly_project_preview.hbs:29
-msgid "To go"
-msgstr "To go"
-
-#: templates/donations/monthly_project_preview.hbs:32
+#: templates/donations/monthly_project_preview.hbs:24
 msgid "days"
 msgstr "days"
 
@@ -305,27 +264,7 @@ msgid ""
 "</p>\n"
 "<p>We will send you an email every month to update you what project(s) received your 1%% support!</p>\n"
 "                "
-msgstr ""
-"\n"
-"<p>Do you like to support campaign(s) regularly on 1%%Club? But are you too busy to select a new project each time again?</p>\n"
-"<p>No worries! Just set a monthly donation.</p>\n"
-"\n"
-"<p>\n"
-"    There are two ways:\n"
-"    <ol>\n"
-"        <li>\n"
-"            <h3>Top 3 Campaigns</h3>\n"
-"            Follow the 'wisdom of the crowd' and donate to the 3 campaign that are most successful that month. And give them an extra boost!\n"
-"        </li>\n"
-"        <li>\n"
-"            <h3>Pick your own campaign(s)</h3>\n"
-"            Select one or more campaigns yourself that you want to support every month. You can adjust your support all the time, as you like.\n"
-"        </li>\n"
-"\n"
-"    </ol>\n"
-"</p>\n"
-"<p>We will send you an email every month to update you what campaign(s) received your 1%%Support!</p>\n"
-"                "
+msgstr "\n<p>Do you like to support campaign(s) regularly on 1%%Club? But are you too busy to select a new project each time again?</p>\n<p>No worries! Just set a monthly donation.</p>\n\n<p>\n    There are two ways:\n    <ol>\n        <li>\n            <h3>Top 3 Campaigns</h3>\n            Follow the 'wisdom of the crowd' and donate to the 3 campaign that are most successful that month. And give them an extra boost!\n        </li>\n        <li>\n            <h3>Pick your own campaign(s)</h3>\n            Select one or more campaigns yourself that you want to support every month. You can adjust your support all the time, as you like.\n        </li>\n\n    </ol>\n</p>\n<p>We will send you an email every month to update you what campaign(s) received your 1%%Support!</p>\n                "
 
 #: templates/donations/user_monthly_projects.hbs:35
 msgid "Yes, I want to set a monthly donation"
@@ -449,6 +388,12 @@ msgstr "Updated"
 #: /home/gannetson/Projects/onepercentclub-site/apps/cowry/models.py:26
 msgid "amount"
 msgstr "amount"
+
+#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:101
+#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/choices.py:18
+#: /home/gannetson/Projects/onepercentclub-site/apps/cowry/models.py:10
+msgid "New"
+msgstr "New"
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:102
 msgid "In progress"
@@ -609,7 +554,9 @@ msgid "Can only Recurring Donations to a Recurring Order."
 msgstr "Can only Recurring Donations to a Recurring Order."
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/fund/serializers.py:139
-msgid "Can only Recurring Donations to an active Recurring Order (status recurring)."
+msgid ""
+"Can only Recurring Donations to an active Recurring Order (status "
+"recurring)."
 msgstr "Can only Recurring Donations to an active Recurring Order (status recurring)."
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/fund/serializers.py:169
@@ -693,7 +640,8 @@ msgid "Choose a project to support"
 msgstr "Choose a campaign to support"
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/current_order_donation_list.hbs.py:16
-msgid "Choose a project and click 'Support this project' to add it to your list"
+msgid ""
+"Choose a project and click 'Support this project' to add it to your list"
 msgstr "Choose a campaign and click 'Support this campaign' to add it to your list"
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/current_order_donation_list.hbs.py:32
@@ -718,7 +666,9 @@ msgid "Well, you rock!"
 msgstr "Well, you rock!"
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:16
-msgid "Why not share the project with your friends, and encourage them to support as well?"
+msgid ""
+"Why not share the project with your friends, and encourage them to support "
+"as well?"
 msgstr "Why not share the campaign with your friends, and encourage them to support as well?"
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:17
@@ -736,15 +686,19 @@ msgid "You just supported this project"
 msgstr "You just supported this campaign"
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:36
-msgid "Thank you for supporting these projects below. With your support we come one step closer realizing the project."
-msgstr "Thank you for supporting these campaigns below. With your support we come one step closer realizing the campaign."
+msgid ""
+"Thank you for supporting these projects below. With your support we come one"
+" step closer realizing the project."
+msgstr "Thank you for supporting the following campaign(s). With your support we come one step closer realising the campaign(s)."
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:49
 msgid "Want to do more?"
 msgstr "Want to do more?"
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:50
-msgid "You can easily support projects monthly. Just pick a project yourself or you can leave that up to us."
+msgid ""
+"You can easily support projects monthly. Just pick a project yourself or you"
+" can leave that up to us."
 msgstr "You can easily support campaigns monthly. Just pick a campaign yourself or you can leave that up to us."
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:51
@@ -756,7 +710,9 @@ msgid "Stay updated"
 msgstr "Stay updated"
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:54
-msgid "We’d love to keep you updated on the progress of the projects you just supported. Sign up and receive updates, and our everlasting love."
+msgid ""
+"We’d love to keep you updated on the progress of the projects you just "
+"supported. Sign up and receive updates, and our everlasting love."
 msgstr "We’d love to keep you updated on the progress of the campaign(s) you just supported. Sign up and receive updates, and our everlasting love."
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:55
@@ -812,7 +768,9 @@ msgstr "You're almost there!"
 #: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:12
 #: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:48
 #: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:75
-msgid "We'll redirect you through our payment provider where you can finish your donation securely."
+msgid ""
+"We'll redirect you through our payment provider where you can finish your "
+"donation securely."
 msgstr "We'll redirect you through our payment provider where you can finish your donation securely."
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:47
@@ -837,7 +795,9 @@ msgid "We'll keep you up to date!"
 msgstr "We'll keep you up to date!"
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:10
-msgid "You already have an account. Great! We'll keep you updated with the progress of the projects you support"
+msgid ""
+"You already have an account. Great! We'll keep you updated with the progress"
+" of the projects you support"
 msgstr "You already have an account. Great! We'll keep you updated with the progress of the campaigns you support."
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:15
@@ -849,7 +809,8 @@ msgid "Follow the progress?"
 msgstr "Follow the progress?"
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:30
-msgid "Sign up for an account and we keep you updated on the projects progress"
+msgid ""
+"Sign up for an account and we keep you updated on the projects progress"
 msgstr "Sign up for an account and we keep you updated on the campaigns progress"
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:53
@@ -871,7 +832,9 @@ msgid "1%%Club Terms of service"
 msgstr "1%%Club Terms of service"
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:11
-msgid "Add or edit your bank account information and submit to set your monthly donations."
+msgid ""
+"Add or edit your bank account information and submit to set your monthly "
+"donations."
 msgstr "Add or edit your bank account information and submit to set your monthly donations."
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:48
@@ -895,7 +858,9 @@ msgstr "Your monthly donation"
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:70
 #, python-format
-msgid "Thank you 1%%Friend! You're about to set your monthly donation amount to &euro;"
+msgid ""
+"Thank you 1%%Friend! You're about to set your monthly donation amount to "
+"&euro;"
 msgstr "Thank you 1%%Friend! You're about to set your monthly donation amount to &euro;"
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:14
@@ -908,10 +873,7 @@ msgid ""
 "\n"
 "\t\t\t\t\t\t\tThanks for your support! Your 1%% has brought them one step closer to realise their smart idea! Don't forget to tune in to see how they're doing!\n"
 "\t\t\t\t\t\t"
-msgstr ""
-"\n"
-"\t\t\t\t\t\t\tThanks for your support! Your 1%% has brought them one step closer to realise their smart idea! Don't forget to tune in to see how they're doing!\n"
-"\t\t\t\t\t\t"
+msgstr "\n\t\t\t\t\t\t\tThanks for your support! Your 1%% has brought them one step closer to realise their smart idea! Don't forget to tune in to see how they're doing!\n\t\t\t\t\t\t"
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:20
 #, python-format
@@ -919,10 +881,7 @@ msgid ""
 "\n"
 "\t\t\t\t\t\t\tThanks for your support! We'd be happy to keep you posted on the progress of the project(s) you supported. Why? Because it's a fun and personal way to see what's happening with your 1%%. Sounds good? Just become a 1%%Member!\n"
 "\t\t\t\t\t\t"
-msgstr ""
-"\n"
-"\t\t\t\t\t\t\tThanks for your support! We'd be happy to keep you posted on the progress of the project(s) you supported. Why? Because it's a fun and personal way to see what's happening with your 1%%. Sounds good? Just become a 1%%Member!\n"
-"\t\t\t\t\t\t"
+msgstr "\n\t\t\t\t\t\t\tThanks for your support! We'd be happy to keep you posted on the progress of the project(s) you supported. Why? Because it's a fun and personal way to see what's happening with your 1%%. Sounds good? Just become a 1%%Member!\n\t\t\t\t\t\t"
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:23
 #, python-format
@@ -946,7 +905,9 @@ msgid "Your monthly donation is set"
 msgstr "Your monthly donation is set"
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:79
-msgid "Your monthly donation will be deducted from your account at the beginning of each month."
+msgid ""
+"Your monthly donation will be deducted from your account at the beginning of"
+" each month."
 msgstr "Your monthly donation will be deducted from your account at the beginning of each month."
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:81
@@ -1071,7 +1032,9 @@ msgid "Completed"
 msgstr "Completed"
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:72
-msgid "Book date when the bank transaction was confirmed and the payout has been set to completed."
+msgid ""
+"Book date when the bank transaction was confirmed and the payout has been "
+"set to completed."
 msgstr "Book date when the bank transaction was confirmed and the payout has been set to completed."
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:85
@@ -1126,7 +1089,9 @@ msgstr "new status"
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:182
 #, python-format
-msgid "Status change of '%(payout)s' on %(date)s from %(old_status)s to %(new_status)s"
+msgid ""
+"Status change of '%(payout)s' on %(date)s from %(old_status)s to "
+"%(new_status)s"
 msgstr "Status change of '%(payout)s' on %(date)s from %(old_status)s to %(new_status)s"
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:200
@@ -1194,7 +1159,8 @@ msgid "other costs excluding VAT"
 msgstr "other costs excluding VAT"
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:447
-msgid "Set either this value or inclusive VAT, make sure recalculate afterwards."
+msgid ""
+"Set either this value or inclusive VAT, make sure recalculate afterwards."
 msgstr "Set either this value or inclusive VAT, make sure recalculate afterwards."
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:451
@@ -1206,7 +1172,8 @@ msgid "other costs including VAT"
 msgstr "other costs including VAT"
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:455
-msgid "Set either this value or exclusive VAT, make sure recalculate afterwards."
+msgid ""
+"Set either this value or exclusive VAT, make sure recalculate afterwards."
 msgstr "Set either this value or exclusive VAT, make sure recalculate afterwards."
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:459
@@ -1226,7 +1193,9 @@ msgid "Start date should be earlier than date."
 msgstr "Start date should be earlier than date."
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:596
-msgid "The next payout period should start the day after the end of the previous period."
+msgid ""
+"The next payout period should start the day after the end of the previous "
+"period."
 msgstr "The next payout period should start the day after the end of the previous period."
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:619
@@ -1301,3 +1270,9 @@ msgstr "payment id"
 #: /home/gannetson/Projects/onepercentclub-site/apps/cowry_docdata/models.py:106
 msgid "DocData Payment Log"
 msgstr "DocData Payment Log"
+
+#~ msgid "Smart Idea"
+#~ msgstr "Smart Idea"
+
+#~ msgid "To go"
+#~ msgstr "To go"

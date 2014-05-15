@@ -23,7 +23,7 @@
     <fieldset>
         <ul>
 
-            {% bb_component 'bb-date-picker-slider' undertext=_('We recommend that campaigns last 30 days or less.') valueBinding='deadline' name='deadline' label=_('Campaign duration') errorsBinding='errors.deadline' minDate="'+7d'" maxDate="'+100d'" %}
+            {% bb_component 'bb-date-picker-slider' hint=_('We recommend that campaigns last 30 days or less.') valueBinding='deadline' name='deadline' label=_('Campaign duration') errorsBinding='errors.deadline' minDate="'+7d'" maxDate="'+100d'" %}
         </ul>
     </fieldset>
 

@@ -4,14 +4,16 @@
 # 
 # Translators:
 # Translators:
+# Translators:
 # Malou <malou@onepercentclub.com>, 2014
+# nieja <niels@1procentclub.nl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-08 07:57+0200\n"
-"PO-Revision-Date: 2014-05-09 13:33+0000\n"
-"Last-Translator: Malou <malou@onepercentclub.com>\n"
+"POT-Creation-Date: 2014-05-14 10:02+0200\n"
+"PO-Revision-Date: 2014-05-14 08:03+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -102,21 +104,14 @@ msgid "No projects found."
 msgstr "No campaigns found."
 
 #: templates/donations/monthly_project_preview.hbs:23
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:101
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/choices.py:18
-#: /home/gannetson/Projects/onepercentclub-site/apps/cowry/models.py:10
-msgid "New"
-msgstr "New"
+msgid "of"
+msgstr ""
 
 #: templates/donations/monthly_project_preview.hbs:23
-msgid "Smart Idea"
-msgstr "Smart Idea"
+msgid "raised"
+msgstr ""
 
-#: templates/donations/monthly_project_preview.hbs:29
-msgid "To go"
-msgstr "To go"
-
-#: templates/donations/monthly_project_preview.hbs:32
+#: templates/donations/monthly_project_preview.hbs:24
 msgid "days"
 msgstr "days"
 
@@ -393,6 +388,12 @@ msgstr "Updated"
 #: /home/gannetson/Projects/onepercentclub-site/apps/cowry/models.py:26
 msgid "amount"
 msgstr "amount"
+
+#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:101
+#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/choices.py:18
+#: /home/gannetson/Projects/onepercentclub-site/apps/cowry/models.py:10
+msgid "New"
+msgstr "New"
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:102
 msgid "In progress"
@@ -688,7 +689,7 @@ msgstr "You just supported this campaign"
 msgid ""
 "Thank you for supporting these projects below. With your support we come one"
 " step closer realizing the project."
-msgstr "Thank you for supporting these campaigns below. With your support we come one step closer realizing the campaign."
+msgstr "Thank you for supporting the following campaign(s). With your support we come one step closer realising the campaign(s)."
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:49
 msgid "Want to do more?"
@@ -1269,3 +1270,9 @@ msgstr "payment id"
 #: /home/gannetson/Projects/onepercentclub-site/apps/cowry_docdata/models.py:106
 msgid "DocData Payment Log"
 msgstr "DocData Payment Log"
+
+#~ msgid "Smart Idea"
+#~ msgstr "Smart Idea"
+
+#~ msgid "To go"
+#~ msgstr "To go"
