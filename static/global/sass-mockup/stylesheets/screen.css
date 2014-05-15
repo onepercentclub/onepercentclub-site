@@ -211,7 +211,7 @@ html, body, #site {
 /* line 6, ../sass/_home.scss */
 h1 {
   color: #ff619a;
-  font-size: 2.5em;
+  font-size: 36px;
   font-family: "L Futura W01", "Trebuchet MS", Helvetica, Arial, sans-serif;
   font-weight: 900;
 }
@@ -238,9 +238,10 @@ a.btn {
   border-radius: 8px;
   color: white;
   font-family: "L Futura W01", "Trebuchet MS", Helvetica, Arial, sans-serif;
+  font-weight: 700;
 }
 
-/* line 34, ../sass/_home.scss */
+/* line 35, ../sass/_home.scss */
 input {
   line-height: 30px;
   border-radius: 6px;
@@ -248,14 +249,14 @@ input {
   border: solid 1px #ccc;
 }
 
-/* line 41, ../sass/_home.scss */
+/* line 42, ../sass/_home.scss */
 #main {
   min-height: 100%;
   margin-bottom: -232px;
   padding-bottom: 2em;
 }
 
-/* line 47, ../sass/_home.scss */
+/* line 48, ../sass/_home.scss */
 .l-wrapper {
   position: relative;
   min-width: 400px;
@@ -264,24 +265,24 @@ input {
   height: 100%;
 }
 
-/* line 55, ../sass/_home.scss */
+/* line 56, ../sass/_home.scss */
 .l-section {
   width: 100%;
   min-width: 400px;
   max-width: 100%;
 }
 
-/* line 61, ../sass/_home.scss */
+/* line 62, ../sass/_home.scss */
 .section-header {
   padding: 1em 0 0.5em 0;
   text-align: center;
 }
-/* line 64, ../sass/_home.scss */
+/* line 65, ../sass/_home.scss */
 .section-header.more-space {
   padding: 5em 0 2.5em 0;
 }
 
-/* line 70, ../sass/_home.scss */
+/* line 71, ../sass/_home.scss */
 #header {
   position: fixed;
   top: 0;
@@ -292,28 +293,28 @@ input {
   box-shadow: 0 1px 0 rgba(65, 65, 65, 0.1);
   z-index: 5;
 }
-/* line 79, ../sass/_home.scss */
+/* line 80, ../sass/_home.scss */
 #header #logo {
   float: left;
   width: 10.41667%;
 }
-/* line 82, ../sass/_home.scss */
+/* line 83, ../sass/_home.scss */
 #header #logo .logo-link {
   display: block;
   padding: 1.2em 0 0 0;
 }
-/* line 85, ../sass/_home.scss */
+/* line 86, ../sass/_home.scss */
 #header #logo .logo-link .logo-image {
   height: 40px;
   width: 125px;
 }
-/* line 92, ../sass/_home.scss */
+/* line 93, ../sass/_home.scss */
 #header #nav {
   padding: 2.2em 0 0 0;
   font-family: "L Futura W01", "Trebuchet MS", Helvetica, Arial, sans-serif;
   font-weight: 700;
 }
-/* line 96, ../sass/_home.scss */
+/* line 97, ../sass/_home.scss */
 #header #nav .nav-main {
   float: left;
   width: 40%;
@@ -321,110 +322,97 @@ input {
   margin-right: 0%;
   text-align: left;
 }
-/* line 102, ../sass/_home.scss */
+/* line 103, ../sass/_home.scss */
 #header #nav .nav-main .nav-main-item {
   display: inline;
   margin-right: 3.9em;
   color: #3c3c3c;
 }
-/* line 108, ../sass/_home.scss */
+/* line 109, ../sass/_home.scss */
 #header #nav .nav-actions {
   float: right;
   width: 31.25%;
   color: white;
   text-align: right;
 }
-/* line 113, ../sass/_home.scss */
+/* line 114, ../sass/_home.scss */
 #header #nav .nav-actions li {
   display: inline;
   color: #00c051;
 }
-/* line 117, ../sass/_home.scss */
+/* line 118, ../sass/_home.scss */
 #header #nav .nav-actions .nav-signup {
   margin-right: 3em;
 }
-/* line 120, ../sass/_home.scss */
+/* line 121, ../sass/_home.scss */
 #header #nav .nav-actions .nav-search .nav-search-holder {
   position: relative;
   display: inherit;
   float: left;
   margin-top: -10px;
 }
-/* line 125, ../sass/_home.scss */
+/* line 126, ../sass/_home.scss */
 #header #nav .nav-actions .nav-search .nav-search-holder .nav-search-glass {
   position: absolute;
   top: 11px;
   left: 11px;
 }
 
-/* line 137, ../sass/_home.scss */
+/* line 138, ../sass/_home.scss */
 .home-carousel {
   width: 100%;
   background: #f5f4f6;
+  font-family: "L Futura W01", "Trebuchet MS", Helvetica, Arial, sans-serif;
 }
-/* line 140, ../sass/_home.scss */
+/* line 142, ../sass/_home.scss */
 .home-carousel ul {
   margin-top: 80px;
 }
-/* line 142, ../sass/_home.scss */
+/* line 144, ../sass/_home.scss */
 .home-carousel ul li {
   height: 506px;
   overflow: hidden;
 }
-/* line 145, ../sass/_home.scss */
+/* line 147, ../sass/_home.scss */
 .home-carousel ul li header {
   position: relative;
   width: 50%;
   margin: auto;
   padding-top: 20px;
 }
-/* line 150, ../sass/_home.scss */
+/* line 152, ../sass/_home.scss */
 .home-carousel ul li header h1 {
   position: absolute;
-  top: 50px;
+  top: 20px;
 }
-/* line 155, ../sass/_home.scss */
-.home-carousel ul li .home-carousel-play {
+/* line 157, ../sass/_home.scss */
+.home-carousel ul li .home-carousel-btn {
   position: absolute;
-  top: 168px;
+  top: 208px;
   left: 0;
   right: 0;
   margin: auto;
-  width: 16.333333%;
-  min-width: 194px;
-}
-/* line 163, ../sass/_home.scss */
-.home-carousel ul li .home-carousel-play .carousel-play-svg {
-  height: 55px;
-  float: left;
-  display: inline-block;
-}
-/* line 168, ../sass/_home.scss */
-.home-carousel ul li .home-carousel-play .carousel-play-text {
-  height: 55px;
-  float: right;
-  display: inline-block;
-  padding: 4px;
-  line-height: 22px;
-  font-family: "L Futura W01", "Trebuchet MS", Helvetica, Arial, sans-serif;
-  font-weight: 700;
-  text-align: left;
-}
-/* line 178, ../sass/_home.scss */
-.home-carousel ul li .home-carousel-play a {
-  position: absolute;
   width: 100%;
-  height: 100%;
-  background: transparent;
-  right: 4px;
+  text-align: center;
 }
-/* line 186, ../sass/_home.scss */
+/* line 166, ../sass/_home.scss */
+.home-carousel ul li .home-carousel-content {
+  position: absolute;
+  top: 118px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 50%;
+  text-align: center;
+  font-size: 1.4em;
+}
+/* line 176, ../sass/_home.scss */
 .home-carousel ul li .home-carousel-body {
   width: 100%;
   height: 100%;
   background: #f5f4f6;
 }
-/* line 193, ../sass/_home.scss */
+/* line 183, ../sass/_home.scss */
 .home-carousel .home-carousel-nav {
   position: absolute;
   bottom: 20px;
@@ -434,7 +422,7 @@ input {
   width: 100%;
   text-align: center;
 }
-/* line 201, ../sass/_home.scss */
+/* line 191, ../sass/_home.scss */
 .home-carousel .home-carousel-nav span {
   display: inline-block;
   height: 15px;
@@ -443,12 +431,12 @@ input {
   background: rgba(255, 255, 255, 0.7);
   border: solid 1px white;
 }
-/* line 208, ../sass/_home.scss */
+/* line 198, ../sass/_home.scss */
 .home-carousel .home-carousel-nav span.is-active {
   background: white;
 }
 
-/* line 216, ../sass/_home.scss */
+/* line 206, ../sass/_home.scss */
 .all-campaigns {
   float: right;
   margin: -17px 45px;
@@ -456,17 +444,17 @@ input {
   color: #d8d8d8;
   font-size: 1em;
 }
-/* line 222, ../sass/_home.scss */
+/* line 212, ../sass/_home.scss */
 .all-campaigns:after {
   content: "\2192";
   margin-left: 7px;
 }
 
-/* line 229, ../sass/_home.scss */
+/* line 219, ../sass/_home.scss */
 #campaigns {
   background-color: white;
 }
-/* line 231, ../sass/_home.scss */
+/* line 221, ../sass/_home.scss */
 #campaigns .campaign-container {
   font-family: "L Futura W01", "Trebuchet MS", Helvetica, Arial, sans-serif;
   padding: 0;
@@ -480,7 +468,7 @@ input {
   -webkit-flex-flow: row wrap;
   justify-content: space-around;
 }
-/* line 247, ../sass/_home.scss */
+/* line 237, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item {
   position: relative;
   width: 250px;
@@ -489,7 +477,7 @@ input {
   padding: 7px;
   border-radius: 0 0 6px 6px;
 }
-/* line 254, ../sass/_home.scss */
+/* line 244, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item .campaign-item-holder {
   position: relative;
   width: 100%;
@@ -498,7 +486,7 @@ input {
   border-radius: 0 0 6px 6px;
   border: solid 1px #d8d8d8;
 }
-/* line 261, ../sass/_home.scss */
+/* line 251, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item .campaign-item-holder .header {
   position: absolute;
   overflow: hidden;
@@ -511,12 +499,12 @@ input {
   -o-transition: opacity 0.2s ease-in-out;
   transition: opacity 0.2s ease-in-out;
 }
-/* line 269, ../sass/_home.scss */
+/* line 259, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item .campaign-item-holder .header img {
   width: 100%;
   position: relative;
 }
-/* line 273, ../sass/_home.scss */
+/* line 263, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item .campaign-item-holder .header:before {
   position: absolute;
   top: 45%;
@@ -529,7 +517,7 @@ input {
   font-size: .7em;
   color: #f5f4f6;
 }
-/* line 286, ../sass/_home.scss */
+/* line 276, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item .campaign-item-holder .profile-photo {
   display: inline-block;
   position: absolute;
@@ -548,11 +536,11 @@ input {
   -o-transition: top 0.2s ease-in-out;
   transition: top 0.2s ease-in-out;
 }
-/* line 300, ../sass/_home.scss */
+/* line 290, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item .campaign-item-holder .profile-photo img {
   width: 100%;
 }
-/* line 304, ../sass/_home.scss */
+/* line 294, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item .campaign-item-holder .campaign-hover {
   position: absolute;
   height: 57%;
@@ -569,7 +557,7 @@ input {
   -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
-/* line 316, ../sass/_home.scss */
+/* line 306, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item .campaign-item-holder .campaign-hover .campaign-hover-head {
   margin: auto;
   margin-top: 55px;
@@ -578,7 +566,7 @@ input {
   text-align: center;
   padding-bottom: 10px;
 }
-/* line 323, ../sass/_home.scss */
+/* line 313, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item .campaign-item-holder .campaign-hover .campaign-hover-head strong {
   display: inline-block;
   margin: auto;
@@ -586,35 +574,35 @@ input {
   font-weight: 800;
   font-size: 16px;
 }
-/* line 331, ../sass/_home.scss */
+/* line 321, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item .campaign-item-holder .campaign-hover .campaign-hover-body {
   min-height: 190px;
   font-size: 14px;
   line-height: 18px;
   color: #8a9993;
 }
-/* line 338, ../sass/_home.scss */
+/* line 328, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item .campaign-item-holder .campaign-hover p span {
   display: block;
   padding: 15px 12px 15px 12px;
 }
-/* line 342, ../sass/_home.scss */
+/* line 332, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item .campaign-item-holder .campaign-hover p .go-to-campaign {
   display: block;
   text-align: center;
   font-size: 14px;
   color: #ff619a;
 }
-/* line 347, ../sass/_home.scss */
+/* line 337, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item .campaign-item-holder .campaign-hover p .go-to-campaign:after {
   content: "\2192";
   margin-left: 7px;
 }
-/* line 352, ../sass/_home.scss */
+/* line 342, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item .campaign-item-holder .campaign-hover p:not(:last-child) {
   border-bottom: solid 1px #d8d8d8;
 }
-/* line 358, ../sass/_home.scss */
+/* line 348, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item .campaign-body {
   position: absolute;
   left: 0;
@@ -627,7 +615,7 @@ input {
   -o-transition: top 0.2s ease-in-out;
   transition: top 0.2s ease-in-out;
 }
-/* line 366, ../sass/_home.scss */
+/* line 356, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item .campaign-body .profile-name {
   display: block;
   color: #8a9993;
@@ -638,12 +626,12 @@ input {
   -o-transition: opacity 0.2s ease-in-out;
   transition: opacity 0.2s ease-in-out;
 }
-/* line 372, ../sass/_home.scss */
+/* line 362, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item .campaign-body .profile-name strong {
   font-size: 16px;
   color: #00c051;
 }
-/* line 377, ../sass/_home.scss */
+/* line 367, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item .campaign-body .campaign-body-names {
   display: block;
   width: 90%;
@@ -653,7 +641,7 @@ input {
   font-size: 13px;
   font-weight: 800;
 }
-/* line 387, ../sass/_home.scss */
+/* line 377, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item .campaign-footer {
   position: absolute;
   left: 0;
@@ -667,31 +655,31 @@ input {
   -o-transition: all 0.1s ease-in-out;
   transition: all 0.1s ease-in-out;
 }
-/* line 396, ../sass/_home.scss */
+/* line 386, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item .campaign-footer .campaign-fund-amount {
   color: #8a9993;
   font-size: .8em;
 }
-/* line 399, ../sass/_home.scss */
+/* line 389, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item .campaign-footer .campaign-fund-amount .amount-raised {
   float: left;
 }
-/* line 402, ../sass/_home.scss */
+/* line 392, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item .campaign-footer .campaign-fund-amount .days-left {
   float: right;
 }
-/* line 405, ../sass/_home.scss */
+/* line 395, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item .campaign-footer .campaign-fund-amount strong {
   font-weight: 800;
 }
-/* line 408, ../sass/_home.scss */
+/* line 398, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item .campaign-footer .campaign-fund-amount .fully-funded {
   display: block;
   width: 100%;
   text-align: center;
   color: #ff619a;
 }
-/* line 415, ../sass/_home.scss */
+/* line 405, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item .campaign-footer .campaign-fund-amount-slider {
   display: block;
   overflow: hidden;
@@ -700,7 +688,7 @@ input {
   background-color: transparent;
   border: solid 1px #00c051;
 }
-/* line 422, ../sass/_home.scss */
+/* line 412, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item .campaign-footer .campaign-fund-amount-slider .slider-progress {
   position: relative;
   display: block;
@@ -712,43 +700,43 @@ input {
   line-height: .7em;
   height: .7em;
 }
-/* line 433, ../sass/_home.scss */
+/* line 423, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item .campaign-footer .campaign-fund-amount-slider.is-funded {
   border-color: #ff619a;
 }
-/* line 435, ../sass/_home.scss */
+/* line 425, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item .campaign-footer .campaign-fund-amount-slider.is-funded .slider-progress {
   background-color: #ff619a;
 }
-/* line 444, ../sass/_home.scss */
+/* line 434, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item:hover .campaign-item-holder .header {
   opacity: 0;
 }
-/* line 447, ../sass/_home.scss */
+/* line 437, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item:hover .campaign-item-holder .profile-photo {
   top: -30px;
 }
-/* line 450, ../sass/_home.scss */
+/* line 440, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item:hover .campaign-item-holder .campaign-body {
   top: 20px;
   z-index: 4;
 }
-/* line 453, ../sass/_home.scss */
+/* line 443, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item:hover .campaign-item-holder .campaign-body .campaign-body-names {
   opacity: 0;
 }
-/* line 457, ../sass/_home.scss */
+/* line 447, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item:hover .campaign-item-holder .campaign-footer {
   opacity: 0;
   bottom: -4px;
 }
-/* line 461, ../sass/_home.scss */
+/* line 451, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item:hover .campaign-item-holder .campaign-hover {
   visibility: visible;
   opacity: 1;
   height: 100%;
 }
-/* line 468, ../sass/_home.scss */
+/* line 458, ../sass/_home.scss */
 #campaigns .campaign-container .campaign-item a.campaign-href {
   position: absolute;
   left: 0;
@@ -759,19 +747,19 @@ input {
   height: 100%;
 }
 
-/* line 482, ../sass/_home.scss */
+/* line 472, ../sass/_home.scss */
 #categories {
   background-color: white;
   padding-bottom: 70px;
 }
-/* line 485, ../sass/_home.scss */
+/* line 475, ../sass/_home.scss */
 #categories .tag-container {
   margin: auto;
   width: 90%;
   text-align: center;
   font-family: "L Futura W01", "Trebuchet MS", Helvetica, Arial, sans-serif;
 }
-/* line 490, ../sass/_home.scss */
+/* line 480, ../sass/_home.scss */
 #categories .tag-container .tag-item {
   display: inline-block;
   width: auto;
@@ -786,29 +774,29 @@ input {
   -o-transition: all 0.1s ease-in-out;
   transition: all 0.1s ease-in-out;
 }
-/* line 500, ../sass/_home.scss */
+/* line 490, ../sass/_home.scss */
 #categories .tag-container .tag-item:hover {
   background-color: #00c051;
   color: #f5f4f6;
 }
-/* line 505, ../sass/_home.scss */
+/* line 495, ../sass/_home.scss */
 #categories .tag-container .tag-browse-all {
   display: inherit;
   margin-top: 50px;
   color: #8a9993;
 }
-/* line 509, ../sass/_home.scss */
+/* line 499, ../sass/_home.scss */
 #categories .tag-container .tag-browse-all:after {
   content: "\2192";
   margin-left: 7px;
 }
 
-/* line 518, ../sass/_home.scss */
+/* line 508, ../sass/_home.scss */
 .tools-container {
   margin-top: 50px;
   background-color: #f5f4f6;
 }
-/* line 523, ../sass/_home.scss */
+/* line 513, ../sass/_home.scss */
 .tools-container .l-wrapper .tools-row {
   width: 100%;
   margin: auto;
@@ -816,26 +804,26 @@ input {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 528, ../sass/_home.scss */
+/* line 518, ../sass/_home.scss */
 .tools-container .l-wrapper .tools-row.small {
   max-width: 600px;
 }
-/* line 531, ../sass/_home.scss */
+/* line 521, ../sass/_home.scss */
 .tools-container .l-wrapper .tools-row .tools {
   font-family: "L Futura W01", "Trebuchet MS", Helvetica, Arial, sans-serif;
   color: #8a9993;
   width: 50%;
   min-height: 100px;
 }
-/* line 536, ../sass/_home.scss */
+/* line 526, ../sass/_home.scss */
 .tools-container .l-wrapper .tools-row .tools.left {
   float: left;
 }
-/* line 539, ../sass/_home.scss */
+/* line 529, ../sass/_home.scss */
 .tools-container .l-wrapper .tools-row .tools.right {
   float: right;
 }
-/* line 542, ../sass/_home.scss */
+/* line 532, ../sass/_home.scss */
 .tools-container .l-wrapper .tools-row .tools .icon {
   display: block;
   float: left;
@@ -844,31 +832,31 @@ input {
   height: 75px;
   margin-right: 20px;
 }
-/* line 550, ../sass/_home.scss */
+/* line 540, ../sass/_home.scss */
 .tools-container .l-wrapper .tools-row .tools .content {
   display: block;
   width: 90%;
   min-height: 80px;
 }
-/* line 555, ../sass/_home.scss */
+/* line 545, ../sass/_home.scss */
 .tools-container .l-wrapper .tools-row .tools strong {
   font-weight: 700;
 }
 
-/* line 564, ../sass/_home.scss */
+/* line 554, ../sass/_home.scss */
 #crowdfunded {
   position: relative;
   height: 750px;
   z-index: 2;
   overflow: hidden;
 }
-/* line 569, ../sass/_home.scss */
+/* line 559, ../sass/_home.scss */
 #crowdfunded .crowdfunded-container {
   height: 800px;
   width: 120%;
   margin: -70px;
 }
-/* line 574, ../sass/_home.scss */
+/* line 564, ../sass/_home.scss */
 #crowdfunded .crowdfunded-overlay {
   position: absolute;
   left: 0;
@@ -881,14 +869,14 @@ input {
   background-image: -o-linear-gradient(rgba(65, 65, 65, 0.7), rgba(0, 0, 0, 0.9));
   background-image: linear-gradient(rgba(65, 65, 65, 0.7), rgba(0, 0, 0, 0.9));
 }
-/* line 582, ../sass/_home.scss */
+/* line 572, ../sass/_home.scss */
 #crowdfunded .crowdfunded-tagline {
   position: absolute;
   top: 15%;
   right: 0;
   left: 0;
 }
-/* line 587, ../sass/_home.scss */
+/* line 577, ../sass/_home.scss */
 #crowdfunded .crowdfunded-tagline header {
   margin: auto;
   font-size: 2em;
@@ -896,33 +884,33 @@ input {
   text-align: center;
   line-height: 93px;
 }
-/* line 593, ../sass/_home.scss */
+/* line 583, ../sass/_home.scss */
 #crowdfunded .crowdfunded-tagline header h2 {
   color: white;
 }
-/* line 595, ../sass/_home.scss */
+/* line 585, ../sass/_home.scss */
 #crowdfunded .crowdfunded-tagline header h2 strong {
   font-weight: 700;
 }
-/* line 600, ../sass/_home.scss */
+/* line 590, ../sass/_home.scss */
 #crowdfunded .crowdfunded-tagline .join-us {
   margin-top: 5em;
   text-align: center;
 }
-/* line 605, ../sass/_home.scss */
+/* line 595, ../sass/_home.scss */
 #crowdfunded img {
   z-index: 1;
   border: solid 1px black;
   float: left;
 }
 
-/* line 613, ../sass/_home.scss */
+/* line 603, ../sass/_home.scss */
 #partner-logos {
   background-color: #f5f4f6;
   padding-bottom: 70px;
 }
 
-/* line 619, ../sass/_home.scss */
+/* line 609, ../sass/_home.scss */
 .quote-carousel {
   position: relative;
   margin: auto;
@@ -935,54 +923,54 @@ input {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 629, ../sass/_home.scss */
+/* line 619, ../sass/_home.scss */
 .quote-carousel .quote-carousel-content {
   float: left;
   padding: 0 6em 0 6em;
   margin: auto;
 }
-/* line 633, ../sass/_home.scss */
+/* line 623, ../sass/_home.scss */
 .quote-carousel .quote-carousel-content .carousel-photo {
   float: left;
   width: 100px;
   height: 100px;
 }
-/* line 637, ../sass/_home.scss */
+/* line 627, ../sass/_home.scss */
 .quote-carousel .quote-carousel-content .carousel-photo img {
   background-color: #8a9993;
 }
-/* line 641, ../sass/_home.scss */
+/* line 631, ../sass/_home.scss */
 .quote-carousel .quote-carousel-content .carousel-quote {
   float: left;
   color: #00c051;
   line-height: 32px;
   margin: 1.2em 0 0 2em;
 }
-/* line 646, ../sass/_home.scss */
+/* line 636, ../sass/_home.scss */
 .quote-carousel .quote-carousel-content .carousel-quote strong {
   display: inherit;
   font-size: 20px;
   font-weight: 700;
 }
-/* line 651, ../sass/_home.scss */
+/* line 641, ../sass/_home.scss */
 .quote-carousel .quote-carousel-content .carousel-quote small {
   color: #8a9993;
 }
-/* line 656, ../sass/_home.scss */
+/* line 646, ../sass/_home.scss */
 .quote-carousel .carousel-nav {
   position: absolute;
   top: 0;
   width: 40px;
   height: 100%;
 }
-/* line 661, ../sass/_home.scss */
+/* line 651, ../sass/_home.scss */
 .quote-carousel .carousel-nav.left {
   left: 40px;
   margin: auto;
   text-align: center;
   padding-top: 60px;
 }
-/* line 667, ../sass/_home.scss */
+/* line 657, ../sass/_home.scss */
 .quote-carousel .carousel-nav.right {
   right: 40px;
   margin: auto;
@@ -1015,37 +1003,37 @@ html, body {
   height: 600px;
 }
 
-/* line 678, ../sass/_home.scss */
+/* line 668, ../sass/_home.scss */
 #footer {
   color: #f5f4f6;
   font-family: "L Futura W01", "Trebuchet MS", Helvetica, Arial, sans-serif;
 }
-/* line 681, ../sass/_home.scss */
+/* line 671, ../sass/_home.scss */
 #footer #footer-links {
   height: 400px;
   background-color: #3c3c3c;
 }
-/* line 684, ../sass/_home.scss */
+/* line 674, ../sass/_home.scss */
 #footer #footer-links #nav {
   height: 120px;
   padding-top: 60px;
   line-height: 25px;
 }
-/* line 688, ../sass/_home.scss */
+/* line 678, ../sass/_home.scss */
 #footer #footer-links #nav h3 {
   color: #f5f4f6;
   font-weight: 700;
 }
-/* line 692, ../sass/_home.scss */
+/* line 682, ../sass/_home.scss */
 #footer #footer-links #nav a {
   color: #8a9993;
 }
-/* line 698, ../sass/_home.scss */
+/* line 688, ../sass/_home.scss */
 #footer #footer-contact {
   height: 80px;
   background-color: #00c051;
 }
-/* line 702, ../sass/_home.scss */
+/* line 692, ../sass/_home.scss */
 #footer #footer-copyright {
   height: 120px;
   background-color: white;

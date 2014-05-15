@@ -5,7 +5,7 @@ html, body, #site {
 
 h1 {
 	color: $color-secondary;
-	font-size: 2.5em;
+	font-size: 36px;
 	font-family: $font-family-bold;
 	font-weight: 900;
 }
@@ -28,6 +28,7 @@ a {
 		border-radius: 8px;
 		color: white;
 		font-family: $font-family-bold;
+		font-weight: 700;
 	}
 }
 
@@ -137,6 +138,7 @@ input {
 .home-carousel {
 	width: 100%;
 	background: $gray-light;
+	font-family: $font-family-bold;
 	ul {
 		margin-top: 80px;
 		li {
@@ -149,39 +151,27 @@ input {
 				padding-top: 20px;
 				h1 {
 					position: absolute;
-					top: 50px;
+					top: 20px;
 				}
 			}
-			.home-carousel-play {
+			.home-carousel-btn {
 				position: absolute;
-				top: 168px;
+				top: 208px;
 				left: 0;
 				right: 0;
 				margin: auto;
-				width: 16.333333%;
-				min-width: 194px;
-				.carousel-play-svg {
-					height: 55px;
-					float: left;
-					display: inline-block;
-				}
-				.carousel-play-text {
-					height: 55px;
-					float: right;
-					display: inline-block;
-					padding: 4px;
-					line-height: 22px;
-					font-family: $font-family-bold;
-					font-weight: 700;
-					text-align: left;
-				}
-				a {
-					position: absolute;
-					width: 100%;
-					height: 100%;
-					background: transparent;
-					right: 4px;
-				}
+				width: 100%;
+				text-align: center;
+			}
+			.home-carousel-content {
+				position: absolute;
+				top: 118px;
+				left: 0;
+				right: 0;
+				margin: auto;
+				width: 50%;
+				text-align: center;
+				font-size: 1.4em;
 			}
 			.home-carousel-body {
 				width: 100%;
