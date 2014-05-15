@@ -26,3 +26,4 @@ preferred_syntax = :scss
 
 sass_options = {:debug_info=>true} # by Compass.app
 
+add_import_path "../../env/src/bluebottle/bluebottle/common/static/sass"

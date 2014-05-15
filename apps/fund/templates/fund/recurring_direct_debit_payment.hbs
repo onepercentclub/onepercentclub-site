@@ -1,0 +1,73 @@
+{% load i18n bb_ember static %}
+
+
+{% tplhandlebars "recurringDirectDebitPayment" %}
+<div class="l-content">
+	<form>
+	    <fieldset>
+
+    		<legend>
+    	    	<strong>{% trans "You're almost there!" %}</strong>
+    	        <p>{% trans "Add or edit your bank account information and submit to set your monthly donations." %}</p>
+    	    </legend>
+
+	        <ul>
+	            <li class="control-group">
+	                <label class="control-label">{% trans "Account Name" %}</label>
+	                <div class="controls">
+	                    {{view Em.TextField valueBinding="name" placeholder="Full name as it appears on your bank account" classBinding="errors.name.length:error"}}
+	                </div>
+	                {{#if errors.name }}
+	                    <div class="has-errors">{{#each errors.name }}<p>{{this}}</p>{{/each}}</div>
+	                {{/if}}
+	            </li>
+
+	            <li class="control-group">
+	                <label class="control-label">{% trans "Account City" %}</label>
+	                <div class="controls">
+	                    {{view Em.TextField valueBinding="city" placeholder="City registered on your bank account" classBinding="errors.city.length:error"}}
+	                </div>
+	                {{#if errors.city }}
+	                    <div class="has-errors">{{#each errors.city }}<p>{{this}}</p>{{/each}}</div>
+	                {{/if}}
+	            </li>
+
+	            <li class="control-group">
+	                <label class="control-label">{% trans "Account Number" %}</label>
+	                <div class="controls">
+	                    {{view Em.TextField valueBinding="account" placeholder="Your bank account number" classBinding="errors.account.length:error"}}
+	                </div>
+	                {{#if errors.account }}
+	                    <div class="has-errors">{{#each errors.account }}<p>{{this}}</p>{{/each}}</div>
+	                {{/if}}
+	            </li>
+	        </ul>
+
+	        <p class="control-group agree">
+                <small class="controls">
+                    {% blocktrans %}By clicking submit, I authorize 1%Club to withdraw money every month.{% endblocktrans %}
+                </small>
+            </p>
+
+	    </fieldset>
+
+	    {{#if isFormReady }}
+	        {{#if paymentInProgress }}
+		        <div class="is-loading-small"><img src="{% get_static_prefix %}images/loading.gif" /> <strong>{% trans "Updating monthly donation&#8230;" %}</strong></div>
+		        <button disabled class="btn btn-primary btn-iconed btn-submit"><span class="flaticon solid right-2"></span>{% trans "Submit" %}</button>
+	        {{else}}
+	            <button class="btn btn-primary btn-iconed btn-submit"><span class="flaticon solid right-2"></span>{% trans "Submit" %}</button>
+	        {{/if}}
+	    {{else}}
+	        <button disabled class="btn btn-iconed btn-submit"><span class="flaticon solid right-2"></span>{% trans "Submit" %}</button>
+	    {{/if}}
+
+	</form>
+</div>
+
+<div class="l-sidebar">
+	<h3>{% trans "Your monthly donation" %}</h3>
+	<p>{% blocktrans %}Thank you 1%Friend! You're about to set your monthly donation amount to &euro;{% endblocktrans %} {{controllers.currentOrderDonationList.recurringTotal}}</p>
+</div>
+
+{% endtplhandlebars %}

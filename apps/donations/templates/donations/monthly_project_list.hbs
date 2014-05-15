@@ -1,0 +1,16 @@
+{% load i18n bb_ember static %}
+
+{% tplhandlebars "monthlyProjectList" %}
+    {{render "monthlyProjectSearchForm" }}
+    <article>
+        <header>
+            <ul id="search-results">
+                {{#each project in model}}
+                    {{render "monthlyProjectPreview" project}}
+                {{else}}
+                    <li class="no-results">{% trans "No projects found." %}</li>
+                {{/each}}
+            </ul>
+            </header>
+    </article>
+{% endtplhandlebars %}

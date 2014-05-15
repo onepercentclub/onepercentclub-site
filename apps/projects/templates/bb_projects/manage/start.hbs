@@ -1,0 +1,71 @@
+{% load bb_ember %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "my_project_start" %}
+
+        <h1 class="page-title">{% trans "Start your campaign" %}</h1>
+        <br />
+        <p>
+            <strong>
+                {% blocktrans %}
+                Do you have a world changing idea? An idea to tackle a waste problem in your neighborhood, an idea to use tech innovations to improve local health care? You came to the right place! 1%Club offers you the platform to mobilize your network and raise funds in the most exciting and efficient way.
+                {% endblocktrans %}
+
+            </strong>
+        </p>
+        <h3>{% trans "Any preconditions? Only a couple…" %}</h3>
+        {% blocktrans %}
+        <ul>
+            <li>
+                your campaign creates a better world
+            </li>
+            <li>
+                you can explain to your supporters what the money will be spend on
+            </li>
+        </ul>
+        {% endblocktrans %}
+        <h5>{% trans "And you:" %}</h5>
+        {% blocktrans %}
+        <ul>
+            <li>
+               want to activate your network!
+            </li>
+        </ul>
+        {% endblocktrans %}
+        <div class="well">
+            <div class="campaign-campaigner l-half">
+                <h3>{% trans "Profile campaigner" %}</h3>
+                <p>{% trans "Update your profile so people know who is the campaigner" %}</p>
+                {{#if controllers.currentUser.isAuthenticated}}
+                    <figure class="campaigner-avatar">
+                        <img {{bindAttr src="controllers.currentUser.getAvatar" alt="controllers.currentUser.full_name"}}>
+                    </figure>
+                    <div class="campaigner-details">
+                        <h4 class="campaigner-name">{{ controllers.currentUser.full_name }}</h4>
+
+                        {{#link-to "userProfile" classNames="btn btn-modest"}}
+                            <span class="flaticon solid pencil-3"></span>
+                            {% trans "Edit" %}
+                        {{/link-to}}
+
+                    </div>
+                {{else}}
+                    <p>{% trans "No user Logged, sign in to start and create your project." %}</p>
+                {{/if}}
+            </div>
+
+            <div class="l-half">
+                <h5>{% trans "Join our amazing campaigners" %}</h5><br />
+                {{#link-to 'myProject.pitch' tagName='button' class="btn btn-primary btn-block"}}
+                    {% trans "Start your campaign" %}
+                {{/link-to}}
+            </div>
+        </div>
+        <p class="clearfix">
+            {% blocktrans %}
+                Read more about our tools, service fees and other useful tips <a href="/#!/pages/faq-projects">HERE</a>! See you online soon…
+            {% endblocktrans %}
+        </p>
+
+{% endtplhandlebars %}

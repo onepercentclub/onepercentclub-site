@@ -1,0 +1,69 @@
+#project-detail {
+    
+    .project-status {
+        @include clear;
+        padding: $base-padding/4 0;
+    }
+    
+    .project-days-left {
+        @include grid(12,1,1);
+    	color: $gray-light;
+    	margin-top: $base-margin/2;
+    	
+    	strong {
+    	    font-size: 2em;
+    	    
+    	    em {
+        	    font-size: 0.5em;
+        	    font-family: $base-font-family;
+            }
+    	}
+    }
+    
+    .project-fund {
+        @include grid(14,1,1);
+    }
+
+    .project-fund-amount {
+        .amount-donated {
+            font-size: $base-font-size * 1.5;
+        }
+
+    }
+
+    .project-meta {
+        @include grid(28,0,0);
+        .project-location {
+            @include grid(20,0,2);
+        }
+        .project-theme {
+            @include grid(28,0,2);
+        }
+    }
+
+    .project-share {
+        @include grid(20,0,0);
+    }
+}
+
+#project-members {
+    .member-list {
+        @include grid(48,1,1);
+        .member-initiator {
+            @include grid(14,0,1);
+        }
+    }
+}
+
+#task-list {
+    .task-preview {
+        overflow: hidden;
+        height: 90px;
+        .task-member-status {
+            padding: (1.20 * $base-padding) $base-padding;
+        }
+        .task-arrow {
+            padding: ($base-padding * 0.80) 0;   
+        }
+    }
+}

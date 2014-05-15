@@ -1,0 +1,45 @@
+{% load i18n bb_ember static %}
+
+
+{% tplhandlebars "currentOrderDonation" %}
+
+    {{#if fundraiser}}
+        {{#linkTo 'fundRaiser' fundraiser class="project-header fundraiser" }}
+            <figure class="project-image">
+                <img {{bindAttr src="fundraiser.image.square" alt="fundraiser.title"}} />
+            </figure>
+            <h2 class="fundraiser-title">{{ fundraiser.title }}</h2><br />
+            <h3 class="fundraiser-subtitle">
+                <em>{{ fundraiser.owner.full_name }} {% trans "Fund-racing for" %}</em> {{ project.title }}
+            </h3>
+        {{/linkTo}}
+    {{else}}
+        {{#linkTo 'project' project class="project-header" }}
+            <figure class="project-image">
+                <img {{bindAttr src="project.image.square" alt="project.title"}} />
+            </figure>
+            <h2 class="project-title">
+                {{ project.title }}
+                <em class="project-location">
+                    <span class="flaticon solid location-pin-1"></span> {{ project.country.name }}
+                </em>
+            </h2>
+        {{/linkTo}}
+    {{/if}}
+
+    <div class="fund-amount">
+        <strong class="fund-amount-needed">&euro; {{ project.amount_needed }}</strong> {% trans "is still needed"%}
+        <div class="fund-amount-control">
+            {{#each error in errors.amount}}
+                <span class="has-errors">{{ error }}</span>
+            {{/each}}
+            <label for="fund-amount-1">{% trans "I'd like to give" %}</label>
+            <span class="currency"><em>&euro; </em>
+                <input type="number" class="fund-amount-input" id="fund-amount-1" step="5" name="fund-amount-1" size="8" maxlength="4" {{bindAttr value="amount"}} />
+            </span>
+        </div>
+    </div>
+
+    <a {{ action "deleteDonation" target="view" }} class="manage-delete"><span class="flaticon solid x-2"></span> <strong>{% trans "Delete" %}</strong></a>
+
+{% endtplhandlebars %}

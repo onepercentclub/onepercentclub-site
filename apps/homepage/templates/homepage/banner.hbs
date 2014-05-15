@@ -1,0 +1,48 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+
+{% tplhandlebars "home_banner" %}
+
+	<div class="l-section home-carousel">
+		<section class="carousel">
+			<ul>
+			{{#each slides }}
+		        <li class="carousel-item" {{bindAttr id=style}}>
+		        	<div class="l-wrapper">
+		                {{#if video}}
+							<div class="l-half carousel-video">
+	                			<div class="video">{{{video}}}</div>
+							</div>
+						{{/if}}
+
+                    	<article class="l-half carousel-content">
+				            <h1>{{ title }}</h1>
+				            <p>{{{ body }}}</p>
+				            {{#if link_text }}
+				                <a class="btn btn-primary" {{bindAttr href="link_url" }}>{{link_text}}</a>
+				            {{/if}}
+				        </article>
+
+		        	</div>
+
+		        	<div class="carousel-image"></div>
+		        </li>
+		    {{/each }}
+			</ul>
+
+	        <div class="l-section carousel-nav-section">
+	            <div class="l-wrapper">
+	                <ol class="carousel-nav l-full">
+	                    {{#each slides}}
+	                        <li {{bindAttr class=":carousel-nav-item isFirst:is-active" }}>{{ tab_text }}</li>
+	                    {{/each }}
+	                </ol>
+	            </div>
+	        </div>
+        </section>
+	</div>
+
+{% endtplhandlebars %}
+

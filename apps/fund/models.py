@@ -1,12 +1,10 @@
 import logging
 import random
-from apps.vouchers.models import VoucherStatuses
 
 from django.conf import settings
 from django.db import models
-from django.db.models.signals import post_save, post_delete
+from django.db.models.signals import post_save, post_delete, pre_save
 from django.contrib.contenttypes.models import ContentType
-from django.dispatch import receiver
 from django.utils import translation
 from django.utils import timezone
 from django.utils.translation import ugettext as _
@@ -14,16 +12,27 @@ from django_extensions.db.fields import ModificationDateTimeField, CreationDateT
 from django_iban.fields import IBANField, SWIFTBICField
 from djchoices import DjangoChoices, ChoiceItem
 
+from babel.dates import format_date
+from django.contrib.sites.models import Site
+from django.core.mail import EmailMultiAlternatives
+from django.dispatch.dispatcher import receiver
+from django.template.loader import get_template
+from django.template import Context
+from celery import task
+
+from apps.mail import send_mail
+
 from babel.numbers import format_currency
 from registration.signals import user_activated
-
-from bluebottle.accounts.models import BlueBottleUser
 
 from apps.cowry.models import PaymentStatuses, Payment
 from apps.cowry.signals import payment_status_changed
 from apps.cowry_docdata.models import DocDataPaymentOrder
-
+from apps.vouchers.models import VoucherStatuses
+from django.contrib.auth import get_user_model
 from .fields import DutchBankAccountField
+
+USER_MODEL = get_user_model()
 
 
 logger = logging.getLogger(__name__)
@@ -69,7 +78,7 @@ class RecurringDirectDebitPayment(models.Model):
                                          active_status)
 
 
-@receiver(post_save, weak=False, sender=BlueBottleUser)
+@receiver(post_save, weak=False, sender=USER_MODEL)
 def cancel_recurring_payment_user_soft_delete(sender, instance, created, **kwargs):
     if created:
         return
@@ -80,7 +89,7 @@ def cancel_recurring_payment_user_soft_delete(sender, instance, created, **kwarg
         recurring_payment.save()
 
 
-@receiver(post_delete, weak=False, sender=BlueBottleUser)
+@receiver(post_delete, weak=False, sender=USER_MODEL)
 def cancel_recurring_payment_user_delete(sender, instance, **kwargs):
 
     if hasattr(instance, 'recurringdirectdebitpayment'):
@@ -116,7 +125,7 @@ class Donation(models.Model):
 
     # User is just a cache of the order user.
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("User"), null=True, blank=True)
-    project = models.ForeignKey('projects.Project', verbose_name=_("Project"))
+    project = models.ForeignKey(settings.PROJECTS_PROJECT_MODEL, verbose_name=_("Project"))
     fundraiser = models.ForeignKey('fundraisers.FundRaiser', verbose_name=_("fund raiser"), null=True, blank=True)
 
     status = models.CharField(_("Status"), max_length=20, choices=DonationStatuses.choices, default=DonationStatuses.new, db_index=True)
@@ -457,7 +466,7 @@ def link_anonymous_donations(sender, user, request, **kwargs):
     """
     dd_orders = DocDataPaymentOrder.objects.filter(email=user.email).all()
 
-    from apps.wallposts.models import SystemWallPost
+    from bluebottle.wallposts.models import SystemWallPost
 
     wallposts = None
     for dd_order in dd_orders:
@@ -483,3 +492,107 @@ def link_anonymous_donations(sender, user, request, **kwargs):
 
 # On account activation try to connect anonymous donations to this  fails.
 user_activated.connect(link_anonymous_donations)
+
+
+@task
+def mail_monthly_donation_processed_notification(recurring_payment, recurring_order):
+    # TODO: Use English base and the regular translation mechanism.
+    receiver = recurring_payment.user
+
+    context = Context({'order': recurring_order,
+                       'receiver_first_name': receiver.first_name.capitalize(),
+                       'date': format_date(locale='nl_NL'),
+                       'amount': format_currency(recurring_payment.amount / 100, 'EUR', locale='nl_NL'),
+                       'site': 'https://' + Site.objects.get_current().domain})
+
+    subject = "Bedankt voor je maandelijkse support"
+    text_content = get_template('monthly_donation.nl.mail.txt').render(context)
+    html_content = get_template('monthly_donation.nl.mail.html').render(context)
+    msg = EmailMultiAlternatives(subject=subject, body=text_content, to=[receiver.email])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+
+
+@task
+def mail_project_funded_monthly_donor_notification(receiver, project):
+    # TODO: Use English base and the regular translation mechanism.
+    context = Context({'receiver_first_name': receiver.first_name.capitalize(),
+                       'project': project,
+                       'link': '/go/projects/{0}'.format(project.slug),
+                       'site': 'https://' + Site.objects.get_current().domain})
+
+    subject = "Gefeliciteerd: project afgerond!"
+    text_content = get_template('project_full_monthly_donor.nl.mail.txt').render(context)
+    html_content = get_template('project_full_monthly_donor.nl.mail.html').render(context)
+    msg = EmailMultiAlternatives(subject=subject, body=text_content, to=[receiver.email])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+
+
+@task
+@receiver(pre_save, weak=False, sender=Donation)
+def new_oneoff_donation(sender, instance, **kwargs):
+    """
+    Send project owner a mail if a new "one off" donation is done. We consider a donation done if the status is pending.
+    """
+    donation = instance
+
+    # Only process the donation if it is of type "one off".
+    if donation.donation_type != Donation.DonationTypes.one_off:
+        return
+
+    # If the instance has no PK the previous status is unknown.
+    if donation.pk:
+        # NOTE: We cannot check the previous and future state of the ready attribute since it is set in the
+        # Donation.save function.
+
+        existing_donation = Donation.objects.get(pk=donation.pk)
+        # If the existing donation is already pending, don't mail.
+        if existing_donation.status in [DonationStatuses.pending, DonationStatuses.paid]:
+            return
+
+    # If the donation status will be pending, send a mail.
+    if donation.status in [DonationStatuses.pending, DonationStatuses.paid]:
+
+        if donation.user:
+            name = donation.user.first_name
+        else:
+            name = _('Anonymous')
+
+        if donation.fundraiser:
+            send_mail(
+                template_name='new_oneoff_donation_fundraiser.mail',
+                subject=_('You received a new donation'),
+                to=donation.fundraiser.owner,
+
+                amount=(donation.amount / 100.0),
+                donor_name=name,
+                link='/go/fundraisers/{0}'.format(donation.fundraiser.id),
+            )
+        # Always email the project owner.
+        send_mail(
+            template_name='new_oneoff_donation.mail',
+            subject=_('You received a new donation'),
+            to=donation.project.owner,
+
+            amount=(donation.amount / 100.0),
+            donor_name=name,
+            link='/go/projects/{0}'.format(donation.project.slug),
+        )
+
+
+#Change project phase according to donated amount
+@receiver(post_save, weak=False, sender=Donation)
+def update_project_after_donation(sender, instance, created, **kwargs):
+    # Skip all post save logic during fixture loading.
+    if kwargs.get('raw', False):
+        return
+
+    project = instance.project
+
+    # Don't look at donations that are just created.
+    if instance.status not in [DonationStatuses.in_progress, DonationStatuses.new]:
+        project.update_money_donated()
+        project.update_popularity()
+        project.update_status_after_donation()
+

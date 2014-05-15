@@ -1,0 +1,53 @@
+{% load i18n bb_ember static %}
+
+{% tplhandlebars "my_fundraiser_list" %}
+
+    <div class="l-section" id="project-dashboard">
+
+    	{{partial "my_fundraiser_top"}}
+
+        <div class="l-wrapper">
+            {{#if isLoading}}
+                <div class="is-loading-big"><img src="{% get_static_prefix %}images/loading.gif" /> <strong>{% trans "Loading projects" %}</strong></div>
+            {{else}}
+                <div class="l-content">
+                	<header class="l-page-header">
+                        <h1>Fundraising overview</h1>
+	                    {{#if controller.length}}
+	                        <p>{% trans "Overview of you fundraising pages" %}.</p>
+	                    {{else}}
+	                        <p>{% trans "You have no fundraising pages" %}.</p>
+	                    {{/if}}
+                    </header>
+                </div>
+            {{/if}}
+
+            <div class="l-content">
+	            <ul class="project-list">
+	            	{{#each fundraiser in controller}}
+	                <li class="project-list-item">
+
+                        <span class="project-header">
+                            <figure class="project-image">
+                            	{{#linkTo 'fundRaiser' fundraiser.id}}
+                                	<img {{bindAttr src="fundraiser.image.square" alt="fundraiser.title"}} />
+                                {{/linkTo}}
+                            </figure>
+                            <h2 class="project-title">
+                                {{#linkTo 'fundRaiser' fundraiser.id}}
+                                	{{ fundraiser.title }}
+	                            {{/linkTo}}
+                            </h2>
+                        </span>
+
+				        <div class="project-actions">
+				        	{{#linkTo 'fundRaiserEdit' fundraiser.id class="btn-link project-edit"}}<span class="flaticon solid pencil-3"></span> {% trans "Edit" %}{{/linkTo}}
+				        </div>
+				    </li>
+					{{/each}}
+	            </ul>
+			</div>
+        </div>
+    </div>
+
+{% endtplhandlebars %}
