@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Translators:
 # Malou <malou@onepercentclub.com>, 2014
@@ -10,14 +10,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-15 09:13+0200\n"
+"POT-Creation-Date: 2014-05-14 10:02+0200\n"
 "PO-Revision-Date: 2014-05-14 07:10+0000\n"
 "Last-Translator: nieja <niels@1procentclub.nl>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
-"Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: en_GB\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: models.py:16
@@ -192,7 +192,7 @@ msgstr "Your website"
 
 #: templates/bb_accounts/profile_form.hbs:90
 #: templates/bb_accounts/profile_public.hbs:18
-#: templates/bb_accounts/view_profile.hbs:85
+#: templates/bb_accounts/view_profile.hbs:84
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:66
 msgid "Location"
 msgstr "Location"
@@ -204,7 +204,9 @@ msgstr "1%%Skills"
 
 #: templates/bb_accounts/profile_form.hbs:110
 #, python-format
-msgid "How much time are you willing to spend your 1%%Skills?<br/>Let us know so we can provide you with some matching tasks from our projects."
+msgid ""
+"How much time are you willing to spend your 1%%Skills?<br/>Let us know so we"
+" can provide you with some matching tasks from our projects."
 msgstr "How much time are you willing to spend your 1%%Skills?<br/>Let us know so we can provide you with some matching tasks from our projects."
 
 #: templates/bb_accounts/profile_nav.hbs:9
@@ -232,13 +234,12 @@ msgid "Joined 1%%Club because"
 msgstr "Joined 1%%Club because"
 
 #: templates/bb_accounts/profile_public.hbs:25
-#: templates/bb_accounts/view_profile.hbs:113
+#: templates/bb_accounts/view_profile.hbs:102
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:84
 msgid "Time available"
 msgstr "Time available"
 
 #: templates/bb_accounts/profile_public.hbs:32
-#: templates/bb_accounts/view_profile.hbs:91
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:56
 msgid "Website"
 msgstr "Website"
@@ -250,7 +251,12 @@ msgstr "Join 1%%Club"
 
 #: templates/bb_accounts/signup.hbs:8
 #, python-format
-msgid "1%%Club is the global platform where you can share a little and change the world, in your vary own way. We ignite modern society to share 1%% and support smart ideas from people in developing countries. We do this in a new, open way, believing in the power of collaboration boosted by today's technical possibilities. If we all share a little, we can change the world."
+msgid ""
+"1%%Club is the global platform where you can share a little and change the "
+"world, in your vary own way. We ignite modern society to share 1%% and "
+"support smart ideas from people in developing countries. We do this in a "
+"new, open way, believing in the power of collaboration boosted by today's "
+"technical possibilities. If we all share a little, we can change the world."
 msgstr "1%%Club is the go-to crowdfunding platform for doing good. We empower people with great ideas to create positive change in their community, city, country – or in the world. On the 1%%Club website they can raise funds and kick-start initiatives via their own network using our innovative tools. We aim to make crowdfunding the most simple and rewarding experience for everyone who wants to do good in the world."
 
 #: templates/bb_accounts/signup.hbs:14
@@ -265,14 +271,7 @@ msgid ""
 "            So what are you waiting for? You’re just one click away from being the newest member of 1%%Club!<br /><br />\n"
 "            (Nothing in your inbox? Check your Spam folder or Junk E-mail)\n"
 "        "
-msgstr ""
-"\n"
-"We've sent you an email. In this mail you'll find a link to confirm your registration. <br />\n"
-"So what are you waiting for? You’re just one click away from being the newest member of 1%%Club!\n"
-"<br /> <br />\n"
-"\n"
-"(Nothing in your inbox? Check your Spam folder or Junk E-mail)\n"
-"<br />"
+msgstr "\nWe've sent you an email. In this mail you'll find a link to confirm your registration. <br />\nSo what are you waiting for? You’re just one click away from being the newest member of 1%%Club!\n<br /> <br />\n\n(Nothing in your inbox? Check your Spam folder or Junk E-mail)\n<br />"
 
 #: templates/bb_accounts/signup.hbs:26
 #, python-format
@@ -280,10 +279,7 @@ msgid ""
 "\n"
 "    By joining 1%%Club I hereby agree to the <a %(action)s href=\"%(href)s\"> 1%%Club Terms of service</a>\n"
 "    "
-msgstr ""
-"\n"
-"By joining 1%%Club I hereby agree to the <a %(action)s href=\"%(href)s\"> 1%%Club Terms of service</a>\n"
-"<br />"
+msgstr "\nBy joining 1%%Club I hereby agree to the <a %(action)s href=\"%(href)s\"> 1%%Club Terms of service</a>\n<br />"
 
 #: templates/bb_accounts/signup.hbs:34
 msgid "Have an account?"
@@ -350,27 +346,27 @@ msgstr "hours spent"
 msgid "on"
 msgstr "on"
 
-#: templates/bb_accounts/view_profile.hbs:52
-#, fuzzy, python-format
-msgid "Why 1%%Club"
-msgstr "Why join 1%%Club?"
+#: templates/bb_accounts/view_profile.hbs:51
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:50
+msgid "Is a ...organization... member because"
+msgstr "Is a ...organisation... member because"
 
-#: templates/bb_accounts/view_profile.hbs:101
+#: templates/bb_accounts/view_profile.hbs:90
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:72
 msgid "Fav themes"
 msgstr "Favourite themes"
 
-#: templates/bb_accounts/view_profile.hbs:107
+#: templates/bb_accounts/view_profile.hbs:96
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:78
 msgid "Fav countries"
 msgstr "Favourite countries"
 
-#: templates/bb_accounts/view_profile.hbs:119
+#: templates/bb_accounts/view_profile.hbs:108
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:90
 msgid "Expertise"
 msgstr "Expertise"
 
-#: templates/bb_accounts/view_profile.hbs:125
+#: templates/bb_accounts/view_profile.hbs:114
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:96
 msgid "Tags"
 msgstr "Keywords"
@@ -411,7 +407,10 @@ msgid "Enter the same password as above, for verification."
 msgstr "Enter the same password as above, for verification."
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:62
-msgid "Raw passwords are not stored, so there is no way to see this user's password, but you can change the password using <a href=\"password/\">this form</a>."
+msgid ""
+"Raw passwords are not stored, so there is no way to see this user's "
+"password, but you can change the password using <a href=\"password/\">this "
+"form</a>."
 msgstr "Raw passwords are not stored, so there is no way to see this user's password, but you can change the password using <a href=\"password/\">this form</a>."
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:86
@@ -538,7 +537,9 @@ msgid "active"
 msgstr "active"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:130
-msgid "Designates whether this user should be treated as active. Unselect this instead of deleting accounts."
+msgid ""
+"Designates whether this user should be treated as active. Unselect this "
+"instead of deleting accounts."
 msgstr "Designates whether this user should be treated as active. Unselect this instead of deleting accounts."
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:132
@@ -646,7 +647,9 @@ msgid "Personal Details"
 msgstr "Personal Details"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_personal_details.hbs.py:7
-msgid "We'd like to match you to projects and events based on your location & a personal thank you in your mailbox."
+msgid ""
+"We'd like to match you to projects and events based on your location & a "
+"personal thank you in your mailbox."
 msgstr "We'd like to match you to campaigns and events based on your location and send a personal thank you."
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_personal_details.hbs.py:11
@@ -690,7 +693,9 @@ msgid "Edit your account"
 msgstr "Edit your profile."
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_settings.hbs.py:10
-msgid "These are the details we currently have for you – update or change them below."
+msgid ""
+"These are the details we currently have for you – update or change them "
+"below."
 msgstr "These are the details we currently have for you – update or change them below."
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_settings.hbs.py:19
@@ -734,7 +739,9 @@ msgid "Log in to &lt;BlueBottle-project-name&gt;"
 msgstr "Log in to &lt;BlueBottle-project-name&gt"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/login.hbs.py:29
-msgid "Override block password_reset_success to display your own password reset success message."
+msgid ""
+"Override block password_reset_success to display your own password reset "
+"success message."
 msgstr "Override block password_reset_success to display your own password reset success message."
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/login.hbs.py:35
@@ -756,7 +763,9 @@ msgid "View my profile"
 msgstr "View my profile"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_reset.hbs.py:16
-msgid "Enter your email address and we'll send you an email so you can set a new password."
+msgid ""
+"Enter your email address and we'll send you an email so you can set a new "
+"password."
 msgstr "Enter your email address and we'll send you an email so you can set a new password."
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_reset.hbs.py:23
@@ -860,16 +869,14 @@ msgstr "Reason 3"
 msgid "Member since"
 msgstr "Member since"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:50
-msgid "Is a ...organization... member because"
-msgstr "Is a ...organisation... member because"
-
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:58
 msgid "Facebook profile"
 msgstr "Facebook profile"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/activation_email.html.py:7
-msgid "Override registration/activation_email.html to create your own activation mail template."
+msgid ""
+"Override registration/activation_email.html to create your own activation "
+"mail template."
 msgstr "Override registration/activation_email.html to create your own activation mail template."
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/activation_email.html.py:14

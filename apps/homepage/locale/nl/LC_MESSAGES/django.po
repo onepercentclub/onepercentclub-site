@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-14 10:02+0200\n"
-"PO-Revision-Date: 2014-05-14 08:04+0000\n"
-"Last-Translator: gannetson <loek@1procentclub.nl>\n"
+"PO-Revision-Date: 2014-05-16 10:12+0000\n"
+"Last-Translator: Malou <malou@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -110,7 +110,7 @@ msgstr "kies je campagne"
 #: templates/homepage/project.hbs:14
 msgid ""
 "Support it with your time, knowledge or money and receive real-time updates."
-msgstr "Support het met je tijd, kennis of geld en ontvang updates. "
+msgstr "Support het met je tijd, kennis of geld en lees updates. "
 
 #: templates/homepage/home_project_list.hbs:54
 #: templates/homepage/project.hbs:38
@@ -154,7 +154,7 @@ msgstr "Onze impact"
 msgid ""
 "We believe that if we all share a little, together we can change the world. "
 "We got this far already."
-msgstr ""
+msgstr "1%%Club is hét crowdfunding platform waar je een wereld van verschil maakt."
 
 #: templates/homepage/impact.hbs:21
 msgid "Lives changed"
@@ -183,7 +183,7 @@ msgstr "Meld je aan en deel jouw 1%%"
 
 #: templates/homepage/quotes.hbs:14
 msgid "Share a little."
-msgstr ""
+msgstr "Supporters of good"
 
 #: templates/homepage/quotes.hbs:14
 msgid "Change the world."
@@ -201,7 +201,7 @@ msgstr "Vind taken"
 
 #: templates/homepage/quotes.hbs:38
 msgid "Befriend us"
-msgstr ""
+msgstr "Word vrienden"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/admin.py:133
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/models.py:38
@@ -501,7 +501,7 @@ msgstr "Log in"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/reactions.hbs.py:66
 msgid "member"
-msgstr "supporter"
+msgstr "campaigner"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/reactions.hbs.py:66
 msgid "to leave a reaction"
@@ -518,7 +518,7 @@ msgstr "heeft een donatie gedaan"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/system_wallpost_voucher.hbs.py:13
 msgid "Voucher"
-msgstr "Bon"
+msgstr "Kadobon"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/system_wallpost_voucher.hbs.py:27
 msgid "used a gift card"
@@ -689,7 +689,7 @@ msgstr "Veel gestelde vragen"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/page.hbs.py:24
 msgid "Meet the team"
-msgstr "Ons team"
+msgstr "Ons Team"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/page.hbs.py:25
 msgid "Partners"
@@ -702,7 +702,7 @@ msgstr "Pers"
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/page.hbs.py:27
 #, python-format
 msgid "Work at 1%%Club"
-msgstr "Werk bij 1%%Club"
+msgstr "Werken bij 1%%Club"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/page.hbs.py:28
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/contact/templates/contact/base.hbs.py:11
@@ -731,7 +731,7 @@ msgstr "Verbeter jouw wereld."
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/templates/quotes/base.hbs.py:38
 msgid "Pitch a new smart idea"
-msgstr "Pitch jouw idee dat een wereld van verschil maakt"
+msgstr "Pitch je goede idee"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/admin.py:30
 msgid "Contents"
@@ -847,7 +847,7 @@ msgstr "Stuur bericht"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/contact/templates/contact/sidebar.hbs.py:4
 msgid "Other ways to contact"
-msgstr "Andere manieren om met ons in contact te komen"
+msgstr "Andere manieren om ons te contacten"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/contact/templates/contact/sidebar.hbs.py:5
 #, python-format
