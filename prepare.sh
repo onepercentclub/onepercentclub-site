@@ -35,13 +35,13 @@ echo 'Installing required packages'
 
 # Install Django first because some Django apps require Django to be fully
 # installed before they will install properly.
-DJANGO=`grep "Django==" requirements.txt`
+DJANGO=`grep "Django==" requirements/requirements.txt`
 $ENVDIR/bin/pip install $DJANGO
 if [ $? -ne 0 ]; then
     echo "Error installing $DJANGO."
     exit 1
 fi
-if $ENVDIR/bin/pip install -r requirements.txt; then
+if $ENVDIR/bin/pip install -r requirements/requirements.txt; then
     echo 'That went alright, continue'
 else
     echo 'Error installing dependencies, breaking off'

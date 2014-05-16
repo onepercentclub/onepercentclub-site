@@ -1,5 +1,6 @@
-from apps.homepage.model import HomePage
 from rest_framework import generics, response
+
+from .models import HomePage
 from .serializers import HomePageSerializer
 
 

@@ -1,0 +1,53 @@
+{% load bb_ember %}
+{% load i18n %}
+{% load static %}
+
+
+{% tplhandlebars "home_impact" %}
+
+    <div class="l-section home-impact">
+        <section class="l-wrapper">
+            <div class="l-full">
+
+                <header class="section-header">
+            	    <h1>{% trans "Our impact" %}</h1>
+            	    <p>{% trans "We believe that if we all share a little, together we can change the world. We got this far already." %}</p>
+                </header>
+
+                <ul class="impact">
+                    <li class="impact-lives">
+                    	<figure class="image"><object type="image/svg+xml" data="/static/assets/images/illustrations/lives-green.svg" class="logo-image"></object></figure>
+                        <strong>{{localize impact.lives_changed }}</strong>
+                        {% trans "Lives changed" %}
+                    </li>
+                    <li class="impact-projects">
+                    	<figure class="image"><object type="image/svg+xml" data="/static/assets/images/illustrations/ideas-pink.svg" class="logo-image"></object></figure>
+                        <strong>{{localize impact.projects }}</strong>
+                        {% trans "Projects" %}
+                    </li>
+                    <li class="impact-countries">
+                    	<figure class="image"><object type="image/svg+xml" data="/static/assets/images/illustrations/countries-green.svg" class="logo-image"></object></figure>
+                        <strong>{{ impact.countries }}</strong>
+                        {% trans "Countries" %}
+                    </li>
+                    <li class="impact-hours">
+                    	<figure class="image"><object type="image/svg+xml" data="/static/assets/images/illustrations/hours-pink.svg" class="logo-image"></object></figure>
+                        <strong>{{localize impact.hours_spent }}</strong>
+                        {% trans "Hours spent" %}
+                    </li>
+                    <li class="impact-donated">
+                    	<figure class="image"><object type="image/svg+xml" data="/static/assets/images/illustrations/donate-green.svg" class="logo-image"></object></figure>
+                        <strong>&euro; {{localize impact.donated }}</strong>
+                        {% trans "Donated" %}
+                    </li>
+                </ul>
+
+                {{#unless controllers.currentUser.isAuthenticated}}
+                    {{#linkTo 'signup' classNames="btn-link"}}{% blocktrans %}Join us. Sign up and share your 1%{% endblocktrans %}{{/linkTo}}
+                {{/unless}}
+            </div>
+
+        </section>
+    </div>
+
+{% endtplhandlebars %}

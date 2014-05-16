@@ -3,16 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Translators:
 # gannetson <loek@1procentclub.nl>, 2013
 # nieja <niels@1procentclub.nl>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: onepercentclub-site\n"
+"Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-18 10:23+0100\n"
-"PO-Revision-Date: 2013-12-18 09:31+0000\n"
+"POT-Creation-Date: 2014-05-02 10:40+0200\n"
+"PO-Revision-Date: 2014-05-02 07:49+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
-"Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub-site/language/nl/)\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -68,14 +69,16 @@ msgid "deleted"
 msgstr "verwijderd"
 
 #: models.py:44
+#, python-brace-format
 msgid "{fundraiser} for {project}"
 msgstr "{fundraiser} voor {project}"
 
 #: models.py:62
+#, python-brace-format
 msgid "{title} {{URL}} via @{twitter_handle}"
 msgstr "{title} {{URL}} via @{twitter_handle}"
 
-#: views.py:29
+#: views.py:31
 #, python-format
 msgid "No %(verbose_name)s found matching the query"
 msgstr "Geen  %(verbose_name)s gevonden die voldoet aan deze zoekopdracht"
@@ -308,3 +311,6 @@ msgstr "%(title)s"
 #: templates/generic/form_imagefield.html:10
 msgid "Upload picture"
 msgstr "Upload afbeelding"
+
+#~ msgid "by"
+#~ msgstr "by"

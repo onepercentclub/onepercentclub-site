@@ -1,0 +1,45 @@
+{% extends "bb_accounts:bb_accounts/signup.hbs" %}
+{% load i18n bb_ember %}
+
+
+{% block signup_form_top %}
+<h1>{% blocktrans %}Join 1%Club{% endblocktrans %}</h1>
+<p>
+    {% blocktrans %}1%Club is the global platform where you can share a little and change the world, in your vary own way. We ignite modern society to share 1% and support smart ideas from people in developing countries. We do this in a new, open way, believing in the power of collaboration boosted by today's technical possibilities. If we all share a little, we can change the world.{% endblocktrans %}
+</p>
+{% endblock signup_form_top %}
+
+
+{% block user_created_message %}
+    <h1>{% trans "Thanks for signing up!" %}</h1>
+    <p>{% blocktrans %}
+            We've sent you an email. In this mail you'll find a link to confirm your registration. <br />
+            So what are you waiting for? You’re just one click away from being the newest member of 1%Club!<br /><br />
+            (Nothing in your inbox? Check your Spam folder or Junk E-mail)
+        {% endblocktrans %}
+    </p>
+{% endblock user_created_message %}
+
+
+{% block_verbatim user_agreement %}
+    <small class="controls">
+    {% blocktrans with action="{{action 'showPage' 'terms-and-conditions'}}" href="/#!/pages/terms-and-conditions" %}
+    By joining 1%Club I hereby agree to the <a {{ action }} href="{{ href }}"> 1%Club Terms of service</a>
+    {% endblocktrans %}
+    </small>
+{% endblock_verbatim user_agreement %}
+
+
+{% block login_text %}
+    <span class="flaticon solid lock-1"></span> <strong>{% trans "Have an account?" %}</strong><br /> {%  trans "Log in here" %}
+{% endblock login_text %}
+
+
+{% block member_advantages %}
+    <h3>{% blocktrans %}Why join 1%Club?{% endblocktrans %}</h3>
+    <ol>
+        <li>{% trans "It's easy to find projects you like." %}</li>
+        <li>{% blocktrans %}A fun and personal way to share your 1%.{% endblocktrans %}</li>
+        <li>{% trans "You'll receive updates on the progress of the projects you support." %}</li>
+    </ol>
+{% endblock member_advantages %}

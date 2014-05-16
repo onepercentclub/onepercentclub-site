@@ -1,0 +1,98 @@
+{% load i18n bb_ember static %}
+
+{% tplhandlebars "paymentSignup" %}
+
+    {{#if controllers.currentUser.isAuthenticated}}
+        <div class="l-content">
+            <form>
+                <legend>
+                    <strong>{% trans "We'll keep you up to date!" %}</strong>
+                    <p>{% blocktrans %}You already have an account. Great! We'll keep you updated with the progress of the projects you support{% endblocktrans %}.<br /></div>
+
+                </legend>
+            </form>
+            {{#linkTo 'paymentSelect'}}
+                <button class="btn btn-primary btn-iconed btn-next"><em class="flaticon solid right-2"></em>{% trans "Next" %}</button>
+            {{/linkTo}}
+        </div>
+
+    {{else}}
+
+        <div class="l-content">
+            {{#unless controllers.currentUser.isAuthenticated}}
+                <a {{action openInBox "login"}} class="btn-login"><span class="flaticon solid lock-1"></span> <strong>{% trans "Have an account?" %}</strong><br /> {%  trans "Log in here" %}</a>
+            {{/unless}}
+
+            <form>
+
+                <legend>
+                    <strong>{% trans "Follow the progress?" %}</strong>
+                    <p>{% trans "Sign up for an account and we keep you updated on the projects progress" %}.</p>
+                </legend>
+
+                <fieldset>
+                    <ul>
+                        <li class="control-group">
+                            <label class="control-label">{% trans "Your full name" %}</label>
+                            <div class="controls">
+                                {{view Em.TextField valueBinding="first_name" placeholder="First name" class="inline-prepend" classBinding="errors.first_name.length:error"}}
+                                {{view Em.TextField valueBinding="last_name" placeholder="Last name" class="inline-append" classBinding="errors.last_name.length:error"}}
+                            </div>
+                        </li>
+                        <li class="control-group">
+                            <label class="control-label">{% trans "Email" %}</label>
+                            <div class="controls">
+                                {{view Em.TextField valueBinding="email" classBinding="errors.email.length:error"}}
+                            </div>
+                            {{#if errors.email }}
+                                <div class="has-errors">{{#each errors.email }}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+                        </li>
+
+                        <li class="control-group">
+                            <label class="control-label">{% trans "Password" %}</label>
+                            <div class="controls">
+                                {{view Em.TextField type="password" valueBinding="password" classBinding="errors.password.length:error"}}
+                            </div>
+                            {{#if errors.password }}
+                                <div class="has-errors">{{#each errors.password }}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+                        </li>
+
+                        <li class="control-group">
+                            <label class="control-label">{% trans "Password again" %}</label>
+                            <div class="controls">
+                                {{view Em.TextField type="password" valueBinding="password2" classBinding="errors.password2.length:error"}}
+                            </div>
+                            {{#if errors.password2 }}
+                                <div class="has-errors">{{#each errors.password2 }}<p>{{this}}</p>{{/each}}</div>
+                            {{/if}}
+                        </li>
+                    </ul>
+
+                    <p class="control-group agree">
+                        <small class="controls">
+                            {% blocktrans %}By joining 1%Club I hereby agree to the {% endblocktrans %}
+                            <a {{action showPage 'terms-and-conditions'}} href="/#!/pages/terms-and-conditions">{% blocktrans %}1%Club Terms of service{% endblocktrans %}</a>
+                        </small>
+                    </p>
+
+                </fieldset>
+
+                {{#if isFormReady }}
+                    <button class="btn btn-primary btn-iconed btn-next"><span class="flaticon solid right-2"></span>{% trans "Next Step" %}</button>
+                {{else}}
+                    <button disabled class="btn btn-iconed btn-next"><span class="flaticon solid right-2"></span>{% trans "Next Step" %}</button>
+                {{/if}}
+
+                {{#linkTo 'paymentSelect' class="btn-link btn-skip"}}<span class="flaticon solid x-1"></span>Skip this step{{/linkTo}}
+
+            </form>
+        </div>
+
+        <div class="l-sidebar">
+
+        </div>
+    {{/if}}
+
+{% endtplhandlebars %}

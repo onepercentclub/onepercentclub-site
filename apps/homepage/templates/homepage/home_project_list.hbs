@@ -1,0 +1,87 @@
+{% load bb_ember %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "home_project_list" %}
+
+<div class="l-section home-projects">
+	<section class="l-wrapper">
+
+		<div class="project-slider l-full" style="overflow: hidden">
+
+            {% block_verbatim header_text %}
+			<header class="section-header">
+				<h1>{% trans "Choose your project" %}</h1>
+				<p>{% trans "Support it with your time, knowledge or money and receive real-time updates." %}</p>
+			</header>
+		    {% endblock_verbatim %}
+
+			<div class="project-slides" style="width: 20000px">
+				{{#each projects}}
+				<div class="project-preview" style="width: 1100px; float: left">
+
+					<figure class="project-image">
+						<img {{bindAttr src="image" alt="name"}} />
+					</figure>
+
+					<article class="project-info">
+						<div class="project-meta">
+							<span class="project-location">
+								<span class="flaticon solid location-pin-1"></span>
+								{{country.name}}
+							</span>
+							<span class="project-theme">
+								<span class="flaticon solid tag-1"></span>
+								{{theme.name}}
+							</span>
+						</div>
+
+						<h2 class="project-title">
+							{{#linkTo 'project' id }}
+							{{title}}
+							{{/linkTo}}
+						</h2>
+						<p class="project-description">{{pitch}}</p>
+
+					</article>
+
+                    <div class="project-status l-full">
+
+                        <div class="project-days-left l-one-third">
+                        	&nbsp;
+	                        {{#if deadline}}
+    						<strong><span class="flaticon solid clock-1"></span> {{campaign.daysToGo}}</strong>
+    						<em>{% trans "days to go" %}</em>
+    						{{/if}}
+    					</div>
+
+    					<div class="project-fund l-one-third">
+                            <p class="project-fund-amount">
+                                <strong class="amount-donated">&euro;{{localize amount_donated}}</strong>
+                                {% trans "of" %}
+                                <strong class="amount-asked">&euro;{{localize amount_asked}}</strong>
+                                {% trans "raised" %}
+                            </p>
+			                {{bb-progressbar targetValue=amount_asked currentValue=amount_donated}}
+
+                            {{!-- <div class="project-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div> --}}
+    					</div>
+
+                        <div class="project-action l-one-third">
+    					    <a href='#' {{ action 'addDonation' project }} class="btn btn-primary btn-iconed"><span class="flaticon solid wallet-1"></span> {% trans "Support" %}</a>
+                        </div>
+
+					</div>
+				</div>
+				{{/each}}
+			</div>
+
+			<span {{action prevProject}} class="project-slider-prev">{% trans "Previous project" %}</span>
+			<span {{action nextProject}} class="project-slider-next">{% trans "Next project" %}</span>
+
+		</div>
+	</section>
+</div>
+
+{% endtplhandlebars %}
+

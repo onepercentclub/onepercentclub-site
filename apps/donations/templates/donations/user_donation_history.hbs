@@ -1,0 +1,39 @@
+{% load i18n bb_ember static %}
+
+{% tplhandlebars "userDonationHistory" %}
+
+    <section class="l-wrapper">
+        <div class="l-full">
+
+            <header class="page-header">
+                <h1>{% trans "Order History" %}</h1>
+            </header>
+
+            {{#if model.isLoaded }}
+
+                <table class="fund-history">
+                    {{#each order in controller}}
+                    <tr>
+                        <td class="fund-history-date">{{localize order.created formatting='d'}}</td>
+                        <td class="fund-history-type">{{#if order.recurring }} {% trans "Monthly Donation" %} {{ else }} {% trans "Single Donation" %} {{/if}}</td>
+                        <td class="fund-history-total">&euro;{{ order.total }},-</td>
+                        <td>
+                            <table>
+                                {{#each donation in order.donations}}
+                                <tr>
+                                    <td class="fund-history-project"><a {{action showProject donation.project.id}}>{{donation.project.title}}</a></td>
+                                    <td class="fund-history-amount">&euro;{{ donation.amount }},-</td>
+                                </tr>
+                                {{/each}}
+                            </table>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </table>
+            {{else}}
+                <div class="is-loading-small"><img src="{% get_static_prefix %}images/loading.gif" /> <strong>{% trans "Loading order history&#8230;" %}</strong></div>
+            {{/if}}
+
+        </div>
+    </section>
+{% endtplhandlebars %}

@@ -21,25 +21,20 @@
 	<meta property="og:description" content="1%Club is the global crowdfunding and crowdsourcing platform where you can share a little and change the world, in your very own way. Pick any project you like, support it with 1% of your knowledge, money or time and follow the progress online." />
 	<meta property="og:site_name" content="1%Club - Share a little. Change the world" />
 	<meta property="fb:page_id" content="298248659856" />
-    <meta property="og:keywords" content="" />
+  <meta property="og:keywords" content="" />
 
 {% endblock %}
 
 {% block handlebars_templates %}
-    {% include  "accounts/base.hbs" %}
-    {% include  "homepage.hbs" %}
-    {% include  "wallposts.hbs" %}
-    {% include  "reactions.hbs" %}
-    {% include  "tasks.hbs" %}
-    {% include  "projects.hbs" %}
-    {% include  "orders.hbs" %}
-    {% include  "donations.hbs" %}
-    {% include  "utils.hbs" %}
-    {% include  "blogs.hbs" %}
-    {% include  "manage.hbs" %}
-    {% include  "vouchers.hbs" %}
-    {% include  "pages.hbs" %}
-    {% include  "fundraisers.hbs" %}
+
+    {{ block.super }}
+
+    {% include "homepage/base.hbs" %}
+    {% include "fund/base.hbs" %}
+    {% include "fundraisers/base.hbs" %}
+    {% include "projects/base.hbs" %}
+    {% include "donations/base.hbs" %}
+    {% include "vouchers.hbs" %}
 {% endblock handlebars_templates %}
 
 {% block_verbatim nav_main %}
@@ -51,66 +46,67 @@
     </ul>
 {% endblock_verbatim %}
 
+{% block defaults_js %}
+    {{ block.super }}
+
+    <script type="text/javascript">
+        var GIT_COMMIT = '{{ GIT_COMMIT }}';
+    </script>
+{% endblock %}
 
 {% block ember_scripts %}
 
     {{ block.super }}
 
-    <script type="text/javascript" src="{% static "js/bluebottle/projects/models.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/projects/controllers.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/projects/views.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/projects/routes.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/projects/components.js" %}"></script>
+    {# Addition for Bluebottle JS #}
+    <script type="text/javascript" src="{% static 'js/bluebottle/app_overrides.js' %}"></script>
 
-    <script type="text/javascript" src="{% static "js/bluebottle/wallposts/models.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/wallposts/controllers.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/wallposts/views.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/wallposts/routes.js" %}"></script>
+    <!--organization-->
+    <script type="text/javascript" src="{% static 'js/organizations/models.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/organizations/controllers.js' %}"></script>
 
-    <script type="text/javascript" src="{% static "js/bluebottle/blogs/models.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/blogs/controllers.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/blogs/views.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/blogs/routes.js" %}"></script>
+    <!--projects-->
+    <script type="text/javascript" src="{% static 'js/projects/models.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/projects/controllers.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/projects/views.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/projects/routes.js' %}"></script>
 
-    <script type="text/javascript" src="{% static "js/bluebottle/tasks/models.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/tasks/controllers.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/tasks/views.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/tasks/routes.js" %}"></script>
+    {# Apps not in Bluebottle #}
+    <script type="text/javascript" src="{% static 'js/bluebottle/homepage/models.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/homepage/controllers.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/homepage/views.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/homepage/routes.js' %}"></script>
 
-    <script type="text/javascript" src="{% static "js/bluebottle/orders/models.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/orders/controllers.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/orders/views.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/orders/routes.js" %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/orders/models.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/orders/controllers.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/orders/views.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/orders/routes.js' %}"></script>
 
-    <script type="text/javascript" src="{% static "js/bluebottle/pages/models.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/pages/controllers.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/pages/views.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/pages/routes.js" %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/donations/models.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/donations/controllers.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/donations/views.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/donations/routes.js' %}"></script>
 
-    <script type="text/javascript" src="{% static "js/bluebottle/donations/models.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/donations/controllers.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/donations/views.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/donations/routes.js" %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/fundraisers/models.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/fundraisers/controllers.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/fundraisers/views.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/fundraisers/routes.js' %}"></script>
 
-    <script type="text/javascript" src="{% static "js/bluebottle/fundraisers/models.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/fundraisers/controllers.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/fundraisers/views.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/fundraisers/routes.js" %}"></script>
+    <!--partners-->
+    <script type="text/javascript" src="{% static 'js/bluebottle/partners/models.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/partners/routes.js' %}"></script>
 
-    <script type="text/javascript" src="{% static "js/bluebottle/vouchers/models.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/vouchers/controllers.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/vouchers/views.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/vouchers/routes.js" %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/vouchers/models.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/vouchers/controllers.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/vouchers/views.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/vouchers/routes.js' %}"></script>
 
-    <script type="text/javascript" src="{% static "js/bluebottle/campaigns/models.js" %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/campaigns/models.js' %}"></script>
     {% comment %}
-    <script type="text/javascript" src="{% static "js/bluebottle/campaigns/controllers.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/campaigns/views.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/campaigns/routes.js" %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/campaigns/controllers.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/campaigns/views.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/campaigns/routes.js' %}"></script>
     {% endcomment %}
-
-    <script type="text/javascript" src="{{ STATIC_URL }}js/bluebottle/vouchers.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/bluebottle/homepage.js"></script>
     
     <script type="text/javascript" src="{{ STATIC_URL }}js/plugins/jquery.countdown.js"></script>
 {% endblock %}
@@ -198,11 +194,6 @@
             </a>
         </li>
         <li>
-            <a href="http://onepercentblog.com/" target="_blank">
-                {% trans "1%Blog" %}
-            </a>
-        </li>
-        <li>
             <a  href="http://github.com/onepercentclub">
                 {% trans "1%Github" %}
             </a>
@@ -260,10 +251,10 @@
 {% endblock_verbatim %}
 
 
-{% block_verbatim  'footer_copyright' %}
+{% block_verbatim 'footer_copyright' %}
     <ul>
         <li>
-            &copy;2013 1%Club
+            &copy;2014 1%Club
         </li>
         <li>
             <a {{action 'showPage' 'terms-and-conditions'}} href="/#!/pages/terms-and-conditions">{% trans "General Conditions" %}</a>&nbsp;

@@ -1,105 +1,52 @@
 [main]
 host = https://www.transifex.com
 
-[onepercentclub-site.support]
-file_filter = apps/fund/locale/<lang>/LC_MESSAGES/django.po
-source_file = apps/fund/locale/en/LC_MESSAGES/django.po
+[onepercentclub.members]
+file_filter = apps/members/locale/<lang>/LC_MESSAGES/django.po
+source_file = apps/members/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
-[onepercentclub-site.monthly_donations]
-file_filter = apps/donations/locale/<lang>/LC_MESSAGES/django.po
-source_file = apps/donations/locale/en/LC_MESSAGES/django.po
-source_lang = en
-type = PO
-
-[onepercentclub-site.organizations]
-file_filter = apps/organizations/locale/<lang>/LC_MESSAGES/django.po
-source_file = apps/organizations/locale/en/LC_MESSAGES/django.po
-source_lang = en
-type = PO
-
-[onepercentclub-site.projects]
+[onepercentclub.projects]
 file_filter = apps/projects/locale/<lang>/LC_MESSAGES/django.po
 source_file = apps/projects/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
-[onepercentclub-site.blogs_and_news]
-file_filter = apps/blogs/locale/<lang>/LC_MESSAGES/django.po
-source_file = apps/blogs/locale/en/LC_MESSAGES/django.po
+[onepercentclub.organizations]
+file_filter = apps/organizations/locale/<lang>/LC_MESSAGES/django.po
+source_file = apps/organizations/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
-[onepercentclub-site.admin_dashboard]
-file_filter = apps/bluebottle_dashboard/locale/<lang>/LC_MESSAGES/django.po
-source_file = apps/bluebottle_dashboard/locale/en/LC_MESSAGES/django.po
+[onepercentclub.support]
+file_filter = apps/donations/locale/<lang>/LC_MESSAGES/django.po
+source_file = apps/donations/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
-[onepercentclub-site.contentplugins]
-file_filter = apps/contentplugins/locale/<lang>/LC_MESSAGES/django.po
-source_file = apps/contentplugins/locale/en/LC_MESSAGES/django.po
-source_lang = en
-type = PO
-
-[onepercentclub-site.payments_cowry]
-file_filter = apps/cowry/locale/<lang>/LC_MESSAGES/django.po
-source_file = apps/cowry/locale/en/LC_MESSAGES/django.po
-source_lang = en
-type = PO
-
-[onepercentclub-site.payments_cowry_docdata_django]
-file_filter = apps/cowry_docdata/locale/<lang>/LC_MESSAGES/django.po
-source_file = apps/cowry_docdata/locale/en/LC_MESSAGES/django.po
-source_lang = en
-type = PO
-
-[onepercentclub-site.homepage]
-file_filter = apps/homepage/locale/<lang>/LC_MESSAGES/django.po
-source_file = apps/homepage/locale/en/LC_MESSAGES/django.po
-source_lang = en
-type = PO
-
-[onepercentclub-site.content_pages]
-file_filter = apps/pages/locale/<lang>/LC_MESSAGES/django.po
-source_file = apps/pages/locale/en/LC_MESSAGES/django.po
-source_lang = en
-type = PO
-
-[onepercentclub-site.wallposts]
-file_filter = apps/wallposts/locale/<lang>/LC_MESSAGES/django.po
-source_file = apps/wallposts/locale/en/LC_MESSAGES/django.po
-source_lang = en
-type = PO
-
-[onepercentclub-site.tasks]
+[onepercentclub.tasks]
 file_filter = apps/tasks/locale/<lang>/LC_MESSAGES/django.po
 source_file = apps/tasks/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
-[onepercentclub-site.fundraisers]
+[onepercentclub.main]
+file_filter = apps/homepage/locale/<lang>/LC_MESSAGES/django.po
+source_file = apps/homepage/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[onepercentclub.fundraisers]
 file_filter = apps/fundraisers/locale/<lang>/LC_MESSAGES/django.po
 source_file = apps/fundraisers/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
-[onepercentclub-site.campaigns]
-file_filter = apps/campaigns/locale/<lang>/LC_MESSAGES/django.po
-source_file = apps/campaigns/locale/en/LC_MESSAGES/django.po
+[onepercentclub.popups_and_javascript]
+file_filter = apps/core/locale/<lang>/LC_MESSAGES/djangojs.po
+source_file = apps/core/locale/en/LC_MESSAGES/djangojs.po
 source_lang = en
 type = PO
 
-[onepercentclub-site.main]
-file_filter = locale/<lang>/LC_MESSAGES/django.po
-source_file = locale/en/LC_MESSAGES/django.po
-source_lang = en
-type = PO
-
-[onepercentclub-site.popups_and_javascript]
-file_filter = locale/<lang>/LC_MESSAGES/djangojs.po
-source_file = locale/en/LC_MESSAGES/djangojs.po
-source_lang = en
-type = PO
 

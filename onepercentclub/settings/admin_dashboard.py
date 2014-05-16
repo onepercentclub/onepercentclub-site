@@ -12,11 +12,11 @@ FLUENT_DASHBOARD_DEFAULT_MODULE = 'admin_tools.dashboard.modules.AppList'
 FLUENT_DASHBOARD_APP_GROUPS = (
     (_('Site content'), {
         'models': [
-            'apps.pages.*',
-            'apps.blogs.*',
-            'apps.media.*',
-            'apps.banners.*',
-            'apps.quotes.*',
+            'bluebottle.pages.*',
+            'bluebottle.news.*',
+            'bluebottle.slides.*',
+            'bluebottle.banners.*',
+            'bluebottle.quotes.*',
             'apps.statistics.*',
             'apps.campaigns.*',
         ],
@@ -25,9 +25,11 @@ FLUENT_DASHBOARD_APP_GROUPS = (
     }),
     (_('Projects'), {
         'models': (
-            'apps.projects.models.*',
+            'apps.projects.*',
+            'bluebottle.bb_projects.*',
             'apps.fundraisers.*',
             'apps.organizations.*',
+            'bluebottle.bb_organizations.*',
         ),
         'module': 'fluent_dashboard.modules.AppIconList',
         'collapsible': False,
@@ -42,6 +44,7 @@ FLUENT_DASHBOARD_APP_GROUPS = (
     }),
     (_('Finances'), {
         'models': (
+            'apps.accounting.*',
             'apps.payouts.*',
             'apps.cowry_docdata.*',
             'apps.cowry.*',
@@ -60,7 +63,8 @@ FLUENT_DASHBOARD_APP_GROUPS = (
         'models': (
             'django.contrib.auth.*',
             'registration.*',
-            'bluebottle.accounts.*',
+            'apps.members.*',
+            'bluebottle.bb_accounts.*',
         ),
         'module': 'fluent_dashboard.modules.AppIconList',
         'collapsible': False,
@@ -75,7 +79,7 @@ FLUENT_DASHBOARD_APP_GROUPS = (
     }),
     (_('Wall Posts'), {
         'models': (
-            'apps.wallposts.*',
+            'bluebottle.wallposts.*',
         ),
         'module': 'fluent_dashboard.modules.AppIconList',
         'collapsible': False,
@@ -98,18 +102,15 @@ ADMIN_TOOLS_THEMING_CSS = 'css/admin/dashboard.css'
 # download http://download.kde.org/stable/4.9.0/src/oxygen-icons-4.9.0.tar.xz It's LGPL3 licensed.
 FLUENT_DASHBOARD_APP_ICONS = {
     # Members
-    'accounts/bluebottleuser': 'icons/flaticons_stroke/SVGs/user-1.svg',
+    'members/member': 'icons/flaticons_stroke/SVGs/user-1.svg',
     'auth/group': 'icons/flaticons_stroke/SVGs/group-1.svg',
     'registration/registrationprofile': 'icons/flaticons_stroke/SVGs/add-user-1.svg',
 
 
     # Projects
+    'bb_projects/projectphase': 'icons/flaticons_stroke/SVGs/history-1.svg',
+    'bb_projects/projecttheme': 'icons/flaticons_stroke/SVGs/leaf-1.svg',
     'projects/project': 'icons/flaticons_stroke/SVGs/notebook-1.svg',
-    'projects/projectpitch': 'icons/flaticons_stroke/SVGs/lightbulb-3.svg',
-    'projects/projectplan': 'icons/flaticons_stroke/SVGs/notebook-3.svg',
-    'projects/projecttheme': 'icons/flaticons_stroke/SVGs/leaf-1.svg',
-    'projects/projectcampaign': 'icons/flaticons_stroke/SVGs/megaphone-1.svg',
-    'projects/projectresult': 'icons/flaticons_stroke/SVGs/trophy-1.svg',
     'organizations/organization': 'icons/flaticons_stroke/SVGs/suitcase-1.svg',
     'organizations/organizationmember': 'icons/flaticons_stroke/SVGs/group-1.svg',
     'projects/partnerorganization': 'icons/flaticons_stroke/SVGs/compose-3.svg',
@@ -136,9 +137,13 @@ FLUENT_DASHBOARD_APP_ICONS = {
 
     # Tasks
     'tasks/task': 'icons/flaticons_stroke/SVGs/work-1.svg',
-    'tasks/skill': 'icons/flaticons_stroke/SVGs/toolbox-1.svg',
+    'tasks/taskmember': 'icons/flaticons_stroke/SVGs/wrench-1.svg',
 
     # Finances
+    'accounting/banktransaction': 'icons/flaticons_stroke/SVGs/credit-card-1.svg',
+    'accounting/docdatapayment': 'icons/flaticons_stroke/SVGs/money-1.svg',
+    'accounting/docdatapayout': 'icons/flaticons_stroke/SVGs/bag-1.svg',
+
     'payouts/payout': 'icons/flaticons_stroke/SVGs/bag-1.svg',
     'payouts/organizationpayout': 'icons/flaticons_stroke/SVGs/money-2.svg',
     'payouts/bankmutation': 'icons/flaticons_stroke/SVGs/menu-2.svg',
@@ -147,11 +152,10 @@ FLUENT_DASHBOARD_APP_ICONS = {
     'cowry_docdata/docdatapaymentlogentry': 'icons/flaticons_stroke/SVGs/menu-list-3.svg',
 
     # Site Content
-    'banners/slide': 'icons/flaticons_stroke/SVGs/id-1.svg',
-    'blogs/blogpostproxy': 'icons/flaticons_stroke/SVGs/newspaper-2.svg',
-    'blogs/newspostproxy': 'icons/flaticons_stroke/SVGs/newspaper-2.svg',
+    'slides/slide': 'icons/flaticons_stroke/SVGs/id-1.svg',
+    'news/newsitem': 'icons/flaticons_stroke/SVGs/newspaper-2.svg',
     'pages/page': 'icons/flaticons_stroke/SVGs/paragraph-text-1.svg',
-    'pages/contactmessage': 'icons/flaticons_stroke/SVGs/mail-2.svg',
+    'contact/contactmessage': 'icons/flaticons_stroke/SVGs/mail-2.svg',
     'quotes/quote': 'icons/flaticons_stroke/SVGs/post-comment-2.svg',
     'statistics/statistic': 'icons/flaticons_stroke/SVGs/graph-1.svg',
 

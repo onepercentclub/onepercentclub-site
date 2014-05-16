@@ -8,9 +8,12 @@ from .models import CustomVoucherRequest, Voucher
 
 class VoucherDonationInline(admin.StackedInline):
     model = Donation
-    raw_id_fields = ('project', 'user')
+    # raw_id_fields = ('project', 'user')
+    # readonly_fields = ('amount', )
+    # fields = readonly_fields + ('project', 'user')
+    raw_id_fields = ('user', )
     readonly_fields = ('amount', )
-    fields = readonly_fields + ('project', 'user')
+    fields = readonly_fields + ('user', )
     extra = 0
 
 
