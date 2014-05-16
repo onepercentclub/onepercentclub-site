@@ -4,84 +4,75 @@
 
 {% tplhandlebars "home_project_list" %}
 
-<div class="l-section home-projects">
-	<section class="l-wrapper">
+    <div class="l-section" id="campaigns">
+        <div class="l-wrapper">
+            <header class="section-header more-space">
+                <h2>{% trans "Some of our favourite campaigns" %}</h2>
+                {{#link-to 'projectList' class="all-campaigns"}}{% trans 'Browse all campaigns' %}{{/link-to}}
+            </header>
+            <ul class="campaign-container">
+                <div class="row">
+                    {{#each project in projects}}
+                        <div class="col4">
+                            <li class="campaign-item">
+                                <div class="campaign-item-holder">
+                                    <header class="header">
+                                        <img {{bindAttr src=project.image}} />
+                                    </header>
+                                    <span class="profile-photo">
+                                        <img {{bindAttr src=project.owner.getAvatar}} />
+                                    </span>
+                                    <div class="campaign-body">
+                                        <p>
+                                            <span class="profile-name">
+                                                <strong>{{project.owner.full_name}}</strong> {% trans 'campaigns for' %}
+                                            </span>
+                                            <span class="campaign-body-names">
+                                                {{project.title}}
+                                            </span>
+                                        </p>
+                                    </div>
 
-		<div class="project-slider l-full" style="overflow: hidden">
+                                    <div class="campaign-footer">
+                                        {{#if project.isStatusCampaign}}
+                			                {{bb-progressbar targetValue=project.amount_asked currentValue=project.amount_donated class="campaign-fund-amount-slider"}}
+                                            <div class="campaign-fund-amount">
+                                                <span class="amount-raised"><strong>&euro;{{project.amount_donated}}</strong> raised</span>
+                                                <span class="days-left"><strong>{{project.daysToGo}}</strong> days left</span>
+                                            </div>
+                                        {{else}}
+    										<p class="campaign-fund-amount-slider is-funded"><strong style="width: 100%; overflow: hidden;" class="slider-progress is-in-progress"><em class="slider-percentage"></em></strong></p>
+											<div class="campaign-fund-amount">
+                                            <span class="fully-funded"><strong>&euro;{{project.amount_donated}} {% trans 'raised' %}</strong></span>
+											</div>
 
-            {% block_verbatim header_text %}
-			<header class="section-header">
-				<h1>{% trans "Choose your project" %}</h1>
-				<p>{% trans "Support it with your time, knowledge or money and receive real-time updates." %}</p>
-			</header>
-		    {% endblock_verbatim %}
-
-			<div class="project-slides" style="width: 20000px">
-				{{#each projects}}
-				<div class="project-preview" style="width: 1100px; float: left">
-
-					<figure class="project-image">
-						<img {{bindAttr src="image" alt="name"}} />
-					</figure>
-
-					<article class="project-info">
-						<div class="project-meta">
-							<span class="project-location">
-								<span class="flaticon solid location-pin-1"></span>
-								{{country.name}}
-							</span>
-							<span class="project-theme">
-								<span class="flaticon solid tag-1"></span>
-								{{theme.name}}
-							</span>
-						</div>
-
-						<h2 class="project-title">
-							{{#linkTo 'project' id }}
-							{{title}}
-							{{/linkTo}}
-						</h2>
-						<p class="project-description">{{pitch}}</p>
-
-					</article>
-
-                    <div class="project-status l-full">
-
-                        <div class="project-days-left l-one-third">
-                        	&nbsp;
-	                        {{#if deadline}}
-    						<strong><span class="flaticon solid clock-1"></span> {{campaign.daysToGo}}</strong>
-    						<em>{% trans "days to go" %}</em>
-    						{{/if}}
-    					</div>
-
-    					<div class="project-fund l-one-third">
-                            <p class="project-fund-amount">
-                                <strong class="amount-donated">&euro;{{localize amount_donated}}</strong>
-                                {% trans "of" %}
-                                <strong class="amount-asked">&euro;{{localize amount_asked}}</strong>
-                                {% trans "raised" %}
-                            </p>
-			                {{bb-progressbar targetValue=amount_asked currentValue=amount_donated}}
-
-                            {{!-- <div class="project-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div> --}}
-    					</div>
-
-                        <div class="project-action l-one-third">
-    					    <a href='#' {{ action 'addDonation' project }} class="btn btn-primary btn-iconed"><span class="flaticon solid wallet-1"></span> {% trans "Support" %}</a>
+                                        {{/if}}
+                                    </div>
+                                    <div class="campaign-hover">
+                                        <p class="campaign-hover-head">
+                                            <strong>{{project.title}}</strong>
+                                        </p>
+                                        <p class="campaign-hover-body">
+                                            <span>
+                                                {{project.pitch}}
+                                            </span>
+                                        </p>
+                                        <p class="campaign-hover-footer">
+                                            <span>
+                                                {{#link-to 'project' project.id class="go-to-campaign"}}
+                                                    {% trans "Go to campaign" %}
+                                                {{/link-to}}
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
                         </div>
-
-					</div>
-				</div>
-				{{/each}}
-			</div>
-
-			<span {{action prevProject}} class="project-slider-prev">{% trans "Previous project" %}</span>
-			<span {{action nextProject}} class="project-slider-next">{% trans "Next project" %}</span>
-
-		</div>
-	</section>
-</div>
+                    {{/each}}
+                </div>
+            </ul>
+        </div>
+    </div>
 
 {% endtplhandlebars %}
 

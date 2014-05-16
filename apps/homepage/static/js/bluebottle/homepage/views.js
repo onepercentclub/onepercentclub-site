@@ -30,7 +30,7 @@ App.HomeProjectListView = Ember.View.extend({
 
 
 App.HomeQuotesView = Ember.View.extend({
-    templateName: 'quote_list',
+    templateName: 'home_quotes',
 
     didInsertElement: function() {
         var controller = this.get('controller');

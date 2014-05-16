@@ -59,6 +59,7 @@ class ProjectSerializer(BaseProjectSerializer):
 
 class ProjectPreviewSerializer(BaseProjectPreviewSerializer):
     task_count = serializers.IntegerField(source='task_count')
+    owner = UserPreviewSerializer(source='owner')
 
     class Meta(BaseProjectPreviewSerializer):
         model = BaseProjectPreviewSerializer.Meta.model

@@ -65,6 +65,20 @@ App.ProjectSupporter = DS.Model.extend({
 });
 
 
+App.ProjectDonation = DS.Model.extend({
+    url: 'fund/project-donations',
+
+    member: DS.belongsTo('App.UserPreview'),
+    amount: DS.attr('number'),
+    date_donated: DS.attr('date'),
+
+    time_since: function(){
+        return Globalize.format(this.get('date_donated'), 'X');
+    }.property('date_donated')
+});
+
+
+
 App.Ticker = DS.Model.extend({
     url: 'fund/latest-donations',
     project: DS.belongsTo('App.ProjectPreview'),

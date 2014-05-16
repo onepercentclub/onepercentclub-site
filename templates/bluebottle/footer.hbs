@@ -4,10 +4,10 @@
 {% tplhandlebars "_footer" %}
 
     <div class="l-section" id="footer">
-        <div class="l-wrapper">
-            <section class="footer-content">
-                <ul class="footer-menu">
-                    <li>
+        <div class="l-section" id="footer-links">
+            <div class="l-wrapper" id="nav">
+                <div class="row two">
+                    <div class="col3">
                         <h3>{% blocktrans %}It all starts with 1%{% endblocktrans %}</h3>
                         <ul>
                             <li>
@@ -37,9 +37,9 @@
                                 {{/link-to}}
                             </li>
                         </ul>
-                    </li>
+                    </div>
 
-                    <li>
+                    <div class="col3">
                         <h3>{% blocktrans %}About 1%Club{% endblocktrans %}</h3>
                         <ul>
                             <li>
@@ -79,10 +79,10 @@
                                 {{/linkTo}}
                             </li>
                         </ul>
+                    </div>
 
-                    </li>
-                    <li>
-                    <h3>{% trans "Discover 1%More" %}</h3>
+                    <div class="col3">
+                        <h3>{% trans "Discover 1%More" %}</h3>
                         <ul>
                             <li>
                                 {{#link-to 'page' 'business'}}
@@ -100,8 +100,9 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
-                    <li>
+                    </div>
+
+                    <div class="col3">
                     <h3>{% blocktrans %}1%Social{% endblocktrans %}</h3>
                         <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fonepercentclub&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;font&amp;colorscheme=light&amp;action=like&amp;height=21&amp;appId=265978350087756" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:21px;" allowTransparency="true"></iframe>
                         <iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/tweet_button.html?url=https%3A%2F%2Fonepercentclub.com&text=" style="width:115px; height:21px;"></iframe>
@@ -132,6 +133,53 @@
                                 </a>
                             </li>
                         </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% comment %}
+        <div class="l-section" id="footer-contact">
+            <div class="l-wrapper">
+                <div class="row">
+                    <div class="col12">
+                        <p>You can always contact us for questions via <a href="mailto:info@onepercentclub.com">info@onepercentclub.com</a> and <a href="tel:+3120 715 8980">(+31) 20 715 8980</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="l-section" id="footer-copyright">
+            <div class="l-wrapper">
+                <div class="row">
+                    <div class="col3 copy">
+                        <p>© 2014 - 1%Club</p>
+                    </div>
+                    <div class="col6 footer-back-to-top">
+                        <p>up</p>
+                    </div>
+                    <div class="col3 give-us-feedback">
+                        <p><a href="#">Give us feedback</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endcomment %}
+
+
+    </div>
+
+    <div class="l-section" id="footer">
+        <div class="l-wrapper">
+            <section class="footer-content">
+                <ul class="footer-menu">
+                    <li>
+                    </li>
+
+                    <li>
+                    </li>
+                    <li>
+                    </li>
+                    <li>
                     </li>
 				</ul>
                 <hr>
