@@ -81,9 +81,15 @@
             <div class="project-status">
 
                 {{#if deadline}}
-                <div class="project-days-left">
-                    <strong><span class="flaticon solid stopwatch-1"></span> {{daysToGo}} <em>{% trans "days to go" %}!</em></strong>
-                </div>
+                    <div class="project-days-left">
+                        <strong><span class="flaticon solid stopwatch-1"></span>
+                        {{#ifExpired deadline}}
+                            <em>{% trans "deadline passed" %}</em>
+                        {{else}}
+                            {{daysToGo}} <em>{% trans "days to go" %}</em>
+                        {{/ifExpired}}
+                        </strong>
+                    </div>
                 {{/if}}
 
                 <div class="project-fund">
