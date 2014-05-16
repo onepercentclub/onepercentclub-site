@@ -49,11 +49,12 @@ class ProjectSerializer(BaseProjectSerializer):
     task_count = serializers.IntegerField(source='task_count')
     country = ProjectCountrySerializer(source='country')
     story = StoryField()
+    video_html = OEmbedField(source='video_url', maxwidth='560', maxheight='315')
 
     class Meta(BaseProjectSerializer):
         model = BaseProjectSerializer.Meta.model
         fields = BaseProjectSerializer.Meta.fields + ('task_count', 'amount_asked', 'amount_donated', 'amount_needed',
-                                                      'story', 'status', 'deadline', 'latitude', 'longitude')
+                                                      'story', 'status', 'deadline', 'latitude', 'longitude', 'video_url', 'video_html')
 
 
 class ProjectPreviewSerializer(BaseProjectPreviewSerializer):
