@@ -12,9 +12,10 @@ h1 {
 
 h2 {
 	color: $gray-dark;
-	font-size: 1.5em;
+	font-size: 24px;
 	font-family: $font-family-bold;
 	font-weight: 900;
+	line-height: 38px;
 }
 
 a {
@@ -47,6 +48,7 @@ input {
 
 .l-wrapper {
 	position: relative;
+	padding: 0 15px;
 	min-width: 400px;
 	max-width: 1200px;
 	margin: 0 auto;
@@ -88,7 +90,7 @@ input {
 				width: 125px;
 			}
 		}
-		
+
 	}
 	#nav {
 		padding: 2.2em 0 0 0;
@@ -190,8 +192,8 @@ input {
 		text-align: center;
 		span {
 			display: inline-block;
-			height: 15px;
-			width: 15px;
+			height: 13px;
+			width: 13px;
 			border-radius: 50%;
 			background: rgba(255, 255, 255, .7);
 			border: solid 1px white;
@@ -207,7 +209,7 @@ input {
 	float: right;
 	margin: -17px 45px;
 	font-family: $font-family-bold;
-	color: $gray-border;
+	color: $gray-dark;
 	font-size: 1em;
 	&:after {
 		content: "\2192";
@@ -220,24 +222,9 @@ input {
 	background-color: white;
 	.campaign-container {
 		font-family: $font-family-bold;
-		padding: 0;
-		margin: 0;
-		list-style: none;
-
-		display: -webkit-box;
-		display: -moz-box;
-
-		display: -ms-flexbox;
-		display: -webkit-flex;
-		display: flex;
-
-		-webkit-flex-flow: row wrap;
-		justify-content: space-around;
-
 		.campaign-item {
 			position: relative;
-			width: 250px;
-			height: 330px;
+			height: 470px;
 			background: $gray-light;
 			padding: 7px;
 			border-radius: 0 0 6px 6px;
@@ -252,7 +239,7 @@ input {
 					position: absolute;
 					overflow: hidden;
 					width: 100%;
-					height: 141px;
+					height: 200px;
 					background: $gray-dark;
 					opacity: 1;
 					@include single-transition(opacity, .2s ease-in-out);
@@ -283,7 +270,7 @@ input {
 					height: 51px;
 					overflow: hidden;
 					border-radius: 50%;
-					top: 117px;
+					top: 168px;
 					border: solid 2px white;
 					z-index: 4;
 					@include single-transition(top, .2s ease-in-out);
@@ -308,8 +295,10 @@ input {
 						margin-top: 55px;
 						width: 100%;
 						height: auto;
+						min-height: 50px;
 						text-align: center;
 						padding-bottom: 10px;
+						border-bottom: solid 2px $gray-border;
 						strong {
 							display: inline-block;
 							margin: auto;
@@ -320,9 +309,17 @@ input {
 					}
 					.campaign-hover-body {
 						min-height: 190px;
-						font-size: 14px;
-						line-height: 18px;
-						color: $gray-dark;
+						font-size: 15px;
+						line-height: 25px;
+						color: $black;
+					}
+					.campaign-hover-footer {
+						position: absolute;
+						right: 0;
+						bottom: 0;
+						left: 0;
+						margin: auto;
+						border-top: solid 2px $gray-border;
 					}
 					p {
 						span {
@@ -339,9 +336,6 @@ input {
 								margin-left: 7px;
 							}
 						}
-						&:not(:last-child) {
-							border-bottom: solid 1px $gray-border;
-						}
 					}
 				}
 			}
@@ -349,7 +343,7 @@ input {
 				position: absolute;
 				left: 0;
 				right: 0;
-				top: 176px;
+				top: 247px;
 				margin: auto;
 				padding: 10px;
 				@include single-transition(top, .2s ease-in-out);
@@ -367,10 +361,10 @@ input {
 				.campaign-body-names {
 					display: block;
 					width: 90%;
-					margin: 4px 0 0 0;
+					margin: 8px 0 0 0;
 					text-align: center;
 					line-height: 19px;
-					font-size: 13px;
+					font-size: 16px;
 					font-weight: 800;
 				}
 			}
@@ -378,7 +372,7 @@ input {
 				position: absolute;
 				left: 0;
 				right: 0;
-				bottom: 4px;
+				bottom: 8px;
 				margin: auto;
 				padding: 10px;
 				opacity: 1;
@@ -406,7 +400,7 @@ input {
 					display: block;
 					overflow: hidden;
 					border-radius: 1em;
-					margin: 0 0 .5em 0;
+					margin: 0 0 1.5em 0;
 					background-color: transparent;
 					border: solid 1px $color-primary;
 					.slider-progress {
@@ -474,7 +468,6 @@ input {
 	padding-bottom: 70px;
 	.tag-container {
 		margin: auto;
-		width: 90%;
 		text-align: center;
 		font-family: $font-family-bold;
 		.tag-item {
@@ -485,11 +478,11 @@ input {
 			border-radius: 8px;
 			border: solid 1px $gray-border;
 			background-color: white;
-			color: $color-primary;
+			color: $gray-dark;
 			@include single-transition(all, .1s ease-in-out);
 			&:hover {
-				background-color: $color-primary;
-				color: $gray-light;
+				background-color: $gray-light;
+				color: $gray-dark;
 			}
 		}
 		.tag-browse-all {
@@ -506,46 +499,36 @@ input {
 
 // -------------------- TOOLS --------------------
 .tools-container {
-	margin-top: 50px;
-	background-color: $gray-light;
-	.l-wrapper {
-		//@include clearfix;
-		.tools-row {
-			width: 100%;
+	background-color: white;
+	.tools {
+		font-family: $font-family-bold;
+		color: $gray-dark;
+		min-height: 100px;
+		margin-bottom: 40px;
+		.icon {
+			display: block;
+			float: left;
+			background: #ccc;
+			width: 75px;
+			height: 75px;
+			margin-right: 20px;
+		}
+		.content {
+			display: block;
+			line-height: 24px;
+		}
+		strong {
+			font-weight: 700;
+		}
+		&.left {
+			float: left;
+		}
+		&.right {
+			float: right;
+		}
+		&.small {
+			width: 80%;
 			margin: auto;
-			padding: 40px 0 40px 0;
-			@include clearfix;
-			&.small {
-				max-width: 600px;
-			}
-			.tools {
-				font-family: $font-family-bold;
-				color: $gray-dark;
-				width: 50%;
-				min-height: 100px;
-				&.left {
-					float: left;
-				}
-				&.right {
-					float: right;
-				}
-				.icon {
-					display: block;
-					float: left;
-					background: #ccc;
-					width: 75px;
-					height: 75px;
-					margin-right: 20px;
-				}
-				.content {
-					display: block;
-					width: 90%;
-					min-height: 80px;
-				}
-				strong {
-					font-weight: 700;
-				}
-			}
 		}
 	}
 }
@@ -579,11 +562,14 @@ input {
 			font-size: 2em;
 			z-index: 4;
 			text-align: center;
-			line-height: 93px;
+			line-height: 73px;
 			h2 {
 				color: white;
+				font-size: 34px;
+				line-height: 73px;
 				strong {
-					font-weight: 700;
+					font-weight: 900;
+					font-size: 39px;
 				}
 			}
 		}
@@ -609,7 +595,6 @@ input {
 .quote-carousel {
 	position: relative;
 	margin: auto;
-	width: 90%;
 	background-color: white;
 	border-radius: 6px;
 	border: solid 1px $gray-border;
@@ -688,9 +673,30 @@ input {
 	#footer-contact {
 		height: 80px;
 		background-color: $color-primary;
+		p {
+			text-align: center;
+			margin-top: 30px;
+			font-size: 16px;
+			a {
+				color: white;
+			}
+		}
 	}
 	#footer-copyright {
 		height: 120px;
 		background-color: white;
+		color: $gray-dark;
+		p {
+			padding-top: 55px;
+		}
+		.copy {
+			text-align: left;
+		}
+		.footer-back-to-top {
+			text-align: center;
+		}
+		.give-us-feedback {
+			text-align: right;
+		}
 	}
 }
