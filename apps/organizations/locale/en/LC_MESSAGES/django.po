@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Translators:
 # Liane <liane@onepercentclub.com>, 2014
@@ -9,14 +9,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-15 09:13+0200\n"
+"POT-Creation-Date: 2014-05-14 10:02+0200\n"
 "PO-Revision-Date: 2014-05-13 10:34+0000\n"
 "Last-Translator: Liane <liane@onepercentclub.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
-"Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: en_GB\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:16
@@ -342,7 +342,9 @@ msgid "Partner organisation"
 msgstr "Organisation"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:15
-msgid "Give us the details about your partner organisation whose sole purpose in life it is to address the topic that you care about!"
+msgid ""
+"Give us the details about your partner organisation whose sole purpose in "
+"life it is to address the topic that you care about!"
 msgstr "Give us the details about your partner organisation whose sole purpose in life it is to address the topic that you care about!"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:22
@@ -354,7 +356,9 @@ msgid "Import:"
 msgstr "Import:"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:28
-msgid "It appears that you already have an (other) organisation. Select it below or fill out the form to create a new one."
+msgid ""
+"It appears that you already have an (other) organisation. Select it below or"
+" fill out the form to create a new one."
 msgstr "It appears that you already have an (other) organisation. Select it below or fill out the form to create a new one."
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:51
@@ -362,11 +366,16 @@ msgid "Legal status"
 msgstr "Legal document"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:52
-msgid "Upload a document that identifies your contact person or your partner organisation. The document can be an ID, passport, memorandum of association or an other official document."
+msgid ""
+"Upload a document that identifies your contact person or your partner "
+"organisation. The document can be an ID, passport, memorandum of association"
+" or an other official document."
 msgstr "Please upload a clear copy of your passport or ID. "
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:58
-msgid "please upload a copy of your passport. Make sure it's a valid one and we can read it clearly!"
+msgid ""
+"please upload a copy of your passport. Make sure it's a valid one and we can"
+" read it clearly!"
 msgstr "Please upload a clear copy of your passport or ID. "
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:60

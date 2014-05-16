@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-14 10:02+0200\n"
-"PO-Revision-Date: 2014-05-14 07:26+0000\n"
-"Last-Translator: nieja <niels@1procentclub.nl>\n"
+"PO-Revision-Date: 2014-05-15 10:18+0000\n"
+"Last-Translator: Liane <liane@onepercentclub.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -502,17 +502,17 @@ msgstr "Campaign basics"
 
 #: templates/manage_old.hbs:434 templates/manage_old.hbs.py:1416
 msgid "Be short, creative, simple and memorable."
-msgstr "Be short, creative and memorable."
+msgstr ""
 
 #: templates/manage_old.hbs:435 templates/manage_old.hbs.py:1417
 #: templates/bb_projects/manage/pitch.hbs:21
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/pitch.hbs.py:19
 msgid "Title"
-msgstr "Title"
+msgstr "Be short, creative and memorable."
 
 #: templates/manage_old.hbs:445
 msgid "Pitch your smart idea in one sentence."
-msgstr "Tell us in one paragraph where you need the money for."
+msgstr ""
 
 #: templates/manage_old.hbs:459 templates/manage_old.hbs.py:1453
 #: templates/bb_projects/manage/pitch.hbs:35
@@ -528,7 +528,7 @@ msgstr "Theme"
 #: templates/project_detail.html:85
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/project_detail.html.py:85
 msgid "Tags"
-msgstr "Keyword"
+msgstr "Keywords"
 
 #: templates/manage_old.hbs:498 templates/manage_old.hbs.py:1471
 msgid "Between 2 and 5 tags"
@@ -620,7 +620,7 @@ msgstr "Country"
 msgid ""
 "Select the location on the map. You can use the search to find your "
 "location."
-msgstr "Find your exact location using country, city and/or street."
+msgstr "You can drag the marker on the map to pinpoint the location even more accureate."
 
 #: templates/manage_old.hbs:658
 msgid "Project media"
@@ -628,7 +628,7 @@ msgstr "Campaign Picture"
 
 #: templates/manage_old.hbs:659
 msgid "Upload a photo"
-msgstr "Upload a picture that best describes your campaign."
+msgstr "Upload a picture that best describes your campaign. (.jpg or .png)\n(minimal 600x400)"
 
 #: templates/manage_old.hbs:664
 #, python-format
@@ -666,7 +666,7 @@ msgstr "Describe your organisation"
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/pitch.hbs.py:21
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/submit_story_fields.hbs.py:11
 msgid "Description"
-msgstr "Description"
+msgstr "Tell us in one paragraph where you need the money for."
 
 #: templates/manage_old.hbs:732
 msgid "Address"
@@ -1384,17 +1384,17 @@ msgstr "Language"
 
 #: templates/bb_projects/manage/pitch.hbs:19
 msgid "Choose a language."
-msgstr "Choose a language."
+msgstr "Choose the language of your (main) audience."
 
 #: templates/bb_projects/manage/pitch.hbs:21
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/pitch.hbs.py:19
 msgid "Make it short, creative, simple and memorable."
-msgstr "Make it short, creative, simple and memorable."
+msgstr ""
 
 #: templates/bb_projects/manage/pitch.hbs:23
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/pitch.hbs.py:21
 msgid "Describe your smart idea in one paragraph."
-msgstr "Tell us in one paragraph where you need the money for."
+msgstr ""
 
 #: templates/bb_projects/manage/pitch.hbs:23
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/pitch.hbs.py:21
@@ -1404,12 +1404,12 @@ msgstr "Tell us in one paragraph where you need the money for."
 #: templates/bb_projects/manage/pitch.hbs:28
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/pitch.hbs.py:26
 msgid "Picture"
-msgstr "Picture"
+msgstr "Photo"
 
 #: templates/bb_projects/manage/pitch.hbs:28
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/pitch.hbs.py:26
 msgid "Upload the picture that best describes your campaign."
-msgstr "Pick an appealing photo! Just upload a  .jpg or .png here\n<br>\n(minimal 600x400)"
+msgstr "Upload a picture that best describes your campaign. (jpg. or png.)\n(minimal 600x400) "
 
 #: templates/bb_projects/manage/pitch.hbs:30
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/pitch.hbs.py:28
@@ -1421,12 +1421,12 @@ msgstr "Video"
 msgid ""
 "Add a video if you want. Make it sparkling! Your energy will be your best "
 "selling point."
-msgstr "YouTube or Vimeo link (starting with http://)"
+msgstr "(optional)\nAdd a video pitch if you want. Make it sparkling! "
 
 #: templates/bb_projects/manage/pitch.hbs:30
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/pitch.hbs.py:28
 msgid "Not required"
-msgstr "Optional "
+msgstr "YouTube or Vimeo link (starting with http://)"
 
 #: templates/bb_projects/manage/start.hbs:7
 #: templates/bb_projects/manage/start.hbs:61
@@ -1591,7 +1591,7 @@ msgstr "\n      <ul>\n          <li>Make your story easy to read, full of intere
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/admin.py:52
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:125
 msgid "title"
-msgstr "title"
+msgstr "Title"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/admin.py:61
 msgid "owner"

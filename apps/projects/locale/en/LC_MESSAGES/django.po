@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Translators:
 # Translators:
@@ -13,14 +13,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-15 09:13+0200\n"
-"PO-Revision-Date: 2014-05-14 07:26+0000\n"
-"Last-Translator: nieja <niels@1procentclub.nl>\n"
+"POT-Creation-Date: 2014-05-14 10:02+0200\n"
+"PO-Revision-Date: 2014-05-15 10:18+0000\n"
+"Last-Translator: Liane <liane@onepercentclub.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
-"Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: en_GB\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: dashboard.py:13
@@ -79,7 +79,10 @@ msgid "video"
 msgstr "video"
 
 #: models.py:96
-msgid "Do you have a video pitch or a short movie that explains your project? Cool! We can't wait to see it! You can paste the link to YouTube or Vimeo video here"
+msgid ""
+"Do you have a video pitch or a short movie that explains your project? Cool!"
+" We can't wait to see it! You can paste the link to YouTube or Vimeo video "
+"here"
 msgstr "Add a video pitch if you want. Make it sparkling!"
 
 #: models.py:100
@@ -103,7 +106,9 @@ msgid "effects"
 msgstr "effects"
 
 #: models.py:114 templates/manage_old.hbs:560
-msgid "What will be the Impact? How will your Smart Idea change the lives of people?"
+msgid ""
+"What will be the Impact? How will your Smart Idea change the lives of "
+"people?"
 msgstr "What will be the Impact? How will your Smart Idea change the lives of people?"
 
 #: models.py:115
@@ -119,7 +124,8 @@ msgid "future"
 msgstr "future"
 
 #: models.py:116 templates/manage_old.hbs:571
-msgid "How will this project be self-sufficient and sustainable in the long term?"
+msgid ""
+"How will this project be self-sufficient and sustainable in the long term?"
 msgstr "How will this project be self-sufficient and sustainable in the long term?"
 
 #: models.py:118
@@ -139,13 +145,13 @@ msgid "Campaign Funded"
 msgstr "Campaign Finished"
 
 #: models.py:251
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:191
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:189
 #, python-brace-format
 msgid "{name_project} in {country}"
 msgstr "{name_project} in {country}"
 
 #: models.py:270
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:211
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:209
 #, python-brace-format
 msgid "{title} {{URL}} via @{twitter_handle}"
 msgstr "{title} {{URL}} via @{twitter_handle}"
@@ -174,12 +180,12 @@ msgstr "name"
 
 #: models.py:355
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:24
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:128
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:126
 msgid "slug"
 msgstr "slug"
 
 #: models.py:357
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:144
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:142
 msgid "image"
 msgstr "image"
 
@@ -252,10 +258,7 @@ msgstr "Send in your Project Pitch"
 msgid ""
 "\n"
 "Do you have a smart idea to make a contribution to your community? An idea to tackle a waste problem in your neighborhood? An idea for clean and green transport? An idea to use tech innovations to improve local healthcare? Well, you came to the right place. We LOVE smart ideas!\n"
-msgstr ""
-"\n"
-"Do you have a world changing idea? An idea to tackle a waste problem in your neighborhood, an idea to use tech innovations to improve local healthcare? You came to the right place! \n"
-"\n"
+msgstr "\nDo you have a world changing idea? An idea to tackle a waste problem in your neighborhood, an idea to use tech innovations to improve local healthcare? You came to the right place! \n\n"
 
 #: templates/manage_old.hbs:116
 #, python-format
@@ -263,17 +266,16 @@ msgid ""
 "\n"
 "1%%Club offers you the opportunity to raise funds in an easy and fun way.<br />\n"
 "Read more about our features, service fees and and other useful stuff <a href=\"/#!/pages/faq-projects\">here</a>. See you online soon!\n"
-msgstr ""
-"\n"
-"1%%Club offers you the platform to mobilize your network and raise funds in the most exciting and efficient way..<br />\n"
-"Read more about our features, service fees and and other useful stuff <a href=\"/#!/pages/faq-projects\">here</a>. See you online soon!\n"
+msgstr "\n1%%Club offers you the platform to mobilize your network and raise funds in the most exciting and efficient way..<br />\nRead more about our features, service fees and and other useful stuff <a href=\"/#!/pages/faq-projects\">here</a>. See you online soon!\n"
 
 #: templates/manage_old.hbs:125
 msgid "Problem creating pitch."
 msgstr "Problem creating pitch."
 
 #: templates/manage_old.hbs:127
-msgid "It looks like you already have started a project in progress. You can manage your project here:"
+msgid ""
+"It looks like you already have started a project in progress. You can manage"
+" your project here:"
 msgstr "It looks like you already have started a campaign story. You can manage your campaign here:"
 
 #: templates/manage_old.hbs:130
@@ -422,7 +424,7 @@ msgid "Media"
 msgstr "Media"
 
 #: templates/manage_old.hbs:326 templates/manage_old.hbs.py:701
-#: templates/manage_old.hbs:866 templates/bb_projects/manage/main.hbs:91
+#: templates/manage_old.hbs:866 templates/bb_projects/manage/main.hbs:81
 #: templates/bb_projects/manage/submit_organization_fields.hbs:13
 #: templates/bb_projects/manage/submit_organization_fields.hbs:77
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/main.hbs.py:70
@@ -464,7 +466,11 @@ msgstr "Thank you for sending us your campaign story!"
 
 #: templates/manage_old.hbs:398
 #, python-format
-msgid "To complete your project plan, please fill in the empty spaces. Are there still some gaps? Don’t worry! We have a community full of people that are willing to help you. The only thing you need to do is create a 1%%Skills task ask for the right expertise."
+msgid ""
+"To complete your project plan, please fill in the empty spaces. Are there "
+"still some gaps? Don’t worry! We have a community full of people that are "
+"willing to help you. The only thing you need to do is create a 1%%Skills "
+"task ask for the right expertise."
 msgstr "To complete your project plan, please fill in the empty spaces. Are there still some gaps? Don’t worry! We have a community full of people that are willing to help you. The only thing you need to do is create a 1%%Skills task ask for the right expertise."
 
 #: templates/manage_old.hbs:405
@@ -496,17 +502,17 @@ msgstr "Campaign basics"
 
 #: templates/manage_old.hbs:434 templates/manage_old.hbs.py:1416
 msgid "Be short, creative, simple and memorable."
-msgstr "Be short, creative and memorable."
+msgstr ""
 
 #: templates/manage_old.hbs:435 templates/manage_old.hbs.py:1417
 #: templates/bb_projects/manage/pitch.hbs:21
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/pitch.hbs.py:19
 msgid "Title"
-msgstr "Title"
+msgstr "Be short, creative and memorable."
 
 #: templates/manage_old.hbs:445
 msgid "Pitch your smart idea in one sentence."
-msgstr "Tell us in one paragraph where you need the money for."
+msgstr ""
 
 #: templates/manage_old.hbs:459 templates/manage_old.hbs.py:1453
 #: templates/bb_projects/manage/pitch.hbs:35
@@ -522,7 +528,7 @@ msgstr "Theme"
 #: templates/project_detail.html:85
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/project_detail.html.py:85
 msgid "Tags"
-msgstr "Keyword"
+msgstr "Keywords"
 
 #: templates/manage_old.hbs:498 templates/manage_old.hbs.py:1471
 msgid "Between 2 and 5 tags"
@@ -562,7 +568,7 @@ msgid "Project description"
 msgstr "Description"
 
 #: templates/manage_old.hbs:549
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:139
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:137
 msgid "Blow us away with the details!"
 msgstr "Tell us in one paragraph where you need the money for."
 
@@ -611,8 +617,10 @@ msgstr "Country"
 
 #: templates/manage_old.hbs:636 templates/bb_projects/manage/pitch.hbs:46
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/pitch.hbs.py:51
-msgid "Select the location on the map. You can use the search to find your location."
-msgstr "Find your exact location using country, city and/or street."
+msgid ""
+"Select the location on the map. You can use the search to find your "
+"location."
+msgstr "You can drag the marker on the map to pinpoint the location even more accureate."
 
 #: templates/manage_old.hbs:658
 msgid "Project media"
@@ -620,11 +628,13 @@ msgstr "Campaign Picture"
 
 #: templates/manage_old.hbs:659
 msgid "Upload a photo"
-msgstr "Upload a picture that best describes your campaign."
+msgstr "Upload a picture that best describes your campaign. (.jpg or .png)\n(minimal 600x400)"
 
 #: templates/manage_old.hbs:664
 #, python-format
-msgid "This photo will represent your idea on 1%%Club. So make sure it's personal, unique and recognisable for your smart idea and that it looks nice too!"
+msgid ""
+"This photo will represent your idea on 1%%Club. So make sure it's personal, "
+"unique and recognisable for your smart idea and that it looks nice too!"
 msgstr "This photo will represent your idea on 1%%Club. So make sure it's personal, unique and recognisable for your smart idea and that it looks nice too!"
 
 #: templates/manage_old.hbs:666
@@ -649,14 +659,14 @@ msgid "Describe your organisation"
 msgstr "Describe your organisation"
 
 #: templates/manage_old.hbs:719 templates/manage_old.hbs.py:990
-#: templates/project_detail.html:96 templates/bb_projects/manage/main.hbs:80
+#: templates/project_detail.html:96 templates/bb_projects/manage/main.hbs:72
 #: templates/bb_projects/manage/pitch.hbs:23
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/project_detail.html.py:96
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/main.hbs.py:61
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/pitch.hbs.py:21
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/submit_story_fields.hbs.py:11
 msgid "Description"
-msgstr "Description"
+msgstr "Tell us in one paragraph where you need the money for."
 
 #: templates/manage_old.hbs:732
 msgid "Address"
@@ -763,15 +773,21 @@ msgid "Legal status"
 msgstr "Legal document"
 
 #: templates/manage_old.hbs:897
-msgid "Please scan and upload a clear copy of your passport or ID. Don’t have a scanner? A clear photo of your ID card will do too!"
+msgid ""
+"Please scan and upload a clear copy of your passport or ID. Don’t have a "
+"scanner? A clear photo of your ID card will do too!"
 msgstr "Please scan and upload a clear copy of your passport or ID. Don’t have a scanner? A clear photo will do too!"
 
 #: templates/manage_old.hbs:903
-msgid "What is the legal status of your organization? Include the registration number."
+msgid ""
+"What is the legal status of your organization? Include the registration "
+"number."
 msgstr "What is the legal status of your organisation? Include the registration number."
 
 #: templates/manage_old.hbs:914
-msgid "please upload a copy of your passport. Make sure it's a valid one and we can read it clearly!"
+msgid ""
+"please upload a copy of your passport. Make sure it's a valid one and we can"
+" read it clearly!"
 msgstr "Please scan and upload a clear copy of your passport or ID. Don’t have a scanner? A clear photo will do too!"
 
 #: templates/manage_old.hbs:916
@@ -798,12 +814,7 @@ msgid ""
 "Do you want to start a crowdfunding campaign? Make sure all ambassadors create a 1%%Profile and post a short comment on your project page to promote your smart idea.<br /><br />\n"
 "You've to have at least 3 ambassadors. (more? great!)<br /><br />\n"
 "            "
-msgstr ""
-"\n"
-"An ambassador is somebody who can tell something about your campaign or about you as a person or your organisation. Ambassadors will make your story more credible and will add that little something extra. You probably have lots of people in your network who can act as ambassador, but be sure it is not your mom and the person meets our criteria (see <a href=\"/#!/pages/faq-projects\">FAQ</a>).<br /><br />\n"
-"Do you want to start a crowdfunding campaign? Make sure all ambassadors create a 1%%Profile and post a short comment on your project page to promote your smart idea.<br /><br />\n"
-"You have to have at least 3 ambassadors. (more? great!)<br /><br />\n"
-"            "
+msgstr "\nAn ambassador is somebody who can tell something about your campaign or about you as a person or your organisation. Ambassadors will make your story more credible and will add that little something extra. You probably have lots of people in your network who can act as ambassador, but be sure it is not your mom and the person meets our criteria (see <a href=\"/#!/pages/faq-projects\">FAQ</a>).<br /><br />\nDo you want to start a crowdfunding campaign? Make sure all ambassadors create a 1%%Profile and post a short comment on your project page to promote your smart idea.<br /><br />\nYou have to have at least 3 ambassadors. (more? great!)<br /><br />\n            "
 
 #: templates/manage_old.hbs:965 templates/manage_old.hbs.py:977
 msgid "Email address of the amabassador"
@@ -921,12 +932,7 @@ msgid ""
 "Do realise that you have to put in work to make it work. And remember, hard work tends to pay off. Think carefully about how much you want to raise and how long you want to campaign. We will charge a service fee of 7%% if you reach your goal and 12%% if you don’t. This fee includes all payment processing and administraton fees.<br/><br/>\n"
 "Need more tips and tricks? Read our <a href=\"/#!/pages/faq-projects\">FAQ</a>.<br/><br/>\n"
 "            "
-msgstr ""
-"\n"
-"Sometimes people are lucky and support for their campaign directly comes in from all corners of the world. However, for the other 99%% it starts with their own network and their networks’ network. This basically means you have to tell your network about your campaign on 1%%Club. Once, twice, maybe even three times. Per e-mail, on Facebook, on Twitter, face-to-face, by phone, by poster or in a video message. Whatever you need to do to get them on board! Our advice would be to have some people on board to help you do this.<br/><br/>\n"
-"Do realise that you have to put in work to make it work. And remember, hard work tends to pay off. Think carefully about how much you want to raise and how long you want to campaign. We will charge a service fee of 7%% if you reach your goal and 12%% if you don’t. This fee includes all payment processing and administration fees.<br/><br/>\n"
-"Need more tips and tricks? Read our <a href=\"/#!/pages/faq-projects\">FAQ</a>.<br/><br/>\n"
-"            "
+msgstr "\nSometimes people are lucky and support for their campaign directly comes in from all corners of the world. However, for the other 99%% it starts with their own network and their networks’ network. This basically means you have to tell your network about your campaign on 1%%Club. Once, twice, maybe even three times. Per e-mail, on Facebook, on Twitter, face-to-face, by phone, by poster or in a video message. Whatever you need to do to get them on board! Our advice would be to have some people on board to help you do this.<br/><br/>\nDo realise that you have to put in work to make it work. And remember, hard work tends to pay off. Think carefully about how much you want to raise and how long you want to campaign. We will charge a service fee of 7%% if you reach your goal and 12%% if you don’t. This fee includes all payment processing and administration fees.<br/><br/>\nNeed more tips and tricks? Read our <a href=\"/#!/pages/faq-projects\">FAQ</a>.<br/><br/>\n            "
 
 #: templates/manage_old.hbs:1163
 msgid "Describe in one sentence where the money is needed for."
@@ -954,9 +960,7 @@ msgstr "Budget needed"
 msgid ""
 "\n"
 "Tell us how much you plan to raise and how long you want to campaign. Please specify in the budget what you plan to spend the money on. We will charge a service fee of 7%% if you reach your goal and 12%% if you don’t. This fee includes all payment processing fees.\n"
-msgstr ""
-"\n"
-"Tell us how much you plan to raise and how long you want to campaign. Please specify in the budget what you plan to spend the money on. We will charge a service fee of 7%% if you reach your goal and 12%% if you don’t. This fee includes all payment processing fees.\n"
+msgstr "\nTell us how much you plan to raise and how long you want to campaign. Please specify in the budget what you plan to spend the money on. We will charge a service fee of 7%% if you reach your goal and 12%% if you don’t. This fee includes all payment processing fees.\n"
 
 #: templates/manage_old.hbs:1215
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/budget.hbs.py:28
@@ -1002,12 +1006,7 @@ msgid ""
 "                Make sure that you filled out the entire form and that all items to the left have a <span class=\"flaticon solid checkmark-2\"></span> check sign.\n"
 "                If one of the items still shows a circle then that still needs some work.\n"
 "            "
-msgstr ""
-"\n"
-"\n"
-"Please fill in all information before submitting\n"
-"The following information is still missing: \n"
-"            "
+msgstr "\n\nPlease fill in all information before submitting\nThe following information is still missing: \n            "
 
 #: templates/manage_old.hbs:1286
 msgid "Agree to the terms to submit the plan"
@@ -1054,7 +1053,12 @@ msgid "Get ready to write your pitch!"
 msgstr "Get ready to write your campaign plan!"
 
 #: templates/manage_old.hbs:1355
-msgid "Time to pitch your smart idea because we just can’t wait to hear about it! Make sure your story is positive, convincing and compelling. Fill in the Projects Basics, Location and a Picture. Need more tips and tricks to blow us away with your pitch? Check out our <a href=\"/#!/pages/faq-projects\">FAQ</a>."
+msgid ""
+"Time to pitch your smart idea because we just can’t wait to hear about it! "
+"Make sure your story is positive, convincing and compelling. Fill in the "
+"Projects Basics, Location and a Picture. Need more tips and tricks to blow "
+"us away with your pitch? Check out our <a href=\"/#!/pages/faq-"
+"projects\">FAQ</a>."
 msgstr "Time to pitch your campaign! Make sure your story is positive, convincing and compelling. Fill in the Campaign Basics, Location and upload a Picture. Need more tips and tricks to blow us away with your campaign? Check out our <a href=\"/#!/pages/faq-projects\">FAQ</a>."
 
 #: templates/manage_old.hbs:1371
@@ -1070,11 +1074,17 @@ msgid "Pitch basics"
 msgstr "Campaign basics"
 
 #: templates/manage_old.hbs:1427
-msgid "By reading your pitch many donors already make the decision to donate or not. The explanation must be to the point, because people don't have time to read everything."
+msgid ""
+"By reading your pitch many donors already make the decision to donate or "
+"not. The explanation must be to the point, because people don't have time to"
+" read everything."
 msgstr "By reading your campaign many donors already make the decision to donate or not. The explanation must be to the point, because people don't have time to read everything."
 
 #: templates/manage_old.hbs:1438
-msgid "A short description should at least tell something about a person, place, mitvation and activity. The simplest story would be: [Person] in [place] needs help to [activity] because [motivation]."
+msgid ""
+"A short description should at least tell something about a person, place, "
+"mitvation and activity. The simplest story would be: [Person] in [place] "
+"needs help to [activity] because [motivation]."
 msgstr "A short description should at least tell something about a person, place, motivation and activity. The simplest story would be: [Person] in [place] needs help to [activity] because [motivation]."
 
 #: templates/manage_old.hbs:1439
@@ -1113,14 +1123,14 @@ msgstr "You can write your {{#linkTo myProjectPlan}}Project Plan{{/linkTo}}!"
 msgid "Funding status"
 msgstr "Funding status"
 
-#: templates/manage_old.hbs:1646 templates/bb_projects/project.hbs:60
+#: templates/manage_old.hbs:1646 templates/bb_projects/project.hbs:61
 #: templates/bb_projects/project_preview.hbs:30
 #: templates/bb_projects/project_preview.hbs:38
 #: templates/bb_projects/manage/project.hbs:56
 msgid "of"
 msgstr "of"
 
-#: templates/manage_old.hbs:1648 templates/bb_projects/project.hbs:62
+#: templates/manage_old.hbs:1648 templates/bb_projects/project.hbs:63
 #: templates/bb_projects/project_preview.hbs:30
 #: templates/bb_projects/project_preview.hbs:38
 #: templates/bb_projects/manage/project.hbs:58
@@ -1139,21 +1149,15 @@ msgid ""
 "                    of the game. And then you have to play better than anyone else\".\n"
 "                    You can do it!\n"
 "                    "
-msgstr ""
-"\n"
-"                    Is money pouring in? No? Our tips & tricks might help you.\n"
-"                    Check our <a href=\"/#!/pages/faq-projects\">FAQ</a>! And remember Einsteins words: \"You have to learn the rules\n"
-"                    of the game. And then you have to play better than anyone else\".\n"
-"                    You can do it!\n"
-"                    "
+msgstr "\n                    Is money pouring in? No? Our tips & tricks might help you.\n                    Check our <a href=\"/#!/pages/faq-projects\">FAQ</a>! And remember Einsteins words: \"You have to learn the rules\n                    of the game. And then you have to play better than anyone else\".\n                    You can do it!\n                    "
 
-#: templates/manage_old.hbs:1672 templates/bb_projects/project.hbs:49
+#: templates/manage_old.hbs:1672 templates/bb_projects/project.hbs:50
 #: templates/bb_projects/manage/project.hbs:46
 #: templates/bb_projects/manage/project.hbs:48
 msgid "days to go"
 msgstr "days to go"
 
-#: templates/project_detail.html:20 templates/bb_projects/manage/main.hbs:58
+#: templates/project_detail.html:20 templates/bb_projects/manage/main.hbs:54
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/project_detail.html.py:20
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/main.hbs.py:52
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/submit_pitch_fields.hbs.py:11
@@ -1238,16 +1242,7 @@ msgid ""
 "<br/>\n"
 "Liane | 1%%Club<br/>\n"
 "<br/>\n"
-msgstr ""
-"\n"
-"Hey Project Team,<br/>\n"
-"<br/>\n"
-"A project has just been funded! Check it out.<br/>\n"
-"<br/>\n"
-"<a href=\"%(site)s%(link)s\">%(project)s</a>.<br/>\n"
-"<br/>\n"
-"Malou | 1%%Club<br/>\n"
-"<br/>\n"
+msgstr "\nHey Project Team,<br/>\n<br/>\nA project has just been funded! Check it out.<br/>\n<br/>\n<a href=\"%(site)s%(link)s\">%(project)s</a>.<br/>\n<br/>\nMalou | 1%%Club<br/>\n<br/>\n"
 
 #: templates/project_funded_internal.mail.txt:5
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/project_funded_internal.mail.txt.py:5
@@ -1264,17 +1259,7 @@ msgid ""
 "\n"
 "Liane | 1%%Club\n"
 "\n"
-msgstr ""
-"\n"
-"Hey Project Team,\n"
-"\n"
-"A project has just been funded! Check it out.\n"
-"\n"
-"%(site)s%(link)s\n"
-"\n"
-"\n"
-"Malou | 1%%Club\n"
-"\n"
+msgstr "\nHey Project Team,\n\nA project has just been funded! Check it out.\n\n%(site)s%(link)s\n\n\nMalou | 1%%Club\n\n"
 
 #: templates/project_iframe.html:29
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/project_iframe.html.py:29
@@ -1313,10 +1298,7 @@ msgid ""
 "\n"
 "            Recently funded projects that are now in 'act' phase.\n"
 "        "
-msgstr ""
-"\n"
-"            Recently funded campaigns that are now in 'act' phase.\n"
-"        "
+msgstr "\n            Recently funded campaigns that are now in 'act' phase.\n        "
 
 #: templates/admin_tools/dashboard/started_campaigns.html:17
 msgid "View all campaigning"
@@ -1329,22 +1311,22 @@ msgstr "View all campaigns"
 msgid "Edit"
 msgstr "Edit"
 
-#: templates/bb_projects/project.hbs:39
+#: templates/bb_projects/project.hbs:40
 #: templates/bb_projects/manage/project.hbs:34
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/project.hbs.py:38
 msgid "Read full project plan"
 msgstr "Read more."
 
-#: templates/bb_projects/project.hbs:53
+#: templates/bb_projects/project.hbs:54
 msgid "deadline passed"
 msgstr "deadline passed"
 
-#: templates/bb_projects/project.hbs:69
+#: templates/bb_projects/project.hbs:70
 #: templates/bb_projects/manage/project.hbs:65
 msgid "Support project"
 msgstr "Support campaign"
 
-#: templates/bb_projects/project.hbs:84
+#: templates/bb_projects/project.hbs:85
 #: templates/bb_projects/manage/project.hbs:79
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/project.hbs.py:53
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/project_members.hbs.py:13
@@ -1373,25 +1355,25 @@ msgstr "Preview"
 msgid "Go to campaign"
 msgstr "Go to campaign"
 
-#: templates/bb_projects/manage/main.hbs:45
+#: templates/bb_projects/manage/main.hbs:43
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/main.hbs.py:42
 msgid "Start"
 msgstr "Start"
 
-#: templates/bb_projects/manage/main.hbs:69
+#: templates/bb_projects/manage/main.hbs:63
 #: templates/projects/submit_goal_fields.hbs:10
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/story_fields.hbs.py:10
 msgid "Goal"
 msgstr "Goal"
 
-#: templates/bb_projects/manage/main.hbs:102
+#: templates/bb_projects/manage/main.hbs:90
 #: templates/bb_projects/manage/submit_organization_fields.hbs:31
 #: templates/bb_projects/manage/submit_organization_fields.hbs:47
 #: templates/bb_projects/manage/submit_organization_fields.hbs:61
 msgid "Bank"
 msgstr "Bank"
 
-#: templates/bb_projects/manage/main.hbs:114
+#: templates/bb_projects/manage/main.hbs:100
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/main.hbs.py:80
 msgid "Submit"
 msgstr "Submit"
@@ -1402,17 +1384,17 @@ msgstr "Language"
 
 #: templates/bb_projects/manage/pitch.hbs:19
 msgid "Choose a language."
-msgstr "Choose a language."
+msgstr "Choose the language of your (main) audience."
 
 #: templates/bb_projects/manage/pitch.hbs:21
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/pitch.hbs.py:19
 msgid "Make it short, creative, simple and memorable."
-msgstr "Make it short, creative, simple and memorable."
+msgstr ""
 
 #: templates/bb_projects/manage/pitch.hbs:23
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/pitch.hbs.py:21
 msgid "Describe your smart idea in one paragraph."
-msgstr "Tell us in one paragraph where you need the money for."
+msgstr ""
 
 #: templates/bb_projects/manage/pitch.hbs:23
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/pitch.hbs.py:21
@@ -1422,15 +1404,12 @@ msgstr "Tell us in one paragraph where you need the money for."
 #: templates/bb_projects/manage/pitch.hbs:28
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/pitch.hbs.py:26
 msgid "Picture"
-msgstr "Picture"
+msgstr "Photo"
 
 #: templates/bb_projects/manage/pitch.hbs:28
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/pitch.hbs.py:26
 msgid "Upload the picture that best describes your campaign."
-msgstr ""
-"Pick an appealing photo! Just upload a  .jpg or .png here\n"
-"<br>\n"
-"(minimal 600x400)"
+msgstr "Upload a picture that best describes your campaign. (jpg. or png.)\n(minimal 600x400) "
 
 #: templates/bb_projects/manage/pitch.hbs:30
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/pitch.hbs.py:28
@@ -1439,13 +1418,15 @@ msgstr "Video"
 
 #: templates/bb_projects/manage/pitch.hbs:30
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/pitch.hbs.py:28
-msgid "Add a video if you want. Make it sparkling! Your energy will be your best selling point."
-msgstr "YouTube or Vimeo link (starting with http://)"
+msgid ""
+"Add a video if you want. Make it sparkling! Your energy will be your best "
+"selling point."
+msgstr "(optional)\nAdd a video pitch if you want. Make it sparkling! "
 
 #: templates/bb_projects/manage/pitch.hbs:30
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/pitch.hbs.py:28
 msgid "Not required"
-msgstr "Optional "
+msgstr "YouTube or Vimeo link (starting with http://)"
 
 #: templates/bb_projects/manage/start.hbs:7
 #: templates/bb_projects/manage/start.hbs:61
@@ -1476,17 +1457,7 @@ msgid ""
 "            </li>\n"
 "        </ul>\n"
 "        "
-msgstr ""
-"\n"
-"        <ul>\n"
-"            <li>\n"
-"                Your campaign contributes to a better world.\n"
-"            </li>\n"
-"            <li>\n"
-"                You can show how the money will be spent with an itemised budget.\n"
-"            </li>\n"
-"        </ul>\n"
-"        "
+msgstr "\n        <ul>\n            <li>\n                Your campaign contributes to a better world.\n            </li>\n            <li>\n                You can show how the money will be spent with an itemised budget.\n            </li>\n        </ul>\n        "
 
 #: templates/bb_projects/manage/start.hbs:28
 msgid "And you:"
@@ -1501,20 +1472,7 @@ msgid ""
 "            </li>\n"
 "        </ul>\n"
 "        "
-msgstr ""
-"\n"
-"        <ul>\n"
-"            <li>\n"
-"The online campaign can last up to 100 days.\n"
-"</li>\n"
-"<li>\n"
-"You choose your own target amount. Crowdfunded more than 100%? You can raise even more funds!\n"
-"</li>\n"
-"<li>\n"
-"> If you reach your target, our service fee is 7%. If, unfortunately, you don’t, this will be 12%.\n"
-"</li>\n"
-"        </ul>\n"
-"        "
+msgstr "\n        <ul>\n            <li>\nThe online campaign can last up to 100 days.\n</li>\n<li>\nYou choose your own target amount. Crowdfunded more than 100%? You can raise even more funds!\n</li>\n<li>\n> If you reach your target, our service fee is 7%. If, unfortunately, you don’t, this will be 12%.\n</li>\n        </ul>\n        "
 
 #: templates/bb_projects/manage/start.hbs:38
 msgid "Profile campaigner"
@@ -1538,10 +1496,7 @@ msgid ""
 "\n"
 "                Read more about our tools, service fees and other useful tips <a href=\"/#!/pages/faq-projects\">HERE</a>! See you online soon…\n"
 "            "
-msgstr ""
-"\n"
-"                Read more about our tools, service fees and other useful tips <a href=\"/#!/pages/faq-projects\">HERE</a>! See you online soon…\n"
-"            "
+msgstr "\n                Read more about our tools, service fees and other useful tips <a href=\"/#!/pages/faq-projects\">HERE</a>! See you online soon…\n            "
 
 #: templates/bb_projects/manage/story_fields.hbs:8
 msgid "Story"
@@ -1561,20 +1516,23 @@ msgstr "Describe your full campaign plan"
 msgid "Goal & Budget"
 msgstr "Goal & Budget"
 
-#: templates/projects/goal.hbs:19
+#: templates/projects/goal.hbs:20
 msgid "Crowdfunding goal"
 msgstr "Crowdfunding goal"
 
-#: templates/projects/goal.hbs:19
-#, fuzzy
-msgid "Pick an amount between EUR 250 - EUR 1.000.000"
+#: templates/projects/goal.hbs:20
+msgid "Pick an amount between &nbsp; &euro; 250 - &euro; 1.000.000"
 msgstr "Pick an amount between €250 - €1.000.000."
 
-#: templates/projects/goal.hbs:26
+#: templates/projects/goal.hbs:20
+msgid " &euro; "
+msgstr "euro"
+
+#: templates/projects/goal.hbs:27
 msgid "We recommend that campaigns last 30 days or less."
 msgstr "Most successful campaigns are done in 30 days or less."
 
-#: templates/projects/goal.hbs:26
+#: templates/projects/goal.hbs:27
 msgid "Campaign duration"
 msgstr "Campaign duration "
 
@@ -1604,11 +1562,7 @@ msgid ""
 "            </ul>\n"
 "            <p>Find more tips in our <a href=\"#!/pages/faq-projects\">FAQ &rsaquo;</a></p>\n"
 "        "
-msgstr ""
-"\n"
-"Crowdfunding is all about activating your own network. Therefore it’s important that you are able to inspire and activate people around you to support your campaign. Be prepared to be very busy for 100 days!          \n"
-"<p>Find more tips in our <a href=\"#!/pages/faq-projects\">FAQ &rsaquo;</a></p>\n"
-"        "
+msgstr "\nCrowdfunding is all about activating your own network. Therefore it’s important that you are able to inspire and activate people around you to support your campaign. Be prepared to be very busy for 100 days!          \n<p>Find more tips in our <a href=\"#!/pages/faq-projects\">FAQ &rsaquo;</a></p>\n        "
 
 #: templates/projects/sidebar_pitch.hbs:9
 msgid ""
@@ -1620,15 +1574,7 @@ msgid ""
 "        </ul>\n"
 "        <p>Find more tips in our <a href=\"https://onepercentclub.com/go/pages/faq-projects\">FAQ &rsaquo;</a></p>\n"
 "        "
-msgstr ""
-"\n"
-"        <ul>\n"
-"            <li>The description is your ‘elevator pitch’, test it on your friends to see if it works.</li>\n"
-"            <li>Choose a strong photo and check it in the preview widget.</li>\n"
-"            <li>Always check for mistakes in the text.</li>\n"
-"        </ul>\n"
-"        <p>Find more tips in our <a href=\"https://onepercentclub.com/go/pages/faq-projects\">FAQ &rsaquo;</a></p>\n"
-"        "
+msgstr "\n        <ul>\n            <li>The description is your ‘elevator pitch’, test it on your friends to see if it works.</li>\n            <li>Choose a strong photo and check it in the preview widget.</li>\n            <li>Always check for mistakes in the text.</li>\n        </ul>\n        <p>Find more tips in our <a href=\"https://onepercentclub.com/go/pages/faq-projects\">FAQ &rsaquo;</a></p>\n        "
 
 #: templates/projects/sidebar_story.hbs:9
 msgid ""
@@ -1640,20 +1586,12 @@ msgid ""
 "      </ul>\n"
 "      <p>Find more tips in our <a href=\"https://onepercentclub.com/go/pages/faq-projects\">FAQ ></a></p>\n"
 "      "
-msgstr ""
-"\n"
-"      <ul>\n"
-"          <li>Make your story easy to read, full of interesting details, but not too long.</li>\n"
-"          <li>Use headings and paragraphs that will add to your story and make your plan even stronger.</li>\n"
-"          <li>Explain – only if you want to – the effects of your campaign, your long-term strategy and who your target group is.</li>\n"
-"      </ul>\n"
-"      <p>Find more tips in our <a href=\"https://onepercentclub.com/go/pages/faq-projects\">FAQ ></a></p>\n"
-"      "
+msgstr "\n      <ul>\n          <li>Make your story easy to read, full of interesting details, but not too long.</li>\n          <li>Use headings and paragraphs that will add to your story and make your plan even stronger.</li>\n          <li>Explain – only if you want to – the effects of your campaign, your long-term strategy and who your target group is.</li>\n      </ul>\n      <p>Find more tips in our <a href=\"https://onepercentclub.com/go/pages/faq-projects\">FAQ ></a></p>\n      "
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/admin.py:52
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:127
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:125
 msgid "title"
-msgstr "title"
+msgstr "Title"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/admin.py:61
 msgid "owner"
@@ -1696,63 +1634,63 @@ msgstr "Whether the campaigner can change the details of the campaign."
 msgid "Whether this phase, and projects in it show up at the website"
 msgstr "Whether this phase, and campaigns in it show up at the website"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:116
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:114
 msgid "initiator"
 msgstr "campaigner"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:117
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:115
 msgid "Project owner"
 msgstr "Campaigner"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:120
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:118
 msgid "organization"
 msgstr "organisation"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:121
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:119
 msgid "Project organization"
 msgstr "Organisation"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:125
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:123
 msgid "created"
 msgstr "created"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:125
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:123
 msgid "When this project was created."
 msgstr "When this campaign was created."
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:126
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:124
 msgid "updated"
 msgstr "updated"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:130
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:128
 msgid "pitch"
 msgstr "pitch"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:130
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:128
 msgid "Pitch your smart idea in one sentence"
 msgstr "Tell us in one paragraph where you need the money for."
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:134
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:132
 msgid "tags"
 msgstr "keywords"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:135
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:133
 msgid "Add tags"
 msgstr "Add keywords"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:139
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:137
 msgid "why, what and how"
 msgstr "why, what and how"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:145
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:143
 msgid "Main project picture"
 msgstr "Campaign picture"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:155
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:153
 msgid "project"
 msgstr "campaign"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:156
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:154
 msgid "projects"
 msgstr "campaigns"
 
@@ -1869,15 +1807,7 @@ msgid ""
 "Check them in our <a href=\"/#!/pages/faq-projects\">FAQ</a>.\n"
 "<br/>\n"
 "Please add 5%% administration fee to your budget. The total amount, including the fee, cannot exceed 5.000 Euro.\n"
-msgstr ""
-"\n"
-"Time to let us know how the money that you will be raising will be spent! Be sure to give us a\n"
-"detailed insight in your budget as it will only make your credibility go up. Just one little suggestion\n"
-"before you start; be realistic in your crowdfunding goal. Better a smaller amount and make it then a\n"
-"large amount and have nothing in the end. Also, there are certain things not allowed to ask money for.\n"
-"Check them in our <a href=\"/#!/pages/faq-projects\">FAQ</a>.\n"
-"<br/>\n"
-"Please add 5%% administration fee to your budget. The total amount, including the fee, cannot exceed 5.000 Euro.\n"
+msgstr "\nTime to let us know how the money that you will be raising will be spent! Be sure to give us a\ndetailed insight in your budget as it will only make your credibility go up. Just one little suggestion\nbefore you start; be realistic in your crowdfunding goal. Better a smaller amount and make it then a\nlarge amount and have nothing in the end. Also, there are certain things not allowed to ask money for.\nCheck them in our <a href=\"/#!/pages/faq-projects\">FAQ</a>.\n<br/>\nPlease add 5%% administration fee to your budget. The total amount, including the fee, cannot exceed 5.000 Euro.\n"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/budget.hbs.py:64
 msgid "Total budget shouldn't be over 5000 euro."
@@ -1929,15 +1859,12 @@ msgid ""
 "                All you need now is a local partner and a sound idea for a project that fits our theme's on destination improvement. Our current themes are Environment, Cultural heritage, Entrepreneurship, Platform and Emergency response. (the last in case of big emergencies, let's hope we don't use this one!)\n"
 "                Any preconditions? Yes, but just a few.\n"
 "                "
-msgstr ""
-"\n"
-"Do you have a world changing idea? An idea to tackle a waste problem in your neighborhood, an idea to use tech innovations to improve local healthcare? You came to the right place! 1%Club offers you the platform to mobilize your network and raise funds in the most exciting and efficient way."
+msgstr "\nDo you have a world changing idea? An idea to tackle a waste problem in your neighborhood, an idea to use tech innovations to improve local healthcare? You came to the right place! 1%Club offers you the platform to mobilize your network and raise funds in the most exciting and efficient way."
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/start.hbs.py:20
-msgid "Your project is really about destination improvement when your project will…"
-msgstr ""
-"Any preconditions? Yes, but just a few. \n"
-"Your campaign:"
+msgid ""
+"Your project is really about destination improvement when your project will…"
+msgstr "Any preconditions? Yes, but just a few. \nYour campaign:"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/start.hbs.py:22
 msgid ""
@@ -1966,9 +1893,7 @@ msgid ""
 "            </li>\n"
 "        </ul>\n"
 "        "
-msgstr ""
-"\n"
-"..creates a better world <br/> ..budget shows how the money will be spent"
+msgstr "\n..creates a better world <br/> ..budget shows how the money will be spent"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/start.hbs.py:49
 msgid ""
@@ -1980,11 +1905,7 @@ msgid ""
 "            <br />\n"
 "            <br />\n"
 "            "
-msgstr ""
-"\n"
-"And you:\n"
-"<br/>\n"
-"..want to activate your network!"
+msgstr "\nAnd you:\n<br/>\n..want to activate your network!"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/start.hbs.py:57
 msgid "Check out our"
@@ -2011,11 +1932,15 @@ msgid "Start a project"
 msgstr "Start your campaign"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/story.hbs.py:14
-msgid "Time to blow us away with the details! Tell us about your motivation, why this project is important and what the impact will be."
+msgid ""
+"Time to blow us away with the details! Tell us about your motivation, why "
+"this project is important and what the impact will be."
 msgstr "Tell us in one paragraph where you need the money for."
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/story_fields.hbs.py:10
-msgid "What do you want to achieve with this project and how will you measure your success?"
+msgid ""
+"What do you want to achieve with this project and how will you measure your "
+"success?"
 msgstr "What do you want to achieve with this campaign and how will you measure your success?"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/story_fields.hbs.py:10
@@ -2027,7 +1952,9 @@ msgid "Destination Impact"
 msgstr "Destination Impact"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/story_fields.hbs.py:12
-msgid "How will your project improve your destination, now and maybe even in the future?"
+msgid ""
+"How will your project improve your destination, now and maybe even in the "
+"future?"
 msgstr "How will your campaign improve your destination, now and maybe even in the future?"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/story_fields.hbs.py:12
@@ -2045,9 +1972,6 @@ msgstr "Final Check!"
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/submit.hbs.py:15
 msgid "You are ready to submit your project now!"
 msgstr "You are ready to submit your campaign now!"
-
-#~ msgid " &euro; "
-#~ msgstr "euro"
 
 #~ msgid "Recently Submitted Pitches"
 #~ msgstr "Recently Submitted Pitches"
