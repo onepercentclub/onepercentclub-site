@@ -1477,7 +1477,7 @@ msgid ""
 "            </li>\n"
 "        </ul>\n"
 "        "
-msgstr "\n        <ul>\n            <li>\n                De online campagne duurt maximaal 100 dagen.\n            </li>\n            <li>\n                Je kiest je eigen streefbedrag. Ga je over dat bedrag heen? Je kunt meer dan 100% ophalen!\n            </li>\n <li>\n                De servicekosten zijn 7% als jij je streefbedrag haalt. Als je het niet haalt is dat 12%.\n            </li>\n        </ul>\n        "
+msgstr "\n        <ul>\n            <li>\n                De online campagne duurt maximaal 100 dagen.\n            </li>\n            <li>\n                Je kiest je eigen streefbedrag. Ga je over dat bedrag heen? Je kunt meer dan 100%% ophalen!\n            </li>\n <li>\n                De servicekosten zijn 7%% als jij je streefbedrag haalt. Als je het niet haalt is dat 12%%.\n            </li>\n        </ul>\n        "
 
 #: templates/bb_projects/manage/start.hbs:38
 msgid "Profile campaigner"
@@ -1816,7 +1816,7 @@ msgstr "\nTime to let us know how the money that you will be raising will be spe
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/budget.hbs.py:64
 msgid "Total budget shouldn't be over 5000 euro."
-msgstr "Ga je over dat bedrag heen? Geen probleem! Je kunt meer dan 100% ophalen! "
+msgstr "Ga je over dat bedrag heen? Geen probleem! Je kunt meer dan 100%% ophalen! "
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/footer.hbs.py:9
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/footer.hbs.py:21
@@ -1869,7 +1869,7 @@ msgstr "\nHeb je een wereldverbeterend idee? Een idee om het afvalprobleem in jo
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/start.hbs.py:20
 msgid ""
 "Your project is really about destination improvement when your project will…"
-msgstr "Zijn er voorwaarden? Slechts een paar:<br/>\nJouw campagne draagt bij aan een betere wereld.<br/>\nMet een gespecificeerd budget geef je inzicht waaraan het geld besteed wordt.<br/>\nGoed om te weten:<br/>\nDe online campagne duurt maximaal 100 dagen. <br/>\nJe kiest je eigen streefbedrag. Ga je over dat bedrag heen? Je kunt meer dan 100% ophalen! <br/>\nDe servicekosten zijn 7% als jij je streefbedrag haalt. Als je het niet haalt is dat 12%. "
+msgstr "Zijn er voorwaarden? Slechts een paar:<br/>\nJouw campagne draagt bij aan een betere wereld.<br/>\nMet een gespecificeerd budget geef je inzicht waaraan het geld besteed wordt.<br/>\nGoed om te weten:<br/>\nDe online campagne duurt maximaal 100 dagen. <br/>\nJe kiest je eigen streefbedrag. Ga je over dat bedrag heen? Je kunt meer dan 100%% ophalen! <br/>\nDe servicekosten zijn 7%% als jij je streefbedrag haalt. Als je het niet haalt is dat 12%. "
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/start.hbs.py:22
 msgid ""
@@ -1898,7 +1898,7 @@ msgid ""
 "            </li>\n"
 "        </ul>\n"
 "        "
-msgstr "\nZijn er voorwaarden? Slechts een paar:<br/>\nJouw campagne draagt bij aan een betere wereld.<br/>\nMet een gespecificeerd budget geef je inzicht waaraan het geld besteed wordt.<br/>\nGoed om te weten:<br/>\nDe online campagne duurt maximaal 100 dagen.<br/>\nJe kiest je eigen streefbedrag. Ga je over dat bedrag heen? Je kunt meer dan 100% ophalen! <br/>\nDe servicekosten zijn 7% als jij je streefbedrag haalt. Als je het niet haalt is dat 12%. <br/>"
+msgstr "\nZijn er voorwaarden? Slechts een paar:<br/>\nJouw campagne draagt bij aan een betere wereld.<br/>\nMet een gespecificeerd budget geef je inzicht waaraan het geld besteed wordt.<br/>\nGoed om te weten:<br/>\nDe online campagne duurt maximaal 100 dagen.<br/>\nJe kiest je eigen streefbedrag. Ga je over dat bedrag heen? Je kunt meer dan 100%%% ophalen! <br/>\nDe servicekosten zijn 7%% als jij je streefbedrag haalt. Als je het niet haalt is dat 12%. <br/>"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/start.hbs.py:49
 msgid ""
