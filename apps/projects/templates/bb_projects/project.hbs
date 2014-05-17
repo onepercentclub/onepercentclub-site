@@ -8,11 +8,11 @@
     <div class="l-section detail project-detail-main">
         <section class="l-wrapper">
 
-            {{# if video_html }}
+            {{#if video_html}}
                 <figure class="project-image">
                     {{{ video_html }}}
                 </figure>
-            {{ else }}
+            {{else}}
                 <figure class="project-image">
                     <img {{bindAttr src="image.large"}} width="100%" alt="Photo" />
                 </figure>
