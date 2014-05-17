@@ -16,12 +16,12 @@
                 <strong>17.343</strong> people <br>
                 crowdfunded <strong>€{{localize impact.donated }}</strong> <br>
                 to realize <strong>{{localize impact.projects }}</strong> campaigns <br>
-                in <strong>{{localize impact.donated }}</strong> countries
+                in <strong>{{localize impact.countries }}</strong> countries
                 </h2>
             </header>
             <div class="join-us">
                 {{#unless controllers.currentUser.isAuthenticated}}
-                    {{#linkTo 'signup' classNames="btn"}}{% blocktrans %}Join us do good{% endblocktrans %}{{/linkTo}}
+                    {{#linkTo 'signup' classNames="btn"}}{% trans "Join us do good" %}{{/linkTo}}
                 {{/unless}}
             </div>
         </div>
