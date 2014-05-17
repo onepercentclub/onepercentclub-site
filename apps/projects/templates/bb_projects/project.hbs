@@ -20,9 +20,6 @@
 
             <article class="project-info">
                 <div class="project-meta">
-					{{!--}}
-					<span class="project-deadline"><span class="flaticon stroke time-1"></span> {{daysToGo}}</span>
-					{{--}}
                     <span class="project-location"><span class="flaticon solid location-pin-1"></span> {{country.name}}</span>
                     <span class="project-theme"><span class="flaticon solid tag-2"></span> {{theme.name}}</span>
                     {{# if isProjectOwner }}
@@ -46,7 +43,13 @@
 
             {{#if isStatusCampaign}}
                 <div class="project-days-left">
-                    <strong><span class="flaticon solid stopwatch-1"></span> {{daysToGo}} <em>{% trans "days to go" %}!</em></strong>
+                    <strong><span class="flaticon solid stopwatch-1"></span> 
+                    {{#ifExpired deadline}}
+                        <em>{% trans "deadline passed" %}</em>
+                    {{else}}
+                        {{daysToGo}} <em>{% trans "days to go" %}</em>
+                    {{/ifExpired}}
+                    </strong>
                 </div>
             {{else}}
                 <div class="project-days-left">
@@ -65,9 +68,12 @@
             </div>
 
             {{#if isStatusCampaign}}
-                <div class="project-action">
-                    <a href='#' {{ action 'addDonation' this }} class="btn btn-primary btn-iconed"><span class="flaticon solid wallet-1"></span> {% trans "Support project" %}</a>
-                </div>
+                {{#ifExpired deadline}}
+                {{else}}
+                    <div class="project-action">
+                        <a href='#' {{ action 'addDonation' this }} class="btn btn-primary btn-iconed"><span class="flaticon solid wallet-1"></span> {% trans "Support project" %}</a>
+                    </div>
+                {{/ifExpired}}
             {{/if}}
         </div>
     </section>
