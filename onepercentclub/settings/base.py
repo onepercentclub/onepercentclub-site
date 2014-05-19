@@ -248,6 +248,7 @@ INSTALLED_APPS = (
     'apps.vouchers',
     'apps.fund',
     'apps.fundraisers',
+    'bluebottle.wallposts', # Define wall posts before projects/tasks that depend on it.
     'apps.donations',
 
     # Apps extending Bluebottle base models
@@ -267,7 +268,6 @@ INSTALLED_APPS = (
     'bluebottle.contact',
     'bluebottle.geo',
     'bluebottle.pages',
-    'bluebottle.wallposts', # Define wall posts before projects/tasks that depend on it.
     'bluebottle.news',
     'bluebottle.slides',
     'bluebottle.quotes',
