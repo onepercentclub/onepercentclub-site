@@ -442,7 +442,7 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
         """
         self.visit_path('/projects/{0}'.format(self.project.slug))
         #self.assertTrue(self.browser.is_text_present(self.project.title, wait_time=5))
-        self.assertTrue(self.browser.is_text_present('Post a new comment on wall', wait_time=5))
+        self.assertTrue(self.browser.is_text_present('Post a new comment', wait_time=5))
 
         self.browser.find_by_css(".wallpost-post-update").click()
         self.assertTrue(self.browser.is_text_present('Post', wait_time=5))
