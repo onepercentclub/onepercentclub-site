@@ -22,14 +22,22 @@
                 <div class="project-meta">
                     <span class="project-location"><span class="flaticon solid location-pin-1"></span> {{country.name}}</span>
                     <span class="project-theme"><span class="flaticon solid tag-2"></span> {{theme.name}}</span>
-                    {{# if isProjectOwner }}
-                        <span class="project-edit">{{#link-to "myProject" id}}<span class="flaticon solid settings-1"></span>{% trans 'Edit' %}{{/link-to}}</span>
-                    {{/if}}
                 </div>
 
                 <div class="project-share">
                     {{view App.SocialShareView}}
                 </div>
+                
+                {{#if isProjectOwner}}
+                    <ul class="owner-settings">
+                        <li class="owner-settings-dropdown"><span class="flaticon solid settings-2"></span>
+                            <ul class="owner-settings-dropdown-menu">
+                                <li>{{#link-to "myProject" id}}{% trans 'Edit project' %}{{/link-to}}</li>
+</li>
+                            </ul>
+                        </li>
+                    </ul>
+                {{/if}}
 
                 <h1 class="project-title">{{title}}</h1>
                 <p class="project-description">{{pitch}}</p>
