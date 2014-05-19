@@ -256,7 +256,7 @@ ALTER TABLE organizations_organization DROP COLUMN account_city;
 UPDATE projects_project SET status_id = 1 WHERE phase IN ('pitch', 'plan');
 UPDATE projects_project SET status_id = 2 WHERE id in (SELECT project_id FROM projects_projectpitch WHERE status = 'submitted');
 UPDATE projects_project SET status_id = 5 WHERE phase = 'campaign';
-UPDATE projects_project SET status_id = 7 WHERE phase IN ('acts', 'results', 'realized');
+UPDATE projects_project SET status_id = 7 WHERE phase IN ('act', 'results', 'realized');
 UPDATE projects_project SET status_id = 9 WHERE phase = 'failed';
 
 
