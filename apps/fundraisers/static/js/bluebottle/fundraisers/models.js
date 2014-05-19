@@ -36,5 +36,12 @@ App.FundRaiser = DS.Model.extend({
         var now = new Date();
         var microseconds = this.get('deadline').getTime() - now.getTime();
         return Math.ceil(microseconds / (1000 * 60 * 60 * 24));
-    }.property('deadline')
+    }.property('deadline'),
+
+    getImage: function(){
+        if (this.get('image')) {
+            return this.get('image.square')
+        }
+        return STATIC_URL + 'images/default-avatar.png'
+    }.property('image')
 });
