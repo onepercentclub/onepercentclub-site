@@ -4,35 +4,60 @@
 
 {% tplhandlebars "my_project_start" %}
 
-        <h1 class="page-title">{% trans "Start your campaign" %}</h1>
+        <h1 class="page-title">{% trans "Start your crowdfunding campaign here!" %}</h1>
         <br />
-        <p>
-            <strong>
-                {% blocktrans %}
-                Do you have a world changing idea? An idea to tackle a waste problem in your neighborhood, an idea to use tech innovations to improve local health care? You came to the right place! 1%Club offers you the platform to mobilize your network and raise funds in the most exciting and efficient way.
-                {% endblocktrans %}
 
-            </strong>
-        </p>
-        <h3>{% trans "Any preconditions? Only a couple..." %}</h3>
+        <h3>{% trans "Any preconditions? Just two:" %}</h3>
         {% blocktrans %}
-        <ul>
+        <ul class="bullets">
             <li>
-                your campaign creates a better world
+                Your campaign contributes to a better world.
             </li>
             <li>
-                you can explain to your supporters what the money will be spend on
+                You can show how the money will be spent with an itemised budget.
             </li>
         </ul>
         {% endblocktrans %}
-        <h5>{% trans "And you:" %}</h5>
-        <ul>
+        <h3>{% trans "Good to know:" %}</h3>
+        <ul class="bullets">
             {% blocktrans %}
                 <li>
-                   want to activate your network!
+                   The online campaign can last up to 100 days.
+                </li>
+                <li>
+                You choose your own target amount. Crowdfunded more than 100%? You can raise even more funds!
+                </li>
+                <li>
+                If you reach your target, our service fee is 7%. If, unfortunately, you don’t, this will be 12%.
+
                 </li>
             {% endblocktrans %}
         </ul>
+
+        <h3>{% trans "What we expect from you:" %}</h3>
+        <ul class="bullets">
+            {% blocktrans %}
+                <li>
+                   The online campaign can last up to 100 days.
+                </li>
+                <li>
+                   You choose your own target amount. Crowdfunded more than 100%? You can raise even more funds!
+                </li>
+                <li>
+                   If you reach your target, our service fee is 7%. If, unfortunately, you don’t, this will be 12%.
+                </li>
+            {% endblocktrans %}
+        </ul>
+
+        <h3>{% trans "Start now:" %}</h3>
+        <ul class="bullets">
+            {% blocktrans %}
+                <li>
+                When you click ‘Start campaign’ you can fill in all the details about your crowdfunding campaign. You can save this at any point to continue working on this later. After you submit your plan, we will review it and keep you updated all along the way. As soon your plan is approved you can start crowdfunding!
+                </li>
+            {% endblocktrans %}
+        </ul>
+        <br/>
         <div class="well">
             <div class="campaign-campaigner l-half">
                 <h3>{% trans "Profile campaigner" %}</h3>
@@ -64,7 +89,7 @@
         </div>
         <p class="clearfix">
             {% blocktrans %}
-                Read more about our tools, service fees and other useful tips <a href="/#!/pages/faq-projects">HERE</a>! See you online soon…
+                Read more about our tools, service fees and other  <a href="/#!/pages/faq-projects">useful tips here</a>! See you online soon…
             {% endblocktrans %}
         </p>
 
