@@ -65,7 +65,7 @@
                 <div class="campaign-budget-amount">
                     {{view Em.TextField valueBinding='budgetLineNew.amount' type="number" name="budget_line_amount" placeholder="€ Amount" }}
                 </div>
-                <a {{action addBudgetLine}} class="btn btn-modest add-budget"><span class="flaticon solid plus-2"></span> Add</a>
+                <a {{action addBudgetLine}} class="btn btn-modest add-budget"><span class="flaticon solid plus-2"></span>{% trans 'Add' %}</a>
             </li>
         </ul>
     </fieldset>
