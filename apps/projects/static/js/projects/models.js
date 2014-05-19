@@ -6,7 +6,7 @@ App.Adapter.map('App.MyProject', {
 App.Project.reopen({
 
     deadline: DS.attr('date'),
-    amount_asked: DS.attr('number', {defaultValue: 0}),
+    amount_asked: DS.attr('number'), //, {defaultValue: 0}),
 
     maxAmountAsked: Ember.computed.lte('amount_asked', 1000000),
     minAmountAsked: Ember.computed.gte('amount_asked', 250),
