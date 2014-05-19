@@ -6,8 +6,8 @@ python:
 node_js:
   - "0.10"
 
-addons:
-  firefox: "26.0"
+#addons:
+#  firefox: "26.0"
 
 env:
   - DJANGO=django==1.5.4
