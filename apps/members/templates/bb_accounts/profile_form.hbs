@@ -23,14 +23,18 @@
                     class="inline-append" classBinding="errors.last_name.length:error"}}
                 </div>
             </li>
+
             <li class="control-group profile-picture-container">
                 <label class="control-label">
                     {% trans "Profile Picture" %}
                 </label>
 
-                <div class="controls file-upload">
-                    <figure class="member-avatar"><img {{bindAttr src="getAvatar"}} /></figure>
-                    <a class="btn-link btn-upload">
+                <div class="controls image-upload">
+                    <div class="image-upload-drag">
+                        <figure class="member-avatar"><img {{bindAttr src="getAvatar"}} /></figure>
+                    </div>
+
+                    <a class="btn btn-iconed btn-upload">
                         {{view App.UploadFile contentBinding="this" name="picture" id="picture" accept="image/*" fileBinding="picture"}}
                         <span class="flaticon solid upload-document-1"></span>
                         {% trans "Upload picture" %}
@@ -100,7 +104,6 @@
     </li>
 
 {% endblock_verbatim profile_fields %}
-
 
 {% block_verbatim extra_fieldsets %}
     <fieldset>

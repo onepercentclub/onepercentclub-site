@@ -60,10 +60,14 @@
 
                     <div class="project-action">
                         {{#if project.isStatusCampaign}}
-                            <a href='#' {{ action 'addDonation' this.project this }} class="btn btn-primary btn-iconed">
-                                <span class="flaticon solid wallet-1"></span>
-                                {% trans "Support" %} {{owner.first_name}}
-                            </a>
+                            {{#ifExpired deadline}}
+                                <strong>{% trans "deadline passed" %}</strong>
+                            {{else}}
+                                <a href='#' {{ action 'addDonation' this.project this }} class="btn btn-primary btn-iconed">
+                                    <span class="flaticon solid wallet-1"></span>
+                                    {% trans "Support" %} {{owner.first_name}}
+                                </a>
+                            {{/ifExpired}}
                         {{else}}
                             <strong>{% trans "Project Funded" %}</strong>
                         {{/if}}
