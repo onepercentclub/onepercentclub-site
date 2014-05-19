@@ -1,0 +1,1057 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+/* Icons */
+/* line 17, ../../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/* Define some variables */
+/* Flexible image */
+/* line 29, ../../../sass/1procentclub-v2/sass/_grid.scss */
+img {
+  height: auto;
+  max-width: 100%;
+}
+
+/* line 34, ../../../sass/1procentclub-v2/sass/_grid.scss */
+.container {
+  padding: 0 15px;
+  position: relative;
+  *zoom: 1;
+}
+/* line 38, ../../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+.container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* line 42, ../../../sass/1procentclub-v2/sass/_grid.scss */
+.row {
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  max-width: 1200px;
+  *zoom: 1;
+}
+/* line 38, ../../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* line 55, ../../../sass/1procentclub-v2/sass/_grid.scss */
+[class*="col"] {
+  float: left;
+  display: inline;
+  min-height: 1px;
+  position: relative;
+  margin-left: 3.09091%;
+}
+/* line 63, ../../../sass/1procentclub-v2/sass/_grid.scss */
+[class*="col"]:first-child {
+  margin-left: 0;
+}
+
+/* --- Column Width --- */
+/* We can do iteration in sass just like we do in javascript or php */
+/* line 71, ../../../sass/1procentclub-v2/sass/_grid.scss */
+.col1 {
+  width: 5.5%;
+}
+
+/* line 71, ../../../sass/1procentclub-v2/sass/_grid.scss */
+.col2 {
+  width: 14.09091%;
+}
+
+/* line 71, ../../../sass/1procentclub-v2/sass/_grid.scss */
+.col3 {
+  width: 22.68182%;
+}
+
+/* line 71, ../../../sass/1procentclub-v2/sass/_grid.scss */
+.col4 {
+  width: 31.27273%;
+}
+
+/* line 71, ../../../sass/1procentclub-v2/sass/_grid.scss */
+.col5 {
+  width: 39.86364%;
+}
+
+/* line 71, ../../../sass/1procentclub-v2/sass/_grid.scss */
+.col6 {
+  width: 48.45455%;
+}
+
+/* line 71, ../../../sass/1procentclub-v2/sass/_grid.scss */
+.col7 {
+  width: 57.04545%;
+}
+
+/* line 71, ../../../sass/1procentclub-v2/sass/_grid.scss */
+.col8 {
+  width: 65.63636%;
+}
+
+/* line 71, ../../../sass/1procentclub-v2/sass/_grid.scss */
+.col9 {
+  width: 74.22727%;
+}
+
+/* line 71, ../../../sass/1procentclub-v2/sass/_grid.scss */
+.col10 {
+  width: 82.81818%;
+}
+
+/* line 71, ../../../sass/1procentclub-v2/sass/_grid.scss */
+.col11 {
+  width: 91.40909%;
+}
+
+/* line 71, ../../../sass/1procentclub-v2/sass/_grid.scss */
+.col12 {
+  width: 100%;
+}
+
+/*  #Mobile Phone
+================================================== */
+@media only screen and (max-width: 767px) {
+  /* line 81, ../../../sass/1procentclub-v2/sass/_grid.scss */
+  .row {
+    max-width: 767px;
+  }
+  /* line 83, ../../../sass/1procentclub-v2/sass/_grid.scss */
+  .row [class*="col"] {
+    width: 100%;
+    margin-left: 0;
+    margin-bottom: 20px;
+  }
+  /* line 89, ../../../sass/1procentclub-v2/sass/_grid.scss */
+  .row.two [class*="col"] {
+    width: 50%;
+  }
+}
+/*
+font-family:'L Futura W01';!
+font-family:'Neue Helvetica W01';!
+
+*/
+/* line 1, ../../../sass/1procentclub-v2/sass/_home.scss */
+html, body, #site {
+  height: 100%;
+  background-color: #f5f4f6;
+}
+
+/* line 6, ../../../sass/1procentclub-v2/sass/_home.scss */
+h1 {
+  color: #ff619a;
+  font-size: 36px;
+  font-family: "L Futura W01", "Trebuchet MS", Helvetica, Arial, sans-serif;
+  font-weight: 900;
+}
+
+/* line 13, ../../../sass/1procentclub-v2/sass/_home.scss */
+h2 {
+  color: #8a9993;
+  font-size: 24px;
+  font-family: "L Futura W01", "Trebuchet MS", Helvetica, Arial, sans-serif;
+  font-weight: 900;
+  line-height: 38px;
+}
+
+/* line 21, ../../../sass/1procentclub-v2/sass/_home.scss */
+a {
+  text-decoration: none;
+  color: #3c3c3c;
+}
+/* line 24, ../../../sass/1procentclub-v2/sass/_home.scss */
+a.btn {
+  display: inline;
+  background-color: #ff619a;
+  padding: 1em;
+  vertical-align: center;
+  border-radius: 8px;
+  color: white;
+  font-family: "L Futura W01", "Trebuchet MS", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+}
+
+/* line 36, ../../../sass/1procentclub-v2/sass/_home.scss */
+input {
+  line-height: 30px;
+  border-radius: 6px;
+  padding-left: 40px;
+  border: solid 1px #ccc;
+}
+
+/* line 43, ../../../sass/1procentclub-v2/sass/_home.scss */
+#main {
+  min-height: 100%;
+  margin-bottom: -232px;
+  padding-bottom: 2em;
+}
+
+/* line 49, ../../../sass/1procentclub-v2/sass/_home.scss */
+.l-wrapper {
+  position: relative;
+  padding: 0 15px;
+  min-width: 400px;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100%;
+}
+
+/* line 58, ../../../sass/1procentclub-v2/sass/_home.scss */
+.l-section {
+  width: 100%;
+  min-width: 400px;
+  max-width: 100%;
+}
+
+/* line 64, ../../../sass/1procentclub-v2/sass/_home.scss */
+.section-header {
+  padding: 1em 0 0.5em 0;
+  text-align: center;
+}
+/* line 67, ../../../sass/1procentclub-v2/sass/_home.scss */
+.section-header.more-space {
+  padding: 5em 0 2.5em 0;
+}
+
+/* line 73, ../../../sass/1procentclub-v2/sass/_home.scss */
+#header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 80px;
+  background: #f5f4f6;
+  border-bottom: 1px solid white;
+  box-shadow: 0 1px 0 rgba(65, 65, 65, 0.1);
+  z-index: 5;
+}
+/* line 82, ../../../sass/1procentclub-v2/sass/_home.scss */
+#header #logo {
+  float: left;
+  width: 10.41667%;
+}
+/* line 85, ../../../sass/1procentclub-v2/sass/_home.scss */
+#header #logo .logo-link {
+  display: block;
+  padding: 1.2em 0 0 0;
+}
+/* line 88, ../../../sass/1procentclub-v2/sass/_home.scss */
+#header #logo .logo-link .logo-image {
+  height: 40px;
+  width: 125px;
+}
+/* line 95, ../../../sass/1procentclub-v2/sass/_home.scss */
+#header #nav {
+  padding: 2.2em 0 0 0;
+  font-family: "L Futura W01", "Trebuchet MS", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+}
+/* line 99, ../../../sass/1procentclub-v2/sass/_home.scss */
+#header #nav .nav-main {
+  float: left;
+  width: 40%;
+  margin-left: 10%;
+  margin-right: 0%;
+  text-align: left;
+}
+/* line 105, ../../../sass/1procentclub-v2/sass/_home.scss */
+#header #nav .nav-main .nav-main-item {
+  display: inline;
+  margin-right: 3.9em;
+  color: #3c3c3c;
+}
+/* line 111, ../../../sass/1procentclub-v2/sass/_home.scss */
+#header #nav .nav-actions {
+  float: right;
+  width: 31.25%;
+  color: white;
+  text-align: right;
+}
+/* line 116, ../../../sass/1procentclub-v2/sass/_home.scss */
+#header #nav .nav-actions li {
+  display: inline;
+  color: #00c051;
+}
+/* line 120, ../../../sass/1procentclub-v2/sass/_home.scss */
+#header #nav .nav-actions .nav-signup {
+  margin-right: 3em;
+}
+/* line 123, ../../../sass/1procentclub-v2/sass/_home.scss */
+#header #nav .nav-actions .nav-search .nav-search-holder {
+  position: relative;
+  display: inherit;
+  float: left;
+  margin-top: -10px;
+}
+/* line 128, ../../../sass/1procentclub-v2/sass/_home.scss */
+#header #nav .nav-actions .nav-search .nav-search-holder .nav-search-glass {
+  position: absolute;
+  top: 11px;
+  left: 11px;
+}
+
+/* line 140, ../../../sass/1procentclub-v2/sass/_home.scss */
+.home-carousel {
+  width: 100%;
+  background: #f5f4f6;
+  font-family: "L Futura W01", "Trebuchet MS", Helvetica, Arial, sans-serif;
+}
+/* line 144, ../../../sass/1procentclub-v2/sass/_home.scss */
+.home-carousel ul {
+  margin-top: 80px;
+}
+/* line 146, ../../../sass/1procentclub-v2/sass/_home.scss */
+.home-carousel ul li {
+  height: 506px;
+  overflow: hidden;
+}
+/* line 149, ../../../sass/1procentclub-v2/sass/_home.scss */
+.home-carousel ul li header {
+  position: relative;
+  width: 50%;
+  margin: auto;
+  padding-top: 20px;
+}
+/* line 154, ../../../sass/1procentclub-v2/sass/_home.scss */
+.home-carousel ul li header h1 {
+  position: absolute;
+  top: 20px;
+}
+/* line 159, ../../../sass/1procentclub-v2/sass/_home.scss */
+.home-carousel ul li .home-carousel-btn {
+  position: absolute;
+  top: 208px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 100%;
+  text-align: center;
+}
+/* line 168, ../../../sass/1procentclub-v2/sass/_home.scss */
+.home-carousel ul li .home-carousel-content {
+  position: absolute;
+  top: 118px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 50%;
+  text-align: center;
+  font-size: 1.4em;
+}
+/* line 178, ../../../sass/1procentclub-v2/sass/_home.scss */
+.home-carousel ul li .home-carousel-body {
+  width: 100%;
+  height: 100%;
+  background: #f5f4f6;
+}
+/* line 185, ../../../sass/1procentclub-v2/sass/_home.scss */
+.home-carousel .home-carousel-nav {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 100%;
+  text-align: center;
+}
+/* line 193, ../../../sass/1procentclub-v2/sass/_home.scss */
+.home-carousel .home-carousel-nav span {
+  display: inline-block;
+  height: 13px;
+  width: 13px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.7);
+  border: solid 1px white;
+}
+/* line 200, ../../../sass/1procentclub-v2/sass/_home.scss */
+.home-carousel .home-carousel-nav span.is-active {
+  background: white;
+}
+
+/* line 208, ../../../sass/1procentclub-v2/sass/_home.scss */
+.all-campaigns {
+  float: right;
+  margin: -17px 45px;
+  font-family: "L Futura W01", "Trebuchet MS", Helvetica, Arial, sans-serif;
+  color: #8a9993;
+  font-size: 1em;
+}
+/* line 214, ../../../sass/1procentclub-v2/sass/_home.scss */
+.all-campaigns:after {
+  content: "\2192";
+  margin-left: 7px;
+}
+
+/* line 221, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns {
+  background-color: white;
+}
+/* line 223, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container {
+  font-family: "L Futura W01", "Trebuchet MS", Helvetica, Arial, sans-serif;
+}
+/* line 225, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item {
+  position: relative;
+  height: 470px;
+  background: #f5f4f6;
+  padding: 7px;
+  border-radius: 0 0 6px 6px;
+}
+/* line 231, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item .campaign-item-holder {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: white;
+  border-radius: 0 0 6px 6px;
+  border: solid 1px #d8d8d8;
+}
+/* line 238, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item .campaign-item-holder .header {
+  position: absolute;
+  overflow: hidden;
+  width: 100%;
+  height: 200px;
+  background: #8a9993;
+  opacity: 1;
+  -webkit-transition: opacity 0.2s ease-in-out;
+  -moz-transition: opacity 0.2s ease-in-out;
+  -o-transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
+}
+/* line 246, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item .campaign-item-holder .header img {
+  width: 100%;
+  position: relative;
+}
+/* line 250, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item .campaign-item-holder .header:before {
+  position: absolute;
+  top: 45%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 40%;
+  text-align: center;
+  content: "Loading...";
+  font-size: .7em;
+  color: #f5f4f6;
+}
+/* line 263, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item .campaign-item-holder .profile-photo {
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 51px;
+  height: 51px;
+  overflow: hidden;
+  border-radius: 50%;
+  top: 168px;
+  border: solid 2px white;
+  z-index: 4;
+  -webkit-transition: top 0.2s ease-in-out;
+  -moz-transition: top 0.2s ease-in-out;
+  -o-transition: top 0.2s ease-in-out;
+  transition: top 0.2s ease-in-out;
+}
+/* line 277, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item .campaign-item-holder .profile-photo img {
+  width: 100%;
+}
+/* line 281, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item .campaign-item-holder .campaign-hover {
+  position: absolute;
+  height: 57%;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  z-index: 3;
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+/* line 293, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item .campaign-item-holder .campaign-hover .campaign-hover-head {
+  margin: auto;
+  margin-top: 55px;
+  width: 100%;
+  height: auto;
+  min-height: 50px;
+  text-align: center;
+  padding-bottom: 10px;
+  border-bottom: solid 2px #d8d8d8;
+}
+/* line 302, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item .campaign-item-holder .campaign-hover .campaign-hover-head strong {
+  display: inline-block;
+  margin: auto;
+  width: 90%;
+  font-weight: 800;
+  font-size: 16px;
+}
+/* line 310, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item .campaign-item-holder .campaign-hover .campaign-hover-body {
+  min-height: 190px;
+  font-size: 15px;
+  line-height: 25px;
+  color: #3c3c3c;
+}
+/* line 316, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item .campaign-item-holder .campaign-hover .campaign-hover-footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  border-top: solid 2px #d8d8d8;
+}
+/* line 325, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item .campaign-item-holder .campaign-hover p span {
+  display: block;
+  padding: 15px 12px 15px 12px;
+}
+/* line 329, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item .campaign-item-holder .campaign-hover p .go-to-campaign {
+  display: block;
+  text-align: center;
+  font-size: 14px;
+  color: #ff619a;
+}
+/* line 334, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item .campaign-item-holder .campaign-hover p .go-to-campaign:after {
+  content: "\2192";
+  margin-left: 7px;
+}
+/* line 342, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item .campaign-body {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 247px;
+  margin: auto;
+  padding: 10px;
+  -webkit-transition: top 0.2s ease-in-out;
+  -moz-transition: top 0.2s ease-in-out;
+  -o-transition: top 0.2s ease-in-out;
+  transition: top 0.2s ease-in-out;
+}
+/* line 350, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item .campaign-body .profile-name {
+  display: block;
+  color: #8a9993;
+  text-align: center;
+  opacity: 1;
+  -webkit-transition: opacity 0.2s ease-in-out;
+  -moz-transition: opacity 0.2s ease-in-out;
+  -o-transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
+}
+/* line 356, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item .campaign-body .profile-name strong {
+  font-size: 16px;
+  color: #00c051;
+}
+/* line 361, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item .campaign-body .campaign-body-names {
+  display: block;
+  width: 90%;
+  margin: 8px 0 0 0;
+  text-align: center;
+  line-height: 19px;
+  font-size: 16px;
+  font-weight: 800;
+}
+/* line 371, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item .campaign-footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 8px;
+  margin: auto;
+  padding: 10px;
+  opacity: 1;
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  -o-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+}
+/* line 380, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item .campaign-footer .campaign-fund-amount {
+  color: #8a9993;
+  font-size: .8em;
+}
+/* line 383, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item .campaign-footer .campaign-fund-amount .amount-raised {
+  float: left;
+}
+/* line 386, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item .campaign-footer .campaign-fund-amount .days-left {
+  float: right;
+}
+/* line 389, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item .campaign-footer .campaign-fund-amount strong {
+  font-weight: 800;
+}
+/* line 392, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item .campaign-footer .campaign-fund-amount .fully-funded {
+  display: block;
+  width: 100%;
+  text-align: center;
+  color: #ff619a;
+}
+/* line 399, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item .campaign-footer .campaign-fund-amount-slider {
+  display: block;
+  overflow: hidden;
+  border-radius: 1em;
+  margin: 0 0 1.5em 0;
+  background-color: transparent;
+  border: solid 1px #00c051;
+}
+/* line 406, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item .campaign-footer .campaign-fund-amount-slider .slider-progress {
+  position: relative;
+  display: block;
+  border-radius: 1em 0 0 1em;
+  background-color: #00c051;
+  color: #fff;
+  text-align: right;
+  white-space: nowrap;
+  line-height: .7em;
+  height: .7em;
+}
+/* line 417, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item .campaign-footer .campaign-fund-amount-slider.is-funded {
+  border-color: #ff619a;
+}
+/* line 419, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item .campaign-footer .campaign-fund-amount-slider.is-funded .slider-progress {
+  background-color: #ff619a;
+}
+/* line 428, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item:hover .campaign-item-holder .header {
+  opacity: 0;
+}
+/* line 431, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item:hover .campaign-item-holder .profile-photo {
+  top: -30px;
+}
+/* line 434, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item:hover .campaign-item-holder .campaign-body {
+  top: 20px;
+  z-index: 4;
+}
+/* line 437, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item:hover .campaign-item-holder .campaign-body .campaign-body-names {
+  opacity: 0;
+}
+/* line 441, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item:hover .campaign-item-holder .campaign-footer {
+  opacity: 0;
+  bottom: -4px;
+}
+/* line 445, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item:hover .campaign-item-holder .campaign-hover {
+  visibility: visible;
+  opacity: 1;
+  height: 100%;
+}
+/* line 452, ../../../sass/1procentclub-v2/sass/_home.scss */
+#campaigns .campaign-container .campaign-item a.campaign-href {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* line 466, ../../../sass/1procentclub-v2/sass/_home.scss */
+#categories {
+  background-color: white;
+  padding-bottom: 70px;
+}
+/* line 469, ../../../sass/1procentclub-v2/sass/_home.scss */
+#categories .tag-container {
+  margin: auto;
+  text-align: center;
+  font-family: "L Futura W01", "Trebuchet MS", Helvetica, Arial, sans-serif;
+}
+/* line 473, ../../../sass/1procentclub-v2/sass/_home.scss */
+#categories .tag-container .tag-item {
+  display: inline-block;
+  width: auto;
+  margin: 5px;
+  padding: 10px 7px;
+  border-radius: 8px;
+  border: solid 1px #d8d8d8;
+  background-color: white;
+  color: #8a9993;
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  -o-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+}
+/* line 483, ../../../sass/1procentclub-v2/sass/_home.scss */
+#categories .tag-container .tag-item:hover {
+  background-color: #f5f4f6;
+  color: #8a9993;
+}
+/* line 488, ../../../sass/1procentclub-v2/sass/_home.scss */
+#categories .tag-container .tag-browse-all {
+  display: inherit;
+  margin-top: 50px;
+  color: #8a9993;
+}
+/* line 492, ../../../sass/1procentclub-v2/sass/_home.scss */
+#categories .tag-container .tag-browse-all:after {
+  content: "\2192";
+  margin-left: 7px;
+}
+
+/* line 501, ../../../sass/1procentclub-v2/sass/_home.scss */
+.tools-container {
+  background-color: white;
+}
+/* line 503, ../../../sass/1procentclub-v2/sass/_home.scss */
+.tools-container .tools {
+  font-family: "L Futura W01", "Trebuchet MS", Helvetica, Arial, sans-serif;
+  color: #8a9993;
+  min-height: 100px;
+  margin-bottom: 40px;
+}
+/* line 508, ../../../sass/1procentclub-v2/sass/_home.scss */
+.tools-container .tools .icon {
+  display: block;
+  float: left;
+  background: #ccc;
+  width: 75px;
+  height: 75px;
+  margin-right: 20px;
+}
+/* line 516, ../../../sass/1procentclub-v2/sass/_home.scss */
+.tools-container .tools .content {
+  display: block;
+  line-height: 24px;
+}
+/* line 520, ../../../sass/1procentclub-v2/sass/_home.scss */
+.tools-container .tools strong {
+  font-weight: 700;
+}
+/* line 523, ../../../sass/1procentclub-v2/sass/_home.scss */
+.tools-container .tools.left {
+  float: left;
+}
+/* line 526, ../../../sass/1procentclub-v2/sass/_home.scss */
+.tools-container .tools.right {
+  float: right;
+}
+/* line 529, ../../../sass/1procentclub-v2/sass/_home.scss */
+.tools-container .tools.small {
+  width: 80%;
+  margin: auto;
+}
+
+/* line 537, ../../../sass/1procentclub-v2/sass/_home.scss */
+#crowdfunded {
+  position: relative;
+  height: 750px;
+  z-index: 2;
+  overflow: hidden;
+}
+/* line 542, ../../../sass/1procentclub-v2/sass/_home.scss */
+#crowdfunded .crowdfunded-container {
+  height: 800px;
+  width: 120%;
+  margin: -70px;
+}
+/* line 547, ../../../sass/1procentclub-v2/sass/_home.scss */
+#crowdfunded .crowdfunded-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(65, 65, 65, 0.7)), color-stop(100%, rgba(0, 0, 0, 0.9)));
+  background-image: -webkit-linear-gradient(rgba(65, 65, 65, 0.7), rgba(0, 0, 0, 0.9));
+  background-image: -moz-linear-gradient(rgba(65, 65, 65, 0.7), rgba(0, 0, 0, 0.9));
+  background-image: -o-linear-gradient(rgba(65, 65, 65, 0.7), rgba(0, 0, 0, 0.9));
+  background-image: linear-gradient(rgba(65, 65, 65, 0.7), rgba(0, 0, 0, 0.9));
+}
+/* line 555, ../../../sass/1procentclub-v2/sass/_home.scss */
+#crowdfunded .crowdfunded-tagline {
+  position: absolute;
+  top: 15%;
+  right: 0;
+  left: 0;
+}
+/* line 560, ../../../sass/1procentclub-v2/sass/_home.scss */
+#crowdfunded .crowdfunded-tagline header {
+  margin: auto;
+  font-size: 2em;
+  z-index: 4;
+  text-align: center;
+  line-height: 73px;
+}
+/* line 566, ../../../sass/1procentclub-v2/sass/_home.scss */
+#crowdfunded .crowdfunded-tagline header h2 {
+  color: white;
+  font-size: 34px;
+  line-height: 73px;
+}
+/* line 570, ../../../sass/1procentclub-v2/sass/_home.scss */
+#crowdfunded .crowdfunded-tagline header h2 strong {
+  font-weight: 900;
+  font-size: 39px;
+}
+/* line 576, ../../../sass/1procentclub-v2/sass/_home.scss */
+#crowdfunded .crowdfunded-tagline .join-us {
+  margin-top: 5em;
+  text-align: center;
+}
+/* line 581, ../../../sass/1procentclub-v2/sass/_home.scss */
+#crowdfunded img {
+  z-index: 1;
+  border: solid 1px black;
+  float: left;
+}
+
+/* line 589, ../../../sass/1procentclub-v2/sass/_home.scss */
+#partner-logos {
+  background-color: #f5f4f6;
+  padding-bottom: 70px;
+}
+
+/* line 595, ../../../sass/1procentclub-v2/sass/_home.scss */
+.quote-carousel {
+  position: relative;
+  margin: auto;
+  background-color: white;
+  border-radius: 6px;
+  border: solid 1px #d8d8d8;
+  padding: 20px;
+  font-family: "L Futura W01", "Trebuchet MS", Helvetica, Arial, sans-serif;
+  overflow: hidden;
+  *zoom: 1;
+}
+/* line 604, ../../../sass/1procentclub-v2/sass/_home.scss */
+.quote-carousel .quote-carousel-content {
+  float: left;
+  padding: 0 6em 0 6em;
+  margin: auto;
+}
+/* line 608, ../../../sass/1procentclub-v2/sass/_home.scss */
+.quote-carousel .quote-carousel-content .carousel-photo {
+  float: left;
+  width: 100px;
+  height: 100px;
+}
+/* line 612, ../../../sass/1procentclub-v2/sass/_home.scss */
+.quote-carousel .quote-carousel-content .carousel-photo img {
+  background-color: #8a9993;
+}
+/* line 616, ../../../sass/1procentclub-v2/sass/_home.scss */
+.quote-carousel .quote-carousel-content .carousel-quote {
+  float: left;
+  color: #00c051;
+  line-height: 32px;
+  margin: 1.2em 0 0 2em;
+}
+/* line 621, ../../../sass/1procentclub-v2/sass/_home.scss */
+.quote-carousel .quote-carousel-content .carousel-quote strong {
+  display: inherit;
+  font-size: 20px;
+  font-weight: 700;
+}
+/* line 626, ../../../sass/1procentclub-v2/sass/_home.scss */
+.quote-carousel .quote-carousel-content .carousel-quote small {
+  color: #8a9993;
+}
+/* line 631, ../../../sass/1procentclub-v2/sass/_home.scss */
+.quote-carousel .carousel-nav {
+  position: absolute;
+  top: 0;
+  width: 40px;
+  height: 100%;
+}
+/* line 636, ../../../sass/1procentclub-v2/sass/_home.scss */
+.quote-carousel .carousel-nav.left {
+  left: 40px;
+  margin: auto;
+  text-align: center;
+  padding-top: 60px;
+}
+/* line 642, ../../../sass/1procentclub-v2/sass/_home.scss */
+.quote-carousel .carousel-nav.right {
+  right: 40px;
+  margin: auto;
+  text-align: center;
+  padding-top: 60px;
+}
+
+/* line 10, ../../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/layout/_sticky-footer.scss */
+html, body {
+  height: 100%;
+}
+
+/* line 12, ../../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/layout/_sticky-footer.scss */
+#main {
+  clear: both;
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin-bottom: -600px;
+}
+/* line 18, ../../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/layout/_sticky-footer.scss */
+#main #layout_footer {
+  height: 600px;
+}
+
+/* line 20, ../../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/layout/_sticky-footer.scss */
+#footer {
+  clear: both;
+  position: relative;
+  height: 600px;
+}
+
+/* line 653, ../../../sass/1procentclub-v2/sass/_home.scss */
+#footer {
+  color: #f5f4f6;
+  font-family: "L Futura W01", "Trebuchet MS", Helvetica, Arial, sans-serif;
+}
+/* line 656, ../../../sass/1procentclub-v2/sass/_home.scss */
+#footer #footer-links {
+  height: 400px;
+  background-color: #3c3c3c;
+}
+/* line 659, ../../../sass/1procentclub-v2/sass/_home.scss */
+#footer #footer-links #nav {
+  height: 120px;
+  padding-top: 60px;
+  line-height: 25px;
+}
+/* line 663, ../../../sass/1procentclub-v2/sass/_home.scss */
+#footer #footer-links #nav h3 {
+  color: #f5f4f6;
+  font-weight: 700;
+}
+/* line 667, ../../../sass/1procentclub-v2/sass/_home.scss */
+#footer #footer-links #nav a {
+  color: #8a9993;
+}
+/* line 673, ../../../sass/1procentclub-v2/sass/_home.scss */
+#footer #footer-contact {
+  height: 80px;
+  background-color: #00c051;
+}
+/* line 676, ../../../sass/1procentclub-v2/sass/_home.scss */
+#footer #footer-contact p {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 16px;
+}
+/* line 680, ../../../sass/1procentclub-v2/sass/_home.scss */
+#footer #footer-contact p a {
+  color: white;
+}
+/* line 685, ../../../sass/1procentclub-v2/sass/_home.scss */
+#footer #footer-copyright {
+  height: 120px;
+  background-color: white;
+  color: #8a9993;
+}
+/* line 689, ../../../sass/1procentclub-v2/sass/_home.scss */
+#footer #footer-copyright p {
+  padding-top: 55px;
+}
+/* line 692, ../../../sass/1procentclub-v2/sass/_home.scss */
+#footer #footer-copyright .copy {
+  text-align: left;
+}
+/* line 695, ../../../sass/1procentclub-v2/sass/_home.scss */
+#footer #footer-copyright .footer-back-to-top {
+  text-align: center;
+}
+/* line 698, ../../../sass/1procentclub-v2/sass/_home.scss */
+#footer #footer-copyright .give-us-feedback {
+  text-align: right;
+}

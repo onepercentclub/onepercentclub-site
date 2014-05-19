@@ -1,0 +1,63 @@
+@include sticky-footer(600px, "#main", "#layout_footer", "#footer");
+#footer {
+	color: $gray-light;
+	font-family: $font-family-bold;
+	line-height: 16px;
+	#footer-links {
+		height: 400px;
+		background-color: $black;
+		#footer-nav {
+			height: 120px;
+			padding-top: 60px;
+			line-height: 25px;
+			h3 {
+				color: $gray-light;
+				font-weight: 700;
+			}
+			a {
+				color: $gray-dark;
+			}
+		}
+
+	}
+	#footer-contact {
+		height: 80px;
+		background-color: $color-primary;
+		p {
+			text-align: center;
+			margin-top: 30px;
+			font-size: 16px;
+			a {
+				color: white;
+			}
+		}
+	}
+	#footer-copyright {
+		height: 120px;
+		background-color: white;
+		color: $gray-dark;
+		p {
+			padding-top: 55px;
+		}
+		.copy {
+			text-align: left;
+		}
+		.footer-back-to-top {
+			text-align: center;
+		}
+		.give-us-feedback {
+			text-align: right;
+		}
+	}
+
+	ul {
+		margin: 0;
+		li {
+			background: none;
+			padding-left: 0;
+		}
+	}
+	h3 {
+		text-transform: none;
+	}
+}

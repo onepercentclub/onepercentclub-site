@@ -1,0 +1,203 @@
+html, body, #site {
+	height: 100%;
+
+}
+
+.new-homepage {
+	* {
+		text-transform: none;
+	}
+	h1 {
+		color: $color-secondary;
+		font-size: 36px;
+		font-family: $font-family-bold;
+		font-weight: 900;
+	}
+	h2 {
+		color: $gray-dark;
+		font-size: 24px;
+		font-family: $font-family-bold;
+		font-weight: 900;
+		line-height: 38px;
+	}
+	a {
+		text-decoration: none;
+		color: $black;
+		&.btn {
+			display: inline;
+			background-color: $color-secondary;
+			padding: 1em;
+			vertical-align: center;
+			border-radius: 8px;
+			color: white;
+			font-family: $font-family-bold;
+			font-weight: 700;
+		}
+	}
+	input {
+		line-height: 30px;
+		border-radius: 6px;
+		padding-left: 40px;
+		border: solid 1px #ccc;
+	}
+
+	.l-wrapper {
+		position: relative;
+		padding: 0 15px;
+		min-width: 400px;
+		max-width: 1200px;
+		margin: 0 auto;
+		height: 100%;
+	}
+
+	.l-section {
+		width: 100%;
+		min-width: 400px;
+		max-width: 100%;
+	}
+
+}
+
+
+.section-header {
+	padding: 1em 0 0.5em 0;
+	text-align: center;
+	&.more-space {
+		padding: 5em 0 2.5em 0;
+	}
+}
+
+// -------------------- CATEGORIES --------------------
+#categories {
+	background-color: white;
+	padding-bottom: 70px;
+	.tag-container {
+		margin: auto;
+		text-align: center;
+		font-family: $font-family-bold;
+		.tag-item {
+			display: inline-block;
+			width: auto;
+			margin: 5px;
+			padding: 10px 7px;
+			border-radius: 8px;
+			border: solid 1px $gray-border;
+			background-color: white;
+			color: $gray-dark;
+			@include single-transition(all, .1s ease-in-out);
+			&:hover {
+				background-color: $gray-light;
+				color: $gray-dark;
+			}
+		}
+		.tag-browse-all {
+			display: inherit;
+			margin-top: 50px;
+			color: $gray-dark;
+			&:after {
+				content:  "\2192";
+				margin-left: 7px;
+			}
+		}
+	}
+}
+
+// -------------------- TOOLS --------------------
+.tools-container {
+	background-color: white;
+	.tools {
+		font-family: $font-family-bold;
+		color: $gray-dark;
+		min-height: 100px;
+		margin-bottom: 40px;
+		.icon {
+			display: block;
+			float: left;
+			background: #ccc;
+			width: 75px;
+			height: 75px;
+			margin-right: 20px;
+		}
+		.content {
+			display: block;
+			line-height: 24px;
+		}
+		strong {
+			font-weight: 700;
+		}
+		&.left {
+			float: left;
+		}
+		&.right {
+			float: right;
+		}
+		&.small {
+			width: 80%;
+			margin: auto;
+		}
+	}
+}
+
+// -------------------- PARTNER LOGO'S --------------------
+#partner-logos {
+	background-color: $gray-light;
+	padding-bottom: 70px;
+}
+
+// -------------------- QUOTE CAROUSEL --------------------
+.quote-carousel {
+	position: relative;
+	margin: auto;
+	background-color: white;
+	border-radius: 6px;
+	border: solid 1px $gray-border;
+	padding: 20px;
+	font-family: $font-family-bold;
+	@include clearfix;
+	.quote-carousel-content {
+		float: left;
+		padding: 0 6em 0 6em;
+		margin: auto;
+		.carousel-photo {
+			float: left;
+			width: 100px;
+			height: 100px;
+			img {
+				background-color: $gray-dark;
+			}
+		}
+		.carousel-quote {
+			float: left;
+			color: $color-primary;
+			line-height: 32px;
+			margin: 1.2em 0 0 2em;
+			strong {
+				display: inherit;
+				font-size: 20px;
+				font-weight: 700;
+			}
+			small {
+				color: $gray-dark;
+			}
+		}
+	}
+	.carousel-nav {
+		position: absolute;
+		top: 0;
+		width: 40px;
+		height: 100%;
+		&.left {
+			left: 40px;
+			margin: auto;
+			text-align: center;
+			padding-top: 60px;
+		}
+		&.right {
+			right: 40px;
+			margin: auto;
+			text-align: center;
+			padding-top: 60px;
+		}
+	}
+}
+

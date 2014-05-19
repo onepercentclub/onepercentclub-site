@@ -1,0 +1,435 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+/* Icons */
+/* line 17, ../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/* Define some variables */
+/* Flexible image */
+/* line 29, ../../sass/1procentclub-v2/_grid.scss */
+img {
+  height: auto;
+  max-width: 100%;
+}
+
+/* line 34, ../../sass/1procentclub-v2/_grid.scss */
+.container {
+  padding: 0 15px;
+  position: relative;
+  *zoom: 1;
+}
+/* line 38, ../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+.container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* line 42, ../../sass/1procentclub-v2/_grid.scss */
+.row {
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  max-width: 1200px;
+  *zoom: 1;
+}
+/* line 38, ../../../../../../../../var/lib/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* line 55, ../../sass/1procentclub-v2/_grid.scss */
+[class*="col"] {
+  float: left;
+  display: inline;
+  min-height: 1px;
+  position: relative;
+  margin-left: 3.09091%;
+}
+/* line 63, ../../sass/1procentclub-v2/_grid.scss */
+[class*="col"]:first-of-type {
+  margin-left: 0;
+}
+
+/* --- Column Width --- */
+/* We can do iteration in sass just like we do in javascript or php */
+/* line 71, ../../sass/1procentclub-v2/_grid.scss */
+.col1 {
+  width: 5.5%;
+}
+
+/* line 71, ../../sass/1procentclub-v2/_grid.scss */
+.col2 {
+  width: 14.09091%;
+}
+
+/* line 71, ../../sass/1procentclub-v2/_grid.scss */
+.col3 {
+  width: 22.68182%;
+}
+
+/* line 71, ../../sass/1procentclub-v2/_grid.scss */
+.col4 {
+  width: 31.27273%;
+}
+
+/* line 71, ../../sass/1procentclub-v2/_grid.scss */
+.col5 {
+  width: 39.86364%;
+}
+
+/* line 71, ../../sass/1procentclub-v2/_grid.scss */
+.col6 {
+  width: 48.45455%;
+}
+
+/* line 71, ../../sass/1procentclub-v2/_grid.scss */
+.col7 {
+  width: 57.04545%;
+}
+
+/* line 71, ../../sass/1procentclub-v2/_grid.scss */
+.col8 {
+  width: 65.63636%;
+}
+
+/* line 71, ../../sass/1procentclub-v2/_grid.scss */
+.col9 {
+  width: 74.22727%;
+}
+
+/* line 71, ../../sass/1procentclub-v2/_grid.scss */
+.col10 {
+  width: 82.81818%;
+}
+
+/* line 71, ../../sass/1procentclub-v2/_grid.scss */
+.col11 {
+  width: 91.40909%;
+}
+
+/* line 71, ../../sass/1procentclub-v2/_grid.scss */
+.col12 {
+  width: 100%;
+}
+
+/*  #Mobile Phone
+================================================== */
+@media only screen and (max-width: 767px) {
+  /* line 81, ../../sass/1procentclub-v2/_grid.scss */
+  .row {
+    max-width: 767px;
+  }
+  /* line 83, ../../sass/1procentclub-v2/_grid.scss */
+  .row [class*="col"] {
+    width: 100%;
+    margin-left: 0;
+    margin-bottom: 20px;
+  }
+  /* line 89, ../../sass/1procentclub-v2/_grid.scss */
+  .row.two [class*="col"] {
+    width: 50%;
+  }
+}
+/*
+font-family:'L Futura W01';!
+font-family:'Neue Helvetica W01';!
+
+*/
+/* line 1, ../../sass/1procentclub-v2/_home.scss */
+html, body, #site {
+  height: 100%;
+}
+
+/* line 7, ../../sass/1procentclub-v2/_home.scss */
+.new-homepage * {
+  text-transform: none;
+}
+/* line 10, ../../sass/1procentclub-v2/_home.scss */
+.new-homepage h1 {
+  color: #ff619a;
+  font-size: 36px;
+  font-family: "L Futura W01", "Trebuchet MS", Helvetica, Arial, sans-serif;
+  font-weight: 900;
+}
+/* line 16, ../../sass/1procentclub-v2/_home.scss */
+.new-homepage h2 {
+  color: #8a9993;
+  font-size: 24px;
+  font-family: "L Futura W01", "Trebuchet MS", Helvetica, Arial, sans-serif;
+  font-weight: 900;
+  line-height: 38px;
+}
+/* line 23, ../../sass/1procentclub-v2/_home.scss */
+.new-homepage a {
+  text-decoration: none;
+  color: #3c3c3c;
+}
+/* line 26, ../../sass/1procentclub-v2/_home.scss */
+.new-homepage a.btn {
+  display: inline;
+  background-color: #ff619a;
+  padding: 1em;
+  vertical-align: center;
+  border-radius: 8px;
+  color: white;
+  font-family: "L Futura W01", "Trebuchet MS", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+}
+/* line 37, ../../sass/1procentclub-v2/_home.scss */
+.new-homepage input {
+  line-height: 30px;
+  border-radius: 6px;
+  padding-left: 40px;
+  border: solid 1px #ccc;
+}
+/* line 44, ../../sass/1procentclub-v2/_home.scss */
+.new-homepage .l-wrapper {
+  position: relative;
+  padding: 0 15px;
+  min-width: 400px;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100%;
+}
+/* line 53, ../../sass/1procentclub-v2/_home.scss */
+.new-homepage .l-section {
+  width: 100%;
+  min-width: 400px;
+  max-width: 100%;
+}
+
+/* line 62, ../../sass/1procentclub-v2/_home.scss */
+.section-header {
+  padding: 1em 0 0.5em 0;
+  text-align: center;
+}
+/* line 65, ../../sass/1procentclub-v2/_home.scss */
+.section-header.more-space {
+  padding: 5em 0 2.5em 0;
+}
+
+/* line 71, ../../sass/1procentclub-v2/_home.scss */
+#categories {
+  background-color: white;
+  padding-bottom: 70px;
+}
+/* line 74, ../../sass/1procentclub-v2/_home.scss */
+#categories .tag-container {
+  margin: auto;
+  text-align: center;
+  font-family: "L Futura W01", "Trebuchet MS", Helvetica, Arial, sans-serif;
+}
+/* line 78, ../../sass/1procentclub-v2/_home.scss */
+#categories .tag-container .tag-item {
+  display: inline-block;
+  width: auto;
+  margin: 5px;
+  padding: 10px 7px;
+  border-radius: 8px;
+  border: solid 1px #d8d8d8;
+  background-color: white;
+  color: #8a9993;
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  -o-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+}
+/* line 88, ../../sass/1procentclub-v2/_home.scss */
+#categories .tag-container .tag-item:hover {
+  background-color: #f5f4f6;
+  color: #8a9993;
+}
+/* line 93, ../../sass/1procentclub-v2/_home.scss */
+#categories .tag-container .tag-browse-all {
+  display: inherit;
+  margin-top: 50px;
+  color: #8a9993;
+}
+/* line 97, ../../sass/1procentclub-v2/_home.scss */
+#categories .tag-container .tag-browse-all:after {
+  content: "\2192";
+  margin-left: 7px;
+}
+
+/* line 106, ../../sass/1procentclub-v2/_home.scss */
+.tools-container {
+  background-color: white;
+}
+/* line 108, ../../sass/1procentclub-v2/_home.scss */
+.tools-container .tools {
+  font-family: "L Futura W01", "Trebuchet MS", Helvetica, Arial, sans-serif;
+  color: #8a9993;
+  min-height: 100px;
+  margin-bottom: 40px;
+}
+/* line 113, ../../sass/1procentclub-v2/_home.scss */
+.tools-container .tools .icon {
+  display: block;
+  float: left;
+  background: #ccc;
+  width: 75px;
+  height: 75px;
+  margin-right: 20px;
+}
+/* line 121, ../../sass/1procentclub-v2/_home.scss */
+.tools-container .tools .content {
+  display: block;
+  line-height: 24px;
+}
+/* line 125, ../../sass/1procentclub-v2/_home.scss */
+.tools-container .tools strong {
+  font-weight: 700;
+}
+/* line 128, ../../sass/1procentclub-v2/_home.scss */
+.tools-container .tools.left {
+  float: left;
+}
+/* line 131, ../../sass/1procentclub-v2/_home.scss */
+.tools-container .tools.right {
+  float: right;
+}
+/* line 134, ../../sass/1procentclub-v2/_home.scss */
+.tools-container .tools.small {
+  width: 80%;
+  margin: auto;
+}
+
+/* line 142, ../../sass/1procentclub-v2/_home.scss */
+#partner-logos {
+  background-color: #f5f4f6;
+  padding-bottom: 70px;
+}
+
+/* line 148, ../../sass/1procentclub-v2/_home.scss */
+.quote-carousel {
+  position: relative;
+  margin: auto;
+  background-color: white;
+  border-radius: 6px;
+  border: solid 1px #d8d8d8;
+  padding: 20px;
+  font-family: "L Futura W01", "Trebuchet MS", Helvetica, Arial, sans-serif;
+  overflow: hidden;
+  *zoom: 1;
+}
+/* line 157, ../../sass/1procentclub-v2/_home.scss */
+.quote-carousel .quote-carousel-content {
+  float: left;
+  padding: 0 6em 0 6em;
+  margin: auto;
+}
+/* line 161, ../../sass/1procentclub-v2/_home.scss */
+.quote-carousel .quote-carousel-content .carousel-photo {
+  float: left;
+  width: 100px;
+  height: 100px;
+}
+/* line 165, ../../sass/1procentclub-v2/_home.scss */
+.quote-carousel .quote-carousel-content .carousel-photo img {
+  background-color: #8a9993;
+}
+/* line 169, ../../sass/1procentclub-v2/_home.scss */
+.quote-carousel .quote-carousel-content .carousel-quote {
+  float: left;
+  color: #00c051;
+  line-height: 32px;
+  margin: 1.2em 0 0 2em;
+}
+/* line 174, ../../sass/1procentclub-v2/_home.scss */
+.quote-carousel .quote-carousel-content .carousel-quote strong {
+  display: inherit;
+  font-size: 20px;
+  font-weight: 700;
+}
+/* line 179, ../../sass/1procentclub-v2/_home.scss */
+.quote-carousel .quote-carousel-content .carousel-quote small {
+  color: #8a9993;
+}
+/* line 184, ../../sass/1procentclub-v2/_home.scss */
+.quote-carousel .carousel-nav {
+  position: absolute;
+  top: 0;
+  width: 40px;
+  height: 100%;
+}
+/* line 189, ../../sass/1procentclub-v2/_home.scss */
+.quote-carousel .carousel-nav.left {
+  left: 40px;
+  margin: auto;
+  text-align: center;
+  padding-top: 60px;
+}
+/* line 195, ../../sass/1procentclub-v2/_home.scss */
+.quote-carousel .carousel-nav.right {
+  right: 40px;
+  margin: auto;
+  text-align: center;
+  padding-top: 60px;
+}

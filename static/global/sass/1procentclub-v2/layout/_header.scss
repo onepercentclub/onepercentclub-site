@@ -1,0 +1,96 @@
+#header {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 80px;
+	background: $gray-light;
+	border-bottom: 1px solid white;
+	box-shadow: 0 1px 0 rgba(65, 65, 65, .1);
+	z-index: 999;
+	#logo {
+		float: left;
+		width: 10.41667%;
+		.logo-link {
+			display: block;
+			padding: 1.2em 0 0 0;
+			.logo-image {
+				height: 40px;
+				width: 125px;
+			}
+		}
+
+	}
+	#nav {
+		padding: 1.2em 0 0 0;
+		font-family: $font-family-bold;
+		font-weight: 700;
+		.nav-main {
+			float: left;
+			padding-left: 0;
+			width: auto;
+			text-align: left;
+			.nav-main-item {
+				display: inline;
+				margin-right: 3.9em;
+				background: none;
+				color: $black;
+			}
+		}
+		.nav-actions {
+			margin-top: -20px;
+			float: right;
+			width: 15%;
+			color: white;
+			border-radius: 6px;
+			li {
+				padding-left: 0;
+				.nav-member-dropdown {
+					display: none;
+					display: inherit;
+					//background: green;
+					border-radius: 6px 6px 0 0;
+					padding: 10px;
+					text-align: center;
+					img {
+						width: 50px;
+						height: 50px;
+						border-radius: 50%;
+						border: solid 2px white;
+					}
+				}
+				.nav-member-dropdown-menu {
+					display: none;
+					margin: 0 0 2em 0em;
+					text-align: left;
+					padding: 14px;
+					background: green;
+					border-radius: 0 0 6px 6px;
+					li {
+						padding-left: 0;
+					}
+				}
+			}
+		}
+			.nav-signup {
+				margin-right: 3em;
+			}.nav-search {
+				.nav-search-holder {
+					position: relative;
+					display: inherit;
+					float: left;
+					margin-top: -10px;
+					.nav-search-glass {
+						position: absolute;
+						top: 11px;
+						left: 11px;
+					}
+				}
+			}
+		}
+	ul {
+		padding-left: 0;
+		li {
+			background: none;
+		}
+	}	
+}

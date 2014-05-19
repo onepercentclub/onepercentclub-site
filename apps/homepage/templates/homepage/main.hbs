@@ -4,12 +4,31 @@
 
 {% tplhandlebars "home" %}
 
-    <div id="home">
-        {{#if slides }}
-            {{view App.SlideListView }}
-        {{else}}
-            No slides
-        {{/if }}
+        <div id="home">
+            <div class="l-section home-carousel">
+                <ul>
+                    <li>
+                        <header class="section-header">
+                            <h1>1%Club is the do-good crowdfunding platform</h1>
+                        </header>
+                        <div class="home-carousel-content">
+                            <a href="#">About 1%Club</a>
+                        </div>
+                        <div class="home-carousel-btn">
+                            <a href="#" class="btn">Learn more</a>
+                        </div>
+                        <div class="home-carousel-body">
+                            <img src="http://localhost:8000/static/assets/images/pages/homepage/carousel/home-carousel-1.jpg">
+                        </div>
+                    </li>
+                    <div class="home-carousel-nav">
+                        <span class="is-active"></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </ul>
+            </div>
 
 		{{#if projects}}
             {{view App.HomeProjectListView }}

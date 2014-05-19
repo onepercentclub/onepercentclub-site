@@ -1,0 +1,81 @@
+.home-carousel {
+	position: relative;
+	width: 100%;
+	background: $gray-light;
+	font-family: $font-family-bold;
+	ul {
+		margin-top: 80px;
+		margin: auto;
+		width: 100%;
+		background: $gray-light;
+		padding: 0;
+		li {
+			height: 510px;
+			overflow: hidden;
+			padding-left: 0;
+			background: none;
+			margin: 0;
+			header {
+				position: relative;
+				width: 30%;
+				margin: auto;
+				padding-top: 20px;
+				h1 {
+					position: absolute;
+					top: 80px;
+					text-transform: none;
+				}
+			}
+			.home-carousel-btn {
+				position: absolute;
+				top: 298px;
+				left: 0;
+				right: 0;
+				margin: auto;
+				width: 100%;
+				text-align: center;
+			}
+			.home-carousel-content {
+				position: absolute;
+				top: 207px;
+				left: 0;
+				right: 0;
+				margin: auto;
+				width: 50%;
+				text-align: center;
+				font-size: 1.4em;
+			}
+			.home-carousel-body {
+				width: 100%;
+				height: 100%;
+				//background: $gray-light
+				text-align: center;
+				img {
+					width: 100%;
+					height: auto;
+					margin-top: -190px;
+				}
+			}
+		}
+	}
+	.home-carousel-nav {
+		position: absolute;
+		bottom: 20px;
+		left: 0;
+		right: 0;
+		margin: auto;
+		width: 100%;
+		text-align: center;
+		span {
+			display: inline-block;
+			height: 13px;
+			width: 13px;
+			border-radius: 50%;
+			background: rgba(255, 255, 255, .7);
+			border: solid 1px white;
+			&.is-active {
+				background: rgba(255, 255, 255, 1);
+			}
+		}
+	}
+}
