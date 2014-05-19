@@ -59,11 +59,15 @@
                     </figure>
 
                     <div class="project-action">
-                        {{#if project.getProject.isPhaseCampaign}}
-                            <a href='#' {{ action 'addDonation' this.project this }} class="btn btn-primary btn-iconed">
-                                <span class="flaticon solid wallet-1"></span>
-                                {% trans "Support" %} {{owner.first_name}}
-                            </a>
+                        {{#if project.isStatusCampaign}}
+                            {{#ifExpired deadline}}
+                                <strong>{% trans "deadline passed" %}</strong>
+                            {{else}}
+                                <a href='#' {{ action 'addDonation' this.project this }} class="btn btn-primary btn-iconed">
+                                    <span class="flaticon solid wallet-1"></span>
+                                    {% trans "Support" %} {{owner.first_name}}
+                                </a>
+                            {{/ifExpired}}
                         {{else}}
                             <strong>{% trans "Project Funded" %}</strong>
                         {{/if}}
