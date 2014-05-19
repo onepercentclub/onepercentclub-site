@@ -71,7 +71,7 @@
                                     </a>
 
                                     <div class="fund-amount">
-                                        <strong class="fund-amount-needed">&euro; {{ project.campaign.amount_needed }}</strong> {% trans "is still needed"%}
+                                        <strong class="fund-amount-needed">&euro; {{ project.amount_needed }}</strong> {% trans "is still needed"%}
                                     </div>
                                 </li>
                             {{/each}}
@@ -115,11 +115,11 @@
                                     </label>
 
                                     <div class="controls">
-                                        {{view Em.TextField valueBinding="address.line1" classBinding="address.errors.line1.length:error"}}
+                                        {{view Em.TextField valueBinding="profile.address.line1" classBinding="profile.address.errors.line1.length:error"}}
                                     </div>
 
-                                    {{#if address.errors.line1}}
-                                        <div class="has-errors">{{#each address.errors.line1}}<p>{{this}}</p>{{/each}}</div>
+                                    {{#if profile.address.errors.line1}}
+                                        <div class="has-errors">{{#each profile.address.errors.line1}}<p>{{this}}</p>{{/each}}</div>
                                     {{/if}}
                                 </li>
                                 <li class="control-group">
@@ -128,11 +128,11 @@
                                     </label>
 
                                     <div class="controls">
-                                        {{view Em.TextField valueBinding="address.city" classBinding="address.errors.city.length:error"}}
+                                        {{view Em.TextField valueBinding="profile.address.city" classBinding="profile.address.errors.city.length:error"}}
                                     </div>
 
-                                    {{#if address.errors.city}}
-                                        <div class="has-errors">{{#each address.errors.city}}<p>{{this}}</p>{{/each}}</div>
+                                    {{#if profile.address.errors.city}}
+                                        <div class="has-errors">{{#each profile.address.errors.city}}<p>{{this}}</p>{{/each}}</div>
                                     {{/if}}
                                 </li>
                                 <li class="control-group">
@@ -141,11 +141,11 @@
                                     </label>
 
                                     <div class="controls">
-                                        {{view Em.TextField valueBinding="address.postal_code" classBinding="address.errors.postal_code.length:error"}}
+                                        {{view Em.TextField valueBinding="profile.address.postal_code" classBinding="profile.address.errors.postal_code.length:error"}}
                                     </div>
 
-                                    {{#if address.errors.postal_code}}
-                                        <div class="has-errors">{{#each address.errors.postal_code}}<p>{{this}}</p>{{/each}}</div>
+                                    {{#if profile.address.errors.postal_code}}
+                                        <div class="has-errors">{{#each profile.address.errors.postal_code}}<p>{{this}}</p>{{/each}}</div>
                                     {{/if}}
 
                                 </li>
@@ -156,11 +156,11 @@
                                     </label>
 
                                     <div class="controls">
-                                        {{view App.CountryCodeSelectView valueBinding="address.country" classBinding="address.errors.country.length:error"}}
+                                        {{view App.CountryCodeSelectView selectionBinding="profile.address.country" classBinding="profile.address.errors.country.length:error"}}
                                     </div>
 
-                                    {{#if address.error.country}}
-                                        <div class="has-errors">{{#each address.errors.country}}<p>{{this}}</p>{{/each}}</div>
+                                    {{#if profile.address.error.country}}
+                                        <div class="has-errors">{{#each profile.address.errors.country}}<p>{{this}}</p>{{/each}}</div>
                                     {{/if}}
                                 </li>
 

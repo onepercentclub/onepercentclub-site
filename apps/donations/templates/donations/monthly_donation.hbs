@@ -9,13 +9,13 @@
         <h2 class="project-title">
             {{ project.title }}
             <em class="project-location">
-                <span class="flaticon solid location-pin-1"></span> {{ project.plan.country.name }}
+                <span class="flaticon solid location-pin-1"></span> {{ project.country.name }}
             </em>
         </h2>
     {{/linkTo}}
 
     <div class="fund-amount">
-        <strong class="fund-amount-needed">&euro; {{ project.campaign.amount_needed }}</strong> {% trans "is still needed"%}
+        <strong class="fund-amount-needed">&euro; {{ project.amount_needed }}</strong> {% trans "is still needed"%}
 
         <div class="fund-amount-divided">
             {{#each error in errors.amount}}

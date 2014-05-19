@@ -6,14 +6,14 @@ python:
 node_js:
   - "0.10"
 
-addons:
-  firefox: "26.0"
+#addons:
+#  firefox: "26.0"
 
 env:
   global:
     - secure: "SzMYzAnIHxHEKHEOJEY5jchkx5AZGQ/c0tHPAgv/CwA5jJpjAFNTyyeu4ufiXAg5d3ZxAEwnBIvnXl2T2jfkBUMLhuqeaeqnT1BgUS2ZzPAoZshQbYacmy6xDg1iySWyHR5uMdSF6XwrXKEpd9V26o7fLPMUBeCeQuxkrkcPKds="
     - secure: "MadgOYHJmWUlRlzdxJl/wyLJh9UzcV8KrCiOLE4bRWynoAulxgOCbsZFvMHnwjT+UTn+jm0J7lWOKpbehxQlHggdZSLocY7VvofWlfIu00rilfslvSDE7ggkwR/okEmUbokcyX5GycxcdjBaAx0d/iF0Vp7LifvpTkpiJBp9bAI="
-
+  
 before_install:
   - "gem update --system"
   - "gem install sass compass"
@@ -34,5 +34,5 @@ before_script:
   - "grunt compass:dist --bb_path=\"`pip show bluebottle | grep Location | cut -b11-`/bluebottle/common/static/sass\""
 
 script:
-  - python ./manage.py test --settings=onepercentclub.settings.travis -v 1 #--failfast
+  - python ./manage.py test --settings=onepercentclub.settings.travis --failfast -v 1
   # - grunt travis --verbose # add --force to pass build on JS failures

@@ -81,9 +81,15 @@
             <div class="project-status">
 
                 {{#if deadline}}
-                <div class="project-days-left">
-                    <strong><span class="flaticon solid stopwatch-1"></span> {{daysToGo}} <em>{% trans "days to go" %}!</em></strong>
-                </div>
+                    <div class="project-days-left">
+                        <strong><span class="flaticon solid stopwatch-1"></span>
+                        {{#ifExpired deadline}}
+                            <em>{% trans "deadline passed" %}</em>
+                        {{else}}
+                            {{daysToGo}} <em>{% trans "days to go" %}</em>
+                        {{/ifExpired}}
+                        </strong>
+                    </div>
                 {{/if}}
 
                 <div class="project-fund">
@@ -93,9 +99,7 @@
                         <strong class="amount-asked">&euro;{{localize amount}}</strong>
                         {% trans "raised" %}
                     </p>
-
-                    {{#bb-progressbar class="project-fund-amount-slider" totalValue=amount currentValue=amount_donated}}
-                    {{/bb-progressbar}}
+                    {{bb-progressbar class="project-fund-amount-slider" targetValue=amount currentValue=amount_donated}}
                 </div>
 
                 <ul class="member-list">

@@ -2,9 +2,16 @@
 
 {% tplhandlebars "fundRaiser/index" %}
 
-    <div id="l-section">
+    <div class="l-section" id="wallposts">
         <section class="l-wrapper">
-        	<div class="l-content" id="wallposts">
+
+            <div class="wallposts-list">
+
+                {{#if isOwner}}
+                	{{ render "fundRaiserMediaWallPostNew" }}
+                {{else}}
+                	{{ render "fundRaiserTextWallPostNew" }}
+                {{/if}}
 
     	        {{#each item in controller itemController="wallPost"}}
     	            {{#if item.isLoaded}}
@@ -22,16 +29,7 @@
                     </a>
                 {{/if}}
 
-        	</div>
-
-            <sidebar class="l-sidebar">
-                {{#if isOwner}}
-                	{{ render "fundRaiserMediaWallPostNew" }}
-                {{else}}
-                	{{ render "fundRaiserTextWallPostNew" }}
-                {{/if}}
-            </sidebar>
-
+            </div>
         </section>
     </div>
 

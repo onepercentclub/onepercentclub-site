@@ -25,24 +25,28 @@
 
             <span {{bindAttr class=":project-status phase"}}>
 
-                {{#if amount_asked }}
+                {{#if isStatusCampaign }}
                     {{bb-progressbar targetValue=amount_asked currentValue=amount_donated}}
-                    <span class="project-fund-amount"><strong>&euro;{{localize calculatedAmountNeeded}}</strong> <em>{% trans "To go" %}</em></span>
-                {{/if}}
-
-                {{#if deadline }}
+                    <span class="project-fund-amount"><strong>&euro;{{localize amount_donated}}</strong>  {% trans "of" %} {{localize amount_asked}} <em>{% trans "raised" %}</em></span>
                     <span class="project-days-left"><span class="flaticon solid clock-1"></span> <strong>{{daysToGo}}</strong> <em>{% trans "days" %}</em></span>
-                {{/if}}
-
-                {{#if isStatusCompleted}}
-                    <span class="project-phase"><span class="flaticon solid lightbulb-3"></span> <strong>{% trans "Project funded" %}</strong> <em>{% trans "Being realized" %}</em></span>
+                {{else}}
+                    {{#if isStatusFinished}}
+                        <span class="project-phase"><span class="flaticon solid lightbulb-3"></span> <strong>{% trans "Project funded" %}</strong></span>
+                    {{else}}
+                        {{#if amount_asked}}
+                            {{bb-progressbar targetValue=amount_asked currentValue=amount_donated}}
+                            <span class="project-fund-amount"><strong>&euro; {{localize amount_donated}}</strong> {% trans "of" %} {{localize amount_asked}} <em>{% trans "raised" %}</em></span>
+                        {{/if}}
+                        {{#if deadline}}
+                            <span class="project-days-left"><span class="flaticon solid clock-1"></span> <strong>{{daysToGo}}</strong> <em>{% trans "days" %}</em></span>
+                        {{/if}}
+                    {{/if}}
                 {{/if}}
             </span>
 
 
             <span class="project-description">
                 {{{pitch}}}
-
                 <span class="project-view">{% trans "View project" %}</span>
             </span>
 

@@ -4,7 +4,7 @@
 
      <li class="project-item project-item-small">
 
-        {{#link-to 'addProjectToMonthly' project.id}}
+        <a {{action 'addProjectToMonthly' project.id}}>
             <span class="project-header">
 
             	<figure class="project-image">
@@ -14,29 +14,17 @@
                 <span class="project-title">
                 	<h3>{{project.title}}</h3>
                     <span class="project-location">
-                        <span class="flaticon solid location-pin-1"></span> {{project.country}}</span>
+                        <span class="flaticon solid location-pin-1"></span> {{project.country.name}}</span>
                 </span>
             </span>
 
-	        <span class="project-status campaign">
-	            {{#if project.isPhasePlan}}
-                    <span class="project-phase"><span class="flaticon solid lightbulb-3"></span> <strong>{% trans "New" %}</strong> <em>{% trans "Smart Idea" %}</em></span>
-	            {{/if}}
-
-	            {{#if project.isPhaseCampaign}}
-                    {{#if project.money_asked}}
-                        <div class="project-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
-                        <span class="project-fund-amount"><strong>&euro;{{localize project.amount_needed}}</strong> <em>{% trans "To go" %}</em></span>
-                    {{/if}}
-                    {{#if project.deadline }}
-                        <span class="project-days-left"><span class="flaticon solid clock-1"></span> <strong>{{project.daysToGo}}</strong> <em>{% trans "days" %}</em></span>
-                    {{/if}}
-	            {{/if}}
-	        </span>
-
+            <span {{bindAttr class=":project-status phase"}}>
+                {{bb-progressbar targetValue=amount_asked currentValue=amount_donated}}
+                <span class="project-fund-amount"><strong>&euro;{{localize amount_donated}}</strong>  {% trans "of" %} {{localize amount_asked}} <em>{% trans "raised" %}</em></span>
+                <span class="project-days-left"><span class="flaticon solid clock-1"></span> <strong>{{daysToGo}}</strong> <em>{% trans "days" %}</em></span>
+            </span>
             <span class="project-description">{{{pitch}}}</span>
-
-        {{/link-to}}
+        </a>
     </li>
 
 {% endtplhandlebars %}
