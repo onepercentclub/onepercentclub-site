@@ -5,44 +5,56 @@
 
 {% tplhandlebars "home_banner" %}
 
-	<div class="l-section home-carousel">
-		<section class="carousel">
-			<ul>
-			{{#each slides }}
-		        <li class="carousel-item" {{bindAttr id=style}}>
-		        	<div class="l-wrapper">
-		                {{#if video}}
-							<div class="l-half carousel-video">
-	                			<div class="video">{{{video}}}</div>
-							</div>
-						{{/if}}
+<div class="l-section home-carousel">
+	<section class="carousel">
+		<ul>
+			<li class="carousel-item">
+				<header class="section-header">
+					<h1>1%Club is the do-good <br> crowdfunding platform</h1>
+				</header>
+				<div class="home-carousel-content">
+					<a href="#" class="carousel-about">About 1%Club</a>
+				</div>
+				<div class="home-carousel-body first-item">	
+				</div>
+			</li>
 
-                    	<article class="l-half carousel-content">
-				            <h1>{{ title }}</h1>
-				            <p>{{{ body }}}</p>
-				            {{#if link_text }}
-				                <a class="btn btn-primary" {{bindAttr href="link_url" }}>{{link_text}}</a>
-				            {{/if}}
-				        </article>
+			<li class="carousel-item">
+				<div class="home-carousel-content header-cloud">
+					<span class="header">
+						Join the makers of change
+					</span>
+					<span>Mustapha campaigns for chess courses in Amsterdam.</span>
+				</div>
+				<div class="home-carousel-btn">
+					<a href="#" class="btn">Start your own campaign</a>
+				</div>
+				<div class="home-carousel-body first-second">
+				</div>
+			</li>
 
-		        	</div>
-
-		        	<div class="carousel-image"></div>
-		        </li>
-		    {{/each }}
-			</ul>
-
-	        <div class="l-section carousel-nav-section">
-	            <div class="l-wrapper">
-	                <ol class="carousel-nav l-full">
-	                    {{#each slides}}
-	                        <li {{bindAttr class=":carousel-nav-item isFirst:is-active" }}>{{ tab_text }}</li>
-	                    {{/each }}
-	                </ol>
-	            </div>
-	        </div>
-        </section>
-	</div>
+			<li class="carousel-item">
+				<div class="home-carousel-content header-cloud-transparant">
+					<span class="header">
+						Supporters of good
+					</span>
+					<span>We love smart ideas that do good to the world.</span>
+						<a href="#" class="last-slide">Streetskids soccerschool, Colombia</a>
+				</div>
+				<div class="home-carousel-btn">
+					<a href="#" class="btn">Find campaigns you’ll love </a>
+				</div>
+				<div class="home-carousel-body first-third">
+				</div>
+			</li>
+		</ul>
+		<div class="home-carousel-nav">
+			{{#each slides}}
+				<span {{bindAttr class=":carousel-nav-item isFirst:is-active" }}></span>
+			{{/each }}
+		</div>
+    </section>
+</div>
 
 {% endtplhandlebars %}
 
