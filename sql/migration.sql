@@ -294,6 +294,10 @@ UPDATE projects_project p
   WHERE pp.project_id = p.id
   AND p.phase <> 'pitch' AND pp.theme_id IS NOT NULL;
 
+UPDATE projects_project p
+  SET date_submitted = pp.created
+  FROM projects_projectplan AS pp
+  WHERE pp.project_id = p.id;
 
 -- Migrate ProjectCampaign
 
@@ -301,7 +305,10 @@ UPDATE projects_project p
   SET amount_asked = (pc.money_asked / 100),
       amount_donated = (pc.money_donated / 100),
       amount_needed = (pc.money_needed / 100),
-      deadline = (pc.deadline)
+      deadline = (pc.deadline),
+      campaign_started = pc.created,
+      campaign_ended = pc.updated,
+      campaign_funded = pc.updated 
   FROM projects_projectcampaign AS pc
   WHERE pc.project_id = p.id;
 
