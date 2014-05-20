@@ -11,7 +11,7 @@
 			<li class="carousel-item first-item">
 				<div class="home-carousel-content">
 					<h1>{% trans "1%Club is the do-good crowdfunding platform" %}</h1>
-					<p><a href="#" class="carousel-about">{% trans "About 1%Club" %}</a></p>
+					<p>{{#link-to 'page' 'about' classNames='carousel-about'}}{% trans "About 1%Club" %}{{/link-to}}</p>
 				</div>
 			</li>
 
@@ -21,7 +21,7 @@
 					<p>{% trans "Mustapha campaigns for chess courses in Amsterdam." %}</p>
 				</div>
 				<div class="home-carousel-btn">
-					<a href="#" class="btn">{% trans "Start your own campaign" %}</a>
+					{{#link-to 'myProject.start' 'new' classNames='btn'}}{% trans "Start your own campaign" %}{{/link-to}}
 				</div>
 			</li>
 
@@ -32,7 +32,7 @@
 					<p><a href="#" class="campaign-link">{% trans "Streetskids soccerschool, Colombia" %}</a></p>
 				</div>
 				<div class="home-carousel-btn">
-					<a href="#" class="btn">{% trans "Find campaigns you’ll love" %}</a>
+					{{#link-to 'projectList' classNames='btn'}}{% trans "Find campaigns you’ll love" %}{{/link-to}}
 				</div>
 			</li>
 		</ul>
