@@ -88,7 +88,7 @@
                                 {{else}}
                                 	<span class="flaticon"></span>
                                 {{/if}}
-                                {% trans "Organisation" %}
+                                {% trans "Details" context "Campaign Create Details" %}
                             {{/link-to}}
                         </li>
 
@@ -136,6 +136,12 @@
                     {{/if}}
                     {{#if tabStory}}
                         {{ partial '_my_project_sidebar_story' }}
+                    {{/if}}
+                    {{#if tabOrg}}
+                        {{ partial '_my_project_sidebar_organization' }}
+                    {{/if}}
+                    {{#if tabBank}}
+                        {{ partial '_my_project_sidebar_bank' }}
                     {{/if}}
                 </div>
             </section>

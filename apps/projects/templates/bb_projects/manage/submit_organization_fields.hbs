@@ -13,10 +13,10 @@
                         {% trans "Organisation" %}
                     </div>
                     <div class="details">
-                        {{#link-to "myProject.organisation"}}{{field}}{{/link-to}} is not filled in.
+                        {{#link-to "myProject.organisation"}}{{field}}{{/link-to}} {% trans "is not filled in" %}.
                     </div>
                     <div class="action">
-                        {{#link-to "myProject.organisation"}}<span class="flaticon solid checkmark-2"></span> Let's fix this{{/link-to}}
+                        {{#link-to "myProject.organisation"}}<span class="flaticon solid checkmark-2"></span>{% trans "Let's fix this" %}{{/link-to}}
                     </div>
                 </li>
             {{/each}}
