@@ -3,7 +3,7 @@ html, body, #site {
 
 }
 
-.new-homepage {
+#home {
 	* {
 		text-transform: none;
 	}
@@ -12,6 +12,7 @@ html, body, #site {
 		font-size: 36px;
 		font-family: $font-family-bold;
 		font-weight: 900;
+		text-transform: none;
 	}
 	h2 {
 		color: $gray-dark;
@@ -19,10 +20,12 @@ html, body, #site {
 		font-family: $font-family-bold;
 		font-weight: 900;
 		line-height: 38px;
+		text-transform: none;
 	}
 	a {
 		text-decoration: none;
 		color: $black;
+		
 		&.btn {
 			display: inline;
 			background-color: $color-secondary;
@@ -71,10 +74,12 @@ html, body, #site {
 #categories {
 	background-color: white;
 	padding-bottom: 70px;
+	
 	.tag-container {
 		margin: auto;
 		text-align: center;
 		font-family: $font-family-bold;
+		
 		.tag-item {
 			display: inline-block;
 			width: auto;
@@ -90,50 +95,16 @@ html, body, #site {
 				color: $gray-dark;
 			}
 		}
+		
 		.tag-browse-all {
 			display: inherit;
 			margin-top: 50px;
 			color: $gray-dark;
+			
 			&:after {
 				content:  "\2192";
 				margin-left: 7px;
 			}
-		}
-	}
-}
-
-// -------------------- TOOLS --------------------
-.tools-container {
-	background-color: white;
-	.tools {
-		font-family: $font-family-bold;
-		color: $gray-dark;
-		min-height: 100px;
-		margin-bottom: 40px;
-		.icon {
-			display: block;
-			float: left;
-			background: #ccc;
-			width: 75px;
-			height: 75px;
-			margin-right: 20px;
-		}
-		.content {
-			display: block;
-			line-height: 24px;
-		}
-		strong {
-			font-weight: 700;
-		}
-		&.left {
-			float: left;
-		}
-		&.right {
-			float: right;
-		}
-		&.small {
-			width: 80%;
-			margin: auto;
 		}
 	}
 }

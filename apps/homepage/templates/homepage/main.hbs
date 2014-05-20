@@ -9,16 +9,13 @@
                 <ul>
                     <li>
                         <header class="section-header">
-                            <h1>1%Club is the do-good crowdfunding platform</h1>
+                            <h1>{% trans "1%Club is the do-good crowdfunding platform" %}</h1>
                         </header>
                         <div class="home-carousel-content">
-                            <a href="#">About 1%Club</a>
-                        </div>
-                        <div class="home-carousel-btn">
-                            <a href="#" class="btn">Learn more</a>
+                            <a href="#">{% trans "About 1%Club" %}</a>
                         </div>
                         <div class="home-carousel-body">
-                            <img src="http://localhost:8000/static/assets/images/pages/homepage/carousel/home-carousel-1.jpg">
+                            <img src="/static/assets/images/pages/homepage/carousel/home-carousel-1.jpg">
                         </div>
                     </li>
                     <div class="home-carousel-nav">
@@ -32,8 +29,6 @@
 
 		{{#if projects}}
             {{view App.HomeProjectListView }}
-		{{else}}
-			No Projects
 		{{/if}}
 
         {{#if impact }}
@@ -42,22 +37,58 @@
 
         <div class="l-section tools-container">
             <div class="l-wrapper">
-            <div class="row">
-                <div class="col4">
-                    <div class="tools">
-                        <div class="tools-icon"><object type="image/svg+xml" data="http://localhost:8000/static/assets/images/illustrations/illustration-idea.svg" class="logo-image"></object></div>
-                        <strong class="tools-header">We are the do-good crowdfunding platform</strong>
-                        <div class="tools-content">
-                            We empower people with great ideas 
-                            to create positive change in their 
-                            community, city, country – or in the 
-                            world.
+                <div class="row">
+                    <div class="col4">
+                        <div class="tools">
+                            <div class="tools-icon"><object type="image/svg+xml" data="/static/assets/images/illustrations/illustration-idea.svg"></object></div>
+                            <strong class="tools-header">{% trans "We are the do-good crowdfunding platform" %}</strong>
+                            <div class="tools-content">
+                                {% blocktrans %}We empower people with great ideas
+                                to create positive change in their
+                                community, city, country – or in the
+                                world.{% endblocktrans %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col4">
+                        <div class="tools">
+                            <div class="tools-icon"><object type="image/svg+xml" data="/static/assets/images/illustrations/illustration-crowdfund.svg"></object></div>
+                            <strong class="tools-header">{% trans "We have the fundraising tools to activate your network" %}</strong>
+                            <div class="tools-content">
+                                {% blocktrans %}We enable you to raise funds and
+                                kick-start your initiative via your own
+                                network. We take care of
+                                administration and make sure you
+                                can eﬀectively share your campaign
+                                with your network.{% endblocktrans %}
+
+                            </div>
+                            <div class="tools-btn">
+                                 <a href="#" class="btn">{% trans "Start campaigning" %}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col4">
+                        <div class="tools">
+                            <div class="tools-icon"><object type="image/svg+xml" data="/static/assets/images/illustrations/illustration-best-friend.svg"></object></div>
+                            <strong class="tools-header">{% trans "We are your best friend in online campaining" %}</strong>
+                            <div class="tools-content">
+                                {% blocktrans %}We make campaigning for a better
+                                world the most simple and rewarding
+                                experience possible. We share our
+                                expertise and if you need help: we’re
+                                just a phone call or email away{% endblocktrans %}
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col4"></div>
-                <div class="col4"></div>
-            </div>
+                <div class="row">
+                    <div class="col12">
+                        <div class="tools-rocket">
+                            <object type="image/svg+xml" data="/static/assets/images/illustrations/illustration-rocket.svg"></object>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
