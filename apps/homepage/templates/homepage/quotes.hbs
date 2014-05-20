@@ -4,23 +4,37 @@
 
 {% tplhandlebars "home_quotes" %}
 
-    <div class="l-section" id="partner-logos">
+    <div class="l-section" id="featured-on">
         <section class="l-wrapper">
             <div class="row">
                 <div class="col12">
-                    <div class="quote-carousel">
+                
+                	<div id="press">
+                		<ul>
+                			<li class="press-intro">{% trans "Featured on" %}</li>
+                			<li><a href="#"><img src="/static/assets/images/img/pages/home/press-nos.png" alt="NOS" /></a></li>
+                			<li><a href="#"><img src="/static/assets/images/img/pages/home/press-radio1.png" alt="Radio 1" /></a></li>
+                			<li><a href="#"><img src="/static/assets/images/img/pages/home/press-nu.png" alt="NU.nl" /></a></li>
+                			<li><a href="#"><img src="/static/assets/images/img/pages/home/press-pnw.png" alt="Pauw &amp; Witteman" /></a></li>
+                			<li><a href="#"><img src="/static/assets/images/img/pages/home/press-dwdd.png" alt="De Wereld Draait Door" /></a></li>
+                			<li><a href="#"><img src="/static/assets/images/img/pages/home/press-volkskrant.png" alt="Volkskrant" /></a></li>
+                		</ul>
+                	</div>
+                	
+                    <div id="quote-carousel">
                         <div class="quote-carousel-content">
                             <div class="carousel-photo">
-                                <img src="/static/assets/images/mockup-website/quote-mark-rutte.png">
+                                <img src="/static/assets/images/img/pages/home/quote-mark-rutte.jpg">
                             </div>
                             <div class="carousel-quote">
-                                <strong>Een actiegerichte manier van denken die uitstekend past in deze tijd.</strong>
-                                <small>— Mark Rutte, Minister-president</small>
+                                <strong>{% trans "Een actiegerichte manier van denken die uitstekend past in deze tijd." %}</strong>
+                                <em>&#8212; {% trans "Mark Rutte, Minister-president" %}</em>
                             </div>
                         </div>
-                        <a href="#" class="carousel-nav left">&#10094;</a>
-                        <a href="#" class="carousel-nav right">&#10095;</a>
+                        <a href="#" class="carousel-nav previous">&#10094;</a>
+                        <a href="#" class="carousel-nav next">&#10095;</a>
                     </div>
+                    
                 </div>
             </div>
         </section>
