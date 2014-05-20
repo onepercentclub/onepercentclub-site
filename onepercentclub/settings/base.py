@@ -133,12 +133,20 @@ STATICFILES_FINDERS = [
     # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 ]
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
+
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = [
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-    'apptemplates.Loader', # extend AND override templates
-    # 'django.template.loaders.eggs.Loader',
+    ('django.template.loaders.cached.Loader', (
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+        'apptemplates.Loader', # extend AND override templates
+    )),
 ]
 
 # These are basically the default values from the Django configuration, written
