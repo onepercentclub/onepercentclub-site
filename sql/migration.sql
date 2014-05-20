@@ -167,7 +167,6 @@ INSERT INTO bb_projects_projectphase (id, name, description, sequence, active, e
   (3, 'Plan - Needs Work', '', 3, true, true, false, 'plan-needs-work'),
   (4, 'Plan - Rejected', '', 4, true, false, false, 'plan-rejected'),
   (5, 'Campaign', '', 5, true, true, true, 'campaign'),
-  (6, 'Stopped', '', 6, true, false, false, 'stopped'),
   (7, 'Done - Complete', '', 7, true, true, true, 'done-complete'),
   (8, 'Done - Incomplete', '', 8, true, false, true, 'done-incomplete'),
   (9, 'Done - Stopped', '', 9, true, false, false, 'done-stopped');
