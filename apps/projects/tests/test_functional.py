@@ -54,10 +54,7 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         """
         Test navigate to the project list page.
         """
-        self.visit_homepage()
-
-        # Find the link to the Projects page and click it.
-        self.browser.find_link_by_text('1%Projects').first.click()
+        self.visit_project_list_page()
 
         time.sleep(10)
         # Validate that we are on the intended page.

@@ -5,44 +5,44 @@
 
 {% tplhandlebars "home_banner" %}
 
-	<div class="l-section home-carousel">
-		<section class="carousel">
-			<ul>
-			{{#each slides }}
-		        <li class="carousel-item" {{bindAttr id=style}}>
-		        	<div class="l-wrapper">
-		                {{#if video}}
-							<div class="l-half carousel-video">
-	                			<div class="video">{{{video}}}</div>
-							</div>
-						{{/if}}
+<div class="l-section home-carousel">
+	<section class="carousel">
+		<ul>
+			<li class="carousel-item first-item">
+				<div class="home-carousel-content">
+					<h1>{% trans "1%Club is the do-good crowdfunding platform" %}</h1>
+					<p>{{#link-to 'page' 'about' classNames='carousel-about'}}{% trans "About 1%Club" %}{{/link-to}}</p>
+				</div>
+			</li>
 
-                    	<article class="l-half carousel-content">
-				            <h1>{{ title }}</h1>
-				            <p>{{{ body }}}</p>
-				            {{#if link_text }}
-				                <a class="btn btn-primary" {{bindAttr href="link_url" }}>{{link_text}}</a>
-				            {{/if}}
-				        </article>
+			<li class="carousel-item second-item">
+				<div class="home-carousel-content">
+					<h1>{% trans "Join the makers of change" %}</h1>
+					<p>{% trans "Mustapha campaigns for chess courses in Amsterdam." %}</p>
+				</div>
+				<div class="home-carousel-btn">
+					{{#link-to 'myProject.start' 'new' classNames='btn'}}{% trans "Start your own campaign" %}{{/link-to}}
+				</div>
+			</li>
 
-		        	</div>
-
-		        	<div class="carousel-image"></div>
-		        </li>
-		    {{/each }}
-			</ul>
-
-	        <div class="l-section carousel-nav-section">
-	            <div class="l-wrapper">
-	                <ol class="carousel-nav l-full">
-	                    {{#each slides}}
-	                        <li {{bindAttr class=":carousel-nav-item isFirst:is-active" }}>{{ tab_text }}</li>
-	                    {{/each }}
-	                </ol>
-	            </div>
-	        </div>
-        </section>
-	</div>
+			<li class="carousel-item third-item">
+				<div class="home-carousel-content">
+					<h1>{% trans "Supporters of good" %}</h1>
+					<p>{% trans "We love smart ideas that do good to the world." %}</p>
+					<p><a href="#" class="campaign-link">{% trans "Streetskids soccerschool, Colombia" %}</a></p>
+				</div>
+				<div class="home-carousel-btn">
+					{{#link-to 'projectList' classNames='btn'}}{% trans "Find campaigns you’ll love" %}{{/link-to}}
+				</div>
+			</li>
+		</ul>
+		<div class="home-carousel-nav">
+			{{#each slides}}
+				<span {{bindAttr class=":carousel-nav-item isFirst:is-active" }}></span>
+			{{/each }}
+		</div>
+    </section>
+</div>
 
 {% endtplhandlebars %}
 

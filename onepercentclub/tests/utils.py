@@ -68,7 +68,7 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
 
         self.browser.find_by_value('Login').first.click()
 
-        return self.browser.is_text_present('MY 1%', wait_time=10)
+        return self.browser.is_text_present('My 1%', wait_time=10)
 
     def logout(self):
         return self.browser.visit('%(url)s/en/accounts/logout/' % {
