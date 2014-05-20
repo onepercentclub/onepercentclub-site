@@ -68,9 +68,12 @@ App.ProjectSupporter = DS.Model.extend({
 App.ProjectDonation = DS.Model.extend({
     url: 'fund/project-donations',
 
+    project: DS.belongsTo('App.ProjectPreview'),
+    fundraiser: DS.belongsTo('App.FundRaiser'),
     member: DS.belongsTo('App.UserPreview'),
-    amount: DS.attr('number'),
     date_donated: DS.attr('date'),
+    amount: DS.attr('number'),
+
 
     time_since: function(){
         return Globalize.format(this.get('date_donated'), 'X');

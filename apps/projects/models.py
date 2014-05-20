@@ -228,6 +228,14 @@ class Project(BaseProject):
     def date_funded(self):
         return self.campaign_funded
 
+    @property
+    def amount_pending(self):
+        return self.get_money_total(['pending']) / 100
+
+    @property
+    def amount_safe(self):
+        return self.get_money_total(['paid']) / 100
+
     @models.permalink
     def get_absolute_url(self):
         """ Get the URL for the current project. """
