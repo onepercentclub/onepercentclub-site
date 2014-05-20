@@ -6,23 +6,17 @@
 {% tplhandlebars "home_impact" %}
 
     <!-- Crowdfunded-->
-    <div class="l-section" id="crowdfunded">
-        <div class="crowdfunded-container"></div>
-        <div class="crowdfunded-overlay"></div>
-        <div class="crowdfunded-tagline">
-            <header>
-                <h2>
-                <strong>17.343</strong> {% trans "people" %} <br>
-                {% trans "crowdfunded" %} <strong>€{{localize impact.donated }}</strong> <br>
-                {% trans "to realize" %} <strong>{{localize impact.projects }}</strong> {% trans "campaigns" %} <br>
-                {% trans "in" %} <strong>{{localize impact.countries }}</strong> {% trans "countries" %}
-                </h2>
-            </header>
-            {{#unless controllers.currentUser.isAuthenticated}}
+    <div class="l-section" id="impact">
+        <div class="impact-tagline">
+            <h2>
+	            <strong>17.343</strong> {% trans "people" %} <br>
+	            {% trans "crowdfunded" %} <strong>€{{localize impact.donated }}</strong> <br>
+	            {% trans "to realize" %} <strong>{{localize impact.projects }}</strong> {% trans "campaigns" %} <br>
+	            {% trans "in" %} <strong>{{localize impact.countries }}</strong> {% trans "countries" %}
+            </h2>
             <div class="join-us">
             	{{#linkTo 'signup' classNames="btn"}}{% trans "Join us do good" %}{{/linkTo}}
             </div>
-            {{/unless}}
         </div>
     </div>
 

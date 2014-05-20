@@ -1,27 +1,33 @@
-.all-campaigns {
-	float: right;
-	margin: -17px 45px;
-	font-family: $font-family-bold;
-	color: $gray-dark;
-	font-size: 1em;
-	&:after {
-		content: "\2192";
-		margin-left: 7px;
-	}
-}
-
 // TODO: Using compass box
 #campaigns {
-	background-color: white;
+	background-color: $white;
+	
+	.all-campaigns {
+		position: relative;
+		float: right;
+		top: -1.5em;
+		right: 1em;
+		font-family: $font-family-body;
+		color: $gray-dark;
+		
+		&:after {
+			content: "\2192";
+			margin-left: 7px;
+		}
+	}
+
+	
 	.campaign-container {
-		font-family: $font-family-bold;
+		font-family: $font-family-body;
 		padding-bottom: 80px;
+		
 		.campaign-item {
 			position: relative;
-			height: 470px;
+			height: 420px;
 			background: $gray-light;
 			padding: 7px;
 			border-radius: 0 0 6px 6px;
+			
 			.campaign-item-holder {
 				position: relative;
 				width: 100%;
@@ -29,6 +35,8 @@
 				background: white;
 				border-radius: 0 0 6px 6px;
 				border: solid 1px $gray-border;
+				display: block;
+				
 				.header {
 					position: absolute;
 					overflow: hidden;
@@ -37,10 +45,12 @@
 					background: $gray-dark;
 					opacity: 1;
 					@include single-transition(opacity, .2s ease-in-out);
+					
 					img {
 						width: 100%;
 						position: relative;
 					}
+					
 					&:before {
 						position: absolute;
 						top: 45%;
@@ -54,6 +64,7 @@
 						color: $gray-light;
 					}
 				}
+				
 				.profile-photo {
 					display: inline-block;
 					position: absolute;
@@ -68,10 +79,12 @@
 					border: solid 2px white;
 					z-index: 4;
 					@include single-transition(top, .2s ease-in-out);
+					
 					img {
 						width: 100%;
 					}
 				}
+				
 				.campaign-hover {
 					position: absolute;
 					height: 57%;
@@ -84,6 +97,7 @@
 					visibility: hidden;
 					opacity: 0;
 					@include single-transition(all, .2s ease-in-out);
+					
 					.campaign-hover-head {
 						margin: auto;
 						margin-top: 55px;
@@ -91,40 +105,48 @@
 						height: auto;
 						min-height: 50px;
 						text-align: center;
-						padding-bottom: 10px;
-						border-bottom: solid 2px $gray-border;
+						
+						padding: 0.6em 0 0.3em 0.6em;
+						border-bottom: solid 1px $gray-border;
+						
 						strong {
 							display: inline-block;
 							margin: auto;
-							width: 90%;
-							font-weight: 800;
-							font-size: 16px;
+							font-family: $font-family-body;
+							font-weight: 700;
+							padding: 0 0.6em;
 						}
 					}
+					
 					.campaign-hover-body {
 						min-height: 190px;
-						font-size: 15px;
-						line-height: 25px;
+						max-height: 210px;
+						overflow: hidden;
 						color: $black;
 					}
+					
 					.campaign-hover-footer {
 						position: absolute;
 						right: 0;
 						bottom: 0;
 						left: 0;
 						margin: auto;
-						border-top: solid 2px $gray-border;
+						border-top: solid 1px $gray-border;
 					}
+					
 					p {
+					
 						span {
 							display: block;
 							padding: 15px 12px 15px 12px;
 						}
+						
 						.go-to-campaign {
 							display: block;
 							text-align: center;
 							font-size: 14px;
 							color: $color-secondary;
+							
 							&:after {
 								content: "\2192";
 								margin-left: 7px;
@@ -133,35 +155,41 @@
 					}
 				}
 			}
+			
 			.campaign-body {
 				position: absolute;
 				left: 0;
 				right: 0;
-				top: 247px;
+				top: 217px;
 				margin: auto;
 				padding: 10px;
 				@include single-transition(top, .2s ease-in-out);
+				
 				.profile-name {
 					display: block;
 					color: $gray-dark;
 					text-align: center;
 					opacity: 1;
 					@include single-transition(opacity, .2s ease-in-out);
+					
 					strong {
-						font-size: 16px;
+						font-family: $font-family-body;
+						font-weight: normal;
 						color: $color-primary;
+					
 					}
 				}
+				
 				.campaign-body-names {
 					display: block;
-					width: 90%;
-					margin: 8px 0 0 0;
+					margin: 0.3em 0 0 0;
 					text-align: center;
-					line-height: 19px;
-					font-size: 16px;
-					font-weight: 800;
+					font-family: $font-family-body;
+					font-weight: 700;
+					font-size: 1.13em;
 				}
 			}
+			
 			.campaign-footer {
 				position: absolute;
 				left: 0;
@@ -171,18 +199,26 @@
 				padding: 10px;
 				opacity: 1;
 				@include single-transition(all, .1s ease-in-out);
+				
 				.campaign-fund-amount {
 					color: $gray-dark;
-					font-size:  .8em;
+					//font-size: .93em;
+					
 					.amount-raised {
 						float: left;
+						padding-left: 0.5em;
 					}
+					
 					.days-left {
 						float: right;
+						padding-right: 0.5em;
 					}
+					
 					strong {
-						font-weight: 800;
+						font-family: $font-family-body;
+						font-weight: 700;
 					}
+					
 					.fully-funded {
 						display: block;
 						width: 100%;
@@ -194,9 +230,14 @@
 					display: block;
 					overflow: hidden;
 					border-radius: 1em;
-					margin: 0 0 1.5em 0;
-					background-color: transparent;
+					margin: 0 0 0.4em 0;
 					border: solid 1px $color-primary;
+					
+					// Old slider code overwrite
+					.project-fund-amount-slider {
+						background: transparent;
+					}
+					
 					.slider-progress {
 						position: relative;
 						display: block;
@@ -205,11 +246,13 @@
 						color: #fff;
 						text-align: right;
 						white-space: nowrap;
-						line-height: .7em;
-						height: .7em;
+						line-height: 0.8em;
+						height: 0.8em;
 					}
+					
 					&.is-funded {
 						border-color: $color-secondary;
+						
 						.slider-progress {
 							background-color: $color-secondary;
 						}
@@ -218,31 +261,39 @@
 			}
 
 			&:hover {
+			
 				.campaign-item-holder {
+				
 					.header {
 						opacity: 0;
 					}
+					
 					.profile-photo {
 						top: -30px;
 					}
+					
 					.campaign-body {
 						top: 20px;
 						z-index: 4;
+						
 						.campaign-body-names {
 							opacity: 0;
 						}
 					}
+					
 					.campaign-footer {
 						opacity: 0;
 						bottom: -4px;
 					}
+					
 					.campaign-hover {
 						visibility: visible;
 						opacity: 1;
 						height: 100%;
 					}
 				}
-				}
+			}
+			
 			a.campaign-href {
 				position: absolute;
 				left: 0;
@@ -254,6 +305,7 @@
 			}
 		}
 	}
+	
 	ul {
 		margin: 0;
 	}
