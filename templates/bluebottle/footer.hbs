@@ -27,7 +27,7 @@
                         </ul>
                     </div>
                     <div class="col3">
-                        <h3>{% trans "Need help?" %}</h3>
+                        <h3>{% trans "About 1%Club" %}</h3>
                         <ul>
                             <li>{{#link-to 'page' 'about'}}{% trans "About" %}{{/link-to}}</li>
                             <li>{{#link-to 'page' 'about'}}{% trans "Our story" %}{{/link-to}}</li>
@@ -41,10 +41,10 @@
                     <div class="col3">
                         <h3>{% trans "Let's connect" %}</h3>
                         <ul>
-                            <li>{{#link-to 'page' 'about'}}Facebook" %}{{/link-to}}</li>
-                            <li>{{#link-to 'page' 'about'}}Twitter" %}{{/link-to}}</li>
-                            <li>{{#link-to 'page' 'about'}}LinkedIn" %}{{/link-to}}</li>
-                            <li>{{#link-to 'page' 'about'}}Youtube" %}{{/link-to}}</li>
+                            <li class="social-facebook">{{#link-to 'page' 'about'}}{% trans "Facebook" %}{{/link-to}}</li>
+                            <li class="social-twitter">{{#link-to 'page' 'about'}}{% trans "Twitter" %}{{/link-to}}</li>
+                            <li class="social-linkedin">{{#link-to 'page' 'about'}}{% trans "LinkedIn" %}{{/link-to}}</li>
+                            <li class="social-youtube">{{#link-to 'page' 'about'}}{% trans "Youtube" %}{{/link-to}}</li>
                         </ul>
                     </div>
                 </div>
@@ -62,17 +62,18 @@
         <div class="l-section" id="footer-copyright">
             <div class="l-wrapper">
                 <div class="row">
+                
                     <div class="col3 copy">
                         <p>© 2014 - 1%Club</p>
                     </div>
-                    {% comment %}
+                    
                     <div class="col6 footer-back-to-top">
-                        <p>up</p>
+                        <a href="#top">Go to top</a></p>
                     </div>
+                    
                     <div class="col3 give-us-feedback">
                         <p>{{#link-to 'page' 'contact'}}Give us feedback{{/link-to}}</p>
                     </div>
-                    {% endcomment %}
                 </div>
             </div>
         </div>
