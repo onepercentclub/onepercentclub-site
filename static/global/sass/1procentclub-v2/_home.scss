@@ -102,42 +102,6 @@ html, body, #site {
 	}
 }
 
-// -------------------- TOOLS --------------------
-.tools-container {
-	background-color: white;
-	.tools {
-		font-family: $font-family-bold;
-		color: $gray-dark;
-		min-height: 100px;
-		margin-bottom: 40px;
-		.icon {
-			display: block;
-			float: left;
-			background: #ccc;
-			width: 75px;
-			height: 75px;
-			margin-right: 20px;
-		}
-		.content {
-			display: block;
-			line-height: 24px;
-		}
-		strong {
-			font-weight: 700;
-		}
-		&.left {
-			float: left;
-		}
-		&.right {
-			float: right;
-		}
-		&.small {
-			width: 80%;
-			margin: auto;
-		}
-	}
-}
-
 // -------------------- PARTNER LOGO'S --------------------
 #partner-logos {
 	background-color: $gray-light;
