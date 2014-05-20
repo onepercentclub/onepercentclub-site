@@ -1,19 +1,21 @@
-.all-campaigns {
-	float: right;
-	margin: -17px 45px;
-	font-family: $font-family-bold;
-	color: $gray-dark;
-	font-size: 1em;
-	
-	&:after {
-		content: "\2192";
-		margin-left: 7px;
-	}
-}
-
 // TODO: Using compass box
 #campaigns {
 	background-color: $white;
+	
+	.all-campaigns {
+		position: relative;
+		float: right;
+		top: -1.5em;
+		right: 1em;
+		font-family: $font-family-body;
+		color: $gray-dark;
+		
+		&:after {
+			content: "\2192";
+			margin-left: 7px;
+		}
+	}
+
 	
 	.campaign-container {
 		font-family: $font-family-body;
