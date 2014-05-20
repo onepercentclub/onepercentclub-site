@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-15 09:13+0200\n"
+"POT-Creation-Date: 2014-05-20 17:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -83,8 +83,8 @@ msgstr ""
 msgid "raised"
 msgstr ""
 
-#: ../../apps/projects/static/js/projects/models.js.c:52
-msgid "<h3>Introduction</h3><p>Explain your campaign, tell something about the goal of the campaign. Supporters will wonder where the money is going to bewused for exactly.</p> <h3> Why?</h3> <p> Why is this campaign so important? Why would people want to support this campaign? Be concrete, urgent and personal.</p>"
+#: ../../apps/projects/static/js/projects/models.js.c:53
+msgid "<h3>Introduction of your campaign</h3><p>We’ve already set some structure in this plan, but you are free to write it in your own way.</p><h3>What are you going to do?</h3><p>Remember to keep a logic structure, use headings, paragraphs.</p><h3>How are you going to achieve that?</h3><p>Keep it short and sweet!</p>"
 msgstr ""
 
 #: ../../env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:59
@@ -120,18 +120,18 @@ msgid "Please use your email address to log in."
 msgstr ""
 
 #: ../../env/src/bluebottle/bluebottle/bb_organizations/static/js/bluebottle/bb_organizations/controllers.js.c:85
-#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:59
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:89
 msgid "Model is not dirty."
 msgstr ""
 
 #: ../../env/src/bluebottle/bluebottle/bb_organizations/static/js/bluebottle/bb_organizations/controllers.js.c:99
 #: ../../env/src/bluebottle/bluebottle/bb_organizations/static/js/bluebottle/bb_organizations/controllers.js.c:106
-#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:72
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:102
 msgid "Model saved successfully."
 msgstr ""
 
 #: ../../env/src/bluebottle/bluebottle/bb_organizations/static/js/bluebottle/bb_organizations/controllers.js.c:117
-#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:173
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:203
 msgid "Hey! What are you doing here? Saving model failed."
 msgstr ""
 
@@ -159,27 +159,27 @@ msgstr ""
 msgid "Finished"
 msgstr ""
 
-#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/app.js.c:461
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/app.js.c:479
 msgid "Pick a language"
 msgstr ""
 
-#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:74
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:104
 msgid "Model could not be saved."
 msgstr ""
 
-#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:77
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:107
 msgid "Instance does not implement `_save`."
 msgstr ""
 
-#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:148
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:178
 msgid "Successfully saved."
 msgstr ""
 
-#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:156
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:186
 msgid "Model is invalid."
 msgstr ""
 
-#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:161
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:191
 msgid "Error saving model."
 msgstr ""
 
@@ -246,6 +246,10 @@ msgstr ""
 #: ../../env/src/bluebottle/bluebottle/geo/static/js/bluebottle/geo/views.js.c:4
 #: ../../env/src/bluebottle/bluebottle/geo/static/js/bluebottle/geo/views.js.c:16
 msgid "Pick a country"
+msgstr ""
+
+#: ../../env/src/bluebottle/bluebottle/utils/static/js/bluebottle/utils/views.js.c:166
+msgid "&nbsp;days"
 msgstr ""
 
 #: ../../env/src/bluebottle/bluebottle/wallposts/static/js/bluebottle/wallposts/views.js.c:39
