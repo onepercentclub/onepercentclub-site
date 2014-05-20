@@ -167,7 +167,6 @@ INSERT INTO bb_projects_projectphase (id, name, description, sequence, active, e
   (3, 'Plan - Needs Work', '', 3, true, true, false, 'plan-needs-work'),
   (4, 'Plan - Rejected', '', 4, true, false, false, 'plan-rejected'),
   (5, 'Campaign', '', 5, true, true, true, 'campaign'),
-  (6, 'Stopped', '', 6, true, false, false, 'stopped'),
   (7, 'Done - Complete', '', 7, true, true, true, 'done-complete'),
   (8, 'Done - Incomplete', '', 8, true, false, true, 'done-incomplete'),
   (9, 'Done - Stopped', '', 9, true, false, false, 'done-stopped');
@@ -256,7 +255,7 @@ ALTER TABLE organizations_organization DROP COLUMN account_city;
 UPDATE projects_project SET status_id = 1 WHERE phase IN ('pitch', 'plan');
 UPDATE projects_project SET status_id = 2 WHERE id in (SELECT project_id FROM projects_projectpitch WHERE status = 'submitted');
 UPDATE projects_project SET status_id = 5 WHERE phase = 'campaign';
-UPDATE projects_project SET status_id = 7 WHERE phase IN ('acts', 'results', 'realized');
+UPDATE projects_project SET status_id = 7 WHERE phase IN ('act', 'results', 'realized');
 UPDATE projects_project SET status_id = 9 WHERE phase = 'failed';
 
 
@@ -295,6 +294,10 @@ UPDATE projects_project p
   WHERE pp.project_id = p.id
   AND p.phase <> 'pitch' AND pp.theme_id IS NOT NULL;
 
+UPDATE projects_project p
+  SET date_submitted = pp.created
+  FROM projects_projectplan AS pp
+  WHERE pp.project_id = p.id;
 
 -- Migrate ProjectCampaign
 
@@ -302,7 +305,10 @@ UPDATE projects_project p
   SET amount_asked = (pc.money_asked / 100),
       amount_donated = (pc.money_donated / 100),
       amount_needed = (pc.money_needed / 100),
-      deadline = (pc.deadline)
+      deadline = (pc.deadline),
+      campaign_started = pc.created,
+      campaign_ended = pc.updated,
+      campaign_funded = pc.updated 
   FROM projects_projectcampaign AS pc
   WHERE pc.project_id = p.id;
 

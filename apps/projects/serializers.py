@@ -1,5 +1,6 @@
 from apps.projects.models import ProjectBudgetLine
 from bluebottle.bb_accounts.serializers import UserPreviewSerializer
+from bluebottle.geo.serializers import CountrySerializer
 from rest_framework import serializers
 
 from bluebottle.bluebottle_drf2.serializers import (SorlImageField, SlugGenericRelatedField, PolymorphicSerializer, EuroField,
@@ -35,14 +36,13 @@ class StoryField(serializers.WritableField):
         return str(soup)
 
 
-
-class ProjectCountrySerializer(serializers.ModelSerializer):
+class ProjectCountrySerializer(CountrySerializer):
 
     subregion = serializers.CharField(source='subregion.name')
 
     class Meta:
         model = Country
-        fields = ('id', 'name', 'subregion')
+        fields = ('id', 'name', 'subregion', 'code')
 
 
 class ProjectSerializer(BaseProjectSerializer):
@@ -59,6 +59,7 @@ class ProjectSerializer(BaseProjectSerializer):
 
 class ProjectPreviewSerializer(BaseProjectPreviewSerializer):
     task_count = serializers.IntegerField(source='task_count')
+    owner = UserPreviewSerializer(source='owner')
 
     class Meta(BaseProjectPreviewSerializer):
         model = BaseProjectPreviewSerializer.Meta.model

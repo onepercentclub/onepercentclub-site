@@ -2,6 +2,7 @@ import csv
 import decimal
 
 import datetime
+from apps.payouts.utils import money_from_cents
 
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.conf import settings
@@ -16,9 +17,7 @@ from apps.sepa.sepa import SepaDocument, SepaAccount
 from apps.cowry.models import Payment, PaymentStatuses
 
 from .fields import MoneyField
-from .utils import (
-    money_from_cents, round_money,
-    calculate_vat, calculate_vat_exclusive, date_timezone_aware
+from .utils import (round_money,calculate_vat, calculate_vat_exclusive, date_timezone_aware
 )
 from .choices import PayoutLineStatuses, PayoutRules
 
@@ -264,18 +263,14 @@ class Payout(PayoutBase):
         Note: this should *only* be called internally.
         """
         assert self.project
-        assert self.project.projectcampaign
-
-        # Campaign shorthand
-        campaign = self.project.projectcampaign
 
         # 1st of January 2014
         start_2014 = date_timezone_aware(datetime.date(2014, 1, 1))
 
-        if campaign.created >= start_2014:
+        if self.project.created >= start_2014:
             # New rules per 2014
 
-            if campaign.money_donated >= campaign.money_asked:
+            if self.project.amount_donated >= self.project.amount_asked:
                 # Fully funded
 
                 # New default payout rule is 7 percent
@@ -301,8 +296,7 @@ class Payout(PayoutBase):
 
         Should only be called for Payouts with status 'new'.
         """
-        assert self.status == PayoutLineStatuses.new, \
-            'Can only recalculate for new Payout.'
+        assert self.status == PayoutLineStatuses.new, 'Can only recalculate for new Payout.'
 
         # Set payout rule if none set.
         if not self.payout_rule:
@@ -330,30 +324,17 @@ class Payout(PayoutBase):
         """ Realtime amount of raised ('paid', 'pending') donations. """
 
         # Get amount as Decimal
-        amount = round_money(
-            money_from_cents(self.project.amount_donated)
-        )
-
-        return amount
+        return self.project.amount_donated
 
     def get_amount_safe(self):
-        #TODO: what is this?
         """ Realtime amount of safe ('paid') donations. """
         # Get amount as Decimal
-        amount = round_money(
-            money_from_cents(self.project.projectcampaign.money_safe)
-        )
-
-        return amount
+        return self.project.amount_safe
 
     def get_amount_pending(self):
         """ Realtime amount of pending donations. """
         # Get amount as Decimal
-        amount = round_money(
-            money_from_cents(self.project.projectcampaign.money_pending)
-        )
-
-        return amount
+        return self.project.amount_pending
 
     def get_amount_failed(self):
         """

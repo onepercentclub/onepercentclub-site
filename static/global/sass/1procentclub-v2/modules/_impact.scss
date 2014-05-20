@@ -1,0 +1,29 @@
+#impact {
+	position: relative;
+	overflow: hidden;
+	background: image-url("img/pages/home/home-members.jpg") $gray-darkest repeat 50% 50%;
+	background-size: cover;
+	
+	.impact-tagline {
+		position: relative;
+		text-align: center;
+		margin: 5em 0;
+		
+		h2 {
+			color: $white;
+			font-size: 2.8em;
+			line-height: 2em;
+			font-weight: normal;
+			
+			strong {
+				font-weight: 400;
+			}
+		}
+		
+		.join-us {
+			margin-top: 2em;
+			height: 80px;
+			padding-top: 20px;
+		}
+	}
+}

@@ -3,6 +3,13 @@ App.Adapter.map('App.MyProject', {
     budgetLines: {embedded: 'load'}
 });
 
+App.Adapter.map('App.ProjectPreview', {
+    owner: {embedded: 'load'},
+    country: {embedded: 'load'},
+    theme: {embedded: 'load'}
+});
+
+
 App.Project.reopen({
 
     deadline: DS.attr('date'),
@@ -23,7 +30,7 @@ App.Project.reopen({
     isStatusPlan: Em.computed.lt('status.id', '5'),
     isStatusCampaign: Em.computed.equal('status.id', '5'),
     isStatusCompleted: Em.computed.equal('status.id', '7'),
-    isStatusFinished: Em.computed.gt('status.id', '6'),
+    isStatusStopped: Em.computed.gt('status.id', '9'),
 
     save: function () {
         // the amount_needed is calculated here and not in the server

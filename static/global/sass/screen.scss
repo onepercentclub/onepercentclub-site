@@ -34,8 +34,8 @@
 
 /* Main Layout */
 @import "layout/layout";
-@import "layout/header";
-@import "layout/footer";
+//@import "layout/header";
+//@import "layout/footer";
 @import "base/forms";
 @import "base/buttons";
 @import "base/tabs";
@@ -61,7 +61,7 @@
 // @import "modules/document-upload";
 
 /* Pages */
-@import "pages/home";
+//@import "pages/home";
 @import "pages/static";
 @import "pages/static-onepage";
 @import "pages/campaign-create";
@@ -88,13 +88,28 @@
 @import "plugins/colorbox";
 @import "plugins/jslider";
 
+/* Version 1 - 1%Club */
 @import "1procentclub/base/tabs";
 @import "1procentclub/layout/header";
-
-
 @import "1procentclub/modules/projects";
 @import "1procentclub/modules/wallposts";
 @import "1procentclub/pages/account";
 @import "1procentclub/pages/project-detail";
 @import "1procentclub/pages/profile";
 @import "1procentclub/modules/tasks";
+
+/* Version 2 */
+@import "compass/css3/transition";
+// @import "blueprint/grid";
+@import "compass/layout/sticky-footer";
+
+@import "1procentclub-v2/grid";
+@import "1procentclub-v2/variables";
+@import "1procentclub-v2/layout/header";
+@import "1procentclub-v2/layout/footer";
+@import "1procentclub-v2/modules/campaigns";
+@import "1procentclub-v2/modules/carousel";
+@import "1procentclub-v2/modules/impact";
+@import "1procentclub-v2/modules/tools";
+
+@import "1procentclub-v2/home";
