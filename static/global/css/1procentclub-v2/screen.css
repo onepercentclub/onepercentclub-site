@@ -319,55 +319,12 @@ html, body, #site {
 }
 
 /* line 106, ../../sass/1procentclub-v2/_home.scss */
-.tools-container {
-  background-color: white;
-}
-/* line 108, ../../sass/1procentclub-v2/_home.scss */
-.tools-container .tools {
-  font-family: "L Futura W01", "Trebuchet MS", Helvetica, Arial, sans-serif;
-  color: #8a9993;
-  min-height: 100px;
-  margin-bottom: 40px;
-}
-/* line 113, ../../sass/1procentclub-v2/_home.scss */
-.tools-container .tools .icon {
-  display: block;
-  float: left;
-  background: #ccc;
-  width: 75px;
-  height: 75px;
-  margin-right: 20px;
-}
-/* line 121, ../../sass/1procentclub-v2/_home.scss */
-.tools-container .tools .content {
-  display: block;
-  line-height: 24px;
-}
-/* line 125, ../../sass/1procentclub-v2/_home.scss */
-.tools-container .tools strong {
-  font-weight: 700;
-}
-/* line 128, ../../sass/1procentclub-v2/_home.scss */
-.tools-container .tools.left {
-  float: left;
-}
-/* line 131, ../../sass/1procentclub-v2/_home.scss */
-.tools-container .tools.right {
-  float: right;
-}
-/* line 134, ../../sass/1procentclub-v2/_home.scss */
-.tools-container .tools.small {
-  width: 80%;
-  margin: auto;
-}
-
-/* line 142, ../../sass/1procentclub-v2/_home.scss */
 #partner-logos {
   background-color: #f5f4f6;
   padding-bottom: 70px;
 }
 
-/* line 148, ../../sass/1procentclub-v2/_home.scss */
+/* line 112, ../../sass/1procentclub-v2/_home.scss */
 .quote-carousel {
   position: relative;
   margin: auto;
@@ -379,54 +336,54 @@ html, body, #site {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 157, ../../sass/1procentclub-v2/_home.scss */
+/* line 121, ../../sass/1procentclub-v2/_home.scss */
 .quote-carousel .quote-carousel-content {
   float: left;
   padding: 0 6em 0 6em;
   margin: auto;
 }
-/* line 161, ../../sass/1procentclub-v2/_home.scss */
+/* line 125, ../../sass/1procentclub-v2/_home.scss */
 .quote-carousel .quote-carousel-content .carousel-photo {
   float: left;
   width: 100px;
   height: 100px;
 }
-/* line 165, ../../sass/1procentclub-v2/_home.scss */
+/* line 129, ../../sass/1procentclub-v2/_home.scss */
 .quote-carousel .quote-carousel-content .carousel-photo img {
   background-color: #8a9993;
 }
-/* line 169, ../../sass/1procentclub-v2/_home.scss */
+/* line 133, ../../sass/1procentclub-v2/_home.scss */
 .quote-carousel .quote-carousel-content .carousel-quote {
   float: left;
   color: #00c051;
   line-height: 32px;
   margin: 1.2em 0 0 2em;
 }
-/* line 174, ../../sass/1procentclub-v2/_home.scss */
+/* line 138, ../../sass/1procentclub-v2/_home.scss */
 .quote-carousel .quote-carousel-content .carousel-quote strong {
   display: inherit;
   font-size: 20px;
   font-weight: 700;
 }
-/* line 179, ../../sass/1procentclub-v2/_home.scss */
+/* line 143, ../../sass/1procentclub-v2/_home.scss */
 .quote-carousel .quote-carousel-content .carousel-quote small {
   color: #8a9993;
 }
-/* line 184, ../../sass/1procentclub-v2/_home.scss */
+/* line 148, ../../sass/1procentclub-v2/_home.scss */
 .quote-carousel .carousel-nav {
   position: absolute;
   top: 0;
   width: 40px;
   height: 100%;
 }
-/* line 189, ../../sass/1procentclub-v2/_home.scss */
+/* line 153, ../../sass/1procentclub-v2/_home.scss */
 .quote-carousel .carousel-nav.left {
   left: 40px;
   margin: auto;
   text-align: center;
   padding-top: 60px;
 }
-/* line 195, ../../sass/1procentclub-v2/_home.scss */
+/* line 159, ../../sass/1procentclub-v2/_home.scss */
 .quote-carousel .carousel-nav.right {
   right: 40px;
   margin: auto;

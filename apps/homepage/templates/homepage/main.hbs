@@ -36,12 +36,33 @@
 			No Projects
 		{{/if}}
 
-        {{#if quotes }}
-            {{view App.HomeQuotesView }}
-        {{/if }}
-
         {{#if impact }}
             {{view App.HomeImpactView }}
+        {{/if }}
+
+        <div class="l-section tools-container">
+            <div class="l-wrapper">
+            <div class="row">
+                <div class="col4">
+                    <div class="tools">
+                        <div class="tools-icon"><object type="image/svg+xml" data="http://localhost:8000/static/assets/images/illustrations/illustration-idea.svg" class="logo-image"></object></div>
+                        <strong class="tools-header">We are the do-good crowdfunding platform</strong>
+                        <div class="tools-content">
+                            We empower people with great ideas 
+                            to create positive change in their 
+                            community, city, country – or in the 
+                            world.
+                        </div>
+                    </div>
+                </div>
+                <div class="col4"></div>
+                <div class="col4"></div>
+            </div>
+            </div>
+        </div>
+
+        {{#if quotes }}
+            {{view App.HomeQuotesView }}
         {{/if }}
     </div>
 
