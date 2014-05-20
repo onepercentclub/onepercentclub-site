@@ -7,7 +7,15 @@ from django.utils.translation import ugettext as _
 
 
 class Member(BlueBottleBaseUser):
-    pass
+
+    # Create an address if none exists
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        super(Member, self).save(force_insert=False, force_update=False, using=None, update_fields=None)
+        try:
+            self.address
+        except UserAddress.DoesNotExist:
+            self.address = UserAddress.objects.create(user=self)
+            self.address.save()
 
 
 class UserAddress(Address):
