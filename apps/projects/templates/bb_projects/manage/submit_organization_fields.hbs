@@ -40,7 +40,7 @@
             {{/each}}
             <!--Unless inEurope or outsideEurope are valid-->
             {{#unless currentOrganization.validBankAccountInfo}}
-                {{#if organization.inEurope}}
+                {{#if controllers.myProjectBank.inEurope}}
                     {{#each field in currentOrganization.missingFieldsEuropeanBankOrganization}}
                         <li>
                             <div class="category">
