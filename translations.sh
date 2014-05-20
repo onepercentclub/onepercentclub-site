@@ -22,7 +22,7 @@ APPS_ROOT="$PWD/apps"
 BB_ROOT="$PWD/env/src/bluebottle/bluebottle"
 
 MAKEMESSAGES="$MANAGE_PY makemessages -l $SOURCE_LANGUAGE --no-wrap -e hbs,html,txt $SETTINGS"
-MAKEJSMESSAGES="$MANAGE_PY makemessages -l $SOURCE_LANGUAGE --include=../../apps --include=../../env/src/bluebottle/bluebottle --ignore=djangojs.js --no-wrap -e js -i compressed -d djangojs $SETTINGS"
+MAKEJSMESSAGES="$MANAGE_PY makemessages -l $SOURCE_LANGUAGE --include=env/src/bluebottle/bluebottle --ignore=djangojs.js --no-wrap -e js -i compressed -d djangojs $SETTINGS"
 COMPILEMESSAGES="$MANAGE_PY compilemessages $SETTINGS"
 COMPILEJSMESSAGES="$MANAGE_PY compilejsi18n $SETTINGS"
 APPS_DIR="apps"
@@ -104,7 +104,7 @@ case "$1" in
 
 
             echo "Generating PO-file for javascripts"
-            cd "$APPS_ROOT/core"
+            cd "$APPS_ROOT/.."
 
             # Make the locale dir if it's not there.
             if [ ! -d "locale" ]; then
@@ -140,6 +140,7 @@ case "$1" in
             done
 
             echo "Generating PO-file for javascript"
+            $COMPILEMESSAGES
             $COMPILEJSMESSAGES
 
             ;;
