@@ -1549,7 +1549,7 @@ msgstr "Total"
 #: templates/projects/sidebar_pitch.hbs:8
 #: templates/projects/sidebar_story.hbs:8
 msgid "Tips"
-msgstr "What we expect from you:"
+msgstr "Tips"
 
 #: templates/projects/sidebar_budget.hbs:9
 msgid ""
