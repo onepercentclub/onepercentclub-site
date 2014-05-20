@@ -3,37 +3,38 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# aethemba <aksel@onepercentclub.com>, 2014
 # nieja <niels@1procentclub.nl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-14 10:02+0200\n"
-"PO-Revision-Date: 2014-05-14 07:12+0000\n"
-"Last-Translator: nieja <niels@1procentclub.nl>\n"
-"Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
+"POT-Creation-Date: 2014-05-20 17:37+0200\n"
+"PO-Revision-Date: 2014-05-20 09:49+0000\n"
+"Last-Translator: aethemba <aksel@onepercentclub.com>\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: en_GB\n"
+"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../../apps/donations/static/js/bluebottle/donations/controllers.js.c:136
 #: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:170
 msgid "Save changed data?"
-msgstr "Save changed data?"
+msgstr "Wijzigingen opslaan?"
 
 #: ../../apps/donations/static/js/bluebottle/donations/controllers.js.c:137
 #: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:171
 msgid "You have some unsaved changes. Do you want to save before you leave?"
-msgstr "You have some unsaved changes. Do you want to save before you leave?"
+msgstr "Je hebt niet-opgeslagen wijzigingen. Wil je deze eerst opslaan?"
 
 #: ../../apps/donations/static/js/bluebottle/donations/controllers.js.c:138
 #: ../../apps/donations/static/js/bluebottle/donations/controllers.js.c:183
 #: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:172
 #: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:191
 msgid "Save"
-msgstr "Save"
+msgstr "Opslaan"
 
 #: ../../apps/donations/static/js/bluebottle/donations/controllers.js.c:139
 #: ../../apps/donations/static/js/bluebottle/donations/controllers.js.c:184
@@ -42,58 +43,58 @@ msgstr "Save"
 #: ../../env/src/bluebottle/bluebottle/wallposts/static/js/bluebottle/wallposts/views.js.c:42
 #: ../../env/src/bluebottle/bluebottle/wallposts/static/js/bluebottle/wallposts/views.js.c:120
 msgid "Cancel"
-msgstr "Cancel"
+msgstr "Annuleer"
 
 #: ../../apps/donations/static/js/bluebottle/donations/controllers.js.c:172
 msgid "You're about to set a monthly donation.<br/><br/>"
-msgstr "You're about to set a monthly donation.<br/><br/>"
+msgstr "Super! Je gaat maandelijks doneren."
 
 #: ../../apps/donations/static/js/bluebottle/donations/controllers.js.c:181
 msgid "Set my monthly donation"
-msgstr "Set my monthly donation"
+msgstr "Stel maandelijkse donatie in"
 
 #: ../../apps/donations/static/js/bluebottle/donations/controllers.js.c:205
 msgid "Stop my monthly donation"
-msgstr "Stop my monthly donation"
+msgstr "Stop maandelijkse donatie"
 
 #: ../../apps/donations/static/js/bluebottle/donations/controllers.js.c:206
 msgid ""
 "Thanks a lot for your support until now. You rock! We welcome you back "
 "anytime.<br /><br />Are you sure you want to stop your monthly support?"
-msgstr "Thanks a lot for your support until now. You rock! We welcome you back anytime.<br /><br />Are you sure you want to stop your monthly donation?"
+msgstr "Bedankt voor je support tot dusver. Super! Uiteraard, je kunt altijd weer je maandelijkse donatie activeren.<br /><br />Weet je zeker dat je je maandelijkse donatie wilt stopzetten?"
 
 #: ../../apps/donations/static/js/bluebottle/donations/controllers.js.c:207
 msgid "Yes, stop my donation"
-msgstr "Yes, stop my donation"
+msgstr "Ja, stop donatie"
 
 #: ../../apps/donations/static/js/bluebottle/donations/controllers.js.c:208
 msgid "No, continue"
-msgstr "No, continue"
+msgstr "Nee, ga verder"
 
 #: ../../apps/fund/static/js/bluebottle/orders/routes.js.c:166
 msgid "There was an error with your payment. Please try again."
-msgstr "There was an error with your payment. Could you please try again?"
+msgstr "Er ging iets mis met de betaling. Kun je het nogmaals proberen?"
 
 #: ../../apps/fundraisers/static/js/bluebottle/fundraisers/views.js.c:37
 msgid "by"
-msgstr "by"
+msgstr "door"
 
 #: ../../apps/fundraisers/static/js/bluebottle/fundraisers/views.js.c:40
 msgid "of"
-msgstr "of"
+msgstr "van"
 
 #: ../../apps/fundraisers/static/js/bluebottle/fundraisers/views.js.c:41
 msgid "raised"
-msgstr "raised"
+msgstr "opgehaald"
 
-#: ../../apps/projects/static/js/projects/models.js.c:52
+#: ../../apps/projects/static/js/projects/models.js.c:53
 msgid ""
-"<h3>Introduction</h3><p>Explain your campaign, tell something about the goal"
-" of the campaign. Supporters will wonder where the money is going to bewused"
-" for exactly.</p> <h3> Why?</h3> <p> Why is this campaign so important? Why "
-"would people want to support this campaign? Be concrete, urgent and "
-"personal.</p>"
-msgstr "<h3>Introduction</h3><p>Explain your campaign, tell something about the goal of the campaign. Supporters will wonder where the money is going to be used for exactly.</p> <h3> Why?</h3> <p> Why is this campaign so important? Why would people want to support this campaign? Be concrete, urgent and personal.</p>"
+"<h3>Introduction of your campaign</h3><p>We’ve already set some structure in"
+" this plan, but you are free to write it in your own way.</p><h3>What are "
+"you going to do?</h3><p>Remember to keep a logic structure, use headings, "
+"paragraphs.</p><h3>How are you going to achieve that?</h3><p>Keep it short "
+"and sweet!</p>"
+msgstr "<p>Met eigen headers en wit regels kun je hier je campagne verhaal uitleggen, bijvoorbeeld door middel van een:</p> \n<h3>Introductie</h3> \n<p>Leg uit waar je campagne voor is, vertel iets over bijvoorbeeld het doel van de campagne. Supporters zullen ook benieuwd zijn waar het geld precies voor gebruikt gaat worden.</p>\n<h3>Waarom</h3>\n<p>Licht eventueel de grote waarom vragen toe: waarom is deze campagne zo belangrijk? waarom zouden mensen deze campagne moeten supporten?\nWe laten je helemaal vrij in het schrijven van je verhaal. Eventueel kun je hier ook nog informatie later aan toevoegen of aanpassen. Let wel op dat je dit niet te veel doet, je verhaal moet altijd concreet, urgent en persoonlijk blijven.<p>"
 
 #: ../../env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:59
 msgid "Person"
@@ -101,11 +102,11 @@ msgstr "Persoon"
 
 #: ../../env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:60
 msgid "Company"
-msgstr "Company"
+msgstr "Bedrijf"
 
 #: ../../env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:61
 msgid "Foundation"
-msgstr "Foundation"
+msgstr "Stichting"
 
 #: ../../env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:62
 msgid "School"
@@ -113,90 +114,90 @@ msgstr "School"
 
 #: ../../env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:63
 msgid "Club / Association"
-msgstr "Club / Association"
+msgstr "Vereniging"
 
 #: ../../env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:148
 msgid ""
 "YOU'VE GOT MAIL!<br /><br />We've sent you a link to reset your password, so"
 " check your mailbox.<br /><br />(No mail? It might have ended up in your "
 "spam folder)"
-msgstr "You've got mail!<br /><br />We've sent you a link to reset your password, so check your mailbox.<br /><br />(No mail? It might have ended up in your spam folder)"
+msgstr "YOU'VE GOT MAIL!<br /><br />We hebben je een link gestuurd om je wachtwoord te wijzigen.<br /><br />(Geen e-mail? Kijk dan even in je spam folder)"
 
 #: ../../env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/routes.js.c:201
 msgid "The token you provided is expired. Please reset your password again."
-msgstr "The token you provided is expired. Please reset your password again."
+msgstr "Deze code is verlopen. Stel je wachtwoord opnieuw in. "
 
 #: ../../env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:16
 msgid "Please use your email address to log in."
-msgstr "Please use your email address to log in."
+msgstr "Gebruik je e-mailadres om in te loggen."
 
 #: ../../env/src/bluebottle/bluebottle/bb_organizations/static/js/bluebottle/bb_organizations/controllers.js.c:85
-#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:59
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:89
 msgid "Model is not dirty."
 msgstr "Model is not dirty."
 
 #: ../../env/src/bluebottle/bluebottle/bb_organizations/static/js/bluebottle/bb_organizations/controllers.js.c:99
 #: ../../env/src/bluebottle/bluebottle/bb_organizations/static/js/bluebottle/bb_organizations/controllers.js.c:106
-#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:72
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:102
 msgid "Model saved successfully."
 msgstr "Model saved successfully."
 
 #: ../../env/src/bluebottle/bluebottle/bb_organizations/static/js/bluebottle/bb_organizations/controllers.js.c:117
-#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:173
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:203
 msgid "Hey! What are you doing here? Saving model failed."
 msgstr "Hey! What are you doing here? Saving model failed."
 
 #: ../../env/src/bluebottle/bluebottle/bb_organizations/static/js/bluebottle/bb_organizations/views.js.c:2
 msgid "Pick an organization"
-msgstr "Pick an organisation"
+msgstr "Kies een organisatie"
 
 #: ../../env/src/bluebottle/bluebottle/bb_projects/static/js/bluebottle/bb_projects/views.js.c:82
 msgid "Pick a phase"
-msgstr "Pick a phase"
+msgstr "Kies fase"
 
 #: ../../env/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/routes.js.c:56
 msgid "Apply for task"
-msgstr "Apply for task"
+msgstr "Doe deze taak"
 
 #: ../../env/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/routes.js.c:58
 msgid "Apply"
-msgstr "Apply"
+msgstr "Meld aan"
 
 #: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/app.js.c:89
 msgid "Campaign"
-msgstr "Campaign"
+msgstr "Campagne"
 
 #: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/app.js.c:90
 msgid "Finished"
-msgstr "Finished"
+msgstr ""
 
-#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/app.js.c:461
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/app.js.c:479
 msgid "Pick a language"
-msgstr "Pick a language"
+msgstr "Kies taal"
 
-#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:74
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:104
 msgid "Model could not be saved."
 msgstr "Model could not be saved."
 
-#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:77
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:107
 msgid "Instance does not implement `_save`."
 msgstr "Instance does not implement `_save`."
 
-#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:148
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:178
 msgid "Successfully saved."
-msgstr "Successfully saved."
+msgstr "Succesvol opgeslagen."
 
-#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:156
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:186
 msgid "Model is invalid."
 msgstr "Model is invalid."
 
-#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:161
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:191
 msgid "Error saving model."
 msgstr "Error saving model."
 
 #: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:2
 msgid "15 minutes"
-msgstr "15 minutes"
+msgstr "15 minuten"
 
 #: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:3
 msgid "half an hour"
@@ -204,75 +205,79 @@ msgstr "30 minutes"
 
 #: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:4
 msgid "up to one hour"
-msgstr "up to one hour"
+msgstr "een uur"
 
 #: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:5
 msgid "two hours"
-msgstr "two hours"
+msgstr "twee uur"
 
 #: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:6
 msgid "half a day"
-msgstr "half a day"
+msgstr "een halve dag"
 
 #: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:7
 msgid "one day"
-msgstr "one day"
+msgstr "een dag"
 
 #: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:8
 msgid "two days"
-msgstr "two days"
+msgstr "twee dagen"
 
 #: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:9
 msgid "one week"
-msgstr "one week"
+msgstr "een week"
 
 #: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:10
 msgid "two weeks"
-msgstr "two weeks"
+msgstr "twee weken"
 
 #: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:11
 msgid "one month"
-msgstr "one month"
+msgstr "een maand"
 
 #: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:189
 msgid "Saving"
-msgstr "Saving"
+msgstr "Slaat op"
 
 #: ../../env/src/bluebottle/bluebottle/common/static/js/plugins/handlebars.helpers.js.c:76
 msgid "Deadline<br /> reached"
-msgstr "Deadline<br /> reached"
+msgstr "Target<br /> bereikt"
 
 #: ../../env/src/bluebottle/bluebottle/common/static/js/plugins/handlebars.helpers.js.c:80
 msgid "days"
-msgstr "days"
+msgstr "dagen"
 
 #: ../../env/src/bluebottle/bluebottle/common/static/js/plugins/handlebars.helpers.js.c:81
 msgid "day"
-msgstr "day"
+msgstr "dag"
 
 #: ../../env/src/bluebottle/bluebottle/common/static/js/plugins/handlebars.helpers.js.c:83
 msgid "to support this project"
-msgstr "to support this campaign"
+msgstr "om campagne te steunen"
 
 #: ../../env/src/bluebottle/bluebottle/geo/static/js/bluebottle/geo/views.js.c:4
 #: ../../env/src/bluebottle/bluebottle/geo/static/js/bluebottle/geo/views.js.c:16
 msgid "Pick a country"
-msgstr "Pick a country"
+msgstr "Kies land"
+
+#: ../../env/src/bluebottle/bluebottle/utils/static/js/bluebottle/utils/views.js.c:166
+msgid "&nbsp;days"
+msgstr ""
 
 #: ../../env/src/bluebottle/bluebottle/wallposts/static/js/bluebottle/wallposts/views.js.c:39
 #: ../../env/src/bluebottle/bluebottle/wallposts/static/js/bluebottle/wallposts/views.js.c:117
 msgid "Really?"
-msgstr "Really?"
+msgstr "Zeker weten?"
 
 #: ../../env/src/bluebottle/bluebottle/wallposts/static/js/bluebottle/wallposts/views.js.c:40
 msgid "Are you sure you want to delete this comment?"
-msgstr "Are you sure you want to delete this comment?"
+msgstr "Wil je echt deze comment verwijderen?"
 
 #: ../../env/src/bluebottle/bluebottle/wallposts/static/js/bluebottle/wallposts/views.js.c:41
 #: ../../env/src/bluebottle/bluebottle/wallposts/static/js/bluebottle/wallposts/views.js.c:119
 msgid "Yes"
-msgstr "Yes"
+msgstr "Ja"
 
 #: ../../env/src/bluebottle/bluebottle/wallposts/static/js/bluebottle/wallposts/views.js.c:118
 msgid "Are you sure you want to delete this reaction?"
-msgstr "Are you sure you want to delete this reaction?"
+msgstr "Wil je echt deze reactie verwijderen?"
