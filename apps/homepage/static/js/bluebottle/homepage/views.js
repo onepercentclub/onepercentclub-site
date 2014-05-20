@@ -4,14 +4,14 @@ App.HomeBannerView = Ember.View.extend({
     didInsertElement: function() {
 
         // Carousel
-        this.$().find('.carousel').unslider({
+        this.$().find('.home-carousel .carousel').unslider({
             dots: true,
             fluid: true,
             delay: 10000
         });
         
         setTimeout(function() {
-         $(".home-carousel .carousel-nav li:first-child").addClass("is-active");   
+         $(".home-carousel .home-carousel-nav span:first-child").addClass("is-active");   
         }, 200);
     }
 });

@@ -1,5 +1,4 @@
 .home-carousel {
-	position: relative;
 	width: 100%;
 	background: $gray-light;
 	font-family: $font-family-bold;
@@ -10,6 +9,7 @@
 		background: $gray-light;
 		padding: 0;
 		li {
+			position: relative;
 			height: 510px;
 			overflow: hidden;
 			padding-left: 0;
@@ -17,50 +17,105 @@
 			margin: 0;
 			header {
 				position: relative;
-				width: 30%;
+				width: 445px;
 				margin: auto;
-				padding-top: 20px;
+				//padding-top: 20px;
 				h1 {
 					position: absolute;
-					top: 80px;
+					top: 120px;
 					text-transform: none;
+					z-index: 9;
 				}
 			}
 			.home-carousel-btn {
 				position: absolute;
-				top: 298px;
+				bottom: 70px;
 				left: 0;
 				right: 0;
 				margin: auto;
 				width: 100%;
 				text-align: center;
+				z-index: 9;
 			}
 			.home-carousel-content {
 				position: absolute;
-				top: 207px;
+				top: 255px;
 				left: 0;
 				right: 0;
 				margin: auto;
 				width: 50%;
 				text-align: center;
 				font-size: 1.4em;
+				z-index: 9;
+				a {
+					font-size: 16px;
+					font-weight: 700;
+					&:after {
+						content: "\2192";
+						margin-left: 7px;
+					}
+					&.last-slide {
+						color: $gray-dark!important;
+					}
+				}
+				&.header-cloud {
+					top: 207px;
+					background: rgba(0,0,0, .3);
+					border-radius: 6px;
+					padding: 10px;
+					margin-top: 49px;
+					line-height: 40px;
+					span {
+						display: block;
+						font-size: 0.8em;
+						margin: auto;
+					}
+					.header {
+						display: block;
+						font-size: 36px;
+					}
+				}
+				&.header-cloud-transparant {
+					top: 60px;
+					border-radius: 6px;
+					padding: 10px;
+					margin-top: 49px;
+					line-height: 40px;
+					span {
+						display: block;
+						font-size: 16px;
+						margin: auto;
+					}
+					.header {
+						display: block;
+						font-size: 38px;
+						font-weight: 700;
+					}
+				}
 			}
 			.home-carousel-body {
+				position: relative;
 				width: 100%;
 				height: 100%;
-				//background: $gray-light
 				text-align: center;
-				img {
-					width: 100%;
-					height: auto;
-					margin-top: -190px;
+				background-repeat: no-repeat;
+				background-position: center center;
+				@include background-size(cover);
+				&.first-item {
+					background-image: url("http://localhost:8000/static/assets/images/pages/homepage/carousel/home-carousel-1.jpg");
+				}
+				&.first-second {
+					background-image: url("http://localhost:8000/static/assets/images/pages/homepage/carousel/home-carousel-2.jpg");
+				}
+				&.first-third {
+					background-image: url("http://localhost:8000/static/assets/images/pages/homepage/carousel/home-carousel-3.jpg");
 				}
 			}
 		}
 	}
 	.home-carousel-nav {
 		position: absolute;
-		bottom: 20px;
+		bottom: 10px;
 		left: 0;
 		right: 0;
 		margin: auto;
@@ -71,10 +126,15 @@
 			height: 13px;
 			width: 13px;
 			border-radius: 50%;
-			background: rgba(255, 255, 255, .7);
+			background: rgba(255, 255, 255, .3);
 			border: solid 1px white;
+			cursor: pointer;
 			&.is-active {
 				background: rgba(255, 255, 255, 1);
+			}
+			//TODO: Make the dot's work properly in JS. This is a dirty hack!!!
+			&:last-of-type {
+				display: none;
 			}
 		}
 	}

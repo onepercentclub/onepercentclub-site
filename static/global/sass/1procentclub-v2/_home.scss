@@ -72,7 +72,7 @@ html, body, #site {
 	.l-wrapper {
 		position: relative;
 		padding: 0 15px;
-		min-width: 400px;
+		min-width: 400px!important;
 		max-width: 1200px;
 		margin: 0 auto;
 		height: 100%;
@@ -80,7 +80,7 @@ html, body, #site {
 
 	.l-section {
 		width: 100%;
-		min-width: 400px;
+		min-width: 400px!important;
 		max-width: 100%;
 	}
 

@@ -5,27 +5,7 @@
 {% tplhandlebars "home" %}
 
         <div id="home">
-            <div class="l-section home-carousel">
-                <ul>
-                    <li>
-                        <header class="section-header">
-                            <h1>{% trans "1%Club is the do-good crowdfunding platform" %}</h1>
-                        </header>
-                        <div class="home-carousel-content">
-                            <a href="#">{% trans "About 1%Club" %}</a>
-                        </div>
-                        <div class="home-carousel-body">
-                            <img src="/static/assets/images/pages/homepage/carousel/home-carousel-1.jpg">
-                        </div>
-                    </li>
-                    <div class="home-carousel-nav">
-                        <span class="is-active"></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                </ul>
-            </div>
+        {{view App.HomeBannerView }}
 
 		{{#if projects}}
             {{view App.HomeProjectListView }}
