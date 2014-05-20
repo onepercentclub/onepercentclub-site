@@ -8,43 +8,31 @@
 <div class="l-section home-carousel">
 	<section class="carousel">
 		<ul>
-			<li class="carousel-item">
-				<header class="section-header">
-					<h1>1%Club is the do-good <br> crowdfunding platform</h1>
-				</header>
+			<li class="carousel-item first-item">
 				<div class="home-carousel-content">
-					<a href="#" class="carousel-about">About 1%Club</a>
-				</div>
-				<div class="home-carousel-body first-item">	
-				</div>
-			</li>
-
-			<li class="carousel-item">
-				<div class="home-carousel-content header-cloud">
-					<span class="header">
-						Join the makers of change
-					</span>
-					<span>Mustapha campaigns for chess courses in Amsterdam.</span>
-				</div>
-				<div class="home-carousel-btn">
-					<a href="#" class="btn">Start your own campaign</a>
-				</div>
-				<div class="home-carousel-body first-second">
+					<h1>{% trans "1%Club is the do-good crowdfunding platform" %}</h1>
+					<p><a href="#" class="carousel-about">{% trans "About 1%Club" %}</a></p>
 				</div>
 			</li>
 
-			<li class="carousel-item">
-				<div class="home-carousel-content header-cloud-transparant">
-					<span class="header">
-						Supporters of good
-					</span>
-					<span>We love smart ideas that do good to the world.</span>
-						<a href="#" class="last-slide">Streetskids soccerschool, Colombia</a>
+			<li class="carousel-item second-item">
+				<div class="home-carousel-content">
+					<h1>{% trans "Join the makers of change" %}</h1>
+					<p>{% trans "Mustapha campaigns for chess courses in Amsterdam." %}</p>
 				</div>
 				<div class="home-carousel-btn">
-					<a href="#" class="btn">Find campaigns you’ll love </a>
+					<a href="#" class="btn">{% trans "Start your own campaign" %}</a>
 				</div>
-				<div class="home-carousel-body first-third">
+			</li>
+
+			<li class="carousel-item third-item">
+				<div class="home-carousel-content">
+					<h1>{% trans "Supporters of good" %}</h1>
+					<p>{% trans "We love smart ideas that do good to the world." %}</p>
+					<p><a href="#" class="campaign-link">{% trans "Streetskids soccerschool, Colombia" %}</a></p>
+				</div>
+				<div class="home-carousel-btn">
+					<a href="#" class="btn">{% trans "Find campaigns you’ll love" %}</a>
 				</div>
 			</li>
 		</ul>

@@ -1,118 +1,138 @@
 .home-carousel {
 	width: 100%;
 	background: $gray-light;
-	font-family: $font-family-bold;
+	
 	ul {
-		margin-top: 80px;
 		margin: auto;
 		width: 100%;
-		background: $gray-light;
 		padding: 0;
+		background: $gray-light;
+		
 		li {
+			padding: 0;
+			margin: 0;
 			position: relative;
+			width: 100%;
 			height: 510px;
 			overflow: hidden;
-			padding-left: 0;
-			background: none;
-			margin: 0;
-			header {
-				position: relative;
-				width: 445px;
-				margin: auto;
-				//padding-top: 20px;
-				h1 {
-					position: absolute;
-					top: 120px;
-					text-transform: none;
-					z-index: 9;
-				}
-			}
-			.home-carousel-btn {
-				position: absolute;
-				bottom: 70px;
-				left: 0;
-				right: 0;
-				margin: auto;
-				width: 100%;
-				text-align: center;
-				z-index: 9;
-			}
+			text-align: center;
+			background-repeat: no-repeat;
+			background-position: center center;
+			@include background-size(cover);
+			
+			// Global carousel content
 			.home-carousel-content {
+				margin-top: 2em;
+					
+				h1 {
+					margin: 0 auto 0.1em auto;
+				}
+			}
+			
+			.home-carousel-btn {
+				display: block;
 				position: absolute;
-				top: 255px;
+				bottom: 30px;
 				left: 0;
 				right: 0;
 				margin: auto;
-				width: 50%;
+				width: 100%;
 				text-align: center;
-				font-size: 1.4em;
 				z-index: 9;
-				a {
-					font-size: 16px;
-					font-weight: 700;
-					&:after {
-						content: "\2192";
-						margin-left: 7px;
+				overflow: visible;
+				height: 80px;
+				padding-top: 20px;
+			}
+			
+			// Slide one
+			&.first-item {
+				background-image: url("/static/assets/images/img/pages/home/carousel/home-carousel-1.svg");
+				background-position: 50% 35%;
+				
+				.home-carousel-content {
+					
+					h1 {
+						max-width: 500px;
 					}
-					&.last-slide {
-						color: $gray-dark!important;
-					}
-				}
-				&.header-cloud {
-					top: 207px;
-					background: rgba(0,0,0, .3);
-					border-radius: 6px;
-					padding: 10px;
-					margin-top: 49px;
-					line-height: 40px;
-					span {
-						display: block;
-						font-size: 0.8em;
-						margin: auto;
-					}
-					.header {
-						display: block;
-						font-size: 36px;
-					}
-				}
-				&.header-cloud-transparant {
-					top: 60px;
-					border-radius: 6px;
-					padding: 10px;
-					margin-top: 49px;
-					line-height: 40px;
-					span {
-						display: block;
-						font-size: 16px;
-						margin: auto;
-					}
-					.header {
-						display: block;
-						font-size: 38px;
+					
+					a {
+						font-family: $font-family-body;
 						font-weight: 700;
+						
+						&:after {
+							content: "\2192";
+							margin-left: 7px;
+						}
 					}
 				}
 			}
-			.home-carousel-body {
-				position: relative;
-				width: 100%;
-				height: 100%;
-				text-align: center;
-				background-repeat: no-repeat;
-				background-position: center center;
-				@include background-size(cover);
-				&.first-item {
-					background-image: url("http://localhost:8000/static/assets/images/pages/homepage/carousel/home-carousel-1.jpg");
-				}
-				&.first-second {
-					background-image: url("http://localhost:8000/static/assets/images/pages/homepage/carousel/home-carousel-2.jpg");
-				}
-				&.first-third {
-					background-image: url("http://localhost:8000/static/assets/images/pages/homepage/carousel/home-carousel-3.jpg");
-				}
+			
+			&.second-item {
+				background-image: url("/static/assets/images/img/pages/home/carousel/home-carousel-2.jpg");
+				
+				.home-carousel-content {
+					position: relative;
+					top: 270px;
+					max-width: 540px;
+					margin: 0 auto;
+					background: rgba(0,0,0, .2);
+					@include border-radius(8px);
+					padding: 1em 0.7em;
+					
+					h1 {
+						color: $white !important;
+					}
+					
+					p {
+						margin: 0;
+					}
+					
+					a {
+						font-family: $font-family-body;
+						
+						&:after {
+							content: "\2192";
+							margin-left: 7px;
+						}
+					}
+				}	
+			}
+			
+			&.third-item {
+				background-image: url("/static/assets/images/img/pages/home/carousel/home-carousel-3.jpg");
+				
+				.home-carousel-content {
+					position: relative;
+					top: 20px;
+					position: relative;
+					max-width: 540px;
+					margin: 0 auto;
+					padding: 1em;
+					
+					h1 {
+						color: $white !important;
+					}
+					
+					p {
+						margin: 0;
+					}
+					
+					a {
+						font-size: 0.8em;
+						font-family: $font-family-body;
+						color: $gray-dark;
+						@include opacity(0.5);
+						
+						&:after {
+							content: "\2192";
+							margin-left: 7px;
+						}
+					}
+				}	
 			}
 		}
 	}
+	
 	.home-carousel-nav {
 		position: absolute;
 		bottom: 10px;
@@ -121,6 +141,7 @@
 		margin: auto;
 		width: 100%;
 		text-align: center;
+		
 		span {
 			display: inline-block;
 			height: 13px;
@@ -129,13 +150,73 @@
 			background: rgba(255, 255, 255, .3);
 			border: solid 1px white;
 			cursor: pointer;
+			
 			&.is-active {
 				background: rgba(255, 255, 255, 1);
 			}
-			//TODO: Make the dot's work properly in JS. This is a dirty hack!!!
+			
+			// TODO: Make the dot's work properly in JS. This is a dirty hack!!!
 			&:last-of-type {
 				display: none;
 			}
 		}
 	}
 }
+
+
+/*
+
+
+&.header-cloud {
+	
+}
+
+&.header-cloud-transparant {
+	top: 20px;
+	padding: 1em;
+	span {
+		display: block;
+		font-size: 1.2em;
+		margin: auto;
+	}
+	.header {
+		display: block;
+		font-size: 3em;
+		font-weight: 700;
+	}
+}
+
+.home-carousel-content {
+		position: absolute;
+		top: 35px;
+		left: 0;
+		right: 0;
+		margin: auto;
+		width: 50%;
+		text-align: center;
+		font-size: 1.4em;
+		z-index: 9;
+		
+		h1 {
+			
+		}
+		
+		p {
+			
+		}
+		
+		a {
+			font-size: 16px;
+			font-weight: 700;
+			&:after {
+				content: "\2192";
+				margin-left: 7px;
+			}
+			&.last-slide {
+				color: $gray-dark!important;
+			}
+		}
+		
+	}
+				
+				*/
