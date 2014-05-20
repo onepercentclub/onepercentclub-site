@@ -17,6 +17,7 @@ before_install:
   - "gem install sass compass"
   - "npm install -g grunt-cli"
   - "npm install grunt grunt-contrib-compass"
+  - "sudo apt-get install memcached python-memcache"
   
 install:
   - "export DISPLAY=:99.0"
