@@ -7,7 +7,7 @@ App.HomeBannerView = Ember.View.extend({
         this.$().find('.home-carousel .carousel').unslider({
             dots: true,
             fluid: true,
-            delay: 1110000
+            delay: 10000
         });
         
         setTimeout(function() {
