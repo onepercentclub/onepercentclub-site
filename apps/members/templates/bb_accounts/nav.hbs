@@ -16,7 +16,7 @@
 
     <li>
         {{#linkTo "userProfile" }}
-            {% trans "My profile & settings" %}
+            {% trans "My profile" %}
         {{/linkTo }}
     </li>
     
@@ -38,14 +38,10 @@
         {{/linkTo}}
     </li>
 
-    <li>
+    <li class="nav-member-logout">
         {% block logout_anchor %}
             <a href="{% url 'accounts:logout' %}?next=/{{ LANGUAGE_CODE }}/">Logout</a>
         {% endblock logout_anchor %}
-    </li>
-
-    <li class="nav-member-switch-language">
-        {% trans "Language" %} {{view "App.LanguageSwitchView"}}
     </li>
 
 {% endblock_verbatim my_menu %}
@@ -70,7 +66,6 @@
 
     <li class="nav-signup-login">
         {{#linkTo "signup" class="nav-signup"}}{% trans "Sign up" %}{{/linkTo}}
-        {% trans "or" %}
         <a {{action 'openInBox' "login"}} class="nav-login">{%  trans "Log in" %}</a>
     </li>
     <li class="nav-switch-language">

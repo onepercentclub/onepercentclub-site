@@ -1,12 +1,17 @@
 html, body, #site {
 	height: 100%;
+}
 
+#content {
+	margin-top: 96px !important; // for static header
 }
 
 #home {
+
 	* {
 		text-transform: none;
 	}
+	
 	h1 {
 		color: $color-secondary;
 		font-size: 36px;
@@ -14,29 +19,49 @@ html, body, #site {
 		font-weight: 900;
 		text-transform: none;
 	}
+	
 	h2 {
-		color: $gray-dark;
+		color: $gray-darkest;
 		font-size: 24px;
 		font-family: $font-family-bold;
 		font-weight: 900;
 		line-height: 38px;
 		text-transform: none;
 	}
+	
 	a {
 		text-decoration: none;
 		color: $black;
+	}
+	
+	.btn {
+		position: relative;
+		display: inline;
+		background: $color-secondary;
+		padding: 0.75em 1.25em;
+		vertical-align: center;
+		border-radius: 8px;
+		color: white;
+		font-family: $font-family-bold;
+		font-weight: 700;
+		border: none;
+		@include single-box-shadow($color-secondary-shadow, 0, -2px, 0, 0, true);
+		@include single-transition(all, .1s ease-in-out);
 		
-		&.btn {
-			display: inline;
-			background-color: $color-secondary;
-			padding: 1em;
-			vertical-align: center;
-			border-radius: 8px;
-			color: white;
-			font-family: $font-family-bold;
-			font-weight: 700;
+		&:hover {
+			top: -1px;
+			@include single-box-shadow($color-secondary-shadow, 0, -4px, 0, 0, true);
+			@include single-transition(none);
+		}
+		
+		&:active, &:focus {
+			top: 1px;
+			background: $gray-darker;
+			color: $gray-light;
+			@include single-box-shadow($gray-darkest, 0, 2px, 0, 0, true);
 		}
 	}
+	
 	input {
 		line-height: 30px;
 		border-radius: 6px;
@@ -170,6 +195,7 @@ html, body, #site {
 			margin: 0 0 0 120px;
 			
 			strong {
+				font-family: $font-family-body;
 				display: inherit;
 				font-size: 1.33em;
 				font-weight: 700;

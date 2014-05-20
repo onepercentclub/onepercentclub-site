@@ -1,35 +1,48 @@
 .tools {
+	position: relative;
 	width: 90%;
 	margin: auto;
-	font-family: $font-family-bold;
+	font-family: $font-family-body;
 	color: $gray-dark;
-	min-height: 440px;
-	padding-top: 40px;
+	padding: 5em 0 165px 0;
+	
 	.tools-icon {
-		width: 100%;
+		position: relative;
+		width: 110px;
 		height: 100px;
 		text-align: center;
-		margin-bottom: 20px;
+		margin: 0 auto 1em auto;
+		
+		.tools-icon-image {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+		}
 	}
+	
 	.tools-header {
-
+		font-family: $font-family-body;
+		font-size: 1.06em;
 	}
+	
 	.tools-content {
 		display: block;
 		line-height: 24px;
+		font-size: 0.93em;
 	}
-	.tools-btn {
-			margin-top: 40px;
-	}
+	
 	strong {
 		font-weight: 700;
 	}
+	
 	&.left {
 		float: left;
 	}
+	
 	&.right {
 		float: right;
 	}
+	
 	&.small {
 		width: 80%;
 		margin: auto;
@@ -37,6 +50,17 @@
 }
 
 .tools-rocket {
+	position: absolute;
+	left: 0;
+	bottom: 0;
 	height: 165px;
 	width: 365px;
+}
+	
+.tools-btn {
+	position: relative;
+	width: 100%;
+	text-align: center;
+	bottom: 80px;
+	z-index: 2;
 }
