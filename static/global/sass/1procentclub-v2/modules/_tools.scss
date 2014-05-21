@@ -4,12 +4,12 @@
 	margin: auto;
 	font-family: $font-family-body;
 	color: $gray-dark;
-	padding: 5em 0 125px 0;
+	padding: 5em 0 4em 0;
 	
 	.tools-icon {
 		position: relative;
-		width: 200px;
-		height: 150px;
+		width: 100px;
+		height: 120px;
 		text-align: center;
 		margin: 0 auto 1em auto;
 		
@@ -23,7 +23,7 @@
 	}
 	
 	&.first-item .tools-icon .tools-icon-image {
-		bottom: -20px;
+		bottom: 5px;
 	}
 	
 	.tools-header {
