@@ -24,13 +24,13 @@ App.Scrolling = Em.Mixin.create({
 });
 
 App.ApplicationView.reopen(App.Scrolling, {
-	didInsertElement: function() {
+	setBindScrolling: function() {
 		this.bindScrolling();
-	},
+	}.on('didInsertElement'),
 
-	willRemoveElement: function() {
+	setUnbindScrolling: function() {
 		this.unbindScrolling();
-	},
+	}.on('didInsertElement'),
 
 	scrolled: function(dist) {
 		top = $('#content').offset();
