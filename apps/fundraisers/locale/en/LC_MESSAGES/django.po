@@ -3,18 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Translators:
-# Translators:
-# Translators:
-# Translators:
 # Liane <liane@onepercentclub.com>, 2014
 # nieja <niels@1procentclub.nl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-20 23:23+0200\n"
-"PO-Revision-Date: 2014-05-20 21:26+0000\n"
+"POT-Creation-Date: 2014-05-21 16:36+0200\n"
+"PO-Revision-Date: 2014-05-21 14:26+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
@@ -71,12 +67,7 @@ msgstr "updated"
 msgid "deleted"
 msgstr "deleted"
 
-#: models.py:44
-#, python-brace-format
-msgid "{fundraiser} for {project}"
-msgstr "{fundraiser} for {campaign}"
-
-#: models.py:62
+#: models.py:58
 #, python-brace-format
 msgid "{title} {{URL}} via @{twitter_handle}"
 msgstr "{title} {{URL}} via @{twitter_handle}"

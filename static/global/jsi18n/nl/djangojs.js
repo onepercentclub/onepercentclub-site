@@ -11,18 +11,19 @@ function pluralidx(n) {
     return v;
   }
 }
+catalog['&nbsp;days'] = '&nbsp;dagen';
 catalog['15 minutes'] = '15 minuten';
 catalog['<h3>Introduction of your campaign</h3><p>We\u2019ve already set some structure in this plan, but you are free to write it in your own way.</p><h3>What are you going to do?</h3><p>Remember to keep a logic structure, use headings, paragraphs.</p><h3>How are you going to achieve that?</h3><p>Keep it short and sweet!</p>'] = '<p>Met eigen headers en wit regels kun je hier je campagne verhaal uitleggen, bijvoorbeeld door middel van een:</p>\u00a0\n<h3>Introductie</h3>\u00a0\n<p>Leg uit waar je campagne voor is, vertel iets over bijvoorbeeld het doel van de campagne. Supporters zullen ook benieuwd zijn waar het geld precies voor gebruikt gaat worden.</p>\n<h3>Waarom</h3>\n<p>Licht eventueel de grote waarom vragen toe: waarom is deze campagne zo belangrijk? waarom zouden mensen deze campagne moeten supporten?\nWe laten je helemaal vrij in het schrijven van je verhaal. Eventueel kun je hier ook nog informatie later aan toevoegen of aanpassen. Let wel op dat je dit niet te veel doet, je verhaal moet altijd concreet, urgent en persoonlijk blijven.<p>';
 catalog['Apply for task'] = 'Doe deze taak';
 catalog['Apply'] = 'Meld aan';
 catalog['Are you sure you want to delete this comment?'] = 'Wil je echt deze comment verwijderen?';
 catalog['Are you sure you want to delete this reaction?'] = 'Wil je echt deze reactie verwijderen?';
-catalog['Campaign'] = 'Campagne';
 catalog['Cancel'] = 'Annuleer';
 catalog['Club / Association'] = 'Vereniging';
 catalog['Company'] = 'Bedrijf';
 catalog['Deadline<br /> reached'] = 'Target<br /> bereikt';
 catalog['Error saving model.'] = 'Error saving model.';
+catalog['Finished campaigns'] = 'Afgeronde campagnes';
 catalog['Foundation'] = 'Stichting';
 catalog['Hey! What are you doing here? Saving model failed.'] = 'Hey! What are you doing here? Saving model failed.';
 catalog['Instance does not implement `_save`.'] = 'Instance does not implement `_save`.';
@@ -33,11 +34,12 @@ catalog['Model saved successfully.'] = 'Model saved successfully.';
 catalog['No, continue'] = 'Nee, ga verder';
 catalog['Person'] = 'Persoon';
 catalog['Pick a country'] = 'Kies land';
-catalog['Pick a language'] = 'Kies taal';
+catalog['Pick a language'] = 'Kies een taal';
 catalog['Pick a phase'] = 'Kies fase';
 catalog['Pick an organization'] = 'Kies een organisatie';
 catalog['Please use your email address to log in.'] = 'Gebruik je e-mailadres om in te loggen.';
 catalog['Really?'] = 'Zeker weten?';
+catalog['Running campaigns'] = 'Openstaande campagnes';
 catalog['Save changed data?'] = 'Wijzigingen opslaan?';
 catalog['Save'] = 'Opslaan';
 catalog['Saving'] = 'Slaat op';

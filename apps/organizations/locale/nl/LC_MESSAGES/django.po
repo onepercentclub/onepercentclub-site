@@ -3,20 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Translators:
-# Translators:
-# Translators:
-# Translators:
 # aethemba <aksel@onepercentclub.com>, 2014
 # dokterbob <mathijs@mathijsfietst.nl>, 2012
 # Liane <liane@onepercentclub.com>, 2014
+# gannetson <loek@1procentclub.nl>, 2014
 # nieja <niels@1procentclub.nl>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-20 23:23+0200\n"
-"PO-Revision-Date: 2014-05-20 21:26+0000\n"
+"POT-Creation-Date: 2014-05-21 16:36+0200\n"
+"PO-Revision-Date: 2014-05-21 14:40+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -55,13 +52,11 @@ msgstr "Vul hieronder je contact gegevens in."
 
 #: templates/bb_organizations/manage/_organisation_legend.hbs:16
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/_organisation_legend.hbs.py:16
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:18
 msgid "You can import this from a previous campaign: "
 msgstr "Je kunt dit importeren van een eerdere campagne:"
 
 #: templates/bb_organizations/manage/_organisation_legend.hbs:16
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/_organisation_legend.hbs.py:16
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:18
 msgid "Import:"
 msgstr "Importeer:"
 
@@ -308,7 +303,7 @@ msgstr "BIC/SWIFT code"
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:47
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:55
 msgid "BIC or SWIFT code"
-msgstr ""
+msgstr "BIC of SWIFT code"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:47
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:55
@@ -415,47 +410,31 @@ msgstr "Kunnen we je bereiken op Skype?"
 msgid "Skype name"
 msgstr "Skype naam"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:24
-msgid "You can import this from a previous campaign:"
-msgstr ""
-
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:46
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:21
 msgid "Legal status"
 msgstr "Legitimatie"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:47
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:22
 msgid ""
 "Upload a document that identifies your contact person or your partner "
 "organisation. The document can be an ID, passport, memorandum of association"
 " or an other official document."
 msgstr " Upload een scan of kopie van je paspoort of ID. "
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:53
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:28
 msgid ""
 "please upload a copy of your passport. Make sure it's a valid one and we can"
 " read it clearly!"
 msgstr "Upload een scan of kopie van je paspoort of ID. "
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:55
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:30
 msgid "Passport or ID"
 msgstr "Paspoort of ID"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:57
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:32
 msgid ".jpg, .png or .pdf"
 msgstr ".jpg, .png or .pdf"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:65
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:40
 msgid "Upload scan(s)"
 msgstr "Upload scan(s)"
-
-#~ msgid "Organization name"
-#~ msgstr "Organisation name"
-
-#~ msgid "The IBAN code"
-#~ msgstr "Account IBAN"
-
-#~ msgid "addLink4Info"
-#~ msgstr "addLink4Info"
-
-#~ msgid "Partner Passport"
-#~ msgstr "Partner Passport"

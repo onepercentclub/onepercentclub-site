@@ -3,18 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Translators:
-# Translators:
-# Translators:
-# Translators:
 # aethemba <aksel@onepercentclub.com>, 2014
 # Liane <liane@onepercentclub.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-20 23:23+0200\n"
-"PO-Revision-Date: 2014-05-20 21:26+0000\n"
+"POT-Creation-Date: 2014-05-21 16:36+0200\n"
+"PO-Revision-Date: 2014-05-21 14:38+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
@@ -53,13 +49,11 @@ msgstr ""
 
 #: templates/bb_organizations/manage/_organisation_legend.hbs:16
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/_organisation_legend.hbs.py:16
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:18
 msgid "You can import this from a previous campaign: "
 msgstr "You can import this from a previous campaign: "
 
 #: templates/bb_organizations/manage/_organisation_legend.hbs:16
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/_organisation_legend.hbs.py:16
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:18
 msgid "Import:"
 msgstr "Import:"
 
@@ -413,47 +407,31 @@ msgstr "Can we reach you on Skype?"
 msgid "Skype name"
 msgstr "Skype name"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:24
-msgid "You can import this from a previous campaign:"
-msgstr ""
-
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:46
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:21
 msgid "Legal status"
 msgstr "Legal document"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:47
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:22
 msgid ""
 "Upload a document that identifies your contact person or your partner "
 "organisation. The document can be an ID, passport, memorandum of association"
 " or an other official document."
 msgstr "Please upload a clear copy of your passport or ID. "
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:53
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:28
 msgid ""
 "please upload a copy of your passport. Make sure it's a valid one and we can"
 " read it clearly!"
 msgstr "Please upload a clear copy of your passport or ID. "
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:55
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:30
 msgid "Passport or ID"
 msgstr ""
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:57
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:32
 msgid ".jpg, .png or .pdf"
 msgstr ".jpg, .png or .pdf"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:65
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:40
 msgid "Upload scan(s)"
 msgstr "Upload scan(s)"
-
-#~ msgid "Organization name"
-#~ msgstr "Organisation name"
-
-#~ msgid "The IBAN code"
-#~ msgstr "Account IBAN"
-
-#~ msgid "addLink4Info"
-#~ msgstr "addLink4Info"
-
-#~ msgid "Partner Passport"
-#~ msgstr "Partner Passport"

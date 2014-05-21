@@ -3,19 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Translators:
-# Translators:
-# Translators:
-# Translators:
 # gannetson <loek@1procentclub.nl>, 2013
+# gannetson <loek@1procentclub.nl>, 2014
 # nieja <niels@1procentclub.nl>, 2013
 # nieja <niels@1procentclub.nl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-20 23:23+0200\n"
-"PO-Revision-Date: 2014-05-20 21:26+0000\n"
+"POT-Creation-Date: 2014-05-21 16:36+0200\n"
+"PO-Revision-Date: 2014-05-21 14:39+0000\n"
 "Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -72,12 +69,7 @@ msgstr "updated"
 msgid "deleted"
 msgstr "verwijderd"
 
-#: models.py:44
-#, python-brace-format
-msgid "{fundraiser} for {project}"
-msgstr "{fundraiser} voor {project}"
-
-#: models.py:62
+#: models.py:58
 #, python-brace-format
 msgid "{title} {{URL}} via @{twitter_handle}"
 msgstr "{title} {{URL}} via @{twitter_handle}"
@@ -106,7 +98,7 @@ msgstr "Fundraiser"
 #: templates/fundraisers/fundraiser.hbs:64
 #: templates/fundraisers/fundraiser.hbs:91
 msgid "deadline passed"
-msgstr ""
+msgstr "deadline verstreken"
 
 #: templates/fundraisers/fundraiser.hbs:68
 msgid "Support"
