@@ -3,9 +3,10 @@
 	top: 0;
 	width: 100%;
 	height: 96px;
-	background: $gray-light;
+	background: rgba($gray-light, 1);
 	border-bottom: 1px solid white;
-	@include box-shadow(0 1px 0 rgba(65, 65, 65, .01));
+	@include box-shadow(0 1px 0 rgba(65, 65, 65, .1));
+	@include single-transition(all, .2s ease .1s);
 	z-index: 999;
 	
 	
@@ -21,11 +22,12 @@
 		float: left;
 		width: 12%;
 		margin-left: 1em;
-		
+		@include single-transition(width, .2s ease-in-out .1s);
 		.logo-link {
 			display: block;
 			padding: 1.5em 0 0 0;
 			cursor: pointer;
+			@include single-transition(padding, .2s ease-in-out .1s);
 			
 			.logo-image {
 				height: 51px;
@@ -39,6 +41,7 @@
 		padding: 1.8em 0 0 0;
 		font-family: $font-family-body;
 		font-weight: 700;
+		@include single-transition(padding, .2s ease-in-out .1s);
 		
 		.nav-main {
 			float: left;
@@ -285,5 +288,21 @@
 		a {
 			color: $white !important;
 		}
-	}	
+	}
+	&.is-scrolled {
+		height: 60px;
+		background: rgba($gray-light, .9);
+
+		#logo {
+			width: 5.555555%;
+
+			.logo-link {
+				padding: 0;
+			}
+		}
+
+		#nav {
+			padding: 0;
+		}
+	}
 }

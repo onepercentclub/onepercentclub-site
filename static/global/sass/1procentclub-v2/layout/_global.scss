@@ -5,6 +5,10 @@ html, body, #site {
 #content {
 	margin-top: 96px !important; // for static header
 	padding-bottom: 40px; // push footer down
+	@include single-transition(margin-top, 1ms ease-in-out);
+	&.is-scrolled {
+		margin-top: 50px!important;
+	}
 }
 
 #home, #about-new {
