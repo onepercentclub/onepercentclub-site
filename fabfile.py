@@ -300,6 +300,8 @@ def prepare_django():
         # "Could not find a tag or branch '<commit_id>', assuming commit."
         run('pip install -q --allow-all-external --allow-unverified django-admin-tools -r requirements/requirements.txt')
 
+        run('grunt compass:dist')
+
         # Remove and compile the .pyc files.
         run('find . -name \*.pyc -delete')
         run('./manage.py compile_pyc --settings=%s' % env.django_settings)
