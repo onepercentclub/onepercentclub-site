@@ -3,17 +3,10 @@ App.Adapter.map('App.MyProject', {
     budgetLines: {embedded: 'load'}
 });
 
-App.Adapter.map('App.ProjectPreview', {
-    owner: {embedded: 'load'},
-    country: {embedded: 'load'},
-    theme: {embedded: 'load'}
-});
-
-
 App.Project.reopen({
 
     deadline: DS.attr('date'),
-    amount_asked: DS.attr('number', {defaultValue: 0}),
+    amount_asked: DS.attr('number'), //, {defaultValue: 0}),
 
     maxAmountAsked: Ember.computed.lte('amount_asked', 1000000),
     minAmountAsked: Ember.computed.gte('amount_asked', 250),
@@ -57,7 +50,7 @@ App.MyProject.reopen({
     budgetLines: DS.hasMany('App.MyProjectBudgetLine'),
     story: DS.attr('string'),
 
-    defaultStory: gettext("<h3>Introduction</h3><p>Explain your campaign, tell something about the goal of the campaign. Supporters will wonder where the money is going to be used.</p> <h3> Why?</h3> <p>Why is this campaign so important? Why would people want to support this campaign? Be concrete, urgent and personal.</p>"),
+    defaultStory: gettext("<h3>Introduction of your campaign</h3><p>We’ve already set some structure in this plan, but you are free to write it in your own way.</p><h3>What are you going to do?</h3><p>Remember to keep a logic structure, use headings, paragraphs.</p><h3>How are you going to achieve that?</h3><p>Keep it short and sweet!</p>"),
     storyChanged: function () {
         return Em.compare(this.get('defaultStory'), this.get('story'));
     }.property('story'),

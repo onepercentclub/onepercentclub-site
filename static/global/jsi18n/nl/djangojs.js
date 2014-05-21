@@ -3,7 +3,71 @@
 
 var catalog = new Array();
 
-function pluralidx(count) { return (count == 1) ? 0 : 1; }
+function pluralidx(n) {
+  var v=(n != 1);
+  if (typeof(v) == 'boolean') {
+    return v ? 1 : 0;
+  } else {
+    return v;
+  }
+}
+catalog['15 minutes'] = '15 minuten';
+catalog['<h3>Introduction of your campaign</h3><p>We\u2019ve already set some structure in this plan, but you are free to write it in your own way.</p><h3>What are you going to do?</h3><p>Remember to keep a logic structure, use headings, paragraphs.</p><h3>How are you going to achieve that?</h3><p>Keep it short and sweet!</p>'] = '<p>Met eigen headers en wit regels kun je hier je campagne verhaal uitleggen, bijvoorbeeld door middel van een:</p>\u00a0\n<h3>Introductie</h3>\u00a0\n<p>Leg uit waar je campagne voor is, vertel iets over bijvoorbeeld het doel van de campagne. Supporters zullen ook benieuwd zijn waar het geld precies voor gebruikt gaat worden.</p>\n<h3>Waarom</h3>\n<p>Licht eventueel de grote waarom vragen toe: waarom is deze campagne zo belangrijk? waarom zouden mensen deze campagne moeten supporten?\nWe laten je helemaal vrij in het schrijven van je verhaal. Eventueel kun je hier ook nog informatie later aan toevoegen of aanpassen. Let wel op dat je dit niet te veel doet, je verhaal moet altijd concreet, urgent en persoonlijk blijven.<p>';
+catalog['Apply for task'] = 'Doe deze taak';
+catalog['Apply'] = 'Meld aan';
+catalog['Are you sure you want to delete this comment?'] = 'Wil je echt deze comment verwijderen?';
+catalog['Are you sure you want to delete this reaction?'] = 'Wil je echt deze reactie verwijderen?';
+catalog['Campaign'] = 'Campagne';
+catalog['Cancel'] = 'Annuleer';
+catalog['Club / Association'] = 'Vereniging';
+catalog['Company'] = 'Bedrijf';
+catalog['Deadline<br /> reached'] = 'Target<br /> bereikt';
+catalog['Error saving model.'] = 'Error saving model.';
+catalog['Foundation'] = 'Stichting';
+catalog['Hey! What are you doing here? Saving model failed.'] = 'Hey! What are you doing here? Saving model failed.';
+catalog['Instance does not implement `_save`.'] = 'Instance does not implement `_save`.';
+catalog['Model could not be saved.'] = 'Model could not be saved.';
+catalog['Model is invalid.'] = 'Model is invalid.';
+catalog['Model is not dirty.'] = 'Model is not dirty.';
+catalog['Model saved successfully.'] = 'Model saved successfully.';
+catalog['No, continue'] = 'Nee, ga verder';
+catalog['Person'] = 'Persoon';
+catalog['Pick a country'] = 'Kies land';
+catalog['Pick a language'] = 'Kies taal';
+catalog['Pick a phase'] = 'Kies fase';
+catalog['Pick an organization'] = 'Kies een organisatie';
+catalog['Please use your email address to log in.'] = 'Gebruik je e-mailadres om in te loggen.';
+catalog['Really?'] = 'Zeker weten?';
+catalog['Save changed data?'] = 'Wijzigingen opslaan?';
+catalog['Save'] = 'Opslaan';
+catalog['Saving'] = 'Slaat op';
+catalog['School'] = 'School';
+catalog['Set my monthly donation'] = 'Stel maandelijkse donatie in';
+catalog['Stop my monthly donation'] = 'Stop maandelijkse donatie';
+catalog['Successfully saved.'] = 'Succesvol opgeslagen.';
+catalog['Thanks a lot for your support until now. You rock! We welcome you back anytime.<br /><br />Are you sure you want to stop your monthly support?'] = 'Bedankt voor je support tot dusver. Super! Uiteraard, je kunt altijd weer je maandelijkse donatie activeren.<br /><br />Weet je zeker dat je je maandelijkse donatie wilt stopzetten?';
+catalog['The token you provided is expired. Please reset your password again.'] = 'Deze code is verlopen. Stel je wachtwoord opnieuw in. ';
+catalog['There was an error with your payment. Please try again.'] = 'Er ging iets mis met de betaling. Kun je het nogmaals proberen?';
+catalog['YOU\'VE GOT MAIL!<br /><br />We\'ve sent you a link to reset your password, so check your mailbox.<br /><br />(No mail? It might have ended up in your spam folder)'] = 'YOU\'VE GOT MAIL!<br /><br />We hebben je een link gestuurd om je wachtwoord te wijzigen.<br /><br />(Geen e-mail? Kijk dan even in je spam folder)';
+catalog['Yes'] = 'Ja';
+catalog['Yes, stop my donation'] = 'Ja, stop donatie';
+catalog['You have some unsaved changes. Do you want to save before you leave?'] = 'Je hebt niet-opgeslagen wijzigingen. Wil je deze eerst opslaan?';
+catalog['You\'re about to set a monthly donation.<br/><br/>'] = 'Super! Je gaat maandelijks doneren.';
+catalog['by'] = 'door';
+catalog['day'] = 'dag';
+catalog['days'] = 'dagen';
+catalog['half a day'] = 'een halve dag';
+catalog['half an hour'] = '30 minutes';
+catalog['of'] = 'van';
+catalog['one day'] = 'een dag';
+catalog['one month'] = 'een maand';
+catalog['one week'] = 'een week';
+catalog['raised'] = 'opgehaald';
+catalog['to support this project'] = 'om campagne te steunen';
+catalog['two days'] = 'twee dagen';
+catalog['two hours'] = 'twee uur';
+catalog['two weeks'] = 'twee weken';
+catalog['up to one hour'] = 'een uur';
 
 
 function gettext(msgid) {

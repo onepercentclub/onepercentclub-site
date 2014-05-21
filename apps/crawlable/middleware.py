@@ -1,4 +1,5 @@
 import logging
+from apps.fundraisers.models import FundRaiser
 from apps.projects.models import Project
 from apps.tasks.models import Task
 from django.template.response import SimpleTemplateResponse
@@ -146,10 +147,16 @@ class HashbangMiddleware(object):
             if route[1] == 'projects' and len(route) > 2:
                 project = Project.objects.get(slug=route[2])
                 return SimpleTemplateResponse(template='crawlable/project.html', context={'project': project})
+
             # Task page
             if route[1] == 'tasks' and len(route) > 2:
                 task = Task.objects.get(id=route[2])
                 return SimpleTemplateResponse(template='crawlable/task.html', context={'task': task})
+
+            # FundRaiser page
+            if route[1] == 'fundraisers' and len(route) > 2:
+                fundraiser = FundRaiser.objects.get(id=route[2])
+                return SimpleTemplateResponse(template='crawlable/fundraiser.html', context={'fundraiser': fundraiser})
 
             # Update query string by removing the escaped fragment.
             if ESCAPED_FRAGMENT in query:
