@@ -143,7 +143,7 @@ module.exports = function (grunt) {
           relativeAssets: true,
           noLineComments: false,
           raw: 'preferred_syntax = :scss\n', // Use `raw` since it's not directly available  
-          importPath: ["../bluebottle/bluebottle/common/static/sass"],
+          importPath: bluebottlePath,
           force: false,
         }
       }
