@@ -27,6 +27,11 @@ class ProjectBudgetLineInline(admin.TabularInline):
 class ProjectAdmin(BaseProjectAdmin):
     inlines = (ProjectBudgetLineInline, )
 
+    list_filter = BaseProjectAdmin.list_filter + ('is_campaign', )
+    list_display = BaseProjectAdmin.list_display + ('is_campaign', )
+    list_editable =  ('is_campaign', )
+
+
 # We wrapped this in a try because sometimes Project hasn't got registered before it hits this.
 try:
     admin.site.unregister(Project)
