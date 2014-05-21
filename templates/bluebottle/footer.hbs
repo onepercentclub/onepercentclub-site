@@ -64,7 +64,11 @@
                 <div class="row">
                 
                     <div class="col3 copy">
-                        <p>© 2014 - 1%Club</p>
+                        <p>© 2014 - 1%Club
+                            {{#if GIT_COMMIT}}
+                                / Commit: <a target='_blank' href='https://github.com/onepercentclub/onepercentclub-site/commit/{{unbound GIT_COMMIT }}'>{{ GIT_COMMIT }}</a>
+                            {{/if}}
+                        </p>
                     </div>
                     
                     <div class="col6 footer-back-to-top">
