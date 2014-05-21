@@ -1,7 +1,7 @@
 #about-new {
 	position: relative;
 	background: image-url("img/pages/about/about-1.jpg") $gray-darkest no-repeat 50% 50%;
-	background-size: contain;
+	background-size: cover;
 	background-attachment: fixed;
 	
 	.about-header-section {
