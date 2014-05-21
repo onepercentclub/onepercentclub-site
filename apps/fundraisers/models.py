@@ -41,11 +41,7 @@ class FundRaiser(models.Model):
         return '000'
 
     def get_meta_title(self, **kwargs):
-        title = _(u"{fundraiser} for {project}").format(
-            fundraiser=self.title,
-            project=self.project.title
-        )
-        return title
+        return self.title
 
     get_fb_title = get_meta_title # alias for metadata in apps/fund/models.py:Order
 
