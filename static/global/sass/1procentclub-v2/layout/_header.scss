@@ -88,6 +88,9 @@
 						border-radius: 8px 8px 0 0;
 						padding: 12px;
 						text-align: left;
+						&.is-scrolled {
+							border-radius: 0;
+						}
 						
 						strong {
 							font-family: $font-family-body;

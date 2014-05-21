@@ -38,8 +38,10 @@ App.ApplicationView.reopen(App.Scrolling, {
 
 		if (dist < elm) {
 			$('#header').removeClass('is-scrolled');
+			$('.nav-member-dropdown').removeClass('is-scrolled');
 		} else {
 			$('#header').addClass('is-scrolled');
+			$('.nav-member-dropdown').addClass('is-scrolled');
 		}
 	}
 });
