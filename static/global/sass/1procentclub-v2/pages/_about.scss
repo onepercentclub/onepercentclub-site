@@ -5,8 +5,9 @@
 	background-attachment: fixed;
 	
 	.about-header-section {
-		height: 700px;
-		height: 85vh;
+		height: 600px;
+		max-height: 750px;
+		height: 80vh;
 		
 		.about-header {
 			position: absolute;
