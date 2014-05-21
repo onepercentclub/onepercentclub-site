@@ -7,12 +7,12 @@ from django.utils.translation import ugettext as _
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from sorl.thumbnail import ImageField
 
-from apps.fund.models import DonationStatuses
+#from apps.fund.models import DonationStatuses
 
 
 class FundRaiser(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("initiator"), help_text=_("Project owner"))
-    project = models.ForeignKey('projects.Project', verbose_name=_("project"))
+    project = models.ForeignKey(settings.PROJECTS_PROJECT_MODEL, verbose_name=_("project"))
 
     title = models.CharField(_("title"), max_length=255)
     description = models.TextField(_("description"), blank=True)
@@ -32,8 +32,8 @@ class FundRaiser(models.Model):
 
     @property
     def amount_donated(self):
-        # TODO: unittest
-        valid_statuses = (DonationStatuses.pending, DonationStatuses.paid)
+        # FIXME: Removed import of DonationStatuses because it was resulting in circular imports.
+        valid_statuses = ('pending', 'paid')
         donations = self.donation_set.filter(status__in=valid_statuses)
         if donations:
             total = donations.aggregate(sum=Sum('amount'))
@@ -41,11 +41,7 @@ class FundRaiser(models.Model):
         return '000'
 
     def get_meta_title(self, **kwargs):
-        title = _(u"{fundraiser} for {project}").format(
-            fundraiser=self.title,
-            project=self.project.title
-        )
-        return title
+        return self.title
 
     get_fb_title = get_meta_title # alias for metadata in apps/fund/models.py:Order
 

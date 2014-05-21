@@ -1,18 +1,10 @@
+# TODO: not sure why but we need to include the SECRET_KEY here - importing from the test_runner file doesn't work
+SECRET_KEY = 'hbqnTEq+m7Tk61bvRV/TLANr3i0WZ6hgBXDh3aYpSU8m+E1iCtlU3Q=='
 
-# SECRET_KEY and DATABASES needs to be defined before the base settings is imported.
-SECRET_KEY = 'hbqnTEq+m7Tk61bvRxcvxcvm+E1iCtlU3Q=='
+from .test_runner import *
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3'
-    },
-}
 
-from .base import *
+# Use firefox for running tests on Travis
+SELENIUM_WEBDRIVER = 'firefox'
 
-#
-# Put the travis-ci environment specific overrides below.
-#
-
-# Disable Selenium testing for now on Travis because it fails inconsistent.
-SELENIUM_TESTS = False
+ROOT_URLCONF = 'onepercentclub.urls'

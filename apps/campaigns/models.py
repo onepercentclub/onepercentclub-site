@@ -5,8 +5,6 @@ from django.utils.translation import ugettext as _
 
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 
-from apps.fund.models import Donation, DonationStatuses
-
 
 class Campaign(models.Model):
     title = models.CharField(_('title'), max_length=255)
@@ -32,6 +30,8 @@ class Campaign(models.Model):
 
     @property
     def sum_donations(self):
+
+        from apps.fund.models import Donation
 
         """ Add all donation amounts for donations made between start and end of the campaign """
         if cache.get('campaign-grant-total'):

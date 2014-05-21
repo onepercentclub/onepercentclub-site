@@ -1,0 +1,46 @@
+#wallposts {
+
+	.wallpost {
+
+        @include clearfix;
+        
+		// Make the login box fade in on hover
+        .login-box {
+            opacity: 0;
+            @include transition(opacity 0.2s ease-out);
+            color: $gray;
+            padding-bottom: $base-padding;
+            margin-left: $base-margin;
+        }
+        
+        &:hover .login-box {
+            opacity: 1;
+        }
+
+        .wallpost-author {
+            text-transform: uppercase;
+        }
+    }
+
+    .btn-more {
+    	margin-left: $base-margin;
+    }
+
+    #wallpost-form {
+    
+        .tabs {
+            .tab-item {
+            
+                &.active {
+                    a {
+                        color: $color-primary;
+                        background: $white;
+                    }
+                }
+            }
+        }
+        .video-container, .photos-container {
+            background: $white;           
+        }
+    }
+}

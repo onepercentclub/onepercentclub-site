@@ -1,0 +1,23 @@
+{% load i18n bb_ember static %}
+
+{# Move this to a generic location #}
+{% tplhandlebars "components/bb-modal" %}
+    <div class="modal large is-hidden" id="project-select">
+        <div class="modal-header">
+            {{header}}
+            <a class="close" {{action 'close'}} rel="close">×</a>
+        </div>
+
+        <div class="modal-body">
+            {{ yield }}
+        </div>
+        {{#if hasCloseButton}}
+            <div class="modal-footer">
+                <button class="btn btn-iconed btn-close btn-primary" {{action 'close'}}>
+                    <span class="flaticon solid x-1"></span>
+                    {% trans "Close" %}
+                </button>
+            </div>
+        {{/if}}
+    </div>
+{% endtplhandlebars %}

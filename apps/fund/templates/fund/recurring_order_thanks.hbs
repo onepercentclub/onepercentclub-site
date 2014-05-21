@@ -1,0 +1,109 @@
+{% load i18n bb_ember static %}
+
+{% tplhandlebars "recurringOrderThanks" %}
+    <div class="l-section">
+        <section class="l-wrapper">
+            <div class="l-content">
+                {{#if recurringPayment.active}}
+
+                	<figure>
+                		<img src="/static/assets/images/you-made-it-work.png" alt="You made it work" />
+                	</figure>
+
+                	<header>
+	                	<h1>{% trans "Donation Successful!" %}</h1>
+						{{#if controllers.currentUser.isAuthenticated }}
+	                		<p>{% blocktrans %}
+							Thanks for your support! Your 1% has brought them one step closer to realise their smart idea! Don't forget to tune in to see how they're doing!
+						{% endblocktrans %}</p>
+						{{else}}
+	                		<p>{% blocktrans %}
+							Thanks for your support! We'd be happy to keep you posted on the progress of the project(s) you supported. Why? Because it's a fun and personal way to see what's happening with your 1%. Sounds good? Just become a 1%Member!
+						{% endblocktrans %}</p>
+						<p>{{#linkTo 'signup'}}{% blocktrans %}Become a 1%Member{% endblocktrans %} <em class="flaticon solid right-angle-quote-1"></em>{{/linkTo}}</p>
+						{{/if}}
+	            	</header>
+
+                {{else}}
+                	<header>
+                    	<h1>{% trans "No donation set..." %}</h1>
+						{{#linkTo 'currentOrder.donationList' class="edit-monthly-donations" }}
+                        	<strong>{% trans "Create or enable your monthly donation" %}</strong>
+						{{/linkTo }}
+                	</header>
+                {{/if}}
+            </div>
+        </section>
+    </div>
+
+    <div class="l-section">
+        <section class="l-wrapper">
+			<div class="l-content">
+                {{#if recurringPayment.active}}
+
+                   <header>
+                        {{#if donations}}
+                            {{#if moreThanOneDonation }}
+                                <h3>{% trans "You just supported these projects" %}</h3>
+                            {{ else }}
+                                <h3>{% trans "You just supported this project" %}</h3>
+                            {{/if}}
+                        {{ else }}
+                            <h3>{% trans "You just supported the top three projects." %}</h3>
+                        {{/if}}
+                   </header>
+
+                    <ul class="project-list">
+                        {{#each donation in donations }}
+                            {{partial "thanksDonation"}}
+                        {{/each}}
+
+
+                        {% comment %}
+                        {{ else }}
+                            {{#each projectPreview in topThreeProjects }}
+                                <li>
+                                    {{ projectPreview.title }}
+                                </li>
+                            {{/each}}
+                        {% endcomment %}
+                    </ul>
+                {{/if}}
+            </div>
+
+            <sidebar class="l-sidebar">
+
+            	<h3>{% trans "Your monthly donation is set" %}</h3>
+				{{#if donations.length }}
+                	<p>{% trans "Your monthly donation will be deducted from your account at the beginning of each month." %}</p>
+                {{/if}}
+				<p>{% trans "Monthly donation total:" %} <strong>&euro; {{ recurringPayment.amount }},-</strong></p>
+
+            	{% comment %}
+            	{{#if controllers.currentUser.isAuthenticated }}
+                    <h3>{% trans "Personalise profile" %}</h3>
+            		<p>{% blocktrans %}
+					Following projects are now even easier and you'll have your own personalised page!
+					{% endblocktrans %}</p>
+                    {{#linkTo 'userProfile' class="profile-link" }}
+                        {% trans "Complete your profile" %} &#8250;
+                    {{/linkTo }}
+                {{else}}
+                    <h3>{% trans "Become a member" %}</h3>
+                	<p>{% blocktrans %}
+					Following projects are now even easier and you'll have your own personalised page!
+					{% endblocktrans %}</p>
+                    {{#linkTo 'signup' class="profile-link" }}
+                        {% blocktrans %}Become 1%Club member{% endblocktrans %} &#8250;
+                    {{/linkTo }}
+                {{/if}}
+
+                {{#linkTo 'userProfile' class="profile-link" }}
+                        {% trans "Complete your profile" %} &#8250;
+                    {{/linkTo }}
+                {% endcomment %}
+
+            </sidebar>
+        </section>
+    </div>
+{% endtplhandlebars %}

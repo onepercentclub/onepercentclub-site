@@ -1,0 +1,25 @@
+{% load i18n bb_ember static %}
+
+{% tplhandlebars "ticker" %}
+    <ul class="donation-projects" >
+        {{#each donation in controller}}
+            <li class="donation-project">
+                <img {{bindAttr src="donation.project.image" alt="project.title"}} class="project-image" />
+                <img {{bindAttr src="donation.user.avatar" alt="project.title"}} class="member-image"  />
+                <a {{action 'playSound'}}>
+                    <strong class="amount">&euro;{{ donation.amount }}</strong>
+                </a>
+                <h2>
+                    {{#if donation.user.full_name}}
+                        {{ donation.user.full_name }}<br />
+                    {{else}}
+                        ???<br/>
+                    {{/if}}
+                    <span class="date">{{ localize donation.created  formatting="X" }}</span><br/>
+                    <span class="project-title">{{ donation.project.title }}</span>
+                </h2>
+
+            </li>
+        {{/each}}
+    </ul>
+{% endtplhandlebars %}
