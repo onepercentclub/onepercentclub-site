@@ -18,6 +18,7 @@ if [ $2 ]; then
     SETTINGS="--settings=$2"
 fi
 
+ROOT="$PWD"
 APPS_ROOT="$PWD/apps"
 BB_ROOT="$PWD/env/src/bluebottle/bluebottle"
 
@@ -41,6 +42,8 @@ case "$1" in
             if [ ! -d "locale" ]; then
                 mkdir "locale"
             fi
+            # Remove the old translations
+            rm locale/en/LC_MESSAGES/django.po
             $MANAGE_PY makemessages -l $SOURCE_LANGUAGE $INCLUDES --no-wrap -e hbs,html,txt $SETTINGS
 
 
@@ -51,6 +54,8 @@ case "$1" in
             if [ ! -d "locale" ]; then
                 mkdir "locale"
             fi
+            # Remove the old translations
+            rm locale/en/LC_MESSAGES/django.po
             $MANAGE_PY makemessages -l $SOURCE_LANGUAGE $INCLUDES --no-wrap -e hbs,html,txt $SETTINGS
 
 
@@ -60,6 +65,8 @@ case "$1" in
             if [ ! -d "locale" ]; then
                 mkdir "locale"
             fi
+            # Remove the old translations
+            rm locale/en/LC_MESSAGES/django.po
             $MANAGE_PY makemessages -l $SOURCE_LANGUAGE --no-wrap -e hbs,html,txt $SETTINGS
 
 
@@ -70,6 +77,8 @@ case "$1" in
             if [ ! -d "locale" ]; then
                 mkdir "locale"
             fi
+            # Remove the old translations
+            rm locale/en/LC_MESSAGES/django.po
             $MANAGE_PY makemessages -l $SOURCE_LANGUAGE $INCLUDES --no-wrap -e hbs,html,txt $SETTINGS
 
 
@@ -80,26 +89,34 @@ case "$1" in
             if [ ! -d "locale" ]; then
                 mkdir "locale"
             fi
+            # Remove the old translations
+            rm locale/en/LC_MESSAGES/django.po
             $MANAGE_PY makemessages -l $SOURCE_LANGUAGE $INCLUDES --no-wrap -e hbs,html,txt $SETTINGS
 
 
             echo "Generating PO-files for wallposts, pages, news and homepage"
             cd "$APPS_ROOT/homepage"
-            INCLUDES="--include=$APPS_ROOT/core/ --include=$BB_ROOT/wallposts --include=$BB_ROOT/pages --include=$BB_ROOT/quotes --include=$BB_ROOT/slides --include=$BB_ROOT/contact --include=$BB_ROOT/news --include=$BB_ROOT/utils"
+            INCLUDES=" --include=$ROOT/templates --include=$APPS_ROOT/core/ --include=$BB_ROOT/wallposts --include=$BB_ROOT/pages --include=$BB_ROOT/quotes --include=$BB_ROOT/slides --include=$BB_ROOT/contact --include=$BB_ROOT/news --include=$BB_ROOT/utils"
             # Make the locale dir if it's not there.
             if [ ! -d "locale" ]; then
                 mkdir "locale"
             fi
+            # Remove the old translations
+            rm locale/en/LC_MESSAGES/django.po
             $MANAGE_PY makemessages -l $SOURCE_LANGUAGE $INCLUDES --no-wrap -e hbs,html,txt $SETTINGS
 
 
             echo "Generating PO-files for donations and payments"
             cd "$APPS_ROOT/donations"
+            # Remove the old translations
+            rm locale/en/LC_MESSAGES/django.po
             INCLUDES="--include=$APPS_ROOT/fund --include=$APPS_ROOT/payouts --include=$APPS_ROOT/cowry --include=$APPS_ROOT/cowry_docdata --include=$APPS_ROOT/cowry_docdata_legacy"
             # Make the locale dir if it's not there.
             if [ ! -d "locale" ]; then
                 mkdir "locale"
             fi
+            # Remove the old translations
+            rm locale/en/LC_MESSAGES/django.po
             $MANAGE_PY makemessages -l $SOURCE_LANGUAGE $INCLUDES --no-wrap -e hbs,html,txt $SETTINGS
 
 
@@ -110,6 +127,8 @@ case "$1" in
             if [ ! -d "locale" ]; then
                 mkdir "locale"
             fi
+            # Remove the old translations
+            rm locale/en/djangojs.po
             $MAKEJSMESSAGES
 
             ;;

@@ -3,19 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Translators:
-# Translators:
-# Translators:
-# Translators:
-# Translators:
+# Liane <liane@onepercentclub.com>, 2014
 # Malou <malou@onepercentclub.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-21 12:07+0200\n"
-"PO-Revision-Date: 2014-05-21 10:09+0000\n"
-"Last-Translator: aethemba <aksel@onepercentclub.com>\n"
+"POT-Creation-Date: 2014-05-21 16:36+0200\n"
+"PO-Revision-Date: 2014-05-21 14:38+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,7 +25,8 @@ msgid "1%%Club is the do-good crowdfunding platform"
 msgstr ""
 
 #: templates/homepage/banner.hbs:14
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/page.hbs.py:20
+#: /home/gannetson/Projects/onepercentclub-site/templates/bluebottle/footer.hbs.py:30
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/page.hbs.py:20
 #, python-format
 msgid "About 1%%Club"
 msgstr "About 1%%Club"
@@ -156,7 +153,7 @@ msgstr ""
 
 #: templates/homepage/home_project_list.hbs:46
 #: templates/homepage/project.hbs:47
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/project_snippet.html.py:41
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/project_snippet.html.py:41
 msgid "raised"
 msgstr "raised"
 
@@ -164,31 +161,31 @@ msgstr "raised"
 msgid "Go to campaign"
 msgstr ""
 
-#: templates/homepage/impact.hbs:12
+#: templates/homepage/impact.hbs:10
 msgid "people"
 msgstr ""
 
-#: templates/homepage/impact.hbs:13
+#: templates/homepage/impact.hbs:11
 msgid "crowdfunded"
 msgstr ""
 
-#: templates/homepage/impact.hbs:14
+#: templates/homepage/impact.hbs:12
 msgid "to realize"
 msgstr ""
 
-#: templates/homepage/impact.hbs:14
+#: templates/homepage/impact.hbs:12
 msgid "campaigns"
 msgstr ""
 
-#: templates/homepage/impact.hbs:15
+#: templates/homepage/impact.hbs:13
 msgid "in"
 msgstr ""
 
-#: templates/homepage/impact.hbs:15
+#: templates/homepage/impact.hbs:13
 msgid "countries"
 msgstr ""
 
-#: templates/homepage/impact.hbs:18
+#: templates/homepage/impact.hbs:17
 msgid "Join us do good"
 msgstr ""
 
@@ -232,6 +229,7 @@ msgid ""
 msgstr ""
 
 #: templates/homepage/main.hbs:64
+#: /home/gannetson/Projects/onepercentclub-site/templates/bluebottle/footer.hbs.py:15
 msgid "Start a campaign"
 msgstr ""
 
@@ -245,17 +243,17 @@ msgid ""
 msgstr "Support it with your time, knowledge or money and read updates."
 
 #: templates/homepage/project.hbs:38
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/project_snippet.html.py:32
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/project_snippet.html.py:32
 msgid "days to go"
 msgstr "days to go"
 
 #: templates/homepage/project.hbs:45
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/project_snippet.html.py:39
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/project_snippet.html.py:39
 msgid "of"
 msgstr "of"
 
 #: templates/homepage/project.hbs:54
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/project_snippet.html.py:48
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/project_snippet.html.py:48
 msgid "Support"
 msgstr "Support"
 
@@ -273,130 +271,323 @@ msgstr ""
 
 #: templates/homepage/quotes.hbs:30
 msgid "Een actiegerichte manier van denken die uitstekend past in deze tijd."
-msgstr ""
+msgstr "''1%Club is an action-oriented way of thinking that perfectly fits in this time.''"
 
 #: templates/homepage/quotes.hbs:31
 msgid "Mark Rutte, Minister-president"
+msgstr "Mark Rutte, Prime Minister of the Netherlands"
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/404.html.py:5
+#: /home/gannetson/Projects/onepercentclub-site/templates/404.html.py:8
+msgid "Page not found"
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/admin.py:133
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/models.py:38
+#: /home/gannetson/Projects/onepercentclub-site/templates/404.html.py:9
+msgid "The requested page could not be found on this website."
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/404.html.py:12
+#, python-format
+msgid "Click <a href=\"%(home_url)s\">here</a> to return to the homepage."
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/500.html.py:5
+#: /home/gannetson/Projects/onepercentclub-site/templates/500.html.py:8
+msgid "Internal server error"
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/500.html.py:9
+msgid ""
+"There was an error while trying to serve the requested page. Please try "
+"again. If the error persists, please contact the webmaster about it. In any "
+"case, we have been notified of this error."
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/500.html.py:12
+#, python-format
+msgid ""
+"If you need assistance, you may reference this error as "
+"<strong>%(error_id)s</strong>."
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/base.html.py:51
+msgid "Search campaigns"
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/base.html.py:52
+msgid "Start campaign"
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/base.html.py:53
+#: /home/gannetson/Projects/onepercentclub-site/templates/bluebottle/footer.hbs.py:32
+msgid "About"
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/bluebottle/footer.hbs.py:11
+msgid "Do good"
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/bluebottle/footer.hbs.py:13
+msgid "Browse campaigns"
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/bluebottle/footer.hbs.py:14
+msgid "Browse tasks"
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/bluebottle/footer.hbs.py:16
+msgid "Let's do Business"
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/bluebottle/footer.hbs.py:20
+msgid "Need help?"
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/bluebottle/footer.hbs.py:22
+msgid "FAQ"
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/bluebottle/footer.hbs.py:23
+msgid "Terms of service"
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/bluebottle/footer.hbs.py:24
+msgid "ANBI"
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/bluebottle/footer.hbs.py:25
+msgid "Privacy policy"
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/bluebottle/footer.hbs.py:26
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/page.hbs.py:28
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/contact/templates/contact/base.hbs.py:11
+msgid "Contact"
+msgstr "Contact"
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/bluebottle/footer.hbs.py:33
+msgid "Our story"
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/bluebottle/footer.hbs.py:34
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/page.hbs.py:24
+msgid "Meet the team"
+msgstr "Meet the team"
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/bluebottle/footer.hbs.py:35
+msgid "Meet our partners"
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/bluebottle/footer.hbs.py:36
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/page.hbs.py:26
+msgid "Press"
+msgstr "Press"
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/bluebottle/footer.hbs.py:37
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/page.hbs.py:27
+#, python-format
+msgid "Work at 1%%Club"
+msgstr "Work at 1%%Club"
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/bluebottle/footer.hbs.py:38
+msgid "News"
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/bluebottle/footer.hbs.py:42
+msgid "Let's connect"
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/bluebottle/footer.hbs.py:44
+msgid "Facebook"
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/bluebottle/footer.hbs.py:45
+msgid "Twitter"
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/bluebottle/footer.hbs.py:46
+msgid "LinkedIn"
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/bluebottle/footer.hbs.py:47
+msgid "Youtube"
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/bluebottle/footer.hbs.py:57
+msgid "You can always contact us for questions via"
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/registration/activation_email.html.py:20
+msgid "Confirm your registration"
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/registration/activation_email.html.py:28
+#, python-format
+msgid "Great! We can almost welcome you at 1%%Club!"
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/registration/activation_email.html.py:36
+msgid "Click the link below to confirm your registration"
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/registration/activation_email.html.py:46
+msgid "activate profile"
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/registration/activation_email.html.py:56
+#, python-format
+msgid "Your activation code will expire in %(expiration_days)s days."
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/registration/activation_email.html.py:57
+msgid ""
+"If the link isn't working for you please copy and paste this url into your "
+"browser: "
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/registration/logged_out.html.py:9
+msgid "Logged out."
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/registration/password_reset_email.html.py:21
+msgid "Click on this link to reset your password."
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/registration/password_reset_email.html.py:31
+msgid "Reset"
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/registration/password_reset_email.html.py:41
+msgid "See you at"
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/registration/password_reset_email.html.py:41
+msgid "in a minute!"
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/templates/registration/password_reset_subject.txt.py:2
+#, python-format
+msgid "Password reset on %(site_name)s"
+msgstr ""
+
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/admin.py:133
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/models.py:38
 msgid "Author"
 msgstr "Author"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/admin.py:143
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/admin.py:143
 msgid "project link"
 msgstr "campaign link"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/mails.py:67
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/mails.py:67
 #, python-format
 msgid "%(author)s has left a message on your project page."
 msgstr "%(author)s has left a message on your campaign page."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/mails.py:85
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/mails.py:85
 #, python-format
 msgid "%(author)s has left a message on your task page."
 msgstr "%(author)s has left a message on your task page."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/mails.py:118
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/mails.py:118
 #, python-format
 msgid "%(author)s commented on a post you reacted on."
 msgstr "%(author)s commented on a post you reacted on."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/mails.py:132
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/mails.py:132
 #, python-format
 msgid "%(author)s commented on your post."
 msgstr "%(author)s commented on your post."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/mails.py:146
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/mails.py:146
 #, python-format
 msgid "%(author)s commented on your project page."
 msgstr "%(author)s commented on your campaign page."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:29
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:79
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:110
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/models.py:45
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:52
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/contact/models.py:24
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/news/models.py:39
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:29
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:79
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:110
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/models.py:45
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:52
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/contact/models.py:24
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/news/models.py:39
 msgid "author"
 msgstr "author"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:30
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:80
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:111
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:30
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:80
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:111
 msgid "editor"
 msgstr "editor"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:30
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:30
 msgid "The last user to edit this wallpost."
 msgstr "The last user to edit this wallpost."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:33
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:118
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:33
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:118
 msgid "created"
 msgstr "created"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:34
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:119
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:34
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:119
 msgid "updated"
 msgstr "updated"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:35
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:77
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:120
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:35
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:77
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:120
 msgid "deleted"
 msgstr "deleted"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:36
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:78
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:121
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:36
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:78
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:121
 msgid "IP address"
 msgstr "IP address"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:39
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:39
 msgid "content type"
 msgstr "content type"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:40
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:40
 msgid "object ID"
 msgstr "object ID"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:80
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:80
 msgid "The last user to edit this wallpost photo."
 msgstr "The last user to edit this wallpost photo."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:96
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:96
 msgid "related type"
 msgstr "related type"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:97
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:97
 msgid "related ID"
 msgstr "related ID"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:111
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:111
 msgid "The last user to edit this reaction."
 msgstr "The last user to edit this reaction."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:114
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:114
 msgid "reaction text"
 msgstr "reaction text"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:129
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:129
 msgid "Reaction"
 msgstr "Reaction"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:130
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:130
 msgid "Reactions"
 msgstr "Reactions"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/tests.py:263
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/tests.py:279
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/tests.py:263
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/tests.py:279
 msgid "Username"
 msgstr "Username"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/project_wallpost_new.mail.html.py:5
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/project_wallpost_new.mail.html.py:5
 #, python-format
 msgid ""
 "\n"
@@ -411,7 +602,7 @@ msgid ""
 "Liane | 1%%Club\n"
 msgstr "\nHello %(receiver_name)s,<br/>\n<br/>\n%(author_name)s has left a message on your campaign page.<br/>\n<br/>\nYou must be curious what! Don't wait any longer and check it out <a href=\"%(site)s%(link)s\">here on our website</a>.\n<br/>\nSee you in a bit!<br/>\n<br/>\n1%%Club\n"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/project_wallpost_new.mail.txt.py:5
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/project_wallpost_new.mail.txt.py:5
 #, python-format
 msgid ""
 "\n"
@@ -428,7 +619,7 @@ msgid ""
 "Liane | 1%%Club\n"
 msgstr "\nHello %(receiver_name)s,\n<br/>\n%(author_name)s has left a message on your campaign page.\n<br/>\nYou must be curious what! Don't wait any longer and check it out here:\n<br/>\n%(site)s%(link)s\n<br/>\nSee you in a bit!\n<br/>\n1%%Club\n"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/project_wallpost_reaction_new.mail.html.py:5
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/project_wallpost_reaction_new.mail.html.py:5
 #, python-format
 msgid ""
 "\n"
@@ -443,7 +634,7 @@ msgid ""
 "Liane | 1%%Club\n"
 msgstr "\nHello %(receiver_name)s,<br/>\n<br/>\nYes! <b>%(author_name)s</b> commented on your wallpost.<br/>\n<br/>\n<a href=\"%(site)s%(link)s\">Go to our website</a> and read the reaction.<br/>\n<br/>\nSee you in a bit!<br/>\n<br/>\n1%%Club\n"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/project_wallpost_reaction_new.mail.txt.py:5
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/project_wallpost_reaction_new.mail.txt.py:5
 #, python-format
 msgid ""
 "\n"
@@ -461,7 +652,7 @@ msgid ""
 "\n"
 msgstr "\nHello %(receiver_name)s,\n<br/>\nYes! %(author_name)s commented on your wallpost.\n<br/>\nClick the link below to go to our website:\n<br/>\n%(site)s%(link)s\n<br/>\nSee you in a bit!\n<br/>\n1%%Club\n"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/project_wallpost_reaction_project.mail.html.py:5
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/project_wallpost_reaction_project.mail.html.py:5
 #, python-format
 msgid ""
 "\n"
@@ -474,7 +665,7 @@ msgid ""
 "Liane | 1%%Club\n"
 msgstr "\nHi %(receiver_name)s,<br/>\n<br/>\n<strong>%(author_name)s</strong> left a comment on your campaign page.<br/>\n<br/>\n<a href=\"%(site)s%(link)s\">Read the comment here</a> and continue the conversation!<br/>\n<br/>\n1%%Club\n"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/project_wallpost_reaction_project.mail.txt.py:5
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/project_wallpost_reaction_project.mail.txt.py:5
 #, python-format
 msgid ""
 "\n"
@@ -488,7 +679,7 @@ msgid ""
 "Liane | 1%%Club\n"
 msgstr "\nHi %(receiver_name)s,\n<br/>\n%(author_name)s left a comment on your campaign page.\n<br/>\nRead the comment on our website and continue the conversation:\n%(site)s%(link)s\n<br/>\n1%%Club\n"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/project_wallpost_reaction_same_wallpost.mail.html.py:5
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/project_wallpost_reaction_same_wallpost.mail.html.py:5
 #, python-format
 msgid ""
 "\n"
@@ -499,7 +690,7 @@ msgid ""
 "Liane | 1%%Club\n"
 msgstr "\nHi %(receiver_name)s,<br/>\n<br/>\n<strong>%(author_name)s</strong> left a comment on your message! <a href=\"%(site)s%(link)s\">Read the comment here.</a><br/>\n<br/>\n1%%Club\n"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/project_wallpost_reaction_same_wallpost.mail.txt.py:5
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/project_wallpost_reaction_same_wallpost.mail.txt.py:5
 #, python-format
 msgid ""
 "\n"
@@ -513,7 +704,7 @@ msgid ""
 "Liane | 1%%Club\n"
 msgstr "\nHi %(receiver_name)s,\n<br/>\n%(author_name)s left a comment on your message!\n<br/>\nRead the comment here:\n%(site)s%(link)s\n<br/>\n1%%Club\n"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/task_wallpost_new.mail.html.py:5
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/task_wallpost_new.mail.html.py:5
 #, python-format
 msgid ""
 "\n"
@@ -528,7 +719,7 @@ msgid ""
 "Liane | 1%%Club\n"
 msgstr "\nHello %(receiver_name)s,<br/>\n<br/>\n%(author_name)s has left a message on your task page.<br/>\n<br/>\nYou must be curious what! Don't wait any longer and check it <a href=\"%(site)s%(link)s\">here on our website</a>.<br/>\n<br/>\nSee you in a bit!<br/>\n<br/>\n1%%Club\n"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/task_wallpost_new.mail.txt.py:5
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/task_wallpost_new.mail.txt.py:5
 #, python-format
 msgid ""
 "\n"
@@ -545,390 +736,372 @@ msgid ""
 "Liane | 1%%Club\n"
 msgstr "\nHello %(receiver_name)s,\n<br/>\n%(author_name)s has left a message on your task page.\n<br/>\nYou must be curious what! Don't wait any longer and check it out here:\n<br/>\n%(site)s%(link)s\n<br/>\nSee you in a bit!\n<br/>\n1%%Club\n"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/media_wallpost_new.hbs.py:10
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/media_wallpost_new.hbs.py:10
 msgid "Post a new update on wall"
 msgstr "Post a new update"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/media_wallpost_new.hbs.py:56
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/media_wallpost_new.hbs.py:56
 msgid "Error"
 msgstr "Error"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/media_wallpost_new.hbs.py:63
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/media_wallpost_new.hbs.py:63
 msgid "Loading photos&#8230;"
 msgstr "Loading photos&#8230;"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/media_wallpost_new.hbs.py:74
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/media_wallpost_new.hbs.py:74
 msgid "Add file"
 msgstr "Add file"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/media_wallpost_new.hbs.py:80
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/text_wallpost_new.hbs.py:27
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/media_wallpost_new.hbs.py:80
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/text_wallpost_new.hbs.py:27
 msgid "Post"
 msgstr "Post"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/media_wallpost_new.hbs.py:82
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/text_wallpost_new.hbs.py:29
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/media_wallpost_new.hbs.py:82
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/text_wallpost_new.hbs.py:29
 msgid "Cancel"
 msgstr "Cancel"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/reactions.hbs.py:66
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/reactions.hbs.py:66
 msgid "Login"
 msgstr "Login"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/reactions.hbs.py:66
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/reactions.hbs.py:66
 msgid "member"
 msgstr "campaigner"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/reactions.hbs.py:66
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/reactions.hbs.py:66
 msgid "to leave a reaction"
 msgstr "to leave a reaction"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/system_wallpost.hbs.py:32
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/system_wallpost_voucher.hbs.py:23
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/system_wallpost.hbs.py:32
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/system_wallpost_voucher.hbs.py:23
 msgid "Someone"
 msgstr "Someone"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/system_wallpost.hbs.py:40
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/system_wallpost.hbs.py:40
 msgid "made a donation"
 msgstr "made a donation"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/system_wallpost_voucher.hbs.py:13
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/system_wallpost_voucher.hbs.py:13
 msgid "Voucher"
 msgstr "Gift card"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/system_wallpost_voucher.hbs.py:27
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/system_wallpost_voucher.hbs.py:27
 msgid "used a gift card"
 msgstr "used a gift card"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/system_wallpost_voucher.hbs.py:41
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/system_wallpost_voucher.hbs.py:41
 msgid "Delete"
 msgstr "Delete"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/text_wallpost_new.hbs.py:10
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/text_wallpost_new.hbs.py:10
 msgid "Post a new comment on wall"
 msgstr "Post a new comment"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/wall.hbs.py:30
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/wall.hbs.py:30
 msgid "Show more"
 msgstr "Show more"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/wall.hbs.py:30
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/wall.hbs.py:30
 msgid "more"
 msgstr "more"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/admin.py:36
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/admin.py:21
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/admin.py:33
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/news/admin.py:29
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/admin.py:36
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/admin.py:21
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/admin.py:33
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/news/admin.py:29
 msgid "Publication settings"
 msgstr "Publication settings"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/admin.py:126
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/admin.py:55
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/admin.py:187
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/news/admin.py:181
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/admin.py:126
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/admin.py:55
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/admin.py:187
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/news/admin.py:181
 msgid "Status"
 msgstr "Status"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/admin.py:137
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/admin.py:200
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/news/admin.py:192
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/admin.py:137
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/admin.py:200
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/news/admin.py:192
 msgid "Mark selected entries as published"
 msgstr "Mark selected entries as published"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/models.py:21
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/models.py:25
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:27
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/news/models.py:21
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/models.py:21
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/models.py:25
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:27
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/news/models.py:21
 msgid "Published"
 msgstr "Published"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/models.py:22
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/models.py:26
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:28
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/news/models.py:22
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/models.py:22
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/models.py:26
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:28
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/news/models.py:22
 msgid "Draft"
 msgstr "Draft"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/models.py:24
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:35
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/news/models.py:24
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/models.py:24
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:35
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/news/models.py:24
 msgid "Title"
 msgstr "Title"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/models.py:25
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:30
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/news/models.py:25
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/models.py:25
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:30
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/news/models.py:25
 msgid "Slug"
 msgstr "Slug"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/models.py:26
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/models.py:26
 msgid "Show this page in full page width."
 msgstr "Show this page in full page width."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/models.py:30
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/models.py:29
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:31
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/news/models.py:29
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/models.py:30
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/models.py:29
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:31
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/news/models.py:29
 msgid "language"
 msgstr "language"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/models.py:35
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/models.py:33
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:46
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/contact/models.py:22
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/news/models.py:33
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/models.py:35
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/models.py:33
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:46
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/contact/models.py:22
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/news/models.py:33
 msgid "status"
 msgstr "status"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/models.py:38
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/models.py:34
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:47
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/news/models.py:34
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/models.py:38
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/models.py:34
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:47
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/news/models.py:34
 msgid "publication date"
 msgstr "publication date"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/models.py:39
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/models.py:39
 msgid "When the entry goes live, status must be 'Published'"
 msgstr "When the entry goes live, status must be 'Published'"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/models.py:41
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/models.py:35
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:48
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/news/models.py:35
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/models.py:41
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/models.py:35
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:48
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/news/models.py:35
 msgid "publication end date"
 msgstr "publication end date"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/models.py:46
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/models.py:41
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:53
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/contact/models.py:29
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/news/models.py:40
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/models.py:46
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/models.py:41
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:53
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/contact/models.py:29
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/news/models.py:40
 msgid "creation date"
 msgstr "creation date"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/models.py:47
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/models.py:42
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:54
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/contact/models.py:30
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/news/models.py:41
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/models.py:47
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/models.py:42
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:54
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/contact/models.py:30
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/news/models.py:41
 msgid "last modification"
 msgstr "last modification"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/admin/pages/change_form.html.py:7
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/admin/pages/change_form.html.py:70
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/templates/admin/banners/change_form.html.py:7
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/templates/admin/banners/change_form.html.py:70
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/news/templates/admin/blogs/change_form.html.py:7
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/news/templates/admin/blogs/change_form.html.py:47
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/admin/pages/change_form.html.py:7
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/admin/pages/change_form.html.py:70
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/templates/admin/banners/change_form.html.py:7
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/templates/admin/banners/change_form.html.py:70
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/news/templates/admin/blogs/change_form.html.py:7
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/news/templates/admin/blogs/change_form.html.py:47
 msgid "Preview"
 msgstr "Preview"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/admin/pages/change_form.html.py:127
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/templates/admin/banners/change_form.html.py:127
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/news/templates/admin/blogs/change_form.html.py:119
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/admin/pages/change_form.html.py:127
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/templates/admin/banners/change_form.html.py:127
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/news/templates/admin/blogs/change_form.html.py:119
 msgid "Publish"
 msgstr "Publish"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/admin/pages/change_form.html.py:128
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/templates/admin/banners/change_form.html.py:128
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/news/templates/admin/blogs/change_form.html.py:120
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/admin/pages/change_form.html.py:128
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/templates/admin/banners/change_form.html.py:128
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/news/templates/admin/blogs/change_form.html.py:120
 msgid "Publish and add another"
 msgstr "Publish and add another"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/admin/pages/change_form.html.py:129
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/templates/admin/banners/change_form.html.py:129
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/news/templates/admin/blogs/change_form.html.py:121
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/admin/pages/change_form.html.py:129
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/templates/admin/banners/change_form.html.py:129
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/news/templates/admin/blogs/change_form.html.py:121
 msgid "Publish and continue editing"
 msgstr "Publish and continue editing"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/not_found.hbs.py:10
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/not_found.hbs.py:10
 msgid "Something went wrong"
 msgstr "Something went wrong"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/not_found.hbs.py:12
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/not_found.hbs.py:12
 msgid "The page you are looking for couldn't be found."
 msgstr "The page you are looking for couldn't be found."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/page.hbs.py:22
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/page.hbs.py:22
 msgid "Our Story"
 msgstr "Our Story"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/page.hbs.py:23
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/page.hbs.py:23
 msgid "Frequently Asked Questions"
 msgstr "Frequently Asked Questions"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/page.hbs.py:24
-msgid "Meet the team"
-msgstr "Meet the team"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/page.hbs.py:25
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/page.hbs.py:25
 msgid "Partners"
 msgstr "Partners"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/page.hbs.py:26
-msgid "Press"
-msgstr "Press"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/page.hbs.py:27
-#, python-format
-msgid "Work at 1%%Club"
-msgstr "Work at 1%%Club"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/page.hbs.py:28
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/contact/templates/contact/base.hbs.py:11
-msgid "Contact"
-msgstr "Contact"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/partner.hbs.py:25
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/partner.hbs.py:25
 msgid "No projects found."
 msgstr "No campaigns found."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/models.py:34
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/models.py:34
 msgid "When the entry should go live, status must be 'Published'."
 msgstr "When the entry should go live, status must be 'Published'."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/models.py:39
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/models.py:39
 msgid "Quoted member"
 msgstr "Quoted member"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/templates/quotes/base.hbs.py:12
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/templates/quotes/base.hbs.py:12
 msgid "Share your time."
 msgstr "Share your time."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/templates/quotes/base.hbs.py:12
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/templates/quotes/base.hbs.py:12
 msgid "Improve your destination."
 msgstr "Improve your world."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/templates/quotes/base.hbs.py:28
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/templates/quotes/base.hbs.py:28
 msgid "Find projects"
 msgstr "Find campaigns"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/templates/quotes/base.hbs.py:32
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/templates/quotes/base.hbs.py:32
 msgid "Find tasks"
 msgstr "Find tasks"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/templates/quotes/base.hbs.py:38
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/templates/quotes/base.hbs.py:38
 msgid "Pitch a new smart idea"
 msgstr "Pitch your great idea"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/admin.py:30
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/admin.py:30
 msgid "Contents"
 msgstr "Contents"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:32
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:32
 msgid "Tab text"
 msgstr "Tab text"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:32
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:32
 msgid "This is shown on tabs beneath the banner."
 msgstr "This is shown on tabs beneath the banner."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:36
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:36
 msgid "Body text"
 msgstr "Body text"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:37
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:37
 msgid "Image"
 msgstr "Image"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:38
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:38
 msgid "Background image"
 msgstr "Background image"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:39
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:39
 msgid "Video url"
 msgstr "Video url"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:41
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:41
 msgid "Link text"
 msgstr "Link text"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:41
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:41
 msgid "This is the text on the button inside the banner."
 msgstr "This is the text on the button inside the banner."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:42
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:42
 msgid "Link url"
 msgstr "Link url"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:42
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:42
 msgid "This is the link for the button inside the banner."
 msgstr "This is the link for the button inside the banner."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:43
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:43
 msgid "Style"
 msgstr "Style"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:43
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:43
 msgid "Styling class name"
 msgstr "Styling class name"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:47
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/news/models.py:34
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:47
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/news/models.py:34
 msgid "When the entry should go live, status must be \"Published\"."
 msgstr "When the entry should go live, status must be \"Published\"."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/contact/mails.py:11
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/contact/mails.py:11
 #, python-format
 msgid "Contact message from %(sender)s"
 msgstr "Contact message from %(sender)s"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/contact/models.py:18
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/contact/models.py:18
 msgid "New"
 msgstr "New"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/contact/models.py:19
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/contact/models.py:19
 msgid "In progress"
 msgstr "In progress"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/contact/models.py:20
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/contact/models.py:20
 msgid "Closed"
 msgstr "Closed"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/contact/models.py:25
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/contact/templates/contact/base.hbs.py:27
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/contact/models.py:25
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/contact/templates/contact/base.hbs.py:27
 msgid "Name"
 msgstr "Name"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/contact/models.py:26
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/contact/templates/contact/base.hbs.py:29
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/contact/models.py:26
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/contact/templates/contact/base.hbs.py:29
 msgid "Email"
 msgstr "Email"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/contact/models.py:27
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/contact/templates/contact/base.hbs.py:31
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/contact/models.py:27
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/contact/templates/contact/base.hbs.py:31
 msgid "Message"
 msgstr "Message"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/contact/templates/contact/base.hbs.py:13
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/contact/templates/contact/base.hbs.py:13
 msgid ""
 "\n"
 "                            Send us a message or get in touch using the details below. Talk to you soon!\n"
 "                            "
 msgstr "\nSend us a message or get in touch using the details below. Talk to you soon!\n                            "
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/contact/templates/contact/base.hbs.py:22
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/contact/templates/contact/base.hbs.py:22
 msgid "Thanks for your message!. We'll get back to you soon"
 msgstr "Thanks for your message! We'll get back to you soon."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/contact/templates/contact/base.hbs.py:27
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/contact/templates/contact/base.hbs.py:27
 msgid "Enter your name"
 msgstr "Enter your name"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/contact/templates/contact/base.hbs.py:29
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/contact/templates/contact/base.hbs.py:29
 msgid "example@my-domain.com"
 msgstr "example@my-domain.com"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/contact/templates/contact/base.hbs.py:34
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/contact/templates/contact/base.hbs.py:34
 msgid "Send Message"
 msgstr "Send Message"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/contact/templates/contact/sidebar.hbs.py:4
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/contact/templates/contact/sidebar.hbs.py:4
 msgid "Other ways to contact"
 msgstr "Other ways to contact"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/contact/templates/contact/sidebar.hbs.py:5
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/contact/templates/contact/sidebar.hbs.py:5
 #, python-format
 msgid ""
 "\n"
@@ -953,383 +1126,65 @@ msgid ""
 "</p>\n"
 msgstr "\n<p>\n    Email:<a href=\"mailto:info@onepercentclub.com?subject=Contact\">info@onepercentclub.com</a><br />\n    Twitter:<a href=\"https://twitter.com/1percentclub\">@1percentclub</a><br />\n    Facebook: <a href=\"http://www.facebook.com/onepercentclub\">/onepercentclub</a>\n</p>\n<p>\n    1%%Club Foundation<br />\n    's Gravenhekje 1a<br />\n    1011 TG Amsterdam<br />\n    The Netherlands<br />\n</p>\n<p>\n    Bank: Rabobank (Haarlem)<br />\n    Account number: NL45 RABO 01322070 44(donations)<br />\n    BIC: RABONL2U<br />\n    <br />\n    Chamber of Commerce number 34.26.78.95<br />\n    Phone(+31) 20 715 8980<br />\n</p>\n"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/news/models.py:28
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/news/models.py:28
 msgid "Main photo"
 msgstr "Main photo"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/news/models.py:36
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/news/models.py:36
 msgid "Allow comments"
 msgstr "Allow comments"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/news/templates/admin/blogs/change_form.html.py:101
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/news/templates/admin/blogs/change_form.html.py:101
 msgid "Internal CMS error: failed to fetch preview data!"
 msgstr "Internal CMS error: failed to fetch preview data!"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/news/templates/admin/blogs/preview_canvas.html.py:22
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/news/templates/admin/blogs/preview_canvas.html.py:22
 msgid "Blog post preview"
 msgstr "Blog post preview"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/news/templates/admin/blogs/preview_canvas.html.py:23
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/news/templates/admin/blogs/preview_canvas.html.py:23
 msgid "now"
 msgstr "now"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/news/templates/news/news.hbs.py:16
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/news/templates/news/news.hbs.py:16
 msgid "More news"
 msgstr "More news"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/news/templates/news/news.hbs.py:31
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/news/templates/news/news.hbs.py:31
 msgid "previous 5"
 msgstr "previous 5"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/news/templates/news/news.hbs.py:36
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/news/templates/news/news.hbs.py:36
 msgid "next 5"
 msgstr "next 5"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/news/templates/news/news_index.hbs.py:6
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/news/templates/news/news_index.hbs.py:6
 msgid "Loading the latest news"
 msgstr "Loading the latest news"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/news/templates/news/news_preview_list.hbs.py:5
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/news/templates/news/news_preview_list.hbs.py:5
 #, python-format
 msgid "1%%News"
 msgstr "1%%News"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/utils/templates/utils/base.hbs.py:10
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/utils/templates/utils/base.hbs.py:10
 msgid "Choose max. 5 keywords"
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/utils/templates/utils/base.hbs.py:10
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/utils/templates/utils/base.hbs.py:10
 msgctxt "Add tag CC"
 msgid "Add"
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/utils/templates/utils/base.hbs.py:24
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/utils/templates/utils/base.hbs.py:24
 msgid "Share"
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/utils/templates/utils/base.hbs.py:25
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/utils/templates/utils/base.hbs.py:25
 msgid "Tweet"
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/utils/templates/utils/form-components.hbs.py:200
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/utils/templates/utils/form-components.hbs.py:200
 msgctxt "Goal page"
 msgid "Pick date"
 msgstr ""
-
-#~ msgid "Our impact"
-#~ msgstr "Our impact"
-
-#~ msgid ""
-#~ "We believe that if we all share a little, together we can change the world. "
-#~ "We got this far already."
-#~ msgstr "1%%Club is the do-good crowdfunding platform."
-
-#~ msgid "Lives changed"
-#~ msgstr "Lives changed"
-
-#~ msgid "Projects"
-#~ msgstr "Campaigns"
-
-#~ msgid "Hours spent"
-#~ msgstr "Hours spent"
-
-#~ msgid "Donated"
-#~ msgstr "Donated"
-
-#~ msgid "Join us. Sign up and share your 1%%"
-#~ msgstr "Join us. Sign up and share your 1%%"
-
-#~ msgid "Share a little."
-#~ msgstr "Supporters of good."
-
-#~ msgid "Befriend us"
-#~ msgstr "Befriend us"
-
-#~ msgid "Page not found"
-#~ msgstr "Page not found"
-
-#~ msgid "The requested page could not be found on this website."
-#~ msgstr "The requested page could not be found on this website."
-
-#~ msgid "Click <a href=\"%(home_url)s\">here</a> to return to the homepage."
-#~ msgstr "Click <a href=\"%(home_url)s\">here</a> to return to the homepage."
-
-#~ msgid "Internal server error"
-#~ msgstr "Internal server error"
-
-#~ msgid ""
-#~ "There was an error while trying to serve the requested page. Please try "
-#~ "again. If the error persists, please contact the webmaster about it. In any "
-#~ "case, we have been notified of this error."
-#~ msgstr ""
-#~ "There was an error while trying to serve the requested page. Please try "
-#~ "again. If the error persists, please contact the webmaster about it. In any "
-#~ "case, we have been notified of this error."
-
-#~ msgid ""
-#~ "If you need assistance, you may reference this error as "
-#~ "<strong>%(error_id)s</strong>."
-#~ msgstr ""
-#~ "If you need assistance, you may reference this error as "
-#~ "<strong>%(error_id)s</strong>."
-
-#~ msgid "What is 1%%"
-#~ msgstr "What is 1%%"
-
-#~ msgid "1%%Projects"
-#~ msgstr "1%%Projects"
-
-#~ msgid "1%%Skills"
-#~ msgstr "1%%Skills"
-
-#~ msgid "Get involved"
-#~ msgstr "Get involved"
-
-#~ msgid "It all starts with 1%%"
-#~ msgstr "It all starts with 1%%"
-
-#~ msgid "What is 1%%CLUB?"
-#~ msgstr "What is 1%%CLUB?"
-
-#~ msgid "Discover 1%%More"
-#~ msgstr "Discover 1%%More"
-
-#~ msgid "1%%Business"
-#~ msgstr "1%%Business"
-
-#~ msgid "1%%Blog"
-#~ msgstr "1%%Blog"
-
-#~ msgid "1%%Github"
-#~ msgstr "1%%Github"
-
-#~ msgid "1%%Social"
-#~ msgstr "1%%Social"
-
-#~ msgid "Join 1%%Club"
-#~ msgstr "Join 1%%Club"
-
-#~ msgid ""
-#~ "1%%Club is the global crowdfunding and crowdsourcing platform where you can "
-#~ "share a little and change the world, in your very own way. Pick any project "
-#~ "you like, support it with 1%% of your knowledge, money or time and follow "
-#~ "the progress online. "
-#~ msgstr ""
-#~ "1%%Club is the global crowdfunding and crowdsourcing platform where you can "
-#~ "share a little and change the world, in your very own way. Pick any project "
-#~ "you like, support it with 1%% of your knowledge, money or time and follow "
-#~ "the progress online. "
-
-#~ msgid "Select a project or task"
-#~ msgstr "Select a project or task"
-
-#~ msgid "See direct results"
-#~ msgstr "See direct results"
-
-#~ msgid "General Conditions"
-#~ msgstr "General Conditions"
-
-#~ msgid "Privacy Policy"
-#~ msgstr "Privacy Policy"
-
-#~ msgid "Give us feedback"
-#~ msgstr "Give us feedback"
-
-#~ msgid "Menu"
-#~ msgstr "Menu"
-
-#~ msgid "Home"
-#~ msgstr "Home"
-
-#~ msgid "Tasks"
-#~ msgstr "Tasks"
-
-#~ msgid "Organizations"
-#~ msgstr "Organizations"
-
-#~ msgid "Business"
-#~ msgstr "Business"
-
-#~ msgid "Learn more"
-#~ msgstr "Learn more"
-
-#~ msgid "In the media"
-#~ msgstr "In the media"
-
-#~ msgid "FAQ"
-#~ msgstr "FAQ"
-
-#~ msgid "Tell a friend"
-#~ msgstr "Tell a friend"
-
-#~ msgid "About"
-#~ msgstr "About"
-
-#~ msgid "We like you too"
-#~ msgstr "We like you too"
-
-#~ msgid "Log in to 1%% Club"
-#~ msgstr "Log in to 1%% Club"
-
-#~ msgid "You did it!"
-#~ msgstr "You did it!"
-
-#~ msgid "(Welcome back friend)"
-#~ msgstr "(Welcome back friend)"
-
-#~ msgid "Login here with your email address and password"
-#~ msgstr "Login here with your email address and password"
-
-#~ msgid "Forgot your password?"
-#~ msgstr "Forgot your password?"
-
-#~ msgid "My 1%%"
-#~ msgstr "My 1%%"
-
-#~ msgid "My profile & settings"
-#~ msgstr "My profile & settings"
-
-#~ msgid "My Donations"
-#~ msgstr "My Donations"
-
-#~ msgid "My Fundraisers"
-#~ msgstr "My Fundraisers"
-
-#~ msgid "Sign up"
-#~ msgstr "Sign up"
-
-#~ msgid "or"
-#~ msgstr "or"
-
-#~ msgid "Log in"
-#~ msgstr "Log in"
-
-#~ msgid "Edit your profile"
-#~ msgstr "Edit your profile"
-
-#~ msgid "Personalise your account so 1%%Members can get to know you."
-#~ msgstr "Personalise your account so 1%%Members can get to know you."
-
-#~ msgid "About yourself"
-#~ msgstr "About yourself"
-
-#~ msgid "Why did you join 1%%Club?"
-#~ msgstr "Why did you join 1%%Club?"
-
-#~ msgid "Your website"
-#~ msgstr "Your website"
-
-#~ msgid "Location"
-#~ msgstr "Location"
-
-#~ msgid ""
-#~ "How much time are you willing to spend your 1%%Skills?<br/>Let us know so we"
-#~ " can provide you with some matching tasks from our projects."
-#~ msgstr ""
-#~ "How much time are you willing to spend your 1%%Skills?<br/>Let us know so we"
-#~ " can provide you with some matching tasks from our projects."
-
-#~ msgid "Time available"
-#~ msgstr "Time available"
-
-#~ msgid "Profile"
-#~ msgstr "Profile"
-
-#~ msgid "Preview my profile"
-#~ msgstr "Preview my profile"
-
-#~ msgid "Joined 1%%Club because"
-#~ msgstr "Joined 1%%Club because"
-
-#~ msgid "Website"
-#~ msgstr "Website"
-
-#~ msgid ""
-#~ "1%%Club is the global platform where you can share a little and change the "
-#~ "world, in your vary own way. We ignite modern society to share 1%% and "
-#~ "support smart ideas from people in developing countries. We do this in a "
-#~ "new, open way, believing in the power of collaboration boosted by today's "
-#~ "technical possibilities. If we all share a little, we can change the world."
-#~ msgstr ""
-#~ "1%%Club is the global platform where you can share a little and change the "
-#~ "world, in your vary own way. We ignite modern society to share 1%% and "
-#~ "support smart ideas from people in developing countries. We do this in a "
-#~ "new, open way, believing in the power of collaboration boosted by today's "
-#~ "technical possibilities. If we all share a little, we can change the world."
-
-#~ msgid "Thanks for signing up!"
-#~ msgstr "Thanks for signing up!"
-
-#~ msgid ""
-#~ "\n"
-#~ "            We've sent you an email. In this mail you'll find a link to confirm your registration. <br />\n"
-#~ "            So what are you waiting for? You’re just one click away from being the newest member of 1%%Club!<br /><br />\n"
-#~ "            (Nothing in your inbox? Check your Spam folder or Junk E-mail)\n"
-#~ "        "
-#~ msgstr ""
-#~ "\n"
-#~ "            We've sent you an email. In this mail you'll find a link to confirm your registration. <br />\n"
-#~ "            So what are you waiting for? You’re just one click away from being the newest member of 1%%Club!<br /><br />\n"
-#~ "            (Nothing in your inbox? Check your Spam folder or Junk E-mail)\n"
-#~ "        "
-
-#~ msgid ""
-#~ "\n"
-#~ "    By joining 1%%Club I hereby agree to the <a %(action)s href=\"%(href)s\"> 1%%Club Terms of service</a>\n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "    By joining 1%%Club I hereby agree to the <a %(action)s href=\"%(href)s\"> 1%%Club Terms of service</a>\n"
-#~ "    "
-
-#~ msgid "Have an account?"
-#~ msgstr "Have an account?"
-
-#~ msgid "Log in here"
-#~ msgstr "Log in here"
-
-#~ msgid "Why join 1%%Club?"
-#~ msgstr "Why join 1%%Club?"
-
-#~ msgid "It's easy to find projects you like."
-#~ msgstr "It's easy to find projects you like."
-
-#~ msgid "You'll receive updates on the progress of the projects you support."
-#~ msgstr "You'll receive updates on the progress of the projects you support."
-
-#~ msgid "Great! We can almost welcome you at 1%%Club!"
-#~ msgstr "Great! We can almost welcome you at 1%%Club!"
-
-#~ msgid "Click the link below to confirm your registration"
-#~ msgstr "Click the link below to confirm your registration"
-
-#~ msgid "activate profile"
-#~ msgstr "activate profile"
-
-#~ msgid "Your activation code will expire in %(expiration_days)s days."
-#~ msgstr "Your activation code will expire in %(expiration_days)s days."
-
-#~ msgid ""
-#~ "If the link isn't working for you please copy and paste this url into your "
-#~ "browser: "
-#~ msgstr ""
-#~ "If the link isn't working for you please copy and paste this url into your "
-#~ "browser: "
-
-#~ msgid "Logged out."
-#~ msgstr "Logged out."
-
-#~ msgid "Click on this link to reset your password."
-#~ msgstr "Click on this link to reset your password."
-
-#~ msgid "Reset"
-#~ msgstr "Reset"
-
-#~ msgid "See you at"
-#~ msgstr "See you at"
-
-#~ msgid "in a minute!"
-#~ msgstr "in a minute!"
-
-#~ msgid "Password reset on %(site_name)s"
-#~ msgstr "Password reset on %(site_name)s"
