@@ -3,13 +3,6 @@ App.Adapter.map('App.MyProject', {
     budgetLines: {embedded: 'load'}
 });
 
-App.Adapter.map('App.ProjectPreview', {
-    owner: {embedded: 'load'},
-    country: {embedded: 'load'},
-    theme: {embedded: 'load'}
-});
-
-
 App.Project.reopen({
 
     deadline: DS.attr('date'),

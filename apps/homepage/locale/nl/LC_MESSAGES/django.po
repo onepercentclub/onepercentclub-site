@@ -5,21 +5,63 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# Translators:
+# aethemba <aksel@onepercentclub.com>, 2014
 # Malou <malou@onepercentclub.com>, 2014
 # nieja <niels@1procentclub.nl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-14 10:02+0200\n"
-"PO-Revision-Date: 2014-05-16 10:12+0000\n"
-"Last-Translator: Malou <malou@onepercentclub.com>\n"
+"POT-Creation-Date: 2014-05-20 23:23+0200\n"
+"PO-Revision-Date: 2014-05-20 21:26+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: templates/homepage/banner.hbs:13
+#, python-format
+msgid "1%%Club is the do-good crowdfunding platform"
+msgstr ""
+
+#: templates/homepage/banner.hbs:14
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/page.hbs.py:20
+#, python-format
+msgid "About 1%%Club"
+msgstr "Over 1%%Club"
+
+#: templates/homepage/banner.hbs:20
+msgid "Join the makers of change"
+msgstr ""
+
+#: templates/homepage/banner.hbs:21
+msgid "Mustapha campaigns for chess courses in Amsterdam."
+msgstr ""
+
+#: templates/homepage/banner.hbs:24
+msgid "Start your own campaign"
+msgstr ""
+
+#: templates/homepage/banner.hbs:30
+msgid "Supporters of good"
+msgstr ""
+
+#: templates/homepage/banner.hbs:31
+msgid "We love smart ideas that do good to the world."
+msgstr ""
+
+#: templates/homepage/banner.hbs:32
+msgid "Streetskids soccerschool, Colombia"
+msgstr ""
+
+#: templates/homepage/banner.hbs:35
+msgid "Find campaigns you’ll love"
+msgstr ""
 
 #: templates/homepage/campaign.hbs:20 templates/homepage/campaign.hbs.py:62
 #: templates/homepage/campaign.hbs:113
@@ -101,107 +143,142 @@ msgstr "Te gaan"
 msgid "days"
 msgstr "dagen"
 
-#: templates/homepage/home_project_list.hbs:14
-#: templates/homepage/project.hbs:13
-msgid "Choose your project"
-msgstr "kies je campagne"
+#: templates/homepage/home_project_list.hbs:10
+msgid "Some of our favourite campaigns"
+msgstr ""
 
-#: templates/homepage/home_project_list.hbs:15
-#: templates/homepage/project.hbs:14
-msgid ""
-"Support it with your time, knowledge or money and receive real-time updates."
-msgstr "Support het met je tijd, kennis of geld en lees updates. "
+#: templates/homepage/home_project_list.hbs:11
+msgid "Browse all campaigns"
+msgstr ""
 
-#: templates/homepage/home_project_list.hbs:54
-#: templates/homepage/project.hbs:38
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/project_snippet.html.py:32
-msgid "days to go"
-msgstr "dagen te gaan"
+#: templates/homepage/home_project_list.hbs:28
+msgid "campaigns for"
+msgstr ""
 
-#: templates/homepage/home_project_list.hbs:61
-#: templates/homepage/project.hbs:45
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/project_snippet.html.py:39
-msgid "of"
-msgstr "van"
-
-#: templates/homepage/home_project_list.hbs:63
+#: templates/homepage/home_project_list.hbs:46
 #: templates/homepage/project.hbs:47
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/project_snippet.html.py:41
 msgid "raised"
 msgstr "opgehaald"
 
-#: templates/homepage/home_project_list.hbs:71
+#: templates/homepage/home_project_list.hbs:62
+msgid "Go to campaign"
+msgstr ""
+
+#: templates/homepage/impact.hbs:12
+msgid "people"
+msgstr ""
+
+#: templates/homepage/impact.hbs:13
+msgid "crowdfunded"
+msgstr ""
+
+#: templates/homepage/impact.hbs:14
+msgid "to realize"
+msgstr ""
+
+#: templates/homepage/impact.hbs:14
+msgid "campaigns"
+msgstr ""
+
+#: templates/homepage/impact.hbs:15
+msgid "in"
+msgstr ""
+
+#: templates/homepage/impact.hbs:15
+msgid "countries"
+msgstr ""
+
+#: templates/homepage/impact.hbs:18
+msgid "Join us do good"
+msgstr ""
+
+#: templates/homepage/main.hbs:24
+msgid "We are the do-good crowdfunding platform"
+msgstr ""
+
+#: templates/homepage/main.hbs:26
+msgid ""
+"We empower people with great ideas\n"
+"                                to create positive change in their\n"
+"                                community, city, country – or in the\n"
+"                                world."
+msgstr ""
+
+#: templates/homepage/main.hbs:36
+msgid "We have the fundraising tools to activate your network"
+msgstr ""
+
+#: templates/homepage/main.hbs:38
+msgid ""
+"We enable you to raise funds and\n"
+"                                kick-start your initiative via your own\n"
+"                                network. We take care of\n"
+"                                administration and make sure you\n"
+"                                can eﬀectively share your campaign\n"
+"                                with your network."
+msgstr ""
+
+#: templates/homepage/main.hbs:50
+msgid "We are your best friend in online campaining"
+msgstr ""
+
+#: templates/homepage/main.hbs:52
+msgid ""
+"We make campaigning for a better\n"
+"                                world the most simple and rewarding\n"
+"                                experience possible. We share our\n"
+"                                expertise and if you need help: we’re\n"
+"                                just a phone call or email away"
+msgstr ""
+
+#: templates/homepage/main.hbs:64
+msgid "Start a campaign"
+msgstr ""
+
+#: templates/homepage/project.hbs:13
+msgid "Choose your project"
+msgstr "kies je campagne"
+
+#: templates/homepage/project.hbs:14
+msgid ""
+"Support it with your time, knowledge or money and receive real-time updates."
+msgstr "Support het met je tijd, kennis of geld en lees updates. "
+
+#: templates/homepage/project.hbs:38
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/project_snippet.html.py:32
+msgid "days to go"
+msgstr "dagen te gaan"
+
+#: templates/homepage/project.hbs:45
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/project_snippet.html.py:39
+msgid "of"
+msgstr "van"
+
 #: templates/homepage/project.hbs:54
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/project_snippet.html.py:48
 msgid "Support"
 msgstr "Support"
 
-#: templates/homepage/home_project_list.hbs:79
 #: templates/homepage/project.hbs:60
 msgid "Previous project"
 msgstr "Vorige campagne"
 
-#: templates/homepage/home_project_list.hbs:80
 #: templates/homepage/project.hbs:61
 msgid "Next project"
 msgstr "Volgende campagne"
 
-#: templates/homepage/impact.hbs:13
-msgid "Our impact"
-msgstr "Onze impact"
-
-#: templates/homepage/impact.hbs:14
-msgid ""
-"We believe that if we all share a little, together we can change the world. "
-"We got this far already."
-msgstr "1%%Club is hét crowdfunding platform waar je een wereld van verschil maakt."
-
-#: templates/homepage/impact.hbs:21
-msgid "Lives changed"
-msgstr "Levens verbeterd"
-
-#: templates/homepage/impact.hbs:26
-msgid "Projects"
-msgstr "Campagnes"
-
-#: templates/homepage/impact.hbs:31
-msgid "Countries"
-msgstr "Landen"
-
-#: templates/homepage/impact.hbs:36
-msgid "Hours spent"
-msgstr "uren besteed"
-
-#: templates/homepage/impact.hbs:41
-msgid "Donated"
-msgstr "gedoneerd"
-
-#: templates/homepage/impact.hbs:46
-#, python-format
-msgid "Join us. Sign up and share your 1%%"
-msgstr "Meld je aan en deel jouw 1%%"
-
 #: templates/homepage/quotes.hbs:14
-msgid "Share a little."
-msgstr "Supporters of good"
-
-#: templates/homepage/quotes.hbs:14
-msgid "Change the world."
+msgid "Featured on"
 msgstr ""
 
-#: templates/homepage/quotes.hbs:29
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/templates/quotes/base.hbs.py:28
-msgid "Find projects"
-msgstr "Vind campagnes"
+#: templates/homepage/quotes.hbs:30
+msgid "Een actiegerichte manier van denken die uitstekend past in deze tijd."
+msgstr ""
 
-#: templates/homepage/quotes.hbs:33
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/templates/quotes/base.hbs.py:32
-msgid "Find tasks"
-msgstr "Vind taken"
-
-#: templates/homepage/quotes.hbs:38
-msgid "Befriend us"
-msgstr "Word vrienden"
+#: templates/homepage/quotes.hbs:31
+msgid "Mark Rutte, Minister-president"
+msgstr ""
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/admin.py:133
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/models.py:38
@@ -238,8 +315,8 @@ msgid "%(author)s commented on your project page."
 msgstr "%(author)s heeft gereageerd op je campagne pagina."
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:29
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:78
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:109
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:79
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:110
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/models.py:45
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/slides/models.py:52
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/contact/models.py:24
@@ -248,8 +325,8 @@ msgid "author"
 msgstr "auteur"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:30
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:79
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:110
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:80
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:111
 msgid "editor"
 msgstr "editor"
 
@@ -258,24 +335,24 @@ msgid "The last user to edit this wallpost."
 msgstr "De laatste gebruiker die deze wallpost heeft gewijzigd."
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:33
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:117
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:118
 msgid "created"
 msgstr "aangemaakt"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:34
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:118
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:119
 msgid "updated"
 msgstr "Gewijzigd"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:35
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:76
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:119
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:77
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:120
 msgid "deleted"
 msgstr "verwijderd"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:36
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:77
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:120
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:78
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:121
 msgid "IP address"
 msgstr "IP adres"
 
@@ -287,31 +364,31 @@ msgstr "Content type"
 msgid "object ID"
 msgstr "object ID"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:79
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:80
 msgid "The last user to edit this wallpost photo."
 msgstr "De laatste gebruiker die deze wallpost foto heeft gewijzigd."
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:95
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:96
 msgid "related type"
 msgstr "verwant type"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:96
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:97
 msgid "related ID"
 msgstr "verwant ID"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:110
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:111
 msgid "The last user to edit this reaction."
 msgstr "De laatste gebruiker die deze reacit heeft gewijzigd."
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:113
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:114
 msgid "reaction text"
 msgstr "Reactie tekst"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:128
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:129
 msgid "Reaction"
 msgstr "Reactie"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:129
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:130
 msgid "Reactions"
 msgstr "Reacties"
 
@@ -507,12 +584,12 @@ msgstr "campaigner"
 msgid "to leave a reaction"
 msgstr "laat een reactie achter"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/system_wallpost.hbs.py:34
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/system_wallpost.hbs.py:32
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/system_wallpost_voucher.hbs.py:23
 msgid "Someone"
 msgstr "Iemand"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/system_wallpost.hbs.py:42
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/wallposts/system_wallpost.hbs.py:40
 msgid "made a donation"
 msgstr "heeft een donatie gedaan"
 
@@ -674,11 +751,6 @@ msgstr "Er ging iets mis"
 msgid "The page you are looking for couldn't be found."
 msgstr "De pagina die je zoekt, kan niet gevonden worden."
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/page.hbs.py:20
-#, python-format
-msgid "About 1%%Club"
-msgstr "Over 1%%Club"
-
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/page.hbs.py:22
 msgid "Our Story"
 msgstr "Ons Verhaal"
@@ -728,6 +800,14 @@ msgstr "Deel je tijd."
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/templates/quotes/base.hbs.py:12
 msgid "Improve your destination."
 msgstr "Verbeter jouw wereld."
+
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/templates/quotes/base.hbs.py:28
+msgid "Find projects"
+msgstr "Vind campagnes"
+
+#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/templates/quotes/base.hbs.py:32
+msgid "Find tasks"
+msgstr "Vind taken"
 
 #: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/templates/quotes/base.hbs.py:38
 msgid "Pitch a new smart idea"
@@ -915,6 +995,35 @@ msgstr "Laadt laatste nieuws"
 msgid "1%%News"
 msgstr ""
 
+#~ msgid "Our impact"
+#~ msgstr "Our impact"
+
+#~ msgid ""
+#~ "We believe that if we all share a little, together we can change the world. "
+#~ "We got this far already."
+#~ msgstr "1%%Club is the do-good crowdfunding platform."
+
+#~ msgid "Lives changed"
+#~ msgstr "Lives changed"
+
+#~ msgid "Projects"
+#~ msgstr "Campaigns"
+
+#~ msgid "Hours spent"
+#~ msgstr "Hours spent"
+
+#~ msgid "Donated"
+#~ msgstr "Donated"
+
+#~ msgid "Join us. Sign up and share your 1%%"
+#~ msgstr "Join us. Sign up and share your 1%%"
+
+#~ msgid "Share a little."
+#~ msgstr "Supporters of good."
+
+#~ msgid "Befriend us"
+#~ msgstr "Befriend us"
+
 #~ msgid "Page not found"
 #~ msgstr "Page not found"
 
@@ -1028,9 +1137,6 @@ msgstr ""
 
 #~ msgid "FAQ"
 #~ msgstr "FAQ"
-
-#~ msgid "Join"
-#~ msgstr "Join"
 
 #~ msgid "Tell a friend"
 #~ msgstr "Tell a friend"
