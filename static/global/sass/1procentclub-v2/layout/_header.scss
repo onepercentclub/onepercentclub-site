@@ -3,10 +3,19 @@
 	top: 0;
 	width: 100%;
 	height: 96px;
-	background: $gray-light;
+	background: rgba($gray-light, 0.9);
 	border-bottom: 1px solid white;
-	@include box-shadow(0 1px 0 rgba(65, 65, 65, .1));
+	@include box-shadow(0 1px 0 rgba(65, 65, 65, .01));
 	z-index: 999;
+	
+	
+	ul {
+		padding-left: 0;
+		
+		li {
+			background: none;
+		}
+	}
 	
 	#logo {
 		float: left;
@@ -69,6 +78,7 @@
 					top: -20px;
 					
 					.nav-member-dropdown {
+						position: relative;
 						text-decoration: none;
 						display: block;
 						color: $color-primary;
@@ -90,6 +100,20 @@
 							margin-right: 0.5em;
 							border-radius: 50%;
 							border: solid 2px white;
+						}
+						
+						.my-notifications {
+							position: absolute;
+							top: 7px;
+							left: 38px;
+							width: 20px;
+							height: 20px;
+							font-size: 0.8em;
+							line-height: 20px;
+							text-align: center;
+							color: $white;
+							background-color: $color-secondary;
+							border-radius: 50%;
 						}
 					}
 					
@@ -115,8 +139,16 @@
 								color: $white;
 								
 								&:hover {
-									text-decoration: underline;
+									background-color: $color-primary-shadow;
 								}
+							}	
+						}
+													
+						.nav-cart a {
+							background: $color-secondary;
+							
+							&:hover {
+								background-color: $color-secondary-shadow;
 							}
 						}
 						
@@ -206,12 +238,13 @@
 			}
 		}
 	}
+	
+	&.is-transparent {
+		background: none;
+		border: none;
 		
-	ul {
-		padding-left: 0;
-		
-		li {
-			background: none;
+		a {
+			color: $white !important;
 		}
 	}	
 }

@@ -8,12 +8,14 @@
 	
 	.tools-icon {
 		position: relative;
-		width: 110px;
-		height: 100px;
+		width: 200px;
+		height: 150px;
 		text-align: center;
 		margin: 0 auto 1em auto;
 		
 		.tools-icon-image {
+			width: 100%;
+			height: 100%;
 			position: absolute;
 			bottom: 0;
 			left: 0;

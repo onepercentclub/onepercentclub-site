@@ -1,101 +1,3 @@
-html, body, #site {
-	height: 100%;
-}
-
-#content {
-	margin-top: 96px !important; // for static header
-}
-
-#home {
-
-	* {
-		text-transform: none;
-	}
-	
-	h1 {
-		color: $color-secondary;
-		font-size: 36px;
-		font-family: $font-family-bold;
-		font-weight: 900;
-		text-transform: none;
-	}
-	
-	h2 {
-		color: $gray-darkest;
-		font-size: 24px;
-		font-family: $font-family-bold;
-		font-weight: 900;
-		line-height: 38px;
-		text-transform: none;
-	}
-	
-	a {
-		text-decoration: none;
-		color: $black;
-	}
-	
-	.btn {
-		font-size: 18px;
-		position: relative;
-		display: inline;
-		background: $color-secondary;
-		padding: 0.75em 1.25em;
-		vertical-align: center;
-		border-radius: 8px;
-		color: white;
-		font-family: $font-family-bold;
-		font-weight: 700;
-		border: none;
-		@include single-box-shadow($color-secondary-shadow, 0, -2px, 0, 0, true);
-		@include single-transition(all, .1s ease-in-out);
-		
-		&:hover {
-			top: -1px;
-			@include single-box-shadow($color-secondary-shadow, 0, -4px, 0, 0, true);
-			@include single-transition(none);
-		}
-		
-		&:active, &:focus {
-			top: 1px;
-			background: $gray-darker;
-			color: $gray-light;
-			@include single-box-shadow($gray-darkest, 0, 2px, 0, 0, true);
-		}
-	}
-	
-	input {
-		line-height: 30px;
-		border-radius: 6px;
-		padding-left: 40px;
-		border: solid 1px #ccc;
-	}
-
-	.l-wrapper {
-		position: relative;
-		padding: 0 1em;
-		min-width: 980px !important;
-		max-width: 1200px;
-		margin: 0 auto;
-		height: 100%;
-	}
-
-	.l-section {
-		width: 100%;
-		min-width: 980px !important;
-		max-width: 100%;
-	}
-
-}
-
-
-.section-header {
-	padding: 1em 0 0.5em 0;
-	text-align: center;
-	&.more-space {
-		padding: 5em 0 2.5em 0;
-	}
-}
-
 // -------------------- CATEGORIES --------------------
 #categories {
 	background-color: white;
@@ -227,6 +129,55 @@ html, body, #site {
 			margin: auto;
 			text-align: center;
 			padding-top: 60px;
+		}
+	}
+}
+
+// -------------------- IMPACT --------------------
+
+#impact {
+	position: relative;
+	overflow: hidden;
+	background: image-url("img/pages/home/home-members.jpg") $gray-darkest repeat 50% 50%;
+	background-size: cover;
+	
+	.impact-tagline {
+		position: relative;
+		text-align: center;
+		margin: 5em 0;
+		
+		h2 {
+			color: $white;
+			font-size: 2.8em;
+			line-height: 2em;
+			font-weight: normal;
+			
+			strong {
+				font-weight: 400;
+			}
+		}
+		
+		.join-us {
+			margin-top: 2em;
+			height: 80px;
+			padding-top: 20px;
+		}
+	}
+}
+
+// -------------------- IMPACT --------------------
+
+#campaigns {
+	background-color: $white;
+	
+	.all-campaigns {
+		font-family: $font-family-body;
+		color: $gray-dark;
+		margin-left: 12px;
+		
+		&:after {
+			content: "\2192";
+			margin-left: 7px;
 		}
 	}
 }

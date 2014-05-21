@@ -3,16 +3,26 @@
 
 {% block_verbatim profile_anchor %}
     <a href="#" class="nav-member-dropdown">
-        <img width="40" {{bindAttr src="controllers.currentUser.getAvatar"}} height="40" alt="Avatar" />
+    	{{#if controllers.currentOrder.donations.length }}
+    	<span class="my-notifications">{{ controllers.currentOrder.donations.length }}</span>
+    	{{/if}}
+        <img {{bindAttr src="controllers.currentUser.getAvatar"}} width="40" height="40" alt="Avatar" />
         <strong>
             {% blocktrans %}My 1%{% endblocktrans %}
-            <em class="flaticon solid down-2"></em>
         </strong>
     </a>
-{% endblock_verbatim profile_anchor %}
+{% endblock_verbatim profile_anchor %}jnj
 
 
 {% block_verbatim my_menu %}
+
+	 {{#if controllers.currentOrder.donations.length }}
+        <li class="nav-cart">
+            {{#linkTo 'currentOrder.index'}}
+                <span class="nav-cart-count">{{ controllers.currentOrder.donations.length }}</span> {% trans "Pending donations" %} 
+            {{/linkTo}}
+        </li>
+    {{/if}}
 
     <li>
         {{#linkTo "userProfile" }}
@@ -49,16 +59,7 @@
 
 {% block_verbatim donations_anchor %}
 
-    {{#if controllers.currentOrder.donations.length }}
-        <li class="nav-cart">
-            {{#linkTo 'currentOrder.index'}}
-                <span class="nav-cart-count">{{ controllers.currentOrder.donations.length }}</span>
-                {% trans "Donations" %} 
-                <em class="flaticon solid right-2"></em>
-            {{/linkTo}}
-        </li>
-    {{/if}}
-
+   
 {% endblock_verbatim donations_anchor %}
 
 
