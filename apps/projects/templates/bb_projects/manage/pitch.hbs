@@ -28,7 +28,7 @@
         <ul>
             {% bb_component 'bb-upload-display-image' name='img_upload' label=_('Picture') hint=_('Upload the picture that best describes your campaign.') fileBinding='image' buttonLabel=_('Upload picture') errorsBinding='errors.image' %}
 
-            {% bb_component 'bb-video-link' label=_('Video (optional)') name='video' placeholder=_('Not required') valueBinding='video_url' video_html='video_html' errorsBinding='errors.video' %}
+            {% bb_component 'bb-video-link' label=_('Video (optional)') hint=_('Add a video pitch if you want. Make it sparkling!') name='video' placeholder=_('Not required') valueBinding='video_url' video_html='video_html' errorsBinding='errors.video' %}
         </ul>
     </fieldset>
     <fieldset>
