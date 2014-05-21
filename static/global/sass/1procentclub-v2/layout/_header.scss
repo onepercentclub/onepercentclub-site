@@ -120,7 +120,7 @@
 					.nav-member-dropdown-menu {
 						border-radius: 0 0 8px 8px ;
 						color: white;
-						display: none;
+						//display: none;
 						text-align: left;
 						background: $color-primary;
 						border-radius: 0 0 6px 6px;
@@ -151,6 +151,46 @@
 								background-color: $color-secondary-shadow;
 							}
 						}
+						
+						.nav-member-switch-language {
+					    	color: $white;
+					    	font-weight: normal;
+					    	
+					    	span {
+						    	display: inline-block;;
+								padding: 0.5em 1em;
+								text-decoration: none;
+								color: $white;
+								margin: 0;
+								width: 120px;
+					    	}
+					    	
+					    	.nav-language {
+						    	display: inline-block;
+						    	text-align: right;
+						    	width: 80px;
+						    	
+						    	div {
+							    	display: inline;
+						    	}
+						    	
+				        		a {
+				        			display: inline;
+				        			padding: 0 0 0 1em;
+				        			
+				        			color: $color-primary-shadow;
+				        			
+				        			&:hover, &:active {
+				        				color: $white;
+					        			background: none;
+				        			}
+				        		}
+				        		
+				                div.active a {
+				                    color: $white;
+				                }
+					    	}
+				        } 
 						
 						.nav-member-logout {
 						
@@ -221,7 +261,6 @@
 				margin: 0;
 			}
 		}
-				
 		
 		.nav-search {
 			.nav-search-holder {

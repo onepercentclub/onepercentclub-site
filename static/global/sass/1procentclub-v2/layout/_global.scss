@@ -8,6 +8,10 @@ html, body, #site {
 }
 
 #home, #about-new {
+	margin-bottom: -40px; // reset 
+}
+
+#home, #about-new {
 
 	* {
 		text-transform: none;
