@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-20 17:37+0200\n"
-"PO-Revision-Date: 2014-05-20 09:44+0000\n"
-"Last-Translator: aethemba <aksel@onepercentclub.com>\n"
+"POT-Creation-Date: 2014-05-21 11:55+0200\n"
+"PO-Revision-Date: 2014-05-21 09:58+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -86,7 +86,7 @@ msgstr "of"
 msgid "raised"
 msgstr "raised"
 
-#: ../../apps/projects/static/js/projects/models.js.c:53
+#: ../../apps/projects/static/js/projects/models.js.c:60
 msgid ""
 "<h3>Introduction of your campaign</h3><p>We’ve already set some structure in"
 " this plan, but you are free to write it in your own way.</p><h3>What are "
@@ -122,7 +122,7 @@ msgid ""
 "spam folder)"
 msgstr "You've got mail!<br /><br />We've sent you a link to reset your password, so check your mailbox.<br /><br />(No mail? It might have ended up in your spam folder)"
 
-#: ../../env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/routes.js.c:201
+#: ../../env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/routes.js.c:202
 msgid "The token you provided is expired. Please reset your password again."
 msgstr "The token you provided is expired. Please reset your password again."
 
@@ -163,16 +163,16 @@ msgid "Apply"
 msgstr "Apply"
 
 #: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/app.js.c:89
-msgid "Campaign"
-msgstr "Campaign"
+msgid "Running campaigns"
+msgstr ""
 
 #: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/app.js.c:90
-msgid "Finished"
-msgstr "Finished"
+msgid "Finished campaigns"
+msgstr ""
 
-#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/app.js.c:479
+#: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/app.js.c:478
 msgid "Pick a language"
-msgstr "Pick a language"
+msgstr ""
 
 #: ../../env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:104
 msgid "Model could not be saved."
