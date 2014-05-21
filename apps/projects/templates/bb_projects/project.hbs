@@ -28,17 +28,6 @@
                     {{view App.SocialShareView}}
                 </div>
                 
-                {{#if isProjectOwner}}
-                    <ul class="owner-settings">
-                        <li class="owner-settings-dropdown"><span class="flaticon solid settings-2"></span>
-                            <ul class="owner-settings-dropdown-menu">
-                                <li>{{#link-to "myProject" id}}{% trans 'Edit project' %}{{/link-to}}</li>
-</li>
-                            </ul>
-                        </li>
-                    </ul>
-                {{/if}}
-
                 <h1 class="project-title">{{title}}</h1>
                 <p class="project-description">{{pitch}}</p>
 				<p class="project-plan-link"><span class="flaticon solid book-4"></span>&nbsp;<a {{action openInFullScreenBox "projectPlan" this}}>{% trans "Read full project plan" %}</a></p>
