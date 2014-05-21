@@ -1,0 +1,17 @@
+{% load bb_ember %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "_my_project_sidebar_organization" %}
+
+    <aside class="l-sidebar">
+        <h4>{% trans "Good to know:" %}</h4>
+        {% blocktrans %}
+            <ul>
+                <li>Your email address and phone number are only visible for 1%Club crew. We need this info in case we need to contact you.</li>
+                <li>We need a copy of your ID to be sure you are a real person ;-). If you don’t have a scanner a clear photo of your ID will do.</li>
+            </ul>
+        {% endblocktrans %}
+    </aside>
+
+{% endtplhandlebars %}

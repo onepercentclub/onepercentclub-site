@@ -3,17 +3,10 @@ App.Adapter.map('App.MyProject', {
     budgetLines: {embedded: 'load'}
 });
 
-App.Adapter.map('App.ProjectPreview', {
-    owner: {embedded: 'load'},
-    country: {embedded: 'load'},
-    theme: {embedded: 'load'}
-});
-
-
 App.Project.reopen({
 
     deadline: DS.attr('date'),
-    amount_asked: DS.attr('number', {defaultValue: 0}),
+    amount_asked: DS.attr('number'), //, {defaultValue: 0}),
 
     maxAmountAsked: Ember.computed.lte('amount_asked', 1000000),
     minAmountAsked: Ember.computed.gte('amount_asked', 250),
@@ -30,7 +23,7 @@ App.Project.reopen({
     isStatusPlan: Em.computed.lt('status.id', '5'),
     isStatusCampaign: Em.computed.equal('status.id', '5'),
     isStatusCompleted: Em.computed.equal('status.id', '7'),
-    isStatusFinished: Em.computed.gt('status.id', '6'),
+    isStatusStopped: Em.computed.gt('status.id', '9'),
 
     save: function () {
         // the amount_needed is calculated here and not in the server
@@ -55,8 +48,12 @@ App.MyProject.reopen({
     image: DS.attr('image'),
     video: DS.attr('string'),
     budgetLines: DS.hasMany('App.MyProjectBudgetLine'),
+    story: DS.attr('string'),
 
-    story: DS.attr('string', {defaultValue: gettext("<h3>Introduction</h3><p>Explain your campaign, tell something about the goal of the campaign. Supporters will wonder where the money is going to bewused for exactly.</p> <h3> Why?</h3> <p> Why is this campaign so important? Why would people want to support this campaign? Be concrete, urgent and personal.</p>")}),
+    defaultStory: gettext("<h3>Introduction of your campaign</h3><p>We’ve already set some structure in this plan, but you are free to write it in your own way.</p><h3>What are you going to do?</h3><p>Remember to keep a logic structure, use headings, paragraphs.</p><h3>How are you going to achieve that?</h3><p>Keep it short and sweet!</p>"),
+    storyChanged: function () {
+        return Em.compare(this.get('defaultStory'), this.get('story'));
+    }.property('story'),
 
     budgetTotal: function(){
         var lines = this.get('budgetLines');
@@ -67,6 +64,10 @@ App.MyProject.reopen({
 
     init: function () {
         this._super();
+
+        // If no story set then set to the default
+        if (!this.get('story'))
+            this.set('story', this.get('defaultStory'));
 
         this.validatedFieldsProperty('validGoal', this.get('requiredGoalFields'));
         this.missingFieldsProperty('missingFieldsGoal', this.get('requiredGoalFields'));
@@ -79,13 +80,14 @@ App.MyProject.reopen({
         
     }.property('validStory', 'validPitch', 'validGoal', 'organization'),
 
-    requiredStoryFields: ['story'],
+    requiredStoryFields: ['story', 'storyChanged'],
     requiredGoalFields: ['amount_asked', 'deadline', 'maxAmountAsked', 'minAmountAsked'],
     requiredPitchFields: ['title', 'pitch', 'image', 'theme', 'tags.length', 'country', 'latitude', 'longitude'],
 
     friendlyFieldNames: {
         'title' : 'Title',
         'pitch': 'Description',
+        'storyChanged' : 'Personalised story',
         'image' : 'Image',
         'theme' : 'Theme',
         'tags.length': 'Tags',

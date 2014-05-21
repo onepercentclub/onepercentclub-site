@@ -12,11 +12,12 @@
         <strong>
             {% trans 'Goal & Budget' %}
         </strong>
+        <span>{% trans 'Tell us how much you want to raise and how long you want to campaign. Did you know that you can crowdfund more than 100%?' context "Goal subheader" %}</span>
     </legend>
     
     <fieldset>
         <ul>
-            {% bb_component 'bb-text-field' valueBinding='amount_asked' name='amount_asked' label=_('Crowdfunding goal') undertext=_('Pick an amount between &nbsp; &euro; 250 - &euro; 1.000.000') placeholder=_(' &euro; ') errorsBinding='errors.amount_asked' %}
+            {% bb_component 'bb-text-field' valueBinding='amount_asked' name='amount_asked' label=_('Crowdfunding goal') hint=_('Pick an amount between &nbsp; &euro; 250 - &euro; 1.000.000') placeholder=_('I want to crowdfund €…') errorsBinding='errors.amount_asked'%}
         </ul>
     </fieldset>
 
@@ -35,9 +36,9 @@
                     <tbody>
                         {{#each line in budgetLines}}
                             <tr>
-                                <td>{{line.description}}</td>
-                                <td><strong class="left">€</strong> <span class="right">{{localize line.amount}}</span></td>
-                                <td>
+                                <td class="campaign-budget-breakdown-desc">{{line.description}}</td>
+                                <td class="campaign-budget-breakdown-amount"><strong class="left">€</strong> <span class="right">{{localize line.amount}}</span></td>
+                                <td class="campaign-budget-breakdown-remove">
                                     <a {{action removeBudgetLine line href=true}} class="right flaticon stroke trash-2"></a>
                                 </td>
                             </tr>
@@ -45,9 +46,9 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td>Total</td>
-                            <td><strong class="left">€</strong> <span class="right">{{localize budgetTotal}}</span></td>
-                            <td><span class="right">of € {{localize amount_asked}}</span></td>
+                            <td class="campaign-budget-breakdown-desc">Total</td>
+                            <td class="campaign-budget-breakdown-amount"><strong class="left">€</strong><span class="right">{{localize budgetTotal}}</span></td>
+                            <td class="campaign-budget-breakdown-amount"><span class="right">of € {{localize amount_asked}}</span></td>
                         </tr>
                     </tfoot>
                 </table>
@@ -64,7 +65,7 @@
                 <div class="campaign-budget-amount">
                     {{view Em.TextField valueBinding='budgetLineNew.amount' type="number" name="budget_line_amount" placeholder="€ Amount" }}
                 </div>
-                <a {{action addBudgetLine}} class="btn btn-modest add-budget"><span class="flaticon solid plus-2"></span> Add</a>
+                <a {{action addBudgetLine}} class="btn btn-modest add-budget"><span class="flaticon solid plus-2"></span>{% trans 'Add' %}</a>
             </li>
         </ul>
     </fieldset>

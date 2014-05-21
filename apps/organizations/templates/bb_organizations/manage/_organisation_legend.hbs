@@ -1,0 +1,35 @@
+{% load bb_ember %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "_organisation_legend" %}
+    <legend>
+        <strong>{% trans "Contact details" %}</strong>
+        <p>
+            {% trans "Please fill in your contact details below." %}
+        </p>
+
+        {{#if hasSelectableOrganizations}}
+            <br />
+            {{#if hasOneSelectableOrganization}}
+                <p>
+                    {% trans "You can import this from a previous campaign: " %}<a {{action setFirstSelectableOrganization}}>{% trans "Import:" %} {{firstSelectableOrganization.name}}</a>
+                </p>
+            {{else}}
+                <fieldset>
+                    <ul>
+                        {{#bb-form-field classBinding="wide"}}
+                            {% trans "It appears that you already have an (other) organisation. Select it below or fill out the form to create a new one." %}
+                            {{view App.MyOrganizationSelectView name='organization'
+                                                                contentBinding='selectableOrganizations'
+                                                                optionValuePath='content.id'
+                                                                optionLabelPath='content.nameOrDefault'
+                                                                selectionBinding='controller.selectedOrganization'}}
+                            <button class="btn btn-modest add-org" {{action newOrganization}}>New</button>
+                        {{/bb-form-field}}
+                    </ul>
+                </fieldset>
+            {{/if}}
+        {{/if}}
+    </legend>
+{% endtplhandlebars %}

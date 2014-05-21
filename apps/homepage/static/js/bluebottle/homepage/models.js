@@ -16,7 +16,6 @@ App.Impact = DS.Model.extend({
     donated: DS.attr('number')
 });
 
-
 App.HomePage = DS.Model.extend({
     url: 'homepage',
 
@@ -25,4 +24,3 @@ App.HomePage = DS.Model.extend({
     impact: DS.belongsTo('App.Impact'),
     quotes: DS.hasMany('App.Quote')
 });
-

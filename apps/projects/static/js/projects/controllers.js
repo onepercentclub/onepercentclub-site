@@ -2,8 +2,9 @@ App.MyProjectController.reopen({
     needs: ['application'],
     tabStory: Em.computed.equal('controllers.application.currentPath', 'myProject.story'),
     tabPitch: Em.computed.equal('controllers.application.currentPath', 'myProject.pitch'),
-    tabBudget: Em.computed.equal('controllers.application.currentPath', 'myProject.goal')
-
+    tabBudget: Em.computed.equal('controllers.application.currentPath', 'myProject.goal'),
+    tabOrg: Em.computed.equal('controllers.application.currentPath', 'myProject.organisation'),
+    tabBank: Em.computed.equal('controllers.application.currentPath', 'myProject.bank')
 });
 
 App.MyProjectPitchController.reopen({
