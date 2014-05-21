@@ -1,13 +1,12 @@
 #about-new {
-	//min-height: 800px;
 	position: relative;
 	background: image-url("img/pages/about/about-1.jpg") $gray-darkest no-repeat 50% 50%;
-	background-size: cover;
+	background-size: contain;
 	background-attachment: fixed;
 	
 	.about-header-section {
 		height: 700px;
-		height: 75vh;
+		height: 85vh;
 		
 		.about-header {
 			position: absolute;
