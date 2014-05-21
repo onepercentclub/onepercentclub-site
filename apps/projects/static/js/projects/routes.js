@@ -5,6 +5,6 @@ App.Router.map(function(){
     this.resource('projectDonationList', {path: '/fundraisers/:fundraiser_id/donations'});
 });
 
+App.MyProjectListRoute.reopen(App.AuthenticatedRouteMixin, {});
+App.MyProjectSubRoute.reopen(App.AuthenticatedRouteMixin, {});
 App.MyProjectGoalRoute = App.MyProjectSubRoute.extend({});
-
-
