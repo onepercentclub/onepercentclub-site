@@ -1,12 +1,14 @@
 from django.contrib.contenttypes.models import ContentType
 from django.db.models.signals import post_save
 from django.dispatch.dispatcher import receiver
-from apps.wallposts.models import SystemWallPost
 
-from .models import Donation, DonationStatuses
+from apps.fund.models import Donation, DonationStatuses
+from bluebottle.wallposts.models import SystemWallPost
+
 
 @receiver(post_save, weak=False, sender=Donation)
 def create_donation_post(sender, instance, **kwargs):
+
     donation = instance
     if donation.status in [DonationStatuses.paid, DonationStatuses.pending]:
         donation_type = ContentType.objects.get_for_model(donation)

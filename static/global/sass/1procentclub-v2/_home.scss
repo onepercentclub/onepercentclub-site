@@ -1,0 +1,233 @@
+html, body, #site {
+	height: 100%;
+}
+
+#content {
+	margin-top: 96px !important; // for static header
+}
+
+#home {
+
+	* {
+		text-transform: none;
+	}
+	
+	h1 {
+		color: $color-secondary;
+		font-size: 36px;
+		font-family: $font-family-bold;
+		font-weight: 900;
+		text-transform: none;
+	}
+	
+	h2 {
+		color: $gray-darkest;
+		font-size: 24px;
+		font-family: $font-family-bold;
+		font-weight: 900;
+		line-height: 38px;
+		text-transform: none;
+	}
+	
+	a {
+		text-decoration: none;
+		color: $black;
+	}
+	
+	.btn {
+		font-size: 18px;
+		position: relative;
+		display: inline;
+		background: $color-secondary;
+		padding: 0.75em 1.25em;
+		vertical-align: center;
+		border-radius: 8px;
+		color: white;
+		font-family: $font-family-bold;
+		font-weight: 700;
+		border: none;
+		@include single-box-shadow($color-secondary-shadow, 0, -2px, 0, 0, true);
+		@include single-transition(all, .1s ease-in-out);
+		
+		&:hover {
+			top: -1px;
+			@include single-box-shadow($color-secondary-shadow, 0, -4px, 0, 0, true);
+			@include single-transition(none);
+		}
+		
+		&:active, &:focus {
+			top: 1px;
+			background: $gray-darker;
+			color: $gray-light;
+			@include single-box-shadow($gray-darkest, 0, 2px, 0, 0, true);
+		}
+	}
+	
+	input {
+		line-height: 30px;
+		border-radius: 6px;
+		padding-left: 40px;
+		border: solid 1px #ccc;
+	}
+
+	.l-wrapper {
+		position: relative;
+		padding: 0 1em;
+		min-width: 980px !important;
+		max-width: 1200px;
+		margin: 0 auto;
+		height: 100%;
+	}
+
+	.l-section {
+		width: 100%;
+		min-width: 980px !important;
+		max-width: 100%;
+	}
+
+}
+
+
+.section-header {
+	padding: 1em 0 0.5em 0;
+	text-align: center;
+	&.more-space {
+		padding: 5em 0 2.5em 0;
+	}
+}
+
+// -------------------- CATEGORIES --------------------
+#categories {
+	background-color: white;
+	padding-bottom: 70px;
+	
+	.tag-container {
+		margin: auto;
+		text-align: center;
+		font-family: $font-family-bold;
+		
+		.tag-item {
+			display: inline-block;
+			width: auto;
+			margin: 5px;
+			padding: 10px 7px;
+			border-radius: 8px;
+			border: solid 1px $gray-border;
+			background-color: white;
+			color: $gray-dark;
+			@include single-transition(all, .1s ease-in-out);
+			&:hover {
+				background-color: $gray-light;
+				color: $gray-dark;
+			}
+		}
+		
+		.tag-browse-all {
+			display: inherit;
+			margin-top: 50px;
+			color: $gray-dark;
+			
+			&:after {
+				content:  "\2192";
+				margin-left: 7px;
+			}
+		}
+	}
+}
+
+// -------------------- PARTNER LOGO'S --------------------
+#featured-on {
+	background-color: $gray-medium;
+	padding-bottom: 70px;
+}
+
+#press {
+	padding: 3em 0;
+	
+	ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		text-align: center;
+		
+		li {
+			margin: 0;
+			padding: 0;
+			background: none;
+			display: inline;
+			color: $gray-dark;
+			text-transform: uppercase;
+			
+			&.press-intro {
+				margin-right: 2em;
+			}
+		}
+	}
+	
+}
+
+// -------------------- QUOTE CAROUSEL --------------------
+#quote-carousel {
+	position: relative;
+	margin: auto;
+	background-color: white;
+	border-radius: 10px;
+	border: solid 1px $gray-border;
+	font-family: $font-family-body;
+	@include clearfix;
+	
+	.quote-carousel-content {
+		float: left;
+		padding: 2em 6em 1em 8em;
+		margin: auto;
+		min-height: 100px;
+		
+		.carousel-photo {
+			width: 80px;
+			position: absolute;
+			bottom: 1px;
+			
+			img {
+				background-color: $gray-dark;
+			}
+		}
+		.carousel-quote {
+			color: $color-primary;
+			margin: 0 0 0 120px;
+			
+			strong {
+				font-family: $font-family-body;
+				display: inherit;
+				font-size: 1.33em;
+				font-weight: 700;
+			}
+			
+			em {
+				font-style: normal;
+				color: $gray-dark;
+			}
+		}
+	}
+	
+	.carousel-nav {
+		display: none;
+		position: absolute;
+		top: 0;
+		width: 40px;
+		height: 100%;
+		
+		&.previous {
+			left: 40px;
+			margin: auto;
+			text-align: center;
+			padding-top: 60px;
+		}
+		&.next {
+			right: 40px;
+			margin: auto;
+			text-align: center;
+			padding-top: 60px;
+		}
+	}
+}
+

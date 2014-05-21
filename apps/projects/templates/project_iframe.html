@@ -10,25 +10,29 @@
 	<a target="_top" href="/#!/projects/{{ object.slug }}">
         <span class="item-header">
             <span class="item-image">
-                <img src="{{ object.projectplan.image.url }}">
+                <img src="{{ object.image.url }}">
             </span>
             <span class="item-project-title">
                 <h3>{{ object.title }}</h3>
-                <span class="item-project-country"><em class="flaticon solid location-pin-1"></em> {{ object.projectplan.country }}</span> 
+                <span class="item-project-country"><em class="flaticon solid location-pin-1"></em> {{ object.country }}</span>
             </span>
         </span>
         
 	    <span class="item-status campaign">
 	        <div class="donate-status">
-			   {% with money_needed=object.projectcampaign.local_money_needed %}
+			   {% with amount_needed=object.amount_needed %}
 
-				  {% if money_needed %}
+				  {% if amount_needed %}
 	              <span class="donate-slider"><strong class="donate-progress" style="width: {{ object.projectcampaign.percentage_funded|floatformat:'2' }}%;">&nbsp;</strong></span>
 	              <p class="donate-amount">
-	                <span class="donated">€ {{ money_needed|floatformat:"0" }}</span>
+	                <span class="donated">€ {{ amount_needed|floatformat:"0" }}</span>
 	                {% trans "To go" %}
 	              </p>
-				  {% if object.projectcampaign.nr_days_remaining %}
+
+
+                <!--TODO FIX THIS-->
+
+                {% if object.projectcampaign.nr_days_remaining %}
 	              <p class="donate-days-left">
 	                <strong><i class="flaticon solid clock-1"></i>{{ object.projectcampaign.nr_days_remaining }}</strong>
 	                <em>{% trans "days" %}</em>

@@ -1,0 +1,90 @@
+{% load bb_ember %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "my_project_start" %}
+
+        <h1 class="page-title">{% trans "Start your crowdfunding campaign here!" %}</h1>
+        <br />
+
+        <h3>{% trans "Any preconditions? Just two:" %}</h3>
+        {% blocktrans %}
+        <ul class="bullets">
+            <li>
+                Your campaign contributes to a better world.
+            </li>
+            <li>
+                You can show how the money will be spent with an itemised budget.
+            </li>
+        </ul>
+        {% endblocktrans %}
+        <h3>{% trans "Good to know:" %}</h3>
+        <ul class="bullets">
+            {% blocktrans %}
+                <li>
+                   The online campaign can last up to 100 days.
+                </li>
+                <li>
+                You choose your own target amount. Crowdfunded more than 100%? You can raise even more funds!
+                </li>
+                <li>
+                If you reach your target, our service fee is 7%. If, unfortunately, you don’t, this will be 12%.
+
+                </li>
+            {% endblocktrans %}
+        </ul>
+
+        <h3>{% trans "What we expect from you:" %}</h3>
+        <ul class="bullets">
+            {% blocktrans %}
+                <li>
+                   Crowdfunding is all about activating your own network. Therefore it’s important that you are able to inspire and activate people around you to support your campaign. Be prepared to be very busy for 100 days!
+                </li>
+            {% endblocktrans %}
+        </ul>
+
+        <h3>{% trans "Start now:" %}</h3>
+        <ul class="bullets">
+            {% blocktrans %}
+                <li>
+                When you click ‘Start campaign’ you can fill in all the details about your crowdfunding campaign. You can save this at any point to continue working on this later. After you submit your plan, we will review it and keep you updated all along the way. As soon your plan is approved you can start crowdfunding!
+                </li>
+            {% endblocktrans %}
+        </ul>
+        <br/>
+        <div class="well">
+            <div class="campaign-campaigner l-half">
+                <h3>{% trans "Profile campaigner" %}</h3>
+                <p>{% trans "Update your profile so people know who is the campaigner" %}</p>
+                {{#if controllers.currentUser.isAuthenticated}}
+                    <figure class="campaigner-avatar">
+                        <img {{bindAttr src="controllers.currentUser.getAvatar" alt="controllers.currentUser.full_name"}}>
+                    </figure>
+                    <div class="campaigner-details">
+                        <h4 class="campaigner-name">{{ controllers.currentUser.full_name }}</h4>
+
+                        {{#link-to "userProfile" classNames="btn btn-modest"}}
+                            <span class="flaticon solid pencil-3"></span>
+                            {% trans "Edit" %}
+                        {{/link-to}}
+
+                    </div>
+                {{else}}
+                    <p>{% trans "No user Logged, sign in to start and create your project." %}</p>
+                {{/if}}
+            </div>
+
+            <div class="l-half">
+                <h5>{% trans "Join our amazing campaigners" %}</h5><br />
+                {{#link-to 'myProject.pitch' tagName='button' class="btn btn-primary btn-block"}}
+                    {% trans "Start your campaign" %}
+                {{/link-to}}
+            </div>
+        </div>
+        <p class="clearfix">
+            {% blocktrans %}
+                Read more about our tools, service fees and other  <a href="/#!/pages/faq-projects">useful tips here</a>! See you online soon…
+            {% endblocktrans %}
+        </p>
+
+{% endtplhandlebars %}

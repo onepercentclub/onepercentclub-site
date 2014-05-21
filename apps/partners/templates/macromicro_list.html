@@ -5,24 +5,24 @@
         <project>
             <title>{{ project.title }}</title>
             <link>{{ site }}/go/projects/{{ project.slug }}</link>
-            <created>{{ project.projectplan.date_created }}</created>
+            <created>{{ project.created }}</created>
             <slug>{{ project.slug }}</slug>
             <supportlink>{{ site }}/go/projects/{{ project.slug }}</supportlink>
             <image>
-                    {% thumbnail project.projectplan.image "200x110" as im %}
+                    {% thumbnail project.image "200x110" as im %}
                     {{ site }}{{ im.url }}
                     {% endthumbnail %}
             </image>
             <location>
-                <country>{{ project.projectplan.country.name }}</country>
-                <region>{{ project.projectplan.country.subregion.name }}</region>
-                <latitude>{{ project.projectplan.latitude }}</latitude>
-                <longitude>{{ project.projectplan.longitude }}</longitude>
+                <country>{{ project.country.name }}</country>
+                <region>{{ project.country.subregion.name }}</region>
+                <latitude>{{ project.latitude }}</latitude>
+                <longitude>{{ project.longitude }}</longitude>
             </location>
             <money>
-                <asked>{{ project.projectcampaign.local_money_asked }}</asked>
-                <donated>{{ project.projectcampaign.local_money_donated }}</donated>
-                <needed>{{ project.projectcampaign.local_money_needed }}</needed>
+                <asked>{{ project.amount_asked }}</asked>
+                <donated>{{ project.amount_donated }}</donated>
+                <needed>{{ project.amount_needed }}</needed>
             </money>
         </project>
     {%  endfor  %}

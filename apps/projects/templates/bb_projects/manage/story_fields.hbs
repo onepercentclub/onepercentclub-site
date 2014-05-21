@@ -1,0 +1,10 @@
+{% load bb_ember %}
+{% load i18n %}
+{% load static %}
+
+
+{% tplhandlebars "_my_project_story_fields" %}
+
+  	{% bb_component 'bb-text-area' extraClasses="'redactor'" rows=10 name='story' label=_('Why, what and how?') hint=_('Your full campaign plan') valueBinding='story' errors='errors.description' maxlength=800 %}
+  	
+{% endtplhandlebars %}

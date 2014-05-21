@@ -1,0 +1,17 @@
+{% extends "bb_accounts:bb_accounts/profile_nav.hbs" %}
+{% load bb_ember i18n %}
+
+
+{% block profile_text_preview %}
+    
+    {% trans "My 1%" %}
+    <span class="profile-title">
+        {% trans "Profile" %}
+    </span>
+    <small>
+        <em class="flaticon solid eye-1"></em>
+        {% trans "Preview my profile" %}
+    </small>
+
+{% endblock profile_text_preview %}
+
