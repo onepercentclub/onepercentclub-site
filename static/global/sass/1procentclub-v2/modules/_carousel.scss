@@ -19,6 +19,7 @@
 			background-repeat: no-repeat;
 			background-position: center center;
 			@include background-size(cover);
+			background-color: $gray-light;
 			
 			// Global carousel content
 			.home-carousel-content {

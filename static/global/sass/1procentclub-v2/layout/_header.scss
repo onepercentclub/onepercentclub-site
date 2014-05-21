@@ -3,7 +3,7 @@
 	top: 0;
 	width: 100%;
 	height: 96px;
-	background: rgba($gray-light, 0.9);
+	background: $gray-light;
 	border-bottom: 1px solid white;
 	@include box-shadow(0 1px 0 rgba(65, 65, 65, .01));
 	z-index: 999;

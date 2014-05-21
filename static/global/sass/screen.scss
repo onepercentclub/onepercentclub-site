@@ -103,13 +103,14 @@
 // @import "blueprint/grid";
 @import "compass/layout/sticky-footer";
 
-@import "1procentclub-v2/grid";
+@import "1procentclub-v2/mixins/grid";
 @import "1procentclub-v2/variables";
+@import "1procentclub-v2/layout/global";
 @import "1procentclub-v2/layout/header";
 @import "1procentclub-v2/layout/footer";
 @import "1procentclub-v2/modules/campaigns";
 @import "1procentclub-v2/modules/carousel";
-@import "1procentclub-v2/modules/impact";
 @import "1procentclub-v2/modules/tools";
 
-@import "1procentclub-v2/home";
+@import "1procentclub-v2/pages/home";
+@import "1procentclub-v2/pages/about";
