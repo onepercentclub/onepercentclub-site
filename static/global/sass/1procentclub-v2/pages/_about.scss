@@ -1,13 +1,12 @@
 #about-new {
-	//min-height: 800px;
 	position: relative;
 	background: image-url("img/pages/about/about-1.jpg") $gray-darkest no-repeat 50% 50%;
-	background-size: cover;
+	background-size: contain;
 	background-attachment: fixed;
 	
 	.about-header-section {
 		height: 700px;
-		height: 75vh;
+		height: 85vh;
 		
 		.about-header {
 			position: absolute;
@@ -33,6 +32,11 @@
 			padding: 3em 25% 2em 25%;
 			font-family: $font-family-body;
 			font-size: 1.33em;
+			line-height: 1.5em;
+			
+			p {
+				margin: 0 0 1.5em 0;
+			}
 			
 			.outro {
 				font-weight: 700;
