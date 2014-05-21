@@ -1,40 +1,32 @@
 language: python
-
 python:
-  - "2.7"
-
+- '2.7'
 node_js:
-  - "0.10"
-
-#addons:
-#  firefox: "26.0"
-
+- '0.10'
 env:
-  - DJANGO=django==1.5.4
-
+- DJANGO=django==1.5.4
 services:
-  - memcached
-
+- memcached
 before_install:
-  - "gem update --system"
-  - "gem install sass compass"
-  - "npm install -g grunt-cli"
-  - "npm install grunt grunt-contrib-compass"
-  - "sudo apt-get install -qq memcached python-memcache"
-  
+- gem update --system
+- gem install sass compass
+- npm install -g grunt-cli
+- npm install grunt grunt-contrib-compass
+- sudo apt-get install -qq memcached python-memcache
 install:
-  - "export DISPLAY=:99.0"
-  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
-  - "pip install --upgrade setuptools --use-mirrors"
-  - "pip install $DJANGO --use-mirrors"
-  - "pip install --use-mirrors --allow-all-external --allow-unverified django-admin-tools -r requirements/ci_requirements.txt"
-  - "pip install Pillow --use-mirrors"
-  - "touch onepercentclub/settings/secrets.py"
-  
+- export DISPLAY=:99.0
+- /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16
+- pip install --upgrade setuptools --use-mirrors
+- pip install $DJANGO --use-mirrors
+- pip install --use-mirrors --allow-all-external --allow-unverified django-admin-tools -r requirements/ci_requirements.txt
+- pip install Pillow --use-mirrors
+- touch onepercentclub/settings/secrets.py
 before_script:
-  - "pip show bluebottle"
-  - "grunt compass:dist --bb_path=\"`pip show bluebottle | grep Location | cut -b11-`/bluebottle/common/static/sass\""
-
+- pip show bluebottle
+- grunt compass:dist --bb_path="`pip show bluebottle | grep Location | cut -b11-`/bluebottle/common/static/sass"
 script:
-  - python ./manage.py test --settings=onepercentclub.settings.travis --failfast -v 1
-  # - grunt travis --verbose # add --force to pass build on JS failures
+- python ./manage.py test --settings=onepercentclub.settings.travis --failfast -v 1
+notifications:
+  hipchat:
+    rooms:
+      secure: lfQxEnp7TBqzVc61Wm8NhQiqkKg6YBSx9Ro1q3VTeUWsKzFS2p7OV1eKu8bXjCA9FaCaaxc/TxFaZcvUr2hzXJiW/VoZH4J/+yYp2yblhj5uzQuQl3oWRgY8eFK33rjelqnkolFSmrMkVWY6cw/M8DNrxoSqzQLP2Dn5jYxS6Jg=
