@@ -6,14 +6,15 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Malou <malou@onepercentclub.com>, 2014
 # nieja <niels@1procentclub.nl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-20 17:37+0200\n"
-"PO-Revision-Date: 2014-05-20 15:38+0000\n"
+"POT-Creation-Date: 2014-05-21 12:07+0200\n"
+"PO-Revision-Date: 2014-05-21 09:58+0000\n"
 "Last-Translator: aethemba <aksel@onepercentclub.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
@@ -547,7 +548,6 @@ msgid "Skill"
 msgstr "Skill"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:93
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_new.hbs.py:57
 msgid "Tags"
 msgstr "Keywords"
 
@@ -597,6 +597,10 @@ msgstr "Create new task"
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_new.hbs.py:17
 msgid "Be creative! And eh&hellip; avoid the word \"help"
 msgstr "Be creative! And avoid the word \"help''"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_new.hbs.py:57
+msgid "Keywords"
+msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_new.hbs.py:70
 msgid "Create Task"
