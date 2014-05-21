@@ -7,6 +7,7 @@ App.Project.reopen({
 
     deadline: DS.attr('date'),
     amount_asked: DS.attr('number'), //, {defaultValue: 0}),
+    allowOverfunding: DS.attr('boolean'),
 
     maxAmountAsked: Ember.computed.lte('amount_asked', 1000000),
     minAmountAsked: Ember.computed.gte('amount_asked', 250),
@@ -24,6 +25,11 @@ App.Project.reopen({
     isStatusCampaign: Em.computed.equal('status.id', '5'),
     isStatusCompleted: Em.computed.equal('status.id', '7'),
     isStatusStopped: Em.computed.gt('status.id', '9'),
+
+    isSupportable: function () {
+        var now = new Date();
+        return this.get('isStatusCampaign') && this.get('deadline') > now && (this.get('amount_needed') > 0 || this.get('allowOverfunding'));
+    }.property('isStatusCampaign', 'deadline', 'amount_needed', 'allowOverfunding'),
 
     save: function () {
         // the amount_needed is calculated here and not in the server
