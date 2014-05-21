@@ -1,4 +1,33 @@
-//@include sticky-footer(400px, "#main", "#layout_footer", "#footer");
+
+// Sticky Footer
+// -------------------------
+
+html, body, #site {
+  	height: 100%;
+}
+
+#main {
+	//border: 1px solid transparent;
+  	min-height: 100%;
+  	margin-bottom: -460px; // equal to footer height + 2x margin */
+  	padding-bottom: 0;
+  	overflow: auto;
+}
+
+#main:after {
+  	content: "";
+  	display: block;
+}
+
+#footer, #main:after {
+    height: 450px;
+}
+
+#footer {
+    height: 450px;
+	clear: both;
+}
+
 
 #footer {
 	color: $gray-light;
@@ -74,7 +103,7 @@
 	#footer-copyright {
 		background-color: white;
 		color: $gray-dark;
-		padding: 1.5em 0 0.75em 0;
+		padding: 1.5em 0 0 0;
 		font-size: 0.8em;
 		
 		.copy {
