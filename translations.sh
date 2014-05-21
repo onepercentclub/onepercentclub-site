@@ -22,7 +22,7 @@ APPS_ROOT="$PWD/apps"
 BB_ROOT="$PWD/env/src/bluebottle/bluebottle"
 
 MAKEMESSAGES="$MANAGE_PY makemessages -l $SOURCE_LANGUAGE --no-wrap -e hbs,html,txt $SETTINGS"
-MAKEJSMESSAGES="$MANAGE_PY makemessages -l $SOURCE_LANGUAGE --include=env/src/bluebottle/bluebottle --ignore=djangojs.js --no-wrap -e js -i compressed -d djangojs $SETTINGS"
+MAKEJSMESSAGES="$MANAGE_PY makemessages -l $SOURCE_LANGUAGE --include=env/src/bluebottle/bluebottle --ignore=djangojs.js  --ignore=node_modules --no-wrap -e js -i compressed -d djangojs $SETTINGS"
 COMPILEMESSAGES="$MANAGE_PY compilemessages $SETTINGS"
 COMPILEJSMESSAGES="$MANAGE_PY compilejsi18n $SETTINGS"
 APPS_DIR="apps"
@@ -85,7 +85,7 @@ case "$1" in
 
             echo "Generating PO-files for wallposts, pages, news and homepage"
             cd "$APPS_ROOT/homepage"
-            INCLUDES="--include=$APPS_ROOT/core/ --include=$BB_ROOT/wallposts --include=$BB_ROOT/pages --include=$BB_ROOT/quotes --include=$BB_ROOT/slides --include=$BB_ROOT/contact --include=$BB_ROOT/news"
+            INCLUDES="--include=$APPS_ROOT/core/ --include=$BB_ROOT/wallposts --include=$BB_ROOT/pages --include=$BB_ROOT/quotes --include=$BB_ROOT/slides --include=$BB_ROOT/contact --include=$BB_ROOT/news --include=$BB_ROOT/utils"
             # Make the locale dir if it's not there.
             if [ ! -d "locale" ]; then
                 mkdir "locale"

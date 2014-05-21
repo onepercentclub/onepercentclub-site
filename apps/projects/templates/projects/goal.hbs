@@ -31,7 +31,7 @@
     <fieldset>
         <ul>
             <li class="control-group fieldset-content">
-                <label><strong>Budget breakdown</strong> <small>Please specify all the things you need money for</small></label>
+                <label><strong>{% trans "Budget breakdown" context "Goal page"%}</strong> <small>{% trans "Please specify all the things you need money for" context "Goal page" %}</small></label>
                 <table class="campaign-budget-breakdown">
                     <tbody>
                         {{#each line in budgetLines}}
@@ -46,7 +46,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td class="campaign-budget-breakdown-desc">Total</td>
+                            <td class="campaign-budget-breakdown-desc">{% trans "Total" context "Goal page" %}</td>
                             <td class="campaign-budget-breakdown-amount"><strong class="left">€</strong><span class="right">{{localize budgetTotal}}</span></td>
                             <td class="campaign-budget-breakdown-amount"><span class="right">of € {{localize amount_asked}}</span></td>
                         </tr>
@@ -60,10 +60,10 @@
         <ul>
             <li class="control-group fieldset-content">
                 <div class="campaign-budget-description">
-                    {{view Em.TextField valueBinding='budgetLineNew.description' type="text" name="budget_line_description" placeholder="Description of item" }}
+                    {% bb_component 'view Em.TextField' valueBinding='budgetLineNew.description' type="text" name="budget_line_description" placeholder=_("Description of item") %}
                 </div>
                 <div class="campaign-budget-amount">
-                    {{view Em.TextField valueBinding='budgetLineNew.amount' type="number" name="budget_line_amount" placeholder="€ Amount" }}
+                    {% bb_component 'view Em.TextField' valueBinding='budgetLineNew.amount' type="number" name="budget_line_amount" placeholder=_("€ Amount") %}
                 </div>
                 <a {{action addBudgetLine}} class="btn btn-modest add-budget"><span class="flaticon solid plus-2"></span>{% trans 'Add' %}</a>
             </li>

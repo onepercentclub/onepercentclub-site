@@ -28,7 +28,7 @@
         <ul>
             {% bb_component 'bb-upload-display-image' name='img_upload' label=_('Picture') hint=_('Upload the picture that best describes your campaign.') fileBinding='image' buttonLabel=_('Upload picture') errorsBinding='errors.image' %}
 
-            {% bb_component 'bb-video-link' label=_('Video (optional)') name='video' placeholder=_('Not required') valueBinding='video_url' video_html='video_html' errorsBinding='errors.video' %}
+            {% bb_component 'bb-video-link' label=_('Video (optional)') hint=_('Add a video pitch if you want. Make it sparkling!') name='video' placeholder=_('Not required') valueBinding='video_url' video_html='video_html' errorsBinding='errors.video' %}
         </ul>
     </fieldset>
     <fieldset>
@@ -36,7 +36,7 @@
             {% bb_component 'bb-select-generic' valueProperty="'content.id'" labelProperty="'content.name'" options='allThemes' value='theme' name='theme' label=_('Theme') prompt=_('Select one of the themes.') errorsBinding='errors.theme' %}
 
             {{#bb-form-field hint='Add keywords that will make your campaign easier to find' label='Keywords' errors=errors.tags}}
-                {{view App.TagWidget tagsBinding="tags" name='tags' classBinding="errors.tags.length:error" prompt='Choose max. 5 keywords'}}
+                {% bb_component 'view App.TagWidget' tagsBinding="tags" name='tags' classBinding="errors.tags.length:error" prompt=_('Choose max. 5 keywords') %}
             {{/bb-form-field}}
         </ul>
     </fieldset>
