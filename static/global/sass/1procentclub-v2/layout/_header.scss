@@ -23,6 +23,9 @@
 		width: 12%;
 		margin-left: 1em;
 		@include single-transition(width, .1s ease-in-out .1s);
+		@include breakpoint(x-small) {
+			display: none;
+		}
 		.logo-link {
 			display: block;
 			padding: 1.5em 0 0 0;
