@@ -24,3 +24,5 @@ COWRY_LIVE_PAYMENTS = True
 EMAIL_BACKEND = 'bluebottle.utils.email_backend.DKIMBackend'
 
 SESSION_COOKIE_DOMAIN = '.onepercentclub.com'
+
+ANALYTICS_CODE = 'UA-2761714-4'
