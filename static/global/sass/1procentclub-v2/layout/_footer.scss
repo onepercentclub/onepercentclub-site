@@ -113,6 +113,10 @@
 			.copy {
 				text-align: left;
 				padding-left: 3em;
+				@include breakpoint(x-small) {
+					padding-left: 0;
+					text-align: center;
+				}
 			}
 			
 			.footer-back-to-top {
@@ -131,7 +135,10 @@
 			.give-us-feedback {
 				text-align: right;
 				padding-right: 3em;
-				
+				@include breakpoint(x-small) {
+					text-align: center;
+					padding-right: 0;
+				}
 				a {
 					color: $gray-dark;
 				

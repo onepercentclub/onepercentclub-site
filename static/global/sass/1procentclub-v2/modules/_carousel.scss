@@ -77,6 +77,9 @@
 					background: rgba(0,0,0, .2);
 					@include border-radius(8px);
 					padding: 1em 0.7em;
+					@include breakpoint(x-small) {
+						top: 170px;
+					}
 					
 					h1 {
 						color: $white !important;

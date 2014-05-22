@@ -24,7 +24,7 @@
 		margin-left: 1em;
 		@include single-transition(width, .1s ease-in-out .1s);
 		@include breakpoint(x-small) {
-			display: none;
+			width: 8%;
 		}
 		.logo-link {
 			display: block;
@@ -51,6 +51,9 @@
 			padding-left: 0;
 			width: auto;
 			text-align: left;
+			@include breakpoint(x-large) {
+				display: none;
+			}
 			
 			.nav-main-item {
 				display: inline;
@@ -67,11 +70,85 @@
 				
 			}
 		}
+
+		.mobile-nav-holder {
+			position: fixed;
+			top: 100px;
+			right: -300px;
+			width: auto;
+			z-index: 999;
+			opacity: 0;
+			@include single-transition(all, .2s ease-in-out);
+			&.is-scrolled {
+				top: 64px;
+			}
+			&.is-active {
+				right: 20px;
+				opacity: 1;
+			}
+
+			.mobile-nav {
+				background: rgba($color-primary, .9);
+				margin: -4px 0 0 0;
+				border-radius: 0 0 6px 6px;
+				width: 220px;
+				opacity: 1;
+				@include single-transition(all, .2s ease-in-out);
+				.mobile-nav-item {
+					margin: 0;
+					padding-left: 0;
+					a {
+						display: block;
+						width: 220px;
+						padding: 0 10px 0 10px;
+						text-decoration: none;
+						line-height: 40px;
+						color: white;
+					}
+					&:hover {
+						background: $gray-dark;
+						&:last-of-type {
+							border-radius: 0 0 6px 6px;
+						}
+						a {
+							color: white;
+						}
+					}
+				}
+			}
+		}
+
+		.mobile-nav-btn {
+			position: fixed;
+			right: 20px;
+			width: 50px;;
+			height: 66px;
+			z-index: 99;
+			cursor: pointer;
+			display: none;
+			@include breakpoint(x-large) {
+				display: block;
+			}
+			i {
+				display: block;
+				text-align: center;
+				margin-top: 10px;
+				font-size: 35px;
+			}
+		}
 		
 		.nav-actions {
 			padding: 0;
 			float: right;
 			width: 220px;
+			@include breakpoint(x-small) {
+				font-size: 90%;
+				width: 183px;
+			}
+			@include breakpoint(x-large) {
+				position: fixed;
+				right: 80px;
+			}
 			
 			li {
 				padding: 0;

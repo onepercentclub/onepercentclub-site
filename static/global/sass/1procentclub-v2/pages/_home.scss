@@ -83,6 +83,9 @@
 		padding: 2em 6em 1em 8em;
 		margin: auto;
 		min-height: 100px;
+		@include breakpoint(x-small) {
+			padding: .2em 0.1em .2em .2em;
+		}
 		
 		.carousel-photo {
 			width: 80px;
