@@ -2,10 +2,6 @@
 // Sticky Footer
 // -------------------------
 
-html, body, #site {
-  	height: 100%;
-}
-
 #main {
 	//border: 1px solid transparent;
   	min-height: 100%;
@@ -28,7 +24,6 @@ html, body, #site {
 	clear: both;
 }
 
-
 #footer {
 	color: $gray-light;
 	font-family: $font-family-body;
@@ -39,7 +34,7 @@ html, body, #site {
 		
 		#footer-nav {
 			position: relative;
-			padding: 2em 0;
+			padding: 2em 1em;
 			
 			h3 {
 				font-size: 100%;
