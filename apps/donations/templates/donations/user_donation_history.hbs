@@ -21,7 +21,7 @@
                             <table>
                                 {{#each donation in order.donations}}
                                 <tr>
-                                    <td class="fund-history-project"><a {{action showProject donation.project.id}}>{{donation.project.title}}</a></td>
+                                    <td class="fund-history-project">{{#link-to 'project' donation.project.id}}{{donation.project.title}}{{/link-to}}</td>
                                     <td class="fund-history-amount">&euro;{{ donation.amount }},-</td>
                                 </tr>
                                 {{/each}}
