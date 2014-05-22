@@ -17,6 +17,7 @@ PROJECT_ROOT = os.path.dirname(os.path.normpath(os.path.join(__file__, '..', '..
 DJANGO_PROJECT = os.path.basename(PROJECT_ROOT.rstrip('/'))
 
 DEBUG = True
+TEST_MEMCACHE = False
 TEMPLATE_DEBUG = True
 
 ADMINS = (
@@ -141,13 +142,21 @@ CACHES = {
 }
 
 # List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = [
-    ('django.template.loaders.cached.Loader', (
+if not DEBUG or TEST_MEMCACHE:
+    TEMPLATE_LOADERS = [
+        ('django.template.loaders.cached.Loader', (
+            'django.template.loaders.filesystem.Loader',
+            'django.template.loaders.app_directories.Loader',
+            'apptemplates.Loader', # extend AND override templates
+        )),
+    ]
+else:
+    TEMPLATE_LOADERS = [
         'django.template.loaders.filesystem.Loader',
         'django.template.loaders.app_directories.Loader',
         'apptemplates.Loader', # extend AND override templates
-    )),
-]
+    ]
+
 
 # These are basically the default values from the Django configuration, written
 # as a list for easy manipulation. This way one can:

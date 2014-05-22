@@ -102,7 +102,7 @@ class Project(BaseProject):
     is_campaign = models.BooleanField(default=False, help_text=_("Project is part of a campaign and gets special promotion."))
 
     # For convenience and performance we also store money donated and needed here.
-    amount_asked = MoneyField(default=0)
+    amount_asked = MoneyField(default=0, null=True, blank=True)
     amount_donated = MoneyField(default=0)
     amount_needed = MoneyField(default=0)
 
@@ -325,7 +325,9 @@ class Project(BaseProject):
             self.status = ProjectPhase.objects.get(slug="done-incomplete")
             self.campaign_ended = self.deadline
 
-        self.update_money_donated(False)
+        if self.amount_asked:
+            self.update_money_donated(False)
+
         super(Project, self).save(*args, **kwargs)
 
 
