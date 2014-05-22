@@ -3,84 +3,85 @@
 
 {% tplhandlebars "_footer" %}
 
-    <div class="l-section" id="footer">
-        <div class="l-section" id="footer-links">
-            <div class="l-wrapper" id="footer-nav">
-                <div class="row two">
-                    <div class="col3">
-                        <h3>{% trans "Do good" %}</h3>
-                        <ul>
-                            <li>{{#link-to 'projectList'}}{% trans "Browse campaigns" %}{{/link-to}}</li>
-                            <li>{{#link-to 'taskList'}}{% trans "Browse tasks" %}{{/link-to}}</li>
-                            <li>{{#link-to 'myProject.start' 'new'}}{% trans "Start a campaign" %}{{/link-to}}</li>
-                            <li>{{#link-to 'page' 'business'}}{% trans "Let's do Business" %}{{/link-to}}</li>
-                        </ul>
-                    </div>
-                    <div class="col3">
-                        <h3>{% trans "Need help?" %}</h3>
-                        <ul>
-                            <li>{{#link-to 'page' 'faq'}}{% trans "FAQ" %}{{/link-to}}</li>
-                            <li>{{#link-to 'page' 'terms-and-conditions'}}{% trans "Terms of service" %}{{/link-to}}</li>
-                            <li>{{#link-to 'page' 'organisatie'}}{% trans "ANBI" %}{{/link-to}}</li>
-                            <li>{{#link-to 'page' 'privacy'}}{% trans "Privacy policy" %}{{/link-to}}</li>
-                            <li>{{#link-to 'contactMessage'}}{% trans "Contact" %}{{/link-to}}</li>
-                        </ul>
-                    </div>
-                    <div class="col3">
-                        <h3>{% blocktrans %}About 1%Club{% endblocktrans %}</h3>
-                        <ul>
-                            <li>{{#link-to 'page' 'about'}}{% trans "About" %}{{/link-to}}</li>
-                            <li>{{#link-to 'page' 'story'}}{% trans "Our story" %}{{/link-to}}</li>
-                            <li>{{#link-to 'page' 'meet-team'}}{% trans "Meet the team" %}{{/link-to}}</li>
-                            <li>{{#link-to 'page' 'partners'}}{% trans "Meet our partners" %}{{/link-to}}</li>
-                            <li>{{#link-to 'page' 'press'}}{% trans "Press" %}{{/link-to}}</li>
-                            <li>{{#link-to 'page' 'work'}}{% blocktrans %}Work at 1%Club{% endblocktrans %}{{/link-to}}</li>
-                            <li>{{#link-to 'news'}}{% trans "News" %}{{/link-to}}</li>
-                        </ul>
-                    </div>
-                    <div class="col3">
-                        <h3>{% trans "Let's connect" %}</h3>
-                        <ul>
-                            <li class="social-facebook"><a target="_blank" href="http://facebook.com/onepercentclub">{% trans "Facebook" %}</a></li>
-                            <li class="social-twitter"><a target="_blank" href="https://twitter.com/1procentclub">{% trans "Twitter" %}</a></li>
-                            <li class="social-linkedin"><a target="_blank" href="https://www.linkedin.com/groups?mostRecent=&gid=1071287">{% trans "LinkedIn" %}</a></li>
-                            <li class="social-youtube"><a target="_blank" href="http://youtube.com/1procentclub/">{% trans "Youtube" %}</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="l-section" id="footer-contact">
-            <div class="l-wrapper">
-                <div class="row">
-                    <div class="col12">
-                        <p>{% trans "You can always contact us for questions via" %} <a href="mailto:info@onepercentclub.com">info@onepercentclub.com</a> and <a href="tel:+3120 715 8980">(+31) 20 715 8980</a></p>
+    <div id="home-footer">
+        <div class="l-section" id="footer">
+            <div id="footer-links">
+                <div class="l-wrapper" id="footer-nav">
+                    <div class="row two">
+                        <div class="col3">
+                            <h3>{% trans "Do good" %}</h3>
+                            <ul>
+                                <li>{{#link-to 'projectList'}}{% trans "Browse campaigns" %}{{/link-to}}</li>
+                                <li>{{#link-to 'taskList'}}{% trans "Browse tasks" %}{{/link-to}}</li>
+                                <li>{{#link-to 'myProject.start' 'new'}}{% trans "Start a campaign" %}{{/link-to}}</li>
+                                <li>{{#link-to 'page' 'business'}}{% trans "Let's do Business" %}{{/link-to}}</li>
+                            </ul>
+                        </div>
+                        <div class="col3">
+                            <h3>{% trans "Need help?" %}</h3>
+                            <ul>
+                                <li>{{#link-to 'page' 'faq'}}{% trans "FAQ" %}{{/link-to}}</li>
+                                <li>{{#link-to 'page' 'terms-and-conditions'}}{% trans "Terms of service" %}{{/link-to}}</li>
+                                <li>{{#link-to 'page' 'organisatie'}}{% trans "ANBI" %}{{/link-to}}</li>
+                                <li>{{#link-to 'page' 'privacy'}}{% trans "Privacy policy" %}{{/link-to}}</li>
+                                <li>{{#link-to 'contactMessage'}}{% trans "Contact" %}{{/link-to}}</li>
+                            </ul>
+                        </div>
+                        <div class="col3">
+                            <h3>{% trans "About 1%Club" %}</h3>
+                            <ul>
+                                <li>{{#link-to 'page' 'about'}}{% trans "About" %}{{/link-to}}</li>
+                                <li>{{#link-to 'page' 'story'}}{% trans "Our story" %}{{/link-to}}</li>
+                                <li>{{#link-to 'page' 'meet-team'}}{% trans "Meet the team" %}{{/link-to}}</li>
+                                <li>{{#link-to 'page' 'partners'}}{% trans "Meet our partners" %}{{/link-to}}</li>
+                                <li>{{#link-to 'page' 'press'}}{% trans "Press" %}{{/link-to}}</li>
+                                <li>{{#link-to 'page' 'work'}}{% trans "Work at 1%Club" %}{{/link-to}}</li>
+                                <li>{{#link-to 'news'}}{% trans "News" %}{{/link-to}}</li>
+                            </ul>
+                        </div>
+                        <div class="col3">
+                            <h3>{% trans "Let's connect" %}</h3>
+                            <ul>
+                                <li class="social-facebook"><a target="_blank" href="http://facebook.com/onepercentclub">{% trans "Facebook" %}</a></li>
+                                <li class="social-twitter"><a target="_blank" href="https://twitter.com/1procentclub">{% trans "Twitter" %}</a></li>
+                                <li class="social-linkedin"><a target="_blank" href="https://www.linkedin.com/groups?mostRecent=&gid=1071287">{% trans "LinkedIn" %}</a></li>
+                                <li class="social-youtube"><a target="_blank" href="http://youtube.com/1procentclub/">{% trans "Youtube" %}</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="l-section" id="footer-copyright">
-            <div class="l-wrapper">
-                <div class="row">
-                
-                    <div class="col3 copy">
-                        <p>© 2014 - 1%Club
-                            {{#if GIT_COMMIT}}
-                                / Commit: <a target='_blank' href='https://github.com/onepercentclub/onepercentclub-site/commit/{{unbound GIT_COMMIT }}'>{{ GIT_COMMIT }}</a>
-                            {{/if}}
-                        </p>
+            <div class="l-section" id="footer-contact">
+                <div class="l-wrapper">
+                    <div class="row">
+                        <div class="col12">
+                            <p>{% trans "You can always contact us for questions via" %} <a href="mailto:info@onepercentclub.com">info@onepercentclub.com</a> and <a href="tel:+3120 715 8980">(+31) 20 715 8980</a></p>
+                        </div>
                     </div>
+                </div>
+            </div>
+            <div class="l-section" id="footer-copyright">
+                <div class="l-wrapper">
+                    <div class="row">
                     
-                    <div class="col6 footer-back-to-top">
-                        <a href="#top">Go to top</a></p>
-                    </div>
-                    
-                    <div class="col3 give-us-feedback">
-                        <p>{{#link-to 'page' 'contact'}}Give us feedback{{/link-to}}</p>
+                        <div class="col3 copy">
+                            <p>© 2014 - 1%Club
+                                {{#if GIT_COMMIT}}
+                                    / Commit: <a target='_blank' href='https://github.com/onepercentclub/onepercentclub-site/commit/{{unbound GIT_COMMIT }}'>{{ GIT_COMMIT }}</a>
+                                {{/if}}
+                            </p>
+                        </div>
+                        
+                        <div class="col6 footer-back-to-top">
+                            <a href="#top">Go to top</a></p>
+                        </div>
+                        
+                        <div class="col3 give-us-feedback">
+                            <p>{{#link-to 'page' 'contact'}}Give us feedback{{/link-to}}</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 {% endtplhandlebars %}
