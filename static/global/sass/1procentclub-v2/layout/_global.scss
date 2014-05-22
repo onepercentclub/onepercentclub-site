@@ -1,8 +1,14 @@
 html, body, #site {
 	height: 100%;
+	width: 100%;
+}
+
+#content, #main, .l-section, .l-wrapper {
+	width: 100%;
 }
 
 #content {
+	width: 100%;
 	margin-top: 96px !important; // for static header
 	padding-bottom: 40px; // push footer down
 	@include single-transition(margin-top, 1ms ease-in-out);
