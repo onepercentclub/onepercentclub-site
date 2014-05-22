@@ -94,9 +94,9 @@ case "$1" in
             $MANAGE_PY makemessages -l $SOURCE_LANGUAGE $INCLUDES --no-wrap -e hbs,html,txt $SETTINGS
 
 
-            echo "Generating PO-files for wallposts, pages, news and homepage"
+            echo "Generating PO-files for wallposts, pages, news and homepage, and utils and common in BB"
             cd "$APPS_ROOT/homepage"
-            INCLUDES=" --include=$ROOT/templates --include=$APPS_ROOT/core/ --include=$BB_ROOT/wallposts --include=$BB_ROOT/pages --include=$BB_ROOT/quotes --include=$BB_ROOT/slides --include=$BB_ROOT/contact --include=$BB_ROOT/news --include=$BB_ROOT/utils"
+            INCLUDES=" --include=$ROOT/templates --include=$APPS_ROOT/core/ --include=$BB_ROOT/wallposts --include=$BB_ROOT/pages --include=$BB_ROOT/quotes --include=$BB_ROOT/slides --include=$BB_ROOT/contact --include=$BB_ROOT/news --include=$BB_ROOT/utils --include=$BB_ROOT/common"
             # Make the locale dir if it's not there.
             if [ ! -d "locale" ]; then
                 mkdir "locale"
@@ -141,7 +141,7 @@ case "$1" in
 
         pull)
             echo "Fetching PO files from Transifex"
-            tx pull -a
+            tx pull -a -f
 
             # Copy en_GB translations to en
             for APP_DIR in $APPS; do
