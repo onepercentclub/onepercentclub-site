@@ -9,9 +9,11 @@
 {% block meta %}
     {{ block.super }}
 
+	<meta name="viewport" content="width=960" />
+
 	<link type="text/css" rel="stylesheet" href="//fast.fonts.net/cssapi/35462e2c-8abd-4457-8837-d0d64a385759.css"/>
     <link type="text/css" rel="stylesheet" href="//fast.fonts.net/cssapi/3a3d72a6-e1d9-4203-826f-9ac869e0054a.css"/>
-
+    
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="https://www.onepercentclub.com" />
 	<meta property="og:title" content="{% blocktrans %}Site meta FB title{% endblocktrans %}" />
@@ -20,6 +22,7 @@
 	<meta property="og:site_name" content="{% blocktrans %}Site meta FB site name{% endblocktrans %}" />
 	<meta property="fb:page_id" content="298248659856" />
     <meta property="og:keywords" content="{% blocktrans %}Site meta FB keywords{% endblocktrans %}" />
+
 
 {% endblock %}
 
@@ -49,6 +52,14 @@
         <li class="nav-main-item">{{#linkTo 'myProject.start' 'new'}}{% blocktrans %}Start campaign{% endblocktrans %}{{/linkTo}}</li>
         <li class="nav-main-item"><a {{action 'showPage' 'about'}} href="/#!/pages/about">{% blocktrans %}About{% endblocktrans %}</a></li>
     </ul>
+    <div class="mobile-nav-holder">
+        <ul class="mobile-nav">
+            <li class="mobile-nav-item">{{#linkTo 'projectList'}}{% blocktrans %}Search campaigns{% endblocktrans %}{{/linkTo}}</li>
+            <li class="mobile-nav-item">{{#linkTo 'myProject.start' 'new'}}{% blocktrans %}Start campaign{% endblocktrans %}{{/linkTo}}</li>
+            <li class="mobile-nav-item"><a {{action 'showPage' 'about'}} href="/#!/pages/about">{% blocktrans %}About{% endblocktrans %}</a></li>
+        </ul>
+    </div>
+     <span class="mobile-nav-btn"><i class="flaticon solid menu-list-4"></i></span>
 {% endblock_verbatim %}
 
 {% block defaults_js %}
