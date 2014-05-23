@@ -255,6 +255,13 @@ def generate_projects_csv_file(path, loglevel):
             status = ''
             if project.status:
                 status = project.status.name.encode("utf-8")
+            organization_id = ''
+            if project.organization:
+                organization_id = project.organization.id
+            tags = ""
+            deadline = ""
+            if project.deadline:
+                deadline = project.deadline.date()
             for tag in project.tags.all():
                 tags = str(tag) + ", " + tags
             csvwriter.writerow([project.id,
@@ -263,7 +270,7 @@ def generate_projects_csv_file(path, loglevel):
                                 status,
                                 country,
                                 project.pitch.encode("utf-8"),
-                                project.organization.id,
+                                organization_id,
                                 project.reach,
                                 "%01.2f" % (project.amount_donated / 100),
                                 "%01.2f" % (project.amount_asked / 100),
@@ -276,7 +283,7 @@ def generate_projects_csv_file(path, loglevel):
                                 project.future.encode("utf-8"),
                                 project.description.encode("utf-8"),
                                 project.updated,
-                                project.deadline.date()])
+                                deadline])
 
 
             success_count += 1
@@ -301,7 +308,7 @@ def generate_projectbudgetlines_csv_file(path, loglevel):
         for budget_line in budget_lines:
             try:
                 csvwriter.writerow([budget_line.id,
-                                    budget_line.project_plan.id,
+                                    budget_line.project.id,
                                     '%01.2f' % (float(budget_line.amount) / 100),
                                     budget_line.description.encode("utf-8")])
                 success_count += 1
