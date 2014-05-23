@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 -e git://github.com/onepercentclub/bluebottle.git@1.0.62#egg=bluebottle
 
 pip
