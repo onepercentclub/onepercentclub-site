@@ -1,0 +1,21 @@
+#nav {
+
+	.nav-main {
+
+		> li a {
+			margin-top: $base-margin;
+			padding-bottom: $base-padding * 2;
+		}
+	}
+
+	.nav-actions {
+
+		.nav-member {
+
+		}
+
+		.nav-signup-login {
+			margin-top: $base-margin;
+		}
+	}
+}

@@ -1,0 +1,125 @@
+{% load bb_ember i18n %}
+
+{% tplhandlebars "viewProfile" %}
+
+	<div id="public-profile-page">
+	    <div class="l-section account-header">
+	        <div class="l-wrapper">
+
+				<div class="account-personal">
+
+		            <figure class="account-avatar">
+		                <img {{bindAttr src="getAvatar"}} width="100%" alt="Photo" />
+		            </figure>
+
+		            <h2 class="account-title">{{full_name}}</h2>
+
+                    {{#link-to "userProfile" classNames="account-edit-link"}}
+                        <span class="flaticon solid settings-1"></span>
+                        Edit profile
+                    {{/link-to }}
+				</div>
+
+	            <ul class="account-achievements">
+	                {# FIXME: translation marking is pretty pointless here, can't take advantage of blocktrans... #}
+			        <li class="account-achievements-projects">
+			            <strong>{{user_statistics.projects_supported}}</strong>
+						{% trans "projects" %}<br />
+						{% trans "supported" %}
+			        </li>
+			        <li class="account-achievements-tasks">
+			            <strong>{{user_statistics.tasks_realized}}</strong>
+						{% trans "tasks" %}<br />
+						{% trans "realized" %}
+			        </li>
+	            </ul>
+	        </div>
+	    </div>
+
+	    <div class="l-section account-body">
+	        <section class="l-wrapper">
+
+	            <div class="account-info">
+	                <h2 class="account-about-header">{% trans "About" %}</h2>
+	                <p>{{about}}</p>
+
+	                <h3 class="account-why-header">{% trans "Why 1%Club" %}</h3>
+	                <p>{{why}}</p>
+
+                    <p class="account-links">
+                        {{#if facebook}}
+                            <a class="account-facebook" {{bind-attr href="get_facebook"}} target="_blank">
+                                <span class="flaticon social facebook-1"></span>
+                                {{ facebook }}
+                            </a>
+                        {{/if}}
+                        {{#if twitter}}
+                            <a class="account-twitter" {{bind-attr href="get_twitter"}} target="_blank">
+                                <span class="flaticon social twitter-1"></span>
+                                @{{twitter}}
+                            </a>
+                        {{/if}}
+                        {{#if skypename}}
+                            <div id="SkypeButton_Call"></div>
+                        {{else}}
+                            <div id="SkypeButton_Call" style="display: none;"></div>
+                        {{/if}}
+					</p>
+	            </div>
+	            
+ 				<div class="account-details">
+	            	{{#if location}}
+	                <dl>
+	                    <dt><span class="flaticon solid location-pin-1"></span> {% trans "Location" %}</dt>
+	                    <dd>{{location}}&nbsp;</dd>
+					</dl>
+					{{/if}}
+					{{#if website}}
+					<dl>
+						<dt><span class="flaticon solid link-1"></span> {% trans "Website" %}</dt>
+						<dd>
+							<a class="account-website" {{bind-attr href=website title="get_website"}} target="_blank">
+							{{ get_website }}
+							</a>
+						</dd>
+					</dl>
+					{{/if}}
+					{{#if themes_list}}
+					<dl>
+	                    <dt><span class="flaticon solid heart-1"></span> {% trans "Fav themes" %}</dt>
+	                    <dd>{{themes_list}}&nbsp;</dd>
+					</dl>
+					{{/if}}
+					{{#if countries_list}}
+					<dl>
+	                    <dt><span class="flaticon solid earth-1"></span>{% trans "Fav countries" %}</dt>
+	                    <dd>{{countries_list}}&nbsp;</dd>
+					</dl>
+					{{/if}}
+					{{#if availability}}
+					<dl>
+	                    <dt><span class="flaticon solid stopwatch-1"></span>{% trans "Time available" %}</dt>
+	                    <dd>{{time_available}}&nbsp;</dd>
+					</dl>
+					{{/if}}
+					{{#if skills_list}}
+					<dl>
+	                    <dt><span class="flaticon solid skill-1"></span>{% trans "Expertise" %}</dt>
+	                    <dd>{{skills_list}}</dd>
+					</dl>
+					{{/if}}
+					{{#if tags_list}}
+					<dl>
+	                    <dt><span class="flaticon solid tag-2"></span>{% trans "Tags" %}</dt>
+	                    <dd>{{tags_list}}&nbsp;</dd>
+	                </dl>
+	                {{/if}}
+	            </div>
+
+	        </section>
+
+	    </div>
+		
+	</div>
+
+{% endtplhandlebars %}

@@ -1,1 +1,2 @@
-import mails, wallposts, models
+import mails
+import wallposts

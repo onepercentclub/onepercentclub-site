@@ -23,14 +23,14 @@ App.UserMonthlyProjectsController = Em.ObjectController.extend({
     }.observes('payment.isLoaded'),
 
     addressComplete: function(){
-        if (this.get('address.didError')) {
+        if (this.get('profile.didError')) {
             return false;
         }
-        if (this.get('address.isDirty')) {
+        if (this.get('profile.isDirty')) {
             return false;
         }
-        return (this.get('address.line1') && this.get('address.city') && this.get('address.country') && this.get('address.postal_code'));
-    }.property('address.line1', 'address.city', 'address.country', 'address.postal_code'),
+        return (this.get('profile.address.line1') && this.get('profile.address.city') && this.get('profile.address.country') && this.get('profile.address.postal_code'));
+    }.property('profile.address.line1', 'profile.address.city', 'profile.address.country', 'profile.address.postal_code'),
 
     shouldSave: function(obj, keyName){
         var dirty = false;
@@ -150,8 +150,23 @@ App.UserMonthlyProjectsController = Em.ObjectController.extend({
                 }
             });
         }
-     },
-     actions: {
+    },
+    actions: {
+        openProjectSelectModal: function() {
+            var route = this;
+            $('#project-select').addClass('modal-active').removeClass('is-hidden');
+            $('body').append('<div class="modal-backdrop"></div>');
+            $('.modal-backdrop').click(function(){
+                route.send('closeAllModals');
+            });
+        },
+
+        closeAllModals: function(){
+            $('.modal-active').removeClass('modal-active').addClass('is-hidden');
+            $('.modal-backdrop').fadeOut(200, function(){
+                this.remove();
+            });
+        },
         save: function(){
             var model = this.get('model');
             var message = gettext("You're about to set a monthly donation.<br/><br/>" +
@@ -159,7 +174,7 @@ App.UserMonthlyProjectsController = Em.ObjectController.extend({
                 "1%Club will withdrawal your monthly donation from your bank account in the beginning of each month. You can cancel it anytime you like.<br/><br/>" +
                 "We will send you an email in the beginning of each month to update you on what project(s) received your 1% Support!");
 
-            var address = this.get('address');
+            var profile = this.get('profile');
 
             Bootstrap.ModalPane.popup({
                 classNames: ['modal'],
@@ -172,7 +187,7 @@ App.UserMonthlyProjectsController = Em.ObjectController.extend({
 
                     if (opts.primary) {
                         model.transaction.commit();
-                        address.save();
+                        profile.save();
                     }
 
                     if (opts.secondary) {
@@ -216,7 +231,7 @@ App.UserMonthlyProjectsController = Em.ObjectController.extend({
             } else {
                 var donation = store.createRecord(App.RecurringDonation);
                 order.transaction.add(donation);
-                donation.set('project', project);
+                donation.set('project', App.Project.find(project));
                 donation.set('order', order);
             }
 

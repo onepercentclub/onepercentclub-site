@@ -21,6 +21,8 @@ COWRY_RETURN_URL_BASE = 'https://onepercentclub.com'
 COWRY_LIVE_PAYMENTS = True
 
 # Send email for real
-EMAIL_BACKEND = 'bluebottle.bluebottle_utils.email_backend.DKIMBackend'
+EMAIL_BACKEND = 'bluebottle.utils.email_backend.DKIMBackend'
 
 SESSION_COOKIE_DOMAIN = '.onepercentclub.com'
+
+ANALYTICS_CODE = 'UA-2761714-4'

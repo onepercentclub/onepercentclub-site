@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: onepercentclub-site\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-13 21:32+0100\n"
+"POT-Creation-Date: 2014-04-10 16:33+0200\n"
 "PO-Revision-Date: 2013-11-13 12:35+0000\n"
 "Last-Translator: nieja <niels@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub-site/language/nl/)\n"
@@ -195,7 +195,7 @@ msgid ""
 "</p>\n"
 msgstr "\n<p>\nEmail:<a href=\"mailto:info@1procentclub.nl?subject=Contact\">info@1procentclub.nl</a><br />\nTwitter:<a href=\"https://twitter.com/1procentclub\">@1procentclub</a><br />\nFacebook: <a href=\"http://www.facebook.com/onepercentclub\">/onepercentclub</a>\n</p>\n<p>\nStichting 1%%Club<br />\n's Gravenhekje 1a<br />\n1011 TG Amsterdam<br />\n</p>\n<p>\nBank: Rabobank (Haarlem)<br />\nRekeningnummer: NL45 RABO 01322070 44 (Stg. 1%%Club donaties)<br />\nBIC: RABONL2U<br />\n<br />\nKamer van Koophandel 34.26.78.95<br />\nTelefoon 020-7158980<br />\n</p>\n"
 
-#: templates/pages.hbs:171
+#: templates/pages.hbs:176
 msgid "No projects found."
 msgstr "Geen projecten gevonden."
 

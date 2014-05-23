@@ -1,13 +1,14 @@
-from apps.projects.models import Project, ProjectPhases
+from apps.projects.models import Project, ProjectPhase
 from apps.projects.serializers import ProjectPreviewSerializer
 
 
 def prepare_money_donated():
-    projects = Project.objects.filter(phase__in=[ProjectPhases.campaign, ProjectPhases.act,
-                                                 ProjectPhases.results, ProjectPhases.realized]).all()
+    projects = Project.objects.filter(status__in=[ProjectPhase.objects.get(slug="campaign"),
+                                                  ProjectPhase.objects.get(slug="done-complete")]).all()
 
     for project in projects:
         try:
+            # TODO: fix donation
             project.projectcampaign.update_money_donated()
             project.update_popularity()
         except Exception:
@@ -15,7 +16,8 @@ def prepare_money_donated():
 
 
 def prepare_project_images():
-    projects = Project.objects.exclude(phase__in=[ProjectPhases.pitch, ProjectPhases.failed]).all()
+    projects = Project.objects.exclude(status__in=[ProjectPhase.objects.get(slug="plan-new"),
+                                                   ProjectPhase.objects.get(slug="done-stopped")]).all()
 
     for project in projects:
         try:

@@ -1,0 +1,62 @@
+{% load i18n bb_ember static %}
+
+{% tplhandlebars "orderThanks" %}
+
+    <div id="thanks">
+        <div class="l-section thanks-header">
+            <section class="l-wrapper">
+
+                <figure class="image thanks-image">
+                    <img src="/static/assets/images/pages/business-green.png" alt="High five!" />
+                </figure>
+
+                <header class="thanks-title">
+                    <h1>{% trans "Did you know that you rock?" %} <em>{% trans "Well, you rock!" %}</em></h1>
+
+                    <div class="thanks-share"><p>{% blocktrans %}Why not share the project with your friends, and encourage them to support as well?{% endblocktrans %}<br />
+                    {% blocktrans %}Just hit (one of) the share buttons to make even more impact:{% endblocktrans %}</p>
+                    {{view App.SocialShareView}}
+                    </div>
+                </header>
+
+            </section>
+        </div>
+
+        <div class="l-section">
+            <section class="l-wrapper">
+                <article class="l-content">
+
+                    <header class="page-header">
+                        {{#if moreThanOneDonation }}
+                            <h3>{% trans "You just supported these projects" %}</h3>
+                        {{ else }}
+                            <h3>{% trans "You just supported this project" %}</h3>
+                        {{/if}}
+
+                        <p>{% blocktrans %}Thank you for supporting these projects below. With your support we come one step closer realizing the project.{% endblocktrans %}</p>
+
+                    </header>
+
+                    <ul class="project-list">
+                        {{#each donation in donations }}
+                            {{partial "thanksDonation"}}
+                        {{/each}}
+                    </ul>
+                </article>
+
+                <sidebar class="l-sidebar">
+                    {{#if controllers.currentUser.isAuthenticated }}
+                        <h3>{% trans "Want to do more?" %}</h3>
+                        <p>{% blocktrans %}You can easily support projects monthly. Just pick a project yourself or you can leave that up to us.{% endblocktrans %}</p>
+                        {{#linkTo "userMonthlyProjects" class="btn btn-primary"}}{% trans "Support monthly" %}{{/linkTo}}
+                    {{else}}
+                         <h3>{% trans "Stay updated" %}</h3>
+                        <p>{% blocktrans %}We’d love to keep you updated on the progress of the projects you just supported. Sign up and receive updates, and our everlasting love.{% endblocktrans %}</p>
+                        {{#linkTo 'signup' class="btn btn-primary"}}{% blocktrans %}Signup now{% endblocktrans %}{{/linkTo}}
+                    {{/if}}
+                </sidebar>
+
+            </section>
+        </div>
+    </div>
+{% endtplhandlebars %}

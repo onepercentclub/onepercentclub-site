@@ -1,0 +1,75 @@
+{% load bb_ember %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "my_project_goal" %}
+
+    {{#unless isPhasePlanNew}}
+        {{bb-flash data=flash}}
+    {{/unless}}
+
+    <legend>
+        <strong>
+            {% trans 'Goal & Budget' %}
+        </strong>
+        <span>{% trans 'Tell us how much you want to raise and how long you want to campaign. Did you know that you can crowdfund more than your target amount?' context "Goal subheader" %}</span>
+    </legend>
+    
+    <fieldset>
+        <ul>
+            {% bb_component 'bb-text-field' valueBinding='amount_asked' name='amount_asked' label=_('Crowdfunding goal') hint=_('Pick an amount between &nbsp; &euro; 250 - &euro; 1.000.000') placeholder=_('I want to crowdfund €…') errorsBinding='errors.amount_asked'%}
+        </ul>
+    </fieldset>
+
+    <fieldset>
+        <ul>
+
+            {% bb_component 'bb-date-picker-slider' hint=_('We recommend that campaigns last 30 days or less.') valueBinding='deadline' name='deadline' label=_('Campaign duration') errorsBinding='errors.deadline' minDate="'+7d'" maxDate="'+100d'" %}
+        </ul>
+    </fieldset>
+
+    <fieldset>
+        <ul>
+            <li class="control-group fieldset-content">
+                <label><strong>{% trans "Budget breakdown" context "Goal page"%}</strong> <small>{% trans "Please specify all the things you need money for" context "Goal page" %}</small></label>
+                <table class="campaign-budget-breakdown">
+                    <tbody>
+                        {{#each line in budgetLines}}
+                            <tr>
+                                <td class="campaign-budget-breakdown-desc">{{line.description}}</td>
+                                <td class="campaign-budget-breakdown-amount"><strong class="left">€</strong> <span class="right">{{localize line.amount}}</span></td>
+                                <td class="campaign-budget-breakdown-remove">
+                                    <a {{action removeBudgetLine line href=true}} class="right flaticon stroke trash-2"></a>
+                                </td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td class="campaign-budget-breakdown-desc">{% trans "Total" context "Goal page" %}</td>
+                            <td class="campaign-budget-breakdown-amount"><strong class="left">€</strong><span class="right">{{localize budgetTotal}}</span></td>
+                            <td class="campaign-budget-breakdown-amount"><span class="right">of € {{localize amount_asked}}</span></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </li>
+        </ul>
+    </fieldset>
+
+    <fieldset>
+        <ul>
+            <li class="control-group fieldset-content">
+                <div class="campaign-budget-description">
+                    {% bb_component 'view Em.TextField' valueBinding='budgetLineNew.description' type="text" name="budget_line_description" placeholder=_("Description of item") %}
+                </div>
+                <div class="campaign-budget-amount">
+                    {% bb_component 'view Em.TextField' valueBinding='budgetLineNew.amount' type="number" name="budget_line_amount" placeholder=_("€ Amount") %}
+                </div>
+                <a {{action addBudgetLine}} class="btn btn-modest add-budget"><span class="flaticon solid plus-2"></span>{% trans 'Add' %}</a>
+            </li>
+        </ul>
+    </fieldset>
+    
+    {{ partial '_my_project_save_edit_footer'}}
+
+{% endtplhandlebars %}

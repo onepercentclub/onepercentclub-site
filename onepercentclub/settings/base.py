@@ -17,11 +17,14 @@ PROJECT_ROOT = os.path.dirname(os.path.normpath(os.path.join(__file__, '..', '..
 DJANGO_PROJECT = os.path.basename(PROJECT_ROOT.rstrip('/'))
 
 DEBUG = True
+TEST_MEMCACHE = False
 TEMPLATE_DEBUG = True
 
 ADMINS = (
     ('Loek van Gent', 'loek@1procentclub.nl'),
 )
+
+CONTACT_EMAIL = 'info@onepercentclub.com'
 
 MANAGERS = ADMINS
 
@@ -131,13 +134,29 @@ STATICFILES_FINDERS = [
     # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 ]
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
+
 # List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = [
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-    'apptemplates.Loader', # extend AND override templates
-    # 'django.template.loaders.eggs.Loader',
-]
+if not DEBUG or TEST_MEMCACHE:
+    TEMPLATE_LOADERS = [
+        ('django.template.loaders.cached.Loader', (
+            'django.template.loaders.filesystem.Loader',
+            'django.template.loaders.app_directories.Loader',
+            'apptemplates.Loader', # extend AND override templates
+        )),
+    ]
+else:
+    TEMPLATE_LOADERS = [
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+        'apptemplates.Loader', # extend AND override templates
+    ]
+
 
 # These are basically the default values from the Django configuration, written
 # as a list for easy manipulation. This way one can:
@@ -151,12 +170,12 @@ TEMPLATE_LOADERS = [
 MIDDLEWARE_CLASSES = [
     'apps.redirects.middleware.RedirectHashCompatMiddleware',
     # Have a middleware to make sure old cookies still work after we switch to domain-wide cookies.
-    'bluebottle.bluebottle_utils.middleware.SubDomainSessionMiddleware',
+    'bluebottle.utils.middleware.SubDomainSessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'bluebottle.accounts.middleware.LocaleMiddleware',
+    'bluebottle.bb_accounts.middleware.LocaleMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     # https://docs.djangoproject.com/en/1.4/ref/clickjacking/
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -176,7 +195,11 @@ X_FRAME_OPTIONS = 'DENY'
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     # Makes the 'request' variable (the current HttpRequest) available in templates.
     'django.core.context_processors.request',
-    'django.core.context_processors.i18n'
+    'django.core.context_processors.i18n',
+    'bluebottle.utils.context_processors.installed_apps_context_processor',
+    'bluebottle.utils.context_processors.git_commit',
+    'bluebottle.utils.context_processors.conf_settings',
+    'bluebottle.utils.context_processors.google_maps_api_key',
 )
 
 ROOT_URLCONF = 'onepercentclub.urls'
@@ -206,7 +229,7 @@ INSTALLED_APPS = (
     'raven.contrib.django',
     'djcelery',
     'south',
-    'django_nose',
+    # 'django_nose',
     'compressor',
     'sorl.thumbnail',
     'taggit',
@@ -229,7 +252,7 @@ INSTALLED_APPS = (
     'social_auth',
     'statici18n',
     'django.contrib.humanize',
-#    'django_tools',
+    'django_tools',
 
     # Cowry Payments
     'apps.cowry',
@@ -239,39 +262,52 @@ INSTALLED_APPS = (
     # Password auth from old PHP site.
     'legacyauth',
 
-    # bluebottle apps
-    'bluebottle.accounts',
-    # 'app' without models to hold the site-wide bluebottle templates (base.html for example)
-    'bluebottle.common',
-
-    'apps.blogs',
-    'apps.bluebottle_dashboard',
-    'bluebottle.bluebottle_utils',
-    'apps.contentplugins',
-    'apps.love',
-    'apps.organizations',
-    'apps.projects',
-    'apps.campaigns',
+    'apps.vouchers',
     'apps.fund',
     'apps.fundraisers',
+    'bluebottle.wallposts', # Define wall posts before projects/tasks that depend on it.
     'apps.donations',
-    'apps.vouchers',
+
+    # Apps extending Bluebottle base models
+    'apps.members',
+    'apps.tasks',
+    'apps.projects',
+    'apps.organizations',
+
+    # apps overriding bluebottle functionality should come before the bluebottle entries
+    # (template loaders pick the first template they find)
+    'apps.core',
+
+    # Other Bluebottle apps
+    'bluebottle.utils',
+    'bluebottle.common',
+    'bluebottle.contentplugins',
+    'bluebottle.contact',
     'bluebottle.geo',
+    'bluebottle.pages',
+    'bluebottle.news',
+    'bluebottle.slides',
+    'bluebottle.quotes',
+
+    # Bluebottle apps with abstract models
+    'bluebottle.bb_accounts',
+    'bluebottle.bb_organizations',
+    'bluebottle.bb_projects',
+    'bluebottle.bb_tasks',
+
+    'apps.bluebottle_dashboard',
+    'apps.contentplugins',
+    'apps.campaigns',
     'apps.hbtemplates',
-    'apps.wallposts',
     'apps.payouts',
     'apps.sepa',
-
-    'apps.tasks',
-    'apps.banners',
-    'apps.quotes',
     'apps.statistics',
-    'apps.pages',
     'apps.homepage',
     'apps.redirects',
     'apps.partners',
     'apps.csvimport',
     'apps.accounting',
+    'apps.crawlable',
 
     # Custom dashboard
     'fluent_dashboard',
@@ -282,6 +318,17 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
 )
+
+# Custom User model
+AUTH_USER_MODEL = 'members.Member'
+PROJECTS_PROJECT_MODEL = 'projects.Project'
+TASKS_TASK_MODEL = 'tasks.Task'
+TASKS_SKILL_MODEL = 'tasks.Skill'
+TASKS_TASKMEMBER_MODEL = 'tasks.TaskMember'
+TASKS_TASKFILE_MODEL = 'tasks.TaskFile'
+ORGANIZATIONS_ORGANIZATION_MODEL = 'organizations.Organization'
+ORGANIZATIONS_DOCUMENT_MODEL = 'organizations.OrganizationDocument'
+ORGANIZATIONS_MEMBER_MODEL = 'organizations.OrganizationMember'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -407,8 +454,6 @@ COMPRESS_CSS_FILTERS = [
 # 'next' URL parameter hasn't been set.
 LOGIN_REDIRECT_URL = '/'
 
-# Custom User model
-AUTH_USER_MODEL = 'accounts.BlueBottleUser'
 
 # Blog/news content configuration
 FLUENT_CONTENTS_CACHE_OUTPUT = True
@@ -455,13 +500,13 @@ COWRY_PAYMENT_METHODS = {
 # Default VAT percentage as string (used in payouts)
 VAT_RATE = '0.21'
 
-# No way bank details are secret.
-# Put them in a convenient (version controlled) place
-SEPA = {
-    'iban': 'NL45RABO0132207044',
-    'bic': 'RABONL2U',
-    'name': '1%%CLUB',
-}
+# Settings for organization bank account. Please set this in secrets.py
+# SEPA = {
+#     'iban': '',
+#     'bic': '',
+#     'name': '',
+#     'id': ''
+# }
 
 # Salesforce app settings
 SALESFORCE_QUERY_TIMEOUT = 3

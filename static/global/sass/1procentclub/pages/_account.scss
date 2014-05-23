@@ -1,0 +1,55 @@
+.account-header {
+
+	.account-title {
+		margin-top: $base-margin;
+		text-transform: uppercase;
+	}
+}
+
+#account {
+	.account-header {
+		padding: 0;
+	}
+	.account-avatar {
+		@include grid(6,1,1);
+		margin-bottom: 2em;
+		margin-top: 2em;
+	}
+	.account-title {
+		@include grid(32,1,0);
+		margin-top: 1em;
+		h2 {
+			width: 100%;
+			color: $color-heading;
+			float: left;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		.account-subtitle {
+			color: $gray;
+			font-family: $base-font-family;
+			padding-left: $base-padding;
+			margin-left: $base-margin/4;
+			background: image-url("list-item.png") transparent no-repeat 0 50%;
+		}
+	}
+	.tabs {
+		@include grid(48,7,1);
+		position: absolute;
+		bottom: 0;
+		
+		li {
+			a {
+				color: #666;
+				padding: 1em 1em .5em 1em;
+			}
+		}
+	}
+}
+
+.account-achievements {
+	li {
+		float: right;
+	}
+}

@@ -1,0 +1,124 @@
+{% load bb_ember i18n %}
+
+{% tplhandlebars "activityStream" %}
+
+    <div class="l-section account-statistics">
+        <section class="l-wrapper">
+
+            <div class="account-statistics-header">
+                <h2 class="account-statistics-header-title">20 {% trans "Projects supported" %}</h2>
+                <div class="account-statistics-header-facets">
+                    <a href="#">6 {% trans "tasks realized" %}</a>
+                    <a href="#">2 {% trans "projects supported" %}</a>
+                </div>
+                <div class="account-statistics-header-map">
+                    <a href="#">
+                        <span class="flaticon solid map-1"></span>
+                        {% trans "Show on map" %}
+                    </a>
+                </div>
+            </div>
+
+            {# TODO: make this table dynamic. Now it's just mockup #}
+
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="account-statistics-image">
+                            <img src="http://placehold.it/100x100" alt="project title">
+                        </td>
+                        <td>
+                            <span class="flaticon stroke wallet-1"></span>
+                            <span class="account-statistics-action">Made a single donation to:</span><br />
+                            <a href="#" class="account-statistics-subject">Help the children in the Mmanza Community to school!</a>
+                        </td>
+                        <td>
+                            <span class="flaticon solid location-pin-1"></span>
+                            Brazil
+                        </td>
+                        <td>
+                            02/12/13
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="account-statistics-image">
+                            <img src="http://placehold.it/100x100" alt="project title">
+                        </td>
+                        <td>
+                            <span class="flaticon stroke wallet-1"></span>
+                            <span class="account-statistics-action">Made a single donation to:</span><br />
+                            <a href="#" class="account-statistics-subject">Help the children in the Mmanza Community to school!</a>
+                        </td>
+                        <td>
+                            <span class="flaticon solid location-pin-1"></span>
+                            Brazil
+                        </td>
+                        <td>
+                            02/12/13
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="account-statistics-image">
+                            <img src="http://placehold.it/100x100" alt="project title">
+                        </td>
+                        <td>
+                            <span class="flaticon stroke wallet-1"></span>
+                            <span class="account-statistics-action">Made a single donation to:</span><br />
+                            <a href="#" class="account-statistics-subject">Help the children in the Mmanza Community to school!</a>
+                        </td>
+                        <td>
+                            <span class="flaticon solid location-pin-1"></span>
+                            Brazil
+                        </td>
+                        <td>
+                            02/12/13
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="account-statistics-image">
+                            <img src="http://placehold.it/100x100" alt="project title">
+                        </td>
+                        <td>
+                            <span class="flaticon stroke wallet-1"></span>
+                            <span class="account-statistics-action">Made a single donation to:</span><br />
+                            <a href="#" class="account-statistics-subject">Help the children in the Mmanza Community to school!</a>
+                        </td>
+                        <td>
+                            <span class="flaticon solid location-pin-1"></span>
+                            Brazil
+                        </td>
+                        <td>
+                            02/12/13
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="account-statistics-image">
+                            <img src="http://placehold.it/100x100" alt="project title">
+                        </td>
+                        <td>
+                            <span class="flaticon stroke wallet-1"></span>
+                            <span class="account-statistics-action">Made a single donation to:</span><br />
+                            <a href="#" class="account-statistics-subject">Help the children in the Mmanza Community to school!</a>
+                        </td>
+                        <td>
+                            <span class="flaticon solid location-pin-1"></span>
+                            Brazil
+                        </td>
+                        <td>
+                            02/12/13
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="account-statistics-pagination">
+                <a href="#">
+                    <strong>Show more activities</strong> 10/20
+                    <span class="flaticon solid down-circle-2"></span>
+                </a>
+            </div>
+
+        </section>
+    </div>
+
+{% endtplhandlebars %}

@@ -1,0 +1,12 @@
+{% load i18n bb_ember static %}
+
+
+{% tplhandlebars "project_fundraiser" %}
+    {{#linkTo "fundRaiser" fundraiser classNames='member'}}
+        <span>
+            <span class="member-avatar">
+                <img {{bindAttr src="owner.getAvatar" alt="owner.full_name" }} />
+            </span>
+        </span>
+    {{/linkTo}}
+{% endtplhandlebars %}

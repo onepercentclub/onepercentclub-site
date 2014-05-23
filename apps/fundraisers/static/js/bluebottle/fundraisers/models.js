@@ -3,15 +3,15 @@ App.Adapter.map('App.FundRaiser', {
 });
 
 App.FundRaiser = DS.Model.extend({
-	url: 'fundraisers',
+    url: 'fundraisers',
 
-	project: DS.belongsTo('App.ProjectPreview'),
+    project: DS.belongsTo('App.ProjectPreview'),
     owner: DS.belongsTo('App.UserPreview'),
 
-	title: DS.attr('string'),
-	description: DS.attr('string'),
+    title: DS.attr('string'),
+    description: DS.attr('string'),
 
-	// Media
+    // Media
     image: DS.attr('image'),
     video_url: DS.attr('string', {defaultValue: ''}),
     video_html: DS.attr('string'),
@@ -36,5 +36,12 @@ App.FundRaiser = DS.Model.extend({
         var now = new Date();
         var microseconds = this.get('deadline').getTime() - now.getTime();
         return Math.ceil(microseconds / (1000 * 60 * 60 * 24));
-    }.property('deadline')
+    }.property('deadline'),
+
+    getImage: function(){
+        if (this.get('image')) {
+            return this.get('image.square')
+        }
+        return STATIC_URL + 'images/default-avatar.png'
+    }.property('image')
 });
