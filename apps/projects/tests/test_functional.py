@@ -61,7 +61,6 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         self.assertTrue(self.browser.is_element_present_by_css('.project-item'), 'Cannot load the project list page.')
 
         self.assertEqual(self.browser.url, '%s/en/#!/projects' % self.live_server_url)
-        self.assertEqual(self.browser.title, '1%Club - Share a little. Change the world')
 
     def test_view_project_list_page(self):
         """
@@ -244,7 +243,9 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         # Project Section
         ###
 
+
         self.browser.select('language', 2)
+        self.assertTrue(self.is_visible('input[name="title"]'))
         self.browser.fill('title', self.project_data['title'])
         self.browser.fill('pitch', self.project_data['pitch'])
 
