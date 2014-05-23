@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# aethemba <aksel@onepercentclub.com>, 2014
 # gannetson <loek@1procentclub.nl>, 2013
 # Malou <malou@onepercentclub.com>, 2014
 # nieja <niels@1procentclub.nl>, 2013
@@ -11,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-21 16:36+0200\n"
-"PO-Revision-Date: 2014-05-21 14:26+0000\n"
-"Last-Translator: gannetson <loek@1procentclub.nl>\n"
+"POT-Creation-Date: 2014-05-22 17:47+0200\n"
+"PO-Revision-Date: 2014-05-22 15:32+0000\n"
+"Last-Translator: aethemba <aksel@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,13 +23,13 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: mails.py:81
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:560
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:560
 msgid "Anonymous"
 msgstr "Anoniem"
 
 #: mails.py:86 mails.py:96
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:565
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:575
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:565
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:575
 msgid "You received a new donation"
 msgstr "Je hebt een donatie ontvangen"
 
@@ -90,12 +91,12 @@ msgstr "\nHallo,\n<br/>\nJe hebt zojuist een donatie van EUR %(amount)s ontvange
 
 #: templates/donations/monthly_donation.hbs:18
 #: templates/donations/user_monthly_projects.hbs:74
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/current_order_donation.hbs.py:31
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order_donation.hbs.py:31
 msgid "is still needed"
 msgstr "nog nodig"
 
 #: templates/donations/monthly_donation.hbs:28
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/current_order_donation.hbs.py:43
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order_donation.hbs.py:43
 msgid "Delete"
 msgstr "Verwijder"
 
@@ -109,7 +110,7 @@ msgstr ""
 
 #: templates/donations/monthly_project_preview.hbs:23
 msgid "raised"
-msgstr ""
+msgstr "opgehaald"
 
 #: templates/donations/monthly_project_preview.hbs:24
 msgid "days"
@@ -163,7 +164,7 @@ msgstr "Donaties"
 
 #: templates/donations/user_donation.hbs:20
 #: templates/donations/user_donation_history.hbs:18
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/user_orders.html.py:15
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/user_orders.html.py:15
 msgid "Monthly Donation"
 msgstr "Maandelijkse donatie"
 
@@ -184,12 +185,12 @@ msgid "Donation History"
 msgstr "Donatie historie"
 
 #: templates/donations/user_donation_history.hbs:9
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/user_orders.html.py:9
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/user_orders.html.py:9
 msgid "Order History"
 msgstr "Donatie overzicht"
 
 #: templates/donations/user_donation_history.hbs:18
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/user_orders.html.py:15
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/user_orders.html.py:15
 msgid "Single Donation"
 msgstr "Eenmalige donatie"
 
@@ -207,19 +208,19 @@ msgstr "Hier kan je je bankggegevens en maandelijke donatie aanpassen."
 
 #: templates/donations/user_monthly_profile.hbs:17
 #: templates/donations/user_monthly_projects.hbs:180
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:16
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:16
 msgid "Account Name"
 msgstr "Naam rekeninghouder"
 
 #: templates/donations/user_monthly_profile.hbs:27
 #: templates/donations/user_monthly_projects.hbs:190
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:36
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:36
 msgid "Account Number"
 msgstr "Rekeningnummer"
 
 #: templates/donations/user_monthly_profile.hbs:37
 #: templates/donations/user_monthly_projects.hbs:200
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:26
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:26
 msgid "Account City"
 msgstr "Plaats bank"
 
@@ -283,7 +284,7 @@ msgid "The three most popular projects at this moment are:"
 msgstr "De drie populairste campagnes op dit moment zijn:"
 
 #: templates/donations/user_monthly_projects.hbs:85
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/current_order_donation_list.hbs.py:24
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order_donation_list.hbs.py:24
 msgid "Total"
 msgstr "Totaal"
 
@@ -292,7 +293,7 @@ msgid "Divide to projects"
 msgstr "Verdeel tussen campagnes"
 
 #: templates/donations/user_monthly_projects.hbs:101
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/current_order_donation_list.hbs.py:30
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order_donation_list.hbs.py:30
 msgid "Add another project"
 msgstr "Voeg nog een campagne toe"
 
@@ -305,12 +306,12 @@ msgid "My address"
 msgstr "Mijn adres"
 
 #: templates/donations/user_monthly_projects.hbs:114
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:46
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:46
 msgid "Address"
 msgstr "Adres"
 
 #: templates/donations/user_monthly_projects.hbs:127
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:68
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:68
 msgid "City"
 msgstr "Woonplaats"
 
@@ -319,7 +320,7 @@ msgid "Postal Code"
 msgstr "Postcode"
 
 #: templates/donations/user_monthly_projects.hbs:155
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:79
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:79
 msgid "Country"
 msgstr "Land"
 
@@ -335,539 +336,539 @@ msgstr "Vul uw bankgegevens in"
 msgid "Cancel my monthly donation"
 msgstr "Annuleer mijn maandelijkse donatie(s)"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/admin.py:14
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/admin.py:114
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:131
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:222
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:14
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:114
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:131
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:222
 msgid "Status"
 msgstr "Status"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/admin.py:20
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/admin.py:120
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/admin.py:204
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:20
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:120
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:204
 msgid "All"
 msgstr "Alles"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/admin.py:196
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:196
 msgid "Active"
 msgstr "Actief"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/admin.py:199
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/admin_filters.py:19
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:199
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin_filters.py:19
 msgid "Yes"
 msgstr "Ja"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/admin.py:200
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/admin_filters.py:20
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:200
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin_filters.py:20
 msgid "No"
 msgstr "Nee"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/fields.py:11
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/fields.py:11
 msgid "Dutch bank account numbers have 1 - 7, 9 or 10 digits."
 msgstr "Een Nederlands IBAN bankrekeningnummer heeft 18 tekens."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/fields.py:28
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/fields.py:28
 msgid "Invalid Dutch bank account number."
 msgstr "Ongeldig Nederlands bankrekeningnummer."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:48
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:133
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:226
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:648
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:676
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:48
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:133
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:226
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:648
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:676
 msgid "Created"
 msgstr "Aangemaakt"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:49
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:134
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:227
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:49
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:134
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:227
 msgid "Updated"
 msgstr "Gewijzigd"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:54
-#: /home/gannetson/Projects/onepercentclub-site/apps/cowry/models.py:26
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:54
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:26
 msgid "amount"
 msgstr "Bedrag"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:101
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/choices.py:18
-#: /home/gannetson/Projects/onepercentclub-site/apps/cowry/models.py:10
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:101
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:18
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:10
 msgid "New"
 msgstr "Nieuw"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:102
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:102
 msgid "In progress"
 msgstr "In behandeling"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:103
-#: /home/gannetson/Projects/onepercentclub-site/apps/cowry/models.py:12
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:103
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:12
 msgid "Pending"
 msgstr "Pending"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:104
-#: /home/gannetson/Projects/onepercentclub-site/apps/cowry/models.py:13
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:104
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:13
 msgid "Paid"
 msgstr "Betaald"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:105
-#: /home/gannetson/Projects/onepercentclub-site/apps/cowry/models.py:14
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:105
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:14
 msgid "Failed"
 msgstr "Mislukt"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:119
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:119
 msgid "One-off"
 msgstr "Eenmalig"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:120
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:213
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:120
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:213
 msgid "Recurring"
 msgstr "Periodieke"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:121
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:121
 msgid "Voucher"
 msgstr "Bon"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:123
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:123
 msgid "amount (in cents)"
 msgstr "bedrag (in centen)"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:124
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:124
 msgid "currency"
 msgstr "valuta"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:127
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:127
 msgid "User"
 msgstr "Gebruiker"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:128
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:128
 msgid "Project"
 msgstr "Campaigner"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:129
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:129
 msgid "fund raiser"
 msgstr "fundraiser"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:136
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:136
 msgid "Ready"
 msgstr "Klaar"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:138
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:138
 msgid "Type"
 msgstr "Type"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:140
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:140
 msgid "Order"
 msgstr "Bestel"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:141
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:141
 msgid "Gift card"
 msgstr "Kadobon"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:161
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:161
 msgid "donation"
 msgstr "donatie"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:162
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:162
 msgid "donations"
 msgstr "donaties"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:212
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:212
 msgid "Current"
 msgstr "Huidig"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:214
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:229
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:70
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:214
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:229
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:70
 msgid "Closed"
 msgstr "Gesloten"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:221
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:221
 msgid "user"
 msgstr "gebruiker"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:224
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:224
 msgid "Order Number"
 msgstr "Bestelnummer"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:277
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:277
 msgid "GIFTCARDS"
 msgstr "KADOBONNEN"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:279
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:279
 msgid "GIFTCARD"
 msgstr "KADOBON"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:283
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:283
 msgid "DONATIONS"
 msgstr "DONATIES"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:285
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:285
 msgid "DONATION"
 msgstr "DONATIE"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:287
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:287
 msgid "DONATIONS & GIFTCARDS"
 msgstr "DONATIES & KADOBONNEN"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:288
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:288
 msgid "THANK YOU!"
 msgstr "BEDANKT!"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:302
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:302
 msgid "Couldn't generate a unique order number."
 msgstr "Kon geen uniek ordernummer genereren."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:329
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:329
 #, python-brace-format
 msgid "I've just supported {title} {{URL}} via @{twitter_handle}"
 msgstr "Ik heb zojuist {title} gesteund {{URL}} via @{twitter_handle}"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/models.py:331
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:331
 #, python-brace-format
 msgid "{{URL}} via @{twitter_handle}"
 msgstr "{{URL}} via @{twitter_handle}"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/serializers.py:69
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/serializers.py:109
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:69
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:109
 msgid "You cannot modify a Donation that does not have status new."
 msgstr "Je kunt geen donatie aanpassen die geen status 'nieuw' heeft."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/serializers.py:79
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/serializers.py:118
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:79
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:118
 msgid "Donations must be at least €2."
 msgstr "Het minimumbedrag is €2."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/serializers.py:82
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/serializers.py:85
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/serializers.py:121
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/serializers.py:124
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:82
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:85
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:121
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:124
 msgid "Donations must be at least €5."
 msgstr "Het minimumbedrag is €5."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/serializers.py:92
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/serializers.py:131
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:92
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:131
 msgid "You can only donate a project in the campaign phase."
 msgstr "Je kunt alleen doneren aan een campagne in de 'running-campagne-fase'."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/serializers.py:137
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:137
 msgid "Can only Recurring Donations to a Recurring Order."
 msgstr "Can only Recurring Donations to a Recurring Order."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/serializers.py:139
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:139
 msgid ""
 "Can only Recurring Donations to an active Recurring Order (status "
 "recurring)."
 msgstr "Can only Recurring Donations to an active Recurring Order (status recurring)."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/serializers.py:169
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:169
 msgid "You cannot modify a closed Order."
 msgstr "Je kunt een 'closed order' niet aanpassen."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/views.py:39
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:39
 msgid "No active order"
 msgstr "Niet actief"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/views.py:97
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:97
 msgid "You cannot add a donation to a closed Order."
 msgstr "Je kunt geen donatie toevoegen aan een 'closed order'."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/views.py:152
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/views.py:159
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/views.py:162
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/views.py:488
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:152
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:159
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:162
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:488
 #, python-format
 msgid "No %(verbose_name)s found matching the query"
 msgstr "Geen  %(verbose_name)s gevonden"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/views.py:418
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/views.py:422
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:418
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:422
 msgid "Order not found."
 msgstr "Betaling niet gevonden."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/views.py:420
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:420
 msgid "No order specified."
 msgstr "Geen betaling opgegeven"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/views.py:494
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:494
 msgid "Anonymous users are not permitted to create recurring orders."
 msgstr "Anonieme gebruikers kunnen geen maandelijkse donatie aanmaken."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/current_order.hbs.py:10
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order.hbs.py:10
 #, python-format
 msgid "Order digital 1%%GIFTCARDS"
 msgstr "Bestel 1%%Kadobon(nen)"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/current_order.hbs.py:15
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order.hbs.py:15
 msgid "Switch to donations"
 msgstr "Switch naar donaties"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/current_order.hbs.py:25
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order.hbs.py:25
 msgid "Support"
 msgstr "Support"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/current_order.hbs.py:43
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order.hbs.py:43
 msgid "Projects"
 msgstr "Campagnes"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/current_order.hbs.py:48
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order.hbs.py:48
 msgid "Details"
 msgstr "Details"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/current_order.hbs.py:53
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order.hbs.py:53
 msgid "Profile"
 msgstr "Profiel"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/current_order.hbs.py:58
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order.hbs.py:58
 msgid "Payment"
 msgstr "Betaling"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/current_order.hbs.py:84
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:23
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order.hbs.py:84
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:23
 msgid "There was an error with your payment. Please try again."
 msgstr "Er ging iets mis met de betaling. Kun je het nogmaals proberen?"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/current_order_donation.hbs.py:13
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/thanks_donation.hbs.py:13
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order_donation.hbs.py:13
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/thanks_donation.hbs.py:13
 msgid "Fund-racing for"
 msgstr "Fundraising voor"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/current_order_donation.hbs.py:36
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order_donation.hbs.py:36
 msgid "I'd like to give"
 msgstr "Doneer"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/current_order_donation_list.hbs.py:15
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order_donation_list.hbs.py:15
 msgid "Choose a project to support"
 msgstr "Kies je campagne om te supporten"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/current_order_donation_list.hbs.py:16
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order_donation_list.hbs.py:16
 msgid ""
 "Choose a project and click 'Support this project' to add it to your list"
 msgstr "Kies een campagne en klik op 'Support deze campagne' om dit aan je lijst toe te voegen"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/current_order_donation_list.hbs.py:32
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order_donation_list.hbs.py:32
 msgid "Add a project"
 msgstr "Voeg campagne toe"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/current_order_donation_list.hbs.py:37
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/current_order_donation_list.hbs.py:39
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:92
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:94
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:83
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:85
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order_donation_list.hbs.py:37
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order_donation_list.hbs.py:39
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:92
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:94
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:83
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:85
 msgid "Next Step"
 msgstr "Volgende"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:14
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:14
 msgid "Did you know that you rock?"
 msgstr "Wist je dat je geweldig bent?"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:14
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:14
 msgid "Well, you rock!"
 msgstr "Bij deze!"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:16
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:16
 msgid ""
 "Why not share the project with your friends, and encourage them to support "
 "as well?"
 msgstr "Deel het project met je vrienden en vraag of ze ook meedoen."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:17
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:17
 msgid "Just hit (one of) the share buttons to make even more impact:"
 msgstr "Gebruik onderstaande buttons om nóg meer impact te maken."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:31
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:47
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:31
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:47
 msgid "You just supported these projects"
 msgstr "Je hebt bijgedragen aan"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:33
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:49
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:33
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:49
 msgid "You just supported this project"
 msgstr "Je hebt zojuist gesteund"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:36
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:36
 msgid ""
 "Thank you for supporting these projects below. With your support we come one"
 " step closer realizing the project."
 msgstr "Bedankt voor je support aan onderstaande campagne(s). Dankzij jouw steun komen we een stap dichterbij de realisatie van de campagne."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:49
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:49
 msgid "Want to do more?"
 msgstr "Meer doen?"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:50
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:50
 msgid ""
 "You can easily support projects monthly. Just pick a project yourself or you"
 " can leave that up to us."
 msgstr "Je kunt ook heel simpel automatisch campagnes steunen. Kies zelf campagne(s) of laat dat aan ons over."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:51
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:51
 msgid "Support monthly"
 msgstr "Steun maandelijks"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:53
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:53
 msgid "Stay updated"
 msgstr "Volg de voortgang"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:54
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:54
 msgid ""
 "We’d love to keep you updated on the progress of the projects you just "
 "supported. Sign up and receive updates, and our everlasting love."
 msgstr "We houden je graag op de hoogte van de voortgang van de campagne(s). Meld je aan en we sturen je updates (en een warm gevoel van binnen)."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:55
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:55
 msgid "Signup now"
 msgstr "Registreer"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:8
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:23
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:8
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:23
 msgid "Have an account?"
 msgstr "Heb je een profiel?"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:8
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:23
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:8
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:23
 msgid "Log in here"
 msgstr "Log hier in"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:14
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:14
 msgid "Great that you are doing another donation!"
 msgstr "Super, dat je nóg een donatie doet!"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:15
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:15
 msgid "Please verify your details"
 msgstr "Check je gegevens a.u.b."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:17
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:17
 msgid "Nice to meet you"
 msgstr "Aangenaam!"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:18
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:18
 msgid "To process your donation we need some information."
 msgstr "Om verder te gaan met je donatie hebben we een paar gegevens nodig."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:27
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:36
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:27
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:36
 msgid "Your full name"
 msgstr "Jouw volledige naam"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:35
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:43
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:35
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:43
 msgid "Email"
 msgstr "E-mail"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:57
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:57
 msgid "Postal code"
 msgstr "Postcode"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:11
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:74
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:10
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:11
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:74
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:10
 msgid "You're almost there!"
 msgstr "Je bent er bijna!"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:12
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:48
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:75
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:12
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:48
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:75
 msgid ""
 "We'll redirect you through our payment provider where you can finish your "
 "donation securely."
 msgstr "We sturen je door naar onze betaalservice waar je je donatie veilig kan afronden. "
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:47
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:47
 msgid "Select your bank below"
 msgstr "Kies je bank"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:61
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:78
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:61
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:78
 msgid "Processing payment&#8230;"
 msgstr "Verwerkt betaling&#8230;"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:62
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:64
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:67
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:79
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:81
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:62
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:64
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:67
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:79
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:81
 msgid "Proceed with Payment"
 msgstr "Ga door met betaling"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:9
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:9
 msgid "We'll keep you up to date!"
 msgstr "We houden je op de hoogte!"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:10
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:10
 msgid ""
 "You already have an account. Great! We'll keep you updated with the progress"
 " of the projects you support"
 msgstr "Je hebt al een profiel. Super! We houden je op de hoogte van de voortgang van de campagne."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:15
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:15
 msgid "Next"
 msgstr "Volgende"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:29
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:29
 msgid "Follow the progress?"
 msgstr "Jouw naam zichtbaar bij je donatie?"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:30
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:30
 msgid ""
 "Sign up for an account and we keep you updated on the projects progress"
 msgstr "En een bericht kunnen plaatsen? Maak dan een profiel aan."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:53
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:53
 msgid "Password"
 msgstr "Wachtwoord"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:63
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:63
 msgid "Password again"
 msgstr "Herhaal wachtwoord"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:75
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:75
 #, python-format
 msgid "By joining 1%%Club I hereby agree to the "
 msgstr "Door te registreren bij 1%%Club verklaar ik het eens te zijn met "
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:76
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:76
 #, python-format
 msgid "1%%Club Terms of service"
 msgstr "1%%Club Algemene Voorwaarden"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:11
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:11
 msgid ""
 "Add or edit your bank account information and submit to set your monthly "
 "donations."
 msgstr "Vul je betaalgegevens aan en druk op 'verzend' om je maandelijkse donatie in te stellen."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:48
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:48
 #, python-format
 msgid "By clicking submit, I authorize 1%%Club to withdraw money every month."
 msgstr "Door op 'verzend' te klikken, ga ik akkoord met een maandelijkse afschrijving door 1%%Club."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:56
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:56
 msgid "Updating monthly donation&#8230;"
 msgstr "Past maandelijkse donatie aan&#8230;"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:57
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:59
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:62
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:57
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:59
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:62
 msgid "Submit"
 msgstr "Verzend"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:69
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:69
 msgid "Your monthly donation"
 msgstr "Jouw maandelijkse donatie"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:70
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:70
 #, python-format
 msgid ""
 "Thank you 1%%Friend! You're about to set your monthly donation amount to "
 "&euro;"
 msgstr "Bedankt 1%%Friend! Je hebt nu bijna een maandelijkse donatie  ingesteld ter hoogte van &euro;"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:14
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:14
 msgid "Donation Successful!"
 msgstr "Donatie geslaagd!"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:16
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:16
 #, python-format
 msgid ""
 "\n"
@@ -875,7 +876,7 @@ msgid ""
 "\t\t\t\t\t\t"
 msgstr "\n\t\t\t\t\tBedankt voor je support!  Jouw 1%% heeft deze campagne weer een stapje dichterbij hun doel gebracht! Vergeet niet om af en toe te kijken hoe het met de campagne gaat! \n\t\t\t\t\t"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:20
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:20
 #, python-format
 msgid ""
 "\n"
@@ -883,390 +884,390 @@ msgid ""
 "\t\t\t\t\t\t"
 msgstr "\n\t\t\t\t\tBedankt voor je support! Als je wil, houden we je graag op de hoogte van de status van de projecten die jij hebt gesteund. Waarom? Omdat het een makkelijke en leuke manier is om te zien wat er met jouw 1%% gebeurt! \nKlinkt goed toch? Meld je aan als 1%%Lid!\n\t\t\t\t\t"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:23
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:23
 #, python-format
 msgid "Become a 1%%Member"
 msgstr "Word lid van 1%%Club"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:29
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:29
 msgid "No donation set..."
 msgstr "Geen donatie ingesteld....."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:31
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:31
 msgid "Create or enable your monthly donation"
 msgstr "Stel je maandelijkse donatie in"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:52
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:52
 msgid "You just supported the top three projects."
 msgstr "Je hebt bijgedragen aan"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:77
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:77
 msgid "Your monthly donation is set"
 msgstr "Jouw maandelijkse donatie is ingesteld!"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:79
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:79
 msgid ""
 "Your monthly donation will be deducted from your account at the beginning of"
 " each month."
 msgstr "Je maandelijkse donatie wordt aan het begin van iedere maand afgeschreven van je bankrekening."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:81
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:81
 msgid "Monthly donation total:"
 msgstr "Maandelijkse donatie totaal:"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/thanks_donation.hbs.py:31
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/thanks_donation.hbs.py:31
 msgid "You supported"
 msgstr "Je hebt zojuist gesteund:"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/fund/templates/fund/user_orders.html.py:30
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/user_orders.html.py:30
 msgid "Loading order history"
 msgstr "Donatie geschiedenis laden"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/admin.py:81
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/admin.py:252
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:81
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:252
 msgid "Dates"
 msgstr "Data"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/admin.py:86
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:86
 msgid "Realtime amounts"
 msgstr "Huidig bedrag"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/admin.py:91
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:91
 msgid "Payout amounts"
 msgstr "Uitbetaling bedrag"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/admin.py:94
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:94
 msgid "Payment details"
 msgstr "Betaling details"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/admin.py:109
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:109
 msgid "pending"
 msgstr "In behandeling"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/admin.py:118
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:205
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:118
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:205
 msgid "amount raised"
 msgstr "bedrag opgehaald"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/admin.py:128
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:128
 msgid "amount pending"
 msgstr "bedrag in behandeling"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/admin.py:138
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:138
 msgid "amount safe"
 msgstr "bedrag veilig"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/admin.py:148
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:148
 msgid "amount failed"
 msgstr "bedrag mislukt"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/admin.py:160
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:160
 msgid "project"
 msgstr "campagne"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/admin.py:167
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:167
 msgid "organization"
 msgstr "organisatie"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/admin.py:175
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/admin_filters.py:52
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:175
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin_filters.py:52
 msgid "has IBAN"
 msgstr "heeft IBAN"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/admin.py:217
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/admin.py:299
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:217
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:299
 msgid "Recalculate amounts for new payouts."
 msgstr "Herbereken bedrag voor nieuwe uitbetalingen."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/admin.py:257
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:257
 msgid "Organization fee"
 msgstr "Organisatie fee"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/admin.py:262
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:262
 msgid "PSP fee"
 msgstr "PSP fee"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/admin.py:267
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:267
 msgid "Other costs"
 msgstr "Andere kosten"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/admin.py:272
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:272
 msgid "Amount payable"
 msgstr "Bedrag uitbetalen"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/admin_filters.py:44
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin_filters.py:44
 msgid "pending donations"
 msgstr "donaties in behandeling"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/choices.py:8
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:8
 msgid "Old 1%/5%"
 msgstr "Oud 1%%/5%%"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/choices.py:9
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:9
 msgid "5%"
 msgstr "5%%"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/choices.py:10
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:10
 msgid "7%"
 msgstr "7%%"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/choices.py:11
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:11
 msgid "12%"
 msgstr "12%%"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/choices.py:12
-#: /home/gannetson/Projects/onepercentclub-site/apps/cowry/models.py:18
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:12
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:18
 msgid "Unknown"
 msgstr "Onbekend"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/choices.py:13
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:13
 msgid "Other"
 msgstr "Ander"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/choices.py:19
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:19
 msgid "Progress"
 msgstr "In behandeling"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/choices.py:20
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:20
 msgid "Completed"
 msgstr "Voltooid"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:71
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:71
 msgid ""
 "Book date when the bank transaction was confirmed and the payout has been "
 "set to completed."
 msgstr "Noteer datum dat overmaking is bevestigd door de bank en de uitbetaling is ingesteld op voltooid."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:84
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:84
 msgid "Closed date is set but status is not completed."
 msgstr "Datum gesloten is ingesteld maar status is niet voltooid"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:99
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:99
 msgid "Planned"
 msgstr "Gepland"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:100
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:100
 msgid "Date on which this batch should be processed."
 msgstr "Datum wanneer deze batch verwerkt moet worden."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:104
-#: /home/gannetson/Projects/onepercentclub-site/apps/cowry/models.py:36
-#: /home/gannetson/Projects/onepercentclub-site/apps/cowry_docdata/models.py:78
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:104
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:36
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry_docdata/models.py:78
 msgid "status"
 msgstr "status"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:107
-#: /home/gannetson/Projects/onepercentclub-site/apps/cowry/models.py:38
-#: /home/gannetson/Projects/onepercentclub-site/apps/cowry_docdata/models.py:83
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:107
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:38
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry_docdata/models.py:83
 msgid "created"
 msgstr "aangemaakt"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:108
-#: /home/gannetson/Projects/onepercentclub-site/apps/cowry/models.py:39
-#: /home/gannetson/Projects/onepercentclub-site/apps/cowry_docdata/models.py:84
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:108
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:39
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry_docdata/models.py:84
 msgid "updated"
 msgstr "gewijzigd"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:161
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:161
 msgid "state change"
 msgstr "status gewijzigd"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:162
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:162
 msgid "state changes"
 msgstr "status wijzigingen"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:168
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:168
 msgid "date"
 msgstr "datum"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:171
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:171
 msgid "old status"
 msgstr "oude status"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:176
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:176
 msgid "new status"
 msgstr "nieuwe status"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:181
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:181
 #, python-format
 msgid ""
 "Status change of '%(payout)s' on %(date)s from %(old_status)s to "
 "%(new_status)s"
 msgstr "Verander status van'%(payout)s' op %(date)s van %(old_status)s naar %(new_status)s"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:199
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:199
 msgid "Payout rule"
 msgstr "Uitbetalingsregel"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:201
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:201
 msgid "The payout rule for this project."
 msgstr "De uitbetalingsregel voor deze campagne."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:206
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:206
 msgid "Amount raised when Payout was created or last recalculated."
 msgstr "Opgehaald bedrag toen uitbetaling werd aangemaakt of herberekend"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:210
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:210
 msgid "organization fee"
 msgstr "Organisatie fee"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:211
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:211
 msgid "Fee substracted from amount raised for the organization."
 msgstr "Fee voor organisatie berekend over opgehaald bedrag."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:215
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:215
 msgid "amount payable"
 msgstr "bedrag te betalen"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:216
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:216
 msgid "Payable amount; raised amount minus organization fee."
 msgstr "Bedrag te betalen; opgehaald bedrag min organisatie fee"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:414
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:414
 msgid "start date"
 msgstr "start datum"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:415
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:415
 msgid "end date"
 msgstr "einddatum"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:417
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:417
 msgid "organization fee excluding VAT"
 msgstr "organisatie fee exclusief BTW"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:418
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:418
 msgid "organization fee VAT"
 msgstr "organisatie fee BTW"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:419
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:419
 msgid "organization fee including VAT"
 msgstr "organisatie fee inclusief BTW"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:421
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:421
 msgid "PSP fee excluding VAT"
 msgstr "PSP fee exclusief BTW"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:422
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:422
 msgid "PSP fee VAT"
 msgstr "PSP fee BTW"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:423
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:423
 msgid "PSP fee including VAT"
 msgstr "PSP fee inclusief BTW"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:426
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:426
 msgid "other costs excluding VAT"
 msgstr "andere kosten exclusief BTW"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:428
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:428
 msgid ""
 "Set either this value or inclusive VAT, make sure recalculate afterwards."
 msgstr "stel deze waarde in of inclusief BTW, herbereken na aanpassing."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:432
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:432
 msgid "other costs VAT"
 msgstr "andere kosten BTW"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:434
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:434
 msgid "other costs including VAT"
 msgstr "andere kosten inclusief BTW"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:436
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:436
 msgid ""
 "Set either this value or exclusive VAT, make sure recalculate afterwards."
 msgstr "stel deze waarde in of exclusief BTW, herbereken na aanpassing."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:440
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:440
 msgid "payable amount excluding VAT"
 msgstr "bedrag uit te betalen exclusief BTW"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:441
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:441
 msgid "payable amount VAT"
 msgstr "bedrag uit te betalen BTW"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:442
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:442
 msgid "payable amount including VAT"
 msgstr "bedrag uit te betalen inclusief BTW"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:566
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:566
 msgid "Start date should be earlier than date."
 msgstr "Start datum moet vroeger dan datum zijn."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:577
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:577
 msgid ""
 "The next payout period should start the day after the end of the previous "
 "period."
 msgstr "De volgende uitbetalingsperiode moet beginnen na afsluiting vorige periode."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:600
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:600
 msgid "Other costs have changed, please recalculate before progessing."
 msgstr "Andere kosten zijn veranderd, nu eerst herbereken voor verder gaan."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:653
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:653
 msgid "Date started"
 msgstr "Startdatum"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:654
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:654
 msgid "Debet/Credit"
 msgstr "Debit/Credit"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/payouts/models.py:677
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:677
 msgid "Uploaded mutation file"
 msgstr "Uploaded mutation file"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/cowry/models.py:11
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:11
 msgid "In Progress"
 msgstr "In behandeling"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/cowry/models.py:15
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:15
 msgid "Cancelled"
 msgstr "Geannuleerd"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/cowry/models.py:16
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:16
 msgid "Chargedback"
 msgstr "Teruggevorderd"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/cowry/models.py:17
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:17
 msgid "Refunded"
 msgstr "Terugbetaald"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/cowry/models.py:30
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:30
 msgid "payment service fee"
 msgstr "uitbetalings service fee"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/cowry/models.py:45
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:45
 msgid "INFO"
 msgstr "INFO"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/cowry/models.py:46
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:46
 msgid "WARN"
 msgstr "WARN"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/cowry/models.py:47
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:47
 msgid "ERROR"
 msgstr "ERROR"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/cowry/models.py:62
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:62
 msgid "Payment Log"
 msgstr "Betaling log"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/cowry/serializers.py:40
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/serializers.py:40
 #, python-format
 msgid "%(payment_method_id)s is not a valid payment method."
 msgstr "%(payment_method_id)s is geen erkende betalingsmethode."
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/cowry_docdata/models.py:69
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry_docdata/models.py:69
 msgid "DocData Payment"
 msgstr "DocData betaling"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/cowry_docdata/models.py:70
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry_docdata/models.py:70
 msgid "DocData Payments"
 msgstr "DocData betalingen"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/cowry_docdata/models.py:80
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry_docdata/models.py:80
 msgid "payment id"
 msgstr "betaling id"
 
-#: /home/gannetson/Projects/onepercentclub-site/apps/cowry_docdata/models.py:106
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry_docdata/models.py:106
 msgid "DocData Payment Log"
 msgstr "DocData betaling log"

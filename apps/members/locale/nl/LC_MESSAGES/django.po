@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# aethemba <aksel@onepercentclub.com>, 2014
 # dokterbob <mathijs@mathijsfietst.nl>, 2012
 # gannetson <loek@1procentclub.nl>, 2013
 # gannetson <loek@1procentclub.nl>, 2014
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-21 16:36+0200\n"
-"PO-Revision-Date: 2014-05-21 14:39+0000\n"
-"Last-Translator: gannetson <loek@1procentclub.nl>\n"
+"POT-Creation-Date: 2014-05-22 17:47+0200\n"
+"PO-Revision-Date: 2014-05-22 15:57+0000\n"
+"Last-Translator: aethemba <aksel@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -53,22 +54,22 @@ msgid "1%% News"
 msgstr "1%% Niews"
 
 #: templates/bb_accounts/activity_stream.hbs:9
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:112
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:112
 msgid "Projects supported"
 msgstr "Campagnes gesteund"
 
 #: templates/bb_accounts/activity_stream.hbs:11
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:114
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:114
 msgid "tasks realized"
 msgstr "taken gerealiseerd"
 
 #: templates/bb_accounts/activity_stream.hbs:12
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:115
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:115
 msgid "projects supported"
 msgstr "campagnes gesteund"
 
 #: templates/bb_accounts/activity_stream.hbs:17
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:120
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:120
 msgid "Show on map"
 msgstr "Zichtbaar op kaart"
 
@@ -90,13 +91,13 @@ msgid "Login here with your email address and password"
 msgstr "Log in met je emailadres en wachtwoord"
 
 #: templates/bb_accounts/login.hbs:18
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_reset.hbs.py:12
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_reset.hbs.py:12
 msgid "Forgot your password?"
 msgstr "Wachtwoord vergeten?"
 
 #: templates/bb_accounts/login.hbs:19
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/login.hbs.py:58
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/login.html.py:42
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/login.hbs.py:58
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/login.html.py:42
 msgid "Login"
 msgstr "Log in"
 
@@ -118,7 +119,7 @@ msgid "My Donations"
 msgstr "Mijn Donaties"
 
 #: templates/bb_accounts/nav.hbs:41
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/nav.hbs.py:33
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/nav.hbs.py:33
 msgid "My Projects"
 msgstr "Mijn Campagnes"
 
@@ -127,23 +128,23 @@ msgid "My Fundraisers"
 msgstr "Mijn Fundraisers"
 
 #: templates/bb_accounts/nav.hbs:52
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/nav.hbs.py:67
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/nav.hbs.py:67
 msgid "Language"
 msgstr "Taal"
 
 #: templates/bb_accounts/nav.hbs:71
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/nav.hbs.py:87
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/signup.hbs.py:110
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/nav.hbs.py:87
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/signup.hbs.py:110
 msgid "Sign up"
 msgstr "Registreer"
 
 #: templates/bb_accounts/nav.hbs:72
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/nav.hbs.py:89
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/nav.hbs.py:89
 msgid "Log in"
 msgstr "Log in"
 
 #: templates/bb_accounts/profile_form.hbs:6
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/profile_form.hbs.py:11
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/profile_form.hbs.py:11
 msgid "Edit your profile"
 msgstr "Vul je profiel aan"
 
@@ -153,12 +154,12 @@ msgid "Personalise your account so 1%%Members can get to know you."
 msgstr "Personaliseer je profiel zodat andere 1%%Campaigners je kunnen leren kennen."
 
 #: templates/bb_accounts/profile_form.hbs:15
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/signup.hbs.py:56
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/signup.hbs.py:56
 msgid "Name"
 msgstr "Naam"
 
 #: templates/bb_accounts/profile_form.hbs:19
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/signup.hbs.py:60
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/signup.hbs.py:60
 msgid "First name"
 msgstr "Voornaam"
 
@@ -167,12 +168,12 @@ msgid "Surname"
 msgstr "Achternaam"
 
 #: templates/bb_accounts/profile_form.hbs:29
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/utils/components.hbs.py:7
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/utils/components.hbs.py:7
 msgid "Profile Picture"
 msgstr "Profielfoto"
 
 #: templates/bb_accounts/profile_form.hbs:40
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/utils/components.hbs.py:15
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/utils/components.hbs.py:15
 msgid "Upload picture"
 msgstr "Upload foto"
 
@@ -192,7 +193,7 @@ msgstr "Website"
 #: templates/bb_accounts/profile_form.hbs:94
 #: templates/bb_accounts/profile_public.hbs:18
 #: templates/bb_accounts/view_profile.hbs:73
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:66
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:66
 msgid "Location"
 msgstr "Locatie"
 
@@ -209,24 +210,24 @@ msgid ""
 msgstr "Hoeveel tijd kun je besteden aan 1%%Doen taken?\n\nLaat het ons weten zodat we eventueel taken van campagnes aan je kunnen matchen."
 
 #: templates/bb_accounts/profile_nav.hbs:9
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:87
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/nav.hbs.py:15
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/profile_nav.hbs.py:18
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/profile_nav.hbs.py:32
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:87
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/nav.hbs.py:15
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/profile_nav.hbs.py:18
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/profile_nav.hbs.py:32
 msgid "Profile"
 msgstr "Profiel"
 
 #: templates/bb_accounts/profile_nav.hbs:13
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/profile_nav.hbs.py:23
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/profile_nav.hbs.py:23
 msgid "Preview my profile"
 msgstr "Bekijk mijn profiel"
 
 #: templates/bb_accounts/profile_public.hbs:7
 #: templates/bb_accounts/user_modal.hbs:24
 #: templates/bb_accounts/view_profile.hbs:43
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:47
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:47
 msgid "About"
-msgstr "Over"
+msgstr "Over 1%%Club"
 
 #: templates/bb_accounts/profile_public.hbs:12
 #, python-format
@@ -235,13 +236,13 @@ msgstr "Geregistreerd bij 1%%Club omdat"
 
 #: templates/bb_accounts/profile_public.hbs:25
 #: templates/bb_accounts/view_profile.hbs:101
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:84
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:84
 msgid "Time available"
 msgstr "Tijd beschikbaar"
 
 #: templates/bb_accounts/profile_public.hbs:32
 #: templates/bb_accounts/view_profile.hbs:79
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:56
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:56
 msgid "Website"
 msgstr "Website"
 
@@ -309,7 +310,7 @@ msgid "You'll receive updates on the progress of the projects you support."
 msgstr "Je blijft gemakkelijk op de hoogte van de voortgang van elke campagne"
 
 #: templates/bb_accounts/user_modal.hbs:16
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/user_modal.hbs.py:15
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/user_modal.hbs.py:15
 msgid "Member since"
 msgstr "Lid sinds"
 
@@ -320,632 +321,632 @@ msgid "Why 1%%Club"
 msgstr "Waarom 1%%Club"
 
 #: templates/bb_accounts/view_profile.hbs:27
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/user_modal.hbs.py:28
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:26
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/user_modal.hbs.py:28
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:26
 msgid "projects"
 msgstr "campagnes"
 
 #: templates/bb_accounts/view_profile.hbs:28
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/user_modal.hbs.py:29
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:27
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/user_modal.hbs.py:29
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:27
 msgid "supported"
 msgstr "gesteund"
 
 #: templates/bb_accounts/view_profile.hbs:32
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/user_modal.hbs.py:33
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/user_modal.hbs.py:39
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:31
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:37
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/user_modal.hbs.py:33
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/user_modal.hbs.py:39
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:31
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:37
 msgid "tasks"
 msgstr "taken"
 
 #: templates/bb_accounts/view_profile.hbs:33
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/user_modal.hbs.py:34
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:32
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/user_modal.hbs.py:34
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:32
 msgid "realized"
 msgstr "gerealiseerd"
 
 #: templates/bb_accounts/view_profile.hbs:89
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:72
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:72
 msgid "Fav themes"
 msgstr "Favoriete thema's"
 
 #: templates/bb_accounts/view_profile.hbs:95
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:78
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:78
 msgid "Fav countries"
 msgstr "Favoriete landen"
 
 #: templates/bb_accounts/view_profile.hbs:107
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:90
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:90
 msgid "Expertise"
 msgstr "Expertise"
 
 #: templates/bb_accounts/view_profile.hbs:113
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:96
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:96
 msgid "Tags"
 msgstr "Keywords"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:18
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:18
 msgid "A user with that email already exists."
 msgstr "Er is al een gebruiker met dit emailadres."
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:19
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:19
 msgid "The two password fields didn't match."
 msgstr "De wachtwoorden kwamen niet overeen."
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:21
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:59
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:124
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:21
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:59
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:124
 msgid "email address"
 msgstr "e-mailadres"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:22
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:60
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:22
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:60
 msgid "Required. 254 characters or fewer. A valid email address."
 msgstr "Vereist. 254 karakters of minder. Een geldig e-mailadres."
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:23
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:61
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/login.hbs.py:44
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/signup.hbs.py:85
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/login.html.py:33
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:23
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:61
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/login.hbs.py:44
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/signup.hbs.py:85
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/login.html.py:33
 msgid "Password"
 msgstr "Wachtwoord"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:25
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:25
 msgid "Password confirmation"
 msgstr "Bevestiging wachtwoord"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:27
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:27
 msgid "Enter the same password as above, for verification."
 msgstr "Vul bovenstaand wachtwoord nogmaals in"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:62
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:62
 msgid ""
 "Raw passwords are not stored, so there is no way to see this user's "
 "password, but you can change the password using <a href=\"password/\">this "
 "form</a>."
 msgstr "Wachtwoorden worden gecodeerd bewaard, deze achterhalen is dus onmogelijk. Maar je kunt het wachtwoord wijzigen door <a href=\"password/\">dit formulier</a> te gebruiken."
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:86
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:86
 msgid "Personal info"
 msgstr "Persoonlijke info"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:88
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/profile_nav.hbs.py:39
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:88
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/profile_nav.hbs.py:39
 msgid "Settings"
 msgstr "Instellingen"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:89
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:89
 msgid "Permissions"
 msgstr "Permissies"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:90
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:90
 msgid "Important dates"
 msgstr "Belangrijke data"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/dashboard.py:16
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/dashboard.py:16
 msgid "Users"
 msgstr "Gebruikers"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/dashboard.py:42
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/dashboard.py:42
 msgid "No users found."
 msgstr "Geen gebruikers gevonden."
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/dashboard.py:48
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/dashboard.py:48
 msgid "View all users"
 msgstr "Bekijk alle gebruikers"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:82
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:82
 msgid "type"
 msgstr "type"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:83
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:83
 msgid "description"
 msgstr "beschrijving"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:87
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:87
 msgid "time available"
 msgstr "Tijd beschikbaar"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:88
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:88
 msgid "times available"
 msgstr "tijd beschikbaar"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:104
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_personal_details.hbs.py:44
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:104
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_personal_details.hbs.py:44
 msgid "Male"
 msgstr "Man"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:105
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_personal_details.hbs.py:43
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:105
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_personal_details.hbs.py:43
 msgid "Female"
 msgstr "Vrouw"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:108
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:108
 msgid "1-4 hours per week"
 msgstr "1-4 uur per week"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:109
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:109
 msgid "5-8 hours per week"
 msgstr "5-8 uur per week"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:110
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:110
 msgid "9-16 hours per week"
 msgstr "9-16 uur per week"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:111
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:111
 msgid "1-4 hours per month"
 msgstr "1-4 uur per maand"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:112
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:112
 msgid "5-8 hours per month"
 msgstr "5-8 uur per maand"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:113
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:113
 msgid "9-16 hours per month"
 msgstr "9-16 uur per maand"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:114
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:114
 msgid "I have all the time in the world. Bring it on :D"
 msgstr "Ik heb alle tijd van de wereld. Kom maar op!"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:115
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:115
 msgid "It depends on the content of the tasks. Challenge me!"
 msgstr "Dat hangt van de taak af. Kom maar op met die uitdaging!"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:118
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:118
 msgid "Person"
 msgstr "Persoon"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:119
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:119
 msgid "Company"
 msgstr "Bedrijf"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:120
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:120
 msgid "Foundation"
 msgstr "Stichting"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:121
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:121
 msgid "School"
 msgstr "School"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:122
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:122
 msgid "Club / association"
 msgstr "Club / vereniging"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:125
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:125
 msgid "username"
 msgstr "gebruikersnaam"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:127
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:127
 msgid "staff status"
 msgstr "stafstatus"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:127
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:127
 msgid "Designates whether the user can log into this admin site."
 msgstr "Bepaald of een gebruiker kan inloggen in deze admin site."
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:129
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:129
 msgid "active"
 msgstr "actief"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:130
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:130
 msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
 msgstr "Bepaald of deze gebruiker gezien moet worden als actief. Unselect deze optie in plaats van accounts te verwijderen."
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:132
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:132
 msgid "date joined"
 msgstr "datum registratie"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:134
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:134
 msgid "deleted"
 msgstr "verwijderd"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:135
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:135
 msgid "Member Type"
 msgstr "Type profiel"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:138
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:138
 msgid "first name"
 msgstr "voornaam"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:139
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:139
 msgid "last name"
 msgstr "achternaam"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:140
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:140
 msgid "location"
 msgstr "locatie"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:141
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:141
 msgid "website"
 msgstr "website"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:143
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:143
 msgid "picture"
 msgstr "afbeelding"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:144
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:144
 msgid "about"
 msgstr "over"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:145
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:145
 msgid "why"
 msgstr "waarom"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:149
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:149
 msgid "facebook profile"
 msgstr "facebook profiel"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:151
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:151
 msgid "twitter profile"
 msgstr "twitter profiel"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:152
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:152
 msgid "skype profile"
 msgstr "skype profiel"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:156
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:156
 msgid "primary language"
 msgstr "voorkeur taal"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:156
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:156
 msgid "Language used for website and emails."
 msgstr "Taal op website en mailings"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:158
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:158
 msgid "share time and knowledge"
 msgstr "deel tijd en kennis"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:159
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:159
 msgid "share money"
 msgstr "deel geld"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:160
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:160
 msgid "newsletter"
 msgstr "nieuwsbrief"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:160
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:160
 msgid "Subscribe to newsletter."
 msgstr "Meld aan voor nieuwsbrief."
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:161
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:161
 msgid "phone number"
 msgstr "telefoonnummer"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:162
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:162
 msgid "gender"
 msgstr "geslacht"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:163
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:163
 msgid "birthdate"
 msgstr "geboortedatum"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:165
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:165
 msgid "tags"
 msgstr "keywords"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:177
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:177
 msgid "member"
 msgstr "lid"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:178
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/models.py:178
 msgid "members"
 msgstr "leden"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_personal_details.hbs.py:6
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_personal_details.hbs.py:6
 msgid "Personal Details"
 msgstr "Persoonlijke gegevens"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_personal_details.hbs.py:7
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_personal_details.hbs.py:7
 msgid ""
 "We'd like to match you to projects and events based on your location & a "
 "personal thank you in your mailbox."
 msgstr "Wij nodigen je graag uit voor campagnes en events op basis van je locatie."
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_personal_details.hbs.py:11
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_personal_details.hbs.py:11
 msgid "Address Line 1"
 msgstr "Adresregel 1"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_personal_details.hbs.py:13
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_personal_details.hbs.py:13
 msgid "Address Line 2"
 msgstr "Adresregel 2"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_personal_details.hbs.py:15
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_personal_details.hbs.py:15
 msgid "City"
 msgstr "Woonplaats"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_personal_details.hbs.py:17
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_personal_details.hbs.py:17
 msgid "State"
 msgstr "Staat "
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_personal_details.hbs.py:19
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_personal_details.hbs.py:19
 msgid "Postal Code"
 msgstr "Postcode"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_personal_details.hbs.py:24
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_personal_details.hbs.py:24
 msgid "Country"
 msgstr "Land"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_personal_details.hbs.py:38
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_personal_details.hbs.py:38
 msgid "Gender"
 msgstr "Geslacht"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_personal_details.hbs.py:45
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_personal_details.hbs.py:45
 msgid "Unset"
 msgstr "Niet ingesteld"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_personal_details.hbs.py:50
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_personal_details.hbs.py:50
 msgid "Birthdate"
 msgstr "Geboortedatum"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_settings.hbs.py:9
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_settings.hbs.py:9
 msgid "Edit your account"
 msgstr "Bewerk je profiel"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_settings.hbs.py:10
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_settings.hbs.py:10
 msgid ""
 "These are the details we currently have for you – update or change them "
 "below."
 msgstr "Onderstaande gegevens kun je aanvullen of aanpassen"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_settings.hbs.py:19
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_settings.hbs.py:19
 msgid "Email Address"
 msgstr "E-mailadres"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_settings.hbs.py:41
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_settings.hbs.py:41
 msgid "I'd like to receive emails about"
 msgstr "Ik wil e-mails ontvangen over"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_settings.hbs.py:49
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_settings.hbs.py:49
 msgid "&lt;Organisation-name&gt;"
 msgstr "&lt;Organisatie-naam&gt;"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_settings.hbs.py:62
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_settings.hbs.py:62
 msgid "Account type"
 msgstr "Type account"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_settings.hbs.py:80
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_settings.hbs.py:80
 msgid "Primary language"
 msgstr "voorkeur taal"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_settings.hbs.py:98
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_settings.hbs.py:98
 msgid "I want to share"
 msgstr "Ik wil delen"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_settings.hbs.py:104
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_settings.hbs.py:104
 msgid "Time & Knowledge"
 msgstr "Tijd & kennis"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_settings.hbs.py:108
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_settings.hbs.py:108
 msgid "Money"
 msgstr "Geld"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_settings.hbs.py:122
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_settings.hbs.py:122
 msgid "Account settings saved"
 msgstr "Profiel wijzigingen opgeslagen"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/login.hbs.py:21
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/login.hbs.py:21
 msgid "Log in to &lt;BlueBottle-project-name&gt;"
 msgstr "Log in bij &lt;BlueBottle-project-name&gt;"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/login.hbs.py:29
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/login.hbs.py:29
 msgid ""
 "Override block password_reset_success to display your own password reset "
 "success message."
 msgstr "Override block password_reset_success to display your own password reset success message."
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/login.hbs.py:35
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/signup.hbs.py:70
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/login.html.py:24
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/login.hbs.py:35
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/signup.hbs.py:70
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/login.html.py:24
 msgid "Email"
 msgstr "E-mail"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/login.hbs.py:56
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/login.hbs.py:56
 msgid "Password forgotten"
 msgstr "Wachtwoord vergeten"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/nav.hbs.py:25
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/nav.hbs.py:25
 msgid "Edit my profile & settings"
 msgstr "Aanpassen Mijn Profiel & instellingen"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/nav.hbs.py:54
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/nav.hbs.py:54
 msgid "View my profile"
 msgstr "Bekijk mijn profiel"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_reset.hbs.py:16
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_reset.hbs.py:16
 msgid ""
 "Enter your email address and we'll send you an email so you can set a new "
 "password."
 msgstr "Vul je e-mailadres in en we sturen je een link om je wachtwoord opnieuw in te stellen."
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_reset.hbs.py:23
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_reset.hbs.py:23
 msgid "Email address"
 msgstr "E-mailadres"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_reset.hbs.py:32
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_reset.hbs.py:92
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_reset.hbs.py:32
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_reset.hbs.py:92
 msgid "Reset password"
 msgstr "Reset wachtwoord"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_reset.hbs.py:54
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_reset.hbs.py:54
 msgid "Reset your password"
 msgstr "Reset je wachtwoord"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_reset.hbs.py:60
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_reset.hbs.py:60
 msgid "New password"
 msgstr "Nieuw wachtwoord"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_reset.hbs.py:72
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_reset.hbs.py:72
 msgid "Confirm new password"
 msgstr "Bevestig wachtwoord"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/profile_components.hbs.py:18
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/profile_components.hbs.py:18
 msgid "No items selected"
 msgstr "Geen items geselecteerd"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/profile_form.hbs.py:18
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/profile_form.hbs.py:18
 msgid "First Name"
 msgstr "Voornaam"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/profile_form.hbs.py:19
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/profile_form.hbs.py:19
 msgid "Last Name"
 msgstr "Achternaam"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/profile_form.hbs.py:33
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/profile_form.hbs.py:33
 msgid "About me"
 msgstr "Over mij"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/profile_form.hbs.py:37
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/profile_form.hbs.py:37
 msgid "An example placeholder"
 msgstr "Een voorbeeld placeholder"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/profile_form.hbs.py:57
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/profile_form.hbs.py:57
 msgid "Profile saved"
 msgstr "Profiel opgeslagen"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/profile_nav.hbs.py:18
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/profile_nav.hbs.py:18
 msgid "My"
 msgstr "Mijn"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/profile_nav.hbs.py:32
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/profile_nav.hbs.py:32
 msgid "Public info"
 msgstr "Openbare info"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/profile_nav.hbs.py:39
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/profile_nav.hbs.py:39
 msgid "Account"
 msgstr "Profiel"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/signup.hbs.py:35
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/signup.hbs.py:35
 msgid "'Thank you' note for signing up."
 msgstr "'Thank you' note for signing up."
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/signup.hbs.py:36
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/signup.hbs.py:36
 msgid "e.g.: Email information."
 msgstr "v.b.: E-mail informatie."
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/signup.hbs.py:44
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/signup.hbs.py:44
 msgid "Join &lt;BlueBottle-project-name&gt;"
 msgstr "Join &lt;BlueBottle-project-name&gt;"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/signup.hbs.py:46
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/signup.hbs.py:46
 msgid "Override block 'signup_form_top' to display your description here."
 msgstr "Override block 'signup_form_top' to display your description here."
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/signup.hbs.py:136
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/signup.hbs.py:136
 msgid "Already have an account?"
 msgstr "Heb je al een account?"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/signup.hbs.py:137
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/signup.hbs.py:137
 msgid "Log in here, fast & easy"
 msgstr "Log hier in"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/signup.hbs.py:148
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/signup.hbs.py:148
 msgid "Why join &lt;BlueBottle-project-name&gt;"
 msgstr "Why join &lt;BlueBottle-project-name&gt;"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/signup.hbs.py:150
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/signup.hbs.py:150
 msgid "Reason 1"
 msgstr "Reden 1"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/signup.hbs.py:151
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/signup.hbs.py:151
 msgid "Reason 2"
 msgstr "Reden 2"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/signup.hbs.py:152
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/signup.hbs.py:152
 msgid "Reason 3"
 msgstr "Reden 3"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/user_modal.hbs.py:38
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:36
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/user_modal.hbs.py:38
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:36
 msgid "hours spent"
 msgstr "uren besteed"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/user_modal.hbs.py:39
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:37
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/user_modal.hbs.py:39
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:37
 msgid "on"
 msgstr "aan"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:50
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:50
 msgid "Is a ...organization... member because"
 msgstr "Is een ...organisatie...lid omdat"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:58
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:58
 msgid "Facebook profile"
 msgstr "Facebook profiel"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/activation_email.html.py:7
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/activation_email.html.py:7
 msgid ""
 "Override registration/activation_email.html to create your own activation "
 "mail template."
 msgstr "Override registration/activation_email.html to create your own activation mail template."
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/activation_email.html.py:14
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/activation_email.html.py:14
 msgid "You can put your site logo here."
 msgstr "Hier kun je je site logo plaatsen. "
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/activation_email.html.py:23
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/activation_email.html.py:23
 msgid "Confirm your registration"
 msgstr "Bevestig je aanmelding"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/activation_email.html.py:31
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/activation_email.html.py:31
 msgid "You're almost done!"
 msgstr "Je bent er bijna!"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/activation_email.html.py:39
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/activation_email.html.py:39
 msgid "Click the link below to confirm your registration"
 msgstr "Klik op onderstaande link om je aanmelding te bevestigen."
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/activation_email.html.py:49
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/activation_email.html.py:49
 msgid "activate profile"
 msgstr "activeer profiel"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/activation_email.html.py:59
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/activation_email.html.py:59
 #, python-format
 msgid "Your activation code will expire in %(expiration_days)s days."
 msgstr "Je activatiecode verloopt in %(expiration_days)s dagen. "
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/activation_email_subject.txt.py:3
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/activation_email_subject.txt.py:3
 msgid "Welcome to <...>"
 msgstr "Welkom bij <...>"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/logged_out.html.py:6
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/logged_out.html.py:6
 msgid "Logged out."
 msgstr "Uitgelogd."
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/login.html.py:11
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/login.html.py:11
 #, python-format
 msgid "Log in to 1%%Club"
 msgstr "Log in bij 1%%Club"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/login.html.py:18
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/login.html.py:18
 msgid "Your email address and password didn't match. Please try again."
 msgstr "Je e-mailadres en wachtwoord kwamen niet overeen. Probeer het nog eens."
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/password_reset_email.html.py:13
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/password_reset_email.html.py:13
 msgid "Override registration/password_reset_email.html to provide your logo."
 msgstr "Override registration/password_reset_email.html to provide your logo."
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/password_reset_email.html.py:21
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/password_reset_email.html.py:21
 msgid "Click on this link to reset your password."
 msgstr "Klik op de link voor een nieuw wachtwoord."
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/password_reset_email.html.py:31
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/password_reset_email.html.py:31
 msgid "Reset"
 msgstr "Reset"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/password_reset_email.html.py:41
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/password_reset_email.html.py:41
 msgid "See you at"
 msgstr "Ga snel naar"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/password_reset_email.html.py:41
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/password_reset_email.html.py:41
 msgid "in a minute!"
 msgstr "Tot zo!"
 
-#: /home/gannetson/Projects/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/password_reset_subject.txt.py:2
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/registration/password_reset_subject.txt.py:2
 #, python-format
 msgid "Password reset on %(site_name)s"
 msgstr "Wachtwoord wijzigen voor %(site_name)s"
