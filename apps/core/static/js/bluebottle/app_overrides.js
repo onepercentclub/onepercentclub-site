@@ -45,6 +45,29 @@ App.ApplicationController.reopen({
 });
 
 /*
+  Some 1%Club Mixins
+ */
+App.Scrolling = Em.Mixin.create({
+
+  bindScrolling: function(opts) {
+    var onScroll, self = this;
+
+    onScroll = function() {
+      var scrollTop = $(this).scrollTop();
+      return self.scrolled(scrollTop);
+    };
+
+    $(window).bind('scroll', onScroll);
+    $(document).bind('touchmove', onScroll);
+  },
+
+  unbindScrolling: function () {
+    $(window).unbind('scroll');
+    $(document).unbind('touchmove');
+  }
+});
+
+/*
   Bluebottle View Overrides
  */
 App.ApplicationView.reopen(App.Scrolling, {
@@ -70,25 +93,3 @@ App.ApplicationView.reopen(App.Scrolling, {
 	}
 });
 
-/*
-  Some 1%Club Mixins
- */
-App.Scrolling = Em.Mixin.create({
-
-  bindScrolling: function(opts) {
-    var onScroll, self = this;
-
-    onScroll = function() {
-      var scrollTop = $(this).scrollTop();
-      return self.scrolled(scrollTop);
-    };
-
-    $(window).bind('scroll', onScroll);
-    $(document).bind('touchmove', onScroll);
-  },
-
-  unbindScrolling: function () {
-    $(window).unbind('scroll');
-    $(document).unbind('touchmove');
-  }
-});
