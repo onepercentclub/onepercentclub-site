@@ -244,8 +244,9 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         # Project Section
         ###
 
-        self.assertTrue(self.is_visible('input[name="title"]'))
+
         self.browser.select('language', 2)
+        self.assertTrue(self.is_visible('input[name="title"]'))
         self.browser.fill('title', self.project_data['title'])
         self.browser.fill('pitch', self.project_data['pitch'])
 
