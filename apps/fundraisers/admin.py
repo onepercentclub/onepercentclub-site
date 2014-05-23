@@ -7,8 +7,10 @@ from .models import FundRaiser
 
 class FundRaiserAdmin(admin.ModelAdmin):
     list_display = ('title', 'amount_override', 'deadline', 'amount_donated_override')
-
     raw_id_fields = ('project', 'owner')
+
+    search_fields = ('title', 'project__title')
+
 
     def amount_override(self, obj):
         language = translation.get_language().split('-')[0]
