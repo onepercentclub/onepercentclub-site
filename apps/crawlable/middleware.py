@@ -2,6 +2,7 @@ import logging
 from apps.fundraisers.models import FundRaiser
 from apps.projects.models import Project
 from apps.tasks.models import Task
+from django.http.response import HttpResponsePermanentRedirect
 from django.template.response import SimpleTemplateResponse
 import re
 import time
@@ -145,7 +146,10 @@ class HashbangMiddleware(object):
 
             # Project page
             if route[1] == 'projects' and len(route) > 2:
-                project = Project.objects.get(slug=route[2])
+                slug = route[2]
+                if slug != slug.lower():
+                    return HttpResponsePermanentRedirect(original_url.lower())
+                project = Project.objects.get(slug=slug)
                 return SimpleTemplateResponse(template='crawlable/project.html', context={'project': project})
 
             # Task page
