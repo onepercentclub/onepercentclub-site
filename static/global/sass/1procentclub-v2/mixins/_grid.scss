@@ -77,9 +77,9 @@ img {
 
 /*  #Mobile Phone
 ================================================== */
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: $bp-small-3) {
   .row {
-    max-width: 767px;
+    max-width: $bp-small-3;
     [class*="col"] {
       width: 100%;
       margin-left: 0;

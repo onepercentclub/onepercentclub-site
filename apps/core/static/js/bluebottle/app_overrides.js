@@ -44,10 +44,7 @@ App.ApplicationController.reopen({
     needs: ['currentUser', 'currentOrder', 'myProjectList'],
 });
 
-/*
-  Some 1%Club Mixins
- */
-App.Scrolling = Em.Mixin.create({
+App.EventMixin = Em.Mixin.create({
 
   bindScrolling: function(opts) {
     var onScroll, self = this;
@@ -64,19 +61,37 @@ App.Scrolling = Em.Mixin.create({
   unbindScrolling: function () {
     $(window).unbind('scroll');
     $(document).unbind('touchmove');
+  },
+
+  bindMobileClick: function() {
+    toggleMenu = function() {
+      $('.mobile-nav-holder').toggleClass('is-active');
+    };
+
+    closeMenu = function(event) {
+      $('.mobile-nav-holder').removeClass('is-active');
+    };
+
+    $('.mobile-nav-btn').bind('click', toggleMenu);
+    $('#content').bind('hover', closeMenu);
   }
 });
 
 /*
   Bluebottle View Overrides
- */
-App.ApplicationView.reopen(App.Scrolling, {
+*/
+
+App.ApplicationView.reopen(App.EventMixin, {
 	setBindScrolling: function() {
 		this.bindScrolling();
 	}.on('didInsertElement'),
 
 	setUnbindScrolling: function() {
 		this.unbindScrolling();
+	}.on('didInsertElement'),
+
+	setBindClick: function() {
+		this.bindMobileClick();
 	}.on('didInsertElement'),
 
 	scrolled: function(dist) {
@@ -86,9 +101,11 @@ App.ApplicationView.reopen(App.Scrolling, {
 		if (dist < elm) {
 			$('#header').removeClass('is-scrolled');
 			$('.nav-member-dropdown').removeClass('is-scrolled');
+			$('.mobile-nav-holder').removeClass('is-scrolled');
 		} else {
 			$('#header').addClass('is-scrolled');
 			$('.nav-member-dropdown').addClass('is-scrolled');
+			$('.mobile-nav-holder').addClass('is-scrolled');
 		}
 	}
 });

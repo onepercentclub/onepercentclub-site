@@ -3,13 +3,26 @@
 .campaign-container {
 	font-family: $font-family-body;
 	padding-bottom: 80px;
+	margin: 1em 0 2em 0;
 	
 	.campaign-item {
 		position: relative;
 		height: 420px;
+		min-width: 245px;
 		background: $gray-light;
 		padding: 7px;
 		border-radius: 0 0 6px 6px;
+		@include single-transition(all, .2s ease-in-out);
+		@include breakpoint(column) {
+			min-width: 185px;
+			height: 300px;
+		}
+		@include breakpoint(large) {
+			height: 380px;
+		}
+		@include breakpoint(x-small) {
+			height: 500px;
+		}
 		
 		.campaign-item-holder {
 			position: relative;
@@ -28,7 +41,13 @@
 				background: $gray-dark;
 				opacity: 1;
 				@include single-transition(opacity, .2s ease-in-out);
-				
+				@include breakpoint(column) {
+					height: 100px;
+				}
+				@include breakpoint(large) {
+					height: 150px;
+				}
+		
 				img {
 					width: 100%;
 					position: relative;
@@ -62,6 +81,12 @@
 				border: solid 2px white;
 				z-index: 4;
 				@include single-transition(top, .2s ease-in-out);
+				@include breakpoint(column) {
+					top: 76px;
+				}
+				@include breakpoint(large) {
+					top: 125px;
+				} 
 				
 				img {
 					width: 100%;
@@ -91,6 +116,14 @@
 					
 					padding: 0.6em 0 0.3em 0.6em;
 					border-bottom: solid 1px $gray-border;
+					@include breakpoint(column) {
+						font-size: .8em;
+						line-height: 17px;
+					}
+					@include breakpoint(large) {
+						font-size: .8em;
+						line-height: 17px;
+					}
 					
 					strong {
 						display: inline-block;
@@ -106,6 +139,16 @@
 					max-height: 210px;
 					overflow: hidden;
 					color: $black;
+					@include breakpoint(column) {
+						font-size: 13px;
+						line-height: 20px;
+						min-height: 40px;
+						max-height: 120px;
+					}
+					@include breakpoint(large) {
+						font-size: 14px;
+						line-height: 23px;
+					}
 				}
 				
 				.campaign-hover-footer {
@@ -147,6 +190,12 @@
 			margin: auto;
 			padding: 10px;
 			@include single-transition(top, .2s ease-in-out);
+			@include breakpoint(column) {
+				top: 117px;
+			}
+			@include breakpoint(large) {
+				top: 167px;
+			}
 			
 			.profile-name {
 				display: block;
@@ -154,6 +203,14 @@
 				text-align: center;
 				opacity: 1;
 				@include single-transition(opacity, .2s ease-in-out);
+				@include breakpoint(column) {
+					font-size: 12px;
+					line-height: 17px;
+				}
+				@include breakpoint(large) {
+					font-size: 12px;
+					line-height: 17px;
+				}
 				
 				strong {
 					font-family: $font-family-body;
@@ -170,6 +227,14 @@
 				font-family: $font-family-body;
 				font-weight: 700;
 				font-size: 1.13em;
+				@include breakpoint(column) {
+					font-size: .8em;
+					line-height: 17px;
+				}
+				@include breakpoint(large) {
+					font-size: .8em;
+					line-height: 17px;
+				}
 			}
 		}
 		
@@ -185,7 +250,9 @@
 			
 			.campaign-fund-amount {
 				color: $gray-dark;
-				//font-size: .93em;
+				@include breakpoint(column) {
+					font-size: 12px;
+				}
 				
 				.amount-raised {
 					float: left;
