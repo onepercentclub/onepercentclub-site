@@ -1,6 +1,9 @@
 import csv
 import logging
+from apps.projects.models import ProjectBudgetLine
 from bluebottle.bb_projects.models import ProjectPhase
+from bluebottle.utils.utils import get_project_model
+from django.contrib.auth import get_user_model
 
 import os
 from registration.models import RegistrationProfile
@@ -9,7 +12,10 @@ from apps.cowry_docdata.models import payment_method_mapping
 from apps.fund.models import Donation, DonationStatuses, RecurringDirectDebitPayment
 from apps.vouchers.models import Voucher, VoucherStatuses
 from apps.organizations.models import Organization
-from bluebottle.bb_accounts.models import BlueBottleUser
+
+USER_MODEL = get_user_model()
+PROJECT_MODEL = get_project_model()
+
 
 from apps.tasks.models import Task, TaskMember
 
@@ -55,8 +61,8 @@ def generate_organizations_csv_file(path, loglevel):
 
                 csvwriter.writerow([organization.id,
                                     organization.name.encode("utf-8"),
-                                    organization.legal_status.encode("utf-8"),
-                                    organization.description.encode("utf-8"),
+                                    "", # organization.legal_status.encode("utf-8"),
+                                    "", # organization.description.encode("utf-8"),
                                     billing_city.encode("utf-8"),
                                     billing_street.encode("utf-8"),
                                     billing_postal_code.encode("utf-8"),
@@ -98,7 +104,7 @@ def generate_users_csv_file(path, loglevel):
                             "Date_Joined__c", "Date_Last_Login__c", "Account_number__c", "Account_holder__c",
                             "Account_city__c"])
 
-        users = BlueBottleUser.objects.all()
+        users = USER_MODEL.objects.all()
 
         logger.info("Exporting {0} User objects to {1}".format(users.count(), filename))
 
@@ -127,9 +133,9 @@ def generate_users_csv_file(path, loglevel):
 
                 gender = ""
                 if user.gender == "male":
-                    gender = BlueBottleUser.Gender.values['male'].title()
+                    gender = USER_MODEL.Gender.values['male'].title()
                 elif user.gender == "female":
-                    gender = BlueBottleUser.Gender.values['female'].title()
+                    gender = USER_MODEL.Gender.values['female'].title()
 
                 date_deleted = ""
                 if user.deleted:
@@ -167,11 +173,11 @@ def generate_users_csv_file(path, loglevel):
                     bank_account_number = ''
 
                 availability = ""
-                if user.availability:
-                    availability = BlueBottleUser.Availability.values[user.availability].title()
+                if user.time_available:
+                    availability = user.time_available.type
 
                 csvwriter.writerow([user.id,
-                                    BlueBottleUser.UserType.values[user.user_type].title(),
+                                    USER_MODEL.UserType.values[user.user_type].title(),
                                     user.first_name.encode("utf-8"),
                                     last_name.encode("utf-8"),
                                     gender,
@@ -239,17 +245,23 @@ def generate_projects_csv_file(path, loglevel):
                             "Date_project_updated__c",
                             "Date_project_deadline__c"])
 
-        projects = Project.objects.all()
+        projects = PROJECT_MODEL.objects.all()
         logger.info("Exporting {0} Project objects to {1}".format(projects.count(), filename))
 
         for project in projects:
+            country = ''
+            if project.country:
+                country = project.country.name.encode("utf-8")
+            status = ''
+            if project.status:
+                status = project.status.name.encode("utf-8")
             for tag in project.tags.all():
                 tags = str(tag) + ", " + tags
             csvwriter.writerow([project.id,
                                 project.title.encode("utf-8"),
                                 project.owner.id,
-                                project.status.name,
-                                project.country.name.encode("utf-8"),
+                                status,
+                                country,
                                 project.pitch.encode("utf-8"),
                                 project.organization.id,
                                 project.reach,
