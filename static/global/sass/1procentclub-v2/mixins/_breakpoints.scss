@@ -1,0 +1,37 @@
+$bp-x-small : 20em; // 320px
+$bp-small : 24em; // 384 px
+$bp-small-2 : 29.75em; // 467px
+$bp-small-3 : 39em; // 624px
+$bp-med : 46.8em; // 748.80
+$bp-med-2 : 48em; // 768px
+$bp-large : 50em; // 800px
+$bp-large-2 : 54.5em; // 872px
+$bp-xl : 60em; // 960px
+$bp-xl-2 : 67em; // 1072px
+
+@mixin breakpoint($point) {
+	@if $point == column {
+		@media screen and (min-width: $bp-small-3) and (max-width: $bp-med) { 
+			@content; 
+		}
+	}
+
+	@else if $point == x-large {
+		@media (max-width: $bp-xl)  { 
+			@content; 
+		}
+	}
+
+	@if $point == large {
+		@media screen and (min-width: $bp-med) and (max-width: $bp-xl-2) { 
+			@content; 
+		}
+	}
+
+	@else if $point == x-small {
+		@media (max-width: $bp-small-3)  { 
+			@content; 
+		}
+	}
+
+}

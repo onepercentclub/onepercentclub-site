@@ -101,12 +101,13 @@
 						display: block;
 						width: 220px;
 						padding: 0 10px 0 10px;
+						font-size: 14px;
 						text-decoration: none;
 						line-height: 40px;
 						color: white;
 					}
 					&:hover {
-						background: $gray-dark;
+						background: #008438;
 						&:last-of-type {
 							border-radius: 0 0 6px 6px;
 						}
