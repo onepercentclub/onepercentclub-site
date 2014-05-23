@@ -1298,7 +1298,7 @@ msgstr "1%%Club is hét crowdfunding platform voor goede ideeën. En met goed be
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/base.html.py:20
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/base.html.py:27
 msgid "Site meta keywords"
-msgstr "crowdfunding, fundraising, campagne, initiatieven, onepercentclub, 1%Club, sociaal, goede doelen, crowdsourcing, verandering, do-good, change"
+msgstr "crowdfunding, fundraising, campagne, initiatieven, onepercentclub, 1%%Club, sociaal, goede doelen, crowdsourcing, verandering, do-good, change"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/base.html.py:178
 #, python-format
@@ -1363,11 +1363,6 @@ msgstr ""
 msgid "Give us feedback"
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/base.html.py:7
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/base.html.py:17
-msgid "Site meta title"
-msgstr "1%%Club is het crowdfunding platform waar je een wereld van verschil maakt."
-
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/base.html.py:19
 msgid "Site meta FB title"
 msgstr "1%%Club is het crowdfunding platform waar je een wereld van verschil maakt."
@@ -1382,16 +1377,6 @@ msgstr "1%%Club is het crowdfunding platform waar je een wereld van verschil maa
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/base.html.py:24
 msgid "Site meta FB keywords"
-msgstr "crowdfunding, fundraising, campagne, initiatieven, onepercentclub, 1%Club, sociaal, goede doelen, crowdsourcing, verandering, do-good, change"
-
-
-msgid "Site meta description"
-msgstr "1%%Club is hét crowdfunding platform voor goede ideeën. En met goed bedoelen we ook goed. Goed voor jou, maar vooral voor je omgeving en het liefst voor de hele wereld. Via 1%%Club kan je op een makkelijke en leuke manier je omgeving online mobiliseren om geld en kennis in te zamelen voor je idee. Zo wordt een goed idee een succesvolle campagne. Via 1%%Club maken al deze ideeën samen een wereld van verschil. "
-
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/base.html.py:19
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/base.html.py:27
-msgid "Site meta keywords"
 msgstr "crowdfunding, fundraising, campagne, initiatieven, onepercentclub, 1%Club, sociaal, goede doelen, crowdsourcing, verandering, do-good, change"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/base.html.py:26

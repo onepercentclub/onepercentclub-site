@@ -1297,7 +1297,7 @@ msgstr "1%%Club is the go-to crowdfunding platform for doing good. We empower pe
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/base.html.py:20
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/base.html.py:27
 msgid "Site meta keywords"
-msgstr "crowdfunding, fundraising, campaign, initiatives, onepercentclub, 1%Club, social, charities, crowdsourcing, do-good, change"
+msgstr "crowdfunding, fundraising, campaign, initiatives, onepercentclub, 1%%Club, social, charities, crowdsourcing, do-good, change"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/base.html.py:178
 #, python-format
