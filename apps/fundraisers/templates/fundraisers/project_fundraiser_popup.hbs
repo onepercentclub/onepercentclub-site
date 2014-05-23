@@ -1,0 +1,19 @@
+{% load i18n bb_ember static %}
+
+
+{% tplhandlebars "project_fundraiser_popup" %}
+
+    <span id="fundraiser-detail">
+        {{#link-to "fundRaiser" fundraiser classNames='member'}}
+            <h3>{{owner.full_name}}</h3>
+            <img {{bindAttr src="image.large"}} />
+            <p class="project-fund-amount">
+                <strong class="amount-donated">&euro;{{localize amount_donated}}</strong>
+                {% trans "of" %}
+                <strong class="amount-asked">&euro;{{localize amount}}</strong>
+                {% trans "raised" %}
+            </p>
+        {{/link-to}}
+    </span>
+
+{% endtplhandlebars %}

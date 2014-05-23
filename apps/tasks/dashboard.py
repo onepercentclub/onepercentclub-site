@@ -23,4 +23,3 @@ class RecentTasks(DashboardModule):
         if not len(self.children):
             self.pre_content = _('No recent projects.')
         self._initialized = True
-

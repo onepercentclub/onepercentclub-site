@@ -58,6 +58,11 @@ App.ProjectFundRaiserAllController = Em.ArrayController.extend({
 
 App.ProjectFundRaiserListController = Em.ArrayController.extend({
     needs: ['project', 'projectFundRaiserAll'],
+
+    fundraisers: function () {
+        return App.FundRaiser.find({project: this.get('controllers.project.id')});
+    }.property('controllers.project.id'),
+    
 	fundraisersLoaded: function(sender, key) {
 		if (this.get(key)) {
 			this.set('model', this.get('fundraisers').toArray());
@@ -95,6 +100,19 @@ App.FundRaiserDonationListController = Em.ObjectController.extend({
     needs: ['currentUser']
 });
 
+
+App.FundRaiserSupporterListController = Em.ArrayController.extend({
+    needs: ['fundRaiser'],
+
+    supporters: function(){
+        //var project_id = this.get('controllers.fundRaiser.project.id')
+        var fundraiser_id = this.get('controllers.fundRaiser.id')
+        //return App.ProjectSupporter.find({project: project_id});
+        return App.ProjectSupporter.find({fundraiser: fundraiser_id});
+    }.property('controllers.fundRaiser.id')
+
+
+});
 
 App.FundRaiserIndexController = Em.ArrayController.extend({
     needs: ['fundRaiser', 'currentUser'],
@@ -136,5 +154,5 @@ App.FundRaiserIndexController = Em.ArrayController.extend({
 
 
 App.MyFundRaiserListController = Em.ArrayController.extend({
-    needs: ['currentUser'],
+    needs: ['currentUser']
 });

@@ -1,0 +1,152 @@
+
+// Sticky Footer
+// -------------------------
+
+#main {
+	//border: 1px solid transparent;
+  	min-height: 100%;
+  	margin-bottom: -460px; // equal to footer height + 2x margin */
+  	padding-bottom: 0;
+  	overflow: auto;
+}
+
+#main:after {
+  	content: "";
+  	display: block;
+}
+
+#footer, #main:after {
+    height: 450px;
+}
+
+#footer {
+    height: 450px;
+	clear: both;
+}
+
+#home-footer {
+	.l-wrapper {
+		min-width: 400px !important;
+	}
+
+	.l-section {
+		min-width: 400px !important;
+	}
+
+	#footer {
+		color: $gray-light;
+		font-family: $font-family-body;
+		line-height: 1.8em;
+		
+		#footer-links {
+			background-color: $black;
+			
+			#footer-nav {
+				position: relative;
+				padding: 2em 1em;
+				
+				h3 {
+					font-size: 100%;
+					font-family: $font-family-body;
+					font-weight: 700;
+					text-transform: none;
+					color: $gray-light;
+					margin-bottom: 0.5em;
+				}
+				
+				ul {
+					margin: 0;
+					
+					li {
+						background: none;
+						padding: 0;
+						margin: 0;
+					}
+				}
+				
+				a {
+					color: $gray-dark;
+					text-decoration: none;
+					
+					&:hover, &:active {
+						color: $white;
+					}
+				}
+				
+				.social-facebook {
+					
+				}
+				
+				.social-twitter {
+					
+				}
+				
+				.social-linkedin {
+					
+				}
+				
+				.social-youtube {
+					
+				}
+			}
+
+		}
+		
+		#footer-contact {
+			background-color: $color-primary;
+			padding: 1.5em 0 0.75em 0;
+			text-align: center;
+			
+			a {
+				color: $white;
+				text-decoration: none;
+				font-weight: 700;
+			}
+		}
+		
+		#footer-copyright {
+			background-color: white;
+			color: $gray-dark;
+			padding: 1.5em 0 0 0;
+			font-size: 0.8em;
+			
+			.copy {
+				text-align: left;
+				padding-left: 3em;
+				@include breakpoint(x-small) {
+					padding-left: 0;
+					text-align: center;
+				}
+			}
+			
+			.footer-back-to-top {
+				text-align: center;
+				
+				a {
+					display: inline-block;
+					width: 36px;
+					height: 36px;
+					background: image-url("img/icons/icon-top.svg") transparent no-repeat 50% 50%;
+					background-size: 36px;
+					@include hide-text();
+				}
+			}
+			
+			.give-us-feedback {
+				text-align: right;
+				padding-right: 3em;
+				@include breakpoint(x-small) {
+					text-align: center;
+					padding-right: 0;
+				}
+				a {
+					color: $gray-dark;
+				
+					&:hover, &:active {
+						color: $black;
+					}
+				}
+			}
+		}
+	}
+}

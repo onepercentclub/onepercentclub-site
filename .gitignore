@@ -23,6 +23,7 @@ pip-log.txt
 # JS tests / coverage / bower
 test/js/coverage/*
 static/bower_components/*
+bower_components/*
 node_modules/*
 npm-debug.log
 
@@ -54,6 +55,7 @@ onepercentclub/settings/secrets.py
 
 # Misc stuff
 env
+src
 docs/_build
 .idea
 .noseids
@@ -85,3 +87,6 @@ static/global/compass_app_log.txt
 
 ghostdriver.log
 /exports
+
+# ignore the screen.css file
+static/global/css/screen.css

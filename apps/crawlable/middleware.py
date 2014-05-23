@@ -1,4 +1,9 @@
 import logging
+from apps.fundraisers.models import FundRaiser
+from apps.projects.models import Project
+from apps.tasks.models import Task
+from django.http.response import HttpResponsePermanentRedirect
+from django.template.response import SimpleTemplateResponse
 import re
 import time
 import os
@@ -126,6 +131,7 @@ class HashbangMiddleware(object):
     """
 
     def process_request(self, request):
+
         if request.method == 'GET' and ESCAPED_FRAGMENT in request.GET:
             original_url = request.build_absolute_uri()
             parsed_url = urlparse.urlparse(original_url)
@@ -133,6 +139,28 @@ class HashbangMiddleware(object):
             # Update URL with hashbang.
             query = dict(urlparse.parse_qsl(parsed_url.query))
             path = ''.join([parsed_url.path, HASHBANG, query.get(ESCAPED_FRAGMENT, '')])
+
+
+            # See if it's a page we now so that we can sent it back quickly.
+            route = parsed_url.query.replace('%2F', '/').split('/')
+
+            # Project page
+            if route[1] == 'projects' and len(route) > 2:
+                slug = route[2]
+                if slug != slug.lower():
+                    return HttpResponsePermanentRedirect(original_url.lower())
+                project = Project.objects.get(slug=slug)
+                return SimpleTemplateResponse(template='crawlable/project.html', context={'project': project})
+
+            # Task page
+            if route[1] == 'tasks' and len(route) > 2:
+                task = Task.objects.get(id=route[2])
+                return SimpleTemplateResponse(template='crawlable/task.html', context={'task': task})
+
+            # FundRaiser page
+            if route[1] == 'fundraisers' and len(route) > 2:
+                fundraiser = FundRaiser.objects.get(id=route[2])
+                return SimpleTemplateResponse(template='crawlable/fundraiser.html', context={'fundraiser': fundraiser})
 
             # Update query string by removing the escaped fragment.
             if ESCAPED_FRAGMENT in query:
@@ -150,6 +178,7 @@ class HashbangMiddleware(object):
                 query,
                 parsed_url.fragment
             ])
+
 
             try:
                 driver = web_cache.get_driver()

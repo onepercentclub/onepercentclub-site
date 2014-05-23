@@ -6,38 +6,35 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 from .views import HomeView
 
+from bluebottle.urls.core import urlpatterns as bb_urlpatterns
+
 admin.autodiscover()
 
 handler500 = 'onepercentclub.views.handler500'
 
-
+#Put the members urls before the bluebottle urls
 urlpatterns = patterns('',
-    # Put language-independent-views here.
+    url(r'^api/users/', include('apps.members.urls.api')),
+)
 
-    # The api urls are in the / url namespace so that they're not redirected to /en/.
-    url(r'^api/projects/', include('apps.projects.urlsapi')),
-    url(r'^api/blogs/', include('apps.blogs.urlsapi')),
-    url(r'^api/users/', include('bluebottle.accounts.urlsapi')),
-    url(r'^api/wallposts/', include('apps.wallposts.urlsapi')),
-    url(r'^api/fund/', include('apps.fund.urlsapi')),
-    url(r'^api/fundraisers/', include('apps.fundraisers.urlsapi')),
-    url(r'^api/utils/', include('bluebottle.bluebottle_utils.urlsapi')),
-    url(r'^api/geo/', include('bluebottle.geo.urlsapi')),
-    url(r'^api/tasks/', include('apps.tasks.urlsapi')),
-    url(r'^api/organizations/', include('apps.organizations.urlsapi')),
-    url(r'^api/pages/', include('apps.pages.urlsapi')),
-    url(r'^api/partners/', include('apps.partners.urlsapi')),
+urlpatterns += bb_urlpatterns
 
+urlpatterns += patterns('',
+
+    url(r'^api/bb_projects/', include('apps.projects.urls.api')),
+
+    url(r'^api/fund/', include('apps.fund.urls.api')),
+    url(r'^api/fundraisers/', include('apps.fundraisers.urls.api')),
+    url(r'^api/organizations/', include('apps.organizations.urls.api')),
+    url(r'^api/partners/', include('apps.partners.urls.api')),
 
     # Homepage API urls
-    url(r'^api/homepage/', include('apps.homepage.urlsapi')),
-    url(r'^api/banners/', include('apps.banners.urlsapi')),
-    url(r'^api/quotes/', include('apps.quotes.urlsapi')),
-    url(r'^api/stats', include('apps.statistics.urlsapi')),
+    url(r'^api/homepage/', include('apps.homepage.urls.api')),
+    url(r'^api/stats', include('apps.statistics.urls.api')),
 
     # API for DocData Status Changed Notifications.
-    url(r'^api/docdatastatuschanged/', include('apps.cowry_docdata.urlsapi')),
-    url(r'^api/docdatastatuschangedlegacy/', include('apps.cowry_docdata_legacy.urlsapi')),
+    url(r'^api/docdatastatuschanged/', include('apps.cowry_docdata.urls.api')),
+    url(r'^api/docdatastatuschangedlegacy/', include('apps.cowry_docdata_legacy.urls.api')),
 
     # Needed for the self-documenting API in Django Rest Framework.
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
@@ -74,17 +71,17 @@ urlpatterns += i18n_patterns('',
     url(r'^accounts/', include('django.contrib.auth.urls', namespace='accounts')),
 
     # Project view that search engines will use.
-    url(r'^projects/', include('apps.projects.urls')),
+    url(r'^projects/', include('apps.projects.urls.seo')),
 
     # Organization urls for downloading private documents
-    url(r'^documents/', include('bluebottle.bluebottle_utils.urls')),
-    url(r'^documents/', include('apps.organizations.urls')),
+    url(r'^documents/', include('bluebottle.utils.urls.main')),
+    url(r'^documents/', include('apps.organizations.urls.documents')),
 
     # handlebar templates
     url(r'^templates/', include('apps.hbtemplates.urls')),
 
     # Urls for partner sites
-    url(r'^pp/', include('apps.partners.urls'))
+    url(r'^pp/', include('apps.partners.urls.partners'))
 
 )
 

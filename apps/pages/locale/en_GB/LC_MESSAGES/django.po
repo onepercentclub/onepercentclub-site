@@ -1,0 +1,230 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: onepercentclub-site\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-04-10 16:33+0200\n"
+"PO-Revision-Date: 2013-11-13 09:52+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
+"Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub-site/language/en_GB/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en_GB\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: admin.py:30
+msgid "Publication settings"
+msgstr "Publication settings"
+
+#: admin.py:128
+msgid "Status"
+msgstr "Status"
+
+#: admin.py:141
+msgid "Mark selected entries as published"
+msgstr "Mark selected entries as published"
+
+#: models.py:21
+msgid "Published"
+msgstr "Published"
+
+#: models.py:22
+msgid "Draft"
+msgstr "Draft"
+
+#: models.py:24
+msgid "Title"
+msgstr "Title"
+
+#: models.py:25
+msgid "Slug"
+msgstr "Slug"
+
+#: models.py:28
+msgid "language"
+msgstr "language"
+
+#: models.py:32 models.py:65
+msgid "status"
+msgstr "status"
+
+#: models.py:33
+msgid "publication date"
+msgstr "publication date"
+
+#: models.py:33
+msgid "When the entry should go live, status must be \"Published\"."
+msgstr "When the entry should go live, status must be \"Published\"."
+
+#: models.py:34
+msgid "publication end date"
+msgstr "publication end date"
+
+#: models.py:37 models.py:67
+msgid "author"
+msgstr "author"
+
+#: models.py:38 models.py:72
+msgid "creation date"
+msgstr "creation date"
+
+#: models.py:39 models.py:73
+msgid "last modification"
+msgstr "last modification"
+
+#: models.py:61
+msgid "New"
+msgstr "New"
+
+#: models.py:62
+msgid "In progress"
+msgstr "In progress"
+
+#: models.py:63
+msgid "Closed"
+msgstr "Closed"
+
+#: models.py:68 templates/pages.hbs:79
+msgid "Name"
+msgstr "Name"
+
+#: models.py:69 templates/pages.hbs:90
+msgid "Email"
+msgstr "Email"
+
+#: models.py:70 templates/pages.hbs:102
+msgid "Message"
+msgstr "Message"
+
+#: views.py:47
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr "No %(verbose_name)s found matching the query"
+
+#: templates/pages.hbs:19
+#, python-format
+msgid "About 1%%Club"
+msgstr "About 1%%Club"
+
+#: templates/pages.hbs:21
+msgid "Our Story"
+msgstr "Our Story"
+
+#: templates/pages.hbs:22
+msgid "Frequently Asked Questions"
+msgstr "Frequently Asked Questions"
+
+#: templates/pages.hbs:23
+msgid "Meet the team"
+msgstr "Meet the team"
+
+#: templates/pages.hbs:24
+msgid "Partners"
+msgstr "Partners"
+
+#: templates/pages.hbs:25
+msgid "Press"
+msgstr "Press"
+
+#: templates/pages.hbs:26
+#, python-format
+msgid "Work at 1%%Club"
+msgstr "Work at 1%%Club"
+
+#: templates/pages.hbs:27 templates/pages.hbs.py:62
+msgid "Contact"
+msgstr "Contact"
+
+#: templates/pages.hbs:47
+msgid "Something went wrong"
+msgstr "Something went wrong"
+
+#: templates/pages.hbs:49
+msgid "The page you are looking for couldn't be found."
+msgstr "The page you are looking for couldn't be found."
+
+#: templates/pages.hbs:64
+msgid ""
+"\n"
+"                            Send us a message or get in touch using the details below. Talk to you soon!\n"
+"                            "
+msgstr "\n                            Send us a message or get in touch using the details below. Talk to you soon!\n                            "
+
+#: templates/pages.hbs:73
+msgid "Thanks for your message!. We'll get back to you soon"
+msgstr "Thanks for your message!. We'll get back to you soon"
+
+#: templates/pages.hbs:115
+msgid "Send Message"
+msgstr "Send Message"
+
+#: templates/pages.hbs:121
+msgid "Other ways to contact"
+msgstr "Other ways to contact"
+
+#: templates/pages.hbs:122
+#, python-format
+msgid ""
+"\n"
+"<p>\n"
+"    Email:<a href=\"mailto:info@onepercentclub.com?subject=Contact\">info@onepercentclub.com</a><br />\n"
+"    Twitter:<a href=\"https://twitter.com/1percentclub\">@1percentclub</a><br />\n"
+"    Facebook: <a href=\"http://www.facebook.com/onepercentclub\">/onepercentclub</a>\n"
+"</p>\n"
+"<p>\n"
+"    1%%Club Foundation<br />\n"
+"    's Gravenhekje 1a<br />\n"
+"    1011 TG Amsterdam<br />\n"
+"    The Netherlands<br />\n"
+"</p>\n"
+"<p>\n"
+"    Bank: Rabobank (Haarlem)<br />\n"
+"    Account number: NL45 RABO 01322070 44(donations)<br />\n"
+"    BIC: RABONL2U<br />\n"
+"    <br />\n"
+"    Chamber of Commerce number 34.26.78.95<br />\n"
+"    Phone(+31) 20 715 8980<br />\n"
+"</p>\n"
+msgstr "\n<p>\n    Email:<a href=\"mailto:info@onepercentclub.com?subject=Contact\">info@onepercentclub.com</a><br />\n    Twitter:<a href=\"https://twitter.com/1percentclub\">@1percentclub</a><br />\n    Facebook: <a href=\"http://www.facebook.com/onepercentclub\">/onepercentclub</a>\n</p>\n<p>\n    1%%Club Foundation<br />\n    's Gravenhekje 1a<br />\n    1011 TG Amsterdam<br />\n    The Netherlands<br />\n</p>\n<p>\n    Bank: Rabobank (Haarlem)<br />\n    Account number: NL45 RABO 01322070 44(donations)<br />\n    BIC: RABONL2U<br />\n    <br />\n    Chamber of Commerce number 34.26.78.95<br />\n    Phone(+31) 20 715 8980<br />\n</p>\n"
+
+#: templates/pages.hbs:176
+msgid "No projects found."
+msgstr "No projects found."
+
+#: templates/project_snippet.html:32
+msgid "days to go"
+msgstr "days to go"
+
+#: templates/project_snippet.html:39
+msgid "of"
+msgstr "of"
+
+#: templates/project_snippet.html:41
+msgid "raised"
+msgstr "raised"
+
+#: templates/project_snippet.html:48
+msgid "Support"
+msgstr "Support"
+
+#: templates/admin/pages/change_form.html:7
+#: templates/admin/pages/change_form.html:70
+msgid "Preview"
+msgstr "Preview"
+
+#: templates/admin/pages/change_form.html:127
+msgid "Publish"
+msgstr "Publish"
+
+#: templates/admin/pages/change_form.html:128
+msgid "Publish and add another"
+msgstr "Publish and add another"
+
+#: templates/admin/pages/change_form.html:129
+msgid "Publish and continue editing"
+msgstr "Publish and continue editing"

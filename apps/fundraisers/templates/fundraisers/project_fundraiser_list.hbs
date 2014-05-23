@@ -1,0 +1,28 @@
+{% load i18n bb_ember static %}
+
+
+{% tplhandlebars "project_fundraiser_list" %}
+    <h4>
+        {% trans "Fundraisers" %}
+        {{#if fundraisers.length}}
+            <em>
+                <a {{action 'showAllFundraisers' controllers.project}}>
+                    {{fundraisers.meta.total}} {% trans "Total" %}
+                </a>
+            </em>
+        {{/if}}
+    </h4>
+
+    {{#if fundraisers.length}}
+        <ul>
+            {{#each fundraiser in controller}}
+                {{render "projectFundRaiser" fundraiser}}
+            {{/each}}
+        </ul>
+    {{/if}}
+    {{#if controllers.project.isStatusCampaign}}
+        {{#linkTo 'fundRaiserNew' controllers.project.id class="fundraiser-become"}}
+            {% trans "Become a fundraiser" %}
+        {{/linkTo}}
+    {{/if}}
+{% endtplhandlebars %}

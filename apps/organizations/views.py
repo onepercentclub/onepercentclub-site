@@ -13,7 +13,7 @@ from filetransfers.api import serve_file
 from rest_framework import generics
 
 
-from bluebottle.bluebottle_utils.utils import get_client_ip
+from bluebottle.utils.utils import get_client_ip
 
 
 import os

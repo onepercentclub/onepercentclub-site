@@ -3,7 +3,7 @@ The test cases in bluebottle_salesforce are intended to be used for integration
 with Django ORM and Salesforce for Onepercentclub.
 """
 import logging
-from bluebottle.bluebottle_utils.tests import UserTestsMixin
+from bluebottle.utils.tests import UserTestsMixin
 import requests
 from datetime import datetime
 from django.test import TestCase

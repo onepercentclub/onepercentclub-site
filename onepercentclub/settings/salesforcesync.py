@@ -31,4 +31,4 @@ INSTALLED_APPS += (
 )
 
 # Send email for real
-EMAIL_BACKEND = 'bluebottle.bluebottle_utils.email_backend.DKIMBackend'
+EMAIL_BACKEND = 'bluebottle.utils.email_backend.DKIMBackend'

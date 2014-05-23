@@ -1,0 +1,5 @@
+#campaign-steps {	
+	&.steps li a {
+		@include grid(8,0,0);
+	}
+}

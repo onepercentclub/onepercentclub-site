@@ -1,0 +1,101 @@
+{% load bb_ember %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "project" %}
+
+<div id="project-detail">
+    <div class="l-section detail project-detail-main">
+        <section class="l-wrapper">
+
+            {{# if video_html }}
+                <figure class="project-image">
+                    {{{ video_html }}}
+                </figure>
+            {{ else }}
+                <figure class="project-image">
+                    <img {{bindAttr src="image.large"}} width="100%" alt="Photo" />
+                </figure>
+            {{/if}}
+
+            <article class="project-info">
+                <div class="project-meta">
+                    <span class="project-location"><span class="flaticon solid location-pin-1"></span> {{country.name}}</span>
+                    <span class="project-theme"><span class="flaticon solid tag-2"></span> {{theme.name}}</span>
+                </div>
+                <div class="project-share">
+                    {{view App.SocialShareView}}
+                </div>
+
+                <h1 class="project-title">{{title}}</h1>
+                <p class="project-description">{{pitch}}</p>
+				<p class="project-plan-link">
+                    <span class="flaticon solid book-4"></span>&nbsp;
+                    <a {{action openInFullScreenBox "projectPlan" this}}>{% trans "Read full project plan" %}</a>
+                </p>
+            </article>
+        </section>
+	</div>
+
+    <section class="l-wrapper">
+        <div class="project-status">
+
+            <div class="project-days-left">
+            {{#if campaign.deadline}}
+                {{#if isCampaign}}
+                    <strong><span class="flaticon solid stopwatch-1"></span> {{campaign.daysToGo}} <em>{% trans "days to go" %}!</em></strong>
+                {{else}}
+                    <strong><span class="flaticon solid clock-1"></span> {{campaign.daysToGo}} <em>{% trans "days to go" %}</em></strong>
+                {{/if}}
+            {{/if}}
+            </div>
+
+            <div class="project-fund">
+                <p class="project-fund-amount">
+                    <strong class="amount-donated">&euro;{{localize amount_donated}}</strong>
+                    {% trans "of" %}
+                    <strong class="amount-asked">&euro;{{localize amount_asked}}</strong>
+                    {% trans "raised" %}
+                </p>
+
+                <div class="project-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong></div>
+            </div>
+
+            <div class="project-action">
+                <a href='#' {{ action 'addDonation' this }} class="btn btn-primary btn-iconed"><span class="flaticon solid wallet-1"></span> {% trans "Support project" %}</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="l-section detail" id="project-members">
+        <section class="l-wrapper">
+
+		    <ul class="member-list">
+		        <li class="member-initiator">
+		            <ul>
+		                <li>
+		                    <a {{action 'openInBigBox' 'userModal' owner }} class="member">
+		                        <figure class="member-avatar"><img {{bindAttr src="owner.getAvatar"}} /></figure>
+		                        <h4>{% trans "Initiator" %}</h4>
+		                        <strong class="member-name">{{owner.full_name}}</strong>
+		                    </a>
+		                </li>
+		            </ul>
+		        </li>
+			</ul>
+			{{#if deadline}}
+				<div class="project-deadline">
+					<span class="flaticon solid stopwatch-1"></span>
+					<span class="text">
+						{{daysToGoText daysToGo}}
+					</span>
+				</div>
+			{{/if}}
+		</section>
+    </div>
+
+    {{outlet}}
+
+</div>
+
+{% endtplhandlebars %}

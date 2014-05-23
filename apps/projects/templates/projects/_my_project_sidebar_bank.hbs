@@ -1,0 +1,19 @@
+{% load bb_ember %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "_my_project_sidebar_bank" %}
+
+    <aside class="l-sidebar">
+        <h4>{% trans "Double check!" %}</h4>
+        {% blocktrans %}
+            <ul>
+                <li>You can find your IBAN and BIC via: <a target="_blank" href="http://www.ibancalculator.com">http://www.ibancalculator.com</a></li>
+                <li>We need these details to transfer  the donations to your bank account. </li>
+                <li>We’ll check your details beforehand to make sure you receive your donations.</li>
+                <li>These details are exclusively used by 1%Club and will not be shared.</li>
+            </ul>
+        {% endblocktrans %}
+    </aside>
+
+{% endtplhandlebars %}

@@ -11,10 +11,16 @@
   "dependencies": {},
   "devDependencies": {
     "jquery-mockjax": "*",
-    "pavlov": "https://github.com/pixelhandler/pavlov.git",
+    "pavlov": "https://github.com/pandell/pavlov.git",
     "sinon-qunit": "~1.0.0",
     "sinon": "~1.7.3",
-    "ember-data-factory": "https://github.com/teddyzeenny/ember-data-factory.git#ed-0.14"
+    "jquery": "~1.8.3",
+    "ember": "~1.0.0",
+    "data": "https://github.com/emberjs/data.git#v0.14",
+    "ember-data-factory": "https://github.com/teddyzeenny/ember-data-factory.git#ed-0.14",
+    "ember-data": "http://builds.emberjs.com/tags/v0.14/ember-data.js",
+    "ember-data-drf2-adapter": "https://github.com/onepercentclub/ember-data-drf2-adapter.git#1.0.0",
+    "globalize": "git://github.com/jquery/globalize.git#0.1.1"
   },
   "ignore": [
     "**/.*",

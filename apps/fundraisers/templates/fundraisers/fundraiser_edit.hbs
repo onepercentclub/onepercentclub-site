@@ -1,0 +1,48 @@
+{% load i18n bb_ember static %}
+
+
+{% tplhandlebars "fundraiser_edit" %}
+
+    <div class="l-section" id="project-dashboard">
+
+        {{partial "my_fundraiser_top"}}
+
+        <div class="l-wrapper">
+            <div class="l-content">
+                {{#if isOwner}}
+                    <header class="l-page-header">
+                        <h1>{% trans "Edit fundraiser" %}</h1>
+                    </header>
+
+                    <form id="fundraiser-edit">
+
+                        {{partial "fundraiser_form"}}
+
+                        <button {{bindAttr class=":btn :btn-iconed :btn-next isDirty::disabled"}} {{action updateRecordOnServer}}><span class="flaticon solid right-2"></span>{% trans "Save" %}</button>
+
+                    </form>
+                {{else}}
+                    <header class="l-page-header">
+                        <h1>{% trans "Edit fundraiser" %}</h1>
+                        <p>
+                            {% blocktrans %}
+                                You can only make a fundraiser if you are logged in and the owner of this fundraiser.
+                            {% endblocktrans %}
+                        </p>
+                    </header>
+
+                    <p class="login-signup"><a href="/accounts/login">{% trans "Login" %}</a> {% trans "or become a" %} {{#linkTo "signup"}}{% trans "member" %}{{/linkTo}} {% trans "to start a fundraiser." %}</p>
+                {{/if}}
+            </div>
+
+            <sidebar class="l-sidebar">
+                <h2>{% trans "You rock!" %}</h2>
+                <p>{% trans "Because you're fundraising for this project:" %}</p>
+
+                {{render "projectPreview" project}}
+
+            </sidebar>
+        </div>
+    </div>
+
+{% endtplhandlebars %}

@@ -10,6 +10,7 @@ from git import Repo
 from fabric.api import env, roles, sudo, prefix, cd, task, require, run, local, put, prompt, abort
 from fabric.contrib.console import confirm
 from fabric.colors import green, red
+from fabric.operations import get
 from contextlib import contextmanager
 
 
@@ -22,7 +23,8 @@ env.roledefs = {
     'production': ['production.onepercentclub.com'],
     'staging': ['staging.onepercentclub.com'],
     'testing': ['testing.onepercentclub.com'],
-    'dev': ['dev.onepercentclub.com']
+    'dev': ['dev.onepercentclub.com'],
+    'backup': ['backups@bluebucket.onepercentclub.com']
 }
 
 # Admin user
@@ -238,6 +240,7 @@ def update_git(commit):
         # Make sure only to fetch the required branch
         # This script should fail if we are updating to a non-deploy commit
         run('git fetch -q -p')
+        run('git reset --hard')
         run('git checkout -q %s' % commit.hexsha)
 
 
@@ -280,6 +283,9 @@ def prune_unreferenced_files():
         for unref_file in unreferenced_files:
             run_web('rm %s' % unref_file)
 
+def add_git_commit():
+    with cd(env.directory):
+        run('echo "GIT_COMMIT = \'`git log --oneline | head -n1 | cut -c1-7`\'" >> onepercentclub/settings/base.py')
 
 def prepare_django():
     """ Prepare a deployment. """
@@ -292,7 +298,9 @@ def prepare_django():
     with virtualenv():
         # TODO: Filter out the following messages:
         # "Could not find a tag or branch '<commit_id>', assuming commit."
-        run('pip install -q --allow-all-external --allow-unverified django-admin-tools -r requirements.txt')
+        run('pip install -q --allow-all-external --allow-unverified django-admin-tools -r requirements/requirements.txt')
+
+        run('grunt compass:dist')
 
         # Remove and compile the .pyc files.
         run('find . -name \*.pyc -delete')
@@ -309,7 +317,7 @@ def prepare_django():
         run('chmod a+rw static/media')
 
         run_web('./manage.py syncdb --migrate --noinput --settings=%s' % env.django_settings)
-        run_web('./manage.py collectstatic -l -v 0 --noinput --settings=%s' % env.django_settings)
+        run_web('./manage.py collectstatic --clear -l -v 0 --noinput --settings=%s' % env.django_settings)
 
         # Disabled for now; it unjustly deletes cached thumbnails
         # prune_unreferenced_files()
@@ -374,6 +382,9 @@ def deploy_dev(revspec='origin/master'):
     # Update site domain for self-reference to work
     set_site_domain()
 
+    # Add the current git commit hash to the settings file
+    add_git_commit()
+
     # Restart app server
     restart_site()
 
@@ -399,6 +410,9 @@ def deploy_testing(revspec='origin/master'):
 
     # Update site domain for self-reference to work
     set_site_domain()
+
+    # Add the current git commit hash to the settings file
+    add_git_commit()
 
     # Restart app server
     restart_site()
@@ -483,3 +497,26 @@ def deploy_production(revspec=None):
 
     # Deploy complete, tag commit
     tag_commit(commit.hexsha, tag)
+
+
+@roles('backup')
+@task
+def get_db():
+    backup_dir = "/home/backups/onepercentclub-backups/onepercentsite/current"
+    with cd(backup_dir):
+        output = run("ls *.bz2")
+        try:
+            filename = output.split()[0]
+        except IndexError:
+            print "No database backup file found"
+
+        if filename:
+            get(remote_path="{0}/{1}".format(backup_dir, filename), local_path="./dump.sql.bz2")
+            unpack_db()
+
+def unpack_db(filename="dump.sql.bz2"):
+    try:
+        local("gunzip {0}".format(filename))
+    except IndexError:
+        print "No database file found"
+

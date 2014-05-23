@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import datetime
+from south.utils import datetime_utils as datetime
 from south.db import db
 from south.v2 import SchemaMigration
 from django.db import models
@@ -46,24 +46,30 @@ class Migration(SchemaMigration):
         # Adding model 'DocdataPayment'
         db.create_table(u'accounting_docdatapayment', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('merchant_reference', self.gf('django.db.models.fields.CharField')(unique=True, max_length=35)),
-            ('triple_deal_reference', self.gf('django.db.models.fields.PositiveIntegerField')(unique=True)),
-            ('payment_type', self.gf('django.db.models.fields.CharField')(max_length=15)),
+            ('merchant_reference', self.gf('django.db.models.fields.CharField')(max_length=35, db_index=True)),
+            ('triple_deal_reference', self.gf('django.db.models.fields.PositiveIntegerField')(db_index=True)),
+            ('payment_type', self.gf('django.db.models.fields.CharField')(max_length=15, db_index=True)),
             ('amount_registered', self.gf('django.db.models.fields.DecimalField')(max_digits=14, decimal_places=2)),
             ('currency_amount_registered', self.gf('django.db.models.fields.CharField')(max_length=3)),
             ('amount_collected', self.gf('django.db.models.fields.DecimalField')(max_digits=14, decimal_places=2)),
             ('currency_amount_collected', self.gf('django.db.models.fields.CharField')(max_length=3)),
             ('tpcd', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=14, decimal_places=2, blank=True)),
             ('currency_tpcd', self.gf('django.db.models.fields.CharField')(max_length=3, blank=True)),
-            ('tpci', self.gf('django.db.models.fields.DecimalField')(max_digits=14, decimal_places=2)),
-            ('currency_tpci', self.gf('django.db.models.fields.CharField')(max_length=3)),
+            ('tpci', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=14, decimal_places=2, blank=True)),
+            ('currency_tpci', self.gf('django.db.models.fields.CharField')(max_length=3, blank=True)),
             ('docdata_fee', self.gf('django.db.models.fields.DecimalField')(max_digits=14, decimal_places=2)),
             ('currency_docdata_fee', self.gf('django.db.models.fields.CharField')(max_length=3)),
         ))
         db.send_create_signal(u'accounting', ['DocdataPayment'])
 
+        # Adding unique constraint on 'DocdataPayment', fields ['merchant_reference', 'triple_deal_reference', 'payment_type']
+        db.create_unique(u'accounting_docdatapayment', ['merchant_reference', 'triple_deal_reference', 'payment_type'])
+
 
     def backwards(self, orm):
+        # Removing unique constraint on 'DocdataPayment', fields ['merchant_reference', 'triple_deal_reference', 'payment_type']
+        db.delete_unique(u'accounting_docdatapayment', ['merchant_reference', 'triple_deal_reference', 'payment_type'])
+
         # Deleting model 'BankTransaction'
         db.delete_table(u'accounting_banktransaction')
 
@@ -99,21 +105,21 @@ class Migration(SchemaMigration):
             'sender_account': ('django.db.models.fields.CharField', [], {'max_length': '35'})
         },
         u'accounting.docdatapayment': {
-            'Meta': {'object_name': 'DocdataPayment'},
+            'Meta': {'unique_together': "(('merchant_reference', 'triple_deal_reference', 'payment_type'),)", 'object_name': 'DocdataPayment'},
             'amount_collected': ('django.db.models.fields.DecimalField', [], {'max_digits': '14', 'decimal_places': '2'}),
             'amount_registered': ('django.db.models.fields.DecimalField', [], {'max_digits': '14', 'decimal_places': '2'}),
             'currency_amount_collected': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'currency_amount_registered': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'currency_docdata_fee': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             'currency_tpcd': ('django.db.models.fields.CharField', [], {'max_length': '3', 'blank': 'True'}),
-            'currency_tpci': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
+            'currency_tpci': ('django.db.models.fields.CharField', [], {'max_length': '3', 'blank': 'True'}),
             'docdata_fee': ('django.db.models.fields.DecimalField', [], {'max_digits': '14', 'decimal_places': '2'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'merchant_reference': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '35'}),
-            'payment_type': ('django.db.models.fields.CharField', [], {'max_length': '15'}),
+            'merchant_reference': ('django.db.models.fields.CharField', [], {'max_length': '35', 'db_index': 'True'}),
+            'payment_type': ('django.db.models.fields.CharField', [], {'max_length': '15', 'db_index': 'True'}),
             'tpcd': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '14', 'decimal_places': '2', 'blank': 'True'}),
-            'tpci': ('django.db.models.fields.DecimalField', [], {'max_digits': '14', 'decimal_places': '2'}),
-            'triple_deal_reference': ('django.db.models.fields.PositiveIntegerField', [], {'unique': 'True'})
+            'tpci': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '14', 'decimal_places': '2', 'blank': 'True'}),
+            'triple_deal_reference': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'})
         },
         u'accounting.docdatapayout': {
             'Meta': {'object_name': 'DocdataPayout'},

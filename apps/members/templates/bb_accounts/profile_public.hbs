@@ -1,0 +1,37 @@
+{% extends "bb_accounts:bb_accounts/profile_public.hbs" %}
+{% load bb_ember i18n %}
+
+
+{% block_verbatim profile_model_content %}
+    {{#if about }}
+        <h3>{% trans "About" %}</h3>
+        <p>{{ about }}</p>
+    {{/if}}
+
+    {{#if why }}
+        <h4>{% blocktrans %}Joined 1%Club because{% endblocktrans %}</h4>
+        <p>{{ why }}</p>
+    {{/if}}
+
+    {{#if location }}
+        <dl>
+            <dt><span class="flaticon solid location-pin-1"></span> {% trans "Location" %}</dt>
+            <dd>{{ location }}</dd>
+        </dl>
+    {{/if}}
+
+    {{#if availability }}
+        <dl>
+            <dt><span class="flaticon solid clock-1"></span> {% trans "Time available" %}</dt>
+            <dd>{{ availability }}</dd>
+        </dl>
+    {{/if}}
+
+    {{#if website }}
+        <dl>
+            <dt><span class="flaticon solid link-3"></span> {% trans "Website" %}</dt>
+            <dd>{{website}}</dd>
+        </dl>
+    {{/if}}
+    
+{% endblock_verbatim %}

@@ -4,275 +4,126 @@
 
 {% load static from staticfiles %}
 
-{% block title %}1%Club - Share a little. Change the world{% endblock %}
+{% block title %}{% blocktrans %}Site meta title{% endblocktrans %}{% endblock %}
 
 {% block meta %}
-    <meta name="description" content="1%Club is the global crowdfunding and crowdsourcing platform where you can share a little and change the world, in your very own way. Pick any project you like, support it with 1% of your knowledge, money or time and follow the progress online." />
-    <meta name="author" content="1%Club" />
-	<meta name="keywords" content="crowdfunding, crowdsourcing, platform, developing countries, time, skills, money, doneren, international cooperation, charity" />
+    {{ block.super }}
 
-	<link rel="shortcut icon" href="{{ STATIC_URL }}favicon.ico">
-	<link type="text/css" rel="stylesheet" href="https://fast.fonts.net/cssapi/35462e2c-8abd-4457-8837-d0d64a385759.css"/>
+	<meta name="viewport" content="width=960" />
 
+	<link type="text/css" rel="stylesheet" href="//fast.fonts.net/cssapi/35462e2c-8abd-4457-8837-d0d64a385759.css"/>
+    <link type="text/css" rel="stylesheet" href="//fast.fonts.net/cssapi/3a3d72a6-e1d9-4203-826f-9ac869e0054a.css"/>
+    
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="https://www.onepercentclub.com" />
-	<meta property="og:title" content="1%Club - Share a little. Change the world" />
+	<meta property="og:title" content="{% blocktrans %}Site meta FB title{% endblocktrans %}" />
 	<meta property="og:image" content="https://www.onepercentclub.com{{ STATIC_URL }}images/1procentclub-facebook.png" />
-	<meta property="og:description" content="1%Club is the global crowdfunding and crowdsourcing platform where you can share a little and change the world, in your very own way. Pick any project you like, support it with 1% of your knowledge, money or time and follow the progress online." />
-	<meta property="og:site_name" content="1%Club - Share a little. Change the world" />
+	<meta property="og:description" content="{% blocktrans %}Site meta FB description{% endblocktrans %}" />
+	<meta property="og:site_name" content="{% blocktrans %}Site meta FB site name{% endblocktrans %}" />
 	<meta property="fb:page_id" content="298248659856" />
-    <meta property="og:keywords" content="" />
+    <meta property="og:keywords" content="{% blocktrans %}Site meta FB keywords{% endblocktrans %}" />
+
 
 {% endblock %}
 
+
+{% block screen_css %}
+
+    {{ block.super }}
+
+{% endblock screen_css %}
+
 {% block handlebars_templates %}
-    {% include  "accounts/base.hbs" %}
-    {% include  "homepage.hbs" %}
-    {% include  "wallposts.hbs" %}
-    {% include  "reactions.hbs" %}
-    {% include  "tasks.hbs" %}
-    {% include  "projects.hbs" %}
-    {% include  "orders.hbs" %}
-    {% include  "donations.hbs" %}
-    {% include  "utils.hbs" %}
-    {% include  "blogs.hbs" %}
-    {% include  "manage.hbs" %}
-    {% include  "vouchers.hbs" %}
-    {% include  "pages.hbs" %}
-    {% include  "fundraisers.hbs" %}
+
+    {{ block.super }}
+
+    {% include "homepage/base.hbs" %}
+    {% include "fund/base.hbs" %}
+    {% include "fundraisers/base.hbs" %}
+    {% include "projects/base.hbs" %}
+    {% include "donations/base.hbs" %}
+    {% include "vouchers.hbs" %}
 {% endblock handlebars_templates %}
 
 {% block_verbatim nav_main %}
+
     <ul class="nav-main">
-        <li class="nav-main-item"><a {{action 'showPage' 'about'}} href="/#!/pages/about">{% blocktrans %}What is 1%{% endblocktrans %}</a></li>
-        <li class="nav-main-item">{{#linkTo 'projectList'}}{% blocktrans %}1%Projects{% endblocktrans %}{{/linkTo}}</li>
-        <li class="nav-main-item">{{#linkTo 'taskList'}}{% blocktrans %}1%Skills{% endblocktrans %}{{/linkTo}}</li>
-        <li class="nav-main-item"><a {{action 'showPage' 'get-involved'}} href="/#!/pages/get-involved">{% trans "Get involved" %}</a></li>
+        <li class="nav-main-item">{{#linkTo 'projectList'}}{% blocktrans %}Search campaigns{% endblocktrans %}{{/linkTo}}</li>
+        <li class="nav-main-item">{{#linkTo 'myProject.start' 'new'}}{% blocktrans %}Start campaign{% endblocktrans %}{{/linkTo}}</li>
+        <li class="nav-main-item"><a {{action 'showPage' 'about'}} href="/#!/pages/about">{% blocktrans %}About{% endblocktrans %}</a></li>
     </ul>
+    <div class="mobile-nav-holder">
+        <ul class="mobile-nav">
+            <li class="mobile-nav-item">{{#linkTo 'projectList'}}{% blocktrans %}Search campaigns{% endblocktrans %}{{/linkTo}}</li>
+            <li class="mobile-nav-item">{{#linkTo 'myProject.start' 'new'}}{% blocktrans %}Start campaign{% endblocktrans %}{{/linkTo}}</li>
+            <li class="mobile-nav-item"><a {{action 'showPage' 'about'}} href="/#!/pages/about">{% blocktrans %}About{% endblocktrans %}</a></li>
+        </ul>
+    </div>
+     <span class="mobile-nav-btn"><i class="flaticon solid menu-list-4"></i></span>
 {% endblock_verbatim %}
 
+{% block defaults_js %}
+    {{ block.super }}
+
+    <script type="text/javascript">
+        var GIT_COMMIT = '{{ GIT_COMMIT }}';
+    </script>
+
+{% endblock %}
 
 {% block ember_scripts %}
 
     {{ block.super }}
 
-    <script type="text/javascript" src="{% static "js/bluebottle/projects/models.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/projects/controllers.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/projects/views.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/projects/routes.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/projects/components.js" %}"></script>
+    {# Addition for Bluebottle JS #}
+    <script type="text/javascript" src="{% static 'js/bluebottle/app_overrides.js' %}"></script>
 
-    <script type="text/javascript" src="{% static "js/bluebottle/wallposts/models.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/wallposts/controllers.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/wallposts/views.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/wallposts/routes.js" %}"></script>
+    <!--organization-->
+    <script type="text/javascript" src="{% static 'js/organizations/models.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/organizations/controllers.js' %}"></script>
 
-    <script type="text/javascript" src="{% static "js/bluebottle/blogs/models.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/blogs/controllers.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/blogs/views.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/blogs/routes.js" %}"></script>
+    <!--projects-->
+    <script type="text/javascript" src="{% static 'js/projects/models.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/projects/controllers.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/projects/views.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/projects/routes.js' %}"></script>
 
-    <script type="text/javascript" src="{% static "js/bluebottle/tasks/models.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/tasks/controllers.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/tasks/views.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/tasks/routes.js" %}"></script>
+    {# Apps not in Bluebottle #}
+    <script type="text/javascript" src="{% static 'js/bluebottle/homepage/models.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/homepage/controllers.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/homepage/views.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/homepage/routes.js' %}"></script>
 
-    <script type="text/javascript" src="{% static "js/bluebottle/orders/models.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/orders/controllers.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/orders/views.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/orders/routes.js" %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/orders/models.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/orders/controllers.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/orders/views.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/orders/routes.js' %}"></script>
 
-    <script type="text/javascript" src="{% static "js/bluebottle/pages/models.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/pages/controllers.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/pages/views.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/pages/routes.js" %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/donations/models.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/donations/controllers.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/donations/views.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/donations/routes.js' %}"></script>
 
-    <script type="text/javascript" src="{% static "js/bluebottle/donations/models.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/donations/controllers.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/donations/views.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/donations/routes.js" %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/fundraisers/models.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/fundraisers/controllers.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/fundraisers/views.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/fundraisers/routes.js' %}"></script>
 
-    <script type="text/javascript" src="{% static "js/bluebottle/fundraisers/models.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/fundraisers/controllers.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/fundraisers/views.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/fundraisers/routes.js" %}"></script>
+    <!--partners-->
+    <script type="text/javascript" src="{% static 'js/bluebottle/partners/models.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/partners/routes.js' %}"></script>
 
-    <script type="text/javascript" src="{% static "js/bluebottle/vouchers/models.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/vouchers/controllers.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/vouchers/views.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/vouchers/routes.js" %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/vouchers/models.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/vouchers/controllers.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/vouchers/views.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/vouchers/routes.js' %}"></script>
 
-    <script type="text/javascript" src="{% static "js/bluebottle/campaigns/models.js" %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/campaigns/models.js' %}"></script>
     {% comment %}
-    <script type="text/javascript" src="{% static "js/bluebottle/campaigns/controllers.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/campaigns/views.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/bluebottle/campaigns/routes.js" %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/campaigns/controllers.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/campaigns/views.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluebottle/campaigns/routes.js' %}"></script>
     {% endcomment %}
-
-    <script type="text/javascript" src="{{ STATIC_URL }}js/bluebottle/vouchers.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/bluebottle/homepage.js"></script>
     
     <script type="text/javascript" src="{{ STATIC_URL }}js/plugins/jquery.countdown.js"></script>
 {% endblock %}
-
-{% block_verbatim  'footer_block1' %}
-    <h3>{% blocktrans %}It all starts with 1%{% endblocktrans %}</h3>
-    <ul>
-        <li>
-            <a {{action 'showPage' 'about'}} href="/#!/pages/about">
-                {% blocktrans %}What is 1%CLUB?{% endblocktrans %}
-            </a>
-        </li>
-
-        <li>
-            {{#linkTo 'projectList'}}
-                {% blocktrans %}1%Projects{% endblocktrans %}
-            {{/linkTo}}
-        </li>
-        <li>
-            {{#linkTo 'taskList'}}
-                {% blocktrans %}1%Skills{% endblocktrans %}
-            {{/linkTo}}
-        </li>
-        <li>
-            <a {{action 'showPage' 'get-involved'}} href="/#!/pages/get-involved">
-                {% trans "Get involved" %}
-            </a>
-        </li>
-        <li class="start-your-project">
-            {{#linkTo 'myPitchNew'}}
-                {% trans "Start your project" %}
-            {{/linkTo}}
-        </li>
-    </ul>
-{% endblock_verbatim %}
-
-
-{% block_verbatim  'footer_block2' %}
-    <h3>{% blocktrans %}About 1%Club{% endblocktrans %}</h3>
-    <ul>
-        <li>
-            <a {{action 'showPage' 'story'}} href="/#!/pages/story">
-                {% trans "Our story" %}
-            </a>
-        </li>
-        <li>
-            <a {{action 'showPage' 'faq'}} href="/#!/pages/faq">{% trans "Frequently Asked Questions" %}</a>
-        </li>
-        <li>
-            <a {{action 'showPage' 'meet-team'}} href="/#!/pages/meet-team">
-                {% trans "Meet the team" %}
-            </a>
-        </li>
-
-        <li>
-            <a {{action 'showPage' 'partners'}} href="/#!/pages/partners">
-                {% trans "Partners" %}
-            </a>
-        </li>
-        <li>
-            <a {{action 'showPage' 'press'}} href="/#!/pages/press">
-                {% trans "Press" %}
-            </a>
-        </li>
-        <li>
-            <a {{action 'showPage' 'work'}} href="/#!/pages/work">
-                {% blocktrans %}Work at 1%CLUB{% endblocktrans %}
-            </a>
-        </li>
-        <li>
-            {{#linkTo 'contactMessage' href=true}}
-                {% trans "Contact" %}
-            {{/linkTo}}
-        </li>
-    </ul>
-{% endblock_verbatim %}
-
-
-{% block_verbatim  'footer_block3' %}
-    <h3>{% trans "Discover 1%More" %}</h3>
-    <ul>
-        <li>
-            <a {{action 'showPage' 'business'}} href="/#!/pages/business">
-                {% trans "1%Business" %}
-            </a>
-        </li>
-        <li>
-            <a href="http://onepercentblog.com/" target="_blank">
-                {% trans "1%Blog" %}
-            </a>
-        </li>
-        <li>
-            <a  href="http://github.com/onepercentclub">
-                {% trans "1%Github" %}
-            </a>
-        </li>
-
-    </ul>
-{% endblock_verbatim %}
-
-
-{% block_verbatim  'footer_block4' %}
-    <h3>{% blocktrans %}1%Social{% endblocktrans %}</h3>
-    <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fonepercentclub&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;font&amp;colorscheme=light&amp;action=like&amp;height=21&amp;appId=265978350087756" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:21px;" allowTransparency="true"></iframe>
-    <iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/tweet_button.html?url=https%3A%2F%2Fonepercentclub.com&text=" style="width:115px; height:21px;"></iframe>
-    <ul class="footer-social-links">
-        <li>
-            <a href="http://www.facebook.com/onepercentclub" target="_blank">
-                <span class="flaticon social facebook-1"></span>
-            </a>
-        </li>
-        <li>
-            <a href="http://twitter.com/1percentclub" target="_blank">
-                <span class="flaticon social twitter-1"></span>
-            </a>
-        </li>
-        <li>
-            <a href="http://www.flickr.com/photos/1procentclub/" target="_blank">
-                <span class="flaticon social flickr-1"></span>
-            </a>
-        </li>
-        <li>
-            <a href="http://www.linkedin.com/groups?gid=1071287&trk=hb_side_g" target="_blank">
-                <span class="flaticon social linkedin-1"></span>
-            </a>
-        </li>
-        <li>
-            <a href="http://www.youtube.com/user/1Procentclub" target="_blank">
-                <span class="flaticon social youtube-1"></span>
-            </a>
-        </li>
-    </ul>
-{% endblock_verbatim %}
-
-
-{% block_verbatim  'footer_join' %}
-    <div class="footer-join-us">
-        <h3>{% blocktrans %}Join 1%Club{% endblocktrans %}</h3>
-        <p>{% blocktrans %}1%Club is the global crowdfunding and crowdsourcing platform where you can share a little and change the world, in your very own way. Pick any project you like, support it with 1% of your knowledge, money or time and follow the progress online. {% endblocktrans %}</p>
-        <ul>
-            <li><i class="flaticon solid right-2"></i> {% trans "Select a project or task" %}</li>
-            <li><i class="flaticon solid right-2"></i> {% trans "Share your skills or money" %}</li>
-            <li><i class="flaticon solid right-2"></i> {% trans "See direct results" %}</li>
-        </ul>
-        {{#linkTo 'signup' classNames="btn btn-primary"}}{% blocktrans %}Join 1%Club{% endblocktrans %}{{/linkTo}}
-    </div>
-{% endblock_verbatim %}
-
-
-{% block_verbatim  'footer_copyright' %}
-    <ul>
-        <li>
-            &copy;2013 1%Club
-        </li>
-        <li>
-            <a {{action 'showPage' 'terms-and-conditions'}} href="/#!/pages/terms-and-conditions">{% trans "General Conditions" %}</a>&nbsp;
-            <a {{action 'showPage' 'privacy'}} href="/#!/pages/privacy">{% trans "Privacy Policy" %}</a>
-        </li>
-        <li>
-            {{#linkTo 'contactMessage' href=true class=feedback}}
-                {% trans "Give us feedback" %}
-            {{/linkTo}}
-        </li>
-    </ul>
-{% endblock_verbatim %}

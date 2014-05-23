@@ -1,0 +1,602 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: onepercentclub-site\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-04-10 16:33+0200\n"
+"PO-Revision-Date: 2013-12-17 11:36+0000\n"
+"Last-Translator: gannetson <loek@1procentclub.nl>\n"
+"Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub-site/language/en_GB/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en_GB\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: admin.py:14 admin.py:114 models.py:122 models.py:213
+msgid "Status"
+msgstr "Status"
+
+#: admin.py:20 admin.py:120 admin.py:204
+msgid "All"
+msgstr "All"
+
+#: admin.py:196
+msgid "Active"
+msgstr "Active"
+
+#: admin.py:199
+msgid "Yes"
+msgstr "Yes"
+
+#: admin.py:200
+msgid "No"
+msgstr "No"
+
+#: fields.py:11
+msgid "Dutch bank account numbers have 1 - 7, 9 or 10 digits."
+msgstr "Dutch bank account numbers have 1 - 7, 9 or 10 digits."
+
+#: fields.py:28
+msgid "Invalid Dutch bank account number."
+msgstr "Invalid Dutch bank account number."
+
+#: models.py:39 models.py:124 models.py:217
+msgid "Created"
+msgstr "Created"
+
+#: models.py:40 models.py:125 models.py:218
+msgid "Updated"
+msgstr "Updated"
+
+#: models.py:45
+msgid "amount"
+msgstr "amount"
+
+#: models.py:92
+msgid "New"
+msgstr "New"
+
+#: models.py:93
+msgid "In progress"
+msgstr "In progress"
+
+#: models.py:94
+msgid "Pending"
+msgstr "Pending"
+
+#: models.py:95
+msgid "Paid"
+msgstr "Paid"
+
+#: models.py:96
+msgid "Failed"
+msgstr "Failed"
+
+#: models.py:110
+msgid "One-off"
+msgstr "One-off"
+
+#: models.py:111 models.py:204
+msgid "Recurring"
+msgstr "Recurring"
+
+#: models.py:112
+msgid "Voucher"
+msgstr "Voucher"
+
+#: models.py:114
+msgid "amount (in cents)"
+msgstr "amount (in cents)"
+
+#: models.py:115
+msgid "currency"
+msgstr "currency"
+
+#: models.py:118
+msgid "User"
+msgstr "User"
+
+#: models.py:119
+msgid "Project"
+msgstr "Project"
+
+#: models.py:120
+msgid "fund raiser"
+msgstr "fund raiser"
+
+#: models.py:127
+msgid "Ready"
+msgstr "Ready"
+
+#: models.py:129
+msgid "Type"
+msgstr "Type"
+
+#: models.py:131
+msgid "Order"
+msgstr "Order"
+
+#: models.py:132
+msgid "Gift card"
+msgstr "Gift card"
+
+#: models.py:152
+msgid "donation"
+msgstr "donation"
+
+#: models.py:153
+msgid "donations"
+msgstr "donations"
+
+#: models.py:203
+msgid "Current"
+msgstr "Current"
+
+#: models.py:205 models.py:220
+msgid "Closed"
+msgstr "Closed"
+
+#: models.py:212
+msgid "user"
+msgstr "user"
+
+#: models.py:215
+msgid "Order Number"
+msgstr "Order Number"
+
+#: models.py:268
+msgid "GIFTCARDS"
+msgstr "GIFTCARDS"
+
+#: models.py:270
+msgid "GIFTCARD"
+msgstr "GIFTCARD"
+
+#: models.py:274
+msgid "DONATIONS"
+msgstr "DONATIONS"
+
+#: models.py:276
+msgid "DONATION"
+msgstr "DONATION"
+
+#: models.py:278
+msgid "DONATIONS & GIFTCARDS"
+msgstr "DONATIONS & GIFTCARDS"
+
+#: models.py:279
+msgid "THANK YOU!"
+msgstr "THANK YOU!"
+
+#: models.py:293
+msgid "Couldn't generate a unique order number."
+msgstr "Couldn't generate a unique order number."
+
+#: models.py:320
+msgid "I've just supported {title} {{URL}} via @{twitter_handle}"
+msgstr "I've just supported {title} {{URL}} via @{twitter_handle}"
+
+#: models.py:322
+msgid "{{URL}} via @{twitter_handle}"
+msgstr "{{URL}} via @{twitter_handle}"
+
+#: serializers.py:44 serializers.py:84
+msgid "You cannot modify a Donation that does not have status new."
+msgstr "You cannot modify a Donation that does not have status new."
+
+#: serializers.py:54 serializers.py:93
+msgid "Donations must be at least €2."
+msgstr "Donations must be at least €2."
+
+#: serializers.py:57 serializers.py:60 serializers.py:96 serializers.py:99
+msgid "Donations must be at least €5."
+msgstr "Donations must be at least €5."
+
+#: serializers.py:67 serializers.py:106
+msgid "You can only donate a project in the campaign phase."
+msgstr "You can only donate a project in the campaign phase."
+
+#: serializers.py:112
+msgid "Can only Recurring Donations to a Recurring Order."
+msgstr "Can only Recurring Donations to a Recurring Order."
+
+#: serializers.py:114
+msgid ""
+"Can only Recurring Donations to an active Recurring Order (status "
+"recurring)."
+msgstr "Can only Recurring Donations to an active Recurring Order (status recurring)."
+
+#: serializers.py:145
+msgid "You cannot modify a closed Order."
+msgstr "You cannot modify a closed Order."
+
+#: views.py:32
+msgid "No active order"
+msgstr "No active order"
+
+#: views.py:90
+msgid "You cannot add a donation to a closed Order."
+msgstr "You cannot add a donation to a closed Order."
+
+#: views.py:338 views.py:342
+msgid "Order not found."
+msgstr "Order not found."
+
+#: views.py:340
+msgid "No order specified."
+msgstr "No order specified."
+
+#: views.py:408
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr "No %(verbose_name)s found matching the query"
+
+#: views.py:414
+msgid "Anonymous users are not permitted to create recurring orders."
+msgstr "Anonymous users are not permitted to create recurring orders."
+
+#: templates/orders.hbs:13
+#, python-format
+msgid "Order digital 1%%GIFTCARDS"
+msgstr "Order digital 1%%GIFTCARDS"
+
+#: templates/orders.hbs:18
+msgid "Switch to donations"
+msgstr "Switch to donations"
+
+#: templates/orders.hbs:28
+msgid "Support"
+msgstr "Support"
+
+#: templates/orders.hbs:46
+msgid "Projects"
+msgstr "Projects"
+
+#: templates/orders.hbs:51
+msgid "Details"
+msgstr "Details"
+
+#: templates/orders.hbs:56
+msgid "Profile"
+msgstr "Profile"
+
+#: templates/orders.hbs:61
+msgid "Payment"
+msgstr "Payment"
+
+#: templates/orders.hbs:112
+msgid "Choose a project to support"
+msgstr "Choose a project to support"
+
+#: templates/orders.hbs:113
+msgid ""
+"Choose a project and click 'Support this project' to add it to your list"
+msgstr "Choose a project and click 'Support this project' to add it to your list"
+
+#: templates/orders.hbs:121
+msgid "Total"
+msgstr "Total"
+
+#: templates/orders.hbs:127
+msgid "Add another project"
+msgstr "Add another project"
+
+#: templates/orders.hbs:129
+msgid "Add a project"
+msgstr "Add a project"
+
+#: templates/orders.hbs:134 templates/orders.hbs.py:136
+#: templates/orders.hbs:247 templates/orders.hbs.py:249
+#: templates/orders.hbs:468 templates/orders.hbs.py:470
+msgid "Next Step"
+msgstr "Next Step"
+
+#: templates/orders.hbs:163 templates/orders.hbs.py:408
+msgid "Have an account?"
+msgstr "Have an account?"
+
+#: templates/orders.hbs:163 templates/orders.hbs.py:408
+msgid "Log in here"
+msgstr "Log in here"
+
+#: templates/orders.hbs:169
+msgid "Great that you are doing another donation!"
+msgstr "Great that you are doing another donation!"
+
+#: templates/orders.hbs:170
+msgid "Please verify your details"
+msgstr "Please verify your details"
+
+#: templates/orders.hbs:172
+msgid "Nice to meet you"
+msgstr "Nice to meet you"
+
+#: templates/orders.hbs:173
+msgid "To process your donation we need some information."
+msgstr "To process your donation we need some information."
+
+#: templates/orders.hbs:182 templates/orders.hbs.py:421
+msgid "Your full name"
+msgstr "Your full name"
+
+#: templates/orders.hbs:190 templates/orders.hbs.py:428
+msgid "Email"
+msgstr "Email"
+
+#: templates/orders.hbs:201
+msgid "Address"
+msgstr "Address"
+
+#: templates/orders.hbs:212
+msgid "Postal code"
+msgstr "Postal code"
+
+#: templates/orders.hbs:223
+msgid "City"
+msgstr "City"
+
+#: templates/orders.hbs:234
+msgid "Country"
+msgstr "Country"
+
+#: templates/orders.hbs:279 templates/orders.hbs.py:612
+msgid "Fund-racing for"
+msgstr "Fund-racing for"
+
+#: templates/orders.hbs:297
+msgid "is still needed"
+msgstr "is still needed"
+
+#: templates/orders.hbs:302
+msgid "I'd like to give"
+msgstr "I'd like to give"
+
+#: templates/orders.hbs:309
+msgid "Delete"
+msgstr "Delete"
+
+#: templates/orders.hbs:322 templates/orders.hbs.py:367
+#: templates/orders.hbs:492
+msgid "You're almost there!"
+msgstr "You're almost there!"
+
+#: templates/orders.hbs:323 templates/orders.hbs.py:341
+#: templates/orders.hbs:368
+msgid ""
+"We'll redirect you through our payment provider where you can finish your "
+"donation securely."
+msgstr "We'll redirect you through our payment provider where you can finish your donation securely."
+
+#: templates/orders.hbs:340
+msgid "Select your bank below"
+msgstr "Select your bank below"
+
+#: templates/orders.hbs:354 templates/orders.hbs.py:371
+msgid "Processing payment&#8230;"
+msgstr "Processing payment&#8230;"
+
+#: templates/orders.hbs:355 templates/orders.hbs.py:357
+#: templates/orders.hbs:360 templates/orders.hbs.py:372
+#: templates/orders.hbs:374
+msgid "Proceed with Payment"
+msgstr "Proceed with Payment"
+
+#: templates/orders.hbs:394
+msgid "We'll keep you up to date!"
+msgstr "We'll keep you up to date!"
+
+#: templates/orders.hbs:395
+msgid ""
+"You already have an account. Great! We'll keep you updated with the progress"
+" of the projects you support"
+msgstr "You already have an account. Great! We'll keep you updated with the progress of the projects you support"
+
+#: templates/orders.hbs:400
+msgid "Next"
+msgstr "Next"
+
+#: templates/orders.hbs:414
+msgid "Follow the progress?"
+msgstr "Follow the progress?"
+
+#: templates/orders.hbs:415
+msgid ""
+"Sign up for an account and we keep you updated on the projects progress"
+msgstr "Sign up for an account and we keep you updated on the projects progress"
+
+#: templates/orders.hbs:438
+msgid "Password"
+msgstr "Password"
+
+#: templates/orders.hbs:448
+msgid "Password again"
+msgstr "Password again"
+
+#: templates/orders.hbs:460
+#, python-format
+msgid "By joining 1%%Club I hereby agree to the "
+msgstr "By joining 1%%Club I hereby agree to the "
+
+#: templates/orders.hbs:461
+#, python-format
+msgid "1%%Club Terms of service"
+msgstr "1%%Club Terms of service"
+
+#: templates/orders.hbs:493
+msgid ""
+"Add or edit your bank account information and submit to set your monthly "
+"donations."
+msgstr "Add or edit your bank account information and submit to set your monthly donations."
+
+#: templates/orders.hbs:498
+msgid "Account Name"
+msgstr "Account Name"
+
+#: templates/orders.hbs:508
+msgid "Account City"
+msgstr "Account City"
+
+#: templates/orders.hbs:518
+msgid "Account Number"
+msgstr "Account Number"
+
+#: templates/orders.hbs:530
+#, python-format
+msgid "By clicking submit, I authorize 1%%Club to withdraw money every month."
+msgstr "By clicking submit, I authorize 1%%Club to withdraw money every month."
+
+#: templates/orders.hbs:538
+msgid "Updating monthly donation&#8230;"
+msgstr "Updating monthly donation&#8230;"
+
+#: templates/orders.hbs:539 templates/orders.hbs.py:541
+#: templates/orders.hbs:544
+msgid "Submit"
+msgstr "Submit"
+
+#: templates/orders.hbs:551
+msgid "Your monthly donation"
+msgstr "Your monthly donation"
+
+#: templates/orders.hbs:552
+#, python-format
+msgid ""
+"Thank you 1%%Friend! You're about to set your monthly donation amount to "
+"&euro;"
+msgstr "Thank you 1%%Friend! You're about to set your monthly donation amount to &euro;"
+
+#: templates/orders.hbs:630
+msgid "You supported"
+msgstr "You supported"
+
+#: templates/orders.hbs:647
+msgid "Did you know that you rock?"
+msgstr "Did you know that you rock?"
+
+#: templates/orders.hbs:647
+msgid "Well, you rock!"
+msgstr "Well, you rock!"
+
+#: templates/orders.hbs:649
+msgid ""
+"Why not share the project with your friends, and encourage them to support "
+"as well?"
+msgstr "Why not share the project with your friends, and encourage them to support as well?"
+
+#: templates/orders.hbs:650
+msgid "Just hit (one of) the share buttons to make even more impact:"
+msgstr "Just hit (one of) the share buttons to make even more impact:"
+
+#: templates/orders.hbs:664 templates/orders.hbs.py:742
+msgid "You just supported these projects"
+msgstr "You just supported these projects"
+
+#: templates/orders.hbs:666 templates/orders.hbs.py:744
+msgid "You just supported this project"
+msgstr "You just supported this project"
+
+#: templates/orders.hbs:669
+msgid ""
+"Thank you for supporting these projects below. With your support we come one"
+" step closer realizing the project."
+msgstr "Thank you for supporting these projects below. With your support we come one step closer realizing the project."
+
+#: templates/orders.hbs:682
+msgid "Want to do more?"
+msgstr "Want to do more?"
+
+#: templates/orders.hbs:683
+msgid ""
+"You can easily support projects monthly. Just pick a project yourself or you"
+" can leave that up to us."
+msgstr "You can easily support projects monthly. Just pick a project yourself or you can leave that up to us."
+
+#: templates/orders.hbs:684
+msgid "Support monthly"
+msgstr "Support monthly"
+
+#: templates/orders.hbs:686
+msgid "Stay updated"
+msgstr "Stay updated"
+
+#: templates/orders.hbs:687
+msgid ""
+"We’d love to keep you updated on the progress of the projects you just "
+"supported. Sign up and receive updates, and our everlasting love."
+msgstr "We’d love to keep you updated on the progress of the projects you just supported. Sign up and receive updates, and our everlasting love."
+
+#: templates/orders.hbs:688
+msgid "Signup now"
+msgstr "Signup now"
+
+#: templates/orders.hbs:709
+msgid "Donation Successful!"
+msgstr "Donation Successful!"
+
+#: templates/orders.hbs:711
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t\tThanks for your support! Your 1%% has brought them one step closer to realise their smart idea! Don't forget to tune in to see how they're doing!\n"
+"\t\t\t\t\t\t"
+msgstr "\n\t\t\t\t\t\t\tThanks for your support! Your 1%% has brought them one step closer to realise their smart idea! Don't forget to tune in to see how they're doing!\n\t\t\t\t\t\t"
+
+#: templates/orders.hbs:715
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t\tThanks for your support! We'd be happy to keep you posted on the progress of the project(s) you supported. Why? Because it's a fun and personal way to see what's happening with your 1%%. Sounds good? Just become a 1%%Member!\n"
+"\t\t\t\t\t\t"
+msgstr "\n\t\t\t\t\t\t\tThanks for your support! We'd be happy to keep you posted on the progress of the project(s) you supported. Why? Because it's a fun and personal way to see what's happening with your 1%%. Sounds good? Just become a 1%%Member!\n\t\t\t\t\t\t"
+
+#: templates/orders.hbs:718
+#, python-format
+msgid "Become a 1%%Member"
+msgstr "Become a 1%%Member"
+
+#: templates/orders.hbs:724
+msgid "No donation set..."
+msgstr "No donation set..."
+
+#: templates/orders.hbs:726
+msgid "Create or enable your monthly donation"
+msgstr "Create or enable your monthly donation"
+
+#: templates/orders.hbs:747
+msgid "You just supported the top three projects."
+msgstr "You just supported the top three projects."
+
+#: templates/orders.hbs:772
+msgid "Your monthly donation is set"
+msgstr "Your monthly donation is set"
+
+#: templates/orders.hbs:774
+msgid ""
+"Your monthly donation will be deducted from your account at the beginning of"
+" each month."
+msgstr "Your monthly donation will be deducted from your account at the beginning of each month."
+
+#: templates/orders.hbs:776
+msgid "Monthly donation total:"
+msgstr "Monthly donation total:"
+
+#: templates/fund/user_orders.html:9
+msgid "Order History"
+msgstr "Order History"
+
+#: templates/fund/user_orders.html:15
+msgid "Monthly Donation"
+msgstr "Monthly Donation"
+
+#: templates/fund/user_orders.html:15
+msgid "Single Donation"
+msgstr "Single Donation"
+
+#: templates/fund/user_orders.html:30
+msgid "Loading order history"
+msgstr "Loading order history"

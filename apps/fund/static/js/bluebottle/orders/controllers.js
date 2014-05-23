@@ -278,18 +278,30 @@ App.PaymentSelectController = Em.ObjectController.extend({
         }
     }.property('controllers.paymentProfile.country'),
 
-    idealIssuers: [
-        {'id':'0031', 'name': 'ABN Amro Bank'},
-        {'id':'0761', 'name': 'ASN Bank'},
-        {'id':'0091', 'name': 'Friesland Bank'},
-        {'id':'0721', 'name': 'ING Bank'},
-        {'id':'0801', 'name': 'Knab'},
-        {'id':'0161', 'name': 'van Lanschot Bankiers'},
-        {'id':'0021', 'name': 'Rabobank'},
-        {'id':'0771', 'name': 'Regio Bank'},
-        {'id':'0511', 'name': 'Triodos Bank'},
-        {'id':'0751', 'name': 'SNS Bank'},
-    ],
+    idealIssuers: function(){
+        if (DEBUG) {
+            return  [
+                {'id':'ASNBNL21', 'name': 'ASN Bank'},
+                {'id':'INGBNL2A', 'name': 'ING Bank'},
+                {'id':'RABONL2U', 'name': 'Rabobank'},
+                {'id':'RBRBNL21', 'name': 'Regio Bank'},
+                {'id':'TRIONL2U', 'name': 'Triodos Bank'},
+            ]
+        } else {
+            return  [
+                {'id':'ABNANL2A', 'name': 'ABN Amro Bank'},
+                {'id':'ASNBNL21', 'name': 'ASN Bank'},
+                {'id':'FRBKNL2L', 'name': 'Friesland Bank'},
+                {'id':'INGBNL2A', 'name': 'ING Bank'},
+                {'id':'KNABNL2H', 'name': 'Knab'},
+                {'id':'FVLBNL22', 'name': 'van Lanschot Bankiers'},
+                {'id':'RABONL2U', 'name': 'Rabobank'},
+                {'id':'RBRBNL21', 'name': 'Regio Bank'},
+                {'id':'TRIONL2U', 'name': 'Triodos Bank'},
+                {'id':'SNSBNL2A', 'name': 'SNS Bank'},
+            ]
+        }
+    }.property(),
 
     isIdeal: Em.computed.equal('redirectPaymentMethod', 'IDEAL'),
 

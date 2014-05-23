@@ -1,0 +1,99 @@
+-e git://github.com/onepercentclub/bluebottle.git@1.0.62#egg=bluebottle
+
+pip
+mercurial==2.9.1
+
+# django_debug_toolbar==0.9.4
+
+raven # Sentry client (remote logging)
+django-celery==3.0.17 # Asynchronous task server
+
+# CSS/JS compression - http://pypi.python.org/pypi/django_compressor/1.2
+django-compressor==1.2
+cssmin==0.1.4
+jsmin==2.0.2
+BeautifulSoup==3.2.1
+
+pytz==2013b
+
+# http://pypi.python.org/pypi/surlex/0.2.0
+surlex==0.2.0
+
+# Legacy authentication module for authenticating users from the old PHP site.
+# https://github.com/onepercentclub/legacyauth/archive/3f2406c50dead25a748fb2433de55b73a9162f18.zip
+-e git://github.com/onepercentclub/legacyauth.git@3f2406c50dead25a748fb2433de55b73a9162f18#egg=legacyauth
+
+# Gunicorn WSGI server
+gunicorn
+
+# Used for WallPosts and Blog/News content (as a dependency of django-fluent-contents).
+django_polymorphic==0.5
+
+# Admin dashboard improvements
+django-fluent-dashboard==0.3.2
+
+# Fabric deployment helper
+# WARNING: Make sure it's installed in your environment and not system-wide!
+#          The Fabric script depends on gitpython which needs to be available.
+fabric
+GitPython==0.3.2.RC1
+
+# Cowry dependencies.
+django_countries==1.5
+requests==1.2.3
+
+# This version should be considered suds-jurko 0.4.1 jurko pre 5.
+# This is just a fork of the official repo in case it disappears.
+-e hg+https://bitbucket.org/onepercentclub/suds@afe727f50704#egg=suds
+
+-e hg+https://bitbucket.org/sergei_maertens/django-admin-tools/get/c989fd1.zip#egg=django-admin-tools
+
+
+# SalesForce integration.
+# django-salesforce==0.1.6.2
+# setup.py doesn't seem to be working properly so we're using a fixed version.
+# https://github.com/freelancersunion/django-salesforce/issues/4
+# https://github.com/onepercentclub/django-salesforce/archive/1e54beb7bcc15a893e9590fb27cbf08853da5599.zip
+-e git://github.com/onepercentclub/django-salesforce.git@1e54beb7bcc15a893e9590fb27cbf08853da5599#egg=django-salesforce
+
+# There hasn't been a release of django-registration is a while and we need the 1.5 custom user support.
+# Official: https://bitbucket.org/ubernostrum/django-registration/
+# Fork with 1.5 Custom User support: https://bitbucket.org/eire1130/django-registration
+# Our fork of the fork with HTML_ACTIVATION_EMAIL option:
+# TODO Try to unwind this mess and contribute some stuff upstream.
+https://bitbucket.org/onepercentclub/django-registration/get/ae9e9ed265ed.zip
+
+
+# Private uploads
+# https://bitbucket.org/wkornewald/django-filetransfers/get/32ddeac.zip
+
+# DKIM to sign e-mails
+dnspython
+
+# Functional testing libraries
+selenium==2.33.0
+
+# Communication with the old DocData account.
+# https://github.com/onepercentclub/django-docdata/archive/120ae5b8a1da6152d43d4601edc8832268e05515.zip
+-e git://github.com/onepercentclub/django-docdata.git@120ae5b8a1da6152d43d4601edc8832268e05515#egg=django-docdata
+pycurl==7.19.0
+
+python-dateutil==1.5
+
+# Unicode CSV imports and exports
+unicodecsv==0.9.4
+
+# Automatically generate fixtures for use in tests
+django-dynamic-fixture==1.6.5
+
+# Use factories for testing
+factory-boy==2.3.1
+
+# LXML for generating and validating proper SEPA exports
+lxml==3.1.2
+
+# Add latest version of Beautiful Soup
+beautifulsoup4==4.3.2
+
+# Cache
+python-memcached==1.53

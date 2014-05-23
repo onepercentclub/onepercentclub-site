@@ -1,4 +1,7 @@
 module.exports = function (grunt) {
+  var sassOutputStyle = grunt.option('output_style') || 'expanded';
+  var bluebottlePath = grunt.option('bb_path') || ["env/src/bluebottle/bluebottle/common/static/sass"];
+
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-ember-template-compiler');
   grunt.loadNpmTasks('grunt-hashres');
@@ -7,6 +10,8 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-bower-task'); 
   grunt.loadNpmTasks('grunt-contrib-uglify'); 
   grunt.loadNpmTasks('grunt-microlib');
+  grunt.loadNpmTasks('grunt-contrib-compass');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Project configuration.
   grunt.initConfig({
@@ -19,6 +24,9 @@ module.exports = function (grunt) {
       // watch: { configFile: 'test/js/config/unit.js', singleRun:false, autoWatch: true, keepalive: true }
     },
     watch: {
+      options: {
+	    livereload: true,
+	  },
       scripts: {
         files: ['apps/static/script/**/*.js', 'ember/static/script/templates/*.handlebars'],
         tasks: ['dev'],
@@ -26,7 +34,17 @@ module.exports = function (grunt) {
           interrupt: true,
           debounceDelay: 250
         }
-      }
+      },
+      scss: {
+      	options: {
+	      livereload: false,
+	    },
+        files: ['static/global/sass/**/*',"../bluebottle/bluebottle/common/static/sass/**/*"],
+        tasks: ['render-sass:dev'],
+      },
+      css: {
+        files: ['static/global/css/**/*.css']
+      },
     },
     hashres: {
       options: {
@@ -59,16 +77,14 @@ module.exports = function (grunt) {
     concat: {
       dist: {
         src: [
-          'static/global/js/vendor/jquery-1.8.3.js',
+          'static/build/js/components/jquery/jquery.js',
           'static/build/js/components/jquery-mockjax/jquery.mockjax.js',
           'static/build/js/components/pavlov/pavlov.js',
-          'static/global/js/vendor/handlebars-1.0.0.js',
-          'static/global/js/vendor/ember-v1.0.0.js',
-          'static/global/js/vendor/ember-data-v0.14.js',
-          'static/global/js/vendor/ember-data-drf2-adapter.js',
-          'static/global/js/plugins/ember.hashbang.js',
-          'static/global/js/vendor/globalize.js',
-          'static/global/jsi18n/en/*.js',
+          'static/build/js/components/handlebars/handlebars.js',
+          'static/build/js/components/ember/ember.js',
+          'static/build/js/components/ember-data/index.js',
+          'static/build/js/components/ember-data-drf2-adapter/ember-data-drf2-adapter.js',
+          'static/build/js/components/globalize/lib/globalize.js',
         ],
         dest: 'static/build/js/lib/deps.js'
       }
@@ -94,8 +110,46 @@ module.exports = function (grunt) {
         files: ['apps/**/*.hbs'],
         dest: 'static/build/js/lib/tmpl.min.js'
       }
-    }
+    },
+    compass: {
+      // live
+      dist: {
+        options: {
+          httpPath: '/static/assets/',
+          basePath: 'static/global',
+          sassDir: 'sass',
+          cssDir: 'css',
+          imagesDir: 'images',          
+          javascriptsDir: 'js',          
+          outputStyle: sassOutputStyle,
+          relativeAssets: true,
+          noLineComments: true,
+          environment: 'production',
+          raw: 'preferred_syntax = :scss\n', // Use `raw` since it's not directly available
+          importPath: bluebottlePath,
+          force: true,     
+        }
+      },
+      // development
+      dev: {
+        options: {
+          httpPath: '/static/assets/',
+          basePath: 'static/global',
+          sassDir: 'sass',
+          cssDir: 'css',
+          imagesDir: 'images',          
+          javascriptsDir: 'js',          
+          outputStyle: sassOutputStyle,
+          relativeAssets: true,
+          noLineComments: false,
+          raw: 'preferred_syntax = :scss\n', // Use `raw` since it's not directly available  
+          importPath: bluebottlePath,
+          force: false,
+        }
+      }
+    }    
   });
+
 
   grunt.registerTask('default', ['dev']);
   grunt.registerTask('build', ['bower:install', 'concat:dist']);
@@ -104,4 +158,15 @@ module.exports = function (grunt) {
   grunt.registerTask('travis', ['build', 'karma:ci']);
   grunt.registerTask('local', ['dev', 'watch']);
   grunt.registerTask('deploy', ['concat:dist', 'uglify:dist', 'hashres']);
+  grunt.registerTask('render-sass:dev', 'Alias for "compass:dev" task with relative bluebottle path.', function () {
+    bluebottlePath = ["../bluebottle/bluebottle/common/static/sass"];
+
+    grunt.task.run('compass:dev');
+  });
+  grunt.registerTask('render-sass:test', ['compass:dist']);
+  grunt.registerTask('render-sass:live', 'Alias for "compass:dist" task with compressed sass.', function() {
+    sassOutputStyle = "compressed";
+
+    grunt.task.run('compass:dist');
+  });
 }

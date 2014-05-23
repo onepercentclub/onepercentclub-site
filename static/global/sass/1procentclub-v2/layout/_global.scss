@@ -1,0 +1,125 @@
+html, body, #site {
+	height: 100%;
+	width: 100%;
+}
+
+#content, #main, .l-section, .l-wrapper {
+	width: 100%;
+}
+
+#content {
+	width: 100%;
+	margin-top: 96px !important; // for static header
+	padding-bottom: 40px; // push footer down
+	@include single-transition(margin-top, 1ms ease-in-out);
+	&.is-scrolled {
+		margin-top: 50px!important;
+	}
+}
+
+#home, #about-new {
+	margin-bottom: -40px; // reset 
+}
+
+#home, #about-new {
+
+	* {
+		text-transform: none;
+	}
+	
+	h1 {
+		color: $color-secondary;
+		font-size: 36px;
+		font-family: $font-family-bold;
+		font-weight: 900;
+		text-transform: none;
+	}
+	
+	h2 {
+		color: $gray-darkest;
+		font-size: 24px;
+		font-family: $font-family-bold;
+		font-weight: 900;
+		line-height: 38px;
+		text-transform: none;
+	}
+	
+	a {
+		text-decoration: none;
+		color: $black;
+	}
+	
+	.btn {
+		font-size: 18px;
+		position: relative;
+		display: inline-block;
+		background: $color-secondary;
+		padding: 0.75em 1.25em;
+		vertical-align: center;
+		border-radius: 8px;
+		color: white;
+		font-family: $font-family-bold;
+		font-weight: 700;
+		border: none;
+		@include single-box-shadow($color-secondary-shadow, 0, -2px, 0, 0, true);
+		@include single-transition(all, .1s ease-in-out);
+		
+		&:hover {
+			top: -1px;
+			@include single-box-shadow($color-secondary-shadow, 0, -4px, 0, 0, true);
+			@include single-transition(none);
+		}
+		
+		&.btn-sec {
+			color: $color-primary;
+			font-weight: normal;
+			background: none;
+			border: 1px solid $color-primary;
+			@include single-box-shadow(none);
+			
+			&:hover {
+				top: 0;
+				background-color: $color-primary;
+				color: $white;
+			}
+			
+			&:active, &:focus {
+				border: 1px solid $gray-darker;
+			}
+		}
+		
+		&:active, &:focus {
+			top: 1px !important;
+			background: $gray-darker !important;
+			color: $gray-light !important;
+			@include single-box-shadow($gray-darkest, 0, 2px, 0, 0, true);
+		}
+	}
+	
+	input {
+		line-height: 30px;
+		border-radius: 6px;
+		padding-left: 40px;
+		border: solid 1px #ccc;
+	}
+
+	.l-wrapper {
+		position: relative;
+		padding: 0 1em;
+		min-width: 400px !important;
+		max-width: 1200px;
+		margin: 0 auto;
+		height: 100%;
+	}
+
+	.l-section {
+		width: 100%;
+		min-width: 400px !important;
+		max-width: 100%;
+	}
+}
+
+.section-header {
+	padding: 3em 0 2em 0;
+	text-align: center;
+}
