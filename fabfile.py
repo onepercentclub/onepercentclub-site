@@ -283,9 +283,11 @@ def prune_unreferenced_files():
         for unref_file in unreferenced_files:
             run_web('rm %s' % unref_file)
 
+
 def add_git_commit():
     with cd(env.directory):
         run('echo "GIT_COMMIT = \'`git log --oneline | head -n1 | cut -c1-7`\'" >> onepercentclub/settings/base.py')
+
 
 def prepare_django():
     """ Prepare a deployment. """
@@ -319,8 +321,14 @@ def prepare_django():
         run_web('./manage.py syncdb --migrate --noinput --settings=%s' % env.django_settings)
         run_web('./manage.py collectstatic --clear -l -v 0 --noinput --settings=%s' % env.django_settings)
 
+        flush_memcache()
+
         # Disabled for now; it unjustly deletes cached thumbnails
         # prune_unreferenced_files()
+
+
+def flush_memcache():
+    run('echo \'flush_all\' | nc -q1 localhost 11211')
 
 
 def restart_site():
