@@ -1,6 +1,7 @@
 {% extends "bluebottle/base.html" %}
 {% load bb_ember %}
 {% load i18n %}
+{% load compress %}
 
 {% load static from staticfiles %}
 
@@ -33,18 +34,6 @@
 
 {% endblock screen_css %}
 
-{% block handlebars_templates %}
-
-    {{ block.super }}
-
-    {% include "homepage/base.hbs" %}
-    {% include "fund/base.hbs" %}
-    {% include "fundraisers/base.hbs" %}
-    {% include "projects/base.hbs" %}
-    {% include "donations/base.hbs" %}
-    {% include "vouchers.hbs" %}
-{% endblock handlebars_templates %}
-
 {% block_verbatim nav_main %}
 
     <ul class="nav-main">
@@ -61,6 +50,22 @@
     </div>
      <span class="mobile-nav-btn"><i class="flaticon solid menu-list-4"></i></span>
 {% endblock_verbatim %}
+
+{% block handlebars_templates %}
+    {% if COMPRESS_TEMPLATES %}
+        {# Override the Bluebottle handlebars_templates.  Compressing 'inline' as collect static assets isn't working yet with precompiled templates. #}
+        {% compress js %}
+            {{ block.super }}
+        {% endcompress %}
+
+        {% compress js %}
+            {% include "templates.hbs" %}
+        {% endcompress %}
+    {% else %}
+        {{ block.super }}
+        {% include "templates.hbs" %}
+    {% endif %}
+{% endblock %}
 
 {% block defaults_js %}
     {{ block.super }}

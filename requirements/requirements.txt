@@ -13,6 +13,7 @@ django-compressor==1.2
 cssmin==0.1.4
 jsmin==2.0.2
 BeautifulSoup==3.2.1
+ember-compressor-compiler==0.3.1
 
 pytz==2013b
 

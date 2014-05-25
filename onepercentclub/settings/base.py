@@ -19,6 +19,7 @@ DJANGO_PROJECT = os.path.basename(PROJECT_ROOT.rstrip('/'))
 DEBUG = True
 TEST_MEMCACHE = False
 TEMPLATE_DEBUG = True
+COMPRESS_TEMPLATES = False
 
 ADMINS = (
     ('Loek van Gent', 'loek@1procentclub.nl'),
@@ -134,29 +135,17 @@ STATICFILES_FINDERS = [
     # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 ]
 
+TEMPLATE_LOADERS = [
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+    'apptemplates.Loader', # extend AND override templates
+]
+
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211',
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
     }
 }
-
-# List of callables that know how to import templates from various sources.
-if not DEBUG or TEST_MEMCACHE:
-    TEMPLATE_LOADERS = [
-        ('django.template.loaders.cached.Loader', (
-            'django.template.loaders.filesystem.Loader',
-            'django.template.loaders.app_directories.Loader',
-            'apptemplates.Loader', # extend AND override templates
-        )),
-    ]
-else:
-    TEMPLATE_LOADERS = [
-        'django.template.loaders.filesystem.Loader',
-        'django.template.loaders.app_directories.Loader',
-        'apptemplates.Loader', # extend AND override templates
-    ]
-
 
 # These are basically the default values from the Django configuration, written
 # as a list for easy manipulation. This way one can:

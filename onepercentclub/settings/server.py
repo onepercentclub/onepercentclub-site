@@ -1,13 +1,8 @@
-try:
-    from .secrets import *
-except ImportError:
-    import sys
-    sys.exit('secrets.py settings file not found. Please run `prepare.sh` to create one.')
-
 from .base import *
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
+COMPRESS_TEMPLATES = True
 
 INSTALLED_APPS += (
     'gunicorn',
