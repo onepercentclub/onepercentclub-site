@@ -1,5 +1,7 @@
 from apps.accounting.models import BankTransactionCategory
+from apps.accounting.signals import match_transaction_with_payout
 from django.contrib import admin
+from django.utils.translation import ugettext as _
 
 from apps.csvimport.admin import IncrementalCSVImportMixin
 from django.core.urlresolvers import reverse
@@ -14,6 +16,8 @@ from .forms import (
 
 class BankTransactionAdmin(IncrementalCSVImportMixin, admin.ModelAdmin):
     date_hierarchy = 'book_date'
+
+    actions = ('find_matches', )
 
     search_fields = [
         'counter_account', 'counter_name',
@@ -43,6 +47,13 @@ class BankTransactionAdmin(IncrementalCSVImportMixin, admin.ModelAdmin):
         return "<a href='%s'>%s</a>" % (str(url), object)
 
     payout_link.allow_tags = True
+
+    def find_matches(self, request, queryset):
+        #
+        for transaction in queryset.all():
+            match_transaction_with_payout(transaction)
+
+    find_matches.short_description = _("Try to match with payouts.")
 
 admin.site.register(BankTransaction, BankTransactionAdmin)
 
