@@ -1,3 +1,4 @@
+from apps.accounting.models import BankTransactionCategory
 from django.contrib import admin
 
 from apps.csvimport.admin import IncrementalCSVImportMixin
@@ -21,12 +22,15 @@ class BankTransactionAdmin(IncrementalCSVImportMixin, admin.ModelAdmin):
     ]
 
     list_display = [
-        'book_date', 'counter_name','counter_account', 'credit_debit', 'amount'
+        'book_date', 'counter_name','counter_account', 'credit_debit', 'amount', 'category'
     ]
 
     list_filter = [
-        'credit_debit', 'book_date'
+        'credit_debit', 'book_date', 'category'
     ]
+    list_editable = ('category', )
+
+    raw_id_fields = ('payout', )
 
     import_form = BankTransactionImportForm
 
@@ -56,3 +60,6 @@ class DocdataPaymentAdmin(IncrementalCSVImportMixin, admin.ModelAdmin):
     import_form = DocdataPaymentImportForm
 
 admin.site.register(DocdataPayment, DocdataPaymentAdmin)
+
+
+admin.site.register(BankTransactionCategory)

@@ -19,4 +19,5 @@ class MoneyField(DecimalField):
 
         return super(MoneyField, self).__init__(*args, **kwargs)
 
-add_introspection_rules([], ["^apps\.payouts\.fields\.MoneyField"])
+add_introspection_rules([], ["^apps\.projects\.fields\.MoneyField"])
+
