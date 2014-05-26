@@ -23,7 +23,7 @@ from .choices import PayoutLineStatuses, PayoutRules
 
 from bluebottle.utils.utils import get_project_model
 
-#PROJECT_MODEL = get_project_model()
+PROJECT_MODEL = get_project_model()
 
 
 class InvoiceReferenceBase(models.Model):
@@ -253,6 +253,10 @@ class Payout(PayoutBase):
             # 12%
             return decimal.Decimal('0.12')
 
+        elif self.payout_rule == PayoutRules.hundred:
+            # 100%
+            return decimal.Decimal('1')
+
         # Other
         raise NotImplementedError('Payment rule not implemented yet.')
 
@@ -272,10 +276,11 @@ class Payout(PayoutBase):
 
             if self.project.amount_donated >= self.project.amount_asked:
                 # Fully funded
-
                 # New default payout rule is 7 percent
                 return PayoutRules.seven
-
+            elif self.project.amount_donated < settings.MINIMAL_PAYOUT_AMOUNT:
+                # Funding less then minimal payment ammount.
+                return PayoutRules.hundred
             else:
                 # Not fully funded
                 return PayoutRules.twelve
@@ -727,8 +732,6 @@ def match_debit_mutations():
 # Ref:  http://stackoverflow.com/a/9851875
 # Note: for newer Django, put this in module initialization code
 # https://docs.djangoproject.com/en/dev/topics/signals/#django.dispatch.receiver
-from .signals import create_payout_for_fully_funded_project
+from .signals import create_payout_finished_project
 
-# post_save.connect(
-#     create_payout_for_fully_funded_project, weak=False, sender=PROJECT_MODEL
-# )
+post_save.connect(create_payout_finished_project, weak=False, sender=PROJECT_MODEL)
