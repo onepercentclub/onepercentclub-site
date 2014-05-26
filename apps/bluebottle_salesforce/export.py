@@ -335,7 +335,11 @@ def generate_donations_csv_file(path, loglevel):
 
         logger.info("Exporting {0} Donation objects to {1}".format(donations.count(), filename))
 
+        t = 0
         for donation in donations:
+            t += 1
+            logger.debug("writing donation {0}/{1}: {2}".format(t, donations.count(), donation.id))
+
             try:
                 receiver_id = ''
                 if donation.user:
@@ -441,6 +445,10 @@ def generate_tasks_csv_file(path, loglevel):
             for tag in task.tags.all():
                 tags = str(tag) + ", " + tags
 
+            skill = ''
+            if task.skill:
+                skill = task.skill.name.encode("utf-8")
+
             try:
                 csvwriter.writerow([task.id,
                                     task.project.id,
@@ -448,7 +456,7 @@ def generate_tasks_csv_file(path, loglevel):
                                     task.time_needed.encode("utf-8"),
                                     task.description.encode("utf-8"),
                                     task.location.encode("utf-8"),
-                                    task.expertise.encode("utf-8"),
+                                    skill,
                                     task.status.encode("utf-8"),
                                     task.title.encode("utf-8"),
                                     task.created.date(),
