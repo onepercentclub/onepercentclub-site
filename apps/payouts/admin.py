@@ -13,10 +13,8 @@ from django.utils import timezone
 from django.utils.translation import ugettext as _
 from django.utils.text import Truncator
 
-from .models import (
-    Payout, PayoutLog, OrganizationPayout, OrganizationPayoutLog,
-    BankMutation, BankMutationLine
-)
+from .models import Payout, PayoutLog, OrganizationPayout, OrganizationPayoutLog
+
 from .choices import PayoutLineStatuses
 from .admin_filters import PendingDonationsPayoutFilter, HasIBANPayoutFilter
 from .admin_utils import link_to
@@ -56,6 +54,7 @@ class PayoutTransactionInline(admin.TabularInline):
     
     can_delete = False
 
+
 class PayoutAdmin(admin.ModelAdmin):
     model = Payout
 
@@ -79,13 +78,12 @@ class PayoutAdmin(admin.ModelAdmin):
     list_display = [
         'payout', 'status', 'admin_project', 'amount_payable',
         'admin_amount_raised', 'admin_amount_pending', 'is_pending',
-        'payout_rule', 'updated', 'admin_has_iban'
+        'payout_rule', 'admin_has_iban', 'created_date', 'submitted_date', 'completed_date'
     ]
 
     list_display_links = [
         'payout',
     ]
-
 
     readonly_fields = [
         'admin_project', 'admin_organization', 'created', 'updated',
@@ -101,7 +99,7 @@ class PayoutAdmin(admin.ModelAdmin):
         }),
         (_('Dates'), {
             'fields': (
-                'created', 'updated', 'completed',
+                'created', 'updated', 'submitted', 'completed',
             )
         }),
         (_('Realtime amounts'), {
@@ -129,6 +127,25 @@ class PayoutAdmin(admin.ModelAdmin):
         return True
     is_pending.boolean = True
     is_pending.short_description = _('pending')
+
+    def created_date(self, obj):
+        return obj.created.strftime("%d-%m-%Y")
+
+    created_date.admin_order_field = 'created'
+
+    def submitted_date(self, obj):
+        if obj.submitted:
+            return obj.submitted.strftime("%d-%m-%Y")
+        return ""
+
+    submitted_date.admin_order_field = 'submitted'
+
+    def completed_date(self, obj):
+        if obj.completed:
+            return obj.completed.strftime("%d-%m-%Y")
+        return ""
+
+    completed_date.admin_order_field = 'completed'
 
     # Link to all donations for project
     admin_amount_raised = link_to(
@@ -322,54 +339,4 @@ class OrganizationPayoutAdmin(admin.ModelAdmin):
 
 admin.site.register(OrganizationPayout, OrganizationPayoutAdmin)
 
-
-class BankMutationAdmin(admin.ModelAdmin):
-    model = BankMutation
-    save_on_top = True
-    actions_on_top = True
-
-    def credit_lines(self, obj):
-        return "<a href='/admin/payouts/bankmutationline/?bank_mutation=%s&dc=C'>Credit mutations</a>" % str(obj.id)
-
-    credit_lines.allow_tags = True
-
-    def debit_lines(self, obj):
-        return "<a href='/admin/payouts/bankmutationline/?bank_mutation=%s&dc=D'>Debit mutations</a>" % str(obj.id)
-
-    debit_lines.allow_tags = True
-
-    readonly_fields = ['debit_lines', 'credit_lines']
-    fields = readonly_fields + ['mut_file', ]
-
-# admin.site.register(BankMutation, BankMutationAdmin)
-
-
-class BankMutationLineAdmin(admin.ModelAdmin):
-    model = BankMutationLine
-    list_filter = ['dc']
-    can_delete = False
-    extra = 0
-
-    list_display = [
-        'start_date', 'matched', 'dc', 'transaction_type', 'amount', 'invoice_reference', 'account_number', 'account_name'
-    ]
-
-    def has_add_permission(self, request):
-        return False
-
-    def matched(self, obj):
-        if obj.payout:
-            return "Yes"
-        return "-"
-
-    matched.allow_tags = True
-
-    readonly_fields = [
-        'bank_mutation', 'amount', 'dc', 'transaction_type', 'account_number', 'account_name',
-       'start_date', 'matched', 'issuer_account_number', 'currency', 'invoice_reference',
-       'description_line1', 'description_line2', 'description_line3', 'description_line4'
-    ]
-    #fields = readonly_fields
-
-# admin.site.register(BankMutationLine, BankMutationLineAdmin)
 

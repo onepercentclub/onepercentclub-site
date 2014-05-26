@@ -2,6 +2,7 @@ from apps.accounting.models import BankTransactionCategory
 from django.contrib import admin
 
 from apps.csvimport.admin import IncrementalCSVImportMixin
+from django.core.urlresolvers import reverse
 
 from .models import BankTransaction, DocdataPayout, DocdataPayment
 
@@ -32,7 +33,16 @@ class BankTransactionAdmin(IncrementalCSVImportMixin, admin.ModelAdmin):
 
     raw_id_fields = ('payout', )
 
+    readonly_fields = ('payout_link', )
+
     import_form = BankTransactionImportForm
+
+    def payout_link(self, obj):
+        object = obj.payout
+        url = reverse('admin:%s_%s_change' % (object._meta.app_label, object._meta.module_name), args=[object.id])
+        return "<a href='%s'>%s</a>" % (str(url), object)
+
+    payout_link.allow_tags = True
 
 admin.site.register(BankTransaction, BankTransactionAdmin)
 
