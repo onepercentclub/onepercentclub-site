@@ -366,6 +366,10 @@ class Payout(PayoutBase):
         batch_id = timezone.datetime.strftime(timezone.now(), '%Y%m%d%H%I%S')
 
         sepa = SepaDocument(type='CT')
+
+        sepa.set_initiating_party(
+            name=settings.SEPA['name']
+        )
         debtor = SepaAccount(
             name=settings.SEPA['name'],
             iban=settings.SEPA['iban'],
