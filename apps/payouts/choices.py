@@ -9,6 +9,7 @@ class PayoutRules(DjangoChoices):
     five = ChoiceItem('five', label=_("5%"))
     seven = ChoiceItem('seven', label=_("7%"))
     twelve = ChoiceItem('twelve', label=_("12%"))
+    hundred = ChoiceItem('hundred', label=_("100%"))
     unknown = ChoiceItem('unknown', label=_("Unknown"))
     other = ChoiceItem('other', label=_("Other"))
 
