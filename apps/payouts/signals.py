@@ -57,3 +57,4 @@ def create_payout_finished_project(sender, instance, created, **kwargs):
 
             # Generate invoice reference, saves twice
             payout.update_invoice_reference(auto_save=True)
+
