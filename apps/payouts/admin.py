@@ -77,7 +77,7 @@ class PayoutAdmin(admin.ModelAdmin):
 
     list_display = [
         'payout', 'status', 'admin_project', 'amount_payable',
-        'admin_amount_raised', 'admin_amount_pending', 'is_pending',
+        'admin_amount_raised', 'admin_amount_pending',
         'payout_rule', 'admin_has_iban', 'created_date', 'submitted_date', 'completed_date'
     ]
 
@@ -132,6 +132,7 @@ class PayoutAdmin(admin.ModelAdmin):
         return obj.created.strftime("%d-%m-%Y")
 
     created_date.admin_order_field = 'created'
+    created_date.short_description = 'created'
 
     def submitted_date(self, obj):
         if obj.submitted:
@@ -139,6 +140,7 @@ class PayoutAdmin(admin.ModelAdmin):
         return ""
 
     submitted_date.admin_order_field = 'submitted'
+    submitted_date.short_description = 'Submitted'
 
     def completed_date(self, obj):
         if obj.completed:
@@ -146,6 +148,7 @@ class PayoutAdmin(admin.ModelAdmin):
         return ""
 
     completed_date.admin_order_field = 'completed'
+    completed_date.short_description = 'Completed'
 
     # Link to all donations for project
     admin_amount_raised = link_to(
@@ -154,7 +157,7 @@ class PayoutAdmin(admin.ModelAdmin):
             'project': obj.project.id,
             'status__exact': 'all'
         },
-        short_description=_('amount raised')
+        short_description=_('Raised')
     )
 
     # Link to pending donations for project
@@ -164,7 +167,7 @@ class PayoutAdmin(admin.ModelAdmin):
             'project': obj.project.id,
             'status__exact': 'pending'
         },
-        short_description=_('amount pending')
+        short_description=_('Pending')
     )
 
     # Link to paid donations for project
@@ -174,7 +177,7 @@ class PayoutAdmin(admin.ModelAdmin):
             'project': obj.project.id,
             'status__exact': 'paid'
         },
-        short_description=_('amount safe')
+        short_description=_('Safe')
     )
 
     # Link to failed donations for project
@@ -184,7 +187,7 @@ class PayoutAdmin(admin.ModelAdmin):
             'project': obj.project.id,
             'status__exact': 'failed'
         },
-        short_description=_('amount failed')
+        short_description=_('Failed')
     )
 
     # Link to project
@@ -211,11 +214,11 @@ class PayoutAdmin(admin.ModelAdmin):
             return True
 
         return False
-    admin_has_iban.short_description = _('has IBAN')
+    admin_has_iban.short_description = _('IBAN')
     admin_has_iban.boolean = True
 
     def payout(self, obj):
-        return "View/Edit"
+        return "Select"
 
     def has_add_permission(self, request):
         return False
@@ -315,7 +318,7 @@ class OrganizationPayoutAdmin(admin.ModelAdmin):
         })
     )
 
-    actions = ['recalculate_amounts']
+    actions = ('recalculate_amounts', 'export_sepa')
 
     def recalculate_amounts(self, request, queryset):
         # Only recalculate for 'new' payouts
@@ -336,6 +339,21 @@ class OrganizationPayoutAdmin(admin.ModelAdmin):
         self.message_user(request, message)
 
     recalculate_amounts.short_description = _("Recalculate amounts for new payouts.")
+
+    def export_sepa(self, request, queryset):
+        """
+        Dowload a sepa file with selected ProjectPayments
+        """
+        objs = queryset.all()
+        if not request.user.is_staff:
+            raise PermissionDenied
+        response = HttpResponse(mimetype='text/xml')
+        date = timezone.datetime.strftime(timezone.now(), '%Y%m%d%H%I%S')
+        response['Content-Disposition'] = 'attachment; filename=payments_sepa%s.xml' % date
+        response.write(OrganizationPayout.create_sepa_xml(objs))
+        return response
+
+    export_sepa.short_description = "Export SEPA file."
 
 admin.site.register(OrganizationPayout, OrganizationPayoutAdmin)
 
