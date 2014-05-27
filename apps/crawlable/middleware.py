@@ -154,7 +154,8 @@ class HashbangMiddleware(object):
                     project = Project.objects.get(slug=slug)
                     return SimpleTemplateResponse(template='crawlable/project.html', context={'project': project})
                 except Project.DoesNotExist:
-                    return HttpResponsePermanentRedirect('/?_escaped_fragment_=/projects')
+                    url = ''.join([parsed_url.path, '?', ESCAPED_FRAGMENT, '=', '/projects'])
+                    return HttpResponsePermanentRedirect(url)
 
             if route[1] == 'projects' and len(route) == 2:
                 projects = Project.objects.order_by('popularity').all()[:10]
