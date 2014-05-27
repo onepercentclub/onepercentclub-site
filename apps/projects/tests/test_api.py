@@ -9,6 +9,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.utils import timezone
+from bluebottle.test.factory_models.organizations_factories import OrganizationFactory
 from onepercentclub.tests.utils import OnePercentTestCase
 
 from rest_framework import status
@@ -682,7 +683,9 @@ class ChangeProjectStatuses(ProjectEndpointTestCase):
         The deadline of a project expires but its not funded. The status changes, the campaign_ended field is populated
         with the deadline, the campaign_funded field is empty.
         """
+        organization = OrganizationFactory.create()
         project = OnePercentProjectFactory.create(title="testproject", slug="testproject",
+                                                  organization=organization,
                                                   status=ProjectPhase.objects.get(slug="campaign"),
                                                   amount_asked=100)
 
