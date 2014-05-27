@@ -318,7 +318,7 @@ class OrganizationPayoutAdmin(admin.ModelAdmin):
         })
     )
 
-    actions = ['recalculate_amounts']
+    actions = ('recalculate_amounts', 'export_sepa')
 
     def recalculate_amounts(self, request, queryset):
         # Only recalculate for 'new' payouts
@@ -339,6 +339,21 @@ class OrganizationPayoutAdmin(admin.ModelAdmin):
         self.message_user(request, message)
 
     recalculate_amounts.short_description = _("Recalculate amounts for new payouts.")
+
+    def export_sepa(self, request, queryset):
+        """
+        Dowload a sepa file with selected ProjectPayments
+        """
+        objs = queryset.all()
+        if not request.user.is_staff:
+            raise PermissionDenied
+        response = HttpResponse(mimetype='text/xml')
+        date = timezone.datetime.strftime(timezone.now(), '%Y%m%d%H%I%S')
+        response['Content-Disposition'] = 'attachment; filename=payments_sepa%s.xml' % date
+        response.write(OrganizationPayout.create_sepa_xml(objs))
+        return response
+
+    export_sepa.short_description = "Export SEPA file."
 
 admin.site.register(OrganizationPayout, OrganizationPayoutAdmin)
 
