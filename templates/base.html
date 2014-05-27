@@ -2,6 +2,7 @@
 {% load bb_ember %}
 {% load i18n %}
 {% load compress %}
+{% load cache %}
 
 {% load static from staticfiles %}
 
@@ -53,14 +54,15 @@
 
 {% block handlebars_templates %}
     {% if COMPRESS_TEMPLATES %}
-        {# Override the Bluebottle handlebars_templates.  Compressing 'inline' as collect static assets isn't working yet with precompiled templates. #}
-        {% compress js %}
-            {{ block.super }}
-        {% endcompress %}
+        {% cache 2592000 templates %}
+            {% compress js %}
+                {{ block.super }}
+            {% endcompress %}
 
-        {% compress js %}
-            {% include "templates.hbs" %}
-        {% endcompress %}
+            {% compress js %}
+                {% include "templates.hbs" %}
+            {% endcompress %}
+        {% endcache %}
     {% else %}
         {{ block.super }}
         {% include "templates.hbs" %}
