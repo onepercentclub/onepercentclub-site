@@ -54,7 +54,7 @@
 
 {% block handlebars_templates %}
     {% if COMPRESS_TEMPLATES %}
-        {% cache 2592000 templates %}
+        {% cache 2592000 templates LANGUAGE_CODE %}
             {% compress js %}
                 {{ block.super }}
             {% endcompress %}
