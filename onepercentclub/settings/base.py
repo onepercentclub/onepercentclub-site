@@ -200,6 +200,7 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'bluebottle.utils.context_processors.git_commit',
     'bluebottle.utils.context_processors.conf_settings',
     'bluebottle.utils.context_processors.google_maps_api_key',
+    'bluebottle.utils.context_processors.google_analytics_code',
 )
 
 ROOT_URLCONF = 'onepercentclub.urls'
