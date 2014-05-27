@@ -69,7 +69,7 @@ class PayoutAdmin(admin.ModelAdmin):
     can_delete = False
 
     list_filter = [
-        'status', 'payout_rule',
+        'status', 'payout_rule', 'created', 'updated',
         PendingDonationsPayoutFilter, HasIBANPayoutFilter
     ]
 
@@ -78,7 +78,8 @@ class PayoutAdmin(admin.ModelAdmin):
     list_display = [
         'payout', 'status', 'admin_project', 'amount_payable',
         'admin_amount_raised', 'admin_amount_pending', 'is_pending',
-        'payout_rule', 'admin_has_iban', 'created_date', 'submitted_date', 'completed_date'
+        'payout_rule', 'admin_has_iban', 'created_date', 'submitted_date',
+        'completed_date', 'invoice_reference'
     ]
 
     list_display_links = [

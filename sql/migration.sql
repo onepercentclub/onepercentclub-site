@@ -447,6 +447,13 @@ UPDATE django_content_type
 ALTER TABLE pages_contactmessage RENAME TO contact_contactmessage;
 
 
+--
+-- Payout
+--
+
+ALTER TABLE payouts_payout
+  ADD COLUMN submitted timestamp with time zone;
+
 ------------
 -- TODO: See if we need these DB changes
 
