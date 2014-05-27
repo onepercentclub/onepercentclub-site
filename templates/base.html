@@ -28,30 +28,6 @@
 
 {% endblock %}
 
-
-{% block screen_css %}
-
-    {{ block.super }}
-
-{% endblock screen_css %}
-
-{% block_verbatim nav_main %}
-
-    <ul class="nav-main">
-        <li class="nav-main-item">{{#linkTo 'projectList'}}{% blocktrans %}Search campaigns{% endblocktrans %}{{/linkTo}}</li>
-        <li class="nav-main-item">{{#linkTo 'myProject.start' 'new'}}{% blocktrans %}Start campaign{% endblocktrans %}{{/linkTo}}</li>
-        <li class="nav-main-item"><a {{action 'showPage' 'about'}} href="/#!/pages/about">{% blocktrans %}About 1%Club{% endblocktrans %}</a></li>
-    </ul>
-    <div class="mobile-nav-holder">
-        <ul class="mobile-nav">
-            <li class="mobile-nav-item">{{#linkTo 'projectList'}}{% blocktrans %}Search campaigns{% endblocktrans %}{{/linkTo}}</li>
-            <li class="mobile-nav-item">{{#linkTo 'myProject.start' 'new'}}{% blocktrans %}Start campaign{% endblocktrans %}{{/linkTo}}</li>
-            <li class="mobile-nav-item"><a {{action 'showPage' 'about'}} href="/#!/pages/about">{% blocktrans %}About 1%Club{% endblocktrans %}</a></li>
-        </ul>
-    </div>
-     <span class="mobile-nav-btn"><i class="flaticon solid menu-list-4"></i></span>
-{% endblock_verbatim %}
-
 {% block handlebars_templates %}
     {% if COMPRESS_TEMPLATES %}
         {% cache 2592000 templates LANGUAGE_CODE %}
