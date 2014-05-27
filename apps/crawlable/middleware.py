@@ -158,7 +158,9 @@ class HashbangMiddleware(object):
 
             if route[1] == 'projects' and len(route) == 2:
                 projects = Project.objects.order_by('popularity').all()[:10]
-                return SimpleTemplateResponse(template='crawlable/project_list.html', context={'projects': projects})
+                url = ''.join([parsed_url.path, HASHBANG, '/projects'])
+                return SimpleTemplateResponse(template='crawlable/project_list.html',
+                                              context={'projects': projects, 'url': url})
 
 
             # Task page
