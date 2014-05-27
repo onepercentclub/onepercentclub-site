@@ -144,13 +144,25 @@ class HashbangMiddleware(object):
             # See if it's a page we now so that we can sent it back quickly.
             route = parsed_url.query.replace('%2F', '/').split('/')
 
+            print route
+
             # Project page
             if route[1] == 'projects' and len(route) > 2:
                 slug = route[2]
+                # strip query string
+                slug = slug.split('?')[0]
                 if slug != slug.lower():
                     return HttpResponsePermanentRedirect(original_url.lower())
-                project = Project.objects.get(slug=slug)
-                return SimpleTemplateResponse(template='crawlable/project.html', context={'project': project})
+                try:
+                    project = Project.objects.get(slug=slug)
+                    return SimpleTemplateResponse(template='crawlable/project.html', context={'project': project})
+                except Project.DoesNotExist:
+                    return HttpResponsePermanentRedirect('/?_escaped_fragment_=/projects')
+
+            if route[1] == 'projects' and len(route) == 2:
+                projects = Project.objects.order_by('popularity').all()[:10]
+                return SimpleTemplateResponse(template='crawlable/project_list.html', context={'projects': projects})
+
 
             # Task page
             if route[1] == 'tasks' and len(route) > 2:
