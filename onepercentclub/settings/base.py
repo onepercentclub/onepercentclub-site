@@ -216,7 +216,7 @@ INSTALLED_APPS = (
     # 3rd party apps
     'django_extensions',
     'django_extensions.tests',
-    'raven.contrib.django',
+    'raven.contrib.django.raven_compat',
     'djcelery',
     'south',
     # 'django_nose',
@@ -425,7 +425,7 @@ STATICFILES_FINDERS += [
 ]
 
 # TODO Enable compass here.
-COMPRESS_OUTPUT_DIR = 'compressed'
+COMPRESS_OUTPUT_DIR = 'CACHE'
 COMPRESS_CSS_FILTERS = [
     'compressor.filters.css_default.CssAbsoluteFilter',
     #'compressor.filters.datauri.DataUriFilter',
