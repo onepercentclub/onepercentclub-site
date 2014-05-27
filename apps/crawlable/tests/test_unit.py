@@ -1,15 +1,10 @@
-from bluebottle.bb_projects.models import ProjectPhase
-from bluebottle.test.factory_models.projects import ProjectPhaseFactory
 import mock
 
 from django.http import HttpResponse
-from django.test import TestCase, RequestFactory, LiveServerTestCase
-from django.test.utils import override_settings
-from django.utils.text import slugify
+from django.test import RequestFactory
 
 from ..middleware import HASHBANG, ESCAPED_FRAGMENT, HashbangMiddleware
-from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
-from onepercentclub.tests.utils import OnePercentTestCase, OnePercentSeleniumTestCase
+from onepercentclub.tests.utils import OnePercentTestCase
 
 
 def escape_url(url):
@@ -41,38 +36,5 @@ class HashbangMiddlewareTests(OnePercentTestCase):
 
         self.assertIsInstance(result, HttpResponse)
         self.assertContains(result, self.test_url)
-
-        self.assertEqual(mock_get_driver.call_count, 1)
-
-
-class CrawlableTests(OnePercentSeleniumTestCase):
-    """
-    Tests one of the most complex pages, project list, with and without escaped fragments.
-    """
-    def setUp(self):
-        self.init_projects()
-
-        self.projects = dict([(slugify(title), title) for title in [
-            u'Women first', u'Mobile payments for everyone!', u'Schools for children '
-        ]])
-
-        for slug, title in self.projects.items():
-            project = OnePercentProjectFactory.create(title=title, slug=slug)
-            project.status = ProjectPhase.objects.get(slug="campaign")
-            project.save()
-
-        self.project_url = '%s/en/#!/projects' % self.live_server_url
-        self.client = self.client_class(SERVER_NAME=self.server_thread.host, SERVER_PORT=self.server_thread.port)
-
-    def tearDown(self):
-        from ..middleware import web_cache
-
-        if web_cache._web_driver:
-            web_cache._web_driver.service.stop()
-
-    def test_project_list_via_hashbang(self):
-        response = self.client.get(self.project_url)
-
-        for slug, title in self.projects.items():
-            self.assertNotContains(response, title)
+        self.assertContains(result, 'Campaigns')
 

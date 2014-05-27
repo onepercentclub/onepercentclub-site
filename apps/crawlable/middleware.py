@@ -140,26 +140,40 @@ class HashbangMiddleware(object):
             query = dict(urlparse.parse_qsl(parsed_url.query))
             path = ''.join([parsed_url.path, HASHBANG, query.get(ESCAPED_FRAGMENT, '')])
 
-
             # See if it's a page we now so that we can sent it back quickly.
             route = parsed_url.query.replace('%2F', '/').split('/')
 
             # Project page
             if route[1] == 'projects' and len(route) > 2:
                 slug = route[2]
+                # strip query string
+                slug = slug.split('?')[0]
                 if slug != slug.lower():
                     return HttpResponsePermanentRedirect(original_url.lower())
-                project = Project.objects.get(slug=slug)
-                return SimpleTemplateResponse(template='crawlable/project.html', context={'project': project})
+                try:
+                    project = Project.objects.get(slug=slug)
+                    return SimpleTemplateResponse(template='crawlable/project.html', context={'project': project})
+                except Project.DoesNotExist:
+                    url = ''.join([parsed_url.path, '?', ESCAPED_FRAGMENT, '=', '/projects'])
+                    return HttpResponsePermanentRedirect(url)
+
+            if route[1] == 'projects' and len(route) == 2:
+                projects = Project.objects.order_by('popularity').all()[:10]
+                url = ''.join([parsed_url.path, HASHBANG, '/projects'])
+                return SimpleTemplateResponse(template='crawlable/project_list.html',
+                                              context={'projects': projects, 'url': url})
+
 
             # Task page
             if route[1] == 'tasks' and len(route) > 2:
-                task = Task.objects.get(id=route[2])
+                task_id = route[2].split('?')[0]
+                task = Task.objects.get(id=task_id)
                 return SimpleTemplateResponse(template='crawlable/task.html', context={'task': task})
 
             # FundRaiser page
             if route[1] == 'fundraisers' and len(route) > 2:
-                fundraiser = FundRaiser.objects.get(id=route[2])
+                fundraiser_id = route[2].split('?')[0]
+                fundraiser = FundRaiser.objects.get(id=fundraiser_id)
                 return SimpleTemplateResponse(template='crawlable/fundraiser.html', context={'fundraiser': fundraiser})
 
             # Update query string by removing the escaped fragment.
