@@ -41,9 +41,7 @@ class HashbangMiddlewareTests(OnePercentTestCase):
 
         self.assertIsInstance(result, HttpResponse)
         self.assertContains(result, self.test_url)
-
-        self.assertEqual(mock_get_driver.call_count, 1)
-
+        self.assertContains(result, 'Campaigns')
 
 class CrawlableTests(OnePercentSeleniumTestCase):
     """
