@@ -50,11 +50,20 @@
 
     <script type="text/javascript">
         var GIT_COMMIT = '{{ GIT_COMMIT }}';
+        var SENTRY_DSN = '{{ SENTRY_DSN }}';
     </script>
 
 {% endblock %}
 
 {% block ember_scripts %}
+    <script src="//cdn.ravenjs.com/1.1.15/ember,jquery,native/raven.min.js"></script>
+    <script type="text/javascript">
+        if (SENTRY_DSN) {
+            Raven.config(SENTRY_DSN, {
+                whitelistUrls: ['/static/assets/js']
+            }).install();
+        }
+    </script>
 
     {{ block.super }}
 

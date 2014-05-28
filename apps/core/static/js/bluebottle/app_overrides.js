@@ -1,6 +1,23 @@
 /*
+  Setup user details for exception handling
+ */
+
+App.then(function(app) {
+    App.CurrentUser.find('current').then(function(user) {
+        if (typeof Raven == 'object') {
+            Raven.setUser({
+                id: user.get('id_for_ember'),
+                name: user.get('full_name'),
+                email: user.get('email'),
+            });
+        }
+    });
+});
+
+/*
   Bluebottle Route Overrides
  */
+
 App.ApplicationRoute.reopen({
     actions: {
         addDonation: function (project, fundraiser) {
