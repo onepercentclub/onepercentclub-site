@@ -12,6 +12,7 @@ from fabric.contrib.console import confirm
 from fabric.colors import green, red
 from fabric.operations import get
 from contextlib import contextmanager
+from fabric.contrib.files import exists
 
 
 # Configuration settings:
@@ -45,7 +46,6 @@ env.database = 'onepercentsite'
 # By default, confirm everywhere
 env.noinput = False
 
-
 # Utility functions:
 @contextmanager
 def virtualenv():
@@ -63,6 +63,26 @@ def virtualenv():
     with cd(env.directory):
         with prefix('source env/bin/activate'):
             yield
+
+
+def run_bg(cmd, before=None, sockname="dtach", use_sudo=False):
+    """Run a command in the background using dtach
+
+    :param cmd: The command to run
+    :param before: The command to run before the dtach. E.g. exporting environment variable
+    :param sockname: The socket name to use for the temp file
+    :param use_sudo: Whether or not to use sudo
+    """
+    if not exists("/usr/bin/dtach"):
+        sudo("apt-get install dtach")
+    if before:
+        cmd = "{}; dtach -n `mktemp -u /tmp/{}.XXXX` {}".format(before, sockname, cmd)
+    else:
+        cmd = "dtach -n `mktemp -u /tmp/{}.XXXX` {}".format(sockname, cmd)
+    if use_sudo:
+        return sudo(cmd)
+    else:
+        return run(cmd)
 
 
 def set_django_settings():
@@ -322,6 +342,11 @@ def prepare_django():
         run_web('./manage.py collectstatic -l -v 0 --noinput --settings=%s' % env.django_settings)
 
         flush_memcache()
+
+        # Ping the server for en / nl to ensure compressed assets are created
+        # Do this in the background to avoid locking up the fab task
+        for lang in ['en', 'nl']:
+            run_bg('curl https://{}/{}'.format(env.host, lang))
 
         # Disabled for now; it unjustly deletes cached thumbnails
         # prune_unreferenced_files()
