@@ -14,8 +14,7 @@
 	<meta name="viewport" content="width=960" />
 
 	<link type="text/css" rel="stylesheet" href="//fast.fonts.net/cssapi/35462e2c-8abd-4457-8837-d0d64a385759.css"/>
-    <link type="text/css" rel="stylesheet" href="//fast.fonts.net/cssapi/3a3d72a6-e1d9-4203-826f-9ac869e0054a.css"/>
-    
+  <link type="text/css" rel="stylesheet" href="//fast.fonts.net/cssapi/3a3d72a6-e1d9-4203-826f-9ac869e0054a.css"/>
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="https://www.onepercentclub.com" />
 	<meta property="og:title" content="{% blocktrans %}Site meta FB title{% endblocktrans %}" />
@@ -45,26 +44,7 @@
     {% endif %}
 {% endblock %}
 
-{% block defaults_js %}
-    {{ block.super }}
-
-    <script type="text/javascript">
-        var GIT_COMMIT = '{{ GIT_COMMIT }}';
-        var SENTRY_DSN = '{{ SENTRY_DSN }}';
-    </script>
-
-{% endblock %}
-
 {% block ember_scripts %}
-    <script src="//cdn.ravenjs.com/1.1.15/ember,jquery,native/raven.min.js"></script>
-    <script type="text/javascript">
-        if (SENTRY_DSN) {
-            Raven.config(SENTRY_DSN, {
-                whitelistUrls: ['/static/assets/js']
-            }).install();
-        }
-    </script>
-
     {{ block.super }}
 
     {# Addition for Bluebottle JS #}
