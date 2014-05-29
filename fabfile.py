@@ -349,7 +349,11 @@ def prepare_django():
 
 
         run_web('./manage.py syncdb --noinput --settings=%s' % env.django_settings)
-        run_web('./manage.py migrate --ignore-ghost-migrations --settings=%s' % env.django_settings)
+        run_web('./manage.py migrate --delete-ghost-migrations --settings=%s' % env.django_settings)
+
+        # Bower install. Needed by admin charts.
+        run_web('./manage.py bower_install')        
+
         run_web('./manage.py collectstatic -l -v 0 --noinput --settings=%s' % env.django_settings)
 
         # Disabled for now; it unjustly deletes cached thumbnails
@@ -472,6 +476,7 @@ def deploy_staging(revspec=None):
     """
     Update the staging server to the specified revspec, or the latest testing release and optionally sync migrated data.
     """
+
     # Update git locally
     git_fetch_local()
 

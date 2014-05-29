@@ -59,6 +59,9 @@ requests==2.3.0 #Updated requests to make python social auth work
 # -e hg+https://bitbucket.org/sergei_maertens/django-admin-tools/get/c989fd1.zip#egg=django-admin-tools
 -e hg+https://bitbucket.org/sergei_maertens/django-admin-tools@c989fd1#egg=django-admin-tools
 
+# Nice stats & graphs
+-e git://github.com/onepercentclub/django-admin-tools-stats.git@e7905eac58a94d681321c66cbb6ac78afce948f1#egg=admin-tools-stats
+django-bower==5.0.1
 
 # SalesForce integration.
 # django-salesforce==0.1.6.2

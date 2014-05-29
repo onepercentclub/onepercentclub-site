@@ -133,6 +133,8 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # admin stats
+    'djangobower.finders.BowerFinder',
     # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 ]
 
@@ -228,6 +230,12 @@ INSTALLED_APPS = (
     'raven.contrib.django.raven_compat',
     'djcelery',
     'south',
+
+    # admin stats apps
+    'djangobower',
+    'admin_tools_stats',
+    'django_nvd3',
+
     # 'django_nose',
     'compressor',
     'sorl.thumbnail',
@@ -595,3 +603,7 @@ SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email', 'first_name', 'last_name', ]
 SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
 
 SEND_WELCOME_MAIL = True
+
+# Admin stats
+BOWER_COMPONENTS_ROOT = PROJECT_ROOT
+BOWER_INSTALLED_APPS = ('nvd3',)
