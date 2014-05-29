@@ -1,4 +1,4 @@
--e git://github.com/onepercentclub/bluebottle.git@3dacc37dfea46334b09f24b7d86e1a1df15c38ca#egg=bluebottle
+-e git://github.com/onepercentclub/bluebottle.git@9f42ccba12477fe3f57d736623e1424c087e996f#egg=bluebottle
 
 pip
 mercurial==2.9.1
@@ -16,6 +16,7 @@ jsmin==2.0.2
 BeautifulSoup==3.2.1
 ember-compressor-compiler==0.3.1
 eventlet==0.14.0
+gevent==1.0.1
 
 pytz==2013b
 
