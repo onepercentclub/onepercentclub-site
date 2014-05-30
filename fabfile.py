@@ -360,6 +360,7 @@ def restart_site():
     """ Gracefully restart gunicorn using supervisor. """
     require('service_name')
 
+    run('supervisorctl reread')
     run('supervisorctl restart %s' % env.service_name)
 
 
