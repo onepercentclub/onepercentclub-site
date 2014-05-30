@@ -426,7 +426,7 @@ STATICFILES_FINDERS += [
 ]
 
 # TODO Enable compass here.
-COMPRESS_OUTPUT_DIR = 'CACHE'
+COMPRESS_OUTPUT_DIR = 'compressed'
 COMPRESS_CSS_FILTERS = [
     'compressor.filters.css_default.CssAbsoluteFilter',
     #'compressor.filters.datauri.DataUriFilter',
