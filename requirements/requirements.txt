@@ -54,7 +54,9 @@ requests==1.2.3
 
 # Nice stats & graphs
 -e git://github.com/onepercentclub/django-admin-tools-stats.git@e7905eac58a94d681321c66cbb6ac78afce948f1#egg=admin-tools-stats
+-e git://github.com/onepercentclub/python-nvd3@master#egg=nvd3
 django-bower==5.0.1
+
 
 # SalesForce integration.
 # django-salesforce==0.1.6.2
