@@ -341,21 +341,13 @@ def prepare_django():
         run_web('./manage.py syncdb --migrate --noinput --settings=%s' % env.django_settings)
         run_web('./manage.py collectstatic -l -v 0 --noinput --settings=%s' % env.django_settings)
 
-        flush_memcache()
-
-        # Ping the server for en / nl to ensure compressed assets are created
-        # Do this in the background to avoid locking up the fab task
-        for lang in ['en', 'nl']:
-            run_bg('curl https://{}/{}'.format(env.host, lang))
-
         # Disabled for now; it unjustly deletes cached thumbnails
         # prune_unreferenced_files()
 
 
 def flush_memcache():
     # FIXME: This doesn't appear to flush data - stop / start for now (don't trust restart)
-    # run('echo \'flush_all\' | nc -q1 localhost 11211')
-    sudo('service memcached stop && service memcached start')
+    run('echo \'flush_all\' | nc -q1 localhost 11211')
 
 
 def restart_site():
@@ -364,6 +356,13 @@ def restart_site():
 
     run('supervisorctl reread')
     run('supervisorctl restart %s' % env.service_name)
+
+    flush_memcache()
+
+    # Ping the server for en / nl to ensure compressed assets are created
+    # Do this in the background to avoid locking up the fab task
+    for lang in ['en', 'nl']:
+        run_bg('curl -vLk https://{host}/{lang}'.format(host=env.host, lang=lang))
 
 
 def set_site_domain():
