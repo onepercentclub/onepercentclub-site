@@ -151,7 +151,7 @@ def correct_donation_amounts(popular_projects, recurring_order, recurring_paymen
     """
     remaining_amount = recurring_payment.amount
     num_donations = recurring_order.donations.count()
-    amount_per_project = Decimal(math.floor(recurring_payment.amount / num_donations))
+    amount_per_project = Decimal(int(math.floor(recurring_payment.amount / num_donations)))
     donations = recurring_order.donations.all()
     logger.info("Processing {0} donations".format(len(donations)))
     for i in range(0, num_donations - 1):

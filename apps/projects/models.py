@@ -64,11 +64,9 @@ class ProjectManager(models.Manager):
             qs = qs.filter(amount_needed__gt=0)
             qs = qs.filter(status=ProjectPhase.objects.get(slug="campaign"))
         elif ordering == 'newest':
-            qs = queryset.order_by('amount_needed')
+            qs = queryset.order_by('campaign_started')
             qs = qs.filter(amount_needed__gt=0)
             qs = qs.filter(status=ProjectPhase.objects.get(slug="campaign"))
-        elif ordering == 'donations':
-            qs = queryset.order_by('popularity')
         elif ordering == 'popularity':
             qs = queryset.order_by('-popularity')
             if status == 5:
@@ -127,15 +125,18 @@ class Project(BaseProject):
             return self.title
         return self.slug
 
-    def update_popularity(self):
+    def update_popularity(self, save=True):
+        from apps.fund.models import Donation
+
         last_month = timezone.now() - timezone.timedelta(days=30)
-        donations = self.donation_set.filter(status__in=['paid', 'pending'])
+        donations = Donation.objects.filter(status__in=['paid', 'pending'])
         donations = donations.exclude(donation_type='recurring')
         donations = donations.filter(created__gte=last_month)
 
         # For all projects.
         total_recent_donors = len(donations)
         total_recent_donations = donations.aggregate(sum=Sum('amount'))['sum']
+
         # For this project
         donations = donations.filter(project=self)
         recent_donors = len(donations)
@@ -145,7 +146,8 @@ class Project(BaseProject):
             self.popularity = 50 * (float(recent_donors) / float(total_recent_donors)) + 50 * (float(recent_donations) / float(total_recent_donations))
         else:
             self.popularity = 0
-        self.save()
+        if save:
+            self.save()
 
     def update_status_after_donation(self):
         if not self.campaign_funded and not self.campaign_ended and \
