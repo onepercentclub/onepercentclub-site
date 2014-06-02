@@ -346,7 +346,6 @@ def prepare_django():
 
 
 def flush_memcache():
-    # FIXME: This doesn't appear to flush data - stop / start for now (don't trust restart)
     run('echo \'flush_all\' | nc -q1 localhost 11211')
 
 
