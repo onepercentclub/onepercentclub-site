@@ -400,12 +400,6 @@ class OrganizationPayoutTestCase(OnePercentTestCase):
         """
         Helper method creating and returning a paid donation.
         """
-
-        self.project = G(
-            Project
-        )
-
-
         # Update phase to campaign.
         self.project.status = ProjectPhase.objects.get(slug='campaign')
         self.project.save()
@@ -415,13 +409,13 @@ class OrganizationPayoutTestCase(OnePercentTestCase):
             project=self.project,
             voucher=None,
             donation_type=Donation.DonationTypes.one_off,
-            amount=1500,
+            amount=6000,
             status=DonationStatuses.paid
         )
 
         self.order = self.donation.order
 
-        return self.order
+        return self.donation
 
     def create_payment(self):
         """
@@ -453,10 +447,12 @@ class OrganizationPayoutTestCase(OnePercentTestCase):
         of 0.75.
         """
 
-        self.create_donation()
+        donation = self.create_donation()
+        donation.project = self.project
+        donation.save()
 
         # Progress to act phase, creating a Payout
-        self.project.status = ProjectPhase.objects.get(slug='done-incomplete')
+        self.project.status = ProjectPhase.objects.get(slug='done-complete')
         self.project.save()
 
         # Change payout status to complete
@@ -523,7 +519,7 @@ class OrganizationPayoutTestCase(OnePercentTestCase):
 
         # See whether the aggregate organization fee corresponds
         self.assertEquals(
-            org_payout._get_organization_fee(), decimal.Decimal('1.05')
+            org_payout._get_organization_fee(), decimal.Decimal('4.2')
         )
 
     def test_get_psp_fee(self):
@@ -561,15 +557,15 @@ class OrganizationPayoutTestCase(OnePercentTestCase):
         )
 
         self.assertEquals(
-            org_payout.organization_fee_excl, decimal.Decimal('0.87')
+            org_payout.organization_fee_excl, decimal.Decimal('3.47')
         )
 
         self.assertEquals(
-            org_payout.organization_fee_vat, decimal.Decimal('0.18')
+            org_payout.organization_fee_vat, decimal.Decimal('0.73')
         )
 
         self.assertEquals(
-            org_payout.organization_fee_incl, decimal.Decimal('1.05')
+            org_payout.organization_fee_incl, decimal.Decimal('4.2')
         )
 
         self.assertEquals(
@@ -585,15 +581,15 @@ class OrganizationPayoutTestCase(OnePercentTestCase):
         )
 
         self.assertEquals(
-            org_payout.payable_amount_excl, decimal.Decimal('0.37')
+            org_payout.payable_amount_excl, decimal.Decimal('2.97')
         )
 
         self.assertEquals(
-            org_payout.payable_amount_vat, decimal.Decimal('0.08')
+            org_payout.payable_amount_vat, decimal.Decimal('0.63')
         )
 
         self.assertEquals(
-            org_payout.payable_amount_incl, decimal.Decimal('0.45')
+            org_payout.payable_amount_incl, decimal.Decimal('3.60')
         )
 
     def test_other_costs_excl(self):
