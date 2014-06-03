@@ -19,7 +19,7 @@ install:
 - pip install --upgrade setuptools --use-mirrors
 - pip install $DJANGO --use-mirrors
 - pip install wheel
-- pip install --use-mirrors --use-wheel --find-links=http://stream.onepercentlive.com/wheelhouse/ -r requirements/ci_requirements.txt
+- pip install --use-mirrors --use-wheel --find-links=https://s3-eu-west-1.amazonaws.com/onepercent-wheelhouse/ -r requirements/ci_requirements.txt
 - pip install Pillow --use-mirrors
 - touch onepercentclub/settings/secrets.py
 before_script:
