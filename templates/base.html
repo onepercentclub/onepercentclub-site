@@ -1,6 +1,8 @@
 {% extends "bluebottle/base.html" %}
 {% load bb_ember %}
 {% load i18n %}
+{% load compress %}
+{% load cache %}
 
 {% load static from staticfiles %}
 
@@ -12,8 +14,7 @@
 	<meta name="viewport" content="width=960" />
 
 	<link type="text/css" rel="stylesheet" href="//fast.fonts.net/cssapi/35462e2c-8abd-4457-8837-d0d64a385759.css"/>
-    <link type="text/css" rel="stylesheet" href="//fast.fonts.net/cssapi/3a3d72a6-e1d9-4203-826f-9ac869e0054a.css"/>
-    
+  <link type="text/css" rel="stylesheet" href="//fast.fonts.net/cssapi/3a3d72a6-e1d9-4203-826f-9ac869e0054a.css"/>
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="https://www.onepercentclub.com" />
 	<meta property="og:title" content="{% blocktrans %}Site meta FB title{% endblocktrans %}" />
@@ -26,53 +27,24 @@
 
 {% endblock %}
 
-
-{% block screen_css %}
-
-    {{ block.super }}
-
-{% endblock screen_css %}
-
 {% block handlebars_templates %}
+    {% if COMPRESS_TEMPLATES %}
+        {% cache 2592000 templates LANGUAGE_CODE %}
+            {% compress js %}
+                {{ block.super }}
+            {% endcompress %}
 
-    {{ block.super }}
-
-    {% include "homepage/base.hbs" %}
-    {% include "fund/base.hbs" %}
-    {% include "fundraisers/base.hbs" %}
-    {% include "projects/base.hbs" %}
-    {% include "donations/base.hbs" %}
-    {% include "vouchers.hbs" %}
-{% endblock handlebars_templates %}
-
-{% block_verbatim nav_main %}
-
-    <ul class="nav-main">
-        <li class="nav-main-item">{{#linkTo 'projectList'}}{% blocktrans %}Search campaigns{% endblocktrans %}{{/linkTo}}</li>
-        <li class="nav-main-item">{{#linkTo 'myProject.start' 'new'}}{% blocktrans %}Start campaign{% endblocktrans %}{{/linkTo}}</li>
-        <li class="nav-main-item"><a {{action 'showPage' 'about'}} href="/#!/pages/about">{% blocktrans %}About 1%Club{% endblocktrans %}</a></li>
-    </ul>
-    <div class="mobile-nav-holder">
-        <ul class="mobile-nav">
-            <li class="mobile-nav-item">{{#linkTo 'projectList'}}{% blocktrans %}Search campaigns{% endblocktrans %}{{/linkTo}}</li>
-            <li class="mobile-nav-item">{{#linkTo 'myProject.start' 'new'}}{% blocktrans %}Start campaign{% endblocktrans %}{{/linkTo}}</li>
-            <li class="mobile-nav-item"><a {{action 'showPage' 'about'}} href="/#!/pages/about">{% blocktrans %}About 1%Club{% endblocktrans %}</a></li>
-        </ul>
-    </div>
-     <span class="mobile-nav-btn"><i class="flaticon solid menu-list-4"></i></span>
-{% endblock_verbatim %}
-
-{% block defaults_js %}
-    {{ block.super }}
-
-    <script type="text/javascript">
-        var GIT_COMMIT = '{{ GIT_COMMIT }}';
-    </script>
-
+            {% compress js %}
+                {% include "templates.hbs" %}
+            {% endcompress %}
+        {% endcache %}
+    {% else %}
+        {{ block.super }}
+        {% include "templates.hbs" %}
+    {% endif %}
 {% endblock %}
 
 {% block ember_scripts %}
-
     {{ block.super }}
 
     {# Addition for Bluebottle JS #}

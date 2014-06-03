@@ -1,18 +1,22 @@
--e git://github.com/onepercentclub/bluebottle.git@1.0.63#egg=bluebottle
+-e git://github.com/onepercentclub/bluebottle.git@1.0.65#egg=bluebottle
 
 pip
 mercurial==2.9.1
 
 # django_debug_toolbar==0.9.4
 
-raven # Sentry client (remote logging)
+raven==4.2.3 # Sentry client (remote logging)
+
 django-celery==3.0.17 # Asynchronous task server
 
 # CSS/JS compression - http://pypi.python.org/pypi/django_compressor/1.2
-django-compressor==1.2
+django-compressor==1.3
 cssmin==0.1.4
 jsmin==2.0.2
 BeautifulSoup==3.2.1
+ember-compressor-compiler==0.3.1
+eventlet==0.14.0
+gevent==1.0.1
 
 pytz==2013b
 

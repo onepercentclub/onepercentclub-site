@@ -19,6 +19,7 @@ DJANGO_PROJECT = os.path.basename(PROJECT_ROOT.rstrip('/'))
 DEBUG = True
 TEST_MEMCACHE = False
 TEMPLATE_DEBUG = True
+COMPRESS_TEMPLATES = False
 
 ADMINS = (
     ('Loek van Gent', 'loek@1procentclub.nl'),
@@ -134,29 +135,17 @@ STATICFILES_FINDERS = [
     # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 ]
 
+TEMPLATE_LOADERS = [
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+    'apptemplates.Loader', # extend AND override templates
+]
+
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211',
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
     }
 }
-
-# List of callables that know how to import templates from various sources.
-if not DEBUG or TEST_MEMCACHE:
-    TEMPLATE_LOADERS = [
-        ('django.template.loaders.cached.Loader', (
-            'django.template.loaders.filesystem.Loader',
-            'django.template.loaders.app_directories.Loader',
-            'apptemplates.Loader', # extend AND override templates
-        )),
-    ]
-else:
-    TEMPLATE_LOADERS = [
-        'django.template.loaders.filesystem.Loader',
-        'django.template.loaders.app_directories.Loader',
-        'apptemplates.Loader', # extend AND override templates
-    ]
-
 
 # These are basically the default values from the Django configuration, written
 # as a list for easy manipulation. This way one can:
@@ -201,6 +190,7 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'bluebottle.utils.context_processors.conf_settings',
     'bluebottle.utils.context_processors.google_maps_api_key',
     'bluebottle.utils.context_processors.google_analytics_code',
+    'bluebottle.utils.context_processors.sentry_dsn'
 )
 
 ROOT_URLCONF = 'onepercentclub.urls'
@@ -227,7 +217,7 @@ INSTALLED_APPS = (
     # 3rd party apps
     'django_extensions',
     'django_extensions.tests',
-    'raven.contrib.django',
+    'raven.contrib.django.raven_compat',
     'djcelery',
     'south',
     # 'django_nose',
