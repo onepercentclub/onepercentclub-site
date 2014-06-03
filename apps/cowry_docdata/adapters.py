@@ -435,6 +435,9 @@ class DocDataPaymentAdapter(AbstractPaymentAdapter):
             payment_class = self.id_to_model_mapping[payment.payment_method_id]
             try:
                 ddpayment = payment_class.objects.get(payment_id=str(payment_report.id))
+            except payment_class.MultipleObjectsReturned:
+                # FIXME. This is a hack to fix errors with duplicate payments to direct debit payments.
+                ddpayment = payment_class.objects.filter(payment_id=str(payment_report.id)).order_by('created').all()[0]
             except payment_class.DoesNotExist:
                 ddpayment_list = payment.docdata_payments.filter(status='NEW')
                 ddpayment_list_len = len(ddpayment_list)
