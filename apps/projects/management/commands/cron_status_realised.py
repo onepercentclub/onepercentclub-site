@@ -36,11 +36,28 @@ class Command(BaseCommand):
         except ProjectPhase.DoesNotExist:
             raise CommandError("A ProjectPhase with name 'Campaign' does not exist")
 
-        self.stdout.write("Checking Project overfunded deadlines...")
-        Project.objects.filter(amount_needed__lt=0, status=campaign_phase, deadline__lt=now()).update(status=done_complete_phase)
+        """
+        Projects which have at least the funds asked, are still in campaign phase and have not expired 
+        need the campaign funded date set to now.
+        FIXME: this action should be moved into the code where 'amount_needed' is calculated => when 
+               the value is lte 0 then set campaign_funded.
+        """
+        self.stdout.write("Checking Project funded and still running...")
+        Project.objects.filter(amount_needed__lte=0, status=campaign_phase, deadline__gt=now()).update(campaign_funded=now())
 
+        """
+        Projects which have at least the funds asked, are still in campaign phase but have expired 
+        need to be set to 'done complete' and the campaign ended date set to now.
+        """
+        self.stdout.write("Checking Project overfunded deadlines...")
+        Project.objects.filter(amount_needed__lte=0, status=campaign_phase, deadline__lte=now()).update(status=done_complete_phase, campaign_ended=now())
+
+        """
+        Projects which don't have the funds asked, are still in campaign phase but have expired 
+        need to be set to 'done incomplete' and the campaign ended date set to now.
+        """
         self.stdout.write("Checking Project unfunded deadlines...")
-        Project.objects.filter(status=campaign_phase, deadline__lt=now()).update(status=done_incomplete_phase)
+        Project.objects.filter(amount_needed__gt=0, status=campaign_phase, deadline__lt=now()).update(status=done_incomplete_phase, campaign_ended=now())
 
         self.stdout.write("Checking Task deadlines...\n\n")
         Task.objects.filter(status='in progress', deadline__lt=now()).update(status='realized')
