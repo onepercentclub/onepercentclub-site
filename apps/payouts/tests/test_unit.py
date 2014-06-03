@@ -2,6 +2,7 @@ import decimal
 import datetime
 import doctest
 from bluebottle.bb_projects.models import ProjectPhase
+from bluebottle.test.factory_models.organizations_factories import OrganizationFactory
 
 from django.test import TestCase
 
@@ -16,10 +17,7 @@ from apps.cowry.models import PaymentStatuses
 
 from apps.sepa.tests.base import SepaXMLTestMixin
 
-from .models import (
-from ..models import (
-    Payout, PayoutLog, OrganizationPayout, OrganizationPayoutLog
-)
+from ..models import Payout, PayoutLog, OrganizationPayout, OrganizationPayoutLog
 from ..choices import PayoutRules, PayoutLineStatuses
 from onepercentclub.tests.factory_models.donation_factories import DonationFactory
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
@@ -35,7 +33,9 @@ class PayoutTestCase(SepaXMLTestMixin, OnePercentTestCase):
 
         self.init_projects()
 
-        self.project = OnePercentProjectFactory.create()
+        organization = OrganizationFactory.create()
+        organization.save()
+        self.project = OnePercentProjectFactory.create(organization=organization, amount_asked=50)
 
         # Update phase to campaign.
         self.project.status = ProjectPhase.objects.get(slug='campaign')
@@ -45,8 +45,11 @@ class PayoutTestCase(SepaXMLTestMixin, OnePercentTestCase):
             project=self.project,
             voucher=None,
             donation_type=Donation.DonationTypes.one_off,
-            amount=1500
+            amount=6000
         )
+
+        # self.project.status = ProjectPhase.objects.get(slug='done-complete')
+        self.project.save()
 
         super(PayoutTestCase, self).setUp()
 
@@ -106,7 +109,7 @@ class PayoutTestCase(SepaXMLTestMixin, OnePercentTestCase):
 
         # Check the project and the amount
         self.assertEquals(payout.project, self.project)
-        self.assertEquals(payout.amount_raised, decimal.Decimal('15.00'))
+        self.assertEquals(payout.amount_raised, decimal.Decimal('60.00'))
 
     def test_invoice_reference(self):
         """ Test generating invoice_reference. """
@@ -131,20 +134,40 @@ class PayoutTestCase(SepaXMLTestMixin, OnePercentTestCase):
         self.donation.status = DonationStatuses.paid
         self.donation.save()
 
+        # Update phase to act.
+        self.project.status = ProjectPhase.objects.get(slug='done-complete')
+        self.project.save()
+
+        payout = Payout.objects.all()[0]
+        payout.payout_rule = 'five'
+        payout.calculate_amounts()
+
+        self.assertEquals(payout.payout_rule, PayoutRules.five)
+        self.assertEquals(payout.organization_fee, decimal.Decimal('3'))
+        self.assertEquals(payout.amount_payable, decimal.Decimal('57'))
+
+    def test_create_payment_rule_hundred(self):
+        """ Insufficient funded projects should get payment rule hundred. """
+
+        # Set status of donation to failed
+        self.donation.amount = 1500
+        self.donation.status = DonationStatuses.paid
+        self.donation.save()
 
         # Update phase to act.
         self.project.status = ProjectPhase.objects.get(slug='done-complete')
         self.project.save()
 
         payout = Payout.objects.all()[0]
-        self.assertEquals(payout.payout_rule, PayoutRules.five)
-        self.assertEquals(payout.organization_fee, decimal.Decimal('0.75'))
-        self.assertEquals(payout.amount_payable, decimal.Decimal('14.25'))
+        self.assertEquals(payout.payout_rule, PayoutRules.hundred)
+        self.assertEquals(payout.organization_fee, decimal.Decimal('15.0'))
+        self.assertEquals(payout.amount_payable, decimal.Decimal('0.0'))
 
     def test_create_payment_rule_seven(self):
         """ Fully funded projects should get payment rule seven. """
 
         # Set status of donation to paid
+        self.donation.amount = 5000
         self.donation.status = DonationStatuses.paid
         self.donation.save()
 
@@ -155,14 +178,14 @@ class PayoutTestCase(SepaXMLTestMixin, OnePercentTestCase):
 
         payout = Payout.objects.all()[0]
         self.assertEquals(payout.payout_rule, PayoutRules.seven)
-        self.assertEquals(payout.organization_fee, decimal.Decimal('1.05'))
-        self.assertEquals(payout.amount_payable, decimal.Decimal('13.95'))
+        self.assertEquals(payout.organization_fee, decimal.Decimal('3.5'))
+        self.assertEquals(payout.amount_payable, decimal.Decimal('46.5'))
 
     def test_create_payment_rule_twelve(self):
         """ Not fully funded projects should get payment rule twelve. """
 
         # Set status of donation to paid
-        self.donation.amount = 1400
+        self.donation.amount = 2500
         self.donation.status = DonationStatuses.paid
         self.donation.save()
 
@@ -172,8 +195,8 @@ class PayoutTestCase(SepaXMLTestMixin, OnePercentTestCase):
 
         payout = Payout.objects.all()[0]
         self.assertEquals(payout.payout_rule, PayoutRules.twelve)
-        self.assertEquals(payout.organization_fee, decimal.Decimal('1.68'))
-        self.assertEquals(payout.amount_payable, decimal.Decimal('12.32'))
+        self.assertEquals(payout.organization_fee, decimal.Decimal('3'))
+        self.assertEquals(payout.amount_payable, decimal.Decimal('22'))
 
     def test_amounts_new(self):
         """ Test amounts for new donations. """
@@ -212,10 +235,10 @@ class PayoutTestCase(SepaXMLTestMixin, OnePercentTestCase):
         payout = Payout.objects.all()[0]
 
         # Money is pending but not paid
-        self.assertEquals(payout.amount_raised, decimal.Decimal('15.00'))
-        self.assertEquals(payout.amount_payable, decimal.Decimal('13.95'))
+        self.assertEquals(payout.amount_raised, decimal.Decimal('60.00'))
+        self.assertEquals(payout.amount_payable, decimal.Decimal('55.8'))
 
-        self.assertEquals(payout.get_amount_pending(), decimal.Decimal('15.00'))
+        self.assertEquals(payout.get_amount_pending(), decimal.Decimal('60.00'))
         self.assertEquals(payout.get_amount_safe(), decimal.Decimal('0.00'))
         self.assertEquals(payout.get_amount_failed(), decimal.Decimal('0.00'))
 
@@ -240,19 +263,19 @@ class PayoutTestCase(SepaXMLTestMixin, OnePercentTestCase):
         payout = Payout.objects.all()[0]
 
         # Saved amounts should be same as pending
-        self.assertEquals(payout.amount_raised, decimal.Decimal('15.00'))
-        self.assertEquals(payout.amount_payable, decimal.Decimal('13.95'))
+        self.assertEquals(payout.amount_raised, decimal.Decimal('0.0'))
+        self.assertEquals(payout.amount_payable, decimal.Decimal('0.0'))
 
         # Realtime amounts should be different
         self.assertEquals(payout.get_amount_pending(), decimal.Decimal('0.00'))
         self.assertEquals(payout.get_amount_safe(), decimal.Decimal('0.00'))
-        self.assertEquals(payout.get_amount_failed(), decimal.Decimal('15.00'))
+        self.assertEquals(payout.get_amount_failed(), decimal.Decimal('0.00'))
 
     def test_amounts_paid(self):
         """ Test amounts for paid donations. """
 
         # Setup organization
-        organization = self.project.projectplan.organization
+        organization = self.project.organization
         organization.account_name = 'Funny organization'
         organization.account_iban = 'NL90ABNA0111111111'
         organization.account_bic = 'ABNANL2A'
@@ -270,11 +293,11 @@ class PayoutTestCase(SepaXMLTestMixin, OnePercentTestCase):
         payout = Payout.objects.all()[0]
 
         # Money is safe now, nothing's pending
-        self.assertEquals(payout.amount_raised, decimal.Decimal('15.00'))
-        self.assertEquals(payout.amount_payable, decimal.Decimal('13.95'))
+        self.assertEquals(payout.amount_raised, decimal.Decimal('60.00'))
+        self.assertEquals(payout.amount_payable, decimal.Decimal('55.8'))
 
         self.assertEquals(payout.get_amount_pending(), decimal.Decimal('0.00'))
-        self.assertEquals(payout.get_amount_safe(), decimal.Decimal('15.00'))
+        self.assertEquals(payout.get_amount_safe(), decimal.Decimal('60.00'))
         self.assertEquals(payout.get_amount_failed(), decimal.Decimal('0.00'))
 
 
@@ -283,6 +306,7 @@ class PayoutLogMixin(object):
     Base class for testing payout logs for Payout and OrganizationPayout.
     """
     def setUp(self):
+        self.init_projects()
         self.payout = G(self.obj_class, status=PayoutLineStatuses.new, completed=None)
 
         super(PayoutLogMixin, self).setUp()
@@ -329,14 +353,14 @@ class PayoutLogMixin(object):
             datetime.timedelta(seconds=20))
 
 
-class PayoutLogTestCase(PayoutLogMixin, TestCase):
+class PayoutLogTestCase(PayoutLogMixin, OnePercentTestCase):
     """ Test case for PayoutLog. """
 
     obj_class = Payout
     log_class = PayoutLog
 
 
-class OrganizationPayoutLogTestCase(PayoutLogMixin, TestCase):
+class OrganizationPayoutLogTestCase(PayoutLogMixin, OnePercentTestCase):
     """ Test case for PayoutLog. """
 
     obj_class = OrganizationPayout
@@ -354,13 +378,21 @@ class OrganizationPayoutLogTestCase(PayoutLogMixin, TestCase):
         # self.assertEqual(header[3].text, '13.95')
 
 
-class OrganizationPayoutTestCase(TestCase):
+class OrganizationPayoutTestCase(OnePercentTestCase):
     """ Test case for OrganizationPayout. """
 
     def setUp(self):
         """ Setup reference to today. """
-
+        self.init_projects()
         self.today = datetime.datetime.now().date()
+
+        organization = OrganizationFactory.create()
+        organization.save()
+        self.project = OnePercentProjectFactory.create(organization=organization, amount_asked=50)
+
+        # Update phase to campaign.
+        self.project.status = ProjectPhase.objects.get(slug='campaign')
+        self.project.save()
 
         super(OrganizationPayoutTestCase, self).setUp()
 
@@ -373,19 +405,9 @@ class OrganizationPayoutTestCase(TestCase):
             Project
         )
 
-        self.campaign = G(
-            ProjectCampaign,
-            project=self.project,
-            money_asked=1500
-        )
-
-        self.projectplan = G(
-            ProjectPlan,
-            project=self.project
-        )
 
         # Update phase to campaign.
-        self.project.phase = ProjectPhases.campaign
+        self.project.status = ProjectPhase.objects.get(slug='campaign')
         self.project.save()
 
         self.donation = G(
@@ -434,7 +456,7 @@ class OrganizationPayoutTestCase(TestCase):
         self.create_donation()
 
         # Progress to act phase, creating a Payout
-        self.project.phase = ProjectPhases.act
+        self.project.status = ProjectPhase.objects.get(slug='done-incomplete')
         self.project.save()
 
         # Change payout status to complete
