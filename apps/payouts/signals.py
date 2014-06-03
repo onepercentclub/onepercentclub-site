@@ -16,7 +16,7 @@ def create_payout_finished_project(sender, instance, created, **kwargs):
     project = instance
     now = timezone.now()
 
-    if (project.status.name == ProjectPhase.objects.get(slug='done-complete') or
+    if (project.status == ProjectPhase.objects.get(slug='done-complete') or
             project.status == ProjectPhase.objects.get(slug='done-incomplete')) \
             and project.amount_asked:
 
