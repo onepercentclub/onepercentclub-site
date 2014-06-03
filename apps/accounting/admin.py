@@ -1,6 +1,10 @@
+from apps.accounting.models import BankTransactionCategory
+from apps.accounting.signals import match_transaction_with_payout
 from django.contrib import admin
+from django.utils.translation import ugettext as _
 
 from apps.csvimport.admin import IncrementalCSVImportMixin
+from django.core.urlresolvers import reverse
 
 from .models import BankTransaction, DocdataPayout, DocdataPayment
 
@@ -13,6 +17,8 @@ from .forms import (
 class BankTransactionAdmin(IncrementalCSVImportMixin, admin.ModelAdmin):
     date_hierarchy = 'book_date'
 
+    actions = ('find_matches', )
+
     search_fields = [
         'counter_account', 'counter_name',
         'description1', 'description2', 'description2', 'description4',
@@ -21,14 +27,33 @@ class BankTransactionAdmin(IncrementalCSVImportMixin, admin.ModelAdmin):
     ]
 
     list_display = [
-        'book_date', 'counter_name','counter_account', 'credit_debit', 'amount'
+        'book_date', 'counter_name','counter_account', 'credit_debit', 'amount', 'category'
     ]
 
     list_filter = [
-        'credit_debit', 'book_date'
+        'credit_debit', 'book_date', 'category'
     ]
+    list_editable = ('category', )
+
+    raw_id_fields = ('payout', )
+
+    readonly_fields = ('payout_link', )
 
     import_form = BankTransactionImportForm
+
+    def payout_link(self, obj):
+        object = obj.payout
+        url = reverse('admin:%s_%s_change' % (object._meta.app_label, object._meta.module_name), args=[object.id])
+        return "<a href='%s'>%s</a>" % (str(url), object)
+
+    payout_link.allow_tags = True
+
+    def find_matches(self, request, queryset):
+        #
+        for transaction in queryset.all():
+            match_transaction_with_payout(transaction)
+
+    find_matches.short_description = _("Try to match with payouts.")
 
 admin.site.register(BankTransaction, BankTransactionAdmin)
 
@@ -56,3 +81,6 @@ class DocdataPaymentAdmin(IncrementalCSVImportMixin, admin.ModelAdmin):
     import_form = DocdataPaymentImportForm
 
 admin.site.register(DocdataPayment, DocdataPaymentAdmin)
+
+
+admin.site.register(BankTransactionCategory)

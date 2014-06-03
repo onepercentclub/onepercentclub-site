@@ -1,0 +1,23 @@
+[
+{
+    "pk": 1, 
+    "model": "accounting.banktransactioncategory", 
+    "fields": {
+        "name": "Campaign Payout"
+    }
+},
+{
+    "pk": 2, 
+    "model": "accounting.banktransactioncategory", 
+    "fields": {
+        "name": "Docdata"
+    }
+},
+{
+    "pk": 3, 
+    "model": "accounting.banktransactioncategory", 
+    "fields": {
+        "name": "Donation by us"
+    }
+}
+]

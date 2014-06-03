@@ -160,7 +160,6 @@ class SepaDocument(object):
         self._credit_transfers.append(transfer)
         self._header_control_sum += transfer.amount
 
-
     def add_credit_transfer(self, *args, **kwargs):
         """ Add a credit transfer transaction. """
         if self._type != 'CT':

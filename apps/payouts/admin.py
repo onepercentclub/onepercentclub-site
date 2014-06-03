@@ -1,4 +1,7 @@
 import logging
+from apps.accounting.models import BankTransaction
+from django.core.urlresolvers import reverse
+
 logger = logging.getLogger(__name__)
 
 import decimal
@@ -10,10 +13,8 @@ from django.utils import timezone
 from django.utils.translation import ugettext as _
 from django.utils.text import Truncator
 
-from .models import (
-    Payout, PayoutLog, OrganizationPayout, OrganizationPayoutLog,
-    BankMutation, BankMutationLine
-)
+from .models import Payout, PayoutLog, OrganizationPayout, OrganizationPayoutLog
+
 from .choices import PayoutLineStatuses
 from .admin_filters import PendingDonationsPayoutFilter, HasIBANPayoutFilter
 from .admin_utils import link_to
@@ -35,14 +36,33 @@ class OrganizationPayoutLogInline(PayoutLogBase):
     model = OrganizationPayoutLog
 
 
+class PayoutTransactionInline(admin.TabularInline):
+    model = BankTransaction
+    extra = 0
+
+    readonly_fields = ('transaction_link', 'counter_name', 'counter_account', 'amount', 'book_date', 'credit_debit')
+    fields = readonly_fields
+
+    def has_add_permission(self, request):
+        return False
+
+    def transaction_link(self, object):
+        url = reverse('admin:%s_%s_change' % (object._meta.app_label, object._meta.module_name), args=[object.id])
+        return "<a href='%s'>%s</a>" % (str(url), object)
+
+    transaction_link.allow_tags = True
+    
+    can_delete = False
+
+
 class PayoutAdmin(admin.ModelAdmin):
     model = Payout
 
-    inlines = [PayoutLogInline]
+    inlines = (PayoutLogInline, PayoutTransactionInline)
 
     search_fields = [
-        'invoice_reference', 'project__title',
-        'project__organization__name'
+        'invoice_reference', 'receiver_account_iban', 'receiver_account_number',
+        'project__title', 'project__organization__name'
     ]
 
     date_hierarchy = 'updated'
@@ -57,14 +77,13 @@ class PayoutAdmin(admin.ModelAdmin):
 
     list_display = [
         'payout', 'status', 'admin_project', 'amount_payable',
-        'admin_amount_raised', 'admin_amount_pending', 'is_pending',
-        'payout_rule', 'updated', 'admin_has_iban'
+        'admin_amount_raised', 'admin_amount_pending',
+        'payout_rule', 'admin_has_iban', 'created_date', 'submitted_date', 'completed_date'
     ]
 
     list_display_links = [
         'payout',
     ]
-
 
     readonly_fields = [
         'admin_project', 'admin_organization', 'created', 'updated',
@@ -80,7 +99,7 @@ class PayoutAdmin(admin.ModelAdmin):
         }),
         (_('Dates'), {
             'fields': (
-                'created', 'updated', 'completed',
+                'created', 'updated', 'submitted', 'completed',
             )
         }),
         (_('Realtime amounts'), {
@@ -93,7 +112,8 @@ class PayoutAdmin(admin.ModelAdmin):
         }),
         (_('Payment details'), {
             'fields': (
-                'receiver_account_country', 'receiver_account_number', 'receiver_account_iban', 'receiver_account_bic',
+                'receiver_account_name', 'receiver_account_country', 'receiver_account_number',
+                'receiver_account_iban', 'receiver_account_bic',
                 'description_line1', 'description_line2', 'description_line3', 'description_line4'
             )
         })
@@ -108,6 +128,28 @@ class PayoutAdmin(admin.ModelAdmin):
     is_pending.boolean = True
     is_pending.short_description = _('pending')
 
+    def created_date(self, obj):
+        return obj.created.strftime("%d-%m-%Y")
+
+    created_date.admin_order_field = 'created'
+    created_date.short_description = 'created'
+
+    def submitted_date(self, obj):
+        if obj.submitted:
+            return obj.submitted.strftime("%d-%m-%Y")
+        return ""
+
+    submitted_date.admin_order_field = 'submitted'
+    submitted_date.short_description = 'Submitted'
+
+    def completed_date(self, obj):
+        if obj.completed:
+            return obj.completed.strftime("%d-%m-%Y")
+        return ""
+
+    completed_date.admin_order_field = 'completed'
+    completed_date.short_description = 'Completed'
+
     # Link to all donations for project
     admin_amount_raised = link_to(
         'amount_raised', 'admin:fund_donation_changelist',
@@ -115,7 +157,7 @@ class PayoutAdmin(admin.ModelAdmin):
             'project': obj.project.id,
             'status__exact': 'all'
         },
-        short_description=_('amount raised')
+        short_description=_('Raised')
     )
 
     # Link to pending donations for project
@@ -125,7 +167,7 @@ class PayoutAdmin(admin.ModelAdmin):
             'project': obj.project.id,
             'status__exact': 'pending'
         },
-        short_description=_('amount pending')
+        short_description=_('Pending')
     )
 
     # Link to paid donations for project
@@ -135,7 +177,7 @@ class PayoutAdmin(admin.ModelAdmin):
             'project': obj.project.id,
             'status__exact': 'paid'
         },
-        short_description=_('amount safe')
+        short_description=_('Safe')
     )
 
     # Link to failed donations for project
@@ -145,7 +187,7 @@ class PayoutAdmin(admin.ModelAdmin):
             'project': obj.project.id,
             'status__exact': 'failed'
         },
-        short_description=_('amount failed')
+        short_description=_('Failed')
     )
 
     # Link to project
@@ -168,15 +210,15 @@ class PayoutAdmin(admin.ModelAdmin):
     )
 
     def admin_has_iban(self, obj):
-        if obj.receiver_account_iban:
+        if obj.receiver_account_iban and obj.receiver_account_bic:
             return True
 
         return False
-    admin_has_iban.short_description = _('has IBAN')
+    admin_has_iban.short_description = _('IBAN')
     admin_has_iban.boolean = True
 
     def payout(self, obj):
-        return "View/Edit"
+        return "Select"
 
     def has_add_permission(self, request):
         return False
@@ -276,7 +318,7 @@ class OrganizationPayoutAdmin(admin.ModelAdmin):
         })
     )
 
-    actions = ['recalculate_amounts']
+    actions = ('recalculate_amounts', 'export_sepa')
 
     def recalculate_amounts(self, request, queryset):
         # Only recalculate for 'new' payouts
@@ -298,56 +340,21 @@ class OrganizationPayoutAdmin(admin.ModelAdmin):
 
     recalculate_amounts.short_description = _("Recalculate amounts for new payouts.")
 
+    def export_sepa(self, request, queryset):
+        """
+        Dowload a sepa file with selected ProjectPayments
+        """
+        objs = queryset.all()
+        if not request.user.is_staff:
+            raise PermissionDenied
+        response = HttpResponse(mimetype='text/xml')
+        date = timezone.datetime.strftime(timezone.now(), '%Y%m%d%H%I%S')
+        response['Content-Disposition'] = 'attachment; filename=payments_sepa%s.xml' % date
+        response.write(OrganizationPayout.create_sepa_xml(objs))
+        return response
+
+    export_sepa.short_description = "Export SEPA file."
+
 admin.site.register(OrganizationPayout, OrganizationPayoutAdmin)
 
-
-class BankMutationAdmin(admin.ModelAdmin):
-    model = BankMutation
-    save_on_top = True
-    actions_on_top = True
-
-    def credit_lines(self, obj):
-        return "<a href='/admin/payouts/bankmutationline/?bank_mutation=%s&dc=C'>Credit mutations</a>" % str(obj.id)
-
-    credit_lines.allow_tags = True
-
-    def debit_lines(self, obj):
-        return "<a href='/admin/payouts/bankmutationline/?bank_mutation=%s&dc=D'>Debit mutations</a>" % str(obj.id)
-
-    debit_lines.allow_tags = True
-
-    readonly_fields = ['debit_lines', 'credit_lines']
-    fields = readonly_fields + ['mut_file', ]
-
-# admin.site.register(BankMutation, BankMutationAdmin)
-
-
-class BankMutationLineAdmin(admin.ModelAdmin):
-    model = BankMutationLine
-    list_filter = ['dc']
-    can_delete = False
-    extra = 0
-
-    list_display = [
-        'start_date', 'matched', 'dc', 'transaction_type', 'amount', 'invoice_reference', 'account_number', 'account_name'
-    ]
-
-    def has_add_permission(self, request):
-        return False
-
-    def matched(self, obj):
-        if obj.payout:
-            return "Yes"
-        return "-"
-
-    matched.allow_tags = True
-
-    readonly_fields = [
-        'bank_mutation', 'amount', 'dc', 'transaction_type', 'account_number', 'account_name',
-       'start_date', 'matched', 'issuer_account_number', 'currency', 'invoice_reference',
-       'description_line1', 'description_line2', 'description_line3', 'description_line4'
-    ]
-    #fields = readonly_fields
-
-# admin.site.register(BankMutationLine, BankMutationLineAdmin)
 
