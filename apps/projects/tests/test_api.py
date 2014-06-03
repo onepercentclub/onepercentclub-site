@@ -38,15 +38,20 @@ class ProjectEndpointTestCase(OnePercentTestCase):
         self.init_projects()
         self.user = BlueBottleUserFactory.create()
 
+        organization = OrganizationFactory.create()
+        organization.save()
+
         self.campaign_phase = ProjectPhase.objects.get(slug='campaign')
         self.plan_phase = ProjectPhase.objects.get(slug='done-complete')
 
         for char in 'abcdefghijklmnopqrstuvwxyz':
             # Put half of the projects in the campaign phase.
             if ord(char) % 2 == 1:
-                project = OnePercentProjectFactory.create(title=char * 3, slug=char * 3, status=self.campaign_phase)
+                project = OnePercentProjectFactory.create(title=char * 3, slug=char * 3,
+                                                          status=self.campaign_phase, organization=organization)
             else:
-                project = OnePercentProjectFactory.create(title=char * 3, slug=char * 3, status=self.plan_phase)
+                project = OnePercentProjectFactory.create(title=char * 3, slug=char * 3,
+                                                          status=self.plan_phase, organization=organization)
 
             project.save()
 
