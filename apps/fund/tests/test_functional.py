@@ -21,10 +21,14 @@ from onepercentclub.tests.factory_models.project_factories import OnePercentProj
             'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
 class DonationSeleniumTests(OnePercentSeleniumTestCase):
     """
-    Selenium tests for Projects.
+    Selenium tests for Funding.
     """
 
     fixtures = ['region_subregion_country_data.json'] # apps/geo/fixtures/
+
+    def __unicode__(self):
+        return "Donation tests"
+
 
     def setUp(self):
 
@@ -56,6 +60,9 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
                                'country': 'NL'}
 
     def visit_project_list_page(self, lang_code=None):
+        """
+        visit project list
+        """
         self.visit_path('/projects', lang_code)
 
         self.assertTrue(self.browser.is_element_present_by_css('.project-item'),
@@ -149,6 +156,9 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
         # self.scroll_to_and_click_by_css('.fund-payment-item .radio')
 
     def test_donation_thank_you_page(self):
+        """
+        Test donation thank you page
+        """
 
         self.assertTrue(self.login(username=self.some_user.email, password='testing'))
 
