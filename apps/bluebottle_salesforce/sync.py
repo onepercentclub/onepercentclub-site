@@ -42,8 +42,9 @@ def sync_organizations(dry_run, sync_from_datetime, loglevel):
 
         # SF Layout: Account details section.
         sforganization.name = organization.name
-        sforganization.legal_status = organization.legal_status
-        sforganization.description = organization.description
+
+        # sforganization.legal_status = organization.legal_status
+        # sforganization.description = organization.description
 
         # SF Layout: Contact Information section. Ignore address type and only use first address.
         # When multiple address types are supported in the website, extend this function
@@ -242,7 +243,6 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
                                                                                                  project.id))
 
         sfproject.project_name = project.title
-        sfproject.status_project = project.status__name
 
         # SF Layout: Summary Project Details section.
 
@@ -253,15 +253,15 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
         sfproject.extensive_project_description = project.story
 
         if project.status:
-            sfproject.status = project.status.name.encode("utf-8")
+            sfproject.status_project = project.status.name.encode("utf-8")
 
         sfproject.tags = ""
         for tag in project.tags.all():
             sfproject.tags = str(tag) + ", " + sfproject.tags
 
-        sfproject.target_group_s_of_the_project = "" #project.for_who
-        sfproject.number_of_people_reached_direct = "" #project.reach
-        sfproject.describe_where_the_money_is_needed_for = "" #project.amount_needed
+        sfproject.target_group_s_of_the_project = 0 #project.for_who
+        sfproject.number_of_people_reached_direct = 0 #project.reach
+        sfproject.describe_where_the_money_is_needed_for = project.amount_needed
         sfproject.sustainability = "" #project.future
         sfproject.contribution_project_in_reducing_poverty = "" #project.effects
 
@@ -289,11 +289,10 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
         sfproject.date_project_failed = project.campaign_ended
         sfproject.date_project_result = project.campaign_ended
 
-
         if project.organization:
             try:
                 sfproject.organization_account = SalesforceOrganization.objects.get(
-                    external_id=project.organization.id)
+                    external_id=project.organization_id)
             except SalesforceOrganization.DoesNotExist:
                 logger.error("Unable to find organization id {0} in Salesforce for project id {1}".format(
                     project.organization.id, project.id))
