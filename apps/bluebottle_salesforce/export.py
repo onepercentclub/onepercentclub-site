@@ -1,8 +1,6 @@
 import csv
 import logging
-from decimal import Decimal
 from apps.projects.models import ProjectBudgetLine
-from bluebottle.bb_projects.models import ProjectPhase
 from bluebottle.utils.utils import get_project_model
 from django.contrib.auth import get_user_model
 
