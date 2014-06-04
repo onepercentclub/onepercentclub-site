@@ -5,6 +5,5 @@ from .test_runner import *
 
 # Use firefox for running tests on Shippable
 SELENIUM_WEBDRIVER = 'firefox'
-SELENIUM_TESTS = True
 
 ROOT_URLCONF = 'onepercentclub.urls'
