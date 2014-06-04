@@ -13,6 +13,13 @@ App.HomeBannerView = Ember.View.extend({
         setTimeout(function() {
          $(".home-carousel .home-carousel-nav span:first-child").addClass("is-active");   
         }, 200);
+
+        // TODO: Make it a general Ember component
+        var heightHead = $('.home-carousel-content h1').height();
+
+        if (heightHead > 100) {
+            $('.home-carousel .first-item').addClass('dutch-head');
+        }
     }
 });
 

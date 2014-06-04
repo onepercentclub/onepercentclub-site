@@ -64,6 +64,17 @@
 						}
 					}
 				}
+				&.dutch-head {
+					background-position: 50% 20px;
+					@include breakpoint(x-small) {
+						background-position: 50% 120px;
+					}
+					.home-carousel-content {
+						h1 {
+						font-size: 34px!important;
+					}	
+					}
+				}
 			}
 			
 			&.second-item {
@@ -71,7 +82,7 @@
 				
 				.home-carousel-content {
 					position: relative;
-					top: 270px;
+					top: 250px;
 					max-width: 540px;
 					margin: 0 auto;
 					background: rgba(0,0,0, .2);
