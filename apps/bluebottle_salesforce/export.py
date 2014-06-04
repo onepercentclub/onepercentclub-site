@@ -1,5 +1,6 @@
 import csv
 import logging
+from decimal import Decimal
 from apps.projects.models import ProjectBudgetLine
 from bluebottle.bb_projects.models import ProjectPhase
 from bluebottle.utils.utils import get_project_model
@@ -264,6 +265,7 @@ def generate_projects_csv_file(path, loglevel):
                 deadline = project.deadline.date()
             for tag in project.tags.all():
                 tags = str(tag) + ", " + tags
+
             csvwriter.writerow([project.id,
                                 project.title.encode("utf-8"),
                                 project.owner.id,
@@ -271,17 +273,17 @@ def generate_projects_csv_file(path, loglevel):
                                 country,
                                 project.pitch.encode("utf-8"),
                                 organization_id,
-                                project.reach,
-                                "%01.2f" % (project.amount_donated / 100),
-                                "%01.2f" % (project.amount_asked / 100),
-                                "%01.2f" % (project.amount_needed / 100),
+                                "", #project.reach,
+                                "%01.2f" % (project.amount_donated or 0),
+                                "%01.2f" % (project.amount_asked or 0),
+                                "%01.2f" % (project.amount_needed or 0),
                                 project.created.date(),
-                                project.for_who.encode("utf-8"),
+                                "", #project.for_who.encode("utf-8"),
                                 "http://www.onepercentclub.com/en/#!/projects/{0}".format(project.slug),
                                 tags,
-                                project.effects.encode("utf-8"),
-                                project.future.encode("utf-8"),
-                                project.description.encode("utf-8"),
+                                "", #project.effects.encode("utf-8"),
+                                "", #project.future.encode("utf-8"),
+                                project.story.encode("utf-8"),
                                 project.updated,
                                 deadline])
 
@@ -352,7 +354,7 @@ def generate_donations_csv_file(path, loglevel):
                 if donation.user and donation.user.get_full_name() != '':
                     name = donation.user.get_full_name()
                 else:
-                    name = "1%MEMBER"
+                    name = "1%Member"
 
                 # Get the payment method from the associated order / payment
                 payment_method = payment_method_mapping['']  # Maps to Unknown for DocData.
