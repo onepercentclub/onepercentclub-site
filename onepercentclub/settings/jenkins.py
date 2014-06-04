@@ -36,6 +36,7 @@ PROJECT_APPS.remove('bluebottle.bb_projects')
 PROJECT_APPS.remove('bluebottle.bb_tasks')
 PROJECT_APPS.remove('bluebottle.wallposts')
 PROJECT_APPS.remove('bluebottle.utils')
+PROJECT_APPS.remove('bluebottle.geo')
 
 # This app fails with a strange error:
 # DatabaseError: no such table: django_comments
@@ -46,6 +47,7 @@ PROJECT_APPS.remove('django.contrib.sites')
 PROJECT_APPS.remove('django_extensions')
 PROJECT_APPS.remove('django_extensions.tests')
 PROJECT_APPS.remove('django.contrib.messages')
+PROJECT_APPS.remove('django.contrib.sessions')
 
 
 # FIXME: We need to fix the django_polymorphic tests
