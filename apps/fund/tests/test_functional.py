@@ -15,6 +15,7 @@ from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 
 from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
+from pyvirtualdisplay import Display
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
@@ -29,8 +30,9 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
     def __unicode__(self):
         return "Donation tests"
 
-
     def setUp(self):
+
+        display = Display(visible=1, size=(320, 240)).start()
 
         self.init_projects()
         self.phase_campaign = ProjectPhase.objects.get(slug='campaign')
