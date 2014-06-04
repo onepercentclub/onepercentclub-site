@@ -1,8 +1,9 @@
 import logging
+from bluebottle.utils.utils import get_project_model
+from django.contrib.auth import get_user_model
 from registration.models import RegistrationProfile
-from bluebottle.bb_accounts.models import BlueBottleBaseUser
 from apps.cowry_docdata.models import payment_method_mapping
-from apps.projects.models import Project, ProjectBudgetLine
+from apps.projects.models import ProjectBudgetLine
 from apps.organizations.models import Organization
 from apps.tasks.models import Task, TaskMember
 from apps.fund.models import Donation, DonationStatuses, RecurringDirectDebitPayment
@@ -11,6 +12,10 @@ from apps.vouchers.models import Voucher, VoucherStatuses
 from apps.bluebottle_salesforce.models import SalesforceOrganization, SalesforceContact, SalesforceProject, \
     SalesforceDonation, SalesforceProjectBudget, SalesforceTask, SalesforceTaskMembers, SalesforceVoucher
 from bluebottle.bb_projects.models import ProjectPhase
+
+USER_MODEL = get_user_model()
+PROJECT_MODEL = get_project_model()
+
 
 logger = logging.getLogger('bluebottle.salesforce')
 
@@ -37,8 +42,9 @@ def sync_organizations(dry_run, sync_from_datetime, loglevel):
 
         # SF Layout: Account details section.
         sforganization.name = organization.name
-        sforganization.legal_status = organization.legal_status
-        sforganization.description = organization.description
+
+        # sforganization.legal_status = organization.legal_status
+        # sforganization.description = organization.description
 
         # SF Layout: Contact Information section. Ignore address type and only use first address.
         # When multiple address types are supported in the website, extend this function
@@ -85,7 +91,7 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
     error_count = 0
     success_count = 0
 
-    users = BlueBottleBaseUser.objects.all()
+    users = USER_MODEL.objects.all()
 
     if sync_from_datetime:
         users = users.filter(updated__gte=sync_from_datetime)
@@ -102,7 +108,7 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
             contact = SalesforceContact()
 
         # Determine and set user type (person, group, foundation, school, company, ... )
-        contact.category1 = BlueBottleBaseUser.UserType.values[user.user_type].title()
+        contact.category1 = USER_MODEL.UserType.values[user.user_type].title()
 
         # SF Layout: Profile section.
         contact.first_name = user.first_name
@@ -112,16 +118,14 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
             contact.last_name = "1%MEMBER"
 
         if user.gender == "male":
-            contact.gender = BlueBottleBaseUser.Gender.values['male'].title()
+            contact.gender = USER_MODEL.Gender.values['male'].title()
         elif user.gender == "female":
-            contact.gender = BlueBottleBaseUser.Gender.values['female'].title()
+            contact.gender = USER_MODEL.Gender.values['female'].title()
         else:
             contact.gender = ""
 
-        if user.availability:
-            contact.availability = BlueBottleBaseUser.Availability.values[user.availability].title()
-        else:
-            contact.availability = ""
+        if user.time_available:
+            contact.availability = user.time_available.type or ""
 
         contact.user_name = user.username
         contact.is_active = user.is_active
@@ -208,7 +212,7 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
     error_count = 0
     success_count = 0
 
-    projects = Project.objects.all()
+    projects = PROJECT_MODEL.objects.all()
 
     if sync_from_datetime:
         projects = projects.filter(updated__gte=sync_from_datetime)
@@ -225,11 +229,12 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
             sfproject = SalesforceProject()
 
         # SF Layout: 1%CLUB Project Detail section.
-        sfproject.amount_at_the_moment = "%01.2f" % (project.amount_donated / 100)
-        sfproject.amount_requested = "%01.2f" % (project.amount_asked / 100)
-        sfproject.amount_still_needed = "%01.2f" % (project.amount_needed / 100)
-        if project.status == ProjectPhase.objects.get(slug="campaign"):
-            sfproject.date_project_deadline = project.deadline
+        sfproject.amount_at_the_moment = "%01.2f" % (project.amount_donated or 0)
+        sfproject.amount_requested = "%01.2f" % (project.amount_asked or 0)
+        sfproject.amount_still_needed = "%01.2f" % (project.amount_needed or 0)
+
+        if project.deadline:
+            sfproject.date_project_deadline = project.deadline.date()
 
         try:
             sfproject.project_owner = SalesforceContact.objects.get(external_id=project.owner.id)
@@ -238,67 +243,61 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
                                                                                                  project.id))
 
         sfproject.project_name = project.title
-        sfproject.status_project = project.status__name
 
         # SF Layout: Summary Project Details section.
 
         if project.country:
-            sfproject.country_in_which_the_project_is_located = project.country.name
-        sfproject.describe_the_project_in_one_sentence = project.pitch[:5000]
-        sfproject.extensive_project_description = project.description
+            sfproject.country_in_which_the_project_is_located = project.country.name.encode("utf-8")
 
-        # Set pitch status dates
-        if project.status == ProjectPhase.objects.get(slug="plan-new") and not sfproject.date_pitch_created:
-            sfproject.date_pitch_created = project.created
-        elif project.status == ProjectPhase.objects.get(slug="plan-submitted") and not sfproject.date_pitch_submitted:
-            sfproject.date_pitch_submitted = project.updated
-        elif project.status == ProjectPhase.objects.get(slug="campaign") and not sfproject.date_pitch_approved:
-            sfproject.date_pitch_approved = project.updated
-        elif project.status == ProjectPhase.objects.get(slug="plan-rejected") and not sfproject.date_pitch_created:
-            sfproject.date_pitch_rejected = project.updated
+        sfproject.describe_the_project_in_one_sentence = project.pitch[:5000]
+        sfproject.extensive_project_description = project.story
+
+        if project.status:
+            sfproject.status_project = project.status.name.encode("utf-8")
 
         sfproject.tags = ""
         for tag in project.tags.all():
             sfproject.tags = str(tag) + ", " + sfproject.tags
 
-        sfproject.target_group_s_of_the_project = project.for_who
-        sfproject.number_of_people_reached_direct = project.reach
+        sfproject.target_group_s_of_the_project = 0 #project.for_who
+        sfproject.number_of_people_reached_direct = 0 #project.reach
         sfproject.describe_where_the_money_is_needed_for = project.amount_needed
-        sfproject.sustainability = project.future
-        sfproject.contribution_project_in_reducing_poverty = project.effects
+        sfproject.sustainability = "" #project.future
+        sfproject.contribution_project_in_reducing_poverty = "" #project.effects
 
-        # Set plan status dates
-        if project.status == ProjectPhase.objects.get(slug="plan-submitted") and not sfproject.date_plan_submitted:
-            sfproject.date_plan_submitted = project.updated
-        elif project.status == ProjectPhase.objects.get(slug="campaign") and not sfproject.date_plan_approved:
-            sfproject.date_plan_approved = project.updated
-        elif project.status == ProjectPhase.objects.get(slug="plan-rejected") and not sfproject.date_plan_rejected:
-            sfproject.date_plan_rejected = project.updated
+        # Set status dates
+        # FIXME: These are the dates available now
+        # created: date the project was first created
+        # updated: last change
+        # deadline: Deadline for the campaign
+        # date_submitted
+        # campaign_started
+        # campaign_funded: 100% funded (funding continues)
+        # campaign_ended: Campaigns stops (might be prior to deadline)
+
+        sfproject.date_plan_submitted = project.date_submitted
+        sfproject.date_plan_approved = project.campaign_started
+        sfproject.date_plan_rejected = project.date_submitted
+
+        sfproject.date_pitch_created = project.created
+        sfproject.date_pitch_submitted = project.date_submitted
+        sfproject.date_pitch_approved = project.campaign_started
+        sfproject.date_pitch_rejected = project.date_submitted
+
+        sfproject.date_project_act = project.campaign_ended
+        sfproject.date_project_realized = project.campaign_ended
+        sfproject.date_project_failed = project.campaign_ended
+        sfproject.date_project_result = project.campaign_ended
 
         if project.organization:
             try:
                 sfproject.organization_account = SalesforceOrganization.objects.get(
-                    external_id=project.organization.id)
+                    external_id=project.organization_id)
             except SalesforceOrganization.DoesNotExist:
                 logger.error("Unable to find organization id {0} in Salesforce for project id {1}".format(
                     project.organization.id, project.id))
 
         sfproject.project_url = "http://www.onepercentclub.com/en/#!/projects/{0}".format(project.slug)
-
-        # Unknown: sfproject.third_half_project =
-        # Unknown: sfproject.earth_charther_project =
-
-        #TODO: this doesn't make a lot of sense since act, realized and results are the same status now (done-completed)
-        # Set project status dates
-        sfproject.project_created_date = project.created
-        if project.phase == ProjectPhase.objects.get(slug="done-completed") and not sfproject.date_project_act:
-            sfproject.date_project_act = project.updated
-        elif project.phase == ProjectPhase.objects.get(slug="done-completed") and not sfproject.date_project_realized:
-            sfproject.date_project_realized = project.updated
-        elif project.phase == ProjectPhase.objects.get(slug="done-stopped") and not sfproject.date_project_failed:
-            sfproject.date_project_failed = project.updated
-        elif project.phase == ProjectPhase.objects.get(slug="done-completed") and not sfproject.date_project_result:
-            sfproject.date_project_result = project.updated
 
         # SF Layout: Other section.
         sfproject.external_id = project.id
@@ -342,10 +341,10 @@ def sync_projectbudgetlines(dry_run, sync_from_datetime, loglevel):
         sfbudget_line.external_id = budget_line.id
 
         try:
-            sfbudget_line.project = SalesforceProject.objects.get(external_id=budget_line.project_plan.id)
+            sfbudget_line.project = SalesforceProject.objects.get(external_id=budget_line.project.id)
         except SalesforceProject.DoesNotExist:
             logger.error("Unable to find project id {0} in Salesforce for budget line id {1}".format(
-                budget_line.project_plan.id, budget_line.id))
+                budget_line.project.id, budget_line.id))
 
         # Save the object to Salesforce
         if not dry_run:
@@ -531,7 +530,10 @@ def sync_tasks(dry_run, sync_from_datetime, loglevel):
         sftask.effort = task.time_needed
         sftask.extended_task_description = task.description
         sftask.location_of_the_task = task.location
-        sftask.task_expertise = task.expertise
+
+        if task.skill:
+            sftask.task_expertise = task.skill.name.encode("utf-8")
+
         sftask.task_status = task.status
         sftask.title = task.title
         sftask.task_created_date = task.created
