@@ -338,6 +338,9 @@ def prepare_django():
         # Make sure the web user can read and write the static media dir.
         run('chmod a+rw static/media')
 
+        # make sure the web user owns the private directory
+        run('chown -Rf %s private' % env.web_user)
+
         run_web('./manage.py syncdb --migrate --noinput --settings=%s' % env.django_settings)
         run_web('./manage.py collectstatic -l -v 0 --noinput --settings=%s' % env.django_settings)
 
