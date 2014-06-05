@@ -7,16 +7,19 @@ from .models import Payout
 from .choices import PayoutLineStatuses
 
 
-def create_payout_for_fully_funded_project(sender, instance, created, **kwargs):
-    """ Create or update Payout for fully funded projects. """
+def create_payout_finished_project(sender, instance, created, **kwargs):
+    """
+    Create or update Payout for finished projects.
+    Project finish when deadline is hit or when it's changed manually in admin.
+    """
 
     project = instance
     now = timezone.now()
 
-    # Check projects in phase Act that have asked for money.
-    # import ipdb; ipdb.set_trace()
-    if project.status == ProjectPhase.objects.get(slug="done-complete") and \
-                         project.money_asked:
+    if (project.status == ProjectPhase.objects.get(slug='done-complete') or
+            project.status == ProjectPhase.objects.get(slug='done-incomplete')) \
+            and project.amount_asked:
+
         if now.day <= 15:
             next_date = timezone.datetime(now.year, now.month, 15)
         else:
@@ -28,7 +31,7 @@ def create_payout_for_fully_funded_project(sender, instance, created, **kwargs):
 
             if payout.status == PayoutLineStatuses.new:
                 # Update planned payout date for new Payouts
-                # We *might* also want to call calculate_amounts() here.
+                payout.calculate_amounts()
                 payout.planned = next_date
                 payout.save()
 
@@ -48,9 +51,10 @@ def create_payout_for_fully_funded_project(sender, instance, created, **kwargs):
             payout.receiver_account_bic = organization.account_bic
             payout.receiver_account_iban = organization.account_iban
             payout.receiver_account_number = organization.account_number
-            payout.receiver_account_name = organization.account_name
-            payout.receiver_account_city = organization.account_city
+            payout.receiver_account_name = organization.account_holder_name
+            payout.receiver_account_city = organization.account_holder_city
             payout.receiver_account_country = organization.account_bank_country
 
             # Generate invoice reference, saves twice
             payout.update_invoice_reference(auto_save=True)
+

@@ -1,6 +1,8 @@
 import csv
 import logging
-from bluebottle.bb_projects.models import ProjectPhase
+from apps.projects.models import ProjectBudgetLine
+from bluebottle.utils.utils import get_project_model
+from django.contrib.auth import get_user_model
 
 import os
 from registration.models import RegistrationProfile
@@ -9,7 +11,10 @@ from apps.cowry_docdata.models import payment_method_mapping
 from apps.fund.models import Donation, DonationStatuses, RecurringDirectDebitPayment
 from apps.vouchers.models import Voucher, VoucherStatuses
 from apps.organizations.models import Organization
-from bluebottle.bb_accounts.models import BlueBottleUser
+
+USER_MODEL = get_user_model()
+PROJECT_MODEL = get_project_model()
+
 
 from apps.tasks.models import Task, TaskMember
 
@@ -55,8 +60,8 @@ def generate_organizations_csv_file(path, loglevel):
 
                 csvwriter.writerow([organization.id,
                                     organization.name.encode("utf-8"),
-                                    organization.legal_status.encode("utf-8"),
-                                    organization.description.encode("utf-8"),
+                                    "", # organization.legal_status.encode("utf-8"),
+                                    "", # organization.description.encode("utf-8"),
                                     billing_city.encode("utf-8"),
                                     billing_street.encode("utf-8"),
                                     billing_postal_code.encode("utf-8"),
@@ -98,7 +103,7 @@ def generate_users_csv_file(path, loglevel):
                             "Date_Joined__c", "Date_Last_Login__c", "Account_number__c", "Account_holder__c",
                             "Account_city__c"])
 
-        users = BlueBottleUser.objects.all()
+        users = USER_MODEL.objects.all()
 
         logger.info("Exporting {0} User objects to {1}".format(users.count(), filename))
 
@@ -127,9 +132,9 @@ def generate_users_csv_file(path, loglevel):
 
                 gender = ""
                 if user.gender == "male":
-                    gender = BlueBottleUser.Gender.values['male'].title()
+                    gender = USER_MODEL.Gender.values['male'].title()
                 elif user.gender == "female":
-                    gender = BlueBottleUser.Gender.values['female'].title()
+                    gender = USER_MODEL.Gender.values['female'].title()
 
                 date_deleted = ""
                 if user.deleted:
@@ -167,11 +172,11 @@ def generate_users_csv_file(path, loglevel):
                     bank_account_number = ''
 
                 availability = ""
-                if user.availability:
-                    availability = BlueBottleUser.Availability.values[user.availability].title()
+                if user.time_available:
+                    availability = user.time_available.type
 
                 csvwriter.writerow([user.id,
-                                    BlueBottleUser.UserType.values[user.user_type].title(),
+                                    USER_MODEL.UserType.values[user.user_type].title(),
                                     user.first_name.encode("utf-8"),
                                     last_name.encode("utf-8"),
                                     gender,
@@ -239,32 +244,46 @@ def generate_projects_csv_file(path, loglevel):
                             "Date_project_updated__c",
                             "Date_project_deadline__c"])
 
-        projects = Project.objects.all()
+        projects = PROJECT_MODEL.objects.all()
         logger.info("Exporting {0} Project objects to {1}".format(projects.count(), filename))
 
         for project in projects:
+            country = ''
+            if project.country:
+                country = project.country.name.encode("utf-8")
+            status = ''
+            if project.status:
+                status = project.status.name.encode("utf-8")
+            organization_id = ''
+            if project.organization:
+                organization_id = project.organization.id
+            tags = ""
+            deadline = ""
+            if project.deadline:
+                deadline = project.deadline.date()
             for tag in project.tags.all():
                 tags = str(tag) + ", " + tags
+
             csvwriter.writerow([project.id,
                                 project.title.encode("utf-8"),
                                 project.owner.id,
-                                project.status.name,
-                                project.country.name.encode("utf-8"),
+                                status,
+                                country,
                                 project.pitch.encode("utf-8"),
-                                project.organization.id,
-                                project.reach,
-                                "%01.2f" % (project.amount_donated / 100),
-                                "%01.2f" % (project.amount_asked / 100),
-                                "%01.2f" % (project.amount_needed / 100),
+                                organization_id,
+                                "", #project.reach,
+                                "%01.2f" % (project.amount_donated or 0),
+                                "%01.2f" % (project.amount_asked or 0),
+                                "%01.2f" % (project.amount_needed or 0),
                                 project.created.date(),
-                                project.for_who.encode("utf-8"),
+                                "", #project.for_who.encode("utf-8"),
                                 "http://www.onepercentclub.com/en/#!/projects/{0}".format(project.slug),
                                 tags,
-                                project.effects.encode("utf-8"),
-                                project.future.encode("utf-8"),
-                                project.description.encode("utf-8"),
+                                "", #project.effects.encode("utf-8"),
+                                "", #project.future.encode("utf-8"),
+                                project.story.encode("utf-8"),
                                 project.updated,
-                                project.deadline.date()])
+                                deadline])
 
 
             success_count += 1
@@ -289,7 +308,7 @@ def generate_projectbudgetlines_csv_file(path, loglevel):
         for budget_line in budget_lines:
             try:
                 csvwriter.writerow([budget_line.id,
-                                    budget_line.project_plan.id,
+                                    budget_line.project.id,
                                     '%01.2f' % (float(budget_line.amount) / 100),
                                     budget_line.description.encode("utf-8")])
                 success_count += 1
@@ -316,7 +335,11 @@ def generate_donations_csv_file(path, loglevel):
 
         logger.info("Exporting {0} Donation objects to {1}".format(donations.count(), filename))
 
+        t = 0
         for donation in donations:
+            t += 1
+            logger.debug("writing donation {0}/{1}: {2}".format(t, donations.count(), donation.id))
+
             try:
                 receiver_id = ''
                 if donation.user:
@@ -329,7 +352,7 @@ def generate_donations_csv_file(path, loglevel):
                 if donation.user and donation.user.get_full_name() != '':
                     name = donation.user.get_full_name()
                 else:
-                    name = "1%MEMBER"
+                    name = "1%Member"
 
                 # Get the payment method from the associated order / payment
                 payment_method = payment_method_mapping['']  # Maps to Unknown for DocData.
@@ -422,6 +445,10 @@ def generate_tasks_csv_file(path, loglevel):
             for tag in task.tags.all():
                 tags = str(tag) + ", " + tags
 
+            skill = ''
+            if task.skill:
+                skill = task.skill.name.encode("utf-8")
+
             try:
                 csvwriter.writerow([task.id,
                                     task.project.id,
@@ -429,7 +456,7 @@ def generate_tasks_csv_file(path, loglevel):
                                     task.time_needed.encode("utf-8"),
                                     task.description.encode("utf-8"),
                                     task.location.encode("utf-8"),
-                                    task.expertise.encode("utf-8"),
+                                    skill,
                                     task.status.encode("utf-8"),
                                     task.title.encode("utf-8"),
                                     task.created.date(),

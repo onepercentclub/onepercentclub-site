@@ -79,12 +79,7 @@ App.MyProject.reopen({
         this.missingFieldsProperty('missingFieldsGoal', this.get('requiredGoalFields'));
     },
 
-    valid: function(){
-        return (this.get('') && this.get('validPitch') && this.get('validGoal') 
-                             && this.get('organization.validOrganization')
-                             && this.get('organization.validBank'));
-        
-    }.property('validStory', 'validPitch', 'validGoal', 'organization'),
+    valid: Em.computed.and('validStory', 'validPitch', 'validGoal', 'organization.isLoaded', 'organization.valid'),
 
     requiredStoryFields: ['story', 'storyChanged'],
     requiredGoalFields: ['amount_asked', 'deadline', 'maxAmountAsked', 'minAmountAsked'],

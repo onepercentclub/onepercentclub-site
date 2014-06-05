@@ -1,5 +1,5 @@
 {% extends "admin/base.html" %}
-{% load i18n admin_tools_menu_tags staticfiles %}
+{% load static i18n admin_tools_menu_tags staticfiles %}
 
 {% block title %}{{ title }} | {% trans 'Django site admin' %}{% endblock %}
 
@@ -8,7 +8,7 @@
     {% if user.is_active and user.is_staff and not is_popup %}
         {% admin_tools_render_menu_css %}
     {% endif %}
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}bluebottle_dashboard/css/admin-branding.css"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'bluebottle_dashboard/css/admin-branding.css' %}"/>
 {% endblock %}
 
 {% block branding %}
