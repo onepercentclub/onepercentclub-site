@@ -1,11 +1,9 @@
 from django.conf import settings
-from django.core.exceptions import ImproperlyConfigured
-from django.test import TestCase
 from django.test.utils import override_settings
 from django.utils import six
 
-from .middleware import RedirectFallbackMiddleware
 from .models import Redirect
+from onepercentclub.tests.utils import OnePercentTestCase
 
 
 @override_settings(
@@ -14,8 +12,7 @@ from .models import Redirect
         ['apps.redirects.middleware.RedirectFallbackMiddleware'],
     SITE_ID=1,
 )
-class RedirectTests(TestCase):
-
+class RedirectTests(OnePercentTestCase):
     def setUp(self):
         pass
 
