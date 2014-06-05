@@ -12,6 +12,19 @@ App.then(function(app) {
             });
         }
     });
+
+    // Override the BB project / status search list
+    // TODO: we should just define the 'list' when initializing
+    //       and then BB should use it when setting up the list
+    App.ProjectPhase.find().then(function(data){
+        var list = [
+            {id: 5, name: gettext("Running campaigns")},
+            {id: [7,8], name: gettext("Finished campaigns")}
+        ];
+        App.ProjectPhaseSelectView.reopen({
+            content: list
+        });
+    });
 });
 
 /*
