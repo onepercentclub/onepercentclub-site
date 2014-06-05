@@ -1,5 +1,5 @@
 App.MyOrganization.reopen({
-    // Override BB here as we don't need the website is not required.
+    // Override BB here as the website is not required.
     requiredOrganizationFields: ['name', 'email', 'phone_number'],
     valid: Em.computed.and('validOrganization', 'validBank'),
 
