@@ -32,9 +32,6 @@
         {% cache 2592000 templates LANGUAGE_CODE %}
             {% compress js %}
                 {{ block.super }}
-            {% endcompress %}
-
-            {% compress js %}
                 {% include "templates.hbs" %}
             {% endcompress %}
         {% endcache %}
