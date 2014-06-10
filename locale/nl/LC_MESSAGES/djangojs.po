@@ -4,21 +4,33 @@
 # 
 # Translators:
 # aethemba <aksel@onepercentclub.com>, 2014
-# gannetson <loek@1procentclub.nl>, 2014
-# nieja <niels@1procentclub.nl>, 2014
+# Loek van Gent <loek@1procentclub.nl>, 2014
+# Niels Jansen <niels@1procentclub.nl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-21 16:36+0200\n"
-"PO-Revision-Date: 2014-05-21 14:42+0000\n"
-"Last-Translator: gannetson <loek@1procentclub.nl>\n"
+"POT-Creation-Date: 2014-06-06 10:27+0200\n"
+"PO-Revision-Date: 2014-06-06 08:36+0000\n"
+"Last-Translator: Loek van Gent <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: apps/core/static/js/bluebottle/app_overrides.js:21
+#: static/assets/js/bluebottle/app.js:89
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/app.js.c:108
+msgid "Running campaigns"
+msgstr "Openstaande campagnes"
+
+#: apps/core/static/js/bluebottle/app_overrides.js:22
+#: static/assets/js/bluebottle/app.js:90
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/app.js.c:109
+msgid "Finished campaigns"
+msgstr "Afgeronde campagnes"
 
 #: apps/donations/static/js/bluebottle/donations/controllers.js:136
 #: static/assets/js/bluebottle/utils.js:170
@@ -39,7 +51,7 @@ msgstr "Je hebt niet-opgeslagen wijzigingen. Wil je deze eerst opslaan?"
 #: static/assets/js/bluebottle/utils.js:172
 #: static/assets/js/bluebottle/utils.js:191
 #: static/assets/js/bluebottle/donations/controllers.js:138
-#: static/assets/js/bluebottle/donations/controllers.js:168
+#: static/assets/js/bluebottle/donations/controllers.js:183
 #: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:172
 #: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:191
 msgid "Save"
@@ -49,12 +61,14 @@ msgstr "Opslaan"
 #: apps/donations/static/js/bluebottle/donations/controllers.js:184
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:92
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:204
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/admin/DateTimeShortcuts.js:92
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/admin/DateTimeShortcuts.js:204
 #: static/assets/admin/js/admin/DateTimeShortcuts.js:92
 #: static/assets/admin/js/admin/DateTimeShortcuts.js:204
 #: static/assets/js/bluebottle/utils.js:173
 #: static/assets/js/bluebottle/bb_tasks/routes.js:59
 #: static/assets/js/bluebottle/donations/controllers.js:139
-#: static/assets/js/bluebottle/donations/controllers.js:169
+#: static/assets/js/bluebottle/donations/controllers.js:184
 #: static/assets/js/bluebottle/wallposts/views.js:42
 #: static/assets/js/bluebottle/wallposts/views.js:120
 #: env/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/routes.js.c:59
@@ -65,38 +79,39 @@ msgid "Cancel"
 msgstr "Annuleer"
 
 #: apps/donations/static/js/bluebottle/donations/controllers.js:172
-#: static/assets/js/bluebottle/donations/controllers.js:157
+#: static/assets/js/bluebottle/donations/controllers.js:172
 msgid "You're about to set a monthly donation.<br/><br/>"
 msgstr "Super! Je gaat maandelijks doneren."
 
 #: apps/donations/static/js/bluebottle/donations/controllers.js:181
-#: static/assets/js/bluebottle/donations/controllers.js:166
+#: static/assets/js/bluebottle/donations/controllers.js:181
 msgid "Set my monthly donation"
 msgstr "Stel maandelijkse donatie in"
 
 #: apps/donations/static/js/bluebottle/donations/controllers.js:205
-#: static/assets/js/bluebottle/donations/controllers.js:190
+#: static/assets/js/bluebottle/donations/controllers.js:205
 msgid "Stop my monthly donation"
 msgstr "Stop maandelijkse donatie"
 
 #: apps/donations/static/js/bluebottle/donations/controllers.js:206
-#: static/assets/js/bluebottle/donations/controllers.js:191
+#: static/assets/js/bluebottle/donations/controllers.js:206
 msgid ""
 "Thanks a lot for your support until now. You rock! We welcome you back "
 "anytime.<br /><br />Are you sure you want to stop your monthly support?"
 msgstr "Bedankt voor je support tot dusver. Super! Uiteraard, je kunt altijd weer je maandelijkse donatie activeren.<br /><br />Weet je zeker dat je je maandelijkse donatie wilt stopzetten?"
 
 #: apps/donations/static/js/bluebottle/donations/controllers.js:207
-#: static/assets/js/bluebottle/donations/controllers.js:192
+#: static/assets/js/bluebottle/donations/controllers.js:207
 msgid "Yes, stop my donation"
 msgstr "Ja, stop donatie"
 
 #: apps/donations/static/js/bluebottle/donations/controllers.js:208
-#: static/assets/js/bluebottle/donations/controllers.js:193
+#: static/assets/js/bluebottle/donations/controllers.js:208
 msgid "No, continue"
 msgstr "Nee, ga verder"
 
 #: apps/fund/static/js/bluebottle/orders/routes.js:166
+#: static/assets/js/bluebottle/orders/routes.js:166
 msgid "There was an error with your payment. Please try again."
 msgstr "Er ging iets mis met de betaling. Kun je het nogmaals proberen?"
 
@@ -116,6 +131,7 @@ msgid "raised"
 msgstr "opgehaald"
 
 #: apps/projects/static/js/projects/models.js:59
+#: static/assets/js/projects/models.js:59
 msgid ""
 "<h3>Introduction of your campaign</h3><p>We’ve already set some structure in"
 " this plan, but you are free to write it in your own way.</p><h3>What are "
@@ -125,12 +141,14 @@ msgid ""
 msgstr "<p>Met eigen headers en wit regels kun je hier je campagne verhaal uitleggen, bijvoorbeeld door middel van een:</p> \n<h3>Introductie</h3> \n<p>Leg uit waar je campagne voor is, vertel iets over bijvoorbeeld het doel van de campagne. Supporters zullen ook benieuwd zijn waar het geld precies voor gebruikt gaat worden.</p>\n<h3>Waarom</h3>\n<p>Licht eventueel de grote waarom vragen toe: waarom is deze campagne zo belangrijk? waarom zouden mensen deze campagne moeten supporten?\nWe laten je helemaal vrij in het schrijven van je verhaal. Eventueel kun je hier ook nog informatie later aan toevoegen of aanpassen. Let wel op dat je dit niet te veel doet, je verhaal moet altijd concreet, urgent en persoonlijk blijven.<p>"
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:45
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/SelectFilter2.js:45
 #: static/assets/admin/js/SelectFilter2.js:45
 #, c-format
 msgid "Available %s"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:46
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/SelectFilter2.js:46
 #: static/assets/admin/js/SelectFilter2.js:46
 #, c-format
 msgid ""
@@ -139,44 +157,52 @@ msgid ""
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:53
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/SelectFilter2.js:53
 #: static/assets/admin/js/SelectFilter2.js:53
 #, c-format
 msgid "Type into this box to filter down the list of available %s."
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:57
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/SelectFilter2.js:57
 #: static/assets/admin/js/SelectFilter2.js:57
 msgid "Filter"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:61
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/SelectFilter2.js:61
 #: static/assets/admin/js/SelectFilter2.js:61
 msgid "Choose all"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:61
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/SelectFilter2.js:61
 #: static/assets/admin/js/SelectFilter2.js:61
 #, c-format
 msgid "Click to choose all %s at once."
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:67
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/SelectFilter2.js:67
 #: static/assets/admin/js/SelectFilter2.js:67
 msgid "Choose"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:69
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/SelectFilter2.js:69
 #: static/assets/admin/js/SelectFilter2.js:69
 msgid "Remove"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:75
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/SelectFilter2.js:75
 #: static/assets/admin/js/SelectFilter2.js:75
 #, c-format
 msgid "Chosen %s"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:76
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/SelectFilter2.js:76
 #: static/assets/admin/js/SelectFilter2.js:76
 #, c-format
 msgid ""
@@ -185,11 +211,13 @@ msgid ""
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:80
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/SelectFilter2.js:80
 #: static/assets/admin/js/SelectFilter2.js:80
 msgid "Remove all"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:80
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/SelectFilter2.js:80
 #: static/assets/admin/js/SelectFilter2.js:80
 #, c-format
 msgid "Click to remove all chosen %s at once."
@@ -197,6 +225,8 @@ msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/actions.js:18
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/actions.min.js:1
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/actions.js:18
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/actions.min.js:1
 #: static/assets/admin/js/actions.js:18
 #: static/assets/admin/js/actions.min.js:1
 msgid "%(sel)s of %(cnt)s selected"
@@ -206,6 +236,8 @@ msgstr[1] ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/actions.js:109
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/actions.min.js:5
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/actions.js:109
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/actions.min.js:5
 #: static/assets/admin/js/actions.js:109
 #: static/assets/admin/js/actions.min.js:5
 msgid ""
@@ -215,6 +247,8 @@ msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/actions.js:121
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/actions.min.js:5
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/actions.js:121
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/actions.min.js:5
 #: static/assets/admin/js/actions.js:121
 #: static/assets/admin/js/actions.min.js:5
 msgid ""
@@ -225,6 +259,8 @@ msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/actions.js:123
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/actions.min.js:6
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/actions.js:123
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/actions.min.js:6
 #: static/assets/admin/js/actions.js:123
 #: static/assets/admin/js/actions.min.js:6
 msgid ""
@@ -234,6 +270,7 @@ msgid ""
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/calendar.js:26
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/calendar.js:26
 #: static/assets/admin/js/calendar.js:26
 msgid ""
 "January February March April May June July August September October November"
@@ -241,6 +278,7 @@ msgid ""
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/calendar.js:27
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/calendar.js:27
 #: static/assets/admin/js/calendar.js:27
 msgid "S M T W T F S"
 msgstr ""
@@ -248,6 +286,9 @@ msgstr ""
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/collapse.js:8
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/collapse.js:19
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/collapse.min.js:1
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/collapse.js:8
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/collapse.js:19
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/collapse.min.js:1
 #: static/assets/admin/js/collapse.js:8 static/assets/admin/js/collapse.js:19
 #: static/assets/admin/js/collapse.min.js:1
 msgid "Show"
@@ -255,6 +296,8 @@ msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/collapse.js:15
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/collapse.min.js:1
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/collapse.js:15
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/collapse.min.js:1
 #: static/assets/admin/js/collapse.js:15
 #: static/assets/admin/js/collapse.min.js:1
 msgid "Hide"
@@ -262,54 +305,66 @@ msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:49
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:85
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/admin/DateTimeShortcuts.js:49
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/admin/DateTimeShortcuts.js:85
 #: static/assets/admin/js/admin/DateTimeShortcuts.js:49
 #: static/assets/admin/js/admin/DateTimeShortcuts.js:85
 msgid "Now"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:53
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/admin/DateTimeShortcuts.js:53
 #: static/assets/admin/js/admin/DateTimeShortcuts.js:53
 msgid "Clock"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:81
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/admin/DateTimeShortcuts.js:81
 #: static/assets/admin/js/admin/DateTimeShortcuts.js:81
 msgid "Choose a time"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:86
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/admin/DateTimeShortcuts.js:86
 #: static/assets/admin/js/admin/DateTimeShortcuts.js:86
 msgid "Midnight"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:87
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/admin/DateTimeShortcuts.js:87
 #: static/assets/admin/js/admin/DateTimeShortcuts.js:87
 msgid "6 a.m."
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:88
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/admin/DateTimeShortcuts.js:88
 #: static/assets/admin/js/admin/DateTimeShortcuts.js:88
 msgid "Noon"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:144
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:197
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/admin/DateTimeShortcuts.js:144
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/admin/DateTimeShortcuts.js:197
 #: static/assets/admin/js/admin/DateTimeShortcuts.js:144
 #: static/assets/admin/js/admin/DateTimeShortcuts.js:197
 msgid "Today"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:148
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/admin/DateTimeShortcuts.js:148
 #: static/assets/admin/js/admin/DateTimeShortcuts.js:148
 msgid "Calendar"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:195
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/admin/DateTimeShortcuts.js:195
 #: static/assets/admin/js/admin/DateTimeShortcuts.js:195
 msgid "Yesterday"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:199
+#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/admin/DateTimeShortcuts.js:199
 #: static/assets/admin/js/admin/DateTimeShortcuts.js:199
 msgid "Tomorrow"
 msgstr ""
@@ -326,14 +381,58 @@ msgstr ""
 msgid "As child"
 msgstr ""
 
-#: static/assets/js/bluebottle/app.js:455
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/app.js.c:490
+#: static/assets/js/bluebottle/app.js:478
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/app.js.c:497
 msgid "Pick a language"
 msgstr "Kies een taal"
 
-#: static/assets/js/bluebottle/mixins.js:110
-msgid "Successfully saved"
-msgstr ""
+#: static/assets/js/bluebottle/mixins.js:91
+#: static/assets/js/bluebottle/bb_organizations/controllers.js:85
+#: env/src/bluebottle/bluebottle/bb_organizations/static/js/bluebottle/bb_organizations/controllers.js.c:85
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:91
+msgid "Model is not dirty."
+msgstr "Model is not dirty."
+
+#: static/assets/js/bluebottle/mixins.js:104
+#: static/assets/js/bluebottle/bb_organizations/controllers.js:99
+#: static/assets/js/bluebottle/bb_organizations/controllers.js:106
+#: env/src/bluebottle/bluebottle/bb_organizations/static/js/bluebottle/bb_organizations/controllers.js.c:99
+#: env/src/bluebottle/bluebottle/bb_organizations/static/js/bluebottle/bb_organizations/controllers.js.c:106
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:104
+msgid "Model saved successfully."
+msgstr "Model saved successfully."
+
+#: static/assets/js/bluebottle/mixins.js:106
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:106
+msgid "Model could not be saved."
+msgstr "Model could not be saved."
+
+#: static/assets/js/bluebottle/mixins.js:109
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:109
+msgid "Instance does not implement `_save`."
+msgstr "Instance does not implement `_save`."
+
+#: static/assets/js/bluebottle/mixins.js:180
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:180
+msgid "Successfully saved."
+msgstr "Succesvol opgeslagen."
+
+#: static/assets/js/bluebottle/mixins.js:188
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:188
+msgid "Model is invalid."
+msgstr "Model is invalid."
+
+#: static/assets/js/bluebottle/mixins.js:193
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:193
+msgid "Error saving model."
+msgstr "Error saving model."
+
+#: static/assets/js/bluebottle/mixins.js:205
+#: static/assets/js/bluebottle/bb_organizations/controllers.js:117
+#: env/src/bluebottle/bluebottle/bb_organizations/static/js/bluebottle/bb_organizations/controllers.js.c:117
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:205
+msgid "Hey! What are you doing here? Saving model failed."
+msgstr "Hey! What are you doing here? Saving model failed."
 
 #: static/assets/js/bluebottle/utils.js:2
 #: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:2
@@ -423,7 +522,7 @@ msgid ""
 "spam folder)"
 msgstr "YOU'VE GOT MAIL!<br /><br />We hebben je een link gestuurd om je wachtwoord te wijzigen.<br /><br />(Geen e-mail? Kijk dan even in je spam folder)"
 
-#: static/assets/js/bluebottle/bb_accounts/routes.js:201
+#: static/assets/js/bluebottle/bb_accounts/routes.js:202
 #: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/routes.js.c:202
 msgid "The token you provided is expired. Please reset your password again."
 msgstr "Deze code is verlopen. Stel je wachtwoord opnieuw in. "
@@ -438,19 +537,7 @@ msgstr "Gebruik je e-mailadres om in te loggen."
 msgid "Pick an organization"
 msgstr "Kies een organisatie"
 
-#: static/assets/js/bluebottle/bb_projects/views.js:80
-msgid "title"
-msgstr ""
-
-#: static/assets/js/bluebottle/bb_projects/views.js:81
-msgid "money needed"
-msgstr ""
-
 #: static/assets/js/bluebottle/bb_projects/views.js:82
-msgid "deadline"
-msgstr ""
-
-#: static/assets/js/bluebottle/bb_projects/views.js:94
 #: env/src/bluebottle/bluebottle/bb_projects/static/js/bluebottle/bb_projects/views.js.c:82
 msgid "Pick a phase"
 msgstr "Kies fase"
@@ -465,12 +552,22 @@ msgstr "Doe deze taak"
 msgid "Apply"
 msgstr "Meld aan"
 
+#: static/assets/js/bluebottle/bb_tasks/views.js:112
+#: env/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/views.js.c:112
+msgid "Pick a skill"
+msgstr ""
+
 #: static/assets/js/bluebottle/geo/views.js:4
 #: static/assets/js/bluebottle/geo/views.js:16
 #: env/src/bluebottle/bluebottle/geo/static/js/bluebottle/geo/views.js.c:4
 #: env/src/bluebottle/bluebottle/geo/static/js/bluebottle/geo/views.js.c:16
 msgid "Pick a country"
 msgstr "Kies land"
+
+#: static/assets/js/bluebottle/utils/views.js:166
+#: env/src/bluebottle/bluebottle/utils/static/js/bluebottle/utils/views.js.c:166
+msgid "&nbsp;days"
+msgstr "&nbsp;dagen"
 
 #: static/assets/js/bluebottle/wallposts/views.js:39
 #: static/assets/js/bluebottle/wallposts/views.js:117
@@ -496,74 +593,26 @@ msgstr "Ja"
 msgid "Are you sure you want to delete this reaction?"
 msgstr "Wil je echt deze reactie verwijderen?"
 
-#: static/assets/js/plugins/handlebars.helpers.js:76
-#: env/src/bluebottle/bluebottle/common/static/js/plugins/handlebars.helpers.js.c:87
+#: static/assets/js/plugins/handlebars.helpers.js:87
+#: env/src/bluebottle/bluebottle/common/static/js/plugins/handlebars.helpers.js.c:92
 msgid "Deadline<br /> reached"
 msgstr "Target<br /> bereikt"
 
-#: static/assets/js/plugins/handlebars.helpers.js:80
-#: env/src/bluebottle/bluebottle/common/static/js/plugins/handlebars.helpers.js.c:91
+#: static/assets/js/plugins/handlebars.helpers.js:91
+#: env/src/bluebottle/bluebottle/common/static/js/plugins/handlebars.helpers.js.c:96
 msgid "days"
 msgstr "dagen"
 
-#: static/assets/js/plugins/handlebars.helpers.js:81
-#: env/src/bluebottle/bluebottle/common/static/js/plugins/handlebars.helpers.js.c:92
+#: static/assets/js/plugins/handlebars.helpers.js:92
+#: env/src/bluebottle/bluebottle/common/static/js/plugins/handlebars.helpers.js.c:97
 msgid "day"
 msgstr "dag"
 
-#: static/assets/js/plugins/handlebars.helpers.js:83
-#: env/src/bluebottle/bluebottle/common/static/js/plugins/handlebars.helpers.js.c:94
+#: static/assets/js/plugins/handlebars.helpers.js:94
+#: env/src/bluebottle/bluebottle/common/static/js/plugins/handlebars.helpers.js.c:99
 msgid "to support this project"
 msgstr "om campagne te steunen"
 
-#: env/src/bluebottle/bluebottle/bb_organizations/static/js/bluebottle/bb_organizations/controllers.js.c:85
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:91
-msgid "Model is not dirty."
-msgstr "Model is not dirty."
-
-#: env/src/bluebottle/bluebottle/bb_organizations/static/js/bluebottle/bb_organizations/controllers.js.c:99
-#: env/src/bluebottle/bluebottle/bb_organizations/static/js/bluebottle/bb_organizations/controllers.js.c:106
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:104
-msgid "Model saved successfully."
-msgstr "Model saved successfully."
-
-#: env/src/bluebottle/bluebottle/bb_organizations/static/js/bluebottle/bb_organizations/controllers.js.c:117
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:205
-msgid "Hey! What are you doing here? Saving model failed."
-msgstr "Hey! What are you doing here? Saving model failed."
-
-#: env/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/views.js.c:112
-msgid "Pick a skill"
+#: env/src/bluebottle/bluebottle/bb_projects/static/js/bluebottle/bb_projects/views.js.c:122
+msgid "Pick a theme"
 msgstr ""
-
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/app.js.c:89
-msgid "Running campaigns"
-msgstr "Openstaande campagnes"
-
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/app.js.c:90
-msgid "Finished campaigns"
-msgstr "Afgeronde campagnes"
-
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:106
-msgid "Model could not be saved."
-msgstr "Model could not be saved."
-
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:109
-msgid "Instance does not implement `_save`."
-msgstr "Instance does not implement `_save`."
-
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:180
-msgid "Successfully saved."
-msgstr "Succesvol opgeslagen."
-
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:188
-msgid "Model is invalid."
-msgstr "Model is invalid."
-
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:193
-msgid "Error saving model."
-msgstr "Error saving model."
-
-#: env/src/bluebottle/bluebottle/utils/static/js/bluebottle/utils/views.js.c:166
-msgid "&nbsp;days"
-msgstr "&nbsp;dagen"
