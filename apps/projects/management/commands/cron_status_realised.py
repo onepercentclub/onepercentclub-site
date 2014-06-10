@@ -48,18 +48,31 @@ class Command(BaseCommand):
         """
         Projects which have at least the funds asked, are still in campaign phase but have expired 
         need to be set to 'done complete' and the campaign ended date set to now.
+        Iterate over projects and save them one by one so the receivers get a signal
         """
         self.stdout.write("Checking Project overfunded deadlines...")
-        Project.objects.filter(amount_needed__lte=0, status=campaign_phase, deadline__lte=now()).update(status=done_complete_phase, campaign_ended=now())
+        for project in Project.objects.filter(amount_needed__lt=0, status=campaign_phase, deadline__lte=now()).all():
+            project.status = done_complete_phase
+            project.campaign_ended = now()
+            project.save()
 
         """
         Projects which don't have the funds asked, are still in campaign phase but have expired 
         need to be set to 'done incomplete' and the campaign ended date set to now.
+        Iterate over projects and save them one by one so the receivers get a signal
         """
         self.stdout.write("Checking Project unfunded deadlines...")
-        Project.objects.filter(amount_needed__gt=0, status=campaign_phase, deadline__lt=now()).update(status=done_incomplete_phase, campaign_ended=now())
+        for project in Project.objects.filter(status=campaign_phase, deadline__lt=now()).all():
+            project.status = done_incomplete_phase
+            project.campaign_ended = now()
+            project.save()
 
+        """
+        Iterate over tasks and save them one by one so the receivers get a signal
+        """
         self.stdout.write("Checking Task deadlines...\n\n")
-        Task.objects.filter(status='in progress', deadline__lt=now()).update(status='realized')
+        for task in Task.objects.filter(status='in progress', deadline__lt=now()).all():
+            task.status = 'realized'
+            task.save()
 
         self.stdout.write("Successfully updated the status of expired Project and Task models.\n\n")

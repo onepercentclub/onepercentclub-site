@@ -9,6 +9,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.utils import timezone
+from bluebottle.test.factory_models.organizations_factories import OrganizationFactory
 from onepercentclub.tests.utils import OnePercentTestCase
 
 from rest_framework import status
@@ -37,15 +38,20 @@ class ProjectEndpointTestCase(OnePercentTestCase):
         self.init_projects()
         self.user = BlueBottleUserFactory.create()
 
+        organization = OrganizationFactory.create()
+        organization.save()
+
         self.campaign_phase = ProjectPhase.objects.get(slug='campaign')
         self.plan_phase = ProjectPhase.objects.get(slug='done-complete')
 
         for char in 'abcdefghijklmnopqrstuvwxyz':
             # Put half of the projects in the campaign phase.
             if ord(char) % 2 == 1:
-                project = OnePercentProjectFactory.create(title=char * 3, slug=char * 3, status=self.campaign_phase)
+                project = OnePercentProjectFactory.create(title=char * 3, slug=char * 3,
+                                                          status=self.campaign_phase, organization=organization)
             else:
-                project = OnePercentProjectFactory.create(title=char * 3, slug=char * 3, status=self.plan_phase)
+                project = OnePercentProjectFactory.create(title=char * 3, slug=char * 3,
+                                                          status=self.plan_phase, organization=organization)
 
             project.save()
 
@@ -682,7 +688,9 @@ class ChangeProjectStatuses(ProjectEndpointTestCase):
         The deadline of a project expires but its not funded. The status changes, the campaign_ended field is populated
         with the deadline, the campaign_funded field is empty.
         """
+        organization = OrganizationFactory.create()
         project = OnePercentProjectFactory.create(title="testproject", slug="testproject",
+                                                  organization=organization,
                                                   status=ProjectPhase.objects.get(slug="campaign"),
                                                   amount_asked=100)
 

@@ -12,6 +12,7 @@ from fabric.contrib.console import confirm
 from fabric.colors import green, red
 from fabric.operations import get
 from contextlib import contextmanager
+from fabric.contrib.files import exists
 
 
 # Configuration settings:
@@ -45,7 +46,6 @@ env.database = 'onepercentsite'
 # By default, confirm everywhere
 env.noinput = False
 
-
 # Utility functions:
 @contextmanager
 def virtualenv():
@@ -63,6 +63,26 @@ def virtualenv():
     with cd(env.directory):
         with prefix('source env/bin/activate'):
             yield
+
+
+def run_bg(cmd, before=None, sockname="dtach", use_sudo=False):
+    """Run a command in the background using dtach
+
+    :param cmd: The command to run
+    :param before: The command to run before the dtach. E.g. exporting environment variable
+    :param sockname: The socket name to use for the temp file
+    :param use_sudo: Whether or not to use sudo
+    """
+    if not exists("/usr/bin/dtach"):
+        sudo("apt-get install dtach")
+    if before:
+        cmd = "{}; dtach -n `mktemp -u /tmp/{}.XXXX` {}".format(before, sockname, cmd)
+    else:
+        cmd = "dtach -n `mktemp -u /tmp/{}.XXXX` {}".format(sockname, cmd)
+    if use_sudo:
+        return sudo(cmd)
+    else:
+        return run(cmd)
 
 
 def set_django_settings():
@@ -283,9 +303,11 @@ def prune_unreferenced_files():
         for unref_file in unreferenced_files:
             run_web('rm %s' % unref_file)
 
+
 def add_git_commit():
     with cd(env.directory):
         run('echo "GIT_COMMIT = \'`git log --oneline | head -n1 | cut -c1-7`\'" >> onepercentclub/settings/base.py')
+
 
 def prepare_django():
     """ Prepare a deployment. """
@@ -316,18 +338,33 @@ def prepare_django():
         # Make sure the web user can read and write the static media dir.
         run('chmod a+rw static/media')
 
+        # make sure the web user owns the private directory
+        sudo('chown -Rf %s private' % env.web_user)
+
         run_web('./manage.py syncdb --migrate --noinput --settings=%s' % env.django_settings)
-        run_web('./manage.py collectstatic --clear -l -v 0 --noinput --settings=%s' % env.django_settings)
+        run_web('./manage.py collectstatic -l -v 0 --noinput --settings=%s' % env.django_settings)
 
         # Disabled for now; it unjustly deletes cached thumbnails
         # prune_unreferenced_files()
+
+
+def flush_memcache():
+    run('echo \'flush_all\' | nc -q1 localhost 11211')
 
 
 def restart_site():
     """ Gracefully restart gunicorn using supervisor. """
     require('service_name')
 
+    run('supervisorctl reread')
     run('supervisorctl restart %s' % env.service_name)
+
+    flush_memcache()
+
+    # Ping the server for en / nl to ensure compressed assets are created
+    # Do this in the background to avoid locking up the fab task
+    for lang in ['en', 'nl']:
+        run_bg('curl -vLk https://{host}/{lang}'.format(host=env.host, lang=lang))
 
 
 def set_site_domain():

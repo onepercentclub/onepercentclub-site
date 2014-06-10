@@ -5,10 +5,6 @@
 /**
  * Embedded objects
  */
-App.Adapter.map('App.DonationPreview', {
-    project: {embedded: 'both'},
-    member: {embedded: 'both'}
-});
 App.Adapter.map('App.Order', {
     donations: {embedded: 'load'},
     vouchers: {embedded: 'load'}

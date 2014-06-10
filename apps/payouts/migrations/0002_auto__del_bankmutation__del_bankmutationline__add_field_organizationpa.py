@@ -8,78 +8,60 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Project'
-        db.create_table(u'projects_project', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('owner', self.gf('django.db.models.fields.related.ForeignKey')(related_name='owner', to=orm['members.Member'])),
-            ('organization', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='organization', null=True, to=orm['organizations.Organization'])),
-            ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('updated', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(unique=True, max_length=255)),
-            ('slug', self.gf('django.db.models.fields.SlugField')(unique=True, max_length=100)),
-            ('pitch', self.gf('django.db.models.fields.TextField')(blank=True)),
-            ('status', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['bb_projects.ProjectPhase'])),
-            ('theme', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['bb_projects.ProjectTheme'], null=True, blank=True)),
-            ('favorite', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            ('description', self.gf('django.db.models.fields.TextField')(blank=True)),
-            ('image', self.gf('sorl.thumbnail.fields.ImageField')(max_length=255, blank=True)),
-            ('country', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['geo.Country'], null=True, blank=True)),
-            ('language', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['utils.Language'], null=True, blank=True)),
-            ('partner_organization', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['projects.PartnerOrganization'], null=True, blank=True)),
-            ('latitude', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=21, decimal_places=18, blank=True)),
-            ('longitude', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=21, decimal_places=18, blank=True)),
-            ('reach', self.gf('django.db.models.fields.PositiveIntegerField')(null=True, blank=True)),
-            ('video_url', self.gf('django.db.models.fields.URLField')(default='', max_length=100, null=True, blank=True)),
-            ('deadline', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
-            ('popularity', self.gf('django.db.models.fields.FloatField')(default=0)),
-            ('is_campaign', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('amount_asked', self.gf('apps.projects.fields.MoneyField')(default=0, null=True, max_digits=12, decimal_places=2, blank=True)),
-            ('amount_donated', self.gf('apps.projects.fields.MoneyField')(default=0, max_digits=12, decimal_places=2)),
-            ('amount_needed', self.gf('apps.projects.fields.MoneyField')(default=0, max_digits=12, decimal_places=2)),
-            ('allow_overfunding', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            ('story', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
-            ('effects', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
-            ('for_who', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
-            ('future', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
-            ('date_submitted', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
-            ('campaign_started', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
-            ('campaign_ended', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
-            ('campaign_funded', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
-        ))
-        db.send_create_signal(u'projects', ['Project'])
+        # Deleting model 'BankMutation'
+        db.delete_table(u'payouts_bankmutation')
 
-        # Adding model 'ProjectBudgetLine'
-        db.create_table(u'projects_projectbudgetline', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('project', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['projects.Project'])),
-            ('description', self.gf('django.db.models.fields.CharField')(default='', max_length=255)),
-            ('currency', self.gf('django.db.models.fields.CharField')(default='EUR', max_length=3)),
-            ('amount', self.gf('django.db.models.fields.PositiveIntegerField')()),
-            ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('updated', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-        ))
-        db.send_create_signal(u'projects', ['ProjectBudgetLine'])
+        # Deleting model 'BankMutationLine'
+        db.delete_table(u'payouts_bankmutationline')
 
-        # Adding model 'PartnerOrganization'
-        db.create_table('projects_partnerorganization', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=255)),
-            ('slug', self.gf('django.db.models.fields.SlugField')(unique=True, max_length=100)),
-            ('description', self.gf('django.db.models.fields.TextField')()),
-            ('image', self.gf('sorl.thumbnail.fields.ImageField')(max_length=255, null=True, blank=True)),
-        ))
-        db.send_create_signal(u'projects', ['PartnerOrganization'])
+        # Adding field 'OrganizationPayout.submitted'
+        db.add_column(u'payouts_organizationpayout', 'submitted',
+                      self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'Payout.submitted'
+        db.add_column(u'payouts_payout', 'submitted',
+                      self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True),
+                      keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting model 'Project'
-        db.delete_table(u'projects_project')
+        # Adding model 'BankMutation'
+        db.create_table(u'payouts_bankmutation', (
+            ('mut_file', self.gf('django.db.models.fields.files.FileField')(max_length=100, null=True)),
+            ('mutations', self.gf('django.db.models.fields.TextField')(blank=True)),
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
+        ))
+        db.send_create_signal(u'payouts', ['BankMutation'])
 
-        # Deleting model 'ProjectBudgetLine'
-        db.delete_table(u'projects_projectbudgetline')
+        # Adding model 'BankMutationLine'
+        db.create_table(u'payouts_bankmutationline', (
+            ('payout', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['payouts.Payout'], null=True)),
+            ('invoice_reference', self.gf('django.db.models.fields.CharField')(max_length=100)),
+            ('start_date', self.gf('django.db.models.fields.DateField')()),
+            ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('dc', self.gf('django.db.models.fields.CharField')(max_length=1)),
+            ('bank_mutation', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['payouts.BankMutation'])),
+            ('currency', self.gf('django.db.models.fields.CharField')(max_length=3)),
+            ('amount', self.gf('django.db.models.fields.DecimalField')(max_digits=15, decimal_places=2)),
+            ('account_number', self.gf('django.db.models.fields.CharField')(max_length=100)),
+            ('transaction_type', self.gf('django.db.models.fields.CharField')(max_length=10)),
+            ('description_line4', self.gf('django.db.models.fields.CharField')(default='', max_length=100, blank=True)),
+            ('issuer_account_number', self.gf('django.db.models.fields.CharField')(max_length=100)),
+            ('description_line2', self.gf('django.db.models.fields.CharField')(default='', max_length=100, blank=True)),
+            ('account_name', self.gf('django.db.models.fields.CharField')(max_length=100)),
+            ('description_line1', self.gf('django.db.models.fields.CharField')(default='', max_length=100, blank=True)),
+            ('description_line3', self.gf('django.db.models.fields.CharField')(default='', max_length=100, blank=True)),
+        ))
+        db.send_create_signal(u'payouts', ['BankMutationLine'])
 
-        # Deleting model 'PartnerOrganization'
-        db.delete_table('projects_partnerorganization')
+        # Deleting field 'OrganizationPayout.submitted'
+        db.delete_column(u'payouts_organizationpayout', 'submitted')
+
+        # Deleting field 'Payout.submitted'
+        db.delete_column(u'payouts_payout', 'submitted')
 
 
     models = {
@@ -223,6 +205,74 @@ class Migration(SchemaMigration):
             'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'website': ('django.db.models.fields.URLField', [], {'max_length': '200', 'blank': 'True'})
         },
+        u'payouts.organizationpayout': {
+            'Meta': {'ordering': "['start_date']", 'unique_together': "(('start_date', 'end_date'),)", 'object_name': 'OrganizationPayout'},
+            'completed': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
+            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            'end_date': ('django.db.models.fields.DateField', [], {}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'invoice_reference': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'organization_fee_excl': ('apps.payouts.fields.MoneyField', [], {'max_digits': '12', 'decimal_places': '2'}),
+            'organization_fee_incl': ('apps.payouts.fields.MoneyField', [], {'max_digits': '12', 'decimal_places': '2'}),
+            'organization_fee_vat': ('apps.payouts.fields.MoneyField', [], {'max_digits': '12', 'decimal_places': '2'}),
+            'other_costs_excl': ('apps.payouts.fields.MoneyField', [], {'default': "'0.00'", 'max_digits': '12', 'decimal_places': '2'}),
+            'other_costs_incl': ('apps.payouts.fields.MoneyField', [], {'default': "'0.00'", 'max_digits': '12', 'decimal_places': '2'}),
+            'other_costs_vat': ('apps.payouts.fields.MoneyField', [], {'default': "'0.00'", 'max_digits': '12', 'decimal_places': '2'}),
+            'payable_amount_excl': ('apps.payouts.fields.MoneyField', [], {'max_digits': '12', 'decimal_places': '2'}),
+            'payable_amount_incl': ('apps.payouts.fields.MoneyField', [], {'max_digits': '12', 'decimal_places': '2'}),
+            'payable_amount_vat': ('apps.payouts.fields.MoneyField', [], {'max_digits': '12', 'decimal_places': '2'}),
+            'planned': ('django.db.models.fields.DateField', [], {}),
+            'psp_fee_excl': ('apps.payouts.fields.MoneyField', [], {'max_digits': '12', 'decimal_places': '2'}),
+            'psp_fee_incl': ('apps.payouts.fields.MoneyField', [], {'max_digits': '12', 'decimal_places': '2'}),
+            'psp_fee_vat': ('apps.payouts.fields.MoneyField', [], {'max_digits': '12', 'decimal_places': '2'}),
+            'start_date': ('django.db.models.fields.DateField', [], {}),
+            'status': ('django.db.models.fields.CharField', [], {'default': "'new'", 'max_length': '20'}),
+            'submitted': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
+            'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'})
+        },
+        u'payouts.organizationpayoutlog': {
+            'Meta': {'ordering': "['-date']", 'object_name': 'OrganizationPayoutLog'},
+            'date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'new_status': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
+            'old_status': ('django.db.models.fields.CharField', [], {'max_length': '20', 'null': 'True', 'blank': 'True'}),
+            'payout': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'log_set'", 'to': u"orm['payouts.OrganizationPayout']"})
+        },
+        u'payouts.payout': {
+            'Meta': {'ordering': "['-created']", 'object_name': 'Payout'},
+            'amount_payable': ('apps.payouts.fields.MoneyField', [], {'max_digits': '12', 'decimal_places': '2'}),
+            'amount_raised': ('apps.payouts.fields.MoneyField', [], {'max_digits': '12', 'decimal_places': '2'}),
+            'completed': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
+            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            'description_line1': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100', 'blank': 'True'}),
+            'description_line2': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100', 'blank': 'True'}),
+            'description_line3': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100', 'blank': 'True'}),
+            'description_line4': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'invoice_reference': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'organization_fee': ('apps.payouts.fields.MoneyField', [], {'max_digits': '12', 'decimal_places': '2'}),
+            'payout_rule': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
+            'planned': ('django.db.models.fields.DateField', [], {}),
+            'project': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['projects.Project']"}),
+            'receiver_account_bic': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
+            'receiver_account_city': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'receiver_account_country': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True'}),
+            'receiver_account_iban': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
+            'receiver_account_name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'receiver_account_number': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
+            'sender_account_number': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'status': ('django.db.models.fields.CharField', [], {'default': "'new'", 'max_length': '20'}),
+            'submitted': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
+            'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'})
+        },
+        u'payouts.payoutlog': {
+            'Meta': {'ordering': "['-date']", 'object_name': 'PayoutLog'},
+            'date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'new_status': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
+            'old_status': ('django.db.models.fields.CharField', [], {'max_length': '20', 'null': 'True', 'blank': 'True'}),
+            'payout': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'log_set'", 'to': u"orm['payouts.Payout']"})
+        },
         u'projects.partnerorganization': {
             'Meta': {'object_name': 'PartnerOrganization'},
             'description': ('django.db.models.fields.TextField', [], {}),
@@ -269,16 +319,6 @@ class Migration(SchemaMigration):
             'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'video_url': ('django.db.models.fields.URLField', [], {'default': "''", 'max_length': '100', 'null': 'True', 'blank': 'True'})
         },
-        u'projects.projectbudgetline': {
-            'Meta': {'object_name': 'ProjectBudgetLine'},
-            'amount': ('django.db.models.fields.PositiveIntegerField', [], {}),
-            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'currency': ('django.db.models.fields.CharField', [], {'default': "'EUR'", 'max_length': '3'}),
-            'description': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '255'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'project': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['projects.Project']"}),
-            'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'})
-        },
         u'taggit.tag': {
             'Meta': {'object_name': 'Tag'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -301,4 +341,4 @@ class Migration(SchemaMigration):
         }
     }
 
-    complete_apps = ['projects']
+    complete_apps = ['payouts']
