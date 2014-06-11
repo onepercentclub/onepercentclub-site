@@ -128,10 +128,11 @@ App.ApplicationView.reopen(App.EventMixin, {
 		top = $('#content').offset();
 		elm = top.screen.availTop;
 
-		if (dist < elm) {
+		if (dist <= 53) {
 			$('#header').removeClass('is-scrolled');
 			$('.nav-member-dropdown').removeClass('is-scrolled');
 			$('.mobile-nav-holder').removeClass('is-scrolled');
+            $('#content').append('<div class="scrolled-area"></div>');
 		} else {
 			$('#header').addClass('is-scrolled');
 			$('.nav-member-dropdown').addClass('is-scrolled');
