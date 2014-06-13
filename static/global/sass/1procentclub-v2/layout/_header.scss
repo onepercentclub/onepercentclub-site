@@ -6,7 +6,7 @@
 	background: rgba($gray-light, 1);
 	border-bottom: 1px solid white;
 	@include box-shadow(0 1px 0 rgba(65, 65, 65, .1));
-	@include single-transition(all, .1s ease .1s);
+	@include single-transition(all, .1s ease);
 	z-index: 999;
 	
 	
@@ -22,7 +22,7 @@
 		float: left;
 		width: 12%;
 		margin-left: 1em;
-		@include single-transition(width, .1s ease-in-out .1s);
+		@include single-transition(width, .1s ease-in-out);
 		@include breakpoint(x-small) {
 			width: 8%;
 		}
@@ -30,7 +30,7 @@
 			display: block;
 			padding: 1.5em 0 0 0;
 			cursor: pointer;
-			@include single-transition(padding, .1s ease-in-out .1s);
+			@include single-transition(padding, .1s ease-in-out);
 			
 			.logo-image {
 				height: 51px;
@@ -44,7 +44,7 @@
 		padding: 1.8em 0 0 0;
 		font-family: $font-family-body;
 		font-weight: 700;
-		@include single-transition(padding, .1s ease-in-out .1s);
+		@include single-transition(padding, .1s ease-in-out);
 		
 		.nav-main {
 			float: left;
