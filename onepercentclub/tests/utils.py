@@ -59,7 +59,7 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
         self.browser.find_link_by_itext('log in').first.click()
 
         # Validate that we are on the intended page.
-        if not self.browser.is_text_present('LOG IN', wait_time=10):
+        if not self.browser.is_text_present('LOG IN', wait_time=10) or not self.browser.is_text_present('SIGN IN', wait_time=10):
             return False
 
         # Fill in details.
