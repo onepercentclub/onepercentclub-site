@@ -9,7 +9,7 @@ App.LoginController.reopen({
                 _this.set('controllers.currentUser.model', user);
                 _this.send('closeAllModals');
             }, function (error) {
-                // Do something here!
+                _this.set('error', error);
             });
         },
     },
@@ -38,7 +38,7 @@ App.LoginController.reopen({
               // user again.
               currentUser = App.CurrentUser.find('current');
               if (currentUser.get('currentState.error.stateName') == 'root.error') {
-                  currentUser.transitionTo('deleted.saved')
+                  currentUser.transitionTo('deleted.saved');
                   currentUser = App.CurrentUser.find('current').then( function (user) {
                       Ember.run(null, resolve, user);
                   });
@@ -48,7 +48,7 @@ App.LoginController.reopen({
             };
            
             hash.error = function (response) {
-                debugger
+                var error = JSON.parse(response.responseText);
                 Ember.run(null, reject, error);
             };
            
