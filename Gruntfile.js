@@ -1,6 +1,6 @@
 module.exports = function (grunt) {
   var sassOutputStyle = grunt.option('output_style') || 'expanded';
-  var bluebottlePath = grunt.option('bb_path') || ["env/src/bluebottle/bluebottle/common/static/sass"];
+  var bluebottlePath = grunt.option('bb_path') || ["../bluebottle/bluebottle/common/static/sass"];
 
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-ember-template-compiler');

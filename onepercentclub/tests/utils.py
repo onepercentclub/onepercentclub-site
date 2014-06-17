@@ -56,10 +56,10 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
         self.visit_homepage()
 
         # Find the link to the signup button page and click it.
-        self.browser.find_link_by_itext('log in').first.click()
+        self.browser.find_link_by_itext('sign in').first.click()
 
         # Validate that we are on the intended page.
-        if not self.browser.is_text_present('LOG IN', wait_time=10):
+        if not self.browser.is_text_present('SIGN IN', wait_time=10):
             return False
 
         # Fill in details.
