@@ -21,7 +21,7 @@
 
             {% bb_component 'bb-text-field' label=_('Title') name='title' valueBinding='title' placeholder=_('Be short, creative and memorable ') errorsBinding='errors.title' maxlength=255 %}
 
-            {% bb_component 'bb-text-area' rows=8 label=_('Description') name='pitch' valueBinding='pitch' placeholder=_('Tell us in one paragraph where you need the money for.') errorsBinding='errors.pitch' maxlength=200 hint=_('max. 500 characters') %}
+            {% bb_component 'bb-text-area' rows=8 label=_('Description') name='pitch' valueBinding='pitch' placeholder=_('Tell us in one paragraph where you need the money for.') errorsBinding='errors.pitch' maxlength=500 hint=_('max. 500 characters') %}
         </ul>
     </fieldset>
     <fieldset>
