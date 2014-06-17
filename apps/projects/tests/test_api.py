@@ -183,7 +183,8 @@ class ProjectManageApiIntegrationTest(OnePercentTestCase):
         # Back to the previous pitch. Try to cheat and put it to status approved.
         project_data['status'] = self.phase_campaign.id
         response = self.client.put(project_url, json.dumps(project_data), 'application/json')
-        self.assertEquals(response.data['status'], self.phase_plan_new.id, 'status should be reset to previous value')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
+        self.assertEquals(response.data['status'][0], 'You can not change the project state.', 'status change should not be possible')
 
         # Ok, let's try to submit it. We have to submit all previous data again too.
         project_data['status'] = self.phase_submitted.id
