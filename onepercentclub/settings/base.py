@@ -190,7 +190,9 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'bluebottle.utils.context_processors.conf_settings',
     'bluebottle.utils.context_processors.google_maps_api_key',
     'bluebottle.utils.context_processors.google_analytics_code',
-    'bluebottle.utils.context_processors.sentry_dsn'
+    'bluebottle.utils.context_processors.sentry_dsn',
+    'social.apps.django_app.context_processors.backends',
+    'social.apps.django_app.context_processors.login_redirect',
 )
 
 ROOT_URLCONF = 'onepercentclub.urls'
@@ -233,6 +235,7 @@ INSTALLED_APPS = (
     'registration',
     'filetransfers',
     'loginas',
+    'social.apps.django_app.default',
 
     # CMS page contents
     'fluent_contents',
@@ -241,10 +244,12 @@ INSTALLED_APPS = (
     'fluent_contents.plugins.rawhtml',
     'django_wysiwyg',
     'tinymce',
-    'social_auth',
     'statici18n',
     'django.contrib.humanize',
     'django_tools',
+
+    #FB Auth
+    'apps.auth',
 
     # Cowry Payments
     'apps.cowry',
@@ -324,6 +329,8 @@ ORGANIZATIONS_ORGANIZATION_MODEL = 'organizations.Organization'
 ORGANIZATIONS_DOCUMENT_MODEL = 'organizations.OrganizationDocument'
 ORGANIZATIONS_MEMBER_MODEL = 'organizations.OrganizationMember'
 
+SOCIAL_AUTH_USER_MODEL = 'members.Member'
+
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error when DEBUG=False.
@@ -378,28 +385,12 @@ logging.basicConfig(level=logging.WARNING, format='[%(asctime)s] %(levelname)-8s
 import djcelery
 djcelery.setup_loader()
 
+SOCIAL_AUTH_STRATEGY = 'social.strategies.django_strategy.DjangoStrategy'
+SOCIAL_AUTH_STORAGE = 'social.apps.django_app.default.models.DjangoStorage'
 
 AUTHENTICATION_BACKENDS = (
-    # 'social_auth.backends.twitter.TwitterBackend',
-    'social_auth.backends.facebook.FacebookBackend',
-    # 'social_auth.backends.google.GoogleOAuthBackend',
-    # 'social_auth.backends.google.GoogleOAuth2Backend',
-    # 'social_auth.backends.google.GoogleBackend',
-    # 'social_auth.backends.yahoo.YahooBackend',
-    # 'social_auth.backends.browserid.BrowserIDBackend',
-    # 'social_auth.backends.contrib.linkedin.LinkedinBackend',
-    # 'social_auth.backends.contrib.disqus.DisqusBackend',
-    # 'social_auth.backends.contrib.livejournal.LiveJournalBackend',
-    # 'social_auth.backends.contrib.orkut.OrkutBackend',
-    # 'social_auth.backends.contrib.foursquare.FoursquareBackend',
-    # 'social_auth.backends.contrib.github.GithubBackend',
-    # 'social_auth.backends.contrib.vk.VKOAuth2Backend',
-    # 'social_auth.backends.contrib.live.LiveBackend',
-    # 'social_auth.backends.contrib.skyrock.SkyrockBackend',
-    # 'social_auth.backends.contrib.yahoo.YahooOAuthBackend',
-    # 'social_auth.backends.contrib.readability.ReadabilityBackend',
-    # 'social_auth.backends.contrib.fedora.FedoraBackend',
-    # 'social_auth.backends.OpenIDBackend',
+    'social.backends.facebook.FacebookAppOAuth2',
+    'social.backends.facebook.FacebookOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -557,3 +548,16 @@ DEFAULT_TWITTER_HANDLE = TWITTER_HANDLES['nl']
 
 MINIMAL_PAYOUT_AMOUNT = 21.00
 
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'social.pipeline.social_auth.associate_by_email',
+    'social.pipeline.mail.mail_validation',
+    'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details'
+)

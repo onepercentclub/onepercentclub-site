@@ -5,6 +5,20 @@
 {% tplhandlebars "home" %}
 
     <div id="home">
+        {{#if App.FBUser}}
+          <div>
+            <img {{bindAttr src="App.FBUser.picture" alt="App.FBUser.name"}} />
+            {{App.FBUser.name}}
+            <a href="#" {{action "logout" target="FB"}}>Logout</a>
+          </div>
+        {{else}}
+          {{#view Em.FacebookView type="login-button" data-size="xlarge"
+                                  data-scope="email, offline_access"}}
+            Connect
+          {{/view}}
+        {{/if}}
+
+
         {{view App.HomeBannerView }}
 
 		{{#if projects}}
