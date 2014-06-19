@@ -66,7 +66,7 @@ App.AuthJwtMixin = Em.Mixin.create({
         
         return Ember.RSVP.Promise(function (resolve, reject) {
             var hash = {
-              url: "/api-token-auth/",
+              url: "/api/token-auth/",
               dataType: "json",
               type: 'post',
               data: {
