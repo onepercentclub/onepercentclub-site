@@ -31,7 +31,7 @@ App.then(function(app) {
   Bluebottle Route Overrides
  */
 
-App.ApplicationRoute.reopen({
+App.ApplicationRoute.reopen(App.LogoutJwtMixin, {
     actions: {
         addDonation: function (project, fundraiser) {
             var route = this;
@@ -71,7 +71,7 @@ App.ApplicationRoute.reopen({
   Bluebottle Controller Overrides
  */
 App.ApplicationController.reopen({
-    needs: ['currentUser', 'currentOrder', 'myProjectList'],
+    needs: ['currentUser', 'currentOrder', 'myProjectList']
 });
 
 App.EventMixin = Em.Mixin.create({
