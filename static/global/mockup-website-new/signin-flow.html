@@ -210,6 +210,7 @@
 		<div class="modal-fullscreen-background">
 		<button class="flip-front">flip front</button>
 		<button class="flip-back">flip back</button>
+		<button class="shake">shake</button>
 
 			<div class="modal-fullscreen-container">
 				
@@ -223,7 +224,10 @@
 							<div class="last"></div>
 						</div>
 						<input type="text" placeholder="E-mailaddress">
-						<input type="password" placeholder="Password">
+						<div class="password">
+							<input type="password" placeholder="Password">
+							<span class="questionmark">?</span>
+						</div>
 						<a href="#" class="btn is-inactive">Sign in</a>
 					</div>
 					<div class="modal-fullscreen-footer">
@@ -272,24 +276,34 @@
 
 	<script>
 		var front = $('.front'), 
-			back = $('.back');
+			back = $('.back'),
+			shake = $('.shake'),
+			transitionEnd = 'transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd',
+			animationEnd = 'animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd';
 
 		$('.flip-back').on('click', function() {
-				front.removeClass('is-flip-front');
-				back.removeClass('is-flip-back');
+			front.removeClass('is-flip-front');
+			back.removeClass('is-flip-back');
 
-				front.addClass('is-flip-back');
-				back.addClass('is-flip-front');
+			front.addClass('is-flip-back');
+			back.addClass('is-flip-front');
 		});
 
 
 		$('.flip-front').on('click', function() {
-				front.removeClass('is-flip-back');
-				back.removeClass('is-flip-front');
+			front.removeClass('is-flip-back');
+			back.removeClass('is-flip-front');
 
-				front.addClass('is-flip-front');
-				back.addClass('is-flip-back');
+			front.addClass('is-flip-front');
+			back.addClass('is-flip-back');
 		});
+
+		shake.on('click', function() {
+			$('.password').toggleClass('is-incorrect');
+			$('.password').bind(animationEnd, function(){
+				$(this).removeClass('is-incorrect');
+			});
+		})
 	</script>
 </body>
 </html>
