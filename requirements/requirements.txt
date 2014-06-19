@@ -1,4 +1,4 @@
--e git://github.com/onepercentclub/bluebottle.git@cb322d772b3365d807d518fa996ebb3bae548265#egg=bluebottle
+-e git://github.com/onepercentclub/bluebottle.git@fd8ac387aef2da4c86d93f60d014a0e4af6265ae#egg=bluebottle
 
 pip
 mercurial==2.9.1
@@ -17,6 +17,9 @@ BeautifulSoup==3.2.1
 ember-compressor-compiler==0.3.1
 eventlet==0.14.0
 gevent==1.0.1
+
+# JSON Web Token based authentication for Django REST framework
+djangorestframework-jwt==0.1.5
 
 pytz==2013b
 
