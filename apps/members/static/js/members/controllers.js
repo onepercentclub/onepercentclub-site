@@ -1,3 +1,3 @@
-App.LoginController.reopen(App.AuthJwtMixin, {
-    loginTitle: 'Log in to 1% Club',
+App.LoginController.reopen({
+    loginTitle: 'Log in to 1% Club'
 });
