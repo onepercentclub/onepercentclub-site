@@ -22,33 +22,21 @@ class GetAuthToken(APIView):
         serializer = self.serializer_class(data=request.DATA)
 
         # Here we call PSA to authenticate like we would if we used PSA on server side.
-        user = register_by_access_token(request, backend)
+        jwt_token = register_by_access_token(request, backend)
 
         # If user is active we get or create the REST token and send it back with user data
-        if user and user.is_active:
-            token, created = Token.objects.get_or_create(user=user)
-            return Response({'id': user.id , 'name': user.username, 'userRole': 'user','token': token.key})
-
-
+        if jwt_token:
+            return Response({'token': jwt_token})
+        return Response({'error': "Ai caramba!"})
 
 @strategy()
 def register_by_access_token(request, backend):
 
     backend = request.strategy.backend
-    # Split by spaces and get the array
-    auth = get_authorization_header(request).split()
 
-    #
-    # if not auth or auth[0].lower() != b'token':
-    #     msg = 'No token header provided.'
-    #     return msg
-    #
-    # if len(auth) == 1:
-    #     msg = 'Invalid token header. No credentials provided.'
-    #     return msg
-    #
-    access_token=auth[0]
-    # Real authentication takes place here
-    user = backend.do_auth(access_token)
+    access_token = request.DATA.get('accessToken', None)
 
-    return user
+    if access_token:
+        user = backend.do_auth(access_token)
+        return user.get_jwt_token()
+    return None

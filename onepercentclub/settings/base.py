@@ -564,3 +564,6 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.load_extra_data',
     'social.pipeline.user.user_details'
 )
+
+
+JWT_VERIFY_EXPIRATION = False
