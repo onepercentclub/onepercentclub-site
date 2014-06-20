@@ -1,4 +1,9 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from rest_framework.authtoken.models import Token
+from django.conf import settings
+from django.utils.translation import ugettext as _
 from bluebottle.bb_accounts.models import BlueBottleBaseUser
 from bluebottle.utils.models import Address
 from djchoices.choices import DjangoChoices, ChoiceItem
@@ -16,6 +21,11 @@ class Member(BlueBottleBaseUser):
         except UserAddress.DoesNotExist:
             self.address = UserAddress.objects.create(user=self)
             self.address.save()
+
+@receiver(post_save, sender=Member)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)
 
 
 class UserAddress(Address):

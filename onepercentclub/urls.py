@@ -5,8 +5,9 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 from .views import HomeView
-
 from bluebottle.urls.core import urlpatterns as bb_urlpatterns
+from apps.auth.views import GetAuthToken
+
 
 admin.autodiscover()
 
@@ -20,6 +21,9 @@ urlpatterns = patterns('',
 urlpatterns += bb_urlpatterns
 
 urlpatterns += patterns('',
+
+    url('', include('social.apps.django_app.urls', namespace='social')),
+    url(r'^api/social-login/(?P<backend>[^/]+)/$', GetAuthToken.as_view()),
 
     url(r'^api/bb_projects/', include('apps.projects.urls.api')),
 
