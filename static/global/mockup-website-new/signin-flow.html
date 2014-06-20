@@ -214,12 +214,16 @@
 
 			<div class="modal-fullscreen-container">
 				
-				<div class="modal-fullscreen-item front">
+<!-- 				<div class="modal-fullscreen-item front">
 					<div class="modal-fullscreen-content">
 						<span class="modal-fullscreen-close">
 							<object type="image/svg+xml" data="/static/assets/images/icons/icon-close-modal.svg" class="modal-close-image"></object>
 						</span>
 						<h4>Welcome!</h4>
+						<div class="modal-flash-message">
+							Sorry, there was an error connecting your
+							Facebook account. Please try again.
+						</div>
 						<a href="#" data-ember-action="22" class="btn btn-facebook btn-iconed"><span class="flaticon social facebook-1"></span> Sign in with Facebook</a>
 						<div class="or-hr">
 							<div class="first"></div>
@@ -235,10 +239,14 @@
 							</div>
 						</div>
 						<a href="#" class="btn is-inactive">Sign in</a>
+						<div class="modal-flash-message success">
+							Sorry, there was an error connecting your
+							Facebook account. Please try again.
+						</div>
 					</div>
 					<div class="modal-fullscreen-footer">
 						<span class="modal-btn-signup" href="#">
-							Don’t have an account? <a href="#">Sign up here</a>
+							Don’t have an account? <a class="flip-back">Sign up here</a>
 						</span>
 					</div>
 				</div>
@@ -272,9 +280,67 @@
 						</div>
 						<div class="modal-fullscreen-footer">
 							<span class="modal-btn-signup" href="#">
-								Don’t have an account? <a href="#">Sign up here</a>
+								Already have an account? <a class="flip-front">Sign in here</a>
 							</span>
 						</div>
+				</div> -->
+
+				<div class="modal-fullscreen-item front">
+					<div class="modal-fullscreen-content">
+						<span class="modal-fullscreen-close">
+							<object type="image/svg+xml" data="/static/assets/images/icons/icon-close-modal.svg" class="modal-close-image"></object>
+						</span>
+						<h4>Is it me your looking for?</h4>
+						<div class="modal-fullscreen-profile">
+							<span class="photo">
+								<img src="/static/assets/images/mockup-website/profile-photo.jpg">
+							</span>
+							<span class="already-registerd">
+								<strong>joris@onepercentclub.com</strong> has 
+								already been registered with 1%Club. 
+								Is this you? Please sign in below
+							</span>
+						</div>	
+						<input type="text" placeholder="E-mailaddress">
+						<div class="password">
+							<input type="password" placeholder="Password">
+							<div class="tooltip-holder">
+								<span class="questionmark">?</span>
+								<div class="tooltip input">Lost your password?</div>
+							</div>
+						</div>
+						<a href="#" class="btn">Sign in</a>
+					</div>
+					<div class="modal-fullscreen-footer">
+						<span class="modal-btn-signup" href="#">
+							Don’t have an account? <a class="flip-back">Sign up here</a>
+						</span>
+					</div>
+				</div>
+
+				<div class="modal-fullscreen-item back">
+					<div class="modal-fullscreen-content">
+						<span class="modal-fullscreen-close">
+							<object type="image/svg+xml" data="/static/assets/images/icons/icon-close-modal.svg" class="modal-close-image"></object>
+						</span>
+						<h4>Is it me your looking for?</h4>
+						<div class="modal-fullscreen-profile">
+							<span class="photo">
+								<img src="/static/assets/images/mockup-website/profile-photo.jpg">
+							</span>
+							<span class="already-registerd">
+								<strong>joris@onepercentclub.com</strong> has 
+								already been registered with 1%Club. 
+								Is this you? Please sign in below
+							</span>
+						</div>
+						<a href="#" data-ember-action="22" class="btn btn-facebook btn-iconed"><span class="flaticon social facebook-1"></span> Sign in with Facebook</a>
+					</div>
+					<div class="modal-fullscreen-footer">
+						<span class="modal-btn-signup" href="#">
+							Don’t have an account? <a class="flip-back">Sign up here</a>
+						</span>
+					</div>
 				</div>
 
 			</div>
@@ -300,6 +366,7 @@
 		$('.flip-back').on('click', function() {
 			front.removeClass('is-flip-front');
 			back.removeClass('is-flip-back');
+			
 
 			front.addClass('is-flip-back');
 			back.addClass('is-flip-front');
