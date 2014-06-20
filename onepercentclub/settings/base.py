@@ -235,6 +235,7 @@ INSTALLED_APPS = (
     'registration',
     'filetransfers',
     'loginas',
+    #'social_auth',
     'social.apps.django_app.default',
 
     # CMS page contents
@@ -328,6 +329,7 @@ TASKS_TASKFILE_MODEL = 'tasks.TaskFile'
 ORGANIZATIONS_ORGANIZATION_MODEL = 'organizations.Organization'
 ORGANIZATIONS_DOCUMENT_MODEL = 'organizations.OrganizationDocument'
 ORGANIZATIONS_MEMBER_MODEL = 'organizations.OrganizationMember'
+PROJECTS_PHASELOG_MODEL = 'projects.ProjectPhaseLog'
 
 SOCIAL_AUTH_USER_MODEL = 'members.Member'
 
