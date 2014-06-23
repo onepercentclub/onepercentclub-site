@@ -45,7 +45,7 @@
                 </article>
 
                 <sidebar class="l-sidebar">
-                    {{#if controllers.currentUser.isAuthenticated }}
+                    {{#if currentUser.isAuthenticated }}
                         <h3>{% trans "Want to do more?" %}</h3>
                         <p>{% blocktrans %}You can easily support projects monthly. Just pick a project yourself or you can leave that up to us.{% endblocktrans %}</p>
                         {{#linkTo "userMonthlyProjects" class="btn btn-primary"}}{% trans "Support monthly" %}{{/linkTo}}

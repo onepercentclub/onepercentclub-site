@@ -4,7 +4,7 @@
 
 App.CurrentOrderDonationListController = Em.ArrayController.extend({
     // The CurrentOrderController is needed for the single / recurring radio buttons.
-    needs: ['currentUser', 'currentOrder', 'paymentProfile'],
+    needs: ['currentOrder', 'paymentProfile'],
 
     singleTotal: function() {
         return this.get('model').getEach('amount').reduce(function(accum, item) {
@@ -129,7 +129,7 @@ App.CurrentOrderVoucherController = Em.ObjectController.extend({
 
 
 App.CurrentOrderVoucherNewController = Em.ObjectController.extend({
-    needs: ['currentUser', 'currentOrder'],
+    needs: ['currentOrder'],
 
     init: function() {
         this._super();
@@ -139,8 +139,8 @@ App.CurrentOrderVoucherNewController = Em.ObjectController.extend({
     createNewVoucher: function() {
         var store = this.get('store');
         var voucher =  store.createRecord(App.CurrentOrderVoucher);
-        voucher.set('sender_name', this.get('controllers.currentUser.full_name'));
-        voucher.set('sender_email', this.get('controllers.currentUser.email'));
+        voucher.set('sender_name', this.get('currentUser.full_name'));
+        voucher.set('sender_email', this.get('currentUser.email'));
         voucher.set('receiver_name', '');
         voucher.set('receiver_email', '');
         this.set('model', voucher);
@@ -149,14 +149,14 @@ App.CurrentOrderVoucherNewController = Em.ObjectController.extend({
     updateSender: function(){
         // Make sure the sender info is fully loaded on refresh
         var voucher = this.get('model');
-        voucher.set('sender_name', this.get('controllers.currentUser.full_name'));
-        voucher.set('sender_email', this.get('controllers.currentUser.email'));
-    }.observes('controllers.currentUser.email', 'controllers.currentUser.full_name'),
+        voucher.set('sender_name', this.get('currentUser.full_name'));
+        voucher.set('sender_email', this.get('currentUser.email'));
+    }.observes('currentUser.email', 'currentUser.full_name'),
 
     addVoucher: function() {
         var voucher = this.get('model');
         // Set the order so the list gets updated in the view
-        var order = this.get('controllers.currentOrder.model');
+        var order = this.get('currentOrder.model');
         voucher.set('order', order);
 
         var controller = this;
@@ -177,11 +177,11 @@ App.CurrentOrderVoucherNewController = Em.ObjectController.extend({
 
 
 App.PaymentProfileController = Em.ObjectController.extend({
-    needs: ['currentOrder', 'currentUser'],
+    needs: ['currentOrder'],
 
     updateProfile: function() {
         var profile = this.get('model');
-        var user = this.get('controllers.currentUser');
+        var user = this.get('currentUser.model');
 
         // Set profile model to the 'updated' state so that the 'didUpdate' callback will always be run.
         profile.transitionTo('updated.uncommitted');
@@ -205,7 +205,7 @@ App.PaymentProfileController = Em.ObjectController.extend({
     actions: {
         nextStep: function(){
             var profile = this.get('model');
-            var user = this.get('controllers.currentUser');
+            var user = this.get('currentUser.model');
             var controller = this;
 
             if (profile.get('isDirty')) {
@@ -238,7 +238,7 @@ App.PaymentProfileController = Em.ObjectController.extend({
 
 
 App.PaymentSignupController = Em.ObjectController.extend({
-    needs: ['paymentProfile', 'currentUser'],
+    needs: ['paymentProfile'],
 
     createUser: function() {
         var user = this.get('model');
@@ -453,7 +453,6 @@ App.RecurringDirectDebitPaymentController = Em.ObjectController.extend({
 
 
 App.CurrentOrderController = Em.ObjectController.extend({
-    needs: ['currentUser'],
     donationType: '',
 
     updateRecurring: function() {
@@ -515,14 +514,10 @@ App.CurrentOrderController = Em.ObjectController.extend({
 });
 
 
-App.OrderThanksController = Em.ObjectController.extend({
-    needs: ['currentUser']
-});
+App.OrderThanksController = Em.ObjectController.extend({});
 
 
 App.RecurringOrderThanksController = Em.ObjectController.extend({
-    needs: ['currentUser'],
-
     moreThanOneDonation: function() {
         return this.get('donations.length') > 1;
     }.property('length')
@@ -530,7 +525,6 @@ App.RecurringOrderThanksController = Em.ObjectController.extend({
 
 
 App.TickerController = Em.ArrayController.extend(Ember.SortableMixin, {
-
     sortProperties: ['created'],
     sortAscending: false,
 
