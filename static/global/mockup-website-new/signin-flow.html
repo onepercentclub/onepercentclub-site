@@ -39,7 +39,7 @@
 						
 						<ul class="nav-actions">
 						    <li class="nav-signup-login">
-						        <a class="nav-signup" href="#">Sign in</a>
+						        <a class="nav-signup" href="javascript:void(0)">Sign in</a>
 						    </li>
 				        </ul>
 					</nav>
@@ -210,7 +210,6 @@
 		<div class="modal-fullscreen-background">
 		<button class="flip-front">flip front</button>
 		<button class="flip-back">flip back</button>
-		<button class="shake">shake</button>
 
 			<div class="modal-fullscreen-container">
 				
@@ -309,10 +308,10 @@
 								<div class="tooltip input">Lost your password?</div>
 							</div>
 						</div>
-						<a href="#" class="btn">Sign in</a>
+						<a href="javascript:void(0)" class="btn shake">Sign in</a>
 					</div>
 					<div class="modal-fullscreen-footer">
-						<span class="modal-btn-signup" href="#">
+						<span class="modal-btn-signup" href="javascript:void(0)">
 							Don’t have an account? <a class="flip-back">Sign up here</a>
 						</span>
 					</div>
@@ -334,11 +333,11 @@
 								Is this you? Please sign in below
 							</span>
 						</div>
-						<a href="#" data-ember-action="22" class="btn btn-facebook btn-iconed"><span class="flaticon social facebook-1"></span> Sign in with Facebook</a>
+						<a href="javascript:void(0)" data-ember-action="22" class="btn btn-facebook btn-iconed"><span class="flaticon social facebook-1"></span> Sign in with Facebook</a>
 					</div>
 					<div class="modal-fullscreen-footer">
-						<span class="modal-btn-signup" href="#">
-							Don’t have an account? <a class="flip-back">Sign up here</a>
+						<span class="modal-btn-signup">
+							Don’t have an account? <a href="javascript:void(0)" class="flip-back">Sign up here</a>
 						</span>
 					</div>
 				</div>
@@ -382,19 +381,21 @@
 		});
 
 		shake.on('click', function() {
-			$('.password').toggleClass('is-incorrect');
-			$('.password').bind(animationEnd, function(){
-				$(this).removeClass('is-incorrect');
+			//$('.password').toggleClass('is-incorrect');
+			$('.modal-fullscreen-item').toggleClass('is-shake');
+			$('.modal-fullscreen-item').bind(animationEnd, function(){
+				//$(this).removeClass('is-incorrect');
+				$('.modal-fullscreen-item').removeClass('is-shake');
 			});
 		});
 
 		$('.modal-fullscreen-close').on('click', function() {
-			$('.modal-fullscreen-background').removeClass('is-active');
 			$('.modal-fullscreen-background').addClass('is-inactive');
 
-			$('.modal-fullscreen-background').bind(animationEnd, function(){
-				$(this).removeClass('is-inactive');
-			});
+			setTimeout(function() {
+				$('.modal-fullscreen-background').removeClass('is-active');
+				$('.modal-fullscreen-background').removeClass('is-inactive');
+			}, 300);
 		})
 	</script>
 </body>
