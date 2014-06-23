@@ -50,6 +50,10 @@ App.FundRaiserIndexRoute = Em.Route.extend({
 
 
 App.FundRaiserNewRoute = Em.Route.extend(App.ScrollToTop, {
+    googleConversion: {
+        label: 'P4TmCIKA7AsQ7o7O1gM'
+    },
+
     model: function(params) {
         // Using project preview to have less data attached (TODO: Verify!)
         var store = this.get('store');
