@@ -71,7 +71,13 @@ App.ApplicationRoute.reopen(App.LogoutJwtMixin, {
   Bluebottle Controller Overrides
  */
 App.ApplicationController.reopen({
-    needs: ['currentUser', 'currentOrder', 'myProjectList']
+    needs: ['currentOrder', 'myProjectList'],
+
+    missingCurrentUser: function () {
+        // FIXME: should call the clearJwtToken action here but it isn't being called.
+        delete localStorage['jwtToken'];
+        App.set('jwtToken', null);
+    },
 });
 
 App.EventMixin = Em.Mixin.create({
@@ -140,4 +146,3 @@ App.ApplicationView.reopen(App.EventMixin, {
 		}
 	}
 });
-
