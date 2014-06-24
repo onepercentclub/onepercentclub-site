@@ -508,19 +508,19 @@ class RecurringOrderApiTest(OnePercentTestCase):
 
         # Anonymous users can't create a Recurring Order
         response = self.client.post(self.recurring_order_url_base, json.dumps({}), 'application/json')
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED, response.data)
 
         # Create a Recurring Order for a authenticated user works.
-        self.client.login(username=self.some_user.email, password='testing')
-        response = self.client.post(self.recurring_order_url_base, json.dumps({}), 'application/json')
+        self.some_token = "JWT {0}".format(self.some_user.get_jwt_token())
+        response = self.client.post(self.recurring_order_url_base, json.dumps({}), 'application/json', HTTP_AUTHORIZATION=self.some_token)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
 
         # Creating a recurring Order fails if one already exists for this user.
-        response = self.client.post(self.recurring_order_url_base, json.dumps({}), 'application/json')
+        response = self.client.post(self.recurring_order_url_base, json.dumps({}), 'application/json', HTTP_AUTHORIZATION=self.some_token)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
         # Let's check that this user has one Recurring order now.
-        response = self.client.get(self.recurring_order_url_base)
+        response = self.client.get(self.recurring_order_url_base, HTTP_AUTHORIZATION=self.some_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['count'], 1)
         self.assertEqual(response.data['results'][0]['status'], 'recurring')
@@ -532,23 +532,23 @@ class RecurringOrderApiTest(OnePercentTestCase):
                            "account": self.some_profile['account'],
                            "active": True,
                            "amount": 75}
-        response = self.client.post(self.recurring_payment_url_base, json.dumps(payment_profile), 'application/json')
+        response = self.client.post(self.recurring_payment_url_base, json.dumps(payment_profile), 'application/json', HTTP_AUTHORIZATION=self.some_token)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['amount'], '75.00')
 
         # Let's add a donation
         # For now the amount doesn't realy matter because the amount on recurring-payment has precedence.
         some_donation = {"project": self.some_project.slug, "amount": 10, "status": "new", "order": order_id}
-        response = self.client.post(self.recurring_donation_url_base, json.dumps(some_donation), 'application/json')
+        response = self.client.post(self.recurring_donation_url_base, json.dumps(some_donation), 'application/json', HTTP_AUTHORIZATION=self.some_token)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
 
         # Add another donation
         another_donation = {"project": self.another_project.slug, "amount": 10, "status": "new", "order": order_id}
-        response = self.client.post(self.recurring_donation_url_base, json.dumps(some_donation), 'application/json')
+        response = self.client.post(self.recurring_donation_url_base, json.dumps(some_donation), 'application/json', HTTP_AUTHORIZATION=self.some_token)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
 
         # Order should contain two donations now
-        response = self.client.get(self.recurring_order_url_base)
+        response = self.client.get(self.recurring_order_url_base, HTTP_AUTHORIZATION=self.some_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['count'], 1)
         self.assertEqual(len(response.data['results'][0]['donations']), 2)
@@ -559,11 +559,11 @@ class RecurringOrderApiTest(OnePercentTestCase):
 
         # Remove the first donation
         donation_url = "{0}{1}".format(self.recurring_donation_url_base, donation_id)
-        response = self.client.delete(donation_url)
+        response = self.client.delete(donation_url, HTTP_AUTHORIZATION=self.some_token)
 
         # Now the order should have just one donation
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT, response.data)
-        response = self.client.get(self.recurring_order_url_base)
+        response = self.client.get(self.recurring_order_url_base, HTTP_AUTHORIZATION=self.some_token)
         self.assertEqual(len(response.data['results'][0]['donations']), 1)
         # Create some urls later use
         order_id = response.data['results'][0]['id']
@@ -572,20 +572,19 @@ class RecurringOrderApiTest(OnePercentTestCase):
         donation_url = "{0}{1}".format(self.recurring_donation_url_base, donation_id)
 
         # Login as another user and try to load the order/donation for first user.
-        self.client.logout()
-        self.client.login(username=self.another_user.email, password='testing')
-        response = self.client.get(order_url)
+        self.another_token = "JWT {0}".format(self.another_user.get_jwt_token())
+        response = self.client.get(order_url, HTTP_AUTHORIZATION=self.another_token)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND, response.data)
-        response = self.client.get(donation_url)
+        response = self.client.get(donation_url, HTTP_AUTHORIZATION=self.another_token)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND, response.data)
 
         # Adding a donation to the other users donation shouldn't work
         another_donation = {"project": self.another_project.slug, "amount": 10, "status": "new", "order": order_id}
-        response = self.client.post(self.recurring_donation_url_base, json.dumps(some_donation), 'application/json')
+        response = self.client.post(self.recurring_donation_url_base, json.dumps(some_donation), 'application/json', HTTP_AUTHORIZATION=self.another_token)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
 
         # This user should have no recurring order.
-        response = self.client.get(self.recurring_order_url_base)
+        response = self.client.get(self.recurring_order_url_base, HTTP_AUTHORIZATION=self.another_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['count'], 0)
 

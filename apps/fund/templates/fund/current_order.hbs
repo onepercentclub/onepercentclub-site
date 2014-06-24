@@ -24,7 +24,7 @@
                     <header class="l-header">
                         <h1>{% trans "Support" %}</h1>
 
-                        {{#if controllers.currentUser.isAuthenticated}}
+                        {{#if currentUser.isAuthenticated}}
                         <ul class="tabs steps three">
                         {{else}}
                         <ul class="tabs steps four">
@@ -47,7 +47,7 @@
                                 {{#linkTo 'paymentProfile'}}<span class="flaticon solid mail-3"></span> {% trans "Details" %}{{/linkTo}}
                             {{/view}}
 
-                            {{#unless controllers.currentUser.isAuthenticated}}
+                            {{#unless currentUser.isAuthenticated}}
                                 {{#view App.OrderNavView classNames="profile"}}
                                     {{#linkTo 'paymentSignup'}}<span class="flaticon solid user-1"></span> {% trans "Profile" %}{{/linkTo}}
                                 {{/view}}
