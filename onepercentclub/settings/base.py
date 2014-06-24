@@ -316,6 +316,7 @@ INSTALLED_APPS = (
 # Custom User model
 AUTH_USER_MODEL = 'members.Member'
 PROJECTS_PROJECT_MODEL = 'projects.Project'
+PROJECTS_PHASELOG_MODEL = 'projects.ProjectPhaseLog'
 TASKS_TASK_MODEL = 'tasks.Task'
 TASKS_SKILL_MODEL = 'tasks.Skill'
 TASKS_TASKMEMBER_MODEL = 'tasks.TaskMember'
