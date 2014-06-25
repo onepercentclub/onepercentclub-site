@@ -15,6 +15,7 @@ from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 
 from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
+from apps.cowry_docdata.tests import run_docdata_tests
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
