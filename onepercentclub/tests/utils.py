@@ -86,3 +86,17 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
 
         # Check if the homepage opened, and the dynamically loaded content appeared.
         return self.wait_for_element_css('#home')
+
+    def scroll_to_by_css(self, selector):
+        """
+        Overwrite this function so the elements don't scroll behind the top menu.
+        """
+
+        element = self.wait_for_element_css(selector)
+
+        if element:
+            y = int(element.location['y']) - 100
+            self.browser.execute_script("window.scrollTo(0,%s)" % y)
+
+        return element
+
