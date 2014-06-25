@@ -17,7 +17,7 @@
 {% block_verbatim anonymous_user %}
 
     <li class="nav-signup-login">
-        {{#linkTo "signup" class="nav-signup"}}{% trans "Sign up" %}{{/linkTo}}
+        <a {{action 'openInBox' 'signup'}} class="nav-signup"}}>{% trans "Sign up" %}</a>
         <a {{action 'openInBox' "login"}} class="nav-login">{%  trans "Log in" %}</a>
     </li>
     <li class="nav-switch-language">
