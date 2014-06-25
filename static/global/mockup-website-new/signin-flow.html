@@ -39,7 +39,7 @@
 						
 						<ul class="nav-actions">
 						    <li class="nav-signup-login">
-						        <a class="nav-signup" href="#">Sign in</a>
+						        <a class="nav-signup" href="javascript:void(0)">Sign in</a>
 						    </li>
 				        </ul>
 					</nav>
@@ -210,26 +210,29 @@
 		<div class="modal-fullscreen-background">
 		<button class="flip-front">flip front</button>
 		<button class="flip-back">flip back</button>
-		<button class="shake">shake</button>
 
 			<div class="modal-fullscreen-container">
-				
-<!-- 				<div class="modal-fullscreen-item front">
-					<div class="modal-fullscreen-content">
+
+			<div id="card">
+				<figure class="front">
+					<div class="modal-fullscreen-item ">
+					<div class="modal-fullscreen-header">
 						<span class="modal-fullscreen-close">
 							<object type="image/svg+xml" data="/static/assets/images/icons/icon-close-modal.svg" class="modal-close-image"></object>
 						</span>
-						<h4>Welcome!</h4>
-						<div class="modal-flash-message">
-							Sorry, there was an error connecting your
-							Facebook account. Please try again.
-						</div>
-						<a href="#" data-ember-action="22" class="btn btn-facebook btn-iconed"><span class="flaticon social facebook-1"></span> Sign in with Facebook</a>
-						<div class="or-hr">
-							<div class="first"></div>
-							<div class="middle">or</div>
-							<div class="last"></div>
-						</div>
+						<h4>Is it me your looking for?</h4>
+					</div>
+					<div class="modal-fullscreen-profile">
+						<span class="photo">
+							<img src="/static/assets/images/mockup-website/profile-photo.jpg">
+						</span>
+						<span class="already-registerd">
+							<strong>joris@onepercentclub.com</strong> has 
+							already been registered with 1%Club. 
+							Is this you? Please sign in below
+						</span>
+					</div>
+					<div class="modal-fullscreen-content got-header">
 						<input type="text" placeholder="E-mailaddress">
 						<div class="password">
 							<input type="password" placeholder="Password">
@@ -238,20 +241,17 @@
 								<div class="tooltip input">Lost your password?</div>
 							</div>
 						</div>
-						<a href="#" class="btn is-inactive">Sign in</a>
-						<div class="modal-flash-message success">
-							Sorry, there was an error connecting your
-							Facebook account. Please try again.
-						</div>
+						<a href="javascript:void(0)" class="btn shake">Sign in</a>
 					</div>
 					<div class="modal-fullscreen-footer">
-						<span class="modal-btn-signup" href="#">
+						<span class="modal-btn-signup" href="javascript:void(0)">
 							Don’t have an account? <a class="flip-back">Sign up here</a>
 						</span>
 					</div>
 				</div>
-
-				<div class="modal-fullscreen-item back">
+				</figure>
+				<figure class="back">
+					<div class="modal-fullscreen-item">
 						<div class="modal-fullscreen-content">
 							<span class="modal-fullscreen-close">
 								<object type="image/svg+xml" data="/static/assets/images/icons/icon-close-modal.svg" class="modal-close-image"></object>
@@ -283,24 +283,32 @@
 								Already have an account? <a class="flip-front">Sign in here</a>
 							</span>
 						</div>
-				</div> -->
+				</div>
+				</figure>
+			</div>
+				
+				
 
-				<div class="modal-fullscreen-item front">
-					<div class="modal-fullscreen-content">
+				
+
+<!-- 				<div class="modal-fullscreen-item front">
+					<div class="modal-fullscreen-header">
 						<span class="modal-fullscreen-close">
 							<object type="image/svg+xml" data="/static/assets/images/icons/icon-close-modal.svg" class="modal-close-image"></object>
 						</span>
 						<h4>Is it me your looking for?</h4>
-						<div class="modal-fullscreen-profile">
-							<span class="photo">
-								<img src="/static/assets/images/mockup-website/profile-photo.jpg">
-							</span>
-							<span class="already-registerd">
-								<strong>joris@onepercentclub.com</strong> has 
-								already been registered with 1%Club. 
-								Is this you? Please sign in below
-							</span>
-						</div>	
+					</div>
+					<div class="modal-fullscreen-profile">
+						<span class="photo">
+							<img src="/static/assets/images/mockup-website/profile-photo.jpg">
+						</span>
+						<span class="already-registerd">
+							<strong>joris@onepercentclub.com</strong> has 
+							already been registered with 1%Club. 
+							Is this you? Please sign in below
+						</span>
+					</div>
+					<div class="modal-fullscreen-content got-header">
 						<input type="text" placeholder="E-mailaddress">
 						<div class="password">
 							<input type="password" placeholder="Password">
@@ -309,39 +317,41 @@
 								<div class="tooltip input">Lost your password?</div>
 							</div>
 						</div>
-						<a href="#" class="btn">Sign in</a>
+						<a href="javascript:void(0)" class="btn shake">Sign in</a>
 					</div>
 					<div class="modal-fullscreen-footer">
-						<span class="modal-btn-signup" href="#">
+						<span class="modal-btn-signup" href="javascript:void(0)">
 							Don’t have an account? <a class="flip-back">Sign up here</a>
 						</span>
 					</div>
 				</div>
 
 				<div class="modal-fullscreen-item back">
-					<div class="modal-fullscreen-content">
+					<div class="modal-fullscreen-header">
 						<span class="modal-fullscreen-close">
 							<object type="image/svg+xml" data="/static/assets/images/icons/icon-close-modal.svg" class="modal-close-image"></object>
 						</span>
 						<h4>Is it me your looking for?</h4>
-						<div class="modal-fullscreen-profile">
-							<span class="photo">
-								<img src="/static/assets/images/mockup-website/profile-photo.jpg">
-							</span>
-							<span class="already-registerd">
-								<strong>joris@onepercentclub.com</strong> has 
-								already been registered with 1%Club. 
-								Is this you? Please sign in below
-							</span>
-						</div>
-						<a href="#" data-ember-action="22" class="btn btn-facebook btn-iconed"><span class="flaticon social facebook-1"></span> Sign in with Facebook</a>
 					</div>
-					<div class="modal-fullscreen-footer">
-						<span class="modal-btn-signup" href="#">
-							Don’t have an account? <a class="flip-back">Sign up here</a>
+					<div class="modal-fullscreen-profile">
+						<span class="photo">
+							<img src="/static/assets/images/mockup-website/profile-photo.jpg">
+						</span>
+						<span class="already-registerd">
+							<strong>joris@onepercentclub.com</strong> has 
+							already been registered with 1%Club. 
+							Is this you? Please sign in below
 						</span>
 					</div>
-				</div>
+					<div class="modal-fullscreen-content got-header">
+						<a href="javascript:void(0)" data-ember-action="22" class="btn btn-facebook btn-iconed"><span class="flaticon social facebook-1"></span> Sign in with Facebook</a>
+					</div>
+					<div class="modal-fullscreen-footer">
+						<span class="modal-btn-signup">
+							Don’t have an account? <a href="javascript:void(0)" class="flip-back">Sign up here</a>
+						</span>
+					</div>
+				</div> -->
 
 			</div>
 
@@ -360,8 +370,8 @@
 		var front = $('.front'), 
 			back = $('.back'),
 			shake = $('.shake'),
-			transitionEnd = 'transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd',
-			animationEnd = 'animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd';
+			transitionEnd = 'webkitTransitionEnd oTransitionEnd oTransitionEnd msTransitionEnd transitionend',
+			animationEnd = 'animationEnd animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd';
 
 		$('.flip-back').on('click', function() {
 			front.removeClass('is-flip-front');
@@ -382,19 +392,21 @@
 		});
 
 		shake.on('click', function() {
-			$('.password').toggleClass('is-incorrect');
-			$('.password').bind(animationEnd, function(){
-				$(this).removeClass('is-incorrect');
+			//$('.password').toggleClass('is-incorrect');
+			$('.modal-fullscreen-item').toggleClass('is-shake');
+			$('.modal-fullscreen-item').bind(animationEnd, function(){
+				//$(this).removeClass('is-incorrect');
+				$('.modal-fullscreen-item').removeClass('is-shake');
 			});
 		});
 
 		$('.modal-fullscreen-close').on('click', function() {
-			$('.modal-fullscreen-background').removeClass('is-active');
-			$('.modal-fullscreen-background').addClass('is-inactive');
-
-			$('.modal-fullscreen-background').bind(animationEnd, function(){
-				$(this).removeClass('is-inactive');
+			$('.modal-fullscreen-background').one(animationEnd, function(){
+				$('.modal-fullscreen-background').removeClass('is-active');
+				$('.modal-fullscreen-background').removeClass('is-inactive');
 			});
+
+			$('.modal-fullscreen-background').addClass('is-inactive');
 		})
 	</script>
 </body>
