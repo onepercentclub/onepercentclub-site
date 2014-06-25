@@ -239,14 +239,10 @@
 								<div class="tooltip input">Lost your password?</div>
 							</div>
 						</div>
-						<a href="#" class="btn is-inactive">Sign in</a>
-						<div class="modal-flash-message success">
-							Sorry, there was an error connecting your
-							Facebook account. Please try again.
-						</div>
+						<a href="javascript:void(0)" class="btn shake">Sign in</a>
 					</div>
 					<div class="modal-fullscreen-footer">
-						<span class="modal-btn-signup" href="#">
+						<span class="modal-btn-signup" href="javascript:void(0)">
 							Don’t have an account? <a class="flip-back">Sign up here</a>
 						</span>
 					</div>
@@ -372,8 +368,8 @@
 		var front = $('.front'), 
 			back = $('.back'),
 			shake = $('.shake'),
-			transitionEnd = 'transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd',
-			animationEnd = 'animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd';
+			transitionEnd = 'webkitTransitionEnd oTransitionEnd oTransitionEnd msTransitionEnd transitionend',
+			animationEnd = 'animationEnd animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd';
 
 		$('.flip-back').on('click', function() {
 			front.removeClass('is-flip-front');
@@ -403,12 +399,12 @@
 		});
 
 		$('.modal-fullscreen-close').on('click', function() {
-			$('.modal-fullscreen-background').addClass('is-inactive');
-
-			setTimeout(function() {
+			$('.modal-fullscreen-background').one(animationEnd, function(){
 				$('.modal-fullscreen-background').removeClass('is-active');
 				$('.modal-fullscreen-background').removeClass('is-inactive');
-			}, 300);
+			});
+
+			$('.modal-fullscreen-background').addClass('is-inactive');
 		})
 	</script>
 </body>
