@@ -4,7 +4,9 @@ python:
 node_js:
 - '0.10'
 env:
-- DJANGO=django==1.5.4
+  global:
+  - secure: "SzMYzAnIHxHEKHEOJEY5jchkx5AZGQ/c0tHPAgv/CwA5jJpjAFNTyyeu4ufiXAg5d3ZxAEwnBIvnXl2T2jfkBUMLhuqeaeqnT1BgUS2ZzPAoZshQbYacmy6xDg1iySWyHR5uMdSF6XwrXKEpd9V26o7fLPMUBeCeQuxkrkcPKds="
+  - secure: "MadgOYHJmWUlRlzdxJl/wyLJh9UzcV8KrCiOLE4bRWynoAulxgOCbsZFvMHnwjT+UTn+jm0J7lWOKpbehxQlHggdZSLocY7VvofWlfIu00rilfslvSDE7ggkwR/okEmUbokcyX5GycxcdjBaAx0d/iF0Vp7LifvpTkpiJBp9bAI="
 services:
 - memcached
 before_install:

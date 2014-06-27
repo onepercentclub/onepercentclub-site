@@ -1,3 +1,7 @@
+import json
+import os
+import requests
+import base64
 from bluebottle.bb_projects.models import ProjectPhase, ProjectTheme
 from bluebottle.test.factory_models.projects import ProjectPhaseFactory, ProjectThemeFactory
 from bluebottle.test.utils import SeleniumTestCase
@@ -100,3 +104,35 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
 
         return element
 
+    def upload_screenshot(self):
+        client_id = os.environ.get('IMGUR_CLIENT_ID')
+        client_key = os.environ.get('IMGUR_CLIENT_SECRET')
+
+        if client_id and client_key:
+            client_auth = 'Client-ID {0}'.format(client_id)
+            headers = {'Authorization': client_auth}
+            url = 'https://api.imgur.com/3/upload.json'
+            filename = '/tmp/screenshot.png'
+
+            print 'Attempting to save screenshot...'
+            self.browser.driver.save_screenshot(filename)
+
+            response = requests.post(
+                url,
+                headers = headers,
+                data = {
+                    'key': client_key,
+                    'image': base64.b64encode(open(filename, 'rb').read()),
+                    'type': 'base64',
+                    'name': filename,
+                    'title': 'Travis Screenshot'
+                }
+            )
+
+            print 'Uploaded screenshot:'
+            data = json.loads(response.content)
+            print data['data']['link']
+            print response.content
+
+        else:
+            print 'Imgur API keys not found!'
