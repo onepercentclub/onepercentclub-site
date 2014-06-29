@@ -140,6 +140,7 @@ class CartApiIntegrationTest(OnePercentTestCase):
 
         # Now let's get anonymous and create a donation
         # make a cart for this anonymous user
+        self.client.logout()
         self.client.get(self.current_order_url)
         response = self.client.post(self.current_donations_url, {'project': self.some_project.slug, 'amount': 71})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
@@ -150,13 +151,13 @@ class CartApiIntegrationTest(OnePercentTestCase):
         self.assertEqual(response.data['count'], 1)
 
         # Login as the first user and cart should only have the one donation from  the anonymous cart.
-        self.client.logout()
         response = self.client.get(self.current_donations_url, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.data['count'], 1)
         self.assertEqual(response.data['results'][0]['amount'], '71.00')
         self.assertEqual(response.data['results'][0]['project'], self.some_project.slug)
 
         # Log out again... The anonymous cart should NOT be returned
+        self.client.logout()
         self.client.get(self.current_order_url)
         response = self.client.get(self.current_donations_url)
         self.assertEqual(response.data['count'], 0)
@@ -318,6 +319,7 @@ class CartApiIntegrationTest(OnePercentTestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
         # Anonymous user shouldn't be able to access the orders from 'some_user' and 'another_user'.
+        self.client.logout()
         response = self.client.get(some_user_order_url)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
