@@ -25,6 +25,44 @@ App.then(function(app) {
             content: list
         });
     });
+
+    // Facebook API ID 
+    if (FACEBOOK_AUTH_ID)
+        App.set('appId', FACEBOOK_AUTH_ID);
+
+
+    app.appLogin = function (fbResponse) {
+        debugger
+        var _this = this;
+        return Ember.RSVP.Promise(function (resolve, reject) {
+            var hash = {
+              url: "/api/social-login/facebook/",
+              dataType: "json",
+              type: 'post',
+              data: fbResponse
+            };
+
+            hash.success = function (response) {
+                App.AuthJwt.processSuccessResponse(response).then(function (user) {
+                    // If success
+                    debugger
+                    var currentUsercontroller = App.__container__.lookup('controller:CurrentUser');
+                    currentUsercontroller.set('model', user);
+                    $('[rel=close]').click();
+                }, function (error) {
+                    // If failed
+                    console.log("fail");
+                });
+            };
+
+            hash.error = function (response) {
+                var error = JSON.parse(response.responseText);
+                Ember.run(null, reject, error);
+            };
+
+            Ember.$.ajax(hash);
+        });
+    };
 });
 
 /*
