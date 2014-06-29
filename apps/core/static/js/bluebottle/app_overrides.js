@@ -32,8 +32,9 @@ App.then(function(app) {
 
 
     app.appLogin = function (fbResponse) {
-        debugger
-        var _this = this;
+        var _this = this,
+            currentUsercontroller = App.__container__.lookup('controller:CurrentUser');
+            
         return Ember.RSVP.Promise(function (resolve, reject) {
             var hash = {
               url: "/api/social-login/facebook/",
@@ -45,10 +46,9 @@ App.then(function(app) {
             hash.success = function (response) {
                 App.AuthJwt.processSuccessResponse(response).then(function (user) {
                     // If success
-                    debugger
-                    var currentUsercontroller = App.__container__.lookup('controller:CurrentUser');
-                    currentUsercontroller.set('model', user);
                     $('[rel=close]').click();
+                    currentUsercontroller.set('model', user);
+                    currentUsercontroller.send('setFlash', gettext('Welcome to the 1%Club'));
                 }, function (error) {
                     // If failed
                     console.log("fail");
@@ -56,6 +56,7 @@ App.then(function(app) {
             };
 
             hash.error = function (response) {
+                currentUsercontroller.send('setFlash', gettext('Something went wrong :-('), 'error');
                 var error = JSON.parse(response.responseText);
                 Ember.run(null, reject, error);
             };
