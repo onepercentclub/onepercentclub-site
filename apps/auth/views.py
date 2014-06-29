@@ -33,21 +33,13 @@ class GetAuthToken(APIView):
 
 @strategy()
 def register_by_access_token(request, backend):
+    # TODO: Do we need to set this below? Aren't we passing backend to this method?
+    # backend = request.strategy.backend
 
-    backend = request.strategy.backend
     # Split by spaces and get the array
     auth = get_authorization_header(request).split()
-
-    #
-    # if not auth or auth[0].lower() != b'token':
-    #     msg = 'No token header provided.'
-    #     return msg
-    #
-    # if len(auth) == 1:
-    #     msg = 'Invalid token header. No credentials provided.'
-    #     return msg
-    #
     access_token=auth[0]
+    
     # Real authentication takes place here
     user = backend.do_auth(access_token)
 
