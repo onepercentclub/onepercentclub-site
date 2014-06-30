@@ -334,7 +334,8 @@ ORGANIZATIONS_MEMBER_MODEL = 'organizations.OrganizationMember'
 PROJECTS_PHASELOG_MODEL = 'projects.ProjectPhaseLog'
 
 SOCIAL_AUTH_USER_MODEL = 'members.Member'
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_friends', 'public_profile', 'publish_actions']
+
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -561,13 +562,15 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.auth_allowed',
     'social.pipeline.social_auth.social_user',
     'social.pipeline.user.get_username',
-    'apps.auth.utils.test_function',
-    #'social.pipeline.social_auth.associate_by_email',
+    #'apps.auth.utils.verify_email',
+    'social.pipeline.social_auth.associate_by_email',
     'social.pipeline.mail.mail_validation',
     'social.pipeline.user.create_user',
     'social.pipeline.social_auth.associate_user',
     'social.pipeline.social_auth.load_extra_data',
-    'social.pipeline.user.user_details'
+    'social.pipeline.user.user_details',
+    'apps.auth.utils.save_profile_picture',
+    'apps.auth.utils.get_extra_facebook_data',
 )
 
 
