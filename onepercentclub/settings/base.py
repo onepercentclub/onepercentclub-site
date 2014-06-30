@@ -332,6 +332,7 @@ ORGANIZATIONS_DOCUMENT_MODEL = 'organizations.OrganizationDocument'
 ORGANIZATIONS_MEMBER_MODEL = 'organizations.OrganizationMember'
 
 SOCIAL_AUTH_USER_MODEL = 'members.Member'
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
