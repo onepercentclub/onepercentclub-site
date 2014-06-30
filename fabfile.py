@@ -46,6 +46,7 @@ env.database = 'onepercentsite'
 # By default, confirm everywhere
 env.noinput = False
 
+
 # Utility functions:
 @contextmanager
 def virtualenv():
@@ -342,6 +343,10 @@ def prepare_django():
         sudo('chown -Rf %s private' % env.web_user)
 
         run_web('./manage.py syncdb --migrate --noinput --settings=%s' % env.django_settings)
+
+        # Bower install. Needed by admin charts.
+        run_web('./manage.py bower_install --settings=%s' % env.django_settings)
+
         run_web('./manage.py collectstatic -l -v 0 --noinput --settings=%s' % env.django_settings)
 
         # Disabled for now; it unjustly deletes cached thumbnails

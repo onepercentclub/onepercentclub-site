@@ -132,6 +132,8 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # admin stats
+    'djangobower.finders.BowerFinder',
     # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 ]
 
@@ -220,6 +222,12 @@ INSTALLED_APPS = (
     'raven.contrib.django.raven_compat',
     'djcelery',
     'south',
+
+    # admin stats apps
+    'djangobower',
+    'admin_tools_stats',
+    'django_nvd3',
+
     # 'django_nose',
     'compressor',
     'sorl.thumbnail',
@@ -557,3 +565,6 @@ DEFAULT_TWITTER_HANDLE = TWITTER_HANDLES['nl']
 
 MINIMAL_PAYOUT_AMOUNT = 21.00
 
+# Admin stats
+BOWER_COMPONENTS_ROOT = PROJECT_ROOT
+BOWER_INSTALLED_APPS = ('nvd3',)
