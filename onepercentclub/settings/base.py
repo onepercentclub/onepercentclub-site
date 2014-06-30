@@ -569,8 +569,8 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.associate_user',
     'social.pipeline.social_auth.load_extra_data',
     'social.pipeline.user.user_details',
-    'apps.auth.utils.save_profile_picture',
-    'apps.auth.utils.get_extra_facebook_data',
+    'bluebottle.auth.utils.save_profile_picture',
+    'bluebottle.auth.utils.get_extra_facebook_data',
 )
 
 
