@@ -3,9 +3,12 @@
 <projects>
     {% for project in object_list %}
         <project>
+            <id>{{ project.id }}</id>
+            <started>{{ project.campaign_started|date:"c" }}</started>
+            <deadline>{{ project.deadline|date:"c" }}</deadline>
             <title>{{ project.title }}</title>
             <link>{{ site }}/go/projects/{{ project.slug }}</link>
-            <created>{{ project.created }}</created>
+            <created>{{ project.created|date:"c" }}</created>
             <slug>{{ project.slug }}</slug>
             <supportlink>{{ site }}/go/projects/{{ project.slug }}</supportlink>
             <image>
