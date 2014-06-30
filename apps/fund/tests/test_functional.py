@@ -78,9 +78,6 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
         # verify we are donating to the correct project
         self.browser.find_by_css('div.project-action a').first.click()
 
-        time.sleep(5)
-        self.upload_screenshot()
-
         self.assertTrue(self.browser.is_text_present('LIKE TO GIVE', wait_time=10))
 
         self.assertEqual(self.browser.find_by_css('h2.project-title').first.text[:11], u'WOMEN FIRST')
@@ -168,10 +165,6 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
         donation.order.save()
 
         self.visit_path('/support/thanks/{0}'.format(donation.order.pk))
-
-        time.sleep(5)
-
-        self.upload_screenshot()
 
         # Validate thank you page.
         self.assertTrue(self.browser.is_text_present('WELL, YOU ROCK!', wait_time=10))

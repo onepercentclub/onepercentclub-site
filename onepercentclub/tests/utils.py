@@ -136,3 +136,4 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
 
         else:
             print 'Imgur API keys not found!'
+
