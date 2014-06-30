@@ -2,10 +2,24 @@
 
 
 {% tplhandlebars "_social_logins" %}
-    {{view Em.FacebookView type="login-button" data-size="xlarge" data-scope="email, offline_access" classNames="btn btn-facebook btn-iconed"}}
+
+    {{#if App.FBUser}}
+       {{#if currentUser.isAuthenticated }}
+       {{else }}
+       {{view Em.FacebookView type="login-button" data-size="xlarge" data-scope="email, offline_access" classNames="btn btn-facebook btn-iconed"}}
+       {{/if}}
+      <div>
+        <img {{bindAttr src="App.FBUser.picture" alt="App.FBUser.name"}} />
+        {{App.FBUser.name}}
+        <a href="#" {{action "logout" target="FB"}}>Logout</a>
+      </div>
+    {{else}}
+        {{view Em.FacebookView type="login-button" data-size="xlarge" data-scope="email, offline_access" classNames="btn btn-facebook btn-iconed"}}
+    {{/if}}
     <div class="or-hr">
         <div class="first"></div>
         <div class="middle">{% trans "or" %}</div>
         <div class="last"></div>
     </div>
+
 {% endtplhandlebars %}

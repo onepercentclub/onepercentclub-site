@@ -236,6 +236,7 @@ INSTALLED_APPS = (
     'registration',
     'filetransfers',
     'loginas',
+    #'social_auth',
     'social.apps.django_app.default',
 
     # CMS page contents
@@ -250,7 +251,7 @@ INSTALLED_APPS = (
     'django_tools',
 
     #FB Auth
-    'apps.auth',
+    'bluebottle.auth',
 
     # Cowry Payments
     'apps.cowry',
@@ -330,9 +331,11 @@ TASKS_TASKFILE_MODEL = 'tasks.TaskFile'
 ORGANIZATIONS_ORGANIZATION_MODEL = 'organizations.Organization'
 ORGANIZATIONS_DOCUMENT_MODEL = 'organizations.OrganizationDocument'
 ORGANIZATIONS_MEMBER_MODEL = 'organizations.OrganizationMember'
+PROJECTS_PHASELOG_MODEL = 'projects.ProjectPhaseLog'
 
 SOCIAL_AUTH_USER_MODEL = 'members.Member'
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_INSTALLED = ['email', 'user_friends', 'public_profile']
+
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -559,10 +562,16 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.auth_allowed',
     'social.pipeline.social_auth.social_user',
     'social.pipeline.user.get_username',
+    #'apps.auth.utils.verify_email',
     'social.pipeline.social_auth.associate_by_email',
     'social.pipeline.mail.mail_validation',
     'social.pipeline.user.create_user',
     'social.pipeline.social_auth.associate_user',
     'social.pipeline.social_auth.load_extra_data',
-    'social.pipeline.user.user_details'
+    'social.pipeline.user.user_details',
+    'bluebottle.auth.utils.save_profile_picture',
+    'bluebottle.auth.utils.get_extra_facebook_data',
 )
+
+
+JWT_VERIFY_EXPIRATION = False
