@@ -25,6 +25,45 @@ App.then(function(app) {
             content: list
         });
     });
+
+    // Facebook API ID 
+    if (FACEBOOK_AUTH_ID)
+        App.set('appId', FACEBOOK_AUTH_ID);
+
+
+    app.appLogin = function (fbResponse) {
+        var _this = this,
+            currentUsercontroller = App.__container__.lookup('controller:CurrentUser');
+            
+        return Ember.RSVP.Promise(function (resolve, reject) {
+            var hash = {
+              url: "/api/social-login/facebook/",
+              dataType: "json",
+              type: 'post',
+              data: fbResponse
+            };
+
+            hash.success = function (response) {
+                App.AuthJwt.processSuccessResponse(response).then(function (user) {
+                    // If success
+                    $('[rel=close]').click();
+                    currentUsercontroller.set('model', user);
+                    currentUsercontroller.send('setFlash', gettext('Welcome to the 1%Club'));
+                }, function (error) {
+                    // If failed
+                    console.log("fail");
+                });
+            };
+
+            hash.error = function (response) {
+                currentUsercontroller.send('setFlash', gettext('Something went wrong :-('), 'error');
+                var error = JSON.parse(response.responseText);
+                Ember.run(null, reject, error);
+            };
+
+            Ember.$.ajax(hash);
+        });
+    };
 });
 
 /*
