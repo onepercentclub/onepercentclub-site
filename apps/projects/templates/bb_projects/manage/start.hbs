@@ -58,7 +58,7 @@
                 <p>{% trans "Update your profile so people know who is the campaigner" %}</p>
                 {{#if currentUser.isAuthenticated}}
                     <figure class="campaigner-avatar">
-                        <img {{bindAttr src="currentUser.getAvatar" alt="controllers.currentUser.full_name"}}>
+                        <img {{bindAttr src="currentUser.getAvatar" alt="currentUser.full_name"}}>
                     </figure>
                     <div class="campaigner-details">
                         <h4 class="campaigner-name">{{ currentUser.full_name }}</h4>
