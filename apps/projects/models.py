@@ -18,7 +18,11 @@ from django.utils import timezone
 from .mails import mail_project_funded_internal
 from .signals import project_funded
 
+
 #from apps.fund.models import Donation, DonationStatuses
+
+class ProjectPhaseLog(BaseProjectPhaseLog):
+    pass
 
 
 class ProjectManager(models.Manager):
