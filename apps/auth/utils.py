@@ -24,8 +24,17 @@ def save_profile_picture(strategy, user, response, details,
 
 
 def get_extra_facebook_data(strategy, user, response, details, is_new=False, *args, **kwargs):
-    #TODO: Load more relevant Facebook data to our profile if necessary
-    pass
+    """ From Facebook we get the following properties with the 'public_profile' permission:
+        id, name, first_name, last_name, link, gender, locale, age_range
+    """
+
+    user.first_name = response.get('first_name', None)
+    user.last_name = response.get('last_name', None)
+    user.gender = response.get('gender', None)
+    fb_link = response.get('link', None)
+    if len(fb_link) < 50:
+        user.facebook = fb_link
+    user.save()
 
 
 def verify_email(strategy, user, request, **kwargs):
