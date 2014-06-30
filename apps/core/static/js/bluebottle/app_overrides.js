@@ -2,6 +2,7 @@
   Setup user details for exception handling
  */
 
+
 App.then(function(app) {
     App.CurrentUser.find('current').then(function(user) {
         if (typeof Raven == 'object') {
@@ -33,7 +34,7 @@ App.then(function(app) {
 
     app.appLogin = function (fbResponse) {
         var _this = this,
-            currentUsercontroller = App.__container__.lookup('controller:CurrentUser');
+            currentUsercontroller = App.__container__.lookup('controller:currentUser');
             
         return Ember.RSVP.Promise(function (resolve, reject) {
             var hash = {
@@ -46,12 +47,13 @@ App.then(function(app) {
             hash.success = function (response) {
                 App.AuthJwt.processSuccessResponse(response).then(function (user) {
                     // If success
-                    $('[rel=close]').click();
-                    currentUsercontroller.set('model', user);
+                    $('.modal-fullscreen-close').click();
                     currentUsercontroller.send('setFlash', gettext('Welcome to the 1%Club'));
-                }, function (error) {
+                    currentUsercontroller.set('model', user);
+                    Ember.run(null, resolve, user);
+                 }, function (error) {
                     // If failed
-                    console.log("fail");
+                    Ember.run(null, reject, error);
                 });
             };
 
