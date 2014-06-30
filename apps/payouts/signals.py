@@ -1,3 +1,4 @@
+from apps.payouts.choices import PayoutRules
 from dateutil.relativedelta import relativedelta
 from bluebottle.bb_projects.models import ProjectPhase
 
@@ -45,6 +46,10 @@ def create_payout_finished_project(sender, instance, created, **kwargs):
 
             # Calculate amounts
             payout.calculate_amounts()
+
+            # Exception for legacy projects. Close them right away.
+            if payout.payout_rule == PayoutRules.old:
+                payout.status == PayoutLineStatuses.completed
 
             # Set payment details
             organization = project.organization

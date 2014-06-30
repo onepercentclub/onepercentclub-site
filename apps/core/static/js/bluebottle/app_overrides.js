@@ -193,3 +193,4 @@ App.ApplicationView.reopen(App.EventMixin, {
         }
     }
 });
+

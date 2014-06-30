@@ -15,6 +15,7 @@ from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 
 from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
+from apps.cowry_docdata.tests import run_docdata_tests
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
@@ -163,9 +164,8 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
 
         self.visit_path('/support/thanks/{0}'.format(donation.order.pk))
 
-
         # Validate thank you page.
-        self.assertTrue(self.browser.is_text_present('WELL, YOU ROCK!'))
+        self.assertTrue(self.browser.is_text_present('WELL, YOU ROCK!', wait_time=10))
         self.assertTrue(self.browser.is_text_present(self._projects[0].title.upper()))
 
         # check that the correct links are present
