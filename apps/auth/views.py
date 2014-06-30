@@ -31,12 +31,14 @@ class GetAuthToken(APIView):
 
 @strategy()
 def register_by_access_token(request, backend):
+    # TODO: Do we need to set this below? Aren't we passing backend to this method?
+    # backend = request.strategy.backend
 
-    backend = request.strategy.backend
+    # Split by spaces and get the array
+    auth = get_authorization_header(request).split()
+    access_token=auth[0]
+    
+    # Real authentication takes place here
+    user = backend.do_auth(access_token)
 
-    access_token = request.DATA.get('accessToken', None)
-
-    if access_token:
-        user = backend.do_auth(access_token)
-        return user.get_jwt_token()
-    return None
+    return user

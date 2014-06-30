@@ -25,13 +25,60 @@ App.then(function(app) {
             content: list
         });
     });
+
+    // Facebook API ID 
+    if (FACEBOOK_AUTH_ID)
+        App.set('appId', FACEBOOK_AUTH_ID);
+
+
+    app.appLogin = function (fbResponse) {
+        var _this = this,
+            currentUsercontroller = App.__container__.lookup('controller:CurrentUser');
+            
+        return Ember.RSVP.Promise(function (resolve, reject) {
+            var hash = {
+              url: "/api/social-login/facebook/",
+              dataType: "json",
+              type: 'post',
+              data: fbResponse
+            };
+
+            hash.success = function (response) {
+                App.AuthJwt.processSuccessResponse(response).then(function (user) {
+                    // If success
+                    $('[rel=close]').click();
+                    currentUsercontroller.set('model', user);
+                    currentUsercontroller.send('setFlash', gettext('Welcome to the 1%Club'));
+                }, function (error) {
+                    // If failed
+                    console.log("fail");
+                });
+            };
+
+            hash.error = function (response) {
+                currentUsercontroller.send('setFlash', gettext('Something went wrong :-('), 'error');
+                var error = JSON.parse(response.responseText);
+                Ember.run(null, reject, error);
+            };
+
+            Ember.$.ajax(hash);
+        });
+    };
 });
 
 /*
   Bluebottle Route Overrides
  */
 
-App.ApplicationRoute.reopen(App.LogoutJwtMixin, {
+App.ApplicationRoute.reopen(App.LogoutJwtMixin, Ember.FacebookMixin, {
+    init: function () {
+        this._super();
+
+        // Set the facebook appId
+        // TODO: move this to the server side settings
+        this.set('appId', '1438115069790112');
+    },
+
     actions: {
         addDonation: function (project, fundraiser) {
             var route = this;
@@ -71,7 +118,13 @@ App.ApplicationRoute.reopen(App.LogoutJwtMixin, {
   Bluebottle Controller Overrides
  */
 App.ApplicationController.reopen({
-    needs: ['currentUser', 'currentOrder', 'myProjectList']
+    needs: ['currentOrder', 'myProjectList'],
+
+    missingCurrentUser: function () {
+        // FIXME: should call the clearJwtToken action here but it isn't being called.
+        delete localStorage['jwtToken'];
+        App.set('jwtToken', null);
+    },
 });
 
 App.EventMixin = Em.Mixin.create({
@@ -112,32 +165,31 @@ App.EventMixin = Em.Mixin.create({
 */
 
 App.ApplicationView.reopen(App.EventMixin, {
-	setBindScrolling: function() {
-		this.bindScrolling();
-	}.on('didInsertElement'),
+    setBindScrolling: function() {
+        this.bindScrolling();
+    }.on('didInsertElement'),
 
-	setUnbindScrolling: function() {
-		this.unbindScrolling();
-	}.on('didInsertElement'),
+    setUnbindScrolling: function() {
+        this.unbindScrolling();
+    }.on('didInsertElement'),
 
-	setBindClick: function() {
-		this.bindMobileClick();
-	}.on('didInsertElement'),
+    setBindClick: function() {
+        this.bindMobileClick();
+    }.on('didInsertElement'),
 
-	scrolled: function(dist) {
-		top = $('#content').offset();
-		elm = top.screen.availTop;
+    scrolled: function(dist) {
+        top = $('#content').offset();
+        elm = top.screen.availTop;
 
-		if (dist <= 53) {
-			$('#header').removeClass('is-scrolled');
-			$('.nav-member-dropdown').removeClass('is-scrolled');
-			$('.mobile-nav-holder').removeClass('is-scrolled');
+        if (dist <= 53) {
+            $('#header').removeClass('is-scrolled');
+            $('.nav-member-dropdown').removeClass('is-scrolled');
+            $('.mobile-nav-holder').removeClass('is-scrolled');
             $('#content').append('<div class="scrolled-area"></div>');
-		} else {
-			$('#header').addClass('is-scrolled');
-			$('.nav-member-dropdown').addClass('is-scrolled');
-			$('.mobile-nav-holder').addClass('is-scrolled');
-		}
-	}
+        } else {
+            $('#header').addClass('is-scrolled');
+            $('.nav-member-dropdown').addClass('is-scrolled');
+            $('.mobile-nav-holder').addClass('is-scrolled');
+        }
+    }
 });
-

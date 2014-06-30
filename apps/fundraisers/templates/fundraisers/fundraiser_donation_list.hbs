@@ -7,7 +7,7 @@
         <div class="l-section account-header">
             <nav class="l-wrapper">
 
-                <figure class="account-avatar"><img {{bindAttr src="controllers.currentUser.getAvatar"}} /></figure>
+                <figure class="account-avatar"><img {{bindAttr src="currentUser.getAvatar"}} /></figure>
 
                 <header class="account-title">
                     <h2>{% trans "My 1%" %} <em class="account-subtitle">{% trans "Fundraising" %}</em> <em class="account-subtitle">{% trans "Donations" %}</em></h2>
@@ -22,7 +22,7 @@
 
         <div class="l-wrapper">
             <div class="l-content">
-                {{#if controllers.currentUser.isAuthenticated}}
+                {{#if currentUser.isAuthenticated}}
                     <header class="l-page-header">
                         <h1>{% trans "Donation overview" %}</h1>
                         <p>

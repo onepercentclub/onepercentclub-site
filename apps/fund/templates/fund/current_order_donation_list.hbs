@@ -43,7 +43,7 @@
 
     {% comment %}
         <div class="l-sidebar">
-            {{#if controllers.currentUser.isAuthenticated}}
+            {{#if currentUser.isAuthenticated}}
                 <h3>{% trans "Why not donate monthly?" %}</h3>
                 <p>{% blocktrans %}You're about to support a 1%Project. Great! Did you know you can also share a little every month? How? Choose 'monthly' and become a 1%Friend!{% endblocktrans %}</p>
             {{else}}

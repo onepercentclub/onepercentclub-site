@@ -1,10 +1,5 @@
-App.UserDonationController = Em.ObjectController.extend({
-    needs: ['currentUser']
-});
-
-App.UserMonthlyController = Em.ObjectController.extend({
-
-});
+App.UserDonationController = Em.ObjectController.extend({});
+App.UserMonthlyController = Em.ObjectController.extend({});
 
 App.UserMonthlyProfileController = Em.ObjectController.extend(App.Editable, {
     actions: {
@@ -242,7 +237,6 @@ App.UserMonthlyProjectsController = Em.ObjectController.extend({
     }
 
 });
-
 
 App.MonthlyProjectSearchFormController = App.ProjectSearchFormController.extend({
     needs: ['monthlyProjectList'],

@@ -191,6 +191,7 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'bluebottle.utils.context_processors.google_maps_api_key',
     'bluebottle.utils.context_processors.google_analytics_code',
     'bluebottle.utils.context_processors.sentry_dsn',
+    'bluebottle.utils.context_processors.facebook_auth_settings',
     'social.apps.django_app.context_processors.backends',
     'social.apps.django_app.context_processors.login_redirect',
 )
@@ -322,6 +323,7 @@ INSTALLED_APPS = (
 # Custom User model
 AUTH_USER_MODEL = 'members.Member'
 PROJECTS_PROJECT_MODEL = 'projects.Project'
+PROJECTS_PHASELOG_MODEL = 'projects.ProjectPhaseLog'
 TASKS_TASK_MODEL = 'tasks.Task'
 TASKS_SKILL_MODEL = 'tasks.Skill'
 TASKS_TASKMEMBER_MODEL = 'tasks.TaskMember'
@@ -332,6 +334,7 @@ ORGANIZATIONS_MEMBER_MODEL = 'organizations.OrganizationMember'
 PROJECTS_PHASELOG_MODEL = 'projects.ProjectPhaseLog'
 
 SOCIAL_AUTH_USER_MODEL = 'members.Member'
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -461,11 +464,13 @@ REST_FRAMEWORK = {
     'FILTER_BACKEND': 'rest_framework.filters.DjangoFilterBackend',
     # Don't do basic authentication.
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        # 'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     )
 }
+
+JWT_EXPIRATION_DELTA = 1800
 
 COWRY_RETURN_URL_BASE = 'http://127.0.0.1:8000'
 
@@ -550,7 +555,6 @@ TWITTER_HANDLES = {
 DEFAULT_TWITTER_HANDLE = TWITTER_HANDLES['nl']
 
 MINIMAL_PAYOUT_AMOUNT = 21.00
-
 SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.social_details',
     'social.pipeline.social_auth.social_uid',

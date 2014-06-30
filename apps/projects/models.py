@@ -359,8 +359,9 @@ class ProjectBudgetLine(models.Model):
         return u'{0} - {1}'.format(self.description, self.amount / 100.0)
 
 
-# FIXME: ProjectPhaseLog was removed here
-# Add a nice function/model/way to store status changes.
+class ProjectPhaseLog(BaseProjectPhaseLog):
+    pass
+
 
 class PartnerOrganization(models.Model):
     """
