@@ -6,7 +6,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 from .views import HomeView
 from bluebottle.urls.core import urlpatterns as bb_urlpatterns
-from apps.auth.views import GetAuthToken
+from bluebottle.auth.views import GetAuthToken
 
 
 admin.autodiscover()
