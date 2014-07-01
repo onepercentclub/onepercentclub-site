@@ -158,10 +158,13 @@ CACHES = {
 # http://stackoverflow.com/questions/8092695/404-on-requests-without-trailing-slash-to-i18n-urls
 MIDDLEWARE_CLASSES = [
     'apps.redirects.middleware.RedirectHashCompatMiddleware',
+    'bluebottle.utils.middleware.ApiDisableCsrf',
     # Have a middleware to make sure old cookies still work after we switch to domain-wide cookies.
     'bluebottle.utils.middleware.SubDomainSessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'bluebottle.bb_accounts.middleware.LocaleMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
