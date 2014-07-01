@@ -1,12 +1,13 @@
 {% load i18n bb_ember %}
 
-
 {% tplhandlebars "_social_logins" %}
 
     {{#if App.FBUser}}
        {{#if currentUser.isAuthenticated }}
        {{else }}
-       {{view Em.FacebookView type="login-button" data-size="xlarge" data-scope="email, offline_access" classNames="btn btn-facebook btn-iconed"}}
+            {{#view Em.FBView type="login-button" data-size="xlarge" data-scope="email, offline_access"}}
+                <span class="flaticon social facebook-1"></span>{% trans "Sign in with Facebook" %}
+            {{/view}}
        {{/if}}
       <div>
         <img {{bindAttr src="App.FBUser.picture" alt="App.FBUser.name"}} />
@@ -14,7 +15,9 @@
         <a href="#" {{action "logout" target="FB"}}>Logout</a>
       </div>
     {{else}}
-        {{view Em.FacebookView type="login-button" data-size="xlarge" data-scope="email, offline_access" classNames="btn btn-facebook btn-iconed"}}
+            {{#view Em.FBView type="login-button" data-size="xlarge" data-scope="email, offline_access"}}
+                    <span class="flaticon social facebook-1"></span>{% trans "Sign in with Facebook" %}
+            {{/view}}
     {{/if}}
     <div class="or-hr">
         <div class="first"></div>
