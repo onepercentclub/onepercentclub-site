@@ -33,8 +33,6 @@ App.then(function(app) {
 
 
     app.appLogin = function (fbResponse) {
-        console.log("app login");
-
         var _this = this,
             currentUsercontroller = App.__container__.lookup('controller:currentUser');
             
