@@ -79,11 +79,6 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
             'url': self.live_server_url
         })
 
-    def tearDown(self):
-        # Navigate to homepage before tearing the browser down.
-        # This helps Travis.
-        self.visit_homepage()
-
     def visit_homepage(self, lang_code=None):
         """
         Convenience function to open the homepage.
