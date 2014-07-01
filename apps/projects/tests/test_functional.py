@@ -221,11 +221,6 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
                 ]
             }
 
-    def tearDown(self):
-        # Navigate to homepage before tearing the browser down.
-        # This helps Travis.
-        self.visit_homepage()
-
     def test_create_project(self):
         """
         Creating a project. The positive flow.
