@@ -341,7 +341,9 @@ def prepare_django():
         # make sure the web user owns the private directory
         sudo('chown -Rf %s private' % env.web_user)
 
-        run_web('./manage.py syncdb --migrate --noinput --settings=%s' % env.django_settings)
+
+        run_web('./manage.py syncdb --noinput --settings=%s' % env.django_settings)
+        run_web('./manage.py migrate --ignore-ghost-migrations --settings=%s' % env.django_settings)
         run_web('./manage.py collectstatic -l -v 0 --noinput --settings=%s' % env.django_settings)
 
         # Disabled for now; it unjustly deletes cached thumbnails
