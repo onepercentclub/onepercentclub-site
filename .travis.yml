@@ -3,6 +3,8 @@ python:
 - '2.7'
 node_js:
 - '0.10'
+addons:
+  firefox: "28.0"
 env:
   global:
   - secure: "SzMYzAnIHxHEKHEOJEY5jchkx5AZGQ/c0tHPAgv/CwA5jJpjAFNTyyeu4ufiXAg5d3ZxAEwnBIvnXl2T2jfkBUMLhuqeaeqnT1BgUS2ZzPAoZshQbYacmy6xDg1iySWyHR5uMdSF6XwrXKEpd9V26o7fLPMUBeCeQuxkrkcPKds="
