@@ -5,17 +5,12 @@
     {{#if App.FBUser}}
        {{#if currentUser.isAuthenticated }}
        {{else }}
-            {{#view Em.FBView type="login-button" data-size="xlarge" data-scope="email, offline_access"}}
+            {{#view Em.FBView type="login-button" data-size="xlarge" data-scope="email, user_friends, public_profile, offline_access"}}
                 <span class="flaticon social facebook-1"></span>{% trans "Sign in with Facebook" %}
             {{/view}}
        {{/if}}
-      <div>
-        <img {{bindAttr src="App.FBUser.picture" alt="App.FBUser.name"}} />
-        {{App.FBUser.name}}
-        <a href="#" {{action "logout" target="FB"}}>Logout</a>
-      </div>
     {{else}}
-            {{#view Em.FBView type="login-button" data-size="xlarge" data-scope="email, offline_access"}}
+            {{#view Em.FBView type="login-button" data-size="xlarge" data-scope="email, user_friends, public_profile, offline_access"}}
                     <span class="flaticon social facebook-1"></span>{% trans "Sign in with Facebook" %}
             {{/view}}
     {{/if}}
