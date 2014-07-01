@@ -100,7 +100,8 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
 
         if element:
             y = int(element.location['y']) - 100
-            self.browser.execute_script("window.scrollTo(0,%s)" % y)
+            x = int(element.location['x'])
+            self.browser.execute_script("window.scrollTo(%s,%s)" % (x, y))
 
         return element
 

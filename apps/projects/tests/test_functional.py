@@ -221,6 +221,11 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
                 ]
             }
 
+    def tearDown(self):
+        # Navigate to homepage before tearing the browser down.
+        # This helps Travis.
+        self.visit_homepage()
+
     def test_create_project(self):
         """
         Creating a project. The positive flow.
@@ -237,12 +242,14 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         ###
 
         self.assertTrue(self.is_visible('section h1.page-title'))
-        self.scroll_to_and_click_by_css("button.btn-primary")
+        self.scroll_to_by_css("button.btn-primary, form")
+        time.sleep(5)
+        self.scroll_to_and_click_by_css("button.btn-primary, form")
 
         ###
         # Project Section
         ###
-
+        time.sleep(5)
 
         self.browser.select('language', 2)
         self.assertTrue(self.is_visible('input[name="title"]'))
