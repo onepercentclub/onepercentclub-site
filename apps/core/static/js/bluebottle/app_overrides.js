@@ -45,19 +45,24 @@ App.then(function(app) {
             };
 
             hash.success = function (response) {
+
                 App.AuthJwt.processSuccessResponse(response).then(function (user) {
+
                     // If success
-                    $('.modal-fullscreen-close').click();
-                    currentUsercontroller.send('setFlash', gettext('Welcome to the 1%Club'));
                     currentUsercontroller.set('model', user);
+                    currentUsercontroller.send('close');
+                    currentUsercontroller.send('setFlash', gettext('Welcome to the 1%Club'));
+
                     Ember.run(null, resolve, user);
                  }, function (error) {
                     // If failed
+
                     Ember.run(null, reject, error);
                 });
             };
 
             hash.error = function (response) {
+
                 currentUsercontroller.send('setFlash', gettext('Something went wrong :-('), 'error');
                 var error = JSON.parse(response.responseText);
                 Ember.run(null, reject, error);
