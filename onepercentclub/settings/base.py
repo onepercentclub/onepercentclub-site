@@ -573,6 +573,3 @@ SOCIAL_AUTH_PIPELINE = (
     'bluebottle.auth.utils.save_profile_picture',
     'bluebottle.auth.utils.get_extra_facebook_data',
 )
-
-
-JWT_VERIFY_EXPIRATION = False
