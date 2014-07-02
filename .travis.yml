@@ -3,8 +3,12 @@ python:
 - '2.7'
 node_js:
 - '0.10'
+addons:
+  sauce_connect: true
 env:
-- DJANGO=django==1.5.4
+  global:
+  - secure: MJdnBywSUzXusV6STq0tzwOVu7aWVy7uJ8o8tSuh5xygBxiRUjyTlHmPtwQ9lnHW41RaQBTIYT4+EXHaCryvN12Y4PnR6RdH5u5WEjuY4W3JaKOxUYcaxhrECRs4vPzWFy4E/i+xdu0KREQkIw14ddox19qMY8m666zpf9Zev54=
+  - secure: DakqYtAES3b614LhnJfLpc89kNLexz++YoXeI5lUOYDEWuPoErMByNK5bOXAtrXDinNXofCkXXQGYTMXRMlM0uf0i/tihBHpwk45yWYKypo/I0rCgFYP9lOvmMOIY7P365fPkk9HvVcxiEAB7wKsQatw74ph0bsEQMIBbk48GNo=
 services:
 - memcached
 before_install:
@@ -15,17 +19,19 @@ before_install:
 - sudo apt-get install -qq memcached python-memcache
 install:
 - export DISPLAY=:99.0
-- /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16
+- "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile
+  --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
 - pip install --upgrade setuptools --use-mirrors
-- pip install $DJANGO --use-mirrors
-- pip install --use-mirrors --use-wheel --find-links=http://stream.onepercentlive.com/wheelhouse/ -r requirements/ci_requirements.txt
+- pip install --use-mirrors --use-wheel --find-links=https://stream.onepercentclub.com/wheelhouse/
+  -r requirements/ci_requirements.txt
 - pip install Pillow --use-mirrors
 - touch onepercentclub/settings/secrets.py
 before_script:
 - pip show bluebottle
 - grunt compass:dist --bb_path="`pip show bluebottle | grep Location | cut -b11-`/bluebottle/common/static/sass"
 script:
-- python ./manage.py test --settings=onepercentclub.settings.travis --failfast -v 1
+- python ./manage.py test --settings=onepercentclub.settings.travis --failfast -v
+  1
 notifications:
   hipchat:
     rooms:
