@@ -2,7 +2,6 @@
   Setup user details for exception handling
  */
 
-
 App.then(function(app) {
     App.CurrentUser.find('current').then(function(user) {
         if (typeof Raven == 'object') {
@@ -35,6 +34,10 @@ App.then(function(app) {
     app.appLogin = function (fbResponse) {
         var _this = this,
             currentUsercontroller = App.__container__.lookup('controller:currentUser');
+
+        // Clear any existing tokens which might be present but expired
+        // NOTE: clearJwtToken action is on the App.ApplicationRoute
+        currentUsercontroller.send('clearJwtToken');
             
         return Ember.RSVP.Promise(function (resolve, reject) {
             var hash = {
