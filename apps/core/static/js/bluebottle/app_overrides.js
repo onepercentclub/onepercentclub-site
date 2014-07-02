@@ -2,7 +2,6 @@
   Setup user details for exception handling
  */
 
-
 App.then(function(app) {
     App.CurrentUser.find('current').then(function(user) {
         if (typeof Raven == 'object') {
@@ -35,6 +34,10 @@ App.then(function(app) {
     app.appLogin = function (fbResponse) {
         var _this = this,
             currentUsercontroller = App.__container__.lookup('controller:currentUser');
+
+        // Clear any existing tokens which might be present but expired
+        // NOTE: clearJwtToken action is on the App.ApplicationRoute
+        currentUsercontroller.send('clearJwtToken');
             
         return Ember.RSVP.Promise(function (resolve, reject) {
             var hash = {
@@ -77,7 +80,7 @@ App.then(function(app) {
   Bluebottle Route Overrides
  */
 
-App.ApplicationRoute.reopen(App.LogoutJwtMixin, Ember.FacebookMixin, {
+App.ApplicationRoute.reopen(App.LogoutJwtMixin, {
     init: function () {
         this._super();
 
@@ -87,6 +90,15 @@ App.ApplicationRoute.reopen(App.LogoutJwtMixin, Ember.FacebookMixin, {
     },
 
     actions: {
+        logout: function (redirect) {
+            // call the standard logout code => clear JWT token etc
+            this._super(redirect);
+
+            // If the has logged in via FB, eg there is a FBUser then they should 
+            // be logged out so that the user can log in with user/email
+            if (FB && !Em.Empty(FB.getUserID()))
+                FB.logout()
+        },
         addDonation: function (project, fundraiser) {
             var route = this;
             App.CurrentOrder.find('current').then(function(order) {
