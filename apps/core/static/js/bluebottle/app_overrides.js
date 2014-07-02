@@ -98,7 +98,7 @@ App.ApplicationRoute.reopen(App.LogoutJwtMixin, {
 
             // If the has logged in via FB, eg there is a FBUser then they should 
             // be logged out so that the user can log in with user/email
-            if (FB && !Em.empty(FB.getUserID()))
+            if (FB && !Em.isEmpty(FB.getUserID()))
                 FB.logout()
         },
         addDonation: function (project, fundraiser) {
