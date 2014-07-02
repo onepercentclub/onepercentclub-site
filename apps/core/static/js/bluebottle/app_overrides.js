@@ -72,7 +72,7 @@ App.then(function(app) {
   Bluebottle Route Overrides
  */
 
-App.ApplicationRoute.reopen(App.LogoutJwtMixin, Ember.FacebookMixin, {
+App.ApplicationRoute.reopen(App.LogoutJwtMixin, {
     init: function () {
         this._super();
 
@@ -82,6 +82,15 @@ App.ApplicationRoute.reopen(App.LogoutJwtMixin, Ember.FacebookMixin, {
     },
 
     actions: {
+        logout: function (redirect) {
+            // call the standard logout code => clear JWT token etc
+            this._super(redirect);
+
+            // If the has logged in via FB, eg there is a FBUser then they should 
+            // be logged out so that the user can log in with user/email
+            if (FB && !Em.Empty(FB.getUserID()))
+                FB.logout()
+        },
         addDonation: function (project, fundraiser) {
             var route = this;
             App.CurrentOrder.find('current').then(function(order) {
