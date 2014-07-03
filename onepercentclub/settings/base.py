@@ -567,11 +567,13 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.associate_by_email',
     'social.pipeline.mail.mail_validation',
     'social.pipeline.user.create_user',
+    'bluebottle.bb_accounts.utils.social_signup_send_welcome_mail',
     'social.pipeline.social_auth.associate_user',
     'social.pipeline.social_auth.load_extra_data',
     'social.pipeline.user.user_details',
     'bluebottle.auth.utils.save_profile_picture',
     'bluebottle.auth.utils.get_extra_facebook_data',
+
 )
 
 
