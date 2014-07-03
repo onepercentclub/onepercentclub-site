@@ -31,7 +31,7 @@ App.then(function(app) {
         App.set('appId', FACEBOOK_AUTH_ID);
 
 
-    app.appLogin = function (fbResponse) {
+    app.fbLogin = function (fbResponse) {
         var _this = this,
             currentUsercontroller = App.__container__.lookup('controller:currentUser');
 
@@ -58,7 +58,7 @@ App.then(function(app) {
                     currentUsercontroller.send('close');
 
                     if (user.get('firstLogin')) {
-                        currentUsercontroller.send('setFlash', gettext('Welcome to the 1%Club'));
+                        currentUsercontroller.send('setFlash', currentUsercontroller.get('welcomeMessage'));
                     }
 
                     Ember.run(null, resolve, user);
