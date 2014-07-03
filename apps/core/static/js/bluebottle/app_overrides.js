@@ -56,7 +56,9 @@ App.then(function(app) {
                     // If success
                     currentUsercontroller.set('model', user);
                     currentUsercontroller.send('close');
-                    currentUsercontroller.send('setFlash', gettext('Welcome to the 1%Club'));
+                    if (user.get('last_login') == user.get('date_joined')) {
+                        currentUsercontroller.send('setFlash', gettext('Welcome to the 1%Club'));
+                    }
 
                     Ember.run(null, resolve, user);
                  }, function (error) {
