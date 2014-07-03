@@ -56,7 +56,8 @@ App.then(function(app) {
                     // If success
                     currentUsercontroller.set('model', user);
                     currentUsercontroller.send('close');
-                    if (user.get('last_login') == user.get('date_joined')) {
+
+                    if (user.get('firstLogin')) {
                         currentUsercontroller.send('setFlash', gettext('Welcome to the 1%Club'));
                     }
 
