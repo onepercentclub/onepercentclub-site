@@ -12,8 +12,7 @@ from django.utils.translation import ugettext as _
 
 
 class Member(BlueBottleBaseUser):
-
-    # Create an address if none exists
+    #Create an address if none exists
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         super(Member, self).save(force_insert=False, force_update=False, using=None, update_fields=None)
         try:
@@ -26,7 +25,6 @@ class Member(BlueBottleBaseUser):
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
-
 
 class UserAddress(Address):
 
