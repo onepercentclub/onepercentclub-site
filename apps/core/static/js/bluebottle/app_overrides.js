@@ -154,16 +154,14 @@ App.Router.reopen({
 
         var currentRoute = infos.get('lastObject').handler;
         var gc = currentRoute.get('googleConversion');
-        Ember.run.next(function() {
-            if (gc &! DEBUG) {
-                var google_conversion_id = gc.id || 986941294;
-                var google_conversion_language = gc.language || 'en';
-                var google_conversion_format = gc.format || '3';
-                var google_conversion_color = gc.color || 'ffffff';
-                var google_conversion_label = gc.label;
-                var google_remarketing_only = false;
-                $.getScript("https://www.googleadservices.com/pagead/conversion.js");
-            }
-        });
+        if (gc &! DEBUG) {
+            var google_conversion_id = gc.id || 986941294;
+            var google_conversion_language = gc.language || 'en';
+            var google_conversion_format = gc.format || '3';
+            var google_conversion_color = gc.color || 'ffffff';
+            var google_conversion_label = gc.label;
+            var google_remarketing_only = false;
+            $.getScript("https://www.googleadservices.com/pagead/conversion.js");
+        }
     }
 });
