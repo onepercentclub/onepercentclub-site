@@ -35,9 +35,11 @@ App.then(function(app) {
         var _this = this,
             currentUsercontroller = App.__container__.lookup('controller:currentUser');
 
-        // Clear any existing tokens which might be present but expired
-        // NOTE: clearJwtToken action is on the App.ApplicationRoute
-        currentUsercontroller.send('clearJwtToken');
+        // Clear any existing tokens which might be present but expired. clearJwtToken action is on the App.ApplicationRoute
+        // FIXME: should call the clearJwtToken action here but it isn't being called.
+        // currentUsercontroller.send('clearJwtToken');
+        delete localStorage['jwtToken'];
+        App.set('jwtToken', null);
             
         return Ember.RSVP.Promise(function (resolve, reject) {
             var hash = {
@@ -96,7 +98,7 @@ App.ApplicationRoute.reopen(App.LogoutJwtMixin, {
 
             // If the has logged in via FB, eg there is a FBUser then they should 
             // be logged out so that the user can log in with user/email
-            if (FB && !Em.Empty(FB.getUserID()))
+            if (FB && !Em.isEmpty(FB.getUserID()))
                 FB.logout()
         },
         addDonation: function (project, fundraiser) {
