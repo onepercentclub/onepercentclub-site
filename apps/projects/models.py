@@ -1,6 +1,6 @@
 import datetime
 from .fields import MoneyField
-from bluebottle.bb_projects.models import BaseProject, ProjectTheme, ProjectPhase
+from bluebottle.bb_projects.models import BaseProject, ProjectTheme, ProjectPhase, BaseProjectPhaseLog
 from django.db import models
 from django.db.models import Q
 from django.db.models.aggregates import Count, Sum
@@ -18,7 +18,11 @@ from django.utils import timezone
 from .mails import mail_project_funded_internal
 from .signals import project_funded
 
+
 #from apps.fund.models import Donation, DonationStatuses
+
+class ProjectPhaseLog(BaseProjectPhaseLog):
+    pass
 
 
 class ProjectManager(models.Manager):
@@ -355,8 +359,9 @@ class ProjectBudgetLine(models.Model):
         return u'{0} - {1}'.format(self.description, self.amount / 100.0)
 
 
-# FIXME: ProjectPhaseLog was removed here
-# Add a nice function/model/way to store status changes.
+class ProjectPhaseLog(BaseProjectPhaseLog):
+    pass
+
 
 class PartnerOrganization(models.Model):
     """

@@ -158,12 +158,14 @@ CACHES = {
 # http://stackoverflow.com/questions/8092695/404-on-requests-without-trailing-slash-to-i18n-urls
 MIDDLEWARE_CLASSES = [
     'apps.redirects.middleware.RedirectHashCompatMiddleware',
+    'bluebottle.auth.middleware.AdminOnlyCsrf',
     # Have a middleware to make sure old cookies still work after we switch to domain-wide cookies.
     'bluebottle.utils.middleware.SubDomainSessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'bluebottle.auth.middleware.AdminOnlySessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'bluebottle.auth.middleware.AdminOnlyAuthenticationMiddleware',
     'bluebottle.bb_accounts.middleware.LocaleMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     # https://docs.djangoproject.com/en/1.4/ref/clickjacking/
@@ -190,7 +192,10 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'bluebottle.utils.context_processors.conf_settings',
     'bluebottle.utils.context_processors.google_maps_api_key',
     'bluebottle.utils.context_processors.google_analytics_code',
-    'bluebottle.utils.context_processors.sentry_dsn'
+    'bluebottle.utils.context_processors.sentry_dsn',
+    'bluebottle.utils.context_processors.facebook_auth_settings',
+    'social.apps.django_app.context_processors.backends',
+    'social.apps.django_app.context_processors.login_redirect',
 )
 
 ROOT_URLCONF = 'onepercentclub.urls'
@@ -233,6 +238,8 @@ INSTALLED_APPS = (
     'registration',
     'filetransfers',
     'loginas',
+    #'social_auth',
+    'social.apps.django_app.default',
 
     # CMS page contents
     'fluent_contents',
@@ -241,10 +248,12 @@ INSTALLED_APPS = (
     'fluent_contents.plugins.rawhtml',
     'django_wysiwyg',
     'tinymce',
-    'social_auth',
     'statici18n',
     'django.contrib.humanize',
     'django_tools',
+
+    #FB Auth
+    'bluebottle.auth',
 
     # Cowry Payments
     'apps.cowry',
@@ -316,6 +325,7 @@ INSTALLED_APPS = (
 # Custom User model
 AUTH_USER_MODEL = 'members.Member'
 PROJECTS_PROJECT_MODEL = 'projects.Project'
+PROJECTS_PHASELOG_MODEL = 'projects.ProjectPhaseLog'
 TASKS_TASK_MODEL = 'tasks.Task'
 TASKS_SKILL_MODEL = 'tasks.Skill'
 TASKS_TASKMEMBER_MODEL = 'tasks.TaskMember'
@@ -323,6 +333,10 @@ TASKS_TASKFILE_MODEL = 'tasks.TaskFile'
 ORGANIZATIONS_ORGANIZATION_MODEL = 'organizations.Organization'
 ORGANIZATIONS_DOCUMENT_MODEL = 'organizations.OrganizationDocument'
 ORGANIZATIONS_MEMBER_MODEL = 'organizations.OrganizationMember'
+PROJECTS_PHASELOG_MODEL = 'projects.ProjectPhaseLog'
+
+SOCIAL_AUTH_USER_MODEL = 'members.Member'
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_friends', 'public_profile']
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -378,28 +392,12 @@ logging.basicConfig(level=logging.WARNING, format='[%(asctime)s] %(levelname)-8s
 import djcelery
 djcelery.setup_loader()
 
+SOCIAL_AUTH_STRATEGY = 'social.strategies.django_strategy.DjangoStrategy'
+SOCIAL_AUTH_STORAGE = 'social.apps.django_app.default.models.DjangoStorage'
 
 AUTHENTICATION_BACKENDS = (
-    # 'social_auth.backends.twitter.TwitterBackend',
-    'social_auth.backends.facebook.FacebookBackend',
-    # 'social_auth.backends.google.GoogleOAuthBackend',
-    # 'social_auth.backends.google.GoogleOAuth2Backend',
-    # 'social_auth.backends.google.GoogleBackend',
-    # 'social_auth.backends.yahoo.YahooBackend',
-    # 'social_auth.backends.browserid.BrowserIDBackend',
-    # 'social_auth.backends.contrib.linkedin.LinkedinBackend',
-    # 'social_auth.backends.contrib.disqus.DisqusBackend',
-    # 'social_auth.backends.contrib.livejournal.LiveJournalBackend',
-    # 'social_auth.backends.contrib.orkut.OrkutBackend',
-    # 'social_auth.backends.contrib.foursquare.FoursquareBackend',
-    # 'social_auth.backends.contrib.github.GithubBackend',
-    # 'social_auth.backends.contrib.vk.VKOAuth2Backend',
-    # 'social_auth.backends.contrib.live.LiveBackend',
-    # 'social_auth.backends.contrib.skyrock.SkyrockBackend',
-    # 'social_auth.backends.contrib.yahoo.YahooOAuthBackend',
-    # 'social_auth.backends.contrib.readability.ReadabilityBackend',
-    # 'social_auth.backends.contrib.fedora.FedoraBackend',
-    # 'social_auth.backends.OpenIDBackend',
+    'social.backends.facebook.FacebookAppOAuth2',
+    'social.backends.facebook.FacebookOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -468,10 +466,13 @@ REST_FRAMEWORK = {
     'FILTER_BACKEND': 'rest_framework.filters.DjangoFilterBackend',
     # Don't do basic authentication.
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     )
 }
+
+JWT_EXPIRATION_DELTA = 1800
 
 COWRY_RETURN_URL_BASE = 'http://127.0.0.1:8000'
 
@@ -556,4 +557,19 @@ TWITTER_HANDLES = {
 DEFAULT_TWITTER_HANDLE = TWITTER_HANDLES['nl']
 
 MINIMAL_PAYOUT_AMOUNT = 21.00
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'social.pipeline.social_auth.associate_by_email',
+    'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details',
+    'bluebottle.auth.utils.save_profile_picture',
+    'bluebottle.auth.utils.get_extra_facebook_data',
+)
 
+SEND_WELCOME_MAIL = True

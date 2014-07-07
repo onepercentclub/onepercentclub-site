@@ -36,19 +36,40 @@ class Command(BaseCommand):
         except ProjectPhase.DoesNotExist:
             raise CommandError("A ProjectPhase with name 'Campaign' does not exist")
 
-        # Iterate over projects and save them one by one so the receivers get a signal
+        """
+        Projects which have at least the funds asked, are still in campaign phase and have not expired 
+        need the campaign funded date set to now.
+        FIXME: this action should be moved into the code where 'amount_needed' is calculated => when 
+               the value is lte 0 then set campaign_funded.
+        """
+        self.stdout.write("Checking Project funded and still running...")
+        Project.objects.filter(amount_needed__lte=0, status=campaign_phase, deadline__gt=now()).update(campaign_funded=now())
+
+        """
+        Projects which have at least the funds asked, are still in campaign phase but have expired 
+        need to be set to 'done complete' and the campaign ended date set to now.
+        Iterate over projects and save them one by one so the receivers get a signal
+        """
         self.stdout.write("Checking Project overfunded deadlines...")
-        for project in Project.objects.filter(amount_needed__lt=0, status=campaign_phase, deadline__lt=now()).all():
+        for project in Project.objects.filter(amount_needed__lt=0, status=campaign_phase, deadline__lte=now()).all():
             project.status = done_complete_phase
+            project.campaign_ended = now()
             project.save()
 
-        # Iterate over projects and save them one by one so the receivers get a signal
+        """
+        Projects which don't have the funds asked, are still in campaign phase but have expired 
+        need to be set to 'done incomplete' and the campaign ended date set to now.
+        Iterate over projects and save them one by one so the receivers get a signal
+        """
         self.stdout.write("Checking Project unfunded deadlines...")
         for project in Project.objects.filter(status=campaign_phase, deadline__lt=now()).all():
             project.status = done_incomplete_phase
+            project.campaign_ended = now()
             project.save()
 
-        # Iterate over tasks and save them one by one so the receivers get a signal
+        """
+        Iterate over tasks and save them one by one so the receivers get a signal
+        """
         self.stdout.write("Checking Task deadlines...\n\n")
         for task in Task.objects.filter(status='in progress', deadline__lt=now()).all():
             task.status = 'realized'

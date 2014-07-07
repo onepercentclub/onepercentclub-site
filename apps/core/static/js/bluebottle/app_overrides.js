@@ -25,14 +25,85 @@ App.then(function(app) {
             content: list
         });
     });
+
+    // Facebook API ID 
+    if (FACEBOOK_AUTH_ID)
+        App.set('appId', FACEBOOK_AUTH_ID);
+
+
+    app.fbLogin = function (fbResponse) {
+        var _this = this,
+            currentUsercontroller = App.__container__.lookup('controller:currentUser');
+
+        // Clear any existing tokens which might be present but expired. clearJwtToken action is on the App.ApplicationRoute
+        // FIXME: should call the clearJwtToken action here but it isn't being called.
+        // currentUsercontroller.send('clearJwtToken');
+        delete localStorage['jwtToken'];
+        App.set('jwtToken', null);
+            
+        return Ember.RSVP.Promise(function (resolve, reject) {
+            var hash = {
+              url: "/api/social-login/facebook/",
+              dataType: "json",
+              type: 'post',
+              data: fbResponse
+            };
+
+            hash.success = function (response) {
+
+                App.AuthJwt.processSuccessResponse(response).then(function (user) {
+
+                    // If success
+                    currentUsercontroller.set('model', user);
+                    currentUsercontroller.send('close');
+
+                    if (user.get('firstLogin')) {
+                        currentUsercontroller.send('setFlash', currentUsercontroller.get('welcomeMessage'));
+                    }
+
+                    Ember.run(null, resolve, user);
+                 }, function (error) {
+                    // If failed
+
+                    Ember.run(null, reject, error);
+                });
+            };
+
+            hash.error = function (response) {
+
+                currentUsercontroller.send('setFlash', gettext('Something went wrong :-('), 'error');
+                var error = JSON.parse(response.responseText);
+                Ember.run(null, reject, error);
+            };
+
+            Ember.$.ajax(hash);
+        });
+    };
 });
 
 /*
   Bluebottle Route Overrides
  */
 
-App.ApplicationRoute.reopen({
+App.ApplicationRoute.reopen(App.LogoutJwtMixin, {
+    init: function () {
+        this._super();
+
+        // Set the facebook appId
+        // TODO: move this to the server side settings
+        this.set('appId', '1438115069790112');
+    },
+
     actions: {
+        logout: function (redirect) {
+            // call the standard logout code => clear JWT token etc
+            this._super(redirect);
+
+            // If the has logged in via FB, eg there is a FBUser then they should 
+            // be logged out so that the user can log in with user/email
+            if (FB && !Em.isEmpty(FB.getUserID()))
+                FB.logout()
+        },
         addDonation: function (project, fundraiser) {
             var route = this;
             App.CurrentOrder.find('current').then(function(order) {
@@ -71,7 +142,13 @@ App.ApplicationRoute.reopen({
   Bluebottle Controller Overrides
  */
 App.ApplicationController.reopen({
-    needs: ['currentUser', 'currentOrder', 'myProjectList'],
+    needs: ['currentOrder', 'myProjectList'],
+
+    missingCurrentUser: function () {
+        // FIXME: should call the clearJwtToken action here but it isn't being called.
+        delete localStorage['jwtToken'];
+        App.set('jwtToken', null);
+    },
 });
 
 App.EventMixin = Em.Mixin.create({
@@ -112,32 +189,31 @@ App.EventMixin = Em.Mixin.create({
 */
 
 App.ApplicationView.reopen(App.EventMixin, {
-	setBindScrolling: function() {
-		this.bindScrolling();
-	}.on('didInsertElement'),
+    setBindScrolling: function() {
+        this.bindScrolling();
+    }.on('didInsertElement'),
 
-	setUnbindScrolling: function() {
-		this.unbindScrolling();
-	}.on('didInsertElement'),
+    setUnbindScrolling: function() {
+        this.unbindScrolling();
+    }.on('didInsertElement'),
 
-	setBindClick: function() {
-		this.bindMobileClick();
-	}.on('didInsertElement'),
+    setBindClick: function() {
+        this.bindMobileClick();
+    }.on('didInsertElement'),
 
-	scrolled: function(dist) {
-		top = $('#content').offset();
-		elm = top.screen.availTop;
+    scrolled: function(dist) {
+        top = $('#content').offset();
+        elm = top.screen.availTop;
 
-		if (dist <= 53) {
-			$('#header').removeClass('is-scrolled');
-			$('.nav-member-dropdown').removeClass('is-scrolled');
-			$('.mobile-nav-holder').removeClass('is-scrolled');
+        if (dist <= 53) {
+            $('#header').removeClass('is-scrolled');
+            $('.nav-member-dropdown').removeClass('is-scrolled');
+            $('.mobile-nav-holder').removeClass('is-scrolled');
             $('#content').append('<div class="scrolled-area"></div>');
-		} else {
-			$('#header').addClass('is-scrolled');
-			$('.nav-member-dropdown').addClass('is-scrolled');
-			$('.mobile-nav-holder').addClass('is-scrolled');
-		}
-	}
+        } else {
+            $('#header').addClass('is-scrolled');
+            $('.nav-member-dropdown').addClass('is-scrolled');
+            $('.mobile-nav-holder').addClass('is-scrolled');
+        }
+    }
 });
-

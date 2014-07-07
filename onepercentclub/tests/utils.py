@@ -44,7 +44,7 @@ class OnePercentTestCase(InitProjectDataMixin, TestCase):
 
 class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
 
-    def login(self, username, password):
+    def login(self, username, password, wait_time=10):
         """
         Perform login operation on the website.
 
@@ -58,17 +58,16 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
         # Find the link to the signup button page and click it.
         self.browser.find_link_by_itext('sign in').first.click()
 
-        # Validate that we are on the intended page.
-        if not self.browser.is_text_present('SIGN IN', wait_time=10):
-            return False
+        self.wait_for_element_css('.modal-fullscreen-content')
 
         # Fill in details.
         self.browser.fill('username', username)
         self.browser.fill('password', password)
 
-        self.browser.find_by_value('Login').first.click()
+        self.browser.find_by_css("a[name=login]").click()
 
-        return self.browser.is_text_present('My 1%', wait_time=10)
+        # FIXME: We should be checking some other state, maybe something in Ember
+        return self.browser.is_text_present('My 1%', wait_time=wait_time)
 
     def logout(self):
         return self.browser.visit('%(url)s/en/accounts/logout/' % {

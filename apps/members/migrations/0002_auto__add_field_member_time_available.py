@@ -8,85 +8,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Member'
-        db.create_table(u'members_member', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('password', self.gf('django.db.models.fields.CharField')(max_length=128)),
-            ('last_login', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
-            ('is_superuser', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('email', self.gf('django.db.models.fields.EmailField')(unique=True, max_length=254, db_index=True)),
-            ('username', self.gf('django.db.models.fields.SlugField')(unique=True, max_length=50)),
-            ('is_staff', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('is_active', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('date_joined', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
-            ('updated', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('deleted', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
-            ('user_type', self.gf('django.db.models.fields.CharField')(default='person', max_length=25)),
-            ('first_name', self.gf('django.db.models.fields.CharField')(max_length=30, blank=True)),
-            ('last_name', self.gf('django.db.models.fields.CharField')(max_length=30, blank=True)),
-            ('location', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('website', self.gf('django.db.models.fields.URLField')(max_length=200, blank=True)),
-            ('picture', self.gf('sorl.thumbnail.fields.ImageField')(max_length=100, blank=True)),
-            ('about', self.gf('django.db.models.fields.TextField')(max_length=265, blank=True)),
-            ('why', self.gf('django.db.models.fields.TextField')(max_length=265, blank=True)),
-            ('facebook', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
-            ('twitter', self.gf('django.db.models.fields.CharField')(max_length=15, blank=True)),
-            ('skypename', self.gf('django.db.models.fields.CharField')(max_length=32, blank=True)),
-            ('primary_language', self.gf('django.db.models.fields.CharField')(max_length=5)),
-            ('share_time_knowledge', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('share_money', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('newsletter', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('phone_number', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
-            ('gender', self.gf('django.db.models.fields.CharField')(max_length=6, blank=True)),
-            ('birthdate', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-        ))
-        db.send_create_signal(u'members', ['Member'])
-
-        # Adding M2M table for field groups on 'Member'
-        m2m_table_name = db.shorten_name(u'members_member_groups')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('member', models.ForeignKey(orm[u'members.member'], null=False)),
-            ('group', models.ForeignKey(orm[u'auth.group'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['member_id', 'group_id'])
-
-        # Adding M2M table for field user_permissions on 'Member'
-        m2m_table_name = db.shorten_name(u'members_member_user_permissions')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('member', models.ForeignKey(orm[u'members.member'], null=False)),
-            ('permission', models.ForeignKey(orm[u'auth.permission'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['member_id', 'permission_id'])
-
-        # Adding model 'UserAddress'
-        db.create_table(u'members_useraddress', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('line1', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('line2', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('city', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('state', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('country', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['geo.Country'], null=True, blank=True)),
-            ('postal_code', self.gf('django.db.models.fields.CharField')(max_length=20, blank=True)),
-            ('address_type', self.gf('django.db.models.fields.CharField')(default='primary', max_length=10, blank=True)),
-            ('user', self.gf('django.db.models.fields.related.OneToOneField')(related_name='address', unique=True, to=orm['members.Member'])),
-        ))
-        db.send_create_signal(u'members', ['UserAddress'])
+        # Adding field 'Member.time_available'
+        db.add_column(u'members_member', 'time_available',
+                      self.gf('django.db.models.fields.related.ForeignKey')(to=orm['bb_accounts.TimeAvailable'], null=True, blank=True),
+                      keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting model 'Member'
-        db.delete_table(u'members_member')
-
-        # Removing M2M table for field groups on 'Member'
-        db.delete_table(db.shorten_name(u'members_member_groups'))
-
-        # Removing M2M table for field user_permissions on 'Member'
-        db.delete_table(db.shorten_name(u'members_member_user_permissions'))
-
-        # Deleting model 'UserAddress'
-        db.delete_table(u'members_useraddress')
+        # Deleting field 'Member.time_available'
+        db.delete_column(u'members_member', 'time_available_id')
 
 
     models = {
@@ -102,6 +32,12 @@ class Migration(SchemaMigration):
             'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
+        },
+        u'bb_accounts.timeavailable': {
+            'Meta': {'ordering': "['type']", 'object_name': 'TimeAvailable'},
+            'description': ('django.db.models.fields.TextField', [], {}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'type': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '100'})
         },
         u'contenttypes.contenttype': {
             'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
@@ -159,6 +95,7 @@ class Migration(SchemaMigration):
             'share_money': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'share_time_knowledge': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'skypename': ('django.db.models.fields.CharField', [], {'max_length': '32', 'blank': 'True'}),
+            'time_available': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['bb_accounts.TimeAvailable']", 'null': 'True', 'blank': 'True'}),
             'twitter': ('django.db.models.fields.CharField', [], {'max_length': '15', 'blank': 'True'}),
             'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),

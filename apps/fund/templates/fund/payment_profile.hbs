@@ -4,13 +4,13 @@
 
     <div class="l-content">
 
-        {{#unless controllers.currentUser.isAuthenticated}}
+        {{#unless currentUser.isAuthenticated}}
             <a {{action openInBox "login"}} class="btn-login"><span class="flaticon solid lock-1"></span> <strong>{% trans "Have an account?" %}</strong><br /> {%  trans "Log in here" %}</a>
         {{/unless}}
 
         <form>
             <legend>
-                {{#if controllers.currentUser.isAuthenticated}}
+                {{#if currentUser.isAuthenticated}}
                     <strong>{% trans "Great that you are doing another donation!" %}</strong>
                     <p>{% trans "Please verify your details" %}.</p>
                 {{else}}
@@ -101,7 +101,7 @@
     <div class="l-sidebar">
 
         <h3>{% trans "Did you know?" %}</h3>
-        {{#if controllers.currentUser.isAuthenticated }}
+        {{#if currentUser.isAuthenticated }}
             <p>{% blocktrans %}"You're about to make a big impact! Did you know that every 1%Project has 6 months to reach its target? And, if the target isn't reached you will be able to support another project with this donation. If this is the case, you'll receive an email from us explaining the next steps.{% endblocktrans %}</p>
         {{else}}
             <p>{% blocktrans %}You're about to make a big impact! Did you know that every 1%Project has 6 months to reach its target? And, if the target isn't reached we'll make sure your donation will support a similar project.{% endblocktrans %}</p>

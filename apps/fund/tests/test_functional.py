@@ -71,8 +71,6 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
 
         donation_status_text = self.browser.find_by_css('.project-fund-amount').first.text
 
-        self.assertTrue(u'SUPPORT PROJECT' in self.browser.find_by_css('div.project-action').first.text)
-
         # Click through to the support-page, check the default values and
         # verify we are donating to the correct project
         self.browser.find_by_css('div.project-action a').first.click()

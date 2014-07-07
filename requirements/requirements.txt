@@ -1,4 +1,4 @@
--e git://github.com/onepercentclub/bluebottle.git@1.1.3#egg=bluebottle
+-e git://github.com/onepercentclub/bluebottle.git@f3e2890578f02901c4b73faaa93df8c984224f6f#egg=bluebottle
 
 pip
 mercurial==2.9.1
@@ -17,6 +17,9 @@ BeautifulSoup==3.2.1
 ember-compressor-compiler==0.3.1
 eventlet==0.14.0
 gevent==1.0.1
+
+# JSON Web Token based authentication for Django REST framework
+djangorestframework-jwt==0.1.5
 
 pytz==2013b
 
@@ -44,7 +47,7 @@ GitPython==0.3.2.RC1
 
 # Cowry dependencies.
 django_countries==1.5
-requests==1.2.3
+requests==2.3.0 #Updated requests to make python social auth work
 
 # This version should be considered suds-jurko 0.4.1 jurko pre 5.
 # This is just a fork of the official repo in case it disappears.
@@ -101,3 +104,8 @@ beautifulsoup4==4.3.2
 
 # Cache
 python-memcached==1.53
+
+#Python Social Auth for FB authentication
+python-social-auth==0.1.26
+
+
