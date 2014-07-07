@@ -23,6 +23,9 @@ App.Router.map(function() {
 });
 
 
+
+
+
 /**
  * Current Order Routes
  */
@@ -69,10 +72,6 @@ App.CurrentOrderVoucherListRoute = Em.Route.extend({
 
 
 App.OrderThanksRoute = Em.Route.extend({
-
-    googleConversion: {
-        label: 'luszCIr_6wsQ7o7O1gM'
-    },
     model: function(params) {
         var route = this;
         var order = App.Order.find(params.order_id);

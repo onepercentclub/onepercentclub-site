@@ -6,6 +6,5 @@ from .test_runner import *
 
 # Use firefox for running tests on Travis
 SELENIUM_WEBDRIVER = 'firefox'
-SELENIUM_TESTS = False
 
 ROOT_URLCONF = 'onepercentclub.urls'
