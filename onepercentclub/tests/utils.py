@@ -56,13 +56,15 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
         self.visit_homepage()
 
         # Find the link to the signup button page and click it.
-        self.browser.find_link_by_itext('sign in').first.click()
+        login_link = '.nav-signup-login a'
+        self.wait_for_element_css(login_link)
+        self.browser.find_by_css(login_link).click()
 
         self.wait_for_element_css('.modal-fullscreen-content')
 
         # Fill in details.
-        self.browser.fill('username', username)
-        self.browser.fill('password', password)
+        self.browser.find_by_css('input[name=username]').fill(username)
+        self.browser.find_by_css('input[type=password]').fill(password)
 
         self.browser.find_by_css("a[name=login]").click()
 
@@ -70,9 +72,13 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
         return self.browser.is_text_present('My 1%', wait_time=wait_time)
 
     def logout(self):
-        return self.browser.visit('%(url)s/en/accounts/logout/' % {
-            'url': self.live_server_url
-        })
+        # Click user profile to open menu - mouse_over() only works for chrome
+        self.browser.find_by_css('.nav-member-dropdown').click()
+        
+        # Click the logout item
+        logout = '.nav-member-logout a'
+        self.wait_for_element_css(logout)
+        return self.browser.find_by_css(logout).click()
 
     def visit_homepage(self, lang_code=None):
         """
