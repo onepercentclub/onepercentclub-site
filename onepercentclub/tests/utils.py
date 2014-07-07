@@ -56,7 +56,7 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
         self.visit_homepage()
 
         # Find the link to the signup button page and click it.
-        self.browser.find_link_by_itext('log in').first.click()
+        self.browser.find_link_by_itext('sign in').first.click()
 
         self.wait_for_element_css('.modal-fullscreen-content')
 
