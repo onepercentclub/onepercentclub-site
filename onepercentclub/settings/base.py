@@ -336,7 +336,8 @@ ORGANIZATIONS_MEMBER_MODEL = 'organizations.OrganizationMember'
 PROJECTS_PHASELOG_MODEL = 'projects.ProjectPhaseLog'
 
 SOCIAL_AUTH_USER_MODEL = 'members.Member'
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_friends', 'public_profile']
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_friends', 'public_profile', 'user_birthday']
+SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [('birthday', 'birthday')]
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
