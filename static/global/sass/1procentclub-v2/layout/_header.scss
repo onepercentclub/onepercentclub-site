@@ -122,19 +122,16 @@
 		.mobile-nav-btn {
 			position: fixed;
 			right: 20px;
-			width: 50px;;
-			height: 66px;
+			width: 30px;
+			height: 22px;
 			z-index: 99;
 			cursor: pointer;
 			display: none;
+			padding-top: 54px;
+			background: image-url("img/icons/icon-mobile-nav.svg") transparent no-repeat 50% 50%;
+
 			@include breakpoint(x-large) {
 				display: block;
-			}
-			i {
-				display: block;
-				text-align: center;
-				margin-top: 10px;
-				font-size: 35px;
 			}
 		}
 
@@ -316,7 +313,6 @@
 
 		.nav-signup-login {
 			text-align: right;	
-
 			.nav-signin {
 				margin-right: 2em;
 			}
