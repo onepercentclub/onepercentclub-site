@@ -228,6 +228,7 @@ INSTALLED_APPS = (
     'micawber.contrib.mcdjango',  # Embedding videos
     'templatetag_handlebars',
     'rest_framework',
+    'rest_framework.authtoken',
     'polymorphic',
     'registration',
     'filetransfers',
@@ -468,6 +469,7 @@ REST_FRAMEWORK = {
     # Don't do basic authentication.
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     )
 }
 
