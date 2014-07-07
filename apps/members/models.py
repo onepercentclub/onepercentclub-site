@@ -21,10 +21,6 @@ class Member(BlueBottleBaseUser):
             self.address = UserAddress.objects.create(user=self)
             self.address.save()
 
-@receiver(post_save, sender=Member)
-def create_auth_token(sender, instance=None, created=False, **kwargs):
-    if created:
-        Token.objects.create(user=instance)
 
 class UserAddress(Address):
 
