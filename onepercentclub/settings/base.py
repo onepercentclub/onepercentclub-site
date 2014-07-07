@@ -570,6 +570,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.user.user_details',
     'bluebottle.auth.utils.save_profile_picture',
     'bluebottle.auth.utils.get_extra_facebook_data',
+    'bluebottle.auth.utils.send_welcome_mail_pipe'
 )
 
 SEND_WELCOME_MAIL = True
