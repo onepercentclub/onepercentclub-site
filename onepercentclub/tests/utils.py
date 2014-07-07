@@ -1,7 +1,3 @@
-import json
-import os
-import requests
-import base64
 from bluebottle.bb_projects.models import ProjectPhase, ProjectTheme
 from bluebottle.test.factory_models.projects import ProjectPhaseFactory, ProjectThemeFactory
 from bluebottle.test.utils import SeleniumTestCase
@@ -79,11 +75,6 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
             'url': self.live_server_url
         })
 
-    def tearDown(self):
-        # Navigate to homepage before tearing the browser down.
-        # This helps Travis.
-        self.visit_homepage()
-
     def visit_homepage(self, lang_code=None):
         """
         Convenience function to open the homepage.
@@ -95,51 +86,3 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
 
         # Check if the homepage opened, and the dynamically loaded content appeared.
         return self.wait_for_element_css('#home')
-
-    def scroll_to_by_css(self, selector):
-        """
-        Overwrite this function so the elements don't scroll behind the top menu.
-        """
-
-        element = self.wait_for_element_css(selector)
-
-        if element:
-            y = int(element.location['y']) - 100
-            x = int(element.location['x'])
-            self.browser.execute_script("window.scrollTo(%s,%s)" % (x, y))
-
-        return element
-
-    def upload_screenshot(self):
-        client_id = os.environ.get('IMGUR_CLIENT_ID')
-        client_key = os.environ.get('IMGUR_CLIENT_SECRET')
-
-        if client_id and client_key:
-            client_auth = 'Client-ID {0}'.format(client_id)
-            headers = {'Authorization': client_auth}
-            url = 'https://api.imgur.com/3/upload.json'
-            filename = '/tmp/screenshot.png'
-
-            print 'Attempting to save screenshot...'
-            self.browser.driver.save_screenshot(filename)
-
-            response = requests.post(
-                url,
-                headers = headers,
-                data = {
-                    'key': client_key,
-                    'image': base64.b64encode(open(filename, 'rb').read()),
-                    'type': 'base64',
-                    'name': filename,
-                    'title': 'Travis Screenshot'
-                }
-            )
-
-            print 'Uploaded screenshot:'
-            data = json.loads(response.content)
-            print data['data']['link']
-            print response.content
-
-        else:
-            print 'Imgur API keys not found!'
-

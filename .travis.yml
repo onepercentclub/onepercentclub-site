@@ -3,12 +3,8 @@ python:
 - '2.7'
 node_js:
 - '0.10'
-addons:
-  firefox: "30.0"
 env:
-  global:
-  - secure: "SzMYzAnIHxHEKHEOJEY5jchkx5AZGQ/c0tHPAgv/CwA5jJpjAFNTyyeu4ufiXAg5d3ZxAEwnBIvnXl2T2jfkBUMLhuqeaeqnT1BgUS2ZzPAoZshQbYacmy6xDg1iySWyHR5uMdSF6XwrXKEpd9V26o7fLPMUBeCeQuxkrkcPKds="
-  - secure: "MadgOYHJmWUlRlzdxJl/wyLJh9UzcV8KrCiOLE4bRWynoAulxgOCbsZFvMHnwjT+UTn+jm0J7lWOKpbehxQlHggdZSLocY7VvofWlfIu00rilfslvSDE7ggkwR/okEmUbokcyX5GycxcdjBaAx0d/iF0Vp7LifvpTkpiJBp9bAI="
+- DJANGO=django==1.5.4
 services:
 - memcached
 before_install:
@@ -21,6 +17,7 @@ install:
 - export DISPLAY=:99.0
 - /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16
 - pip install --upgrade setuptools --use-mirrors
+- pip install $DJANGO --use-mirrors
 - pip install --use-mirrors --use-wheel --find-links=http://stream.onepercentlive.com/wheelhouse/ -r requirements/ci_requirements.txt
 - pip install Pillow --use-mirrors
 - touch onepercentclub/settings/secrets.py

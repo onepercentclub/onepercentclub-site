@@ -237,12 +237,12 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         ###
 
         self.assertTrue(self.is_visible('section h1.page-title'))
-        self.visit_path('/my/projects/new/pitch')
+        self.scroll_to_and_click_by_css("button.btn-primary")
 
         ###
         # Project Section
         ###
-        time.sleep(5)
+
 
         self.browser.select('language', 2)
         self.assertTrue(self.is_visible('input[name="title"]'))
@@ -265,8 +265,6 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         ###
         # Goal Section
         ###
-
-        self.assertTrue(self.browser.is_text_present('Budget', wait_time=5))
 
         self.assertTrue(self.is_visible('input[name="amount_asked"]'))
 
@@ -408,6 +406,8 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         self.assertEqual(days_diff, 10)
 
 
+
+
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
             'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
 class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
@@ -440,7 +440,7 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
         """
         self.visit_path('/projects/{0}'.format(self.project.slug))
         #self.assertTrue(self.browser.is_text_present(self.project.title, wait_time=5))
-        self.assertTrue(self.browser.is_text_present('Post a new comment', wait_time=5))
+        self.assertTrue(self.browser.is_text_present('Post a new comment on wall', wait_time=5))
 
         self.browser.find_by_css(".wallpost-post-update").click()
         self.assertTrue(self.browser.is_text_present('Post', wait_time=5))
@@ -487,3 +487,4 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
         post = self.browser.find_by_css("article.wallpost")[1]
         self.assertEqual(post.find_by_css('.wallpost-author').text, self.user.short_name)
         self.assertEqual(post.find_by_css('.text p').text, self.post1['text'])
+

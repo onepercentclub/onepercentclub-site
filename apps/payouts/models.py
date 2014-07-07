@@ -243,11 +243,7 @@ class Payout(PayoutBase):
         """
         assert self.payout_rule
 
-        if self.payout_rule == PayoutRules.old:
-            # 5%
-            return decimal.Decimal('0.05')
-
-        elif self.payout_rule == PayoutRules.five:
+        if self.payout_rule == PayoutRules.five:
             # 5%
             return decimal.Decimal('0.05')
 
@@ -264,7 +260,7 @@ class Payout(PayoutBase):
             return decimal.Decimal('1')
 
         # Other
-        raise NotImplementedError('Payment rule "%s" not implemented yet.' % self.payout_rule)
+        raise NotImplementedError('Payment rule not implemented yet.')
 
     def _get_payout_rule(self):
         """

@@ -7,6 +7,8 @@ from admin_tools.dashboard.modules import DashboardModule
 from apps.projects.models import Project
 
 
+
+
 class RecentProjects(DashboardModule):
     title = _('Recently Created Projects')
     template = 'admin_tools/dashboard/recent_projects.html'
@@ -62,20 +64,23 @@ class StartedCampaigns(DashboardModule):
         self._initialized = True
 
 
-class EndedProjects(DashboardModule):
-    title = _('Recently Ended Projects')
-    template = 'admin_tools/dashboard/recent_ended_projects.html'
+class FundedProjects(DashboardModule):
+    title = _('Recently Funded Projects')
+    template = 'admin_tools/dashboard/recent_funded_projects.html'
     limit = 10
 
     def __init__(self, title=None, limit=10, **kwargs):
         kwargs.update({'limit': limit})
-        super(EndedProjects, self).__init__(title, **kwargs)
+        super(FundedProjects, self).__init__(title, **kwargs)
 
     def init_with_context(self, context):
 
-        qs = Project.objects.filter(campaign_ended__isnull=False).order_by('-campaign_ended')[:self.limit]
+        qs = Project.objects.filter(campaign_funded__isnull=False).order_by('-campaign_funded')[:self.limit]
         projects = list(qs)
 
+        # sort the projects based on act phase reached or projectresult created
+        sorted(projects, key=lambda project: project.date_funded, reverse=True)
+        
         self.children = projects[:self.limit]
         if not len(self.children):
             self.pre_content = _('No recently funded projects.')
