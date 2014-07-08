@@ -86,9 +86,8 @@ html, body, #site {
 			}
 
 			&:active, &:focus {
-				@include single-box-shadow(#254363, 0, 2px, 0, 0, true);
+				@include single-box-shadow($gray-darkest, 0, 2px, 0, 0, true);
 			}
-
 		}
 
 		&:hover {
@@ -98,15 +97,15 @@ html, body, #site {
 		}
 
 		&.is-inactive {
-			background: $gray-dark;
-			@include single-box-shadow(darken($gray-darker, 10%), 0, -2px, 0, 0, true);
+			background: #D8D8D8;
+			@include single-box-shadow(darken(#D8D8D8, 10%), 0, -2px, 0, 0, true);
 
 			&:hover {
-				@include single-box-shadow(darken($gray-darker, 10%), 0, -4px, 0, 0, true);
+				@include single-box-shadow(darken(#D8D8D8, 10%), 0, -4px, 0, 0, true);
 			}
 
 			&:active, &:focus {
-				@include single-box-shadow(darken($gray-darker, 10%), 0, 2px, 0, 0, true);
+				@include single-box-shadow($gray-darkest, 0, 2px, 0, 0, true);
 			}
 		}
 
@@ -117,11 +116,11 @@ html, body, #site {
 			@include single-box-shadow($gray-darkest, 0, 2px, 0, 0, true);
 
 			span {
-				background: transparent !important;
+				background: transparent !important; // TODO: Reset old flaticon
 			}
 		}
 
-		//TODO: overwrite flaticon btn
+		// TODO: Reset old flaticon
 		.flaticon {
 			&.social {
 				&:before {
@@ -137,7 +136,7 @@ html, body, #site {
 
 		&.is-loading {
 			@include single-box-shadow(none);
-			background: image-url("img/loaders/loader-button-darkgrey.gif") $gray-darker no-repeat 50% 50% !important;
+			background: image-url("img/loaders/loader-button-darkgrey.gif") #D8D8D8 no-repeat 50% 50% !important;
 			background-size: 32px !important;
 			@include hide-text();
 		}
