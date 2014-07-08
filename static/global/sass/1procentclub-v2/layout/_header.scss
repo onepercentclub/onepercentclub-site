@@ -312,27 +312,22 @@
 		}
 
 		.nav-signup-login {
-			text-align: right;
-
-			.nav-signin {
-				margin-right: 2em;
-			}
 
 			a {
 				text-decoration: none;
 				border: 1px solid $color-primary;
 				border-radius: 8px;
-				padding: 0.75em 1.25em;
+				padding: 0.55em 1em;
+				margin-right: 1em;
 
 				&:hover {
 					border-color: $color-secondary;
-				};
+				}
 			}
 		}
 
 		.nav-switch-language {
-			float: right;
-
+			
 			a {
 				color: $gray-dark;
 				text-decoration: none;
@@ -382,7 +377,7 @@
 		background: rgba($gray-light, .9);
 
 		#logo {
-			width: 5.555555%;
+			width: 7%;
 
 			.logo-link {
 				padding: 0;
@@ -391,6 +386,7 @@
 
 		#nav {
 			padding: 0;
+			padding-top: 4px;
 		}
 	}
 }
