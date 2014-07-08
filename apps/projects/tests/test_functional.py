@@ -456,7 +456,7 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
         self.logout()
 
         # Login as the project owner
-        self.login(self.project.owner.email, 'testing')
+        self.login(username=self.project.owner.email, password='testing')
 
         # Should see the post by the first user.
         self.visit_path('/projects/{0}'.format(self.project.slug))
