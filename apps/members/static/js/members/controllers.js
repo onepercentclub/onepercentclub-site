@@ -1,5 +1,5 @@
 App.LoginController.reopen(App.AuthJwtMixin, {
-    loginTitle: gettext('Welcome'),
+    loginTitle: gettext('Welcome!'),
 
     willClose: function () {
         this._super();
