@@ -71,7 +71,7 @@ App.then(function(app) {
 
             hash.error = function (response) {
 
-                currentUsercontroller.send('setFlash', gettext('Something went wrong :-('), 'error');
+                currentUsercontroller.send('setFlash', gettext('There was an error connecting Facebook'), 'error');
                 var error = JSON.parse(response.responseText);
                 Ember.run(null, reject, error);
             };
