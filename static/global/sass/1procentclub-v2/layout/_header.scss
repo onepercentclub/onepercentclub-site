@@ -312,18 +312,25 @@
 		}
 
 		.nav-signup-login {
-			text-align: right;	
+			text-align: right;
+
 			.nav-signin {
 				margin-right: 2em;
 			}
 
 			a {
 				text-decoration: none;
+				border: 1px solid $color-primary;
+				border-radius: 8px;
+				padding: 0.75em 1.25em;
+
+				&:hover {
+					border-color: $color-secondary;
+				};
 			}
 		}
 
 		.nav-switch-language {
-			//display: none;
 			float: right;
 
 			a {
