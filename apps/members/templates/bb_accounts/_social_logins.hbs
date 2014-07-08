@@ -14,5 +14,12 @@
                     <span class="flaticon social facebook-1"></span>{% trans "Sign in with Facebook" %}
             {{/view}}
     {{/if}}
+    {{#unless socialMatch}}
+    <div class="or-hr">
+        <div class="first"></div>
+        <div class="middle">{% trans "or" %}</div>
+        <div class="last"></div>
+    </div>
+    {{/unless}}
 
 {% endtplhandlebars %}
