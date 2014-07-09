@@ -3,13 +3,6 @@
 {% tplhandlebars "_social_logins" %}
 
     {{#if App.FBUser}}
-       {{#if currentUser.isAuthenticated }}
-       {{else }}
-            {{#view Em.FBView type="login-button" data-size="xlarge" data-scope="email, user_friends, public_profile, offline_access"}}
-                <span class="flaticon social facebook-1"></span>{% trans "Sign in with Facebook" %}
-            {{/view}}
-       {{/if}}
-    {{else}}
         {{#view Em.FBView type="login-button" data-size="xlarge" data-scope="email, user_friends, public_profile, offline_access"}}
             <span class="flaticon social facebook-1"></span>{% trans "Sign in with Facebook" %}
         {{/view}}
