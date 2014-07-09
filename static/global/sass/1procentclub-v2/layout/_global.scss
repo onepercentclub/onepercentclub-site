@@ -135,7 +135,8 @@ html, body, #site {
         }
 
 		&.is-loading {
-			@include single-box-shadow(none);
+			@include transition(none);
+			@include box-shadow(none);
 			background: image-url("img/loaders/loader-button-darkgrey.gif") #D8D8D8 no-repeat 50% 50% !important;
 			background-size: 32px !important;
 			@include hide-text();
