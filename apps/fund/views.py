@@ -12,7 +12,6 @@ from apps.fund.serializers import DonationInfoSerializer, NestedDonationSerializ
 from apps.fundraisers.models import FundRaiser
 from apps.projects.serializers import ProjectSupporterSerializer
 from django.contrib.auth.models import AnonymousUser
-from django.contrib.auth.signals import user_logged_in
 from django.db import transaction
 from django.http import Http404
 from rest_framework import exceptions, status, permissions, response, generics
@@ -461,6 +460,8 @@ class OrderCurrentDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
         if self.request.user.is_authenticated():
             with transaction.commit_on_success():
                 order, created = Order.objects.get_or_create(user=self.request.user, recurring=False, status=OrderStatuses.current)
+            # Check if there is an anonymous order and use that.
+            order = load_anonymous_order(self.request, order)
         else:
             # An anonymous user could have an order (cart) in the session.
             order_id = self.request.session.get(anon_order_id_session_key)
@@ -472,6 +473,7 @@ class OrderCurrentDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
                     order = self._create_anonymous_order()
             else:
                 order = self._create_anonymous_order()
+
 
         # Create / update the payment object and amount
         self._update_payment(order)
@@ -500,6 +502,59 @@ class OrderCurrentDetail(CurrentOrderMixin, generics.RetrieveUpdateAPIView):
             if order.status == OrderStatuses.current and order.latest_payment.payment_order_id and order.latest_payment.status == PaymentStatuses.in_progress:
                 payments.update_payment_status(order.latest_payment)
 
+        return order
+
+
+def load_anonymous_order(request, order):
+    """
+    Try to load an anonymous order. If none is found then return the given (user) order.
+    If an anonymous order is found then close the existing order for that user and migrate
+    the anonymous one to the authenticated user.
+    """
+    from django.utils.importlib import import_module
+    from django.conf import settings
+
+    engine = import_module(settings.SESSION_ENGINE)
+    session_key = request.COOKIES.get(settings.SESSION_COOKIE_NAME, None)
+    bb_session = engine.SessionStore(session_key)
+
+    if anon_order_id_session_key in bb_session:
+        try:
+            anon_current_order = Order.objects.get(id=bb_session.pop(anon_order_id_session_key))
+            if anon_current_order.status == OrderStatuses.current:
+
+                try:
+                    # Close old order by this user.
+                    order.status = OrderStatuses.closed
+                    order.save()
+
+                    # Cancel the payments on the closed order.
+                    if order.payments.count() > 0:
+                        for payment in anon_current_order.payments.all():
+                            if payment.status != PaymentStatuses.new:
+                                try:
+                                    payments.cancel_payment(payment)
+                                except(NotImplementedError, PaymentException) as e:
+                                    logger.warn("Problem cancelling payment on closed user Order {0}: {1}".format(
+                                        order.id, e))
+
+                except Order.DoesNotExist:
+                    # There isn't a current order so we don't need to close it.
+                    pass
+            else:
+                return order
+
+            # Assign the anon order to this user.
+            anon_current_order.user = order.user
+            anon_current_order.save()
+            # Move all donations to this user too.
+            for donation in anon_current_order.donations.all():
+                donation.save()
+            return anon_current_order
+
+        except Order.DoesNotExist:
+            return order
+    else:
         return order
 
 
@@ -594,46 +649,6 @@ class OrderCurrentDonationList(CurrentOrderMixin, generics.ListCreateAPIView):
 class OrderCurrentDonationDetail(CurrentOrderMixin, generics.RetrieveUpdateDestroyAPIView):
     model = Donation
     serializer_class = OrderCurrentDonationSerializer
-
-
-def adjust_anonymous_current_order(sender, request, user, **kwargs):
-    if anon_order_id_session_key in request.session:
-        try:
-            anon_current_order = Order.objects.get(id=request.session.pop(anon_order_id_session_key))
-            if anon_current_order.status == OrderStatuses.current:
-
-                try:
-                    user_current_order = Order.objects.get(user=user, recurring=False, status=OrderStatuses.current)
-                    # Close old order by this user.
-                    user_current_order.status = OrderStatuses.closed
-                    user_current_order.save()
-
-                    # Cancel the payments on the closed order.
-                    if user_current_order.payments.count() > 0:
-                        for payment in anon_current_order.payments.all():
-                            if payment.status != PaymentStatuses.new:
-                                try:
-                                    payments.cancel_payment(payment)
-                                except(NotImplementedError, PaymentException) as e:
-                                    logger.warn("Problem cancelling payment on closed user Order {0}: {1}".format(
-                                        user_current_order.id, e))
-
-                except Order.DoesNotExist:
-                    # There isn't a current order so we don't need to close it.
-                    pass
-
-            # Assign the anon order to this user.
-            anon_current_order.user = user
-            anon_current_order.save()
-            # Move all donations to this user too.
-            for donation in anon_current_order.donations.all():
-                donation.user = user
-                donation.save()
-
-        except Order.DoesNotExist:
-            pass
-
-user_logged_in.connect(adjust_anonymous_current_order)
 
 
 # For showing the latest donations
