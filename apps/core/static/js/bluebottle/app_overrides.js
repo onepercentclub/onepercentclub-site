@@ -50,7 +50,6 @@ App.then(function(app) {
             };
 
             hash.success = function (response) {
-
                 App.AuthJwt.processSuccessResponse(response).then(function (user) {
 
                     // If success
@@ -64,13 +63,12 @@ App.then(function(app) {
                     Ember.run(null, resolve, user);
                  }, function (error) {
                     // If failed
-
                     Ember.run(null, reject, error);
+                    currentUsercontroller.send('setFlash', error, 'error');
                 });
             };
 
             hash.error = function (response) {
-
                 currentUsercontroller.send('setFlash', gettext('There was an error connecting Facebook'), 'error');
                 var error = JSON.parse(response.responseText);
                 Ember.run(null, reject, error);
