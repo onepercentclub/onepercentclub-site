@@ -81,11 +81,6 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
         self.wait_for_element_css(logout)
         return self.browser.find_by_css(logout).click()
 
-    def tearDown(self):
-        # Navigate to homepage before tearing the browser down.
-        # This helps Travis.
-        self.visit_homepage()
-
     def visit_homepage(self, lang_code=None):
         """
         Convenience function to open the homepage.
