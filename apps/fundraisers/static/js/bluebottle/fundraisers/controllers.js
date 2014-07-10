@@ -1,13 +1,12 @@
 App.FundRaiserIsOwner = Em.Mixin.create({
-    needs: ['currentUser'],
     isOwner: function() {
-        var username = this.get('controllers.currentUser.username');
+        var username = this.get('currentUser.username');
         var ownername = this.get('model.owner.username');
         if (username) {
             return (username == ownername);
         }
         return false;
-    }.property('model.owner', 'controllers.currentUser.username')
+    }.property('model.owner', 'currentUser.username')
 });
 
 
@@ -96,9 +95,7 @@ App.ProjectFundRaiserListController = Em.ArrayController.extend({
 });
 
 
-App.FundRaiserDonationListController = Em.ObjectController.extend({
-    needs: ['currentUser']
-});
+App.FundRaiserDonationListController = Em.ObjectController.extend({});
 
 
 App.FundRaiserSupporterListController = Em.ArrayController.extend({
@@ -115,12 +112,12 @@ App.FundRaiserSupporterListController = Em.ArrayController.extend({
 });
 
 App.FundRaiserIndexController = Em.ArrayController.extend({
-    needs: ['fundRaiser', 'currentUser'],
+    needs: ['fundRaiser'],
     perPage: 5,
     page: 1,
 
     isOwner: function(){
-        var userName = this.get('controllers.currentUser.username');
+        var userName = this.get('currentUser.username');
         var ownerName = this.get('controllers.fundRaiser.owner.username');
         if (userName) {
             return (userName == ownerName);
@@ -153,6 +150,4 @@ App.FundRaiserIndexController = Em.ArrayController.extend({
 });
 
 
-App.MyFundRaiserListController = Em.ArrayController.extend({
-    needs: ['currentUser']
-});
+App.MyFundRaiserListController = Em.ArrayController.extend({});

@@ -4,11 +4,13 @@ python:
 node_js:
 - '0.10'
 addons:
-  firefox: "30.0"
+  sauce_connect: true
 env:
+  matrix:
+  - DJANGO=django==1.5.4
   global:
-  - secure: "SzMYzAnIHxHEKHEOJEY5jchkx5AZGQ/c0tHPAgv/CwA5jJpjAFNTyyeu4ufiXAg5d3ZxAEwnBIvnXl2T2jfkBUMLhuqeaeqnT1BgUS2ZzPAoZshQbYacmy6xDg1iySWyHR5uMdSF6XwrXKEpd9V26o7fLPMUBeCeQuxkrkcPKds="
-  - secure: "MadgOYHJmWUlRlzdxJl/wyLJh9UzcV8KrCiOLE4bRWynoAulxgOCbsZFvMHnwjT+UTn+jm0J7lWOKpbehxQlHggdZSLocY7VvofWlfIu00rilfslvSDE7ggkwR/okEmUbokcyX5GycxcdjBaAx0d/iF0Vp7LifvpTkpiJBp9bAI="
+  - secure: mZBFz7zrRqosQQn0g082XEIciFzLRY9y3g0fjSJokfJqwcWDLW0qh/2YOHq9WWVGafGkWI0bPfQunkHgXCl1UNkieEBtHK71KG5aGU7Hswv7M093UJ+BOWD7dyr9duFUr+fkh86DvOvyBagcCyVi2J9PtKlqvVgtfd3HYwySfqs=
+  - secure: hJPbJbJF+YnvqnlqwxJZPrvBlxv0KU3ebBxZA2O7cbQ6B/8PyFKtbhJbdKOUnP+5m1lbKGSlxPq9JAHnSlLcxDnoRNRIpSrjOvnXwv9OAGEceTMKUTYMy5ZS8ZWUiIF79SiMVCU0Oxnz9IDzY0sU71oHnDciP9UecfDOxOM+OAo=
 services:
 - memcached
 before_install:
@@ -19,16 +21,17 @@ before_install:
 - sudo apt-get install -qq memcached python-memcache
 install:
 - export DISPLAY=:99.0
-- /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16
+- "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
 - pip install --upgrade setuptools --use-mirrors
-- pip install --use-mirrors --use-wheel --find-links=http://stream.onepercentlive.com/wheelhouse/ -r requirements/ci_requirements.txt
+- pip install $DJANGO --use-mirrors
+- pip install --use-mirrors --use-wheel --find-links=https://stream.onepercentclub.com/wheelhouse/ -r requirements/ci_requirements.txt
 - pip install Pillow --use-mirrors
 - touch onepercentclub/settings/secrets.py
 before_script:
 - pip show bluebottle
 - grunt compass:dist --bb_path="`pip show bluebottle | grep Location | cut -b11-`/bluebottle/common/static/sass"
 script:
-- python ./manage.py test --settings=onepercentclub.settings.travis --failfast -v 1
+- python ./manage.py test --settings=onepercentclub.settings.travis -v3 --failfast
 notifications:
   hipchat:
     rooms:

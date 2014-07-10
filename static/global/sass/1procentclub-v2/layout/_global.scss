@@ -15,18 +15,138 @@ html, body, #site {
 	&.is-scrolled {
 		margin-top: 50px!important;
 	}
+
+	.scrolled-area {
+		position: absolute;
+		top: 0;
+		width: 100%;
+		height: 96px;
+		background: #f8f7f8;
+	}
 }
 
-#home, #about-new {
+#home, #about-new, #start-campaign {
 	margin-bottom: -40px; // reset 
 }
 
-#home, #about-new {
+.modal-fullscreen-background, #home, #about-new, #start-campaign {
 
-	* {
-		text-transform: none;
+	.btn {
+		font-size: 18px;
+		position: relative;
+		display: inline-block;
+		background: $color-secondary;
+		padding: 0.75em 1.25em;
+		vertical-align: center;
+		border-radius: 8px;
+		color: #fff;
+		font-family: $font-family-bold;
+		font-weight: 700;
+		border: none;
+		text-transform: inherit;
+		@include single-box-shadow($color-secondary-shadow, 0, -2px, 0, 0, true);
+		@include single-transition(all, .1s ease-in-out);
+
+		// fix for chrome animation bug
+		-webkit-backface-visibility: hidden;
+    	-webkit-transform: scale(1);
+
+
+		&.btn-sec {
+			color: $color-primary;
+			font-weight: normal;
+			background: none;
+			border: 1px solid $color-primary;
+			@include box-shadow(none);
+
+			&:hover {
+				top: 0;
+				background-color: $color-primary;
+				color: $white;
+				@include box-shadow(none);
+			}
+
+			&:active, &:focus {
+				border: 1px solid $gray-darker;
+			}
+		}
+
+		&.btn-facebook {
+			background-color: #3368A2;
+			padding-left: 50px;
+			@include single-box-shadow(#254363, 0, -2px, 0, 0, true);
+
+			span {
+				background-color: transparent !important;
+				color: #fff !important;
+			}
+
+			&:hover {
+				@include single-box-shadow(#254363, 0, -4px, 0, 0, true);
+			}
+
+			&:active, &:focus {
+				@include single-box-shadow($gray-darkest, 0, 2px, 0, 0, true);
+			}
+		}
+
+		&:hover {
+			top: -1px;
+			@include single-transition(none);
+			@include single-box-shadow($color-secondary-shadow, 0, -4px, 0, 0, true);
+		}
+
+		&.is-inactive {
+			background: #D8D8D8;
+			@include single-box-shadow(darken(#D8D8D8, 10%), 0, -2px, 0, 0, true);
+
+			&:hover {
+				@include single-box-shadow(darken(#D8D8D8, 10%), 0, -4px, 0, 0, true);
+			}
+
+			&:active, &:focus {
+				@include single-box-shadow($gray-darkest, 0, 2px, 0, 0, true);
+			}
+		}
+
+		&:active, &:focus {
+			top: 1px !important;
+			background: $gray-darker !important;
+			color: $gray-light !important;
+			@include single-box-shadow($gray-darkest, 0, 2px, 0, 0, true);
+
+			span {
+				background: transparent !important; // TODO: Reset old flaticon
+			}
+		}
+
+		// TODO: Reset old flaticon
+		.flaticon {
+			&.social {
+				&:before {
+					border-right: solid 1px rgba(255,255,255,0.2);
+					padding-right: 13px;
+				}
+			}
+		}
+
+        &:hover .flaticon {
+            background-color: none !important;
+        }
+
+		&.is-loading {
+			@include transition(none);
+			@include box-shadow(none);
+			background: image-url("img/loaders/loader-button-darkgrey.gif") #D8D8D8 no-repeat 50% 50% !important;
+			background-size: 32px !important;
+			@include hide-text();
+		}
 	}
-	
+}
+
+#home, #about-new, #start-campaign {
+	font-family: $font-family-body;
+
 	h1 {
 		color: $color-secondary;
 		font-size: 36px;
@@ -47,53 +167,6 @@ html, body, #site {
 	a {
 		text-decoration: none;
 		color: $black;
-	}
-	
-	.btn {
-		font-size: 18px;
-		position: relative;
-		display: inline-block;
-		background: $color-secondary;
-		padding: 0.75em 1.25em;
-		vertical-align: center;
-		border-radius: 8px;
-		color: white;
-		font-family: $font-family-bold;
-		font-weight: 700;
-		border: none;
-		@include single-box-shadow($color-secondary-shadow, 0, -2px, 0, 0, true);
-		@include single-transition(all, .1s ease-in-out);
-		
-		&:hover {
-			top: -1px;
-			@include single-box-shadow($color-secondary-shadow, 0, -4px, 0, 0, true);
-			@include single-transition(none);
-		}
-		
-		&.btn-sec {
-			color: $color-primary;
-			font-weight: normal;
-			background: none;
-			border: 1px solid $color-primary;
-			@include single-box-shadow(none);
-			
-			&:hover {
-				top: 0;
-				background-color: $color-primary;
-				color: $white;
-			}
-			
-			&:active, &:focus {
-				border: 1px solid $gray-darker;
-			}
-		}
-		
-		&:active, &:focus {
-			top: 1px !important;
-			background: $gray-darker !important;
-			color: $gray-light !important;
-			@include single-box-shadow($gray-darkest, 0, 2px, 0, 0, true);
-		}
 	}
 	
 	input {
