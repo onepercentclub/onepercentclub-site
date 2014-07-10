@@ -518,7 +518,7 @@ App.CurrentOrderController = Em.ObjectController.extend({
     reloadOrder: function() {
         // Reload order after logging in
         this.get('model').reload();
-    }.observes('currentUser.model', 'currentUser.model.username')
+    }.observes('currentUser.username')
 
 });
 
