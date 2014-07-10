@@ -78,7 +78,7 @@ https://bitbucket.org/onepercentclub/django-registration/get/ae9e9ed265ed.zip
 dnspython
 
 # Functional testing libraries
-selenium==2.42.1
+selenium==2.33.0
 
 # Communication with the old DocData account.
 # https://github.com/onepercentclub/django-docdata/archive/120ae5b8a1da6152d43d4601edc8832268e05515.zip
