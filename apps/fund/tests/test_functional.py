@@ -15,7 +15,6 @@ from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 
 from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
-from apps.cowry_docdata.tests import run_docdata_tests
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
@@ -71,8 +70,6 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
         self.assertEqual(self.browser.find_by_css('h1.project-title').first.text, u'WOMEN FIRST')
 
         donation_status_text = self.browser.find_by_css('.project-fund-amount').first.text
-
-        self.assertTrue(u'SUPPORT' in self.browser.find_by_css('div.project-action').first.text)
 
         # Click through to the support-page, check the default values and
         # verify we are donating to the correct project
@@ -138,7 +135,7 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
         # RuntimeError: Failed to shutdown the live test server in 2 seconds.
         # The server might be stuck or generating a slow response.
 
-        time.sleep(10)
+        time.sleep(3)
 
 
         # FIXME: These tests fail on Travis.
@@ -172,6 +169,7 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
         donation.order.save()
 
         self.visit_path('/support/thanks/{0}'.format(donation.order.pk))
+
 
         # Validate thank you page.
         self.assertTrue(self.browser.is_text_present('WELL, YOU ROCK!', wait_time=10))

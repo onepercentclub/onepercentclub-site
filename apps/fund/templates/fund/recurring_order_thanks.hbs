@@ -12,7 +12,7 @@
 
                 	<header>
 	                	<h1>{% trans "Donation Successful!" %}</h1>
-						{{#if controllers.currentUser.isAuthenticated }}
+						{{#if currentUser.isAuthenticated }}
 	                		<p>{% blocktrans %}
 							Thanks for your support! Your 1% has brought them one step closer to realise their smart idea! Don't forget to tune in to see how they're doing!
 						{% endblocktrans %}</p>
@@ -80,7 +80,7 @@
 				<p>{% trans "Monthly donation total:" %} <strong>&euro; {{ recurringPayment.amount }},-</strong></p>
 
             	{% comment %}
-            	{{#if controllers.currentUser.isAuthenticated }}
+            	{{#if currentUser.isAuthenticated }}
                     <h3>{% trans "Personalise profile" %}</h3>
             		<p>{% blocktrans %}
 					Following projects are now even easier and you'll have your own personalised page!

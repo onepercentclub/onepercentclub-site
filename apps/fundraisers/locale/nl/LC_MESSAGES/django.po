@@ -3,17 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# gannetson <loek@1procentclub.nl>, 2013
-# gannetson <loek@1procentclub.nl>, 2014
-# nieja <niels@1procentclub.nl>, 2013
-# nieja <niels@1procentclub.nl>, 2014
+# Loek van Gent <loek@1procentclub.nl>, 2013
+# JhonM <jhon@onepercentclub.com>, 2014
+# Loek van Gent <loek@1procentclub.nl>, 2014
+# Niels Jansen <niels@1procentclub.nl>, 2013
+# Niels Jansen <niels@1procentclub.nl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-23 11:16+0200\n"
-"PO-Revision-Date: 2014-05-22 15:32+0000\n"
-"Last-Translator: aethemba <aksel@onepercentclub.com>\n"
+"POT-Creation-Date: 2014-07-10 14:15+0200\n"
+"PO-Revision-Date: 2014-06-06 08:36+0000\n"
+"Last-Translator: Loek van Gent <loek@1procentclub.nl>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -116,7 +117,7 @@ msgstr "dagen"
 #: templates/fundraisers/project_fundraiser_all.hbs:19
 #: templates/fundraisers/project_fundraiser_popup.hbs:12
 msgid "of"
-msgstr "voor"
+msgstr "van"
 
 #: templates/fundraisers/fundraiser.hbs:104
 #: templates/fundraisers/project_fundraiser_all.hbs:21

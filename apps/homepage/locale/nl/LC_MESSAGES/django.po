@@ -4,16 +4,18 @@
 # 
 # Translators:
 # aethemba <aksel@onepercentclub.com>, 2014
-# gannetson <loek@1procentclub.nl>, 2014
+# JhonM <jhon@onepercentclub.com>, 2014
+# Loek van Gent <loek@1procentclub.nl>, 2014
 # Malou <malou@onepercentclub.com>, 2014
-# nieja <niels@1procentclub.nl>, 2014
+# Niels Jansen <niels@1procentclub.nl>, 2014
+# Sezayi Arslan <sezayi@onepercentclub.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-22 17:47+0200\n"
-"PO-Revision-Date: 2014-05-23 09:02+0000\n"
-"Last-Translator: aethemba <aksel@onepercentclub.com>\n"
+"POT-Creation-Date: 2014-07-10 14:15+0200\n"
+"PO-Revision-Date: 2014-07-10 14:09+0000\n"
+"Last-Translator: Sezayi Arslan <sezayi@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,7 +29,9 @@ msgid "1%%Club is the do-good crowdfunding platform"
 msgstr "1%%Club is het crowdfunding platform waar je een wereld van verschil maakt. "
 
 #: templates/homepage/banner.hbs:14
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:30
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:31
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:33
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/_main_nav.hbs.py:6
 #, python-format
 msgid "About 1%%Club"
 msgstr "Over 1%%Club"
@@ -240,7 +244,7 @@ msgid ""
 msgstr "Wij maken campagne voeren voor een betere wereld op de meest simpele en leuke manier mogelijk. We delen onze expertise met je en als je vragen hebt staan we altijd voor je klaar."
 
 #: templates/homepage/main.hbs:64
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:15
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:16
 msgid "Start a campaign"
 msgstr "Start jouw campagne"
 
@@ -329,60 +333,90 @@ msgid ""
 "<strong>%(error_id)s</strong>."
 msgstr "If you need assistance, you may reference this error as <strong>%(error_id)s</strong>."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/base.html.py:51
-msgid "Search campaigns"
-msgstr "Bekijk campagnes"
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/base.html.py:9
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/base.html.py:19
+msgid "Site meta title"
+msgstr "1%%Club is het crowdfunding platform waar je een wereld van verschil maakt. "
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/base.html.py:52
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/base.html.py:20
+msgid "Site meta FB title"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/base.html.py:22
+msgid "Site meta FB description"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/base.html.py:23
+msgid "Site meta FB site name"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/base.html.py:25
+msgid "Site meta FB keywords"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/base.mail.html.py:660
+msgid "The Netherlands"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/_main_nav.hbs.py:6
+msgid "Support a campaign"
+msgstr "Support een campagne"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/_main_nav.hbs.py:7
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/_main_nav.hbs.py:13
 msgid "Start campaign"
 msgstr "Start campagne"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/base.html.py:53
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:32
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/_main_nav.hbs.py:8
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/_main_nav.hbs.py:14
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/footer.html.py:34
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/footer.hbs.py:16
 msgid "About"
-msgstr "Over 1%Club"
+msgstr "Over 1&#37;Club"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:11
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/_main_nav.hbs.py:12
+msgid "Search campaigns"
+msgstr "Bekijk campagnes"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:12
 msgid "Do good"
 msgstr "Doe mee"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:13
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:14
 msgid "Browse campaigns"
 msgstr "Zoek campagnes"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:14
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:15
 msgid "Browse tasks"
 msgstr "Zoek taken"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:16
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:17
 msgid "Let's do Business"
 msgstr "1%Club voor bedrijven"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:20
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:21
 msgid "Need help?"
 msgstr "Vragen?"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:22
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:23
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/footer.html.py:17
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/footer.html.py:37
 msgid "FAQ"
 msgstr "Onze FAQ"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:23
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:24
 msgid "Terms of service"
 msgstr "Algemene voorwaarden"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:24
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:25
 msgid "ANBI"
 msgstr "ANBI"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:25
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:26
 msgid "Privacy policy"
 msgstr "Privacy policy"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:26
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:27
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/page.hbs.py:28
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/contact/templates/contact/base.hbs.py:11
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/footer.html.py:18
@@ -391,107 +425,107 @@ msgstr "Privacy policy"
 msgid "Contact"
 msgstr "Contact"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:33
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:34
 msgid "Our story"
 msgstr "Ons verhaal"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:34
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:35
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/page.hbs.py:24
 msgid "Meet the team"
 msgstr "Ons Team"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:35
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:36
 msgid "Meet our partners"
 msgstr "Onze partners"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:36
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:37
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/page.hbs.py:26
 msgid "Press"
 msgstr "Pers"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:37
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:38
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/page.hbs.py:27
 #, python-format
 msgid "Work at 1%%Club"
 msgstr "Werken bij 1%%Club"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:38
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:39
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/footer.html.py:21
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/footer.hbs.py:101
 msgid "News"
 msgstr "Nieuws"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:42
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:43
 msgid "Let's connect"
 msgstr "Let's get social"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:44
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:45
 msgid "Facebook"
 msgstr "Facebook"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:45
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:46
 msgid "Twitter"
 msgstr "Twitter"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:46
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:47
 msgid "LinkedIn"
 msgstr "LinkedIn"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:47
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:48
 msgid "Youtube"
 msgstr "Youtube"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:57
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:58
 msgid "You can always contact us for questions via"
 msgstr "We staan altijd voor je klaar via "
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/activation_email.html.py:20
-msgid "Confirm your registration"
-msgstr "Bevestig je aanmelding"
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/activation_email.html.py:17
+msgid "Welcome"
+msgstr "Welkom"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/activation_email.html.py:28
-#, python-format
-msgid "Great! We can almost welcome you at 1%%Club!"
-msgstr "Leuk! We kunnen je bijna verwelkomen bij 1%%Club!"
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/activation_email.html.py:18
+msgid "You’re officially part of"
+msgstr "Je bent nu officieel onderdeel van"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/activation_email.html.py:36
-msgid "Click the link below to confirm your registration"
-msgstr "Klik op onderstaande link om je aanmelding te bevestigen."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/activation_email.html.py:46
-msgid "activate profile"
-msgstr "activeer profiel"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/activation_email.html.py:56
-#, python-format
-msgid "Your activation code will expire in %(expiration_days)s days."
-msgstr "Je activatiecode verloopt over %(expiration_days)s dagen. "
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/activation_email.html.py:57
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/activation_email.html.py:59
 msgid ""
-"If the link isn't working for you please copy and paste this url into your "
-"browser: "
-msgstr "Als de link niet werkt kopieer dan de volgende link in je browser:"
+"is the go-to crowdfunding platform for doing good. We empower people with "
+"great ideas to create positive change in their community, city, country – or"
+" in the world."
+msgstr "1%Club is hét crowdfunding platform voor goede ideeën. En met goed bedoelen we ook goed. Goed voor jou, maar vooral voor je omgeving en het liefst voor de hele wereld."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/activation_email.html.py:78
+msgid "Let's get started"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/activation_email.html.py:98
+msgid "You are receiving this email because you signed up with"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/activation_email.html.py:98
+msgid "Didn’t request an account?"
+msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/logged_out.html.py:9
 msgid "Logged out."
 msgstr "Uitgelogd"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/password_reset_email.html.py:21
-msgid "Click on this link to reset your password."
-msgstr "Klik op de link voor een nieuw wachtwoord."
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/password_reset_email.html.py:17
+msgid "Hello"
+msgstr "Hoi"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/password_reset_email.html.py:31
-msgid "Reset"
-msgstr "Reset"
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/password_reset_email.html.py:18
+#, python-format
+msgid "You’ve requested a password reset on 1%%Club."
+msgstr "Je hebt een wachtwoordwijziging aangevraagd op 1%%Club."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/password_reset_email.html.py:41
-msgid "See you at"
-msgstr "Ga snel naar"
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/password_reset_email.html.py:37
+msgid "Reset password"
+msgstr "wijzig wachtwoord"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/password_reset_email.html.py:41
-msgid "in a minute!"
-msgstr "Tot zo!"
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/password_reset_email.html.py:57
+msgid "If you haven’t requested a new password, you can ignore this email."
+msgstr "Mocht je geen wachtwoordwijziging hebben aangevraagd, dan kun je deze email negeren."
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/password_reset_subject.txt.py:2
 #, python-format
@@ -512,25 +546,31 @@ msgstr "campagne link"
 msgid "%(author)s has left a message on your project page."
 msgstr "%(author)s heeft een bericht op je campagne pagina achtergelaten. "
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/mails.py:85
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/mails.py:86
 #, python-format
 msgid "%(author)s has left a message on your task page."
 msgstr "%(author)s heeft een bericht op je taak pagina achtergelaten."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/mails.py:118
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/mails.py:119
 #, python-format
 msgid "%(author)s commented on a post you reacted on."
 msgstr "%(author)s heeft gereageerd op jouw post."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/mails.py:132
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/mails.py:133
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/mails.py:183
 #, python-format
 msgid "%(author)s commented on your post."
 msgstr "%(author)s heeft gereageerd op jouw post."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/mails.py:146
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/mails.py:147
 #, python-format
 msgid "%(author)s commented on your project page."
 msgstr "%(author)s heeft gereageerd op je campagne pagina."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/mails.py:196
+#, python-format
+msgid "%(author)s commented on your task page."
+msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:29
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/models.py:79
@@ -610,25 +650,20 @@ msgstr "Reactie"
 msgid "Reactions"
 msgstr "Reacties"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/tests.py:263
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/tests.py:279
-msgid "Username"
-msgstr "Gebruikersnaam"
-
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/project_wallpost_new.mail.html.py:5
 #, python-format
 msgid ""
 "\n"
-"Hello %(receiver_name)s,<br/>\n"
-"<br/>\n"
-"%(author_name)s has left a message on your project page.<br/>\n"
-"<br/>\n"
+"Hello %(receiver_name)s,\n"
+"<br/><br/>\n"
+"%(author_name)s has left a message on your project page.\n"
+"<br/><br/>\n"
 "You must be curious what! Don't wait any longer and check it out <a href=\"%(site)s%(link)s\">here on our website</a>.\n"
 "<br/>\n"
 "See you in a bit!<br/>\n"
 "<br/>\n"
 "Liane | 1%%Club\n"
-msgstr "\nHallo %(receiver_name)s,<br/>\n<br/>\n%(author_name)s heeft een bericht op je campagne pagina achtergelaten.<br/>\n<br/>\nJe zult wel nieuwsgierig zijn! Lees het direct <a href=\"%(site)s%(link)s\">hier op onze website</a>.\n<br/>\nTot zo op 1%%Club!<br/>\n<br/>\n\n"
+msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/templates/project_wallpost_new.mail.txt.py:5
 #, python-format
@@ -835,6 +870,11 @@ msgstr "Meer"
 msgid "more"
 msgstr "meer"
 
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/tests/test_api.py:324
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/wallposts/tests/test_api.py:340
+msgid "Username"
+msgstr "Gebruikersnaam"
+
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/admin.py:36
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/quotes/admin.py:21
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/slides/admin.py:33
@@ -981,7 +1021,7 @@ msgstr "Ons Verhaal"
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/page.hbs.py:23
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/footer.hbs.py:28
 msgid "Frequently Asked Questions"
-msgstr "Veel gestelde vragen"
+msgstr "Veelgestelde vragen"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/pages/templates/pages/page.hbs.py:25
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/footer.html.py:13
@@ -1220,7 +1260,7 @@ msgstr "Share"
 msgid "Tweet"
 msgstr "Tweet"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/utils/templates/utils/form-components.hbs.py:200
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/utils/templates/utils/form-components.hbs.py:206
 msgctxt "Goal page"
 msgid "Pick date"
 msgstr "Kies datum"
@@ -1234,12 +1274,12 @@ msgid "Home"
 msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/footer.html.py:8
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/base.html.py:184
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/_main_nav.hbs.py:12
 msgid "Projects"
 msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/footer.html.py:9
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/base.html.py:194
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/_main_nav.hbs.py:22
 msgid "Tasks"
 msgstr ""
 
@@ -1285,28 +1325,21 @@ msgstr ""
 msgid "We like you too"
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/base.html.py:18
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/base.html.py:25
-msgid "Site meta title"
-msgstr "1%%Club is het crowdfunding platform waar je een wereld van verschil maakt. "
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/base.html.py:19
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/base.html.py:26
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/base.html.py:20
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/base.html.py:27
 msgid "Site meta description"
 msgstr "1%%Club is hét crowdfunding platform voor goede ideeën. En met goed bedoelen we ook goed. Goed voor jou, maar vooral voor je omgeving en het liefst voor de hele wereld. Via 1%%Club kan je op een makkelijke en leuke manier je omgeving online mobiliseren om geld en kennis in te zamelen voor je idee. Zo wordt een goed idee een succesvolle campagne. Via 1%%Club maken al deze ideeën samen een wereld van verschil. "
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/base.html.py:20
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/base.html.py:27
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/base.html.py:21
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/base.html.py:29
 msgid "Site meta keywords"
-msgstr "crowdfunding, fundraising, campagne, initiatieven, onepercentclub, 1%%Club, sociaal, goede doelen, crowdsourcing, verandering, do-good, change"
+msgstr "crowdfunding, fundraising, campagne, initiatieven, onepercentclub, 1%Club, sociaal, goede doelen, crowdsourcing, verandering, do-good, change"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/base.html.py:178
-#, python-format
-msgctxt "About homepage"
-msgid "About 1%%Club"
-msgstr "Over 1%%Club"
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/base.html.py:28
+msgid "Site meta author"
+msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/base.html.py:271
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/base.html.py:203
 msgid ""
 "\n"
 "                        Our new website currently does not work well with older versions of Internet Explorer.<br/>\n"
@@ -1362,23 +1395,3 @@ msgstr ""
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/footer.hbs.py:138
 msgid "Give us feedback"
 msgstr ""
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/base.html.py:19
-msgid "Site meta FB title"
-msgstr "1%%Club is het crowdfunding platform waar je een wereld van verschil maakt."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/base.html.py:21
-msgid "Site meta FB description"
-msgstr "1%%Club is hét crowdfunding platform voor goede ideeën. En met goed bedoelen we ook goed. Goed voor jou, maar vooral voor je omgeving en het liefst voor de hele wereld. Via 1%%Club kan je op een makkelijke en leuke manier je omgeving online mobiliseren om geld en kennis in te zamelen voor je idee. Zo wordt een goed idee een succesvolle campagne. Via 1%%Club maken al deze ideeën samen een wereld van verschil. "
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/base.html.py:22
-msgid "Site meta FB site name"
-msgstr "1%%Club is het crowdfunding platform waar je een wereld van verschil maakt."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/base.html.py:24
-msgid "Site meta FB keywords"
-msgstr "crowdfunding, fundraising, campagne, initiatieven, onepercentclub, 1%Club, sociaal, goede doelen, crowdsourcing, verandering, do-good, change"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/base.html.py:26
-msgid "Site meta author"
-msgstr "1%%Club"

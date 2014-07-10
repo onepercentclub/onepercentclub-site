@@ -7,7 +7,7 @@
 		li {
 			padding-left: 1.3em;
 			margin: .3em 0;
-			background: url('/static/assets/icons/flaticons_stroke/SVGs/right-green-1.svg') transparent no-repeat 0 center;
+			background: url('/static/assets/icons/flaticons_stroke/SVGs/right-green-1.svg') transparent no-repeat 0 10px;
 			line-height: 28px;
 			font-size: 15px;
 		}
@@ -20,7 +20,7 @@
 		&.gray {
 			
 			li {
-				background: url('/static/assets/icons/flaticons_stroke/SVGs/right-gray-1.svg') transparent no-repeat 0 center;
+				background: url('/static/assets/icons/flaticons_stroke/SVGs/right-gray-1.svg') transparent no-repeat 0 10px;
 			}			
 		}
 	}

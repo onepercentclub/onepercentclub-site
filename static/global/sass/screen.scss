@@ -16,6 +16,8 @@
 @import "variables";
 @import "mixins/grid";
 @import "mixins/utilities";
+@import "mixins/keyframes";
+@import "mixins/animations";
 
 /* Icons */
 @import "icons/flaticons-social";
@@ -46,6 +48,7 @@
 
 
 /* Modules */
+@import "modules/tooltip-new";
 @import "modules/accounts";
 @import "modules/carousel";
 @import "modules/members";
@@ -57,6 +60,7 @@
 @import "modules/project-iframe";
 @import "modules/owner-actions";
 @import "modules/maps";
+@import "modules/modal";
 // @import "modules/image-upload";
 // @import "modules/document-upload";
 

@@ -4,31 +4,20 @@
 # 
 # Translators:
 # Malou <malou@onepercentclub.com>, 2014
-# nieja <niels@1procentclub.nl>, 2014
+# Niels Jansen <niels@1procentclub.nl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-22 17:47+0200\n"
-"PO-Revision-Date: 2014-05-22 15:32+0000\n"
-"Last-Translator: aethemba <aksel@onepercentclub.com>\n"
+"POT-Creation-Date: 2014-07-10 14:15+0200\n"
+"PO-Revision-Date: 2014-06-06 08:35+0000\n"
+"Last-Translator: Loek van Gent <loek@1procentclub.nl>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: en_GB\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: mails.py:81
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:560
-msgid "Anonymous"
-msgstr "Anonymous"
-
-#: mails.py:86 mails.py:96
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:565
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:575
-msgid "You received a new donation"
-msgstr "You received a new donation"
 
 #: templates/new_oneoff_donation.mail.html:5
 #, python-format
@@ -371,8 +360,6 @@ msgstr "Invalid Dutch bank account number."
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:48
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:133
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:226
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:648
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:676
 msgid "Created"
 msgstr "Created"
 
@@ -388,7 +375,7 @@ msgid "amount"
 msgstr "amount"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:101
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:18
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:19
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:10
 msgid "New"
 msgstr "New"
@@ -398,6 +385,7 @@ msgid "In progress"
 msgstr "In progress"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:103
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:170
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:12
 msgid "Pending"
 msgstr "Pending"
@@ -408,6 +396,7 @@ msgid "Paid"
 msgstr "Paid"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:105
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:190
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:14
 msgid "Failed"
 msgstr "Failed"
@@ -525,6 +514,15 @@ msgstr "I've just supported {title} {{URL}} via @{twitter_handle}"
 msgid "{{URL}} via @{twitter_handle}"
 msgstr "{{URL}} via @{twitter_handle}"
 
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:524
+msgid "Anonymous"
+msgstr "Anonymous"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:529
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:539
+msgid "You received a new donation"
+msgstr "You received a new donation"
+
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:69
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:109
 msgid "You cannot modify a Donation that does not have status new."
@@ -572,21 +570,21 @@ msgstr "You cannot add a donation to a closed Order."
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:152
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:159
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:162
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:488
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:490
 #, python-format
 msgid "No %(verbose_name)s found matching the query"
 msgstr "No %(verbose_name)s found matching the query"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:418
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:422
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:420
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:424
 msgid "Order not found."
 msgstr "Order not found."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:420
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:422
 msgid "No order specified."
 msgstr "No order specified."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:494
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:496
 msgid "Anonymous users are not permitted to create recurring orders."
 msgstr "Anonymous users are not permitted to create recurring orders."
 
@@ -920,81 +918,75 @@ msgstr "You supported"
 msgid "Loading order history"
 msgstr "Loading order history"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:81
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:252
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:100
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:294
 msgid "Dates"
 msgstr "Dates"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:86
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:105
 msgid "Realtime amounts"
 msgstr "Real time amounts"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:91
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:110
 msgid "Payout amounts"
 msgstr "Payout amounts"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:94
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:113
 msgid "Payment details"
 msgstr "Payment details"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:109
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:129
 msgid "pending"
 msgstr "pending"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:118
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:205
-msgid "amount raised"
-msgstr "amount raised"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:128
-msgid "amount pending"
-msgstr "amount pending"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:138
-msgid "amount safe"
-msgstr "amount safe"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:148
-msgid "amount failed"
-msgstr "amount failed"
-
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:160
+msgid "Raised"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:180
+msgid "Safe"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:202
 msgid "project"
 msgstr "campaign"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:167
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:209
 msgid "organization"
 msgstr "organisation"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:175
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin_filters.py:52
-msgid "has IBAN"
-msgstr "has IBAN"
-
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:217
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:299
+msgid "IBAN"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:259
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:341
 msgid "Recalculate amounts for new payouts."
 msgstr "Recalculate amounts for new payouts."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:257
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:299
 msgid "Organization fee"
 msgstr "Organisation fee"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:262
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:304
 msgid "PSP fee"
 msgstr "PSP fee"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:267
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:309
 msgid "Other costs"
 msgstr "Other costs"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:272
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:314
 msgid "Amount payable"
 msgstr "Amount payable"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin_filters.py:44
 msgid "pending donations"
 msgstr "pending donations"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin_filters.py:52
+msgid "has IBAN"
+msgstr "has IBAN"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:8
 msgid "Old 1%/5%"
@@ -1013,19 +1005,23 @@ msgid "12%"
 msgstr "12%"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:12
+msgid "100%"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:13
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:18
 msgid "Unknown"
 msgstr "Unknown"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:13
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:14
 msgid "Other"
 msgstr "Other"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:19
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:20
 msgid "Progress"
 msgstr "Progress"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:20
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:21
 msgid "Completed"
 msgstr "Completed"
 
@@ -1065,152 +1061,148 @@ msgstr "created"
 msgid "updated"
 msgstr "updated"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:161
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:110
+msgid "submitted"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:163
 msgid "state change"
 msgstr "state change"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:162
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:164
 msgid "state changes"
 msgstr "state changes"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:168
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:170
 msgid "date"
 msgstr "date"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:171
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:173
 msgid "old status"
 msgstr "old status"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:176
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:178
 msgid "new status"
 msgstr "new status"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:181
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:183
 #, python-format
 msgid ""
 "Status change of '%(payout)s' on %(date)s from %(old_status)s to "
 "%(new_status)s"
 msgstr "Status change of '%(payout)s' on %(date)s from %(old_status)s to %(new_status)s"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:199
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:201
 msgid "Payout rule"
 msgstr "Payout rule"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:201
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:203
 msgid "The payout rule for this project."
 msgstr "The payout rule for this campaign."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:206
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:207
+msgid "amount raised"
+msgstr "amount raised"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:208
 msgid "Amount raised when Payout was created or last recalculated."
 msgstr "Amount raised when Payout was created or last recalculated."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:210
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:212
 msgid "organization fee"
 msgstr "organisation fee"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:211
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:213
 msgid "Fee substracted from amount raised for the organization."
 msgstr "Fee substracted from amount raised for the organisation."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:215
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:217
 msgid "amount payable"
 msgstr "amount payable"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:216
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:218
 msgid "Payable amount; raised amount minus organization fee."
 msgstr "Payable amount; raised amount minus organisation fee."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:414
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:434
 msgid "start date"
 msgstr "start date"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:415
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:435
 msgid "end date"
 msgstr "end date"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:417
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:437
 msgid "organization fee excluding VAT"
 msgstr "organisation fee excluding VAT"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:418
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:438
 msgid "organization fee VAT"
 msgstr "organisation fee VAT"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:419
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:439
 msgid "organization fee including VAT"
 msgstr "organisation fee including VAT"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:421
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:441
 msgid "PSP fee excluding VAT"
 msgstr "PSP fee excluding VAT"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:422
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:442
 msgid "PSP fee VAT"
 msgstr "PSP fee VAT"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:423
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:443
 msgid "PSP fee including VAT"
 msgstr "PSP fee including VAT"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:426
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:446
 msgid "other costs excluding VAT"
 msgstr "other costs excluding VAT"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:428
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:448
 msgid ""
 "Set either this value or inclusive VAT, make sure recalculate afterwards."
 msgstr "Set either this value or inclusive VAT, make sure recalculate afterwards."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:432
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:452
 msgid "other costs VAT"
 msgstr "other costs VAT"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:434
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:454
 msgid "other costs including VAT"
 msgstr "other costs including VAT"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:436
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:456
 msgid ""
 "Set either this value or exclusive VAT, make sure recalculate afterwards."
 msgstr "Set either this value or exclusive VAT, make sure recalculate afterwards."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:440
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:460
 msgid "payable amount excluding VAT"
 msgstr "payable amount excluding VAT"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:441
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:461
 msgid "payable amount VAT"
 msgstr "payable amount VAT"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:442
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:462
 msgid "payable amount including VAT"
 msgstr "payable amount including VAT"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:566
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:586
 msgid "Start date should be earlier than date."
 msgstr "Start date should be earlier than date."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:577
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:597
 msgid ""
 "The next payout period should start the day after the end of the previous "
 "period."
 msgstr "The next payout period should start the day after the end of the previous period."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:600
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:620
 msgid "Other costs have changed, please recalculate before progessing."
 msgstr "Other costs have changed, please recalculate before progessing."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:653
-msgid "Date started"
-msgstr "Date started"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:654
-msgid "Debet/Credit"
-msgstr "Debet/Credit"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:677
-msgid "Uploaded mutation file"
-msgstr "Uploaded mutation file"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:11
 msgid "In Progress"

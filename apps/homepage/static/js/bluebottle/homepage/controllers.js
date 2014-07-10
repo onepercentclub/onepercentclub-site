@@ -1,9 +1,8 @@
 
 App.HomeController = Ember.ObjectController.extend({
-    needs: ['currentUser'],
-	project: null,
+    project: null,
     isCampaignHomePage: false,
-	projectIndex: 0,
+    projectIndex: 0,
     quoteIndex: 0,
     actions: {
         nextProject: function() {
