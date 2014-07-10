@@ -176,6 +176,7 @@ class ProjectDonationList(ProjectSupporterList):
     """
     serializer_class = ProjectDonationSerializer
     permission_classes = (IsAuthenticated,)
+    paginate_by = 500
 
     def get_queryset(self):
 
@@ -187,6 +188,7 @@ class ProjectDonationList(ProjectSupporterList):
 
         filter_kwargs = {}
 
+        # Only return a list if the requested user is the fundraiser or campaigner.
         if fundraiser_id:
             filter_kwargs['fundraiser__owner'] = self.request.user
         elif project_slug:
