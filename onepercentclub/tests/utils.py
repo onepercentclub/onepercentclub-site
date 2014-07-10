@@ -48,7 +48,7 @@ class OnePercentTestCase(InitProjectDataMixin, TestCase):
 
 class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
 
-    def login(self, username, password, wait_time=10):
+    def login(self, username, password, wait_time=30):
         """
         Perform login operation on the website.
 
