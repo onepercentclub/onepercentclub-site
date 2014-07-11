@@ -53,9 +53,6 @@ PROJECT_APPS.remove('django.contrib.sessions')
 # FIXME: We need to fix the django_polymorphic tests
 PROJECT_APPS.remove('polymorphic')
 
-# Social auth tests require firefox webdriver which we don't want to install right now.
-PROJECT_APPS.remove('social_auth')
-
 # django-registration tests don't pass with our Django 1.5 custom user model / manager.
 PROJECT_APPS.remove('registration')
 
