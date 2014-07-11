@@ -49,9 +49,8 @@ PROJECT_APPS.remove('django_extensions.tests')
 PROJECT_APPS.remove('django.contrib.messages')
 PROJECT_APPS.remove('django.contrib.sessions')
 
-
-# FIXME: We need to fix the django_polymorphic tests
 PROJECT_APPS.remove('polymorphic')
+PROJECT_APPS.remove('social.apps.django_app.default')
 
 # django-registration tests don't pass with our Django 1.5 custom user model / manager.
 PROJECT_APPS.remove('registration')
