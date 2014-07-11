@@ -1,4 +1,4 @@
--e git://github.com/onepercentclub/bluebottle.git@e23a4f74421c155b984b205b87f6d10fe6e862f5#egg=bluebottle
+-e git://github.com/onepercentclub/bluebottle.git@b1484d193288f9f20176dcbfc1183f708e226b5e#egg=bluebottle
 
 pip
 mercurial==2.9.1
@@ -78,7 +78,7 @@ https://bitbucket.org/onepercentclub/django-registration/get/ae9e9ed265ed.zip
 dnspython
 
 # Functional testing libraries
-selenium==2.33.0
+selenium==2.42.1
 
 # Communication with the old DocData account.
 # https://github.com/onepercentclub/django-docdata/archive/120ae5b8a1da6152d43d4601edc8832268e05515.zip

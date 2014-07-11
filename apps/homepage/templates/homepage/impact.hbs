@@ -14,7 +14,7 @@
             </h2>
             {{#unless currentUser.isAuthenticated}}
                 <div class="join-us">
-                    {{#linkTo 'signup' classNames="btn"}}{% trans "Join us do good" %}{{/linkTo}}
+                    <a {{action 'openInBox' 'login'}} class="btn">{% trans "Join us do good" %}</a>
                 </div>
             {{/unless}}
         </div>

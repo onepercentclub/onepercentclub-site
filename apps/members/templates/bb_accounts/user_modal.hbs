@@ -1,37 +1,37 @@
 {% load bb_ember i18n static %}
 
 {% tplhandlebars "user_modal" %}
-    <div id="profile-preview">
-        <a class="close" rel="close">&times;</a>
+    <div {{bindAttr class=":modal-fullscreen-content"}}>
+        <span {{action 'close'}} class="modal-fullscreen-close"></span>
+        <div id="profile-preview">
+            <div class="modal-header">
+                <figure class="profile-avatar">
+                    <img {{bindAttr src="getAvatar"}} />
+                </figure>
 
-        <div class="modal-header">
-            <figure class="profile-avatar">
-                <img {{bindAttr src="getAvatar"}} />
-            </figure>
+                <header class="profile-header">
+                    <h3 class="member-name">{{full_name}}</h3>
 
-            <header class="profile-header">
-                <h3 class="member-name">{{full_name}}</h3>
+                    <p class="member-since">
+                        {% trans "Member since" %}
+                        {{user_since}}
+                    </p>
+                </header>
+            </div>
 
-                <p class="member-since">
-                    {% trans "Member since" %}
-                    {{user_since}}
-                </p>
-            </header>
-        </div>
+            <div class="modal-body">
+                {{#if about}}
+                    <h2>{% trans "About" %}</h2>
 
-        <div class="modal-body">
-            {{#if about}}
-                <h2>{% trans "About" %}</h2>
+                    <p>{{about}}</p>
+                {{/if}}
+                {{#if why}}
+                    <h2>{% trans "Why 1%Club" %}</h2>
 
-                <p>{{about}}</p>
-            {{/if}}
-            {{#if why}}
-                <h2>{% trans "Why 1%Club" %}</h2>
+                    <p>{{why}}</p>
+                {{/if}}
 
-                <p>{{why}}</p>
-            {{/if}}
-
+            </div>
         </div>
     </div>
 {% endtplhandlebars %}
-	

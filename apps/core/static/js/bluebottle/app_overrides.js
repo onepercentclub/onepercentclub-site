@@ -71,7 +71,7 @@ App.then(function(app) {
 
             hash.error = function (response) {
 
-                currentUsercontroller.send('setFlash', gettext('Something went wrong :-('), 'error');
+                currentUsercontroller.send('setFlash', gettext('There was an error connecting Facebook'), 'error');
                 var error = JSON.parse(response.responseText);
                 Ember.run(null, reject, error);
             };
@@ -215,5 +215,33 @@ App.ApplicationView.reopen(App.EventMixin, {
             $('.nav-member-dropdown').addClass('is-scrolled');
             $('.mobile-nav-holder').addClass('is-scrolled');
         }
+    }
+});
+
+
+// Enable Google Ad Words with Ember
+App.Router.reopen({
+
+    // If you want to add Google conversion codes to a route just add:
+    // googleConversion: {
+    //      label: 'my_page_label'
+    // }
+
+    didTransition: function(infos) {
+        this._super(infos);
+
+        var currentRoute = infos.get('lastObject').handler;
+        var gc = currentRoute.get('googleConversion');
+        Ember.run.next(function() {
+            if (gc &! DEBUG) {
+                var google_conversion_id = gc.id || 986941294;
+                var google_conversion_language = gc.language || 'en';
+                var google_conversion_format = gc.format || '3';
+                var google_conversion_color = gc.color || 'ffffff';
+                var google_conversion_label = gc.label;
+                var google_remarketing_only = false;
+                $.getScript("https://www.googleadservices.com/pagead/conversion.js");
+            }
+        });
     }
 });
