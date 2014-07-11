@@ -30,7 +30,7 @@ before_script:
 - sh -e /etc/init.d/xvfb start
 - curl https://gist.githubusercontent.com/rollick/42b92c18c3a265b08792/raw/sauce-connect.sh | sh
 script:
-- python ./manage.py test --settings=onepercentclub.settings.travis --failfast -v 1
+- python ./manage.py test --settings=onepercentclub.settings.travis -v 1 # --failfast
 notifications:
   hipchat:
     rooms:

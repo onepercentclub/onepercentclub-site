@@ -63,8 +63,8 @@ App.then(function(app) {
 
                     Ember.run(null, resolve, user);
                  }, function (error) {
-                    // If failed
-
+                    // If Facebook login succeeded but something goes wrong on the token side we end up here
+                    currentUsercontroller.send('setFlash', error, 'error');
                     Ember.run(null, reject, error);
                 });
             };

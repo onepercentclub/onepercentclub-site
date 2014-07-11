@@ -95,7 +95,7 @@
 
                         <td align="center" valign="top" class="mcnTextContent" style="padding-top:30px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px; text-align:center;">
 
-                            <p style="color: #9F9F9F; font-size: 12px; text-align:center;">{% trans "You are receiving this email because you signed up with" %} 1%Club.<br /><a href="{{  site }}/#!/disable/{{ user.id }}/{{ user.get_disable_token }}" style="color: #9F9F9F;">{% trans "Didn’t request an account?" %}</a></p>
+                            <p style="color: #9F9F9F; font-size: 12px; text-align:center;">{% trans "You are receiving this email because you signed up with" %} 1%Club.<br /><a href="{{ site }}/{{ user.primary_language }}/#!/disable/{{ user.id }}/{{ user.get_disable_token }}" style="color: #9F9F9F;">{% trans "Didn’t request an account?" %}</a></p>
 
                         </td>
                     </tr>
