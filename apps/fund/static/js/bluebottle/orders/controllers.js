@@ -47,7 +47,6 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
             this.updateCreatedDonation(donation, newAmount)
         }
     },
-
     updateCreatedDonation: function(donation, newAmount) {
         // Does not work if donation 'isNew' is true.
         donation.set('errors', []);
@@ -232,7 +231,11 @@ App.PaymentProfileController = Em.ObjectController.extend({
                 }
             }
         }
-    }
+    },
+    reloadPaymentProfile: function() {
+        // Reload payment profile after logging in
+        this.get('model').reload();
+    }.observes('currentUser.username')
 
 });
 
@@ -510,7 +513,13 @@ App.CurrentOrderController = Em.ObjectController.extend({
 
     hideMessage: function() {
         this.set('display_message', false);
-    }
+    },
+
+    reloadOrder: function() {
+        // Reload order after logging in
+        this.get('model').reload();
+    }.observes('currentUser.username')
+
 });
 
 

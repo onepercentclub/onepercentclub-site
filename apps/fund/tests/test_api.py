@@ -151,6 +151,9 @@ class CartApiIntegrationTest(OnePercentTestCase):
         self.assertEqual(response.data['count'], 1)
 
         # Login as the first user and cart should only have the one donation from  the anonymous cart.
+        response = self.client.get(self.current_order_url, HTTP_AUTHORIZATION=self.some_user_token)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['status'], 'current')
         response = self.client.get(self.current_donations_url, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.data['count'], 1)
         self.assertEqual(response.data['results'][0]['amount'], '71.00')
