@@ -234,7 +234,8 @@ App.PaymentProfileController = Em.ObjectController.extend({
     },
     reloadPaymentProfile: function() {
         // Reload payment profile after logging in
-        this.get('model').reload();
+        if (this.get('model'))
+            this.get('model').reload();
     }.observes('currentUser.username')
 
 });
