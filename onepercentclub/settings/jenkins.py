@@ -27,6 +27,7 @@ PROJECT_APPS = list(INSTALLED_APPS)
 # Some of these tests fail, and it's not our fault
 # https://code.djangoproject.com/ticket/17966
 PROJECT_APPS.remove('django.contrib.auth')
+PROJECT_APPS.remove('bluebottle.auth')
 PROJECT_APPS.remove('legacyauth')
 
 # Don't run Bluebottle tests
