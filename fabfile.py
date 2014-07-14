@@ -37,6 +37,9 @@ env.web_user = 'onepercentsite'
 # Directory (on the server) where our project will be running
 env.directory = '/var/www/onepercentsite'
 
+# Virtualenv working directory name
+env.virtualenv_dir_name = 'env-2.7'
+
 # Name of supervisor service
 env.service_name = 'onepercentsite'
 
@@ -61,7 +64,7 @@ def virtualenv():
     require('directory')
 
     with cd(env.directory):
-        with prefix('source env/bin/activate'):
+        with prefix('source {0}/bin/activate'.format(env.virtualenv_dir_name)):
             yield
 
 
@@ -466,7 +469,6 @@ def deploy_staging(revspec=None):
     """
     Update the staging server to the specified revspec, or the latest testing release and optionally sync migrated data.
     """
-
     # Update git locally
     git_fetch_local()
 
