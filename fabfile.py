@@ -38,7 +38,7 @@ env.web_user = 'onepercentsite'
 env.directory = '/var/www/onepercentsite'
 
 # Virtualenv working directory name
-env.virtualenv_dir_name = 'env'
+env.virtualenv_dir_name = 'env-2.7'
 
 # Name of supervisor service
 env.service_name = 'onepercentsite'
@@ -437,9 +437,6 @@ def deploy_testing(revspec='origin/master'):
     """
     Update the testing server to the specified revspec, or HEAD of deploy branch and optionally sync migrated data.
     """
-    # testing server is ready for python 2.7
-    env.virtualenv_dir_name = 'env-2.7'
-
     # Update git locally
     git_fetch_local()
 
@@ -472,9 +469,6 @@ def deploy_staging(revspec=None):
     """
     Update the staging server to the specified revspec, or the latest testing release and optionally sync migrated data.
     """
-    # staging server is ready for python 2.7
-    env.virtualenv_dir_name = 'env-2.7'
-
     # Update git locally
     git_fetch_local()
 
