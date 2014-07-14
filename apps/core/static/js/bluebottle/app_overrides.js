@@ -62,6 +62,10 @@ App.then(function(app) {
                     }
 
                     Ember.run(null, resolve, user);
+                    
+                    // Trigger next transition in case a user was accesing a restricted page
+                    currentUsercontroller.send('loadNextTransition'); 
+                    
                  }, function (error) {
                     // If Facebook login succeeded but something goes wrong on the token side we end up here
                     currentUsercontroller.send('setFlash', error, 'error');
