@@ -62,6 +62,7 @@ App.then(function(app) {
                     }
 
                     Ember.run(null, resolve, user);
+                    
                     // Trigger next transition in case a user was accesing a restricted page
                     currentUsercontroller.send('loadNextTransition'); 
                     
