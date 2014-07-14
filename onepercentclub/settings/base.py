@@ -1,7 +1,8 @@
 # coding=utf-8
 # Django settings for bluebottle project.
 
-import os
+import os, datetime
+
 # Import global settings for overriding without throwing away defaults
 from django.conf import global_settings
 from django.utils.translation import ugettext as _
@@ -157,6 +158,7 @@ CACHES = {
 # Note: The first three middleware classes need to be in this order: Session, Locale, Common
 # http://stackoverflow.com/questions/8092695/404-on-requests-without-trailing-slash-to-i18n-urls
 MIDDLEWARE_CLASSES = [
+    'bluebottle.auth.middleware.UserJwtTokenMiddleware',
     'apps.redirects.middleware.RedirectHashCompatMiddleware',
     'bluebottle.auth.middleware.AdminOnlyCsrf',
     # Have a middleware to make sure old cookies still work after we switch to domain-wide cookies.
@@ -171,10 +173,10 @@ MIDDLEWARE_CLASSES = [
     # https://docs.djangoproject.com/en/1.4/ref/clickjacking/
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
-
     'apps.redirects.middleware.RedirectFallbackMiddleware',
     'apps.crawlable.middleware.HashbangMiddleware',
-    'django_tools.middlewares.ThreadLocal.ThreadLocalMiddleware'
+    'django_tools.middlewares.ThreadLocal.ThreadLocalMiddleware',
+    'bluebottle.auth.middleware.SlidingJwtTokenMiddleware'
 ]
 
 # Browsers will block our pages from loading in an iframe no matter which site
@@ -473,7 +475,20 @@ REST_FRAMEWORK = {
     )
 }
 
-JWT_EXPIRATION_DELTA = 1800
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),
+    'JWT_LEEWAY': 0,
+    'JWT_VERIFY': True,
+    'JWT_VERIFY_EXPIRATION': True,
+
+    'JWT_ALLOW_TOKEN_RENEWAL': True,
+    # After the renewal limit it isn't possible to request a token refresh
+    # => time token first created + renewal limit.
+    'JWT_TOKEN_RENEWAL_LIMIT': datetime.timedelta(days=90),
+}
+# Time between attempts to refresh the jwt token automatically on standard request
+# TODO: move this setting into the JWT_AUTH settings.
+JWT_TOKEN_RENEWAL_DELTA = datetime.timedelta(minutes=30)
 
 COWRY_RETURN_URL_BASE = 'http://127.0.0.1:8000'
 
