@@ -30,10 +30,10 @@ surlex==0.2.0
 
 # Legacy authentication module for authenticating users from the old PHP site.
 # https://github.com/onepercentclub/legacyauth/archive/3f2406c50dead25a748fb2433de55b73a9162f18.zip
--e git://github.com/onepercentclub/legacyauth.git@3f2406c50dead25a748fb2433de55b73a9162f18#egg=legacyauth
+-e git://github.com/onepercentclub/legacyauth.git@3f2g50dead25a748fb2433de55b73a9162f18#egg=legacyauth
 
 # Gunicorn WSGI server
-gunicorn
+gunicorn==0.14.6
 
 # Used for WallPosts and Blog/News content (as a dependency of django-fluent-contents).
 django_polymorphic==0.5
