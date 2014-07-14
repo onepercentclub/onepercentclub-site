@@ -67,6 +67,8 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
         self.browser.find_by_css('input[name=username]').fill(username)
         self.browser.find_by_css('input[type=password]').fill(password)
 
+        self.wait_for_element_css("a[name=login]", timeout=10)
+
         self.browser.find_by_css("a[name=login]").click()
 
         # FIXME: We should be checking some other state, maybe something in Ember
