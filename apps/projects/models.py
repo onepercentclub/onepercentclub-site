@@ -160,6 +160,8 @@ class Project(BaseProject):
                 self.status = ProjectPhase.objects.get(slug="done-complete")
                 self.campaign_ended = self.campaign_funded
 
+            self.save()
+
     def update_money_donated(self, save=True):
         """ Update amount based on paid and pending donations. """
 

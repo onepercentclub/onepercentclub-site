@@ -627,7 +627,8 @@ class ChangeProjectStatuses(ProjectEndpointTestCase):
         project.status = ProjectPhase.objects.get(slug="plan-submitted")
         project.save()
 
-        self.assertTrue(project.date_submitted is not None)
+        loaded_project = Project.objects.get(pk=project.pk)
+        self.assertTrue(loaded_project.date_submitted is not None)
 
     def test_change_status_to_campaign(self):
         """
@@ -641,7 +642,8 @@ class ChangeProjectStatuses(ProjectEndpointTestCase):
         project.status = ProjectPhase.objects.get(slug="campaign")
         project.save()
 
-        self.assertTrue(project.campaign_started is not None)
+        loaded_project = Project.objects.get(pk=project.pk)
+        self.assertTrue(loaded_project.campaign_started is not None)
 
     def test_change_status_to_need_to_work(self):
         """
@@ -654,7 +656,8 @@ class ChangeProjectStatuses(ProjectEndpointTestCase):
         project.status = ProjectPhase.objects.get(slug="plan-needs-work")
         project.save()
 
-        self.assertEquals(project.date_submitted, None)
+        loaded_project = Project.objects.get(pk=project.pk)
+        self.assertEquals(loaded_project.date_submitted, None)
 
     def test_change_status_to_new(self):
         """
@@ -674,7 +677,9 @@ class ChangeProjectStatuses(ProjectEndpointTestCase):
         A project gets a donation and gets funded. The project does not allow overfunding so the status changes,
         the campaign funded field is populated and campaign_ended field is populated
         """
+        organization = OrganizationFactory.create()
         project = OnePercentProjectFactory.create(title="testproject", slug="testproject",
+                                                  organization=organization,
                                                   status=ProjectPhase.objects.get(slug="campaign"),
                                                   amount_asked=100, allow_overfunding=False)
 
@@ -683,9 +688,10 @@ class ChangeProjectStatuses(ProjectEndpointTestCase):
 
         donation = DonationFactory.create(user=self.user, project=project, amount=10000)
 
-        self.assertTrue(project.campaign_ended is not None)
-        self.assertTrue(project.campaign_funded is not None)
-        self.assertEquals(project.status, ProjectPhase.objects.get(slug="done-complete"))
+        loaded_project = Project.objects.get(pk=project.pk)
+        self.assertTrue(loaded_project.campaign_ended is not None)
+        self.assertTrue(loaded_project.campaign_funded is not None)
+        self.assertEquals(loaded_project.status, ProjectPhase.objects.get(slug="done-complete"))
 
     def test_campaign_project_got_funded_allow_overfunding(self):
         """
@@ -701,9 +707,10 @@ class ChangeProjectStatuses(ProjectEndpointTestCase):
 
         donation = DonationFactory.create(user=self.user, project=project, amount=10000)
 
-        self.assertTrue(project.campaign_ended is None)
-        self.assertTrue(project.campaign_funded is not None)
-        self.assertEquals(project.status, ProjectPhase.objects.get(slug="campaign"))
+        loaded_project = Project.objects.get(pk=project.pk)
+        self.assertTrue(loaded_project.campaign_ended is None)
+        self.assertTrue(loaded_project.campaign_funded is not None)
+        self.assertEquals(loaded_project.status, ProjectPhase.objects.get(slug="campaign"))
 
     def test_campaign_project_not_funded(self):
         """
@@ -719,9 +726,10 @@ class ChangeProjectStatuses(ProjectEndpointTestCase):
 
         donation = DonationFactory.create(user=self.user, project=project, amount=99)
 
-        self.assertTrue(project.campaign_ended is None)
-        self.assertTrue(project.campaign_funded is None)
-        self.assertEquals(project.status, ProjectPhase.objects.get(slug="campaign"))
+        loaded_project = Project.objects.get(pk=project.pk)
+        self.assertTrue(loaded_project.campaign_ended is None)
+        self.assertTrue(loaded_project.campaign_funded is None)
+        self.assertEquals(loaded_project.status, ProjectPhase.objects.get(slug="campaign"))
 
     def test_project_expired(self):
         """
@@ -740,6 +748,7 @@ class ChangeProjectStatuses(ProjectEndpointTestCase):
         project.deadline = timezone.now() - timedelta(days=10)
         project.save()
 
-        self.assertEquals(project.campaign_ended, project.deadline)
-        self.assertTrue(project.campaign_funded is None)
-        self.assertEquals(project.status, ProjectPhase.objects.get(slug="done-incomplete"))
+        loaded_project = Project.objects.get(pk=project.pk)
+        self.assertEquals(loaded_project.campaign_ended, project.deadline)
+        self.assertTrue(loaded_project.campaign_funded is None)
+        self.assertEquals(loaded_project.status, ProjectPhase.objects.get(slug="done-incomplete"))
