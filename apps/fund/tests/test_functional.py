@@ -56,7 +56,7 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
                                'country': 'NL'}
 
     def tearDown(self):
-        self.visit_homepage()
+        pass
 
     def visit_project_list_page(self, lang_code=None):
         self.visit_path('/projects', lang_code)
@@ -142,7 +142,7 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
 
     def test_donation_thank_you_page(self):
 
-        self.assertTrue(self.login(username=self.some_user.email, password='testing'))
+        self.login(username=self.some_user.email, password='testing')
 
         # Create dummy donation, so we can validate the thank you page.
         donation = DonationFactory.create(user=self.some_user, project=self._projects[0])
