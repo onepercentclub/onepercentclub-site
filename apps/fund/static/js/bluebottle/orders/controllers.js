@@ -185,8 +185,7 @@ App.PaymentProfileController = Em.ObjectController.extend({
         // Return early if the record is still saving
         // FIXME: this is a work-around until we correctly handle saving orders by 
         //        disabling buttons / showing loading animations etc.
-        if (profile.get('isSaving'))
-            return;
+        if (profile.get('isSaving')) return;
 
         if (profile.get('isDirty')){
             // Set profile model to the uncommitted state - this is required as the
