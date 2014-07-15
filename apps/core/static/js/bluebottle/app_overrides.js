@@ -13,6 +13,23 @@ App.then(function(app) {
         }
     });
 
+    // This is called from the router automatically if the route being loaded
+    // has a googleConversion property, otherwise it can be called manually. 
+    // Pass Google conversion code - 'gc'
+    app.trackConversion = function (gc) {
+        Ember.run.next(function() {
+            if (gc &! DEBUG) {
+                var google_conversion_id = gc.id || 986941294;
+                var google_conversion_language = gc.language || 'en';
+                var google_conversion_format = gc.format || '3';
+                var google_conversion_color = gc.color || 'ffffff';
+                var google_conversion_label = gc.label;
+                var google_remarketing_only = false;
+                $.getScript("https://www.googleadservices.com/pagead/conversion.js");
+            }
+        });
+    };
+
     // Override the BB project / status search list
     // TODO: we should just define the 'list' when initializing
     //       and then BB should use it when setting up the list
@@ -38,7 +55,7 @@ App.then(function(app) {
         // Clear any existing tokens which might be present but expired. clearJwtToken action is on the App.ApplicationRoute
         // FIXME: should call the clearJwtToken action here but it isn't being called.
         // currentUsercontroller.send('clearJwtToken');
-        delete localStorage['jwtToken'];
+        delete localStorage.jwtToken;
         App.set('jwtToken', null);
             
         return Ember.RSVP.Promise(function (resolve, reject) {
@@ -106,7 +123,7 @@ App.ApplicationRoute.reopen(App.LogoutJwtMixin, {
             // If the has logged in via FB, eg there is a FBUser then they should 
             // be logged out so that the user can log in with user/email
             if (FB && !Em.isEmpty(FB.getUserID()))
-                FB.logout()
+                FB.logout();
         },
         addDonation: function (project, fundraiser) {
             var route = this;
@@ -150,7 +167,7 @@ App.ApplicationController.reopen({
 
     missingCurrentUser: function () {
         // FIXME: should call the clearJwtToken action here but it isn't being called.
-        delete localStorage['jwtToken'];
+        delete localStorage.jwtToken;
         App.set('jwtToken', null);
     },
 });
@@ -234,18 +251,9 @@ App.Router.reopen({
     didTransition: function(infos) {
         this._super(infos);
 
-        var currentRoute = infos.get('lastObject').handler;
-        var gc = currentRoute.get('googleConversion');
-        Ember.run.next(function() {
-            if (gc &! DEBUG) {
-                var google_conversion_id = gc.id || 986941294;
-                var google_conversion_language = gc.language || 'en';
-                var google_conversion_format = gc.format || '3';
-                var google_conversion_color = gc.color || 'ffffff';
-                var google_conversion_label = gc.label;
-                var google_remarketing_only = false;
-                $.getScript("https://www.googleadservices.com/pagead/conversion.js");
-            }
-        });
-    }
+        var currentRoute = infos.get('lastObject').handler,
+            gc = currentRoute.get('googleConversion');
+
+        if (gc) App.trackConversion(gc);
+    },
 });
