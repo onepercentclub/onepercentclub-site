@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-10 14:15+0200\n"
-"PO-Revision-Date: 2014-07-10 14:43+0000\n"
+"POT-Creation-Date: 2014-07-15 14:16+0200\n"
+"PO-Revision-Date: 2014-07-15 13:19+0000\n"
 "Last-Translator: Sezayi Arslan <sezayi@onepercentclub.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
@@ -139,7 +139,7 @@ msgstr "First name"
 
 #: templates/bb_accounts/profile_form.hbs:22
 msgid "Surname"
-msgstr "Surname"
+msgstr "Last name"
 
 #: templates/bb_accounts/profile_form.hbs:29
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/utils/components.hbs.py:7
@@ -339,6 +339,14 @@ msgstr "Expertise"
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/view_profile.hbs.py:96
 msgid "Tags"
 msgstr "Keywords"
+
+#: tests/test_functional.py:17
+msgid "Email required"
+msgstr "We require your email address."
+
+#: tests/test_functional.py:25
+msgid "Password required"
+msgstr "Please fill in your password."
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:18
 msgid "A user with that email already exists."
@@ -610,19 +618,19 @@ msgid "members"
 msgstr "members"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/_account_nav_anon.hbs.py:6
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/_standard_login_form.hbs.py:16
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/_standard_login_form.hbs.py:15
 msgid "Sign in"
 msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/_login_footer.hbs.py:7
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_request.hbs.py:25
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_reset.hbs.py:44
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_request.hbs.py:31
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_reset.hbs.py:39
 msgid "Don’t have an account?"
 msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/_login_footer.hbs.py:9
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_request.hbs.py:27
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_reset.hbs.py:46
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_request.hbs.py:33
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_reset.hbs.py:41
 msgid "Sign up here"
 msgstr ""
 
@@ -639,7 +647,7 @@ msgstr "has already been registered via Facebook. Is this you? Please sign in be
 msgid ""
 "has already been registered with Bluebottle Project. Is this you? Please "
 "sign in below."
-msgstr ""
+msgstr "has already been registered with 1%%Club. Is this you? Please sign in below."
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/_my_menu.hbs.py:7
 msgid "Edit my profile & settings"
@@ -653,12 +661,17 @@ msgstr "View my profile"
 msgid "Welcome!"
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/_signup_content.hbs.py:17
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/_signup_content.hbs.py:12
+#, python-format
+msgid "By signing up, you accept our <a %(link)s>terms of service</a>"
+msgstr "By signing up, you accept our <a %(link)s>terms of service</a>"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/_signup_content.hbs.py:18
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/_signup_sidebar.hbs.py:13
 msgid "Already have an account?"
-msgstr "Already have an profile?"
+msgstr "Already have an account?"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/_signup_content.hbs.py:17
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/_signup_content.hbs.py:18
 msgid "Sign in here"
 msgstr ""
 
@@ -682,13 +695,13 @@ msgstr "Reason 2"
 msgid "Reason 3"
 msgstr "Reason 3"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/_standard_login_form.hbs.py:12
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/_standard_login_form.hbs.py:11
 msgid "Lost your password?"
 msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/_standard_signup_form.hbs.py:19
 msgid "Join Bluebottle Project"
-msgstr ""
+msgstr "Join 1%%Club"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/account_personal_details.hbs.py:6
 msgid "Personal Details"
@@ -782,25 +795,29 @@ msgstr "Money"
 msgid "Account settings saved"
 msgstr "Profile settings saved"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/disable.hbs.py:10
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/disable.hbs.py:9
 msgid ""
 "That’s weird, apparently someone registered an account with your email. "
 "Click \"delete\" below to have it removed."
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/disable.hbs.py:12
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/disable.hbs.py:13
 msgid "Delete"
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/disable.hbs.py:14
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/disable.hbs.py:16
 msgid "Just kidding!"
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_request.hbs.py:10
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_request.hbs.py:9
+msgid "This link is expired, please request a new one."
+msgstr "This link is expired, please request a new one."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_request.hbs.py:15
 msgid "To reset your password, enter the email address you use to sign in."
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_request.hbs.py:14
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_request.hbs.py:20
 msgid "Continue"
 msgstr ""
 
@@ -810,7 +827,7 @@ msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_reset.hbs.py:19
 msgid "Confirm"
-msgstr ""
+msgstr "Confirm"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/profile_components.hbs.py:18
 msgid "No items selected"

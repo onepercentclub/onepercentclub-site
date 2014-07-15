@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-10 14:15+0200\n"
-"PO-Revision-Date: 2014-07-10 12:17+0000\n"
-"Last-Translator: aethemba <aksel@onepercentclub.com>\n"
+"POT-Creation-Date: 2014-07-15 14:16+0200\n"
+"PO-Revision-Date: 2014-07-11 09:59+0000\n"
+"Last-Translator: Malou <malou@onepercentclub.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +25,7 @@ msgstr ""
 #: templates/homepage/banner.hbs:13
 #, python-format
 msgid "1%%Club is the do-good crowdfunding platform"
-msgstr ""
+msgstr "1%%Club is the do-good crowdfunding platform"
 
 #: templates/homepage/banner.hbs:14
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:31
@@ -205,7 +205,7 @@ msgstr ""
 
 #: templates/homepage/main.hbs:24
 msgid "We are the do-good crowdfunding platform"
-msgstr ""
+msgstr "We are the do-good crowdfunding platform"
 
 #: templates/homepage/main.hbs:26
 msgid ""
@@ -405,7 +405,7 @@ msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:24
 msgid "Terms of service"
-msgstr ""
+msgstr "Terms of Service."
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:25
 msgid "ANBI"
@@ -491,7 +491,7 @@ msgid ""
 "is the go-to crowdfunding platform for doing good. We empower people with "
 "great ideas to create positive change in their community, city, country – or"
 " in the world."
-msgstr ""
+msgstr "is the go-to crowdfunding platform for doing good. We empower people with great ideas to create positive change in their community, city, country – or in the world."
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/activation_email.html.py:78
 msgid "Let's get started"
@@ -511,7 +511,7 @@ msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/password_reset_email.html.py:17
 msgid "Hello"
-msgstr ""
+msgstr "Hi there!"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/password_reset_email.html.py:18
 #, python-format
@@ -524,7 +524,7 @@ msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/password_reset_email.html.py:57
 msgid "If you haven’t requested a new password, you can ignore this email."
-msgstr ""
+msgstr "If you haven’t requested a new password, you can ignore this email."
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/password_reset_subject.txt.py:2
 #, python-format
@@ -1377,7 +1377,7 @@ msgstr ""
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/footer.hbs.py:116
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/footer.hbs.py:118
 msgid "Join Bluebottle"
-msgstr ""
+msgstr "Join 1%%Club"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/footer.hbs.py:117
 msgid "Join our project!"
