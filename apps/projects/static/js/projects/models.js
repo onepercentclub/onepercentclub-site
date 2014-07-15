@@ -19,11 +19,22 @@ App.Project.reopen({
 
     task_count: DS.attr('number'),
 
-    isFundable: Em.computed.equal('status.id', 5),
-    isStatusPlan: Em.computed.lt('status.id', 5),
-    isStatusCampaign: Em.computed.equal('status.id', 5),
-    isStatusCompleted: Em.computed.equal('status.id', 7),
-    isStatusStopped: Em.computed.gt('status.id', 9),
+    phaseNum: function(){
+        if (this.get('status') === null){
+            return 1;
+        }
+        return parseInt(this.get('status').get('id'));
+    }.property('phaseNum'),
+
+    isFundable: Em.computed.equal('phaseNum', 5),
+
+    isStatusPlan: Em.computed.lt('phaseNum', 5),
+    
+    isStatusCampaign: Em.computed.equal('phaseNum', 5),
+    
+    isStatusCompleted: Em.computed.equal('phaseNum', 7),
+    
+    isStatusStopped: Em.computed.gt('phaseNum', 9),
 
     isSupportable: function () {
         var now = new Date();
