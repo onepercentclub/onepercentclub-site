@@ -140,6 +140,10 @@ html, body, #site {
 			background: image-url("img/loaders/loader-button-darkgrey.gif") #D8D8D8 no-repeat 50% 50% !important;
 			background-size: 32px !important;
 			@include hide-text();
+
+			&:hover {
+				@include box-shadow(none);
+			}
 		}
 	}
 }
