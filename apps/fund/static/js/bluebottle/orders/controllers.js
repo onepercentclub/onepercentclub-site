@@ -179,28 +179,41 @@ App.PaymentProfileController = Em.ObjectController.extend({
     needs: ['currentOrder'],
 
     updateProfile: function() {
-        var profile = this.get('model');
+        var _this = this,
+            profile = this.get('model');
+
+        // Return early if the record is still saving
+        // FIXME: this is a work-around until we correctly handle saving orders by 
+        //        disabling buttons / showing loading animations etc.
+        if (profile.get('isSaving')) return;
+
+        if (profile.get('isDirty')){
+            // Set profile model to the uncommitted state - this is required as the
+            // old version of ember data we use doesn't handle transitioning to willCommit
+            // from an invalid state. This happens with server side validations.
+            // See: https://github.com/emberjs/data/pull/1889
+            profile.transitionTo('updated.uncommitted');
+        } else {
+            // Early redirect if the record is saved / unchanged
+            this._successTransition();
+        }
+
+        // Save and transition on success.
+        profile.save().then(function(record) {
+            this._successTransition();
+        });
+    },
+
+    _successTransition: function () {
         var user = this.get('currentUser.model');
 
-        // Set profile model to the 'updated' state so that the 'didUpdate' callback will always be run.
-        profile.transitionTo('updated.uncommitted');
-
-        var controller = this;
-        profile.one('didUpdate', function(record) {
-            var currentOrder = controller.get('controllers.currentOrder');
-            if (user.get('isAuthenticated')) {
-                controller.transitionToRoute('paymentSelect');
-            } else {
-                controller.transitionToRoute('paymentSignup');
-            }
-        });
-
-        profile.one('becameInvalid', function(record) {
-            controller.get('model').set('errors', record.get('errors'));
-        });
-
-        profile.save();
+        if (user && user.get('isAuthenticated')) {
+            this.transitionToRoute('paymentSelect');
+        } else {
+            this.transitionToRoute('paymentSignup');
+        }
     },
+
     actions: {
         nextStep: function(){
             var profile = this.get('model');
