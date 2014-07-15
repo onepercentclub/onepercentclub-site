@@ -111,7 +111,7 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
     def test_upload_multiple_wallpost_images(self):
         """ Test uploading multiple images in a media wallpost """
 
-        self.assertTrue(self.login(self.user.email, 'testing'))
+        self.login(self.user.email, 'testing')
         self.visit_project_list_page()
 
         # pick a project
