@@ -19,6 +19,13 @@ App.Project.reopen({
 
     task_count: DS.attr('number'),
 
+    phaseNum: function(){
+        if (this.get('status') === null){
+            return 1;
+        }
+        return parseInt(this.get('status').get('id'));
+    }.property('phaseNum'),
+
     isFundable: Em.computed.equal('phaseNum', 5),
 
     isStatusPlan: Em.computed.lt('phaseNum', 5),
