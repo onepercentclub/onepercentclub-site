@@ -11,7 +11,7 @@ App.LoginController.reopen(App.AuthJwtMixin, {
 
 App.SignupController.reopen({
     willOpen: function () {
-        debugger
+
         // Track google conversation in the controller as the signup
         // doesn't use a route so we can't use the built-in handler.
         var gc = {

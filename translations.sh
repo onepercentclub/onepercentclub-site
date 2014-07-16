@@ -148,6 +148,8 @@ case "$1" in
                 DIR="apps/$APP_DIR"
                 cp $DIR/locale/en_GB/LC_MESSAGES/*.po $DIR/locale/en/LC_MESSAGES/
             done
+            echo "Overwriting en translations with en_GB for JS code"
+            cp locale/en_GB/LC_MESSAGES/*.po locale/en/LC_MESSAGES/
             ;;
 
         compile)
