@@ -1,220 +1,182 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# 
+# Translators:
+# Malou <malou@onepercentclub.com>, 2014
+# Niels Jansen <niels@1procentclub.nl>, 2014
+# Sezayi Arslan <sezayi@onepercentclub.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-06 10:27+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2014-07-15 14:17+0200\n"
+"PO-Revision-Date: 2014-07-15 13:30+0000\n"
+"Last-Translator: Sezayi Arslan <sezayi@onepercentclub.com>\n"
+"Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: en_GB\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: apps/core/static/js/bluebottle/app_overrides.js:21
-#: static/assets/js/bluebottle/app.js:89
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/app.js.c:108
 msgid "Running campaigns"
 msgstr ""
 
 #: apps/core/static/js/bluebottle/app_overrides.js:22
-#: static/assets/js/bluebottle/app.js:90
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/app.js.c:109
 msgid "Finished campaigns"
 msgstr ""
 
-#: apps/donations/static/js/bluebottle/donations/controllers.js:136
-#: static/assets/js/bluebottle/utils.js:170
-#: static/assets/js/bluebottle/donations/controllers.js:136
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:170
+#: apps/core/static/js/bluebottle/app_overrides.js:78
+#: env/src/bluebottle/bluebottle/common/static/js/plugins/ember-facebook.js.c:104
+msgid "There was an error connecting Facebook"
+msgstr "Oh snap! There was an error connecting with your Facebook account. Please try again."
+
+#: apps/donations/static/js/bluebottle/donations/controllers.js:131
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:415
 msgid "Save changed data?"
-msgstr ""
+msgstr "Save changed data?"
 
-#: apps/donations/static/js/bluebottle/donations/controllers.js:137
-#: static/assets/js/bluebottle/utils.js:171
-#: static/assets/js/bluebottle/donations/controllers.js:137
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:171
+#: apps/donations/static/js/bluebottle/donations/controllers.js:132
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:416
 msgid "You have some unsaved changes. Do you want to save before you leave?"
-msgstr ""
+msgstr "You have some unsaved changes. Do you want to save before you leave?"
 
-#: apps/donations/static/js/bluebottle/donations/controllers.js:138
-#: apps/donations/static/js/bluebottle/donations/controllers.js:183
-#: static/assets/js/bluebottle/utils.js:172
-#: static/assets/js/bluebottle/utils.js:191
-#: static/assets/js/bluebottle/donations/controllers.js:138
-#: static/assets/js/bluebottle/donations/controllers.js:183
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:172
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:191
+#: apps/donations/static/js/bluebottle/donations/controllers.js:133
+#: apps/donations/static/js/bluebottle/donations/controllers.js:178
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:417
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:436
 msgid "Save"
-msgstr ""
+msgstr "Save"
 
-#: apps/donations/static/js/bluebottle/donations/controllers.js:139
-#: apps/donations/static/js/bluebottle/donations/controllers.js:184
+#: apps/donations/static/js/bluebottle/donations/controllers.js:134
+#: apps/donations/static/js/bluebottle/donations/controllers.js:179
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:92
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:204
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/admin/DateTimeShortcuts.js:92
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/admin/DateTimeShortcuts.js:204
-#: static/assets/admin/js/admin/DateTimeShortcuts.js:92
-#: static/assets/admin/js/admin/DateTimeShortcuts.js:204
-#: static/assets/js/bluebottle/utils.js:173
-#: static/assets/js/bluebottle/bb_tasks/routes.js:59
-#: static/assets/js/bluebottle/donations/controllers.js:139
-#: static/assets/js/bluebottle/donations/controllers.js:184
-#: static/assets/js/bluebottle/wallposts/views.js:42
-#: static/assets/js/bluebottle/wallposts/views.js:120
 #: env/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/routes.js.c:59
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:173
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:418
 #: env/src/bluebottle/bluebottle/wallposts/static/js/bluebottle/wallposts/views.js.c:42
 #: env/src/bluebottle/bluebottle/wallposts/static/js/bluebottle/wallposts/views.js.c:120
 msgid "Cancel"
-msgstr ""
+msgstr "Cancel"
 
-#: apps/donations/static/js/bluebottle/donations/controllers.js:172
-#: static/assets/js/bluebottle/donations/controllers.js:172
+#: apps/donations/static/js/bluebottle/donations/controllers.js:167
 msgid "You're about to set a monthly donation.<br/><br/>"
-msgstr ""
+msgstr "You're about to set a monthly donation.<br/><br/>"
 
-#: apps/donations/static/js/bluebottle/donations/controllers.js:181
-#: static/assets/js/bluebottle/donations/controllers.js:181
+#: apps/donations/static/js/bluebottle/donations/controllers.js:176
 msgid "Set my monthly donation"
-msgstr ""
+msgstr "Set my monthly donation"
 
-#: apps/donations/static/js/bluebottle/donations/controllers.js:205
-#: static/assets/js/bluebottle/donations/controllers.js:205
+#: apps/donations/static/js/bluebottle/donations/controllers.js:200
 msgid "Stop my monthly donation"
-msgstr ""
+msgstr "Stop my monthly donation"
 
-#: apps/donations/static/js/bluebottle/donations/controllers.js:206
-#: static/assets/js/bluebottle/donations/controllers.js:206
-msgid "Thanks a lot for your support until now. You rock! We welcome you back anytime.<br /><br />Are you sure you want to stop your monthly support?"
-msgstr ""
+#: apps/donations/static/js/bluebottle/donations/controllers.js:201
+msgid ""
+"Thanks a lot for your support until now. You rock! We welcome you back "
+"anytime.<br /><br />Are you sure you want to stop your monthly support?"
+msgstr "Thanks a lot for your support until now. You rock! We welcome you back anytime.<br /><br />Are you sure you want to stop your monthly donation?"
 
-#: apps/donations/static/js/bluebottle/donations/controllers.js:207
-#: static/assets/js/bluebottle/donations/controllers.js:207
+#: apps/donations/static/js/bluebottle/donations/controllers.js:202
 msgid "Yes, stop my donation"
-msgstr ""
+msgstr "Yes, stop my donation"
 
-#: apps/donations/static/js/bluebottle/donations/controllers.js:208
-#: static/assets/js/bluebottle/donations/controllers.js:208
+#: apps/donations/static/js/bluebottle/donations/controllers.js:203
 msgid "No, continue"
-msgstr ""
+msgstr "No, continue"
 
-#: apps/fund/static/js/bluebottle/orders/routes.js:166
-#: static/assets/js/bluebottle/orders/routes.js:166
+#: apps/fund/static/js/bluebottle/orders/routes.js:167
 msgid "There was an error with your payment. Please try again."
-msgstr ""
+msgstr "There was an error with your payment. Could you please try again?"
 
 #: apps/fundraisers/static/js/bluebottle/fundraisers/views.js:37
-#: static/assets/js/bluebottle/fundraisers/views.js:37
 msgid "by"
-msgstr ""
+msgstr "by"
 
 #: apps/fundraisers/static/js/bluebottle/fundraisers/views.js:40
-#: static/assets/js/bluebottle/fundraisers/views.js:40
 msgid "of"
-msgstr ""
+msgstr "of"
 
 #: apps/fundraisers/static/js/bluebottle/fundraisers/views.js:41
-#: static/assets/js/bluebottle/fundraisers/views.js:41
 msgid "raised"
+msgstr "raised"
+
+#: apps/members/static/js/members/controllers.js:2
+msgid "Welcome!"
 msgstr ""
 
-#: apps/projects/static/js/projects/models.js:59
-#: static/assets/js/projects/models.js:59
-msgid "<h3>Introduction of your campaign</h3><p>We’ve already set some structure in this plan, but you are free to write it in your own way.</p><h3>What are you going to do?</h3><p>Remember to keep a logic structure, use headings, paragraphs.</p><h3>How are you going to achieve that?</h3><p>Keep it short and sweet!</p>"
+#: apps/projects/static/js/projects/models.js:58
+msgid ""
+"<h3>Introduction of your campaign</h3><p>We’ve already set some structure in"
+" this plan, but you are free to write it in your own way.</p><h3>What are "
+"you going to do?</h3><p>Remember to keep a logic structure, use headings, "
+"paragraphs.</p><h3>How are you going to achieve that?</h3><p>Keep it short "
+"and sweet!</p>"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:45
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/SelectFilter2.js:45
-#: static/assets/admin/js/SelectFilter2.js:45
 #, c-format
 msgid "Available %s"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:46
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/SelectFilter2.js:46
-#: static/assets/admin/js/SelectFilter2.js:46
 #, c-format
-msgid "This is the list of available %s. You may choose some by selecting them in the box below and then clicking the \"Choose\" arrow between the two boxes."
+msgid ""
+"This is the list of available %s. You may choose some by selecting them in "
+"the box below and then clicking the \"Choose\" arrow between the two boxes."
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:53
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/SelectFilter2.js:53
-#: static/assets/admin/js/SelectFilter2.js:53
 #, c-format
 msgid "Type into this box to filter down the list of available %s."
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:57
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/SelectFilter2.js:57
-#: static/assets/admin/js/SelectFilter2.js:57
 msgid "Filter"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:61
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/SelectFilter2.js:61
-#: static/assets/admin/js/SelectFilter2.js:61
 msgid "Choose all"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:61
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/SelectFilter2.js:61
-#: static/assets/admin/js/SelectFilter2.js:61
 #, c-format
 msgid "Click to choose all %s at once."
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:67
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/SelectFilter2.js:67
-#: static/assets/admin/js/SelectFilter2.js:67
 msgid "Choose"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:69
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/SelectFilter2.js:69
-#: static/assets/admin/js/SelectFilter2.js:69
 msgid "Remove"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:75
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/SelectFilter2.js:75
-#: static/assets/admin/js/SelectFilter2.js:75
 #, c-format
 msgid "Chosen %s"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:76
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/SelectFilter2.js:76
-#: static/assets/admin/js/SelectFilter2.js:76
 #, c-format
-msgid "This is the list of chosen %s. You may remove some by selecting them in the box below and then clicking the \"Remove\" arrow between the two boxes."
+msgid ""
+"This is the list of chosen %s. You may remove some by selecting them in the "
+"box below and then clicking the \"Remove\" arrow between the two boxes."
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:80
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/SelectFilter2.js:80
-#: static/assets/admin/js/SelectFilter2.js:80
 msgid "Remove all"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:80
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/SelectFilter2.js:80
-#: static/assets/admin/js/SelectFilter2.js:80
 #, c-format
 msgid "Click to remove all chosen %s at once."
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/actions.js:18
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/actions.min.js:1
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/actions.js:18
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/actions.min.js:1
-#: static/assets/admin/js/actions.js:18
-#: static/assets/admin/js/actions.min.js:1
 msgid "%(sel)s of %(cnt)s selected"
 msgid_plural "%(sel)s of %(cnt)s selected"
 msgstr[0] ""
@@ -222,370 +184,425 @@ msgstr[1] ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/actions.js:109
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/actions.min.js:5
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/actions.js:109
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/actions.min.js:5
-#: static/assets/admin/js/actions.js:109
-#: static/assets/admin/js/actions.min.js:5
-msgid "You have unsaved changes on individual editable fields. If you run an action, your unsaved changes will be lost."
+msgid ""
+"You have unsaved changes on individual editable fields. If you run an "
+"action, your unsaved changes will be lost."
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/actions.js:121
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/actions.min.js:5
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/actions.js:121
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/actions.min.js:5
-#: static/assets/admin/js/actions.js:121
-#: static/assets/admin/js/actions.min.js:5
-msgid "You have selected an action, but you haven't saved your changes to individual fields yet. Please click OK to save. You'll need to re-run the action."
+msgid ""
+"You have selected an action, but you haven't saved your changes to "
+"individual fields yet. Please click OK to save. You'll need to re-run the "
+"action."
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/actions.js:123
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/actions.min.js:6
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/actions.js:123
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/actions.min.js:6
-#: static/assets/admin/js/actions.js:123
-#: static/assets/admin/js/actions.min.js:6
-msgid "You have selected an action, and you haven't made any changes on individual fields. You're probably looking for the Go button rather than the Save button."
+msgid ""
+"You have selected an action, and you haven't made any changes on individual "
+"fields. You're probably looking for the Go button rather than the Save "
+"button."
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/calendar.js:26
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/calendar.js:26
-#: static/assets/admin/js/calendar.js:26
-msgid "January February March April May June July August September October November December"
+msgid ""
+"January February March April May June July August September October November"
+" December"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/calendar.js:27
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/calendar.js:27
-#: static/assets/admin/js/calendar.js:27
 msgid "S M T W T F S"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/collapse.js:8
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/collapse.js:19
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/collapse.min.js:1
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/collapse.js:8
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/collapse.js:19
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/collapse.min.js:1
-#: static/assets/admin/js/collapse.js:8 static/assets/admin/js/collapse.js:19
-#: static/assets/admin/js/collapse.min.js:1
 msgid "Show"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/collapse.js:15
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/collapse.min.js:1
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/collapse.js:15
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/collapse.min.js:1
-#: static/assets/admin/js/collapse.js:15
-#: static/assets/admin/js/collapse.min.js:1
 msgid "Hide"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:49
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:85
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/admin/DateTimeShortcuts.js:49
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/admin/DateTimeShortcuts.js:85
-#: static/assets/admin/js/admin/DateTimeShortcuts.js:49
-#: static/assets/admin/js/admin/DateTimeShortcuts.js:85
 msgid "Now"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:53
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/admin/DateTimeShortcuts.js:53
-#: static/assets/admin/js/admin/DateTimeShortcuts.js:53
 msgid "Clock"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:81
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/admin/DateTimeShortcuts.js:81
-#: static/assets/admin/js/admin/DateTimeShortcuts.js:81
 msgid "Choose a time"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:86
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/admin/DateTimeShortcuts.js:86
-#: static/assets/admin/js/admin/DateTimeShortcuts.js:86
 msgid "Midnight"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:87
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/admin/DateTimeShortcuts.js:87
-#: static/assets/admin/js/admin/DateTimeShortcuts.js:87
 msgid "6 a.m."
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:88
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/admin/DateTimeShortcuts.js:88
-#: static/assets/admin/js/admin/DateTimeShortcuts.js:88
 msgid "Noon"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:144
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:197
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/admin/DateTimeShortcuts.js:144
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/admin/DateTimeShortcuts.js:197
-#: static/assets/admin/js/admin/DateTimeShortcuts.js:144
-#: static/assets/admin/js/admin/DateTimeShortcuts.js:197
 msgid "Today"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:148
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/admin/DateTimeShortcuts.js:148
-#: static/assets/admin/js/admin/DateTimeShortcuts.js:148
 msgid "Calendar"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:195
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/admin/DateTimeShortcuts.js:195
-#: static/assets/admin/js/admin/DateTimeShortcuts.js:195
 msgid "Yesterday"
 msgstr ""
 
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:199
-#: env/lib/python2.7/site-packages/sentry/static/CACHE/admin/js/admin/DateTimeShortcuts.js:199
-#: static/assets/admin/js/admin/DateTimeShortcuts.js:199
 msgid "Tomorrow"
 msgstr ""
 
-#: env/lib/python2.7/site-packages/treebeard/static/treebeard/treebeard-admin.js:158
-msgid "Abort"
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:17
+msgid "First Name can't be left empty"
 msgstr ""
 
-#: env/lib/python2.7/site-packages/treebeard/static/treebeard/treebeard-admin.js:180
-msgid "As Sibling"
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:23
+msgid "Surname can't be left empty"
+msgstr "Last name can't be left empty"
+
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:29
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:260
+msgid "Invalid email address"
+msgstr "Oh no! This is an invalid email address."
+
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:36
+msgid "Emails don't match"
+msgstr "Whoops! The email addresses don't match."
+
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:168
+msgid "Welcome "
 msgstr ""
 
-#: env/lib/python2.7/site-packages/treebeard/static/treebeard/treebeard-admin.js:198
-msgid "As child"
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:169
+msgid " Ready to do some good?"
 msgstr ""
 
-#: static/assets/js/bluebottle/app.js:478
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/app.js.c:497
-msgid "Pick a language"
-msgstr ""
-
-#: static/assets/js/bluebottle/mixins.js:91
-#: static/assets/js/bluebottle/bb_organizations/controllers.js:85
-#: env/src/bluebottle/bluebottle/bb_organizations/static/js/bluebottle/bb_organizations/controllers.js.c:85
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:91
-msgid "Model is not dirty."
-msgstr ""
-
-#: static/assets/js/bluebottle/mixins.js:104
-#: static/assets/js/bluebottle/bb_organizations/controllers.js:99
-#: static/assets/js/bluebottle/bb_organizations/controllers.js:106
-#: env/src/bluebottle/bluebottle/bb_organizations/static/js/bluebottle/bb_organizations/controllers.js.c:99
-#: env/src/bluebottle/bluebottle/bb_organizations/static/js/bluebottle/bb_organizations/controllers.js.c:106
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:104
-msgid "Model saved successfully."
-msgstr ""
-
-#: static/assets/js/bluebottle/mixins.js:106
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:106
-msgid "Model could not be saved."
-msgstr ""
-
-#: static/assets/js/bluebottle/mixins.js:109
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:109
-msgid "Instance does not implement `_save`."
-msgstr ""
-
-#: static/assets/js/bluebottle/mixins.js:180
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:180
-msgid "Successfully saved."
-msgstr ""
-
-#: static/assets/js/bluebottle/mixins.js:188
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:188
-msgid "Model is invalid."
-msgstr ""
-
-#: static/assets/js/bluebottle/mixins.js:193
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:193
-msgid "Error saving model."
-msgstr ""
-
-#: static/assets/js/bluebottle/mixins.js:205
-#: static/assets/js/bluebottle/bb_organizations/controllers.js:117
-#: env/src/bluebottle/bluebottle/bb_organizations/static/js/bluebottle/bb_organizations/controllers.js.c:117
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:205
-msgid "Hey! What are you doing here? Saving model failed."
-msgstr ""
-
-#: static/assets/js/bluebottle/utils.js:2
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:2
-msgid "15 minutes"
-msgstr ""
-
-#: static/assets/js/bluebottle/utils.js:3
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:3
-msgid "half an hour"
-msgstr ""
-
-#: static/assets/js/bluebottle/utils.js:4
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:4
-msgid "up to one hour"
-msgstr ""
-
-#: static/assets/js/bluebottle/utils.js:5
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:5
-msgid "two hours"
-msgstr ""
-
-#: static/assets/js/bluebottle/utils.js:6
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:6
-msgid "half a day"
-msgstr ""
-
-#: static/assets/js/bluebottle/utils.js:7
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:7
-msgid "one day"
-msgstr ""
-
-#: static/assets/js/bluebottle/utils.js:8
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:8
-msgid "two days"
-msgstr ""
-
-#: static/assets/js/bluebottle/utils.js:9
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:9
-msgid "one week"
-msgstr ""
-
-#: static/assets/js/bluebottle/utils.js:10
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:10
-msgid "two weeks"
-msgstr ""
-
-#: static/assets/js/bluebottle/utils.js:11
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:11
-msgid "one month"
-msgstr ""
-
-#: static/assets/js/bluebottle/utils.js:189
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:189
-msgid "Saving"
-msgstr ""
-
-#: static/assets/js/bluebottle/bb_accounts/controllers.js:59
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:59
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:187
 msgid "Person"
-msgstr ""
+msgstr "Persoon"
 
-#: static/assets/js/bluebottle/bb_accounts/controllers.js:60
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:60
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:188
 msgid "Company"
-msgstr ""
+msgstr "Company"
 
-#: static/assets/js/bluebottle/bb_accounts/controllers.js:61
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:61
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:189
 msgid "Foundation"
-msgstr ""
+msgstr "Foundation"
 
-#: static/assets/js/bluebottle/bb_accounts/controllers.js:62
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:62
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:190
 msgid "School"
-msgstr ""
+msgstr "School"
 
-#: static/assets/js/bluebottle/bb_accounts/controllers.js:63
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:63
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:191
 msgid "Club / Association"
+msgstr "Club / Association"
+
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:242
+msgid "Log in to <Bluebottle Project>"
 msgstr ""
 
-#: static/assets/js/bluebottle/bb_accounts/controllers.js:148
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:148
-msgid "YOU'VE GOT MAIL!<br /><br />We've sent you a link to reset your password, so check your mailbox.<br /><br />(No mail? It might have ended up in your spam folder)"
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:253
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:383
+msgid "Email required"
 msgstr ""
 
-#: static/assets/js/bluebottle/bb_accounts/routes.js:202
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/routes.js.c:202
-msgid "The token you provided is expired. Please reset your password again."
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:267
+msgid "Password required"
+msgstr "Please fill in your password."
+
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:371
+msgid "Trouble signing in?"
 msgstr ""
 
-#: static/assets/js/bluebottle/bb_accounts/views.js:16
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:451
+msgid "We've sent a password reset link to your inbox"
+msgstr "We've sent a password reset link to your inbox. See you at onepercentclub.com in a minute!"
+
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:470
+msgid "Make it one to remember"
+msgstr ""
+
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:471
+msgid "We've updated your password, you're all set!"
+msgstr ""
+
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:488
+msgid "Passwords don't match"
+msgstr ""
+
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:581
+msgid "Invalid token, try request a new password again"
+msgstr ""
+
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:602
+msgid "If you leave me now..."
+msgstr ""
+
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:603
+msgid "The account was disabled"
+msgstr ""
+
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:630
+msgid "Success"
+msgstr ""
+
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:635
+msgid "Error, invalid token"
+msgstr ""
+
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:15
+msgid "First name"
+msgstr "First name"
+
 #: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:16
-msgid "Please use your email address to log in."
-msgstr ""
+msgid "Surname"
+msgstr "Last name"
 
-#: static/assets/js/bluebottle/bb_organizations/views.js:2
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:17
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:30
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:63
+msgid "Email address"
+msgstr "Email address"
+
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:18
+msgid "Re-enter email address"
+msgstr "Re-enter email address"
+
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:19
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:31
+msgid "Password"
+msgstr "Password"
+
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:70
+msgid "Pick an item"
+msgstr "Pick an item"
+
+#: env/src/bluebottle/bluebottle/bb_organizations/static/js/bluebottle/bb_organizations/controllers.js.c:89
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:84
+msgid "Model is not dirty."
+msgstr "Model is not dirty."
+
+#: env/src/bluebottle/bluebottle/bb_organizations/static/js/bluebottle/bb_organizations/controllers.js.c:103
+#: env/src/bluebottle/bluebottle/bb_organizations/static/js/bluebottle/bb_organizations/controllers.js.c:110
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:97
+msgid "Model saved successfully."
+msgstr "Model saved successfully."
+
+#: env/src/bluebottle/bluebottle/bb_organizations/static/js/bluebottle/bb_organizations/controllers.js.c:121
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:198
+msgid "Hey! What are you doing here? Saving model failed."
+msgstr "Hey! What are you doing here? Saving model failed."
+
 #: env/src/bluebottle/bluebottle/bb_organizations/static/js/bluebottle/bb_organizations/views.js.c:2
 msgid "Pick an organization"
+msgstr "Pick an organisation"
+
+#: env/src/bluebottle/bluebottle/bb_projects/static/js/bluebottle/bb_projects/views.js.c:30
+msgid "Search"
 msgstr ""
 
-#: static/assets/js/bluebottle/bb_projects/views.js:82
-#: env/src/bluebottle/bluebottle/bb_projects/static/js/bluebottle/bb_projects/views.js.c:82
+#: env/src/bluebottle/bluebottle/bb_projects/static/js/bluebottle/bb_projects/views.js.c:85
+#: env/src/bluebottle/bluebottle/bb_projects/static/js/bluebottle/bb_projects/views.js.c:92
 msgid "Pick a phase"
+msgstr "Pick a phase"
+
+#: env/src/bluebottle/bluebottle/bb_projects/static/js/bluebottle/bb_projects/views.js.c:132
+msgid "Pick a theme"
 msgstr ""
 
-#: static/assets/js/bluebottle/bb_tasks/routes.js:56
+#: env/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/models.js.c:191
+msgid "open"
+msgstr ""
+
+#: env/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/models.js.c:194
+msgid "in progress"
+msgstr ""
+
+#: env/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/models.js.c:197
+msgid "realised"
+msgstr ""
+
+#: env/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/models.js.c:200
+msgid "closed"
+msgstr ""
+
 #: env/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/routes.js.c:56
 msgid "Apply for task"
-msgstr ""
+msgstr "Apply for task"
 
-#: static/assets/js/bluebottle/bb_tasks/routes.js:58
 #: env/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/routes.js.c:58
 msgid "Apply"
+msgstr "Apply"
+
+#: env/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/views.js.c:94
+msgid "Open"
 msgstr ""
 
-#: static/assets/js/bluebottle/bb_tasks/views.js:112
-#: env/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/views.js.c:112
+#: env/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/views.js.c:95
+msgid "Running"
+msgstr ""
+
+#: env/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/views.js.c:96
+msgid "Realised"
+msgstr ""
+
+#: env/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/views.js.c:111
 msgid "Pick a skill"
 msgstr ""
 
-#: static/assets/js/bluebottle/geo/views.js:4
-#: static/assets/js/bluebottle/geo/views.js:16
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/app.js.c:51
+msgid "Password needs to be at least 6 characters long"
+msgstr "Password needs to be at least 6 characters long."
+
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/auth_jwt.js.c:69
+msgid "Failed to create currentUser"
+msgstr "Whoops... Something went wrong. We're going to fix this asap!"
+
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:99
+msgid "Model could not be saved."
+msgstr "Model could not be saved."
+
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:102
+msgid "Instance does not implement `_save`."
+msgstr "Instance does not implement `_save`."
+
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:173
+msgid "Successfully saved."
+msgstr "Successfully saved."
+
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:181
+msgid "Model is invalid."
+msgstr "Model is invalid."
+
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/mixins.js.c:186
+msgid "Error saving model."
+msgstr "Error saving model."
+
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:2
+msgid "15 minutes"
+msgstr "15 minutes"
+
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:3
+msgid "half an hour"
+msgstr "30 minutes"
+
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:4
+msgid "up to one hour"
+msgstr "up to one hour"
+
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:5
+msgid "two hours"
+msgstr "two hours"
+
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:6
+msgid "half a day"
+msgstr "half a day"
+
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:7
+msgid "one day"
+msgstr "one day"
+
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:8
+msgid "two days"
+msgstr "two days"
+
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:9
+msgid "one week"
+msgstr "one week"
+
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:10
+msgid "two weeks"
+msgstr "two weeks"
+
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:11
+msgid "one month"
+msgstr "one month"
+
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:42
+msgid "That's better"
+msgstr ""
+
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:79
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:109
+msgid "weak"
+msgstr "weak"
+
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:97
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:101
+msgid "fair"
+msgstr "fair"
+
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:105
+msgid "strong"
+msgstr "strong"
+
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:434
+msgid "Saving"
+msgstr "Saving"
+
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/views.js.c:27
+msgid "Pick a language"
+msgstr ""
+
+#: env/src/bluebottle/bluebottle/common/static/js/plugins/ember-facebook.js.c:108
+msgid "Unauthorized to connect to Facebook "
+msgstr "We're unauthorized to connect to your Facebook account."
+
+#: env/src/bluebottle/bluebottle/common/static/js/plugins/handlebars.helpers.js.c:92
+msgid "Deadline<br /> reached"
+msgstr "Deadline<br /> reached"
+
+#: env/src/bluebottle/bluebottle/common/static/js/plugins/handlebars.helpers.js.c:96
+msgid "days"
+msgstr "days"
+
+#: env/src/bluebottle/bluebottle/common/static/js/plugins/handlebars.helpers.js.c:97
+msgid "day"
+msgstr "day"
+
+#: env/src/bluebottle/bluebottle/common/static/js/plugins/handlebars.helpers.js.c:99
+msgid "to support this project"
+msgstr "to support this campaign"
+
 #: env/src/bluebottle/bluebottle/geo/static/js/bluebottle/geo/views.js.c:4
 #: env/src/bluebottle/bluebottle/geo/static/js/bluebottle/geo/views.js.c:16
 msgid "Pick a country"
-msgstr ""
+msgstr "Pick a country"
 
-#: static/assets/js/bluebottle/utils/views.js:166
-#: env/src/bluebottle/bluebottle/utils/static/js/bluebottle/utils/views.js.c:166
+#: env/src/bluebottle/bluebottle/utils/static/js/bluebottle/utils/views.js.c:176
 msgid "&nbsp;days"
 msgstr ""
 
-#: static/assets/js/bluebottle/wallposts/views.js:39
-#: static/assets/js/bluebottle/wallposts/views.js:117
 #: env/src/bluebottle/bluebottle/wallposts/static/js/bluebottle/wallposts/views.js.c:39
 #: env/src/bluebottle/bluebottle/wallposts/static/js/bluebottle/wallposts/views.js.c:117
 msgid "Really?"
-msgstr ""
+msgstr "Really?"
 
-#: static/assets/js/bluebottle/wallposts/views.js:40
 #: env/src/bluebottle/bluebottle/wallposts/static/js/bluebottle/wallposts/views.js.c:40
 msgid "Are you sure you want to delete this comment?"
-msgstr ""
+msgstr "Are you sure you want to delete this comment?"
 
-#: static/assets/js/bluebottle/wallposts/views.js:41
-#: static/assets/js/bluebottle/wallposts/views.js:119
 #: env/src/bluebottle/bluebottle/wallposts/static/js/bluebottle/wallposts/views.js.c:41
 #: env/src/bluebottle/bluebottle/wallposts/static/js/bluebottle/wallposts/views.js.c:119
 msgid "Yes"
-msgstr ""
+msgstr "Yes"
 
-#: static/assets/js/bluebottle/wallposts/views.js:118
 #: env/src/bluebottle/bluebottle/wallposts/static/js/bluebottle/wallposts/views.js.c:118
 msgid "Are you sure you want to delete this reaction?"
-msgstr ""
-
-#: static/assets/js/plugins/handlebars.helpers.js:87
-#: env/src/bluebottle/bluebottle/common/static/js/plugins/handlebars.helpers.js.c:92
-msgid "Deadline<br /> reached"
-msgstr ""
-
-#: static/assets/js/plugins/handlebars.helpers.js:91
-#: env/src/bluebottle/bluebottle/common/static/js/plugins/handlebars.helpers.js.c:96
-msgid "days"
-msgstr ""
-
-#: static/assets/js/plugins/handlebars.helpers.js:92
-#: env/src/bluebottle/bluebottle/common/static/js/plugins/handlebars.helpers.js.c:97
-msgid "day"
-msgstr ""
-
-#: static/assets/js/plugins/handlebars.helpers.js:94
-#: env/src/bluebottle/bluebottle/common/static/js/plugins/handlebars.helpers.js.c:99
-msgid "to support this project"
-msgstr ""
-
-#: env/src/bluebottle/bluebottle/bb_projects/static/js/bluebottle/bb_projects/views.js.c:122
-msgid "Pick a theme"
-msgstr ""
+msgstr "Are you sure you want to delete this reaction?"
