@@ -37,6 +37,18 @@ class MemberFailedLoginTests(OnePercentSeleniumTestCase):
         self.assert_css('.modal-flash-message', wait_time=10)
         self.assert_text(_("Password required"))
 
+    def test_failed_login_invalid_email(self):
+        """ Confirm login fails with wrong credentials and shows an error message """
+
+        # Fill in details.
+        self.browser.find_by_css('input[name=username]').fill('fake')
+        self.browser.find_by_css('input[type=password]').fill('fake')
+        self.browser.find_by_css("a[name=login]").click()
+
+        # Should see an error message
+        self.assert_css('.modal-flash-message', wait_time=10)
+        self.assert_text(_("Invalid email address"))
+
     def test_failed_login_wrong_credentials(self):
         """ Confirm login fails with wrong credentials and shows an error message """
 
@@ -47,4 +59,4 @@ class MemberFailedLoginTests(OnePercentSeleniumTestCase):
 
         # Should see an error message
         self.assert_css('.modal-flash-message', wait_time=10)
-        self.assert_text(_("Unable to login with provided credentials."))
+        self.assert_text(_("Unable to login with provided credentials"))
