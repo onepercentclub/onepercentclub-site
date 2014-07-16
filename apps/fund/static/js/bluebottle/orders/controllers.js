@@ -193,6 +193,7 @@ App.PaymentProfileController = Em.ObjectController.extend({
             // from an invalid state. This happens with server side validations.
             // See: https://github.com/emberjs/data/pull/1889
             profile.transitionTo('updated.uncommitted');
+            profile.set('errors', null);
         } else {
             // Early redirect if the record is saved / unchanged
             this._successTransition();
