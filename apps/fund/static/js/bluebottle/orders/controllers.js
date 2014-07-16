@@ -531,7 +531,8 @@ App.CurrentOrderController = Em.ObjectController.extend({
         // Reload order and payment profile after logging in
         // Check the order model is not already reloading
         if (!this.get('isReloading') && this.get('currentUser.isLoaded')) {
-            _this.send('setFlash', gettext('Reloading order details'));
+            // set is-loading flash message with no timeout
+            _this.send('setFlash', gettext('Reloading order details'), 'is-loading', false);
 
             // Attempt to reload the order and profile details
             this.get('model').reload().then( function (order) {
