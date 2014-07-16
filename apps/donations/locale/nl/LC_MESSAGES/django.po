@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-10 14:15+0200\n"
+"POT-Creation-Date: 2014-07-15 14:17+0200\n"
 "PO-Revision-Date: 2014-06-12 09:09+0000\n"
 "Last-Translator: JhonM <jhon@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
@@ -563,32 +563,32 @@ msgstr "Can only Recurring Donations to an active Recurring Order (status recurr
 msgid "You cannot modify a closed Order."
 msgstr "Je kunt een 'closed order' niet aanpassen."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:39
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:38
 msgid "No active order"
 msgstr "Niet actief"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:97
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:96
 msgid "You cannot add a donation to a closed Order."
 msgstr "Je kunt geen donatie toevoegen aan een 'closed order'."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:152
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:159
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:162
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:490
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:151
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:158
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:161
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:492
 #, python-format
 msgid "No %(verbose_name)s found matching the query"
 msgstr "Geen  %(verbose_name)s gevonden"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:420
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:424
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:419
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:423
 msgid "Order not found."
 msgstr "Betaling niet gevonden."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:422
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:421
 msgid "No order specified."
 msgstr "Geen betaling opgegeven"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:496
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:498
 msgid "Anonymous users are not permitted to create recurring orders."
 msgstr "Anonieme gebruikers kunnen geen maandelijkse donatie aanmaken."
 

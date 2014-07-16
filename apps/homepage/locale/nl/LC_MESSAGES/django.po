@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-10 14:15+0200\n"
-"PO-Revision-Date: 2014-07-10 14:09+0000\n"
-"Last-Translator: Sezayi Arslan <sezayi@onepercentclub.com>\n"
+"POT-Creation-Date: 2014-07-15 14:16+0200\n"
+"PO-Revision-Date: 2014-07-11 09:53+0000\n"
+"Last-Translator: Malou <malou@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -406,7 +406,7 @@ msgstr "Onze FAQ"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:24
 msgid "Terms of service"
-msgstr "Algemene voorwaarden"
+msgstr "Algemene voorwaarden."
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:25
 msgid "ANBI"
@@ -521,7 +521,7 @@ msgstr "Je hebt een wachtwoordwijziging aangevraagd op 1%%Club."
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/password_reset_email.html.py:37
 msgid "Reset password"
-msgstr "wijzig wachtwoord"
+msgstr "Wijzig wachtwoord"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/password_reset_email.html.py:57
 msgid "If you haven’t requested a new password, you can ignore this email."

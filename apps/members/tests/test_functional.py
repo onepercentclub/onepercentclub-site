@@ -10,7 +10,6 @@ from django.utils.translation import ugettext as _
 class MemberFailedLoginTests(OnePercentSeleniumTestCase):
 
     def setUp(self):
-        self.init_projects()
         self.user = BlueBottleUserFactory.create()
         self.visit_homepage()
         self.scroll_to_and_click_by_css('.nav-signup-login a')
@@ -47,5 +46,5 @@ class MemberFailedLoginTests(OnePercentSeleniumTestCase):
         self.browser.find_by_css("a[name=login]").click()
 
         # Should see an error message
-        # self.assert_css('.modal-flash-message', wait_time=10)
-        # self.assert_text(_("Unable to login with provided credentials."))
+        self.assert_css('.modal-flash-message', wait_time=10)
+        self.assert_text(_("Unable to login with provided credentials."))

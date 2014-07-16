@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-10 14:15+0200\n"
+"POT-Creation-Date: 2014-07-15 14:16+0200\n"
 "PO-Revision-Date: 2014-07-10 12:17+0000\n"
 "Last-Translator: aethemba <aksel@onepercentclub.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
@@ -143,60 +143,60 @@ msgstr "Campaign Finished"
 msgid "Campaign Funded"
 msgstr "Campaign Finished"
 
-#: models.py:261
+#: models.py:263
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:202
 #, python-brace-format
 msgid "{name_project} in {country}"
 msgstr "{name_project} in {country}"
 
-#: models.py:280
+#: models.py:282
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:222
 #, python-brace-format
 msgid "{title} {{URL}} via @{twitter_handle}"
 msgstr "{title} {{URL}} via @{twitter_handle}"
 
-#: models.py:343 models.py:369
+#: models.py:345 models.py:371
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:25
 msgid "description"
 msgstr "description"
 
-#: models.py:345
+#: models.py:347
 msgid "amount (in cents)"
 msgstr "amount (in cents)"
 
-#: models.py:351
+#: models.py:353
 msgid "budget line"
 msgstr "budget line"
 
-#: models.py:352
+#: models.py:354
 msgid "budget lines"
 msgstr "budget lines"
 
-#: models.py:367
+#: models.py:369
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:22
 msgid "name"
 msgstr "name"
 
-#: models.py:368
+#: models.py:370
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:24
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:129
 msgid "slug"
 msgstr "slug"
 
-#: models.py:370
+#: models.py:372
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:145
 msgid "image"
 msgstr "image"
 
-#: models.py:370
+#: models.py:372
 msgid "Main partner picture"
 msgstr "Main picture"
 
-#: models.py:378
+#: models.py:380
 msgid "partner organization"
 msgstr "organisation"
 
-#: models.py:379
+#: models.py:381
 msgid "partner organizations"
 msgstr "organisations"
 

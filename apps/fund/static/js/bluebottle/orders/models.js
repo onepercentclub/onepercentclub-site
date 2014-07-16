@@ -122,11 +122,7 @@ App.PaymentProfile = DS.Model.extend({
     postalCode: DS.attr('string'),
     city: DS.attr('string'),
     country: DS.attr('string'),
-    isComplete: function() {
-        return !Em.isEmpty(this.get('firstName')) && !Em.isEmpty(this.get('lastName')) && !Em.isEmpty(this.get('email')) &&
-               !Em.isEmpty(this.get('address')) && !Em.isEmpty(this.get('postalCode')) && !Em.isEmpty(this.get('city')) &&
-               !Em.isEmpty(this.get('country'));
-    }.property('firstName', 'lastName', 'email', 'address', 'postalCode', 'city', 'country')
+    isComplete: Em.computed.and('firstName.length', 'lastName.length', 'email.length', 'address.length', 'postalCode.length', 'city.length', 'country.length')
 });
 
 
