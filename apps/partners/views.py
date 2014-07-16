@@ -18,7 +18,7 @@ class MacroMicroListView(ListView):
 
     template_name = 'macromicro_list.html'
     model = Project
-    queryset = Project.objects.filter(partner_organization__slug='macro_micro')
+    queryset = Project.objects.filter(partner_organization__slug='macro_micro').filter(status__viewable=True)
 
     def render_to_response(self, context, **response_kwargs):
         return super(MacroMicroListView, self).render_to_response(
