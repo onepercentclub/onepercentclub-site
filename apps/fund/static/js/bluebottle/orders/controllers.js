@@ -214,11 +214,6 @@ App.PaymentProfileController = Em.ObjectController.extend({
         }
     },
 
-    reloadPaymentProfile: function() {
-        // Reload payment profile after logging in
-        if (this.get('model')) this.get('model').reload();
-    }.observes('currentUser.username'),
-
     actions: {
         nextStep: function(){
             var profile = this.get('model');
@@ -469,6 +464,7 @@ App.RecurringDirectDebitPaymentController = Em.ObjectController.extend({
 
 
 App.CurrentOrderController = Em.ObjectController.extend({
+    needs: ['paymentProfile'],
     donationType: '',
 
     updateRecurring: function() {
@@ -528,11 +524,31 @@ App.CurrentOrderController = Em.ObjectController.extend({
         this.set('display_message', false);
     },
 
-    reloadOrder: function() {
-        // Reload order after logging in
-        if (this.get('model')) this.get('model').reload();
-    }.observes('currentUser.username')
+    reloadOrderDetails: function() {
+        var _this = this,
+            profileRecord = _this.get('controllers.paymentProfile.model');
 
+        // Reload order and payment profile after logging in
+        // Check the order model is not already reloading
+        if (!this.get('isReloading') && this.get('currentUser.isLoaded')) {
+            _this.send('setFlash', gettext('Reloading order details'));
+
+            // Attempt to reload the order and profile details
+            this.get('model').reload().then( function (order) {
+                // order reloaded successfully
+                profileRecord.reload().then( function (profile) {
+                    // profile reloaded successfully
+                    _this.send('clearFlash');
+                }, function (profile) {
+                    // profile reload failed
+                    _this.send('clearFlash');
+                });
+            }, function (order) {
+                // order reload failed
+                _this.send('clearFlash');
+            });
+        }
+    }.observes('currentUser.isLoaded')
 });
 
 
