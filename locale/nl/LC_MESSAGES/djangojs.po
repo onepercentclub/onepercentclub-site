@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-15 14:17+0200\n"
-"PO-Revision-Date: 2014-07-16 07:35+0000\n"
+"PO-Revision-Date: 2014-07-17 09:41+0000\n"
 "Last-Translator: Sezayi Arslan <sezayi@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -470,7 +470,7 @@ msgstr ""
 
 #: env/src/bluebottle/bluebottle/common/static/js/bluebottle/app.js.c:51
 msgid "Password needs to be at least 6 characters long"
-msgstr "Wachtwoord moet minstens 6 tekens bevatten."
+msgstr "Je wachtwoord moet minstens 6 tekens bevatten."
 
 #: env/src/bluebottle/bluebottle/common/static/js/bluebottle/auth_jwt.js.c:69
 msgid "Failed to create currentUser"
