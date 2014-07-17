@@ -16,10 +16,6 @@ class InitProjectDataMixin(object):
         """
         Set up some basic models needed for project creation.
         """
-        for model in [ProjectPhase, ProjectTheme, Language]:
-            for obj in model.objects.all():
-                obj.delete()
-
         phase_data = [{'id': 1, 'name': 'Plan - New', 'viewable': False},
                       {'id': 2, 'name': 'Plan - Submitted', 'viewable': False},
                       {'id': 3, 'name': 'Plan - Needs Work', 'viewable': False},

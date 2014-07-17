@@ -309,7 +309,7 @@ def prune_unreferenced_files():
 
 def add_git_commit():
     with cd(env.directory):
-        run('echo "GIT_COMMIT = \'`git log --oneline | head -n1 | cut -c1-7`\'" >> onepercentclub/settings/base.py')
+        run('echo -e "\nGIT_COMMIT = \'`git log --oneline | head -n1 | cut -c1-7`\'" >> onepercentclub/settings/base.py')
 
 
 def prepare_django():

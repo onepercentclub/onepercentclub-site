@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Loek van Gent <loek@1procentclub.nl>, 2014
 # Malou <malou@onepercentclub.com>, 2014
 # Niels Jansen <niels@1procentclub.nl>, 2014
 # Sezayi Arslan <sezayi@onepercentclub.com>, 2014
@@ -11,7 +12,7 @@ msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-15 14:17+0200\n"
-"PO-Revision-Date: 2014-07-15 13:30+0000\n"
+"PO-Revision-Date: 2014-07-17 09:41+0000\n"
 "Last-Translator: Sezayi Arslan <sezayi@onepercentclub.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
@@ -295,7 +296,7 @@ msgstr ""
 
 #: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:187
 msgid "Person"
-msgstr "Persoon"
+msgstr "Person"
 
 #: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:188
 msgid "Company"
@@ -468,7 +469,7 @@ msgstr ""
 
 #: env/src/bluebottle/bluebottle/common/static/js/bluebottle/app.js.c:51
 msgid "Password needs to be at least 6 characters long"
-msgstr "Password needs to be at least 6 characters long."
+msgstr "Your password needs to be at least 6 characters long."
 
 #: env/src/bluebottle/bluebottle/common/static/js/bluebottle/auth_jwt.js.c:69
 msgid "Failed to create currentUser"

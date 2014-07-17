@@ -193,6 +193,7 @@ App.PaymentProfileController = Em.ObjectController.extend({
             // from an invalid state. This happens with server side validations.
             // See: https://github.com/emberjs/data/pull/1889
             profile.transitionTo('updated.uncommitted');
+            profile.set('errors', null);
         } else {
             // Early redirect if the record is saved / unchanged
             this._successTransition();
@@ -213,11 +214,6 @@ App.PaymentProfileController = Em.ObjectController.extend({
             this.transitionToRoute('paymentSignup');
         }
     },
-
-    reloadPaymentProfile: function() {
-        // Reload payment profile after logging in
-        if (this.get('model')) this.get('model').reload();
-    }.observes('currentUser.username'),
 
     actions: {
         nextStep: function(){
@@ -469,6 +465,7 @@ App.RecurringDirectDebitPaymentController = Em.ObjectController.extend({
 
 
 App.CurrentOrderController = Em.ObjectController.extend({
+    needs: ['paymentProfile'],
     donationType: '',
 
     updateRecurring: function() {
@@ -528,11 +525,32 @@ App.CurrentOrderController = Em.ObjectController.extend({
         this.set('display_message', false);
     },
 
-    reloadOrder: function() {
-        // Reload order after logging in
-        if (this.get('model')) this.get('model').reload();
-    }.observes('currentUser.username')
+    reloadOrderDetails: function() {
+        var _this = this,
+            profileRecord = _this.get('controllers.paymentProfile.model');
 
+        // Reload order and payment profile after logging in
+        // Check the order model is not already reloading
+        if (this.get('model') && !this.get('isReloading') && this.get('currentUser.isLoaded')) {
+            // set is-loading flash message with no timeout
+            _this.send('setFlash', gettext('Reloading order details'), 'is-loading', false);
+
+            // Attempt to reload the order and profile details
+            this.get('model').reload().then( function (order) {
+                // order reloaded successfully
+                profileRecord.reload().then( function (profile) {
+                    // profile reloaded successfully
+                    _this.send('clearFlash');
+                }, function (profile) {
+                    // profile reload failed
+                    _this.send('clearFlash');
+                });
+            }, function (order) {
+                // order reload failed
+                _this.send('clearFlash');
+            });
+        }
+    }.observes('currentUser.isLoaded')
 });
 
 

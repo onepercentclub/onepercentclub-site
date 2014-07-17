@@ -196,6 +196,7 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'bluebottle.utils.context_processors.google_analytics_code',
     'bluebottle.utils.context_processors.sentry_dsn',
     'bluebottle.utils.context_processors.facebook_auth_settings',
+    'bluebottle.utils.context_processors.mixpanel_settings',
     'social.apps.django_app.context_processors.backends',
     'social.apps.django_app.context_processors.login_redirect',
 )
@@ -593,3 +594,6 @@ SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email', 'first_name', 'last_name', ]
 SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
 
 SEND_WELCOME_MAIL = True
+
+
+MIXPANEL = ''

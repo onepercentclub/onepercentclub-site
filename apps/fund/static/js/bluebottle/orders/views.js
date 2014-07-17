@@ -73,7 +73,7 @@ App.CurrentOrderVoucherView = Em.View.extend({
     'delete': function() {
         var controller = this.get('controller');
         this.$().slideUp(500, function() {
-            controller.deleteVoucher()
+            controller.deleteVoucher();
         });
     }
 });
@@ -102,7 +102,7 @@ App.OrderNavView = Ember.View.extend({
 
     childBecameActive: function(sender, key) {
         if (this.get(key) && this.state == "inDOM") {
-            this.setOrderProgress()
+            this.setOrderProgress();
         }
     }.observes('childViews.firstObject.active'),
 
