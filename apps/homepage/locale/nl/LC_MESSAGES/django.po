@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-15 14:16+0200\n"
-"PO-Revision-Date: 2014-07-11 09:53+0000\n"
-"Last-Translator: Malou <malou@onepercentclub.com>\n"
+"POT-Creation-Date: 2014-07-17 16:12+0200\n"
+"PO-Revision-Date: 2014-07-17 14:23+0000\n"
+"Last-Translator: aethemba <aksel@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -360,7 +360,7 @@ msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/_main_nav.hbs.py:6
 msgid "Support a campaign"
-msgstr "Support een campagne"
+msgstr "Bekijk campagnes"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/_main_nav.hbs.py:7
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/_main_nav.hbs.py:13
@@ -500,11 +500,16 @@ msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/activation_email.html.py:98
 msgid "You are receiving this email because you signed up with"
-msgstr ""
+msgstr "Je ontvangt deze email omdat je geregistreerd bent bij"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/activation_email.html.py:98
 msgid "Didn’t request an account?"
-msgstr ""
+msgstr "Geen account aangevraagd?"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/activation_email_subject.txt.py:1
+#, python-format
+msgid "Welcome to 1%%Club"
+msgstr "Welkom bij 1%%Club"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/logged_out.html.py:9
 msgid "Logged out."
@@ -1260,7 +1265,7 @@ msgstr "Share"
 msgid "Tweet"
 msgstr "Tweet"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/utils/templates/utils/form-components.hbs.py:206
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/utils/templates/utils/form-components.hbs.py:208
 msgctxt "Goal page"
 msgid "Pick date"
 msgstr "Kies datum"
@@ -1339,7 +1344,7 @@ msgstr "crowdfunding, fundraising, campagne, initiatieven, onepercentclub, 1%Clu
 msgid "Site meta author"
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/base.html.py:203
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/common/templates/bluebottle/base.html.py:208
 msgid ""
 "\n"
 "                        Our new website currently does not work well with older versions of Internet Explorer.<br/>\n"

@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Translators:
 # Loek van Gent <loek@1procentclub.nl>, 2014
 # Malou <malou@onepercentclub.com>, 2014
 # Niels Jansen <niels@1procentclub.nl>, 2014
@@ -11,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-15 14:17+0200\n"
-"PO-Revision-Date: 2014-07-17 09:41+0000\n"
-"Last-Translator: Sezayi Arslan <sezayi@onepercentclub.com>\n"
+"POT-Creation-Date: 2014-07-17 16:12+0200\n"
+"PO-Revision-Date: 2014-07-17 14:14+0000\n"
+"Last-Translator: aethemba <aksel@onepercentclub.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,33 +22,33 @@ msgstr ""
 "Language: en_GB\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: apps/core/static/js/bluebottle/app_overrides.js:21
+#: apps/core/static/js/bluebottle/app_overrides.js:38
 msgid "Running campaigns"
 msgstr ""
 
-#: apps/core/static/js/bluebottle/app_overrides.js:22
+#: apps/core/static/js/bluebottle/app_overrides.js:39
 msgid "Finished campaigns"
 msgstr ""
 
-#: apps/core/static/js/bluebottle/app_overrides.js:78
+#: apps/core/static/js/bluebottle/app_overrides.js:95
 #: env/src/bluebottle/bluebottle/common/static/js/plugins/ember-facebook.js.c:104
 msgid "There was an error connecting Facebook"
 msgstr "Oh snap! There was an error connecting with your Facebook account. Please try again."
 
 #: apps/donations/static/js/bluebottle/donations/controllers.js:131
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:415
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:421
 msgid "Save changed data?"
 msgstr "Save changed data?"
 
 #: apps/donations/static/js/bluebottle/donations/controllers.js:132
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:416
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:422
 msgid "You have some unsaved changes. Do you want to save before you leave?"
 msgstr "You have some unsaved changes. Do you want to save before you leave?"
 
 #: apps/donations/static/js/bluebottle/donations/controllers.js:133
 #: apps/donations/static/js/bluebottle/donations/controllers.js:178
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:417
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:436
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:423
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:442
 msgid "Save"
 msgstr "Save"
 
@@ -56,7 +57,7 @@ msgstr "Save"
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:92
 #: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:204
 #: env/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/routes.js.c:59
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:418
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:424
 #: env/src/bluebottle/bluebottle/wallposts/static/js/bluebottle/wallposts/views.js.c:42
 #: env/src/bluebottle/bluebottle/wallposts/static/js/bluebottle/wallposts/views.js.c:120
 msgid "Cancel"
@@ -88,6 +89,10 @@ msgstr "Yes, stop my donation"
 msgid "No, continue"
 msgstr "No, continue"
 
+#: apps/fund/static/js/bluebottle/orders/controllers.js:536
+msgid "Reloading order details"
+msgstr ""
+
 #: apps/fund/static/js/bluebottle/orders/routes.js:167
 msgid "There was an error with your payment. Please try again."
 msgstr "There was an error with your payment. Could you please try again?"
@@ -108,7 +113,7 @@ msgstr "raised"
 msgid "Welcome!"
 msgstr ""
 
-#: apps/projects/static/js/projects/models.js:58
+#: apps/projects/static/js/projects/models.js:69
 msgid ""
 "<h3>Introduction of your campaign</h3><p>We’ve already set some structure in"
 " this plan, but you are free to write it in your own way.</p><h3>What are "
@@ -269,128 +274,128 @@ msgstr ""
 msgid "Tomorrow"
 msgstr ""
 
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:17
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:16
 msgid "First Name can't be left empty"
 msgstr ""
 
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:23
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:22
 msgid "Surname can't be left empty"
 msgstr "Last name can't be left empty"
 
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:29
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:260
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:28
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:257
 msgid "Invalid email address"
 msgstr "Oh no! This is an invalid email address."
 
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:36
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:35
 msgid "Emails don't match"
 msgstr "Whoops! The email addresses don't match."
 
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:168
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:166
 msgid "Welcome "
 msgstr ""
 
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:169
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:167
 msgid " Ready to do some good?"
 msgstr ""
 
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:187
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:185
 msgid "Person"
 msgstr "Person"
 
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:188
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:186
 msgid "Company"
 msgstr "Company"
 
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:189
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:187
 msgid "Foundation"
 msgstr "Foundation"
 
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:190
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:188
 msgid "School"
 msgstr "School"
 
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:191
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:189
 msgid "Club / Association"
 msgstr "Club / Association"
 
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:242
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:240
 msgid "Log in to <Bluebottle Project>"
 msgstr ""
 
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:253
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:383
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:250
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:381
 msgid "Email required"
 msgstr ""
 
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:267
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:264
 msgid "Password required"
 msgstr "Please fill in your password."
 
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:371
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:369
 msgid "Trouble signing in?"
 msgstr ""
 
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:451
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:449
 msgid "We've sent a password reset link to your inbox"
 msgstr "We've sent a password reset link to your inbox. See you at onepercentclub.com in a minute!"
 
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:470
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:468
 msgid "Make it one to remember"
 msgstr ""
 
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:471
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:469
 msgid "We've updated your password, you're all set!"
 msgstr ""
 
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:488
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:485
 msgid "Passwords don't match"
 msgstr ""
 
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:581
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:580
 msgid "Invalid token, try request a new password again"
 msgstr ""
 
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:602
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:601
 msgid "If you leave me now..."
 msgstr ""
 
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:603
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:602
 msgid "The account was disabled"
 msgstr ""
 
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:630
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:629
 msgid "Success"
 msgstr ""
 
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:635
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:634
 msgid "Error, invalid token"
 msgstr ""
 
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:15
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:9
 msgid "First name"
 msgstr "First name"
 
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:16
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:10
 msgid "Surname"
 msgstr "Last name"
 
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:17
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:30
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:63
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:11
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:24
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:51
 msgid "Email address"
 msgstr "Email address"
 
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:18
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:12
 msgid "Re-enter email address"
 msgstr "Re-enter email address"
 
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:19
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:31
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:13
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:25
 msgid "Password"
 msgstr "Password"
 
-#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:70
+#: env/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:59
 msgid "Pick an item"
 msgstr "Pick an item"
 
@@ -535,25 +540,23 @@ msgstr "two weeks"
 msgid "one month"
 msgstr "one month"
 
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:42
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:46
 msgid "That's better"
 msgstr ""
 
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:79
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:109
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:84
 msgid "weak"
 msgstr "weak"
 
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:97
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:101
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:105
 msgid "fair"
 msgstr "fair"
 
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:105
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:112
 msgid "strong"
 msgstr "strong"
 
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:434
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:440
 msgid "Saving"
 msgstr "Saving"
 
