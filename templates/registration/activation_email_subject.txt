@@ -1,1 +1,1 @@
-{% trans "Welcome to 1%Club
+{% trans "Welcome to 1%Club" %}
