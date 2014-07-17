@@ -1,3 +1,15 @@
+/* Initializers for 1%Club specific stuff */
+
+Ember.Application.initializer({
+  name: 'injectTracker',
+  before: 'currentUser',
+
+  initialize: function(container) {
+    container.injection("controller", "tracker", "controller:tracker");
+    container.injection("route", "tracker", "controller:tracker");
+  }
+});
+
 /*
   Setup user details for exception handling
  */
@@ -73,6 +85,9 @@ App.then(function(app) {
                     // If success
                     currentUsercontroller.set('model', user);
                     currentUsercontroller.send('close');
+
+                    // Register the successful Facebook login with Mixpanel
+                    currentUsercontroller.get('tracker').trackEvent("Login", {loginType: "facebook"});
 
                     if (user.get('firstLogin')) {
                         currentUsercontroller.send('setFlash', currentUsercontroller.get('welcomeMessage'));
