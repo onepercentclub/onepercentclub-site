@@ -2,11 +2,15 @@
 
 Ember.Application.initializer({
   name: 'injectTracker',
-  before: 'currentUser',
+  after: 'store',
 
-  initialize: function(container) {
-    container.injection("controller", "tracker", "controller:tracker");
+  initialize: function(container, application) {
     container.injection("route", "tracker", "controller:tracker");
+
+    // Calling the lookup function seems to have the side-effect of instantiating the tracker controller
+    container.lookup('controller:tracker');
+    // Without the previous lookup the injection fails
+    container.injection("controller", "tracker", "controller:tracker");
   }
 });
 
@@ -20,7 +24,7 @@ App.then(function(app) {
             Raven.setUser({
                 id: user.get('id_for_ember'),
                 name: user.get('full_name'),
-                email: user.get('email'),
+                email: user.get('email')
             });
         }
     });

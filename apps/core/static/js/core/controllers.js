@@ -1,6 +1,6 @@
 App.TrackerController = Em.Controller.extend({
+
    init: function(){
-       console.log("INIT");
        this._super();
 
        if (MIXPANEL_KEY && mixpanel) {
