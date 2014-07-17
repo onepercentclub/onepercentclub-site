@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-15 14:16+0200\n"
-"PO-Revision-Date: 2014-07-17 10:09+0000\n"
+"POT-Creation-Date: 2014-07-17 16:12+0200\n"
+"PO-Revision-Date: 2014-07-17 14:14+0000\n"
 "Last-Translator: aethemba <aksel@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -349,8 +349,12 @@ msgid "Email required"
 msgstr "We hebben je email adres nodig."
 
 #: tests/test_functional.py:25
-msgid "Password required"
-msgstr "Vul je wachtwoord in."
+msgid "Please fill in your password."
+msgstr ""
+
+#: tests/test_functional.py:33
+msgid "Unable to login with provided credentials."
+msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_accounts/admin.py:18
 msgid "A user with that email already exists."
