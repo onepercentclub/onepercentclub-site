@@ -107,14 +107,6 @@ App.then(function(app) {
  */
 
 App.ApplicationRoute.reopen(App.LogoutJwtMixin, {
-    init: function () {
-        this._super();
-
-        // Set the facebook appId
-        // TODO: move this to the server side settings
-        this.set('appId', '1438115069790112');
-    },
-
     actions: {
         logout: function (redirect) {
             // call the standard logout code => clear JWT token etc
