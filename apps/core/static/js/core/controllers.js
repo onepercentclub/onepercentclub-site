@@ -2,15 +2,14 @@ App.TrackerController = Em.Controller.extend({
 
    init: function(){
        this._super();
-
        if (MIXPANEL_KEY && mixpanel) {
-           mixpanel.init(MIXPANEL_KEY);
            this.set('_tracker', mixpanel);
        }
-   },
+   }.observes('window'),
 
    trackEvent: function(name, properties){
-       if (Em.typeof(name) == 'string' && Em.typeof(properties) == 'object') {
+
+       if (Em.typeOf(name) == 'string' && Em.typeOf(properties) == 'object') {
            this.get('_tracker').track(name, properties);
        }
     },

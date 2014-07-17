@@ -90,11 +90,19 @@ App.then(function(app) {
                     currentUsercontroller.set('model', user);
                     currentUsercontroller.send('close');
 
-                    // Register the successful Facebook login with Mixpanel
-                    currentUsercontroller.get('tracker').trackEvent("Login", {loginType: "facebook"});
+
 
                     if (user.get('firstLogin')) {
                         currentUsercontroller.send('setFlash', currentUsercontroller.get('welcomeMessage'));
+                        // Register the successful Facebook login with Mixpanel
+                        if (currentUsercontroller.get('tracker')) {
+                            currentUsercontroller.get('tracker').trackEvent("Signup", {"loginType": "facebook"});
+                        }
+                    } else {
+                        // Register the successful Facebook signup with Mixpanel
+                        if (currentUsercontroller.get('tracker')) {
+                            currentUsercontroller.get('tracker').trackEvent("Login", {"loginType": "facebook"});
+                        }
                     }
 
                     Ember.run(null, resolve, user);
