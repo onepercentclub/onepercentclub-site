@@ -2,8 +2,6 @@ from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
 from django.conf import settings
 from django.utils.unittest.case import skipUnless, skip
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
-from django.utils.translation import ugettext as _
-
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
         'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
@@ -24,7 +22,6 @@ class MemberFailedLoginTests(OnePercentSeleniumTestCase):
 
         # Should see an error message
         self.assert_css('.modal-flash-message', wait_time=10)
-        self.assert_text(_("Email required"))
 
     def test_failed_login_missing_password(self):
         """ Confirm login fails without password and shows an error message """
@@ -35,7 +32,6 @@ class MemberFailedLoginTests(OnePercentSeleniumTestCase):
 
         # Should see an error message
         self.assert_css('.modal-flash-message', wait_time=10)
-        self.assert_text(_("Password required"))
 
     def test_failed_login_invalid_email(self):
         """ Confirm login fails with wrong credentials and shows an error message """
@@ -47,7 +43,6 @@ class MemberFailedLoginTests(OnePercentSeleniumTestCase):
 
         # Should see an error message
         self.assert_css('.modal-flash-message', wait_time=10)
-        self.assert_text(_("Invalid email address"))
 
     def test_failed_login_wrong_credentials(self):
         """ Confirm login fails with wrong credentials and shows an error message """
@@ -59,4 +54,3 @@ class MemberFailedLoginTests(OnePercentSeleniumTestCase):
 
         # Should see an error message
         self.assert_css('.modal-flash-message', wait_time=10)
-        self.assert_text(_("Unable to login with provided credentials"))
