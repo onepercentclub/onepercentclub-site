@@ -1,1 +1,1 @@
-{% trans "Welcome to 1%Club" %}
+{% blocktrans %}Welcome to 1%Club{% endblocktrans %}
