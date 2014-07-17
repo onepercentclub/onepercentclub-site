@@ -10,23 +10,24 @@ class MemberSettingsTests(OnePercentSeleniumTestCase):
 
     """ Confirm login fails without email and shows an error message """
     def test_failed_login_missing_email(self):
-        self.login('', 'fake', wait_time=10)
+        self.login('', 'fake', wait_time=5)
 
         # Should see an error message
-        self.assert_css('.modal-flash-message', wait_time=10)
+        self.assert_css('.modal-flash-message', wait_time=2)
         self.assert_text(_("Email required"))
 
     """ Confirm login fails without password and shows an error message """
     def test_failed_login_missing_password(self):
-        self.login('fake@fake.fk', '', wait_time=10)
+        self.login('fake@fake.fk', '', wait_time=5)
 
         # Should see an error message
-        self.assert_css('.modal-flash-message', wait_time=10)
-        self.assert_text(_("Password required"))
+        self.assert_css('.modal-flash-message', wait_time=2)
+        self.assert_text(_("Please fill in your password."))
 
     """ Confirm login failure works """
     def test_failed_login_wrong_credentials(self):
-        self.assertFalse(self.login('fake@example.com', 'fake', wait_time=10))
+        self.assertFalse(self.login('fake@example.com', 'fake', wait_time=5))
 
         # Should see an error message
-        # self.assert_css('.modal-flash-message', wait_time=10)
+        self.assert_css('.modal-flash-message', wait_time=2)
+        self.assert_text(_("Unable to login with provided credentials."))
