@@ -70,5 +70,5 @@ JENKINS_TASKS = (
 )
 
 # Selenium tests still disabled by default.
-SELENIUM_TESTS = False
+SELENIUM_TESTS = True
 SELENIUM_WEBDRIVER = 'firefox'
