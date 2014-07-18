@@ -55,7 +55,8 @@ requests==2.3.0 #Updated requests to make python social auth work
 # This is just a fork of the official repo in case it disappears.
 -e hg+https://bitbucket.org/onepercentclub/suds@afe727f50704#egg=suds
 
--e hg+https://bitbucket.org/sergei_maertens/django-admin-tools/get/c989fd1.zip#egg=django-admin-tools
+# -e hg+https://bitbucket.org/sergei_maertens/django-admin-tools/get/c989fd1.zip#egg=django-admin-tools
+-e hg+https://bitbucket.org/sergei_maertens/django-admin-tools@c989fd1#egg=django-admin-tools
 
 
 # SalesForce integration.
@@ -70,8 +71,8 @@ requests==2.3.0 #Updated requests to make python social auth work
 # Fork with 1.5 Custom User support: https://bitbucket.org/eire1130/django-registration
 # Our fork of the fork with HTML_ACTIVATION_EMAIL option:
 # TODO Try to unwind this mess and contribute some stuff upstream.
-https://bitbucket.org/onepercentclub/django-registration/get/ae9e9ed265ed.zip
-
+# https://bitbucket.org/onepercentclub/django-registration/get/ae9e9ed265ed.tar.bz2
+-e hg+https://bitbucket.org/onepercentclub/django-registration@ae9e9ed265ed#egg=django-registration
 
 # Private uploads
 # https://bitbucket.org/wkornewald/django-filetransfers/get/32ddeac.zip
