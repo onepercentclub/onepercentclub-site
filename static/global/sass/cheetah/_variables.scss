@@ -1,0 +1,20 @@
+// Colors                                                       
+// --------------------------------                             
+
+$color-primary                                             	: #28245C; // purple
+$color-secondary                                           	: #00C051; // green
+
+$color-text											   		: #C3C3C3; // dark gray
+$color-purple											   	: #A6A2BA; // light purple
+
+// Typography                                                   
+// --------------------------------
+                                                              
+$font-family                                               : 'L Futura W01', 'Trebuchet MS', Helvetica, Arial, sans-serif;
+$font-family-heavy                                         : 'L Futura W01', 'Trebuchet MS', Helvetica, Arial, sans-serif;
+$font-family-bold                                          : 'L Futura W01', 'Trebuchet MS', Helvetica, Arial, sans-serif;
+$font-family-body										   : 'Neue Helvetica W01';
+                                                                
+$base-font-size                                            : 1em !default;
+$base-font-family                                          : $font-family !default;
+$base-line-height                                          : 1.5em !default;

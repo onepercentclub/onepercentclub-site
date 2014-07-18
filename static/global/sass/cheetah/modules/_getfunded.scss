@@ -1,0 +1,55 @@
+#cheetah-get-funded {
+	margin: 50px 0 50px 0;
+	
+	.get-funded-heading {
+		h1 {
+			color: $color-primary;
+			text-transform: uppercase;
+		}
+
+		h2 {
+			color: $color-secondary;
+			margin-top: -5px;
+		}
+	}
+
+	.funded-items {
+		margin-top: 70px;
+		.funded-item-number {
+			float: left;
+			width: 20%;
+
+			span {
+				display: block;
+				width: 38px;
+				height: 38px;
+				border-radius: 50%;
+				background: $color-primary;
+				color: white;
+				text-align: center;
+				font-size: 26px;
+				font-size: 40px;
+				padding: 7px 0 4px 0
+			}
+		}
+	}
+
+
+	.funded-item-content {
+		float: right;
+		width: 80%;
+
+		strong {
+			color: $color-secondary;
+			font-weight: 800;
+		}
+	}
+
+	.start-cheetah {
+		margin-top: 40px;
+		width: 100%;
+		text-align: center;
+	}
+}
+
+

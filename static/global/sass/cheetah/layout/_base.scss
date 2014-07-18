@@ -1,0 +1,69 @@
+#cheetah-fund {
+	margin-top: 190px;
+	margin-bottom: -40px; // reset 
+	//font-family: $font-family-body;
+
+	h1 {
+		color: $color-secondary;
+		font-size: 36px;
+		font-family: $font-family-bold;
+		font-weight: 900;
+		text-transform: none;
+	}
+	
+	h2 {
+		color: $color-primary;
+		font-size: 24px;
+		font-family: $font-family-bold;
+		font-weight: 900;
+		line-height: 38px;
+		text-transform: none;
+	}
+	
+	a {
+		text-decoration: none;
+		color: $black;
+	}
+	
+	input {
+		line-height: 30px;
+		border-radius: 6px;
+		padding-left: 40px;
+		border: solid 1px #ccc;
+	}
+
+	.l-wrapper {
+		position: relative;
+		padding: 0 1em;
+		min-width: 400px !important;
+		max-width: 1200px;
+		margin: 0 auto;
+		height: 100%;
+	}
+
+	.l-section {
+		width: 100%;
+		min-width: 400px !important;
+		max-width: 100%;
+	}
+
+	.btn {
+		font-size: 18px;
+		position: relative;
+		display: inline-block;
+		background: $color-secondary;
+		padding: 0.75em 1.25em;
+		vertical-align: center;
+		border-radius: 8px;
+		color: #fff;
+		font-family: $font-family-bold;
+		font-weight: 700;
+		border: none;
+		text-transform: uppercase;
+		@include single-box-shadow(none);
+
+		&:hover {
+			@include single-box-shadow(none);			
+		}
+	}
+}
