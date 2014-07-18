@@ -1,5 +1,5 @@
 #cheetah-get-funded {
-	margin: 50px 0 50px 0;
+	padding: 50px 0 50px 0;
 	
 	.get-funded-heading {
 		h1 {
@@ -26,6 +26,7 @@
 				border-radius: 50%;
 				background: $color-primary;
 				color: white;
+				font-family: $font-family-garage;
 				text-align: center;
 				font-size: 26px;
 				font-size: 40px;
@@ -41,6 +42,7 @@
 
 		strong {
 			color: $color-secondary;
+			font-family: $font-family-avant;
 			font-weight: 800;
 		}
 	}
