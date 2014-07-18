@@ -23,8 +23,8 @@ App.Project.reopen({
         if (this.get('status') === null){
             return 1;
         }
-        return parseInt(this.get('status').get('id'));
-    }.property('phaseNum'),
+        return parseInt(this.get('status.id'));
+    }.property('status.id'),
 
     isFundable: Em.computed.equal('phaseNum', 5),
 
@@ -49,7 +49,6 @@ App.Project.reopen({
     }
 
 });
-
 
 App.MyProjectBudgetLine = DS.Model.extend({
     url: 'bb_projects/budgetlines',
