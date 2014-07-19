@@ -37,6 +37,9 @@ env.web_user = 'onepercentsite'
 # Directory (on the server) where our project will be running
 env.directory = '/var/www/onepercentsite'
 
+# Virtualenv working directory name
+env.virtualenv_dir_name = 'env-2.7'
+
 # Name of supervisor service
 env.service_name = 'onepercentsite'
 
@@ -45,7 +48,6 @@ env.database = 'onepercentsite'
 
 # By default, confirm everywhere
 env.noinput = False
-
 
 # Utility functions:
 @contextmanager
@@ -62,7 +64,7 @@ def virtualenv():
     require('directory')
 
     with cd(env.directory):
-        with prefix('source env/bin/activate'):
+        with prefix('source {0}/bin/activate'.format(env.virtualenv_dir_name)):
             yield
 
 
@@ -307,7 +309,7 @@ def prune_unreferenced_files():
 
 def add_git_commit():
     with cd(env.directory):
-        run('echo "GIT_COMMIT = \'`git log --oneline | head -n1 | cut -c1-7`\'" >> onepercentclub/settings/base.py')
+        run('echo -e "\nGIT_COMMIT = \'`git log --oneline | head -n1 | cut -c1-7`\'" >> onepercentclub/settings/base.py')
 
 
 def prepare_django():
@@ -323,7 +325,7 @@ def prepare_django():
         # "Could not find a tag or branch '<commit_id>', assuming commit."
         run('pip install -q --allow-all-external --allow-unverified django-admin-tools -r requirements/requirements.txt')
 
-        run('grunt compass:dist')
+        run('grunt compass:dist --bb_path=env-2.7/src/bluebottle/bluebottle/common/static/sass')
 
         # Remove and compile the .pyc files.
         run('find . -name \*.pyc -delete')
@@ -342,11 +344,9 @@ def prepare_django():
         # make sure the web user owns the private directory
         sudo('chown -Rf %s private' % env.web_user)
 
-        run_web('./manage.py syncdb --migrate --noinput --settings=%s' % env.django_settings)
 
-        # Bower install. Needed by admin charts.
-        run_web('./manage.py bower_install --settings=%s' % env.django_settings)
-
+        run_web('./manage.py syncdb --noinput --settings=%s' % env.django_settings)
+        run_web('./manage.py migrate --ignore-ghost-migrations --settings=%s' % env.django_settings)
         run_web('./manage.py collectstatic -l -v 0 --noinput --settings=%s' % env.django_settings)
 
         # Disabled for now; it unjustly deletes cached thumbnails
@@ -469,7 +469,6 @@ def deploy_staging(revspec=None):
     """
     Update the staging server to the specified revspec, or the latest testing release and optionally sync migrated data.
     """
-
     # Update git locally
     git_fetch_local()
 

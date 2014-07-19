@@ -5,8 +5,9 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 from .views import HomeView
-
 from bluebottle.urls.core import urlpatterns as bb_urlpatterns
+from bluebottle.auth.views import GetAuthToken
+
 
 admin.autodiscover()
 
@@ -20,6 +21,9 @@ urlpatterns = patterns('',
 urlpatterns += bb_urlpatterns
 
 urlpatterns += patterns('',
+
+    url('', include('social.apps.django_app.urls', namespace='social')),
+    url(r'^api/social-login/(?P<backend>[^/]+)/$', GetAuthToken.as_view()),
 
     url(r'^api/bb_projects/', include('apps.projects.urls.api')),
 
@@ -38,6 +42,10 @@ urlpatterns += patterns('',
 
     # Needed for the self-documenting API in Django Rest Framework.
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
+    # JSON Web Token based authentication for Django REST framework
+    url(r'^api/token-auth/', 'rest_framework_jwt.views.obtain_jwt_token'),
+    url(r'^api/token-auth-refresh/$', 'rest_framework_jwt.views.refresh_jwt_token'),
 
     url(r'^', include('django.conf.urls.i18n')),
 )

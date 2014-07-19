@@ -35,7 +35,9 @@ class CartApiIntegrationTest(OnePercentTestCase):
         self.another_project = OnePercentProjectFactory.create(amount_asked=750, status=self.phase_campaign)
 
         self.some_user = BlueBottleUserFactory.create()
+        self.some_user_token = "JWT {0}".format(self.some_user.get_jwt_token())
         self.another_user = BlueBottleUserFactory.create()
+        self.another_user_token = "JWT {0}".format(self.another_user.get_jwt_token())
 
         self.current_donations_url = '/api/fund/orders/current/donations/'
         self.current_order_url = '/api/fund/orders/current'
@@ -56,13 +58,12 @@ class CartApiIntegrationTest(OnePercentTestCase):
         Tests for creating, retrieving, updating and deleting a donation to shopping cart.
         """
         # First make sure we have a current order
-        self.client.login(username=self.some_user.email, password='testing')
-        response = self.client.get(self.current_order_url)
+        response = self.client.get(self.current_order_url, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['status'], 'current')
 
         # Create a Donation
-        response = self.client.post(self.current_donations_url, {'project': self.some_project.slug, 'amount': 35})
+        response = self.client.post(self.current_donations_url, {'project': self.some_project.slug, 'amount': 35}, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['amount'], '35.00')
         self.assertEqual(response.data['project'], self.some_project.slug)
@@ -70,71 +71,76 @@ class CartApiIntegrationTest(OnePercentTestCase):
 
         # Retrieve the created Donation
         donation_detail_url = "{0}{1}".format(self.current_donations_url, response.data['id'])
-        response = self.client.get(donation_detail_url)
+        response = self.client.get(donation_detail_url, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.data['amount'], '35.00')
         self.assertEqual(response.data['project'], self.some_project.slug)
 
         # Retrieve the list with all donations in this cart should return one
-        response = self.client.get(self.current_donations_url)
+        response = self.client.get(self.current_donations_url, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.data['count'], 1)
         self.assertEqual(response.data['results'][0]['amount'], '35.00')
         self.assertEqual(response.data['results'][0]['project'], self.some_project.slug)
 
         # Create another Donation
         response = self.client.post(self.current_donations_url,
-                                    {'project': self.another_project.slug, 'amount': '12.50'})
+                                    {'project': self.another_project.slug, 'amount': '12.50'},
+                                    HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['amount'], '12.50')
         self.assertEqual(response.data['project'], self.another_project.slug)
 
         # Create a Donation under 5 should fail
         response = self.client.post(self.current_donations_url,
-                                    {'project': self.another_project.slug, 'amount': '2.50'})
+                                    {'project': self.another_project.slug, 'amount': '2.50'},
+                                    HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
 
         # Retrieve the list with all donations in this cart should return one
-        response = self.client.get(self.current_donations_url)
+        response = self.client.get(self.current_donations_url, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.data['count'], 2)
         self.assertEqual(response.data['results'][0]['amount'], '35.00')
         self.assertEqual(response.data['results'][1]['amount'], '12.50')
         self.assertEqual(response.data['results'][0]['project'], self.some_project.slug)
 
         # Update the created Donation by owner.
-        response = self.client.put(donation_detail_url, json.dumps({'amount': 150, 'project': self.some_project.slug}), 'application/json')
+        response = self.client.put(donation_detail_url, 
+                                    json.dumps({'amount': 150, 'project': self.some_project.slug}), 
+                                    'application/json', HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['amount'], '150.00')
 
         # Update with amount under 5 should fail.
-        response = self.client.put(donation_detail_url, json.dumps({'amount': 3, 'project': self.some_project.slug}), 'application/json')
+        response = self.client.put(donation_detail_url, json.dumps({'amount': 3, 'project': self.some_project.slug}), 
+                                    'application/json', HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
 
         # Update the status of the created Donation by owner should be ignored
-        response = self.client.put(donation_detail_url,json.dumps({'amount': 150, 'project': self.some_project.slug, 'status': 'paid'}), 'application/json')
+        response = self.client.put(donation_detail_url,json.dumps({'amount': 150, 'project': self.some_project.slug, 'status': 'paid'}), 
+                                    'application/json', HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['amount'], '150.00')
         self.assertEqual(response.data['status'], 'new')
 
         # Delete a donation should work the list should have one donation now
-        response = self.client.delete(donation_detail_url)
+        response = self.client.delete(donation_detail_url, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT, response.data)
-        response = self.client.get(self.current_donations_url)
+
+        response = self.client.get(self.current_donations_url, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.data['count'], 1)
 
         # Another user should not see the cart of the first user
-        self.client.logout()
-        self.client.login(username=self.another_user.email, password='testing')
         # make a cart for this another user
-        self.client.get(self.current_order_url)
-        response = self.client.get(self.current_donations_url)
+        self.client.get(self.current_order_url, HTTP_AUTHORIZATION=self.another_user_token)
+        response = self.client.get(self.current_donations_url, HTTP_AUTHORIZATION=self.another_user_token)
         self.assertEqual(response.data['count'], 0)
 
         # Another user should not be able to view a donation in the cart of the first user
-        response = self.client.get(donation_detail_url)
+        response = self.client.get(donation_detail_url, HTTP_AUTHORIZATION=self.another_user_token)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND, response.data)
 
         # Now let's get anonymous and create a donation
-        self.client.logout()
         # make a cart for this anonymous user
+        self.client.logout()
         self.client.get(self.current_order_url)
         response = self.client.post(self.current_donations_url, {'project': self.some_project.slug, 'amount': 71})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
@@ -145,8 +151,10 @@ class CartApiIntegrationTest(OnePercentTestCase):
         self.assertEqual(response.data['count'], 1)
 
         # Login as the first user and cart should only have the one donation from  the anonymous cart.
-        self.client.login(username=self.some_user.email, password='testing')
-        response = self.client.get(self.current_donations_url)
+        response = self.client.get(self.current_order_url, HTTP_AUTHORIZATION=self.some_user_token)
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data['status'], 'current')
+        response = self.client.get(self.current_donations_url, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.data['count'], 1)
         self.assertEqual(response.data['results'][0]['amount'], '71.00')
         self.assertEqual(response.data['results'][0]['project'], self.some_project.slug)
@@ -159,15 +167,14 @@ class CartApiIntegrationTest(OnePercentTestCase):
 
     def test_current_order_monthly(self):
         # Test setting a recurring order as logged in user.
-        self.client.login(username=self.some_user.email, password='testing')
-        response = self.client.get(self.current_order_url)
+        response = self.client.get(self.current_order_url, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.data['recurring'], False)
-        response = self.client.put(self.current_order_url, json.dumps({'recurring': True}), 'application/json')
+
+        response = self.client.put(self.current_order_url, json.dumps({'recurring': True}), 'application/json', HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['recurring'], True)
 
         # Test that setting a recurring order as anonymous user fails.
-        self.client.logout()
         response = self.client.get(self.current_order_url)
         self.assertEqual(response.data['recurring'], False)
         response = self.client.put(self.current_order_url, json.dumps({'recurring': True}), 'application/json')
@@ -184,16 +191,19 @@ class CartApiIntegrationTest(OnePercentTestCase):
         # Setup.
         order_id = self._make_api_donation(self.some_user, amount=35, set_payment_method=False)
         payment_url = '{0}{1}'.format(self.payment_url_base, 'current')
-        response = self.client.get(payment_url)
+
+        response = self.client.get(payment_url, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         first_payment_method = response.data['available_payment_methods'][0]
 
         # Updating the payment method with a value not in the available list should fail.
-        response = self.client.put(payment_url, json.dumps({'payment_method': 'some-new-fancy-pm'}), 'application/json')
+        response = self.client.put(payment_url, json.dumps({'payment_method': 'some-new-fancy-pm'}), 
+                                    'application/json', HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
 
         # Updating the payment method with a valid value should provide a payment_url.
-        response = self.client.put(payment_url, json.dumps({'payment_method': first_payment_method}), 'application/json')
+        response = self.client.put(payment_url, json.dumps({'payment_method': first_payment_method}), 
+                                    'application/json', HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertTrue(response.data['payment_url'])  # Not empty payment_url.
 
@@ -228,27 +238,31 @@ class CartApiIntegrationTest(OnePercentTestCase):
     def test_payment_permissions(self):
         # 'some_user' should be able to access their payment.
         order_id = self._make_api_donation(self.some_user, project=self.some_project, amount=50)
-        response = self.client.get('{0}{1}'.format(self.order_url_base, order_id))
+
+        response = self.client.get('{0}{1}'.format(self.order_url_base, order_id), HTTP_AUTHORIZATION=self.some_user_token)
         some_user_payment_url = '{0}{1}'.format(self.payment_url_base, response.data['payments'][0])
-        response = self.client.get(some_user_payment_url)
+
+        response = self.client.get(some_user_payment_url, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.client.logout()
 
         # 'another_user' should be able to access their payment.
         order_id = self._make_api_donation(self.another_user, project=self.some_project, amount=100)
-        response = self.client.get('{0}{1}'.format(self.order_url_base, order_id))
+
+        response = self.client.get('{0}{1}'.format(self.order_url_base, order_id), HTTP_AUTHORIZATION=self.another_user_token)
         another_user_payment_url = '{0}{1}'.format(self.payment_url_base, response.data['payments'][0])
-        response = self.client.get(another_user_payment_url)
+
+        response = self.client.get(another_user_payment_url, HTTP_AUTHORIZATION=self.another_user_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
 
         # 'another_user' should not be able to access the payment belonging to 'some_user'.
-        response = self.client.get(some_user_payment_url)
+        response = self.client.get(some_user_payment_url, HTTP_AUTHORIZATION=self.another_user_token)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
-        self.client.logout()
 
         # Anonymous user shouldn't be able to access the payments from 'some_user' and 'another_user'.
         response = self.client.get(some_user_payment_url)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
+
         response = self.client.get(another_user_payment_url)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
@@ -256,6 +270,7 @@ class CartApiIntegrationTest(OnePercentTestCase):
         order_id = self._make_api_donation(None, project=self.some_project, amount=150)  # Anonymous donation.
         response = self.client.get('{0}{1}'.format(self.order_url_base, order_id))
         anonymous_payment_url_1 = '{0}{1}'.format(self.payment_url_base, response.data['payments'][0])
+
         response = self.client.get(anonymous_payment_url_1)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
 
@@ -263,8 +278,10 @@ class CartApiIntegrationTest(OnePercentTestCase):
         second_client = Client()
         order_id = self._make_api_donation(None, project=self.some_project, amount=150, client=second_client)  # Anonymous donation.
         response = second_client.get('{0}{1}'.format(self.order_url_base, order_id))
+
         anonymous_payment_url_2 = '{0}{1}'.format(self.payment_url_base, response.data['payments'][0])
         response = second_client.get(anonymous_payment_url_2)
+
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
 
         # Anonymous user 1 should not be able to access the payment from anonymous user 2.
@@ -283,42 +300,51 @@ class CartApiIntegrationTest(OnePercentTestCase):
 
         # 'some_user' should be able to access their order.
         order_id = self._make_api_donation(self.some_user, project=self.some_project, amount=50)
-        response = self.client.get('{0}{1}'.format(self.order_url_base, order_id))
+
+        response = self.client.get('{0}{1}'.format(self.order_url_base, order_id), HTTP_AUTHORIZATION=self.some_user_token)
         some_user_order_url = '{0}{1}'.format(self.order_url_base, response.data['id'])
-        response = self.client.get(some_user_order_url)
+
+        response = self.client.get(some_user_order_url, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.client.logout()
 
         # 'another_user' should be able to access their order.
         order_id = self._make_api_donation(self.another_user, project=self.some_project, amount=100)
-        response = self.client.get('{0}{1}'.format(self.order_url_base, order_id))
+
+        response = self.client.get('{0}{1}'.format(self.order_url_base, order_id), HTTP_AUTHORIZATION=self.another_user_token)
         another_user_order_url = '{0}{1}'.format(self.order_url_base, response.data['id'])
-        response = self.client.get(another_user_order_url)
+
+        response = self.client.get(another_user_order_url, HTTP_AUTHORIZATION=self.another_user_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
 
         # 'another_user' should not be able to access the order belonging to 'some_user'.
-        response = self.client.get(some_user_order_url)
+        response = self.client.get(some_user_order_url, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
-        self.client.logout()
 
         # Anonymous user shouldn't be able to access the orders from 'some_user' and 'another_user'.
+        self.client.logout()
         response = self.client.get(some_user_order_url)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
+
         response = self.client.get(another_user_order_url)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
         # Anonymous user 1 should be able to access their order.
         order_id = self._make_api_donation(None, project=self.some_project, amount=150)  # Anonymous donation.
         response = self.client.get('{0}{1}'.format(self.order_url_base, order_id))
+
         anonymous_order_url_1 = '{0}{1}'.format(self.order_url_base, response.data['id'])
         response = self.client.get(anonymous_order_url_1)
+
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
 
         # Anonymous user 2 (from a second client) should be able to access their order as well.
         secondClient = Client()
         order_id = self._make_api_donation(None, project=self.some_project, amount=150, client=secondClient)  # Anonymous donation.
+
         response = secondClient.get('{0}{1}'.format(self.order_url_base, order_id))
         anonymous_order_url_2 = '{0}{1}'.format(self.order_url_base, response.data['id'])
+
         response = secondClient.get(anonymous_order_url_2)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
 
@@ -337,6 +363,7 @@ class CartApiIntegrationTest(OnePercentTestCase):
         order_id = self._make_api_donation(self.some_user, project=self.some_project, amount=10)
         # Emulate a status change from DocData. Note we need to use an internal API from COWRY for this but it's hard
         # to avoid because we can't automatically make a DocData payment.
+
         order = Order.objects.get(id=order_id)
         adapter = _adapter_for_payment_method(order.latest_payment.payment_method_id)
         adapter._change_status(order.latest_payment, PaymentStatuses.pending)
@@ -345,22 +372,23 @@ class CartApiIntegrationTest(OnePercentTestCase):
 
         # Editing the recurring status of a closed order should not be allow.
         order_detail_url = '{0}{1}'.format(self.order_url_base, order_id)
-        response = self.client.put(order_detail_url, json.dumps({'recurring': True}), 'application/json')
+        response = self.client.put(order_detail_url, json.dumps({'recurring': True}), 'application/json', HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
         # Listing a closed order should be allowed.
         order_donation_list_url = '{0}{1}'.format(order_detail_url, '/donations/')
-        response = self.client.get(order_donation_list_url)
+        response = self.client.get(order_donation_list_url, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(len(response.data), 1)
 
         # Editing a donation with order closed should not be allowed.
         donation_detail_url = '{0}{1}'.format(order_donation_list_url, response.data[0]['id'])
-        response = self.client.put(donation_detail_url, json.dumps({'project': self.some_project.slug, 'amount': 5}), 'application/json')
+        response = self.client.put(donation_detail_url, json.dumps({'project': self.some_project.slug, 'amount': 5}), 
+                                    'application/json', HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
 
         # Adding a donation to a closed order should not be allowed.
-        response = self.client.post(order_donation_list_url, {'project': self.some_project.slug, 'amount': 10})
+        response = self.client.post(order_donation_list_url, {'project': self.some_project.slug, 'amount': 10}, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
     @override_settings(COWRY_PAYMENT_METHODS=default_payment_methods)
@@ -377,14 +405,14 @@ class CartApiIntegrationTest(OnePercentTestCase):
         self.assertEqual(first_payment.amount, order.total)
 
         # Get the 'current' Order again. This should cancel the 'current' payment.
-        response = self.client.get(self.current_order_url)
+        response = self.client.get(self.current_order_url, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         second_payment = order.latest_payment
         self.assertNotEqual(first_payment.id, second_payment.id)  # Ensure we have a new payment.
         self.assertEqual(second_payment.status, PaymentStatuses.new)  # Ensure the payment is in status new.
 
         # Adding a donation to the order should update the payment.
-        response = self.client.post(self.current_donations_url, {'project': self.some_project.slug, 'amount': second_donation_amount})
+        response = self.client.post(self.current_donations_url, {'project': self.some_project.slug, 'amount': second_donation_amount}, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         # order = Order.objects.get(id=order_id)
         new_order_total = (first_donation_amount + second_donation_amount) * 100
@@ -392,7 +420,7 @@ class CartApiIntegrationTest(OnePercentTestCase):
 
         # Update the payment.
         payment_url = '{0}{1}'.format(self.payment_url_base, 'current')
-        response = self.client.get(payment_url)
+        response = self.client.get(payment_url, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertFalse(response.data['payment_url'])  # Empty payment_url.
         self.assertTrue(response.data['available_payment_methods'])
 
@@ -419,26 +447,27 @@ class CartApiIntegrationTest(OnePercentTestCase):
             client = self.client
 
         # Make sure we have a current order. The donation will be anonymous if no user is supplied.
+        user_token = None
         if user:
-            client.login(username=user.email, password='testing')
-        response = client.get(self.current_order_url)
+            user_token = "JWT {0}".format(user.get_jwt_token())
+        response = client.get(self.current_order_url, HTTP_AUTHORIZATION=user_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['status'], 'current')
         order_id = response.data['id']
 
         # Create a Donation for the current order.
-        response = client.post(self.current_donations_url, {'project': project.slug, 'amount': amount})
+        response = client.post(self.current_donations_url, {'project': project.slug, 'amount': amount}, HTTP_AUTHORIZATION=user_token)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['amount'], self._format_donation(amount))
         self.assertEqual(response.data['project'], project.slug)
         self.assertEqual(response.data['status'], 'new')
 
         # Now retrieve the current order payment profile.
-        response = client.get(self.payment_profile_current_url)
+        response = client.get(self.payment_profile_current_url, HTTP_AUTHORIZATION=user_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
 
         # Update the current order payment profile with our information.
-        response = client.put(self.payment_profile_current_url, json.dumps(payment_profile), 'application/json')
+        response = client.put(self.payment_profile_current_url, json.dumps(payment_profile), 'application/json', HTTP_AUTHORIZATION=user_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['first_name'], payment_profile['first_name'])
         self.assertEqual(response.data['last_name'], payment_profile['last_name'])
@@ -449,21 +478,21 @@ class CartApiIntegrationTest(OnePercentTestCase):
         self.assertEqual(response.data['country'], payment_profile['country'])
 
         # Now it's time to pay. Get the order so that we can get the payment.
-        response = client.get(self.current_order_url)
+        response = client.get(self.current_order_url, HTTP_AUTHORIZATION=user_token)
         formatted_amount = self._format_donation(amount)
         self.assertEqual(response.data['total'], formatted_amount)
         self.assertTrue(response.data['payments'])
 
         # Get the payment.
         payment_url = '{0}{1}'.format(self.payment_url_base, 'current')
-        response = client.get(payment_url)
+        response = client.get(payment_url, HTTP_AUTHORIZATION=user_token)
         self.assertFalse(response.data['payment_url'])  # Empty payment_url.
         self.assertTrue(response.data['available_payment_methods'])
         first_payment_method = response.data['available_payment_methods'][0]
 
         # Updating the payment method with a valid value should provide a payment_url.
         if set_payment_method:
-            response = client.put(payment_url, json.dumps({'payment_method': first_payment_method}), 'application/json')
+            response = client.put(payment_url, json.dumps({'payment_method': first_payment_method}), 'application/json', HTTP_AUTHORIZATION=user_token)
             self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
             self.assertTrue(response.data['payment_url'].startswith('http'))
 
@@ -487,7 +516,9 @@ class RecurringOrderApiTest(OnePercentTestCase):
         self.another_project = OnePercentProjectFactory.create(amount_asked=750, status=self.phase_campaign)
 
         self.some_user = BlueBottleUserFactory.create()
+        self.some_user_token = "JWT {0}".format(self.some_user.get_jwt_token())
         self.another_user = BlueBottleUserFactory.create()
+        self.another_user_token = "JWT {0}".format(self.another_user.get_jwt_token())
 
         self.recurring_order_url_base = '/api/fund/recurring/orders/'
         self.recurring_donation_url_base = '/api/fund/recurring/donations/'
@@ -508,19 +539,18 @@ class RecurringOrderApiTest(OnePercentTestCase):
 
         # Anonymous users can't create a Recurring Order
         response = self.client.post(self.recurring_order_url_base, json.dumps({}), 'application/json')
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED, response.data)
 
-        # Create a Recurring Order for a authenticated user works.
-        self.client.login(username=self.some_user.email, password='testing')
-        response = self.client.post(self.recurring_order_url_base, json.dumps({}), 'application/json')
+        # Create a Recurring Order for an authenticated user works.
+        response = self.client.post(self.recurring_order_url_base, json.dumps({}), 'application/json', HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
 
         # Creating a recurring Order fails if one already exists for this user.
-        response = self.client.post(self.recurring_order_url_base, json.dumps({}), 'application/json')
+        response = self.client.post(self.recurring_order_url_base, json.dumps({}), 'application/json', HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
         # Let's check that this user has one Recurring order now.
-        response = self.client.get(self.recurring_order_url_base)
+        response = self.client.get(self.recurring_order_url_base, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['count'], 1)
         self.assertEqual(response.data['results'][0]['status'], 'recurring')
@@ -532,23 +562,23 @@ class RecurringOrderApiTest(OnePercentTestCase):
                            "account": self.some_profile['account'],
                            "active": True,
                            "amount": 75}
-        response = self.client.post(self.recurring_payment_url_base, json.dumps(payment_profile), 'application/json')
+        response = self.client.post(self.recurring_payment_url_base, json.dumps(payment_profile), 'application/json', HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['amount'], '75.00')
 
         # Let's add a donation
         # For now the amount doesn't realy matter because the amount on recurring-payment has precedence.
         some_donation = {"project": self.some_project.slug, "amount": 10, "status": "new", "order": order_id}
-        response = self.client.post(self.recurring_donation_url_base, json.dumps(some_donation), 'application/json')
+        response = self.client.post(self.recurring_donation_url_base, json.dumps(some_donation), 'application/json', HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
 
         # Add another donation
         another_donation = {"project": self.another_project.slug, "amount": 10, "status": "new", "order": order_id}
-        response = self.client.post(self.recurring_donation_url_base, json.dumps(some_donation), 'application/json')
+        response = self.client.post(self.recurring_donation_url_base, json.dumps(some_donation), 'application/json', HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
 
         # Order should contain two donations now
-        response = self.client.get(self.recurring_order_url_base)
+        response = self.client.get(self.recurring_order_url_base, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['count'], 1)
         self.assertEqual(len(response.data['results'][0]['donations']), 2)
@@ -559,11 +589,11 @@ class RecurringOrderApiTest(OnePercentTestCase):
 
         # Remove the first donation
         donation_url = "{0}{1}".format(self.recurring_donation_url_base, donation_id)
-        response = self.client.delete(donation_url)
+        response = self.client.delete(donation_url, HTTP_AUTHORIZATION=self.some_user_token)
 
         # Now the order should have just one donation
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT, response.data)
-        response = self.client.get(self.recurring_order_url_base)
+        response = self.client.get(self.recurring_order_url_base, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(len(response.data['results'][0]['donations']), 1)
         # Create some urls later use
         order_id = response.data['results'][0]['id']
@@ -572,20 +602,19 @@ class RecurringOrderApiTest(OnePercentTestCase):
         donation_url = "{0}{1}".format(self.recurring_donation_url_base, donation_id)
 
         # Login as another user and try to load the order/donation for first user.
-        self.client.logout()
-        self.client.login(username=self.another_user.email, password='testing')
-        response = self.client.get(order_url)
+        response = self.client.get(order_url, HTTP_AUTHORIZATION=self.another_user_token)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND, response.data)
-        response = self.client.get(donation_url)
+
+        response = self.client.get(donation_url, HTTP_AUTHORIZATION=self.another_user_token)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND, response.data)
 
         # Adding a donation to the other users donation shouldn't work
         another_donation = {"project": self.another_project.slug, "amount": 10, "status": "new", "order": order_id}
-        response = self.client.post(self.recurring_donation_url_base, json.dumps(some_donation), 'application/json')
+        response = self.client.post(self.recurring_donation_url_base, json.dumps(some_donation), 'application/json', HTTP_AUTHORIZATION=self.another_user_token)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
 
         # This user should have no recurring order.
-        response = self.client.get(self.recurring_order_url_base)
+        response = self.client.get(self.recurring_order_url_base, HTTP_AUTHORIZATION=self.another_user_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['count'], 0)
 

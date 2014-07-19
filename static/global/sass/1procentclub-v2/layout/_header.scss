@@ -6,23 +6,23 @@
 	background: rgba($gray-light, 1);
 	border-bottom: 1px solid white;
 	@include box-shadow(0 1px 0 rgba(65, 65, 65, .1));
-	@include single-transition(all, .1s ease .1s);
+	@include single-transition(all, .1s ease);
 	z-index: 999;
-	
-	
+
+
 	ul {
 		padding-left: 0;
-		
+
 		li {
 			background: none;
 		}
 	}
-	
+
 	#logo {
 		float: left;
 		width: 12%;
 		margin-left: 1em;
-		@include single-transition(width, .1s ease-in-out .1s);
+		@include single-transition(width, .1s ease-in-out);
 		@include breakpoint(x-small) {
 			width: 8%;
 		}
@@ -30,8 +30,8 @@
 			display: block;
 			padding: 1.5em 0 0 0;
 			cursor: pointer;
-			@include single-transition(padding, .1s ease-in-out .1s);
-			
+			@include single-transition(padding, .1s ease-in-out);
+
 			.logo-image {
 				height: 51px;
 				width: 144px;
@@ -39,13 +39,13 @@
 			}
 		}
 	}
-	
+
 	#nav {
 		padding: 1.8em 0 0 0;
 		font-family: $font-family-body;
 		font-weight: 700;
-		@include single-transition(padding, .1s ease-in-out .1s);
-		
+		@include single-transition(padding, .1s ease-in-out);
+
 		.nav-main {
 			float: left;
 			padding-left: 0;
@@ -54,20 +54,20 @@
 			@include breakpoint(x-large) {
 				display: none;
 			}
-			
+
 			.nav-main-item {
 				display: inline;
 				margin-right: 2em;
-				
+
 				a {
 					color: $black;
 					text-decoration: none;
-					
+
 					&:hover, &:active, &.active {
 						color: $color-primary;
 					}
 				}
-				
+
 			}
 		}
 
@@ -122,26 +122,23 @@
 		.mobile-nav-btn {
 			position: fixed;
 			right: 20px;
-			width: 50px;;
-			height: 66px;
+			width: 30px;
+			height: 22px;
 			z-index: 99;
 			cursor: pointer;
 			display: none;
+			padding-top: 54px;
+			background: image-url("img/icons/icon-mobile-nav.svg") transparent no-repeat 50% 50%;
+
 			@include breakpoint(x-large) {
 				display: block;
 			}
-			i {
-				display: block;
-				text-align: center;
-				margin-top: 10px;
-				font-size: 35px;
-			}
 		}
-		
+
 		.nav-actions {
 			padding: 0;
 			float: right;
-			width: 220px;
+			width: 180px;
 			@include breakpoint(x-small) {
 				font-size: 90%;
 				width: 183px;
@@ -150,17 +147,17 @@
 				position: fixed;
 				right: 80px;
 			}
-			
+
 			li {
 				padding: 0;
 				margin: 0;
 				display: inline;
-				
+
 				&.nav-member {
 					position: relative;
 					width: 180px;
 					top: -20px;
-					
+
 					.nav-member-dropdown {
 						position: relative;
 						text-decoration: none;
@@ -172,7 +169,7 @@
 						&.is-scrolled {
 							border-radius: 0;
 						}
-						
+
 						strong {
 							font-family: $font-family-body;
 							font-weight: 700;
@@ -180,7 +177,7 @@
 							background-size: 9px;
 							padding-right: 12px;
 						}
-						
+
 						img {
 							width: 41px;
 							height: 41px;
@@ -188,7 +185,7 @@
 							border-radius: 50%;
 							border: solid 2px white;
 						}
-						
+
 						.my-notifications {
 							position: absolute;
 							top: 7px;
@@ -203,7 +200,7 @@
 							border-radius: 50%;
 						}
 					}
-					
+
 					.nav-member-dropdown-menu {
 						border-radius: 0 0 8px 8px ;
 						color: white;
@@ -213,36 +210,36 @@
 						border-radius: 0 0 6px 6px;
 						margin: 0;
 						padding: 0;
-						
+
 						li {
 							padding: 0;
 							margin: 0;
 							display: inline;
-							
+
 							a {
 								display: block;
 								padding: 0.5em 1em;
 								text-decoration: none;
 								color: $white;
-								
+
 								&:hover {
 									background-color: $color-primary-shadow;
 								}
-							}	
+							}
 						}
-													
+
 						.nav-cart a {
 							background: $color-secondary;
-							
+
 							&:hover {
 								background-color: $color-secondary-shadow;
 							}
 						}
-						
+
 						.nav-member-switch-language {
 					    	color: $white;
 					    	font-weight: normal;
-					    	
+
 					    	span {
 						    	display: inline-block;;
 								padding: 0.5em 1em;
@@ -251,45 +248,45 @@
 								margin: 0;
 								width: 120px;
 					    	}
-					    	
+
 					    	.nav-language {
 						    	display: inline-block;
 						    	text-align: right;
 						    	width: 80px;
-						    	
+
 						    	div {
 							    	display: inline;
 						    	}
-						    	
+
 				        		a {
 				        			display: inline;
 				        			padding: 0 0 0 1em;
-				        			
+
 				        			color: $color-primary-shadow;
-				        			
+
 				        			&:hover, &:active {
 				        				color: $white;
 					        			background: none;
 				        			}
 				        		}
-				        		
+
 				                div.active a {
 				                    color: $white;
 				                }
 					    	}
-				        } 
-						
+				        }
+
 						.nav-member-logout {
-						
+
 							a {
 								margin-top: 0.5em;
-								padding-bottom: 0.6em; 
+								padding-bottom: 0.6em;
 								border-radius: 0 0 6px 6px;
 								font-weight: normal;
 								background: image-url("img/icons/icon-logout.svg") $color-primary-shadow no-repeat 90% 50%;
 								background-size: 15px;
 								color: $color-primary;
-								
+
 								&:hover {
 									text-decoration: none;
 									color: $white;
@@ -298,64 +295,66 @@
 						}
 					}
 				}
-			
-			
+
+
 				&:hover {
-				
+
 					.nav-member-dropdown {
 						color: $white;
 						background: $color-primary;
 					}
-					
+
 					.nav-member-dropdown-menu {
 						display: block !important;
 					}
 				}
-			}		
-		}
-		
-		.nav-signup-login {
-			
-			.nav-signup {
-				margin-right: 2em;
 			}
-			
+		}
+
+		.nav-signup-login {
+
 			a {
 				text-decoration: none;
+				border: 1px solid $color-primary;
+				border-radius: 8px;
+				padding: 0.55em 1em;
+				margin-right: 1em;
+
+				&:hover {
+					border-color: $color-secondary;
+				}
 			}
 		}
-		
+
 		.nav-switch-language {
-			//display: none;
-			float: right;
 			
-			a { 
+			a {
 				color: $gray-dark;
 				text-decoration: none;
 				font-weight: normal;
 				text-transform: uppercase;
 				font-size: 0.8em;
 			}
-			
+
 			.active a {
 				text-decoration: underline;
 			}
-			
-			div { 
+
+			div {
 				display: inline;
 			}
 			.nav-language {
 				margin: 0;
 			}
 		}
-		
+
 		.nav-search {
 			.nav-search-holder {
 				position: relative;
 				display: inherit;
 				float: left;
 				margin-top: -10px;
-				
+
 				.nav-search-glass {
 					position: absolute;
 					top: 11px;
@@ -364,11 +363,11 @@
 			}
 		}
 	}
-	
+
 	&.is-transparent {
 		background: none;
 		border: none;
-		
+
 		a {
 			color: $white !important;
 		}
@@ -378,7 +377,7 @@
 		background: rgba($gray-light, .9);
 
 		#logo {
-			width: 5.555555%;
+			width: 7%;
 
 			.logo-link {
 				padding: 0;
@@ -387,6 +386,7 @@
 
 		#nav {
 			padding: 0;
+			padding-top: 4px;
 		}
 	}
 }

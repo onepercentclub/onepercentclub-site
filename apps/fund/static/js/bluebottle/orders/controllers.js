@@ -4,7 +4,7 @@
 
 App.CurrentOrderDonationListController = Em.ArrayController.extend({
     // The CurrentOrderController is needed for the single / recurring radio buttons.
-    needs: ['currentUser', 'currentOrder', 'paymentProfile'],
+    needs: ['currentOrder', 'paymentProfile'],
 
     singleTotal: function() {
         return this.get('model').getEach('amount').reduce(function(accum, item) {
@@ -19,7 +19,7 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
 
     readyForPayment: function() {
         var ready = true;
-        if (this.get('length') == 0 ) {
+        if (this.get('length') === 0 ) {
             ready = false;
         }
 
@@ -41,13 +41,12 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
             var controller = this;
             // Note: resolveOn is a private ember-data method.
             donation.resolveOn('didCreate').then(function(donation) {
-                controller.updateCreatedDonation(donation, newAmount)
+                controller.updateCreatedDonation(donation, newAmount);
             });
          } else {
-            this.updateCreatedDonation(donation, newAmount)
+            this.updateCreatedDonation(donation, newAmount);
         }
     },
-
     updateCreatedDonation: function(donation, newAmount) {
         // Does not work if donation 'isNew' is true.
         donation.set('errors', []);
@@ -129,7 +128,7 @@ App.CurrentOrderVoucherController = Em.ObjectController.extend({
 
 
 App.CurrentOrderVoucherNewController = Em.ObjectController.extend({
-    needs: ['currentUser', 'currentOrder'],
+    needs: ['currentOrder'],
 
     init: function() {
         this._super();
@@ -139,8 +138,8 @@ App.CurrentOrderVoucherNewController = Em.ObjectController.extend({
     createNewVoucher: function() {
         var store = this.get('store');
         var voucher =  store.createRecord(App.CurrentOrderVoucher);
-        voucher.set('sender_name', this.get('controllers.currentUser.full_name'));
-        voucher.set('sender_email', this.get('controllers.currentUser.email'));
+        voucher.set('sender_name', this.get('currentUser.full_name'));
+        voucher.set('sender_email', this.get('currentUser.email'));
         voucher.set('receiver_name', '');
         voucher.set('receiver_email', '');
         this.set('model', voucher);
@@ -149,14 +148,14 @@ App.CurrentOrderVoucherNewController = Em.ObjectController.extend({
     updateSender: function(){
         // Make sure the sender info is fully loaded on refresh
         var voucher = this.get('model');
-        voucher.set('sender_name', this.get('controllers.currentUser.full_name'));
-        voucher.set('sender_email', this.get('controllers.currentUser.email'));
-    }.observes('controllers.currentUser.email', 'controllers.currentUser.full_name'),
+        voucher.set('sender_name', this.get('currentUser.full_name'));
+        voucher.set('sender_email', this.get('currentUser.email'));
+    }.observes('currentUser.email', 'currentUser.full_name'),
 
     addVoucher: function() {
         var voucher = this.get('model');
         // Set the order so the list gets updated in the view
-        var order = this.get('controllers.currentOrder.model');
+        var order = this.get('currentOrder.model');
         voucher.set('order', order);
 
         var controller = this;
@@ -177,35 +176,49 @@ App.CurrentOrderVoucherNewController = Em.ObjectController.extend({
 
 
 App.PaymentProfileController = Em.ObjectController.extend({
-    needs: ['currentOrder', 'currentUser'],
+    needs: ['currentOrder'],
 
     updateProfile: function() {
-        var profile = this.get('model');
-        var user = this.get('controllers.currentUser');
+        var _this = this,
+            profile = this.get('model');
 
-        // Set profile model to the 'updated' state so that the 'didUpdate' callback will always be run.
-        profile.transitionTo('updated.uncommitted');
+        // Return early if the record is still saving
+        // FIXME: this is a work-around until we correctly handle saving orders by 
+        //        disabling buttons / showing loading animations etc.
+        if (profile.get('isSaving')) return;
 
-        var controller = this;
-        profile.one('didUpdate', function(record) {
-            var currentOrder = controller.get('controllers.currentOrder');
-            if (user.get('isAuthenticated')) {
-                controller.transitionToRoute('paymentSelect');
-            } else {
-                controller.transitionToRoute('paymentSignup');
-            }
+        if (profile.get('isDirty')){
+            // Set profile model to the uncommitted state - this is required as the
+            // old version of ember data we use doesn't handle transitioning to willCommit
+            // from an invalid state. This happens with server side validations.
+            // See: https://github.com/emberjs/data/pull/1889
+            profile.transitionTo('updated.uncommitted');
+            profile.set('errors', null);
+        } else {
+            // Early redirect if the record is saved / unchanged
+            this._successTransition();
+        }
+
+        // Save and transition on success.
+        profile.save().then(function(record) {
+            _this._successTransition();
         });
-
-        profile.one('becameInvalid', function(record) {
-            controller.get('model').set('errors', record.get('errors'));
-        });
-
-        profile.save();
     },
+
+    _successTransition: function () {
+        var user = this.get('currentUser.model');
+
+        if (user && user.get('isAuthenticated')) {
+            this.transitionToRoute('paymentSelect');
+        } else {
+            this.transitionToRoute('paymentSignup');
+        }
+    },
+
     actions: {
         nextStep: function(){
             var profile = this.get('model');
-            var user = this.get('controllers.currentUser');
+            var user = this.get('currentUser.model');
             var controller = this;
 
             if (profile.get('isDirty')) {
@@ -224,7 +237,7 @@ App.PaymentProfileController = Em.ObjectController.extend({
 
                 profile.save();
             }
-            if (profile.get('isCompleted')){
+            if (profile.get('isComplete')){
                 if (user.get('isAuthenticated')) {
                     controller.transitionToRoute('paymentSelect');
                 } else {
@@ -233,12 +246,11 @@ App.PaymentProfileController = Em.ObjectController.extend({
             }
         }
     }
-
 });
 
 
 App.PaymentSignupController = Em.ObjectController.extend({
-    needs: ['paymentProfile', 'currentUser'],
+    needs: ['paymentProfile'],
 
     createUser: function() {
         var user = this.get('model');
@@ -286,7 +298,7 @@ App.PaymentSelectController = Em.ObjectController.extend({
                 {'id':'RABONL2U', 'name': 'Rabobank'},
                 {'id':'RBRBNL21', 'name': 'Regio Bank'},
                 {'id':'TRIONL2U', 'name': 'Triodos Bank'},
-            ]
+            ];
         } else {
             return  [
                 {'id':'ABNANL2A', 'name': 'ABN Amro Bank'},
@@ -299,7 +311,7 @@ App.PaymentSelectController = Em.ObjectController.extend({
                 {'id':'RBRBNL21', 'name': 'Regio Bank'},
                 {'id':'TRIONL2U', 'name': 'Triodos Bank'},
                 {'id':'SNSBNL2A', 'name': 'SNS Bank'},
-            ]
+            ];
         }
     }.property(),
 
@@ -312,7 +324,7 @@ App.PaymentSelectController = Em.ObjectController.extend({
             autoHideMessage: false,
             message_content: 'There was an error sending you to the payment provider. Please try again.'
         });
-       this.transitionToRoute('paymentProfile')
+       this.transitionToRoute('paymentProfile');
     },
 
     actions: {
@@ -344,13 +356,13 @@ App.PaymentSelectController = Em.ObjectController.extend({
                 contentType: 'application/json; charset=utf-8',
                 context: this,
                 success: function(json) {
-                    if (json['payment_url']) {
-                        var url = json['payment_url'];
+                    if (json.payment_url) {
+                        var url = json.payment_url;
                         if (controller.get('redirectPaymentMethod')) {
                             url += '&default_pm=' + controller.get('redirectPaymentMethod');
                             if (controller.get('idealIssuerId')) {
                                 url += '&ideal_issuer_id=' + controller.get('idealIssuerId');
-                                url += '&default_act=true'
+                                url += '&default_act=true';
                             }
                         }
                         window.location =  url;
@@ -396,13 +408,13 @@ App.RecurringDirectDebitPaymentController = Em.ObjectController.extend({
                         }
 
                         // Update or delete the donations.
-                        if (donation.get('tempRecurringAmount') == 0) {
+                        if (donation.get('tempRecurringAmount') === 0) {
                             // Delete donations set to 0.
                             donation.deleteRecord();
                             donation.save();
                         } else {
                             // Update donation when amount is greater than 0.
-                            controller.get('controllers.currentOrderDonationList').updateDonation(donation, donation.get('tempRecurringAmount'))
+                            controller.get('controllers.currentOrderDonationList').updateDonation(donation, donation.get('tempRecurringAmount'));
                         }
                     }
                 });
@@ -431,11 +443,11 @@ App.RecurringDirectDebitPaymentController = Em.ObjectController.extend({
         });
         recurringDirectDebitPayment.one('didCreate', function(record) {
             // FIXME: turn off becameInvalid, didUpdate
-            transitionToThanks(controller)
+            transitionToThanks(controller);
         });
         recurringDirectDebitPayment.one('didUpdate', function(record) {
             // FIXME: turn off didCreate, becameInvalid
-            transitionToThanks(controller)
+            transitionToThanks(controller);
         });
 
         if(!recurringDirectDebitPayment.get('isNew')) {
@@ -453,7 +465,7 @@ App.RecurringDirectDebitPaymentController = Em.ObjectController.extend({
 
 
 App.CurrentOrderController = Em.ObjectController.extend({
-    needs: ['currentUser'],
+    needs: ['paymentProfile'],
     donationType: '',
 
     updateRecurring: function() {
@@ -466,11 +478,11 @@ App.CurrentOrderController = Em.ObjectController.extend({
 
     // Ensures the single / monthly toggle is initialized correctly when loading donations from bookmark.
     initDonationType: function() {
-        if (this.get('donationType') == '') {
+        if (this.get('donationType') === '') {
             if (this.get('recurring')) {
-                this.set('donationType', 'monthly')
+                this.set('donationType', 'monthly');
             } else {
-                this.set('donationType', 'single')
+                this.set('donationType', 'single');
             }
         }
     }.observes('model'),
@@ -479,13 +491,13 @@ App.CurrentOrderController = Em.ObjectController.extend({
     // Remove donations from voucher orders and remove vouchers from donations.
     // See: https://onepercentclub.atlassian.net/browse/BB-648
     removeDonationOrVouchers: function() {
-        if (this.get('isVoucherOrder') == true) {
+        if (this.get('isVoucherOrder')) {
             var donations = this.get('donations');
             donations.forEach(function(donation) {
                 donation.deleteRecord();
                 donation.save();
             }, this);
-        } else if (this.get('isVoucherOrder') == false) {
+        } else if (!this.get('isVoucherOrder')) {
             var vouchers = this.get('vouchers');
             vouchers.forEach(function(voucher) {
                 voucher.deleteRecord();
@@ -500,7 +512,7 @@ App.CurrentOrderController = Em.ObjectController.extend({
     autoHideMessage: false,
 
     displayMessage: (function() {
-        if (this.get('display_message') == true) {
+        if (this.get('display_message')) {
             if (this.get('autoHideMessage')) {
                 Ember.run.later(this, function() {
                     this.hideMessage();
@@ -511,18 +523,41 @@ App.CurrentOrderController = Em.ObjectController.extend({
 
     hideMessage: function() {
         this.set('display_message', false);
-    }
+    },
+
+    reloadOrderDetails: function() {
+        var _this = this,
+            profileRecord = _this.get('controllers.paymentProfile.model');
+
+        // Reload order and payment profile after logging in
+        // Check the order model is not already reloading
+        if (this.get('model') && !this.get('isReloading') && this.get('currentUser.isLoaded')) {
+            // set is-loading flash message with no timeout
+            _this.send('setFlash', gettext('Reloading order details'), 'is-loading', false);
+
+            // Attempt to reload the order and profile details
+            this.get('model').reload().then( function (order) {
+                // order reloaded successfully
+                profileRecord.reload().then( function (profile) {
+                    // profile reloaded successfully
+                    _this.send('clearFlash');
+                }, function (profile) {
+                    // profile reload failed
+                    _this.send('clearFlash');
+                });
+            }, function (order) {
+                // order reload failed
+                _this.send('clearFlash');
+            });
+        }
+    }.observes('currentUser.isLoaded')
 });
 
 
-App.OrderThanksController = Em.ObjectController.extend({
-    needs: ['currentUser']
-});
+App.OrderThanksController = Em.ObjectController.extend({});
 
 
 App.RecurringOrderThanksController = Em.ObjectController.extend({
-    needs: ['currentUser'],
-
     moreThanOneDonation: function() {
         return this.get('donations.length') > 1;
     }.property('length')
@@ -530,7 +565,6 @@ App.RecurringOrderThanksController = Em.ObjectController.extend({
 
 
 App.TickerController = Em.ArrayController.extend(Ember.SortableMixin, {
-
     sortProperties: ['created'],
     sortAscending: false,
 

@@ -1,14 +1,14 @@
 {% load i18n bb_ember static %}
 
 {% tplhandlebars "current_order_donation_list" %}
-	<form class="l-content">
+    <form class="l-content">
 
         <ul class="project-list">
         {{#each donation in controller }}
             {{render "currentOrderDonation" donation}}
         {{else}}
 
-        	<div class="fund-empty">
+            <div class="fund-empty">
             {{#linkTo 'projectList'}}
                 <em class="flaticon solid plus-2"></em>
                 <legend>
@@ -16,7 +16,7 @@
                     <p>{% trans "Choose a project and click 'Support this project' to add it to your list" %}.</p>
                 </legend>
             {{/linkTo}}
-        	</div>
+            </div>
         {{/each}}
         </ul>
 
@@ -33,17 +33,19 @@
             {{/if}}
         {{/linkTo}}
 
-	    {{#if readyForPayment }}
-	        <button {{action nextStep}} type="button" class="btn btn-iconed btn-next"><span class="flaticon solid right-2"></span>{% trans "Next Step" %}</button>
-	    {{else}}
-	        <button disabled class="btn btn-iconed btn-next"><span class="flaticon solid right-2"></span>{% trans "Next Step" %}</button>
-	    {{/if}}
+        {{#if readyForPayment }}
+            <button {{action nextStep}} type="button" {{bindAttr class=":btn :btn-iconed :btn-next isSaving:is-loading"}}>
+                <span class="flaticon solid right-2"></span>{% trans "Next Step" %}
+            </button>
+        {{else}}
+            <button disabled class="btn btn-iconed btn-next"><span class="flaticon solid right-2"></span>{% trans "Next Step" %}</button>
+        {{/if}}
 
-	</form>
+    </form>
 
     {% comment %}
         <div class="l-sidebar">
-            {{#if controllers.currentUser.isAuthenticated}}
+            {{#if currentUser.isAuthenticated}}
                 <h3>{% trans "Why not donate monthly?" %}</h3>
                 <p>{% blocktrans %}You're about to support a 1%Project. Great! Did you know you can also share a little every month? How? Choose 'monthly' and become a 1%Friend!{% endblocktrans %}</p>
             {{else}}

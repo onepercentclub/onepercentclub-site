@@ -12,9 +12,9 @@
 	            {% trans "to realize" %} <strong>{{localize impact.projects }}</strong> {% trans "campaigns" %} <br>
 	            {% trans "in" %} <strong>{{localize impact.countries }}</strong> {% trans "countries" %}
             </h2>
-            {{#unless controllers.currentUser.isAuthenticated}}
+            {{#unless currentUser.isAuthenticated}}
                 <div class="join-us">
-                    {{#linkTo 'signup' classNames="btn"}}{% trans "Join us do good" %}{{/linkTo}}
+                    <a {{action 'openInBox' 'login'}} class="btn">{% trans "Join us do good" %}</a>
                 </div>
             {{/unless}}
         </div>

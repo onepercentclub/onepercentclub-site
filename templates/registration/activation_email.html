@@ -4,63 +4,105 @@
 {% load static %}
 
 {% block content %}
-    <table cellpadding="0" cellspacing="0" border="0" align="center" style="width: 600px; padding-left: 20px; padding-right: 20px;">
-        <tr><td height="64"></td></tr>
-
+<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock">
+    <tbody class="mcnTextBlockOuter">
         <tr>
-            <td valign="top">
-                <img src="{{ site }}{% get_static_prefix %}images/1procentclub-logo-email.png" width="97" height="35" alt="1%Club" style="outline:none; text-decoration:none; -ms-interpolation-mode: bicubic; display: block;" />
-            </td>
-        </tr>
+            <td valign="top" class="mcnTextBlockInner">
 
-        <tr><td height="40"></td></tr>
+                <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" class="mcnTextContentContainer">
+                    <tbody><tr>
 
-        <tr>
-            <td valign="top" style="color:#444444; font-weight: bold; font-size: 24px; text-transform: uppercase;">
-                {% trans "Confirm your registration" %}
-            </td>
-        </tr>
+                        <td align="center" valign="top" class="mcnTextContent" style="text-align:center; padding-top:9px; padding-right: 18px; padding-bottom: 30px; padding-left: 18px;">
 
-        <tr><td height="16"></td></tr>
+                            <h1 style="text-align:center;">{% trans "Welcome" %} {{ user.first_name }}</h1>
+                            <h2 style="text-align:center;">{% trans "You’re officially part of" %} 1%Club!</h2>
 
-        <tr>
-            <td valign="top">
-                {% blocktrans %}Great! We can almost welcome you at 1%Club!{% endblocktrans %}
-            </td>
-        </tr>
-
-        <tr><td height="8"></td></tr>
-
-        <tr>
-            <td valign="top">
-                {% trans "Click the link below to confirm your registration" %}.
-            </td>
-        </tr>
-
-        <tr><td height="32"></td></tr>
-
-        <tr>
-            <td valign="top">
-                <div class="btn" style="background-color: #ff619a; padding: 12px 16px; text-transform: uppercase; text-align: center; font-size: 16px; font-weight: bold; border: 1px solid #d95281; float: left;">
-                    <a href="{{ site }}/{{ LANGUAGE_CODE }}/#!/activate/{{ activation_key }}" target="_blank" style="color: #fff; text-decoration: none;">
-                        {% trans "activate profile" %}
-                    </a>
-                </div>
-            </td>
-        </tr>
-
-        <tr><td height="32"></td></tr>
-
-        <tr>
-            <td valign="top">
-                {% blocktrans %}Your activation code will expire in {{ expiration_days }} days.{% endblocktrans %}<br />
-                {% blocktrans %}If the link isn't working for you please copy and paste this url into your browser: {% endblocktrans %}
-                {{ site }}/{{ LANGUAGE_CODE }}/#!/activate/{{ activation_key }}
+                        </td>
+                    </tr>
+                </tbody></table>
 
             </td>
         </tr>
+    </tbody>
+</table>
 
-        <tr><td height="48"></td></tr>
-    </table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageBlock">
+    <tbody class="mcnImageBlockOuter">
+            <tr>
+                <td valign="top" style="padding:0px" class="mcnImageBlockInner">
+                    <table align="left" width="100%" border="0" cellpadding="0" cellspacing="0" class="mcnImageContentContainer">
+                        <tbody><tr>
+                            <td class="mcnImageContent" align="center" valign="top" style="padding-right: 18px; padding-left: 18px; padding-top: 0; padding-bottom: 0;">
+
+
+                                        <img align="center" alt="" src="{{ site }}{% get_static_prefix %}images/img/email/header-welcome.jpg" width="272" style="max-width:1600px; padding-bottom: 0; display: inline !important; vertical-align: bottom;" class="mcnImage">
+
+
+                            </td>
+                        </tr>
+                    </tbody></table>
+                </td>
+            </tr>
+    </tbody>
+</table>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock">
+    <tbody class="mcnTextBlockOuter">
+        <tr>
+            <td valign="top" class="mcnTextBlockInner">
+
+                <table align="left" border="0" cellpadding="0" cellspacing="0" width="600" class="mcnTextContentContainer">
+                    <tbody><tr>
+
+                        <td valign="top" class="mcnTextContent" style="padding-top:30px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
+
+                            <p>1%Club {% trans "is the go-to crowdfunding platform for doing good. We empower people with great ideas to create positive change in their community, city, country – or in the world." %}</p>
+
+                        </td>
+                    </tr>
+                </tbody></table>
+
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnButtonBlock">
+    <tbody class="mcnButtonBlockOuter">
+        <tr>
+            <td style="padding-top:0; padding-right:18px; padding-bottom:18px; padding-left:18px;" valign="top" align="center" class="mcnButtonBlockInner">
+                <table border="0" cellpadding="0" cellspacing="0" class="mcnButtonContentContainer" style="border-collapse: separate !important;border-top-left-radius: 8px;border-top-right-radius: 8px;border-bottom-right-radius: 8px;border-bottom-left-radius: 8px;background-color: #FF619A;">
+                    <tbody>
+                        <tr>
+                            <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial; font-size: 16px; padding: 16px;">
+                                <a class="mcnButton " href="http://onepercentclub.com" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">{% trans "Let's get started" %}</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock">
+    <tbody class="mcnTextBlockOuter">
+        <tr>
+            <td valign="top" class="mcnTextBlockInner">
+
+                <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" class="mcnTextContentContainer">
+                    <tbody><tr>
+
+                        <td align="center" valign="top" class="mcnTextContent" style="padding-top:30px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px; text-align:center;">
+
+                            <p style="color: #9F9F9F; font-size: 12px; text-align:center;">{% trans "You are receiving this email because you signed up with" %} 1%Club.<br /><a href="{{ site }}/{{ user.primary_language }}/#!/disable/{{ user.id }}/{{ user.get_disable_token }}" style="color: #9F9F9F;">{% trans "Didn’t request an account?" %}</a></p>
+
+                        </td>
+                    </tr>
+                </tbody></table>
+
+            </td>
+        </tr>
+    </tbody>
+</table>
 {% endblock %}
-

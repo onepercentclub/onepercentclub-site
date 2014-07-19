@@ -48,7 +48,7 @@ class OnePercentTestCase(InitProjectDataMixin, TestCase):
 
 class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
 
-    def login(self, username, password):
+    def login(self, username, password, wait_time=30):
         """
         Perform login operation on the website.
 
@@ -60,24 +60,33 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
         self.visit_homepage()
 
         # Find the link to the signup button page and click it.
-        self.browser.find_link_by_itext('log in').first.click()
-
-        # Validate that we are on the intended page.
-        if not self.browser.is_text_present('LOG IN', wait_time=10):
-            return False
+        self.scroll_to_and_click_by_css('.nav-signup-login a')
+        self.wait_for_element_css('.modal-fullscreen-content')
 
         # Fill in details.
-        self.browser.fill('username', username)
-        self.browser.fill('password', password)
+        self.browser.find_by_css('input[name=username]').first.fill(username)
+        self.browser.find_by_css('input[type=password]').first.fill(password)
 
-        self.browser.find_by_value('Login').first.click()
+        self.wait_for_element_css("a[name=login]", timeout=10)
 
-        return self.browser.is_text_present('My 1%', wait_time=10)
+        self.browser.find_by_css("a[name=login]").first.click()
+
+        # FIXME: We should be checking some other state, maybe something in Ember
+        return self.browser.is_text_present('My 1%', wait_time=wait_time)
 
     def logout(self):
-        return self.browser.visit('%(url)s/en/accounts/logout/' % {
-            'url': self.live_server_url
-        })
+        # Click user profile to open menu - mouse_over() only works for chrome
+        self.browser.find_by_css('.nav-member-dropdown').click()
+        
+        # Click the logout item
+        logout = '.nav-member-logout a'
+        self.wait_for_element_css(logout)
+        return self.browser.find_by_css(logout).click()
+
+    def tearDown(self):
+        # Navigate to homepage before tearing the browser down.
+        # This helps Travis.
+        self.visit_homepage()
 
     def visit_homepage(self, lang_code=None):
         """
@@ -100,7 +109,8 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
 
         if element:
             y = int(element.location['y']) - 100
-            self.browser.execute_script("window.scrollTo(0,%s)" % y)
+            x = int(element.location['x'])
+            self.browser.execute_script("window.scrollTo(%s,%s)" % (x, y))
 
         return element
 

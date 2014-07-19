@@ -27,6 +27,7 @@ PROJECT_APPS = list(INSTALLED_APPS)
 # Some of these tests fail, and it's not our fault
 # https://code.djangoproject.com/ticket/17966
 PROJECT_APPS.remove('django.contrib.auth')
+PROJECT_APPS.remove('bluebottle.auth')
 PROJECT_APPS.remove('legacyauth')
 
 # Don't run Bluebottle tests
@@ -49,12 +50,8 @@ PROJECT_APPS.remove('django_extensions.tests')
 PROJECT_APPS.remove('django.contrib.messages')
 PROJECT_APPS.remove('django.contrib.sessions')
 
-
-# FIXME: We need to fix the django_polymorphic tests
 PROJECT_APPS.remove('polymorphic')
-
-# Social auth tests require firefox webdriver which we don't want to install right now.
-PROJECT_APPS.remove('social_auth')
+PROJECT_APPS.remove('social.apps.django_app.default')
 
 # django-registration tests don't pass with our Django 1.5 custom user model / manager.
 PROJECT_APPS.remove('registration')
@@ -74,5 +71,4 @@ JENKINS_TASKS = (
 
 # Selenium tests still disabled by default.
 SELENIUM_TESTS = False
-# Use headless browser for Selenium tests.
-# SELENIUM_WEBDRIVER = 'firefox'
+SELENIUM_WEBDRIVER = 'firefox'

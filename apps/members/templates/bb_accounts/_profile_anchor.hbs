@@ -1,0 +1,14 @@
+{% load i18n bb_ember %}
+
+
+{% tplhandlebars "_profile_anchor" %}
+    <a href="#" class="nav-member-dropdown">
+        {{#if controllers.currentOrder.donations.length }}
+            <span class="my-notifications">{{ controllers.currentOrder.donations.length }}</span>
+        {{/if}}
+        <img {{bindAttr src="currentUser.getAvatar"}} width="40" height="40" alt="Avatar" />
+        <strong>
+            {% blocktrans %}My 1%{% endblocktrans %}
+        </strong>
+    </a>
+{% endtplhandlebars %}

@@ -221,6 +221,9 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
                 ]
             }
 
+    def tearDown(self):
+        self.logout()
+
     def test_create_project(self):
         """
         Creating a project. The positive flow.
@@ -237,12 +240,12 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         ###
 
         self.assertTrue(self.is_visible('section h1.page-title'))
-        self.scroll_to_and_click_by_css("button.btn-primary")
+        self.visit_path('/my/projects/new/pitch')
 
         ###
         # Project Section
         ###
-
+        time.sleep(3)
 
         self.browser.select('language', 2)
         self.assertTrue(self.is_visible('input[name="title"]'))
@@ -265,6 +268,8 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         ###
         # Goal Section
         ###
+
+        self.assertTrue(self.browser.is_text_present('Budget', wait_time=5))
 
         self.assertTrue(self.is_visible('input[name="amount_asked"]'))
 
@@ -406,8 +411,6 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         self.assertEqual(days_diff, 10)
 
 
-
-
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
             'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
 class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
@@ -440,7 +443,7 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
         """
         self.visit_path('/projects/{0}'.format(self.project.slug))
         #self.assertTrue(self.browser.is_text_present(self.project.title, wait_time=5))
-        self.assertTrue(self.browser.is_text_present('Post a new comment on wall', wait_time=5))
+        self.assertTrue(self.browser.is_text_present('Post a new comment', wait_time=5))
 
         self.browser.find_by_css(".wallpost-post-update").click()
         self.assertTrue(self.browser.is_text_present('Post', wait_time=5))
@@ -449,20 +452,21 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
         self.browser.fill('wallpost-update', self.post1['text'])
         self.browser.find_by_css("button.btn-save").first.click()
 
+        self.wait_for_element_css('article.wallpost')
         post = self.browser.find_by_css("article.wallpost").first
 
-        self.assertEqual(post.find_by_css('.wallpost-author').text, self.user.short_name)
+        self.assertEqual(post.find_by_css('.wallpost-author').text, self.user.full_name().upper())
         self.assertEqual(post.find_by_css('.text p').text, self.post1['text'])
 
         self.logout()
 
         # Login as the project owner
-        self.login(self.project.owner.email, 'testing')
+        self.login(username=self.project.owner.email, password='testing')
 
         # Should see the post by the first user.
         self.visit_path('/projects/{0}'.format(self.project.slug))
         post = self.browser.find_by_css("article.wallpost").first
-        self.assertEqual(post.find_by_css('.wallpost-author').text, self.user.short_name)
+        self.assertEqual(post.find_by_css('.wallpost-author').text, self.user.full_name().upper())
         self.assertEqual(post.find_by_css('.text p').text, self.post1['text'])
 
         # Post as project owner
@@ -479,12 +483,12 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
         self.assertTrue(self.browser.is_text_present(self.post2['title'], wait_time=5))
         post = self.browser.find_by_css("article.wallpost")[0]
 
-        self.assertEqual(post.find_by_css('.wallpost-author').text, self.project.owner.short_name)
+        self.assertEqual(post.find_by_css('.wallpost-author').text, self.project.owner.full_name().upper())
         self.assertEqual(post.find_by_css('.wallpost-title').text, self.post2['title'])
         self.assertEqual(post.find_by_css('.text p').text, self.post2['text'])
 
         # And the first post should still be shown as second
         post = self.browser.find_by_css("article.wallpost")[1]
-        self.assertEqual(post.find_by_css('.wallpost-author').text, self.user.short_name)
+        self.assertEqual(post.find_by_css('.wallpost-author').text, self.user.full_name().upper())
         self.assertEqual(post.find_by_css('.text p').text, self.post1['text'])
 

@@ -1,4 +1,9 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from rest_framework.authtoken.models import Token
+from django.conf import settings
+from django.utils.translation import ugettext as _
 from bluebottle.bb_accounts.models import BlueBottleBaseUser
 from bluebottle.utils.models import Address
 from djchoices.choices import DjangoChoices, ChoiceItem
@@ -7,8 +12,7 @@ from django.utils.translation import ugettext as _
 
 
 class Member(BlueBottleBaseUser):
-
-    # Create an address if none exists
+    #Create an address if none exists
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         super(Member, self).save(force_insert=False, force_update=False, using=None, update_fields=None)
         try:

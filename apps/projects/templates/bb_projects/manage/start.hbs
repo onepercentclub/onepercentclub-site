@@ -56,12 +56,12 @@
             <div class="campaign-campaigner l-half">
                 <h3>{% trans "Profile campaigner" %}</h3>
                 <p>{% trans "Update your profile so people know who is the campaigner" %}</p>
-                {{#if controllers.currentUser.isAuthenticated}}
+                {{#if currentUser.isAuthenticated}}
                     <figure class="campaigner-avatar">
-                        <img {{bindAttr src="controllers.currentUser.getAvatar" alt="controllers.currentUser.full_name"}}>
+                        <img {{bindAttr src="currentUser.getAvatar" alt="currentUser.full_name"}}>
                     </figure>
                     <div class="campaigner-details">
-                        <h4 class="campaigner-name">{{ controllers.currentUser.full_name }}</h4>
+                        <h4 class="campaigner-name">{{ currentUser.full_name }}</h4>
 
                         {{#link-to "userProfile" classNames="btn btn-modest"}}
                             <span class="flaticon solid pencil-3"></span>
