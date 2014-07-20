@@ -1,0 +1,14 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "cheetah/index" %}
+    <div id="cheetah-fund">
+
+        {{partial 'cheetah/cheetah_video'}}
+
+        {{render 'cheetahQuiz'}}
+
+        {{partial 'cheetah/how_to_get_funded'}}
+    </div>
+{% endtplhandlebars %}

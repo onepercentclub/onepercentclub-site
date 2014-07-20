@@ -1,0 +1,87 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "cheetah_quiz" %}
+    <div class="l-section" id="cheetah-quiz">
+        {{#if questionThreePassed}}
+            <h2>
+                ALL IS OK. Time to move on!!
+                {{#link-to 'myPartnerProject' 'cheetah'}}
+                    Create Cheetah Campaign
+                {{/link-to}}
+            </h2>
+        {{/if}}
+
+        <div class="l-wrapper">
+            {{#if questionOnePassed}}
+                <div id="question1" class="question">
+                    Right on! <br/>
+                    <a {{action 'answer' 'questionOne' null}}>Reset</a>
+                </div>
+            {{else}}
+                {{#if questionOneFailed}}
+                    <div id="question1" class="question">
+                        This is just wrong! <br/>
+                        <a {{action 'answer' 'questionOne' null}}>Reset</a>
+                    </div>
+                {{else}}
+                    <div id="question1" class="question">
+                        <a {{action 'answer' 'questionOne' 'yes'}}>Yes</a> |
+                        <a {{action 'answer' 'questionOne' 'no'}}>No</a>
+                    </div>
+                {{/if}}
+            {{/if}}
+            {{#if questionOnePassed}}
+                {{#if questionTwoPassed}}
+                    <div id="question2" class="question">
+                        Right on! <br/>
+                        <a {{action 'answer' 'questionTwo' null}}>Reset</a>
+                    </div>
+                {{else}}
+                    {{#if questionTwoFailed}}
+                        <div id="question2" class="question">
+                            This is just wrong! <br/>
+                            <a {{action 'answer' 'questionTwo' null}}>Reset</a>
+                        </div>
+                    {{else}}
+                        <div id="question2" class="question">
+                            {{view Em.TextField valueBinding='answerTwo'}}
+                            <a {{action 'answer' 'questionTwo' answerTwo}}>Send</a>
+                        </div>
+                    {{/if}}
+                {{/if}}
+            {{else}}
+                <div id="question2" class="question">
+                    First answer question 1
+                </div>
+            {{/if}}
+            {{#if questionTwoPassed}}
+                {{#if questionThreePassed}}
+                    <div id="question3" class="question">
+                        Right on! <br/>
+                        <a {{action 'answer' 'questionThree' null}}>Reset</a>
+                    </div>
+                {{else}}
+                    {{#if questionThreeFailed}}
+                        <div id="question3" class="question">
+                            This is just wrong! <br/>
+                            <a {{action 'answer' 'questionThree' null}}>Reset</a>
+                        </div>
+                    {{else}}
+                        <div id="question3" class="question">
+                            <a {{action 'answer' 'questionThree' 'yes'}}>Yes</a> |
+                            <a {{action 'answer' 'questionThree' 'no'}}>No</a>
+                        </div>
+                    {{/if}}
+                {{/if}}
+            {{else}}
+                <div id="question3" class="question">
+                    First answer question 2
+                </div>
+            {{/if}}
+        </div>
+    </div>
+{% endtplhandlebars %}
+
+

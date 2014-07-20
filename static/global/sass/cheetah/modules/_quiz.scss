@@ -4,4 +4,21 @@
 	margin: 50px 0 50px 0;
 	background-image: image-url("cheetah/quiz/background-cheetah-quiz.svg");
 	background-color: $color-primary;
+
+
+    // Temp style to make things visible
+    padding: 12px;
+
+    .question {
+        @include grid(16,0,1);
+        border: 1px solid white;
+        padding: 12px;
+        background-color: #0d3349;
+        font-size: 2em;
+        color:white;
+        a {
+            color:white;
+        }
+    }
+
 }

@@ -1,12 +1,12 @@
 .cheetah-nav-item {
 	position: relative;
-	background: $color-primary!important;
+    cursor: pointer;
+    &.active {
+    	background: $color-primary!important;
+		color: #00C051!important;
+    }
 	padding: 10px 14px 50px 14px;
 	border-radius: 8px 8px 0 0;
-
-	a {
-		color: #00C051!important;
-	}
 
 	.cheetah-icon {
 		position: absolute;
