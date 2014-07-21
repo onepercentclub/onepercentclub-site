@@ -79,8 +79,12 @@ App.OrderThanksRoute = Em.Route.extend({
         order.one('becameError', function() {
             route.replaceWith('home');
         });
+
+
+
         return order;
     }
+
 });
 
 

@@ -1,4 +1,5 @@
-App.TrackerController = Em.Controller.extend({
+App.TrackerController = Em.ObjectController.extend({
+   needs: "currentUser",
 
    init: function(){
        this._super();
@@ -8,13 +9,15 @@ App.TrackerController = Em.Controller.extend({
    }.observes('window'),
 
    trackEvent: function(name, properties){
-
+        debugger
        if (Em.typeOf(name) == 'string' && Em.typeOf(properties) == 'object') {
            this.get('_tracker').track(name, properties);
        }
     },
 
     setUserDetails: function(){
+        console.log("Setting user details");
+        debugger
         if (this.get('currentUser.isAuthenticated')) {
             var user = this.get('currentUser');
             this.get('_tracker').register({
