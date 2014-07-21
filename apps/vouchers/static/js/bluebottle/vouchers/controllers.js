@@ -47,8 +47,6 @@ App.VoucherRedeemController = Em.ArrayController.extend({
 
 
 App.CustomVoucherRequestController = Em.ObjectController.extend({
-    needs: ['currentUser'],
-
     init: function() {
         this._super();
         this.createCustomVoucherRequest();
@@ -57,8 +55,8 @@ App.CustomVoucherRequestController = Em.ObjectController.extend({
     createCustomVoucherRequest: function() {
         var transaction = this.get('store').transaction();
         var voucherRequest =  transaction.createRecord(App.CustomVoucherRequest);
-        voucherRequest.set('contact_name', this.get('controllers.currentUser.full_name'));
-        voucherRequest.set('contact_email', this.get('controllers.currentUser.email'));
+        voucherRequest.set('contact_name', this.get('currentUser.full_name'));
+        voucherRequest.set('contact_email', this.get('currentUser.email'));
         var view = this;
         voucherRequest.on('didCreate',function(){
             view.transitionToRoute('customVoucherRequestDone');

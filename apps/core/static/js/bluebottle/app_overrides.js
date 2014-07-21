@@ -13,6 +13,23 @@ App.then(function(app) {
         }
     });
 
+    // This is called from the router automatically if the route being loaded
+    // has a googleConversion property, otherwise it can be called manually. 
+    // Pass Google conversion code - 'gc'
+    app.trackConversion = function (gc) {
+        Ember.run.next(function() {
+            if (gc &! DEBUG) {
+                var google_conversion_id = gc.id || 986941294;
+                var google_conversion_language = gc.language || 'en';
+                var google_conversion_format = gc.format || '3';
+                var google_conversion_color = gc.color || 'ffffff';
+                var google_conversion_label = gc.label;
+                var google_remarketing_only = false;
+                $.getScript("https://www.googleadservices.com/pagead/conversion.js");
+            }
+        });
+    };
+
     // Override the BB project / status search list
     // TODO: we should just define the 'list' when initializing
     //       and then BB should use it when setting up the list
@@ -25,14 +42,81 @@ App.then(function(app) {
             content: list
         });
     });
+
+    // Facebook API ID 
+    if (FACEBOOK_AUTH_ID)
+        App.set('appId', FACEBOOK_AUTH_ID);
+
+
+    app.fbLogin = function (fbResponse) {
+        var _this = this,
+            currentUsercontroller = App.__container__.lookup('controller:currentUser');
+
+        // Clear any existing tokens which might be present but expired. clearJwtToken action is on the App.ApplicationRoute
+        // FIXME: should call the clearJwtToken action here but it isn't being called.
+        // currentUsercontroller.send('clearJwtToken');
+        delete localStorage.jwtToken;
+        App.set('jwtToken', null);
+            
+        return Ember.RSVP.Promise(function (resolve, reject) {
+            var hash = {
+              url: "/api/social-login/facebook/",
+              dataType: "json",
+              type: 'post',
+              data: fbResponse
+            };
+
+            hash.success = function (response) {
+
+                App.AuthJwt.processSuccessResponse(response).then(function (user) {
+
+                    // If success
+                    currentUsercontroller.set('model', user);
+                    currentUsercontroller.send('close');
+
+                    if (user.get('firstLogin')) {
+                        currentUsercontroller.send('setFlash', currentUsercontroller.get('welcomeMessage'));
+                    }
+
+                    Ember.run(null, resolve, user);
+                    
+                    // Trigger next transition in case a user was accesing a restricted page
+                    currentUsercontroller.send('loadNextTransition'); 
+                    
+                 }, function (error) {
+                    // If Facebook login succeeded but something goes wrong on the token side we end up here
+                    currentUsercontroller.send('setFlash', error, 'error');
+                    Ember.run(null, reject, error);
+                });
+            };
+
+            hash.error = function (response) {
+
+                currentUsercontroller.send('setFlash', gettext('There was an error connecting Facebook'), 'error');
+                var error = JSON.parse(response.responseText);
+                Ember.run(null, reject, error);
+            };
+
+            Ember.$.ajax(hash);
+        });
+    };
 });
 
 /*
   Bluebottle Route Overrides
  */
 
-App.ApplicationRoute.reopen({
+App.ApplicationRoute.reopen(App.LogoutJwtMixin, {
     actions: {
+        logout: function (redirect) {
+            // call the standard logout code => clear JWT token etc
+            this._super(redirect);
+
+            // If the has logged in via FB, eg there is a FBUser then they should 
+            // be logged out so that the user can log in with user/email
+            if (FB && !Em.isEmpty(FB.getUserID()))
+                FB.logout();
+        },
         addDonation: function (project, fundraiser) {
             var route = this;
             App.CurrentOrder.find('current').then(function(order) {
@@ -71,7 +155,13 @@ App.ApplicationRoute.reopen({
   Bluebottle Controller Overrides
  */
 App.ApplicationController.reopen({
-    needs: ['currentUser', 'currentOrder', 'myProjectList'],
+    needs: ['currentOrder', 'myProjectList'],
+
+    missingCurrentUser: function () {
+        // FIXME: should call the clearJwtToken action here but it isn't being called.
+        delete localStorage.jwtToken;
+        App.set('jwtToken', null);
+    },
 });
 
 App.EventMixin = Em.Mixin.create({
@@ -112,32 +202,33 @@ App.EventMixin = Em.Mixin.create({
 */
 
 App.ApplicationView.reopen(App.EventMixin, {
-	setBindScrolling: function() {
-		this.bindScrolling();
-	}.on('didInsertElement'),
+    setBindScrolling: function() {
+        this.bindScrolling();
+    }.on('didInsertElement'),
 
-	setUnbindScrolling: function() {
-		this.unbindScrolling();
-	}.on('didInsertElement'),
+    setUnbindScrolling: function() {
+        this.unbindScrolling();
+    }.on('didInsertElement'),
 
-	setBindClick: function() {
-		this.bindMobileClick();
-	}.on('didInsertElement'),
+    setBindClick: function() {
+        this.bindMobileClick();
+    }.on('didInsertElement'),
 
-	scrolled: function(dist) {
-		top = $('#content').offset();
-		elm = top.screen.availTop;
+    scrolled: function(dist) {
+        top = $('#content').offset();
+        elm = top.screen.availTop;
 
-		if (dist < elm) {
-			$('#header').removeClass('is-scrolled');
-			$('.nav-member-dropdown').removeClass('is-scrolled');
-			$('.mobile-nav-holder').removeClass('is-scrolled');
-		} else {
-			$('#header').addClass('is-scrolled');
-			$('.nav-member-dropdown').addClass('is-scrolled');
-			$('.mobile-nav-holder').addClass('is-scrolled');
-		}
-	}
+        if (dist <= 53) {
+            $('#header').removeClass('is-scrolled');
+            $('.nav-member-dropdown').removeClass('is-scrolled');
+            $('.mobile-nav-holder').removeClass('is-scrolled');
+            $('#content').append('<div class="scrolled-area"></div>');
+        } else {
+            $('#header').addClass('is-scrolled');
+            $('.nav-member-dropdown').addClass('is-scrolled');
+            $('.mobile-nav-holder').addClass('is-scrolled');
+        }
+    }
 });
 
 
@@ -152,16 +243,9 @@ App.Router.reopen({
     didTransition: function(infos) {
         this._super(infos);
 
-        var currentRoute = infos.get('lastObject').handler;
-        var gc = currentRoute.get('googleConversion');
-        if (gc &! DEBUG) {
-            var google_conversion_id = gc.id || 986941294;
-            var google_conversion_language = gc.language || 'en';
-            var google_conversion_format = gc.format || '3';
-            var google_conversion_color = gc.color || 'ffffff';
-            var google_conversion_label = gc.label;
-            var google_remarketing_only = false;
-            $.getScript("https://www.googleadservices.com/pagead/conversion.js");
-        }
-    }
+        var currentRoute = infos.get('lastObject').handler,
+            gc = currentRoute.get('googleConversion');
+
+        if (gc) App.trackConversion(gc);
+    },
 });

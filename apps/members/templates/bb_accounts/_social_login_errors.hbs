@@ -1,0 +1,10 @@
+{% load i18n bb_ember %}
+
+
+{% tplhandlebars "_social_login_errors" %}
+    {{#if FBApp.connectError }}
+        <div class="modal-flash-message error">
+            {{FBApp.connectError}}
+        </div>
+    {{/if}}
+{% endtplhandlebars %}

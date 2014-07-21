@@ -1,0 +1,45 @@
+{% load i18n bb_ember %}
+
+
+{% tplhandlebars "_my_menu" %}
+    {{#if controllers.currentOrder.donations.length }}
+        <li class="nav-cart">
+            {{#linkTo 'currentOrder.index'}}
+                <span class="nav-cart-count">{{ controllers.currentOrder.donations.length }}</span> {% trans "Pending donations" %} 
+            {{/linkTo}}
+        </li>
+    {{/if}}
+
+    <li>
+        {{#linkTo "userProfile" }}
+            {% trans "My profile" %}
+        {{/linkTo }}
+    </li>
+    
+    <li>
+        {{#linkTo "userMonthlyProjects" }}
+            {% trans "My Donations" %}
+        {{/linkTo}}
+    </li>
+
+    <li>
+        {{#linkTo "myProjectList" }}
+            {% trans "My Projects" %}
+        {{/linkTo}}
+    </li>
+
+    <li>
+        {{#linkTo "myFundRaiserList" }}
+            {% trans "My Fundraisers" %}
+        {{/linkTo}}
+    </li>
+    
+    <li class="nav-member-switch-language">
+        <span>{% trans "Language" %}:</span> {{view "App.LanguageSwitchView"}}
+    </li>
+
+    <li class="nav-member-logout">
+        <a {{action 'logout'}}>{%  trans "Logout" %}</a>
+    </li>
+
+{% endtplhandlebars %}

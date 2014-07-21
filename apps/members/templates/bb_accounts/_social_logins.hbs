@@ -1,0 +1,23 @@
+{% load i18n bb_ember %}
+
+{% tplhandlebars "_social_logins" %}
+
+    {{#view Em.FBView type="login-button" data-size="xlarge" data-scope="email, user_friends, public_profile, offline_access"}}
+        <span class="flaticon social facebook-1"></span>{% trans "Sign in with Facebook" %}
+    {{/view}}
+
+    {{#unless loginTitle}}
+        <small>
+            {% trans "We'll never post anything without your permission." %}
+        </small>
+    {{/unless}}
+    
+    {{#unless socialMatch}}
+        <div class="or-hr">
+            <div class="first"></div>
+            <div class="middle">{% trans "or" %}</div>
+            <div class="last"></div>
+        </div>
+    {{/unless}}
+
+{% endtplhandlebars %}
