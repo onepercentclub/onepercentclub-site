@@ -31,6 +31,24 @@
 
 }
 
+.is-scrolled {
+    .cheetah-nav-item {
+	    padding-bottom: 24px;
+
+    }
+
+    .cheetah-icon {
+        display: none;
+    }
+    #cheetah-header {
+        height: 4px;
+        top: 60px;
+        .l-wrapper {
+            display: none;
+        }
+    }
+}
+
 #cheetah-header {
 	position: absolute;
 	bottom: -54px;
