@@ -88,7 +88,7 @@ App.OrderThanksRoute = Em.Route.extend({
         });
 
         if (this.get('tracker')) {
-            this.get('tracker').trackEvent("Successful donation", {order: order});
+            this.get('tracker').trackEvent("Successful donation", {});
         }
 
         return order;
