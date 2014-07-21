@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="20px" height="18px" viewBox="0 0 20 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.0.4 (8053) - http://www.bohemiancoding.com/sketch -->
+    <title>Email</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Cheetah-Landing" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Desktop-Start-Campaign" sketch:type="MSArtboardGroup" transform="translate(-778.000000, -2907.000000)" fill="#A6A2BA">
+            <g id="About-/-Contact" sketch:type="MSLayerGroup" transform="translate(-18.000000, 2433.000000)">
+                <g id="Contact" transform="translate(771.000000, 317.000000)" sketch:type="MSShapeGroup">
+                    <path d="M43.75,157 L26.25,157 C25.55875,157 25,157.574714 25,158.285714 L25,173.714286 C25,174.425286 25.55875,175 26.25,175 L43.75,175 C44.44125,175 45,174.425286 45,173.714286 L45,158.285714 C45,157.574714 44.44125,157 43.75,157 L43.75,157 Z M41.9825,159.571429 L35,166.753429 L28.0175,159.571429 L41.9825,159.571429 L41.9825,159.571429 Z M27.5,162.675143 L34.55875,169.935571 C34.8025,170.186286 35.1975,170.186286 35.44125,169.935571 L42.5,162.675143 L42.5,172.428571 L27.5,172.428571 L27.5,162.675143 L27.5,162.675143 Z" id="Email"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

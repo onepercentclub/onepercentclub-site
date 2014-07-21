@@ -1,12 +1,16 @@
 #cheetah-fund {
-	margin-top: 190px;
+	padding-top: 100px;
 	margin-bottom: -40px; // reset 
-	//font-family: $font-family-body;
+	background: white;
+	font-family: $font-family-body;
+
+	h1, h2, h3, h4, h5 {
+		font-family: $font-family-garage;	
+	}
 
 	h1 {
 		color: $color-secondary;
 		font-size: 36px;
-		font-family: $font-family-bold;
 		font-weight: 900;
 		text-transform: none;
 	}
@@ -14,10 +18,13 @@
 	h2 {
 		color: $color-primary;
 		font-size: 24px;
-		font-family: $font-family-bold;
 		font-weight: 900;
 		line-height: 38px;
 		text-transform: none;
+	}
+
+	.sub-heading {
+		font-family: $font-family-avant;
 	}
 	
 	a {
@@ -56,7 +63,7 @@
 		vertical-align: center;
 		border-radius: 8px;
 		color: #fff;
-		font-family: $font-family-bold;
+		font-family: $font-family-garage;
 		font-weight: 700;
 		border: none;
 		text-transform: uppercase;
@@ -65,5 +72,12 @@
 		&:hover {
 			@include single-box-shadow(none);			
 		}
+	}
+
+	#cheetah-in-class {
+		background: image-url("/static/assets/images/cheetah/in-class.jpg") no-repeat;
+		background-size: cover;
+		width: 100%;
+		height: 277px;
 	}
 }
