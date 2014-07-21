@@ -4,139 +4,176 @@
 
 {% tplhandlebars "cheetah_quiz" %}
     <div class="l-section" id="cheetah-quiz">
-        <div class="row">
-            <div class="quiz-heading">
-                <h1>Who Can Join?</h1>
-                <h2 class="sub-heading">Take the test to see if you’re a Cheetah!</h2>
-            </div>
-        </div>
-
-        <div class="row quiz-blocks">
-            <div class="col4 block is-active">
-                {{#if questionOnePassed}}
-                    <div class="front is-answer">
-                        <div class="quiz-content">
-                            <a {{action 'answer' 'questionOne' null}} class="close-question"></a>
-                            <p>
-                                Are you an African pioneer with a project based in Africa?
-                            </p>
-                            <span class="question-correct"></span>
-                        </div>
-                    </div>
-                        <a {{action 'answer' 'questionOne' null}}>Reset</a>
-                {{else}}
-                    {{#if questionOneFailed}}
-                    <div class="front is-answer">
-                        <div class="quiz-content">
-                            <a {{action 'answer' 'questionOne' null}} class="closeQuestion"></a>
-                            <p>
-                                Don’t worry!
-                                Unfortunately the Cheetah fund 2014 only accepts projects based in Africa by African pioneers. But don’t be sad, you can always <a href="#">start a campaign 
-                                at 1%Club</a>.
-                            </p>
-                        </div>
-                    </div>
-                    {{else}}
-                    <div class="front">
-                        <div class="quiz-content is-active">
-                            <p>
-                                Are you an African pioneer with a project based in Africa?
-                            </p>
-                            <div class="quiz-answers">
-                                <span {{action 'answer' 'questionOne' 'yes'}} class="yes">Yes</span>
-                                <span {{action 'answer' 'questionOne' 'no'}} class="no">No</span>
-                            </div>  
-                        </div>
-                    </div>
-                    {{/if}}
-                {{/if}}
-                <div class="back">Question back 1</div>
-            </div>
-            <div class="col4 block">
-                <div class="front">Question front 2</div>
-                <div class="back">Question back 2</div>
-            </div>
-            <div class="col4 block">
-                <div class="front">Question front 3</div>
-                <div class="back">Question back 3</div>
-            </div>
-        </div>
-        {{#if questionThreePassed}}
-            <h2>
-                ALL IS OK. Time to move on!!
-                {{#link-to 'myPartnerProject' 'cheetah'}}
-                    Create Cheetah Campaign
-                {{/link-to}}
-            </h2>
-        {{/if}}
 
         <div class="l-wrapper">
-            {{#if questionOnePassed}}
-                <div id="question1" class="question">
-                    Right on! <br/>
-                    <a {{action 'answer' 'questionOne' null}}>Reset</a>
+            <div class="row">
+                <div class="quiz-heading">
+                    <h1>Who Can Join?</h1>
+                    <h2 class="sub-heading">Take the test to see if you’re a Cheetah!</h2>
                 </div>
-            {{else}}
-                {{#if questionOneFailed}}
-                    <div id="question1" class="question">
-                        This is just wrong! <br/>
-                        <a {{action 'answer' 'questionOne' null}}>Reset</a>
-                    </div>
+            </div>
+            <div class="row quiz-blocks">
+                <div class="col4 block is-active">
+                    {{#if questionOnePassed}}
+                        <div class="front is-answer">
+                            <div class="quiz-content">
+                                <p>
+                                    Are you an African pioneer with a project based in Africa?
+                                </p>
+                                <span class="question-correct"></span>
+                            </div>
+                        </div>
                 {{else}}
-                    <div id="question1" class="question">
-                        <a {{action 'answer' 'questionOne' 'yes'}}>Yes</a> |
-                        <a {{action 'answer' 'questionOne' 'no'}}>No</a>
-                    </div>
-                {{/if}}
-            {{/if}}
-            {{#if questionOnePassed}}
-                {{#if questionTwoPassed}}
-                    <div id="question2" class="question">
-                        Right on! <br/>
-                        <a {{action 'answer' 'questionTwo' null}}>Reset</a>
-                    </div>
-                {{else}}
-                    {{#if questionTwoFailed}}
-                        <div id="question2" class="question">
-                            This is just wrong! <br/>
-                            <a {{action 'answer' 'questionTwo' null}}>Reset</a>
+                    {{#if questionOneFailed}}
+                        <div class="front is-answer">
+                            <div class="quiz-content">
+                                <a {{action 'answer' 'questionOne' null}} class="close-question"></a>
+                                <p>
+                                    Don’t worry!
+                                    Unfortunately the Cheetah fund 2014 only accepts projects based in Africa by African pioneers. But don’t be sad, you can always <a href="#">start a campaign 
+                                    at 1%Club</a>.
+                                </p>
+                            </div>
                         </div>
                     {{else}}
-                        <div id="question2" class="question">
-                            {{view Em.TextField valueBinding='answerTwo'}}
-                            <a {{action 'answer' 'questionTwo' answerTwo}}>Send</a>
+                        <div class="front">
+                            <div class="quiz-content is-active">
+                                <p>
+                                    Are you an African pioneer with a project based in Africa?
+                                </p>
+                                <div class="quiz-answers">
+                                    <span {{action 'answer' 'questionOne' 'yes'}} class="yes">Yes</span>
+                                    <span {{action 'answer' 'questionOne' 'no'}} class="no">No</span>
+                                </div>  
+                            </div>
                         </div>
                     {{/if}}
                 {{/if}}
-            {{else}}
-                <div id="question2" class="question">
-                    First answer question 1
                 </div>
-            {{/if}}
-            {{#if questionTwoPassed}}
-                {{#if questionThreePassed}}
-                    <div id="question3" class="question">
-                        Right on! <br/>
-                        <a {{action 'answer' 'questionThree' null}}>Reset</a>
-                    </div>
-                {{else}}
-                    {{#if questionThreeFailed}}
-                        <div id="question3" class="question">
-                            This is just wrong! <br/>
-                            <a {{action 'answer' 'questionThree' null}}>Reset</a>
-                        </div>
+
+                <div class="col4 block">
+                {{#if questionOnePassed}}
+                        {{#if questionTwoPassed}}
+                            <div class="front is-answer">
+                                <div class="quiz-content">
+                                    <p>
+                                        How much funding do you need to kickstart your project?
+                                    </p>
+                                    <span class="question-correct"></span>
+                                </div>
+                            </div>
+                        {{else}}
+                            {{#if questionTwoFailed}}
+                                <div class="front is-answer">
+                                    <div class="quiz-content">
+                                        <a {{action 'answer' 'questionTwo' null}} class="close-question"></a>
+                                        <p>
+                                            This is just wrong!
+                                        </p>
+                                    </div>
+                                </div>
+                            {{else}}
+                                <div class="front is-active">
+                                    <div class="quiz-content is-active">
+                                        <a class="questionmark"></a>
+                                        <p>
+                                             How much funding do you need to kickstart your project? <br/>(in euros)
+                                        </p>
+                                        <label for="input">
+                                            {{view Em.TextField valueBinding='answerTwo' autofocus="autofocus"}}
+                                        </label>
+                                        <a {{action 'answer' 'questionTwo' answerTwo}}>Send</a>
+                                    </div>
+                                </div>
+                            {{/if}}
+                        {{/if}}
                     {{else}}
-                        <div id="question3" class="question">
-                            <a {{action 'answer' 'questionThree' 'yes'}}>Yes</a> |
-                            <a {{action 'answer' 'questionThree' 'no'}}>No</a>
+                        <div class="front is-inactive">
+                            <div class="quiz-content">
+                                <a class="questionmark"></a>
+                                <p>
+                                    How much funding do you need to kickstart your project? <br/>(in euros)
+                                </p>
+                                <label for="input">
+                                    {{view Em.TextField valueBinding='answerTwo' disabled='true'}}
+                                </label>
+                                <a {{action 'answer' 'questionTwo' answerTwo}}>Send</a>
+                            </div>
                         </div>
                     {{/if}}
-                {{/if}}
-            {{else}}
-                <div id="question3" class="question">
-                    First answer question 2
+                </div>
+
+                <div class="col4 block">
+                    {{#if questionTwoPassed}}
+                        {{#if questionThreePassed}}
+                            <div class="front is-answer">
+                                <div class="quiz-content">
+                                    <p>
+                                        Does your project have social or environmental impact?
+                                    </p>
+                                    <span class="question-correct"></span>
+                                </div>
+                            </div>
+                        {{else}}
+                            {{#if questionThreeFailed}}
+                                <div class="front is-answer">
+                                    <div class="quiz-content">
+                                        <a {{action 'answer' 'questionThree' null}} class="close-question"></a>
+                                        <p>
+                                            This is just wrong!
+                                        </p>
+                                    </div>
+                                </div>
+                            {{else}}
+                                <div class="front is-active">
+                                    <div class="quiz-content is-active">
+                                        <a {{action 'answer' 'questionOne' null}} class="questionmark"></a>
+                                        <p>
+                                            Does your project have social or environmental impact?
+                                        </p>
+                                        <div class="quiz-answers">
+                                            <span {{action 'answer' 'questionThree' 'yes'}} class="yes">Yes</span>
+                                            <span {{action 'answer' 'questionThree' 'no'}} class="no">No</span>
+                                        </div>  
+                                    </div>
+                                </div>
+                            {{/if}}
+                        {{/if}}
+                    {{else}}
+                        <div class="front is-inactive">
+                            <div class="quiz-content">
+                                <a {{action 'answer' 'questionOne' null}} class="questionmark"></a>
+                                <p>
+                                    Does your project have social or environmental impact?
+                                </p>
+                                <div class="quiz-answers">
+                                    <span class="yes">Yes</span>
+                                    <span class="no">No</span>
+                                </div>  
+                            </div>
+                        </div>
+                    {{/if}}
+                </div>
+
+            {{#if questionThreePassed}}
+                <div class="quiz-result">
+                    <div class="quiz-content">
+                        <div class="quiz-img">
+                            <span></span>
+                        </div>
+                        <div class="quiz-text">
+                            <div class="quiz-heading">
+                                <h1>How To Get Funded</h1>
+                                <h2>Join us now. All you have to do is follow these three steps:</h2>
+                                {{#link-to 'myPartnerProject' 'cheetah'}}Create Cheetah Campaign{{/link-to}}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             {{/if}}
+
+            </div>
+
         </div>
     </div>
 {% endtplhandlebars %}
