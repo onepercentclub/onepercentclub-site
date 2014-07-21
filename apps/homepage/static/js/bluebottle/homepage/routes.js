@@ -3,5 +3,10 @@ App.HomeRoute = Em.Route.extend({
         return App.HomePage.find(App.get('language'));
     },
 
-    tracked: true
+    activate: function() {
+
+        if (this.get('tracker')) {
+            this.get('tracker').trackEvent("Homepage visit", {});
+        }
+    }
 });

@@ -28,6 +28,10 @@ App.FundRaiserNewController = Em.ObjectController.extend(App.Editable, App.FundR
 
             model.one('didCreate', function(record){
                 controller.transitionToRoute('fundRaiser', record);
+                if (controller.get('tracker')) {
+                    controller.get('tracker').trackEvent("New fundraiser", {});
+                }
+
             });
 
             model.one('didUpdate', function(record) {

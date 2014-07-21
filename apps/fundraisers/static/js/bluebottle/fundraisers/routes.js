@@ -97,6 +97,13 @@ App.MyFundRaiserListRoute = Em.Route.extend(App.ScrollToTop, {
     },
     setupController: function(controller, model) {
         this._super(controller, model);
+    },
+
+    activate: function() {
+
+        if (this.get('tracker')) {
+            this.get('tracker').trackEvent("My fundraisers", {});
+        }
     }
 });
 //

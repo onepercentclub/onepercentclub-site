@@ -51,6 +51,12 @@ App.CurrentOrderDonationListRoute = Em.Route.extend(App.ScrollToTop, {
         this._super(controller, donations);
         this.controllerFor('currentOrder').set('isVoucherOrder', false);
         controller.set('paymentProfile', App.PaymentProfile.find('current'));
+    },
+
+    activate: function() {
+        if (this.get('tracker')) {
+            this.get('tracker').trackEvent("Donation list", {});
+        }
     }
 });
 
@@ -73,6 +79,7 @@ App.OrderThanksRoute = Em.Route.extend({
     googleConversion: {
         label: 'luszCIr_6wsQ7o7O1gM'
     },
+
     model: function(params) {
         var route = this;
         var order = App.Order.find(params.order_id);
@@ -80,7 +87,9 @@ App.OrderThanksRoute = Em.Route.extend({
             route.replaceWith('home');
         });
 
-
+        if (this.get('tracker')) {
+            this.get('tracker').trackEvent("Successful donation", {order: order});
+        }
 
         return order;
     }
@@ -116,7 +125,14 @@ App.PaymentProfileRoute = Em.Route.extend({
 
     model: function(params) {
         return App.PaymentProfile.find('current');
+    },
+
+    activate: function() {
+        if (this.get('tracker')) {
+            this.get('tracker').trackEvent("Payment details", {});
+        }
     }
+
 });
 
 
@@ -156,6 +172,12 @@ App.PaymentSelectRoute = Em.Route.extend({
     setupController: function(controller, model){
         this._super(controller, model);
         controller.set('paymentProfile', App.PaymentProfile.find('current'));
+    },
+
+    activate: function() {
+        if (this.get('tracker')) {
+            this.get('tracker').trackEvent("Payment select", {});
+        }
     }
 });
 
@@ -171,6 +193,12 @@ App.PaymentSelectPaymentErrorRoute = Em.Route.extend({
             message_content: gettext('There was an error with your payment. Please try again.')
         });
 
+    },
+
+    activate: function() {
+        if (this.get('tracker')) {
+            this.get('tracker').trackEvent("Payment Error", {});
+        }
     }
 });
 
@@ -203,5 +231,14 @@ App.RecurringDirectDebitPaymentRoute = Em.Route.extend({
 App.TickerRoute = Em.Route.extend({
     model: function(params) {
         return  App.Ticker.find();
+    }
+});
+
+
+App.RecurringOrderThanksRoute = Em.Route.extend({
+    activate: function() {
+        if (this.get('tracker')) {
+            this.get('tracker').trackEvent("Successful Recurring Donation", {});
+        }
     }
 });
