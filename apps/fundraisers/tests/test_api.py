@@ -34,7 +34,10 @@ class FundRaiserApiIntegrationTest(OnePercentTestCase):
         self.another_project = OnePercentProjectFactory.create(amount_asked=75000, status=self.campaign_phase)
 
         self.some_user = BlueBottleUserFactory.create()
+        self.some_user_token = "JWT {0}".format(self.some_user.get_jwt_token())
+
         self.another_user = BlueBottleUserFactory.create()
+        self.another_user_token = "JWT {0}".format(self.another_user.get_jwt_token())
 
         self.fundraiser = FundRaiserFactory.create(owner=self.some_user, project=self.some_project)
         self.fundraiser2 = FundRaiserFactory.create(owner=self.another_user, project=self.another_project)
@@ -64,15 +67,14 @@ class FundRaiserApiIntegrationTest(OnePercentTestCase):
         url_fundraisers = self.fundraiser_list_url + '?project=' + self.some_project.slug
 
         # First make sure we have a current order
-        self.client.login(username=self.some_user.email, password='testing')
-        response = self.client.get(self.current_order_url)
+        response = self.client.get(self.current_order_url, HTTP_AUTHORIZATION=self.some_user_token)
 
         # Create a Donation
         response = self.client.post(self.current_donations_url, {
             'project': self.some_project.slug,
             'amount': 5,
             'fundraiser': self.fundraiser.id
-        })
+        }, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['amount'], '5.00')
         self.assertEqual(response.data['fundraiser'], self.fundraiser.id)
@@ -83,9 +85,9 @@ class FundRaiserApiIntegrationTest(OnePercentTestCase):
             'project': self.some_project.slug,
             'amount': 10,
             'fundraiser': self.fundraiser.id
-        })
+        }, HTTP_AUTHORIZATION=self.some_user_token)
 
-        response = self.client.get(url_fundraisers)
+        response = self.client.get(url_fundraisers, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         # donation is not pending or paid yet
         self.assertEqual('0.00', response.data['results'][0]['amount_donated'])
@@ -95,7 +97,7 @@ class FundRaiserApiIntegrationTest(OnePercentTestCase):
         donation.save()
 
         # get the updated status, verify amount donated
-        response = self.client.get(url_fundraisers)
+        response = self.client.get(url_fundraisers, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual('5.00', response.data['results'][0]['amount_donated'])
 
@@ -103,7 +105,7 @@ class FundRaiserApiIntegrationTest(OnePercentTestCase):
         donation.save()
 
         # nothing should be changed
-        response = self.client.get(url_fundraisers)
+        response = self.client.get(url_fundraisers, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual('5.00', response.data['results'][0]['amount_donated'])
 
@@ -112,7 +114,7 @@ class FundRaiserApiIntegrationTest(OnePercentTestCase):
         donation.status = DonationStatuses.pending
         donation.save()
 
-        response = self.client.get(url_fundraisers)
+        response = self.client.get(url_fundraisers, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual('15.00', response.data['results'][0]['amount_donated'])
 
@@ -159,8 +161,6 @@ class FundRaiserApiIntegrationTest(OnePercentTestCase):
         """
         Test the list of donations for a specific fundraiser.
         """
-        self.assertTrue(self.client.login(username=self.some_user.email, password='testing'))
-
         fundraise_donation = DonationFactory.create(user=self.some_user, project=self.some_project, amount=5000,
                                                     status=DonationStatuses.paid, fundraiser=self.fundraiser)
 
@@ -170,19 +170,14 @@ class FundRaiserApiIntegrationTest(OnePercentTestCase):
             fundraise_donation.fundraiser.pk,
         )
 
-        response = self.client.get(project_donation_url)
+        response = self.client.get(project_donation_url, HTTP_AUTHORIZATION=self.some_user_token)
         json_data = json.loads(response.content)
-
-        # Only expect the donation for the fundraiser to show up.
-        print json_data
 
         self.assertEqual(len(json_data['results']), 1)
         self.assertTrue('amount' in json_data['results'][0])
         self.assertEqual(json_data['results'][0]['amount'], '50.00')
 
     def test_donations_for_fundraiser_anonymous(self):
-        self.assertTrue(self.client.login(username=self.another_user.email, password='testing'))
-
         DonationFactory.create(user=self.some_user, project=self.some_project, status=DonationStatuses.paid)
 
         fundraise_donation = DonationFactory.create(user=self.some_user, project=self.some_project,
@@ -193,7 +188,7 @@ class FundRaiserApiIntegrationTest(OnePercentTestCase):
             self.some_project.slug,
             fundraise_donation.fundraiser.pk,
         )
-        response = self.client.get(project_donation_url)
+        response = self.client.get(project_donation_url, HTTP_AUTHORIZATION=self.another_user_token)
 
         json_data = json.loads(response.content)
 
@@ -251,14 +246,12 @@ class FundRaiserApiIntegrationTest(OnePercentTestCase):
         Test create fundraiser, via fundraiser list API, as anonymous user.
         """
         response = self.client.post(self.fundraiser_list_url, {})
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_create_fundraiser_authenticated(self):
         """
         Test create fundraiser, via fundraiser list API, as authenticated user.
         """
-        self.assertTrue(self.client.login(username=self.some_user.email, password='testing'))
-
         # Construct data
         deadline = (timezone.now() + timezone.timedelta(days=14)).strftime('%Y-%m-%dT%H:%M:%S')
         with open(os.path.join(os.path.dirname(__file__), 'test_files', 'upload.png'), 'rb') as fp:
@@ -272,7 +265,7 @@ class FundRaiserApiIntegrationTest(OnePercentTestCase):
             }
 
             # Perform call
-            response = self.client.post(self.fundraiser_list_url, data)
+            response = self.client.post(self.fundraiser_list_url, data, HTTP_AUTHORIZATION=self.some_user_token)
 
         # Validate response
         self.assertEqual(response.status_code, 201)
@@ -325,12 +318,10 @@ class FundRaiserApiIntegrationTest(OnePercentTestCase):
 
     def test_update_fundraiser_anonymous(self):
         response = self.client.put(self.fundraiser_url, {})
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_update_fundraiser_authenticated_owner(self):
         self.assertEqual(self.some_user, self.fundraiser.owner)
-
-        self.assertTrue(self.client.login(username=self.some_user.email, password='testing'))
 
         # Construct data
         deadline = timezone.now() + timezone.timedelta(days=14)
@@ -345,7 +336,8 @@ class FundRaiserApiIntegrationTest(OnePercentTestCase):
             }
 
             # Perform call
-            response = self.client.put(self.fundraiser_url, data, content_type=MULTIPART_CONTENT)
+            response = self.client.put(self.fundraiser_url, data, content_type=MULTIPART_CONTENT,
+                                        HTTP_AUTHORIZATION=self.some_user_token)
 
         # Validate response
         # TODO: How can we PUT with a file?

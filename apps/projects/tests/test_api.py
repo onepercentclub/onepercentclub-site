@@ -122,7 +122,10 @@ class ProjectManageApiIntegrationTest(OnePercentTestCase):
 
     def setUp(self):
         self.some_user = BlueBottleUserFactory.create()
+        self.some_user_token = "JWT {0}".format(self.some_user.get_jwt_token())
+
         self.another_user = BlueBottleUserFactory.create()
+        self.another_user_token = "JWT {0}".format(self.another_user.get_jwt_token())
 
         self.init_projects()
 
@@ -139,35 +142,34 @@ class ProjectManageApiIntegrationTest(OnePercentTestCase):
         """
 
         # Check that a new user doesn't have any projects to manage
-        self.client.login(username=self.some_user.email, password='testing')
-        response = self.client.get(self.manage_projects_url)
+        response = self.client.get(self.manage_projects_url, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEquals(response.data['count'], 0)
 
         # Let's throw a pitch (create a project really)
-        response = self.client.post(self.manage_projects_url, {'title': 'This is my smart idea'})
+        response = self.client.post(self.manage_projects_url, {'title': 'This is my smart idea'}, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEquals(response.status_code, status.HTTP_201_CREATED, response)
         self.assertEquals(response.data['title'], 'This is my smart idea')
 
         # Check that it's there, in pitch phase, has got a pitch but no plan yet.
-        response = self.client.get(self.manage_projects_url)
+        response = self.client.get(self.manage_projects_url, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEquals(response.data['count'], 1)
         self.assertEquals(response.data['results'][0]['status'], self.phase_plan_new.id)
         self.assertEquals(response.data['results'][0]['pitch'], '')
 
         # Get the project
         project_id = response.data['results'][0]['id']
-        response = self.client.get(self.manage_projects_url + str(project_id))
+        response = self.client.get(self.manage_projects_url + str(project_id), HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEquals(response.status_code, status.HTTP_200_OK, response)
         self.assertEquals(response.data['title'], 'This is my smart idea')
 
         # Let's check that another user can't get this pitch
-        self.client.logout()
-        self.client.login(username=self.another_user.email, password='testing')
-        response = self.client.get(reverse('project_manage_detail', kwargs={'slug': project_id}))
+        response = self.client.get(reverse('project_manage_detail', kwargs={'slug': project_id}), 
+                                    HTTP_AUTHORIZATION=self.another_user_token)
         self.assertEquals(response.status_code, status.HTTP_403_FORBIDDEN, response)
 
         # Let's create a pitch for this other user
-        response = self.client.post(self.manage_projects_url, {'title': 'My idea is way smarter!'})
+        response = self.client.post(self.manage_projects_url, {'title': 'My idea is way smarter!'},
+                                    HTTP_AUTHORIZATION=self.another_user_token)
         project_url = reverse('project_manage_detail', kwargs={'slug': response.data['slug']})
         self.assertEquals(response.data['title'], 'My idea is way smarter!')
 
@@ -177,23 +179,28 @@ class ProjectManageApiIntegrationTest(OnePercentTestCase):
             'pitch': 'Lorem ipsum, bla bla ',
             'description': 'Some more text'
         }
-        response = self.client.put(project_url, json.dumps(project_data), 'application/json')
+        response = self.client.put(project_url, json.dumps(project_data), 'application/json', 
+                                    HTTP_AUTHORIZATION=self.another_user_token)
         self.assertEquals(response.status_code, status.HTTP_200_OK, response)
 
         # Back to the previous pitch. Try to cheat and put it to status approved.
         project_data['status'] = self.phase_campaign.id
-        response = self.client.put(project_url, json.dumps(project_data), 'application/json')
-        self.assertEquals(response.data['status'], self.phase_plan_new.id, 'status should be reset to previous value')
+        response = self.client.put(project_url, json.dumps(project_data), 
+                                    'application/json', HTTP_AUTHORIZATION=self.another_user_token)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
+        self.assertEquals(response.data['status'][0], 'You can not change the project state.', 'status change should not be possible')
 
         # Ok, let's try to submit it. We have to submit all previous data again too.
         project_data['status'] = self.phase_submitted.id
-        response = self.client.put(project_url, json.dumps(project_data), 'application/json')
+        response = self.client.put(project_url, json.dumps(project_data), 
+                                    'application/json', HTTP_AUTHORIZATION=self.another_user_token)
         self.assertEquals(response.status_code, status.HTTP_200_OK, response)
         self.assertEquals(response.data['status'], self.phase_submitted.id)
 
         # Changing the slug for this project should just reset it to the previous value
         project_data['slug'] = 'a-new-slug-should-not-be-possible'
-        response_2 = self.client.put(project_url, json.dumps(project_data), 'application/json')
+        response_2 = self.client.put(project_url, json.dumps(project_data), 
+                                        'application/json', HTTP_AUTHORIZATION=self.another_user_token)
         self.assertEquals(response_2.data['slug'], response.data['slug'], 'changing the slug should not be possible')
 
         # Set the project to plan phase from the backend
@@ -203,29 +210,28 @@ class ProjectManageApiIntegrationTest(OnePercentTestCase):
         project.save()
 
         # Let's look at the project again. It should be in campaign phase now.
-        response = self.client.get(project_url)
+        response = self.client.get(project_url, HTTP_AUTHORIZATION=self.another_user_token)
         self.assertEquals(response.status_code, status.HTTP_200_OK, response)
         self.assertEquals(response.data['status'], self.phase_campaign.id)
 
         # Trying to create a project with the same title should result in an error.
-        response = self.client.post(self.manage_projects_url, {'title': 'This is my smart idea'})
+        response = self.client.post(self.manage_projects_url, {'title': 'This is my smart idea'},
+                                    HTTP_AUTHORIZATION=self.another_user_token)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
         self.assertEquals(response.data['title'][0], 'Project with this Title already exists.')
 
         # Anonymous user should not be able to find this project through management API.
-        self.client.logout()
         response = self.client.get(project_url)
-        self.assertEquals(response.status_code, status.HTTP_403_FORBIDDEN, response)
+        self.assertEquals(response.status_code, status.HTTP_401_UNAUTHORIZED, response)
 
         # Also it should not be visible by the first user.
-        self.client.login(username=self.some_user.email, password='testing')
-        response = self.client.get(project_url)
+        response = self.client.get(project_url, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEquals(response.status_code, status.HTTP_403_FORBIDDEN, response)
 
     def test_project_budgetlines_crud(self):
-        self.client.login(username=self.some_user.email, password='testing')
         project_data = {'title': 'Some project with a goal & budget'}
-        response = self.client.post(self.manage_projects_url, project_data)
+        response = self.client.post(self.manage_projects_url, project_data, 
+                                    HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEquals(response.data['title'], project_data['title'])
         project_id = response.data['id']
         project_url = '{0}{1}'.format(self.manage_projects_url, project_id)
@@ -240,33 +246,33 @@ class ProjectManageApiIntegrationTest(OnePercentTestCase):
         ]
 
         for line in budget:
-            response = self.client.post(self.manage_budget_lines_url, line)
+            response = self.client.post(self.manage_budget_lines_url, line, HTTP_AUTHORIZATION=self.some_user_token)
             self.assertEquals(response.status_code, status.HTTP_201_CREATED, response)
 
         # We should have 3 budget lines by now
-        response = self.client.get(project_url)
+        response = self.client.get(project_url, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEquals(len(response.data['budget_lines']), 3)
 
         # Let's change a budget_line
         budget_line = response.data['budget_lines'][0]
         budget_line['amount'] = 350
         budget_line_url = "{0}{1}".format(self.manage_budget_lines_url, budget_line['id'])
-        response = self.client.put(budget_line_url, json.dumps(budget_line), 'application/json')
+        response = self.client.put(budget_line_url, json.dumps(budget_line), 
+                                    'application/json', HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEquals(response.status_code, status.HTTP_200_OK, response)
         self.assertEquals(response.data['amount'], '350.00')
 
         # Now remove that line
-        response = self.client.delete(budget_line_url)
+        response = self.client.delete(budget_line_url, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEquals(response.status_code, status.HTTP_204_NO_CONTENT, response)
+
         # Should have 2  budget lines now
-        response = self.client.get(project_url)
+        response = self.client.get(project_url, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEquals(len(response.data['budget_lines']), 2)
 
         # Login as another user and try to add a budget line to this project.
-        self.client.logout()
-        self.client.login(username=self.another_user.email, password='testing')
         new_budget_line = {'project': project_id, 'description': 'I want in too', 'amount': 10000}
-        response = self.client.post(self.manage_budget_lines_url, line)
+        response = self.client.post(self.manage_budget_lines_url, line, HTTP_AUTHORIZATION=self.another_user_token)
         self.assertEquals(response.status_code, status.HTTP_403_FORBIDDEN, response)
 
 
@@ -281,7 +287,10 @@ class ProjectWallPostApiIntegrationTest(OnePercentTestCase):
         self.another_project = OnePercentProjectFactory.create(slug='anotherproject')
 
         self.some_user = BlueBottleUserFactory.create()
+        self.some_user_token = "JWT {0}".format(self.some_user.get_jwt_token())
+
         self.another_user = BlueBottleUserFactory.create()
+        self.another_user_token = "JWT {0}".format(self.another_user.get_jwt_token())
 
         self.some_photo = 'apps/projects/test_images/loading.gif'
         self.another_photo = 'apps/projects/test_images/upload.png'
@@ -296,41 +305,48 @@ class ProjectWallPostApiIntegrationTest(OnePercentTestCase):
         """
         Tests for creating, retrieving, updating and deleting a Project Media WallPost.
         """
-        self.client.login(username=self.some_project.owner.email, password='testing')
+        self.owner_token = "JWT {0}".format(self.some_project.owner.get_jwt_token())
 
         # Create a Project Media WallPost by Project Owner
         # Note: This test will fail when we require at least a video and/or a text but that's what we want.
         wallpost_title = 'This is my super project!'
-        response = self.client.post(self.media_wallposts_url, {'title': wallpost_title, 'parent_type': 'project','parent_id': self.some_project.slug})
+        response = self.client.post(self.media_wallposts_url, 
+                                    {'title': wallpost_title, 'parent_type': 'project','parent_id': self.some_project.slug},
+                                    HTTP_AUTHORIZATION=self.owner_token)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['title'], wallpost_title)
 
         # Retrieve the created Project Media WallPost.
         project_wallpost_detail_url = "{0}{1}".format(self.wallposts_url, str(response.data['id']))
-        response = self.client.get(project_wallpost_detail_url)
+        response = self.client.get(project_wallpost_detail_url, HTTP_AUTHORIZATION=self.owner_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['title'], wallpost_title)
 
         # Update the created Project Media WallPost by author.
         new_wallpost_title = 'This is my super-duper project!'
-        response = self.client.put(project_wallpost_detail_url, json.dumps({'title': new_wallpost_title, 'parent_type': 'project','parent_id': self.some_project.slug}), 'application/json')
+        response = self.client.put(project_wallpost_detail_url, 
+                                    json.dumps({'title': new_wallpost_title, 'parent_type': 'project','parent_id': self.some_project.slug}), 
+                                    'application/json', HTTP_AUTHORIZATION=self.owner_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['title'], new_wallpost_title)
 
         # Delete Project Media WallPost by author
-        response = self.client.delete(project_wallpost_detail_url)
+        response = self.client.delete(project_wallpost_detail_url, HTTP_AUTHORIZATION=self.owner_token)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT, response)
 
         # Check that creating a WallPost with project slug that doesn't exist reports an error.
-        response = self.client.post(self.media_wallposts_url, {'title': wallpost_title, 'parent_type': 'project', 'parent_id': 'allyourbasearebelongtous'})
+        response = self.client.post(self.media_wallposts_url, 
+                                    {'title': wallpost_title, 'parent_type': 'project', 'parent_id': 'allyourbasearebelongtous'},
+                                    HTTP_AUTHORIZATION=self.owner_token)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
 
         # Create Project Media WallPost and retrieve by another user
-        response = self.client.post(self.media_wallposts_url, {'title': wallpost_title, 'parent_type': 'project', 'parent_id': self.some_project.slug})
+        response = self.client.post(self.media_wallposts_url, 
+                                    {'title': wallpost_title, 'parent_type': 'project', 'parent_id': self.some_project.slug},
+                                    HTTP_AUTHORIZATION=self.owner_token)
         project_wallpost_detail_url = "{0}{1}".format(self.wallposts_url, str(response.data['id']))
-        self.client.logout()
-        self.client.login(username=self.some_user.email, password='testing')
-        response = self.client.get(project_wallpost_detail_url)
+
+        response = self.client.get(project_wallpost_detail_url, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['title'], wallpost_title)
 
@@ -352,92 +368,108 @@ class ProjectWallPostApiIntegrationTest(OnePercentTestCase):
 
         # Update Project Media WallPost by someone else than Project Owner should fail
         second_wallpost_title = "My project rocks!"
-        response = self.client.post(self.media_wallposts_url, {'title': second_wallpost_title, 'parent_type': 'project', 'parent_id': self.some_project.slug})
-        self.client.logout()
-        self.client.login(username=self.some_user.email, password='testing')
-        response = self.client.put(project_wallpost_detail_url, {'title': new_wallpost_title, 'parent_type': 'project', 'parent_id': self.some_project.slug})
+        response = self.client.post(self.media_wallposts_url, 
+                                    {'title': second_wallpost_title, 'parent_type': 'project', 'parent_id': self.some_project.slug},
+                                    HTTP_AUTHORIZATION=self.some_user_token)
+
+        response = self.client.put(project_wallpost_detail_url, 
+                                    {'title': new_wallpost_title, 'parent_type': 'project', 'parent_id': self.some_project.slug},
+                                    HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
-        # Deleting a Project Media WallPost by non-author user should fail.
-        response = self.client.delete(project_wallpost_detail_url)  # some_user is still logged in.
+        # Deleting a Project Media WallPost by non-author user should fail - by some user
+        response = self.client.delete(project_wallpost_detail_url, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response)
 
         # Retrieve a list of the two Project Media WallPosts that we've just added should work
-        response = self.client.get(self.wallposts_url,  {'parent_type': 'project', 'parent_id': self.some_project.slug})
+        response = self.client.get(self.wallposts_url,  {'parent_type': 'project', 'parent_id': self.some_project.slug},
+                                    HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(len(response.data['results']), 2)
         self.assertEqual(response.data['results'][0]['title'], second_wallpost_title)
         self.assertEqual(response.data['results'][1]['title'], wallpost_title)
-        self.client.logout()
 
     def test_project_media_wallpost_photo(self):
         """
         Test connecting photos to wallposts
         """
-        self.client.login(username=self.some_project.owner.email, password='testing')
+        self.owner_token = "JWT {0}".format(self.some_project.owner.get_jwt_token())
 
         # Typically the photos are uploaded before the wallpost is uploaded so we simulate that here
         photo_file = open(self.some_photo, mode='rb')
-        response = self.client.post(self.media_wallpost_photos_url, {'photo': photo_file})
+        response = self.client.post(self.media_wallpost_photos_url, {'photo': photo_file},
+                                    HTTP_AUTHORIZATION=self.owner_token)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         some_photo_detail_url = "{0}{1}".format(self.media_wallpost_photos_url, response.data['id'])
 
         # Create a Project Media WallPost by Project Owner
         wallpost_title = 'Here are some pics!'
-        response = self.client.post(self.media_wallposts_url, {'title': wallpost_title, 'parent_type': 'project', 'parent_id': self.some_project.slug})
+        response = self.client.post(self.media_wallposts_url, 
+                                    {'title': wallpost_title, 'parent_type': 'project', 'parent_id': self.some_project.slug},
+                                    HTTP_AUTHORIZATION=self.owner_token)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['title'], wallpost_title)
         some_wallpost_id = response.data['id']
         some_wallpost_detail_url = "{0}{1}".format(self.wallposts_url, some_wallpost_id)
 
         # Try to connect the photo to this new wallpost
-        response = self.client.put(some_photo_detail_url, json.dumps({'mediawallpost': some_wallpost_id}), 'application/json')
+        response = self.client.put(some_photo_detail_url, json.dumps({'mediawallpost': some_wallpost_id}), 
+                                    'application/json', HTTP_AUTHORIZATION=self.owner_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
 
         # check that the wallpost now has 1 photo
-        response = self.client.get(some_wallpost_detail_url)
+        response = self.client.get(some_wallpost_detail_url, HTTP_AUTHORIZATION=self.owner_token)
         self.assertEqual(len(response.data['photos']), 1)
 
         # Let's upload another photo
         photo_file = open(self.another_photo, mode='rb')
-        response = self.client.post(self.media_wallpost_photos_url, {'photo': photo_file})
+        response = self.client.post(self.media_wallpost_photos_url, {'photo': photo_file}, HTTP_AUTHORIZATION=self.owner_token)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         another_photo_detail_url = "{0}{1}".format(self.media_wallpost_photos_url, response.data['id'])
 
         # Create a wallpost by another user
-        self.client.logout()
-        self.client.login(username=self.another_project.owner.email, password='testing')
         wallpost_title = 'Muy project is waaaaaay better!'
-        response = self.client.post(self.media_wallposts_url, {'title': wallpost_title, 'parent_type': 'project', 'parent_id': self.another_project.slug})
+        response = self.client.post(self.media_wallposts_url, 
+                                    {'title': wallpost_title, 'parent_type': 'project', 'parent_id': self.another_project.slug},
+                                    HTTP_AUTHORIZATION=self.another_user_token)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['title'], wallpost_title)
         another_wallpost_id = response.data['id']
         antoher_wallpost_detail_url = "{0}{1}".format(self.media_wallposts_url, another_wallpost_id)
 
         # The other shouldn't be able to use the photo of the first user
-        response = self.client.put(another_photo_detail_url, {'mediawallpost': another_wallpost_id})
+        response = self.client.put(another_photo_detail_url, {'mediawallpost': another_wallpost_id},
+                                    HTTP_AUTHORIZATION=self.another_user_token)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
-        response = self.client.put(another_photo_detail_url, {'mediawallpost': some_wallpost_id})
+
+        response = self.client.put(another_photo_detail_url, {'mediawallpost': some_wallpost_id},
+                                    HTTP_AUTHORIZATION=self.another_user_token)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
         # Make sure the first user can't connect it's picture to someone else's wallpost
-        self.client.logout()
-        self.client.login(username=self.some_project.owner.email, password='testing')
-        response = self.client.put(another_photo_detail_url, json.dumps({'mediawallpost': another_wallpost_id}), 'application/json')
+        response = self.client.put(another_photo_detail_url, json.dumps({'mediawallpost': another_wallpost_id}), 
+                                    'application/json', HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
-        #  Create a text wallpost. Adding a photo to that should be denied.
+        #  Create a text wallpost.
         text = "You have something nice going on here."
-        response = self.client.post(self.text_wallposts_url, {'text': text, 'parent_type': 'project', 'parent_id': self.another_project.slug})
+        response = self.client.post(self.text_wallposts_url, 
+                                    {'text': text, 'parent_type': 'project', 'parent_id': self.another_project.slug},
+                                    HTTP_AUTHORIZATION=self.owner_token)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         text_wallpost_id = response.data['id']
-        response = self.client.put(another_photo_detail_url, json.dumps({'mediawallpost': another_wallpost_id}), 'application/json')
+
+        # Adding a photo to that should be denied.
+        response = self.client.put(another_photo_detail_url, json.dumps({'mediawallpost': another_wallpost_id}), 
+                                    'application/json', HTTP_AUTHORIZATION=self.owner_token)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
         # Add that second photo to our first wallpost and verify that will now contain two photos.
-        response = self.client.put(another_photo_detail_url, json.dumps({'mediawallpost': some_wallpost_id}), 'application/json')
+        response = self.client.put(another_photo_detail_url, json.dumps({'mediawallpost': some_wallpost_id}), 
+                                    'application/json', HTTP_AUTHORIZATION=self.owner_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
-        response = self.client.get(some_wallpost_detail_url)
+
+        response = self.client.get(some_wallpost_detail_url, HTTP_AUTHORIZATION=self.owner_token)
         self.assertEqual(len(response.data['photos']), 2)
 
     def test_project_text_wallpost_crud(self):
@@ -448,62 +480,63 @@ class ProjectWallPostApiIntegrationTest(OnePercentTestCase):
         # Create text wallpost as not logged in guest should be denied
         text1 = 'Great job!'
         response = self.client.post(self.text_wallposts_url, {'text': text1, 'parent_type': 'project', 'parent_id': self.some_project.slug})
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-
-        self.client.login(username=self.some_user.email, password='testing')
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
         # Create TextWallPost as a logged in member should be allowed
-        response = self.client.post(self.text_wallposts_url, {'text': text1, 'parent_type': 'project', 'parent_id': self.some_project.slug})
+        response = self.client.post(self.text_wallposts_url, 
+                                    {'text': text1, 'parent_type': 'project', 'parent_id': self.some_project.slug},
+                                    HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertTrue(text1 in response.data['text'])
 
         # Retrieve text wallpost through WallPosts api
         wallpost_detail_url = "{0}{1}".format(self.wallposts_url, str(response.data['id']))
-        response = self.client.get(wallpost_detail_url)
+        response = self.client.get(wallpost_detail_url, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertTrue(text1 in response.data['text'])
 
         # Retrieve text wallpost through TextWallPosts api
         wallpost_detail_url = "{0}{1}".format(self.wallposts_url, str(response.data['id']))
-        response = self.client.get(wallpost_detail_url)
+        response = self.client.get(wallpost_detail_url, HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertTrue(text1 in response.data['text'])
 
-        self.client.logout()
-        self.client.login(username=self.another_user.email, password='testing')
-
         # Retrieve text wallpost through projectwallposts api by another user
         wallpost_detail_url = "{0}{1}".format(self.wallposts_url, str(response.data['id']))
-        response = self.client.get(wallpost_detail_url)
+        response = self.client.get(wallpost_detail_url, HTTP_AUTHORIZATION=self.another_user_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertTrue(text1 in response.data['text'])
 
         # Create TextWallPost without a text should return an error
-        response = self.client.post(self.text_wallposts_url, {'text': '', 'parent_type': 'project', 'parent_id': self.some_project.slug})
+        response = self.client.post(self.text_wallposts_url, 
+                                    {'text': '', 'parent_type': 'project', 'parent_id': self.some_project.slug},
+                                    HTTP_AUTHORIZATION=self.another_user_token)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)
         self.assertIsNotNone(response.data['text'])
 
         text2 = "I liek this project!"
 
         # Create TextWallPost as another logged in member should be allowed
-        response = self.client.post(self.text_wallposts_url, {'text': text2, 'parent_type': 'project', 'parent_id': self.some_project.slug})
+        response = self.client.post(self.text_wallposts_url, 
+                                    {'text': text2, 'parent_type': 'project', 'parent_id': self.some_project.slug},
+                                    HTTP_AUTHORIZATION=self.another_user_token)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertTrue(text2 in response.data['text'])
 
         # Update TextWallPost by author is allowed
         text2a = 'I like this project!'
         wallpost_detail_url = "{0}{1}".format(self.wallposts_url, str(response.data['id']))
-        response = self.client.put(wallpost_detail_url, json.dumps( {'text': text2a, 'parent_type': 'project', 'parent_id': self.some_project.slug}), 'application/json')
+        response = self.client.put(wallpost_detail_url, 
+                                    json.dumps({'text': text2a, 'parent_type': 'project', 'parent_id': self.some_project.slug}), 
+                                    'application/json', HTTP_AUTHORIZATION=self.another_user_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertTrue(text2a in response.data['text'])
-
-        self.client.logout()
-        self.client.login(username=self.some_user.email, password='testing')
 
         # Update TextWallPost by another user (not the author) is not allowed
         text2b = 'Mess this up!'
         wallpost_detail_url = "{0}{1}".format(self.wallposts_url, str(response.data['id']))
-        response = self.client.put(wallpost_detail_url, {'text': text2b, 'project': self.some_project.slug})
+        response = self.client.put(wallpost_detail_url, {'text': text2b, 'project': self.some_project.slug},
+                                    HTTP_AUTHORIZATION=self.some_user_token)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
     def test_projectwallpost_list(self):
@@ -512,22 +545,23 @@ class ProjectWallPostApiIntegrationTest(OnePercentTestCase):
         """
 
         # Create a bunch of Project Text WallPosts
-        self.client.login(username=self.some_user.email, password='testing')
         for char in 'abcdefghijklmnopqrstuv':
             text = char * 15
-            self.client.post(self.text_wallposts_url, {'text': text, 'parent_type': 'project', 'parent_id': self.some_project.slug})
-
-        self.client.logout()
+            self.client.post(self.text_wallposts_url, {'text': text, 'parent_type': 'project', 'parent_id': self.some_project.slug},
+                              HTTP_AUTHORIZATION=self.some_user_token)
 
         # And a bunch of Project Media WallPosts
-        self.client.login(username=self.some_project.owner.email, password='testing')
+        self.owner_token = "JWT {0}".format(self.some_project.owner.get_jwt_token())
         for char in 'wxyz':
             title = char * 15
-            self.client.post(self.media_wallposts_url, {'title': title, 'parent_type': 'project', 'parent_id': self.some_project.slug})
+            self.client.post(self.media_wallposts_url, 
+                            {'title': title, 'parent_type': 'project', 'parent_id': self.some_project.slug},
+                            HTTP_AUTHORIZATION=self.owner_token)
 
         # Retrieve a list of the 26 Project WallPosts
         # View Project WallPost list works for author
-        response = self.client.get(self.wallposts_url,  {'parent_type': 'project', 'parent_id': self.some_project.slug})
+        response = self.client.get(self.wallposts_url, {'parent_type': 'project', 'parent_id': self.some_project.slug},
+                                    HTTP_AUTHORIZATION=self.owner_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data['results']), 5)
         self.assertEqual(response.data['count'], 26)
@@ -538,31 +572,37 @@ class ProjectWallPostApiIntegrationTest(OnePercentTestCase):
 
         # Delete a Media WallPost and check that we can't retrieve it anymore
         project_wallpost_detail_url = "{0}{1}".format(self.wallposts_url, mediawallpost['id'])
-        response = self.client.delete(project_wallpost_detail_url)
+        response = self.client.delete(project_wallpost_detail_url, HTTP_AUTHORIZATION=self.owner_token)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        response = self.client.get(project_wallpost_detail_url)
+
+        response = self.client.get(project_wallpost_detail_url, HTTP_AUTHORIZATION=self.owner_token)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND, response.data)
 
         # WallPost List count should have decreased after deleting one
-        response = self.client.get(self.wallposts_url,  {'parent_type': 'project', 'parent_id': self.some_project.slug})
+        response = self.client.get(self.wallposts_url, 
+                                    {'parent_type': 'project', 'parent_id': self.some_project.slug},
+                                    HTTP_AUTHORIZATION=self.owner_token)
         self.assertEqual(response.data['count'], 25)
 
         # View Project WallPost list works for guests.
-        self.client.logout()
         response = self.client.get(self.wallposts_url,  {'parent_type': 'project', 'parent_id': self.some_project.slug})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(len(response.data['results']), 5)
         self.assertEqual(response.data['count'], 25)
 
         # Test filtering wallposts by different projects works.
-        self.client.login(username=self.another_project.owner.email, password='testing')
         for char in 'ABCD':
             title = char * 15
-            self.client.post(self.media_wallposts_url, {'title': title, 'parent_type': 'project', 'parent_id': self.another_project.slug})
-        response = self.client.get(self.wallposts_url,  {'parent_type': 'project', 'parent_id': self.some_project.slug})
+            self.client.post(self.media_wallposts_url, 
+                                {'title': title, 'parent_type': 'project', 'parent_id': self.another_project.slug},
+                                HTTP_AUTHORIZATION=self.owner_token)
+        response = self.client.get(self.wallposts_url, {'parent_type': 'project', 'parent_id': self.some_project.slug})
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['count'], 25)
-        response = self.client.get(self.wallposts_url,  {'parent_type': 'project', 'parent_id': self.another_project.slug})
+
+        response = self.client.get(self.wallposts_url, 
+                                    {'parent_type': 'project', 'parent_id': self.another_project.slug},
+                                    HTTP_AUTHORIZATION=self.owner_token)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['count'], 4)
 
@@ -587,7 +627,8 @@ class ChangeProjectStatuses(ProjectEndpointTestCase):
         project.status = ProjectPhase.objects.get(slug="plan-submitted")
         project.save()
 
-        self.assertTrue(project.date_submitted is not None)
+        loaded_project = Project.objects.get(pk=project.pk)
+        self.assertTrue(loaded_project.date_submitted is not None)
 
     def test_change_status_to_campaign(self):
         """
@@ -601,7 +642,8 @@ class ChangeProjectStatuses(ProjectEndpointTestCase):
         project.status = ProjectPhase.objects.get(slug="campaign")
         project.save()
 
-        self.assertTrue(project.campaign_started is not None)
+        loaded_project = Project.objects.get(pk=project.pk)
+        self.assertTrue(loaded_project.campaign_started is not None)
 
     def test_change_status_to_need_to_work(self):
         """
@@ -614,7 +656,8 @@ class ChangeProjectStatuses(ProjectEndpointTestCase):
         project.status = ProjectPhase.objects.get(slug="plan-needs-work")
         project.save()
 
-        self.assertEquals(project.date_submitted, None)
+        loaded_project = Project.objects.get(pk=project.pk)
+        self.assertEquals(loaded_project.date_submitted, None)
 
     def test_change_status_to_new(self):
         """
@@ -634,7 +677,9 @@ class ChangeProjectStatuses(ProjectEndpointTestCase):
         A project gets a donation and gets funded. The project does not allow overfunding so the status changes,
         the campaign funded field is populated and campaign_ended field is populated
         """
+        organization = OrganizationFactory.create()
         project = OnePercentProjectFactory.create(title="testproject", slug="testproject",
+                                                  organization=organization,
                                                   status=ProjectPhase.objects.get(slug="campaign"),
                                                   amount_asked=100, allow_overfunding=False)
 
@@ -643,9 +688,10 @@ class ChangeProjectStatuses(ProjectEndpointTestCase):
 
         donation = DonationFactory.create(user=self.user, project=project, amount=10000)
 
-        self.assertTrue(project.campaign_ended is not None)
-        self.assertTrue(project.campaign_funded is not None)
-        self.assertEquals(project.status, ProjectPhase.objects.get(slug="done-complete"))
+        loaded_project = Project.objects.get(pk=project.pk)
+        self.assertTrue(loaded_project.campaign_ended is not None)
+        self.assertTrue(loaded_project.campaign_funded is not None)
+        self.assertEquals(loaded_project.status, ProjectPhase.objects.get(slug="done-complete"))
 
     def test_campaign_project_got_funded_allow_overfunding(self):
         """
@@ -661,9 +707,10 @@ class ChangeProjectStatuses(ProjectEndpointTestCase):
 
         donation = DonationFactory.create(user=self.user, project=project, amount=10000)
 
-        self.assertTrue(project.campaign_ended is None)
-        self.assertTrue(project.campaign_funded is not None)
-        self.assertEquals(project.status, ProjectPhase.objects.get(slug="campaign"))
+        loaded_project = Project.objects.get(pk=project.pk)
+        self.assertTrue(loaded_project.campaign_ended is None)
+        self.assertTrue(loaded_project.campaign_funded is not None)
+        self.assertEquals(loaded_project.status, ProjectPhase.objects.get(slug="campaign"))
 
     def test_campaign_project_not_funded(self):
         """
@@ -679,9 +726,10 @@ class ChangeProjectStatuses(ProjectEndpointTestCase):
 
         donation = DonationFactory.create(user=self.user, project=project, amount=99)
 
-        self.assertTrue(project.campaign_ended is None)
-        self.assertTrue(project.campaign_funded is None)
-        self.assertEquals(project.status, ProjectPhase.objects.get(slug="campaign"))
+        loaded_project = Project.objects.get(pk=project.pk)
+        self.assertTrue(loaded_project.campaign_ended is None)
+        self.assertTrue(loaded_project.campaign_funded is None)
+        self.assertEquals(loaded_project.status, ProjectPhase.objects.get(slug="campaign"))
 
     def test_project_expired(self):
         """
@@ -700,6 +748,7 @@ class ChangeProjectStatuses(ProjectEndpointTestCase):
         project.deadline = timezone.now() - timedelta(days=10)
         project.save()
 
-        self.assertEquals(project.campaign_ended, project.deadline)
-        self.assertTrue(project.campaign_funded is None)
-        self.assertEquals(project.status, ProjectPhase.objects.get(slug="done-incomplete"))
+        loaded_project = Project.objects.get(pk=project.pk)
+        self.assertEquals(loaded_project.campaign_ended, project.deadline)
+        self.assertTrue(loaded_project.campaign_funded is None)
+        self.assertEquals(loaded_project.status, ProjectPhase.objects.get(slug="done-incomplete"))

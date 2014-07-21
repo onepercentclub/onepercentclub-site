@@ -28,7 +28,7 @@ Getting started
 
     ./manage.py syncdb --migrate
 
-#.  You're ready to roll now, baby!
+#.  You're ready to roll now.
 
 Requirements and environment
 ----------------------------

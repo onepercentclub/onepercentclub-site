@@ -93,17 +93,17 @@ App.PaymentProfileRoute = Em.Route.extend({
         var order = this.modelFor('currentOrder');
         if (order.get('isVoucherOrder')) {
             if (order.get('vouchers.length') <= 0 ) {
-                this.transitionTo('currentOrder.voucherList')
+                this.transitionTo('currentOrder.voucherList');
             }
         } else {
             var controller = this.controllerFor('currentOrderDonationList');
             if (controller.get('editingRecurringOrder')) {
-                if (controller.get('recurringTotal') == 0 && this.get('recurringTotal') == controller.get('recurringOrder.total')) {
-                    this.transitionTo('currentOrder.donationList')
+                if (controller.get('recurringTotal') === 0 && this.get('recurringTotal') == controller.get('recurringOrder.total')) {
+                    this.transitionTo('currentOrder.donationList');
                 }
             } else {
                 if (!order.get('recurring') && order.get('donations.length') <= 0 ) {
-                    this.transitionTo('currentOrder.donationList')
+                    this.transitionTo('currentOrder.donationList');
                 }
             }
         }
@@ -143,7 +143,7 @@ App.PaymentSelectRoute = Em.Route.extend({
             if (!paymentProfile.get('isComplete')) {
                 route.replaceWith('paymentProfile');
             }
-        })
+        });
     },
 
     model: function(params) {
@@ -190,7 +190,7 @@ App.RecurringDirectDebitPaymentRoute = Em.Route.extend({
                     return store.createRecord(App.RecurringDirectDebitPayment);
                 }
             }
-        )
+        );
     }
 });
 

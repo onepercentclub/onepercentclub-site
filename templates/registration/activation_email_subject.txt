@@ -1,1 +1,2 @@
-Welcome to 1%Club
+{% load i18n %}
+{% blocktrans %}Welcome to 1%Club{% endblocktrans %}

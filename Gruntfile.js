@@ -37,8 +37,8 @@ module.exports = function (grunt) {
       },
       scss: {
       	options: {
-	      livereload: false,
-	    },
+	        livereload: false,
+	      },
         files: ['static/global/sass/**/*',"../bluebottle/bluebottle/common/static/sass/**/*"],
         tasks: ['render-sass:dev'],
       },

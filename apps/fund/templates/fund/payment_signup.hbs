@@ -2,7 +2,7 @@
 
 {% tplhandlebars "paymentSignup" %}
 
-    {{#if controllers.currentUser.isAuthenticated}}
+    {{#if currentUser.isAuthenticated}}
         <div class="l-content">
             <form>
                 <legend>
@@ -15,16 +15,9 @@
                 <button class="btn btn-primary btn-iconed btn-next"><em class="flaticon solid right-2"></em>{% trans "Next" %}</button>
             {{/linkTo}}
         </div>
-
     {{else}}
-
         <div class="l-content">
-            {{#unless controllers.currentUser.isAuthenticated}}
-                <a {{action openInBox "login"}} class="btn-login"><span class="flaticon solid lock-1"></span> <strong>{% trans "Have an account?" %}</strong><br /> {%  trans "Log in here" %}</a>
-            {{/unless}}
-
             <form>
-
                 <legend>
                     <strong>{% trans "Follow the progress?" %}</strong>
                     <p>{% trans "Sign up for an account and we keep you updated on the projects progress" %}.</p>
