@@ -554,15 +554,7 @@ App.CurrentOrderController = Em.ObjectController.extend({
 });
 
 
-App.OrderThanksController = Em.ObjectController.extend({
-    init: function(){
-        var model = this.get('model');
-        debugger
-        if (this.get('tracker')) {
-            this.get('tracker').trackEvent("Succesful donation", {"amount": ""});
-        }
-    }
-});
+App.OrderThanksController = Em.ObjectController.extend({});
 
 
 App.RecurringOrderThanksController = Em.ObjectController.extend({
