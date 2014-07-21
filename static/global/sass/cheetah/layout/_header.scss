@@ -1,12 +1,13 @@
 .cheetah-nav-item {
 	position: relative;
     cursor: pointer;
+	padding: 10px 14px 50px 14px;
+	border-radius: 8px 8px 0 0;
+
     &.active {
     	background: $color-primary!important;
 		color: #00C051!important;
     }
-	padding: 10px 14px 50px 14px;
-	border-radius: 8px 8px 0 0;
 
 	.cheetah-icon {
 		position: absolute;
@@ -72,6 +73,7 @@
 
 	.cheetah-nav {
 		margin: 0;
+		font-family: $font-family-garage;
 
 		li {
 			float: left;
@@ -81,12 +83,14 @@
 				width: 30px;
 				background: image-url("cheetah/icons/icon-to-top.svg") transparent no-repeat 0 0;
 				margin-top: 12px;
+				cursor: pointer;
 			}
 
 			a {
 				text-transform: uppercase;
 				text-decoration: none;
 				color: white;
+				font-size: 28px;
 			}
 		}
 	}
