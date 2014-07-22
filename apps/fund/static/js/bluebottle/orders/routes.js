@@ -151,6 +151,12 @@ App.PaymentSignupRoute = Em.Route.extend({
             model.set('last_name', profile.get('lastName'));
             return model;
         });
+    },
+
+    activate: function() {
+        if (this.get('tracker')) {
+            this.get('tracker').trackEvent("Payment Signup", {});
+        }
     }
 });
 
