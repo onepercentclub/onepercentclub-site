@@ -20,3 +20,12 @@ App.PartnerView = Em.View.extend({
 App.CheetahQuizView = Em.View.extend({
     templateName: 'cheetah_quiz'
 });
+
+App.CheetahFaqView = Em.View.extend({
+    didInsertElement: function(){
+        this.$('.faq-question').on('click', function() {
+            var test = $(this).toggleClass('active');
+            console.log(test)
+        })
+    }
+})
