@@ -245,9 +245,8 @@ App.PaymentSignupController = Em.ObjectController.extend({
     needs: ['paymentProfile'],
 
     proceedToNextStep: function(){
-        var _this = this,
-            currentRoute = App.__container__.lookup('router:main').location.getURL();
-        if (this.get('currentUser.isAuthenticated') && currentRoute == '/support/signup') {
+        var _this = this;
+        if (this.get('currentUser.isAuthenticated') &&  this.get('target').isActive('paymentSignup')) {
             if (this.get('paymentProfile.isComplete')){
                 _this.transitionToRoute('paymentSelect');
             } else {
