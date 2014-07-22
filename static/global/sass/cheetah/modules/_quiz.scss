@@ -45,11 +45,49 @@
 
 					.quiz-content {
 						text-align: left;
+						font-size: 15px;
+
+						a {
+							text-decoration: underline;
+							color: $color-white;
+							font-weight: bold;
+						}
+
+						p {
+							font-weight: normal;
+						}
 					}
 				}
 
 				&.is-active {
 					background: $color-white;
+
+					.tooltip-holder {
+						.tooltip {
+							margin: 0 -23px 42px -23px;
+							width: inherit;
+							text-align: left;
+							visibility: hidden;
+							font-size: 16px;
+							line-height: 21px;
+							
+							a {
+								color: $color-white;
+								text-decoration: underline;
+							}
+
+							&:after {
+								left: inherit;
+								right: 16px;
+							}
+						}
+
+						&:hover {
+							.tooltip {
+								visibility: visible;
+							}
+						}
+					}
 
 					input {
 						border-radius: 4px;
@@ -111,6 +149,14 @@
 					width: 17px;
 					height: 22px;
 					background: image-url("cheetah/icons/icon-euro-sign.svg") transparent no-repeat 0 0;
+				}
+
+				&:after {
+					position: absolute;
+					background: image-url("cheetah/icons/icon-arrow-down.svg") transparent no-repeat 0 0;
+					width: 20px;
+					height: 20px;
+					@include transform(rotate(45deg));
 				}
 			}
 
@@ -204,10 +250,19 @@
 		}
 	}
 
+	// .submit-quiz {
+	// 	position: absolute;
+	// 	right: 0;
+	// 	height: 45px;
+	// 	width: 45px;
+	// 	border: solid 1px #f3f3f3;
+	// 	bottom: 3px; 
+	// }
+
 	.quiz-result {
 		position: absolute;
 		width: 100%;
-		height: 206px;
+		min-height: 206px;
 		padding: 15px;
 		border-radius: 8px;
 		background: $color-white;
@@ -282,4 +337,12 @@
         }
     }
 
+}
+
+.question {
+	&:hover {
+		.quiz-heading {
+			display: none;
+		}
+	}
 }

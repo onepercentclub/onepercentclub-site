@@ -6,19 +6,28 @@
     <div class="l-section" id="cheetah-quiz">
 
         <div class="l-wrapper">
-            <div class="row">
-                <div class="quiz-heading">
-                    <h1>Who Can Join?</h1>
-                    <h2 class="sub-heading">Take the test to see if you’re a Cheetah!</h2>
+            {{#if questionThreePassed}}
+            <div class="row" style="display:none;">
+                    <div class="quiz-heading">
+                        <h1>{% trans 'Who Can Join?'%}</h1>
+                        <h2 class="sub-heading">{% trans 'Are you a Cheetah? Take the test to find out!'%}</h2>
+                    </div>
                 </div>
-            </div>
+                {{else}}
+                <div class="row">
+                    <div class="quiz-heading">
+                        <h1>{% trans 'Who Can Join?'%}</h1>
+                        <h2 class="sub-heading">{% trans 'Are you a Cheetah? Take the test to find out!'%}</h2>
+                    </div>
+                </div>
+            {{/if}}
             <div class="row quiz-blocks">
                 <div class="col4 block is-active">
                     {{#if questionOnePassed}}
                         <div class="front is-answer">
                             <div class="quiz-content">
                                 <p>
-                                    Are you an African pioneer with a project based in Africa?
+                                    {% trans 'Are you an African pioneer with a project based in Africa?'%}
                                 </p>
                                 <span class="question-correct"></span>
                             </div>
@@ -29,9 +38,9 @@
                             <div class="quiz-content">
                                 <a {{action 'answer' 'questionOne' null}} class="close-question"></a>
                                 <p>
-                                    Don’t worry!
-                                    Unfortunately the Cheetah Fund 2014 only accepts projects based in Africa by African pioneers. But don’t worry, you can always <a href="#">start a campaign 
-                                    at 1%Club</a>.
+                                    {% blocktrans %}
+                                        Unfortunately the Cheetah Fund 2014 only accepts projects based in Africa by African pioneers. Don’t worry, you can always <a href="/#!/pages/start-campaign">start a campaign at 1%Club!</a>}}
+                                    {% endblocktrans %}
                                 </p>
                             </div>
                         </div>
@@ -39,7 +48,7 @@
                         <div class="front">
                             <div class="quiz-content is-active">
                                 <p>
-                                    Are you an African pioneer with a project based in Africa?
+                                    {% trans 'Are you an African pioneer with a project based in Africa?'%}
                                 </p>
                                 <div class="quiz-answers">
                                     <span {{action 'answer' 'questionOne' 'yes'}} class="yes">Yes</span>
@@ -57,7 +66,7 @@
                             <div class="front is-answer">
                                 <div class="quiz-content">
                                     <p>
-                                        How much funding do you need to kickstart your project?
+                                        {% trans 'How much funding (in euros) do you need to kick-start or boost your project?'%}
                                     </p>
                                     <span class="question-correct"></span>
                                 </div>
@@ -68,21 +77,28 @@
                                     <div class="quiz-content">
                                         <a {{action 'answer' 'questionTwo' null}} class="close-question"></a>
                                         <p>
-                                            This is just wrong!
+                                            Still need text
                                         </p>
                                     </div>
                                 </div>
                             {{else}}
                                 <div class="front is-active">
                                     <div class="quiz-content is-active">
-                                        <a class="questionmark"></a>
+                                        <div class="tooltip-holder">
+                                            <a {{action 'answer' 'questionOne' null}} class="questionmark"></a>
+                                            <div class="tooltip">
+                                                {% blocktrans %}
+                                                    You might like to know that the most successful crowdfunding campaigns target a budget of around &euro;4000.
+                                                {% endblocktrans %}
+                                            </div>
+                                        </div>
                                         <p>
-                                             How much funding do you need to kickstart your project? <br/>(in euros)
+                                             {% trans 'How much funding (in euros) do you need to kick-start or boost your project?'%}
                                         </p>
                                         <label for="input">
                                             {{view Em.TextField valueBinding='answerTwo' autofocus="autofocus"}}
                                         </label>
-                                        <a {{action 'answer' 'questionTwo' answerTwo}}>Send</a>
+                                        <a {{action 'answer' 'questionTwo' answerTwo}} class="submit-quiz">Send</a>
                                     </div>
                                 </div>
                             {{/if}}
@@ -90,9 +106,9 @@
                     {{else}}
                         <div class="front is-inactive">
                             <div class="quiz-content">
-                                <a class="questionmark"></a>
+                                {{!-- <a class="questionmark"></a> --}}
                                 <p>
-                                    How much funding do you need to kickstart your project? <br/>(in euros)
+                                    {% trans 'How much funding (in euros) do you need to kick-start or boost your project?'%}
                                 </p>
                                 <label for="input">
                                     {{view Em.TextField valueBinding='answerTwo' disabled='true'}}
@@ -109,7 +125,7 @@
                             <div class="front is-answer">
                                 <div class="quiz-content">
                                     <p>
-                                        Does your project have social or environmental impact?
+                                        {% trans 'Does your project have social or environmental impact?'%}
                                     </p>
                                     <span class="question-correct"></span>
                                 </div>
@@ -120,16 +136,23 @@
                                     <div class="quiz-content">
                                         <a {{action 'answer' 'questionThree' null}} class="close-question"></a>
                                         <p>
-                                            This is just wrong!
+                                            Still need text
                                         </p>
                                     </div>
                                 </div>
                             {{else}}
                                 <div class="front is-active">
                                     <div class="quiz-content is-active">
-                                        <a {{action 'answer' 'questionOne' null}} class="questionmark"></a>
+                                        <div class="tooltip-holder">
+                                            <a {{action 'answer' 'questionOne' null}} class="questionmark"></a>
+                                            <div class="tooltip">
+                                                {% blocktrans %}
+                                                    Projects with a social or environmental impact add value to other people’s lives. Think of projects that tackle waste problems or work on clean and green transport. So with social or environmental impact we talk about projects that will lead to a cleaner, safer or friendlier Africa! <a href="#">Get inspired</a>
+                                                {% endblocktrans %}
+                                            </div>
+                                        </div>
                                         <p>
-                                            Does your project have social or environmental impact?
+                                            {% trans 'Does your project have social or environmental impact?'%}
                                         </p>
                                         <div class="quiz-answers">
                                             <span {{action 'answer' 'questionThree' 'yes'}} class="yes">Yes</span>
@@ -142,13 +165,20 @@
                     {{else}}
                         <div class="front is-inactive">
                             <div class="quiz-content">
-                                <a {{action 'answer' 'questionOne' null}} class="questionmark"></a>
+{{!--                                 <div class="tooltip-holder">
+                                    <a {{action 'answer' 'questionOne' null}} class="questionmark"></a>
+                                    <div class="tooltip">
+                                        {% blocktrans %}
+                                            Projects with a social or environmental impact add value to other people’s lives. Think of projects that tackle waste problems or work on clean and green transport. So with social or environmental impact we talk about projects that will lead to a cleaner, safer or friendlier Africa! <a href="#">Get inspired</a>
+                                        {% endblocktrans %}
+                                    </div>
+                                </div> --}}
                                 <p>
-                                    Does your project have social or environmental impact?
+                                    {% trans 'Does your project have social or environmental impact?'%}
                                 </p>
                                 <div class="quiz-answers">
-                                    <span class="yes">Yes</span>
-                                    <span class="no">No</span>
+                                    <span class="yes">{% trans 'Yes'%}</span>
+                                    <span class="no">{% trans 'No'%}</span>
                                 </div>  
                             </div>
                         </div>
@@ -164,11 +194,11 @@
                         </div>
                         <div class="quiz-text">
                             <div class="quiz-heading">
-                                <h1>Come Run with the Cheetahs!</h1>
-                                <h2>You’re the perfect fit for the Cheetah Fund!</h2>
+                                <h1>{% trans 'Come run with the cheetahs'%}</h1>
+                                <h2>{% trans 'You’re the perfect fit for the Cheetah Fund!'%}</h2>
                                 <div class="btn-group">
-                                    {{#link-to 'myPartnerProject' 'cheetah' classNames='btn'}}Start a Cheetah Campaign!{{/link-to}}
-                                    {{#link-to 'myPartnerProject' 'cheetah' classNames='btn btn-trans'}}Learn more{{/link-to}}
+                                    {{#link-to 'myPartnerProject' 'cheetah' classNames='btn'}}{% trans 'Start a Cheetah Campaign'%}{{/link-to}}
+                                    <a {{action 'goTo' '#cheetah-get-funded' target='view'}} class="btn btn-trans">{% trans 'Learn more'%}</a></li>
                                 </div>
                             </div>
                         </div>
