@@ -11,14 +11,12 @@
 	h1 {
 		color: $color-secondary;
 		font-size: 36px;
-		font-weight: 900;
 		text-transform: none;
 	}
 	
 	h2 {
 		color: $color-primary;
 		font-size: 24px;
-		font-weight: 900;
 		line-height: 38px;
 		text-transform: none;
 	}
@@ -55,11 +53,11 @@
 	}
 
 	.btn {
-		font-size: 18px;
+		font-size: 34px;
 		position: relative;
 		display: inline-block;
 		background: $color-secondary;
-		padding: 0.75em 1.25em;
+		padding: 0em 0.6em;
 		vertical-align: center;
 		border-radius: 8px;
 		color: #fff;
@@ -68,6 +66,21 @@
 		border: none;
 		text-transform: uppercase;
 		@include single-box-shadow(none);
+
+		&.btn-trans {
+			background: none;
+			color: $color-purple;
+
+			&:after {
+				position: absolute;
+				top: 21px;
+				right: 0;
+				content: '';
+				width: 12px;
+				height: 9px;
+				background: image-url("/static/assets/images/cheetah/icons/icon-arrow-down.svg") no-repeat;	
+			}
+		}
 
 		&:hover {
 			@include single-box-shadow(none);			

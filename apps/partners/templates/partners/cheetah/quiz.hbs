@@ -158,14 +158,18 @@
             {{#if questionThreePassed}}
                 <div class="quiz-result">
                     <div class="quiz-content">
+                        <a {{action 'answer' 'questionThree' null}} class="close-question"></a>
                         <div class="quiz-img">
                             <span></span>
                         </div>
                         <div class="quiz-text">
                             <div class="quiz-heading">
-                                <h1>How To Get Funded</h1>
-                                <h2>Join us now. All you have to do is follow these three steps:</h2>
-                                {{#link-to 'myPartnerProject' 'cheetah'}}Create Cheetah Campaign{{/link-to}}
+                                <h1>Come Run with the Cheetahs!</h1>
+                                <h2>You’re the perfect fit for the Cheetah Fund!</h2>
+                                <div class="btn-group">
+                                    {{#link-to 'myPartnerProject' 'cheetah' classNames='btn'}}Start a Cheetah Campaign!{{/link-to}}
+                                    {{#link-to 'myPartnerProject' 'cheetah' classNames='btn btn-trans'}}Learn more{{/link-to}}
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -13,13 +13,18 @@
 		.cheetah-content {
 			float: left;
 			display: block;
-			font-size: 20px;
+			font-size: 28px;
 			text-transform: uppercase;
 			color: $color-primary;
 			margin-left: 5px;
+			
+			span {
+				font-family: $font-family-garage
+			}
 
 			h1 {
 				color: $color-secondary;
+				font-family: $font-family-avant;
 			}
 		}
 	}
@@ -27,9 +32,11 @@
 	.video-intro {
 		padding: 50px 0 50px 0;
 
-		h2 {	
+		h2 {
+			font-size: 28px;
 			font-family: $font-family-avant;
 			font-weight: 800;
+			line-height: 38px;
 		}
 
 		img {
