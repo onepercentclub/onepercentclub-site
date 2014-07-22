@@ -16,10 +16,6 @@ App.MyProjectStartRoute.reopen({
 
 App.MyProjectListRoute.reopen(App.AuthenticatedRouteMixin, {});
 App.MyProjectSubRoute.reopen(App.AuthenticatedRouteMixin, {});
-App.MyProjectGoalRoute = App.MyProjectSubRoute.extend({
-    activate: function() {
-        if (this.get('tracker')) {
-            this.get('tracker').trackEvent("Create Campaign - Goal", {});
-        }
-    }
+App.MyProjectGoalRoute = App.MyProjectSubRoute.extend(App.TrackRouteActivateMixin, {
+    trackEventName: 'Create Campaign - Goal'
 });

@@ -88,7 +88,9 @@ App.FundRaiserDonationListRoute = Em.Route.extend({
 });
 
 
-App.MyFundRaiserListRoute = Em.Route.extend(App.ScrollToTop, {
+App.MyFundRaiserListRoute = Em.Route.extend(App.ScrollToTop, App.TrackRouteActivateMixin, {
+    trackEventName: 'My fundraisers',
+
     model: function(params) {
         return App.CurrentUser.find('current').then(function(user) {
             var user_id = user.get('id_for_ember');
@@ -97,13 +99,6 @@ App.MyFundRaiserListRoute = Em.Route.extend(App.ScrollToTop, {
     },
     setupController: function(controller, model) {
         this._super(controller, model);
-    },
-
-    activate: function() {
-
-        if (this.get('tracker')) {
-            this.get('tracker').trackEvent("My fundraisers", {});
-        }
     }
 });
 //
