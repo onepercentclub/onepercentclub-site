@@ -10,10 +10,12 @@ App.TrackerController = Em.ObjectController.extend({
 
    }.observes('window'),
 
-   trackEvent: function(name, properties){
-       if (Em.typeOf(name) == 'string' && Em.typeOf(properties) == 'object') {
-           this.get('_tracker').track(name, properties);
-       }
+   trackEvent: function(name, properties) {
+        if (Em.typeOf(properties) == 'undefined') properties = {};
+
+        if (Em.typeOf(name) == 'string' && Em.typeOf(properties) == 'object') {
+            this.get('_tracker').track(name, properties);
+        }
     },
 
     setUserDetails: function(){

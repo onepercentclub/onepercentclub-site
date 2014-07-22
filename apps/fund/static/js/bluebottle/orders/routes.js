@@ -42,7 +42,9 @@ App.CurrentOrderRoute = Em.Route.extend({
 });
 
 
-App.CurrentOrderDonationListRoute = Em.Route.extend(App.ScrollToTop, {
+App.CurrentOrderDonationListRoute = Em.Route.extend(App.TrackRouteActivateMixin, App.ScrollToTop, {
+    trackEventName: 'Donation list',
+
     model: function(params) {
         return this.modelFor('currentOrder').get('donations');
     },
@@ -51,12 +53,6 @@ App.CurrentOrderDonationListRoute = Em.Route.extend(App.ScrollToTop, {
         this._super(controller, donations);
         this.controllerFor('currentOrder').set('isVoucherOrder', false);
         controller.set('paymentProfile', App.PaymentProfile.find('current'));
-    },
-
-    activate: function() {
-        if (this.get('tracker')) {
-            this.get('tracker').trackEvent("Donation list", {});
-        }
     }
 });
 
@@ -101,7 +97,9 @@ App.OrderThanksRoute = Em.Route.extend({
  * Payment for Current Order Routes
  */
 
-App.PaymentProfileRoute = Em.Route.extend({
+App.PaymentProfileRoute = Em.Route.extend(App.TrackRouteActivateMixin, {
+    trackEventName: 'Payment details',
+
     beforeModel: function() {
         var order = this.modelFor('currentOrder');
         if (order.get('isVoucherOrder')) {
@@ -125,18 +123,13 @@ App.PaymentProfileRoute = Em.Route.extend({
 
     model: function(params) {
         return App.PaymentProfile.find('current');
-    },
-
-    activate: function() {
-        if (this.get('tracker')) {
-            this.get('tracker').trackEvent("Payment details", {});
-        }
     }
-
 });
 
 
-App.PaymentSignupRoute = Em.Route.extend({
+App.PaymentSignupRoute = Em.Route.extend(App.TrackRouteActivateMixin, {
+    trackEventName: 'Payment Signup',
+
     redirect: function(){
         var route = this;
         App.CurrentUser.find('current').then(function(user) {
@@ -151,17 +144,13 @@ App.PaymentSignupRoute = Em.Route.extend({
             model.set('last_name', profile.get('lastName'));
             return model;
         });
-    },
-
-    activate: function() {
-        if (this.get('tracker')) {
-            this.get('tracker').trackEvent("Payment Signup", {});
-        }
     }
 });
 
 
-App.PaymentSelectRoute = Em.Route.extend({
+App.PaymentSelectRoute = Em.Route.extend(App.TrackRouteActivateMixin, {
+    trackEventName: 'Payment select',
+
     beforeModel: function() {
         // var paymentProfile = this.modelFor('paymentProfile');
         var route = this;
@@ -178,17 +167,13 @@ App.PaymentSelectRoute = Em.Route.extend({
     setupController: function(controller, model){
         this._super(controller, model);
         controller.set('paymentProfile', App.PaymentProfile.find('current'));
-    },
-
-    activate: function() {
-        if (this.get('tracker')) {
-            this.get('tracker').trackEvent("Payment select", {});
-        }
     }
 });
 
 
-App.PaymentSelectPaymentErrorRoute = Em.Route.extend({
+App.PaymentSelectPaymentErrorRoute = Em.Route.extend(App.TrackRouteActivateMixin, {
+    trackEventName: 'Payment Error',
+
     beforeModel: function() {
         var order = this.modelFor('currentOrder');
         this.replaceWith('currentOrder.donationList');
@@ -199,12 +184,6 @@ App.PaymentSelectPaymentErrorRoute = Em.Route.extend({
             message_content: gettext('There was an error with your payment. Please try again.')
         });
 
-    },
-
-    activate: function() {
-        if (this.get('tracker')) {
-            this.get('tracker').trackEvent("Payment Error", {});
-        }
     }
 });
 
@@ -241,10 +220,6 @@ App.TickerRoute = Em.Route.extend({
 });
 
 
-App.RecurringOrderThanksRoute = Em.Route.extend({
-    activate: function() {
-        if (this.get('tracker')) {
-            this.get('tracker').trackEvent("Successful Recurring Donation", {});
-        }
-    }
+App.RecurringOrderThanksRoute = Em.Route.extend(App.TrackRouteActivateMixin, {
+    trackEventName: 'Successful Recurring Donation'
 });
