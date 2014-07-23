@@ -68,6 +68,11 @@
 		text-transform: uppercase;
 		@include box-shadow(none);
 		cursor: pointer;
+		
+		&:hover {
+			@include box-shadow(none);
+			background: $color-primary;
+		}
 
 		&.btn-trans {
 			background: none;
@@ -82,11 +87,10 @@
 				height: 9px;
 				background: image-url("/static/assets/images/cheetah/icons/icon-arrow-down.svg") no-repeat;	
 			}
-		}
 
-		&:hover {
-			@include box-shadow(none);
-			background: $color-primary;
+			&:hover {
+				background: transparent;
+			}
 		}
 	}
 
