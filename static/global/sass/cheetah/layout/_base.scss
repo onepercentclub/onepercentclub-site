@@ -23,6 +23,7 @@
 
 	.sub-heading {
 		font-family: $font-family-avant;
+		margin-bottom: 12px;
 	}
 	
 	a {
@@ -65,7 +66,13 @@
 		font-weight: 700;
 		border: none;
 		text-transform: uppercase;
-		@include single-box-shadow(none);
+		@include box-shadow(none);
+		cursor: pointer;
+		
+		&:hover {
+			@include box-shadow(none);
+			background: $color-primary;
+		}
 
 		&.btn-trans {
 			background: none;
@@ -80,10 +87,10 @@
 				height: 9px;
 				background: image-url("/static/assets/images/cheetah/icons/icon-arrow-down.svg") no-repeat;	
 			}
-		}
 
-		&:hover {
-			@include single-box-shadow(none);			
+			&:hover {
+				background: transparent;
+			}
 		}
 	}
 

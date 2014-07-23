@@ -51,9 +51,11 @@
 	}
 
 	.start-cheetah {
-		margin-top: 40px;
-		width: 100%;
 		text-align: center;
+
+		.btn {
+			margin-left: 65px;
+		}
 	}
 }
 

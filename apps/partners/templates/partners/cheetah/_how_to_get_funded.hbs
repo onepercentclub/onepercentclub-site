@@ -60,11 +60,11 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col4"></div>
-                    <div class="col4">
-                        <a href="#" class="btn start-cheetah">{% trans 'Start a Cheetah Campaign'%}</a>
+                    <div class="col12 start-cheetah">
+                        {{#link-to 'myPartnerProject' 'cheetah' class="btn start-cheetah"}}
+                            {% trans "Start a Cheetah Campaign" %}
+                        {{/link-to}}
                     </div>
-                    <div class="col4"></div>
                 </div>
             </div>
         </div>

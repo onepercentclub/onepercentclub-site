@@ -12,9 +12,9 @@ $color-white												: #FFFFFF; // white
 // Typography                                                   
 // --------------------------------
                                                               
-$font-family-garage											: 'GarageGothic Bold';
-$font-family-avant											: 'ITC Avant Garde Gothic W02';
-$font-family-body											: 'Helvetica Neue', Helvetica;
+$font-family-garage											: 'GarageGothic Bold', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-family-avant											: 'ITC Avant Garde Gothic W02', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-family-body											: 'Helvetica Neue', Helvetica, Arial, sans-serif;
                                                                 
 $base-font-size                                            : 1em !default;
 $base-font-family                                          : $font-family !default;
