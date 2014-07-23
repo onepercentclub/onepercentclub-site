@@ -51,8 +51,8 @@
                                     {% trans 'Are you an African pioneer with a project based in Africa?'%}
                                 </p>
                                 <div class="quiz-answers">
-                                    <span {{action 'answer' 'questionOne' 'yes'}} class="yes">Yes</span>
-                                    <span {{action 'answer' 'questionOne' 'no'}} class="no">No</span>
+                                    <span {{action 'answer' 'questionOne' 'yes'}} class="yes">{% trans 'Yes'%}</span>
+                                    <span {{action 'answer' 'questionOne' 'no'}} class="no">{% trans 'No'%}</span>
                                 </div>  
                             </div>
                         </div>
@@ -138,7 +138,7 @@
                                     <div class="quiz-content">
                                         <a {{action 'answer' 'questionThree' null}} class="close-question"></a>
                                         <p>
-                                            Still need text
+                                            {% trans 'Because the Cheetah Fund 2014 wants to ignite a big wave of social change throughout Africa we only accept projects that will have a social or environmental impact.'%}
                                         </p>
                                     </div>
                                 </div>
