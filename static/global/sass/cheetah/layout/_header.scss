@@ -1,50 +1,63 @@
 .cheetah-nav-item {
-	position: relative;
+    position: relative;
     cursor: pointer;
-	padding: 10px 14px 50px 14px;
-	border-radius: 8px 8px 0 0;
-	
+    padding: 10px 14px 50px 14px;
+    border-radius: 8px 8px 0 0;
+
     &.active {
-    	background: $color-primary !important;
-		color: #00C051 !important;
+        background: $color-primary!important;
+        color: #00C051 !important;
     }
 
-	.cheetah-icon {
-		position: absolute;
-		width: 32px;
-		height: 31px;
-		top: -20px;
-		left: 0;
-		right: 0;
-		margin-left: auto;
-		margin-right: auto;
-		background: #f8f7f8;
-		border: solid 3px #f8f7f8;
-		border-radius: 50%;
-		.cheetah-head {
-			display: block;
-			width: 28px;
-			height: 26px;
-			background: image-url("cheetah/icons/icon-cheetah-head.svg") transparent no-repeat 0 0;
-		}
-	}
+    .cheetah-icon {
+        position: absolute;
+        width: 32px;
+        height: 31px;
+        top: -20px;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        background: #f8f7f8;
+        border: solid 3px #f8f7f8;
+        border-radius: 50%;
+        .cheetah-head {
+            display: block;
+            width: 28px;
+            height: 26px;
+            background: image-url("cheetah/icons/icon-cheetah-head.svg") transparent no-repeat 0 0;
+        }
+    }
 
 }
 
 .is-scrolled {
+
     .cheetah-nav-item {
-	    padding-bottom: 22px;
+        padding-bottom: 22px;
 
     }
 
     .cheetah-icon {
         display: none;
     }
+
     #cheetah-header {
         height: 4px;
         top: 60px;
+        @include transition(height, .1s ease-in-out);
+
         .l-wrapper {
             display: none;
+        }
+
+        &.is-active {
+            height: 54px;
+            display: block;
+
+            .l-wrapper {
+            display: block;
+            }
         }
     }
 }

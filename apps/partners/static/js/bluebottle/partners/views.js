@@ -25,7 +25,6 @@ App.CheetahFaqView = Em.View.extend({
     didInsertElement: function(){
         this.$('.faq-question').on('click', function() {
             var test = $(this).toggleClass('active');
-            console.log(test)
-        })
+        });
     }
 })
