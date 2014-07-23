@@ -3,10 +3,10 @@
     cursor: pointer;
 	padding: 10px 14px 50px 14px;
 	border-radius: 8px 8px 0 0;
-
+	
     &.active {
-    	background: $color-primary!important;
-		color: #00C051!important;
+    	background: $color-primary !important;
+		color: #00C051 !important;
     }
 
 	.cheetah-icon {
@@ -91,6 +91,10 @@
 				text-decoration: none;
 				color: white;
 				font-size: 28px;
+
+				&:hover {
+					color: $color-secondary;
+				}
 			}
 		}
 	}

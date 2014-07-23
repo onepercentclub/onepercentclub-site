@@ -23,6 +23,7 @@
 
 	.sub-heading {
 		font-family: $font-family-avant;
+		margin-bottom: 12px;
 	}
 	
 	a {
@@ -65,7 +66,8 @@
 		font-weight: 700;
 		border: none;
 		text-transform: uppercase;
-		@include single-box-shadow(none);
+		@include box-shadow(none);
+		cursor: pointer;
 
 		&.btn-trans {
 			background: none;
@@ -83,7 +85,8 @@
 		}
 
 		&:hover {
-			@include single-box-shadow(none);			
+			@include box-shadow(none);
+			background: $color-primary;
 		}
 	}
 

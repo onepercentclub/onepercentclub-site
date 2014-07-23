@@ -204,6 +204,7 @@
 					font-family: $font-family-garage;
 					text-transform: uppercase;
 					font-size: 30px;
+					cursor: pointer;
 
 					&.yes {
 						float: left;
@@ -227,6 +228,11 @@
 					> span {
 						border-color: $color-primary;
 						background: $color-primary;
+
+						&:hover {
+							border-color: $color-secondary;
+							background: $color-secondary;
+						}
 					}
 				}
 			}
