@@ -155,6 +155,8 @@ App.ApplicationRoute.reopen(App.LogoutJwtMixin, {
                     }
                     donation.set('order', order);
                     donation.save();
+
+                    route.get('tracker').trackEvent("Support Campaign", {project: project.get('title')});
                 }
                 route.transitionTo('currentOrder.donationList');
             });
@@ -172,7 +174,7 @@ App.ApplicationController.reopen({
         // FIXME: should call the clearJwtToken action here but it isn't being called.
         delete localStorage.jwtToken;
         App.set('jwtToken', null);
-    },
+    }
 });
 
 App.EventMixin = Em.Mixin.create({
