@@ -11,11 +11,16 @@ App.CheetahQuizController = Em.Controller.extend({
     questionOneFailed: Em.computed.equal('questionOne', 'no'),
 
     questionTwoPassed: function(){
-        var answer = this.get('questionTwo');
+        var answer = this.get('questionTwo'),
+            removeComma, newAnswer;
+
         if (!answer) return false;
-        return (answer <= 10000);
+        removeComma = answer.split(','[0]);
+        newAnswer = removeComma[0].replace('.', '');
+        
+        return (newAnswer <= 20000);
     }.property('questionTwo'),
-    questionTwoFailed: Em.computed.gt('questionTwo', 10000),
+    questionTwoFailed: Em.computed.gt('questionTwo', 20000),
 
     questionThreePassed: Em.computed.equal('questionThree', 'yes'),
     questionThreeFailed: Em.computed.equal('questionThree', 'no'),
@@ -24,7 +29,5 @@ App.CheetahQuizController = Em.Controller.extend({
         answer: function(question, value){
             this.set(question, value);
         }
-
     }
-
 });

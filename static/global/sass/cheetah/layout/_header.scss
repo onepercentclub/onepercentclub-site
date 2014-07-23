@@ -34,7 +34,7 @@
 .is-scrolled {
 
     .cheetah-nav-item {
-        padding-bottom: 22px;
+        padding-bottom: 20px;
 
     }
 
@@ -43,7 +43,7 @@
     }
 
     #cheetah-header {
-        height: 4px;
+        height:1px;
         top: 60px;
         @include transition(height, .1s ease-in-out);
 

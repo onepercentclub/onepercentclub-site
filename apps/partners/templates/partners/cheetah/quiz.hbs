@@ -66,7 +66,7 @@
                             <div class="front is-answer">
                                 <div class="quiz-content">
                                     <p>
-                                        {% trans 'How much funding (in euros) do you need to kick-start or boost your project?'%}
+                                        {% trans 'How much funding (in dollars) do you need to kick-start or boost your project?'%}
                                     </p>
                                     <span class="question-correct"></span>
                                 </div>
@@ -77,7 +77,9 @@
                                     <div class="quiz-content">
                                         <a {{action 'answer' 'questionTwo' null}} class="close-question"></a>
                                         <p>
-                                            Still need text
+                                         {% blocktrans %}
+                                            In order to join the fund opportunity the budget can’t exceed &dollar;20.000. Please reconsider your budget or go to <a href="/">1%Club</a> and start your campaign there!)
+                                        {% endblocktrans %}
                                         </p>
                                     </div>
                                 </div>
@@ -88,17 +90,17 @@
                                             <a {{action 'answer' 'questionOne' null}} class="questionmark"></a>
                                             <div class="tooltip">
                                                 {% blocktrans %}
-                                                    You might like to know that the most successful crowdfunding campaigns target a budget of around &euro;4000.
+                                                    You might like to know that the most successful crowdfunding campaigns target a budget of around &dollar;5000.
                                                 {% endblocktrans %}
                                             </div>
                                         </div>
                                         <p>
-                                             {% trans 'How much funding (in euros) do you need to kick-start or boost your project?'%}
+                                             {% trans 'How much funding (in dollars) do you need to kick-start or boost your project?'%}
                                         </p>
                                         <label for="input">
                                             {{view Em.TextField valueBinding='answerTwo' autofocus="autofocus"}}
                                         </label>
-                                        <a {{action 'answer' 'questionTwo' answerTwo}} class="submit-quiz">Send</a>
+                                        <a {{action 'answer' 'questionTwo' answerTwo}} class="submit-quiz"></a>
                                     </div>
                                 </div>
                             {{/if}}
@@ -108,12 +110,12 @@
                             <div class="quiz-content">
                                 {{!-- <a class="questionmark"></a> --}}
                                 <p>
-                                    {% trans 'How much funding (in euros) do you need to kick-start or boost your project?'%}
+                                    {% trans 'How much funding (in dollars) do you need to kick-start or boost your project?'%}
                                 </p>
                                 <label for="input">
                                     {{view Em.TextField valueBinding='answerTwo' disabled='true'}}
                                 </label>
-                                <a {{action 'answer' 'questionTwo' answerTwo}}>Send</a>
+                                
                             </div>
                         </div>
                     {{/if}}
@@ -144,7 +146,7 @@
                                 <div class="front is-active">
                                     <div class="quiz-content is-active">
                                         <div class="tooltip-holder">
-                                            <a {{action 'answer' 'questionOne' null}} class="questionmark"></a>
+                                            <a {{action 'answer' 'questionThree' null}} class="questionmark"></a>
                                             <div class="tooltip">
                                                 {% blocktrans %}
                                                     Projects with a social or environmental impact add value to other people’s lives. Think of projects that tackle waste problems or work on clean and green transport. So with social or environmental impact we talk about projects that will lead to a cleaner, safer or friendlier Africa! <a href="#">Get inspired</a>
@@ -165,14 +167,6 @@
                     {{else}}
                         <div class="front is-inactive">
                             <div class="quiz-content">
-{{!--                                 <div class="tooltip-holder">
-                                    <a {{action 'answer' 'questionOne' null}} class="questionmark"></a>
-                                    <div class="tooltip">
-                                        {% blocktrans %}
-                                            Projects with a social or environmental impact add value to other people’s lives. Think of projects that tackle waste problems or work on clean and green transport. So with social or environmental impact we talk about projects that will lead to a cleaner, safer or friendlier Africa! <a href="#">Get inspired</a>
-                                        {% endblocktrans %}
-                                    </div>
-                                </div> --}}
                                 <p>
                                     {% trans 'Does your project have social or environmental impact?'%}
                                 </p>

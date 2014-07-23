@@ -87,6 +87,12 @@
 								visibility: visible;
 							}
 						}
+
+						&.is-active {
+							.tooltip {
+								visibility: visible;
+							}
+						}
 					}
 
 					input {
@@ -143,12 +149,12 @@
 
 				&:before {
 					position: absolute;
-					top: 0;
+					top: -2px;
 					left: 15px;
 					content: '';
 					width: 17px;
-					height: 22px;
-					background: image-url("cheetah/icons/icon-euro-sign.svg") transparent no-repeat 0 0;
+					height: 26px;
+					background: image-url("cheetah/icons/icon-dollar-sign.svg") transparent no-repeat 0 0;
 				}
 
 				&:after {
@@ -256,14 +262,33 @@
 		}
 	}
 
-	// .submit-quiz {
-	// 	position: absolute;
-	// 	right: 0;
-	// 	height: 45px;
-	// 	width: 45px;
-	// 	border: solid 1px #f3f3f3;
-	// 	bottom: 3px; 
-	// }
+	.submit-quiz {
+		position: relative;
+		margin-top: -50px;
+		float: right;
+		height: 45px;
+		width: 50px;
+		padding: 5px;
+		border-radius: 0 4px 4px 0;
+		border: solid 1px #d8d8d8;
+		background: $color-white;
+		@include transition(background, .3s ease-in-out);
+
+		&:after {
+			position: absolute;
+			content: '';
+			top: 17px;
+			right: 17px;
+			width: 13px;
+			height: 9px;
+			background: image-url("cheetah/icons/icon-arrow-green-up.svg") transparent no-repeat 0 0;
+			@include transform(rotate(90deg));
+		}
+
+		&:hover {
+			background: rgba($color-purple, .1);
+		}
+	}
 
 	.quiz-result {
 		position: absolute;
@@ -312,6 +337,10 @@
 						margin-top: -5px;
 						font-family: $font-family-avant;
 						color: $color-secondary;
+					}
+
+					&.is-inactive {
+						display: none;
 					}
 
 					.btn-group {
