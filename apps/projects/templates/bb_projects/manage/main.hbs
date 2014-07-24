@@ -38,7 +38,7 @@
                         {{/if}}
 
                     </div>
-                    <ul id="campaign-steps" class="{{#if isPhasePlanNew}} steps tabs {{else}} tabs {{/if}}">
+                    <ul id="campaign-steps" {{bind-attr class=":tabs isPhasePlanNew:steps"}}>
                         <li>
                             {{#link-to "myProject.pitch" classBinding=":tab-link validPitch:validated"}}
                                 {{#if validPitch}}

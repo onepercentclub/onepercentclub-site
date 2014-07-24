@@ -1,8 +1,12 @@
 .cheetah-nav-item {
     position: relative;
     cursor: pointer;
-    padding: 10px 14px 50px 14px;
+    padding: 10px 14px 50px 34px;
     border-radius: 8px 8px 0 0;
+
+    &:hover {
+        color: $color-primary;
+    }
 
     &.active {
         background: $color-primary!important;
