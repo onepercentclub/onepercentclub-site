@@ -19,3 +19,8 @@
 		}
 	}
 }
+
+// Make sure main menu shows over sub-menu
+#header header {
+    z-index: 10;
+}

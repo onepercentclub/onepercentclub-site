@@ -3,9 +3,28 @@
 
 {% tplhandlebars "_main_nav" %}
     <ul class="nav-main">
-        <li class="nav-main-item">{{#linkTo 'projectList'}}{% blocktrans %}Support a campaign{% endblocktrans %}{{/linkTo}}</li>
-        <li class="nav-main-item">{{#linkTo 'page' 'start-campaign'}}{% blocktrans %}Start campaign{% endblocktrans %}{{/linkTo}}</li>
-        <li class="nav-main-item">{{#linkTo 'page' 'about'}}{% blocktrans %}About{% endblocktrans %}{{/linkTo}}</li>
+        <li class="nav-main-item">
+            {{#linkTo 'projectList'}}
+                {% blocktrans %}Support a campaign{% endblocktrans %}
+            {{/linkTo}}
+        </li>
+        <li class="nav-main-item">
+            {{#linkTo 'page' 'start-campaign'}}
+                {% blocktrans %}Start campaign{% endblocktrans %}
+            {{/linkTo}}
+        </li>
+        <li class="nav-main-item">
+            {{#linkTo 'page' 'about'}}
+                {% blocktrans %}About{% endblocktrans %}
+            {{/linkTo}}
+        </li>
+        {{#link-to 'partner' 'cheetah' tagName='li' class="nav-main-item cheetah-nav-item"}}
+            <div class="cheetah-icon">
+                <span class="cheetah-head"></span>
+            </div>
+            {% blocktrans %}The Cheetah Fund{% endblocktrans %}
+        {{/link-to}}
+
     </ul>
     <div class="mobile-nav-holder">
         <ul class="mobile-nav">

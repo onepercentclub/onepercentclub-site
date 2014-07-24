@@ -1,0 +1,21 @@
+// Colors                                                       
+// --------------------------------                             
+
+$color-primary                                             	: #28245C; // purple
+$color-secondary                                           	: #00C051; // green
+
+$color-text											   		: #C3C3C3; // dark gray
+$color-purple											   	: #A6A2BA; // light purple
+$color-light-gray											: #F8F7F8; // light gray
+$color-white												: #FFFFFF; // white
+
+// Typography                                                   
+// --------------------------------
+                                                              
+$font-family-garage											: 'GarageGothic Bold', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-family-avant											: 'ITC Avant Garde Gothic W02', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-family-body											: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                                                                
+$base-font-size                                            : 1em !default;
+$base-font-family                                          : $font-family !default;
+$base-line-height                                          : 1.5em !default;

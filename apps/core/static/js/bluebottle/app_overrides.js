@@ -178,6 +178,26 @@ App.EventMixin = Em.Mixin.create({
     $(document).bind('touchmove', onScroll);
   },
 
+  startStopScrolling: function(elm, nameClass) {
+    var lastScroll = 0,
+        st, startScroll;
+
+    startScroll = function() {
+        st = $(this).scrollTop();
+
+        if (st > lastScroll) {
+            $(elm).removeClass(nameClass);
+        } else {
+            $(elm).addClass(nameClass);
+        }
+
+        lastScroll = st;
+    };
+
+    $(window).bind('scroll', startScroll);
+    $(document).bind('touchmove', startScroll);
+  },
+
   unbindScrolling: function () {
     $(window).unbind('scroll');
     $(document).unbind('touchmove');
@@ -204,6 +224,7 @@ App.EventMixin = Em.Mixin.create({
 App.ApplicationView.reopen(App.EventMixin, {
     setBindScrolling: function() {
         this.bindScrolling();
+        this.startStopScrolling('#cheetah-header', 'is-active');
     }.on('didInsertElement'),
 
     setUnbindScrolling: function() {

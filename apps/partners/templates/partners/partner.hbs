@@ -1,0 +1,30 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "partner" %}
+    <div class="l-section" id="partner-detail">
+        <section class="l-wrapper">
+
+            <figure class="image">
+                <img {{bindAttr src="image.large"}} />
+            </figure>
+
+            <article>
+                <h1>{{name}}</h1>
+                <p>{{linebreaks description formatting='br'}}</p>
+            </article>
+
+        </section>
+
+        <section class="l-wrapper">
+            <ul id="search-results">
+                {{#each project in projects}}
+                    {{render "projectPreview" project}}
+                {{else}}
+                    <li class="no-results">{% trans "No projects found." %}</li>
+                {{/each}}
+            </ul>
+        </section>
+    </div>
+{% endtplhandlebars %}
