@@ -111,7 +111,7 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
     def test_upload_multiple_wallpost_images(self):
         """ Test uploading multiple images in a media wallpost """
 
-        self.assertTrue(self.login(self.user.email, 'testing'))
+        self.login(self.user.email, 'testing')
         self.visit_project_list_page()
 
         # pick a project
@@ -228,7 +228,6 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         """
         Creating a project. The positive flow.
         """
-
         self.visit_path('/my/projects')
 
         # Click "Pitch Smart Idea" btn
@@ -380,6 +379,7 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         Project.objects.filter(slug=self.project_data['slug']).exists()
 
     def test_change_project_goal(self):
+
         plan_phase = ProjectPhase.objects.get(slug='plan-new')
         project = OnePercentProjectFactory.create(title='Project Goal Changes', owner=self.user, status=plan_phase)
         self.visit_path('/my/projects/{0}/goal'.format(project.slug))

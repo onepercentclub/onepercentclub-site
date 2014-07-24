@@ -1,5 +1,6 @@
 from bluebottle.bb_projects.models import ProjectPhase
 from django.utils.text import slugify
+from django.utils.unittest.case import skip
 
 from ..middleware import HASHBANG, ESCAPED_FRAGMENT
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
@@ -30,13 +31,6 @@ class CrawlableTests(OnePercentSeleniumTestCase):
         self.project_list_url = '{0}/en/?_escaped_fragment_=/projects'.format(self.live_server_url)
         self.project_url = '{0}/en/?_escaped_fragment_=/projects/{1}'.format(self.live_server_url, self.some_project.slug)
 
-        self.client = self.client_class(SERVER_NAME=self.server_thread.host, SERVER_PORT=self.server_thread.port)
-
-    def tearDown(self):
-        from ..middleware import web_cache
-
-        if web_cache._web_driver:
-            web_cache._web_driver.service.stop()
 
     def test_project_list_via_hashbang(self):
         print "loading " + self.project_list_url
@@ -56,9 +50,11 @@ class CrawlableTests(OnePercentSeleniumTestCase):
 
     def test_project_via_hashbang_with_camel_case(self):
         response = self.client.get(self.project_list_url + '/Schools-For-Children')
-        self.assertRedirects(response, self.project_url, status_code=301)
+        url = self.project_url.replace(self.live_server_url, 'http://testserver')
+        self.assertRedirects(response, url, status_code=301)
 
     def test_non_existing_project(self):
         # Non existing project should redirect to project list
         response = self.client.get(self.project_list_url + '/this-is-not-a-project')
-        self.assertRedirects(response, self.project_list_url, status_code=301)
+        url = self.project_list_url.replace(self.live_server_url, 'http://testserver')
+        self.assertRedirects(response, url, status_code=301)

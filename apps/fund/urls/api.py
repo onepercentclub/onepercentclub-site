@@ -1,10 +1,10 @@
-from apps.fund.views import RecurringOrderList, RecurringOrderDetail, RecurringDonationList, RecurringDonationDetail, \
-    ProjectDonationList, ProjectSupporterList
 from django.conf.urls import patterns, include, url
 from surlex.dj import surl
 from ..views import OrderList, OrderDetail, OrderCurrentDetail, PaymentProfileCurrent,  PaymentCurrent, \
     RecurringDirectDebitPaymentList, RecurringDirectDebitPaymentDetail, OrderCurrentDonationDetail, \
-    OrderCurrentDonationList, NestedDonationDetail, NestedDonationList, DonationList, DonationDetail, TickerList
+    OrderCurrentDonationList, NestedDonationDetail, NestedDonationList, DonationList, DonationDetail, TickerList, \
+    RecurringOrderList, RecurringOrderDetail, RecurringDonationList, RecurringDonationDetail, \
+    ProjectDonationList, ProjectSupporterList
 
 
 urlpatterns = patterns('',

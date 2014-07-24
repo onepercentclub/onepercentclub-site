@@ -3,6 +3,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.utils import six
+from django.utils.unittest.case import skip
 
 from .middleware import RedirectFallbackMiddleware
 from .models import Redirect
@@ -15,9 +16,6 @@ from .models import Redirect
     SITE_ID=1,
 )
 class RedirectTests(TestCase):
-
-    def setUp(self):
-        pass
 
     def test_model(self):
         r1 = Redirect.objects.create(
