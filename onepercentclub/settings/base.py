@@ -268,7 +268,6 @@ INSTALLED_APPS = (
 
     'apps.vouchers',
     'apps.fund',
-    'apps.fundraisers',
     'bluebottle.wallposts', # Define wall posts before projects/tasks that depend on it.
     'apps.donations',
 
@@ -298,9 +297,11 @@ INSTALLED_APPS = (
     'bluebottle.bb_organizations',
     'bluebottle.bb_projects',
     'bluebottle.bb_tasks',
+    'bluebottle.bb_fundraisers',
 
     'apps.bluebottle_salesforce',
 
+    'apps.fundraisers',
     'apps.bluebottle_dashboard',
     'apps.contentplugins',
     'apps.campaigns',
@@ -327,16 +328,20 @@ INSTALLED_APPS = (
 
 # Custom User model
 AUTH_USER_MODEL = 'members.Member'
+
 PROJECTS_PROJECT_MODEL = 'projects.Project'
 PROJECTS_PHASELOG_MODEL = 'projects.ProjectPhaseLog'
+
+FUNDRAISERS_FUNDRAISER_MODEL = 'fundraisers.FundRaiser'
+
 TASKS_TASK_MODEL = 'tasks.Task'
 TASKS_SKILL_MODEL = 'tasks.Skill'
 TASKS_TASKMEMBER_MODEL = 'tasks.TaskMember'
 TASKS_TASKFILE_MODEL = 'tasks.TaskFile'
+
 ORGANIZATIONS_ORGANIZATION_MODEL = 'organizations.Organization'
 ORGANIZATIONS_DOCUMENT_MODEL = 'organizations.OrganizationDocument'
 ORGANIZATIONS_MEMBER_MODEL = 'organizations.OrganizationMember'
-PROJECTS_PHASELOG_MODEL = 'projects.ProjectPhaseLog'
 
 SOCIAL_AUTH_USER_MODEL = 'members.Member'
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_friends', 'public_profile', 'user_birthday']
