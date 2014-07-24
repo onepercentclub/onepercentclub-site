@@ -14,7 +14,6 @@ class MemberSettingsTests(OnePercentSeleniumTestCase):
 
         # Should see an error message
         self.assert_css('.modal-flash-message', wait_time=2)
-        self.assert_text(_("Email required"))
 
     """ Confirm login fails without password and shows an error message """
     def test_failed_login_missing_password(self):
@@ -22,7 +21,6 @@ class MemberSettingsTests(OnePercentSeleniumTestCase):
 
         # Should see an error message
         self.assert_css('.modal-flash-message', wait_time=2)
-        self.assert_text(_("Please fill in your password."))
 
     """ Confirm login failure works """
     def test_failed_login_wrong_credentials(self):
@@ -30,4 +28,3 @@ class MemberSettingsTests(OnePercentSeleniumTestCase):
 
         # Should see an error message
         self.assert_css('.modal-flash-message', wait_time=2)
-        self.assert_text(_("Unable to login with provided credentials."))

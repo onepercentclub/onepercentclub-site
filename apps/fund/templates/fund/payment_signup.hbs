@@ -17,69 +17,49 @@
         </div>
     {{else}}
         <div class="l-content">
+
+            <a {{action openInBox "login"}} class="btn-login"><span class="flaticon solid lock-1"></span> <strong>{% trans "Have an account?" %}</strong><br /> {%  trans "Log in here" %}</a>
+
             <form>
                 <legend>
-                    <strong>{% trans "Follow the progress?" %}</strong>
-                    <p>{% trans "Sign up for an account and we keep you updated on the projects progress" %}.</p>
+                    <strong>{% trans "Your name with your donation?" %}</strong>
+                    <p>{% trans "SCreate an account with just one click." %}.</p>
                 </legend>
-
                 <fieldset>
                     <ul>
                         <li class="control-group">
-                            <label class="control-label">{% trans "Your full name" %}</label>
-                            <div class="controls">
-                                {{view Em.TextField valueBinding="first_name" placeholder="First name" class="inline-prepend" classBinding="errors.first_name.length:error"}}
-                                {{view Em.TextField valueBinding="last_name" placeholder="Last name" class="inline-append" classBinding="errors.last_name.length:error"}}
+                            <div class="half">
+                                <button {{action openInBox "signup"}} class="btn btn-iconed">
+                                    <span class="flaticon social facebook-1"></span>{% trans "Sign up" %}
+                                </button>
+                                <ul class="bullets">
+                                    <li>
+                                        {% trans "We'll keep you updated on the campaign process" %}
+                                    </li>
+                                    <li>
+                                        {% trans "One Click sign up via Facebook or just with your email address." %}
+                                    </li>
+                                    <li>
+                                        {% trans "Faster future donations." %}
+                                    </li>
+                                    <li>
+                                        {% trans "Keep track of all of your donations." %}
+                                    </li>
+                                </ul>
                             </div>
-                        </li>
-                        <li class="control-group">
-                            <label class="control-label">{% trans "Email" %}</label>
-                            <div class="controls">
-                                {{view Em.TextField valueBinding="email" classBinding="errors.email.length:error"}}
+                            <div class="half">
+                                <button {{action "nextStep"}} class="btn btn-iconed btn-skip">
+                                    <span class="flaticon solid right-2"></span>{% trans "Continue as guest" %}
+                                </button>
+                                <ul class="bullets">
+                                    <li>
+                                        {% trans "Stay anonymous" %}
+                                    </li>
+                                </ul>
                             </div>
-                            {{#if errors.email }}
-                                <div class="has-errors">{{#each errors.email }}<p>{{this}}</p>{{/each}}</div>
-                            {{/if}}
-                        </li>
-
-                        <li class="control-group">
-                            <label class="control-label">{% trans "Password" %}</label>
-                            <div class="controls">
-                                {{view Em.TextField type="password" valueBinding="password" classBinding="errors.password.length:error"}}
-                            </div>
-                            {{#if errors.password }}
-                                <div class="has-errors">{{#each errors.password }}<p>{{this}}</p>{{/each}}</div>
-                            {{/if}}
-                        </li>
-
-                        <li class="control-group">
-                            <label class="control-label">{% trans "Password again" %}</label>
-                            <div class="controls">
-                                {{view Em.TextField type="password" valueBinding="password2" classBinding="errors.password2.length:error"}}
-                            </div>
-                            {{#if errors.password2 }}
-                                <div class="has-errors">{{#each errors.password2 }}<p>{{this}}</p>{{/each}}</div>
-                            {{/if}}
                         </li>
                     </ul>
-
-                    <p class="control-group agree">
-                        <small class="controls">
-                            {% blocktrans %}By joining 1%Club I hereby agree to the {% endblocktrans %}
-                            <a {{action showPage 'terms-and-conditions'}} href="/#!/pages/terms-and-conditions">{% blocktrans %}1%Club Terms of service{% endblocktrans %}</a>
-                        </small>
-                    </p>
-
                 </fieldset>
-
-                {{#if isFormReady }}
-                    <button class="btn btn-primary btn-iconed btn-next"><span class="flaticon solid right-2"></span>{% trans "Next Step" %}</button>
-                {{else}}
-                    <button disabled class="btn btn-iconed btn-next"><span class="flaticon solid right-2"></span>{% trans "Next Step" %}</button>
-                {{/if}}
-
-                {{#linkTo 'paymentSelect' class="btn-link btn-skip"}}<span class="flaticon solid x-1"></span>Skip this step{{/linkTo}}
-
             </form>
         </div>
 

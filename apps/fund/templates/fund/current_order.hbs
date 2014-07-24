@@ -24,12 +24,7 @@
                     <header class="l-header">
                         <h1>{% trans "Support" %}</h1>
 
-                        {{#if currentUser.isAuthenticated}}
-                        <ul class="tabs steps three">
-                        {{else}}
-                        <ul class="tabs steps four">
-                        {{/if}}
-
+                        <ul {{bindAttr class=":tabs :steps currentUser.isAuthenticated:three:four"}}>
                             {{#if controller.isVoucherOrder}}
                                 {%comment%}
                                 Voucher code is disabled for now.
@@ -43,15 +38,15 @@
                                 {{/view}}
                             {{/if}}
 
-                            {{#view App.OrderNavView classNames="details"}}
-                                {{#linkTo 'paymentProfile'}}<span class="flaticon solid mail-3"></span> {% trans "Details" %}{{/linkTo}}
-                            {{/view}}
-
                             {{#unless currentUser.isAuthenticated}}
                                 {{#view App.OrderNavView classNames="profile"}}
                                     {{#linkTo 'paymentSignup'}}<span class="flaticon solid user-1"></span> {% trans "Profile" %}{{/linkTo}}
                                 {{/view}}
                             {{/unless}}
+
+                            {{#view App.OrderNavView classNames="details"}}
+                                {{#linkTo 'paymentProfile'}}<span class="flaticon solid mail-3"></span> {% trans "Details" %}{{/linkTo}}
+                            {{/view}}
 
                             {{#view App.OrderNavView classNames="payment"}}
                                 {{#linkTo 'paymentSelect'}}<span class="flaticon solid wallet-1"></span> {% trans "Payment" %}{{/linkTo}}
