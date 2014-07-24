@@ -74,18 +74,19 @@ App.then(function(app) {
                     currentUsercontroller.set('model', user);
                     currentUsercontroller.send('close');
 
-
+                    // For some reason the currentUserController keeps failing to have a reference to 'tracker'
+                    var loginController = App.__container__.lookup('controller:login');
 
                     if (user.get('firstLogin')) {
                         currentUsercontroller.send('setFlash', currentUsercontroller.get('welcomeMessage'));
                         // Register the successful Facebook login with Mixpanel
-                        if (currentUsercontroller.get('tracker')) {
-                            currentUsercontroller.get('tracker').trackEvent("Signup", {"type": "facebook"});
+                        if (loginController.get('tracker')) {
+                            loginController.get('tracker').trackEvent("Signup", {"type": "facebook"});
                         }
                     } else {
                         // Register the successful Facebook signup with Mixpanel
-                        if (currentUsercontroller.get('tracker')) {
-                            currentUsercontroller.get('tracker').trackEvent("Login", {"type": "facebook"});
+                        if (loginController.get('tracker')) {
+                            loginController.get('tracker').trackEvent("Login", {"type": "facebook"});
                         }
                     }
 
