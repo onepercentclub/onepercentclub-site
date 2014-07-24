@@ -1,0 +1,50 @@
+#cheetah-video {
+
+	.video-heading {
+
+		.cheetah-icon-big {
+			float: left;
+			display: block;
+			width: 101px;
+			height: 95px;
+			background: image-url("cheetah/icons/icon-cheetah-head-big.svg") transparent no-repeat 0 0;
+		}
+
+		.cheetah-content {
+			float: left;
+			display: block;
+			font-size: 28px;
+			text-transform: uppercase;
+			color: $color-primary;
+			margin-left: 5px;
+			
+			span {
+				font-family: $font-family-garage
+			}
+
+			h1 {
+				color: $color-secondary;
+				font-family: $font-family-avant;
+			}
+		}
+	}
+
+	.video-intro {
+		padding: 50px 0 50px 0;
+
+		h2 {
+			font-size: 38px;
+			font-family: $font-family-avant;
+			font-weight: 400;
+			line-height: 38px;
+		}
+
+		img {
+			float: right;
+		}
+	}
+
+	.start-cheetah {
+		margin-top: 30px;
+	}
+}

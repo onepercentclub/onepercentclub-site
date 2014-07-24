@@ -16,6 +16,7 @@ App.Project.reopen({
     amount_needed: DS.attr('number', {defaultValue: this.get('amount_asked')}),
 
     fundraisers: DS.belongsTo('App.Fundraiser'),
+    partner: DS.belongsTo('App.Partner'),
 
     task_count: DS.attr('number'),
 

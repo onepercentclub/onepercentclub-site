@@ -3,5 +3,10 @@
  */
 
 App.Router.map(function(){
-	this.resource('partner', {path: '/pp/:partner_organization_id'});
+	this.resource('partner', {path: '/pp/:partner_id'});
+});
+
+
+App.PartnerRoute = Em.Route.extend(App.SubMenuMixin, {
+    subMenu: 'cheetah/menu'
 });

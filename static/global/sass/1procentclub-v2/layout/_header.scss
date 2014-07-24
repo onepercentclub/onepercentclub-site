@@ -59,6 +59,14 @@
 				display: inline;
 				margin-right: 2em;
 
+				@include breakpoint(xx-large) {
+					margin-right: .3em;
+				}
+
+				&:last-of-type {
+					margin-right: 0;
+				}
+
 				a {
 					color: $black;
 					text-decoration: none;
@@ -139,6 +147,7 @@
 			padding: 0;
 			float: right;
 			width: 180px;
+			margin-left: 0;
 			@include breakpoint(x-small) {
 				font-size: 90%;
 				width: 183px;
