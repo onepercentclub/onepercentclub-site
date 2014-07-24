@@ -9,6 +9,9 @@ App.CheetahQuizController = Em.Controller.extend({
 
     questionOnePassed: Em.computed.equal('questionOne', 'yes'),
     questionOneFailed: Em.computed.equal('questionOne', 'no'),
+    questionTwoFailed: Em.computed.gt('questionTwo', 20000),
+    questionThreePassed: Em.computed.equal('questionThree', 'yes'),
+    questionThreeFailed: Em.computed.equal('questionThree', 'no'),
 
     questionTwoPassed: function(){
         var answer = this.get('questionTwo'),
@@ -20,10 +23,6 @@ App.CheetahQuizController = Em.Controller.extend({
         
         return (newAnswer <= 20000);
     }.property('questionTwo'),
-    questionTwoFailed: Em.computed.gt('questionTwo', 20000),
-
-    questionThreePassed: Em.computed.equal('questionThree', 'yes'),
-    questionThreeFailed: Em.computed.equal('questionThree', 'no'),
 
     actions: {
         answer: function(question, value){
