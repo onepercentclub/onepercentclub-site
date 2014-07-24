@@ -42,7 +42,9 @@ App.CurrentOrderRoute = Em.Route.extend({
 });
 
 
-App.CurrentOrderDonationListRoute = Em.Route.extend(App.ScrollToTop, {
+App.CurrentOrderDonationListRoute = Em.Route.extend(App.TrackRouteActivateMixin, App.ScrollToTop, {
+    trackEventName: 'Donation list',
+
     model: function(params) {
         return this.modelFor('currentOrder').get('donations');
     },
@@ -73,14 +75,21 @@ App.OrderThanksRoute = Em.Route.extend({
     googleConversion: {
         label: 'luszCIr_6wsQ7o7O1gM'
     },
+
     model: function(params) {
         var route = this;
         var order = App.Order.find(params.order_id);
         order.one('becameError', function() {
             route.replaceWith('home');
         });
+
+        if (this.get('tracker')) {
+            this.get('tracker').trackEvent("Successful donation", {});
+        }
+
         return order;
     }
+
 });
 
 
@@ -88,7 +97,9 @@ App.OrderThanksRoute = Em.Route.extend({
  * Payment for Current Order Routes
  */
 
-App.PaymentProfileRoute = Em.Route.extend({
+App.PaymentProfileRoute = Em.Route.extend(App.TrackRouteActivateMixin, {
+    trackEventName: 'Payment details',
+
     beforeModel: function() {
         var order = this.modelFor('currentOrder');
         if (order.get('isVoucherOrder')) {
@@ -116,7 +127,9 @@ App.PaymentProfileRoute = Em.Route.extend({
 });
 
 
-App.PaymentSignupRoute = Em.Route.extend({
+App.PaymentSignupRoute = Em.Route.extend(App.TrackRouteActivateMixin, {
+    trackEventName: 'Payment Signup',
+
     redirect: function(){
         var route = this;
         App.CurrentUser.find('current').then(function(user) {
@@ -135,7 +148,9 @@ App.PaymentSignupRoute = Em.Route.extend({
 });
 
 
-App.PaymentSelectRoute = Em.Route.extend({
+App.PaymentSelectRoute = Em.Route.extend(App.TrackRouteActivateMixin, {
+    trackEventName: 'Payment select',
+
     beforeModel: function() {
         // var paymentProfile = this.modelFor('paymentProfile');
         var route = this;
@@ -156,7 +171,9 @@ App.PaymentSelectRoute = Em.Route.extend({
 });
 
 
-App.PaymentSelectPaymentErrorRoute = Em.Route.extend({
+App.PaymentSelectPaymentErrorRoute = Em.Route.extend(App.TrackRouteActivateMixin, {
+    trackEventName: 'Payment Error',
+
     beforeModel: function() {
         var order = this.modelFor('currentOrder');
         this.replaceWith('currentOrder.donationList');
@@ -200,4 +217,9 @@ App.TickerRoute = Em.Route.extend({
     model: function(params) {
         return  App.Ticker.find();
     }
+});
+
+
+App.RecurringOrderThanksRoute = Em.Route.extend(App.TrackRouteActivateMixin, {
+    trackEventName: 'Successful Recurring Donation'
 });
