@@ -4,6 +4,7 @@
 # 
 # Translators:
 # aethemba <aksel@onepercentclub.com>, 2014
+# bartlacroix <bart@onepercentclub.com>, 2014
 # Loek van Gent <loek@1procentclub.nl>, 2013
 # JhonM <jhon@onepercentclub.com>, 2014
 # Malou <malou@onepercentclub.com>, 2014
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-25 19:38+0200\n"
-"PO-Revision-Date: 2014-07-25 17:44+0000\n"
-"Last-Translator: aethemba <aksel@onepercentclub.com>\n"
+"POT-Creation-Date: 2014-07-25 21:32+0200\n"
+"PO-Revision-Date: 2014-07-25 19:20+0000\n"
+"Last-Translator: bartlacroix <bart@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -96,7 +97,7 @@ msgstr "Geen campagnes gevonden"
 
 #: templates/donations/monthly_project_preview.hbs:23
 msgid "of"
-msgstr ""
+msgstr "van"
 
 #: templates/donations/monthly_project_preview.hbs:23
 msgid "raised"
@@ -924,11 +925,11 @@ msgstr "In behandeling"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:160
 msgid "Raised"
-msgstr ""
+msgstr "Opgehaald"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:180
 msgid "Safe"
-msgstr ""
+msgstr "Opslaan"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:202
 msgid "project"
@@ -940,7 +941,7 @@ msgstr "organisatie"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:217
 msgid "IBAN"
-msgstr ""
+msgstr "IBAN"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:259
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:341
@@ -989,7 +990,7 @@ msgstr "12%%"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:12
 msgid "100%"
-msgstr ""
+msgstr "100%"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:13
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:18
@@ -1046,7 +1047,7 @@ msgstr "gewijzigd"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:110
 msgid "submitted"
-msgstr ""
+msgstr "ingediend"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:163
 msgid "state change"

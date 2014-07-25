@@ -7,7 +7,9 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # aethemba <aksel@onepercentclub.com>, 2014
+# bartlacroix <bart@onepercentclub.com>, 2014
 # JhonM <jhon@onepercentclub.com>, 2014
 # Loek van Gent <loek@1procentclub.nl>, 2014
 # Malou <malou@onepercentclub.com>, 2014
@@ -17,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-25 19:38+0200\n"
-"PO-Revision-Date: 2014-07-25 18:34+0000\n"
-"Last-Translator: aethemba <aksel@onepercentclub.com>\n"
+"POT-Creation-Date: 2014-07-25 21:32+0200\n"
+"PO-Revision-Date: 2014-07-25 19:38+0000\n"
+"Last-Translator: bartlacroix <bart@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -71,6 +73,25 @@ msgstr "Annuleer"
 #: apps/donations/static/js/bluebottle/donations/controllers.js:167
 msgid "You're about to set a monthly donation.<br/><br/>"
 msgstr "Super! Je gaat maandelijks doneren."
+
+#: apps/donations/static/js/bluebottle/donations/controllers.js:168
+msgid ""
+"Has anybody ever told you that you're awesome? Well, you're "
+"awesome!<br/><br/>"
+msgstr "Heeft iemand je wel eens verteld dat je geweldig bent? Nou, je bent geweldig!<br/></br/> "
+
+#: apps/donations/static/js/bluebottle/donations/controllers.js:169
+#, c-format
+msgid ""
+"1%Club will withdraw your monthly donation from your bank account in the "
+"beginning of each month. You can cancel it anytime you like.<br/><br/>"
+msgstr "1%Club zal je maandelijkse donatie van je bankrekening afschrijven aan het begin van de maand. Je kunt dit op elk moment opzeggen. <br/><br/> "
+
+#: apps/donations/static/js/bluebottle/donations/controllers.js:170
+msgid ""
+"We will send you an email in the beginning of each month to update you on "
+"what projects received your support!"
+msgstr "We zullen je aan het begin van elke maand een e-mail sturen met een update van de projecten die jij hebt gesteund."
 
 #: apps/donations/static/js/bluebottle/donations/controllers.js:176
 msgid "Set my monthly donation"
@@ -567,11 +588,11 @@ msgstr ""
 
 #: env-2.7/src/bluebottle/bluebottle/common/static/js/bluebottle/views.js.c:27
 msgid "Pick a language"
-msgstr ""
+msgstr "Kies een taal"
 
 #: env-2.7/src/bluebottle/bluebottle/common/static/js/plugins/ember-facebook.js.c:108
 msgid "Unauthorized to connect to Facebook "
-msgstr ""
+msgstr "Geen toestemming om te verbinden met Facebook"
 
 #: env-2.7/src/bluebottle/bluebottle/common/static/js/plugins/handlebars.helpers.js.c:92
 msgid "Deadline<br /> reached"
