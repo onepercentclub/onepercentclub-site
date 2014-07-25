@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-17 16:12+0200\n"
+"POT-Creation-Date: 2014-07-24 17:11+0200\n"
 "PO-Revision-Date: 2014-07-10 12:17+0000\n"
 "Last-Translator: aethemba <aksel@onepercentclub.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
@@ -155,48 +155,48 @@ msgstr "{name_project} in {country}"
 msgid "{title} {{URL}} via @{twitter_handle}"
 msgstr "{title} {{URL}} via @{twitter_handle}"
 
-#: models.py:345 models.py:371
+#: models.py:350 models.py:376
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:25
 msgid "description"
 msgstr "description"
 
-#: models.py:347
+#: models.py:352
 msgid "amount (in cents)"
 msgstr "amount (in cents)"
 
-#: models.py:353
+#: models.py:358
 msgid "budget line"
 msgstr "budget line"
 
-#: models.py:354
+#: models.py:359
 msgid "budget lines"
 msgstr "budget lines"
 
-#: models.py:369
+#: models.py:374
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:22
 msgid "name"
 msgstr "name"
 
-#: models.py:370
+#: models.py:375
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:24
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:129
 msgid "slug"
 msgstr "slug"
 
-#: models.py:372
+#: models.py:377
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/models.py:145
 msgid "image"
 msgstr "image"
 
-#: models.py:372
+#: models.py:377
 msgid "Main partner picture"
 msgstr "Main picture"
 
-#: models.py:380
+#: models.py:385
 msgid "partner organization"
 msgstr "organisation"
 
-#: models.py:381
+#: models.py:386
 msgid "partner organizations"
 msgstr "organisations"
 
@@ -950,7 +950,7 @@ msgstr "campaigns"
 msgid "When this project entered in this status."
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/serializers.py:144
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env/src/bluebottle/bluebottle/bb_projects/serializers.py:145
 msgid "You can not change the project state."
 msgstr ""
 
