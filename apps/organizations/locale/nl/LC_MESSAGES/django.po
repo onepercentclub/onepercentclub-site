@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-25 19:37+0200\n"
-"PO-Revision-Date: 2014-05-22 15:32+0000\n"
+"PO-Revision-Date: 2014-07-25 18:34+0000\n"
 "Last-Translator: aethemba <aksel@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -62,7 +62,7 @@ msgstr "Importeer:"
 
 #: templates/bb_organizations/manage/_organisation_legend.hbs:22
 msgid "You can import this from a previous campaign:"
-msgstr ""
+msgstr "Je kunt dit importeren van een eerdere campagne:"
 
 #: templates/organizations/_my_project_sidebar_organization.hbs:8
 msgid "Good to know:"
