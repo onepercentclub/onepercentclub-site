@@ -1,21 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# 
+# Translators:
+# Malou <malou@onepercentclub.com>, 2014
+# Niels Jansen <niels@1procentclub.nl>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-25 15:50+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2014-07-25 14:03+0000\n"
+"Last-Translator: Malou <malou@onepercentclub.com>\n"
+"Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: en_GB\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: templates/new_oneoff_donation.mail.html:5
 #, python-format
@@ -29,7 +31,7 @@ msgid ""
 "<br/>\n"
 "Cheers,<br/>\n"
 "1%%Club\n"
-msgstr ""
+msgstr "\nHello,<br/>\n<br/>\nYou just received a EUR %(amount)s donation from %(donor_name)s!<br/>\n<br/>\nQuickly thank your supporter by posting a personal message on your <a href=\"%(site)s%(link)s\">campaign wall</a>.<br/>\n<br/>\nCheers,<br/>\n1%%Club\n"
 
 #: templates/new_oneoff_donation.mail.txt:2
 #, python-format
@@ -43,7 +45,7 @@ msgid ""
 "\n"
 "Cheers,\n"
 "1%%Club\n"
-msgstr ""
+msgstr "\nHello,\n\nYou just received a EUR %(amount)s donation from %(donor_name)s!\n\nQuickly thank your supporter by posting a personal message on your campaign wall: %(site)s%(link)s.\n\nCheers,\n1%%Club\n"
 
 #: templates/new_oneoff_donation_fundraiser.mail.html:5
 #, python-format
@@ -57,7 +59,7 @@ msgid ""
 "<br/>\n"
 "Cheers,<br/>\n"
 "1%%Club\n"
-msgstr ""
+msgstr "\nHello,<br/>\n<br/>\nYou just received a EUR %(amount)s donation from %(donor_name)s!<br/>\n<br/>\nQuickly thank your supporter by posting a personal message on your <a href=\"%(site)s%(link)s\">fundraiser wall</a>.<br/>\n<br/>\nCheers,<br/>\n1%%Club\n"
 
 #: templates/new_oneoff_donation_fundraiser.mail.txt:2
 #, python-format
@@ -71,22 +73,22 @@ msgid ""
 "\n"
 "Cheers,\n"
 "1%%Club\n"
-msgstr ""
+msgstr "\nHello,\n<br/>\nYou just received a EUR %(amount)s donation from %(donor_name)s!\n<br/>\nQuickly thank your supporter by posting a personal message on your fundraiser wall: %(site)s%(link)s.\n<br/>\nCheers, <br/>\n1%%Club\n"
 
 #: templates/donations/monthly_donation.hbs:18
 #: templates/donations/user_monthly_projects.hbs:74
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/current_order_donation.hbs.py:31
 msgid "is still needed"
-msgstr ""
+msgstr "is still needed"
 
 #: templates/donations/monthly_donation.hbs:28
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/current_order_donation.hbs.py:43
 msgid "Delete"
-msgstr ""
+msgstr "Delete"
 
 #: templates/donations/monthly_project_list.hbs:11
 msgid "No projects found."
-msgstr ""
+msgstr "No campaigns found."
 
 #: templates/donations/monthly_project_preview.hbs:23
 msgid "of"
@@ -98,128 +100,128 @@ msgstr ""
 
 #: templates/donations/monthly_project_preview.hbs:24
 msgid "days"
-msgstr ""
+msgstr "days"
 
 #: templates/donations/monthly_project_search_form.hbs:29
 msgid "Found"
-msgstr ""
+msgstr "Found"
 
 #: templates/donations/monthly_project_search_form.hbs:31
 msgid "Reset Search Filter"
-msgstr ""
+msgstr "Reset Search Filter"
 
 #: templates/donations/monthly_project_search_form.hbs:36
 msgid "Sort:"
-msgstr ""
+msgstr "Sort:"
 
 #: templates/donations/monthly_project_search_form.hbs:37
 msgid "Most popular"
-msgstr ""
+msgstr "Most popular"
 
 #: templates/donations/monthly_project_search_form.hbs:44
 msgid "Newest"
-msgstr ""
+msgstr "Newest"
 
 #: templates/donations/monthly_project_search_form.hbs:45
 msgid "Almost funded"
-msgstr ""
+msgstr "Almost funded"
 
 #: templates/donations/monthly_project_search_form.hbs:46
 msgid "Near deadline"
-msgstr ""
+msgstr "Near deadline"
 
 #: templates/donations/monthly_project_search_form.hbs:50
 msgid "Showing"
-msgstr ""
+msgstr "Showing"
 
 #: templates/donations/project_select_modal.hbs:18
 msgid "Close"
-msgstr ""
+msgstr "Close"
 
 #: templates/donations/user_donation.hbs:12
 #, python-format
 msgid "My 1%%"
-msgstr ""
+msgstr "My 1%%"
 
 #: templates/donations/user_donation.hbs:12
 #: templates/donations/user_donation.hbs:40
 msgid "Donations"
-msgstr ""
+msgstr "Donations"
 
 #: templates/donations/user_donation.hbs:20
 #: templates/donations/user_donation_history.hbs:18
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/user_orders.html.py:15
 msgid "Monthly Donation"
-msgstr ""
+msgstr "Monthly Donation"
 
 #: templates/donations/user_donation.hbs:21
 msgid "Select Projects"
-msgstr ""
+msgstr "Select Campaigns"
 
 #: templates/donations/user_donation.hbs:30
 msgid "Donation Profile"
-msgstr ""
+msgstr "Donation Profile"
 
 #: templates/donations/user_donation.hbs:31
 msgid "Payment Details"
-msgstr ""
+msgstr "Payment Details"
 
 #: templates/donations/user_donation.hbs:41
 msgid "Donation History"
-msgstr ""
+msgstr "Donation History"
 
 #: templates/donations/user_donation_history.hbs:9
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/user_orders.html.py:9
 msgid "Order History"
-msgstr ""
+msgstr "Order History"
 
 #: templates/donations/user_donation_history.hbs:18
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/user_orders.html.py:15
 msgid "Single Donation"
-msgstr ""
+msgstr "Single Donation"
 
 #: templates/donations/user_donation_history.hbs:34
 msgid "Loading order history&#8230;"
-msgstr ""
+msgstr "Loading order history&#8230;"
 
 #: templates/donations/user_monthly_profile.hbs:10
 msgid "Edit your payment info"
-msgstr ""
+msgstr "Edit your payment info"
 
 #: templates/donations/user_monthly_profile.hbs:11
 msgid "Here you can change your bank account info and monthly donations."
-msgstr ""
+msgstr "Here you can change your bank account info and monthly donations."
 
 #: templates/donations/user_monthly_profile.hbs:17
 #: templates/donations/user_monthly_projects.hbs:180
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:16
 msgid "Account Name"
-msgstr ""
+msgstr "Account Name"
 
 #: templates/donations/user_monthly_profile.hbs:27
 #: templates/donations/user_monthly_projects.hbs:190
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:36
 msgid "Account Number"
-msgstr ""
+msgstr "Account Number"
 
 #: templates/donations/user_monthly_profile.hbs:37
 #: templates/donations/user_monthly_projects.hbs:200
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:26
 msgid "Account City"
-msgstr ""
+msgstr "Account City"
 
 #: templates/donations/user_monthly_profile.hbs:50
 msgid "Monthly settings saved"
-msgstr ""
+msgstr "Monthly donation settings saved"
 
 #: templates/donations/user_monthly_profile.hbs:55
 #: templates/donations/user_monthly_projects.hbs:218
 msgid "Save"
-msgstr ""
+msgstr "Save"
 
 #: templates/donations/user_monthly_projects.hbs:9
 msgid "My monthly donation"
-msgstr ""
+msgstr "My monthly donation"
 
 #: templates/donations/user_monthly_projects.hbs:14
 #, python-format
@@ -249,319 +251,321 @@ msgid ""
 "</p>\n"
 "<p>We will send you an email every month to update you what project(s) received your 1%% support!</p>\n"
 "                "
-msgstr ""
+msgstr "\n<p>Do you like to support campaign(s) regularly on 1%%Club? But are you too busy to select a new campaign each time again?</p>\n<p>No worries! Just set a monthly donation.</p>\n\n<p>\n    There are two ways:\n    <ol>\n        <li>\n            <h3>Top 3 Campaigns</h3>\n            Follow the 'wisdom of the crowd' and donate to the 3 campaign that are most successful that month. And give them an extra boost!\n        </li>\n        <li>\n            <h3>Pick your own campaign(s)</h3>\n            Select one or more campaigns yourself that you want to support every month. You can adjust your support all the time, as you like.\n        </li>\n\n    </ol>\n</p>\n<p>We will send you an email every month to update you what campaign(s) received your 1%%Support!</p>\n                "
 
 #: templates/donations/user_monthly_projects.hbs:35
 msgid "Yes, I want to set a monthly donation"
-msgstr ""
+msgstr "Yes, I want to set a monthly donation"
 
 #: templates/donations/user_monthly_projects.hbs:45
 msgid "Your monthly donation will go to the project(s) you've selected here:"
-msgstr ""
+msgstr "Your monthly donation will go to the campaign(s) you've selected here:"
 
 #: templates/donations/user_monthly_projects.hbs:49
 msgid "Your monthly donation will go to the top 3 projects."
-msgstr ""
+msgstr "Your monthly donation will go to the top 3 campaigns."
 
 #: templates/donations/user_monthly_projects.hbs:50
 msgid "The three most popular projects at this moment are:"
-msgstr ""
+msgstr "The three most popular campaigns at this moment are:"
 
 #: templates/donations/user_monthly_projects.hbs:85
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/current_order_donation_list.hbs.py:24
 msgid "Total"
-msgstr ""
+msgstr "Total"
 
 #: templates/donations/user_monthly_projects.hbs:91
 msgid "Divide to projects"
-msgstr ""
+msgstr "Divide to campaigns"
 
 #: templates/donations/user_monthly_projects.hbs:101
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/current_order_donation_list.hbs.py:30
 msgid "Add another project"
-msgstr ""
+msgstr "Add another campaign"
 
 #: templates/donations/user_monthly_projects.hbs:103
 msgid "Select a project yourself"
-msgstr ""
+msgstr "Select a campaign yourself"
 
 #: templates/donations/user_monthly_projects.hbs:108
 msgid "My address"
-msgstr ""
+msgstr "My address"
 
 #: templates/donations/user_monthly_projects.hbs:114
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:39
 msgid "Address"
-msgstr ""
+msgstr "Address"
 
 #: templates/donations/user_monthly_projects.hbs:127
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:61
 msgid "City"
-msgstr ""
+msgstr "City"
 
 #: templates/donations/user_monthly_projects.hbs:140
 msgid "Postal Code"
-msgstr ""
+msgstr "Postal Code"
 
 #: templates/donations/user_monthly_projects.hbs:155
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:72
 msgid "Country"
-msgstr ""
+msgstr "Country"
 
 #: templates/donations/user_monthly_projects.hbs:175
 msgid "My payment details"
-msgstr ""
+msgstr "My payment details"
 
 #: templates/donations/user_monthly_projects.hbs:176
 msgid "Please fill in your bank details"
-msgstr ""
+msgstr "Please fill in your bank details"
 
 #: templates/donations/user_monthly_projects.hbs:229
 msgid "Cancel my monthly donation"
-msgstr ""
+msgstr "Cancel my monthly donation"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/admin.py:14
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/admin.py:114
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:131
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:222
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/admin.py:20
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/admin.py:120
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/admin.py:204
 msgid "All"
-msgstr ""
+msgstr "All"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/admin.py:196
 msgid "Active"
-msgstr ""
+msgstr "Active"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/admin.py:199
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/admin_filters.py:19
 msgid "Yes"
-msgstr ""
+msgstr "Yes"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/admin.py:200
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/admin_filters.py:20
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/fields.py:11
 msgid "Dutch bank account numbers have 1 - 7, 9 or 10 digits."
-msgstr ""
+msgstr "Dutch bank account numbers have 1 - 7, 9 or 10 digits."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/fields.py:28
 msgid "Invalid Dutch bank account number."
-msgstr ""
+msgstr "Invalid Dutch bank account number."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:48
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:133
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:226
 msgid "Created"
-msgstr ""
+msgstr "Created"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:49
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:134
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:227
 msgid "Updated"
-msgstr ""
+msgstr "Updated"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:54
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/cowry/models.py:26
 msgid "amount"
-msgstr ""
+msgstr "amount"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:101
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/choices.py:19
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/cowry/models.py:10
 msgid "New"
-msgstr ""
+msgstr "New"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:102
 msgid "In progress"
-msgstr ""
+msgstr "In progress"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:103
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/admin.py:170
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/cowry/models.py:12
 msgid "Pending"
-msgstr ""
+msgstr "Pending"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:104
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/cowry/models.py:13
 msgid "Paid"
-msgstr ""
+msgstr "Paid"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:105
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/admin.py:190
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/cowry/models.py:14
 msgid "Failed"
-msgstr ""
+msgstr "Failed"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:119
 msgid "One-off"
-msgstr ""
+msgstr "One-off"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:120
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:213
 msgid "Recurring"
-msgstr ""
+msgstr "Recurring"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:121
 msgid "Voucher"
-msgstr ""
+msgstr "Voucher"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:123
 msgid "amount (in cents)"
-msgstr ""
+msgstr "amount (in cents)"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:124
 msgid "currency"
-msgstr ""
+msgstr "currency"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:127
 msgid "User"
-msgstr ""
+msgstr "User"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:128
 msgid "Project"
-msgstr ""
+msgstr "Project"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:129
 msgid "fund raiser"
-msgstr ""
+msgstr "fundraiser"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:136
 msgid "Ready"
-msgstr ""
+msgstr "Ready"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:138
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:140
 msgid "Order"
-msgstr ""
+msgstr "Order"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:141
 msgid "Gift card"
-msgstr ""
+msgstr "Gift card"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:161
 msgid "donation"
-msgstr ""
+msgstr "donation"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:162
 msgid "donations"
-msgstr ""
+msgstr "donations"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:212
 msgid "Current"
-msgstr ""
+msgstr "Current"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:214
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:229
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:70
 msgid "Closed"
-msgstr ""
+msgstr "Closed"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:221
 msgid "user"
-msgstr ""
+msgstr "user"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:224
 msgid "Order Number"
-msgstr ""
+msgstr "Order Number"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:277
 msgid "GIFTCARDS"
-msgstr ""
+msgstr "GIFTCARDS"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:279
 msgid "GIFTCARD"
-msgstr ""
+msgstr "GIFTCARD"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:283
 msgid "DONATIONS"
-msgstr ""
+msgstr "DONATIONS"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:285
 msgid "DONATION"
-msgstr ""
+msgstr "DONATION"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:287
 msgid "DONATIONS & GIFTCARDS"
-msgstr ""
+msgstr "DONATIONS & GIFTCARDS"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:288
 msgid "THANK YOU!"
-msgstr ""
+msgstr "THANK YOU!"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:302
 msgid "Couldn't generate a unique order number."
-msgstr ""
+msgstr "Couldn't generate a unique order number."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:329
 #, python-brace-format
 msgid "I've just supported {title} {{URL}} via @{twitter_handle}"
-msgstr ""
+msgstr "I've just supported {title} {{URL}} via @{twitter_handle}"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:331
 #, python-brace-format
 msgid "{{URL}} via @{twitter_handle}"
-msgstr ""
+msgstr "{{URL}} via @{twitter_handle}"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:524
 msgid "Anonymous"
-msgstr ""
+msgstr "Anonymous"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:529
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/models.py:539
 msgid "You received a new donation"
-msgstr ""
+msgstr "You received a new donation"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/serializers.py:69
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/serializers.py:109
 msgid "You cannot modify a Donation that does not have status new."
-msgstr ""
+msgstr "You cannot modify a donation that does not have status new."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/serializers.py:79
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/serializers.py:118
 msgid "Donations must be at least €2."
-msgstr ""
+msgstr "Donations must be at least €2."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/serializers.py:82
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/serializers.py:85
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/serializers.py:121
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/serializers.py:124
 msgid "Donations must be at least €5."
-msgstr ""
+msgstr "Donations must be at least €5."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/serializers.py:92
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/serializers.py:131
 msgid "You can only donate a project in the campaign phase."
-msgstr ""
+msgstr "You can only support a campaign in the campaign running phase."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/serializers.py:137
 msgid "Can only Recurring Donations to a Recurring Order."
-msgstr ""
+msgstr "Can only Recurring Donations to a Recurring Order."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/serializers.py:139
-msgid "Can only Recurring Donations to an active Recurring Order (status recurring)."
-msgstr ""
+msgid ""
+"Can only Recurring Donations to an active Recurring Order (status "
+"recurring)."
+msgstr "Can only Recurring Donations to an active Recurring Order (status recurring)."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/serializers.py:169
 msgid "You cannot modify a closed Order."
-msgstr ""
+msgstr "You cannot modify a closed Order."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/views.py:38
 msgid "No active order"
-msgstr ""
+msgstr "No active order"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/views.py:96
 msgid "You cannot add a donation to a closed Order."
-msgstr ""
+msgstr "You cannot add a donation to a closed Order."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/views.py:151
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/views.py:158
@@ -569,187 +573,198 @@ msgstr ""
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/views.py:492
 #, python-format
 msgid "No %(verbose_name)s found matching the query"
-msgstr ""
+msgstr "No %(verbose_name)s found matching the query"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/views.py:419
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/views.py:423
 msgid "Order not found."
-msgstr ""
+msgstr "Order not found."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/views.py:421
 msgid "No order specified."
-msgstr ""
+msgstr "No order specified."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/views.py:498
 msgid "Anonymous users are not permitted to create recurring orders."
-msgstr ""
+msgstr "Anonymous users are not permitted to create recurring orders."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/current_order.hbs.py:10
 #, python-format
 msgid "Order digital 1%%GIFTCARDS"
-msgstr ""
+msgstr "Order digital 1%%GIFTCARDS"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/current_order.hbs.py:15
 msgid "Switch to donations"
-msgstr ""
+msgstr "Switch to donations"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/current_order.hbs.py:25
 msgid "Support"
-msgstr ""
+msgstr "Support"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/current_order.hbs.py:38
 msgid "Projects"
-msgstr ""
+msgstr "Campaigns"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/current_order.hbs.py:44
 msgid "Profile"
-msgstr ""
+msgstr "Profile"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/current_order.hbs.py:49
 msgid "Details"
-msgstr ""
+msgstr "Details"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/current_order.hbs.py:53
 msgid "Payment"
-msgstr ""
+msgstr "Payment"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/current_order.hbs.py:79
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:23
 msgid "There was an error with your payment. Please try again."
-msgstr ""
+msgstr "There was an error with your payment. Please try again."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/current_order_donation.hbs.py:13
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/thanks_donation.hbs.py:13
 msgid "Fund-racing for"
-msgstr ""
+msgstr "Fundraising for"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/current_order_donation.hbs.py:36
 msgid "I'd like to give"
-msgstr ""
+msgstr "I'd like to give"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/current_order_donation_list.hbs.py:15
 msgid "Choose a project to support"
-msgstr ""
+msgstr "Choose a campaign to support"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/current_order_donation_list.hbs.py:16
-msgid "Choose a project and click 'Support this project' to add it to your list"
-msgstr ""
+msgid ""
+"Choose a project and click 'Support this project' to add it to your list"
+msgstr "Choose a campaign and click 'Support this campaign' to add it to your list"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/current_order_donation_list.hbs.py:32
 msgid "Add a project"
-msgstr ""
+msgstr "Add a campaign"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/current_order_donation_list.hbs.py:38
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/current_order_donation_list.hbs.py:41
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:85
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:89
 msgid "Next Step"
-msgstr ""
+msgstr "Next Step"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:14
 msgid "Did you know that you rock?"
-msgstr ""
+msgstr "Did you know that you rock?"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:14
 msgid "Well, you rock!"
-msgstr ""
+msgstr "Well, you rock!"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:16
-msgid "Why not share the project with your friends, and encourage them to support as well?"
-msgstr ""
+msgid ""
+"Why not share the project with your friends, and encourage them to support "
+"as well?"
+msgstr "Why not share the campaign with your friends, and encourage them to support as well?"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:17
 msgid "Just hit (one of) the share buttons to make even more impact:"
-msgstr ""
+msgstr "Just hit (one of) the share buttons to make even more impact:"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:31
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:47
 msgid "You just supported these projects"
-msgstr ""
+msgstr "You just supported these campaigns"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:33
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:49
 msgid "You just supported this project"
-msgstr ""
+msgstr "You just supported this campaign"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:36
-msgid "Thank you for supporting these projects below. With your support we come one step closer realizing the project."
-msgstr ""
+msgid ""
+"Thank you for supporting these projects below. With your support we come one"
+" step closer realizing the project."
+msgstr "Thank you for supporting the following campaign(s). With your support we come one step closer realising the campaign(s)."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:49
 msgid "Want to do more?"
-msgstr ""
+msgstr "Want to do more?"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:50
-msgid "You can easily support projects monthly. Just pick a project yourself or you can leave that up to us."
-msgstr ""
+msgid ""
+"You can easily support projects monthly. Just pick a project yourself or you"
+" can leave that up to us."
+msgstr "You can easily support campaigns monthly. Just pick a campaign yourself or you can leave that up to us."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:51
 msgid "Support monthly"
-msgstr ""
+msgstr "Support monthly"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:53
 msgid "Stay updated"
-msgstr ""
+msgstr "Stay updated"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:54
-msgid "We’d love to keep you updated on the progress of the projects you just supported. Sign up and receive updates, and our everlasting love."
-msgstr ""
+msgid ""
+"We’d love to keep you updated on the progress of the projects you just "
+"supported. Sign up and receive updates, and our everlasting love."
+msgstr "We’d love to keep you updated on the progress of the campaign(s) you just supported. Sign up and receive updates, and our everlasting love."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:55
 msgid "Signup now"
-msgstr ""
+msgstr "Sign up now"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:8
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:7
 msgid "Have an account?"
-msgstr ""
+msgstr "Have a profile?"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:8
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:7
 msgid "Log in here"
-msgstr ""
+msgstr "Log in here"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:13
 msgid "Safety first!"
-msgstr ""
+msgstr "Safety first!"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:14
 msgid "To secure your transaction we need the following details."
-msgstr ""
+msgstr "To secure your transaction we need the following details."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:20
 msgid "Your full name"
-msgstr ""
+msgstr "Your full name"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:28
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:50
 msgid "Postal code"
-msgstr ""
+msgstr "Postal code"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:11
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:74
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:10
 msgid "You're almost there!"
-msgstr ""
+msgstr "You're almost there!"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:12
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:48
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:75
-msgid "We'll redirect you through our payment provider where you can finish your donation securely."
-msgstr ""
+msgid ""
+"We'll redirect you through our payment provider where you can finish your "
+"donation securely."
+msgstr "We'll redirect you through our payment provider where you can finish your donation securely."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:47
 msgid "Select your bank below"
-msgstr ""
+msgstr "Select your bank below"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:61
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:78
 msgid "Processing payment&#8230;"
-msgstr ""
+msgstr "Processing payment&#8230;"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:62
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:64
@@ -757,15 +772,15 @@ msgstr ""
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:79
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:81
 msgid "Proceed with Payment"
-msgstr ""
+msgstr "Proceed with Payment"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:11
 msgid "Your name with your donation?"
-msgstr ""
+msgstr "Your name with your donation?"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:12
 msgid "Create an account with just one click."
-msgstr ""
+msgstr "Create an account with just one click."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:19
 msgid "Sign up"
@@ -777,15 +792,15 @@ msgstr ""
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:26
 msgid "One Click sign up via Facebook or just with your email address."
-msgstr ""
+msgstr "Click sign up via Facebook or just with your email address."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:29
 msgid "Faster future donations."
-msgstr ""
+msgstr "Faster future donations."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:32
 msgid "Keep track of all of your donations."
-msgstr ""
+msgstr "Keep track of all of your donations."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:38
 msgid "Continue as guest"
@@ -796,36 +811,40 @@ msgid "Stay anonymous"
 msgstr ""
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:11
-msgid "Add or edit your bank account information and submit to set your monthly donations."
-msgstr ""
+msgid ""
+"Add or edit your bank account information and submit to set your monthly "
+"donations."
+msgstr "Add or edit your bank account information and submit to set your monthly donations."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:48
 #, python-format
 msgid "By clicking submit, I authorize 1%%Club to withdraw money every month."
-msgstr ""
+msgstr "By clicking submit, I authorize 1%%Club to withdraw money every month."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:56
 msgid "Updating monthly donation&#8230;"
-msgstr ""
+msgstr "Updating monthly donation&#8230;"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:57
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:59
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:62
 msgid "Submit"
-msgstr ""
+msgstr "Submit"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:69
 msgid "Your monthly donation"
-msgstr ""
+msgstr "Your monthly donation"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:70
 #, python-format
-msgid "Thank you 1%%Friend! You're about to set your monthly donation amount to &euro;"
-msgstr ""
+msgid ""
+"Thank you 1%%Friend! You're about to set your monthly donation amount to "
+"&euro;"
+msgstr "Thank you 1%%Friend! You're about to set your monthly donation amount to &euro;"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:14
 msgid "Donation Successful!"
-msgstr ""
+msgstr "Donation Successful!"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:16
 #, python-format
@@ -833,7 +852,7 @@ msgid ""
 "\n"
 "\t\t\t\t\t\t\tThanks for your support! Your 1%% has brought them one step closer to realise their smart idea! Don't forget to tune in to see how they're doing!\n"
 "\t\t\t\t\t\t"
-msgstr ""
+msgstr "\n\t\t\t\t\t\t\tThanks for your support! Your 1%% has brought them one step closer to realise their smart idea! Don't forget to tune in to see how they're doing!\n\t\t\t\t\t\t"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:20
 #, python-format
@@ -841,65 +860,67 @@ msgid ""
 "\n"
 "\t\t\t\t\t\t\tThanks for your support! We'd be happy to keep you posted on the progress of the project(s) you supported. Why? Because it's a fun and personal way to see what's happening with your 1%%. Sounds good? Just become a 1%%Member!\n"
 "\t\t\t\t\t\t"
-msgstr ""
+msgstr "\n\t\t\t\t\t\t\tThanks for your support! We'd be happy to keep you posted on the progress of the project(s) you supported. Why? Because it's a fun and personal way to see what's happening with your 1%%. Sounds good? Just become a 1%%Member!\n\t\t\t\t\t\t"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:23
 #, python-format
 msgid "Become a 1%%Member"
-msgstr ""
+msgstr "Become a 1%%Member"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:29
 msgid "No donation set..."
-msgstr ""
+msgstr "No donation set..."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:31
 msgid "Create or enable your monthly donation"
-msgstr ""
+msgstr "Create or enable your monthly donation"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:52
 msgid "You just supported the top three projects."
-msgstr ""
+msgstr "You just supported the top three campaigns."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:77
 msgid "Your monthly donation is set"
-msgstr ""
+msgstr "Your monthly donation is set"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:79
-msgid "Your monthly donation will be deducted from your account at the beginning of each month."
-msgstr ""
+msgid ""
+"Your monthly donation will be deducted from your account at the beginning of"
+" each month."
+msgstr "Your monthly donation will be deducted from your account at the beginning of each month."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:81
 msgid "Monthly donation total:"
-msgstr ""
+msgstr "Monthly donation total:"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/thanks_donation.hbs.py:31
 msgid "You supported"
-msgstr ""
+msgstr "You supported"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/user_orders.html.py:30
 msgid "Loading order history"
-msgstr ""
+msgstr "Loading order history"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/admin.py:100
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/admin.py:294
 msgid "Dates"
-msgstr ""
+msgstr "Dates"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/admin.py:105
 msgid "Realtime amounts"
-msgstr ""
+msgstr "Real time amounts"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/admin.py:110
 msgid "Payout amounts"
-msgstr ""
+msgstr "Payout amounts"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/admin.py:113
 msgid "Payment details"
-msgstr ""
+msgstr "Payment details"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/admin.py:129
 msgid "pending"
-msgstr ""
+msgstr "pending"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/admin.py:160
 msgid "Raised"
@@ -911,11 +932,11 @@ msgstr ""
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/admin.py:202
 msgid "project"
-msgstr ""
+msgstr "campaign"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/admin.py:209
 msgid "organization"
-msgstr ""
+msgstr "organisation"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/admin.py:217
 msgid "IBAN"
@@ -924,47 +945,47 @@ msgstr ""
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/admin.py:259
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/admin.py:341
 msgid "Recalculate amounts for new payouts."
-msgstr ""
+msgstr "Recalculate amounts for new payouts."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/admin.py:299
 msgid "Organization fee"
-msgstr ""
+msgstr "Organisation fee"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/admin.py:304
 msgid "PSP fee"
-msgstr ""
+msgstr "PSP fee"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/admin.py:309
 msgid "Other costs"
-msgstr ""
+msgstr "Other costs"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/admin.py:314
 msgid "Amount payable"
-msgstr ""
+msgstr "Amount payable"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/admin_filters.py:44
 msgid "pending donations"
-msgstr ""
+msgstr "pending donations"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/admin_filters.py:52
 msgid "has IBAN"
-msgstr ""
+msgstr "has IBAN"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/choices.py:8
 msgid "Old 1%/5%"
-msgstr ""
+msgstr "Old 1%/5%"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/choices.py:9
 msgid "5%"
-msgstr ""
+msgstr "5%"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/choices.py:10
 msgid "7%"
-msgstr ""
+msgstr "7%"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/choices.py:11
 msgid "12%"
-msgstr ""
+msgstr "12%"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/choices.py:12
 msgid "100%"
@@ -973,53 +994,55 @@ msgstr ""
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/choices.py:13
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/cowry/models.py:18
 msgid "Unknown"
-msgstr ""
+msgstr "Unknown"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/choices.py:14
 msgid "Other"
-msgstr ""
+msgstr "Other"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/choices.py:20
 msgid "Progress"
-msgstr ""
+msgstr "Progress"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/choices.py:21
 msgid "Completed"
-msgstr ""
+msgstr "Completed"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:71
-msgid "Book date when the bank transaction was confirmed and the payout has been set to completed."
-msgstr ""
+msgid ""
+"Book date when the bank transaction was confirmed and the payout has been "
+"set to completed."
+msgstr "Book date when the bank transaction was confirmed and the payout has been set to completed."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:84
 msgid "Closed date is set but status is not completed."
-msgstr ""
+msgstr "Closed date is set but status is not completed."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:99
 msgid "Planned"
-msgstr ""
+msgstr "Planned"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:100
 msgid "Date on which this batch should be processed."
-msgstr ""
+msgstr "Date on which this batch should be processed."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:104
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/cowry/models.py:36
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/cowry_docdata/models.py:78
 msgid "status"
-msgstr ""
+msgstr "status"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:107
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/cowry/models.py:38
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/cowry_docdata/models.py:83
 msgid "created"
-msgstr ""
+msgstr "created"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:108
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/cowry/models.py:39
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/cowry_docdata/models.py:84
 msgid "updated"
-msgstr ""
+msgstr "updated"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:110
 msgid "submitted"
@@ -1027,190 +1050,196 @@ msgstr ""
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:163
 msgid "state change"
-msgstr ""
+msgstr "state change"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:164
 msgid "state changes"
-msgstr ""
+msgstr "state changes"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:170
 msgid "date"
-msgstr ""
+msgstr "date"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:173
 msgid "old status"
-msgstr ""
+msgstr "old status"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:178
 msgid "new status"
-msgstr ""
+msgstr "new status"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:183
 #, python-format
-msgid "Status change of '%(payout)s' on %(date)s from %(old_status)s to %(new_status)s"
-msgstr ""
+msgid ""
+"Status change of '%(payout)s' on %(date)s from %(old_status)s to "
+"%(new_status)s"
+msgstr "Status change of '%(payout)s' on %(date)s from %(old_status)s to %(new_status)s"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:201
 msgid "Payout rule"
-msgstr ""
+msgstr "Payout rule"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:203
 msgid "The payout rule for this project."
-msgstr ""
+msgstr "The payout rule for this campaign."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:207
 msgid "amount raised"
-msgstr ""
+msgstr "amount raised"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:208
 msgid "Amount raised when Payout was created or last recalculated."
-msgstr ""
+msgstr "Amount raised when Payout was created or last recalculated."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:212
 msgid "organization fee"
-msgstr ""
+msgstr "organisation fee"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:213
 msgid "Fee substracted from amount raised for the organization."
-msgstr ""
+msgstr "Fee substracted from amount raised for the organisation."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:217
 msgid "amount payable"
-msgstr ""
+msgstr "amount payable"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:218
 msgid "Payable amount; raised amount minus organization fee."
-msgstr ""
+msgstr "Payable amount; raised amount minus organisation fee."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:434
 msgid "start date"
-msgstr ""
+msgstr "start date"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:435
 msgid "end date"
-msgstr ""
+msgstr "end date"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:437
 msgid "organization fee excluding VAT"
-msgstr ""
+msgstr "organisation fee excluding VAT"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:438
 msgid "organization fee VAT"
-msgstr ""
+msgstr "organisation fee VAT"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:439
 msgid "organization fee including VAT"
-msgstr ""
+msgstr "organisation fee including VAT"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:441
 msgid "PSP fee excluding VAT"
-msgstr ""
+msgstr "PSP fee excluding VAT"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:442
 msgid "PSP fee VAT"
-msgstr ""
+msgstr "PSP fee VAT"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:443
 msgid "PSP fee including VAT"
-msgstr ""
+msgstr "PSP fee including VAT"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:446
 msgid "other costs excluding VAT"
-msgstr ""
+msgstr "other costs excluding VAT"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:448
-msgid "Set either this value or inclusive VAT, make sure recalculate afterwards."
-msgstr ""
+msgid ""
+"Set either this value or inclusive VAT, make sure recalculate afterwards."
+msgstr "Set either this value or inclusive VAT, make sure recalculate afterwards."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:452
 msgid "other costs VAT"
-msgstr ""
+msgstr "other costs VAT"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:454
 msgid "other costs including VAT"
-msgstr ""
+msgstr "other costs including VAT"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:456
-msgid "Set either this value or exclusive VAT, make sure recalculate afterwards."
-msgstr ""
+msgid ""
+"Set either this value or exclusive VAT, make sure recalculate afterwards."
+msgstr "Set either this value or exclusive VAT, make sure recalculate afterwards."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:460
 msgid "payable amount excluding VAT"
-msgstr ""
+msgstr "payable amount excluding VAT"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:461
 msgid "payable amount VAT"
-msgstr ""
+msgstr "payable amount VAT"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:462
 msgid "payable amount including VAT"
-msgstr ""
+msgstr "payable amount including VAT"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:586
 msgid "Start date should be earlier than date."
-msgstr ""
+msgstr "Start date should be earlier than date."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:597
-msgid "The next payout period should start the day after the end of the previous period."
-msgstr ""
+msgid ""
+"The next payout period should start the day after the end of the previous "
+"period."
+msgstr "The next payout period should start the day after the end of the previous period."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/payouts/models.py:620
 msgid "Other costs have changed, please recalculate before progessing."
-msgstr ""
+msgstr "Other costs have changed, please recalculate before progessing."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/cowry/models.py:11
 msgid "In Progress"
-msgstr ""
+msgstr "In Progress"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/cowry/models.py:15
 msgid "Cancelled"
-msgstr ""
+msgstr "Cancelled"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/cowry/models.py:16
 msgid "Chargedback"
-msgstr ""
+msgstr "Charged back"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/cowry/models.py:17
 msgid "Refunded"
-msgstr ""
+msgstr "Refunded"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/cowry/models.py:30
 msgid "payment service fee"
-msgstr ""
+msgstr "payment service fee"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/cowry/models.py:45
 msgid "INFO"
-msgstr ""
+msgstr "INFO"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/cowry/models.py:46
 msgid "WARN"
-msgstr ""
+msgstr "WARN"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/cowry/models.py:47
 msgid "ERROR"
-msgstr ""
+msgstr "ERROR"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/cowry/models.py:62
 msgid "Payment Log"
-msgstr ""
+msgstr "Payment Log"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/cowry/serializers.py:40
 #, python-format
 msgid "%(payment_method_id)s is not a valid payment method."
-msgstr ""
+msgstr "%(payment_method_id)s is not a valid payment method."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/cowry_docdata/models.py:69
 msgid "DocData Payment"
-msgstr ""
+msgstr "DocData Payment"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/cowry_docdata/models.py:70
 msgid "DocData Payments"
-msgstr ""
+msgstr "DocData Payments"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/cowry_docdata/models.py:80
 msgid "payment id"
-msgstr ""
+msgstr "payment id"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/cowry_docdata/models.py:106
 msgid "DocData Payment Log"
-msgstr ""
+msgstr "DocData Payment Log"
