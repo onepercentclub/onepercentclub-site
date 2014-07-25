@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Translators:
+# Translators:
 # Loek van Gent <loek@1procentclub.nl>, 2014
 # Malou <malou@onepercentclub.com>, 2014
 # Niels Jansen <niels@1procentclub.nl>, 2014
@@ -12,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-17 16:12+0200\n"
+"POT-Creation-Date: 2014-07-24 17:11+0200\n"
 "PO-Revision-Date: 2014-07-17 14:14+0000\n"
 "Last-Translator: aethemba <aksel@onepercentclub.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
@@ -89,7 +90,7 @@ msgstr "Yes, stop my donation"
 msgid "No, continue"
 msgstr "No, continue"
 
-#: apps/fund/static/js/bluebottle/orders/controllers.js:536
+#: apps/fund/static/js/bluebottle/orders/controllers.js:539
 msgid "Reloading order details"
 msgstr ""
 
@@ -113,7 +114,7 @@ msgstr "raised"
 msgid "Welcome!"
 msgstr ""
 
-#: apps/projects/static/js/projects/models.js:69
+#: apps/projects/static/js/projects/models.js:68
 msgid ""
 "<h3>Introduction of your campaign</h3><p>We’ve already set some structure in"
 " this plan, but you are free to write it in your own way.</p><h3>What are "
@@ -472,7 +473,7 @@ msgstr ""
 msgid "Pick a skill"
 msgstr ""
 
-#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/app.js.c:51
+#: env/src/bluebottle/bluebottle/common/static/js/bluebottle/app.js.c:52
 msgid "Password needs to be at least 6 characters long"
 msgstr "Your password needs to be at least 6 characters long."
 

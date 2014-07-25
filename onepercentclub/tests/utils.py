@@ -68,8 +68,7 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
         self.browser.find_by_css('input[type=password]').first.fill(password)
 
         self.wait_for_element_css("a[name=login]", timeout=10)
-
-        self.browser.find_by_css("a[name=login]").first.click()
+        self.scroll_to_and_click_by_css("a[name=login]")
 
         # FIXME: We should be checking some other state, maybe something in Ember
         return self.browser.is_text_present('My 1%', wait_time=wait_time)

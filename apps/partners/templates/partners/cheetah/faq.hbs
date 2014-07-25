@@ -7,14 +7,14 @@
         <div class="l-wrapper">
             <div class="row">
                 <div class="col12">
-                    <h1>{% trans 'Frequently Asked Questions'%}</h1>
+                    <h1>{% trans 'Frequently Asked Questions' context 'cheetah faq'%}</h1>
                 </div>
             </div>
             <div class="row">
             	<div class="col6">
             		<ul class="faq-list">
             			<li class="faq-question">
-            				<a>{% trans 'Why do you need to crowdfund 30% in 30 days?'%}</a>
+            				<a>{% blocktrans %}Why do you need to crowdfund 30% in 30 days?{% endblocktrans %}</a>
             				<span class="faq-answer">
             					{% blocktrans %}
 									We ask everyone to crowdfund the first 30% themselves because we believe that anyone who manages to do so, is not only eager to get their project off the ground but can also motivate others to support their campaign. And we want to support those pioneers by matching their funds!
@@ -46,6 +46,15 @@
             					{% endblocktrans %}
             				</span>
         				</li>
+                        <li class="faq-question">
+                            <a>{% trans 'Why do you use the Euro as the currency instead of the Dollar?' %}</a>
+                            <span class="faq-answer">
+                                {% blocktrans %}
+                                    Because the Cheetah Fund is a Dutch programme and the Netherlands has the Euro as its currency, we’ve decided to use it for the Cheetah Fund as well.
+                                    But to give you an indication: &euro;1 = &dollar;1,35 and the maximum of &euro;15.000 that you can ask for amounts to about &dollar;20.000.
+                                {% endblocktrans %}
+                            </span>
+                        </li>
             		</ul>
             	</div>
             	<div class="col6">
@@ -59,10 +68,10 @@
             				</span>
         				</li>
             			<li class="faq-question">
-            				<a>{% trans 'I did not manage to crowdfund 30% in 30 days. What will happen with the money donated to my project?'%}</a>
+            				<a>{% blocktrans %}I did not manage to crowdfund 30% in 30 days. What will happen with the money donated to my project?{% endblocktrans %}</a>
             				<span class="faq-answer">
             					{% blocktrans %}
-									If the amount adds up to more than &dollar;25, you will still receive the money that has been donated to your project. 
+									If the amount adds up to more than &euro;20, you will still receive the money that has been donated to your project. 
             					{% endblocktrans %}
             				</span>
         				</li>

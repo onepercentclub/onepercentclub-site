@@ -149,12 +149,12 @@
 
 				&:before {
 					position: absolute;
-					top: -2px;
+					top: 0;
 					left: 15px;
 					content: '';
 					width: 17px;
 					height: 26px;
-					background: image-url("cheetah/icons/icon-dollar-sign.svg") transparent no-repeat 0 0;
+					background: image-url("cheetah/icons/icon-euro-sign.svg") transparent no-repeat 0 0;
 				}
 
 				&:after {
@@ -275,6 +275,7 @@
 	.submit-quiz {
 		position: relative;
 		margin-top: -50px;
+		margin-bottom: 45px\9\0; // only IE9
 		float: right;
 		height: 45px;
 		width: 50px;

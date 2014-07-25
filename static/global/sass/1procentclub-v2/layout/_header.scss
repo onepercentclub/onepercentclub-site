@@ -60,7 +60,8 @@
 				margin-right: 2em;
 
 				@include breakpoint(xx-large) {
-					margin-right: .3em;
+					margin-right: 1.3em;
+					padding-left: 1em;
 				}
 
 				&:last-of-type {
