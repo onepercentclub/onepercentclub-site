@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-25 19:38+0200\n"
-"PO-Revision-Date: 2014-07-25 17:58+0000\n"
+"PO-Revision-Date: 2014-07-25 18:34+0000\n"
 "Last-Translator: aethemba <aksel@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -281,20 +281,20 @@ msgstr ""
 
 #: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:16
 msgid "First Name can't be left empty"
-msgstr ""
+msgstr "Voornaam kan niet leeg zijn"
 
 #: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:22
 msgid "Surname can't be left empty"
-msgstr ""
+msgstr "Achternaam kan niet leeg zijn"
 
 #: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:28
 #: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:262
 msgid "Invalid email address"
-msgstr ""
+msgstr "Oh nee! Dit is een ongeldig email adres."
 
 #: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:35
 msgid "Emails don't match"
-msgstr ""
+msgstr "Oeps! Deze email adressen komen niet overeen."
 
 #: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:171
 msgid "Welcome "
@@ -335,7 +335,7 @@ msgstr ""
 
 #: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:269
 msgid "Password required"
-msgstr ""
+msgstr "Vul uw wachtwoord in."
 
 #: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:378
 msgid "Trouble signing in?"
@@ -351,15 +351,15 @@ msgstr ""
 
 #: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:478
 msgid "We've updated your password, you're all set!"
-msgstr ""
+msgstr "We hebben uw wachtwoord aangepast. "
 
 #: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:494
 msgid "Passwords don't match"
-msgstr ""
+msgstr "De wachtwoorden komen niet overeen"
 
 #: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:589
 msgid "Invalid token, try request a new password again"
-msgstr ""
+msgstr "Ongeldig token, vraag een nieuw wachtwoord aan"
 
 #: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:610
 msgid "If you leave me now..."
@@ -375,30 +375,30 @@ msgstr ""
 
 #: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:643
 msgid "Error, invalid token"
-msgstr ""
+msgstr "Oeps, ongeldig token"
 
 #: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:9
 msgid "First name"
-msgstr ""
+msgstr "Voornaam"
 
 #: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:10
 msgid "Surname"
-msgstr ""
+msgstr "Achternaam"
 
 #: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:11
 #: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:24
 #: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:51
 msgid "Email address"
-msgstr ""
+msgstr "E-mailadres"
 
 #: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:12
 msgid "Re-enter email address"
-msgstr ""
+msgstr "Herhaal e-mailadres"
 
 #: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:13
 #: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:25
 msgid "Password"
-msgstr ""
+msgstr "Wachtwoord"
 
 #: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:59
 msgid "Pick an item"
@@ -422,7 +422,7 @@ msgstr ""
 
 #: env-2.7/src/bluebottle/bluebottle/bb_organizations/static/js/bluebottle/bb_organizations/views.js.c:2
 msgid "Pick an organization"
-msgstr ""
+msgstr "Kies een organisatie"
 
 #: env-2.7/src/bluebottle/bluebottle/bb_projects/static/js/bluebottle/bb_projects/views.js.c:30
 msgid "Search"
@@ -479,7 +479,7 @@ msgstr ""
 
 #: env-2.7/src/bluebottle/bluebottle/common/static/js/bluebottle/app.js.c:52
 msgid "Password needs to be at least 6 characters long"
-msgstr ""
+msgstr "Je wachtwoord moet minstens 6 karakters lang zijn."
 
 #: env-2.7/src/bluebottle/bluebottle/common/static/js/bluebottle/auth_jwt.js.c:69
 msgid "Failed to create currentUser"
