@@ -149,12 +149,12 @@
 
 				&:before {
 					position: absolute;
-					top: -2px;
+					top: 0;
 					left: 15px;
 					content: '';
 					width: 17px;
 					height: 26px;
-					background: image-url("cheetah/icons/icon-dollar-sign.svg") transparent no-repeat 0 0;
+					background: image-url("cheetah/icons/icon-euro-sign.svg") transparent no-repeat 0 0;
 				}
 
 				&:after {

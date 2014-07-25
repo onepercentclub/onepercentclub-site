@@ -2,6 +2,11 @@
 
 	.video-heading {
 
+		h1 {
+			font-size: 46px;
+			margin-top: 0;
+		}
+
 		.cheetah-icon-big {
 			float: left;
 			display: block;
@@ -16,7 +21,7 @@
 			font-size: 28px;
 			text-transform: uppercase;
 			color: $color-primary;
-			margin-left: 5px;
+			margin-left: 15px;
 			
 			span {
 				font-family: $font-family-garage
