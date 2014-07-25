@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-17 16:12+0200\n"
-"PO-Revision-Date: 2014-07-17 14:23+0000\n"
+"POT-Creation-Date: 2014-07-24 17:11+0200\n"
+"PO-Revision-Date: 2014-07-24 15:14+0000\n"
 "Last-Translator: aethemba <aksel@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -506,7 +506,7 @@ msgstr "Je ontvangt deze email omdat je geregistreerd bent bij"
 msgid "Didn’t request an account?"
 msgstr "Geen account aangevraagd?"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/activation_email_subject.txt.py:1
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/registration/activation_email_subject.txt.py:2
 #, python-format
 msgid "Welcome to 1%%Club"
 msgstr "Welkom bij 1%%Club"
