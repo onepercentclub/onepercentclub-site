@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.conf.urls import patterns, url, include
 from django.http import HttpResponseRedirect
-
+from django.core.urlresolvers import reverse
 
 from bluebottle.bb_accounts.admin import BlueBottleUserAdmin
 
@@ -30,7 +30,7 @@ class MemberAdmin(BlueBottleUserAdmin):
         return HttpResponseRedirect(url)
 
     def login_as_link(self, obj):
-        return "<a target='_blank' href='/admin/members/member/login-as/{0}/'>{1}</a>".format(obj.pk, 'Login as user')
+        return "<a target='_blank' href='{0}members/member/login-as/{1}/'>{2}</a>".format(reverse('admin:index'), obj.pk, 'Login as user')
 
     login_as_link.allow_tags = True
 
