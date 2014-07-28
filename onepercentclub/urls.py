@@ -82,7 +82,7 @@ urlpatterns += i18n_patterns('',
     url(r'^projects/', include('apps.projects.urls.seo')),
 
     # Organization urls for downloading private documents
-    url(r'^documents/', include('bluebottle.utils.urls.main')),
+    url(r'^admin/documents/', include('bluebottle.utils.urls.main')),
     url(r'^documents/', include('apps.organizations.urls.documents')),
 
     # handlebar templates
