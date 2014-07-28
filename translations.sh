@@ -20,10 +20,10 @@ fi
 
 ROOT="$PWD"
 APPS_ROOT="$PWD/apps"
-BB_ROOT="$PWD/env/src/bluebottle/bluebottle"
+BB_ROOT="$PWD/env-2.7/src/bluebottle/bluebottle"
 
 MAKEMESSAGES="$MANAGE_PY makemessages -l $SOURCE_LANGUAGE --no-wrap -e hbs,html,txt $SETTINGS"
-MAKEJSMESSAGES="$MANAGE_PY makemessages -l $SOURCE_LANGUAGE --include=env/src/bluebottle/bluebottle --ignore=djangojs.js  --ignore=node_modules --no-wrap -e js -i compressed -d djangojs $SETTINGS"
+MAKEJSMESSAGES="$MANAGE_PY makemessages -l $SOURCE_LANGUAGE --include=env-2.7/src/bluebottle/bluebottle --ignore=djangojs.js  --ignore=node_modules --no-wrap -e js -i compressed -d djangojs $SETTINGS"
 COMPILEMESSAGES="$MANAGE_PY compilemessages $SETTINGS"
 COMPILEJSMESSAGES="$MANAGE_PY compilejsi18n $SETTINGS"
 APPS_DIR="apps"

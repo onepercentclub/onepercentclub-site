@@ -594,7 +594,3 @@ SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email', 'first_name', 'last_name', ]
 SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
 
 SEND_WELCOME_MAIL = True
-
-
-MIXPANEL = ''
-
