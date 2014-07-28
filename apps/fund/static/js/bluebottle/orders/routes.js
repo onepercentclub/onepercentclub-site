@@ -97,25 +97,23 @@ App.OrderThanksRoute = App.OrderFlowRoute.extend({
     model: function(params) {
         var route = this;
         var order = App.Order.find(params.order_id);
+
         order.one('becameError', function() {
             route.replaceWith('home');
         });
 
-        order.one("didLoad", function(){
-
-            if (route.get('tracker')) {
-                var tracker = route.get('tracker');
-                tracker.trackEvent("Successful donation", {amount: this.get('total') });
-                tracker.peopleIncrement('number_of_donations');
-                tracker.peopleIncrement('total_donations_amount', this.get('total'));
-            }
-
-        });
-
-
         return order;
-    }
+    },
 
+    afterModel: function(order){
+
+        if (this.get('tracker')) {
+            var tracker = this.get('tracker');
+            tracker.trackEvent("Successful donation", {amount: order.get('total') });
+            tracker.peopleIncrement('number_of_donations');
+            tracker.peopleIncrement('total_donations_amount', order.get('total'));
+        }
+    }
 });
 
 
