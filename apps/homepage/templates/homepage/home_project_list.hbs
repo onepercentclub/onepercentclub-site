@@ -15,7 +15,7 @@
                     {{#each project in projects}}
                         <div class="col4">
                             <li class="campaign-item">
-                                {{#link-to 'project' project.id class="campaign-item-holder"}}
+                                <a {{action goToFavouriteProject project}} class="campaign-item-holder">
                                     <header class="header">
                                         <img {{bindAttr src=project.image}} />
                                     </header>
@@ -63,7 +63,7 @@
                                             </span>
                                         </p>
                                     </div>
-                                {{/link-to}}
+                                </a>
                             </li>
                         </div>
                     {{/each}}
