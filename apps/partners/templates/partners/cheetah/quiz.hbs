@@ -98,7 +98,7 @@
                                              {% trans 'How much funding (in euros) do you need to kick-start or boost your project?'%}
                                         </p>
                                         <label for="input">
-                                            {{view Em.TextField valueBinding='answerTwo' autofocus="autofocus"}}
+                                            {{view Em.TextField valueBinding='answerTwo' autofocus="autofocus" class="quiz-input"}}
                                         </label>
                                         <a {{action 'answer' 'questionTwo' answerTwo}} class="submit-quiz"></a>
                                     </div>
