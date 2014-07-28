@@ -101,9 +101,17 @@ App.OrderThanksRoute = App.OrderFlowRoute.extend({
             route.replaceWith('home');
         });
 
-        if (this.get('tracker')) {
-            this.get('tracker').trackEvent("Successful donation", {});
-        }
+        order.one("didLoad", function(){
+
+            if (route.get('tracker')) {
+                var tracker = route.get('tracker');
+                tracker.trackEvent("Successful donation", {amount: this.get('total') });
+                tracker.peopleIncrement('number_of_donations');
+                tracker.peopleIncrement('total_donations_amount', this.get('total'));
+            }
+
+        });
+
 
         return order;
     }

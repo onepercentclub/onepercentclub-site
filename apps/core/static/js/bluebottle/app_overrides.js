@@ -77,18 +77,40 @@ App.then(function(app) {
                     // For some reason the currentUserController keeps failing to have a reference to 'tracker'
                     var loginController = App.__container__.lookup('controller:login');
 
+
+                    if (loginController.get('tracker')) {
+                        var tracker = loginController.get('tracker');
+                        tracker.identify(user.get('id_for_ember'));
+                        tracker.peopleSet({
+                            "$first_name": user.get('first_name'),
+                            "$last_name": user.get('last_name'),
+                            "$email": user.get('email'),
+                            has_facebook: "yes",
+                            last_login_type: "facebook"
+                        })
+
+                    }
+
                     if (user.get('firstLogin')) {
                         currentUsercontroller.send('setFlash', currentUsercontroller.get('welcomeMessage'));
-                        // Register the successful Facebook login with Mixpanel
-                        if (loginController.get('tracker')) {
-                            loginController.get('tracker').trackEvent("Signup", {"type": "facebook"});
+                        // Register the successful Facebook signup with Mixpanel
+                        if (tracker) {
+                            tracker.trackEvent("Signup", {"type": "facebook"});
+                            tracker.peopleSet({
+                                number_of_donations: 0,
+                                total_donations_amount: 0,
+                                facebook_shares: 0,
+                                twitter_shares: 0
+                            });
                         }
                     } else {
-                        // Register the successful Facebook signup with Mixpanel
-                        if (loginController.get('tracker')) {
-                            loginController.get('tracker').trackEvent("Login", {"type": "facebook"});
+                        // Register the successful Facebook signin with Mixpanel
+                        if (tracker) {
+                            tracker.trackEvent("Login", {"type": "facebook"});
+                            tracker.peopleSet({has_facebook: "yes"});
                         }
                     }
+
 
                     Ember.run(null, resolve, user);
                     
