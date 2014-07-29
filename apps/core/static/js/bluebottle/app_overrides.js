@@ -157,7 +157,7 @@ App.ApplicationRoute.reopen(App.LogoutJwtMixin, {
                     donation.set('order', order);
                     donation.save();
 
-                    route.get('tracker').trackEvent("Support Campaign", {project: project.get('title')});
+                    if (route.get('tracker')) route.get('tracker').trackEvent("Support Campaign", {project: project.get('title')});
                 }
                 route.transitionTo('currentOrder.donationList');
             });
