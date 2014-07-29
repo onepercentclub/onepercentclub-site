@@ -22,30 +22,9 @@
                 </div>
             {{/if}}
             <div class="row quiz-blocks">
-                <div class="col4 block is-active">
+                <div {{bind-attr class=":col4 :block questionOneFailed:flipped questionOnePassed:flipped"}}>
                     {{#if questionOnePassed}}
-                        <div class="front is-answer">
-                            <div class="quiz-content">
-                                <p>
-                                    {% trans 'Are you an African pioneer with a project based in Africa?'%}
-                                </p>
-                                <span class="question-correct"></span>
-                            </div>
-                        </div>
-                {{else}}
-                    {{#if questionOneFailed}}
-                        <div class="front is-answer">
-                            <div class="quiz-content">
-                                <a {{action 'answer' 'questionOne' null}} class="close-question"></a>
-                                <p>
-                                    {% blocktrans %}
-                                        Unfortunately the Cheetah Fund 2014 only accepts projects based in Africa by African pioneers. Don’t worry, you can always <a href="/#!/pages/start-campaign">start a campaign at 1%Club!</a>
-                                    {% endblocktrans %}
-                                </p>
-                            </div>
-                        </div>
-                    {{else}}
-                        <div class="front">
+                        <div class="front is-active">
                             <div class="quiz-content is-active">
                                 <p>
                                     {% trans 'Are you an African pioneer with a project based in Africa?'%}
@@ -56,14 +35,79 @@
                                 </div>  
                             </div>
                         </div>
+                        <div class="back is-answer">
+                            <div class="quiz-content">
+                                <p>
+                                    {% trans 'Are you an African pioneer with a project based in Africa?'%}
+                                </p>
+                                <span class="question-correct"></span>
+                            </div>
+                        </div>
+                {{else}}
+                    {{#if questionOneFailed}}
+                        <div class="front is-active">
+                            <div class="quiz-content is-active">
+                                <p>
+                                    {% trans 'Are you an African pioneer with a project based in Africa?'%}
+                                </p>
+                                <div class="quiz-answers">
+                                    <span {{action 'answer' 'questionOne' 'yes'}} class="yes">{% trans 'Yes' context 'cheetah yes' %}</span>
+                                    <span {{action 'answer' 'questionOne' 'no'}} class="no">{% trans 'No' context 'cheetah no' %}</span>
+                                </div>  
+                            </div>
+                        </div>
+                        <div class="back is-answer">
+                            <div class="quiz-content">
+                                <a {{action 'answer' 'questionOne' null}} class="close-question"></a>
+                                <p>
+                                    {% blocktrans %}
+                                        Unfortunately the Cheetah Fund 2014 only accepts projects based in Africa by African pioneers. Don’t worry, you can always <a href="/#!/pages/start-campaign">start a campaign at 1%Club!</a>
+                                    {% endblocktrans %}
+                                </p>
+                            </div>
+                        </div>
+                    {{else}}
+                        <div class="front is-active">
+                            <div class="quiz-content is-active">
+                                <p>
+                                    {% trans 'Are you an African pioneer with a project based in Africa?'%}
+                                </p>
+                                <div class="quiz-answers">
+                                    <span {{action 'answer' 'questionOne' 'yes'}} class="yes">{% trans 'Yes' context 'cheetah yes' %}</span>
+                                    <span {{action 'answer' 'questionOne' 'no'}} class="no">{% trans 'No' context 'cheetah no' %}</span>
+                                </div>  
+                            </div>
+                        </div>
+                        <div class="back is-answer">
+                            <div class="quiz-content">
+                                <a {{action 'answer' 'questionOne' null}} class="close-question"></a>
+                                <p>
+                                    {% blocktrans %}
+                                        Unfortunately the Cheetah Fund 2014 only accepts projects based in Africa by African pioneers. Don’t worry, you can always <a href="/#!/pages/start-campaign">start a campaign at 1%Club!</a>
+                                    {% endblocktrans %}
+                                </p>
+                            </div>
+                        </div>
                     {{/if}}
                 {{/if}}
                 </div>
 
-                <div class="col4 block">
+                <div {{bind-attr class=":col4 :block questionTwoPassed:flipped questionTwoFailed:flipped"}}>
                 {{#if questionOnePassed}}
                         {{#if questionTwoPassed}}
-                            <div class="front is-answer">
+                            <div class="front is-active">
+                                <div class="quiz-content">
+                                    {{!-- <a class="questionmark"></a> --}}
+                                    <p>
+                                        {% trans 'How much funding (in euros) do you need to kick-start or boost your project?'%}
+                                    </p>
+                                    <label for="input">
+                                        {{view Em.TextField valueBinding='answerTwo' disabled='true'}}
+                                    </label>
+                                    
+                                </div>
+                            </div>
+                            <div class="back is-answer">
                                 <div class="quiz-content">
                                     <p>
                                         {% trans 'How much funding (in euros) do you need to kick-start or boost your project?'%}
@@ -73,7 +117,26 @@
                             </div>
                         {{else}}
                             {{#if questionTwoFailed}}
-                                <div class="front is-answer">
+                                <div class="front is-active">
+                                    <div class="quiz-content is-active">
+                                        <div class="tooltip-holder">
+                                            <a {{action 'answer' 'questionOne' null}} class="questionmark"></a>
+                                            <div class="tooltip">
+                                                {% blocktrans %}
+                                                    You might like to know that the most successful crowdfunding campaigns target a budget of around &euro;4000.
+                                                {% endblocktrans %}
+                                            </div>
+                                        </div>
+                                        <p>
+                                             {% trans 'How much funding (in euros) do you need to kick-start or boost your project?'%}
+                                        </p>
+                                        <label for="input">
+                                            {{view Em.TextField valueBinding='answerTwo' autofocus="autofocus" class="quiz-input"}}
+                                        </label>
+                                        <a {{action 'answer' 'questionTwo' answerTwo}} class="submit-quiz"></a>
+                                    </div>
+                                </div>
+                                <div class="back is-answer">
                                     <div class="quiz-content">
                                         <a {{action 'answer' 'questionTwo' null}} class="close-question"></a>
                                         <p>
@@ -103,6 +166,16 @@
                                         <a {{action 'answer' 'questionTwo' answerTwo}} class="submit-quiz"></a>
                                     </div>
                                 </div>
+                                <div class="back is-answer">
+                                    <div class="quiz-content">
+                                        <a {{action 'answer' 'questionTwo' null}} class="close-question"></a>
+                                        <p>
+                                         {% blocktrans %}
+                                            In order to join the fund opportunity the budget can’t exceed &euro;15,000. Please reconsider your budget or go to <a href="/">1%Club</a> and start your campaign there!
+                                        {% endblocktrans %}
+                                        </p>
+                                    </div>
+                                </div>
                             {{/if}}
                         {{/if}}
                     {{else}}
@@ -121,7 +194,7 @@
                     {{/if}}
                 </div>
 
-                <div class="col4 block">
+                <div {{bind-attr class=":col4 :block questionThreeFailed:flipped"}}>
                     {{#if questionTwoPassed}}
                         {{#if questionThreePassed}}
                             <div class="front is-answer">
@@ -134,7 +207,18 @@
                             </div>
                         {{else}}
                             {{#if questionThreeFailed}}
-                                <div class="front is-answer">
+                                <div class="front is-active">
+                                    <div class="quiz-content">
+                                        <p>
+                                            {% trans 'Does your project have social or environmental impact?'%}
+                                        </p>
+                                        <div class="quiz-answers">
+                                            <span class="yes">{% trans 'Yes' context 'cheetah yes'%}</span>
+                                            <span class="no">{% trans 'No' context 'cheetah no'%}</span>
+                                        </div>  
+                                    </div>
+                                </div>
+                                <div class="back is-answer">
                                     <div class="quiz-content">
                                         <a {{action 'answer' 'questionThree' null}} class="close-question"></a>
                                         <p>
@@ -162,6 +246,14 @@
                                         </div>  
                                     </div>
                                 </div>
+                                <div class="back is-answer">
+                                    <div class="quiz-content">
+                                        <a {{action 'answer' 'questionThree' null}} class="close-question"></a>
+                                        <p>
+                                            {% trans 'Because the Cheetah Fund 2014 wants to ignite a big wave of social change throughout Africa we only accept projects that will have a social or environmental impact.'%}
+                                        </p>
+                                    </div>
+                                </div>
                             {{/if}}
                         {{/if}}
                     {{else}}
@@ -174,6 +266,14 @@
                                     <span class="yes">{% trans 'Yes' context 'cheetah yes'%}</span>
                                     <span class="no">{% trans 'No' context 'cheetah no'%}</span>
                                 </div>  
+                            </div>
+                        </div>
+                        <div class="back is-answer">
+                            <div class="quiz-content">
+                                <a {{action 'answer' 'questionThree' null}} class="close-question"></a>
+                                <p>
+                                    {% trans 'Because the Cheetah Fund 2014 wants to ignite a big wave of social change throughout Africa we only accept projects that will have a social or environmental impact.'%}
+                                </p>
                             </div>
                         </div>
                     {{/if}}
