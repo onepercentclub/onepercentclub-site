@@ -5,6 +5,6 @@ from .test_runner import *
 
 
 # Use RemoteWebDriver for running tests on Travis
-SELENIUM_WEBDRIVER = 'chrome'
+SELENIUM_WEBDRIVER = 'remote'
 
 ROOT_URLCONF = 'onepercentclub.urls'
