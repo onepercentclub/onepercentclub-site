@@ -75,8 +75,7 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
         # verify we are donating to the correct project
         self.browser.find_by_css('div.project-action a').first.click()
 
-        self.assertTrue(self.browser.is_text_present('LIKE TO GIVE', wait_time=10))
-
+        self.wait_for_element_css('h2.project-title')
         self.assertEqual(self.browser.find_by_css('h2.project-title').first.text[:11], u'WOMEN FIRST')
 
         self.assertEqual(self.browser.find_by_css('.fund-amount-control label').first.text, u"I'D LIKE TO GIVE")
