@@ -164,10 +164,10 @@ App.UserMonthlyProjectsController = Em.ObjectController.extend({
         },
         save: function(){
             var model = this.get('model');
-            var message = gettext("You're about to set a monthly donation.<br/><br/>" +
-                "Has anybody ever told you that you're awesome? Well, you're awesome!<br/><br/>" +
-                "1%Club will withdraw your monthly donation from your bank account in the beginning of each month. You can cancel it anytime you like.<br/><br/>" +
-                "We will send you an email in the beginning of each month to update you on what project(s) received your 1% Support!");
+            var message = gettext("You're about to set a monthly donation.<br/><br/>") +
+                gettext("Has anybody ever told you that you're awesome? Well, you're awesome!<br/><br/>") +
+                gettext("1%Club will withdraw your monthly donation from your bank account in the beginning of each month. You can cancel it anytime you like.<br/><br/>") +
+                gettext("We will send you an email in the beginning of each month to update you on what projects received your support!");
 
             var profile = this.get('profile');
 

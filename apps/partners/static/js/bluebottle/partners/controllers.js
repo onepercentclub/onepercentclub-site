@@ -18,10 +18,7 @@ App.CheetahQuizController = Em.Controller.extend({
             removeComma, newAnswer;
 
         if (!answer) return false;
-        removeComma = answer.split(','[0]);
-        newAnswer = removeComma[0].replace('.', '');
-        
-        return (newAnswer <= 15000);
+        return (answer <= 15000);
     }.property('questionTwo'),
 
     actions: {

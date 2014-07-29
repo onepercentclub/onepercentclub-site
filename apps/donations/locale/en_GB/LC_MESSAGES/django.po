@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-24 17:11+0200\n"
-"PO-Revision-Date: 2014-07-24 15:14+0000\n"
+"POT-Creation-Date: 2014-07-25 21:32+0200\n"
+"PO-Revision-Date: 2014-07-25 17:40+0000\n"
 "Last-Translator: aethemba <aksel@onepercentclub.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
@@ -292,12 +292,12 @@ msgid "My address"
 msgstr "My address"
 
 #: templates/donations/user_monthly_projects.hbs:114
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:44
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:39
 msgid "Address"
 msgstr "Address"
 
 #: templates/donations/user_monthly_projects.hbs:127
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:66
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:61
 msgid "City"
 msgstr "City"
 
@@ -306,7 +306,7 @@ msgid "Postal Code"
 msgstr "Postal Code"
 
 #: templates/donations/user_monthly_projects.hbs:155
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:77
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:72
 msgid "Country"
 msgstr "Country"
 
@@ -646,8 +646,8 @@ msgstr "Add a campaign"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order_donation_list.hbs.py:38
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order_donation_list.hbs.py:41
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:90
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:94
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:85
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:89
 msgid "Next Step"
 msgstr "Next Step"
 
@@ -714,40 +714,32 @@ msgid "Signup now"
 msgstr "Sign up now"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:8
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:21
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:7
 msgid "Have an account?"
 msgstr "Have a profile?"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:8
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:21
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:7
 msgid "Log in here"
 msgstr "Log in here"
 
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:13
+msgid "Safety first!"
+msgstr "Safety first!"
+
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:14
-msgid "Great that you are doing another donation!"
-msgstr "Great that you are doing another donation!"
+msgid "To secure your transaction we need the following details."
+msgstr "To secure your transaction we need the following details."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:15
-msgid "Please verify your details"
-msgstr "Please verify your details"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:17
-msgid "Nice to meet you"
-msgstr "Nice to meet you"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:18
-msgid "To process your donation we need some information."
-msgstr "To process your donation we need some information."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:25
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:20
 msgid "Your full name"
 msgstr "Your full name"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:33
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:28
 msgid "Email"
 msgstr "Email"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:55
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:50
 msgid "Postal code"
 msgstr "Postal code"
 
@@ -782,55 +774,37 @@ msgstr "Processing payment&#8230;"
 msgid "Proceed with Payment"
 msgstr "Proceed with Payment"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:9
-msgid "We'll keep you up to date!"
-msgstr "We'll keep you up to date!"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:10
-msgid ""
-"You already have an account. Great! We'll keep you updated with the progress"
-" of the projects you support"
-msgstr "You already have an account. Great! We'll keep you updated with the progress of the campaigns you support."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:15
-msgid "Next"
-msgstr "Next"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:25
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:11
 msgid "Your name with your donation?"
-msgstr ""
+msgstr "Your name with your donation?"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:26
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:12
 msgid "Create an account with just one click."
-msgstr ""
+msgstr "Create an account with just one click."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:33
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:19
 msgid "Sign up"
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:37
-msgid "We'll keep you updated on the campaign process"
-msgstr ""
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:40
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:23
 msgid "One Click sign up via Facebook or just with your email address."
-msgstr ""
+msgstr "Click sign up via Facebook or just with your email address."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:43
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:26
 msgid "Faster future donations."
-msgstr ""
+msgstr "Faster future donations."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:46
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:29
 msgid "Keep track of all of your donations."
-msgstr ""
+msgstr "Keep track of all of your donations."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:52
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:35
 msgid "Continue as guest"
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:56
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:39
 msgid "Stay anonymous"
-msgstr ""
+msgstr "Stay anonymous"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:11
 msgid ""

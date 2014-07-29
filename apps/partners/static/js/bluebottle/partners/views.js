@@ -18,7 +18,15 @@ App.PartnerView = Em.View.extend({
 
 
 App.CheetahQuizView = Em.View.extend({
-    templateName: 'cheetah_quiz'
+    templateName: 'cheetah_quiz',
+
+    keyUp: function(){
+        var answer = $('.quiz-input').val(),
+            removeComma = answer.split(','),
+            newAnswer = removeComma[0].replace('.', '');
+
+        $('.quiz-input').val(newAnswer)
+    }
 });
 
 App.CheetahFaqView = Em.View.extend({

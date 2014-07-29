@@ -10,13 +10,8 @@
 
         <form>
             <legend>
-                {{#if currentUser.isAuthenticated}}
-                    <strong>{% trans "Great that you are doing another donation!" %}</strong>
-                    <p>{% trans "Please verify your details" %}.</p>
-                {{else}}
-                    <strong>{% trans "Nice to meet you" %}</strong>
-                    <p>{% trans "To process your donation we need some information." %}</p>
-                {{/if}}
+                <strong>{% trans "Safety first!" %}</strong>
+                <p>{% trans "To secure your transaction we need the following details." %}</p>
             </legend>
 
             <fieldset>

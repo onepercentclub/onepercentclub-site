@@ -50,8 +50,8 @@
                             <a>{% trans 'Why do you use the Euro as the currency instead of the Dollar?' %}</a>
                             <span class="faq-answer">
                                 {% blocktrans %}
-                                    Because the Cheetah Fund is a Dutch programme and the Netherlands has the Euro as its currency, we’ve decided to use it for the Cheetah Fund as well.
-                                    But to give you an indication: &euro;1 = &dollar;1,35 and the maximum of &euro;15.000 that you can ask for amounts to about &dollar;20.000.
+                                    Because the Cheetah Fund is a Dutch programme and the Netherlands has the Euro as its currency, we’ve decided to use it for the Cheetah Fund as well. 
+                                    But to give you an indication: &euro;1 = &dollar;1.35 and the maximum of &euro;15,000 that you can ask for amounts to about &dollar;20,000.
                                 {% endblocktrans %}
                             </span>
                         </li>
@@ -94,9 +94,7 @@
         				<li class="faq-question">
             				<a>{% trans 'What are your General Terms and Conditions?'%}</a>
             				<span class="faq-answer">
-            					{% blocktrans %}
-            						You can find our General Terms and Conditions <a href="/#!/pages/terms-and-conditions" target="_blank">here</a>
-            					{% endblocktrans %}
+            					{% trans 'You can find our General Terms and Conditions' %} {{#linkTo 'page' 'terms-and-conditions' target="blank" }}here{{/linkTo}}
             				</span>
         				</li>
             		</ul>
