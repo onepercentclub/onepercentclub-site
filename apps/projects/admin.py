@@ -30,7 +30,7 @@ class ProjectAdmin(BaseProjectAdmin):
 
     list_filter = BaseProjectAdmin.list_filter + ('is_campaign', 'theme')
     list_display = BaseProjectAdmin.list_display + ('is_campaign', 'deadline')
-    list_editable =  ('is_campaign', )
+    list_editable = ('is_campaign', )
 
     readonly_fields = ('owner_link', 'organization_link', 'amount_donated', 'amount_needed', 'popularity')
 

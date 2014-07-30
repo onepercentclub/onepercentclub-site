@@ -1,6 +1,6 @@
 App.MyOrganization.reopen({
     // Override BB here as the website is not required.
-    requiredOrganizationFields: ['name', 'email', 'phone_number'],
+    requiredOrganizationFields: ['name', 'email', 'phone_number', 'validLegalStatus'],
     valid: Em.computed.and('validOrganization', 'validBank'),
 
     validProfile: function () {
@@ -9,13 +9,6 @@ App.MyOrganization.reopen({
         }
         return false;
     }.property('name', 'description', 'email'),
-
-    validLegalStatus: function () {
-        if (this.get('documents.length') > 0){
-            return true;
-        }
-        return false;
-    }.property('documents.length'),
 
     friendlyFieldNames: {
         'name': 'Name',
