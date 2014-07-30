@@ -14,6 +14,7 @@
                 </figure>
             {{else}}
                 <figure class="project-image">
+                    <span {{bindAttr class="partner.id:"}}></span>
                     <img {{bindAttr src="image.large"}} width="100%" alt="Photo" />
                 </figure>
             {{/if}}
