@@ -21,19 +21,7 @@
                 		</ul>
                 	</div>
                 	
-                    <div id="quote-carousel">
-                        <div class="quote-carousel-content">
-                            <div class="carousel-photo">
-                                <img src="/static/assets/images/img/pages/home/quote-mark-rutte.jpg">
-                            </div>
-                            <div class="carousel-quote">
-                                <strong>{% trans "Een actiegerichte manier van denken die uitstekend past in deze tijd." %}</strong>
-                                <em>&#8212; {% trans "Mark Rutte, Minister-president" %}</em>
-                            </div>
-                        </div>
-                        <a href="#" class="carousel-nav previous">&#10094;</a>
-                        <a href="#" class="carousel-nav next">&#10095;</a>
-                    </div>
+                    {{ view App.QuoteCarouselView }}
                     
                 </div>
             </div>
