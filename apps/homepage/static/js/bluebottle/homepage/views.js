@@ -24,6 +24,34 @@ App.HomeBannerView = Ember.View.extend({
 });
 
 
+App.QuoteCarouselView = Em.View.extend({
+    templateName: 'quote_carousel',
+
+    didInsertElement: function() {
+        var quoteSlider = $('#quote-carousel').unslider({
+                dots: false,
+                fluid: true,
+                delay: 8000,
+                keys: false
+            }), _this = this,
+            data = quoteSlider.data('unslider');
+
+
+        this.$().find('.previous').on('click', function(e){
+            e.preventDefault();
+            data.prev();
+            _this.send('didInsertElement');
+        });
+
+        this.$().find('.next').on('click', function(e){
+            e.preventDefault();
+            data.next();
+            _this.send('didInsertElement');
+        });
+    }
+})
+
+
 App.HomeProjectListView = Ember.View.extend({
     index: 0,
     templateName: 'home_project_list',
