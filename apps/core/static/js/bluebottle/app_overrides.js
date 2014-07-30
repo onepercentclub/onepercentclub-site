@@ -97,8 +97,6 @@ App.then(function(app) {
                         if (tracker) {
                             tracker.trackEvent("Signup", {"type": "facebook"});
                             tracker.peopleSet({
-                                number_of_donations: 0,
-                                total_donations_amount: 0,
                                 facebook_shares: 0,
                                 twitter_shares: 0
                             });

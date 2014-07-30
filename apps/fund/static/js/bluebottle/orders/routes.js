@@ -110,8 +110,6 @@ App.OrderThanksRoute = App.OrderFlowRoute.extend({
         if (this.get('tracker')) {
             var tracker = this.get('tracker');
             tracker.trackEvent("Successful donation", {amount: order.get('total') });
-            tracker.peopleIncrement('number_of_donations');
-            tracker.peopleIncrement('total_donations_amount', order.get('total'));
         }
     }
 });
