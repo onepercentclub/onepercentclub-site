@@ -16,6 +16,12 @@ $bp-xl-2 : 67em; // 1072px
 		}
 	}
 
+	@else if $point == xx-large {
+		@media (max-width: $bp-xl-2)  { 
+			@content; 
+		}
+	}
+
 	@else if $point == x-large {
 		@media (max-width: $bp-xl)  { 
 			@content; 

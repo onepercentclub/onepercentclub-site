@@ -13,6 +13,11 @@
 					<h1 class="page-title">
 						{% trans "My projects"%} <small>&rsaquo; {{ title }}</small>
 					</h1>
+
+                    {{#if partner}}
+                        <h3>{{partner.name}}</h3>
+                    {{/if}}
+
                     <div class="page-actions">
                         {{#if isPhasePlanNew}}
                             {{#if canPreview}}
@@ -31,8 +36,9 @@
                             {{/if}}
 
                         {{/if}}
+
                     </div>
-                    <ul id="campaign-steps" class="{{#if isPhasePlanNew}} steps tabs {{else}} tabs {{/if}}">
+                    <ul id="campaign-steps" {{bind-attr class=":tabs isPhasePlanNew:steps"}}>
                         <li>
                             {{#link-to "myProject.pitch" classBinding=":tab-link validPitch:validated"}}
                                 {{#if validPitch}}

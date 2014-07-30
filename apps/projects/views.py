@@ -1,4 +1,4 @@
-from apps.projects.models import ProjectBudgetLine
+from apps.projects.models import ProjectBudgetLine, PartnerOrganization
 from bluebottle.bb_projects.views import ProjectPreviewList
 from bluebottle.geo.models import Country
 from bluebottle.geo.serializers import CountrySerializer

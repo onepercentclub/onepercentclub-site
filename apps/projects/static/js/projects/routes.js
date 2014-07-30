@@ -3,6 +3,10 @@ App.Router.map(function(){
         this.route('goal');
     });
     this.resource('projectDonationList', {path: '/fundraisers/:fundraiser_id/donations'});
+
+    this.resource('myPartnerProject', {path: '/my/partnerproject/:id'});
+
+
 });
 
 
@@ -19,3 +23,16 @@ App.MyProjectSubRoute.reopen(App.AuthenticatedRouteMixin, {});
 App.MyProjectGoalRoute = App.MyProjectSubRoute.extend(App.TrackRouteActivateMixin, {
     trackEventName: 'Create Campaign - Goal'
 });
+
+App.MyPartnerProjectRoute = Em.Route.extend({
+    // Create a Project with PartnerOrganization set.
+    model: function(params) {
+        var store = this.get('store');
+        var partner = store.find('Partner', params.id);
+        return App.MyProject.createRecord({partner: partner});
+    },
+    afterModel: function(model, transition){
+        this.transitionTo('myProject', model)
+    }
+});
+
