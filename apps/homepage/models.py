@@ -25,7 +25,11 @@ class HomePage(object):
             self.stats = stats[0]
         else:
             self.stats = None
-        projects = PROJECT_MODEL.objects.filter(is_campaign=True).order_by('?')
+        if language == 'en':
+            projects = PROJECT_MODEL.objects.filter(is_campaign=True).filter(language__code=language).order_by('?')
+        else:
+            projects = PROJECT_MODEL.objects.filter(is_campaign=True).order_by('?')
+
         if len(projects) > 3:
             self.projects = projects[0:3]
         elif len(projects) > 0:

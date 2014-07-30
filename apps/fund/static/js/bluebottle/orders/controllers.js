@@ -2,6 +2,105 @@
  Controllers
  */
 
+App.CurrentOrderController = Em.ObjectController.extend({
+    needs: ['paymentProfile'],
+    donationType: '',
+    orderFlowActive: null,
+
+    updateRecurring: function() {
+        var order = this.get('model');
+        if (!Em.isNone(order)) {
+            order.set('recurring', (this.get('donationType') == 'monthly'));
+            order.save();
+        }
+    }.observes('donationType'),
+
+    // Ensures the single / monthly toggle is initialized correctly when loading donations from bookmark.
+    initDonationType: function() {
+        if (this.get('donationType') === '') {
+            if (this.get('recurring')) {
+                this.set('donationType', 'monthly');
+            } else {
+                this.set('donationType', 'single');
+            }
+        }
+    }.observes('model'),
+
+    // FIXME Implement a better way to handle vouchers and donations in the order.
+    // Remove donations from voucher orders and remove vouchers from donations.
+    // See: https://onepercentclub.atlassian.net/browse/BB-648
+    removeDonationOrVouchers: function() {
+        if (this.get('isVoucherOrder')) {
+            var donations = this.get('donations');
+            donations.forEach(function(donation) {
+                donation.deleteRecord();
+                donation.save();
+            }, this);
+        } else if (!this.get('isVoucherOrder')) {
+            var vouchers = this.get('vouchers');
+            vouchers.forEach(function(voucher) {
+                voucher.deleteRecord();
+                voucher.save();
+            }, this);
+        }
+    }.observes('isVoucherOrder'),
+
+    // Display messages inline similar to the message display in the ApplicationController.
+    display_message: false,
+    isError: false,
+    autoHideMessage: false,
+
+    displayMessage: (function() {
+        if (this.get('display_message')) {
+            if (this.get('autoHideMessage')) {
+                Ember.run.later(this, function() {
+                    this.hideMessage();
+                }, 10000);
+            }
+        }
+    }).observes('display_message'),
+
+    hideMessage: function() {
+        this.set('display_message', false);
+    },
+
+    reloadOrder: function() {
+        // TODO:Clean up this code!!
+        var controller = this;
+        if (this.get('currentUser.isAuthenticated') && this.get('orderFlowActive')) {
+            var _this = this,
+                order = _this.get('model');
+
+            // Reload order and payment profile after logging in
+            // Check the order model is not already reloading
+            if (this.get('model') && !this.get('isReloading') && this.get('currentUser.isLoaded')) {
+                // set is-loading flash message with no timeout
+                _this.send('setFlash', gettext('Reloading order details'), 'is-loading', false);
+                // Attempt to reload the order and profile details
+                order.reload().then( function (order) {
+                    // order reloaded successfully
+                    var profileRecord = _this.get('controllers.paymentProfile.model');
+                    if (profileRecord) {
+                        profileRecord.reload().then( function (profile) {
+                            // profile reloaded successfully
+                            _this.send('clearFlash');
+                        }, function (profile) {
+                            // profile reload failed
+                            _this.send('clearFlash');
+                        });
+                    } else {
+                        _this.send('clearFlash');
+                    }
+                }, function (order) {
+                    // order reload failed
+                    _this.send('clearFlash');
+                });
+            }
+        }
+    }.observes('currentUser.isAuthenticated')
+});
+
+
 App.CurrentOrderDonationListController = Em.ArrayController.extend({
     // The CurrentOrderController is needed for the single / recurring radio buttons.
     needs: ['currentOrder', 'paymentProfile'],
@@ -65,10 +164,15 @@ App.CurrentOrderDonationListController = Em.ArrayController.extend({
         nextStep: function(){
             // Check what information is available and continue to the next applicable step.
             var controller = this;
-            if (this.get('paymentProfile.isComplete')){
-                controller.transitionToRoute('paymentSelect');
+            var user = this.get('currentUser.model');
+            if (user && user.get('isAuthenticated')) {
+                if (this.get('paymentProfile.isComplete')){
+                    controller.transitionToRoute('paymentSelect');
+                } else {
+                    controller.transitionToRoute('paymentProfile');
+                }
             } else {
-                controller.transitionToRoute('paymentProfile');
+                controller.transitionToRoute('paymentSignup');
             }
         }
     }
@@ -207,12 +311,7 @@ App.PaymentProfileController = Em.ObjectController.extend({
 
     _successTransition: function () {
         var user = this.get('currentUser.model');
-
-        if (user && user.get('isAuthenticated')) {
-            this.transitionToRoute('paymentSelect');
-        } else {
-            this.transitionToRoute('paymentSignup');
-        }
+        this.transitionToRoute('paymentSelect');
     },
 
     actions: {
@@ -224,11 +323,7 @@ App.PaymentProfileController = Em.ObjectController.extend({
             if (profile.get('isDirty')) {
                 profile.one('didUpdate', function(record) {
                     var currentOrder = controller.get('controllers.currentOrder');
-                    if (user.get('isAuthenticated')) {
-                        controller.transitionToRoute('paymentSelect');
-                    } else {
-                        controller.transitionToRoute('paymentSignup');
-                    }
+                    controller.transitionToRoute('paymentSelect');
                 });
 
                 profile.one('becameInvalid', function(record) {
@@ -238,11 +333,7 @@ App.PaymentProfileController = Em.ObjectController.extend({
                 profile.save();
             }
             if (profile.get('isComplete')){
-                if (user.get('isAuthenticated')) {
-                    controller.transitionToRoute('paymentSelect');
-                } else {
-                    controller.transitionToRoute('paymentSignup');
-                }
+                controller.transitionToRoute('paymentSelect');
             }
         }
     }
@@ -250,23 +341,30 @@ App.PaymentProfileController = Em.ObjectController.extend({
 
 
 App.PaymentSignupController = Em.ObjectController.extend({
-    needs: ['paymentProfile'],
+    needs: ['paymentProfile', 'currentOrder'],
 
-    createUser: function() {
-        var user = this.get('model');
-        var controller = this;
-        user.one('didCreate', function(user) {
-            controller.transitionToRoute('paymentSelect');
-        });
-        user.one('becameInvalid', function(record) {
-            controller.get('model').set('errors', record.get('errors'));
-        });
-        user.save();
-    },
+    proceedToNextStep: function(){
+        var _this = this;
+        if (this.get('currentUser.isAuthenticated') && this.get('target').isActive('paymentSignup')) {
+            if (this.get('paymentProfile.isComplete')){
+                _this.transitionToRoute('paymentSelect');
+            } else {
+                _this.transitionToRoute('paymentProfile');
+            }
+        }
+    }.observes('currentUser.isAuthenticated'),
 
-    isFormReady: function() {
-        return !Em.isEmpty(this.get('email')) && !Em.isEmpty(this.get('password')) && !Em.isEmpty(this.get('password2'));
-    }.property('email', 'password', 'password2')
+    actions: {
+        nextStep: function(){
+            var controller = this;
+            if (this.get('paymentProfile.isComplete')){
+                controller.transitionToRoute('paymentSelect');
+            } else {
+                controller.transitionToRoute('paymentProfile');
+            }
+        }
+    }
+
 });
 
 
@@ -463,97 +561,6 @@ App.RecurringDirectDebitPaymentController = Em.ObjectController.extend({
     }.property('name', 'city', 'account')
 });
 
-
-App.CurrentOrderController = Em.ObjectController.extend({
-    needs: ['paymentProfile'],
-    donationType: '',
-
-    updateRecurring: function() {
-        var order = this.get('model');
-        if (!Em.isNone(order)) {
-            order.set('recurring', (this.get('donationType') == 'monthly'));
-            order.save();
-        }
-    }.observes('donationType'),
-
-    // Ensures the single / monthly toggle is initialized correctly when loading donations from bookmark.
-    initDonationType: function() {
-        if (this.get('donationType') === '') {
-            if (this.get('recurring')) {
-                this.set('donationType', 'monthly');
-            } else {
-                this.set('donationType', 'single');
-            }
-        }
-    }.observes('model'),
-
-    // FIXME Implement a better way to handle vouchers and donations in the order.
-    // Remove donations from voucher orders and remove vouchers from donations.
-    // See: https://onepercentclub.atlassian.net/browse/BB-648
-    removeDonationOrVouchers: function() {
-        if (this.get('isVoucherOrder')) {
-            var donations = this.get('donations');
-            donations.forEach(function(donation) {
-                donation.deleteRecord();
-                donation.save();
-            }, this);
-        } else if (!this.get('isVoucherOrder')) {
-            var vouchers = this.get('vouchers');
-            vouchers.forEach(function(voucher) {
-                voucher.deleteRecord();
-                voucher.save();
-            }, this);
-        }
-    }.observes('isVoucherOrder'),
-
-    // Display messages inline similar to the message display in the ApplicationController.
-    display_message: false,
-    isError: false,
-    autoHideMessage: false,
-
-    displayMessage: (function() {
-        if (this.get('display_message')) {
-            if (this.get('autoHideMessage')) {
-                Ember.run.later(this, function() {
-                    this.hideMessage();
-                }, 10000);
-            }
-        }
-    }).observes('display_message'),
-
-    hideMessage: function() {
-        this.set('display_message', false);
-    },
-
-    reloadOrderDetails: function() {
-        var _this = this,
-            profileRecord = _this.get('controllers.paymentProfile.model');
-
-        // Reload order and payment profile after logging in
-        // Check the order model is not already reloading
-        if (this.get('model') && !this.get('isReloading') && this.get('currentUser.isLoaded')) {
-            // set is-loading flash message with no timeout
-            _this.send('setFlash', gettext('Reloading order details'), 'is-loading', false);
-
-            // Attempt to reload the order and profile details
-            this.get('model').reload().then( function (order) {
-                // order reloaded successfully
-                profileRecord.reload().then( function (profile) {
-                    // profile reloaded successfully
-                    _this.send('clearFlash');
-                }, function (profile) {
-                    // profile reload failed
-                    _this.send('clearFlash');
-                });
-            }, function (order) {
-                // order reload failed
-                _this.send('clearFlash');
-            });
-        }
-    }.observes('currentUser.isLoaded')
-});
-
-
 App.OrderThanksController = Em.ObjectController.extend({});
 
 
@@ -567,7 +574,6 @@ App.RecurringOrderThanksController = Em.ObjectController.extend({
 App.TickerController = Em.ArrayController.extend(Ember.SortableMixin, {
     sortProperties: ['created'],
     sortAscending: false,
-
     firstLoad: true,
 
     init: function(){
@@ -610,8 +616,5 @@ App.TickerController = Em.ArrayController.extend(Ember.SortableMixin, {
             console.log('reloading');
             controller.refresh();
         }, 20000);
-
     }
-
-
 });

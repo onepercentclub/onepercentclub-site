@@ -445,7 +445,8 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
         #self.assertTrue(self.browser.is_text_present(self.project.title, wait_time=5))
         self.assertTrue(self.browser.is_text_present('Post a new comment', wait_time=5))
 
-        self.browser.find_by_css(".wallpost-post-update").click()
+        self.wait_for_element_css(".wallpost-post-update")
+        self.scroll_to_and_click_by_css(".wallpost-post-update")
         self.assertTrue(self.browser.is_text_present('Post', wait_time=5))
 
         # Write wallpost as normal user
@@ -470,11 +471,12 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
         self.assertEqual(post.find_by_css('.text p').text, self.post1['text'])
 
         # Post as project owner
-        self.browser.find_by_css(".wallpost-post-update").click()
+        self.wait_for_element_css(".wallpost-post-update")
+        self.scroll_to_and_click_by_css(".wallpost-post-update")
         self.assertTrue(self.browser.is_text_present('Post', wait_time=5))
 
-        self.browser.fill('wallpost-title', self.post2['title'])
-        self.browser.fill('wallpost-update', self.post2['text'])
+        self.scroll_to_and_fill_by_css('#wallpost-title', self.post2['title'])
+        self.scroll_to_and_fill_by_css('#wallpost-update', self.post2['text'])
         self.browser.find_by_css("button.btn-save").first.click()
 
         # Check that the new wallpost is there

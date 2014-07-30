@@ -75,8 +75,7 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
         # verify we are donating to the correct project
         self.browser.find_by_css('div.project-action a').first.click()
 
-        self.assertTrue(self.browser.is_text_present('LIKE TO GIVE', wait_time=10))
-
+        self.wait_for_element_css('h2.project-title')
         self.assertEqual(self.browser.find_by_css('h2.project-title').first.text[:11], u'WOMEN FIRST')
 
         self.assertEqual(self.browser.find_by_css('.fund-amount-control label').first.text, u"I'D LIKE TO GIVE")
@@ -102,7 +101,11 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
         # Continue with our donation, fill in the details
 
         self.browser.find_by_css('.btn-next').first.click()
-        self.assertTrue(self.browser.is_text_present('Your full name', wait_time=1))
+
+        self.assertTrue(self.browser.is_text_present('Have a profile', wait_time=10))
+
+        self.browser.find_by_css('.btn-skip').first.click()
+        self.assertTrue(self.browser.is_text_present('Your full name', wait_time=10))
 
         # NOTE: making use of fill_form_by_css() might be a better idea
 
@@ -128,34 +131,12 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
         postcode.fill(self.donate_details['postcode'])
         city.fill(self.donate_details['city'])
 
-        # Click on the NEXT button
-        # self.browser.find_by_css('button.btn-next').first.click()
-
-        # Sleep for a bit now before closing the browser window. Hopefully it avoids this error:
-        # RuntimeError: Failed to shutdown the live test server in 2 seconds.
-        # The server might be stuck or generating a slow response.
-
         time.sleep(3)
 
 
-        # FIXME: These tests fail on Travis.
-        # self.assertTrue(self.browser.is_element_present_by_css('.btn-skip', wait_time=5))
-        #
-        # # Don't sign up. Skip this form.
-        # self.browser.find_by_css('.btn-skip').first.click()
-        #
-        # self.assertTrue(self.browser.is_text_present("YOU'RE ALMOST THERE!", wait_time=5))
-        #
-        # # Proceed with the payment
-        # # Select Ideal + ABN Amro for payment
-        # time.sleep(2)
-        #
-        # self.scroll_to_and_click_by_css('.tabs-vertical .radio')
-        # self.scroll_to_and_click_by_css('.fund-payment-item .radio')
-
     def test_donation_thank_you_page(self):
 
-        self.assertTrue(self.login(username=self.some_user.email, password='testing'))
+        self.login(username=self.some_user.email, password='testing')
 
         # Create dummy donation, so we can validate the thank you page.
         donation = DonationFactory.create(user=self.some_user, project=self._projects[0])
@@ -178,3 +159,5 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
         # check that the correct links are present
         self.browser.find_by_css('li.project-list-item a').first.click()
         self.assertEqual(self.browser.url, '{0}/en/#!/projects/{1}'.format(self.live_server_url, self._projects[0].slug))
+
+        self.logout()

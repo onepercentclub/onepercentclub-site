@@ -1,0 +1,38 @@
+#fund {
+    .half {
+        @include grid(24,2,2);
+        button {
+            width: 100%;
+        }
+    }
+
+    .btn {
+
+        // Skip
+        &.btn-skip {
+            border: 1px solid $gray-light;
+            background-color: $gray-light;
+
+            &.btn-iconed {
+
+                .flaticon, .icon {
+                    background-color: $gray;
+                    color: $gray-light;
+                }
+            }
+            &:hover {
+                border-color: $button-hover-border-color;
+                background-color: $button-hover-bg-color;
+                color: $button-hover-color;
+
+                .flaticon, .icon {
+                    background-color: $button-iconed-hover-icon-bg-color;
+                    color: $button-iconed-hover-icon-color;
+                }
+            }
+        }
+    }
+
+}
+
+

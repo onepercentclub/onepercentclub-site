@@ -8,7 +8,7 @@ App.then(function(app) {
             Raven.setUser({
                 id: user.get('id_for_ember'),
                 name: user.get('full_name'),
-                email: user.get('email'),
+                email: user.get('email')
             });
         }
     });
@@ -74,8 +74,20 @@ App.then(function(app) {
                     currentUsercontroller.set('model', user);
                     currentUsercontroller.send('close');
 
+                    // For some reason the currentUserController keeps failing to have a reference to 'tracker'
+                    var loginController = App.__container__.lookup('controller:login');
+
                     if (user.get('firstLogin')) {
                         currentUsercontroller.send('setFlash', currentUsercontroller.get('welcomeMessage'));
+                        // Register the successful Facebook login with Mixpanel
+                        if (loginController.get('tracker')) {
+                            loginController.get('tracker').trackEvent("Signup", {"type": "facebook"});
+                        }
+                    } else {
+                        // Register the successful Facebook signup with Mixpanel
+                        if (loginController.get('tracker')) {
+                            loginController.get('tracker').trackEvent("Login", {"type": "facebook"});
+                        }
                     }
 
                     Ember.run(null, resolve, user);
@@ -144,6 +156,8 @@ App.ApplicationRoute.reopen(App.LogoutJwtMixin, {
                     }
                     donation.set('order', order);
                     donation.save();
+
+                    if (route.get('tracker')) route.get('tracker').trackEvent("Support Campaign", {project: project.get('title')});
                 }
                 route.transitionTo('currentOrder.donationList');
             });
@@ -161,7 +175,7 @@ App.ApplicationController.reopen({
         // FIXME: should call the clearJwtToken action here but it isn't being called.
         delete localStorage.jwtToken;
         App.set('jwtToken', null);
-    },
+    }
 });
 
 App.EventMixin = Em.Mixin.create({
