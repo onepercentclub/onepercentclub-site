@@ -75,11 +75,10 @@ App.then(function(app) {
                     currentUsercontroller.send('close');
 
                     // For some reason the currentUserController keeps failing to have a reference to 'tracker'
-                    var loginController = App.__container__.lookup('controller:login');
+                    var loginController = App.__container__.lookup('controller:login'),
+                        tracker = loginController.get('tracker');
 
-
-                    if (loginController.get('tracker')) {
-                        var tracker = loginController.get('tracker');
+                    if (tracker) {
                         tracker.identify(user.get('id_for_ember'));
                         tracker.peopleSet({
                             "$first_name": user.get('first_name'),
