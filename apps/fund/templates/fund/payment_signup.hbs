@@ -14,13 +14,16 @@
             <fieldset>
                 <ul>
                     <li class="control-group">
-                        <div class="half">
-                            <button {{action openInBox "signup"}} class="btn btn-iconed">
+                        <div class="half half-center">
+                            <button {{action openInBox "signup"}} class="btn btn-iconed btn-primary">
                                 <span class="flaticon social facebook-1"></span>{% trans "Sign up" %}
                             </button>
                             <ul class="bullets">
                                 <li>
-                                    {% trans "One Click sign up via Facebook or just with your email address." %}
+                                    {% trans "Keep it personal, you name will show with your donation." %}
+                                </li>
+                                <li>
+                                    {% trans "We keep you posted." %}
                                 </li>
                                 <li>
                                     {% trans "Faster future donations." %}
@@ -28,15 +31,8 @@
                                 <li>
                                     {% trans "Keep track of all of your donations." %}
                                 </li>
-                            </ul>
-                        </div>
-                        <div class="half">
-                            <button {{action "nextStep"}} class="btn btn-iconed btn-skip">
-                                <span class="flaticon solid right-2"></span>{% trans "Continue as guest" %}
-                            </button>
-                            <ul class="bullets">
-                                <li>
-                                    {% trans "Stay anonymous" %}
+                                <li class="alternative">
+                                    <a {{action "nextStep"}}>{% trans "Skip and stay anonymous"%}</a>
                                 </li>
                             </ul>
                         </div>
