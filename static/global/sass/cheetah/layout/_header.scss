@@ -1,7 +1,7 @@
 .cheetah-nav-item {
     position: relative;
     cursor: pointer;
-    padding: 10px 0 50px 1em;
+    padding: 10px 14px 50px 14px;
     margin-right: 15px;
     border-radius: 8px 8px 0 0;
 
@@ -12,7 +12,6 @@
     &.active {
         background: $color-primary!important;
         color: #00C051 !important;
-        padding: 10px 14px 50px 14px;
     }
 
     .cheetah-icon {
