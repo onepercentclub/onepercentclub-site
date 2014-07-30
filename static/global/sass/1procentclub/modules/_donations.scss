@@ -4,6 +4,11 @@
         button {
             width: 100%;
         }
+
+        &.half-center {
+            float: none;
+            margin: auto;
+        }
     }
 
     .btn {
