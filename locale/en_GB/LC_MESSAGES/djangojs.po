@@ -8,6 +8,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Loek van Gent <loek@1procentclub.nl>, 2014
 # Malou <malou@onepercentclub.com>, 2014
 # Niels Jansen <niels@1procentclub.nl>, 2014
@@ -16,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-25 21:32+0200\n"
+"POT-Creation-Date: 2014-07-30 16:15+0200\n"
 "PO-Revision-Date: 2014-07-25 19:34+0000\n"
 "Last-Translator: aethemba <aksel@onepercentclub.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
@@ -34,7 +35,7 @@ msgstr ""
 msgid "Finished campaigns"
 msgstr ""
 
-#: apps/core/static/js/bluebottle/app_overrides.js:107
+#: apps/core/static/js/bluebottle/app_overrides.js:126
 #: env-2.7/src/bluebottle/bluebottle/common/static/js/plugins/ember-facebook.js.c:104
 msgid "There was an error connecting Facebook"
 msgstr "Oh snap! There was an error connecting with your Facebook account. Please try again."
@@ -116,7 +117,7 @@ msgstr "No, continue"
 msgid "Reloading order details"
 msgstr ""
 
-#: apps/fund/static/js/bluebottle/orders/routes.js:202
+#: apps/fund/static/js/bluebottle/orders/routes.js:206
 msgid "There was an error with your payment. Please try again."
 msgstr "There was an error with your payment. Could you please try again?"
 
@@ -136,7 +137,7 @@ msgstr "raised"
 msgid "Welcome!"
 msgstr ""
 
-#: apps/projects/static/js/projects/models.js:68
+#: apps/projects/static/js/projects/models.js:69
 msgid ""
 "<h3>Introduction of your campaign</h3><p>We’ve already set some structure in"
 " this plan, but you are free to write it in your own way.</p><h3>What are "
