@@ -20,23 +20,31 @@
 
 			.quote-carousel-content {
 				position: relative;
-				padding: 2em 6em 1em 8em;
-				margin: auto;
-				min-height: 100px;
+				float: left;
+				padding: 0 6em 1em 8em;
+				margin: 12px auto;
+				height: 100px;
 
 				@include breakpoint(x-small) {
-					padding: .2em 0.1em .2em .2em;
+					padding: 0 .1em .2em .2em;
+					margin: 12px auto;
 				}
 				
 				.carousel-photo {
-					width: 98px;
-					position: absolute;
-					bottom: 1px;
+					float: left;
+					width: 20%;
+
+					img {
+						position: absolute;
+
+					}
 				}
 
 				.carousel-quote {
+					float: right;
+					width: 80%;
 					color: $color-primary;
-					margin: 0 0 0 120px;
+					width: 80%;
 					
 					strong {
 						font-family: $font-family-body;
