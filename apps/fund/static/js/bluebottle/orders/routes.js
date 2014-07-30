@@ -97,17 +97,21 @@ App.OrderThanksRoute = App.OrderFlowRoute.extend({
     model: function(params) {
         var route = this;
         var order = App.Order.find(params.order_id);
+
         order.one('becameError', function() {
             route.replaceWith('home');
         });
 
-        if (this.get('tracker')) {
-            this.get('tracker').trackEvent("Successful donation", {});
-        }
-
         return order;
-    }
+    },
 
+    afterModel: function(order){
+
+        if (this.get('tracker')) {
+            var tracker = this.get('tracker');
+            tracker.trackEvent("Successful donation", {amount: order.get('total') });
+        }
+    }
 });
 
 

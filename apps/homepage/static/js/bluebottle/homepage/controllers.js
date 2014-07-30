@@ -11,7 +11,14 @@ App.HomeController = Ember.ObjectController.extend({
     
         prevProject: function() {
             this.decrementProperty('projectIndex');        
-        }        
+        },
+        goToFavouriteProject: function(project) {
+            if (this.get('tracker')) {
+                this.get('tracker').trackEvent("Click Favourite Project", {title: project.get("title")});
+            }
+            this.transitionToRoute('project', project);
+        }
+
     },
     
     animateSlider: function() {
@@ -23,4 +30,5 @@ App.HomeController = Ember.ObjectController.extend({
     loadQuote: function() {
         this.set('quote', this.get('quotes').objectAt(this.get('quoteIndex')));
     }
+
 });
