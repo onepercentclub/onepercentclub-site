@@ -17,6 +17,6 @@ Mede dankzij jouw support hebben we samen al heel veel projecten gerealiseerd.
 If we all share a little, together we can change the world.
 
 Tot zo!
-Liane | 1%Club
+Suzanne | 1%Club
 
 {% endblock %}
