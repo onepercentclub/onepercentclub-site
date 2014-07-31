@@ -131,7 +131,7 @@
 					z-index: 4;
 
 					.quiz-content {
-						-webkit-transform: translateZ(1px);
+						@include transform(translateZ(1px));
 					}
 				}
 			}
