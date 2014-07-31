@@ -1,18 +1,15 @@
 import datetime
 from .fields import MoneyField
-from bluebottle.bb_projects.models import BaseProject, ProjectTheme, ProjectPhase, BaseProjectPhaseLog
+from bluebottle.bb_projects.models import BaseProject, ProjectPhase, BaseProjectPhaseLog
 from django.db import models
 from django.db.models import Q
 from django.db.models.aggregates import Count, Sum
-from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.http import urlquote
 from django.utils.translation import ugettext as _
 from django.conf import settings
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
-from djchoices import DjangoChoices, ChoiceItem
 from sorl.thumbnail import ImageField
-from taggit.managers import TaggableManager
 from django.template.defaultfilters import slugify
 from django.utils import timezone
 from .mails import mail_project_funded_internal
@@ -113,7 +110,7 @@ class Project(BaseProject):
     for_who = models.TextField(_("for who"), help_text=_("Describe your target group"), blank=True, null=True)
     future = models.TextField(_("future"), help_text=_("How will this project be self-sufficient and sustainable in the long term?"), blank=True, null=True)
 
-    date_submitted  = models.DateTimeField(_('Campaign Submitted'), null=True, blank=True)
+    date_submitted = models.DateTimeField(_('Campaign Submitted'), null=True, blank=True)
     campaign_started = models.DateTimeField(_('Campaign Started'), null=True, blank=True)
     campaign_ended = models.DateTimeField(_('Campaign Ended'), null=True, blank=True)
     campaign_funded = models.DateTimeField(_('Campaign Funded'), null=True, blank=True)
