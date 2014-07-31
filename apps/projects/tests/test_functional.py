@@ -12,7 +12,7 @@ from django.utils.text import slugify
 from django.utils.unittest.case import skipUnless
 
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
-from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
+from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory, PartnerFactory
 
 from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
 from bluebottle.test.factory_models.geo import CountryFactory
@@ -409,6 +409,17 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         days_diff = int(days_left2) - int(days_left1)
 
         self.assertEqual(days_diff, 10)
+
+    def test_create_partner_project(self):
+        """
+        Creating a partner project should set the partner on the new project
+        """
+        self.partner = PartnerFactory.create()
+        self.visit_path('/my/projects/pp:{0}'.format(self.partner.slug))
+
+        # Wait for title to show
+        self.wait_for_element_css("h3")
+        self.assertEqual(self.browser.find_by_css("h3").text, self.partner.name.upper())
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
