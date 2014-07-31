@@ -5,7 +5,7 @@ App.Router.map(function(){
     this.resource('projectDonationList', {path: '/fundraisers/:fundraiser_id/donations'});
 });
 
-App.MyProjectRoute.reopen({
+App.MyProjectRoute.reopen(App.AuthenticatedRouteMixin, {
     // Load the Project
     model: function(params) {
         var match = params.id.match(/pp:(.*)/);
