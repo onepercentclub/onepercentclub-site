@@ -94,7 +94,6 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
         self.assertTrue(self.browser.find_by_css('.fund-total-amount').first.text.find(' 20') != -1)
         self.assertTrue(len(self.browser.find_by_css('ul.project-list li.project-list-item')) == 1)
 
-        # import ipdb;ipdb.set_trace()
         # Continue with our donation, fill in the details
         self.scroll_to_and_click_by_css('button.btn-next')
 
