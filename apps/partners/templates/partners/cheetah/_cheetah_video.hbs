@@ -28,9 +28,9 @@
                     <h2>
                         {% trans 'Crowdfund 30% in 30 days and the Cheetah Fund will grant you the rest!'%}
                     </h2>
-                    {{#link-to 'myPartnerProject' 'cheetah' class="btn start-cheetah"}}
+                    <a {{action "partnerProject"}} class="btn start-cheetah">
                         {% trans "Start a Cheetah Campaign" %}
-                    {{/link-to}}
+                    </a>
                 </div>
                 <div class="col6">
                     <img src="/static/assets/images/cheetah/video/video-still.jpg" alt="Cheetah Fund">

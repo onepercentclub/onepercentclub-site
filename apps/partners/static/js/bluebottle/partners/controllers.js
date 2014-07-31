@@ -1,8 +1,6 @@
 App.PartnerController = Em.ObjectController.extend({});
 
-
 App.CheetahQuizController = Em.Controller.extend({
-
     questionOne: null,
     questionTwo: null,
     questionThree: null,
