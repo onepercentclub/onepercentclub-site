@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-30 16:15+0200\n"
-"PO-Revision-Date: 2014-07-30 14:47+0000\n"
+"PO-Revision-Date: 2014-07-31 11:29+0000\n"
 "Last-Translator: Sezayi Arslan <sezayi@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1447,7 +1447,7 @@ msgid ""
 "\n"
 "\t\t\t\t\t\t\t\tThe Cheetah Fund of &euro;400,000 aims to support these African pioneers with seed money to kick-start or boost their world changing projects. If pioneers manage to crowdfund at least 30%% of their target amount via 1%%Club within 30 days, the Cheetah Fund will grant them the remaining amount. \n"
 "        \t\t\t\t\t"
-msgstr "\nHet ontbreekt deze veelal jonge Afrikaanse pioniers echter vaak in het vertrouwen van hun omgeving, het netwerk en daarmee de financiële injectie en de juiste knowhow om van start te gaan. \n\nIn 2014 zal het Cheetah fund van €400.000 honderd jonge gedreven Afrikaanse pioniers de kans bieden om hun slimme ideeën die het leven in Afrika verbeteren te realiseren via 1%%Club. Als de pioneers 30%% van hun streefbedrag crowdfunden binnen 30 dagen, dan vult het Cheetah Fund de rest aan. Het resultaat? Een golf van vernieuwing met een gigantische sociale impact voor meer dan 10.000 mensen in Afrika. "
+msgstr "\nHet ontbreekt deze veelal jonge Afrikaanse pioniers echter vaak in het vertrouwen van hun omgeving, het netwerk en daarmee de financiële injectie en de juiste knowhow om van start te gaan. \n\nIn 2014 zal het Cheetah fund van €400.000 honderd jonge gedreven Afrikaanse pioniers de kans bieden om hun slimme ideeën die het leven in Afrika verbeteren te realiseren via 1%%Club. Als de pioneers 30%% van hun doelbedrag crowdfunden binnen 30 dagen, dan vult het Cheetah Fund de rest aan. Het resultaat? Een golf van vernieuwing met een gigantische sociale impact voor meer dan 10.000 mensen in Afrika. "
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/_about.hbs.py:35
 msgid ""
@@ -1546,7 +1546,7 @@ msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/_menu.hbs.py:14
 msgid "About The Fund"
-msgstr ""
+msgstr "Over het Cheetah Fund"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:10
 msgctxt "cheetah faq"
