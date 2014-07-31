@@ -8,5 +8,15 @@ App.Router.map(function(){
 
 
 App.PartnerRoute = Em.Route.extend(App.SubMenuMixin, {
-    subMenu: 'cheetah/menu'
+    subMenu: 'cheetah/menu',
+
+    beforeModel: function (transition) {
+        this.set('partner_id', transition.params.partner_id);
+    },
+
+    actions: {
+        partnerProject: function () {
+            this.transitionTo('myProject', 'pp:' + this.get('partner_id'));
+        }
+    }
 });
