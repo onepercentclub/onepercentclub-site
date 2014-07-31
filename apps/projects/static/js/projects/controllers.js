@@ -49,7 +49,6 @@ App.MyProjectGoalController = App.StandardTabController.extend({
 
     actions: {
         addBudgetLine: function(){
-            console.log('adding line');
             var line = this.get('budgetLineNew');
             this.get('budgetLines').pushObject(line);
             line.save();
@@ -58,7 +57,6 @@ App.MyProjectGoalController = App.StandardTabController.extend({
         },
 
         removeBudgetLine: function(line){
-            console.log('removing line');
             line.deleteRecord();
             line.save();
         }

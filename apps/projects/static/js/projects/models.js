@@ -78,6 +78,15 @@ App.MyProject.reopen({
         });
     }.property('budgetLines.@each.amount'),
 
+    validBudgetBreakdown: function(){
+        var lines = this.get('budgetLines')
+        var result = false
+        if (lines.content.length > 0){
+            result = true;
+        }
+        return result;
+    }.property('budgetLines.@each.amount'),
+
     init: function () {
         this._super();
 
@@ -92,7 +101,7 @@ App.MyProject.reopen({
     valid: Em.computed.and('validStory', 'validPitch', 'validGoal', 'organization.isLoaded', 'organization.valid'),
 
     requiredStoryFields: ['story', 'storyChanged'],
-    requiredGoalFields: ['amount_asked', 'deadline', 'maxAmountAsked', 'minAmountAsked'],
+    requiredGoalFields: ['amount_asked', 'deadline', 'maxAmountAsked', 'minAmountAsked', 'validBudgetBreakdown'],
     requiredPitchFields: ['title', 'pitch', 'image', 'theme', 'tags.length', 'country', 'latitude', 'longitude'],
 
     friendlyFieldNames: {
