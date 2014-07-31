@@ -129,6 +129,10 @@
 
 				.back {
 					z-index: 4;
+
+					.quiz-content {
+						-webkit-transform: translateZ(1px);
+					}
 				}
 			}
 
