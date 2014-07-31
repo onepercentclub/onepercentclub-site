@@ -84,31 +84,25 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
         self.assertEqual(input_field['value'], u'20')
 
         # Change the amount we want to donate
-
         # TODO: Verify we can change the amount to donate, this currently
         # doesn't work properly via Selenium: Doing the following gives me a 500:
         # TypeError: Cannot convert None to Decimal.
-
         # input_field.click()
         # input_field.fill(40)
 
-        # TODO: Currently two donation-entries are added by default... I'm not sure why
-
         # Check the total and make sure there is only one donation entry
-        # self.assertTrue(self.browser.find_by_css('.donation-total .currency').first.text.find(' 20') != -1)
-        # self.assertTrue(len(self.browser.find_by_css('ul#donation-projects li.donation-project')) == 1)
+        self.assertTrue(self.browser.find_by_css('.fund-total-amount').first.text.find(' 20') != -1)
+        self.assertTrue(len(self.browser.find_by_css('ul.project-list li.project-list-item')) == 1)
 
+        # import ipdb;ipdb.set_trace()
         # Continue with our donation, fill in the details
+        self.scroll_to_and_click_by_css('button.btn-next')
 
-        self.browser.find_by_css('.btn-next').first.click()
+        # Continue as anonymous
+        self.assertTrue(self.browser.is_text_present('Create an account', wait_time=10))
+        self.scroll_to_and_click_by_css('ul.bullets li.alternative')
 
-        self.assertTrue(self.browser.is_text_present('Have a profile', wait_time=10))
-
-        self.browser.find_by_css('.btn-skip').first.click()
         self.assertTrue(self.browser.is_text_present('Your full name', wait_time=10))
-
-        # NOTE: making use of fill_form_by_css() might be a better idea
-
         fields = self.browser.find_by_css('input[type=text]')
         firstname = fields[0]
         lastname = fields[1]

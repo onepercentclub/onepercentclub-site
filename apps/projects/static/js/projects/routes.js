@@ -16,7 +16,7 @@ App.MyProjectRoute.reopen(App.AuthenticatedRouteMixin, {
 
           return project;
         } else {
-          this._super();
+          return this._super(params);
         }
     },
 
