@@ -4,15 +4,40 @@ App.HomeBannerView = Ember.View.extend({
     didInsertElement: function() {
 
         // Carousel
-        this.$().find('.home-carousel .carousel').unslider({
-            dots: true,
-            fluid: true,
-            delay: 8000
-        });
+        var banner = $('.home-carousel .carousel').unslider({
+                dots: true,
+                fluid: true,
+                delay: 8000
+            }), _this = this,
+            data = banner.data('unslider');
+        // this.$().find('.home-carousel .carousel').unslider({
+        //     dots: true,
+        //     fluid: true,
+        //     delay: 8000
+        // });
         
         setTimeout(function() {
          $(".home-carousel .home-carousel-nav span:first-child").addClass("is-active");   
         }, 200);
+
+        this.$().find('.video-item-container').on('mouseenter', function(){
+            $(".video-item-content").addClass("is-blur");
+        });
+
+        this.$().find('.video-item-container').on('mouseleave', function(){
+            $(".video-item-content").removeClass("is-blur");
+        });
+
+        this.$().find('.video-play-btn').on('click', function(){
+            $(".video-item").removeClass("is-inactive");
+            $(".video-item").addClass("is-active");
+            data.stop();
+        });
+
+        this.$().find('.close-video').on('click', function(){
+            $(".video-item").removeClass("is-active");
+            $(".video-item").addClass("is-inactive");
+        });
 
         // TODO: Make it a general Ember component
         var heightHead = $('.home-carousel-content h1').height();

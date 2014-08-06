@@ -1,0 +1,40 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+
+{% tplhandlebars "banner_video" %}
+    <li class="carousel-item video-item">
+        <div class="vimeo-item-container">
+            <div class="vimeo-item-content">
+                <span class="close-video"></span>
+                <span id="vimeo-video">
+                    <iframe src="//player.vimeo.com/video/102615385?color=FF619A" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                </span>
+            </div>
+        </div>
+        <div class="video-item-container">
+            <a class="video-play-btn"></a>
+            <div class="l-section">
+                <div class="l-wrapper">
+                    <div class="row">
+                        <div class="col12">
+                            <h2>
+                                {% blocktrans %}
+                                    We are 1%Club
+                                {% endblocktrans %}
+                            </h2>
+                            <span>
+                                {% blocktrans %}
+                                    The do-good crowdfunding platform
+                                {% endblocktrans %}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="video-item-content">
+            </div>
+        </div>
+    </li>
+{% endtplhandlebars %}
