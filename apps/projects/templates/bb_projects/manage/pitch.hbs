@@ -19,7 +19,7 @@
         <ul>
             {% bb_component 'bb-select-language' label=_('Language') name='language' valueBinding='currentLanguage.id' selectionBinding='language' errorsBinding='errors.language' maxlength=255 hint=_('Choose a language.') %}
 
-            {% bb_component 'bb-text-field' label=_('Title') name='title' valueBinding='title' placeholder=_('Be short, creative and memorable ') errorsBinding='errors.title' maxlength=255 %}
+            {% bb_component 'bb-text-field' label=_('Title') name='title' valueBinding='title' placeholder=_('Be short, creative and memorable ') errorsBinding='errors.title' maxlength=100 hint=_('max. 100 characters') %}
 
             {% bb_component 'bb-text-area' rows=8 label=_('Description') name='pitch' valueBinding='pitch' placeholder=_('Tell us in one paragraph where you need the money for.') errorsBinding='errors.pitch' maxlength=500 hint=_('max. 500 characters') %}
         </ul>
