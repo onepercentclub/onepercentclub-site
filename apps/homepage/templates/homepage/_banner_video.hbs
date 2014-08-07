@@ -9,26 +9,26 @@
             <div class="vimeo-item-content">
                 <span class="close-video"></span>
                 <span id="vimeo-video">
-                    <iframe src="//player.vimeo.com/video/102615385?color=FF619A" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    {{#if App.isEnglish}}
+                        <iframe src="//player.vimeo.com/video/102615938?api=1&title=0&amp;byline=0&amp;portrait=0&amp;color=00c051" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen id="brand-video"></iframe>
+                    {{else}}
+                        <iframe src="//player.vimeo.com/video/102615385?api=1&title=0&amp;byline=0&amp;portrait=0&amp;color=00c051" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen id="brand-video"></iframe>
+                    {{/if}}
                 </span>
             </div>
         </div>
         <div class="video-item-container">
             <a class="video-play-btn"></a>
+            <span class="video-watch">
+                <h3>{% trans 'Watch our video'%}</h3>
+            </span>
             <div class="l-section">
                 <div class="l-wrapper">
                     <div class="row">
                         <div class="col12">
-                            <h2>
-                                {% blocktrans %}
-                                    We are 1%Club
-                                {% endblocktrans %}
-                            </h2>
-                            <span>
-                                {% blocktrans %}
-                                    The do-good crowdfunding platform
-                                {% endblocktrans %}
-                            </span>
+                            <div class="heading">
+                                <h1>{% blocktrans %}1%Club is the do-good crowdfunding platform{% endblocktrans%}</h1>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -38,3 +38,4 @@
         </div>
     </li>
 {% endtplhandlebars %}
+

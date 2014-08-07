@@ -7,24 +7,21 @@ App.HomeBannerView = Ember.View.extend({
         var banner = $('.home-carousel .carousel').unslider({
                 dots: true,
                 fluid: true,
-                delay: 8000
+                delay: 800000
             }), _this = this,
-            data = banner.data('unslider');
-        // this.$().find('.home-carousel .carousel').unslider({
-        //     dots: true,
-        //     fluid: true,
-        //     delay: 8000
-        // });
-        
+            data = banner.data('unslider'), 
+            iframe = $('#brand-video'),
+            player = $f(iframe);
+     
         setTimeout(function() {
          $(".home-carousel .home-carousel-nav span:first-child").addClass("is-active");   
         }, 200);
 
-        this.$().find('.video-item-container').on('mouseenter', function(){
+        this.$().find('.video-play-btn').on('mouseenter', function(){
             $(".video-item-content").addClass("is-blur");
         });
 
-        this.$().find('.video-item-container').on('mouseleave', function(){
+        this.$().find('.video-play-btn').on('mouseleave', function(){
             $(".video-item-content").removeClass("is-blur");
         });
 
@@ -32,11 +29,13 @@ App.HomeBannerView = Ember.View.extend({
             $(".video-item").removeClass("is-inactive");
             $(".video-item").addClass("is-active");
             data.stop();
+            player.api("play");
         });
 
         this.$().find('.close-video').on('click', function(){
             $(".video-item").removeClass("is-active");
             $(".video-item").addClass("is-inactive");
+            player.api("pause");
         });
 
         // TODO: Make it a general Ember component
@@ -132,3 +131,4 @@ App.HomeImpactView = Ember.View.extend({
 App.HomeFundraisersView = Ember.View.extend({
     templateName: 'home_fundraisers'
 });
+
