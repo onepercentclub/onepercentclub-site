@@ -7,11 +7,12 @@ App.HomeBannerView = Ember.View.extend({
         var banner = $('.home-carousel .carousel').unslider({
                 dots: true,
                 fluid: true,
-                delay: 800000
+                delay: 8000
             }), _this = this,
             data = banner.data('unslider'), 
             iframe = $('#brand-video'),
-            player = $f(iframe);
+            player = $f(iframe),
+            animationEnd = 'animationEnd animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd';
      
         setTimeout(function() {
          $(".home-carousel .home-carousel-nav span:first-child").addClass("is-active");   
@@ -36,6 +37,23 @@ App.HomeBannerView = Ember.View.extend({
             $(".video-item").removeClass("is-active");
             $(".video-item").addClass("is-inactive");
             player.api("pause");
+
+            $('.video-item').one(animationEnd, function(){
+                $(".video-item").removeClass("is-inactive");
+            });
+        });
+
+        function onFinish(id) {
+            $(".video-item").removeClass("is-active");
+            $(".video-item").addClass("is-inactive");
+
+            $('.video-item').one(animationEnd, function(){
+                $(".video-item").removeClass("is-inactive");
+            });
+        }
+        
+        player.addEvent('ready', function() {
+            player.addEvent('finish', onFinish);
         });
 
         // TODO: Make it a general Ember component
