@@ -7,7 +7,7 @@ App.HomeBannerView = Ember.View.extend({
         var banner = $('.home-carousel .carousel').unslider({
                 dots: true,
                 fluid: true,
-                delay: 800000
+                delay: 8000
             }), _this = this,
             data = banner.data('unslider'), 
             iframe = $('#brand-video'),
