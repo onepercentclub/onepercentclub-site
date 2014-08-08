@@ -1,13 +1,171 @@
 #about-new {
 	position: relative;
-	background: image-url("img/pages/about/about-1.jpg") $gray-darkest no-repeat 50% 50%;
 	background-size: cover;
 	background-attachment: fixed;
+	width: 100%;
+	height: 100%;
 	
 	.about-header-section {
 		height: 600px;
 		max-height: 750px;
 		height: 80vh;
+
+		&.video-item {
+			position: relative;
+			
+			&.is-active {
+
+				.video-item-container {
+					@include animation(fadeOutUpBig .3s ease-out);
+					@include animation-fill-mode(forwards);
+				}
+
+				.vimeo-item-container {
+					@include animation(fadeInDownBig .3s ease-out);
+					@include animation-fill-mode(forwards);
+					z-index: 9;
+					opacity: 1;
+					@include transition(opacity, .3s ease-in-out);
+
+					.vimeo-item-content {
+						.close-video {
+							display: block;
+						}
+					}
+				}
+			}
+
+			&.is-inactive {
+				.video-item-container {
+					@include animation(fadeInDownBig.3s ease-out);
+					@include animation-fill-mode(forwards);
+				}
+
+				.vimeo-item-container {
+					@include animation(fadeOutUpBig .3s ease-out);
+					@include animation-fill-mode(forwards);
+					z-index: 0;
+					opacity: 0;
+
+					.vimeo-item-content {
+						.close-video {
+							display: none;
+						}
+					}
+				}
+			}
+
+			.video-item-container {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: transparent;
+
+
+				.video-action {
+					position: absolute;
+					top: 56%;
+					left: 50%;
+					height: 220px;
+					width: 220px;
+					margin-top: -110px;
+					margin-left: -110px;
+					z-index: 9;
+
+					.video-play-btn {
+						display: block;
+						margin: auto;
+						height: 105px;
+						width: 105px;
+						background: url("/static/assets/images/img/icons/icon-play-video.svg");
+						@include transform(scale(1));
+						@include transition(transform .1s ease-in-out);
+
+						&:hover {
+							@include transform(scale(1.1));
+						}
+					}
+
+					.video-watch {
+						position: relative;
+						h3 {
+							text-transform: none;
+							color: white;
+							text-align: center;
+						}
+					}
+				}
+
+				h2 {
+					position: absolute;
+					top: 400px;
+					text-align: left;
+					z-index: 9;
+					font-size: 36px!important;
+					color: white!important;
+				}
+
+				.video-item-content {
+					position: relative;
+					width: 100%;
+					height: 100%;
+					background: url("/static/assets/images/img/pages/about/about-photo-1.jpg")  no-repeat;
+					background-position: 50% 0%;
+					background-size: cover;
+					-webkit-filter: blur(0);
+					@include transition(all, .3s ease-in-out);
+					
+					&.is-blur {
+						-webkit-filter: blur(8px);
+					}
+				}
+			}
+
+			.vimeo-item-container {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: rgb(0,0,0);
+				opacity: 0;
+				@include transition(opacity, .3s ease-in-out);
+
+				.vimeo-item-content {
+					position: relative;
+					width: 100%;
+					height: 100%;
+					max-width: 1200px;
+					margin: auto;
+
+					.close-video {
+						position: absolute;
+						width: 18px;
+						height: 18px;
+						background: url("/static/assets/images/img/icons/icon-video-close.svg") transparent no-repeat;
+						top: 15px;
+						left: 0;
+						z-index: 10;
+						cursor: pointer;
+						display: none;
+					}
+				}
+
+				#vimeo-video {
+					width: 100%;
+
+					iframe {
+						position: absolute;
+						top: 0;
+						left: 0;
+						width: 100%;
+						height: 100%;
+					}
+				}
+			}
+		}
 		
 		.about-header {
 			position: absolute;

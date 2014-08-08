@@ -4,15 +4,57 @@ App.HomeBannerView = Ember.View.extend({
     didInsertElement: function() {
 
         // Carousel
-        this.$().find('.home-carousel .carousel').unslider({
-            dots: true,
-            fluid: true,
-            delay: 8000
-        });
-        
+        var banner = $('.home-carousel .carousel').unslider({
+                dots: true,
+                fluid: true,
+                delay: 8000
+            }), _this = this,
+            data = banner.data('unslider'), 
+            iframe = $('#brand-video'),
+            player = $f(iframe),
+            animationEnd = 'animationEnd animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd';
+     
         setTimeout(function() {
          $(".home-carousel .home-carousel-nav span:first-child").addClass("is-active");   
         }, 200);
+
+        this.$().find('.video-play-btn').on('mouseenter', function(){
+            $(".video-item-content").addClass("is-blur");
+        });
+
+        this.$().find('.video-play-btn').on('mouseleave', function(){
+            $(".video-item-content").removeClass("is-blur");
+        });
+
+        this.$().find('.video-play-btn').on('click', function(){
+            $(".video-item").removeClass("is-inactive");
+            $(".video-item").addClass("is-active");
+            data.stop();
+            player.api("play");
+        });
+
+        this.$().find('.close-video').on('click', function(){
+            $(".video-item").removeClass("is-active");
+            $(".video-item").addClass("is-inactive");
+            player.api("pause");
+
+            $('.video-item').one(animationEnd, function(){
+                $(".video-item").removeClass("is-inactive");
+            });
+        });
+
+        function onFinish(id) {
+            $(".video-item").removeClass("is-active");
+            $(".video-item").addClass("is-inactive");
+
+            $('.video-item').one(animationEnd, function(){
+                $(".video-item").removeClass("is-inactive");
+            });
+        }
+        
+        player.addEvent('ready', function() {
+            player.addEvent('finish', onFinish);
+        });
 
         // TODO: Make it a general Ember component
         var heightHead = $('.home-carousel-content h1').height();
@@ -107,3 +149,4 @@ App.HomeImpactView = Ember.View.extend({
 App.HomeFundraisersView = Ember.View.extend({
     templateName: 'home_fundraisers'
 });
+
