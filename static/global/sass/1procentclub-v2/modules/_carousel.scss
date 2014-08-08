@@ -97,37 +97,37 @@
 					background: transparent;
 
 
-					.video-play-btn {
+					.video-action {
 						position: absolute;
-						top: 50%;
+						top: 62%;
 						left: 50%;
-						height: 105px;
-						width: 105px;
-						margin-top: -52.5px;
-						margin-left: -52.5px;
-						background: url("/static/assets/images/img/icons/icon-play-video.svg");
-						z-index: 9;
-						@include transform(scale(1));
-						@include transition(transform .1s ease-in-out);
-
-						&:hover {
-							@include transform(scale(1.1));
-						}
-					}
-
-					.video-watch {
-						position: absolute;
-						top: 82%;
-						left: 50%;
+						height: 220px;
 						width: 220px;
 						margin-top: -110px;
 						margin-left: -110px;
 						z-index: 9;
 
-						h3 {
-							text-transform: none;
-							color: white;
-							text-align: center;
+						.video-play-btn {
+							display: block;
+							margin: auto;
+							height: 105px;
+							width: 105px;
+							background: url("/static/assets/images/img/icons/icon-play-video.svg");
+							@include transform(scale(1));
+							@include transition(transform .1s ease-in-out);
+
+							&:hover {
+								@include transform(scale(1.1));
+							}
+						}
+
+						.video-watch {
+							position: relative;
+							h3 {
+								text-transform: none;
+								color: white;
+								text-align: center;
+							}
 						}
 					}
 
@@ -144,15 +144,6 @@
 						h1 {
 							text-align: center;
 						}
-					}
-
-					span {
-						position: absolute;
-						top: 450px;
-						display: block;
-						text-align: left;
-						color: white;
-						z-index: 9;
 					}
 
 					.video-item-content {
@@ -195,7 +186,7 @@
 							width: 18px;
 							height: 18px;
 							background: url("/static/assets/images/img/icons/icon-video-close.svg") transparent no-repeat;
-							top: 30px;
+							top: 15px;
 							left: 30px;
 							z-index: 10;
 							cursor: pointer;
