@@ -18,7 +18,7 @@ before_install:
 - gem install sass compass
 - npm install -g grunt-cli
 - npm install grunt grunt-contrib-compass
-- sudo apt-get install -qq memcached python-memcache libjpeg-dev zlib1g-dev libpng12-dev
+- sudo apt-get install -qq memcached python-memcache libjpeg8-dev libjpeg-dev zlib1g-dev libpng12-dev
 install:
 - pip install --upgrade setuptools --use-mirrors
 - pip install $DJANGO --use-mirrors
