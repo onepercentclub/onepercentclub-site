@@ -20,6 +20,7 @@ before_install:
 - npm install grunt grunt-contrib-compass
 - sudo apt-get install -qq memcached python-memcache libjpeg8-dev libjpeg-dev zlib1g-dev libpng12-dev
 install:
+- pip uninstall PIL
 - pip install --upgrade setuptools --use-mirrors
 - pip install $DJANGO --use-mirrors
 - pip install --use-mirrors --use-wheel --find-links=http://stream.onepercentlive.com/wheelhouse/ -r requirements/ci_requirements.txt
