@@ -3,6 +3,8 @@ python:
 - '2.7'
 node_js:
 - '0.10'
+addons:
+  firefox: "26.0"
 env:
   matrix:
   - DJANGO=django==1.5.4
