@@ -1,0 +1,43 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+
+{% tplhandlebars "banner_video" %}
+    <li class="carousel-item video-item">
+        <div class="vimeo-item-container">
+            <div class="vimeo-item-content">
+                <span class="close-video"></span>
+                <span id="vimeo-video">
+                    {{#if App.isEnglish}}
+                        <iframe src="//player.vimeo.com/video/102615938?api=1&player_id=brand-video&title=0&amp;byline=0&amp;portrait=0&amp;color=00c051" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen id="brand-video"></iframe>
+                    {{else}}
+                        <iframe src="//player.vimeo.com/video/102615385?api=1&player_id=brand-video&title=0&amp;byline=0&amp;portrait=0&amp;color=00c051" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen id="brand-video"></iframe>
+                    {{/if}}
+                </span>
+            </div>
+        </div>
+        <div class="video-item-container">
+            <div class="video-action">
+                <a class="video-play-btn"></a>
+                <span class="video-watch">
+                    <h3>{% trans 'Watch our video'%}</h3>
+                </span>
+            </div>
+            <div class="l-section">
+                <div class="l-wrapper">
+                    <div class="row">
+                        <div class="col12">
+                            <div class="heading">
+                                <h1>{% blocktrans %}1%Club is the do-good crowdfunding platform{% endblocktrans%}</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="video-item-content">
+            </div>
+        </div>
+    </li>
+{% endtplhandlebars %}
+

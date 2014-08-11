@@ -8,13 +8,8 @@
 <div class="l-section home-carousel">
 	<section class="carousel">
 		<ul>
-			<li class="carousel-item first-item">
-				<div class="home-carousel-content">
-					<h1>{% blocktrans %}1%Club is the do-good crowdfunding platform{% endblocktrans%}</h1>
-					<p>{{#link-to 'page' 'about' classNames='carousel-about'}}{% blocktrans %}About 1%Club{% endblocktrans %}{{/link-to}}</p>
-				</div>
-			</li>
-
+			{{partial "banner_video"}}
+			
 			<li class="carousel-item second-item">
 				<div class="home-carousel-content">
 					<h1>{% trans "Join the makers of change" %}</h1>
