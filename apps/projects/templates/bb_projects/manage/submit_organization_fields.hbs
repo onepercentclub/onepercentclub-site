@@ -31,10 +31,10 @@
                         {% trans "Bank" %}
                     </div>
                     <div class="details">
-                        {{#link-to "myProject.bank"}}{{field}}{{/link-to}} is not filled in.
+                        {{#link-to "myProject.bank"}}{{field}}{{/link-to}} {% trans "is not filled in" %}.
                     </div>
                     <div class="action">
-                        {{#link-to "myProject.bank"}}<span class="flaticon solid checkmark-2"></span> Let's fix this{{/link-to}}
+                        {{#link-to "myProject.bank"}}<span class="flaticon solid checkmark-2"></span>{% trans "Let's fix this" %}{{/link-to}}
                     </div>
                 </li>
             {{/each}}
@@ -47,10 +47,10 @@
                                 {% trans "Bank" %}
                             </div>
                             <div class="details">
-                                {{#link-to "myProject.bank"}}{{field}}{{/link-to}} is not filled in.
+                                {{#link-to "myProject.bank"}}{{field}}{{/link-to}} {% trans "is not filled in" %}.
                             </div>
                             <div class="action">
-                                {{#link-to "myProject.bank"}}<span class="flaticon solid checkmark-2"></span> Let's fix this{{/link-to}}
+                                {{#link-to "myProject.bank"}}<span class="flaticon solid checkmark-2"></span>{% trans "Let's fix this" %}{{/link-to}}
                             </div>
                         </li>
                     {{/each}}
@@ -61,10 +61,10 @@
                             {% trans "Bank" %}
                         </div>
                         <div class="details">
-                            {{#link-to "myProject.bank"}}{{field}}{{/link-to}} is not filled in.
+                            {{#link-to "myProject.bank"}}{{field}}{{/link-to}} {% trans "is not filled in" %}.
                         </div>
                         <div class="action">
-                            {{#link-to "myProject.bank"}}<span class="flaticon solid checkmark-2"></span> Let's fix this{{/link-to}}
+                            {{#link-to "myProject.bank"}}<span class="flaticon solid checkmark-2"></span>{% trans "Let's fix this" %}{{/link-to}}
                         </div>
                     </li>
                 {{/each}}
@@ -77,10 +77,10 @@
                 {% trans "Organisation" %}
             </div>
             <div class="details">
-                {{#link-to "myProject.organisation"}}create a new organisation{{/link-to}}.
+                {{#link-to "myProject.organisation"}}{% trans "create a new organisation" %}{{/link-to}}.
             </div>
             <div class="action">
-                {{#link-to "myProject.organisation"}}<span class="flaticon solid checkmark-2"></span> Let's fix this{{/link-to}}
+                {{#link-to "myProject.organisation"}}<span class="flaticon solid checkmark-2"></span>{% trans "Let's fix this" %}{{/link-to}}
             </div>
         </li>
     {{/if}}
