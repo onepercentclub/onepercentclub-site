@@ -1,6 +1,6 @@
 App.MyOrganization.reopen({
     // Override BB here as the website is not required.
-    requiredOrganizationFields: ['name', 'email', 'phone_number', 'validLegalStatus'],
+    requiredOrganizationFields: ['name', 'email', 'phone_number', 'hasDocument'],
     valid: Em.computed.and('validOrganization', 'validBank'),
 
     validProfile: function () {
