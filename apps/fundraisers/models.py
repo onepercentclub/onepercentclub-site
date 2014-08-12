@@ -28,7 +28,7 @@ class FundRaiser(models.Model):
     deleted = models.DateTimeField(_('deleted'), blank=True, null=True)
 
     def __unicode__(self):
-        return self.titled
+        return self.title
 
     @property
     def amount_donated(self):
