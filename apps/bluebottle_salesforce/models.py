@@ -215,6 +215,7 @@ class SalesforceProject(SalesforceModel):
                                                                db_column='Country_in_which_the_project_is_located__c')
     describe_the_project_in_one_sentence = models.CharField(max_length=50000, db_column='Describe_the_project_in_one_sentence__c')
     describe_where_the_money_is_needed_for = models.CharField(max_length=15000, db_column='Describe_where_the_money_is_needed_for__c')
+    story = models.CharField(max_length=32768, db_column='Story__c')
     project_url = models.URLField(max_length=255, db_column='Projecturl__c')
 
     # SF Layout: Extensive project information section.
@@ -439,6 +440,19 @@ class SalesforceTaskMembers(SalesforceModel):
         db_table = 'Task_Members__c'
         managed = False
 
+class SalesforceOrganizationMember(SalesforceModel):
+    """
+    Custom Salesforce Organization_Member__c object.
+    The object is used as a junction object that connects Account and Contact.
+    """
+    contact = models.ForeignKey(SalesforceContact, db_column='Contact__c')
+    organization = models.ForeignKey(SalesforceOrganization, db_column='Organization__c')
+    role = models.CharField(max_length=20, db_column='Role__c')
+    external_id = models.CharField(max_length=100, db_column='Organization_Member_External_Id__c')
+
+    class Meta:
+        db_table = 'Organization_Member__c'
+        managed = False
 
 class SalesforceLoginHistory(SalesforceModel):
     """
