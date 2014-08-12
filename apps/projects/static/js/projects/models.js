@@ -105,17 +105,21 @@ App.MyProject.reopen({
     requiredPitchFields: ['title', 'pitch', 'image', 'theme', 'tags.length', 'country', 'latitude', 'longitude'],
 
     friendlyFieldNames: {
-        'title' : 'Title',
-        'pitch': 'Description',
-        'storyChanged' : 'Personalised story',
-        'image' : 'Image',
-        'theme' : 'Theme',
-        'tags.length': 'Tags',
-        'deadline' : 'Deadline',
-        'country' : 'Country',
-        'description': 'Why, what and how',
-        'goal' : 'Goal',
-        'destination_impact' : 'Destination impact'
+        'title' : gettext('Title'),
+        'pitch': gettext('Description'),
+        'storyChanged' : gettext('Personalised story'),
+        'image' : gettext('Image'),
+        'theme' : gettext('Theme'),
+        'tags.length': gettext('Tags'),
+        'deadline' : gettext('Deadline'),
+        'country' : gettext('Country'),
+        'description': gettext('Why, what and how'),
+        'goal' : gettext('Goal'),
+        'destination_impact' : gettext('Destination impact'),
+        'minAmountAsked' : gettext('Minimal amount asked'),
+        'amount_asked': gettext('Amount asked'),
+        'validBudgetBreakdown': gettext("Valid budget breakdown"),
+        'story': gettext('Story')
     }
 
 });
