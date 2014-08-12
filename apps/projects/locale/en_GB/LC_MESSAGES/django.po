@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-30 16:15+0200\n"
-"PO-Revision-Date: 2014-07-29 14:06+0000\n"
-"Last-Translator: Sezayi Arslan <sezayi@onepercentclub.com>\n"
+"POT-Creation-Date: 2014-08-12 14:22+0200\n"
+"PO-Revision-Date: 2014-08-12 12:43+0000\n"
+"Last-Translator: Malou <malou@onepercentclub.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -58,146 +58,146 @@ msgstr ""
 msgid "No recently funded projects."
 msgstr "No recently finished projects."
 
-#: models.py:84
+#: models.py:81
 msgid "latitude"
 msgstr "latitude"
 
-#: models.py:86
+#: models.py:83
 msgid "longitude"
 msgstr "longitude"
 
-#: models.py:89
+#: models.py:86
 msgid "Reach"
 msgstr "Reach"
 
-#: models.py:89
+#: models.py:86
 msgid "How many people do you expect to reach?"
 msgstr "How many people do you expect to reach? Enter a number (e.g. 50)"
 
-#: models.py:93
+#: models.py:90
 msgid "video"
 msgstr "video"
 
-#: models.py:94
+#: models.py:91
 msgid ""
 "Do you have a video pitch or a short movie that explains your project? Cool!"
 " We can't wait to see it! You can paste the link to YouTube or Vimeo video "
 "here"
 msgstr "Add a video pitch if you want. Make it sparkling!"
 
-#: models.py:98
+#: models.py:95
 msgid "deadline"
 msgstr "deadline"
 
-#: models.py:100
+#: models.py:97
 msgid "Project is part of a campaign and gets special promotion."
 msgstr "Project is part of a campaign and gets special promotion."
 
-#: models.py:108
+#: models.py:105
 msgid "story"
 msgstr "story"
 
-#: models.py:108
+#: models.py:105
 msgid "This is the help text for the story field"
 msgstr "This is the help text for the story field"
 
-#: models.py:112
+#: models.py:109
 msgid "effects"
 msgstr "effects"
 
-#: models.py:112
+#: models.py:109
 msgid ""
 "What will be the Impact? How will your Smart Idea change the lives of "
 "people?"
 msgstr "What will be the Impact? How will your Smart Idea change the lives of people?"
 
-#: models.py:113
+#: models.py:110
 msgid "for who"
 msgstr "for who"
 
-#: models.py:113
+#: models.py:110
 msgid "Describe your target group"
 msgstr "Describe your target group."
 
-#: models.py:114
+#: models.py:111
 msgid "future"
 msgstr "future"
 
-#: models.py:114
+#: models.py:111
 msgid ""
 "How will this project be self-sufficient and sustainable in the long term?"
 msgstr "How will this project be self-sufficient and sustainable in the long term?"
 
-#: models.py:116
+#: models.py:113
 msgid "Campaign Submitted"
 msgstr "Campaign Submitted"
 
-#: models.py:117
+#: models.py:114
 msgid "Campaign Started"
 msgstr "Campaign Running"
 
-#: models.py:118
+#: models.py:115
 msgid "Campaign Ended"
 msgstr "Campaign Finished"
 
-#: models.py:119
+#: models.py:116
 msgid "Campaign Funded"
 msgstr "Campaign Finished"
 
-#: models.py:263
+#: models.py:260
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:202
 #, python-brace-format
 msgid "{name_project} in {country}"
 msgstr "{name_project} in {country}"
 
-#: models.py:282
+#: models.py:279
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:222
 #, python-brace-format
 msgid "{title} {{URL}} via @{twitter_handle}"
 msgstr "{title} {{URL}} via @{twitter_handle}"
 
-#: models.py:350 models.py:376
+#: models.py:347 models.py:373
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:25
 msgid "description"
 msgstr "description"
 
-#: models.py:352
+#: models.py:349
 msgid "amount (in cents)"
 msgstr "amount (in cents)"
 
-#: models.py:358
+#: models.py:355
 msgid "budget line"
 msgstr "budget line"
 
-#: models.py:359
+#: models.py:356
 msgid "budget lines"
 msgstr "budget lines"
 
-#: models.py:374
+#: models.py:371
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:22
 msgid "name"
 msgstr "name"
 
-#: models.py:375
+#: models.py:372
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:24
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:129
 msgid "slug"
 msgstr "slug"
 
-#: models.py:377
+#: models.py:374
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:145
 msgid "image"
 msgstr "image"
 
-#: models.py:377
+#: models.py:374
 msgid "Main partner picture"
 msgstr "Main picture"
 
-#: models.py:385
+#: models.py:382
 msgid "partner organization"
 msgstr "organisation"
 
-#: models.py:386
+#: models.py:383
 msgid "partner organizations"
 msgstr "organisations"
 
@@ -677,7 +677,7 @@ msgstr "Organisation"
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/submit_pitch_fields.hbs.py:14
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/submit_story_fields.hbs.py:14
 msgid "is not filled in"
-msgstr ""
+msgstr "is not filled in."
 
 #: templates/bb_projects/manage/submit_organization_fields.hbs:19
 #: templates/projects/submit_goal_fields.hbs:16
@@ -685,7 +685,7 @@ msgstr ""
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/submit_pitch_fields.hbs.py:17
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/submit_story_fields.hbs.py:17
 msgid "Let's fix this"
-msgstr ""
+msgstr "Let's fix this"
 
 #: templates/projects/_my_project_sidebar_bank.hbs:8
 msgid "Double check!"
@@ -749,7 +749,7 @@ msgstr "Campaign duration "
 #: templates/projects/goal.hbs:34
 msgctxt "Goal page"
 msgid "Budget breakdown"
-msgstr ""
+msgstr "Budget specification"
 
 #: templates/projects/goal.hbs:34
 msgctxt "Goal page"

@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-30 16:15+0200\n"
-"PO-Revision-Date: 2014-07-31 11:59+0000\n"
+"POT-Creation-Date: 2014-08-12 14:22+0200\n"
+"PO-Revision-Date: 2014-08-12 12:39+0000\n"
 "Last-Translator: Sezayi Arslan <sezayi@onepercentclub.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
@@ -22,44 +22,40 @@ msgstr ""
 "Language: en_GB\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: templates/homepage/banner.hbs:13
+#: templates/homepage/_banner_video.hbs:24
+msgid "Watch our video"
+msgstr "Watch our video"
+
+#: templates/homepage/_banner_video.hbs:32
 #, python-format
 msgid "1%%Club is the do-good crowdfunding platform"
 msgstr "1%%Club is the do-good crowdfunding platform"
 
-#: templates/homepage/banner.hbs:14
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:31
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:33
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/common/templates/bluebottle/_main_nav.hbs.py:6
-#, python-format
-msgid "About 1%%Club"
-msgstr "About 1%%Club"
-
-#: templates/homepage/banner.hbs:20
+#: templates/homepage/banner.hbs:15
 msgid "Join the makers of change"
 msgstr ""
 
-#: templates/homepage/banner.hbs:21
+#: templates/homepage/banner.hbs:16
 msgid "Mustapha campaigns for chess courses in Amsterdam."
 msgstr ""
 
-#: templates/homepage/banner.hbs:24
+#: templates/homepage/banner.hbs:19
 msgid "Start your own campaign"
 msgstr ""
 
-#: templates/homepage/banner.hbs:30
+#: templates/homepage/banner.hbs:25
 msgid "Supporters of good"
 msgstr ""
 
-#: templates/homepage/banner.hbs:31
+#: templates/homepage/banner.hbs:26
 msgid "We love smart ideas that do good in the world."
 msgstr ""
 
-#: templates/homepage/banner.hbs:32
+#: templates/homepage/banner.hbs:27
 msgid "Streetskids soccerschool, Colombia"
 msgstr "Street kids soccer school, Colombia"
 
-#: templates/homepage/banner.hbs:35
+#: templates/homepage/banner.hbs:30
 msgid "Find campaigns you’ll love"
 msgstr ""
 
@@ -420,7 +416,7 @@ msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:24
 msgid "Terms of service"
-msgstr "Terms of Service."
+msgstr "Terms of Service"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:25
 msgid "ANBI"
@@ -439,6 +435,13 @@ msgstr ""
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/_about.hbs.py:44
 msgid "Contact"
 msgstr "Contact"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:31
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:33
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/common/templates/bluebottle/_main_nav.hbs.py:6
+#, python-format
+msgid "About 1%%Club"
+msgstr "About 1%%Club"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:34
 msgid "Our story"
@@ -1321,7 +1324,7 @@ msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/common/templates/footer.html.py:15
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/common/templates/footer.html.py:35
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/quiz.hbs.py:295
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/quiz.hbs.py:297
 msgid "Learn more"
 msgstr ""
 
@@ -1478,7 +1481,7 @@ msgstr "Crowdfund 30%% in 30 days and the Cheetah Fund will grant you the rest!"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/_cheetah_video.hbs.py:32
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/_how_to_get_funded.hbs.py:65
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/quiz.hbs.py:294
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/quiz.hbs.py:295
 msgid "Start a Cheetah Campaign"
 msgstr "Start a Cheetah Campaign"
 
@@ -1710,9 +1713,9 @@ msgstr "No"
 #, python-format
 msgid ""
 "\n"
-"                                        Unfortunately the Cheetah Fund 2014 only accepts projects based in Africa by African pioneers. Don’t worry, you can always <a href=\"/#!/pages/start-campaign\">start a campaign at 1%%Club!</a>\n"
+"                                        Unfortunately the Cheetah Fund 2014 only accepts projects based in Africa by African pioneers. Don’t worry, you can always <a %(action)s href=\"%(href)s\">start a campaign at 1%%Club!</a>\n"
 "                                    "
-msgstr "\n                                        Unfortunately the Cheetah Fund 2014 only accepts projects based in Africa by African pioneers. Don’t worry, you can always <a href=\"/#!/pages/start-campaign\">start a campaign at 1%%Club!</a>\n                                    "
+msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/quiz.hbs.py:102
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/quiz.hbs.py:113
@@ -1732,6 +1735,13 @@ msgid ""
 msgstr "\n                                                    You might like to know that the most successful crowdfunding campaigns target a budget of around &euro;4000.\n                                                "
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/quiz.hbs.py:143
+#, python-format
+msgid ""
+"\n"
+"                                            In order to join the fund opportunity the budget can’t exceed &euro;15,000. Please reconsider your budget or go to <a %(action)s href=\"%(href)s\">1%%Club</a> and start your campaign there!\n"
+"                                        "
+msgstr ""
+
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/quiz.hbs.py:173
 #, python-format
 msgid ""
