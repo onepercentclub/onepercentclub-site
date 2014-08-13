@@ -99,7 +99,7 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
 
         # Continue as anonymous
         self.assertTrue(self.browser.is_text_present('Create an account', wait_time=10))
-        self.scroll_to_and_click_by_css('ul.bullets li.alternative')
+        self.scroll_to_and_click_by_css('ul.bullets li.alternative a')
 
         self.assertTrue(self.browser.is_text_present('Your full name', wait_time=10))
         fields = self.browser.find_by_css('input[type=text]')
