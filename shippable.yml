@@ -20,5 +20,5 @@ script:
 - export DISPLAY=:99.0
 - export DJANGO_SETTINGS_MODULE="onepercentclub.settings.shippable"
 - sh -e /etc/init.d/xvfb start
-- grunt compass:shippable
+- grunt compass:dist --bb_path="`pip show bluebottle | grep Location | cut -b11-`/bluebottle/common/static/sass"
 - python ./booking_cares/manage.py test -v1

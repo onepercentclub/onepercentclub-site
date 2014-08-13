@@ -112,42 +112,6 @@ module.exports = function (grunt) {
             }
         },
         compass: {
-            // Travis
-            travis: {
-                options: {
-                    httpPath: '/static/assets/',
-                    basePath: 'static/global',
-                    sassDir: 'sass',
-                    cssDir: 'css',
-                    imagesDir: 'images',
-                    javascriptsDir: 'js',
-                    outputStyle: 'compressed',
-                    relativeAssets: true,
-                    noLineComments: true,
-                    environment: 'production',
-                    raw: 'preferred_syntax = :scss\n', // Use `raw` since it's not directly available
-                    importPath: ["/home/travis/virtualenv/python2.7/src/bluebottle/bluebottle/common/static/sass"],
-                    force: true
-                }
-            },
-            // Shippable
-            shippable: {
-                options: {
-                    httpPath: '/static/assets/',
-                    basePath: 'static/global',
-                    sassDir: 'sass',
-                    cssDir: 'css',
-                    imagesDir: 'images',
-                    javascriptsDir: 'js',
-                    outputStyle: 'compressed',
-                    relativeAssets: true,
-                    noLineComments: true,
-                    environment: 'production',
-                    raw: 'preferred_syntax = :scss\n', // Use `raw` since it's not directly available
-                    importPath: ["/home/minion/ve/python/2.7/src/bluebottle/bluebottle/common/static/sass"],
-                    force: true
-                }
-            },
             // live
             dist: {
                 options: {
