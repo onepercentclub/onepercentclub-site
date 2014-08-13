@@ -11,10 +11,15 @@ from ...export import generate_donations_csv_file, generate_organizations_csv_fi
     generate_tasks_csv_file, generate_taskmembers_csv_file, generate_fundraisers_csv_file, \
     generate_organizationmember_csv_file
 from ...sync import sync_organizations, sync_users, sync_projects, sync_projectbudgetlines, sync_tasks, \
-    sync_taskmembers, sync_donations, sync_vouchers
+    sync_taskmembers, sync_donations, sync_vouchers, send_log
 
 logger = logging.getLogger('bluebottle.salesforce')
-
+fhndl = logging.handlers.RotatingFileHandler(os.path.join(settings.PROJECT_ROOT, "salesforce", "log", "last.log"),
+                                             backupCount=5)
+formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+fhndl.setFormatter(formatter)
+fhndl.doRollover()
+logger.addHandler(fhndl)
 
 #
 # Run with:
@@ -72,9 +77,9 @@ class Command(BaseCommand):
 
         if options['csv_export']:
             path = os.path.join(settings.PROJECT_ROOT, "salesforce", "export", "current")
-            #self.run_with_count_update(generate_organizations_csv_file, path, loglevel)
+            self.run_with_count_update(generate_organizations_csv_file, path, loglevel)
             #self.run_with_count_update(generate_users_csv_file, path, loglevel)
-            self.run_with_count_update(generate_projects_csv_file, path, loglevel)
+            #self.run_with_count_update(generate_projects_csv_file, path, loglevel)
             # self.run_with_count_update(generate_projectbudgetlines_csv_file, path, loglevel)
             # self.run_with_count_update(generate_donations_csv_file, path, loglevel)
             # self.run_with_count_update(generate_tasks_csv_file, path, loglevel)
@@ -95,6 +100,8 @@ class Command(BaseCommand):
                                                                                         self.error_count,
                                                                                         timezone.localtime(
                                                                                             timezone.now())))
+        send_log(os.path.join(settings.PROJECT_ROOT, "salesforce", "log", "last.log"),
+                 self.error_count, self.success_count, "sync", options, options['dry_run'], loglevel)
 
     def run_with_count_update(self, function, *args, **kwargs):
         cur_success_count, cur_error_count = function(*args, **kwargs)

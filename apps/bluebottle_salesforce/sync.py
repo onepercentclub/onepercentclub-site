@@ -1,6 +1,7 @@
 import logging
 from bluebottle.utils.utils import get_project_model
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 from registration.models import RegistrationProfile
 from apps.cowry_docdata.models import payment_method_mapping
 from apps.projects.models import ProjectBudgetLine
@@ -10,7 +11,8 @@ from apps.fund.models import Donation, DonationStatuses, RecurringDirectDebitPay
 from apps.vouchers.models import Voucher, VoucherStatuses
 
 from apps.bluebottle_salesforce.models import SalesforceOrganization, SalesforceContact, SalesforceProject, \
-    SalesforceDonation, SalesforceProjectBudget, SalesforceTask, SalesforceTaskMembers, SalesforceVoucher
+    SalesforceDonation, SalesforceProjectBudget, SalesforceTask, SalesforceTaskMembers, SalesforceVoucher, \
+    SalesforceLogItem
 from bluebottle.bb_projects.models import ProjectPhase
 
 USER_MODEL = get_user_model()
@@ -602,3 +604,28 @@ def sync_taskmembers(dry_run, sync_from_datetime, loglevel):
                 logger.error("Error while saving task id {0}: ".format(task_member.id) + str(e))
 
     return success_count, error_count
+
+
+def send_log(filename, err, succ, command, command_ext, dry_run, loglevel):
+    logger.setLevel(loglevel)
+
+    sflog = SalesforceLogItem()
+
+    logger.info("Sending log to Salesforce...")
+
+    sflog.entered = timezone.localtime(timezone.now())
+    sflog.source = str(command)
+    sflog.source_extended = str(command_ext)
+    sflog.errors = err
+    sflog.successes = succ
+
+    with open(filename, "r") as logfile:
+        for line in logfile:
+            sflog.message += line
+
+    # Save the object to Salesforce
+    if not dry_run:
+        try:
+            sflog.save()
+        except Exception as e:
+            logger.error("Error while saving log: " + str(e))
