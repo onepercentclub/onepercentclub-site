@@ -7,8 +7,8 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-hashres');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-karma');
-  grunt.loadNpmTasks('grunt-bower-task'); 
-  grunt.loadNpmTasks('grunt-contrib-uglify'); 
+  grunt.loadNpmTasks('grunt-bower-task');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-microlib');
   grunt.loadNpmTasks('grunt-contrib-compass');
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -112,6 +112,42 @@ module.exports = function (grunt) {
       }
     },
     compass: {
+            // Travis
+            travis: {
+                options: {
+                    httpPath: '/static/assets/',
+                    basePath: 'booking_cares/core/static',
+                    sassDir: 'sass',
+                    cssDir: 'css',
+                    imagesDir: 'images',
+                    javascriptsDir: 'js',
+                    outputStyle: 'compressed',
+                    relativeAssets: true,
+                    noLineComments: true,
+                    environment: 'production',
+                    raw: 'preferred_syntax = :scss\n', // Use `raw` since it's not directly available
+                    importPath: ["/home/travis/virtualenv/python2.7/src/bluebottle/bluebottle/common/static/sass"],
+                    force: true
+                }
+            },
+            // Shippable
+            shippable: {
+                options: {
+                    httpPath: '/static/assets/',
+                    basePath: 'booking_cares/core/static',
+                    sassDir: 'sass',
+                    cssDir: 'css',
+                    imagesDir: 'images',
+                    javascriptsDir: 'js',
+                    outputStyle: 'compressed',
+                    relativeAssets: true,
+                    noLineComments: true,
+                    environment: 'production',
+                    raw: 'preferred_syntax = :scss\n', // Use `raw` since it's not directly available
+                    importPath: ["/home/minion/ve/python/2.7/src/bluebottle/bluebottle/common/static/sass"],
+                    force: true
+                }
+            },
       // live
       dist: {
         options: {
@@ -119,15 +155,15 @@ module.exports = function (grunt) {
           basePath: 'static/global',
           sassDir: 'sass',
           cssDir: 'css',
-          imagesDir: 'images',          
-          javascriptsDir: 'js',          
+          imagesDir: 'images',
+          javascriptsDir: 'js',
           outputStyle: sassOutputStyle,
           relativeAssets: true,
           noLineComments: true,
           environment: 'production',
           raw: 'preferred_syntax = :scss\n', // Use `raw` since it's not directly available
           importPath: bluebottlePath,
-          force: true,     
+          force: true,
         }
       },
       // development
@@ -137,17 +173,17 @@ module.exports = function (grunt) {
           basePath: 'static/global',
           sassDir: 'sass',
           cssDir: 'css',
-          imagesDir: 'images',          
-          javascriptsDir: 'js',          
+          imagesDir: 'images',
+          javascriptsDir: 'js',
           outputStyle: sassOutputStyle,
           relativeAssets: true,
           noLineComments: false,
-          raw: 'preferred_syntax = :scss\n', // Use `raw` since it's not directly available  
+          raw: 'preferred_syntax = :scss\n', // Use `raw` since it's not directly available
           importPath: bluebottlePath,
           force: false,
         }
       }
-    }    
+    }
   });
 
 

@@ -1,0 +1,24 @@
+language: python
+
+python:
+- "2.7"
+
+addons:
+  firefox: "29.0"
+  sauceclient: true
+
+before_install:
+- gem install compass
+- npm install
+- touch ./booking_cares/booking_cares/settings/secrets.py
+
+install:
+- pip install --upgrade setuptools --use-mirrors
+- pip install -r requirements/ci_requirements.txt --use-mirrors --allow-all-external --allow-unverified django-admin-tools
+
+script:
+- export DISPLAY=:99.0
+- export DJANGO_SETTINGS_MODULE="onepercentclub.settings.shippable"
+- sh -e /etc/init.d/xvfb start
+- grunt compass:shippable
+- python ./booking_cares/manage.py test -v1
