@@ -440,6 +440,7 @@ class SalesforceTaskMembers(SalesforceModel):
         db_table = 'Task_Members__c'
         managed = False
 
+
 class SalesforceOrganizationMember(SalesforceModel):
     """
     Custom Salesforce Organization_Member__c object.
@@ -453,6 +454,24 @@ class SalesforceOrganizationMember(SalesforceModel):
     class Meta:
         db_table = 'Organization_Member__c'
         managed = False
+
+
+class SalesforceLogItem(SalesforceModel):
+    """
+    Custom Salesforce Log_Item__c object.
+    The object is used to store log data from external and internal sources.
+    """
+    entered = models.DateTimeField(db_column='Entered__c')
+    errors = models.PositiveIntegerField(max_length=18, db_column='Errors__c')
+    message = models.CharField(max_length=32000, db_column='Message__c')
+    source = models.CharField(max_length=255, db_column='Source__c')
+    source_extended = models.CharField(max_length=255, db_column='Source_Extended__c')
+    successes = models.PositiveIntegerField(max_length=18, db_column='Successes__c')
+
+    class Meta:
+        db_table = 'Log_Item__c'
+        managed = False
+
 
 class SalesforceLoginHistory(SalesforceModel):
     """

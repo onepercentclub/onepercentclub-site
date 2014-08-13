@@ -83,7 +83,7 @@ salesforce/*/*/*/archive/*
 salesforce/*/Data/Input/*
 salesforce/*/Data/Output/*
 salesforce/export/current/*.csv
-salesforce/log/*.log
+salesforce/log/*log*
 
 static/global/compass_app_log.txt
 

@@ -21,12 +21,6 @@ PROJECT_MODEL = get_project_model()
 
 logger = logging.getLogger('bluebottle.salesforce')
 
-fhndl = logging.FileHandler(os.path.join(settings.PROJECT_ROOT, "salesforce", "log", "last.log"))
-formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
-fhndl.setFormatter(formatter)
-logger.addHandler(fhndl)
-
-
 # TODO get field names from model for csv header from SalesforceDonation._meta.fields
 
 
