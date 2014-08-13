@@ -52,6 +52,8 @@ App.FundRaiserEditController = App.FundRaiserNewController.extend({
 
 
 App.ProjectFundRaiserAllController = Em.ArrayController.extend({
+    sortProperties: ['amount_donated'],
+    sortAscending: false,
     actions: {
         showFundraiser: function(fundraiser){
             $('.modal-close').click();
