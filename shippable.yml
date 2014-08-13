@@ -5,8 +5,7 @@ python:
 
 addons:
   firefox: "29.0"
-  sauceclient: true
-
+  
 before_install:
 - gem install compass
 - npm install
