@@ -9,7 +9,7 @@ App.HomeBannerView = Ember.View.extend({
                 fluid: true,
                 delay: 8000
             }), _this = this,
-            data = banner.data('unslider'), 
+            unsliderData = banner.data('unslider'),
             iframe = $('#brand-video'),
             player = $f(iframe),
             animationEnd = 'animationEnd animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd';
@@ -29,7 +29,7 @@ App.HomeBannerView = Ember.View.extend({
         this.$().find('.video-play-btn').on('click', function(){
             $(".video-item").removeClass("is-inactive");
             $(".video-item").addClass("is-active");
-            data.stop();
+            unsliderData.stop();
             player.api("play");
         });
 
@@ -49,11 +49,17 @@ App.HomeBannerView = Ember.View.extend({
 
             $('.video-item').one(animationEnd, function(){
                 $(".video-item").removeClass("is-inactive");
+                unsliderData.start();
             });
+        }
+        
+        function onPlayProgress(data, id) {
+            unsliderData.stop();
         }
         
         player.addEvent('ready', function() {
             player.addEvent('finish', onFinish);
+            player.addEvent('playProgress', onPlayProgress);
         });
 
         // TODO: Make it a general Ember component
