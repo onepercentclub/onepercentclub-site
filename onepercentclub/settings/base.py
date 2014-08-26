@@ -258,29 +258,31 @@ INSTALLED_APPS = (
     #FB Auth
     'bluebottle.auth',
 
-    # Cowry Payments
-    'apps.cowry',
-    'apps.cowry_docdata',
-    'apps.cowry_docdata_legacy',
-
     # Password auth from old PHP site.
     'legacyauth',
 
     'apps.vouchers',
-    'apps.fund',
-    'apps.fundraisers',
     'bluebottle.wallposts', # Define wall posts before projects/tasks that depend on it.
-    'apps.donations',
+
+    # Bluebottle apps with abstract models
+    'bluebottle.bb_accounts',
+    'bluebottle.bb_organizations',
+    'bluebottle.bb_projects',
+    'bluebottle.bb_tasks',
+    'bluebottle.bb_fundraisers',
+    'bluebottle.bb_orders',
+    'bluebottle.bb_donations',
+
+    # Standard implementation of Bb abstract models
+    'bluebottle.fundraisers',
+    'bluebottle.orders',
+    'bluebottle.donations',
+    'bluebottle.tasks',
 
     # Apps extending Bluebottle base models
     'apps.members',
-    'apps.tasks',
     'apps.projects',
     'apps.organizations',
-
-    # apps overriding bluebottle functionality should come before the bluebottle entries
-    # (template loaders pick the first template they find)
-    'apps.core',
 
     # Other Bluebottle apps
     'bluebottle.utils',
@@ -292,27 +294,22 @@ INSTALLED_APPS = (
     'bluebottle.news',
     'bluebottle.slides',
     'bluebottle.quotes',
-
-    # Bluebottle apps with abstract models
-    'bluebottle.bb_accounts',
-    'bluebottle.bb_organizations',
-    'bluebottle.bb_projects',
-    'bluebottle.bb_tasks',
+    'bluebottle.payments',
+    'bluebottle.payments_docdata',
 
     'apps.bluebottle_salesforce',
-
+    'apps.core',
     'apps.bluebottle_dashboard',
     'apps.contentplugins',
     'apps.campaigns',
     'apps.hbtemplates',
-    'apps.payouts',
     'apps.sepa',
     'apps.statistics',
     'apps.homepage',
     'apps.redirects',
     'apps.partners',
     'apps.csvimport',
-    'apps.accounting',
+    # 'apps.accounting',
     'apps.crawlable',
 
     # Custom dashboard
@@ -327,16 +324,24 @@ INSTALLED_APPS = (
 
 # Custom User model
 AUTH_USER_MODEL = 'members.Member'
+
 PROJECTS_PROJECT_MODEL = 'projects.Project'
 PROJECTS_PHASELOG_MODEL = 'projects.ProjectPhaseLog'
+
+FUNDRAISERS_FUNDRAISER_MODEL = 'fundraisers.FundRaiser'
+
 TASKS_TASK_MODEL = 'tasks.Task'
 TASKS_SKILL_MODEL = 'tasks.Skill'
 TASKS_TASKMEMBER_MODEL = 'tasks.TaskMember'
 TASKS_TASKFILE_MODEL = 'tasks.TaskFile'
+
 ORGANIZATIONS_ORGANIZATION_MODEL = 'organizations.Organization'
 ORGANIZATIONS_DOCUMENT_MODEL = 'organizations.OrganizationDocument'
 ORGANIZATIONS_MEMBER_MODEL = 'organizations.OrganizationMember'
-PROJECTS_PHASELOG_MODEL = 'projects.ProjectPhaseLog'
+
+ORDERS_ORDER_MODEL = 'orders.Order'
+DONATIONS_DONATION_MODEL = 'donations.Donation'
+DONATIONS_DONATION_MODEL = 'donations.Donation'
 
 SOCIAL_AUTH_USER_MODEL = 'members.Member'
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_friends', 'public_profile', 'user_birthday']

@@ -47,7 +47,6 @@ django-fluent-dashboard==0.3.2
 fabric
 GitPython==0.3.2.RC1
 
-# Cowry dependencies.
 django_countries==1.5
 requests==2.3.0 #Updated requests to make python social auth work
 

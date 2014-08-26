@@ -1,9 +1,8 @@
 import logging
-from apps.fundraisers.models import FundRaiser
 from apps.projects.models import Project
-from apps.tasks.models import Task
 from django.http.response import HttpResponsePermanentRedirect
 from django.template.response import SimpleTemplateResponse
+from bluebottle.utils.model_dispatcher import get_task_model, get_fundraiser_model
 import re
 import time
 import os
@@ -21,6 +20,9 @@ from selenium.webdriver.common.utils import is_connectable
 from selenium.webdriver.phantomjs.webdriver import WebDriver
 from selenium.webdriver.remote.webdriver import WebDriver as RemoteWebDriver
 
+
+TASK_MODEL = get_task_model()
+FUNDRAISER_MODEL = get_fundraiser_model()
 
 logger = logging.getLogger(__name__)
 
@@ -167,13 +169,13 @@ class HashbangMiddleware(object):
             # Task page
             if route[1] == 'tasks' and len(route) > 2:
                 task_id = route[2].split('?')[0]
-                task = Task.objects.get(id=task_id)
+                task = TASK_MODEL.objects.get(id=task_id)
                 return SimpleTemplateResponse(template='crawlable/task.html', context={'task': task})
 
             # FundRaiser page
             if route[1] == 'fundraisers' and len(route) > 2:
                 fundraiser_id = route[2].split('?')[0]
-                fundraiser = FundRaiser.objects.get(id=fundraiser_id)
+                fundraiser = FUNDRAISER_MODEL.objects.get(id=fundraiser_id)
                 return SimpleTemplateResponse(template='crawlable/fundraiser.html', context={'fundraiser': fundraiser})
 
             # Update query string by removing the escaped fragment.

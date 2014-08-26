@@ -1,3 +1,4 @@
+from bluebottle.utils.model_dispatcher import get_donation_model
 from django.core.cache import cache
 from django.db import models
 from django.db.models import Sum
@@ -5,6 +6,7 @@ from django.utils.translation import ugettext as _
 
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 
+DONATION_MODEL = get_donation_model()
 
 class Campaign(models.Model):
     title = models.CharField(_('title'), max_length=255)
@@ -31,13 +33,13 @@ class Campaign(models.Model):
     @property
     def sum_donations(self):
 
-        from apps.fund.models import Donation
+        DONATION_MODEL = get_donation_model()
 
         """ Add all donation amounts for donations made between start and end of the campaign """
         if cache.get('campaign-grant-total'):
             return cache.get('campaign-grant-total')
 
-        donations = Donation.valid_donations
+        donations = DONATION_MODEL.valid_donations
         donations = donations.filter(ready__gte=self.start).filter(ready__lte=self.end)
         donated = donations.aggregate(sum=Sum('amount'))['sum'] or '000'
         cache.set('campaign-grant-total', donated, 120)

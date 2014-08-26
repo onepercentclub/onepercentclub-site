@@ -5,12 +5,12 @@ from bluebottle.slides.models import Slide
 from bluebottle.quotes.models import Quote
 
 from apps.campaigns.models import Campaign
-from apps.fundraisers.models import FundRaiser
 from apps.statistics.models import Statistic
 
-from bluebottle.utils.utils import get_project_model
+from bluebottle.utils.model_dispatcher import get_project_model, get_fundraiser_model
 
 PROJECT_MODEL = get_project_model()
+FUNDRAISER_MODEL = get_fundraiser_model()
 
 # Instead of serving all the objects separately we combine Slide, Quote and Stats into a dummy object
 
@@ -40,7 +40,7 @@ class HomePage(object):
         try:
             self.campaign = Campaign.objects.get(start__lte=now(), end__gte=now())
             # NOTE: MultipleObjectsReturned is not caught yet!
-            self.fundraisers = FundRaiser.objects.filter(project__is_campaign=True).order_by('-created')
+            self.fundraisers = FUNDRAISER_MODEL.objects.filter(project__is_campaign=True).order_by('-created')
         except Campaign.DoesNotExist:
             self.campaign, self.fundraisers = None, None
 

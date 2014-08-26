@@ -39,7 +39,7 @@ class Voucher(models.Model):
     receiver_email = models.EmailField(_("Receiver email"))
     receiver_name = models.CharField(_("Receiver name"), blank=True, default="", max_length=100)
 
-    order = models.ForeignKey('fund.Order', verbose_name=_("Order"), related_name='vouchers', null=True)
+    order = models.ForeignKey('orders.Order', verbose_name=_("Order"), related_name='vouchers', null=True)
 
     class Meta:
         # Note: This can go back to 'Voucher' when we figure out a proper way to do EN -> EN translations for branding.

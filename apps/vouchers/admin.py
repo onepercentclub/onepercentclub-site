@@ -1,13 +1,14 @@
-from apps.fund.models import Donation
 from babel.numbers import format_currency
+from bluebottle.utils.model_dispatcher import get_donation_model
 from django.contrib import admin
 from django.core.urlresolvers import reverse
 from django.utils import translation
 from .models import CustomVoucherRequest, Voucher
 
+DONATION_MODEL = get_donation_model()
 
 class VoucherDonationInline(admin.StackedInline):
-    model = Donation
+    model = DONATION_MODEL
     # raw_id_fields = ('project', 'user')
     # readonly_fields = ('amount', )
     # fields = readonly_fields + ('project', 'user')

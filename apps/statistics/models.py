@@ -1,8 +1,11 @@
+from bluebottle.utils.model_dispatcher import get_donation_model
 from django.core.cache import cache
 from django.db import models
 from django.db.models.aggregates import Sum
 from django.utils.translation import ugettext_lazy as _
 from django_extensions.db.fields import CreationDateTimeField
+
+DONATION_MODEL = get_donation_model()
 
 
 class Statistic(models.Model):
@@ -18,12 +21,11 @@ class Statistic(models.Model):
 
     @property
     def donated(self):
-        from apps.fund.models import Donation, DonationStatuses
 
         """ Add all donation amounts for all donations ever """
         if cache.get('donations-grant-total'):
             return cache.get('donations-grant-total')
-        donations = Donation.objects.filter(status__in=(DonationStatuses.pending, DonationStatuses.paid))
+        donations = DONATION_MODEL.objects.filter(status__in=(DONATION_MODEL.DonationStatuses.pending, DonationStatuses.paid))
         donated = donations.aggregate(sum=Sum('amount'))['sum'] or '000'
         cache.set('donations-grant-total', donated, 300)
         return donated

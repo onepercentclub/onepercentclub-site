@@ -1,6 +1,4 @@
 # coding=utf-8
-#from apps.fund.models import Donation
-#from apps.fund.serializers import DonationSerializer
 from bluebottle.bluebottle_drf2.serializers import EuroField
 from django.utils.translation import ugettext as _
 from rest_framework import serializers

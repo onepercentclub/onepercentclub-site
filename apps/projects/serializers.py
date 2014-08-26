@@ -3,16 +3,10 @@ from bluebottle.bb_accounts.serializers import UserPreviewSerializer
 from bluebottle.geo.serializers import CountrySerializer
 from rest_framework import serializers
 
-from bluebottle.bluebottle_drf2.serializers import (SorlImageField, SlugGenericRelatedField, PolymorphicSerializer, EuroField,
-                                              TagSerializer, ImageSerializer, TaggableSerializerMixin)
+from bluebottle.bluebottle_drf2.serializers import EuroField
 from bluebottle.geo.models import Country
-from bluebottle.utils.serializers import MetaField
 from bluebottle.bluebottle_drf2.serializers import OEmbedField
-
-from bluebottle.bb_projects.serializers import ProjectThemeSerializer
-from apps.fund.models import Donation
-
-from bluebottle.utils.utils import get_project_model
+from bluebottle.utils.model_dispatcher import get_project_model, get_donation_model
 from bluebottle.bb_projects.serializers import (ProjectSerializer as BaseProjectSerializer,
                                                 ManageProjectSerializer as BaseManageProjectSerializer,
                                                 ProjectPreviewSerializer as BaseProjectPreviewSerializer)
@@ -20,6 +14,8 @@ from bluebottle.bb_projects.serializers import (ProjectSerializer as BaseProject
 from bs4 import BeautifulSoup
 
 PROJECT_MODEL = get_project_model()
+DONATION_MODEL = get_donation_model()
+
 
 class StoryField(serializers.WritableField):
     def to_native(self, value):
@@ -91,6 +87,7 @@ class ManageProjectSerializer(BaseManageProjectSerializer):
                                                             'video_url', 'video_html',
                                                             'story', 'budget_lines', 'deadline', 'latitude', 'longitude')
 
+
 class ProjectSupporterSerializer(serializers.ModelSerializer):
     """
     For displaying donations on project and member pages.
@@ -100,7 +97,7 @@ class ProjectSupporterSerializer(serializers.ModelSerializer):
     date_donated = serializers.DateTimeField(source='ready')
 
     class Meta:
-        model = Donation
+        model = DONATION_MODEL
         fields = ('date_donated', 'project',  'member',)
 
 
@@ -110,6 +107,6 @@ class ProjectDonationSerializer(serializers.ModelSerializer):
     amount = EuroField(source='amount')
 
     class Meta:
-        model = Donation
+        model = DONATION_MODEL
         fields = ('member', 'date_donated', 'amount',)
 

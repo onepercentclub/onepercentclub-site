@@ -1,11 +1,11 @@
 import logging
-from bluebottle.utils.utils import get_project_model
+from apps.crawlable.middleware import TASK_MODEL
+from bluebottle.utils.model_dispatcher import get_project_model, get_task_model, get_taskmember_model
 from django.contrib.auth import get_user_model
 from registration.models import RegistrationProfile
 from apps.cowry_docdata.models import payment_method_mapping
 from apps.projects.models import ProjectBudgetLine
 from apps.organizations.models import Organization
-from apps.tasks.models import Task, TaskMember
 from apps.fund.models import Donation, DonationStatuses, RecurringDirectDebitPayment
 from apps.vouchers.models import Voucher, VoucherStatuses
 
@@ -15,6 +15,8 @@ from bluebottle.bb_projects.models import ProjectPhase
 
 USER_MODEL = get_user_model()
 PROJECT_MODEL = get_project_model()
+TASK_MODEL = get_task_model()
+TASK_MEMBER_MODEL = get_taskmember_model()
 
 
 logger = logging.getLogger('bluebottle.salesforce')

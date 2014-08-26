@@ -2,6 +2,7 @@ from datetime import timedelta
 from bluebottle.bb_projects.models import ProjectPhase
 from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
 from bluebottle.test.factory_models.utils import LanguageFactory
+from bluebottle.utils.model_dispatcher import get_donation_model, get_order_model
 
 from django.contrib.auth import get_user_model
 from django.test import TestCase
@@ -14,8 +15,9 @@ from onepercentclub.tests.utils import OnePercentTestCase
 from rest_framework import status
 
 from apps.campaigns.models import Campaign
-from apps.fund.models import Donation, DonationStatuses, Order
 
+DONATION_MODEL = get_donation_model()
+ORDER_MODEL = get_order_model()
 
 class HomepageTestCase(OnePercentTestCase):
     """ Test that the homepage doesn't error out if no/a campaign is available """
@@ -52,19 +54,19 @@ class HomepageTestCase(OnePercentTestCase):
         Campaign.objects.create(start=start, end=end, title='FooBarCaMpAIgN', target=100000)
 
         # make a donation before the campaign starts
-        order = Order.objects.create(user=self.user, order_number=1)
-        Donation.objects.create(amount=1000, user=self.user, project=self.project,
-                                status=DonationStatuses.paid, order=order, ready=now-timedelta(days=1))
+        order = ORDER_MODEL.objects.create(user=self.user, order_number=1)
+        DONATION_MODEL.objects.create(amount=1000, user=self.user, project=self.project,
+                                status=DONATION_MODEL.DonationStatuses.paid, order=order, ready=now-timedelta(days=1))
 
         # and a couple of donations in campaign, for a total amount of 2000+3000+4000 cents = 90 euros
         for i in range(1,4):
             amount = (i+1)*1000
-            Donation.objects.create(amount=amount, user=self.user, project=self.project,
-                                    status=DonationStatuses.paid, order=order, ready=now+timedelta(days=i))
+            DONATION_MODEL.objects.create(amount=amount, user=self.user, project=self.project,
+                                    status=DONATION_MODEL.DonationStatuses.paid, order=order, ready=now+timedelta(days=i))
 
         # and one after the campaign
-        Donation.objects.create(amount=5000, user=self.user, project=self.project,
-                                status=DonationStatuses.paid, order=order, ready=now+timedelta(weeks=2))
+        DONATION_MODEL.objects.create(amount=5000, user=self.user, project=self.project,
+                                status=DONATION_MODEL.DonationStatuses.paid, order=order, ready=now+timedelta(weeks=2))
 
         self.project_with_fundraiser = OnePercentProjectFactory.create(amount_asked=50000)
         self.project_with_fundraiser.is_campaign = True

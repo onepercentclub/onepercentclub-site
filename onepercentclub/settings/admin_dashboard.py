@@ -36,7 +36,10 @@ FLUENT_DASHBOARD_APP_GROUPS = (
     }),
     (_('Donations'), {
         'models': (
-            'apps.fund.*',
+            'bluebottle.bb_donations.*',
+            'bluebottle.bb_orders.*',
+            'bluebottle.donations.*',
+            'bluebottle.orders.*',
             'apps.vouchers.*',
         ),
         'module': 'fluent_dashboard.modules.AppIconList',
@@ -44,10 +47,10 @@ FLUENT_DASHBOARD_APP_GROUPS = (
     }),
     (_('Finances'), {
         'models': (
-            'apps.accounting.*',
-            'apps.payouts.*',
-            'apps.cowry_docdata.*',
-            'apps.cowry.*',
+            # 'apps.accounting.*',
+            # 'apps.payouts.*',
+            'bluebottle.payments.*',
+            'bluebottle.payments_docdata.*',
         ),
         'module': 'fluent_dashboard.modules.AppIconList',
         'collapsible': False,

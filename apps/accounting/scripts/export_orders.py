@@ -1,3 +1,4 @@
+from bluebottle.utils.model_dispatcher import get_order_model
 import ipdb
 
 import os
@@ -7,7 +8,7 @@ import csv
 
 from django.conf import settings
 
-from apps.fund.models import Order
+ORDER_MODEL = get_order_model()
 
 """
 These scripts will be superseded by functionality implemented in the
@@ -58,7 +59,7 @@ def run():
         writer.writerow(fieldnames_dict)
 
         # Raw query
-        qs = Order.objects.all()
+        qs = ORDER_MODEL.objects.all()
 
         # Add related users and projects
         # qs = qs.select_related('user', 'project')

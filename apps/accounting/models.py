@@ -1,10 +1,10 @@
-from apps.accounting.signals import match_transaction_with_payout_on_creation
+# from apps.accounting.signals import match_transaction_with_payout_on_creation
 from django.db import models
 from django.db.models.signals import post_save
 from django.utils.translation import ugettext as _
 from djchoices import DjangoChoices, ChoiceItem
 
-from .signals import change_payout_status_with_matched_transaction
+# from .signals import change_payout_status_with_matched_transaction
 
 class BankTransactionCategory(models.Model):
 
@@ -137,6 +137,6 @@ class DocdataPayment(models.Model):
         verbose_name_plural = _('Docdata payments')
 
 
-post_save.connect(change_payout_status_with_matched_transaction, weak=False, sender=BankTransaction)
-
-post_save.connect(match_transaction_with_payout_on_creation, weak=False, sender=BankTransaction)
+# post_save.connect(change_payout_status_with_matched_transaction, weak=False, sender=BankTransaction)
+#
+# post_save.connect(match_transaction_with_payout_on_creation, weak=False, sender=BankTransaction)

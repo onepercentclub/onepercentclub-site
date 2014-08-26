@@ -1,5 +1,5 @@
 import datetime
-from .fields import MoneyField
+from bluebottle.utils.model_dispatcher import get_donation_model, get_task_model
 from bluebottle.bb_projects.models import BaseProject, ProjectTheme, ProjectPhase, BaseProjectPhaseLog
 from django.db import models
 from django.db.models import Q
@@ -18,8 +18,7 @@ from django.utils import timezone
 from .mails import mail_project_funded_internal
 from .signals import project_funded
 
-
-#from apps.fund.models import Donation, DonationStatuses
+DONATION_MODEL = get_donation_model()
 
 class ProjectPhaseLog(BaseProjectPhaseLog):
     pass
@@ -99,11 +98,6 @@ class Project(BaseProject):
     popularity = models.FloatField(null=False, default=0)
     is_campaign = models.BooleanField(default=False, help_text=_("Project is part of a campaign and gets special promotion."))
 
-    # For convenience and performance we also store money donated and needed here.
-    amount_asked = MoneyField(default=0, null=True, blank=True)
-    amount_donated = MoneyField(default=0)
-    amount_needed = MoneyField(default=0)
-
     allow_overfunding = models.BooleanField(default=True)
     story = models.TextField(_("story"), help_text=_("This is the help text for the story field"), blank=True,
                              null=True)
@@ -126,10 +120,9 @@ class Project(BaseProject):
         return self.slug
 
     def update_popularity(self, save=True):
-        from apps.fund.models import Donation
 
         last_month = timezone.now() - timezone.timedelta(days=30)
-        donations = Donation.objects.filter(status__in=['paid', 'pending'])
+        donations = DONATION_MODEL.objects.filter(status__in=['paid', 'pending'])
         donations = donations.exclude(donation_type='recurring')
         donations = donations.filter(created__gte=last_month)
 
@@ -218,13 +211,11 @@ class Project(BaseProject):
 
     @property
     def task_count(self):
-        from bluebottle.utils.utils import get_task_model
         TASK_MODEL = get_task_model()
         return len(self.task_set.filter(status=TASK_MODEL.TaskStatuses.open).all())
 
     @property
     def get_open_tasks(self):
-        from bluebottle.utils.utils import get_task_model
         TASK_MODEL = get_task_model()
         return self.task_set.filter(status=TASK_MODEL.TaskStatuses.open).all()
 
