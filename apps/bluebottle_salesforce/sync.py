@@ -13,12 +13,9 @@ from apps.vouchers.models import Voucher, VoucherStatuses
 from apps.bluebottle_salesforce.models import SalesforceOrganization, SalesforceContact, SalesforceProject, \
     SalesforceDonation, SalesforceProjectBudget, SalesforceTask, SalesforceTaskMembers, SalesforceVoucher, \
     SalesforceLogItem
-from bluebottle.bb_projects.models import ProjectPhase
 
 USER_MODEL = get_user_model()
 PROJECT_MODEL = get_project_model()
-
-
 logger = logging.getLogger('bluebottle.salesforce')
 
 
@@ -36,45 +33,64 @@ def sync_organizations(dry_run, sync_from_datetime, loglevel):
     for organization in organizations:
         logger.debug("Syncing Organization: {0}".format(organization.id))
 
-        # Find the corresponding SF organization.
+        # Find the corresponding SF organization
         try:
             sforganization = SalesforceOrganization.objects.get(external_id=organization.id)
         except SalesforceOrganization.DoesNotExist:
             sforganization = SalesforceOrganization()
+        except Exception as e:
+            logger.error("Error while loading sforganization id {0} - stopping: ".format(organization.id) + str(e))
+            return success_count, error_count+1
 
-        # SF Layout: Account details section.
+        # Populate the data from the source
         sforganization.name = organization.name
 
-        # sforganization.legal_status = organization.legal_status
-        # sforganization.description = organization.description
-
-        # SF Layout: Contact Information section. Ignore address type and only use first address.
-        # When multiple address types are supported in the website, extend this function
         sforganization.billing_city = organization.city[:40]
         sforganization.billing_street = organization.address_line1 + " " + organization.address_line2
         sforganization.billing_postal_code = organization.postal_code
+        sforganization.billing_state = organization.state[:20]
+
         if organization.country:
             sforganization.billing_country = organization.country.name
         else:
             sforganization.billing_country = ''
 
-        # E-mail addresses for organizations are currently left out because source data is not validated
-        # sforganization.email_address = organization.email
+        sforganization.email_address = organization.email
         sforganization.phone = organization.phone_number
         sforganization.website = organization.website
+        sforganization.twitter = organization.twitter
+        sforganization.facebook = organization.facebook
+        sforganization.skype = organization.skype
 
-        # SF Layout: Bank Account section.
-        sforganization.address_bank = organization.account_bank_address
-        sforganization.bank_account_name = organization.name
-        sforganization.bank_account_number = organization.account_number
+        sforganization.tags = ""
+        for tag in organization.tags.all():
+            sforganization.tags = str(tag) + ", " + sforganization.tags
+
+        sforganization.bank_account_name = organization.account_holder_name
+        sforganization.bank_account_address = organization.account_holder_address
+        sforganization.bank_account_postalcode = organization.account_holder_postal_code
+        sforganization.bank_account_city = organization.account_holder_city
+        if organization.account_holder_country:
+            sforganization.bank_account_country = organization.account_holder_country.name
+        else:
+            sforganization.bank_account_country = ''
+
         sforganization.bank_name = organization.account_bank_name
-        sforganization.bic_swift = organization.account_bic
-        sforganization.country_bank = str(organization.account_bank_country)
-        sforganization.iban_number = organization.account_iban
+        sforganization.bank_address = organization.account_bank_address
+        sforganization.bank_postalcode = organization.account_bank_postal_code
+        sforganization.bank_city = organization.account_bank_city
+        if organization.account_bank_country:
+            sforganization.bank_country = organization.account_bank_country.name
+        else:
+            sforganization.bank_country = ''
 
-        # SF Layout: System Information.
+        sforganization.bank_account_number = organization.account_number
+        sforganization.bank_bic_swift = organization.account_bic
+        sforganization.bank_account_iban = organization.account_iban
+
         sforganization.external_id = organization.id
         sforganization.created_date = organization.created
+        sforganization.deleted_date = organization.deleted
 
         # Save the object to Salesforce
         if not dry_run:
@@ -94,7 +110,6 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
     success_count = 0
 
     users = USER_MODEL.objects.all()
-
     if sync_from_datetime:
         users = users.filter(updated__gte=sync_from_datetime)
 
@@ -108,16 +123,51 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
             contact = SalesforceContact.objects.get(external_id=user.id)
         except SalesforceContact.DoesNotExist:
             contact = SalesforceContact()
+        except Exception as e:
+            logger.error("Error while loading sfcontact id {0} - stopping: ".format(user.id) + str(e))
+            return success_count, error_count+1
 
-        # Determine and set user type (person, group, foundation, school, company, ... )
+        # Populate the data from the source
+        contact.external_id = user.id
+        contact.user_name = user.username
+        contact.email = user.email
+        contact.is_active = user.is_active
+
+        contact.member_since = user.date_joined
+        contact.date_joined = user.date_joined
+        contact.deleted = user.deleted
+
         contact.category1 = USER_MODEL.UserType.values[user.user_type].title()
 
-        # SF Layout: Profile section.
         contact.first_name = user.first_name
         if user.last_name.strip():
             contact.last_name = user.last_name
         else:
             contact.last_name = "1%MEMBER"
+
+        contact.location = user.location
+        contact.website = user.website
+
+        contact.picture_location = ""
+        if user.picture:
+            contact.picture_location = str(user.picture)
+
+        contact.about_me_us = user.about
+        contact.why_one_percent_member = user.why
+
+        if user.time_available:
+            contact.availability = user.time_available.type
+        else:
+            contact.availability = ''
+
+        contact.facebook = user.facebook
+        contact.twitter = user.twitter
+        contact.skype = user.skypename
+
+        contact.primary_language = user.primary_language
+        contact.receive_newsletter = user.newsletter
+        contact.phone = user.phone_number
+        contact.birth_date = user.birthdate
 
         if user.gender == "male":
             contact.gender = USER_MODEL.Gender.values['male'].title()
@@ -126,36 +176,25 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
         else:
             contact.gender = ""
 
-        if user.time_available:
-            contact.availability = user.time_available.type or ""
+        contact.tags = ""
+        for tag in user.tags.all():
+            contact.tags = str(tag) + ", " + contact.tags
 
-        contact.user_name = user.username
-        contact.is_active = user.is_active
-        contact.close_date = user.deleted
-        contact.member_since = user.date_joined
-        contact.date_joined = user.date_joined
-        contact.last_login = user.last_login
-        contact.why_one_percent_member = user.why
-        contact.about_me_us = user.about
-        contact.location = user.location
-        contact.birth_date = user.birthdate
-        contact.available_to_share_time_and_knowledge = user.share_time_knowledge
-        contact.available_to_donate = user.share_money
-
-        # SF Layout: Contact Information section.
-        contact.email = user.email
-        contact.website = user.website
-
-        # Bank details of recurring payments
-        try:
-            recurring_payment = RecurringDirectDebitPayment.objects.get(user=user)
-            contact.bank_account_city = recurring_payment.city
-            contact.bank_account_holder = recurring_payment.name
-            contact.bank_account_number = recurring_payment.account
-        except RecurringDirectDebitPayment.DoesNotExist:
-            contact.bank_account_city = ''
-            contact.bank_account_holder = ''
-            contact.bank_account_number = ''
+        if user.address:
+            contact.mailing_city = user.address.city
+            contact.mailing_street = user.address.line1 + ' ' + user.address.line2
+            if user.address.country:
+                contact.mailing_country = user.address.country.name
+            else:
+                contact.mailing_country = ''
+            contact.mailing_postal_code = user.address.postal_code
+            contact.mailing_state = user.address.state
+        else:
+            contact.mailing_city = ''
+            contact.mailing_street = ''
+            contact.mailing_country = ''
+            contact.mailing_postal_code = ''
+            contact.mailing_state = ''
 
         # Determine if the user has activated himself, by default assume not
         # if this is a legacy record, by default assume it has activated
@@ -171,31 +210,22 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
             else:
                 contact.has_activated = True
 
-        if user.address:
-            contact.mailing_city = user.address.city
-            contact.mailing_street = user.address.line1 + '\n' + user.address.line2
-            if user.address.country:
-                contact.mailing_country = user.address.country.name
-            else:
-                contact.mailing_country = ''
-            contact.mailing_postal_code = user.address.postal_code
-            contact.mailing_state = user.address.state
-        else:
-            contact.mailing_city = ''
-            contact.mailing_street = ''
-            contact.mailing_country = ''
-            contact.mailing_postal_code = ''
-            contact.mailing_state = ''
+        contact.last_login = user.last_login
 
-        # The default: Organization(Account) will be 'Individual' without setting a specific value
-        # contact.organization_account = SalesforceOrganization.objects.get(external_id=contact.organization.id)
-
-        # SF Layout: My Settings section.
-        contact.receive_newsletter = user.newsletter
-        contact.primary_language = user.primary_language
-
-        # SF: Other
-        contact.external_id = user.id
+        # Bank details of recurring payments
+        try:
+            recurring_payment = RecurringDirectDebitPayment.objects.get(user=user)
+            contact.bank_account_city = recurring_payment.city
+            contact.bank_account_holder = recurring_payment.name
+            contact.bank_account_number = recurring_payment.account
+            contact.bank_account_iban = recurring_payment.iban
+            contact.bank_account_active_recurring_debit = recurring_payment.active
+        except RecurringDirectDebitPayment.DoesNotExist:
+            contact.bank_account_city = ''
+            contact.bank_account_holder = ''
+            contact.bank_account_number = ''
+            contact.bank_account_iban = ''
+            contact.bank_account_active_recurring_debit = False
 
         # Save the object to Salesforce
         if not dry_run:
@@ -229,6 +259,9 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
             sfproject = SalesforceProject.objects.get(external_id=project.id)
         except SalesforceProject.DoesNotExist:
             sfproject = SalesforceProject()
+        except Exception as e:
+            logger.error("Error while loading sfproject id {0} - stopping: ".format(project.id) + str(e))
+            return success_count, error_count+1
 
         # SF Layout: 1%CLUB Project Detail section.
         sfproject.amount_at_the_moment = "%01.2f" % (project.amount_donated or 0)

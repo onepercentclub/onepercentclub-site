@@ -35,24 +35,35 @@ class SalesforceOrganization(SalesforceModel):
     billing_street = models.CharField(max_length=255, db_column='BillingStreet')
     billing_postal_code = models.CharField(max_length=20, db_column='BillingPostalCode')
     billing_country = models.CharField(max_length=80, db_column='BillingCountry')
+    billing_state = models.CharField(max_length=20, db_column='BillingState')
     email_address = models.EmailField(max_length=80, db_column='E_mail_address__c')
     phone = models.CharField(max_length=40, db_column='Phone')
     website = models.URLField(max_length=255, db_column='Website')
 
     # SF Layout: Bank Account section.
-    address_bank = models.CharField(max_length=255, db_column='Address_bank__c')
+    bank_account_address = models.CharField(max_length=255, db_column='Bank_account_address__c')
     bank_account_name = models.CharField(max_length=255, db_column='Bank_account_name__c')
     bank_account_number = models.CharField(max_length=40, db_column='Bank_account_number__c')
-    bank_name = models.CharField(max_length=255, db_column='Bankname__c')
-    bic_swift = models.CharField(max_length=40, db_column='BIC_SWIFT__c')
-    country_bank = models.CharField(max_length=60, db_column='Country_bank__c')
-    iban_number = models.CharField(max_length=255, db_column='IBAN_number__c')
+    bank_account_iban = models.CharField(max_length=255, db_column='Bank_account_IBAN__c')
+    bank_account_postalcode = models.CharField(max_length=20, db_column='Bank_account_postalcode__c')
+    bank_account_city = models.CharField(max_length=255, db_column='Bank_account_city__c')
+    bank_account_country = models.CharField(max_length=60, db_column='Bank_account_country__c')
 
-    # SF Layout: Description section.
-    description = models.CharField(max_length=32000, db_column='Description')
+    bank_name = models.CharField(max_length=255, db_column='Bank_bankname__c')
+    bank_bic_swift = models.CharField(max_length=40, db_column='Bank_SWIFT__c')
+    bank_address = models.CharField(max_length=255, db_column='Bank_address__c')
+    bank_postalcode = models.CharField(max_length=20, db_column='Bank_postalcode__c')
+    bank_city = models.CharField(max_length=255, db_column='Bank_city__c')
+    bank_country = models.CharField(max_length=60, db_column='Bank_country__c')
+
+    twitter = models.CharField(max_length=255, db_column='Twitter__c')
+    facebook = models.CharField(max_length=255, db_column='Facebook__c')
+    tags = models.CharField(max_length=255, db_column='Tags__c')
+    skype = models.CharField(max_length=255, db_column='Skype__c')
 
     # SF Layout: System Information.
     created_date = models.DateField(db_column='Organization_created_date__c')
+    deleted_date = models.DateTimeField(db_column='Deleted__c')
 
     class Meta:
         db_table = 'Account'
@@ -70,7 +81,7 @@ class SalesforceContact(SalesforceModel):
     user_name = models.CharField(max_length=255, db_column='Username__c')
     is_active = models.BooleanField(db_column='Active__c')
     has_activated = models.BooleanField(db_column='Has_Activated_Account__c')
-    close_date = models.DateField(db_column='Deleted__c')
+    deleted_date = models.DateField(db_column='Deleted__c')
 
     # SF Layout: Profile section.
     first_name = models.CharField(max_length=40, db_column='FirstName')
@@ -79,6 +90,7 @@ class SalesforceContact(SalesforceModel):
     why_one_percent_member = models.CharField(max_length=32000, db_column='Why_onepercent_member__c')
     about_me_us = models.CharField(max_length=3200, db_column='About_me_us__c')
     location = models.CharField(max_length=100, db_column='Location__c')
+    picture_location = models.CharField(max_length=255, db_column='Picture_Location__c')
     # The default: Organization(Account) will be 'Individual' as current.
     # - Future purpose deactivate and put the Organization website group value
     #   organization_account = models.ForeignKey(SalesforceOrganization, db_column='AccountId')
@@ -90,6 +102,8 @@ class SalesforceContact(SalesforceModel):
     bank_account_number = models.CharField(max_length=30, db_column='Account_number__c')
     bank_account_holder = models.CharField(max_length=60, db_column='Account_holder__c')
     bank_account_city = models.CharField(max_length=50, db_column='Account_city__c')
+    bank_account_iban = models.CharField(max_length=40, db_column='Account_IBAN__c')
+    bank_account_active_recurring_debit = models.BooleanField(db_column='Account_Active_Recurring_Debit__c')
 
     # SF Layout: Contact Information section.
     activity_number = models.CharField(max_length=255, db_column='Activity_number__c')
@@ -113,6 +127,11 @@ class SalesforceContact(SalesforceModel):
     mailing_postal_code = models.CharField(max_length=20, db_column='MailingPostalCode')
     mailing_street = models.CharField(max_length=20, db_column='MailingStreet')
     mailing_state = models.CharField(max_length=80, db_column='MailingState')
+    phone = models.CharField(max_length=40, db_column='Phone')
+
+    facebook = models.CharField(max_length=50, db_column='Facebook__c')
+    twitter = models.CharField(max_length=250, db_column='Twitter__c')
+    skype = models.CharField(max_length=255, db_column='Skype__c')
 
     # SF Layout: My Skills section.
     # The field 'Which_1_would_you_like_to_contribute__c' has been replaced by 'available_to_share_knowledge' and
@@ -121,8 +140,6 @@ class SalesforceContact(SalesforceModel):
     # 'Which_1_would_you_like_to_contribute__c')
     available_time = models.CharField(max_length=255, db_column='Available_time__c')
     where = models.CharField(max_length=255, db_column='Where__c')
-    available_to_donate = models.BooleanField(db_column='Available_to_donate__c')
-    available_to_share_time_and_knowledge = models.BooleanField(db_column='Available_to_share_time_and_knowledge__c')
     availability = models.CharField(max_length=255, db_column='Availability__c')
 
     # SF Layout: My Settings section.
@@ -132,55 +149,9 @@ class SalesforceContact(SalesforceModel):
     email_after_a_new_public_message = models.BooleanField(db_column='Email_after_a_new_public_message__c')
     primary_language = models.CharField(max_length=255, db_column='Primary_language__c')
 
-    # SF Layout: All expertise section.
-    administration_finance = models.BooleanField(db_column='Administration_Finance__c')
-    agriculture_environment = models.BooleanField(db_column='Agriculture_Environment__c')
-    architecture = models.BooleanField(db_column='Architecture__c')
-    computer_ict = models.BooleanField(db_column='Computer_ICT__c')
-    design = models.BooleanField(db_column='Design__c')
-    economy_business = models.BooleanField(db_column='Economy_Business__c')
-    education = models.BooleanField(db_column='Education__c')
-    fund_raising = models.BooleanField(db_column='Fundraising__c')
-    graphic_design = models.BooleanField(db_column='Graphic_Design__c')
-    health = models.BooleanField(db_column='Health__c')
-    internet_research = models.BooleanField(db_column='Internet_Research__c')
-    law_and_politics = models.BooleanField(db_column='Law_and_Politics__c')
-    marketing_pr = models.BooleanField(db_column='Marketing_PR__c')
-    online_marketing = models.BooleanField(db_column='Online_Marketing__c')
-    photo_video = models.BooleanField(db_column='Photo_Video__c')
-    physics_technique = models.BooleanField(db_column='Physics_Technique__c')
-    presentations = models.BooleanField(db_column='Presentations__c')
-    project_management = models.BooleanField(db_column='Project_Management__c')
-    psychology = models.BooleanField(db_column='Psychology__c')
-    social_work = models.BooleanField(db_column='Social_Work__c')
-    sport_and_development = models.BooleanField(db_column='Sport_and_Development__c')
-    tourism = models.BooleanField(db_column='Tourism__c')
-    trade_transport = models.BooleanField(db_column='Trade_Transport__c')
-    translating_writing = models.BooleanField(db_column='Translating_Writing__c')
-    web_development = models.BooleanField(db_column='Web_development__c')
-    writing_proposals = models.BooleanField(db_column='Writing_proposals__c')
-
     # SF: Other.
     external_id = models.CharField(max_length=255, db_column='Contact_External_ID__c')
     tags = models.CharField(max_length=255, db_column='Tags__c')
-
-    # SF: Additional requirement not implemented yet - SFDC - Sheet 1
-    amount_of_available_time = models.CharField(max_length=255, db_column='Amount_of_available_time__c')
-    industry_employed_in = models.CharField(max_length=255, db_column='Industry_employed_in__c')
-    nationality = models.CharField(max_length=255, db_column='Nationality__c')
-    follows_1_club_at_twitter = models.BooleanField(db_column='Follows_1_CLUB_at_Twitter__c')
-    likes_1_club_at_facebook = models.BooleanField(db_column='Likes_1_CLUB_at_Facebook__c')
-    interested_in_theme = models.CharField(max_length=255, db_column='Interested_in_theme__c')
-    interested_in_target_group = models.CharField(max_length=255, db_column='Interested_in_target_group__c')
-    preferred_channel_for_interaction = models.CharField(max_length=255, db_column='Preferred_channel_for_interaction__c')
-
-    # SF: Additional requirement not implemented yet - SFDC - Sheet 2
-    date_of_last_donation = models.DateField(db_column='Date_of_last_donation__c')
-    total_amount_of_one_off_donation = models.PositiveIntegerField(max_length=11, db_column='Total_amount_of_one_off_donation__c')
-    number_of_one_off_donations = models.PositiveIntegerField(max_length=8, db_column='Number_of_one_off_donations__c')
-    total_amount_of_recurring_donations = models.PositiveIntegerField(max_length=11, db_column='Total_amount_of_recurring_donations__c')
-    number_of_recurring_donation = models.PositiveIntegerField(max_length=8, db_column='Number_of_recurring_donation__c')
-    number_of_received_campaigns = models.PositiveIntegerField(max_length=6, db_column='Number_of_received_campaigns__c')
 
     class Meta:
         db_table = 'Contact'
@@ -435,6 +406,9 @@ class SalesforceTaskMembers(SalesforceModel):
     contacts = models.ForeignKey(SalesforceContact, db_column='Contacts__c')
     x1_club_task = models.ForeignKey(SalesforceTask, db_column='X1_CLUB_Task__c')
     external_id = models.CharField(max_length=100, db_column='Task_Member_External_ID__c')
+    motivation = models.CharField(max_length=5000, db_column='Motivation__c')
+    status = models.CharField(max_length=255, db_column='Status__c')
+    taskmember_created_date = models.DateField(max_length=255, db_column='Taskmember_Created_Date__c')
 
     class Meta:
         db_table = 'Task_Members__c'
