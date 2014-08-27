@@ -75,7 +75,7 @@ App.ProjectSupporterListController = Em.Controller.extend({
 
     supporters: function(){
         var project_id = this.get('controllers.project.id')
-        return App.ProjectSupporter.find({project: project_id});
+        return App.ProjectDonation.find({project: project_id});
     }.property('controllers.project.id')
 });
 

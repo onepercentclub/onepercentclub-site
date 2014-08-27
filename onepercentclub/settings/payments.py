@@ -1,0 +1,6 @@
+from bluebottle.payments_docdata.settings import DOCDATA_PAYMENT_METHODS, DOCDATA_SETTINGS
+
+PAYMENT_METHODS = DOCDATA_PAYMENT_METHODS
+
+VAT_RATE = '19'
+

@@ -7,6 +7,7 @@ import os, datetime
 from django.conf import global_settings
 from django.utils.translation import ugettext as _
 from admin_dashboard import *
+from payments import *
 
 # Set PROJECT_ROOT to the dir of the current file
 # Find the project's containing directory and normalize it to refer to
