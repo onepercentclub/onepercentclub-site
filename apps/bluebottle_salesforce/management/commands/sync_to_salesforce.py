@@ -26,6 +26,7 @@ logger.addHandler(fhndl)
 # ./manage.py sync_to_salesforce -v 2 --settings=bluebottle.settings.salesforcesync
 #
 
+
 class Command(BaseCommand):
     help = 'Synchronize data to Salesforce.'
     requires_model_validation = True
@@ -77,9 +78,9 @@ class Command(BaseCommand):
 
         if options['csv_export']:
             path = os.path.join(settings.PROJECT_ROOT, "salesforce", "export", "current")
-            self.run_with_count_update(generate_organizations_csv_file, path, loglevel)
-            #self.run_with_count_update(generate_users_csv_file, path, loglevel)
-            #self.run_with_count_update(generate_projects_csv_file, path, loglevel)
+            # self.run_with_count_update(generate_organizations_csv_file, path, loglevel)
+            self.run_with_count_update(generate_users_csv_file, path, loglevel)
+            # self.run_with_count_update(generate_projects_csv_file, path, loglevel)
             # self.run_with_count_update(generate_projectbudgetlines_csv_file, path, loglevel)
             # self.run_with_count_update(generate_donations_csv_file, path, loglevel)
             # self.run_with_count_update(generate_tasks_csv_file, path, loglevel)
@@ -88,20 +89,21 @@ class Command(BaseCommand):
             # self.run_with_count_update(generate_organizationmember_csv_file, path, loglevel)
         else:
             # The synchronization methods need to be run in a specific order because of foreign key dependencies.
-            self.run_with_count_update(sync_organizations, options['dry_run'], sync_from_datetime, loglevel)
+            # self.run_with_count_update(sync_organizations, options['dry_run'], sync_from_datetime, loglevel)
             self.run_with_count_update(sync_users, options['dry_run'], sync_from_datetime, loglevel)
-            self.run_with_count_update(sync_projects, options['dry_run'], sync_from_datetime, loglevel)
-            self.run_with_count_update(sync_projectbudgetlines, options['dry_run'], sync_from_datetime, loglevel)
-            self.run_with_count_update(sync_tasks, options['dry_run'], sync_from_datetime, loglevel)
-            self.run_with_count_update(sync_taskmembers, options['dry_run'], sync_from_datetime, loglevel)
-            self.run_with_count_update(sync_donations, options['dry_run'], sync_from_datetime, loglevel)
+            # self.run_with_count_update(sync_projects, options['dry_run'], sync_from_datetime, loglevel)
+            # self.run_with_count_update(sync_projectbudgetlines, options['dry_run'], sync_from_datetime, loglevel)
+            # self.run_with_count_update(sync_tasks, options['dry_run'], sync_from_datetime, loglevel)
+            # self.run_with_count_update(sync_taskmembers, options['dry_run'], sync_from_datetime, loglevel)
+            # self.run_with_count_update(sync_donations, options['dry_run'], sync_from_datetime, loglevel)
 
         logger.info("Process finished at {2} with {0} successes and {1} errors.".format(self.success_count,
                                                                                         self.error_count,
                                                                                         timezone.localtime(
                                                                                             timezone.now())))
         send_log(os.path.join(settings.PROJECT_ROOT, "salesforce", "log", "last.log"),
-                 self.error_count, self.success_count, "sync", options, options['dry_run'], loglevel)
+                 self.error_count, self.success_count, "export" if options['csv_export'] else "sync",
+                 options, options['dry_run'], loglevel)
 
     def run_with_count_update(self, function, *args, **kwargs):
         cur_success_count, cur_error_count = function(*args, **kwargs)

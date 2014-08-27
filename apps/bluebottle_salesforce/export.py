@@ -17,11 +17,7 @@ from apps.tasks.models import Task, TaskMember
 
 USER_MODEL = get_user_model()
 PROJECT_MODEL = get_project_model()
-
-
 logger = logging.getLogger('bluebottle.salesforce')
-
-# TODO get field names from model for csv header from SalesforceDonation._meta.fields
 
 
 def generate_organizations_csv_file(path, loglevel):
@@ -34,11 +30,35 @@ def generate_organizations_csv_file(path, loglevel):
     with open(os.path.join(path, filename), 'wb') as csv_outfile:
         csvwriter = csv.writer(csv_outfile, quoting=csv.QUOTE_MINIMAL)
 
-        csvwriter.writerow(["Organization_External_Id__c", "Name", "BillingCity",
-                            "BillingStreet", "BillingPostalCode", "BillingCountry", "E_mail_address__c", "Phone",
-                            "Website", "Address_bank__c", "Bank_account_name__c", "Bank_account_number__c",
-                            "Bankname__c", "BIC_SWIFT__c", "Country_bank__c", "IBAN_number__c",
-                            "Organization_created_date__c"])
+        csvwriter.writerow(["Organization_External_Id__c",
+                            "Name",
+                            "BillingStreet",
+                            "BillingCity",
+                            "BillingState",
+                            "BillingCountry",
+                            "BillingPostalCode",
+                            "E_mail_address__c",
+                            "Phone",
+                            "Website",
+                            "Twitter__c",
+                            "Facebook__c",
+                            "Skype__c",
+                            "Tags__c",
+                            "Bank_account_name__c",
+                            "Bank_account_address__c",
+                            "Bank_account_postalcode__c",
+                            "Bank_account_city__c",
+                            "Bank_account_country__c",
+                            "Bank_account_IBAN__c",
+                            "Bank_SWIFT__c",
+                            "Bank_account_number__c",
+                            "Bank_bankname__c",
+                            "Bank_address__c",
+                            "Bank_postalcode__c",
+                            "Bank_city__c",
+                            "Bank_country__c",
+                            "Organization_created_date__c",
+                            "Deleted__c"])
 
         organizations = Organization.objects.all()
 
@@ -46,35 +66,60 @@ def generate_organizations_csv_file(path, loglevel):
 
         for organization in organizations:
             try:
-                billing_city = organization.city[:40]
                 billing_street = organization.address_line1 + " " + organization.address_line2
-                billing_postal_code = organization.postal_code
-                billing_country = ''
+
                 if organization.country:
                     billing_country = organization.country.name
+                else:
+                    billing_country = ''
 
                 if organization.account_bank_country:
                     bank_country = organization.account_bank_country.name
                 else:
                     bank_country = ''
 
+                if organization.account_holder_country:
+                    bank_account_country = organization.account_holder_country.name
+                else:
+                    bank_account_country = ''
+
+                tags = ""
+                for tag in organization.tags.all():
+                    tags = str(tag) + ", " + tags
+
+                deleted = ""
+                if organization.deleted:
+                    deleted = organization.deleted.strftime("%Y-%m-%dT%H:%M:%S.000Z")
+
                 csvwriter.writerow([organization.id,
                                     organization.name.encode("utf-8"),
-                                    billing_city.encode("utf-8"),
                                     billing_street.encode("utf-8"),
-                                    billing_postal_code.encode("utf-8"),
+                                    organization.city[:40].encode("utf-8"),
+                                    organization.state.encode("utf-8"),
                                     billing_country.encode("utf-8"),
+                                    organization.postal_code.encode("utf-8"),
                                     organization.email.encode("utf-8"),
                                     organization.phone_number.encode("utf-8"),
                                     organization.website.encode("utf-8"),
-                                    organization.account_bank_address.encode("utf-8"),
+                                    organization.twitter.encode("utf-8"),
+                                    organization.facebook.encode("utf-8"),
+                                    organization.skype.encode("utf-8"),
+                                    tags.encode("utf-8"),
                                     organization.account_holder_name.encode("utf-8"),
+                                    organization.account_holder_address.encode("utf-8"),
+                                    organization.account_holder_postal_code.encode("utf-8"),
+                                    organization.account_holder_city.encode("utf-8"),
+                                    bank_account_country.encode("utf-8"),
+                                    organization.account_iban.encode("utf-8"),
+                                    organization.account_bic.encode("utf-8"),
                                     organization.account_number.encode("utf-8"),
                                     organization.account_bank_name.encode("utf-8"),
-                                    organization.account_bic.encode("utf-8"),
+                                    organization.account_bank_address.encode("utf-8"),
+                                    organization.account_bank_postal_code.encode("utf-8"),
+                                    organization.account_bank_city.encode("utf-8"),
                                     bank_country.encode("utf-8"),
-                                    organization.account_iban.encode("utf-8"),
-                                    organization.created.date().strftime("%Y-%m-%dT%H:%M:%S.000Z")])
+                                    organization.created.date().strftime("%Y-%m-%dT%H:%M:%S.000Z"),
+                                    deleted])
                 success_count += 1
             except Exception as e:
                 error_count += 1
@@ -93,24 +138,44 @@ def generate_users_csv_file(path, loglevel):
     with open(os.path.join(path, filename), 'wb') as csv_outfile:
         csvwriter = csv.writer(csv_outfile, quoting=csv.QUOTE_ALL)
 
-        # csvwriter.writerow(["Contact_External_Id__c", "Category1__c", "FirstName", "LastName", "Gender__c",
-        #                     "Username__c", "Active__c", "Deleted__c", "Member_since__c", "Why_onepercent_member__c",
-        #                     "About_me_us__c", "Location__c", "Birthdate", "Email", "Website__c", "MailingCity",
-        #                     "MailingStreet", "MailingCountry", "MailingPostalCode", "MailingState",
-        #                     "Receive_newsletter__c", "Primary_language__c", "Available_to_share_time_and_knowledge__c",
-        #                     "Available_to_donate__c", "Availability__c", "Has_Activated_Account__c",
-        #                     "Date_Joined__c", "Date_Last_Login__c", "Account_number__c", "Account_holder__c",
-        #                     "Account_city__c", "Phone", "Twitter__c", "Social_media_account_Facebook__c"])
-        csvwriter.writerow(["Contact_External_Id__c", "Category1__c", "FirstName", "LastName", "Gender__c",
-                            "Username__c", "Active__c", "Deleted__c", "Member_since__c",
-                            "Location__c", "Birthdate", "Email", "Website__c", "MailingCity",
-                            "MailingStreet", "MailingCountry", "MailingPostalCode", "MailingState",
-                            "Receive_newsletter__c", "Primary_language__c", "Available_to_share_time_and_knowledge__c",
-                            "Available_to_donate__c", "Availability__c", "Has_Activated_Account__c",
-                            "Date_Joined__c", "Date_Last_Login__c", "Account_number__c", "Account_holder__c",
-                            "Account_city__c", "Phone", "Twitter__c", "Social_media_account_Facebook__c"])
+        csvwriter.writerow(["Contact_External_Id__c",
+                            "Category1__c",
+                            "FirstName",
+                            "LastName",
+                            "Gender__c",
+                            "Username__c",
+                            "Active__c",
+                            "Deleted__c",
+                            "Member_since__c",
+                            "Location__c",
+                            "Birthdate",
+                            "Email",
+                            "Website__c",
+                            "Picture_Location__c",
+                            "Tags__c",
+                            "MailingCity",
+                            "MailingStreet",
+                            "MailingCountry",
+                            "MailingPostalCode",
+                            "MailingState",
+                            "Receive_newsletter__c",
+                            "Primary_language__c",
+                            "Available_to_share_time_and_knowledge__c",
+                            "Available_to_donate__c",
+                            "Availability__c",
+                            "Facebook__c",
+                            "Twitter__c",
+                            "Skype__c",
+                            "Has_Activated_Account__c",
+                            "Date_Joined__c",
+                            "Date_Last_Login__c",
+                            "Account_number__c",
+                            "Account_holder__c",
+                            "Account_city__c",
+                            "Phone"])
 
         users = USER_MODEL.objects.all()
+        # users = users.filter(id=20784)
 
         logger.info("Exporting {0} User objects to {1}".format(users.count(), filename))
 
@@ -151,6 +216,10 @@ def generate_users_csv_file(path, loglevel):
                 if user.birthdate:
                     birth_date = user.birthdate.strftime("%Y-%m-%dT%H:%M:%S.000Z")
 
+                tags = ""
+                for tag in user.tags.all():
+                    tags = str(tag) + ", " + tags
+
                 date_joined = ""
                 member_since = ""
                 if user.date_joined:
@@ -177,10 +246,14 @@ def generate_users_csv_file(path, loglevel):
                     bank_account_city = recurring_payment.city
                     bank_account_holder = recurring_payment.name
                     bank_account_number = recurring_payment.account
+                    bank_account_iban = recurring_payment.iban
+                    bank_account_active = recurring_payment.active
                 except RecurringDirectDebitPayment.DoesNotExist:
                     bank_account_city = ''
                     bank_account_holder = ''
                     bank_account_number = ''
+                    bank_account_iban = ''
+                    bank_account_active = False
 
                 availability = ""
                 if user.time_available:
@@ -201,6 +274,8 @@ def generate_users_csv_file(path, loglevel):
                                     birth_date,
                                     user.email.encode("utf-8"),
                                     user.website.encode("utf-8"),
+                                    user.picture,
+                                    tags.encode("utf-8"),
                                     mailing_city.encode("utf-8"),
                                     mailing_street.encode("utf-8"),
                                     mailing_country.encode("utf-8"),
@@ -211,15 +286,18 @@ def generate_users_csv_file(path, loglevel):
                                     int(user.share_time_knowledge),
                                     int(user.share_money),
                                     availability,
+                                    user.facebook.encode("utf-8"),
+                                    user.twitter.encode("utf-8"),
+                                    user.skypename.encode("utf-8"),
                                     int(has_activated),
                                     date_joined,
                                     last_login,
                                     bank_account_number,
                                     bank_account_holder.encode("utf-8"),
                                     bank_account_city.encode("utf-8"),
-                                    user.phone_number.encode("utf-8"),
-                                    user.twitter.encode("utf-8"),
-                                    user.facebook.encode("utf-8")])
+                                    bank_account_iban.encode("utf-8"),
+                                    int(bank_account_active),
+                                    user.phone_number.encode("utf-8")])
                 success_count += 1
             except Exception as e:
                 error_count += 1
@@ -254,7 +332,8 @@ def generate_projects_csv_file(path, loglevel):
                             "Date_project_updated__c",
                             "Date_project_deadline__c",
                             "Theme__c",
-                            "Partner_Organization__c"])
+                            "Partner_Organization__c",
+                            "Reach"])
 
         projects = PROJECT_MODEL.objects.all()
         logger.info("Exporting {0} Project objects to {1}".format(projects.count(), filename))
@@ -283,6 +362,10 @@ def generate_projects_csv_file(path, loglevel):
             if project.partner_organization:
                 partner_organization_name = project.partner_organization.name
 
+            reach = ""
+            if project.number_of_people_reached_direct:
+                reach = project.number_of_people_reached_direct
+
             csvwriter.writerow([project.id,
                                 project.title.encode("utf-8"),
                                 project.owner.id,
@@ -300,7 +383,8 @@ def generate_projects_csv_file(path, loglevel):
                                 project.updated.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
                                 deadline,
                                 themes,
-                                partner_organization_name.encode("utf-8")])
+                                partner_organization_name.encode("utf-8"),
+                                reach])
 
             success_count += 1
     return success_count, error_count
