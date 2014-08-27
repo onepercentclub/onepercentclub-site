@@ -11,3 +11,10 @@ alter table donations_donation add column "anonymous" boolean;
 alter table donations_donation add column "completed" date;
 update donations_donation set amount = (amount /100);
 
+--- FUNDRAISERS
+update fundraisers_fundraiser set amount = amount / 100;
+
+
+--- WALLPOSTS
+update wallposts_systemwallpost set related_type_id = (select id from django_content_type where app_label = 'donations');
+

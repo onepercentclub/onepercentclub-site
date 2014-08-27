@@ -264,6 +264,19 @@ INSTALLED_APPS = (
     'apps.vouchers',
     'bluebottle.wallposts', # Define wall posts before projects/tasks that depend on it.
 
+    # Other Bluebottle apps
+    'bluebottle.utils',
+    'bluebottle.common',
+    'bluebottle.contentplugins',
+    'bluebottle.contact',
+    'bluebottle.geo',
+    'bluebottle.pages',
+    'bluebottle.news',
+    'bluebottle.slides',
+    'bluebottle.quotes',
+    'bluebottle.payments',
+    'bluebottle.payments_docdata',
+
     # Bluebottle apps with abstract models
     'bluebottle.bb_accounts',
     'bluebottle.bb_organizations',
@@ -283,19 +296,6 @@ INSTALLED_APPS = (
     'apps.members',
     'apps.projects',
     'apps.organizations',
-
-    # Other Bluebottle apps
-    'bluebottle.utils',
-    'bluebottle.common',
-    'bluebottle.contentplugins',
-    'bluebottle.contact',
-    'bluebottle.geo',
-    'bluebottle.pages',
-    'bluebottle.news',
-    'bluebottle.slides',
-    'bluebottle.quotes',
-    'bluebottle.payments',
-    'bluebottle.payments_docdata',
 
     'apps.bluebottle_salesforce',
     'apps.core',

@@ -1,0 +1,24 @@
+ id                   | integer                  | not null default nextval('cowry_payment_id_seq'::regclass) | plain    |              |
+ polymorphic_ctype_id | integer                  |                                                            | plain    |              |
+ amount               | integer                  | not null                                                   | plain    |              |
+ currency             | character varying(3)     | not null                                                   | extended |              |
+ fee                  | integer                  | not null                                                   | plain    |              |
+ payment_method_id    | character varying(20)    | not null                                                   | extended |              |
+ payment_submethod_id | character varying(20)    | not null                                                   | extended |              |
+ status               | character varying(15)    | not null                                                   | extended |              |
+ created              | timestamp with time zone | not null                                                   | plain    |              |
+ updated              | timestamp with time zone | not null                                                   | plain    |              |
+ order_id             | integer                  | not null                                                   | plain    |              |
+
+
+ id                      | integer                  | not null default nextval('payments_orderpayment_id_seq'::regclass) | plain    |              |
+ user_id                 | integer                  |                                                                    | plain    |              |
+ order_id                | integer                  | not null                                                           | plain    |              |
+ status                  | character varying(20)    | not null                                                           | extended |              |
+ created                 | timestamp with time zone | not null                                                           | plain    |              |
+ updated                 | timestamp with time zone | not null                                                           | plain    |              |
+ closed                  | timestamp with time zone |                                                                    | plain    |              |
+ amount                  | numeric(16,2)            | not null                                                           | main     |              |
+ payment_method          | character varying(20)    | not null                                                           | extended |              |
+ integration_data        | text                     | not null                                                           | extended |              |
+ authorization_action_id | integer                  |                                                                    | plain    |              |

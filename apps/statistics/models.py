@@ -25,7 +25,8 @@ class Statistic(models.Model):
         """ Add all donation amounts for all donations ever """
         if cache.get('donations-grant-total'):
             return cache.get('donations-grant-total')
-        donations = DONATION_MODEL.objects.filter(status__in=(DONATION_MODEL.DonationStatuses.pending, DonationStatuses.paid))
+        donations = DONATION_MODEL.objects.filter(status__in=(DONATION_MODEL.DonationStatuses.pending,
+                                                              DONATION_MODEL.DonationStatuses.paid))
         donated = donations.aggregate(sum=Sum('amount'))['sum'] or '000'
         cache.set('donations-grant-total', donated, 300)
         return donated
