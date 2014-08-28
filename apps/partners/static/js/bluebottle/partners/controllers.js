@@ -1,5 +1,3 @@
-App.PartnerController = Em.ObjectController.extend({});
-
 App.CheetahQuizController = Em.Controller.extend({
     questionOne: null,
     questionTwo: null,
@@ -22,6 +20,23 @@ App.CheetahQuizController = Em.Controller.extend({
     actions: {
         answer: function(question, value){
             this.set(question, value);
+        }
+    }
+});
+
+App.PartnerController = Em.ObjectController.extend({
+    project: null,
+
+    favouriteProjects: function () {
+        return this.get('projects').slice(0, 3);
+    }.property('projects.length'),
+
+    actions: {
+        goToFavouriteProject: function(project) {
+            if (this.get('tracker')) {
+                this.get('tracker').trackEvent("Click Favourite Project", {title: project.get("title")});
+            }
+            this.transitionToRoute('project', project);
         }
     }
 });

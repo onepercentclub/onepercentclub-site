@@ -28,3 +28,19 @@
 		}
 	}
 }
+
+#cheetah-running-campaign {
+	.campaign-item-holder {
+		position: relative;
+
+		.cheetah {
+			position: absolute;
+			width: 100px;
+			height: 100px;
+			background: image-url("cheetah/icons/icon-cheetah-earmark.svg") transparent no-repeat 0 0;
+			right: -40px;
+			background-size: 53px 58px;
+			z-index: 99;
+		}
+	}
+}

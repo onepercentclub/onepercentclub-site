@@ -3,11 +3,8 @@ App.PartnerView = Em.View.extend({
     // Use a different template for Cheetah Fund.
     templateName: function (a, b) {
         var slug = this.get('controller.id');
-        var templateName = 'partner';
-        if (slug === 'cheetah') {
-            templateName = 'cheetah/index';
-        }
-        return templateName;
+        
+        return slug + '/index';
     }.property('controller.id'),
 
     // Rerender the view if the template name changes.
