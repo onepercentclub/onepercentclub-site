@@ -8,10 +8,11 @@ App.Router.map(function(){
 
 
 App.PartnerRoute = Em.Route.extend(App.SubMenuMixin, {
-    subMenu: 'cheetah/menu',
-
     beforeModel: function (transition) {
-        this.set('partner_id', transition.params.partner_id);
+        var partner_id = transition.params.partner_id;
+
+        this.set('partner_id', partner_id);
+        this.set('subMenu', partner_id + '/menu');
     },
 
     actions: {
