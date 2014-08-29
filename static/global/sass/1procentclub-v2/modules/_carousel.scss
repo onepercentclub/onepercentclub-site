@@ -210,8 +210,8 @@
 			
 			// Slide one
 			&.first-item {
-				background-image: url("/static/assets/images/img/pages/home/carousel/home-carousel-1.svg");
-				background-position: 50% 35%;
+				background-image: url("/static/assets/images/img/pages/home/carousel/home-carousel-als.jpg");
+				background-position: 50% 50%;
 				
 				.home-carousel-content {
 					
@@ -222,11 +222,12 @@
 					a {
 						font-family: $font-family-body;
 						font-weight: 700;
-						
-						&:after {
-							content: "\2192";
-							margin-left: 7px;
-						}
+					}
+
+					h6 {
+						color: $black;
+						text-transform: none;
+						margin: 8px 0 15px 0;
 					}
 				}
 				&.dutch-head {
@@ -331,11 +332,6 @@
 			
 			&.is-active {
 				background: rgba(255, 255, 255, 1);
-			}
-			
-			// TODO: Make the dot's work properly in JS. This is a dirty hack!!!
-			&:last-of-type {
-				display: none;
 			}
 		}
 	}

@@ -8,6 +8,15 @@
 <div class="l-section home-carousel">
 	<section class="carousel">
 		<ul>
+			{{#if App.isDutch}}
+				<li class="carousel-item first-item">
+					<div class="home-carousel-content">
+						<h1>Vecht mee tegen ALS</h1>
+						<h6>#IceBucketChallenge</h6>
+						<p><a href="/projects/accenture-vecht-mee-in-de-strijd-tegen-als" class="campaign-link btn">{% blocktrans %}Support Amsterdam City Swim{% endblocktrans %}</a>
+					</div>
+				</li>
+			{{/if}}
 			{{partial "banner_video"}}
 			
 			<li class="carousel-item second-item">
@@ -32,9 +41,12 @@
 			</li>
 		</ul>
 		<div class="home-carousel-nav">
-			{{#each slides}}
-				<span {{bindAttr class=":carousel-nav-item isFirst:is-active" }}></span>
-			{{/each }}
+			<span class="carousel-nav-item is-active"></span>
+			<span class="carousel-nav-item"></span>
+			<span class="carousel-nav-item"></span>
+			{{#if App.isDutch}}
+				<span class="carousel-nav-item"></span>
+			{{/if}}
 		</div>
     </section>
 </div>
