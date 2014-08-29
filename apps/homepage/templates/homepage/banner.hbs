@@ -13,7 +13,9 @@
 					<div class="home-carousel-content">
 						<h1>Vecht mee tegen ALS</h1>
 						<h6>#IceBucketChallenge</h6>
-						<p><a href="/projects/accenture-vecht-mee-in-de-strijd-tegen-als" class="campaign-link btn">{% blocktrans %}Support Amsterdam City Swim{% endblocktrans %}</a>
+						<p>
+							{{#linkTo 'project' 'accenture-vecht-mee-in-de-strijd-tegen-ALS' class='campaign-link btn'}}{% blocktrans %}Support Amsterdam City Swim{% endblocktrans %}{{/linkTo}}
+						</p>
 					</div>
 				</li>
 			{{/if}}
@@ -33,7 +35,7 @@
 				<div class="home-carousel-content">
 					<h1>{% trans "Supporters of good" %}</h1>
 					<p>{% trans "We love smart ideas that do good in the world." %}</p>
-					<p><a href="/projects/voetbalschool-straatkinderen-medellin-la-naranja-mecanica" class="campaign-link">{% trans "Streetskids soccerschool, Colombia" %}</a></p>
+					<p>{{#linkTo 'project' 'voetbalschool-straatkinderen-medellin-la-naranja-mecanica' class='campaign-link'}}{% trans "Streetskids soccerschool, Colombia" %}{{/linkTo}}</p>
 				</div>
 				<div class="home-carousel-btn">
 					{{#link-to 'projectList' classNames='btn'}}{% trans "Find campaigns you’ll love" %}{{/link-to}}
