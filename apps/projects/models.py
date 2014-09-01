@@ -158,7 +158,7 @@ class Project(BaseProject):
     def update_money_donated(self, save=True):
         """ Update amount based on paid and pending donations. """
 
-        self.amount_donated = self.get_money_total(['paid', 'pending']) / 100
+        self.amount_donated = self.get_money_total(['paid', 'pending'])
 
         self.amount_needed = self.amount_asked - self.amount_donated
 

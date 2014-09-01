@@ -65,7 +65,6 @@ class ProjectPreviewSerializer(BaseProjectPreviewSerializer):
 
 class ProjectBudgetLineSerializer(serializers.ModelSerializer):
 
-    amount = EuroField()
     project = serializers.SlugRelatedField(slug_field='slug')
 
     class Meta:
@@ -104,7 +103,6 @@ class ProjectSupporterSerializer(serializers.ModelSerializer):
 class ProjectDonationSerializer(serializers.ModelSerializer):
     member = UserPreviewSerializer(source='user')
     date_donated = serializers.DateTimeField(source='ready')
-    amount = EuroField(source='amount')
 
     class Meta:
         model = DONATION_MODEL

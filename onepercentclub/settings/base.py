@@ -278,6 +278,12 @@ INSTALLED_APPS = (
     'bluebottle.payments',
     'bluebottle.payments_docdata',
 
+    # Apps extending Bluebottle base models
+    # These should come before the abstract models so we can override templates.
+    'apps.members',
+    'apps.projects',
+    'apps.organizations',
+
     # Bluebottle apps with abstract models
     'bluebottle.bb_accounts',
     'bluebottle.bb_organizations',
@@ -292,11 +298,6 @@ INSTALLED_APPS = (
     'bluebottle.orders',
     'bluebottle.donations',
     'bluebottle.tasks',
-
-    # Apps extending Bluebottle base models
-    'apps.members',
-    'apps.projects',
-    'apps.organizations',
 
     'apps.bluebottle_salesforce',
     'apps.core',
