@@ -7,6 +7,7 @@ import sys
 from collections import namedtuple
 from optparse import make_option
 from bluebottle.bb_projects.models import ProjectPhase
+from bluebottle.geo.models import Country
 
 import os
 from django.core.management.base import BaseCommand
@@ -181,7 +182,9 @@ def process_monthly_donations(recurring_payments_queryset, send_email):
     webdirect_payment_adapter = WebDirectDocDataDirectDebitPaymentAdapter()
 
     # Fixed lists of the popular projects.
-    popular_projects_all = list(Project.objects.filter(status=ProjectPhase.objects.get(slug="campaign")).order_by('-popularity'))
+    popular_projects_all = list(Project.objects
+                                .exclude(country=Country.objects.get(alpha2_code='NL'))
+                                .filter(status=ProjectPhase.objects.get(slug="campaign")).order_by('-popularity'))
     top_three_projects = popular_projects_all[:3]
     popular_projects_rest = popular_projects_all[3:]
 
