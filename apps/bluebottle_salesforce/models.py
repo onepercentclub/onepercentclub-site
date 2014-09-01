@@ -133,11 +133,6 @@ class SalesforceContact(SalesforceModel):
     twitter = models.CharField(max_length=250, db_column='Twitter__c')
     skype = models.CharField(max_length=255, db_column='Skype__c')
 
-    # SF Layout: My Skills section.
-    # The field 'Which_1_would_you_like_to_contribute__c' has been replaced by 'available_to_share_knowledge' and
-    # 'available_to_donate'
-    # which_1_would_you_like_to_contribute = models.CharField(max_length=32000, db_column=
-    # 'Which_1_would_you_like_to_contribute__c')
     available_time = models.CharField(max_length=255, db_column='Available_time__c')
     where = models.CharField(max_length=255, db_column='Where__c')
     availability = models.CharField(max_length=255, db_column='Availability__c')
@@ -196,7 +191,6 @@ class SalesforceProject(SalesforceModel):
     contribution_project_in_reducing_poverty = models.CharField(max_length=32000,
                                                                 db_column='Contribution_project_in_reducing_poverty__c')
     earth_charther_project = models.BooleanField(db_column='Earth_Charther_project__c')
-    extensive_project_description = models.CharField(max_length=32000, db_column='Extensive_project_description__c')
     project_goals = models.CharField(max_length=20000, db_column='Project_goals__c')
     sustainability = models.CharField(max_length=20000, db_column='Sustainability__c')
 
@@ -210,13 +204,18 @@ class SalesforceProject(SalesforceModel):
     need_for_volunteers = models.CharField(max_length=32000, db_column='Need_for_volunteers__c')
     other_way_people_can_contribute = models.CharField(max_length=32000, db_column='Other_way_people_can_contribute__c')
     project_activities_and_timetable = models.CharField(max_length=32000, db_column='Project_activities_and_timetable__c')
-    starting_date_of_the_project = models.DateField(db_column='Starting_date_of_the_project__c')
 
-    # SF Layout: Millennium Goals section.
-    #Multipicklist: ?? - millennium_goals = models.CharField(max_length=255, db_column='MILLENNIUM_GOALS__C')
-
-    # SF Layout: Tags section.
-    tags = models.CharField(max_length=20000, db_column='Tags__c')
+    tags = models.CharField(max_length=255, db_column='Tags__c')
+    slug = models.CharField(max_length=100, db_column='Slug__c')
+    partner_organization = models.CharField(max_length=255, db_column='Partner_Organization__c')
+    video_url = models.CharField(max_length=255, db_column='VideoURL__c')
+    picture_location = models.CharField(max_length=255, db_column='Picture_Location__c')
+    story = models.CharField(max_length=32768, db_column='Story__c')
+    date_started = models.DateField(db_column='Date_Started__c')
+    date_funded = models.DateField(db_column='Date_Funded__c')
+    date_ended = models.DateField(db_column='Date_Ended__c')
+    is_campaign = models.BooleanField(db_column='Is_Campaign__c')
+    allow_overfunding = models.BooleanField(db_column='Allow_Overfunding__c')
 
     # SF Layout: Referrals section.
     name_referral_1 = models.CharField(max_length=255, db_column='Name_referral_1__c')
@@ -225,37 +224,31 @@ class SalesforceProject(SalesforceModel):
     description_referral_1 = models.CharField(max_length=32000, db_column='Description_referral_1__c')
     description_referral_2 = models.CharField(max_length=32000, db_column='Description_referral_2__c')
     description_referral_3 = models.CharField(max_length=32000, db_column='Description_referral_3__c')
-    email_address_referral_1 = models.EmailField(max_length=80, blank=True, null=True, db_column='E_mail_address_referral_1__c')
-    email_address_referral_2 = models.EmailField(max_length=80, blank=True, null=True, db_column='E_mail_address_referral_2__c')
-    email_address_referral_3 = models.EmailField(max_length=80, blank=True, null=True, db_column='E_mail_address_referral_3__c')
-    relation_referral_1_with_project_org = models.CharField(max_length=32000, db_column='Relation_referral_1_with_project_org__c')
-    relation_referral_2_with_project_org = models.CharField(max_length=32000, db_column='Relation_referral_2_with_project_org__c')
-    relation_referral_3_with_project_org = models.CharField(max_length=32000, db_column='Relation_referral_3_with_project_org__c')
+    email_address_referral_1 = models.EmailField(max_length=80, blank=True, null=True,
+                                                 db_column='E_mail_address_referral_1__c')
+    email_address_referral_2 = models.EmailField(max_length=80, blank=True, null=True,
+                                                 db_column='E_mail_address_referral_2__c')
+    email_address_referral_3 = models.EmailField(max_length=80, blank=True, null=True,
+                                                 db_column='E_mail_address_referral_3__c')
+    relation_referral_1_with_project_org = models.CharField(max_length=32000,
+                                                            db_column='Relation_referral_1_with_project_org__c')
+    relation_referral_2_with_project_org = models.CharField(max_length=32000,
+                                                            db_column='Relation_referral_2_with_project_org__c')
+    relation_referral_3_with_project_org = models.CharField(max_length=32000,
+                                                            db_column='Relation_referral_3_with_project_org__c')
 
-    # Phase dates
-    date_pitch_created = models.DateField(db_column='Date_pitch_created__c')
-    date_pitch_submitted = models.DateField(db_column='Date_pitch_submitted__c')
-    date_pitch_approved = models.DateField(db_column='Date_pitch_approved__c')
-    date_pitch_rejected = models.DateField(db_column='Date_pitch_rejected__c')
     date_plan_submitted = models.DateField(db_column='Date_plan_submitted__c')
-    date_plan_approved = models.DateField(db_column='Date_plan_approved__c')
-    date_plan_rejected = models.DateField(db_column='Date_plan_rejected__c')
-    date_project_act = models.DateField(db_column='Date_project_act__c')
-    date_project_realized = models.DateField(db_column='Date_project_realized__c')
-    date_project_failed = models.DateField(db_column='Date_project_failed__c')
-    date_project_result = models.DateField(db_column='Date_project_result__c')
-
-    # SF Layout: Project Team Information section.
-    project_created_date = models.DateField(db_column='Project_created_date__c')
+    project_created_date = models.DateTimeField(db_column='Project_created_date__c')
+    project_updated_date = models.DateTimeField(db_column='Project_updated_date__c')
     date_project_deadline = models.DateField(db_column='Date_project_deadline__c')
 
     # SF Layout: Other section.
     external_id = models.CharField(max_length=255, db_column='Project_External_ID__c')
-
-    # SF: Additional requirement not implemented yet - SFDC - Sheet 1
-    number_of_people_reached_direct = models.PositiveIntegerField(max_length=18, db_column='NumberOfPeopleReachedDirect__c')
-    number_of_people_reached_indirect = models.PositiveIntegerField(max_length=18, db_column='NumberOfPeopleReachedIndirect__c')
-    # theme = models.CharField(max_length=255, db_column='Theme__c')
+    number_of_people_reached_direct = models.PositiveIntegerField(max_length=18,
+                                                                  db_column='NumberOfPeopleReachedDirect__c')
+    number_of_people_reached_indirect = models.PositiveIntegerField(max_length=18,
+                                                                    db_column='NumberOfPeopleReachedIndirect__c')
+    theme = models.CharField(max_length=255, db_column='Theme__c')
     target_group = models.CharField(max_length=255, db_column='Target_group__c')
 
     class Meta:
@@ -294,6 +287,27 @@ class SalesforceProjectBudget(SalesforceModel):
         managed = False
 
 
+class SalesforceFundraiser(SalesforceModel):
+    """
+    Custom Fundraiser__c model.
+    """
+
+    amount = models.CharField(max_length=100, db_column='Amount__c')
+    owner = models.ForeignKey(SalesforceContact, db_column='Owner__c')
+    created = models.DateTimeField(db_column='Created__c')
+    deadline = models.DateField(db_column='Deadline__c')
+    description = models.CharField(max_length=131072, db_column='Description__c')
+    external_id = models.CharField(max_length=255, db_column='Fundraiser_External_ID__c')
+    picture_location = models.CharField(max_length=255, db_column='Picture_Location__c')
+    project = models.ForeignKey(SalesforceProject, db_column='Project__c')
+    video_url = models.CharField(max_length=255, db_column='VideoURL__c')
+    name = models.CharField(max_length=80, db_column='Name')
+
+    class Meta:
+        db_table = 'Fundraiser__c'
+        managed = False
+
+
 class SalesforceOpportunity(SalesforceModel):
     """
     Default abstract Salesforce Opportunity model. Used for Donation(s) / Voucher(s).
@@ -301,8 +315,7 @@ class SalesforceOpportunity(SalesforceModel):
     # SF Layout: Donation Information section.
     amount = models.CharField(max_length=255, db_column='Amount')
     close_date = models.DateField(db_column='CloseDate')
-    opportunity_type = models.CharField(max_length=40,
-                                        db_column='Type')
+    type = models.CharField(max_length=40, db_column='Type')
     name = models.CharField(max_length=120, db_column='Name')
     payment_method = models.CharField(max_length=255,
                                       db_column='Payment_method__c',
@@ -321,19 +334,11 @@ class SalesforceDonation(SalesforceOpportunity):
     """
     Child of the Opportunity for Onepercentclub the mapping is named Donation(s).
     """
-    # SF Layout: Donation Information section.
-    # organization = models.ForeignKey(SalesforceOrganization, db_column='Project_Organization__c')
 
-    # SF Layout: Additional Information section.
-
-    # SF Layout: Description Information section.
-
-    # SF Layout: System Information section.
-    donation_created_date = models.DateField(db_column='Donation_created_date__c')
-
-    # SF: Other.
+    donation_created_date = models.DateTimeField(db_column='Donation_created_date__c')
     external_id_donation = models.CharField(max_length=255, db_column='Donation_External_ID__c')
-    receiver = models.ForeignKey(SalesforceContact, db_column='Receiver__c', null=True)
+    donor = models.ForeignKey(SalesforceContact, db_column='Receiver__c', null=True)
+    fundraiser = models.ForeignKey(SalesforceFundraiser, db_column='Fundraiser__c', null=True)
 
     class Meta:
         managed = False
@@ -371,25 +376,21 @@ class SalesforceTask(SalesforceModel):
         closed = ChoiceItem('Closed', label=_("Closed"))
         realized = ChoiceItem('Realized', label=_("Realized"))
 
-    # SF Layout: Information section.
     project = models.ForeignKey(SalesforceProject, db_column='Project__c')
-    deadline = models.CharField(max_length=10000, db_column='Deadline__c')
-    effort = models.CharField(max_length=10000, db_column='Effort__c')
+    deadline = models.DateField(db_column='Deadline__c')
+    effort = models.CharField(max_length=200, db_column='Effort__c')
     extended_task_description = models.CharField(max_length=32000, db_column='Extended_task_description__c')
-    location_of_the_task = models.CharField(max_length=10000, db_column='Location_of_the_task__c')
-    short_task_description = models.CharField(max_length=10000, db_column='Short_task_description__c')
-    task_expertise = models.CharField(max_length=10000, db_column='Task_expertise__c')
+    location_of_the_task = models.CharField(max_length=200, db_column='Location_of_the_task__c')
+    task_expertise = models.CharField(max_length=100, db_column='Task_expertise__c')
     task_status = models.CharField(max_length=40, db_column='Task_status__c', choices=TaskStatus.choices, help_text=_("TaskStatus"))
-    title = models.CharField(max_length=255, db_column='Title__c')
-    task_created_date = models.DateField(max_length=255, db_column='Task_created_date__c')
-    tags = models.CharField(max_length=400, db_column='Tags__c')
+    title = models.CharField(max_length=100, db_column='Title__c')
+    task_created_date = models.DateField(db_column='Task_created_date__c')
+    tags = models.CharField(max_length=255, db_column='Tags__c')
+    date_realized = models.DateField(db_column='Date_realized__c')
+    author = models.ForeignKey(SalesforceContact, db_column='Author__c')
+    people_needed = models.CharField(max_length=10, db_column='People_Needed__c')
+    end_goal = models.CharField(max_length=5000, db_column='End_Goal__c')
 
-    # SF Layout: System Information section.
-
-    # SF: Additional requirement not implemented yet - SFDC - Sheet 1
-    effort_in_hours_del = models.PositiveIntegerField(max_length=19, db_column='EffortInHours_del__c')
-
-    # SF: Other
     external_id = models.CharField(max_length=255, db_column='Task_External_ID__c')
 
     class Meta:
@@ -408,7 +409,7 @@ class SalesforceTaskMembers(SalesforceModel):
     external_id = models.CharField(max_length=100, db_column='Task_Member_External_ID__c')
     motivation = models.CharField(max_length=5000, db_column='Motivation__c')
     status = models.CharField(max_length=255, db_column='Status__c')
-    taskmember_created_date = models.DateField(max_length=255, db_column='Taskmember_Created_Date__c')
+    taskmember_created_date = models.DateField(db_column='Taskmember_Created_Date__c')
 
     class Meta:
         db_table = 'Task_Members__c'
@@ -449,11 +450,10 @@ class SalesforceLogItem(SalesforceModel):
 
 class SalesforceLoginHistory(SalesforceModel):
     """
-    Custom X1_CLUB_Login_History__c model. For Onepercentclub the mapping is named 1%CLUB Login History.
+    Custom Login_History__c model. For Onepercentclub the mapping is named 1%CLUB Login History.
     New mapping to be added later on.
     """
 
-    # SF: Additional requirement not implemented yet - Website (back office) - Sheet 3
     bounce_rate_from_first_page = models.CharField(max_length=6, db_column='Bounce_rate_from_first_page__c')
     contacts = models.ForeignKey(SalesforceContact, db_column='Contacts__c')
     engagement_on_facebook = models.PositiveIntegerField(max_length=8, db_column='Engagement_on_Facebook__c')
@@ -461,7 +461,9 @@ class SalesforceLoginHistory(SalesforceModel):
     number_of_pageviews = models.PositiveIntegerField(max_length=8, db_column='Number_of_pageviews__c')
     online_engagement_blogs = models.PositiveIntegerField(max_length=8, db_column='Online_engagement_blogs__c')
     online_engagement_projects = models.PositiveIntegerField(max_length=8, db_column='Online_engagement_projects__c')
-    online_engagement_reactions_to_members = models.PositiveIntegerField(max_length=8, db_column='Online_engagement_reactions_to_members__c')
+    online_engagement_reactions_to_members = models.PositiveIntegerField(max_length=8, db_column='Online_engagement_'
+                                                                                                 'reactions_to_'
+                                                                                                 'members__c')
     online_engagement_tasks = models.PositiveIntegerField(max_length=8, db_column='Online_engagement_tasks__c')
     preferred_navigation_path = models.PositiveIntegerField(max_length=255, db_column='Preferred_navigation_path__c')
     shares_via_social_media = models.PositiveIntegerField(max_length=8, db_column='Shares_via_social_media__c')
@@ -471,16 +473,3 @@ class SalesforceLoginHistory(SalesforceModel):
     class Meta:
         db_table = 'X1_CLUB_Login_History__c'
         managed = False
-
-
-# Other Salesforce models available from Force.com IDE (Eclipse based)
-# - ActivityHistory, AddtionalNumber, AggregateResult
-# - ApexClass, ApexComponent, ApexLog, ApexTestQueueItem, ApexTestResult, ApexTrigger
-# - Approval, Asset, AssetFeed, AssignmentRule, AsyncApexJob, Attachment, AuthProvider
-# - BrandTemplate, Bug_Feed, Bug__c, BusinessHours, BusinessProcess
-# - CallCenter, Campaign, CampaignFeed, CampaignMember, CampaignMemberStatus, CampaignShare
-# - Case, CaseComment, CaseContactRole, CaseFeed, CaseHistory, CaseShare, CaseSolution, CaseTeamMember
-# - CaseTeamRole, CaseTeamTemplate, CaseTeamTemplateMember, CaseTeamTemplateRecord
-# - CategoryData, CategoryNode, CategoryNodeLocalization, ChatterActivity, ClientBrowser
-# - CollaborationGroup, CollaborationGroupFeed, CollaborationGroupMember, CollaborationGrouopMemberRequest
-# And so on

@@ -317,75 +317,107 @@ def generate_projects_csv_file(path, loglevel):
 
         csvwriter.writerow(["Project_External_ID__c",
                             "Project_name__c",
-                            "Project_Owner__c",
-                            "Status_project__c",
-                            "Country_in_which_the_project_is_located__c",
                             # "Describe_the_project_in_one_sentence__c",
-                            "Organization__c",
-                            "Amount_at_the_moment__c",
-                            "Amount_requested__c",
-                            "Amount_still_needed__c",
-                            "Project_created_date__c",
-                            "Projecturl__c",
-                            "Tags__c",
-                            # "Story__c",
-                            "Date_project_updated__c",
+                            "NumerOfPeopleReachedDirect__c",
+                            "VideoURL__c",
                             "Date_project_deadline__c",
+                            "Is_Campaign__c",
+                            "Amount_requested__c",
+                            "Amount_at_the_moment__c",
+                            "Amount_still_needed__c",
+                            "Allow_Overfunding__c",
+                            # "Story__c",
+                            # "Contribution_project_in_reducing_poverty__c",
+                            # "Target_group_s_of_the_project__c",
+                            # "Sustainability__c",
+                            "Date_plan_submitted",
+                            "Date_Started__c",
+                            "Date_Ended__c",
+                            "Date_Funded__c",
+                            "Picture_Location__c",
+                            "Project_Owner__c",
+                            "Organization__c",
+                            "Country_in_which_the_project_is_located__c",
                             "Theme__c",
+                            "Status_project__c",
+                            "Project_created_date__c",
+                            "Project_updated_date__c",
+                            "Tags__c",
                             "Partner_Organization__c",
-                            "Reach"])
+                            "Slug__c"])
 
         projects = PROJECT_MODEL.objects.all()
         logger.info("Exporting {0} Project objects to {1}".format(projects.count(), filename))
 
         for project in projects:
+
             country = ''
             if project.country:
                 country = project.country.name.encode("utf-8")
+
             status = ''
             if project.status:
                 status = project.status.name.encode("utf-8")
+
             organization_id = ''
             if project.organization:
                 organization_id = project.organization.id
+
+            video_url = ''
+            if project.video_url:
+                video_url = project.video_url
+
             tags = ""
             deadline = ""
-            themes = ""
+            date_submitted = ""
+            date_started = ""
+            date_ended = ""
+            date_funded = ""
+            theme = ""
             if project.deadline:
                 deadline = project.deadline.date().strftime("%Y-%m-%dT%H:%M:%S.000Z")
+            if project.date_submitted:
+                date_submitted = project.date_submitted.date().strftime("%Y-%m-%dT%H:%M:%S.000Z")
+            if project.campaign_started:
+                date_started = project.campaign_started.date().strftime("%Y-%m-%dT%H:%M:%S.000Z")
+            if project.campaign_ended:
+                date_ended = project.campaign_ended.date().strftime("%Y-%m-%dT%H:%M:%S.000Z")
+            if project.campaign_funded:
+                date_funded = project.campaign_funded.date().strftime("%Y-%m-%dT%H:%M:%S.000Z")
             for tag in project.tags.all():
                 tags = str(tag) + ", " + tags
             if project.theme:
-                themes = project.theme.name
+                theme = project.theme.name
 
             partner_organization_name = ""
             if project.partner_organization:
                 partner_organization_name = project.partner_organization.name
 
-            reach = ""
-            if project.number_of_people_reached_direct:
-                reach = project.number_of_people_reached_direct
-
             csvwriter.writerow([project.id,
                                 project.title.encode("utf-8"),
-                                project.owner.id,
-                                status,
-                                country,
-                                # project.pitch.encode("utf-8"),
-                                organization_id,
-                                "%01.2f" % (project.amount_donated or 0),
-                                "%01.2f" % (project.amount_asked or 0),
-                                "%01.2f" % (project.amount_needed or 0),
-                                project.created.date().strftime("%Y-%m-%dT%H:%M:%S.000Z"),
-                                "http://www.onepercentclub.com/nl/#!/projects/{0}".format(project.slug),
-                                tags,
-                                # project.story.encode("utf-8"),
-                                project.updated.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
+                                project.reach,
+                                video_url.encode("utf-8"),
                                 deadline,
-                                themes,
+                                int(project.is_campaign),
+                                "%01.2f" % (project.amount_asked or 0),
+                                "%01.2f" % (project.amount_donated or 0),
+                                "%01.2f" % (project.amount_needed or 0),
+                                int(project.allow_overfunding),
+                                date_submitted,
+                                date_started,
+                                date_ended,
+                                date_funded,
+                                project.image,
+                                project.owner.id,
+                                organization_id,
+                                country,
+                                theme,
+                                status,
+                                project.created.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
+                                project.updated.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
+                                tags,
                                 partner_organization_name.encode("utf-8"),
-                                reach])
-
+                                project.slug])
             success_count += 1
     return success_count, error_count
 
@@ -428,9 +460,18 @@ def generate_donations_csv_file(path, loglevel):
     with open(os.path.join(path, filename), 'wb') as csv_outfile:
         csvwriter = csv.writer(csv_outfile, quoting=csv.QUOTE_ALL)
 
-        csvwriter.writerow(["Donation_External_ID__c", "Receiver__c", "Project__c", "Amount", "CloseDate", "Name",
-                            "StageName", "Type", "Donation_created_date__c", "Payment_method__c", "RecordTypeId",
-                            "Fundraiser__c", "Currency"])
+        csvwriter.writerow(["Donation_External_ID__c",
+                            "Donor__c",
+                            "Project__c",
+                            "Amount",
+                            "CloseDate",
+                            "Name",
+                            "StageName",
+                            "Type",
+                            "Donation_created_date__c",
+                            "Payment_method__c",
+                            "RecordTypeId",
+                            "Fundraiser__c"])
 
         donations = Donation.objects.all()
 
@@ -442,9 +483,9 @@ def generate_donations_csv_file(path, loglevel):
             logger.debug("writing donation {0}/{1}: {2}".format(t, donations.count(), donation.id))
 
             try:
-                receiver_id = ''
+                donor_id = ''
                 if donation.user:
-                    receiver_id = donation.user.id
+                    donor_id = donation.user.id
 
                 project_id = ''
                 if donation.project:
@@ -468,18 +509,17 @@ def generate_donations_csv_file(path, loglevel):
                             payment_method = payment_method_mapping[lp.latest_docdata_payment.payment_method]
 
                 csvwriter.writerow([donation.id,                                            # Donation_External_ID__c
-                                    receiver_id,                                            # Receiver__c
+                                    donor_id,                                            # Donor__c
                                     project_id,                                             # Project__c
                                     '%01.2f' % (float(donation.amount) / 100),              # Amount
                                     donation.created.date().strftime("%Y-%m-%dT%H:%M:%S.000Z"),          # CloseDate
                                     name.encode("utf-8"),                                   # Name
                                     DonationStatuses.values[donation.status].title(),       # StageName
                                     donation.DonationTypes.values[donation.donation_type].title(),  # Type
-                                    donation.created.date().strftime("%Y-%m-%dT%H:%M:%S.000Z"),   # Donation_c_date__c
+                                    donation.created.strftime("%Y-%m-%dT%H:%M:%S.000Z"),   # Donation_c_date__c
                                     payment_method.encode("utf-8"),                         # Payment_method__c
                                     '012A0000000ZK6FIAW',                                   # RecordTypeId
-                                    fundraiser_id,                                          # Fundraiser__c
-                                    donation.currency.encode("utf-8")])                    # unmapped
+                                    fundraiser_id])
 
                 success_count += 1
             except Exception as e:
@@ -635,6 +675,7 @@ def generate_taskmembers_csv_file(path, loglevel):
 
     return success_count, error_count
 
+
 def generate_fundraisers_csv_file(path, loglevel):
     logger.setLevel(loglevel)
     error_count = 0
@@ -649,7 +690,7 @@ def generate_fundraisers_csv_file(path, loglevel):
                             "Owner__c",
                             "Project__c",
                             #"Description__c",
-                            "ImageURL__c",
+                            "Picture_Location__c",
                             "VideoURL__c",
                             "Amount__c",
                             "Deadline__c",
