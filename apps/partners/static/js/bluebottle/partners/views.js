@@ -3,6 +3,7 @@ App.PartnerView = Em.View.extend({
     // Use a different template for Cheetah Fund.
     templateName: function (a, b) {
         var slug = this.get('controller.id');
+        if (!slug) return 'partner';
         
         return slug + '/index';
     }.property('controller.id'),
@@ -13,6 +14,9 @@ App.PartnerView = Em.View.extend({
     }.observes('templateName')
 });
 
+App.PartnerProjectsView = Em.View.extend({
+    templateName: 'partner_projects'
+})
 
 App.CheetahQuizView = Em.View.extend({
     templateName: 'cheetah_quiz',
