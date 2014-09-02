@@ -1,7 +1,9 @@
 .campaign-container {
     font-family: $font-family-body;
+    padding-bottom: 0;
 
     .campaign-item {
+        height: 450px;
 
         .campaign-item-holder {
 
@@ -15,6 +17,8 @@
         }
 
         .campaign-body {
+            line-height: 20px;
+            
             .profile-name {
                 color: $color-secondary;
                 font-size: 15px;
