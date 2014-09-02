@@ -40,3 +40,21 @@ App.PartnerController = Em.ObjectController.extend({
         }
     }
 });
+
+App.PartnerProjectsController = Em.ObjectController.extend({
+    project: null,
+
+    init: function() {
+        this._super();
+    },
+
+    actions: {
+        goToFavouriteProject: function(project) {
+            if (this.get('tracker')) {
+                this.get('tracker').trackEvent("Click Favourite Project", {title: project.get("title")});
+            }
+            this.transitionToRoute('project', project);
+        }
+    }
+});
+
