@@ -3,10 +3,11 @@
  */
 
 App.Router.map(function(){
-    this.resource('partnerProjects', {path: '/pp/:partner_id/projects'});
-    this.resource('partner', {path: '/pp/:partner_id'});
+    this.resource('partner', {path: '/pp/:partner_id'}, function(){
+        this.route('index', {path: '/'});
+        this.route('projects', {path: '/projects'});
+    });
 });
-
 
 App.PartnerRoute = Em.Route.extend(App.SubMenuMixin, {
     beforeModel: function (transition) {
@@ -14,6 +15,17 @@ App.PartnerRoute = Em.Route.extend(App.SubMenuMixin, {
 
         this.set('partner_id', partner_id);
         this.set('subMenu', partner_id + '/menu');
+    },
+
+    model: function (params, transition) {
+        return App.Partner.find(params.partner_id);
+    }
+});
+
+
+App.PartnerIndexRoute = Em.Route.extend({
+    model: function (params, transition) {
+        return this.modelFor('partner');
     },
 
     actions: {
@@ -30,7 +42,7 @@ App.PartnerRoute = Em.Route.extend(App.SubMenuMixin, {
 
 App.PartnerProjectsRoute = Em.Route.extend(App.ScrollToTop, {
     model: function (params, transition) {
-        return App.Partner.find(params.partner_id);
+        return this.modelFor('partner');
     }
-    
+
 });

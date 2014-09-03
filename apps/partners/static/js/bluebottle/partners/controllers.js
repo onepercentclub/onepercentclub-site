@@ -25,6 +25,9 @@ App.CheetahQuizController = Em.Controller.extend({
 });
 
 App.PartnerController = Em.ObjectController.extend({
+});
+
+App.PartnerIndexController = Em.ObjectController.extend({
     project: null,
 
     favouriteProjects: function () {
