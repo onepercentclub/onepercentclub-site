@@ -29,7 +29,7 @@ App.PartnerProjectsView = Em.View.extend({
     },
 
     didScroll: function() {
-        if(this.isScrolledToBottem()) {
+        if(this.isScrolledToBottom()) {
             var amountLoadedCampaigns = $('.campaign-item').length,
                 totalCampaigns = this.get('controller.amountProjects');
 
@@ -38,7 +38,7 @@ App.PartnerProjectsView = Em.View.extend({
         }
     },
 
-    isScrolledToBottem: function() {
+    isScrolledToBottom: function() {
         var distanceTop = $(document).height() - $(window).height(),
             top = $(document).scrollTop();
             $('.campaign-item').addClass('is-shake');
