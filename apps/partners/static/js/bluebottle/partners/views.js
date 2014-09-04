@@ -75,7 +75,6 @@ App.PartnerProjectsView = Em.View.extend({
     isScrolledToBottom: function() {
         var distanceTop = $(document).height() - $(window).height(),
             top = $(document).scrollTop();
-            //$('.campaign-item:nth-last-of-type(-n + 3)').addClass('is-shake');
 
         return top === distanceTop;
     }
