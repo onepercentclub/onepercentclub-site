@@ -43,10 +43,22 @@
                                                 </div>
                                             <i class="cheetah-funded-dot"></i>
                                         </div>
-                                        {{cheetah-progressbar targetValue=project.amount_asked currentValue=project.amount_donated class="campaign-fund-amount-slider"}}
+                                        {{#if project.isSupportable}} 
+                                                {{cheetah-progressbar targetValue=project.amount_asked currentValue=project.amount_donated class="campaign-fund-amount-slider"}}
+                                            {{else}}
+                                                <div class="expired">
+                                                    {{cheetah-progressbar targetValue=project.amount_asked currentValue=project.amount_donated class="campaign-fund-amount-slider"}}
+                                                </div>
+                                        {{/if}}
                                         <div class="campaign-fund-amount">
                                             <span class="amount-raised"><strong>&euro; {{project.amount_donated}} </strong>{% trans "raised" context "Slider project frontpage" %}</span>
-                                            <span class="days-left"><strong>{{project.daysToGo}} </strong>{% trans "days left" context "Slider project frontpage" %}</span>
+                                            {{#if project.isSupportable}} 
+                                                    <span class="days-left"><strong>{{project.daysToGo}} </strong>{% trans "days left" context "Slider project frontpage" %}</span>
+                                                {{else}}
+                                                    <div class="expired">
+                                                        <span class="days-left">{% trans "deadline passed" %}</span>
+                                                    </div>
+                                            {{/if}}
                                         </div>
                                     {{else}}
                                         <p class="campaign-fund-amount-slider is-funded"><strong style="width: 100%; overflow: hidden;" class="slider-progress is-in-progress"><em class="slider-percentage"></em></strong></p>

@@ -72,8 +72,23 @@
                             </div>
                             <i class="cheetah-funded-dot"></i>
                         </div>
-                        {{cheetah-progressbar targetValue=amount_asked currentValue=amount_donated class="campaign-fund-amount-slider"}}
+
+                        {{#if isStatusCampaign}}
+                            {{#ifExpired deadline}}
+                                <div class="expired">
+                                    {{cheetah-progressbar targetValue=amount_asked currentValue=amount_donated class="campaign-fund-amount-slider"}}
+                                </div>
+                            {{else}}
+                                {{cheetah-progressbar targetValue=amount_asked currentValue=amount_donated class="campaign-fund-amount-slider"}}
+                            {{/ifExpired}}
+                        {{else}}
+                            <div class="expired">
+                                {{cheetah-progressbar targetValue=amount_asked currentValue=amount_donated class="campaign-fund-amount-slider"}}
+                            </div>
+                        {{/if}}
+
                     </div>
+
                 {{else}}
                 <div class="campaign-fund-amount-slider">
                     {{bb-progressbar targetValue=amount_asked currentValue=amount_donated}}
