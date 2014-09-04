@@ -9,14 +9,14 @@ from apps.statistics.models import Statistic
 
 from bluebottle.utils.model_dispatcher import get_project_model, get_fundraiser_model
 
-PROJECT_MODEL = get_project_model()
-FUNDRAISER_MODEL = get_fundraiser_model()
-
 # Instead of serving all the objects separately we combine Slide, Quote and Stats into a dummy object
 
 class HomePage(object):
 
     def get(self, language):
+        PROJECT_MODEL = get_project_model()
+        FUNDRAISER_MODEL = get_fundraiser_model()
+
         self.id = 1
         self.quotes= Quote.objects.published().filter(language=language)
         self.slides = Slide.objects.published().filter(language=language)

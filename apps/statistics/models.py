@@ -5,8 +5,6 @@ from django.db.models.aggregates import Sum
 from django.utils.translation import ugettext_lazy as _
 from django_extensions.db.fields import CreationDateTimeField
 
-DONATION_MODEL = get_donation_model()
-
 
 class Statistic(models.Model):
     """
@@ -21,12 +19,15 @@ class Statistic(models.Model):
 
     @property
     def donated(self):
+        """
+        Calculate total amount for all donations ever.
+        """
 
-        """ Add all donation amounts for all donations ever """
+        DONATION_MODEL = get_donation_model()
+
         if cache.get('donations-grant-total'):
             return cache.get('donations-grant-total')
-        donations = DONATION_MODEL.objects.filter(status__in=(DONATION_MODEL.DonationStatuses.pending,
-                                                              DONATION_MODEL.DonationStatuses.paid))
+        donations = DONATION_MODEL.successful_donations
         donated = donations.aggregate(sum=Sum('amount'))['sum'] or '000'
         cache.set('donations-grant-total', donated, 300)
         return donated

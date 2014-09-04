@@ -6,7 +6,6 @@ from django.utils.translation import ugettext as _
 
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 
-DONATION_MODEL = get_donation_model()
 
 class Campaign(models.Model):
     title = models.CharField(_('title'), max_length=255)
