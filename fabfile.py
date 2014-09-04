@@ -49,6 +49,9 @@ env.database = 'onepercentsite'
 # By default, confirm everywhere
 env.noinput = False
 
+# Use bash
+env.shell = "/bin/bash -c"
+
 # Utility functions:
 @contextmanager
 def virtualenv():
