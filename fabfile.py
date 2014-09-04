@@ -50,7 +50,7 @@ env.database = 'onepercentsite'
 env.noinput = False
 
 # Use bash
-env.shell = "/bin/bash -c"
+env.shell = "/bin/bash -l -c"
 
 # Utility functions:
 @contextmanager
