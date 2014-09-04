@@ -46,7 +46,7 @@ App.PartnerIndexController = Em.ObjectController.extend({
 
 App.PartnerProjectsController = Em.ObjectController.extend({
     project: null,
-    projectNumber: 3,
+    projectNumber: 6,
 
     amountProjects: function() {
         return this.get('projects.length');
@@ -60,10 +60,6 @@ App.PartnerProjectsController = Em.ObjectController.extend({
         return this.get('projects').slice(0, this.projectNumber);
     }.property('projects.length', 'projectNumber'),
 
-    loadMore: function() {
-        this.incrementProperty('projectNumber', 3);
-    },
-
     actions: {
         goToFavouriteProject: function(project) {
             if (this.get('tracker')) {
@@ -73,7 +69,7 @@ App.PartnerProjectsController = Em.ObjectController.extend({
         },
 
         loadMore: function() {
-            this.incrementProperty('projectNumber', 3);
+            this.incrementProperty('projectNumber', 6);
         }
     }
 });

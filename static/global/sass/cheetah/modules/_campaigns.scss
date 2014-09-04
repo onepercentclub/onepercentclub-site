@@ -6,7 +6,8 @@
         height: 450px;
         background: #F5F4F6;
 
-        &:nth-last-of-type(-n + 3) {
+        &.is-search {
+
             &.is-shake {
                 @include animation(fadeInDownBig .4s ease-in-out);
             }
