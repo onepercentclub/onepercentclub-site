@@ -80,6 +80,15 @@
                     }
                 }
 
+                .expired {
+                    .funded-progress {
+                        background: #A6A2BA!important;
+                    }
+                    .slider-progress {
+                        background: $color-primary!important;
+                    }
+                }
+
                 .campaign-fund-amount {
                     font-size: 14px;
 

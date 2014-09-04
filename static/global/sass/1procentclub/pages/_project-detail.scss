@@ -22,6 +22,16 @@
     
     .project-fund {
         @include grid(14,1,1);
+        
+        .expired {
+            .funded-progress {
+                background: #A6A2BA!important;
+            }
+            .slider-progress {
+                background: #444444!important;
+            }
+        }
+            
     }
 
     .project-fund-amount {

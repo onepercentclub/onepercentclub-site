@@ -1,0 +1,15 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "business/header" %}
+    <div class="l-section" id="cheetah-areyou">
+        <div class="l-wrapper">
+            <div class="row areyou">
+                <div class="col12">
+                    <h1>{% trans 'Business'%}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endtplhandlebars %}
