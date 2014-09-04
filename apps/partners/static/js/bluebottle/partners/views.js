@@ -25,23 +25,56 @@ App.PartnerProjectsView = Em.View.extend({
         var _this = this;
         $(window).bind('scroll', function() {
             _this.didScroll();
+
+            if (_this.noMoreCampaign()) {
+               $('.scroll-more-loader').removeClass('is-active'); 
+            }
         });
     },
 
-    didScroll: function() {
-        if(this.isScrolledToBottom()) {
-            var amountLoadedCampaigns = $('.campaign-item').length,
-                totalCampaigns = this.get('controller.amountProjects');
+    noMoreCampaign: function() {
+        var result = false,
+            amountLoadedCampaigns = $('.campaign-item').length,
+            totalCampaigns = this.get('controller.amountProjects');
 
-            if (amountLoadedCampaigns === totalCampaigns) return;
-            this.incrementProperty('controller.projectNumber', 3);
+        if (amountLoadedCampaigns === totalCampaigns) {
+            return result = true;
+        }
+    },
+
+    campaignLeft: function() {
+        var amountLoadedCampaigns = $('.campaign-item').length,
+            totalCampaigns = this.get('controller.amountProjects'),
+            result = totalCampaigns - amountLoadedCampaigns;
+
+            if (result > 6) {
+                result = 6;
+            } else {
+                result = totalCampaigns - amountLoadedCampaigns;
+            }
+
+            return result;
+    },
+
+    didScroll: function() {
+        var nthChild = this.campaignLeft();
+
+        if(this.isScrolledToBottom()) {
+            if (this.noMoreCampaign()) {
+                $('.scroll-more-loader').removeClass('is-active');
+                return;
+            }
+            this.incrementProperty('controller.projectNumber', 6);
+            setTimeout(function() {
+                $('.is-search:nth-last-of-type(-n + ' + ' ' + nthChild + ')').addClass('is-fadeIn');
+            });
+            $('.scroll-more-loader').addClass('is-active');
         }
     },
 
     isScrolledToBottom: function() {
         var distanceTop = $(document).height() - $(window).height(),
             top = $(document).scrollTop();
-            $('.campaign-item').addClass('is-shake');
 
         return top === distanceTop;
     }
