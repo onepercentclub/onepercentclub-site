@@ -66,7 +66,7 @@ App.PartnerProjectsView = Em.View.extend({
             }
             this.incrementProperty('controller.projectNumber', 6);
             setTimeout(function() {
-                $('.is-search:nth-last-of-type(-n + ' + ' ' + nthChild + ')').addClass('is-shake');
+                $('.is-search:nth-last-of-type(-n + ' + ' ' + nthChild + ')').addClass('is-fadeIn');
             });
             $('.scroll-more-loader').addClass('is-active');
         }

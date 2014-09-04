@@ -8,7 +8,7 @@
 
         &.is-search {
 
-            &.is-shake {
+            &.is-fadeIn {
                 @include animation(fadeInDownBig .4s ease-in-out);
             }
         }
