@@ -4,6 +4,35 @@
 	background: white;
 	font-family: $font-family-body;
 
+		.scroll-more-loader {
+			display: block;
+			margin-top: 40px;
+			width: 100%;
+			border-top: solid 1px #e9e9e9;
+			height: 100px;
+
+			.loader {
+				display: block;
+				position: relative;
+				width: 65px;
+				height: 65px;
+				background: white;
+				border-radius: 50%;
+				margin: auto;
+				margin-top: -32px;
+				border: solid 1px #C3C3C3;
+
+				.load {
+					position: absolute;
+					height: 32px;
+					width: 32px;
+					background: image-url("more-loader.gif") transparent no-repeat 0 0;
+					margin: 16px;
+				}
+			}
+		}
+
+
 	&.cheetah-fund-campaigns {
 		padding-top: 0;
 	}

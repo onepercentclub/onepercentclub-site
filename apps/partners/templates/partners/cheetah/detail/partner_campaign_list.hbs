@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col12">
                 <ul class="campaign-container campaign-grid gc-3">
-                    {{#each project in projects}}
+                    {{#each project in pageProjects}}
                         <li class="campaign-item">
                             <a {{action goToFavouriteProject project}} class="campaign-item-holder">
                                 <span {{bindAttr class="id:"}}></span>

@@ -19,8 +19,33 @@ App.PartnerIndexView = Em.View.extend({
 });
 
 App.PartnerProjectsView = Em.View.extend({
-    templateName: 'partner_projects'
-})
+    templateName: 'partner_projects',
+
+    didInsertElement: function() {
+        var _this = this;
+        $(window).bind('scroll', function() {
+            _this.didScroll();
+        });
+    },
+
+    didScroll: function() {
+        if(this.isScrolledToBottom()) {
+            var amountLoadedCampaigns = $('.campaign-item').length,
+                totalCampaigns = this.get('controller.amountProjects');
+
+            if (amountLoadedCampaigns === totalCampaigns) return;
+            this.incrementProperty('controller.projectNumber', 3);
+        }
+    },
+
+    isScrolledToBottom: function() {
+        var distanceTop = $(document).height() - $(window).height(),
+            top = $(document).scrollTop();
+            $('.campaign-item').addClass('is-shake');
+
+        return top === distanceTop;
+    }
+});
 
 App.CheetahQuizView = Em.View.extend({
     templateName: 'cheetah_quiz',
@@ -40,4 +65,5 @@ App.CheetahFaqView = Em.View.extend({
             var test = $(this).toggleClass('active');
         });
     }
-})
+});
+
