@@ -106,14 +106,10 @@
                                     </div>
                                     <i class="cheetah-funded-dot"></i>
                                 </div>
-                                {{cheetah-progressbar targetValue=project.amount_asked currentValue=project.amount_donated class="campaign-fund-amount-slider"}}
-                                <div class="campaign-fund-amount">
-                                    <span class="amount-raised"><strong>&euro; {{amount_donated}} </strong>{% trans "raised" context "Slider project frontpage" %}</span>
+                                <div class="expired">
+                                    {{cheetah-progressbar targetValue=amount_asked currentValue=amount_donated class="campaign-fund-amount-slider"}}
                                 </div>
                             {{/if}}
-                            <div class="cheetah-fully-funded">
-                                {{bb-progressbar targetValue=amount_asked currentValue=amount_donated class="campaign-fund-amount-slider"}}
-                            </div>
                         {{/if}}
 
                     </div>
