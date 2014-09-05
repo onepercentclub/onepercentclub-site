@@ -1,0 +1,14 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "cheetah/detail/project_cheetah_funded" %}
+    <div class="cheetah-funded">
+        <div class="cheetah-funded-text">
+            {% blocktrans%}
+                <span><strong>At 30%</strong> it will be Cheetah Funded</span>
+            {% endblocktrans %}
+        </div>
+        <i class="cheetah-funded-dot"></i>
+    </div>
+{% endtplhandlebars %}

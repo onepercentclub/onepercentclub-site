@@ -25,14 +25,7 @@
 
             <div class="campaign-footer">
                 {{#if project.isStatusCampaign}}
-                    <div class="cheetah-funded">
-                            <div class="cheetah-funded-text">
-                                {% blocktrans%}
-                                    <span><strong>At 30%</strong> it will be Cheetah Funded</span>
-                                {% endblocktrans %}
-                            </div>
-                        <i class="cheetah-funded-dot"></i>
-                    </div>
+                    {{partial 'cheetah/detail/project_cheetah_funded'}}
                     {{#if project.isSupportable}}
                             {{cheetah-progressbar targetValue=project.amount_asked currentValue=project.amount_donated class="campaign-fund-amount-slider"}}
                     {{else}}
@@ -52,11 +45,14 @@
                     </div>
                 {{else}}
                     {{#if project.isStatusCompleted}}
-                        {{cheetah-progressbar targetValue=project.amount_asked currentValue=project.amount_donated class="campaign-fund-amount-slider "}}
+                        <div class="cheetah-fully-funded">
+                            {{bb-progressbar targetValue=project.amount_asked currentValue=project.amount_donated class="campaign-fund-amount-slider "}}
+                        </div>
                         <div class="campaign-fund-amount">
                             <span class="fully-funded"><strong>&euro; {{project.amount_donated}} {% trans 'fully funded!' %}</strong></span>
                         </div>
                     {{else}}
+                        {{partial 'cheetah/detail/project_cheetah_funded'}}
                         {{cheetah-progressbar targetValue=project.amount_asked currentValue=project.amount_donated class="campaign-fund-amount-slider"}}
                         <span class="amount-raised"><strong>&euro; {{project.amount_donated}} </strong>{% trans "raised" context "Slider project frontpage" %}</span>
                     {{/if}}

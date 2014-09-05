@@ -47,8 +47,8 @@ App.PartnerProjectsView = Em.View.extend({
             totalCampaigns = this.get('controller.amountProjects'),
             result = totalCampaigns - amountLoadedCampaigns;
 
-            if (result > 6) {
-                result = 6;
+            if (result > 3) {
+                result = 3;
             } else {
                 result = totalCampaigns - amountLoadedCampaigns;
             }
@@ -64,7 +64,7 @@ App.PartnerProjectsView = Em.View.extend({
                 $('.scroll-more-loader').removeClass('is-active');
                 return;
             }
-            this.incrementProperty('controller.projectNumber', 6);
+            this.incrementProperty('controller.projectNumber', 3);
             setTimeout(function() {
                 $('.is-search:nth-last-of-type(-n + ' + ' ' + nthChild + ')').addClass('is-fadeIn');
             });
