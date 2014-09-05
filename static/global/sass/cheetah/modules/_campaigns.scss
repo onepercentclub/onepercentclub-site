@@ -42,6 +42,12 @@
             }
 
             .campaign-footer {
+                .cheetah-fully-funded {
+                    .slider-progress {
+                        background-color: $color-secondary!important;
+                    }
+                }
+
                 .cheetah-funded {
                     position: relative;
                     display: inline-block;
