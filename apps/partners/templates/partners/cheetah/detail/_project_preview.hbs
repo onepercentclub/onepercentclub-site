@@ -54,7 +54,9 @@
                     {{else}}
                         {{partial 'cheetah/detail/project_cheetah_funded'}}
                         {{cheetah-progressbar targetValue=project.amount_asked currentValue=project.amount_donated class="campaign-fund-amount-slider"}}
-                        <span class="amount-raised"><strong>&euro; {{project.amount_donated}} </strong>{% trans "raised" context "Slider project frontpage" %}</span>
+                        <div class="campaign-fund-amount">
+                            <span class="amount-raised"><strong>&euro; {{project.amount_donated}} </strong>{% trans "raised" context "Slider project frontpage" %}</span>
+                        </div>
                     {{/if}}
                 {{/if}}
             </div>
