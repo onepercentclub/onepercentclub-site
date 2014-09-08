@@ -1,6 +1,5 @@
 from apps.projects.models import ProjectBudgetLine, Project
 from bluebottle.bb_projects.admin import BaseProjectAdmin
-from bluebottle.bb_projects.models import ProjectPhase
 from django.contrib import admin
 from django.contrib.admin.sites import NotRegistered
 from django.core.urlresolvers import reverse
@@ -8,7 +7,6 @@ from sorl.thumbnail.admin import AdminImageMixin
 import logging
 
 from .models import PartnerOrganization
-# from projects.models import OnePercentProject
 
 logger = logging.getLogger(__name__)
 

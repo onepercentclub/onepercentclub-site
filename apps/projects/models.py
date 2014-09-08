@@ -101,6 +101,10 @@ class Project(BaseProject):
     amount_donated = MoneyField(default=0)
     amount_needed = MoneyField(default=0)
 
+    skip_monthly = models.BooleanField(_("Skip monthly"),
+                                       help_text=_("Skip this project when running monthly donations"),
+                                       default=False)
+
     allow_overfunding = models.BooleanField(default=True)
     story = models.TextField(_("story"), help_text=_("This is the help text for the story field"), blank=True,
                              null=True)
