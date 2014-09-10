@@ -1,0 +1,22 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "cheetah/detail/partner_campaign_list" %}
+    <section class="l-wrapper" id="partner-projects-list">
+        <div class="row">
+            <div class="col12">
+                <h1>{% trans 'Running Cheetah campaigns'%}</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col12">
+                <ul class="campaign-container campaign-grid gc-3">
+                    {{#each project in pageProjects}}
+                        {{partial 'cheetah/detail/project_preview'}}
+                    {{/each}}
+                </ul>
+            </div>
+        </ul>
+    </section>
+{% endtplhandlebars %}

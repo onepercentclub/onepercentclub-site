@@ -15,6 +15,7 @@
 @import "1procentclub/variables"; /* 1%Club overrides */
 @import "variables";
 @import "mixins/grid";
+@import "mixins/campaigns-grid";
 @import "mixins/utilities";
 @import "mixins/keyframes";
 @import "mixins/animations";
@@ -136,5 +137,11 @@
 @import "cheetah/modules/about";
 @import "cheetah/modules/areyou";
 @import "cheetah/modules/earmark";
+@import "cheetah/modules/running-campaign";
+@import "cheetah/modules/campaigns";
+
+@import "cheetah/modules/partner-info";
+@import "cheetah/modules/partner-projects-list";
+
 
 

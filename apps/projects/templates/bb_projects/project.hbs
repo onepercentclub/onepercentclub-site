@@ -62,7 +62,63 @@
                     <strong class="amount-asked">&euro;{{localize amount_asked}}</strong>
                     {% trans "raised" %}
                 </p>
-                {{bb-progressbar targetValue=amount_asked currentValue=amount_donated}}
+                {{#if partner.id}}
+                    <div class="cheetah-project-progress">
+
+                        {{#if isStatusCampaign}}
+                            {{#ifExpired deadline}}
+                                <div class="cheetah-funded">
+                                    <div class="cheetah-funded-text">
+                                        {% blocktrans%}
+                                            <span><strong>At 30%</strong> it will be Cheetah Funded</span>
+                                        {% endblocktrans %}
+                                    </div>
+                                    <i class="cheetah-funded-dot"></i>
+                                </div>
+                                <div class="expired">
+                                    {{cheetah-progressbar targetValue=amount_asked currentValue=amount_donated class="campaign-fund-amount-slider"}}
+                                </div>
+                            {{else}}
+                                <div class="cheetah-funded">
+                                    <div class="cheetah-funded-text">
+                                        {% blocktrans%}
+                                            <span><strong>At 30%</strong> it will be Cheetah Funded</span>
+                                        {% endblocktrans %}
+                                    </div>
+                                    <i class="cheetah-funded-dot"></i>
+                                </div>
+                                {{cheetah-progressbar targetValue=amount_asked currentValue=amount_donated class="campaign-fund-amount-slider"}}
+                            {{/ifExpired}}
+                        {{else}}
+                            {{#if isStatusCompleted}}
+                                <div class="cheetah-fully-funded">
+                                    {{bb-progressbar targetValue=project.amount_asked currentValue=project.amount_donated class="campaign-fund-amount-slider "}}
+                                </div>
+                                <div class="campaign-fund-amount">
+                                    <span class="fully-funded"><strong>&euro; {{amount_donated}} {% trans 'fully funded!' %}</strong></span>
+                                </div>
+                            {{else}}
+                                <div class="cheetah-funded">
+                                    <div class="cheetah-funded-text">
+                                        {% blocktrans%}
+                                            <span><strong>At 30%</strong> it will be Cheetah Funded</span>
+                                        {% endblocktrans %}
+                                    </div>
+                                    <i class="cheetah-funded-dot"></i>
+                                </div>
+                                <div class="expired">
+                                    {{cheetah-progressbar targetValue=amount_asked currentValue=amount_donated class="campaign-fund-amount-slider"}}
+                                </div>
+                            {{/if}}
+                        {{/if}}
+
+                    </div>
+
+                {{else}}
+                <div class="campaign-fund-amount-slider">
+                    {{bb-progressbar targetValue=amount_asked currentValue=amount_donated}}
+                </div>
+                {{/if}}
             </div>
 
             {{#if isSupportable}}

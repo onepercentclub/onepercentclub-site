@@ -1,0 +1,36 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "cheetah/detail/partner_info" %}
+    <div class="l-section" id="partner-info">
+        <div class="l-wrapper">
+            <div class="row">
+                <div class="col8">
+                    <div class="cheetah-headline">
+                        <div class="partner-heading">
+                            <span class="cheetah-icon-big"></span>
+                            <span class="cheetah-content">
+                                <h1>{% trans 'The Cheetah Fund'%}</h1>
+                                <span>{% trans 'Supporting Pioneers in Africa'%}</span>
+                            </span>
+                        </div>
+                        <p class="partner-content">
+                            The Cheetah Fund supports 100 African pioneers with seed money to kick-start or boost their world-changing projects. All they need to do to get funded is to crowdfund 30% of their target amount in 30 days.
+                        </p>
+                    </div>
+                </div>
+                <div class="col4">
+                    <div class="postcodeloterij">
+                        <div class="col5 img">
+                            <a href="https://onepercentclub.com/nl/#!/news/nationale-postcode-loterij-kiest-voor-innovatieve-" target="_blank"></a>
+                        </div>
+                        <div class="col7 content">
+                            {% trans 'The Cheetah Fund is powered by the Dutch National Postcode Lottery'%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endtplhandlebars %}

@@ -1,13 +1,15 @@
 App.PartnerView = Em.View.extend({
+    templateName: 'partner'
+});
+
+App.PartnerIndexView = Em.View.extend({
 
     // Use a different template for Cheetah Fund.
     templateName: function (a, b) {
         var slug = this.get('controller.id');
-        var templateName = 'partner';
-        if (slug === 'cheetah') {
-            templateName = 'cheetah/index';
-        }
-        return templateName;
+        if (!slug) return 'partner_index';
+        
+        return slug + '/index';
     }.property('controller.id'),
 
     // Rerender the view if the template name changes.
@@ -16,6 +18,67 @@ App.PartnerView = Em.View.extend({
     }.observes('templateName')
 });
 
+App.PartnerProjectsView = Em.View.extend({
+    templateName: 'partner_projects',
+
+    didInsertElement: function() {
+        var _this = this;
+        $(window).bind('scroll', function() {
+            _this.didScroll();
+
+            if (_this.noMoreCampaign()) {
+               $('.scroll-more-loader').removeClass('is-active'); 
+            }
+        });
+    },
+
+    noMoreCampaign: function() {
+        var result = false,
+            amountLoadedCampaigns = $('.campaign-item').length,
+            totalCampaigns = this.get('controller.amountProjects');
+
+        if (amountLoadedCampaigns === totalCampaigns) {
+            return result = true;
+        }
+    },
+
+    campaignLeft: function() {
+        var amountLoadedCampaigns = $('.campaign-item').length,
+            totalCampaigns = this.get('controller.amountProjects'),
+            result = totalCampaigns - amountLoadedCampaigns;
+
+            if (result > 3) {
+                result = 3;
+            } else {
+                result = totalCampaigns - amountLoadedCampaigns;
+            }
+
+            return result;
+    },
+
+    didScroll: function() {
+        var nthChild = this.campaignLeft();
+
+        if(this.isScrolledToBottom()) {
+            if (this.noMoreCampaign()) {
+                $('.scroll-more-loader').removeClass('is-active');
+                return;
+            }
+            this.incrementProperty('controller.projectNumber', 3);
+            setTimeout(function() {
+                $('.is-search:nth-last-of-type(-n + ' + ' ' + nthChild + ')').addClass('is-fadeIn');
+            });
+            $('.scroll-more-loader').addClass('is-active');
+        }
+    },
+
+    isScrolledToBottom: function() {
+        var distanceTop = $(document).height() - $(window).height(),
+            top = $(document).scrollTop();
+
+        return top === distanceTop;
+    }
+});
 
 App.CheetahQuizView = Em.View.extend({
     templateName: 'cheetah_quiz',
@@ -35,4 +98,5 @@ App.CheetahFaqView = Em.View.extend({
             var test = $(this).toggleClass('active');
         });
     }
-})
+});
+
