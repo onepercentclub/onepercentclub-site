@@ -25,11 +25,11 @@ html, body, #site {
 	}
 }
 
-#home, #about-new, #start-campaign {
+#home, #about-new, #start-campaign, #business {
 	margin-bottom: -40px; // reset 
 }
 
-.modal-fullscreen-background, #home, #about-new, #start-campaign {
+.modal-fullscreen-background, #home, #about-new, #start-campaign, #business {
 
 	.btn {
 		font-size: 18px;
@@ -148,7 +148,7 @@ html, body, #site {
 	}
 }
 
-#home, #about-new, #start-campaign {
+#home, #about-new, #start-campaign, #business {
 	font-family: $font-family-body;
 
 	h1 {

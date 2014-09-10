@@ -1,0 +1,28 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "business/corporate" %}
+    <div class="l-section" id="business-corporate">
+        <div class="l-wrapper">
+            <div class="row">
+                <h1>{% trans 'Corporate Social Responsibility'%}</h1>
+            </div>
+            <div class="row">
+                <div class="col7">
+                    <p>
+                        {% blocktrans %}
+                            1%Club biedt een platform waarop alle CSR projecten en sociale initiatieven van de organisatie zichtbaar zijn. Met behulp van verschillende tools voor crowdfunding en crowdsourcing kan iedereen binnen en buiten de organisatie samenwerken om maatschappelijk impact te genereren.
+                            <br><br>
+                            De tools bieden inzicht in je community en zijn adaptief, viraal, eenvoudig en leuk in gebruik. 1%Club stelt haar platform en kennis ter beschikking van jouw organisatie.
+                        {% endblocktrans%}
+                    </p>
+                </div>
+                <div class="col5">
+                    svg
+                </div>
+            </div>
+        </div>
+        <span {{action 'goTo' '#business-tools'}} class="to-next" id="business-corporate-btn"></span>
+    </div>
+{% endtplhandlebars %}

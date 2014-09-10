@@ -1,0 +1,73 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "business/tools_services" %}
+    <div class="l-section" id="business-tools">
+        <div class="l-wrapper">
+            <div class="row">
+                <div class="col6">
+                    <h1>
+                        {% blocktrans %}
+                            Tools & Services
+                        {% endblocktrans%}
+                    </h1>
+                    <strong>{% trans 'We bieden onze tools op twee manieren aan:'%}</strong>
+                    <div class="business-tool">
+                        <div class="tool-number">
+                            <span class="number">1</span>
+                        </div>
+                        <div class="tool-content">
+                            {% blocktrans %}
+                                Via het 1%Club platform (onepercentclub.com)
+                                maakt je organisatie gebruik van een bedrijvenpagina.
+                            {% endblocktrans%}
+                        </div>
+                    </div>
+                    <div class="business-tool">
+                        <div class="tool-number">
+                            <span class="number">2</span>
+                        </div>
+                        <div class="tool-content">
+                            {% blocktrans %}
+                                Via een eigen branded platform binnen jullie eigen webomgeving.
+                            {% endblocktrans%}
+                        </div>
+                    </div>
+                    <p class="business-content">
+                        {% blocktrans %}
+                            Het do-good engagement platform van 1%Club is schaalbaar en snel en volledig in te richten volgens de wensen en look & feel van jouw organisatie. Booking.com en Accenture <a href="#">gingen je al voor</a>.
+                        {% endblocktrans%}
+                    </p>
+                </div>
+                <div class="col6">
+                    <div class="services">
+                        <h6>{% trans 'Tools' %}</h6>
+                        <ul>
+                            <li>{% trans 'Crowdfunding'%}</li>
+                            <li>{% trans 'Crowdsourcing'%}</li>
+                            <li>{% trans 'Fundraising'%}</li>
+                            <li>{% trans 'Storytelling'%}</li>
+                            <li>{% trans 'Online Community'%}</li>
+                            <li>{% trans 'All-in-one dashboard'%}</li>
+                            <li>{% trans 'Overzicht CSR projecten'%}</li>
+                        </ul>
+                    </div>
+
+                    <div class="services">
+                        <h6>{% trans 'Services & Support' %}</h6>
+                        <ul>
+                            <li>{% trans 'Strategie'%}</li>
+                            <li>{% trans 'Branding & Communicatie'%}</li>
+                            <li>{% trans 'Activatie kick-off'%}</li>
+                            <li>{% trans 'Bootcamps & Masterclasses'%}</li>
+                            <li>{% trans 'Campagnes & Marketing'%}</li>
+                            <li>{% trans 'Maandelijks Support'%}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <span {{action 'goTo' '#business-inspired'}} class="to-next" id="business-tools-btn"></span>
+    </div>
+{% endtplhandlebars %}

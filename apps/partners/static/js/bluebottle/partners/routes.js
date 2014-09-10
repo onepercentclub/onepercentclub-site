@@ -4,6 +4,7 @@
 
 App.Router.map(function(){
 	this.resource('partner', {path: '/pp/:partner_id'});
+    this.resource('business');
 });
 
 

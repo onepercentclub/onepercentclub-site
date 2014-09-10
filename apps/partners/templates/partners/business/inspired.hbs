@@ -1,0 +1,21 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "business/inspired" %}
+    <div class="l-section" id="business-inspired">
+        <div class="l-wrapper">
+            <div class="row">
+                <div class="col12">
+                    <h1>{% trans 'Get Inspired!'%}</h1>
+                    <p>
+                        {% blocktrans %}
+                            Het bewijs is er, crowdfunding en crowdsourcing via 1%Club werkt! Sinds 2008 wordt het 1%Club platform dagelijks ingezet. Honderdduizenden mensen wereldwijd delen kennis, tijd en geld met sociale initiatieven wereldwijd. We hebben geleerd dat het succes wordt bepaald door een samenspel van de juiste tools, kennis, projecten en betrokkenen.
+                        {% endblocktrans%}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <span {{action 'goTo' '#business-contact'}} class="to-next" id="business-inspired-btn"></span>
+    </div>
+{% endtplhandlebars %}

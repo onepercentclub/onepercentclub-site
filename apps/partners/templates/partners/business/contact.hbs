@@ -1,0 +1,46 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "business/contact" %}
+    <div class="l-section" id="business-contact">
+        <div class="l-wrapper">
+            <div class="row">
+                <div class="col12">
+                    <h1>{% trans 'Contact'%}</h1>
+                    <p>
+                        {% blocktrans %}
+                            Wil je met jouw organisatie een wereld van verschil maken? Fantastisch!<br>
+                            Neem contact met ons open en laten we tot de perfecte samenwerking komen.
+                        {% endblocktrans%}
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="contact-info">
+                    <div class="col7">
+                        <div class="row">
+                            <div class="col3">
+                                <div class="photo"></div>
+                            </div>
+                            <div class="col9">
+                                <strong>{% trans 'Contactgegevens'%}</strong>
+                                <p>
+                                    Ronald Lenz<br>
+                                    <a class="business-mail" href="mailto:business@onepercentclub.com">business@onepercentclub.com</a><br>
+                                    <a href="tel:+3120715898">+31(0)20 715 898</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col5">
+                        <div class="business-logo">
+                            <div class="logo"></div>
+                            <p>Do-good engagement</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endtplhandlebars %}

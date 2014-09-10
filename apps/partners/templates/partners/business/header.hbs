@@ -1,0 +1,49 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "business/header" %}
+    <div class="l-section" id="business-header">
+        <div class="l-wrapper">
+            <div class="business-main-header">
+                <span class="logo"></span>
+                <span class="business">{% trans 'business' %}</span>
+            </div>
+
+            <div class="business-main-content">
+                {% blocktrans %}
+                    1%Club is er ook voor bedrijven en organisaties. Met elkaar kunnen we medewerkers en andere stakeholders in staat stellen om ideeën te realiseren voor een betere wereld. Ideeën die passen binnen de duurzaamheidsstrategie van de organisatie. Ideeën die een grootse maatschappelijke impact genereren.
+                {% endblocktrans %}
+            </div>
+
+            <div class="corporate-menu">
+                <ul>
+                    <li class="is-active">
+                        <a>
+                            <div>
+                                <span class="corporate-item organistion"></span>
+                                <span class="corporate-text">{% trans 'Organisation'%}</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <div>
+                                <span class="corporate-item employees"></span>
+                                <span class="corporate-text">{% trans 'Employees'%}</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <div>
+                                <span class="corporate-item crowdfunding"></span>
+                                <span class="corporate-text">{% trans 'Crowdfunding'%}</span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endtplhandlebars %}

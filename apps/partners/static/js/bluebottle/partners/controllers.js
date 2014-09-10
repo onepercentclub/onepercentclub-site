@@ -25,3 +25,5 @@ App.CheetahQuizController = Em.Controller.extend({
         }
     }
 });
+
+App.BusinessController = Em.Controller.extend({});
