@@ -546,9 +546,9 @@ def deploy_production(revspec=None):
 @roles('backup')
 @task
 def get_db():
-    backup_dir = "/home/backups/onepercentclub-backups/onepercentsite/current"
+    backup_dir = "/home/backups/onepercentclub-backups/onepercentsite/"
     with cd(backup_dir):
-        output = run("ls *.bz2")
+        output = run("ls -1t *.bz2 | head -1")
         try:
             filename = output.split()[0]
         except IndexError:
