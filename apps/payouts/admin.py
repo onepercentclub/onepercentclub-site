@@ -69,7 +69,7 @@ class PayoutAdmin(admin.ModelAdmin):
     can_delete = False
 
     list_filter = [
-        'status', 'payout_rule',
+        'status', 'payout_rule', 'project__partner_organization',
         PendingDonationsPayoutFilter, HasIBANPayoutFilter
     ]
 
