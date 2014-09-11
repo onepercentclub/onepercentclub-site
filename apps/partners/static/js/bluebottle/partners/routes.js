@@ -30,11 +30,7 @@ App.PartnerIndexRoute = Em.Route.extend({
 
     actions: {
         partnerProject: function () {
-            this.transitionTo('myProject', 'pp:' + this.get('partner_id'));
-        },
-
-        partnerProjects: function() {
-            this.transitionTo('myProject', 'pp:' + this.get('partner_id'));
+            this.transitionTo('myProject', 'pp:' + this.modelFor('partner').get('id'));
         }
     }
 });
