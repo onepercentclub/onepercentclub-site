@@ -1,0 +1,14 @@
+// https://secure.changa.co.ke/api/tagged/all_fundrasiers/format/json
+
+[
+    {
+        "historical_amt": 804,
+        "current_balance": 224,
+        "date_created": "2013-06-05 05:14:47",
+        "payments_count": 51,
+        "status": "1",
+        "fundraiser_name": "Arts For Life",
+        "fundraiser_originator": "jekton",
+        "fundraiser_statement_link": "http:\/\/tinyurl.com\/ovdublg"
+    }
+]

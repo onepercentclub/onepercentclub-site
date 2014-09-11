@@ -55,7 +55,7 @@ class ProjectSerializer(BaseProjectSerializer):
     class Meta(BaseProjectSerializer):
         model = BaseProjectSerializer.Meta.model
         fields = BaseProjectSerializer.Meta.fields + ('allow_overfunding', 'task_count', 'amount_asked', 'amount_donated', 'amount_needed',
-                                                      'story', 'status', 'deadline', 'latitude', 'longitude', 'video_url', 'video_html', 'partner')
+                                                      'story', 'status', 'deadline', 'latitude', 'longitude', 'video_url', 'video_html', 'partner', 'mchanga_account')
 
 
 class ProjectPreviewSerializer(BaseProjectPreviewSerializer):
@@ -92,7 +92,7 @@ class ManageProjectSerializer(BaseManageProjectSerializer):
         model = BaseManageProjectSerializer.Meta.model
         fields = BaseManageProjectSerializer.Meta.fields + ('amount_asked', 'amount_donated', 'amount_needed',
                                                             'video_url', 'video_html', 'partner',
-                                                            'story', 'budget_lines', 'deadline', 'latitude', 'longitude')
+                                                            'story', 'budget_lines', 'deadline', 'latitude', 'longitude', 'mchanga_account')
 
 
 class ProjectSupporterSerializer(serializers.ModelSerializer):

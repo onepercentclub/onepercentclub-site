@@ -315,6 +315,8 @@ INSTALLED_APPS = (
     'apps.accounting',
     'apps.crawlable',
 
+    'apps.mchanga',
+
     # Custom dashboard
     'fluent_dashboard',
     'admin_tools',
