@@ -18,6 +18,8 @@ App.Project.reopen({
     fundraisers: DS.belongsTo('App.Fundraiser'),
     partner: DS.belongsTo('App.Partner'),
 
+    mchanga_account: DS.attr('string'),
+
     task_count: DS.attr('number'),
 
     phaseNum: function(){

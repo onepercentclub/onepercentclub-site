@@ -10,7 +10,7 @@ class MpesaAdmin(admin.ModelAdmin):
                        'mpesa_id', 'mpesa_name', 'mpesa_phone',
                        'status', 'date', 'created', 'updated')
 
-    list_display = ('date', 'amount', 'mpesa_name', 'project', 'fundraiser_name')
+    list_display = ('date', 'amount', 'mpesa_name', 'project', 'fundraiser_name', 'mchanga_account')
 
     fields = readonly_fields
 

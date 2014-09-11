@@ -34,15 +34,31 @@ class MpesaPayment(models.Model):
     updated = ModificationDateTimeField(_("updated"))
 
 
+class MpesaFundRaiser(models.Model):
 
-"""
-Example data:
+    @classmethod
+    def create_from_json(cls, fr):
+        fundraiser, created = cls.objects.get_or_create(name=fr['fundraiser_name'])
+        if created:
+            fundraiser.name = fr['fundraiser_name']
+            fundraiser.status = fr['status']
+            fundraiser.owner = fr['fundraiser_originator']
+            fundraiser.link = fr['fundraiser_statement_link']
+        fundraiser.historical_amount = fr['historical_amt']
+        fundraiser.current_balance = fr['current_balance']
+        fundraiser.payments_count = fr['payments_count']
+        fundraiser.save()
 
-"fundraiser_name": "Arts For Life",
-"m-changa_acno": "1489",
-"m-pesa_tr_id": "FQ10AI934",
-"amount": "10",
-"contributor_mobno": "254720978838",
-"contributor_name": "JEFKINE KAFUNAH",
-"payment_date": "2014-09-09 00:46:18"
-"""
+    name =  models.CharField(max_length=100, blank=True)
+    owner =  models.CharField(max_length=100, blank=True)
+    link =  models.CharField(max_length=100, blank=True)
+    account =  models.CharField(max_length=100, blank=True)
+
+    historical_amount = models.IntegerField(null=True)
+    current_balance =  models.IntegerField(null=True)
+    payment_count =   models.IntegerField(null=True)
+    status =  models.CharField(max_length=10, blank=True)
+
+    created = CreationDateTimeField(_("created"))
+    updated = ModificationDateTimeField(_("updated"))
+

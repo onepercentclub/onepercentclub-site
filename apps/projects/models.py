@@ -119,6 +119,8 @@ class Project(BaseProject):
     campaign_ended = models.DateTimeField(_('Campaign Ended'), null=True, blank=True)
     campaign_funded = models.DateTimeField(_('Campaign Funded'), null=True, blank=True)
 
+    mchanga_account = models.CharField(_('M-Changa account'), help_text=_('Id or keyword for the M-Changa fundraiser'), max_length=100, null=True, blank=True)
+
     objects = ProjectManager()
 
     def __unicode__(self):
