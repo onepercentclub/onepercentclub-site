@@ -91,7 +91,10 @@ urlpatterns += i18n_patterns('',
     url(r'^templates/', include('apps.hbtemplates.urls')),
 
     # Urls for partner sites
-    url(r'^pp/', include('apps.partners.urls.partners'))
+    url(r'^pp/', include('apps.partners.urls.partners')),
+
+    # Url M-changa status updates
+    url(r'^payments_mchanga/', include('apps.mchanga.urls.core'))
 
 )
 

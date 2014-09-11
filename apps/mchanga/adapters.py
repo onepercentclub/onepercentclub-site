@@ -5,6 +5,8 @@ from apps.mchanga.models import MpesaPayment, MpesaFundRaiser
 PAYMENTS_URL = 'https://secure.changa.co.ke/api/tagged/all_payments/format/json'
 FUNDRAISER_URL = 'https://secure.changa.co.ke/api/tagged/all_fundrasiers/format/json'
 
+PAYMENT_URL = 'https://secure.changa.co.ke/api/tagged/payment/{0}/format/json'
+
 
 class MchangaService(object):
 
@@ -23,3 +25,11 @@ class MchangaService(object):
         fundraisers = simplejson.load(content)
         for fundraiser in fundraisers:
             MpesaFundRaiser.create_from_json(fundraiser)
+
+    def sync_payment_by_id(self, payment_id):
+        payment_url = PAYMENT_URL.format(payment_id)
+        req = urllib2.Request(payment_url)
+        opener = urllib2.build_opener()
+        content = opener.open(req)
+        payment = simplejson.load(content)
+        MpesaPayment.create_from_json(payment)

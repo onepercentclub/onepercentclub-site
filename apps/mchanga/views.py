@@ -1,6 +1,8 @@
 from apps.mchanga.models import MpesaPayment, MpesaFundRaiser
 from apps.mchanga.serializers import MpesaPaymentSerializer, MpesaFundRaiserSerializer
 from apps.projects.permissions import IsProjectOwner
+from django.http.response import HttpResponse
+from django.views.generic.base import View
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 
 
@@ -37,3 +39,40 @@ class MpesaFundRaiserDetail(RetrieveAPIView):
     serializer_class = MpesaFundRaiserSerializer
     lookup_field = 'account'
 
+"""
+Core view
+"""
+
+
+class PaymentStatusChangedView(View):
+    """
+    This is listening to M-Changa IPN calls.
+    """
+
+    def _sync_payment(self, payment_id):
+        from .adapters import MchangaService
+        service = MchangaService()
+        # service.sync_payment_by_id(payment_id)
+        # For now just sync everything
+        service.sync_payments()
+        service.sync_fundraisers()
+
+    def get(self, request, **kwargs):
+
+        payment_id = None
+        if hasattr(kwargs, 'payment_id'):
+            payment_id = kwargs['payment_id']
+        elif 'mmp_trx_code' in request.GET:
+            payment_id = request.GET['mmp_trx_code']
+        self._sync_payment(payment_id)
+        return HttpResponse('success')
+
+    def post(self, request, **kwargs):
+        payment_id = None
+
+        if hasattr(kwargs, 'payment_id'):
+            payment_id = kwargs['payment_id']
+        elif 'mmp_trx_code' in request.GET:
+            payment_id = request.GET['mmp_trx_code']
+        self._sync_payment(payment_id)
+        return HttpResponse('success')
