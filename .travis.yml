@@ -4,13 +4,13 @@ python:
 node_js:
 - '0.10'
 addons:
-  firefox: "26.0"
+  firefox: "27.0"
 env:
   matrix:
   - DJANGO=django==1.5.4
-  global:
-  - secure: gJ/2vz3uLrvEAodhI/uchCZYM7z0eFidAGP3kj2wD5rhUlaMvFZZd1EApJjSxBsxUnJwcdXZdpcy1GM2hx2c2vpNF8YEwm42dsQwvKUHveP+8bBxeB+zp0KoikdDDIUQKu2gjUv4n/QRZzCpEvmFdHtn6/yXnlyV6g5axUYCQyE=
-  - secure: nhtUS6j9oU38XHd5nl0MsorrqAhSukSWGU/R31hWT6NT4ipUmYLJniIerHCJ+Vt++h4XH3CSYmBRYYEiRrx81kBhlbxGdPm1cGVLb76NCjdhjUsiqoS5yB8H056/GnZWlYYG2ZaWOYgHhACTlQpm5OICO6TILLYcSd362Fg+gKs=
+#  global:
+#  - secure: gJ/2vz3uLrvEAodhI/uchCZYM7z0eFidAGP3kj2wD5rhUlaMvFZZd1EApJjSxBsxUnJwcdXZdpcy1GM2hx2c2vpNF8YEwm42dsQwvKUHveP+8bBxeB+zp0KoikdDDIUQKu2gjUv4n/QRZzCpEvmFdHtn6/yXnlyV6g5axUYCQyE=
+#  - secure: nhtUS6j9oU38XHd5nl0MsorrqAhSukSWGU/R31hWT6NT4ipUmYLJniIerHCJ+Vt++h4XH3CSYmBRYYEiRrx81kBhlbxGdPm1cGVLb76NCjdhjUsiqoS5yB8H056/GnZWlYYG2ZaWOYgHhACTlQpm5OICO6TILLYcSd362Fg+gKs=
 services:
 - memcached
 before_install:
@@ -29,10 +29,11 @@ before_script:
 - pip show bluebottle
 - grunt compass:dist --bb_path="`pip show bluebottle | grep Location | cut -b11-`/bluebottle/common/static/sass"
 - export DISPLAY=:99.0
+- export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/
 - sh -e /etc/init.d/xvfb start
-- curl https://gist.githubusercontent.com/rollick/42b92c18c3a265b08792/raw/sauce-connect.sh | sh
+#- curl https://gist.githubusercontent.com/rollick/42b92c18c3a265b08792/raw/sauce-connect.sh | sh
 script:
-- python ./manage.py test --settings=onepercentclub.settings.travis -v 1 # --failfast
+- python ./manage.py test --settings=onepercentclub.settings.travis -v1 --failfast
 notifications:
   hipchat:
     rooms:
