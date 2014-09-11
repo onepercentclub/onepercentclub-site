@@ -15,7 +15,7 @@ services:
 - memcached
 before_install:
 - gem update --system
-- gem install sass compass
+- gem install compass -v 0.12.7
 - npm install -g grunt-cli
 - npm install grunt grunt-contrib-compass
 - sudo apt-get install -qq memcached python-memcache libjpeg8-dev libjpeg-dev zlib1g-dev libpng12-dev
