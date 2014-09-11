@@ -38,24 +38,36 @@ class MpesaFundRaiser(models.Model):
 
     @classmethod
     def create_from_json(cls, fr):
-        fundraiser, created = cls.objects.get_or_create(name=fr['fundraiser_name'])
+        account = '1489' #  fr['account']
+        fundraiser, created = cls.objects.get_or_create(account=account)
+        from apps.projects.models import Project
+        try:
+            project = Project.objects.get(mchanga_account=account)
+        except Project.DoesNotExist:
+            project = None
         if created:
+            fundraiser.account = account
             fundraiser.name = fr['fundraiser_name']
             fundraiser.status = fr['status']
             fundraiser.owner = fr['fundraiser_originator']
             fundraiser.link = fr['fundraiser_statement_link']
-        fundraiser.historical_amount = fr['historical_amt']
-        fundraiser.current_balance = fr['current_balance']
+            fundraiser.project = project
+        fundraiser.total_amount = fr['historical_amt']
+        fundraiser.current_amount = fr['current_balance']
         fundraiser.payments_count = fr['payments_count']
         fundraiser.save()
+        if project:
+            project.update_money_donated()
+
+    project = models.ForeignKey('projects.Project', null=True)
 
     name =  models.CharField(max_length=100, blank=True)
     owner =  models.CharField(max_length=100, blank=True)
     link =  models.CharField(max_length=100, blank=True)
     account =  models.CharField(max_length=100, blank=True)
 
-    historical_amount = models.IntegerField(null=True)
-    current_balance =  models.IntegerField(null=True)
+    total_amount = models.IntegerField(null=True)
+    current_amount =  models.IntegerField(null=True)
     payment_count =   models.IntegerField(null=True)
     status =  models.CharField(max_length=10, blank=True)
 

@@ -1,7 +1,7 @@
-from apps.mchanga.models import MpesaPayment
-from apps.mchanga.serializers import MpesaPaymentSerializer
+from apps.mchanga.models import MpesaPayment, MpesaFundRaiser
+from apps.mchanga.serializers import MpesaPaymentSerializer, MpesaFundRaiserSerializer
 from apps.projects.permissions import IsProjectOwner
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView
 
 
 class MpesaPaymentList(ListAPIView):
@@ -25,3 +25,15 @@ class MpesaPaymentList(ListAPIView):
         #     return queryset.none()
 
         return queryset.filter(**filter_kwargs)
+
+
+class MpesaFundRaiserList(ListAPIView):
+    model = MpesaFundRaiser
+    serializer_class = MpesaFundRaiserSerializer
+
+
+class MpesaFundRaiserDetail(RetrieveAPIView):
+    model = MpesaFundRaiser
+    serializer_class = MpesaFundRaiserSerializer
+    lookup_field = 'account'
+
