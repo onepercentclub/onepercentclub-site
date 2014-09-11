@@ -100,3 +100,24 @@ App.CheetahFaqView = Em.View.extend({
     }
 });
 
+App.BusinessInspiredView = Em.View.extend({
+    templateName: 'inspired',
+
+    setQuoteTimeout: function(element) {
+        var _this = this;
+        setInterval(function() {
+            _this.$().find(element).toggleClass('is-selected');
+        }, 12000);
+    },
+
+    didInsertElement: function() {
+        var _this = this
+
+        this.setQuoteTimeout('.business-slider');
+
+        $('.quote-slider-item, .carousel-nav-item').on('click', function(){
+            _this.$().find('.business-slider').toggleClass('is-selected');
+        })
+    }
+});
+
