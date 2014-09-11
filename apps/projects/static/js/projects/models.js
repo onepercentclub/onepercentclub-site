@@ -50,7 +50,6 @@ App.Project.reopen({
         
         this._super();
     }
-
 });
 
 App.MyProjectBudgetLine = DS.Model.extend({
