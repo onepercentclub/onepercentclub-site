@@ -12,22 +12,22 @@
 
             <div class="business-main-content">
                 {% blocktrans %}
-                    1%Club is er ook voor bedrijven en organisaties. Met elkaar kunnen we medewerkers en andere stakeholders in staat stellen om ideeën te realiseren voor een betere wereld. Ideeën die passen binnen de duurzaamheidsstrategie van de organisatie. Ideeën die een grootse maatschappelijke impact genereren.
+                    Businesses and large organizations can join 1%Club too! Together we can inspire employees and stakeholders to generate ideas for a better world - ideas that match the sustainability strategies of your organization and will generate big changes in communities around the world.  
                 {% endblocktrans %}
             </div>
 
             <div class="corporate-menu">
                 <ul>
                     <li class="is-active">
-                        <a>
+                        <a class="corporate-link" data-id="organization">
                             <div>
                                 <span class="corporate-item organistion"></span>
-                                <span class="corporate-text">{% trans 'Organisation'%}</span>
+                                <span class="corporate-text">{% trans 'Organization' context 'american'%}</span>
                             </div>
                         </a>
                     </li>
                     <li>
-                        <a>
+                        <a class="corporate-link" data-id="employees">
                             <div>
                                 <span class="corporate-item employees"></span>
                                 <span class="corporate-text">{% trans 'Employees'%}</span>
@@ -35,10 +35,10 @@
                         </a>
                     </li>
                     <li>
-                        <a>
+                        <a class="corporate-link" data-id="crowdfunding">
                             <div>
                                 <span class="corporate-item crowdfunding"></span>
-                                <span class="corporate-text">{% trans 'Crowdfunding'%}</span>
+                                <span class="corporate-text">{% trans 'Crowd Engagement'%}</span>
                             </div>
                         </a>
                     </li>

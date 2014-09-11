@@ -45,5 +45,9 @@ App.PartnerProjectsRoute = Em.Route.extend(App.ScrollToTop, {
     model: function (params, transition) {
         return this.modelFor('partner');
     }
+});
+
+App.BusinessRoute = Em.Route.extend(App.ScrollToTop, {
 
 });
+
