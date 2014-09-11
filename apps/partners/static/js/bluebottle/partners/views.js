@@ -100,3 +100,51 @@ App.CheetahFaqView = Em.View.extend({
     }
 });
 
+App.BusinessInspiredView = Em.View.extend({
+    templateName: 'inspired',
+
+    setQuoteTimeout: function(element) {
+        var _this = this;
+        setInterval(function() {
+            _this.$().find(element).toggleClass('is-selected');
+        }, 12000);
+    },
+
+    didInsertElement: function() {
+        var _this = this
+
+        this.setQuoteTimeout('.business-slider');
+
+        $('.quote-slider-item, .carousel-nav-item').on('click', function(){
+            _this.$().find('.business-slider').toggleClass('is-selected');
+        })
+    }
+});
+
+App.BusinessView = Em.View.extend({
+    didInsertElement: function() {
+        _this = this;
+        $('.corporate-menu li').on('click', function(){
+            var thisElement = $(this), 
+                newId = thisElement.find('a').data('id');
+
+            $('.corporate-menu li').removeClass('is-active');
+            thisElement.addClass('is-active');
+
+            $('.corporate-slider .corporate-content').removeClass('is-default');
+            $('#' + newId).addClass('is-default');
+
+            _this.animateSocialCircle(newId);
+        });
+
+        $('.text-employees').lettering();
+        $('.text-crowdfunding').lettering();
+        $('.text-impact').lettering();
+    },
+
+    animateSocialCircle: function(idName) {
+        $('.social-circle').attr('class', 'social-circle');
+        $('.social-circle').addClass('rotate-' + idName);
+    }
+});
+

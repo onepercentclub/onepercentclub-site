@@ -7,6 +7,7 @@ App.Router.map(function(){
         this.route('index', {path: '/'});
         this.route('projects', {path: '/projects'});
     });
+	this.resource('business');
 });
 
 App.PartnerRoute = Em.Route.extend(App.SubMenuMixin, {
@@ -40,5 +41,9 @@ App.PartnerProjectsRoute = Em.Route.extend(App.ScrollToTop, {
     model: function (params, transition) {
         return this.modelFor('partner');
     }
+});
+
+App.BusinessRoute = Em.Route.extend(App.ScrollToTop, {
 
 });
+
