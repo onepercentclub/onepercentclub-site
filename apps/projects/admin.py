@@ -1,6 +1,7 @@
 from decimal import Decimal
 from apps.projects.models import ProjectBudgetLine, Project
 from bluebottle.bb_projects.admin import BaseProjectAdmin
+from bluebottle.utils.admin import export_as_csv_action
 from django.contrib import admin
 from django.contrib.admin.sites import NotRegistered
 from django.core.urlresolvers import reverse
@@ -33,6 +34,9 @@ class ProjectAdmin(BaseProjectAdmin):
 
     readonly_fields = ('owner_link', 'organization_link', 'amount_donated', 'amount_needed', 'popularity')
 
+    export_fields = ['title', 'owner', 'created', 'status', 'deadline', 'amount_asked', 'amount_donated']
+    actions = (export_as_csv_action(fields=export_fields), )
+
     def owner_link(self, obj):
         object = obj.owner
         url = reverse('admin:%s_%s_change' % (object._meta.app_label, object._meta.module_name), args=[object.id])
@@ -52,6 +56,7 @@ class ProjectAdmin(BaseProjectAdmin):
             return "-"
         percentage = "%.2f" % (100 * obj.amount_donated / obj.amount_asked)
         return "{0} %".format(percentage)
+
 
 
 
