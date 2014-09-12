@@ -290,7 +290,7 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         for line in self.project_data['budget']:
             self.browser.fill('budget_line_amount', line['amount'])
             self.browser.fill('budget_line_description', line['description'])
-            time.sleep(1)
+            time.sleep(2)
             self.browser.find_by_css("a.add-budget").first.click()
 
         self.scroll_to_and_click_by_css("button.next")
