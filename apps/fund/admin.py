@@ -1,5 +1,6 @@
 from apps.cowry_docdata.models import DocDataPaymentOrder, payment_method_mapping
 from babel.numbers import format_currency
+from bluebottle.utils.admin import export_as_csv_action
 from django.contrib import admin
 from django.core.urlresolvers import reverse
 from django.contrib.admin import SimpleListFilter
@@ -52,6 +53,9 @@ class DonationAdmin(admin.ModelAdmin):
     readonly_fields = ('view_order', 'created', 'updated', 'ready')
     fields = readonly_fields + ('status', 'donation_type', 'amount', 'currency', 'user', 'project', 'fundraiser', 'voucher')
     search_fields = ('user__first_name', 'user__last_name', 'user__email', 'project__title')
+
+    export_fields = ['project', 'user', 'amount', 'updated', 'ready', 'status', 'type']
+    actions = (export_as_csv_action(fields=export_fields), )
 
     def view_order(self, obj):
         url = reverse('admin:%s_%s_change' % (obj.order._meta.app_label, obj.order._meta.module_name), args=[obj.order.id])
