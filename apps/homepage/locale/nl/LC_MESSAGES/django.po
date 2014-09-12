@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-12 11:05+0200\n"
-"PO-Revision-Date: 2014-09-12 09:17+0000\n"
+"POT-Creation-Date: 2014-09-12 11:27+0200\n"
+"PO-Revision-Date: 2014-09-12 09:37+0000\n"
 "Last-Translator: Malou <malou@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1514,7 +1514,7 @@ msgid ""
 "\n"
 "                            The evidence is overwhelming – crowdfunding and crowdsourcing works!  The 1%%Club platform has been racking up visits since 2008. Hundreds and thousands of people around the world use it to share their skills, time and money with projects all around the world. We’ve learned that the success of a project depends on a mix of the right tools, knowledge, projects and stakeholders.\n"
 "                        "
-msgstr "\nHet bewijs is er, crowdfunding en crowdsourcing via 1%%Club werkt! Sinds 2008 wordt het 1%Club platform dagelijks ingezet. Honderdduizenden mensen wereldwijd delen kennis, tijd en geld met sociale initiatieven wereldwijd. We hebben geleerd dat het succes wordt bepaald door een samenspel van de juiste tools, kennis, projecten en betrokkenen."
+msgstr "\nHet bewijs is er, crowdfunding en crowdsourcing via 1%%Club werkt! Sinds 2008 wordt het platform dagelijks ingezet. Honderdduizenden mensen wereldwijd delen kennis, tijd en geld met sociale initiatieven wereldwijd. We hebben geleerd dat het succes wordt bepaald door een samenspel van de juiste tools, kennis, projecten en betrokkenen."
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/inspired.hbs.py:31
 msgid "CSR Manager Accenture"
@@ -1571,9 +1571,9 @@ msgstr ""
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/tools_services.hbs.py:16
 msgid ""
 "\n"
-"                            There are two ways your organization can use do-good platform:\n"
+"                            There are two ways your organization can use the do-good platform:\n"
 "                        "
-msgstr "\nWe bieden onze tools op twee manieren aan:"
+msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/tools_services.hbs.py:25
 #, python-format

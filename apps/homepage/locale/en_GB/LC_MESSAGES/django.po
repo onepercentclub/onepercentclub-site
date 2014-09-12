@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-12 11:05+0200\n"
-"PO-Revision-Date: 2014-09-12 09:08+0000\n"
-"Last-Translator: aethemba <aksel@onepercentclub.com>\n"
+"POT-Creation-Date: 2014-09-12 11:27+0200\n"
+"PO-Revision-Date: 2014-09-12 09:39+0000\n"
+"Last-Translator: Malou <malou@onepercentclub.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1549,7 +1549,7 @@ msgstr ""
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/inspired.hbs.py:69
 #, python-format
 msgid "65%% of employees are using the platform "
-msgstr ""
+msgstr "65%% of employees are using the platform "
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/inspired.hbs.py:70
 msgid "123 projects online"
@@ -1569,7 +1569,7 @@ msgstr ""
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/tools_services.hbs.py:16
 msgid ""
 "\n"
-"                            There are two ways your organization can use do-good platform:\n"
+"                            There are two ways your organization can use the do-good platform:\n"
 "                        "
 msgstr ""
 
@@ -1580,7 +1580,7 @@ msgid ""
 "                                On our website <br>\n"
 "                                Your own business page on the 1%%Club platform  (onepercentclub.com)\n"
 "                            "
-msgstr "\nVia het 1%%Club platform (onepercentclub.com) maakt je organisatie gebruik van een bedrijvenpagina."
+msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/tools_services.hbs.py:36
 msgid ""
@@ -1588,7 +1588,7 @@ msgid ""
 "                                On your own website <br>\n"
 "                                Your own branded platform within your own web environment\n"
 "                            "
-msgstr "\nVia een eigen branded platform binnen jullie eigen webomgeving. "
+msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/tools_services.hbs.py:43
 #, python-format
