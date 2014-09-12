@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-12 14:22+0200\n"
-"PO-Revision-Date: 2014-08-12 12:39+0000\n"
-"Last-Translator: Sezayi Arslan <sezayi@onepercentclub.com>\n"
+"POT-Creation-Date: 2014-09-12 11:05+0200\n"
+"PO-Revision-Date: 2014-09-12 09:17+0000\n"
+"Last-Translator: Malou <malou@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -154,11 +154,14 @@ msgid "campaigns for"
 msgstr "voert campagne voor"
 
 #: templates/homepage/home_project_list.hbs:40
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/detail/_project_preview.hbs.py:37
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/detail/_project_preview.hbs.py:60
 msgctxt "Slider project frontpage"
 msgid "raised"
 msgstr "opgehaald"
 
 #: templates/homepage/home_project_list.hbs:41
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/detail/_project_preview.hbs.py:39
 msgctxt "Slider project frontpage"
 msgid "days left"
 msgstr "dagen te gaan"
@@ -170,6 +173,7 @@ msgid "raised"
 msgstr "opgehaald"
 
 #: templates/homepage/home_project_list.hbs:62
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/detail/_project_preview.hbs.py:79
 msgid "Go to campaign"
 msgstr "Bekijk campagne"
 
@@ -383,6 +387,7 @@ msgstr "Over 1&#37;Club"
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/_main_nav.hbs.py:25
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/_about.hbs.py:48
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/_cheetah_video.hbs.py:13
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/detail/_partner_info.hbs.py:14
 msgid "The Cheetah Fund"
 msgstr ""
 
@@ -434,6 +439,7 @@ msgstr "Privacy policy"
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/common/templates/footer.html.py:18
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/common/templates/footer.html.py:38
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/common/templates/bluebottle/footer.hbs.py:36
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/contact.hbs.py:10
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/_about.hbs.py:44
 msgid "Contact"
 msgstr "Contact"
@@ -1326,7 +1332,7 @@ msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/common/templates/footer.html.py:15
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/common/templates/footer.html.py:35
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/quiz.hbs.py:297
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/quiz.hbs.py:298
 msgid "Learn more"
 msgstr ""
 
@@ -1422,9 +1428,237 @@ msgstr ""
 msgid "Give us feedback"
 msgstr "Geef ons feedback"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/partner.hbs.py:25
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/partner_index.hbs.py:25
 msgid "No projects found."
 msgstr "Geen campagnes gevonden."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/contact.hbs.py:12
+msgid ""
+"\n"
+"                            Would you and your company like to make a world of difference? Brilliant! <br> \n"
+"                            Get in touch and let’s start working out the best collaboration for your organization! \n"
+"                        "
+msgstr "\nWil je met jouw organisatie een wereld van verschil maken? Fantastisch!\nNeem contact met ons open en laten we tot de perfecte samenwerking komen."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/contact.hbs.py:27
+msgid "Contact info"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/corporate.hbs.py:11
+msgid "Corporate Social Responsibility"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/corporate.hbs.py:13
+#, python-format
+msgid ""
+"\n"
+"                                1%%Club provides a platform in which every CSR project and social initiative of an organization is clearly visible. With our range of crowdfunding and crowdsourcing tools everyone inside (and outside) your organization can work together to generate positive changes in the world. The tools provide insights into your community and are easy to share, adaptable and simple and fun to use. 1%%Club will make this platform available to your organization, backed up by our expertise and experience.\n"
+"                            "
+msgstr "\n1%%Club biedt een platform waarop alle CSR projecten en sociale initiatieven van de organisatie zichtbaar zijn. Met behulp van verschillende tools voor crowdfunding en crowdsourcing kan iedereen binnen (en buiten) de organisatie samenwerken om maatschappelijk impact te genereren. De tools bieden inzicht in je community en zijn adaptief, viraal, eenvoudig en leuk in gebruik. 1%%Club stelt haar platform en kennis ter beschikking van jouw organisatie."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/corporate.hbs.py:19
+msgid "Employee Engagement"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/corporate.hbs.py:21
+msgid ""
+"\n"
+"                                The CSR engagement platform connects employees and CSR initiatives in a fun, efficient and innovative way.\n"
+"                                Employees can search and choose between projects currently online or even start up their own initiative. Together with colleagues they can pool their time and/or money with social initiatives working for a better world. In this simple way CSR policy really comes to life! \n"
+"                            "
+msgstr "\nHet platform betrekt medewerkers op een leuke, efficiënte en innovatieve manier bij CSR activiteiten. Medewerkers zoeken en kiezen binnen het beschikbare aanbod van CSR activiteiten of zetten een eigen initiatief op. Samen met collega’s delen ze kennis tijd en/of geld met maatschappelijke initiatieven. Het CSR beleid komt tot leven!"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/corporate.hbs.py:28
+msgid "Impact & storytelling"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/corporate.hbs.py:30
+msgid ""
+"\n"
+"                                On the platform one glance gives you an overview of every project, initiative and (volunteer) activity. It’s an attractive, efficient and innovative way to engage employees in CSR activities. People involved can share photos, videos and updates about CSR activities, making personal stories as visible as the impact of the projects.\n"
+"                            "
+msgstr "\nIn één oogopslag heb je het overzicht van alle projecten, initiatieven en (vrijwilligers) activiteiten. Betrokkenen delen foto’s, video’s en updates over CSR activiteiten via het platform. Daardoor zijn zowel de persoonlijke verhalen als de gecombineerde impactvan alle inzet zichtbaar."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/header.hbs.py:10
+msgid "business"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/header.hbs.py:14
+#, python-format
+msgid ""
+"\n"
+"                    Businesses and large organizations can join 1%%Club too! Together we can inspire employees and stakeholders to generate ideas for a better world - ideas that match the sustainability strategies of your organization and will generate big changes in communities around the world.  \n"
+"                "
+msgstr "\n1%%Club is er ook voor bedrijven en organisaties. Met elkaar kunnen we medewerkers en andere stakeholders in staat stellen om ideeën te realiseren voor een betere wereld. Ideeën die passen binnen de duurzaamheidsstrategie van de organisatie. Ideeën die een grootse maatschappelijke impact genereren."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/header.hbs.py:25
+msgctxt "american"
+msgid "Organization"
+msgstr "Organisatie"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/header.hbs.py:33
+msgid "Employees"
+msgstr "Medewerkers"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/header.hbs.py:41
+msgid "Crowd Engagement"
+msgstr "Crowd Engagement"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/inspired.hbs.py:10
+msgid "Get Inspired!"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/inspired.hbs.py:12
+#, python-format
+msgid ""
+"\n"
+"                            The evidence is overwhelming – crowdfunding and crowdsourcing works!  The 1%%Club platform has been racking up visits since 2008. Hundreds and thousands of people around the world use it to share their skills, time and money with projects all around the world. We’ve learned that the success of a project depends on a mix of the right tools, knowledge, projects and stakeholders.\n"
+"                        "
+msgstr "\nHet bewijs is er, crowdfunding en crowdsourcing via 1%%Club werkt! Sinds 2008 wordt het 1%Club platform dagelijks ingezet. Honderdduizenden mensen wereldwijd delen kennis, tijd en geld met sociale initiatieven wereldwijd. We hebben geleerd dat het succes wordt bepaald door een samenspel van de juiste tools, kennis, projecten en betrokkenen."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/inspired.hbs.py:31
+msgid "CSR Manager Accenture"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/inspired.hbs.py:36
+#, python-format
+msgid ""
+"\n"
+"                                                1%%Club highlights and offers a platform to the many wonderful CSR there are around the world. Almost 10%% of our employees have contributed to 1%%Club projects, all the way from juniors right up to managing directors.\n"
+"                                            "
+msgstr "\n1%%Club biedt een podium aan en spotlight op de vele mooie CSR initiatieven die er zijn. Bijna 10%% van onze medewerkers heeft meegedaan aan acties van 1%%Club. Van junioren tot managing directors"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/inspired.hbs.py:44
+msgid "Partner­ since 2008"
+msgstr "Partner sinds 2008"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/inspired.hbs.py:45
+msgid "200+ active employees per year"
+msgstr "200+ actieve werknemers per jaar"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/inspired.hbs.py:56
+msgid "Booking Cares Manager"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/inspired.hbs.py:61
+#, python-format
+msgid ""
+"\n"
+"                                                Thanks to the 1%%Club platform we can trigger our employees to make a positive contribution to places around the whole world.\n"
+"                                            "
+msgstr "\nMet behulp van het 1%%Club platform kunnen wij onze medewerkers activeren om een positieve bijdrage te leveren aan bestemmingen over de hele wereld."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/inspired.hbs.py:69
+#, python-format
+msgid "65%% of employees are using the platform "
+msgstr "65%% van de werknemers maakt gebruik van het platform"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/inspired.hbs.py:70
+msgid "123 projects online"
+msgstr "123 projecten online"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/inspired.hbs.py:71
+msgid "67 projects realized after 6 months"
+msgstr "67 projecten gerealiseerd na 6 maanden"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/tools_services.hbs.py:11
+msgid ""
+"\n"
+"                            Tools & Services\n"
+"                        "
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/tools_services.hbs.py:16
+msgid ""
+"\n"
+"                            There are two ways your organization can use do-good platform:\n"
+"                        "
+msgstr "\nWe bieden onze tools op twee manieren aan:"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/tools_services.hbs.py:25
+#, python-format
+msgid ""
+"\n"
+"                                On our website <br>\n"
+"                                Your own business page on the 1%%Club platform  (onepercentclub.com)\n"
+"                            "
+msgstr "\nVia het 1%%Club platform (onepercentclub.com) maakt je organisatie gebruik van een bedrijvenpagina."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/tools_services.hbs.py:36
+msgid ""
+"\n"
+"                                On your own website <br>\n"
+"                                Your own branded platform within your own web environment\n"
+"                            "
+msgstr "\nVia een eigen branded platform binnen jullie eigen webomgeving. "
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/tools_services.hbs.py:43
+#, python-format
+msgid ""
+"\n"
+"                            1%%Club’s do-good engagement platform is scalable, quick to use and completely compatible with the wishes and look and feel of your organization. If you don’t believe us, ask Booking.com and Accenture – they’ve have already done it!\n"
+"                        "
+msgstr "\nHet do-good engagement platform van 1%%Club is schaalbaar en snel en volledig in te richten volgens de wensen en look & feel van jouw organisatie. Booking.com en Accenture gingen je al voor."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/tools_services.hbs.py:50
+msgid "Tools"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/tools_services.hbs.py:52
+msgid "Crowdfunding"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/tools_services.hbs.py:53
+msgid "Crowdsourcing"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/tools_services.hbs.py:54
+msgid "Fundraising"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/tools_services.hbs.py:55
+msgid "Storytelling"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/tools_services.hbs.py:56
+msgid "Online Community"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/tools_services.hbs.py:57
+msgid "All-in-one dashboard"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/tools_services.hbs.py:58
+msgid "Overview CSR projects"
+msgstr "Overview CSR projecten"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/tools_services.hbs.py:63
+msgid "Services & Support"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/tools_services.hbs.py:65
+msgid "Strategy"
+msgstr "Strategie"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/tools_services.hbs.py:66
+msgid "Branding & Communication"
+msgstr "Branding & Communicatie"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/tools_services.hbs.py:67
+msgid "Activation kick-off"
+msgstr "Activatie kick-off"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/tools_services.hbs.py:68
+msgid "Bootcamps & Masterclasses"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/tools_services.hbs.py:69
+msgid "Campagnes & Marketing"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/tools_services.hbs.py:70
+msgid "Monthly Support"
+msgstr "Maandelijkse support"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/_about.hbs.py:10
 msgid "About The Cheetah Fund"
@@ -1460,6 +1694,8 @@ msgid ""
 msgstr "\nOp deze rubriek na is de Cheetah Fund website alleen Engelstalig beschikbaar omdat de doelgroep de Afrikaanse pioniers betreft."
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/_about.hbs.py:58
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/_cheetah_video.hbs.py:24
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/detail/_partner_info.hbs.py:29
 msgid "The Cheetah Fund is powered by the Dutch National Postcode Lottery"
 msgstr ""
 
@@ -1472,16 +1708,17 @@ msgid "Take The Cheetah Test"
 msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/_cheetah_video.hbs.py:14
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/detail/_partner_info.hbs.py:15
 msgid "Supporting Pioneers in Africa"
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/_cheetah_video.hbs.py:29
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/_cheetah_video.hbs.py:32
 #, python-format
 msgid ""
 "Crowdfund 30%% in 30 days and the Cheetah Fund will grant you the rest!"
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/_cheetah_video.hbs.py:32
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/_cheetah_video.hbs.py:35
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/_how_to_get_funded.hbs.py:65
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/quiz.hbs.py:295
 msgid "Start a Cheetah Campaign"
@@ -1551,6 +1788,19 @@ msgstr ""
 msgid "About The Fund"
 msgstr "Over het Cheetah Fund"
 
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/_menu.hbs.py:15
+msgid "Browse all Campaigns"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/_running_campaign_list.hbs.py:10
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/detail/partner_campaign_list.hbs.py:9
+msgid "Running Cheetah campaigns"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/_running_campaign_list.hbs.py:25
+msgid "Browse all Cheetah Campaigns"
+msgstr ""
+
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:10
 msgctxt "cheetah faq"
 msgid "Frequently Asked Questions"
@@ -1576,38 +1826,45 @@ msgstr ""
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:27
 msgid ""
 "\n"
-"\t\t\t\t\t\t\t\t\tCrowdfunding is about mobilising your network. By getting your friends and family involved, you will create a snowball effect and have a greater network to promote your campaign with. <br/> To help you get ready, we have an online crowdfunding toolkit with the best tips & tricks for campaigning\n"
-"\n"
+"\t\t\t\t\t\t\t\t\tCrowdfunding is about mobilising your network. By getting your friends and family involved, you will create a snowball effect and have a greater network to promote your campaign with. <br/> To help you get ready, we have an online crowdfunding\n"
 "            \t\t\t\t\t"
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:34
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:30
+msgid "toolkit"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:31
+msgid "with the best tips & tricks for campaigning"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:35
 msgid "How many times can I join the Cheetah Fund?"
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:36
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:37
 msgid ""
 "\n"
 "\t\t\t\t\t\t\t\t\tWe want to offer as many African pioneers as possible the chance to join the Cheetah Fund so that we can ignite a widespread wave of social and environmental change throughout Africa. That’s why you can join the Cheetah Fund once and with one project only.\n"
 "            \t\t\t\t\t"
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:42
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:43
 msgid "Until when can I join the Cheetah Fund?"
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:44
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:45
 msgid ""
 "\n"
 "            \t\t\t\t\t\tThe Cheetah Fund is granting funds from September 1st 2014 until December 31st 2014.\n"
 "            \t\t\t\t\t"
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:50
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:51
 msgid "Why do you use the Euro as the currency instead of the Dollar?"
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:52
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:53
 msgid ""
 "\n"
 "                                    Because the Cheetah Fund is a Dutch programme and the Netherlands has the Euro as its currency, we’ve decided to use it for the Cheetah Fund as well. \n"
@@ -1615,66 +1872,66 @@ msgid ""
 "                                "
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:63
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:64
 msgid "When and how do I get paid once the 30 days are over?"
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:65
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:66
 msgid ""
 "\n"
 "\t\t\t\t\t\t\t\t\tAfter 30 days, the Cheetah Fund will close the campaign and set up the payment. Please make sure the bank account details you’ve listed for your campaign are correct. We will strive to transfer the money within the following 30 days.\n"
 "            \t\t\t\t\t"
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:71
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:72
 #, python-format
 msgid ""
 "I did not manage to crowdfund 30%% in 30 days. What will happen with the "
 "money donated to my project?"
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:73
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:74
 msgid ""
 "\n"
 "\t\t\t\t\t\t\t\t\tIf the amount adds up to more than &euro;20, you will still receive the money that has been donated to your project. \n"
 "            \t\t\t\t\t"
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:79
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:80
 msgid "I would like to support a Cheetah campaign. How do I make a donation?"
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:81
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:82
 msgid ""
 "\n"
 "\t\t\t\t\t\t\t\t\tTo make a donation, go to <a href=\"http://cheetah-fund.org\">www.cheetah-fund.org</a> and select the campaign you’d like to support. Click on the ‘support’ button, select an amount and choose your payment method to finalise your payment. \n"
 "            \t\t\t\t\t"
 msgstr "\nTo make a donation, have a look at the <a href=\"https://www.onepercentclub.com/go/projects\">campaigns</a> and select the one you’d like to support. Click on the ‘support’ button, select an amount and choose your payment method to finalise your payment. "
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:87
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:88
 msgid "How do you handle fraud?"
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:89
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:90
 msgid ""
 "\n"
 "\t\t\t\t\t\t\t\t\tIf we suspect fraud we will take appropriate action and if needed, the Cheetah Fund holds the right to deny payment. For more details about our actions regarding fraud, we refer you to our General Terms and Conditions.\n"
 "            \t\t\t\t\t"
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:95
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:96
 msgid "What are your General Terms and Conditions?"
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:97
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:98
 msgid "You can find our General Terms and Conditions"
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:102
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:103
 msgid "Still have a question? "
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:102
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/faq.hbs.py:103
 msgid "Contact us"
 msgstr ""
 
@@ -1781,4 +2038,29 @@ msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/quiz.hbs.py:292
 msgid "You’re the perfect fit for the Cheetah Fund!"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/quiz.hbs.py:297
+msgid "Download Crowdfunding Toolkit"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/detail/_project_cheetah_funded.hbs.py:8
+#, python-format
+msgid ""
+"\n"
+"                <span><strong>At 30%%</strong> it will be Cheetah Funded</span>\n"
+"            "
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/detail/_project_preview.hbs.py:18
+msgid "runs a Cheetah campaign"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/detail/_project_preview.hbs.py:42
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/detail/_project_preview.hbs.py:62
+msgid "deadline passed"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/detail/_project_preview.hbs.py:52
+msgid "fully funded!"
 msgstr ""
