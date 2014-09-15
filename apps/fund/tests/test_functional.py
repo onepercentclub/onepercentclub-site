@@ -73,7 +73,7 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
 
         # Click through to the support-page, check the default values and
         # verify we are donating to the correct project
-        self.wait_for_element_css('div.project-action a').click()
+        self.scroll_to_and_click_by_css('a.btn-primary.btn-iconed')
 
         self.wait_for_element_css('h2.project-title')
         self.assertEqual(self.wait_for_element_css('h2.project-title').text[:11], u'WOMEN FIRST')
