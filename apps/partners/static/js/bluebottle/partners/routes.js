@@ -13,9 +13,13 @@ App.Router.map(function(){
 App.PartnerRoute = Em.Route.extend(App.SubMenuMixin, {
     beforeModel: function (transition) {
         var partner_id = transition.params.partner_id;
-
         this.set('partner_id', partner_id);
-        this.set('subMenu', partner_id + '/menu');
+        if (partner_id == 'cheetah'){
+            this.set('subMenu', partner_id + '/menu');
+        } else {
+            this.set('subMenu', null);
+
+        }
     },
 
     model: function (params, transition) {
