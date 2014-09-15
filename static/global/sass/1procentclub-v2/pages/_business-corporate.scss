@@ -144,67 +144,34 @@
                 }
             }
 
-            .text-employees {
+            .circle-round-organization {
                 position: absolute;
-                transform: rotate(-62deg);
-                left: -34px;
-                top: 44px;
-                color: #a3a3a3;
-
-                span {
-                    height: 175px;
-                    position: absolute;
-                    width: 20px;
-                    left: 0;
-                    top: 0;
-                    transform-origin: bottom center;
-                    font-size: 9px;
-                    text-transform: uppercase;
-
-                    @include roundtext(3);
-                }
+                width: 99px;
+                height: 46px;
+                background: image-url("img/business/round-organization.svg") transparent no-repeat;
+                left: -10px;
+                bottom: -32px;
+                @include transform(rotate(10deg));
             }
 
-            .text-crowdfunding {
+            .circle-round-impact {
                 position: absolute;
-                transform: rotate(51deg);
-                right: -29px;
-                top: 18px;
-                color: #a3a3a3;
-
-                span {
-                    height: 175px;
-                    position: absolute;
-                    width: 20px;
-                    left: 0;
-                    top: 0;
-                    transform-origin: bottom center;
-                    font-size: 9px;
-                    text-transform: uppercase;
-
-                    @include roundtext(3);
-                }
+                width: 42px;
+                height: 171px;
+                background: image-url("img/business/round-crowd.svg") transparent no-repeat;
+                right: -47px;
+                top: 47px;
+                @include transform(rotate(6deg));
             }
 
-            .text-impact {
+            .circle-round-employees {
                 position: absolute;
-                transform: rotate(177deg);
-                left: 140px;
-                bottom: -66px;
-                color: #a3a3a3;
-
-                span {
-                    height: 175px;
-                    position: absolute;
-                    width: 20px;
-                    left: 0;
-                    top: 0;
-                    transform-origin: bottom center;
-                    font-size: 9px;
-                    text-transform: uppercase;
-
-                    @include roundtext(3);
-                }
+                width: 92px;
+                height: 75px;
+                background: image-url("img/business/round-employee.svg") transparent no-repeat;
+                left: 0;
+                top: -40px;
+                @include transform(rotate(5deg));
             }
         }
     }
