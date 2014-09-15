@@ -153,7 +153,7 @@ class OrderSerializer(serializers.ModelSerializer):
     payments = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     url = serializers.HyperlinkedIdentityField(view_name='fund-order-detail')
 
-    # moste are not required because the link is pointing to a different page and facebook will look up the info on that page
+    # Most are not required because the link is pointing to a different page and facebook will look up the info on that page
     meta_data = MetaField(
             title = None,
             fb_title = None,
@@ -171,7 +171,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('id', 'url', 'total', 'status', 'recurring', 'donations', 'vouchers', 'payments', 'created', 'meta_data')
+        fields = ('id', 'user', 'url', 'total', 'status', 'recurring', 'donations', 'vouchers', 'payments', 'created', 'meta_data')
 
 
 class RecurringOrderSerializer(serializers.ModelSerializer):

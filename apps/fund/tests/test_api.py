@@ -22,6 +22,7 @@ from bluebottle.utils.utils import get_project_model
 
 PROJECT_MODEL = get_project_model()
 
+
 class CartApiIntegrationTest(OnePercentTestCase):
     """
     Integration tests for the adding Donations to an Order (a cart in this case).
@@ -318,7 +319,7 @@ class CartApiIntegrationTest(OnePercentTestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
 
         # 'another_user' should not be able to access the order belonging to 'some_user'.
-        response = self.client.get(some_user_order_url, HTTP_AUTHORIZATION=self.some_user_token)
+        response = self.client.get(some_user_order_url, HTTP_AUTHORIZATION=self.another_user_token)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, response.data)
 
         # Anonymous user shouldn't be able to access the orders from 'some_user' and 'another_user'.
@@ -450,24 +451,35 @@ class CartApiIntegrationTest(OnePercentTestCase):
         user_token = None
         if user:
             user_token = "JWT {0}".format(user.get_jwt_token())
-        response = client.get(self.current_order_url, HTTP_AUTHORIZATION=user_token)
+            response = client.get(self.current_order_url, HTTP_AUTHORIZATION=user_token)
+        else:
+            response = client.get(self.current_order_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['status'], 'current')
         order_id = response.data['id']
 
         # Create a Donation for the current order.
-        response = client.post(self.current_donations_url, {'project': project.slug, 'amount': amount}, HTTP_AUTHORIZATION=user_token)
+        if user_token:
+            response = client.post(self.current_donations_url, {'project': project.slug, 'amount': amount}, HTTP_AUTHORIZATION=user_token)
+        else:
+            response = client.post(self.current_donations_url, {'project': project.slug, 'amount': amount})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         self.assertEqual(response.data['amount'], self._format_donation(amount))
         self.assertEqual(response.data['project'], project.slug)
         self.assertEqual(response.data['status'], 'new')
 
         # Now retrieve the current order payment profile.
-        response = client.get(self.payment_profile_current_url, HTTP_AUTHORIZATION=user_token)
+        if user_token:
+            response = client.get(self.payment_profile_current_url, HTTP_AUTHORIZATION=user_token)
+        else:
+            response = client.get(self.payment_profile_current_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
 
         # Update the current order payment profile with our information.
-        response = client.put(self.payment_profile_current_url, json.dumps(payment_profile), 'application/json', HTTP_AUTHORIZATION=user_token)
+        if user_token:
+            response = client.put(self.payment_profile_current_url, json.dumps(payment_profile), 'application/json', HTTP_AUTHORIZATION=user_token)
+        else:
+            response = client.put(self.payment_profile_current_url, json.dumps(payment_profile), 'application/json')
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
         self.assertEqual(response.data['first_name'], payment_profile['first_name'])
         self.assertEqual(response.data['last_name'], payment_profile['last_name'])
@@ -478,21 +490,30 @@ class CartApiIntegrationTest(OnePercentTestCase):
         self.assertEqual(response.data['country'], payment_profile['country'])
 
         # Now it's time to pay. Get the order so that we can get the payment.
-        response = client.get(self.current_order_url, HTTP_AUTHORIZATION=user_token)
+        if user_token:
+            response = client.get(self.current_order_url, HTTP_AUTHORIZATION=user_token)
+        else:
+            response = client.get(self.current_order_url)
         formatted_amount = self._format_donation(amount)
         self.assertEqual(response.data['total'], formatted_amount)
         self.assertTrue(response.data['payments'])
 
         # Get the payment.
         payment_url = '{0}{1}'.format(self.payment_url_base, 'current')
-        response = client.get(payment_url, HTTP_AUTHORIZATION=user_token)
+        if user_token:
+            response = client.get(payment_url, HTTP_AUTHORIZATION=user_token)
+        else:
+            response = client.get(payment_url)
         self.assertFalse(response.data['payment_url'])  # Empty payment_url.
         self.assertTrue(response.data['available_payment_methods'])
         first_payment_method = response.data['available_payment_methods'][0]
 
         # Updating the payment method with a valid value should provide a payment_url.
         if set_payment_method:
-            response = client.put(payment_url, json.dumps({'payment_method': first_payment_method}), 'application/json', HTTP_AUTHORIZATION=user_token)
+            if user_token:
+                response = client.put(payment_url, json.dumps({'payment_method': first_payment_method}), 'application/json', HTTP_AUTHORIZATION=user_token)
+            else:
+                response = client.put(payment_url, json.dumps({'payment_method': first_payment_method}), 'application/json')
             self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
             self.assertTrue(response.data['payment_url'].startswith('http'))
 
