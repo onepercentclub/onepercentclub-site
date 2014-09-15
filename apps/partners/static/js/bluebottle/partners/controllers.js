@@ -74,3 +74,4 @@ App.PartnerProjectsController = Em.ObjectController.extend({
     }
 });
 
+App.BusinessController = Em.Controller.extend({});

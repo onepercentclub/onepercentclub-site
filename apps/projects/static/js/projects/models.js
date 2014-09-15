@@ -44,6 +44,8 @@ App.Project.reopen({
         return this.get('isStatusCampaign') && this.get('deadline') > now && (this.get('amount_needed') > 0 || this.get('allowOverfunding'));
     }.property('isStatusCampaign', 'deadline', 'amount_needed', 'allowOverfunding'),
 
+    isCheetahProject: Em.computed.equal('partner.id', 'cheetah'),
+
     save: function () {
         // the amount_needed is calculated here and not in the server
         this.set('amount_needed', this.get('calculatedAmountNeeded'));

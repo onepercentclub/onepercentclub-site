@@ -1,0 +1,78 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "business/tools_services" %}
+    <div class="l-section" id="business-tools">
+        <div class="l-wrapper">
+            <div class="row">
+                <div class="col6">
+                    <h1>
+                        {% blocktrans %}
+                            Tools & Services
+                        {% endblocktrans%}
+                    </h1>
+                    <strong>
+                        {% blocktrans %}
+                            There are two ways your organization can use the do-good platform:
+                        {% endblocktrans %}
+                    </strong>
+                    <div class="business-tool">
+                        <div class="tool-number">
+                            <span class="number">1</span>
+                        </div>
+                        <div class="tool-content">
+                            {% blocktrans %}
+                                On our website <br>
+                                Your own business page on the 1%Club platform  (onepercentclub.com)
+                            {% endblocktrans%}
+                        </div>
+                    </div>
+                    <div class="business-tool">
+                        <div class="tool-number">
+                            <span class="number">2</span>
+                        </div>
+                        <div class="tool-content">
+                            {% blocktrans %}
+                                On your own website <br>
+                                Your own branded platform within your own web environment
+                            {% endblocktrans%}
+                        </div>
+                    </div>
+                    <p class="business-content">
+                        {% blocktrans %}
+                            1%Club’s do-good engagement platform is scalable, quick to use and completely compatible with the wishes and look and feel of your organization. If you don’t believe us, ask Booking.com and Accenture – they’ve have already done it!
+                        {% endblocktrans%}
+                    </p>
+                </div>
+                <div class="col6">
+                    <div class="services">
+                        <h6>{% trans 'Tools' %}</h6>
+                        <ul>
+                            <li>{% trans 'Crowdfunding'%}</li>
+                            <li>{% trans 'Crowdsourcing'%}</li>
+                            <li>{% trans 'Fundraising'%}</li>
+                            <li>{% trans 'Storytelling'%}</li>
+                            <li>{% trans 'Online Community'%}</li>
+                            <li>{% trans 'All-in-one dashboard'%}</li>
+                            <li>{% trans 'Overview CSR projects'%}</li>
+                        </ul>
+                    </div>
+
+                    <div class="services">
+                        <h6>{% trans 'Services & Support' %}</h6>
+                        <ul>
+                            <li>{% trans 'Strategy'%}</li>
+                            <li>{% trans 'Branding & Communication'%}</li>
+                            <li>{% trans 'Activation kick-off'%}</li>
+                            <li>{% trans 'Bootcamps & Masterclasses'%}</li>
+                            <li>{% trans 'Campagnes & Marketing'%}</li>
+                            <li>{% trans 'Monthly Support'%}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <span {{action 'goTo' '#business-inspired'}} class="to-next" id="business-tools-btn"></span>
+    </div>
+{% endtplhandlebars %}
