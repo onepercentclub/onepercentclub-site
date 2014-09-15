@@ -124,9 +124,6 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
         postcode.fill(self.donate_details['postcode'])
         city.fill(self.donate_details['city'])
 
-        time.sleep(3)
-
-
     def test_donation_thank_you_page(self):
 
         self.login(username=self.some_user.email, password='testing')
@@ -150,7 +147,7 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
         self.assertTrue(self.browser.is_text_present(self._projects[0].title.upper()))
 
         # check that the correct links are present
-        self.wait_for_element_css('li.project-list-item a').click()
+        self.scroll_to_and_click_by_css('li.project-list-item a')
         self.assertEqual(self.browser.url, '{0}/en/#!/projects/{1}'.format(self.live_server_url, self._projects[0].slug))
 
         self.logout()
