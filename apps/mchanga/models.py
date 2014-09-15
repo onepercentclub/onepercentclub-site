@@ -7,9 +7,9 @@ class MpesaPayment(models.Model):
 
     @classmethod
     def create_from_json(cls, pm):
-        payment, created = cls.objects.get_or_create(mpesa_id=pm['m-pesa_tr_id'])
+        payment, created = cls.objects.get_or_create(mpesa_id=pm['mmp_trid'])
         if created:
-            payment.mpesa_id = pm['m-pesa_tr_id']
+            payment.mpesa_id = pm['mmp_trid']
             payment.amount = pm['amount']
             payment.mchanga_account = pm['m-changa_acno']
             payment.mpesa_phone = pm['contributor_mobno']
