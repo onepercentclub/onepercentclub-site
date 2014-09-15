@@ -8,7 +8,7 @@ from decimal import Decimal
 from bluebottle.bb_projects.models import ProjectPhase
 from bluebottle.utils.models import Language
 from django.conf import settings
-from django.utils.text import slugifyfind_element_by_name
+from django.utils.text import slugify
 from django.utils.unittest.case import skipUnless
 
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
