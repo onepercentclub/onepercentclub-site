@@ -7,7 +7,7 @@ addons:
   firefox: "27.0"
 env:
   matrix:
-  - DJANGO=django==1.5.4
+  - DJANGO=django==1.5.5
 #  global:
 #  - secure: gJ/2vz3uLrvEAodhI/uchCZYM7z0eFidAGP3kj2wD5rhUlaMvFZZd1EApJjSxBsxUnJwcdXZdpcy1GM2hx2c2vpNF8YEwm42dsQwvKUHveP+8bBxeB+zp0KoikdDDIUQKu2gjUv4n/QRZzCpEvmFdHtn6/yXnlyV6g5axUYCQyE=
 #  - secure: nhtUS6j9oU38XHd5nl0MsorrqAhSukSWGU/R31hWT6NT4ipUmYLJniIerHCJ+Vt++h4XH3CSYmBRYYEiRrx81kBhlbxGdPm1cGVLb76NCjdhjUsiqoS5yB8H056/GnZWlYYG2ZaWOYgHhACTlQpm5OICO6TILLYcSd362Fg+gKs=
@@ -33,7 +33,7 @@ before_script:
 - sh -e /etc/init.d/xvfb start
 #- curl https://gist.githubusercontent.com/rollick/42b92c18c3a265b08792/raw/sauce-connect.sh | sh
 script:
-- python ./manage.py test --settings=onepercentclub.settings.travis -v3 --failfast
+- python ./manage.py test --settings=onepercentclub.settings.travis -v1 --failfast
 notifications:
   hipchat:
     rooms:
