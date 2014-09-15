@@ -8,7 +8,7 @@ from decimal import Decimal
 from bluebottle.bb_projects.models import ProjectPhase
 from bluebottle.utils.models import Language
 from django.conf import settings
-from django.utils.text import slugify
+from django.utils.text import slugifyfind_element_by_name
 from django.utils.unittest.case import skipUnless
 
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
@@ -462,7 +462,7 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
         self.assertTrue(self.browser.is_text_present('Post', wait_time=5))
 
         # Write wallpost as normal user
-        self.find_element_by_name('wallpost-update').send_keys(self.post1['text'])
+        self.browser.find_element_by_name('wallpost-update').send_keys(self.post1['text'])
         self.browser.find_by_css("button.btn-save").first.click()
 
         self.wait_for_element_css('article.wallpost')
