@@ -115,11 +115,11 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         self.visit_project_list_page()
 
         # pick a project
-        self.browser.find_by_css('.project-item').first.find_by_tag('a').first.click()
+        self.scroll_to_and_click_by_css('.project-item a')
 
         form = self.browser.find_by_id('wallpost-form')
 
-        self.browser.find_by_css('.wallpost-post-update').first.click()
+        self.wait_for_element_css('.wallpost-post-update').click()
 
         # Wait for form to animate down
         self.wait_for_element_css('#wallpost-title')
@@ -155,7 +155,7 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         self.assertEqual(2, len(previews))
 
         # submit the form
-        form.find_by_tag('button').first.click();
+        form.find_by_tag('button').first.click()
 
         # check if the wallpostis there
         wp = self.browser.find_by_css('article.wallpost').first
@@ -259,7 +259,7 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
 
         for tag in self.project_data['tags']:
             self.browser.fill('tag', tag)
-            self.browser.find_by_css("button.add-tag").first.click()
+            self.wait_for_element_css("button.add-tag").click()
 
         self.browser.select('country', 1)
 
@@ -282,7 +282,7 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         self.assertTrue(self.browser.is_element_present_by_css("#ui-datepicker-div"))
 
         # Click Next to get a date in the future
-        self.browser.find_by_css("[title=Next]").first.click()
+        self.wait_for_element_css("[title=Next]").click()
         self.assertTrue(self.browser.is_text_present("10"))
         self.browser.find_link_by_text("10").first.click()
 
@@ -291,7 +291,7 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
             self.browser.fill('budget_line_amount', line['amount'])
             self.browser.fill('budget_line_description', line['description'])
             time.sleep(1)
-            self.browser.find_by_css("a.add-budget").first.click()
+            self.wait_for_element_css("a.add-budget").click()
 
         self.scroll_to_and_click_by_css("button.next")
 
@@ -385,27 +385,27 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         self.visit_path('/my/projects/{0}/goal'.format(project.slug))
 
         # Check that deadline is set to 30 days now
-        days_left = self.browser.find_by_css('.project-days-left strong').first
+        days_left = self.wait_for_element_css('.project-days-left strong')
         self.assertEqual(days_left.text, '30')
 
         # Let's pick a date
         # Click Next to get a date in the future
         self.assertTrue(self.scroll_to_and_click_by_css(".btn-date-picker"))
-        self.browser.find_by_css("[title=Prev]").first.click()
-        self.browser.find_by_css("[title=Prev]").first.click()
-        self.browser.find_by_css("[title=Prev]").first.click()
-        self.browser.find_by_css("[title=Next]").first.click()
+        self.wait_for_element_css("[title=Prev]").click()
+        self.wait_for_element_css("[title=Prev]").click()
+        self.wait_for_element_css("[title=Prev]").click()
+        self.wait_for_element_css("[title=Next]").click()
         self.assertTrue(self.browser.is_text_present("4"))
         self.browser.find_link_by_text("4").first.click()
         # remember the days left now
-        days_left1 = self.browser.find_by_css('.project-days-left strong').first.text
+        days_left1 = self.wait_for_element_css('.project-days-left strong').text
 
         time.sleep(2)
 
         self.assertTrue(self.scroll_to_and_click_by_css(".btn-date-picker"))
         self.assertTrue(self.browser.is_text_present("14"))
         self.browser.find_link_by_text("14").first.click()
-        days_left2 = self.browser.find_by_css('.project-days-left strong').first.text
+        days_left2 = self.wait_for_element_css('.project-days-left strong').text
         days_diff = int(days_left2) - int(days_left1)
 
         self.assertEqual(days_diff, 10)
@@ -419,7 +419,7 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
 
         # Wait for title to show
         self.wait_for_element_css("h3")
-        self.assertEqual(self.browser.find_by_css("h3").text, self.partner.name.upper())
+        self.assertEqual(self.wait_for_element_css("h3").text, self.partner.name.upper())
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
@@ -462,7 +462,7 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
 
         # Write wallpost as normal user
         self.browser.fill('wallpost-update', self.post1['text'])
-        self.browser.find_by_css("button.btn-save").first.click()
+        self.wait_for_element_css("button.btn-save").click()
 
         self.wait_for_element_css('article.wallpost')
         post = self.browser.find_by_css("article.wallpost").first
@@ -488,7 +488,7 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
 
         self.scroll_to_and_fill_by_css('#wallpost-title', self.post2['title'])
         self.scroll_to_and_fill_by_css('#wallpost-update', self.post2['text'])
-        self.browser.find_by_css("button.btn-save").first.click()
+        self.wait_for_element_css("button.btn-save").click()
 
         # Check that the new wallpost is there
         self.assertTrue(self.browser.is_text_present('INITIATOR', wait_time=5))
