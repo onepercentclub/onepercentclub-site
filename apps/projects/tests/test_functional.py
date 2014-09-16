@@ -462,8 +462,8 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
         self.assertTrue(self.browser.is_text_present('Post', wait_time=5))
 
         # Write wallpost as normal user
-        self.browser.find_element_by_name('wallpost-update').send_keys(self.post1['text'])
-        self.browser.find_by_css("button.btn-save").first.click()
+        self.browser.driver.find_element_by_id('wallpost-update').send_keys(self.post1['text'])
+        self.browser.find_by_css('button.btn-save').first.click()
 
         self.wait_for_element_css('article.wallpost')
         post = self.browser.find_by_css("article.wallpost").first
