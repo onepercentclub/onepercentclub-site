@@ -250,6 +250,10 @@ App.EventMixin = Em.Mixin.create({
   }
 });
 
+Ember.View.reopen({
+    touchStart: Ember.alias('click')
+})
+
 /*
   Bluebottle View Overrides
 */
