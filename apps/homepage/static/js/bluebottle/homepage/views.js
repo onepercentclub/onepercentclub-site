@@ -156,3 +156,7 @@ App.HomeFundraisersView = Ember.View.extend({
     templateName: 'home_fundraisers'
 });
 
+App.HomeBusinessView = Ember.View.extend({
+    templateName: 'business_block'
+})
+

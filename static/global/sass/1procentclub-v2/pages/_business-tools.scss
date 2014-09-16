@@ -1,0 +1,89 @@
+#business-tools {
+    min-height: 500px;
+    padding: 50px 0 40px 0;
+    border-bottom: 1px solid #E4EDE9;
+    background: #F8F7F8;
+
+    strong {
+        display: block;
+        padding-top: 30px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .business-tool {
+        padding: 42px 0 37px 0;
+
+        .tool-number {
+            float: left;
+            width: 7%;
+
+            .number {
+                display: block;
+                width: 25px;
+                height: 25px;
+                background: $gray-border;
+                border-radius: 50%;
+                text-align: center;
+                color: $white;
+                font-weight: bold;
+            }
+        }
+
+        .tool-content {
+            float: left;
+            width: 93%;
+        }
+    }
+
+    .business-content {
+        margin-top: 30px;
+
+        a {
+            text-decoration: underline;
+        }
+    }
+
+    .services {
+        margin: auto;
+        margin-bottom: 30px;
+        padding: 10px 10px 10px 20px;
+        width: 290px;
+        height: auto;
+        border: solid 1px $gray-border;
+        box-shadow: 0px 0px 0px 6px $gray-medium;
+        border-radius: 8px;
+        background: $white;
+
+        h6 {
+            font-size: 20px;
+            color: $color-primary;
+            font-weight: normal;
+            text-transform: none;
+        }
+
+        ul {
+            margin: 10px 0 0 15px;
+            font-size: 15px;
+            line-height: 24px;
+
+            li {
+                position: relative;
+                padding-left: 0;
+                margin: 0;
+                background: none;
+                color: #9F9F9F;
+
+                &:before {
+                    position: absolute;
+                    content: '';
+                    width: 4px;
+                    height: 8px;
+                    background: image-url("img/business/icon-list-item-arrow.svg") transparent no-repeat;
+                    top: 8px;
+                    left: -10px;
+                }
+            }
+        }
+    }
+}
