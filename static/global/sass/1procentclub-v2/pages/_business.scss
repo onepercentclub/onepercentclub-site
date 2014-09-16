@@ -1,0 +1,39 @@
+#business {
+    $color-body: #1E1E1D;
+
+    font-size: 18px;
+    color: $color-body;
+    .l-section {
+        position: relative;
+    }
+
+    h1 {
+        color: $color-primary;
+        font-size: 40px;
+        padding-bottom: 10px;
+
+        &:before {
+            position: absolute;
+            content: '';
+            height: 60px;
+            border-left: solid 3px #3C3C3C;
+            width: 10px;
+            margin-left: -15px;
+        }
+    }
+
+    .to-next {
+        bottom: -25px;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        position: absolute;
+        height: 50px;
+        width: 50px;
+        background: image-url("img/business/icon-to-next.svg") transparent no-repeat;
+        cursor: pointer;
+        z-index: 2;
+    }
+}

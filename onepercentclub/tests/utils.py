@@ -57,11 +57,15 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
         :return: ``True`` if login was successful.
         """
         self.init_projects()
+
         self.visit_homepage()
 
         # Find the link to the signup button page and click it.
         self.scroll_to_and_click_by_css('.nav-signup-login a')
         self.wait_for_element_css('.modal-fullscreen-content')
+
+        # Wait until the login form is fully materialized
+        self.wait_for_element_css('input[name=username]')
 
         # Fill in details.
         self.browser.find_by_css('input[name=username]').first.fill(username)

@@ -67,19 +67,19 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
         """
         self.visit_path('/projects/women-first')
         self.assertTrue(self.browser.is_text_present('WOMEN FIRST', wait_time=10))
-        self.assertEqual(self.browser.find_by_css('h1.project-title').first.text, u'WOMEN FIRST')
+        self.assertEqual(self.wait_for_element_css('h1.project-title').text, u'WOMEN FIRST')
 
-        donation_status_text = self.browser.find_by_css('.project-fund-amount').first.text
+        donation_status_text = self.wait_for_element_css('.project-fund-amount').text
 
         # Click through to the support-page, check the default values and
         # verify we are donating to the correct project
-        self.browser.find_by_css('div.project-action a').first.click()
+        self.scroll_to_and_click_by_css('a.btn-primary.btn-iconed')
 
         self.wait_for_element_css('h2.project-title')
-        self.assertEqual(self.browser.find_by_css('h2.project-title').first.text[:11], u'WOMEN FIRST')
+        self.assertEqual(self.wait_for_element_css('h2.project-title').text[:11], u'WOMEN FIRST')
 
-        self.assertEqual(self.browser.find_by_css('.fund-amount-control label').first.text, u"I'D LIKE TO GIVE")
-        self.assertTrue(u'500' in self.browser.find_by_css('.fund-amount-needed').first.text)
+        self.assertEqual(self.wait_for_element_css('.fund-amount-control label').text, u"I'D LIKE TO GIVE")
+        self.assertTrue(u'500' in self.wait_for_element_css('.fund-amount-needed').text)
         input_field = self.browser.find_by_css('.fund-amount-input').first
         self.assertEqual(input_field['value'], u'20')
 
@@ -91,7 +91,7 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
         # input_field.fill(40)
 
         # Check the total and make sure there is only one donation entry
-        self.assertTrue(self.browser.find_by_css('.fund-total-amount').first.text.find(' 20') != -1)
+        self.assertTrue(self.browser.find_by_css('.fund-total-amount').text.find(' 20') != -1)
         self.assertTrue(len(self.browser.find_by_css('ul.project-list li.project-list-item')) == 1)
 
         # Continue with our donation, fill in the details
@@ -124,9 +124,6 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
         postcode.fill(self.donate_details['postcode'])
         city.fill(self.donate_details['city'])
 
-        time.sleep(3)
-
-
     def test_donation_thank_you_page(self):
 
         self.login(username=self.some_user.email, password='testing')
@@ -150,7 +147,7 @@ class DonationSeleniumTests(OnePercentSeleniumTestCase):
         self.assertTrue(self.browser.is_text_present(self._projects[0].title.upper()))
 
         # check that the correct links are present
-        self.browser.find_by_css('li.project-list-item a').first.click()
+        self.scroll_to_and_click_by_css('li.project-list-item a')
         self.assertEqual(self.browser.url, '{0}/en/#!/projects/{1}'.format(self.live_server_url, self._projects[0].slug))
 
         self.logout()
