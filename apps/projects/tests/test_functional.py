@@ -160,8 +160,7 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         # check if the wallpostis there
         wp = self.browser.find_by_css('article.wallpost').first
 
-        # FIXME: reenable this test
-        # self.assertTrue(self.browser.is_text_present(title))
+        self.assertTrue(self.browser.is_text_present(title))
 
         num_photos = len(wp.find_by_css('ul.photo-viewer li.photo'))
         self.assertEqual(num_photos, 2)
@@ -469,8 +468,7 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
         post = self.browser.find_by_css("article.wallpost").first
 
         self.assertEqual(post.find_by_css('.wallpost-author').text, self.user.full_name().upper())
-        # FIXME: re-enable this test
-        # self.assertEqual(post.find_by_css('.text p').text, self.post1['text'])
+        self.assertEqual(post.find_by_css('.text p').text, self.post1['text'])
 
         self.logout()
 
