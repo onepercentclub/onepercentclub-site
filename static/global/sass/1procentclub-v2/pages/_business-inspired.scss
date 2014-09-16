@@ -10,8 +10,6 @@
         &.is-selected {
             .quote-slider {
                 .home-carousel-nav {
-                    width: 116%;
-
                     span {
                         &:nth-of-type(1) {
                             background: rgba(#D8D8D8, 1);
@@ -80,6 +78,7 @@
                     box-shadow: 0px 0px 0px 6px $gray-medium;
                     padding: 20px 20px 20px 20px;
                     font-size: 15px;
+                    cursor: pointer;
                     @include transform-style(preserve-3d);
                     @include transition(transform .3s ease-in-out);
 
@@ -194,9 +193,8 @@
             .home-carousel-nav {
                 position: absolute;
                 bottom: 10px;
-                right: 17px;
+                right: -35px;
                 margin: auto;
-                width: 74%;
                 text-align: center;
                 @include transition(all .3s ease-in-out);
                 

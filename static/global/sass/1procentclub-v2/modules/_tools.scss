@@ -58,7 +58,7 @@
 .tools-rocket {
 	position: absolute;
 	left: 0;
-	bottom: 0;
+	bottom: 7px;
 	height: 165px;
 	width: 365px;
 	@include breakpoint(x-small) {

@@ -106,7 +106,12 @@ App.BusinessInspiredView = Em.View.extend({
     setQuoteTimeout: function(element) {
         var _this = this;
         setInterval(function() {
-            _this.$().find(element).toggleClass('is-selected');
+            if (_this.$() === undefined) {
+                return
+            } else {
+                _this.$().find(element).toggleClass('is-selected');
+            }
+            
         }, 12000);
     },
 
@@ -136,10 +141,6 @@ App.BusinessView = Em.View.extend({
 
             _this.animateSocialCircle(newId);
         });
-
-        $('.text-employees').lettering();
-        $('.text-crowdfunding').lettering();
-        $('.text-impact').lettering();
     },
 
     animateSocialCircle: function(idName) {
