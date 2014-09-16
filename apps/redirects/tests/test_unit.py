@@ -1,23 +1,9 @@
-from django.conf import settings
-from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
-from django.test.utils import override_settings
 from django.utils import six
-
-from .middleware import RedirectFallbackMiddleware
-from .models import Redirect
+from ..models import Redirect
 
 
-@override_settings(
-    APPEND_SLASH=False,
-    MIDDLEWARE_CLASSES=list(settings.MIDDLEWARE_CLASSES) +
-        ['apps.redirects.middleware.RedirectFallbackMiddleware'],
-    SITE_ID=1,
-)
 class RedirectTests(TestCase):
-
-    def setUp(self):
-        pass
 
     def test_model(self):
         r1 = Redirect.objects.create(
@@ -31,7 +17,6 @@ class RedirectTests(TestCase):
         self.assertRedirects(response,
             '/en/new_target', status_code=301, target_status_code=404)
 
-    @override_settings(APPEND_SLASH=True)
     def test_redirect_with_append_slash(self):
         Redirect.objects.create(
             old_path='/initial/', new_path='/new_target/')
@@ -39,7 +24,6 @@ class RedirectTests(TestCase):
         self.assertRedirects(response,
             '/en/new_target/', status_code=301, target_status_code=404)
 
-    @override_settings(APPEND_SLASH=True)
     def test_redirect_with_append_slash_and_query_string(self):
         Redirect.objects.create(
             old_path='/initial/?foo', new_path='/new_target/')
