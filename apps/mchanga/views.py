@@ -52,8 +52,8 @@ class PaymentStatusChangedView(View):
     def _sync_payment(self, payment_id):
         from .adapters import MchangaService
         service = MchangaService()
-        # service.sync_payment_by_id(payment_id)
         # For now just sync everything
+        # service.sync_payment_by_id(payment_id)
         service.sync_payments()
         service.sync_fundraisers()
 
