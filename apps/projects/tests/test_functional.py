@@ -419,7 +419,7 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
 
         # Wait for title to show
         self.wait_for_element_css("h3")
-        self.assertEqual(self.wait_for_element_css("h3").text, self.partner.name.upper())
+        self.assertEqual(self.browser.find_by_css("h3").first.text, self.partner.name.upper())
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
