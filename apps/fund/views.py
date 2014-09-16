@@ -63,7 +63,11 @@ class OrderDetail(generics.RetrieveUpdateAPIView):
     permission_classes = (IsOrderCreator,)
 
     def get_object(self, queryset=None):
-        order = super(OrderDetail, self).get_object(queryset=queryset)
+        # Catch NotAuthenticated exceptions so anonymous users get the proper response.
+        try:
+            order = super(OrderDetail, self).get_object(queryset=queryset)
+        except exceptions.NotAuthenticated:
+            raise exceptions.PermissionDenied()
         # Do a status check with DocData when we don't know the status of in_progress orders.
         if order and order.id and order.status == OrderStatuses.current and order.recurring == False:
             latest_payment = order.latest_payment

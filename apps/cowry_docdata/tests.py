@@ -1,6 +1,5 @@
 import requests
 from apps.cowry import factory, payments
-#from apps.fund.models import Order
 from django.conf import settings
 from django.test.testcases import TestCase
 from django.test.utils import override_settings
@@ -25,6 +24,7 @@ class DocDataPaymentTests(TestCase):
     @unittest.skipUnless(run_docdata_tests, 'DocData credentials not set or not online')
     def test_basic_payment(self):
         # Create the payment.
+        from apps.fund.models import Order
         order = Order.objects.create()
         order.save()
         payment = factory.create_payment_object(order, 'dd-webmenu', amount=2000, currency='EUR')
@@ -47,7 +47,8 @@ class DocDataPaymentTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
         # Test the status changed notification.
-        response = self.client.get('/api/docdatastatuschanged/?order={0}'.format(payment.merchant_order_reference))
+        status_url = '/api/docdatastatuschanged/?order={0}'.format(payment.merchant_order_reference)
+        response = self.client.get(status_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_payment_method_restrictions(self):
