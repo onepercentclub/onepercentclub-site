@@ -8,6 +8,8 @@ from django.utils.translation import ugettext as _
         'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
 class MemberSettingsTests(OnePercentSeleniumTestCase):
 
+    def setUp(self):
+        self.visit_homepage()
 
     """ Confirm login fails without email and shows an error message """
     def test_failed_login_missing_email(self):
