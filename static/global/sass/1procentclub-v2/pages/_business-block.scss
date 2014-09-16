@@ -1,12 +1,11 @@
 #business-block {
-    //margin-top: -96px;
-    height: 600px;    
-    background: image-url("img/business/business_header.png") transparent no-repeat 50% 50%;
+    height: 400px;
+    background: image-url("img/business/business_block.jpg") transparent no-repeat 50% 50%;
     background-size: cover;
 
     .business-main-header {
         position: absolute;
-        top: 170px;
+        top: 110px;
         left: 0;
         right: 0;
         margin-left: auto;
@@ -38,7 +37,7 @@
 
     .business-btn {
         position: absolute;
-        top: 320px;
+        top: 240px;
         left: 0;
         right: 0;
         margin-left: auto;
