@@ -3,17 +3,13 @@
 {% load static %}
 
 
-{% tplhandlebars "banner_video" %}
+{% tplhandlebars "slides_video" %}
     <li class="carousel-item video-item">
         <div class="vimeo-item-container">
             <div class="vimeo-item-content">
                 <span class="close-video"></span>
                 <span id="vimeo-video">
-                    {{#if App.isEnglish}}
-                        <iframe src="//player.vimeo.com/video/102615938?api=1&player_id=brand-video&title=0&amp;byline=0&amp;portrait=0&amp;color=00c051" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen id="brand-video"></iframe>
-                    {{else}}
-                        <iframe src="//player.vimeo.com/video/102615385?api=1&player_id=brand-video&title=0&amp;byline=0&amp;portrait=0&amp;color=00c051" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen id="brand-video"></iframe>
-                    {{/if}}
+                    <iframe {{bindAttr src=slide.videoSrc}} frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen id="brand-video"></iframe>
                 </span>
             </div>
         </div>
@@ -29,7 +25,7 @@
                     <div class="row">
                         <div class="col12">
                             <div class="heading">
-                                <h1>{% blocktrans %}1%Club is the do-good crowdfunding platform{% endblocktrans%}</h1>
+                                <h1>{{slide.title}}</h1>
                             </div>
                         </div>
                     </div>

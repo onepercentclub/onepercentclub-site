@@ -19,7 +19,10 @@
 			background-repeat: no-repeat;
 			background-position: center center;
 			@include background-size(cover);
-			background-color: $gray-light;
+            background-position: 50% 50%;
+            background-size: cover;
+
+            background-color: $gray-light;
 			
 			// Global carousel content
 			.home-carousel-content {
@@ -208,11 +211,7 @@
 				}
 			}
 			
-			// Slide one
-			&.first-item {
-				background-image: url("/static/assets/images/img/pages/home/carousel/home-carousel-als.jpg");
-				background-position: 50% 50%;
-				
+			&.item-style-1 {
 				.home-carousel-content {
 					
 					h1 {
@@ -243,9 +242,7 @@
 				}
 			}
 			
-			&.second-item {
-				background-image: url("/static/assets/images/img/pages/home/carousel/home-carousel-2.jpg");
-				
+			&.item-style-2 {
 				.home-carousel-content {
 					position: relative;
 					top: 250px;
@@ -277,9 +274,7 @@
 				}	
 			}
 			
-			&.third-item {
-				background-image: url("/static/assets/images/img/pages/home/carousel/home-carousel-3.jpg");
-				
+			&.item-style-3 {
 				.home-carousel-content {
 					position: relative;
 					top: 20px;
