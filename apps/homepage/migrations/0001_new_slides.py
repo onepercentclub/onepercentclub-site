@@ -9,7 +9,7 @@ class Migration(DataMigration):
 
     def forwards(self, orm):
         # remove all current slides and add new ones
-        orm['slides.Slide'].objects.delete()
+        orm['slides.Slide'].objects.all().delete()
         call_command('loaddata', 'slides_sept_2014.json')
 
     def backwards(self, orm):
