@@ -250,6 +250,10 @@ App.EventMixin = Em.Mixin.create({
   }
 });
 
+Ember.View.reopen({
+    touchStart: Ember.alias('click')
+})
+
 /*
   Bluebottle View Overrides
 */
@@ -276,7 +280,7 @@ App.ApplicationView.reopen(App.EventMixin, {
             $('#header').removeClass('is-scrolled');
             $('.nav-member-dropdown').removeClass('is-scrolled');
             $('.mobile-nav-holder').removeClass('is-scrolled');
-            $('#content').append('<div class="scrolled-area"></div>');
+            //$('#content').append('<div class="scrolled-area"></div>');
         } else {
             $('#header').addClass('is-scrolled');
             $('.nav-member-dropdown').addClass('is-scrolled');

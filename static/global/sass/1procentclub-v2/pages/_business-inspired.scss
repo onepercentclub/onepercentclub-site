@@ -1,0 +1,254 @@
+#business-inspired {
+    min-height: 500px;
+    padding: 50px 0 40px 0;
+    border-bottom: 1px solid #E4EDE9;
+
+    .business-slider {
+        margin-top: 54px;
+        overflow: hidden;
+
+        &.is-selected {
+            .quote-slider {
+                .home-carousel-nav {
+                    span {
+                        &:nth-of-type(1) {
+                            background: rgba(#D8D8D8, 1);
+                        }
+
+                        &:nth-of-type(2) {
+                            background: none;
+                        }
+                    }
+                }
+
+                .quote-slider-holder {
+                    .quote-slider-item {
+                        &:nth-of-type(1) {
+                            margin-left: 6px;
+                            position: relative;
+                            z-index: 2;
+                            @include transform(rotateY(0deg) scale(1));
+                        }
+
+                        &:nth-of-type(2) {
+                            z-index: 1;
+                            @include transform(rotateY(-45deg) scale(.8) translate(30px));
+                        }
+                    }
+                }
+            }
+
+            .browser-slider {
+                .browser-holder {
+                    .browser-item {
+                        &:nth-of-type(1) {
+                            z-index: 1;
+                            @include animation(slideOutRight .3s ease-in);
+                            @include animation-fill-mode(forwards);
+                            position: absolute;
+                        }
+                        &:nth-of-type(2) {
+                            z-index: 2;
+                            @include animation(slideInRight .3s ease-in);
+                            @include animation-fill-mode(forwards);
+                        }
+                    }
+                }
+            }
+        }
+
+        .quote-slider {
+            @include perspective(1300px);
+
+            .quote-slider-holder {
+                overflow: hidden;
+                height: 560px;
+                width: 800px;
+
+
+                .quote-slider-item {
+                    float: left;
+                    margin-top: 50px;
+                    margin-right: -250px;
+                    width: 372px;
+                    height: 456px;
+                    border: solid 1px $gray-border;
+                    border-radius: 8px;
+                    background: $white;
+                    box-shadow: 0px 0px 0px 6px $gray-medium;
+                    padding: 20px 20px 20px 20px;
+                    font-size: 15px;
+                    cursor: pointer;
+                    @include transform-style(preserve-3d);
+                    @include transition(transform .3s ease-in-out);
+
+                    &:nth-of-type(1) {
+                        z-index: 1;
+                        @include transform(rotateY(45deg) scale(.8) translate(-30px));
+                    }
+
+                    &:nth-of-type(2) {
+                        position: relative;
+                        z-index: 2;
+                        @include transform(rotateY(0deg) scale(1));
+                    }
+
+                    .profile {
+                        .photo {
+                            float: left;
+                            width: 88px;
+                            height: 88px;
+
+                            &.accenture {
+                                background: image-url("img/business/savitri-groag.png") transparent no-repeat;
+                            }
+
+                            &.booking {
+                                background: image-url("img/business/marianne-gybels.png") transparent no-repeat;
+                            }
+                        }
+
+                        .content {
+                            float: left;
+                            margin: 20px 0 0 20px;
+
+                            .name {
+                                display: block;
+                            }
+
+                            .position {
+                                display: block;
+                                color: #9F9F9F;
+                            }
+                        }
+                    }
+
+                    .blockquote {
+                        position: relative;
+                        display: inline-block;
+                        margin-top: 30px;
+                        font-size: 14px;
+                        line-height: 24px;
+                        color: $color-primary;
+                        border-top: solid 1px $gray-border;
+                        border-bottom: solid 1px $gray-border;
+
+                        &:before {
+                            position: absolute;
+                            top: -21px;
+                            content: '\201C';
+                            width: 30px;
+                            height: 13px;
+                            background: $white;
+                            padding: 20px 0px 3px 4px;
+                            font-size: 66px;
+                            font-weight: bold;
+                            color: #F5F4F6;
+                        }
+
+                        &:after {
+                            position: absolute;
+                            content: '\201D';
+                            bottom: -17px;
+                            right: 0;
+                            width: 30px;
+                            height: 13px;
+                            background: $white;
+                            padding: 20px 0px 3px 4px;
+                            font-size: 66px;
+                            font-weight: bold;
+                            color: #F5F4F6;
+                        }
+
+                        p {
+                            margin: 0;
+                            padding: 20px 0;
+                        }
+                    }
+
+                    .footer {
+                        margin-top: 30px;
+                        color: #9F9F9F;
+                        text-align: center;
+
+                        .company-image {
+                            margin: auto;
+
+                            &.accenture {
+                                width: 123px;
+                                height: 44px;
+                                background: image-url("img/business/accenture-logo.png") transparent no-repeat;
+                            }
+
+                            &.booking {
+                                width: 153px;
+                                height: 41px;
+                                background: image-url("img/business/booking-logo.png") transparent no-repeat;   
+                            }
+                        }
+                    }
+                }
+            }
+
+            .home-carousel-nav {
+                position: absolute;
+                bottom: 10px;
+                right: -35px;
+                margin: auto;
+                text-align: center;
+                @include transition(all .3s ease-in-out);
+                
+                span {
+                    display: inline-block;
+                    height: 13px;
+                    width: 13px;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, .3);
+                    border: solid 1px rgba(#9F9F9F, .5);
+                    cursor: pointer;
+                    
+                    &.is-active {
+                        background: rgba(#D8D8D8, 1);
+                    }
+                }
+            }
+        }
+
+        .browser-slider {
+            overflow: hidden;
+
+            .browser-holder {
+                width: 1600px;
+
+                .browser-item {
+                    float: left;
+                    margin-top: 30px;
+                    width: 705px;
+                    height: 516px;
+
+                    &:nth-of-type(1) {
+                            z-index: 2;
+                            @include animation(slideInRight .3s ease-in);
+                            @include animation-fill-mode(forwards);
+                            position: absolute;
+                        }
+                        &:nth-of-type(2) {
+                            z-index: 1;
+                            @include animation(slideOutRight .3s ease-in);
+                            @include animation-fill-mode(forwards);
+                        }
+
+                    &.accenture {
+                        background: image-url("img/business/browser-accenture.png") transparent no-repeat;
+                        background-size: 85%;
+                    }
+
+                    &.booking {
+                        background: image-url("img/business/browser-booking.png") transparent no-repeat;
+                        background-size: 85%;
+                    }
+                }
+            }
+        }
+    }
+}
