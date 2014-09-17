@@ -1,4 +1,5 @@
 import json
+from onepercentclub.tests.factory_models.project_factories import PartnerFactory
 import os
 import requests
 import base64
@@ -31,6 +32,13 @@ class InitProjectDataMixin(object):
 
         language_data = [{'id': 1, 'code': 'en', 'language_name': 'English', 'native_name': 'English'},
                          {'id': 2, 'code': 'nl', 'language_name': 'Dutch', 'native_name': 'Nederlands'}]
+
+        partner_data = [{'id': 1, 'slug': 'cheetah', 'name': 'The Cheetah Campaign'},
+                        {'id': 2, 'slug': 'macro_micro', 'name': 'Macro Micro'}]
+
+        for partner in partner_data:
+            PartnerFactory.create(**partner)
+
 
         for phase in phase_data:
             ProjectPhaseFactory.create(**phase)

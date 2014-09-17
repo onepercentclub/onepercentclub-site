@@ -6,6 +6,7 @@ from djchoices import DjangoChoices, ChoiceItem
 class PayoutRules(DjangoChoices):
     """ Which rules to use to calculate fees. """
     old = ChoiceItem('old', label=_("Old 1%/5%"))
+    zero = ChoiceItem('zero', label=_("0%"))
     five = ChoiceItem('five', label=_("5%"))
     seven = ChoiceItem('seven', label=_("7%"))
     twelve = ChoiceItem('twelve', label=_("12%"))

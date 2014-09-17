@@ -6,7 +6,6 @@ import factory
 from apps.projects.models import Project, PartnerOrganization
 
 
-
 class OnePercentProjectFactory(ProjectFactory):
     FACTORY_FOR = Project
 
@@ -14,6 +13,7 @@ class OnePercentProjectFactory(ProjectFactory):
     amount_needed = 100
     amount_asked = 100
     allow_overfunding = True
+
 
 class PartnerFactory(factory.DjangoModelFactory):
     FACTORY_FOR = PartnerOrganization
