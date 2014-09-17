@@ -38,7 +38,7 @@ class MpesaFundRaiser(models.Model):
 
     @classmethod
     def create_from_json(cls, fr):
-        account = '1489' #  fr['account']
+        account = fr['m-changa_acno']
         fundraiser, created = cls.objects.get_or_create(account=account)
         from apps.projects.models import Project
         try:
