@@ -84,7 +84,7 @@
         "image": "", 
         "link_text": "Bekijk alle campagnes", 
         "sequence": 3, 
-        "style": "find-project", 
+        "style": "item-style-3",
         "creation_date": "2013-07-11T15:19:00.765Z", 
         "publication_end_date": null, 
         "status": "published", 
