@@ -114,10 +114,15 @@
         </legend>
 
         <ul>
-            {{#bb-form-field label='Time available' errors=errors.available_time}}
-                {{view App.TimeAvailableSelect contentBinding="timeAvailableList" optionValuePath="content.value" optionLabelPath="content.name" valueBinding="available_time" classBinding="errors.timeavailable:error" }}
-            {{/bb-form-field}}
+          <li class="control-group">
+            <label class="control-label">
+                {% trans "Time available" %}
+            </label>
 
+            <div class="controls">
+                {{view App.TimeAvailableSelect contentBinding="timeAvailableList" optionValuePath="content.value" optionLabelPath="content.name" valueBinding="available_time" classBinding="errors.timeavailable:error" }}
+            </div>
+          </li>
         </ul>
     </fieldset>
 {% endblock_verbatim extra_fieldsets %}

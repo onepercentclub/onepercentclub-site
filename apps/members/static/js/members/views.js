@@ -4,7 +4,6 @@ App.TimeAvailableSelect = Em.Select.extend({
     name: 'timeavailable'
 });
 
-
 App.Why = Em.TextArea.extend({
 	placeholder: gettext("Tell the world why you chose to join 1%Club!")
 });
