@@ -39,7 +39,6 @@ class InitProjectDataMixin(object):
         for partner in partner_data:
             PartnerFactory.create(**partner)
 
-
         for phase in phase_data:
             ProjectPhaseFactory.create(**phase)
 

@@ -18,6 +18,9 @@ class OnePercentProjectFactory(ProjectFactory):
 class PartnerFactory(factory.DjangoModelFactory):
     FACTORY_FOR = PartnerOrganization
 
+    FACTORY_DJANGO_GET_OR_CREATE = ('slug',)
+
     name = factory.Sequence(lambda n: 'Partner_{0}'.format(n))
     slug = factory.Sequence(lambda n: 'partner-{0}'.format(n))
     description = 'Partner Organization factory model'
+
