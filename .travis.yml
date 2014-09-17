@@ -4,7 +4,7 @@ python:
 node_js:
 - '0.10'
 addons:
-  firefox: "26.0"
+  firefox: '27.0'
 env:
   matrix:
   - DJANGO=django==1.5.4
@@ -23,16 +23,16 @@ before_install:
 install:
 - pip install --upgrade setuptools --use-mirrors
 - pip install $DJANGO --use-mirrors
-- pip install --use-mirrors --use-wheel --find-links=http://stream.onepercentlive.com/wheelhouse/ -r requirements/ci_requirements.txt
+- pip install --use-mirrors --use-wheel --find-links=https://stream.onepercentclub.com/wheelhouse/ -r requirements/ci_requirements.txt
 - touch onepercentclub/settings/secrets.py
 before_script:
 - pip show bluebottle
 - grunt compass:dist --bb_path="`pip show bluebottle | grep Location | cut -b11-`/bluebottle/common/static/sass"
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
-- curl https://gist.githubusercontent.com/rollick/42b92c18c3a265b08792/raw/sauce-connect.sh | sh
+#- curl https://gist.githubusercontent.com/rollick/42b92c18c3a265b08792/raw/sauce-connect.sh | sh
 script:
-- python ./manage.py test --settings=onepercentclub.settings.travis -v 1 # --failfast
+- python ./manage.py test --settings=onepercentclub.settings.travis --failfast
 notifications:
   hipchat:
     rooms:

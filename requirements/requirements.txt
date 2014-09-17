@@ -1,4 +1,4 @@
--e git://github.com/onepercentclub/bluebottle.git@6e41481f7b06d8e62a74ade211e8ab6d6df0b34b#egg=bluebottle
+-e git://github.com/onepercentclub/bluebottle.git@c0ffad811c34e41e13ff37db5284e3e855b83864#egg=bluebottle
 
 pip
 mercurial==2.9.1
@@ -80,13 +80,10 @@ requests==2.3.0 #Updated requests to make python social auth work
 # DKIM to sign e-mails
 dnspython
 
-# Functional testing libraries
-selenium==2.33.0
-
 # Communication with the old DocData account.
 # https://github.com/onepercentclub/django-docdata/archive/120ae5b8a1da6152d43d4601edc8832268e05515.zip
 -e git://github.com/onepercentclub/django-docdata.git@120ae5b8a1da6152d43d4601edc8832268e05515#egg=django-docdata
-pycurl==7.19.0
+pycurl==7.19.5
 
 python-dateutil==1.5
 
@@ -95,9 +92,6 @@ unicodecsv==0.9.4
 
 # Automatically generate fixtures for use in tests
 django-dynamic-fixture==1.6.5
-
-# Use factories for testing
-factory-boy==2.3.1
 
 # LXML for generating and validating proper SEPA exports
 lxml==3.1.2

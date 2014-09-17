@@ -7,12 +7,12 @@ App.PartnerIndexView = Em.View.extend({
     // Use a different template for Cheetah Fund.
     templateName: function (a, b) {
         var slug = this.get('controller.id');
-        if (!slug) return 'partner_index';
-        
-        return slug + '/index';
+        if (slug == 'cheetah')  return 'cheetah/index';
+        return 'partner_index';
+
     }.property('controller.id'),
 
-    // Rerender the view if the template name changes.
+    // Re-render the view if the template name changes.
     _templateNameChanged: function() {
         this.rerender();
     }.observes('templateName')
@@ -106,7 +106,12 @@ App.BusinessInspiredView = Em.View.extend({
     setQuoteTimeout: function(element) {
         var _this = this;
         setInterval(function() {
-            _this.$().find(element).toggleClass('is-selected');
+            if (_this.$() === undefined) {
+                return
+            } else {
+                _this.$().find(element).toggleClass('is-selected');
+            }
+            
         }, 12000);
     },
 
@@ -136,10 +141,6 @@ App.BusinessView = Em.View.extend({
 
             _this.animateSocialCircle(newId);
         });
-
-        $('.text-employees').lettering();
-        $('.text-crowdfunding').lettering();
-        $('.text-impact').lettering();
     },
 
     animateSocialCircle: function(idName) {

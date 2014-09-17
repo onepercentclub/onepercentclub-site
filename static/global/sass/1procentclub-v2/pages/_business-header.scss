@@ -1,7 +1,8 @@
 #business-header {
     margin-top: -96px;
     height: 531px;    
-    background: image-url("img/business/business_header.png") transparent no-repeat 50% 50%;
+    background: image-url("img/business/business_header.jpg") transparent no-repeat 50% 0%;
+    background-color: $black;
     background-size: cover;
 
     .business-main-header {
@@ -11,14 +12,14 @@
         right: 0;
         margin-left: auto;
         margin-right: auto;
-        width: 50%;
+        width: 42%;
 
         .logo {
             float: left;
             display: block;
             background: image-url("global/logo_green.svg") transparent no-repeat 50% 50%;
             height: 96px;
-            width: 37%;
+            width: 47%;
             margin: -14px 4px 0 0;
         }
 
