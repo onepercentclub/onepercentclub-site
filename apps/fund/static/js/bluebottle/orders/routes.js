@@ -109,7 +109,10 @@ App.OrderThanksRoute = App.OrderFlowRoute.extend({
 
         if (this.get('tracker')) {
             var tracker = this.get('tracker');
-            tracker.trackEvent("Successful donation", {amount: order.get('total') });
+            if (order.get('donations.content').length >= 1) {
+                project_slug = order.get('donations.content')[0].data.project;
+            }
+            tracker.trackEvent("Successful donation", {amount: order.get('total'), project_slug: project_slug, order_id: order.get('id')});
         }
     }
 });
