@@ -109,10 +109,19 @@ App.OrderThanksRoute = App.OrderFlowRoute.extend({
 
         if (this.get('tracker')) {
             var tracker = this.get('tracker');
-            if (order.get('donations.content').length >= 1) {
-                project_slug = order.get('donations.content')[0].data.project;
+            var donations = order.get('donations');
+            
+            if (donations.get('length')) {
+                project_slug = donations.get('firstObject.project.id')
+                if (donations.get('firstObject.fundraiser')) {
+                    fundraiser_id = donations.get('firstObject.fundraiser.id')
+                }
+
             }
-            tracker.trackEvent("Successful donation", {amount: order.get('total'), project_slug: project_slug, order_id: order.get('id')});
+            tracker.trackEvent("Successful donation", {amount: order.get('total'), 
+                                                        fundraiser_id: fundraiser_id,
+                                                        project_slug: project_slug,
+                                                        order_id: order.get('id')});
         }
     }
 });
