@@ -7,9 +7,15 @@ class MpesaPayment(models.Model):
 
     @classmethod
     def create_from_json(cls, pm):
+        from apps.projects.models import Project
         payment, created = cls.objects.get_or_create(mpesa_id=pm['mmp_trid'])
         if created:
+            try:
+                project = Project.objects.get(mchanga_account=pm['m-changa_acno'])
+            except Project.DoesNotExist:
+                project = None
             payment.mpesa_id = pm['mmp_trid']
+            payment.project = project
             payment.amount = pm['amount']
             payment.mchanga_account = pm['m-changa_acno']
             payment.mpesa_phone = pm['contributor_mobno']
