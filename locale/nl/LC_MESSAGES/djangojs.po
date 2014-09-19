@@ -26,7 +26,7 @@ msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-09-19 16:28+0200\n"
-"PO-Revision-Date: 2014-09-19 14:31+0000\n"
+"PO-Revision-Date: 2014-09-19 14:50+0000\n"
 "Last-Translator: aethemba <aksel@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -37,11 +37,11 @@ msgstr ""
 
 #: apps/core/static/js/bluebottle/app_overrides.js:38
 msgid "Running Campaigns"
-msgstr ""
+msgstr "Lopende Campagnes"
 
 #: apps/core/static/js/bluebottle/app_overrides.js:39
 msgid "Finished Campaigns"
-msgstr ""
+msgstr "Gerealiseerde Campagnes"
 
 #: apps/core/static/js/bluebottle/app_overrides.js:126
 #: env-2.7/src/bluebottle/bluebottle/common/static/js/plugins/ember-facebook.js.c:104
@@ -610,11 +610,11 @@ msgstr "Zoeken"
 #: env-2.7/src/bluebottle/bluebottle/bb_projects/static/js/bluebottle/bb_projects/views.js.c:85
 #: env-2.7/src/bluebottle/bluebottle/bb_projects/static/js/bluebottle/bb_projects/views.js.c:92
 msgid "Pick a Phase"
-msgstr ""
+msgstr "Kies een fase"
 
 #: env-2.7/src/bluebottle/bluebottle/bb_projects/static/js/bluebottle/bb_projects/views.js.c:132
 msgid "Pick a Theme"
-msgstr ""
+msgstr "Kies een thema"
 
 #: env-2.7/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/models.js.c:191
 msgid "open"
@@ -658,7 +658,7 @@ msgstr "Alle Statussen"
 
 #: env-2.7/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/views.js.c:114
 msgid "Pick a Skill"
-msgstr ""
+msgstr "Kies een expertise"
 
 #: env-2.7/src/bluebottle/bluebottle/common/static/js/bluebottle/app.js.c:52
 msgid "Password needs to be at least 6 characters long"
@@ -775,7 +775,7 @@ msgstr ""
 #: env-2.7/src/bluebottle/bluebottle/geo/static/js/bluebottle/geo/views.js.c:4
 #: env-2.7/src/bluebottle/bluebottle/geo/static/js/bluebottle/geo/views.js.c:16
 msgid "Pick a Country"
-msgstr ""
+msgstr "Kies een land"
 
 #: env-2.7/src/bluebottle/bluebottle/utils/static/js/bluebottle/utils/views.js.c:192
 msgid "&nbsp;days"
