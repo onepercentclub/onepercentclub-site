@@ -13,6 +13,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # Loek van Gent <loek@1procentclub.nl>, 2014
 # Malou <malou@onepercentclub.com>, 2014
 # Niels Jansen <niels@1procentclub.nl>, 2014
@@ -21,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-17 15:12+0200\n"
-"PO-Revision-Date: 2014-09-17 12:22+0000\n"
+"POT-Creation-Date: 2014-09-19 16:28+0200\n"
+"PO-Revision-Date: 2014-09-19 14:30+0000\n"
 "Last-Translator: aethemba <aksel@onepercentclub.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
@@ -32,11 +33,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: apps/core/static/js/bluebottle/app_overrides.js:38
-msgid "Running campaigns"
+msgid "Running Campaigns"
 msgstr ""
 
 #: apps/core/static/js/bluebottle/app_overrides.js:39
-msgid "Finished campaigns"
+msgid "Finished Campaigns"
 msgstr ""
 
 #: apps/core/static/js/bluebottle/app_overrides.js:126
@@ -121,7 +122,7 @@ msgstr "No, continue"
 msgid "Reloading order details"
 msgstr ""
 
-#: apps/fund/static/js/bluebottle/orders/routes.js:206
+#: apps/fund/static/js/bluebottle/orders/routes.js:218
 msgid "There was an error with your payment. Please try again."
 msgstr "There was an error with your payment. Could you please try again?"
 
@@ -599,16 +600,17 @@ msgid "Pick an organization"
 msgstr ""
 
 #: env-2.7/src/bluebottle/bluebottle/bb_projects/static/js/bluebottle/bb_projects/views.js.c:30
+#: env-2.7/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/views.js.c:32
 msgid "Search"
 msgstr ""
 
 #: env-2.7/src/bluebottle/bluebottle/bb_projects/static/js/bluebottle/bb_projects/views.js.c:85
 #: env-2.7/src/bluebottle/bluebottle/bb_projects/static/js/bluebottle/bb_projects/views.js.c:92
-msgid "Pick a phase"
+msgid "Pick a Phase"
 msgstr ""
 
 #: env-2.7/src/bluebottle/bluebottle/bb_projects/static/js/bluebottle/bb_projects/views.js.c:132
-msgid "Pick a theme"
+msgid "Pick a Theme"
 msgstr ""
 
 #: env-2.7/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/models.js.c:191
@@ -635,20 +637,24 @@ msgstr ""
 msgid "Apply"
 msgstr ""
 
-#: env-2.7/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/views.js.c:94
+#: env-2.7/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/views.js.c:97
 msgid "Open"
 msgstr ""
 
-#: env-2.7/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/views.js.c:95
+#: env-2.7/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/views.js.c:98
 msgid "Running"
 msgstr ""
 
-#: env-2.7/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/views.js.c:96
+#: env-2.7/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/views.js.c:99
 msgid "Realised"
 msgstr ""
 
-#: env-2.7/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/views.js.c:111
-msgid "Pick a skill"
+#: env-2.7/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/views.js.c:106
+msgid "Any Status"
+msgstr ""
+
+#: env-2.7/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/views.js.c:114
+msgid "Pick a Skill"
 msgstr ""
 
 #: env-2.7/src/bluebottle/bluebottle/common/static/js/bluebottle/app.js.c:52
@@ -765,7 +771,7 @@ msgstr ""
 
 #: env-2.7/src/bluebottle/bluebottle/geo/static/js/bluebottle/geo/views.js.c:4
 #: env-2.7/src/bluebottle/bluebottle/geo/static/js/bluebottle/geo/views.js.c:16
-msgid "Pick a country"
+msgid "Pick a Country"
 msgstr ""
 
 #: env-2.7/src/bluebottle/bluebottle/utils/static/js/bluebottle/utils/views.js.c:192

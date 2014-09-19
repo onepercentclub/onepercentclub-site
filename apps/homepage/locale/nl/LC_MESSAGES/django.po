@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-17 15:12+0200\n"
-"PO-Revision-Date: 2014-09-17 13:14+0000\n"
+"POT-Creation-Date: 2014-09-19 16:28+0200\n"
+"PO-Revision-Date: 2014-09-19 14:30+0000\n"
 "Last-Translator: aethemba <aksel@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -849,8 +849,8 @@ msgid "Login"
 msgstr "Log in"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/wallposts/templates/wallposts/reactions.hbs.py:66
-msgid "member"
-msgstr "campaigner"
+msgid "Sign up"
+msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/wallposts/templates/wallposts/reactions.hbs.py:66
 msgid "to leave a reaction"
@@ -1775,7 +1775,7 @@ msgstr ""
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/_running_campaign_list.hbs.py:10
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/detail/partner_campaign_list.hbs.py:9
 msgid "Running Cheetah campaigns"
-msgstr ""
+msgstr "Lopende Cheetah campagnes"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/_running_campaign_list.hbs.py:25
 msgid "Browse all Cheetah Campaigns"
