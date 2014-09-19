@@ -21,10 +21,10 @@ class MpesaPaymentList(ListAPIView):
         filter_kwargs = {}
 
         # Only return a list if the requested user is the fundraiser or campaigner.
-        # if project_slug:
-        #     filter_kwargs['project__owner'] = self.request.user
-        # else:
-        #     return queryset.none()
+        if project_slug:
+            filter_kwargs['project__owner'] = self.request.user
+        else:
+            return queryset.none()
 
         return queryset.filter(**filter_kwargs)
 
