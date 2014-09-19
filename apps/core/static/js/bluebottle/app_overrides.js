@@ -79,14 +79,19 @@ App.then(function(app) {
                         tracker = loginController.get('tracker');
 
                     if (tracker) {
-                        tracker.identify(user.get('id_for_ember'));
+                        if (user.get('firstLogin')) {
+                            tracker.alias(user.get('id_for_ember'));
+                        } else {
+                            tracker.identify(user.get('id_for_ember'));
+                        }
+
                         tracker.peopleSet({
                             "$first_name": user.get('first_name'),
                             "$last_name": user.get('last_name'),
                             "$email": user.get('email'),
                             has_facebook: "yes",
                             last_login_type: "facebook"
-                        })
+                        });
 
                     }
 
