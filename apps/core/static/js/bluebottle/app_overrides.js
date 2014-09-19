@@ -35,8 +35,8 @@ App.then(function(app) {
     //       and then BB should use it when setting up the list
     App.ProjectPhase.find().then(function(data){
         var list = [
-            {id: 5, name: gettext("Running campaigns")},
-            {id: [7,8], name: gettext("Finished campaigns")}
+            {id: 5, name: gettext("Running Campaigns")},
+            {id: [7,8], name: gettext("Finished Campaigns")}
         ];
         App.ProjectPhaseSelectView.reopen({
             content: list
