@@ -110,7 +110,9 @@ App.OrderThanksRoute = App.OrderFlowRoute.extend({
         if (this.get('tracker')) {
             var tracker = this.get('tracker');
             var donations = order.get('donations');
-            
+            var fundraiser_id = null;
+            var project_slug = null;
+
             if (donations.get('length')) {
                 project_slug = donations.get('firstObject.project.id')
                 if (donations.get('firstObject.fundraiser')) {

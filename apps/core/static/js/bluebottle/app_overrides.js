@@ -79,7 +79,7 @@ App.then(function(app) {
                         tracker = loginController.get('tracker');
 
                     if (tracker) {
-                        if (user.get('firstLogin') {
+                        if (user.get('firstLogin')) {
                             tracker.alias(user.get('id_for_ember'));
                         } else {
                             tracker.identify(user.get('id_for_ember'));
