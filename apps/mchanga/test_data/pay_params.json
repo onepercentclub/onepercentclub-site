@@ -1,9 +1,0 @@
-// https://secure.changa.co.ke/api/tagged/pay_params/key/1489/format/json
-
-{
-    "fundraiser_name": "Arts For Life",
-    "fundraiser_acno": "MUTALE",
-    "m-changa_paybill": "891300",
-    "instruction": "To donate on Safaricom: Go to MPESA Paybill 891300 Account MUTALE"
-}
-
