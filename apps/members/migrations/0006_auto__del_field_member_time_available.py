@@ -10,7 +10,7 @@ class Migration(SchemaMigration):
     needed_by = (
         ("bb_accounts", "0002_auto__del_timeavailable"),
     )
-    
+
     def forwards(self, orm):
         # Deleting field 'Member.time_available'
         db.delete_column(u'members_member', 'time_available_id')
