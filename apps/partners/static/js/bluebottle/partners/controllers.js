@@ -36,9 +36,9 @@ App.PartnerIndexController = Em.ObjectController.extend({
 
     actions: {
         goToFavouriteProject: function(project) {
-            if (this.get('tracker')) {
-                this.get('tracker').trackEvent("Click Favourite Project", {title: project.get("title")});
-            }
+//            if (this.get('tracker')) {
+//                this.get('tracker').trackEvent("Click Favourite Project", {title: project.get("title")});
+//            }
             this.transitionToRoute('project', project);
         }
     }
