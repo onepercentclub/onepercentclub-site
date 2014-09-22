@@ -20,7 +20,7 @@ from apps.sepa.tests.base import SepaXMLTestMixin
 from ..models import Payout, PayoutLog, OrganizationPayout, OrganizationPayoutLog
 from ..choices import PayoutRules, PayoutLineStatuses
 from onepercentclub.tests.factory_models.donation_factories import DonationFactory
-from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
+from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory, PartnerFactory
 from onepercentclub.tests.utils import OnePercentTestCase
 from ..utils import date_timezone_aware
 
@@ -35,6 +35,7 @@ class PayoutTestCase(SepaXMLTestMixin, OnePercentTestCase):
 
         organization = OrganizationFactory.create()
         organization.save()
+
         self.project = OnePercentProjectFactory.create(organization=organization, amount_asked=50)
 
         # Update phase to campaign.
@@ -126,6 +127,25 @@ class PayoutTestCase(SepaXMLTestMixin, OnePercentTestCase):
 
         self.assertIn(str(self.project.id), payout.invoice_reference)
         self.assertIn(str(payout.id), payout.invoice_reference)
+
+    def test_create_payment_rule_zero(self):
+        """ Legacy projects should get payment rule five. """
+
+        # Set status of donation to paid
+        self.donation.status = DonationStatuses.paid
+        self.donation.save()
+
+        # Update phase to act.
+        self.project.status = ProjectPhase.objects.get(slug='done-complete')
+        self.project.save()
+
+        payout = Payout.objects.all()[0]
+        payout.payout_rule = 'zero'
+        payout.calculate_amounts()
+
+        self.assertEquals(payout.payout_rule, PayoutRules.zero)
+        self.assertEquals(payout.organization_fee, decimal.Decimal('0'))
+        self.assertEquals(payout.amount_payable, decimal.Decimal('60'))
 
     def test_create_payment_rule_five(self):
         """ Legacy projects should get payment rule five. """

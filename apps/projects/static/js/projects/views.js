@@ -5,3 +5,4 @@ App.MyProjectGoalView = Em.View.extend({
 App.ProjectSupporterListView = Em.View.extend({
     templateName: 'project_supporter_list'
 });
+
