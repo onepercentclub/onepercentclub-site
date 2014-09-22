@@ -92,10 +92,7 @@
                         {{else}}
                             {{#if isStatusCompleted}}
                                 <div class="cheetah-fully-funded">
-                                    {{bb-progressbar targetValue=project.amount_asked currentValue=project.amount_donated class="campaign-fund-amount-slider "}}
-                                </div>
-                                <div class="campaign-fund-amount">
-                                    <span class="fully-funded"><strong>&euro; {{amount_donated}} {% trans 'fully funded!' %}</strong></span>
+                                    {{bb-progressbar targetValue=amount_asked currentValue=amount_donated class="campaign-fund-amount-slider "}}
                                 </div>
                             {{else}}
                                 <div class="cheetah-funded">
