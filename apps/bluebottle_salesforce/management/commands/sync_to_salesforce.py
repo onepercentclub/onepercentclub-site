@@ -78,26 +78,26 @@ class Command(BaseCommand):
 
         if options['csv_export']:
             path = os.path.join(settings.PROJECT_ROOT, "salesforce", "export", "current")
-            self.run_with_count_update(generate_organizations_csv_file, path, loglevel)
-            self.run_with_count_update(generate_users_csv_file, path, loglevel)
-            self.run_with_count_update(generate_projects_csv_file, path, loglevel)
-            self.run_with_count_update(generate_projectbudgetlines_csv_file, path, loglevel)
+            # self.run_with_count_update(generate_organizations_csv_file, path, loglevel)
+            # self.run_with_count_update(generate_users_csv_file, path, loglevel)
+            # self.run_with_count_update(generate_projects_csv_file, path, loglevel)
+            # self.run_with_count_update(generate_projectbudgetlines_csv_file, path, loglevel)
             self.run_with_count_update(generate_donations_csv_file, path, loglevel)
-            self.run_with_count_update(generate_tasks_csv_file, path, loglevel)
-            self.run_with_count_update(generate_taskmembers_csv_file, path, loglevel)
-            self.run_with_count_update(generate_fundraisers_csv_file, path, loglevel)
-            self.run_with_count_update(generate_organizationmember_csv_file, path, loglevel)
+            # self.run_with_count_update(generate_tasks_csv_file, path, loglevel)
+            # self.run_with_count_update(generate_taskmembers_csv_file, path, loglevel)
+            # self.run_with_count_update(generate_fundraisers_csv_file, path, loglevel)
+            # self.run_with_count_update(generate_organizationmember_csv_file, path, loglevel)
         else:
             # The synchronization methods need to be run in a specific order because of foreign key dependencies.
             # self.run_with_count_update(sync_organizations, options['dry_run'], sync_from_datetime, loglevel)
-            # self.run_with_count_update(sync_users, options['dry_run'], sync_from_datetime, loglevel)
+            self.run_with_count_update(sync_users, options['dry_run'], sync_from_datetime, loglevel)
             # self.run_with_count_update(sync_projects, options['dry_run'], sync_from_datetime, loglevel)
             # self.run_with_count_update(sync_fundraisers, options['dry_run'], sync_from_datetime, loglevel)
             # self.run_with_count_update(sync_projectbudgetlines, options['dry_run'], sync_from_datetime, loglevel)
             # self.run_with_count_update(sync_tasks, options['dry_run'], sync_from_datetime, loglevel)
             # self.run_with_count_update(sync_taskmembers, options['dry_run'], sync_from_datetime, loglevel)
             # self.run_with_count_update(sync_donations, options['dry_run'], sync_from_datetime, loglevel)
-            self.run_with_count_update(sync_organizationmembers, options['dry_run'], sync_from_datetime, loglevel)
+            # self.run_with_count_update(sync_organizationmembers, options['dry_run'], sync_from_datetime, loglevel)
 
         logger.info("Process finished at {2} with {0} successes and {1} errors.".format(self.success_count,
                                                                                         self.error_count,

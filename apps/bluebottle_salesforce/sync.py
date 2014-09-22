@@ -1,4 +1,5 @@
 import logging
+import re
 from bluebottle.utils.utils import get_project_model
 from django.contrib.auth import get_user_model
 from django.utils import timezone
@@ -110,6 +111,8 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
     error_count = 0
     success_count = 0
 
+    val = re.compile("^[A-Z0-9._%+-/!#$%&'*=?^_`{|}~]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$")
+
     users = USER_MODEL.objects.all()
     if sync_from_datetime:
         users = users.filter(updated__gte=sync_from_datetime)
@@ -131,9 +134,14 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
         # Populate the data from the source
         contact.external_id = user.id
         contact.user_name = user.username
-        contact.email = user.email
-        contact.is_active = user.is_active
 
+        if val.match(user.email.upper()):
+            contact.email = user.email
+        else:
+            logger.error("User has invalid e-mail address '{0}', member id {1}. "
+                         "Ignoring e-mail address field.".format(user.email, user.id))
+
+        contact.is_active = user.is_active
         contact.member_since = user.date_joined
         contact.date_joined = user.date_joined
         contact.deleted = user.deleted
@@ -325,6 +333,7 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
         sfproject.tags = ""
         for tag in project.tags.all():
             sfproject.tags = str(tag) + ", " + sfproject.tags
+        sfproject.tags = sfproject.tags[:255]
 
         sfproject.partner_organization = ""
         if project.partner_organization:
@@ -503,6 +512,8 @@ def sync_donations(dry_run, sync_from_datetime, loglevel):
         sfdonation.stage_name = DonationStatuses.values[donation.status].title()
         sfdonation.close_date = donation.created
         sfdonation.donation_created_date = donation.created
+        sfdonation.donation_updated_date = donation.updated
+        sfdonation.donation_ready_date = donation.ready or None
 
         sfdonation.type = donation.DonationTypes.values[donation.donation_type].title()
 
