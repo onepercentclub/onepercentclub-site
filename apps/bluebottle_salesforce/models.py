@@ -336,6 +336,8 @@ class SalesforceDonation(SalesforceOpportunity):
     """
 
     donation_created_date = models.DateTimeField(db_column='Donation_created_date__c')
+    donation_updated_date = models.DateTimeField(db_column='Donation_updated_date__c')
+    donation_ready_date = models.DateTimeField(db_column='Donation_ready_date__c')
     external_id_donation = models.CharField(max_length=255, db_column='Donation_External_ID__c')
     donor = models.ForeignKey(SalesforceContact, db_column='Receiver__c', null=True)
     fundraiser = models.ForeignKey(SalesforceFundraiser, db_column='Fundraiser__c', null=True)

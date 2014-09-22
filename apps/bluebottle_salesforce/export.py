@@ -175,7 +175,6 @@ def generate_users_csv_file(path, loglevel):
                             "Phone"])
 
         users = USER_MODEL.objects.all()
-        # users = users.filter(id=20784)
 
         logger.info("Exporting {0} User objects to {1}".format(users.count(), filename))
 
@@ -415,7 +414,7 @@ def generate_projects_csv_file(path, loglevel):
                                 status,
                                 project.created.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
                                 project.updated.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
-                                tags,
+                                tags[:255],
                                 partner_organization_name.encode("utf-8"),
                                 project.slug])
             success_count += 1
@@ -469,6 +468,8 @@ def generate_donations_csv_file(path, loglevel):
                             "StageName",
                             "Type",
                             "Donation_created_date__c",
+                            "Donation_updated_date__c",
+                            "Donation_ready_date__c",
                             "Payment_method__c",
                             "RecordTypeId",
                             "Fundraiser__c"])
@@ -500,6 +501,10 @@ def generate_donations_csv_file(path, loglevel):
                 else:
                     name = "1%Member"
 
+                donation_ready = ''
+                if donation.ready:
+                    donation_ready = donation.ready.strftime("%Y-%m-%dT%H:%M:%S.000Z")
+
                 # Get the payment method from the associated order / payment
                 payment_method = payment_method_mapping['']  # Maps to Unknown for DocData.
                 if donation.order:
@@ -516,7 +521,9 @@ def generate_donations_csv_file(path, loglevel):
                                     name.encode("utf-8"),                                   # Name
                                     DonationStatuses.values[donation.status].title(),       # StageName
                                     donation.DonationTypes.values[donation.donation_type].title(),  # Type
-                                    donation.created.strftime("%Y-%m-%dT%H:%M:%S.000Z"),   # Donation_c_date__c
+                                    donation.created.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
+                                    donation.updated.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
+                                    donation_ready,
                                     payment_method.encode("utf-8"),                         # Payment_method__c
                                     '012A0000000ZK6FIAW',                                   # RecordTypeId
                                     fundraiser_id])
