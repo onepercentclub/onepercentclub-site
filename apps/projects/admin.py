@@ -1,5 +1,7 @@
+from decimal import Decimal
 from apps.projects.models import ProjectBudgetLine, Project
 from bluebottle.bb_projects.admin import BaseProjectAdmin
+from bluebottle.utils.admin import export_as_csv_action
 from django.contrib import admin
 from django.contrib.admin.sites import NotRegistered
 from django.core.urlresolvers import reverse
@@ -26,11 +28,14 @@ class ProjectBudgetLineInline(admin.TabularInline):
 class ProjectAdmin(BaseProjectAdmin):
     inlines = (ProjectBudgetLineInline, )
 
-    list_filter = BaseProjectAdmin.list_filter + ('is_campaign', 'theme')
-    list_display = BaseProjectAdmin.list_display + ('is_campaign', 'deadline')
+    list_filter = BaseProjectAdmin.list_filter + ('is_campaign', 'theme', 'partner_organization')
+    list_display = BaseProjectAdmin.list_display + ('is_campaign', 'deadline', 'donated_percentage')
     list_editable = ('is_campaign', )
 
     readonly_fields = ('owner_link', 'organization_link', 'amount_donated', 'amount_needed', 'popularity')
+
+    export_fields = ['title', 'owner', 'created', 'status', 'deadline', 'amount_asked', 'amount_donated']
+    actions = (export_as_csv_action(fields=export_fields), )
 
     def owner_link(self, obj):
         object = obj.owner
@@ -45,6 +50,13 @@ class ProjectAdmin(BaseProjectAdmin):
         return "<a href='%s'>%s</a>" % (str(url), object.name)
 
     organization_link.allow_tags = True
+
+    def donated_percentage(self, obj):
+        if not obj.amount_asked:
+            return "-"
+        percentage = "%.2f" % (100 * obj.amount_donated / obj.amount_asked)
+        return "{0} %".format(percentage)
+
 
 
 

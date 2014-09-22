@@ -1,4 +1,5 @@
--e git://github.com/onepercentclub/bluebottle.git@5ea751aa650bb54bd2f340674e8ae9de03cbe16e#egg=bluebottle
+-e git://github.com/onepercentclub/bluebottle.git@6d451d3e82f61a3c7be00548ebec1ceb0edb2b5b#egg=bluebottle
+
 
 pip
 mercurial==2.9.1
@@ -83,7 +84,7 @@ dnspython
 # Communication with the old DocData account.
 # https://github.com/onepercentclub/django-docdata/archive/120ae5b8a1da6152d43d4601edc8832268e05515.zip
 -e git://github.com/onepercentclub/django-docdata.git@120ae5b8a1da6152d43d4601edc8832268e05515#egg=django-docdata
-pycurl==7.19.5
+pycurl==7.19.3
 
 python-dateutil==1.5
 

@@ -1,5 +1,6 @@
 import logging
 from apps.accounting.models import BankTransaction
+from bluebottle.utils.admin import export_as_csv_action
 from django.core.urlresolvers import reverse
 
 logger = logging.getLogger(__name__)
@@ -69,11 +70,14 @@ class PayoutAdmin(admin.ModelAdmin):
     can_delete = False
 
     list_filter = [
-        'status', 'payout_rule',
+        'status', 'payout_rule', 'project__partner_organization',
         PendingDonationsPayoutFilter, HasIBANPayoutFilter
     ]
 
-    actions = ['export_sepa', 'recalculate_amounts']
+    export_fields = ['project', 'status', 'payout_rule', 'amount_raised', 'organization_fee', 'amount_payable',
+                     'created', 'submitted']
+
+    actions = ('export_sepa', 'recalculate_amounts', export_as_csv_action(fields=export_fields))
 
     list_display = [
         'payout', 'status', 'admin_project', 'amount_payable',

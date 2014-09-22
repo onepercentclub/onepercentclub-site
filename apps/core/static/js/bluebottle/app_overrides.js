@@ -35,8 +35,8 @@ App.then(function(app) {
     //       and then BB should use it when setting up the list
     App.ProjectPhase.find().then(function(data){
         var list = [
-            {id: 5, name: gettext("Running campaigns")},
-            {id: [7,8], name: gettext("Finished campaigns")}
+            {id: 5, name: gettext("Running Campaigns")},
+            {id: [7,8], name: gettext("Finished Campaigns")}
         ];
         App.ProjectPhaseSelectView.reopen({
             content: list
@@ -79,14 +79,19 @@ App.then(function(app) {
                         tracker = loginController.get('tracker');
 
                     if (tracker) {
-                        tracker.identify(user.get('id_for_ember'));
+                        if (user.get('firstLogin')) {
+                            tracker.alias(user.get('id_for_ember'));
+                        } else {
+                            tracker.identify(user.get('id_for_ember'));
+                        }
+
                         tracker.peopleSet({
                             "$first_name": user.get('first_name'),
                             "$last_name": user.get('last_name'),
                             "$email": user.get('email'),
                             has_facebook: "yes",
                             last_login_type: "facebook"
-                        })
+                        });
 
                     }
 

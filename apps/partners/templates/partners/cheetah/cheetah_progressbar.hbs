@@ -1,0 +1,21 @@
+{% load bb_ember %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "components/cheetah-progressbar" %}
+
+    <div class="project-fund-amount-slider">
+        <div class="cheetah-progress">           
+            <div class="funded-progress-togo">
+                <strong style="width: 0%;" class="slider-progress is-in-progress"><em class="slider-percentage">0%</em></strong>
+                <span class="funded-cheetah-progress">
+                    <strong class="funded-cheetah-holder">
+                        <i class="cheetah-running"></i>
+                    </strong>
+                </span>
+            </div>
+        </div>
+        <div class="funded-progress"></div>
+    </div>
+
+{% endtplhandlebars %}

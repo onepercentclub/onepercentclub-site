@@ -5,8 +5,9 @@ from . import payments
 from .exceptions import PaymentException
 from .models import Payment
 from .permissions import IsOrderCreator
+from rest_framework.permissions import AllowAny
 from .serializers import PaymentSerializer
-
+from rest_framework import exceptions
 
 class PaymentDetail(generics.RetrieveUpdateDestroyAPIView):
     """
@@ -15,7 +16,14 @@ class PaymentDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     model = Payment
     serializer_class = PaymentSerializer
-    permission_classes = (IsOrderCreator,)
+    permission_classes = (IsOrderCreator, )
+
+    def get(self, request, *args, **kwargs):
+        # Catch NotAuthenticated exceptions so anonymous users get the proper response.
+        try:
+            return super(PaymentDetail, self).get(request, *args, **kwargs)
+        except exceptions.NotAuthenticated:
+            raise exceptions.PermissionDenied()
 
     def destroy(self, request, *args, **kwargs):
         payment = self.get_object()

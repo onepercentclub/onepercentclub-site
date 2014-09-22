@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-12 11:27+0200\n"
-"PO-Revision-Date: 2014-09-12 09:37+0000\n"
-"Last-Translator: Malou <malou@onepercentclub.com>\n"
+"POT-Creation-Date: 2014-09-19 16:28+0200\n"
+"PO-Revision-Date: 2014-09-19 14:30+0000\n"
+"Last-Translator: aethemba <aksel@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,42 +24,18 @@ msgstr ""
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: templates/homepage/_banner_video.hbs:24
-msgid "Watch our video"
-msgstr "Bekijk onze video"
+#: templates/homepage/business_block.hbs:11
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/header.hbs.py:10
+msgid "business"
+msgstr ""
 
-#: templates/homepage/_banner_video.hbs:32
+#: templates/homepage/business_block.hbs:15
 #, python-format
-msgid "1%%Club is the do-good crowdfunding platform"
-msgstr "1%%Club is het do-good crowdfunding platform"
-
-#: templates/homepage/banner.hbs:15
-msgid "Join the makers of change"
-msgstr "Join the makers of change"
-
-#: templates/homepage/banner.hbs:16
-msgid "Mustapha campaigns for chess courses in Amsterdam."
-msgstr "Mustapha voert campagne voor schaaklessen voor kinderen met autisme in Amsterdam."
-
-#: templates/homepage/banner.hbs:19
-msgid "Start your own campaign"
-msgstr "Start je eigen campagne"
-
-#: templates/homepage/banner.hbs:25
-msgid "Supporters of good"
-msgstr "Supporters of good"
-
-#: templates/homepage/banner.hbs:26
-msgid "We love smart ideas that do good in the world."
-msgstr "Slimme ideeën die een wereld van verschil maken."
-
-#: templates/homepage/banner.hbs:27
-msgid "Streetskids soccerschool, Colombia"
-msgstr "Voetbalschool straatkinderen, Colombia"
-
-#: templates/homepage/banner.hbs:30
-msgid "Find campaigns you’ll love"
-msgstr "Bekijk alle campagnes"
+msgid ""
+"\n"
+"                        1%%Club for companies\n"
+"                    "
+msgstr "\n1%%Club voor bedrijven"
 
 #: templates/homepage/campaign.hbs:20 templates/homepage/campaign.hbs.py:62
 #: templates/homepage/campaign.hbs:113
@@ -302,6 +278,10 @@ msgstr "Heleen Dura - van Oord, Zakenvrouw van het jaar 2013"
 msgid "Featured on"
 msgstr "In de media:"
 
+#: templates/homepage/slides/_video.hbs:20
+msgid "Watch our video"
+msgstr "Bekijk onze video"
+
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/404.html.py:5
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/404.html.py:8
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/common/templates/404.html.py:5
@@ -394,6 +374,10 @@ msgstr ""
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/_main_nav.hbs.py:31
 msgid "Search campaigns"
 msgstr "Bekijk campagnes"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/_main_nav.hbs.py:34
+msgid "Cheetah"
+msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:12
 msgid "Do good"
@@ -865,8 +849,8 @@ msgid "Login"
 msgstr "Log in"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/wallposts/templates/wallposts/reactions.hbs.py:66
-msgid "member"
-msgstr "campaigner"
+msgid "Sign up"
+msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/wallposts/templates/wallposts/reactions.hbs.py:66
 msgid "to leave a reaction"
@@ -1479,10 +1463,6 @@ msgid ""
 "                            "
 msgstr "\nIn één oogopslag heb je het overzicht van alle projecten, initiatieven en (vrijwilligers) activiteiten. Betrokkenen delen foto’s, video’s en updates over CSR activiteiten via het platform. Daardoor zijn zowel de persoonlijke verhalen als de gecombineerde impactvan alle inzet zichtbaar."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/header.hbs.py:10
-msgid "business"
-msgstr ""
-
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/header.hbs.py:14
 #, python-format
 msgid ""
@@ -1550,7 +1530,7 @@ msgstr "\nMet behulp van het 1%%Club platform kunnen wij onze medewerkers active
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/inspired.hbs.py:69
 #, python-format
-msgid "65%% of employees are using the platform "
+msgid "65%% of employees are using the platform"
 msgstr "65%% van de werknemers maakt gebruik van het platform"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/inspired.hbs.py:70
@@ -1573,7 +1553,7 @@ msgid ""
 "\n"
 "                            There are two ways your organization can use the do-good platform:\n"
 "                        "
-msgstr ""
+msgstr "\nWe bieden onze tools op twee manier aan:"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/business/tools_services.hbs.py:25
 #, python-format
@@ -1795,7 +1775,7 @@ msgstr ""
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/_running_campaign_list.hbs.py:10
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/detail/partner_campaign_list.hbs.py:9
 msgid "Running Cheetah campaigns"
-msgstr ""
+msgstr "Lopende Cheetah campagnes"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/_running_campaign_list.hbs.py:25
 msgid "Browse all Cheetah Campaigns"

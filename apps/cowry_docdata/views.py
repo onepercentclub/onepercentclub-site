@@ -7,15 +7,17 @@ from rest_framework import status
 from .models import DocDataPaymentOrder, DocDataPaymentLogEntry
 
 import logging
+
 logger = logging.getLogger(__name__)
 
 
 # TODO: limit status change notifications to docdata IPs
 class StatusChangedNotificationView(generics.GenericAPIView):
+
     def get(self, request, *args, **kwargs):
         if 'order' in request.QUERY_PARAMS:
             order = request.QUERY_PARAMS['order']
-            if re.match('^[0-9]+-[0-9]+$', order):
+            if re.match('^[\w]+-[0-9]+$', order):
                 # Try to find the payment for this order.
                 try:
                     payment = DocDataPaymentOrder.objects.get(merchant_order_reference=order)
