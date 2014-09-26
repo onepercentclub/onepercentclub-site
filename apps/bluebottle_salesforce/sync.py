@@ -1,22 +1,23 @@
 import logging
+import re
 from bluebottle.utils.utils import get_project_model
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 from registration.models import RegistrationProfile
 from apps.cowry_docdata.models import payment_method_mapping
 from apps.projects.models import ProjectBudgetLine
-from apps.organizations.models import Organization
+from apps.organizations.models import Organization, OrganizationMember
 from apps.tasks.models import Task, TaskMember
 from apps.fund.models import Donation, DonationStatuses, RecurringDirectDebitPayment
 from apps.vouchers.models import Voucher, VoucherStatuses
+from apps.fundraisers.models import FundRaiser
 
 from apps.bluebottle_salesforce.models import SalesforceOrganization, SalesforceContact, SalesforceProject, \
-    SalesforceDonation, SalesforceProjectBudget, SalesforceTask, SalesforceTaskMembers, SalesforceVoucher
-from bluebottle.bb_projects.models import ProjectPhase
+    SalesforceDonation, SalesforceProjectBudget, SalesforceTask, SalesforceTaskMembers, SalesforceVoucher, \
+    SalesforceLogItem, SalesforceFundraiser, SalesforceOrganizationMember
 
 USER_MODEL = get_user_model()
 PROJECT_MODEL = get_project_model()
-
-
 logger = logging.getLogger('bluebottle.salesforce')
 
 
@@ -34,45 +35,64 @@ def sync_organizations(dry_run, sync_from_datetime, loglevel):
     for organization in organizations:
         logger.debug("Syncing Organization: {0}".format(organization.id))
 
-        # Find the corresponding SF organization.
+        # Find the corresponding SF organization
         try:
             sforganization = SalesforceOrganization.objects.get(external_id=organization.id)
         except SalesforceOrganization.DoesNotExist:
             sforganization = SalesforceOrganization()
+        except Exception as e:
+            logger.error("Error while loading sforganization id {0} - stopping: ".format(organization.id) + str(e))
+            return success_count, error_count+1
 
-        # SF Layout: Account details section.
+        # Populate the data from the source
         sforganization.name = organization.name
 
-        # sforganization.legal_status = organization.legal_status
-        # sforganization.description = organization.description
-
-        # SF Layout: Contact Information section. Ignore address type and only use first address.
-        # When multiple address types are supported in the website, extend this function
         sforganization.billing_city = organization.city[:40]
         sforganization.billing_street = organization.address_line1 + " " + organization.address_line2
         sforganization.billing_postal_code = organization.postal_code
+        sforganization.billing_state = organization.state[:20]
+
         if organization.country:
             sforganization.billing_country = organization.country.name
         else:
             sforganization.billing_country = ''
 
-        # E-mail addresses for organizations are currently left out because source data is not validated
-        # sforganization.email_address = organization.email
+        sforganization.email_address = organization.email
         sforganization.phone = organization.phone_number
         sforganization.website = organization.website
+        sforganization.twitter = organization.twitter
+        sforganization.facebook = organization.facebook
+        sforganization.skype = organization.skype
 
-        # SF Layout: Bank Account section.
-        sforganization.address_bank = organization.account_bank_address
-        sforganization.bank_account_name = organization.name
-        sforganization.bank_account_number = organization.account_number
+        sforganization.tags = ""
+        for tag in organization.tags.all():
+            sforganization.tags = str(tag) + ", " + sforganization.tags
+
+        sforganization.bank_account_name = organization.account_holder_name
+        sforganization.bank_account_address = organization.account_holder_address
+        sforganization.bank_account_postalcode = organization.account_holder_postal_code
+        sforganization.bank_account_city = organization.account_holder_city
+        if organization.account_holder_country:
+            sforganization.bank_account_country = organization.account_holder_country.name
+        else:
+            sforganization.bank_account_country = ''
+
         sforganization.bank_name = organization.account_bank_name
-        sforganization.bic_swift = organization.account_bic
-        sforganization.country_bank = str(organization.account_bank_country)
-        sforganization.iban_number = organization.account_iban
+        sforganization.bank_address = organization.account_bank_address
+        sforganization.bank_postalcode = organization.account_bank_postal_code
+        sforganization.bank_city = organization.account_bank_city
+        if organization.account_bank_country:
+            sforganization.bank_country = organization.account_bank_country.name
+        else:
+            sforganization.bank_country = ''
 
-        # SF Layout: System Information.
+        sforganization.bank_account_number = organization.account_number
+        sforganization.bank_bic_swift = organization.account_bic
+        sforganization.bank_account_iban = organization.account_iban
+
         sforganization.external_id = organization.id
         sforganization.created_date = organization.created
+        sforganization.deleted_date = organization.deleted
 
         # Save the object to Salesforce
         if not dry_run:
@@ -91,8 +111,9 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
     error_count = 0
     success_count = 0
 
-    users = USER_MODEL.objects.all()
+    val = re.compile("^[A-Z0-9._%+-/!#$%&'*=?^_`{|}~]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$")
 
+    users = USER_MODEL.objects.all()
     if sync_from_datetime:
         users = users.filter(updated__gte=sync_from_datetime)
 
@@ -106,16 +127,56 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
             contact = SalesforceContact.objects.get(external_id=user.id)
         except SalesforceContact.DoesNotExist:
             contact = SalesforceContact()
+        except Exception as e:
+            logger.error("Error while loading sfcontact id {0} - stopping: ".format(user.id) + str(e))
+            return success_count, error_count+1
 
-        # Determine and set user type (person, group, foundation, school, company, ... )
+        # Populate the data from the source
+        contact.external_id = user.id
+        contact.user_name = user.username
+
+        if val.match(user.email.upper()):
+            contact.email = user.email
+        else:
+            logger.error("User has invalid e-mail address '{0}', member id {1}. "
+                         "Ignoring e-mail address field.".format(user.email, user.id))
+
+        contact.is_active = user.is_active
+        contact.member_since = user.date_joined
+        contact.date_joined = user.date_joined
+        contact.deleted = user.deleted
+
         contact.category1 = USER_MODEL.UserType.values[user.user_type].title()
 
-        # SF Layout: Profile section.
         contact.first_name = user.first_name
         if user.last_name.strip():
             contact.last_name = user.last_name
         else:
             contact.last_name = "1%MEMBER"
+
+        contact.location = user.location
+        contact.website = user.website
+
+        contact.picture_location = ""
+        if user.picture:
+            contact.picture_location = str(user.picture)
+
+        contact.about_me_us = user.about
+        contact.why_one_percent_member = user.why
+
+        if user.time_available:
+            contact.availability = user.time_available.type
+        else:
+            contact.availability = ''
+
+        contact.facebook = user.facebook
+        contact.twitter = user.twitter
+        contact.skype = user.skypename
+
+        contact.primary_language = user.primary_language
+        contact.receive_newsletter = user.newsletter
+        contact.phone = user.phone_number
+        contact.birth_date = user.birthdate
 
         if user.gender == "male":
             contact.gender = USER_MODEL.Gender.values['male'].title()
@@ -124,36 +185,25 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
         else:
             contact.gender = ""
 
-        if user.time_available:
-            contact.availability = user.time_available.type or ""
+        contact.tags = ""
+        for tag in user.tags.all():
+            contact.tags = str(tag) + ", " + contact.tags
 
-        contact.user_name = user.username
-        contact.is_active = user.is_active
-        contact.close_date = user.deleted
-        contact.member_since = user.date_joined
-        contact.date_joined = user.date_joined
-        contact.last_login = user.last_login
-        contact.why_one_percent_member = user.why
-        contact.about_me_us = user.about
-        contact.location = user.location
-        contact.birth_date = user.birthdate
-        contact.available_to_share_time_and_knowledge = user.share_time_knowledge
-        contact.available_to_donate = user.share_money
-
-        # SF Layout: Contact Information section.
-        contact.email = user.email
-        contact.website = user.website
-
-        # Bank details of recurring payments
-        try:
-            recurring_payment = RecurringDirectDebitPayment.objects.get(user=user)
-            contact.bank_account_city = recurring_payment.city
-            contact.bank_account_holder = recurring_payment.name
-            contact.bank_account_number = recurring_payment.account
-        except RecurringDirectDebitPayment.DoesNotExist:
-            contact.bank_account_city = ''
-            contact.bank_account_holder = ''
-            contact.bank_account_number = ''
+        if user.address:
+            contact.mailing_city = user.address.city
+            contact.mailing_street = user.address.line1 + ' ' + user.address.line2
+            if user.address.country:
+                contact.mailing_country = user.address.country.name
+            else:
+                contact.mailing_country = ''
+            contact.mailing_postal_code = user.address.postal_code
+            contact.mailing_state = user.address.state
+        else:
+            contact.mailing_city = ''
+            contact.mailing_street = ''
+            contact.mailing_country = ''
+            contact.mailing_postal_code = ''
+            contact.mailing_state = ''
 
         # Determine if the user has activated himself, by default assume not
         # if this is a legacy record, by default assume it has activated
@@ -169,31 +219,22 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
             else:
                 contact.has_activated = True
 
-        if user.address:
-            contact.mailing_city = user.address.city
-            contact.mailing_street = user.address.line1 + '\n' + user.address.line2
-            if user.address.country:
-                contact.mailing_country = user.address.country.name
-            else:
-                contact.mailing_country = ''
-            contact.mailing_postal_code = user.address.postal_code
-            contact.mailing_state = user.address.state
-        else:
-            contact.mailing_city = ''
-            contact.mailing_street = ''
-            contact.mailing_country = ''
-            contact.mailing_postal_code = ''
-            contact.mailing_state = ''
+        contact.last_login = user.last_login
 
-        # The default: Organization(Account) will be 'Individual' without setting a specific value
-        # contact.organization_account = SalesforceOrganization.objects.get(external_id=contact.organization.id)
-
-        # SF Layout: My Settings section.
-        contact.receive_newsletter = user.newsletter
-        contact.primary_language = user.primary_language
-
-        # SF: Other
-        contact.external_id = user.id
+        # Bank details of recurring payments
+        try:
+            recurring_payment = RecurringDirectDebitPayment.objects.get(user=user)
+            contact.bank_account_city = recurring_payment.city
+            contact.bank_account_holder = recurring_payment.name
+            contact.bank_account_number = recurring_payment.account
+            contact.bank_account_iban = recurring_payment.iban
+            contact.bank_account_active_recurring_debit = recurring_payment.active
+        except RecurringDirectDebitPayment.DoesNotExist:
+            contact.bank_account_city = ''
+            contact.bank_account_holder = ''
+            contact.bank_account_number = ''
+            contact.bank_account_iban = ''
+            contact.bank_account_active_recurring_debit = False
 
         # Save the object to Salesforce
         if not dry_run:
@@ -227,68 +268,47 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
             sfproject = SalesforceProject.objects.get(external_id=project.id)
         except SalesforceProject.DoesNotExist:
             sfproject = SalesforceProject()
+        except Exception as e:
+            logger.error("Error while loading sfproject id {0} - stopping: ".format(project.id) + str(e))
+            return success_count, error_count+1
 
-        # SF Layout: 1%CLUB Project Detail section.
+        # Populate the data
+        sfproject.external_id = project.id
+        sfproject.project_name = project.title
+        sfproject.describe_the_project_in_one_sentence = project.pitch[:5000]
+
+        # sfproject.number_of_people_reached_direct = project.reach
+
+        sfproject.video_url = project.video_url
+
+        sfproject.date_project_deadline = project.deadline or None
+        sfproject.is_campaign = project.is_campaign
         sfproject.amount_at_the_moment = "%01.2f" % (project.amount_donated or 0)
         sfproject.amount_requested = "%01.2f" % (project.amount_asked or 0)
         sfproject.amount_still_needed = "%01.2f" % (project.amount_needed or 0)
+        sfproject.allow_overfunding = project.allow_overfunding
+        sfproject.story = project.story
 
-        if project.deadline:
-            sfproject.date_project_deadline = project.deadline.date()
+        # sfproject.target_group_s_of_the_project = project.for_who
+        # sfproject.sustainability = project.future
+        # sfproject.contribution_project_in_reducing_poverty = project.effects
+
+        sfproject.describe_where_the_money_is_needed_for = project.amount_needed
+
+        sfproject.date_plan_submitted = project.date_submitted
+        sfproject.date_started = project.campaign_started
+        sfproject.date_ended = project.campaign_ended
+        sfproject.date_funded = project.campaign_funded
+
+        sfproject.picture_location = ""
+        if project.image:
+            sfproject.picture_location = str(project.image)
 
         try:
             sfproject.project_owner = SalesforceContact.objects.get(external_id=project.owner.id)
         except SalesforceContact.DoesNotExist:
             logger.error("Unable to find contact id {0} in Salesforce for project id {1}".format(project.owner.id,
                                                                                                  project.id))
-
-        sfproject.project_name = project.title
-
-        # SF Layout: Summary Project Details section.
-
-        if project.country:
-            sfproject.country_in_which_the_project_is_located = project.country.name.encode("utf-8")
-
-        sfproject.describe_the_project_in_one_sentence = project.pitch[:5000]
-        sfproject.extensive_project_description = project.story
-
-        if project.status:
-            sfproject.status_project = project.status.name.encode("utf-8")
-
-        sfproject.tags = ""
-        for tag in project.tags.all():
-            sfproject.tags = str(tag) + ", " + sfproject.tags
-
-        sfproject.target_group_s_of_the_project = 0 #project.for_who
-        sfproject.number_of_people_reached_direct = 0 #project.reach
-        sfproject.describe_where_the_money_is_needed_for = project.amount_needed
-        sfproject.sustainability = "" #project.future
-        sfproject.contribution_project_in_reducing_poverty = "" #project.effects
-
-        # Set status dates
-        # FIXME: These are the dates available now
-        # created: date the project was first created
-        # updated: last change
-        # deadline: Deadline for the campaign
-        # date_submitted
-        # campaign_started
-        # campaign_funded: 100% funded (funding continues)
-        # campaign_ended: Campaigns stops (might be prior to deadline)
-
-        sfproject.date_plan_submitted = project.date_submitted
-        sfproject.date_plan_approved = project.campaign_started
-        sfproject.date_plan_rejected = project.date_submitted
-
-        sfproject.date_pitch_created = project.created
-        sfproject.date_pitch_submitted = project.date_submitted
-        sfproject.date_pitch_approved = project.campaign_started
-        sfproject.date_pitch_rejected = project.date_submitted
-
-        sfproject.date_project_act = project.campaign_ended
-        sfproject.date_project_realized = project.campaign_ended
-        sfproject.date_project_failed = project.campaign_ended
-        sfproject.date_project_result = project.campaign_ended
-
         if project.organization:
             try:
                 sfproject.organization_account = SalesforceOrganization.objects.get(
@@ -297,10 +317,29 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
                 logger.error("Unable to find organization id {0} in Salesforce for project id {1}".format(
                     project.organization.id, project.id))
 
-        sfproject.project_url = "http://www.onepercentclub.com/en/#!/projects/{0}".format(project.slug)
+        if project.country:
+            sfproject.country_in_which_the_project_is_located = project.country.name.encode("utf-8")
 
-        # SF Layout: Other section.
-        sfproject.external_id = project.id
+        sfproject.theme = ""
+        if project.theme:
+            sfproject.theme = project.theme.name
+
+        if project.status:
+            sfproject.status_project = project.status.name.encode("utf-8")
+
+        sfproject.project_created_date = project.created
+        sfproject.project_updated_date = project.updated
+
+        sfproject.tags = ""
+        for tag in project.tags.all():
+            sfproject.tags = str(tag) + ", " + sfproject.tags
+        sfproject.tags = sfproject.tags[:255]
+
+        sfproject.partner_organization = ""
+        if project.partner_organization:
+            sfproject.partner_organization = project.partner_organization.name
+
+        sfproject.slug = project.slug
 
         # Save the object to Salesforce
         if not dry_run:
@@ -310,6 +349,68 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
             except Exception as e:
                 error_count += 1
                 logger.error("Error while saving project id {0}: ".format(project.id) + str(e))
+
+    return success_count, error_count
+
+
+def sync_fundraisers(dry_run, sync_from_datetime, loglevel):
+    logger.setLevel(loglevel)
+    error_count = 0
+    success_count = 0
+
+    fundraisers = FundRaiser.objects.all()
+
+    if sync_from_datetime:
+        fundraisers = fundraisers.filter(updated__gte=sync_from_datetime)
+
+    logger.info("Syncing {0} Fundraiser objects.".format(fundraisers.count()))
+
+    for fundraiser in fundraisers:
+        logger.debug("Syncing Fundraiser: {0}".format(fundraiser.id))
+
+        # Find the corresponding SF Fundraiser.
+        try:
+            sffundraiser = SalesforceFundraiser.objects.get(external_id=fundraiser.id)
+        except SalesforceFundraiser.DoesNotExist:
+            sffundraiser = SalesforceFundraiser()
+        except Exception as e:
+            logger.error("Error while loading sffundraiser id {0} - stopping: ".format(fundraiser.id) + str(e))
+            return success_count, error_count+1
+
+        # Populate the data
+        sffundraiser.external_id = fundraiser.id
+
+        try:
+            sffundraiser.owner = SalesforceContact.objects.get(external_id=fundraiser.owner.id)
+        except SalesforceContact.DoesNotExist:
+            logger.error("Unable to find contact id {0} in Salesforce for fundraiser id {1}".format(fundraiser.owner.id,
+                                                                                                    fundraiser.id))
+        try:
+            sffundraiser.project = SalesforceProject.objects.get(external_id=fundraiser.project.id)
+        except SalesforceProject.DoesNotExist:
+            logger.error("Unable to find project id {0} in Salesforce for fundraiser id {1}".format(
+                fundraiser.project.id, fundraiser.id))
+
+        sffundraiser.picture_location = ""
+        if fundraiser.image:
+            sffundraiser.picture_location = str(fundraiser.image)
+
+        sffundraiser.name = fundraiser.title[:80]
+        sffundraiser.description = fundraiser.description
+        sffundraiser.video_url = fundraiser.video_url
+        sffundraiser.amount = "%01.2f" % (fundraiser.amount or 0)
+
+        sffundraiser.deadline = fundraiser.deadline.date()
+        sffundraiser.created = fundraiser.created
+
+        # Save the object to Salesforce
+        if not dry_run:
+            try:
+                sffundraiser.save()
+                success_count += 1
+            except Exception as e:
+                error_count += 1
+                logger.error("Error while saving fundraiser id {0}: ".format(fundraiser.id) + str(e))
 
     return success_count, error_count
 
@@ -334,8 +435,11 @@ def sync_projectbudgetlines(dry_run, sync_from_datetime, loglevel):
             sfbudget_line = SalesforceProjectBudget.objects.get(external_id=budget_line.id)
         except SalesforceProjectBudget.DoesNotExist:
             sfbudget_line = SalesforceProjectBudget()
+        except Exception as e:
+            logger.error("Error while loading sfbudget_line id {0} - stopping: ".format(budget_line.id) + str(e))
+            return success_count, error_count+1
 
-        # SF Layout: Information section
+        # Populate the data
         sfbudget_line.costs = "%01.2f" % (budget_line.amount / 100)
         sfbudget_line.description = budget_line.description
         sfbudget_line.external_id = budget_line.id
@@ -365,6 +469,7 @@ def sync_donations(dry_run, sync_from_datetime, loglevel):
 
     donations = Donation.objects.all()
     if sync_from_datetime:
+        # donations = donations.filter(updated__gte=sync_from_datetime, status='paid')
         donations = donations.filter(updated__gte=sync_from_datetime)
 
     logger.info("Syncing {0} Donation objects.".format(donations.count()))
@@ -377,31 +482,47 @@ def sync_donations(dry_run, sync_from_datetime, loglevel):
             sfdonation = SalesforceDonation.objects.get(external_id_donation=donation.id)
         except SalesforceDonation.DoesNotExist:
             sfdonation = SalesforceDonation()
+        except Exception as e:
+            logger.error("Error while loading sfdonation id {0} - stopping: ".format(donation.id) + str(e))
+            return success_count, error_count+1
 
-        # Initialize Salesforce objects.
+        # Poplate the data
+        sfdonation.external_id_donation = donation.id
+        sfdonation.amount = "%01.2f" % (float(donation.amount) / 100)
+
         if donation.user:
             try:
-                sfContact = SalesforceContact.objects.get(external_id=donation.user.id)
-                sfdonation.receiver = sfContact
+                sfdonation.donor = SalesforceContact.objects.get(external_id=donation.user.id)
             except SalesforceContact.DoesNotExist:
                 logger.error("Unable to find contact id {0} in Salesforce for donation id {1}".format(
                     donation.user.id, donation.id))
         if donation.project:
             try:
-                sfProject = SalesforceProject.objects.get(external_id=donation.project.id)
-                sfdonation.project = sfProject
+                sfdonation.project = SalesforceProject.objects.get(external_id=donation.project.id)
             except SalesforceProject.DoesNotExist:
                 logger.error("Unable to find project id {0} in Salesforce for donation id {1}".format(
                     donation.project.id, donation.id))
+        if donation.fundraiser:
+            try:
+                sfdonation.fundraiser = SalesforceFundraiser.objects.get(external_id=donation.fundraiser.id)
+            except SalesforceFundraiser.DoesNotExist:
+                logger.error("Unable to find fundraiser id {0} in Salesforce for donation id {1}".format(
+                    donation.fundraiser.id, donation.id))
 
-        # SF Layout: Donation Information section.
-        sfdonation.amount = "%01.2f" % (float(donation.amount) / 100)
-        sfdonation.close_date = donation.created.date()
+        sfdonation.stage_name = DonationStatuses.values[donation.status].title()
+        sfdonation.close_date = donation.created
+        sfdonation.donation_created_date = donation.created
+        sfdonation.donation_updated_date = donation.updated
+        sfdonation.donation_ready_date = donation.ready or None
+
+        sfdonation.type = donation.DonationTypes.values[donation.donation_type].title()
 
         if donation.user and donation.user.get_full_name() != '':
             sfdonation.name = donation.user.get_full_name()
         else:
             sfdonation.name = "1%MEMBER"
+
+        sfdonation.record_type = "012A0000000ZK6FIAW"
 
         # Get the payment method from the associated order / payment
         sfdonation.payment_method = payment_method_mapping['']  # Maps to Unknown for DocData.
@@ -410,14 +531,6 @@ def sync_donations(dry_run, sync_from_datetime, loglevel):
             if lp and lp.latest_docdata_payment:
                 if lp.latest_docdata_payment.payment_method in payment_method_mapping:
                     sfdonation.payment_method = payment_method_mapping[lp.latest_docdata_payment.payment_method]
-
-        sfdonation.stage_name = DonationStatuses.values[donation.status].title()
-        sfdonation.opportunity_type = donation.DonationTypes.values[donation.donation_type].title()
-
-        # SF Layout: System Information section.
-        sfdonation.donation_created_date = donation.created.date()
-        sfdonation.external_id_donation = donation.id
-        sfdonation.record_type = "012A0000000ZK6FIAW"
 
         # Save the object to Salesforce
         if not dry_run:
@@ -519,31 +632,45 @@ def sync_tasks(dry_run, sync_from_datetime, loglevel):
             sftask = SalesforceTask.objects.get(external_id=task.id)
         except SalesforceTask.DoesNotExist:
             sftask = SalesforceTask()
+        except Exception as e:
+            logger.error("Error while loading sftask id {0} - stopping: ".format(task.id) + str(e))
+            return success_count, error_count+1
 
-        # SF Layout: Information section.
+        # Populate the data
+        sftask.external_id = task.id
+
         try:
             sftask.project = SalesforceProject.objects.get(external_id=task.project.id)
         except SalesforceProject.DoesNotExist:
             logger.error("Unable to find project id {0} in Salesforce for task id {1}".format(task.project.id, task.id))
 
-        sftask.deadline = task.deadline.strftime("%d %B %Y")
+        try:
+            sftask.author = SalesforceContact.objects.get(external_id=task.author.id)
+        except SalesforceContact.DoesNotExist:
+            logger.error("Unable to find contact id {0} in Salesforce for task id {1}".format(task.author.id, task.id))
+
+        sftask.deadline = task.deadline or None
+
         sftask.effort = task.time_needed
         sftask.extended_task_description = task.description
         sftask.location_of_the_task = task.location
+        sftask.people_needed = task.people_needed
+        sftask.end_goal = task.end_goal
 
         if task.skill:
             sftask.task_expertise = task.skill.name.encode("utf-8")
 
         sftask.task_status = task.status
         sftask.title = task.title
-        sftask.task_created_date = task.created
+        sftask.task_created_date = task.created or None
 
         sftask.tags = ""
         for tag in task.tags.all():
             sftask.tags = str(tag) + ", " + sftask.tags
 
-        # SF: Other
-        sftask.external_id = task.id
+        sftask.date_realized = None
+        if task.status == 'realized' and task.date_status_change:
+            sftask.date_realized = task.date_status_change
 
         # Save the object to Salesforce
         if not dry_run:
@@ -577,8 +704,13 @@ def sync_taskmembers(dry_run, sync_from_datetime, loglevel):
             sftaskmember = SalesforceTaskMembers.objects.get(external_id=task_member.id)
         except SalesforceTaskMembers.DoesNotExist:
             sftaskmember = SalesforceTaskMembers()
+        except Exception as e:
+            logger.error("Error while loading sftaskmember id {0} - stopping: ".format(task_member.id) + str(e))
+            return success_count, error_count+1
 
-        # SF Layout: Information section.
+        # Populate the data
+        sftaskmember.external_id = task_member.id
+
         try:
             sftaskmember.contacts = SalesforceContact.objects.get(external_id=task_member.member.id)
         except SalesforceContact.DoesNotExist:
@@ -589,8 +721,9 @@ def sync_taskmembers(dry_run, sync_from_datetime, loglevel):
         except SalesforceTask.DoesNotExist:
             logger.error("Unable to find task id {0} in Salesforce for task member id {1}".format(task_member.member.id,
                                                                                                   task_member.id))
-
-        sftaskmember.external_id = task_member.id
+        sftaskmember.motivation = task_member.motivation
+        sftaskmember.status = TaskMember.TaskMemberStatuses.values[task_member.status].title()
+        sftaskmember.taskmember_created_date = task_member.created
 
         # Save the object to Salesforce
         if not dry_run:
@@ -599,6 +732,84 @@ def sync_taskmembers(dry_run, sync_from_datetime, loglevel):
                 success_count += 1
             except Exception as e:
                 error_count += 1
-                logger.error("Error while saving task id {0}: ".format(task_member.id) + str(e))
+                logger.error("Error while saving task member id {0}: ".format(task_member.id) + str(e))
 
     return success_count, error_count
+
+
+def sync_organizationmembers(dry_run, sync_from_datetime, loglevel):
+    logger.setLevel(loglevel)
+    error_count = 0
+    success_count = 0
+
+    org_members = OrganizationMember.objects.all()
+
+    if sync_from_datetime:
+        org_members = org_members.filter(updated__gte=sync_from_datetime)
+
+    logger.info("Syncing {0} OrganizationMember objects.".format(org_members.count()))
+
+    for org_member in org_members:
+        logger.debug("Syncing OrganizationMember: {0}".format(org_member.id))
+
+        # Find the corresponding SF organization members.
+        try:
+            sf_org_member = SalesforceOrganizationMember.objects.get(external_id=org_member.id)
+        except SalesforceTaskMembers.DoesNotExist:
+            sf_org_member = SalesforceOrganizationMember()
+        except Exception as e:
+            logger.error("Error while loading sf_org_member id {0} - stopping: ".format(org_member.id) + str(e))
+            return success_count, error_count+1
+
+        # Populate the data
+        sf_org_member.external_id = org_member.id
+
+        try:
+            sf_org_member.contacts = SalesforceContact.objects.get(external_id=org_member.user.id)
+        except SalesforceContact.DoesNotExist:
+            logger.error("Unable to find contact id {0} in Salesforce for organization member id {1}".format(
+                org_member.user.id, org_member.id))
+
+        try:
+            sf_org_member.contacts = SalesforceOrganization.objects.get(external_id=org_member.organization.id)
+        except SalesforceOrganization.DoesNotExist:
+            logger.error("Unable to find organization id {0} in Salesforce for organization member id {1}".format(
+                org_member.organization.id, org_member.id))
+
+        sf_org_member.role = org_member.function
+
+        # Save the object to Salesforce
+        if not dry_run:
+            try:
+                sf_org_member.save()
+                success_count += 1
+            except Exception as e:
+                error_count += 1
+                logger.error("Error while saving organization member id {0}: ".format(org_member.id) + str(e))
+
+    return success_count, error_count
+
+
+def send_log(filename, err, succ, command, command_ext, dry_run, loglevel):
+    logger.setLevel(loglevel)
+
+    sflog = SalesforceLogItem()
+
+    logger.info("Sending log to Salesforce...")
+
+    sflog.entered = timezone.localtime(timezone.now())
+    sflog.source = str(command)
+    sflog.source_extended = str(command_ext)
+    sflog.errors = err
+    sflog.successes = succ
+
+    with open(filename, "r") as logfile:
+        for line in logfile:
+            sflog.message += line
+
+    # Save the object to Salesforce
+    if not dry_run:
+        try:
+            sflog.save()
+        except Exception as e:
+            logger.error("Error while saving log: " + str(e))

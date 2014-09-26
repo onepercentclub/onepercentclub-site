@@ -7,20 +7,17 @@ from django.contrib.auth import get_user_model
 import os
 from registration.models import RegistrationProfile
 from django.utils import timezone
+from django.conf import settings
 from apps.cowry_docdata.models import payment_method_mapping
 from apps.fund.models import Donation, DonationStatuses, RecurringDirectDebitPayment
 from apps.vouchers.models import Voucher, VoucherStatuses
-from apps.organizations.models import Organization
+from apps.organizations.models import Organization, OrganizationMember
+from apps.fundraisers.models import FundRaiser
+from apps.tasks.models import Task, TaskMember
 
 USER_MODEL = get_user_model()
 PROJECT_MODEL = get_project_model()
-
-
-from apps.tasks.models import Task, TaskMember
-
 logger = logging.getLogger('bluebottle.salesforce')
-
-# TODO get field names from model for csv header from SalesforceDonation._meta.fields
 
 
 def generate_organizations_csv_file(path, loglevel):
@@ -28,55 +25,101 @@ def generate_organizations_csv_file(path, loglevel):
     error_count = 0
     success_count = 0
 
-    filename = 'BLUE2SFDC_Organizations_{0}.csv'.format(timezone.localtime(timezone.now()).strftime('%Y%m%d'))
+    #filename = 'BLUE2SFDC_Organizations_{0}.csv'.format(timezone.localtime(timezone.now()).strftime('%Y%m%d'))
+    filename = 'BLUE2SFDC_Organizations.csv'
     with open(os.path.join(path, filename), 'wb') as csv_outfile:
-        csvwriter = csv.writer(csv_outfile, quoting=csv.QUOTE_ALL)
+        csvwriter = csv.writer(csv_outfile, quoting=csv.QUOTE_MINIMAL)
 
-        csvwriter.writerow(["Organization_External_Id__c", "Name", "Legal_status__c", "Description", "BillingCity",
-                            "BillingStreet", "BillingPostalCode", "BillingCountry", "E_mail_address__c", "Phone",
-                            "Website", "Address_bank__c", "Bank_account_name__c", "Bank_account_number__c",
-                            "Bankname__c", "BIC_SWIFT__c", "Country_bank__c", "IBAN_number__c",
-                            "Organization_created_date__c"])
+        csvwriter.writerow(["Organization_External_Id__c",
+                            "Name",
+                            "BillingStreet",
+                            "BillingCity",
+                            "BillingState",
+                            "BillingCountry",
+                            "BillingPostalCode",
+                            "E_mail_address__c",
+                            "Phone",
+                            "Website",
+                            "Twitter__c",
+                            "Facebook__c",
+                            "Skype__c",
+                            "Tags__c",
+                            "Bank_account_name__c",
+                            "Bank_account_address__c",
+                            "Bank_account_postalcode__c",
+                            "Bank_account_city__c",
+                            "Bank_account_country__c",
+                            "Bank_account_IBAN__c",
+                            "Bank_SWIFT__c",
+                            "Bank_account_number__c",
+                            "Bank_bankname__c",
+                            "Bank_address__c",
+                            "Bank_postalcode__c",
+                            "Bank_city__c",
+                            "Bank_country__c",
+                            "Organization_created_date__c",
+                            "Deleted__c"])
 
         organizations = Organization.objects.all()
 
         logger.info("Exporting {0} Organization objects to {1}".format(organizations.count(), filename))
 
-        # Ignore address type and only use first address.
-        # When multiple address types are supported in the website, extend this function
         for organization in organizations:
             try:
-                billing_city = organization.city[:40]
                 billing_street = organization.address_line1 + " " + organization.address_line2
-                billing_postal_code = organization.postal_code
-                billing_country = ''
+
                 if organization.country:
                     billing_country = organization.country.name
+                else:
+                    billing_country = ''
 
                 if organization.account_bank_country:
                     bank_country = organization.account_bank_country.name
                 else:
                     bank_country = ''
 
+                if organization.account_holder_country:
+                    bank_account_country = organization.account_holder_country.name
+                else:
+                    bank_account_country = ''
+
+                tags = ""
+                for tag in organization.tags.all():
+                    tags = str(tag) + ", " + tags
+
+                deleted = ""
+                if organization.deleted:
+                    deleted = organization.deleted.strftime("%Y-%m-%dT%H:%M:%S.000Z")
+
                 csvwriter.writerow([organization.id,
                                     organization.name.encode("utf-8"),
-                                    "", # organization.legal_status.encode("utf-8"),
-                                    "", # organization.description.encode("utf-8"),
-                                    billing_city.encode("utf-8"),
                                     billing_street.encode("utf-8"),
-                                    billing_postal_code.encode("utf-8"),
+                                    organization.city[:40].encode("utf-8"),
+                                    organization.state.encode("utf-8"),
                                     billing_country.encode("utf-8"),
+                                    organization.postal_code.encode("utf-8"),
                                     organization.email.encode("utf-8"),
                                     organization.phone_number.encode("utf-8"),
                                     organization.website.encode("utf-8"),
-                                    organization.account_bank_address.encode("utf-8"),
-                                    organization.name.encode("utf-8"),
+                                    organization.twitter.encode("utf-8"),
+                                    organization.facebook.encode("utf-8"),
+                                    organization.skype.encode("utf-8"),
+                                    tags.encode("utf-8"),
+                                    organization.account_holder_name.encode("utf-8"),
+                                    organization.account_holder_address.encode("utf-8"),
+                                    organization.account_holder_postal_code.encode("utf-8"),
+                                    organization.account_holder_city.encode("utf-8"),
+                                    bank_account_country.encode("utf-8"),
+                                    organization.account_iban.encode("utf-8"),
+                                    organization.account_bic.encode("utf-8"),
                                     organization.account_number.encode("utf-8"),
                                     organization.account_bank_name.encode("utf-8"),
-                                    organization.account_bic.encode("utf-8"),
+                                    organization.account_bank_address.encode("utf-8"),
+                                    organization.account_bank_postal_code.encode("utf-8"),
+                                    organization.account_bank_city.encode("utf-8"),
                                     bank_country.encode("utf-8"),
-                                    organization.account_iban.encode("utf-8"),
-                                    organization.created.date()])
+                                    organization.created.date().strftime("%Y-%m-%dT%H:%M:%S.000Z"),
+                                    deleted])
                 success_count += 1
             except Exception as e:
                 error_count += 1
@@ -90,18 +133,46 @@ def generate_users_csv_file(path, loglevel):
     error_count = 0
     success_count = 0
 
-    filename = 'BLUE2SFDC_Users_{0}.csv'.format(timezone.localtime(timezone.now()).strftime('%Y%m%d'))
+    #filename = 'BLUE2SFDC_Users_{0}.csv'.format(timezone.localtime(timezone.now()).strftime('%Y%m%d'))
+    filename = 'BLUE2SFDC_Users.csv'
     with open(os.path.join(path, filename), 'wb') as csv_outfile:
         csvwriter = csv.writer(csv_outfile, quoting=csv.QUOTE_ALL)
 
-        csvwriter.writerow(["Contact_External_Id__c", "Category1__c", "FirstName", "LastName", "Gender__c",
-                            "Username__c", "Active__c", "Deleted__c", "Member_since__c", "Why_onepercent_member__c",
-                            "About_me_us__c", "Location__c", "Birthdate", "Email", "Website__c", "MailingCity",
-                            "MailingStreet", "MailingCountry", "MailingPostalCode", "MailingState",
-                            "Receive_newsletter__c", "Primary_language__c", "Available_to_share_time_and_knowledge__c",
-                            "Available_to_donate__c", "Availability__c", "Has_Activated_Account__c",
-                            "Date_Joined__c", "Date_Last_Login__c", "Account_number__c", "Account_holder__c",
-                            "Account_city__c"])
+        csvwriter.writerow(["Contact_External_Id__c",
+                            "Category1__c",
+                            "FirstName",
+                            "LastName",
+                            "Gender__c",
+                            "Username__c",
+                            "Active__c",
+                            "Deleted__c",
+                            "Member_since__c",
+                            "Location__c",
+                            "Birthdate",
+                            "Email",
+                            "Website__c",
+                            "Picture_Location__c",
+                            "Tags__c",
+                            "MailingCity",
+                            "MailingStreet",
+                            "MailingCountry",
+                            "MailingPostalCode",
+                            "MailingState",
+                            "Receive_newsletter__c",
+                            "Primary_language__c",
+                            "Available_to_share_time_and_knowledge__c",
+                            "Available_to_donate__c",
+                            "Availability__c",
+                            "Facebook__c",
+                            "Twitter__c",
+                            "Skype__c",
+                            "Has_Activated_Account__c",
+                            "Date_Joined__c",
+                            "Date_Last_Login__c",
+                            "Account_number__c",
+                            "Account_holder__c",
+                            "Account_city__c",
+                            "Phone"])
 
         users = USER_MODEL.objects.all()
 
@@ -111,7 +182,7 @@ def generate_users_csv_file(path, loglevel):
             try:
                 if user.address:
                     mailing_city = user.address.city
-                    mailing_street = user.address.line1 + '\n' + user.address.line2
+                    mailing_street = user.address.line1 + ' ' + user.address.line2
                     if user.address.country:
                         mailing_country = user.address.country.name
                     else:
@@ -138,12 +209,20 @@ def generate_users_csv_file(path, loglevel):
 
                 date_deleted = ""
                 if user.deleted:
-                    date_deleted = user.deleted.date()
+                    date_deleted = user.deleted.date().strftime("%Y-%m-%dT%H:%M:%S.000Z")
+
+                birth_date = ""
+                if user.birthdate:
+                    birth_date = user.birthdate.strftime("%Y-%m-%dT%H:%M:%S.000Z")
+
+                tags = ""
+                for tag in user.tags.all():
+                    tags = str(tag) + ", " + tags
 
                 date_joined = ""
                 member_since = ""
                 if user.date_joined:
-                    member_since = user.date_joined.date()
+                    member_since = user.date_joined.date().strftime("%Y-%m-%dT%H:%M:%S.000Z")
                     date_joined = user.date_joined.strftime("%Y-%m-%dT%H:%M:%S.000Z")
 
                 last_login = ""
@@ -166,10 +245,14 @@ def generate_users_csv_file(path, loglevel):
                     bank_account_city = recurring_payment.city
                     bank_account_holder = recurring_payment.name
                     bank_account_number = recurring_payment.account
+                    bank_account_iban = recurring_payment.iban
+                    bank_account_active = recurring_payment.active
                 except RecurringDirectDebitPayment.DoesNotExist:
                     bank_account_city = ''
                     bank_account_holder = ''
                     bank_account_number = ''
+                    bank_account_iban = ''
+                    bank_account_active = False
 
                 availability = ""
                 if user.time_available:
@@ -181,31 +264,39 @@ def generate_users_csv_file(path, loglevel):
                                     last_name.encode("utf-8"),
                                     gender,
                                     user.username.encode("utf-8"),
-                                    user.is_active,
+                                    int(user.is_active),
                                     date_deleted,
                                     member_since,
-                                    user.why.encode("utf-8"),
-                                    user.about.encode("utf-8"),
+                                    # user.why.encode("utf-8"),
+                                    # user.about.encode("utf-8"),
                                     user.location.encode("utf-8"),
-                                    user.birthdate,
+                                    birth_date,
                                     user.email.encode("utf-8"),
                                     user.website.encode("utf-8"),
+                                    user.picture,
+                                    tags.encode("utf-8"),
                                     mailing_city.encode("utf-8"),
                                     mailing_street.encode("utf-8"),
                                     mailing_country.encode("utf-8"),
                                     mailing_postal_code.encode("utf-8"),
                                     mailing_state.encode("utf-8"),
-                                    user.newsletter,
+                                    int(user.newsletter),
                                     user.primary_language.encode("utf-8"),
-                                    user.share_time_knowledge,
-                                    user.share_money,
+                                    int(user.share_time_knowledge),
+                                    int(user.share_money),
                                     availability,
-                                    has_activated,
+                                    user.facebook.encode("utf-8"),
+                                    user.twitter.encode("utf-8"),
+                                    user.skypename.encode("utf-8"),
+                                    int(has_activated),
                                     date_joined,
                                     last_login,
                                     bank_account_number,
                                     bank_account_holder.encode("utf-8"),
-                                    bank_account_city.encode("utf-8")])
+                                    bank_account_city.encode("utf-8"),
+                                    bank_account_iban.encode("utf-8"),
+                                    int(bank_account_active),
+                                    user.phone_number.encode("utf-8")])
                 success_count += 1
             except Exception as e:
                 error_count += 1
@@ -219,73 +310,113 @@ def generate_projects_csv_file(path, loglevel):
     error_count = 0
     success_count = 0
 
-    filename = 'BLUE2SFDC_Projects_{0}.csv'.format(timezone.localtime(timezone.now()).strftime('%Y%m%d'))
+    filename = 'BLUE2SFDC_Projects.csv'
     with open(os.path.join(path, filename), 'wb') as csv_outfile:
         csvwriter = csv.writer(csv_outfile, quoting=csv.QUOTE_ALL)
 
         csvwriter.writerow(["Project_External_ID__c",
                             "Project_name__c",
-                            "Project_Owner__c",
-                            "Status_project__c",
-                            "Country_in_which_the_project_is_located__c",
-                            "Describe_the_project_in_one_sentence__c",
-                            "Organization__c",
-                            "NumberOfPeopleReachedDirect__c",
-                            "Amount_at_the_moment__c",
+                            # "Describe_the_project_in_one_sentence__c",
+                            "NumerOfPeopleReachedDirect__c",
+                            "VideoURL__c",
+                            "Date_project_deadline__c",
+                            "Is_Campaign__c",
                             "Amount_requested__c",
+                            "Amount_at_the_moment__c",
                             "Amount_still_needed__c",
+                            "Allow_Overfunding__c",
+                            # "Story__c",
+                            # "Contribution_project_in_reducing_poverty__c",
+                            # "Target_group_s_of_the_project__c",
+                            # "Sustainability__c",
+                            "Date_plan_submitted",
+                            "Date_Started__c",
+                            "Date_Ended__c",
+                            "Date_Funded__c",
+                            "Picture_Location__c",
+                            "Project_Owner__c",
+                            "Organization__c",
+                            "Country_in_which_the_project_is_located__c",
+                            "Theme__c",
+                            "Status_project__c",
                             "Project_created_date__c",
-                            "Target_group_s_of_the_project__c",
-                            "Projecturl__c",
+                            "Project_updated_date__c",
                             "Tags__c",
-                            "Contribution_project_in_reducing_poverty__c",
-                            "Sustainability__c",
-                            "Extensive_project_description__c",
-                            "Date_project_updated__c",
-                            "Date_project_deadline__c"])
+                            "Partner_Organization__c",
+                            "Slug__c"])
 
         projects = PROJECT_MODEL.objects.all()
         logger.info("Exporting {0} Project objects to {1}".format(projects.count(), filename))
 
         for project in projects:
+
             country = ''
             if project.country:
                 country = project.country.name.encode("utf-8")
+
             status = ''
             if project.status:
                 status = project.status.name.encode("utf-8")
+
             organization_id = ''
             if project.organization:
                 organization_id = project.organization.id
+
+            video_url = ''
+            if project.video_url:
+                video_url = project.video_url
+
             tags = ""
             deadline = ""
+            date_submitted = ""
+            date_started = ""
+            date_ended = ""
+            date_funded = ""
+            theme = ""
             if project.deadline:
-                deadline = project.deadline.date()
+                deadline = project.deadline.date().strftime("%Y-%m-%dT%H:%M:%S.000Z")
+            if project.date_submitted:
+                date_submitted = project.date_submitted.date().strftime("%Y-%m-%dT%H:%M:%S.000Z")
+            if project.campaign_started:
+                date_started = project.campaign_started.date().strftime("%Y-%m-%dT%H:%M:%S.000Z")
+            if project.campaign_ended:
+                date_ended = project.campaign_ended.date().strftime("%Y-%m-%dT%H:%M:%S.000Z")
+            if project.campaign_funded:
+                date_funded = project.campaign_funded.date().strftime("%Y-%m-%dT%H:%M:%S.000Z")
             for tag in project.tags.all():
                 tags = str(tag) + ", " + tags
+            if project.theme:
+                theme = project.theme.name
+
+            partner_organization_name = ""
+            if project.partner_organization:
+                partner_organization_name = project.partner_organization.name
 
             csvwriter.writerow([project.id,
                                 project.title.encode("utf-8"),
-                                project.owner.id,
-                                status,
-                                country,
-                                project.pitch.encode("utf-8"),
-                                organization_id,
-                                "", #project.reach,
-                                "%01.2f" % (project.amount_donated or 0),
+                                project.reach,
+                                video_url.encode("utf-8"),
+                                deadline,
+                                int(project.is_campaign),
                                 "%01.2f" % (project.amount_asked or 0),
+                                "%01.2f" % (project.amount_donated or 0),
                                 "%01.2f" % (project.amount_needed or 0),
-                                project.created.date(),
-                                "", #project.for_who.encode("utf-8"),
-                                "http://www.onepercentclub.com/en/#!/projects/{0}".format(project.slug),
-                                tags,
-                                "", #project.effects.encode("utf-8"),
-                                "", #project.future.encode("utf-8"),
-                                project.story.encode("utf-8"),
-                                project.updated,
-                                deadline])
-
-
+                                int(project.allow_overfunding),
+                                date_submitted,
+                                date_started,
+                                date_ended,
+                                date_funded,
+                                project.image,
+                                project.owner.id,
+                                organization_id,
+                                country,
+                                theme,
+                                status,
+                                project.created.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
+                                project.updated.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
+                                tags[:255],
+                                partner_organization_name.encode("utf-8"),
+                                project.slug])
             success_count += 1
     return success_count, error_count
 
@@ -295,7 +426,7 @@ def generate_projectbudgetlines_csv_file(path, loglevel):
     error_count = 0
     success_count = 0
 
-    filename = 'BLUE2SFDC_Projectbudgetlines_{0}.csv'.format(timezone.localtime(timezone.now()).strftime('%Y%m%d'))
+    filename = 'BLUE2SFDC_Projectbudgetlines.csv'
     with open(os.path.join(path, filename), 'wb') as csv_outfile:
         csvwriter = csv.writer(csv_outfile, quoting=csv.QUOTE_ALL)
 
@@ -324,12 +455,24 @@ def generate_donations_csv_file(path, loglevel):
     error_count = 0
     success_count = 0
 
-    filename = 'BLUE2SFDC_Donations_{0}.csv'.format(timezone.localtime(timezone.now()).strftime('%Y%m%d'))
+    filename = 'BLUE2SFDC_Donations.csv'
     with open(os.path.join(path, filename), 'wb') as csv_outfile:
         csvwriter = csv.writer(csv_outfile, quoting=csv.QUOTE_ALL)
 
-        csvwriter.writerow(["Donation_External_ID__c", "Receiver__c", "Project__c", "Amount", "CloseDate", "Name",
-                            "StageName", "Type", "Donation_created_date__c", "Payment_method__c", "RecordTypeId"])
+        csvwriter.writerow(["Donation_External_ID__c",
+                            "Donor__c",
+                            "Project__c",
+                            "Amount",
+                            "CloseDate",
+                            "Name",
+                            "StageName",
+                            "Type",
+                            "Donation_created_date__c",
+                            "Donation_updated_date__c",
+                            "Donation_ready_date__c",
+                            "Payment_method__c",
+                            "RecordTypeId",
+                            "Fundraiser__c"])
 
         donations = Donation.objects.all()
 
@@ -341,18 +484,26 @@ def generate_donations_csv_file(path, loglevel):
             logger.debug("writing donation {0}/{1}: {2}".format(t, donations.count(), donation.id))
 
             try:
-                receiver_id = ''
+                donor_id = ''
                 if donation.user:
-                    receiver_id = donation.user.id
+                    donor_id = donation.user.id
 
                 project_id = ''
                 if donation.project:
                     project_id = donation.project.id
 
+                fundraiser_id = ''
+                if donation.fundraiser:
+                    fundraiser_id = donation.fundraiser.id
+
                 if donation.user and donation.user.get_full_name() != '':
                     name = donation.user.get_full_name()
                 else:
                     name = "1%Member"
+
+                donation_ready = ''
+                if donation.ready:
+                    donation_ready = donation.ready.strftime("%Y-%m-%dT%H:%M:%S.000Z")
 
                 # Get the payment method from the associated order / payment
                 payment_method = payment_method_mapping['']  # Maps to Unknown for DocData.
@@ -363,16 +514,19 @@ def generate_donations_csv_file(path, loglevel):
                             payment_method = payment_method_mapping[lp.latest_docdata_payment.payment_method]
 
                 csvwriter.writerow([donation.id,                                            # Donation_External_ID__c
-                                    receiver_id,                                            # Receiver__c
+                                    donor_id,                                            # Donor__c
                                     project_id,                                             # Project__c
                                     '%01.2f' % (float(donation.amount) / 100),              # Amount
-                                    donation.created.date(),                                # CloseDate
+                                    donation.created.date().strftime("%Y-%m-%dT%H:%M:%S.000Z"),          # CloseDate
                                     name.encode("utf-8"),                                   # Name
                                     DonationStatuses.values[donation.status].title(),       # StageName
                                     donation.DonationTypes.values[donation.donation_type].title(),  # Type
-                                    donation.created.date(),                                # Donation_created_date__c
+                                    donation.created.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
+                                    donation.updated.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
+                                    donation_ready,
                                     payment_method.encode("utf-8"),                         # Payment_method__c
-                                    '012A0000000ZK6FIAW'])                                  # RecordTypeId
+                                    '012A0000000ZK6FIAW',                                   # RecordTypeId
+                                    fundraiser_id])
 
                 success_count += 1
             except Exception as e:
@@ -427,13 +581,25 @@ def generate_tasks_csv_file(path, loglevel):
     error_count = 0
     success_count = 0
 
-    filename = 'BLUE2SFDC_Tasks_{0}.csv'.format(timezone.localtime(timezone.now()).strftime('%Y%m%d'))
+    filename = 'BLUE2SFDC_Tasks.csv'
     with open(os.path.join(path, filename), 'wb') as csv_outfile:
         csvwriter = csv.writer(csv_outfile, quoting=csv.QUOTE_ALL)
 
-        csvwriter.writerow(["Task_External_ID__c", "Project__c", "Deadline__c", "Effort__c",
-                            "Extended_task_description__c", "Location_of_the_task__c", "Task_expertise__c",
-                            "Task_status__c", "Title__c", "Task_created_date__c", "Tags__c"])
+        csvwriter.writerow(["Task_External_ID__c",
+                            "Project__c",
+                            "Deadline__c",
+                            # "Extended_task_description__c",
+                            "Location_of_the_task__c",
+                            "Task_expertise__c",
+                            "Task_status__c",
+                            "Title__c",
+                            "Task_created_date__c",
+                            "Tags__c",
+                            "Effort__c",
+                            "People_Needed__c",
+                            # "End_Goal__c",
+                            "Author__c",
+                            "Date_realized__c"])
 
         tasks = Task.objects.all()
 
@@ -449,18 +615,30 @@ def generate_tasks_csv_file(path, loglevel):
             if task.skill:
                 skill = task.skill.name.encode("utf-8")
 
+            author = ''
+            if task.author:
+                author = task.author.id
+
+            date_realized = ''
+            if task.status == 'realized' and task.date_status_change:
+                date_realized = task.date_status_change.strftime("%Y-%m-%dT%H:%M:%S.000Z")
+
             try:
                 csvwriter.writerow([task.id,
                                     task.project.id,
-                                    task.deadline.strftime("%d %B %Y"),
-                                    task.time_needed.encode("utf-8"),
-                                    task.description.encode("utf-8"),
+                                    task.deadline.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
+                                    #task.description.encode("utf-8"),
                                     task.location.encode("utf-8"),
                                     skill,
                                     task.status.encode("utf-8"),
                                     task.title.encode("utf-8"),
-                                    task.created.date(),
-                                    tags])
+                                    task.created.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
+                                    tags,
+                                    task.time_needed.encode("utf-8"),
+                                    task.people_needed,
+                                    # task.end_goal.encode("utf-8"),
+                                    author,
+                                    date_realized])
                 success_count += 1
             except Exception as e:
                 error_count += 1
@@ -474,11 +652,16 @@ def generate_taskmembers_csv_file(path, loglevel):
     error_count = 0
     success_count = 0
 
-    filename = 'BLUE2SFDC_Taskmembers_{0}.csv'.format(timezone.localtime(timezone.now()).strftime('%Y%m%d'))
+    filename = 'BLUE2SFDC_Taskmembers.csv'
     with open(os.path.join(path, filename), 'wb') as csv_outfile:
         csvwriter = csv.writer(csv_outfile, quoting=csv.QUOTE_ALL)
 
-        csvwriter.writerow(["Task_Member_External_ID__c", "Contacts__c", "X1_CLUB_Task__c"])
+        csvwriter.writerow(["Task_Member_External_ID__c",
+                            "Contacts__c",
+                            "X1_CLUB_Task__c",
+                            "Status__c",
+                            # "Motivation__c",
+                            "Taskmember_Created_Date__c"])
 
         taskmembers = TaskMember.objects.all()
 
@@ -488,10 +671,89 @@ def generate_taskmembers_csv_file(path, loglevel):
             try:
                 csvwriter.writerow([taskmember.id,
                                     taskmember.member.id,
-                                    taskmember.task.id])
+                                    taskmember.task.id,
+                                    taskmember.status.encode("utf-8"),
+                                    # taskmember.motivation.encode("utf-8"),
+                                    taskmember.created.strftime("%Y-%m-%dT%H:%M:%S.000Z")])
                 success_count += 1
             except Exception as e:
                 error_count += 1
                 logger.error("Error while saving taskmember id {0}: ".format(taskmember.id) + str(e))
+
+    return success_count, error_count
+
+
+def generate_fundraisers_csv_file(path, loglevel):
+    logger.setLevel(loglevel)
+    error_count = 0
+    success_count = 0
+
+    filename = 'BLUE2SFDC_Fundraisers.csv'
+    with open(os.path.join(path, filename), 'wb') as csv_outfile:
+        csvwriter = csv.writer(csv_outfile, quoting=csv.QUOTE_ALL)
+
+        csvwriter.writerow(["Fundraiser_External_ID__c",
+                            "Name",
+                            "Owner__c",
+                            "Project__c",
+                            #"Description__c",
+                            "Picture_Location__c",
+                            "VideoURL__c",
+                            "Amount__c",
+                            "Deadline__c",
+                            "Created__c"])
+
+        fundraisers = FundRaiser.objects.all()
+
+        logger.info("Exporting {0} FundRaiser objects to {1}".format(fundraisers.count(), filename))
+
+        for fundraiser in fundraisers:
+            try:
+                csvwriter.writerow([fundraiser.id,
+                                    fundraiser.title.encode("utf-8"),
+                                    fundraiser.owner.id,
+                                    fundraiser.project.id,
+                                    #fundraiser.description.encode("utf-8"),
+                                    fundraiser.image,
+                                    fundraiser.video_url,
+                                    '%01.2f' % (float(fundraiser.amount) / 100),
+                                    fundraiser.deadline.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
+                                    fundraiser.created.strftime("%Y-%m-%dT%H:%M:%S.000Z")])
+                success_count += 1
+            except Exception as e:
+                error_count += 1
+                logger.error("Error while saving fundraiser id {0}: ".format(fundraiser.id) + str(e))
+
+    return success_count, error_count
+
+
+def generate_organizationmember_csv_file(path, loglevel):
+    logger.setLevel(loglevel)
+    error_count = 0
+    success_count = 0
+
+    filename = 'BLUE2SFDC_Organizationmembers.csv'
+    with open(os.path.join(path, filename), 'wb') as csv_outfile:
+        csvwriter = csv.writer(csv_outfile, quoting=csv.QUOTE_ALL)
+
+        csvwriter.writerow(["Organization_Member_External_Id__c",
+                            "Contact__c",
+                            "Account__c",
+                            "Role__c"])
+
+        orgmembers = OrganizationMember.objects.all()
+
+        logger.info("Exporting {0} OrganizationMember objects to {1}".format(orgmembers.count(), filename))
+
+        for orgmember in orgmembers:
+            try:
+                csvwriter.writerow([orgmember.id,
+                                    orgmember.user.id,
+                                    orgmember.organization.id,
+                                    orgmember.function.encode("utf-8")])
+                success_count += 1
+            except Exception as e:
+                error_count += 1
+                logger.error("Error while saving organization member id {0}: ".format(orgmember.id) + str(e))
 
     return success_count, error_count
