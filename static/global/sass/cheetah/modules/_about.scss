@@ -1,0 +1,119 @@
+#cheetah-about {
+	padding: 50px 0 50px 0;
+
+	h1 {
+		color: $color-primary;
+		text-transform: uppercase;
+		font-size: 56px;
+	}
+
+	h3 {
+		color: $color-purple;
+		font-size: 46px;
+	}
+
+	.cheetah-about-content {
+		margin-top: 30px;
+
+		strong {
+			color: $color-secondary;
+			font-family: $font-family-avant;
+			font-weight: 800;
+		}
+	}
+
+	.cheetah-contact-info {
+		padding-left: 15%;
+
+		.contact-links {
+			margin: 0;
+
+			li {
+				padding-left: 0;
+				background: none;
+				border-bottom: 1px solid #F8F7F8;
+				height: 24px;
+			}
+
+			a {
+				position: relative;
+				color: #808080;
+				line-height: 10px;
+
+				i {
+					float: left;
+					width: 20px;
+					height: 20px;
+					margin-top: -4px;
+
+					&.mail {
+						background: image-url("cheetah/icons/icon-contact-mail.svg") transparent no-repeat 0 0;
+					}
+
+					&.phone {
+						background: image-url("cheetah/icons/icon-contact-telephone.svg") transparent no-repeat 0 0;
+					}
+
+					&.facebook {
+						background: image-url("cheetah/icons/icon-social-facebook.svg") transparent no-repeat 0 0;
+					}
+
+					&.twitter {
+						background: image-url("cheetah/icons/icon-social-twitter.svg") transparent no-repeat 0 0;
+					}
+				}
+
+				span {
+					float: right;
+					display: block;
+					width: 90%;
+
+					&:first-of-type {
+
+					}
+				}
+
+				.email {
+					font-weight: 800;
+				}
+			}
+		}
+	}
+}
+
+.postcodeloterij {
+	width: 85%;
+	float: right;
+	margin-top: 30px;
+
+	.img {
+		position: relative;
+		width: 91px;
+		height: 58px;
+		background: image-url("cheetah/postcode_hover.png") no-repeat 0 0;
+
+		a {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}
+
+		&:hover {
+			background: image-url("cheetah/postcode_hover.png") no-repeat 0 0;
+		}
+	}
+
+	.content {
+		color: #808080;
+		font-size: 12px;
+		line-height: 15px;
+	}
+}
+
+
+
+
+
+

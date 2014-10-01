@@ -1,0 +1,91 @@
+#quote-carousel {
+	position: relative;
+	margin: auto;
+	background-color: white;
+	border-radius: 10px;
+	border: solid 1px $gray-border;
+	font-family: $font-family-body;
+	height: 100px!important;
+	overflow: auto;
+	@include clearfix;
+	
+	ul {
+		margin: 0;
+
+		li {
+			margin: 0;
+			float: left;
+			padding-left: 0;
+			background: none;
+
+			.quote-carousel-content {
+				position: relative;
+				float: left;
+				padding: 0 6em 1em 8em;
+				margin: 12px auto;
+				height: 100px;
+
+				@include breakpoint(x-small) {
+					padding: 0 .1em .2em .2em;
+					margin: 12px auto;
+				}
+				
+				.carousel-photo {
+					float: left;
+					width: 20%;
+
+					img {
+						position: absolute;
+
+					}
+				}
+
+				.carousel-quote {
+					float: right;
+					width: 80%;
+					color: $color-primary;
+					width: 80%;
+					
+					strong {
+						font-family: $font-family-body;
+						display: inherit;
+						font-size: 1.33em;
+						font-weight: 700;
+					}
+					
+					em {
+						font-style: normal;
+						color: $gray-dark;
+					}
+				}
+			}
+		}
+	}
+	
+	.carousel-nav {
+		position: absolute;
+		top: 0;
+		width: 40px;
+		height: 100%;
+		
+		&.previous, &.next {
+			margin: auto;
+			padding-top: 60px;
+			@include opacity(.4);
+			@include transition(opacity, .3s ease-in-out);
+
+			&:hover {
+				@include opacity(1);
+			}
+		}
+
+		&.previous {
+			left: 40px;
+			background: image-url("img/icons/icon-prev.svg") transparent no-repeat 0 43px;
+		}
+		&.next {
+			right: 10px;
+			background: image-url("img/icons/icon-next.svg") transparent no-repeat 0 43px;
+		}
+	}
+}

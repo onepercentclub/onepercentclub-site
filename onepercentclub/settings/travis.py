@@ -4,7 +4,6 @@ SECRET_KEY = 'hbqnTEq+m7Tk61bvRV/TLANr3i0WZ6hgBXDh3aYpSU8m+E1iCtlU3Q=='
 from .test_runner import *
 
 
-# Use RemoteWebDriver for running tests on Travis
-SELENIUM_WEBDRIVER = 'remote'
+SELENIUM_WEBDRIVER = 'firefox'
 
 ROOT_URLCONF = 'onepercentclub.urls'

@@ -1,0 +1,31 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "cheetah/running_campaign_list" %}
+    <div class="l-section" id="cheetah-running-campaign">
+        <div class="l-wrapper">
+            <div class="row">
+                <div class="col12">
+                    <h1>{% trans 'Top Cheetah campaigns'%}</h1>
+                </div>
+            </div>
+        </div>
+        <div class="l-wrapper">
+            <ul class="campaign-container">
+                <div class="row">
+                    {{#each project in favouriteProjects}}
+                        <div class="col4">
+                            {{partial 'cheetah/detail/project_preview'}}
+                        </div>
+                    {{/each}}
+                </div>
+                <div class="row">
+                    <div class="col12 browse-all">
+                        {{#linkTo 'partner.projects' 'cheetah' class="btn"}}{% trans 'Browse all Cheetah Campaigns'%}{{/linkTo}}
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </div>
+{% endtplhandlebars %}

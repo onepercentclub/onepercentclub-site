@@ -35,8 +35,8 @@ App.then(function(app) {
     //       and then BB should use it when setting up the list
     App.ProjectPhase.find().then(function(data){
         var list = [
-            {id: 5, name: gettext("Running campaigns")},
-            {id: [7,8], name: gettext("Finished campaigns")}
+            {id: 5, name: gettext("Running Campaigns")},
+            {id: [7,8], name: gettext("Finished Campaigns")}
         ];
         App.ProjectPhaseSelectView.reopen({
             content: list
@@ -75,20 +75,44 @@ App.then(function(app) {
                     currentUsercontroller.send('close');
 
                     // For some reason the currentUserController keeps failing to have a reference to 'tracker'
-                    var loginController = App.__container__.lookup('controller:login');
+                    var loginController = App.__container__.lookup('controller:login'),
+                        tracker = loginController.get('tracker');
+
+                    if (tracker) {
+                        if (user.get('firstLogin')) {
+                            tracker.alias(user.get('id_for_ember'));
+                        } else {
+                            tracker.identify(user.get('id_for_ember'));
+                        }
+
+                        tracker.peopleSet({
+                            "$first_name": user.get('first_name'),
+                            "$last_name": user.get('last_name'),
+                            "$email": user.get('email'),
+                            has_facebook: "yes",
+                            last_login_type: "facebook"
+                        });
+
+                    }
 
                     if (user.get('firstLogin')) {
                         currentUsercontroller.send('setFlash', currentUsercontroller.get('welcomeMessage'));
-                        // Register the successful Facebook login with Mixpanel
-                        if (loginController.get('tracker')) {
-                            loginController.get('tracker').trackEvent("Signup", {"type": "facebook"});
+                        // Register the successful Facebook signup with Mixpanel
+                        if (tracker) {
+                            tracker.trackEvent("Signup", {"type": "facebook"});
+                            tracker.peopleSet({
+                                facebook_shares: 0,
+                                twitter_shares: 0
+                            });
                         }
                     } else {
-                        // Register the successful Facebook signup with Mixpanel
-                        if (loginController.get('tracker')) {
-                            loginController.get('tracker').trackEvent("Login", {"type": "facebook"});
+                        // Register the successful Facebook signin with Mixpanel
+                        if (tracker) {
+                            tracker.trackEvent("Login", {"type": "facebook"});
+                            tracker.peopleSet({has_facebook: "yes"});
                         }
                     }
+
 
                     Ember.run(null, resolve, user);
                     
@@ -192,6 +216,26 @@ App.EventMixin = Em.Mixin.create({
     $(document).bind('touchmove', onScroll);
   },
 
+  startStopScrolling: function(elm, nameClass) {
+    var lastScroll = 0,
+        st, startScroll;
+
+    startScroll = function() {
+        st = $(this).scrollTop();
+
+        if (st > lastScroll) {
+            $(elm).removeClass(nameClass);
+        } else {
+            $(elm).addClass(nameClass);
+        }
+
+        lastScroll = st;
+    };
+
+    $(window).bind('scroll', startScroll);
+    $(document).bind('touchmove', startScroll);
+  },
+
   unbindScrolling: function () {
     $(window).unbind('scroll');
     $(document).unbind('touchmove');
@@ -211,6 +255,10 @@ App.EventMixin = Em.Mixin.create({
   }
 });
 
+Ember.View.reopen({
+    touchStart: Ember.alias('click')
+})
+
 /*
   Bluebottle View Overrides
 */
@@ -218,6 +266,7 @@ App.EventMixin = Em.Mixin.create({
 App.ApplicationView.reopen(App.EventMixin, {
     setBindScrolling: function() {
         this.bindScrolling();
+        this.startStopScrolling('#cheetah-header', 'is-active');
     }.on('didInsertElement'),
 
     setUnbindScrolling: function() {
@@ -236,7 +285,7 @@ App.ApplicationView.reopen(App.EventMixin, {
             $('#header').removeClass('is-scrolled');
             $('.nav-member-dropdown').removeClass('is-scrolled');
             $('.mobile-nav-holder').removeClass('is-scrolled');
-            $('#content').append('<div class="scrolled-area"></div>');
+            //$('#content').append('<div class="scrolled-area"></div>');
         } else {
             $('#header').addClass('is-scrolled');
             $('.nav-member-dropdown').addClass('is-scrolled');

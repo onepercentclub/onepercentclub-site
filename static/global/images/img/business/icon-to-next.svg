@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="51px" height="50px" viewBox="0 0 51 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch Beta 3.1 (8715) - http://www.bohemiancoding.com/sketch -->
+    <title>icon-top 3</title>
+    <desc>Created with Sketch Beta.</desc>
+    <defs></defs>
+    <g id="1%Cub-|-Business" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Desktop" sketch:type="MSArtboardGroup" transform="translate(-583.000000, -1052.000000)">
+            <g id="divider" sketch:type="MSLayerGroup" transform="translate(-6.000000, 1053.000000)">
+                <g id="icon-top-3" transform="translate(614.500000, 24.000000) scale(1, -1) translate(-614.500000, -24.000000) translate(590.000000, 0.000000)" sketch:type="MSShapeGroup">
+                    <ellipse id="Oval-1" stroke="#E4EDE9" fill="#FFFFFF" cx="24.5" cy="24" rx="24.5" ry="24"></ellipse>
+                    <path d="M37.6100292,17.1339278 L35.7485689,15.4237853 C35.2338075,14.9487457 34.4018699,14.9487457 33.8897083,15.4237853 L25.039972,23.6619718 L16.1122416,15.3562797 C15.5948804,14.8812401 14.760343,14.8812401 14.2481814,15.3562797 L12.3841212,17.063922 C11.8719596,17.5339612 11.8719596,18.2990249 12.3841212,18.7740645 L24.1040422,29.6474706 C24.6214034,30.1175098 25.4559408,30.1175098 25.9681024,29.6474706 L37.6100292,18.8415701 C38.1299903,18.3690308 38.1299903,17.6014668 37.6100292,17.1339278 Z" id="Fill-95" fill="#E4EDE9" transform="translate(25.000000, 22.500000) rotate(-180.000000) translate(-25.000000, -22.500000) "></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

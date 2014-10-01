@@ -1,0 +1,125 @@
+.cheetah-nav-item {
+    position: relative;
+    cursor: pointer;
+    padding: 10px 14px 50px 14px;
+    margin-right: 15px;
+    border-radius: 8px 8px 0 0;
+
+    &:hover {
+        color: $color-secondary;
+    }
+
+    &.active {
+        background: $color-primary!important;
+        color: #00C051 !important;
+    }
+
+    .cheetah-icon {
+        position: absolute;
+        width: 32px;
+        height: 31px;
+        top: -20px;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        background: #f8f7f8;
+        border: solid 3px #f8f7f8;
+        border-radius: 50%;
+        .cheetah-head {
+            display: block;
+            width: 28px;
+            height: 26px;
+            background: image-url("cheetah/icons/icon-cheetah-head.svg") transparent no-repeat 0 0;
+        }
+    }
+
+}
+
+.is-scrolled {
+
+    .cheetah-nav-item {
+        padding-bottom: 20px;
+
+    }
+
+    .cheetah-icon {
+        display: none;
+    }
+
+    #cheetah-header {
+        height:1px;
+        top: 60px;
+        @include transition(height, .1s ease-in-out);
+
+        .l-wrapper {
+            display: none;
+        }
+
+        &.is-active {
+            height: 54px;
+            display: block;
+
+            .l-wrapper {
+            display: block;
+            }
+        }
+    }
+}
+
+#cheetah-header {
+	position: absolute;
+	bottom: -54px;
+	width: 100%;
+	height: 54px;
+	background: $color-primary;
+    z-index: 9;
+
+	.l-wrapper {
+		position: relative;
+		padding: 0 1em;
+		min-width: 400px;
+		max-width: 1200px;
+		margin: 0 auto;
+		height: 100%;
+	}
+
+	.l-section {
+		width: 100%;
+		min-width: 400px;
+		max-width: 100%;
+	}
+
+	.cheetah-nav {
+		margin: 0;
+		font-family: $font-family-garage;
+
+		li {
+			float: left;
+
+			&:first-of-type {
+				height: 31px;
+				width: 30px;
+				background: image-url("cheetah/icons/icon-to-top.svg") transparent no-repeat 0 0;
+				margin-top: 12px;
+				cursor: pointer;
+			}
+
+			a {
+				text-transform: uppercase;
+				text-decoration: none;
+				color: white;
+				font-size: 28px;
+
+				&:hover {
+					color: $color-secondary;
+				}
+			}
+		}
+
+        .browse {
+            float: right;
+        }
+	}
+}
+

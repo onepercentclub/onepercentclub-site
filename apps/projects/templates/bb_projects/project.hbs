@@ -14,6 +14,7 @@
                 </figure>
             {{else}}
                 <figure class="project-image">
+                    <span {{bindAttr class="partner.id:"}}></span>
                     <img {{bindAttr src="image.large"}} width="100%" alt="Photo" />
                 </figure>
             {{/if}}
@@ -61,12 +62,66 @@
                     <strong class="amount-asked">&euro;{{localize amount_asked}}</strong>
                     {% trans "raised" %}
                 </p>
-                {{bb-progressbar targetValue=amount_asked currentValue=amount_donated}}
+                {{#if isCheetahProject}}
+                    <div class="cheetah-project-progress">
+
+                        {{#if isStatusCampaign}}
+                            {{#ifExpired deadline}}
+                                <div class="cheetah-funded">
+                                    <div class="cheetah-funded-text">
+                                        {% blocktrans%}
+                                            <span><strong>At 30%</strong> it will be Cheetah Funded</span>
+                                        {% endblocktrans %}
+                                    </div>
+                                    <i class="cheetah-funded-dot"></i>
+                                </div>
+                                <div class="expired">
+                                    {{cheetah-progressbar targetValue=amount_asked currentValue=amount_donated class="campaign-fund-amount-slider"}}
+                                </div>
+                            {{else}}
+                                <div class="cheetah-funded">
+                                    <div class="cheetah-funded-text">
+                                        {% blocktrans%}
+                                            <span><strong>At 30%</strong> it will be Cheetah Funded</span>
+                                        {% endblocktrans %}
+                                    </div>
+                                    <i class="cheetah-funded-dot"></i>
+                                </div>
+                                {{cheetah-progressbar targetValue=amount_asked currentValue=amount_donated class="campaign-fund-amount-slider"}}
+                            {{/ifExpired}}
+                        {{else}}
+                            {{#if isStatusCompleted}}
+                                <div class="cheetah-fully-funded">
+                                    {{bb-progressbar targetValue=amount_asked currentValue=amount_donated class="campaign-fund-amount-slider "}}
+                                </div>
+                            {{else}}
+                                <div class="cheetah-funded">
+                                    <div class="cheetah-funded-text">
+                                        {% blocktrans%}
+                                            <span><strong>At 30%</strong> it will be Cheetah Funded</span>
+                                        {% endblocktrans %}
+                                    </div>
+                                    <i class="cheetah-funded-dot"></i>
+                                </div>
+                                <div class="expired">
+                                    {{cheetah-progressbar targetValue=amount_asked currentValue=amount_donated class="campaign-fund-amount-slider"}}
+                                </div>
+                            {{/if}}
+                        {{/if}}
+
+                    </div>
+
+                {{else}}
+                <div class="campaign-fund-amount-slider">
+                    {{bb-progressbar targetValue=amount_asked currentValue=amount_donated}}
+                </div>
+                {{/if}}
             </div>
 
             {{#if isSupportable}}
                 <div class="project-action">
                     <a href='#' {{ action 'addDonation' this }} class="btn btn-primary btn-iconed"><span class="flaticon solid wallet-1"></span> {% trans "Support project" %}</a>
+                    {{view 'App.MpesaDonateView' class="mpesa-donate" }}
                 </div>
             {{/if}}
         </div>

@@ -50,21 +50,23 @@ class ProjectSerializer(BaseProjectSerializer):
     country = ProjectCountrySerializer(source='country')
     story = StoryField()
     video_html = OEmbedField(source='video_url', maxwidth='560', maxheight='315')
+    partner = serializers.SlugRelatedField(slug_field='slug', source='partner_organization')
 
     class Meta(BaseProjectSerializer):
         model = BaseProjectSerializer.Meta.model
         fields = BaseProjectSerializer.Meta.fields + ('allow_overfunding', 'task_count', 'amount_asked', 'amount_donated', 'amount_needed',
-                                                      'story', 'status', 'deadline', 'latitude', 'longitude', 'video_url', 'video_html')
+                                                      'story', 'status', 'deadline', 'latitude', 'longitude', 'video_url', 'video_html', 'partner', 'mchanga_account')
 
 
 class ProjectPreviewSerializer(BaseProjectPreviewSerializer):
     task_count = serializers.IntegerField(source='task_count')
     owner = UserPreviewSerializer(source='owner')
+    partner = serializers.SlugRelatedField(slug_field='slug', source='partner_organization')
 
     class Meta(BaseProjectPreviewSerializer):
         model = BaseProjectPreviewSerializer.Meta.model
         fields = ('id', 'title', 'image', 'status', 'pitch', 'country', 'task_count',
-                  'is_campaign', 'amount_asked', 'amount_donated', 'amount_needed', 'deadline', 'status', 'owner')
+                  'is_campaign', 'amount_asked', 'amount_donated', 'amount_needed', 'deadline', 'status', 'owner', 'partner')
 
 
 class ProjectBudgetLineSerializer(serializers.ModelSerializer):
@@ -84,12 +86,14 @@ class ManageProjectSerializer(BaseManageProjectSerializer):
     budget_lines = ProjectBudgetLineSerializer(many=True, source='projectbudgetline_set', read_only=True)
     video_html = OEmbedField(source='video_url', maxwidth='560', maxheight='315')
     story = StoryField(required=False)
+    partner = serializers.SlugRelatedField(slug_field='slug', source='partner_organization', required=False)
 
     class Meta(BaseManageProjectSerializer):
         model = BaseManageProjectSerializer.Meta.model
         fields = BaseManageProjectSerializer.Meta.fields + ('amount_asked', 'amount_donated', 'amount_needed',
-                                                            'video_url', 'video_html',
-                                                            'story', 'budget_lines', 'deadline', 'latitude', 'longitude')
+                                                            'video_url', 'video_html', 'partner',
+                                                            'story', 'budget_lines', 'deadline', 'latitude', 'longitude', 'mchanga_account')
+
 
 class ProjectSupporterSerializer(serializers.ModelSerializer):
     """

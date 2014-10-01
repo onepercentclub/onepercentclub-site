@@ -13,6 +13,16 @@ function pluralidx(n) {
 }
 catalog['Cancel'] = 'Cancel';
 catalog['No, continue'] = 'No, continue';
+catalog['Password needs to be at least 6 characters long'] = 'Your password needs to be at least 6 characters long.';
+catalog['Password required'] = 'Please fill in your password.';
+catalog['Password'] = 'Password';
+catalog['Person'] = 'Person';
+catalog['Pick a country'] = 'Pick a country';
+catalog['Pick a phase'] = 'Pick a phase';
+catalog['Pick an item'] = 'Pick an item';
+catalog['Pick an organization'] = 'Pick an organisation';
+catalog['Re-enter email address'] = 'Re-enter email address';
+catalog['Really?'] = 'Really?';
 catalog['Save changed data?'] = 'Save changed data?';
 catalog['Save'] = 'Save';
 catalog['Set my monthly donation'] = 'Set my monthly donation';
