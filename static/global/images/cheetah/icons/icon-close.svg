@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.0.4 (8053) - http://www.bohemiancoding.com/sketch -->
+    <title>icon-close-modal 3</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Cheetah-Landing" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Desktop-Start-Campaign" sketch:type="MSArtboardGroup" transform="translate(-414.000000, -939.000000)" fill="#D8D8D8">
+            <g id="Who-can-join?" sketch:type="MSLayerGroup" transform="translate(-7.000000, 745.000000)">
+                <g id="1---No" transform="translate(144.000000, 181.000000)" sketch:type="MSShapeGroup">
+                    <path d="M285.85625,19.5572812 L289.878125,15.5354062 C290.196625,15.2185312 290.196625,14.7050312 289.878125,14.3865312 L288.72925,13.2376563 C288.41075,12.9207812 287.89725,12.9207812 287.580375,13.2376563 L283.5585,17.2595312 L279.536625,13.2376563 C279.21975,12.9207812 278.70625,12.9207812 278.38775,13.2376563 L277.238875,14.3865312 C276.920375,14.7050312 276.920375,15.2185312 277.238875,15.5354062 L281.26075,19.5572812 L277.238875,23.5791562 C276.920375,23.8960313 276.920375,24.4095313 277.238875,24.7280313 L278.38775,25.8769062 C278.70625,26.1937813 279.21975,26.1937813 279.536625,25.8769062 L283.5585,21.8550312 L287.580375,25.8769062 C287.89725,26.1937813 288.41075,26.1937813 288.72925,25.8769062 L289.878125,24.7280313 C290.196625,24.4095313 290.196625,23.8960313 289.878125,23.5791562 L285.85625,19.5572812 Z" id="icon-close-modal-3"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

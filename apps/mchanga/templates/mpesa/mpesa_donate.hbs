@@ -1,0 +1,10 @@
+{% load i18n bb_ember static %}
+
+{% tplhandlebars "mpesa_donate" %}
+
+    {{#if mchanga_account}}
+        <a {{bindAttr data-title="mpesaTitle" data-content="mpesaInstruction"}}>
+            <img src="/static/assets/images/mchanga/lipa-na-mpesa.png" />
+        </a>
+    {{/if}}
+{% endtplhandlebars %}

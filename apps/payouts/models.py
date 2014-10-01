@@ -3,6 +3,7 @@ import decimal
 
 import datetime
 from apps.payouts.utils import money_from_cents
+from apps.projects.models import PartnerOrganization
 
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.conf import settings
@@ -243,7 +244,11 @@ class Payout(PayoutBase):
         """
         assert self.payout_rule
 
-        if self.payout_rule == PayoutRules.old:
+        if self.payout_rule == PayoutRules.zero:
+            # 0%
+            return decimal.Decimal('0.00')
+
+        elif self.payout_rule == PayoutRules.old:
             # 5%
             return decimal.Decimal('0.05')
 
@@ -282,10 +287,13 @@ class Payout(PayoutBase):
 
             if self.project.amount_donated >= self.project.amount_asked:
                 # Fully funded
-                # New default payout rule is 7 percent
+                # If it's a Cheetah campaign then set 0 percent rule.
+                if self.project.partner_organization == PartnerOrganization.objects.get(slug='cheetah'):
+                    return PayoutRules.zero
+                # Default payout rule is 7 percent.
                 return PayoutRules.seven
             elif self.project.amount_donated < settings.MINIMAL_PAYOUT_AMOUNT:
-                # Funding less then minimal payment ammount.
+                # Funding less then minimal payment amount.
                 return PayoutRules.hundred
             else:
                 # Not fully funded
@@ -710,4 +718,5 @@ class OrganizationPayoutLog(PayoutLogBase):
 # https://docs.djangoproject.com/en/dev/topics/signals/#django.dispatch.receiver
 from .signals import create_payout_finished_project
 
+post_save.connect(create_payout_finished_project, weak=False, sender=PROJECT_MODEL)
 post_save.connect(create_payout_finished_project, weak=False, sender=PROJECT_MODEL)

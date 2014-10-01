@@ -49,6 +49,9 @@ env.database = 'onepercentsite'
 # By default, confirm everywhere
 env.noinput = False
 
+# Use bash
+env.shell = "/bin/bash -l -c"
+
 # Utility functions:
 @contextmanager
 def virtualenv():
@@ -543,9 +546,9 @@ def deploy_production(revspec=None):
 @roles('backup')
 @task
 def get_db():
-    backup_dir = "/home/backups/onepercentclub-backups/onepercentsite/current"
+    backup_dir = "/home/backups/onepercentclub-backups/onepercentsite/"
     with cd(backup_dir):
-        output = run("ls *.bz2")
+        output = run("ls -1t *.bz2 | head -1")
         try:
             filename = output.split()[0]
         except IndexError:
@@ -561,3 +564,11 @@ def unpack_db(filename="dump.sql.bz2"):
     except IndexError:
         print "No database file found"
 
+
+@task
+def sync_media(local_static_dir="static/"):
+    """ Sync media from production backup to local. """
+    media_dir = "onepercentclub-backups/onepercentsite/media-backup/media"
+    backup_host = "backups@bluebucket.onepercentclub.com"
+    local("rsync -chavzP --stats {0}:{1} {2}".format(backup_host, media_dir, local_static_dir))
+    print("Done. Now use 'runserver --nostatic' or delete all entries in 'thumbnail_kvstore' table.")

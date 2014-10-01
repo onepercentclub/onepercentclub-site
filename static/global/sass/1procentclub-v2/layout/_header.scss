@@ -9,6 +9,43 @@
 	@include single-transition(all, .1s ease);
 	z-index: 999;
 
+	&.business {
+		background: none;
+		border-bottom: none;
+		@include box-shadow(none);
+
+		#nav {
+			.nav-main {
+			    .nav-main-item {
+			        a {
+			            color: $white;
+			        }
+
+			        &.cheetah-nav-item {
+			        	color: $color-primary;
+
+			        	.cheetah-icon {
+			        		background: none;
+			        		border: solid 3px transparent;
+			        	}
+			        }
+			    }
+			}
+		}
+
+		&.is-scrolled {
+			#nav {
+				.nav-main {
+					.nav-main-item {
+						a {
+							color: #3c3c3c;
+						}
+					}
+				}
+			}
+		}
+	}
+
 
 	ul {
 		padding-left: 0;
@@ -58,6 +95,15 @@
 			.nav-main-item {
 				display: inline;
 				margin-right: 2em;
+
+				@include breakpoint(xx-large) {
+					margin-right: 1.3em;
+					padding-left: 1em;
+				}
+
+				&:last-of-type {
+					margin-right: 0;
+				}
 
 				a {
 					color: $black;
@@ -139,6 +185,7 @@
 			padding: 0;
 			float: right;
 			width: 180px;
+			margin-left: 0;
 			@include breakpoint(x-small) {
 				font-size: 90%;
 				width: 183px;

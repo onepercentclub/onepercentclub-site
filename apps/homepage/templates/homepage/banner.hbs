@@ -5,44 +5,25 @@
 
 {% tplhandlebars "home_banner" %}
 
-<div class="l-section home-carousel">
-	<section class="carousel">
-		<ul>
-			<li class="carousel-item first-item">
-				<div class="home-carousel-content">
-					<h1>{% blocktrans %}1%Club is the do-good crowdfunding platform{% endblocktrans%}</h1>
-					<p>{{#link-to 'page' 'about' classNames='carousel-about'}}{% blocktrans %}About 1%Club{% endblocktrans %}{{/link-to}}</p>
-				</div>
-			</li>
+    <div class="l-section home-carousel">
+        <section class="carousel default" {{bindAttr style=view.backgroundStyle}}>
+            <ul>
+                {{#each slide in slides}}
+                    {{#if slide.video_url}}
+                        {{partial "slides_video"}}
+                    {{else}}
+                        {{partial "slides_default"}}
+                    {{/if}}
 
-			<li class="carousel-item second-item">
-				<div class="home-carousel-content">
-					<h1>{% trans "Join the makers of change" %}</h1>
-					<p>{% trans "Mustapha campaigns for chess courses in Amsterdam." %}</p>
-				</div>
-				<div class="home-carousel-btn">
-					{{#link-to 'page' 'start-campaign' classNames='btn'}}{% trans "Start your own campaign" %}{{/link-to}}
-				</div>
-			</li>
-
-			<li class="carousel-item third-item">
-				<div class="home-carousel-content">
-					<h1>{% trans "Supporters of good" %}</h1>
-					<p>{% trans "We love smart ideas that do good in the world." %}</p>
-					<p><a href="/projects/voetbalschool-straatkinderen-medellin-la-naranja-mecanica" class="campaign-link">{% trans "Streetskids soccerschool, Colombia" %}</a></p>
-				</div>
-				<div class="home-carousel-btn">
-					{{#link-to 'projectList' classNames='btn'}}{% trans "Find campaigns you’ll love" %}{{/link-to}}
-				</div>
-			</li>
-		</ul>
-		<div class="home-carousel-nav">
-			{{#each slides}}
-				<span {{bindAttr class=":carousel-nav-item isFirst:is-active" }}></span>
-			{{/each }}
-		</div>
-    </section>
-</div>
+                {{/each}}
+            </ul>
+            <div class="home-carousel-nav">
+                {{#each slide in slides}}
+                    <span {{bindAttr class=":carousel-nav-item slide.isFirst:is-active"}}></span>
+                {{/each}}
+            </div>
+        </section>
+    </div>
 
 {% endtplhandlebars %}
 

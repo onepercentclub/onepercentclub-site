@@ -24,8 +24,8 @@ catalog['Has anybody ever told you that you\'re awesome? Well, you\'re awesome!<
 catalog['Invalid email address'] = 'Oh nee! Dit is een ongeldig email adres.';
 catalog['Invalid token, try request a new password again'] = 'Ongeldig token, vraag een nieuw wachtwoord aan';
 catalog['No, continue'] = 'Nee, ga verder';
-catalog['Password needs to be at least 6 characters long'] = 'Je wachtwoord moet minstens 6 karakters lang zijn.';
-catalog['Password required'] = 'Vul uw wachtwoord in.';
+catalog['Password needs to be at least 6 characters long'] = 'Je wachtwoord moet minstens 6 tekens bevatten.';
+catalog['Password required'] = 'Vul je wachtwoord in.';
 catalog['Password'] = 'Wachtwoord';
 catalog['Passwords don\'t match'] = 'De wachtwoorden komen niet overeen';
 catalog['Pick a country'] = 'Kies een land';

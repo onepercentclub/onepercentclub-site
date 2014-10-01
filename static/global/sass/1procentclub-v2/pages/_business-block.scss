@@ -1,0 +1,48 @@
+#business-block {
+    height: 400px;
+    background: image-url("img/business/business_block.jpg") transparent no-repeat 50% 0;
+    background-color: $black;
+    background-size: cover;
+
+    .business-main-header {
+        position: absolute;
+        top: 110px;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        width: 42%;
+
+        .logo {
+            float: left;
+            display: block;
+            background: image-url("global/logo_green.svg") transparent no-repeat 50% 50%;
+            height: 96px;
+            width: 47%;
+            margin: -14px 4px 0 0;
+        }
+
+        .business {
+            float: right;
+            display: block;
+            height: 96px;
+            padding: 35px 0 0 4px;
+            width: 50%;
+            border-left: solid 3px white;
+            color: white;
+            font-size: 60px;
+            font-weight: 800;
+            text-transform: lowercase;
+        }
+    }
+
+    .business-btn {
+        position: absolute;
+        top: 240px;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+}

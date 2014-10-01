@@ -1,0 +1,15 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "partner_projects" %}
+    <div id="cheetah-fund" class="cheetah-fund-campaigns">
+
+        {{partial 'cheetah/detail/partner_info'}}
+
+        {{partial 'cheetah/detail/partner_campaign_list'}}
+
+        {{partial 'cheetah/detail/partner_campaign_loader'}}
+
+    </div>
+{% endtplhandlebars %}

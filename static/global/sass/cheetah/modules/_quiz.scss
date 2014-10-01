@@ -1,0 +1,407 @@
+#cheetah-quiz {
+	position: relative;
+	height: 469px;
+	width: 100%;
+	margin: 50px 0 0 0;
+	background-image: image-url("cheetah/quiz/background-cheetah-quiz.svg");
+	background-color: $color-primary;
+
+	.quiz-blocks {
+		margin-top: 10px;
+
+		.col4 {
+			position: relative!important;
+		}
+
+		.block {
+			position: absolute;
+			height: 206px;
+			@include transform-style(preserve-3d);
+			@include transition(transform .3s);
+			@include perspective(800px);
+
+			// &:hover {
+			// 	@include transform(rotateY(180deg));
+			// 	background: red;
+			// }
+
+			.front, .back {
+				display: block;
+				position: absolute;
+				padding: 20px;
+				width: 100%;
+				height: 100%;
+				border: solid 1px rgba($color-white, .8);
+				border-radius: 8px;
+				@include backface-visibility(hidden);
+
+				&.is-inactive {
+					@include opacity(.5);
+				}
+
+				&.is-answer {
+					background: #A6A2BA;
+					border: solid 1px #A6A2BA;
+
+					.quiz-content {
+						text-align: left;
+						font-size: 15px;
+
+						a {
+							text-decoration: underline;
+							color: $color-white;
+							font-weight: bold;
+						}
+
+						p {
+							font-weight: normal;
+						}
+					}
+				}
+
+				&.is-active {
+					background: $color-white;
+
+					.tooltip-holder {
+						.tooltip {
+							margin: 0 -23px 42px -23px;
+							width: inherit;
+							text-align: left;
+							visibility: hidden;
+							font-size: 16px;
+							line-height: 21px;
+							
+							a {
+								color: $color-white;
+								text-decoration: underline;
+							}
+
+							&:after {
+								left: inherit;
+								right: 16px;
+							}
+						}
+
+						&:hover {
+							.tooltip {
+								visibility: visible;
+							}
+						}
+
+						&.is-active {
+							.tooltip {
+								visibility: visible;
+							}
+						}
+					}
+
+					input {
+						border-radius: 4px;
+						margin: 5px 0 5px 0;
+						border-color: #d8d8d8;
+						height: 45px;
+						box-shadow: none;
+
+						&:focus {
+							border: 1px solid #9f9f9f;
+							box-shadow: 0 0 0 2px #d8d8d8;
+						}
+					}
+				}
+			}
+
+			.front {
+				background: transparent;
+				@include transform(rotateY(0deg));
+			}
+
+			.back {
+				background: transparent;
+				@include transform(rotateY(180deg));				
+			}
+
+			&.flipped {
+				@include transform(rotateY(180deg));
+
+				.front {
+					z-index: 0;
+				}
+
+				.back {
+					z-index: 4;
+
+					.quiz-content {
+						@include transform(translateZ(1px));
+					}
+				}
+			}
+
+			&.is-active {
+				background: $color-white;
+				border-radius: 8px;
+			}
+		}
+
+		.quiz-content {
+			position: relative;
+			text-align: center;
+			color: $color-white;
+			margin-top: 20px;
+
+			label {
+				position: relative;
+
+				&:before {
+					position: absolute;
+					top: 0;
+					left: 15px;
+					content: '';
+					width: 17px;
+					height: 26px;
+					background: image-url("cheetah/icons/icon-euro-sign.svg") transparent no-repeat 0 0;
+				}
+
+				&:after {
+					position: absolute;
+					background: image-url("cheetah/icons/icon-arrow-down.svg") transparent no-repeat 0 0;
+					width: 20px;
+					height: 20px;
+					@include transform(rotate(45deg));
+				}
+			}
+
+			.close-question {
+				position: absolute;
+				top: -30px;
+				right: -10px;
+				width: 14px;
+				height: 14px;
+				background: image-url("cheetah/icons/icon-close.svg") transparent no-repeat 0 0;
+				cursor: pointer;
+			}
+
+			.questionmark {
+				position: absolute;
+				top: -30px;
+				right: -10px;
+				width: 19px;
+				height: 19px;
+				background: image-url("cheetah/icons/icon-questionmark.svg") transparent no-repeat 0 0;
+				cursor: pointer;
+			}
+
+			.question-correct {
+				display: block;
+				margin: auto;
+				width: 75px;
+				height: 75px;
+				background: image-url("cheetah/icons/icon-flash-correct.svg") transparent no-repeat 0 0;
+				cursor: pointer;
+			}
+
+			.quiz-answers {
+				width: 80%;
+				margin: 30px auto;
+
+				> span {
+					display: block;
+					padding: 10px;
+					text-align: center;
+					border: solid 2px $color-white;
+					width: 45%;
+					color: $color-white;
+					border-radius: 8px;
+					font-family: $font-family-garage;
+					text-transform: uppercase;
+					font-size: 30px;
+					cursor: pointer;
+
+					&.yes {
+						float: left;
+					}
+
+					&.no {
+						float: right;
+					}
+				}
+			}
+			
+			p {
+				font-family: $font-family-body;
+				font-weight: bold;
+			}
+
+			&.is-active {
+				color: rgb(68, 68, 68);
+
+				.quiz-answers {
+					> span {
+						border-color: $color-primary;
+						background: $color-primary;
+
+						&:hover {
+							border-color: $color-secondary;
+							background: $color-secondary;
+						}
+					}
+				}
+			}
+		}
+
+
+	}
+
+	.quiz-heading {
+		margin-top: 50px;
+		h1 {
+			color: $color-white;
+			text-transform: uppercase;
+			font-size: 56px;
+		}
+
+		h2 {
+			color: $color-secondary;
+			margin-top: -5px;
+			font-size: 30px;
+		}
+
+		&.is-inactive {
+			h1 {
+				display: none;
+			}
+
+			h2 {
+				display: none;
+			}
+		}
+	}
+
+	.submit-quiz {
+		position: relative;
+		margin-top: -50px;
+		margin-bottom: 45px\9\0; // only IE9
+		float: right;
+		height: 45px;
+		width: 50px;
+		padding: 5px;
+		border-radius: 0 4px 4px 0;
+		border: solid 1px #d8d8d8;
+		background: $color-white;
+		@include transition(background, .3s ease-in-out);
+
+		&:after {
+			position: absolute;
+			content: '';
+			top: 17px;
+			right: 17px;
+			width: 13px;
+			height: 9px;
+			background: image-url("cheetah/icons/icon-arrow-green-up.svg") transparent no-repeat 0 0;
+			@include transform(rotate(90deg));
+		}
+
+		&:hover {
+			background: rgba($color-purple, .1);
+		}
+	}
+
+	.quiz-result {
+		position: absolute;
+		width: 100%;
+		min-height: 316px;
+		padding: 15px;
+		border-radius: 8px;
+		background: white;
+		z-index: 99;
+
+		.quiz-content {
+			text-align: left;
+			margin-top: 0;
+			position: initial;
+
+			.close-question {
+				top: 15px;
+				right: 15px;
+			}
+
+			.quiz-img {
+				margin-top: 70px;
+				float: left;
+				width: 20%;
+				padding-left: 25px;
+
+				span {
+					position: absolute;
+					width: 175px;
+					height: 138px;
+					content: '';
+					background: image-url("cheetah/icons/icon-cheetah-head-result.svg") transparent no-repeat 0 0;
+				}
+			}
+
+			.quiz-text {
+				float: right;
+				width: 80%;
+				margin-top: 40px;
+
+				.quiz-heading {
+					margin-top: 0;
+					h1 {
+						margin: 0;
+						color: $color-primary;
+						text-transform: uppercase;
+					}
+
+					h2 {
+						line-height: 65px;
+						font-family: $font-family-avant;
+						color: $color-secondary;
+					}
+
+					&.is-inactive {
+						display: none;
+					}
+
+					.btn-group {
+						margin-top: 10px;
+						width: 100%;
+						height: auto;
+
+						.btn {
+							float: left;
+						}
+					}
+				}
+			}
+		}
+
+		&.is-active {
+			@include animation(fadeInDownBig .3s ease-out);
+			@include animation-fill-mode(forwards);
+		}
+	}
+
+    // Temp style to make things visible
+    padding: 12px;
+
+    .question {
+        @include grid(16,0,1);
+        border: 1px solid white;
+        padding: 12px;
+        background-color: #0d3349;
+        font-size: 2em;
+        color:white;
+        a {
+            color:white;
+        }
+    }
+
+}
+
+.question {
+	&:hover {
+		.quiz-heading {
+			display: none;
+		}
+	}
+}

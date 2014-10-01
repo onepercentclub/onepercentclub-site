@@ -16,6 +16,9 @@ App.Project.reopen({
     amount_needed: DS.attr('number', {defaultValue: this.get('amount_asked')}),
 
     fundraisers: DS.belongsTo('App.Fundraiser'),
+    partner: DS.belongsTo('App.Partner'),
+
+    mchanga_account: DS.attr('string'),
 
     task_count: DS.attr('number'),
 
@@ -41,13 +44,14 @@ App.Project.reopen({
         return this.get('isStatusCampaign') && this.get('deadline') > now && (this.get('amount_needed') > 0 || this.get('allowOverfunding'));
     }.property('isStatusCampaign', 'deadline', 'amount_needed', 'allowOverfunding'),
 
+    isCheetahProject: Em.computed.equal('partner.id', 'cheetah'),
+
     save: function () {
         // the amount_needed is calculated here and not in the server
         this.set('amount_needed', this.get('calculatedAmountNeeded'));
         
         this._super();
     }
-
 });
 
 App.MyProjectBudgetLine = DS.Model.extend({
@@ -77,6 +81,15 @@ App.MyProject.reopen({
         });
     }.property('budgetLines.@each.amount'),
 
+    validBudgetBreakdown: function(){
+        var lines = this.get('budgetLines')
+        var result = false
+        if (lines.content.length > 0){
+            result = true;
+        }
+        return result;
+    }.property('budgetLines.@each.amount'),
+
     init: function () {
         this._super();
 
@@ -91,21 +104,25 @@ App.MyProject.reopen({
     valid: Em.computed.and('validStory', 'validPitch', 'validGoal', 'organization.isLoaded', 'organization.valid'),
 
     requiredStoryFields: ['story', 'storyChanged'],
-    requiredGoalFields: ['amount_asked', 'deadline', 'maxAmountAsked', 'minAmountAsked'],
+    requiredGoalFields: ['amount_asked', 'deadline', 'maxAmountAsked', 'minAmountAsked', 'validBudgetBreakdown'],
     requiredPitchFields: ['title', 'pitch', 'image', 'theme', 'tags.length', 'country', 'latitude', 'longitude'],
 
     friendlyFieldNames: {
-        'title' : 'Title',
-        'pitch': 'Description',
-        'storyChanged' : 'Personalised story',
-        'image' : 'Image',
-        'theme' : 'Theme',
-        'tags.length': 'Tags',
-        'deadline' : 'Deadline',
-        'country' : 'Country',
-        'description': 'Why, what and how',
-        'goal' : 'Goal',
-        'destination_impact' : 'Destination impact'
+        'title' : gettext('Title'),
+        'pitch': gettext('Description'),
+        'storyChanged' : gettext('Personalised story'),
+        'image' : gettext('Image'),
+        'theme' : gettext('Theme'),
+        'tags.length': gettext('Tags'),
+        'deadline' : gettext('Deadline'),
+        'country' : gettext('Country'),
+        'description': gettext('Why, what and how'),
+        'goal' : gettext('Goal'),
+        'destination_impact' : gettext('Destination impact'),
+        'minAmountAsked' : gettext('Minimal amount asked'),
+        'amount_asked': gettext('Amount asked'),
+        'validBudgetBreakdown': gettext("Valid budget breakdown"),
+        'story': gettext('Story')
     }
 
 });

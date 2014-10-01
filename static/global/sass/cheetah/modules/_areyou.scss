@@ -1,0 +1,23 @@
+#cheetah-areyou {
+	height: 187px;
+	width: 100%;
+	margin: 50px 0 0 0;
+	background-image: image-url("cheetah/quiz/background-cheetah-quiz.svg");
+	background-color: $color-primary;
+
+	.areyou {
+		margin-top: 60px;
+
+		h2 {
+			text-align: right;
+			margin-top: 7px;
+			color: $color-white;
+			text-transform: uppercase;
+			font-size: 56px;
+		}
+	}
+
+	.start-cheetah {
+		float: left;
+	}
+}
