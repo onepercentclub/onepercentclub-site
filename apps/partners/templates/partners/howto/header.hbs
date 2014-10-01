@@ -1,0 +1,16 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "howto/header" %}
+    <div class="l-section" id="howto-header">
+        <div class="howto-header-bg">
+        </div>
+        <span class="howto-header-title">
+            <strong>{% trans 'How to crowdfund'%}</strong>
+            {% blocktrans %}
+                A guide to successful do-good crowdfunding via 1%Club.
+            {% endblocktrans%}
+        </span>
+    </div>
+{% endtplhandlebars %}

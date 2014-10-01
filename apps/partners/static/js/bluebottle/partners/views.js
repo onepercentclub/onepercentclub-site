@@ -149,3 +149,21 @@ App.BusinessView = Em.View.extend({
     }
 });
 
+App.HowToCrowdfundView = Em.View.extend({
+    templateName:'how_to_crowdfund'
+});
+
+App.HowtoSliderView = Em.View.extend({
+    templateName: 'slider',
+
+    didInsertElement: function() {
+        var banner = $('.home-carousel .carousel').unslider({
+                dots: true,
+                fluid: true,
+                delay: 800000
+            }), _this = this,
+            unsliderData = banner.data('unslider');
+    }
+})
+
+
