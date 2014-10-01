@@ -38,30 +38,22 @@ class Command(BaseCommand):
     }
 
     option_list = BaseCommand.option_list + (
-        make_option('--dry-run', action='store_true', dest='dry_run', default=False,
-                    help="Process the monthly donations without creating any db records or payments."),
+        make_option('--prepare', action='store_true', dest='dry_run', default=False,
+                    help="Prepare the monthly donations and create records that can be processed later."),
 
-        make_option('--no-email', action='store_true', dest='no_email', default=False,
-                    help="Don't send the monthly donation email to users."),
+
+        make_option('--process', action='store_true', dest='process', default=False,
+                    help="Process the prepared records."),
 
         make_option('--csv-export', action='store_true', dest='csv_export', default=False,
                     help="Generate CSV export of monthly donors with donations amounts."),
 
-        make_option('--process-one-recurring-payment', action='store', dest='process_payment_id', type='int',
-                    metavar='RECURRING-PAYMENT-ID',
-                    help="Process only the RecurringDirectDebitPayment specified by its primary key."),
     )
 
     def handle(self, *args, **options):
         # Setup the log level for root logger.
         loglevel = self.verbosity_loglevel.get(options['verbosity'])
         logger.setLevel(loglevel)
-
-        if options['dry_run'] and options['csv_export']:
-            logger.error("You cannot set both '--dry-run' and '--csv-export'.")
-            sys.exit(1)
-
-        send_email = not options['no_email']
 
         if options['dry_run']:
             # TODO Implement --dry-run.
