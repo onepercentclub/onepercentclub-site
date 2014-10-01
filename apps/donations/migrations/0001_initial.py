@@ -8,19 +8,21 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'MonthlyDonationBatch'
-        db.create_table(u'donations_monthlydonationbatch', (
+        # Adding model 'MonthlyBatch'
+        db.create_table(u'donations_monthlybatch', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('date', self.gf('django.db.models.fields.DateField')()),
             ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
             ('updated', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
         ))
-        db.send_create_signal(u'donations', ['MonthlyDonationBatch'])
+        db.send_create_signal(u'donations', ['MonthlyBatch'])
 
-        # Adding model 'MonthlyDonation'
-        db.create_table(u'donations_monthlydonation', (
+        # Adding model 'MonthlyOrder'
+        db.create_table(u'donations_monthlyorder', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('batch', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['donations.MonthlyDonationBatch'])),
+            ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
+            ('updated', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
+            ('batch', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['donations.MonthlyBatch'])),
             ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['members.Member'])),
             ('amount', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
             ('currency', self.gf('django.db.models.fields.CharField')(default='EUR', max_length=3)),
@@ -29,27 +31,28 @@ class Migration(SchemaMigration):
             ('iban', self.gf('django_iban.fields.IBANField')(default='', max_length=34, blank=True)),
             ('bic', self.gf('django_iban.fields.SWIFTBICField')(default='', max_length=11, blank=True)),
         ))
-        db.send_create_signal(u'donations', ['MonthlyDonation'])
+        db.send_create_signal(u'donations', ['MonthlyOrder'])
 
-        # Adding model 'MonthlyDonationProject'
-        db.create_table(u'donations_monthlydonationproject', (
+        # Adding model 'MonthlyDonation'
+        db.create_table(u'donations_monthlydonation', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('donation', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['donations.MonthlyDonation'])),
+            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['members.Member'])),
+            ('order', self.gf('django.db.models.fields.related.ForeignKey')(related_name='donations', to=orm['donations.MonthlyOrder'])),
             ('project', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['projects.Project'])),
             ('amount', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
         ))
-        db.send_create_signal(u'donations', ['MonthlyDonationProject'])
+        db.send_create_signal(u'donations', ['MonthlyDonation'])
 
 
     def backwards(self, orm):
-        # Deleting model 'MonthlyDonationBatch'
-        db.delete_table(u'donations_monthlydonationbatch')
+        # Deleting model 'MonthlyBatch'
+        db.delete_table(u'donations_monthlybatch')
+
+        # Deleting model 'MonthlyOrder'
+        db.delete_table(u'donations_monthlyorder')
 
         # Deleting model 'MonthlyDonation'
         db.delete_table(u'donations_monthlydonation')
-
-        # Deleting model 'MonthlyDonationProject'
-        db.delete_table(u'donations_monthlydonationproject')
 
 
     models = {
@@ -93,31 +96,34 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'donations.monthlydonation': {
-            'Meta': {'object_name': 'MonthlyDonation'},
-            'amount': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
-            'batch': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['donations.MonthlyDonationBatch']"}),
-            'bic': ('django_iban.fields.SWIFTBICField', [], {'default': "''", 'max_length': '11', 'blank': 'True'}),
-            'city': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
-            'currency': ('django.db.models.fields.CharField', [], {'default': "'EUR'", 'max_length': '3'}),
-            'iban': ('django_iban.fields.IBANField', [], {'default': "''", 'max_length': '34', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['members.Member']"})
-        },
-        u'donations.monthlydonationbatch': {
-            'Meta': {'object_name': 'MonthlyDonationBatch'},
+        u'donations.monthlybatch': {
+            'Meta': {'object_name': 'MonthlyBatch'},
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'date': ('django.db.models.fields.DateField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'})
         },
-        u'donations.monthlydonationproject': {
-            'Meta': {'object_name': 'MonthlyDonationProject'},
+        u'donations.monthlydonation': {
+            'Meta': {'object_name': 'MonthlyDonation'},
             'amount': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
-            'donation': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['donations.MonthlyDonation']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'project': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['projects.Project']"})
+            'order': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'donations'", 'to': u"orm['donations.MonthlyOrder']"}),
+            'project': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['projects.Project']"}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['members.Member']"})
+        },
+        u'donations.monthlyorder': {
+            'Meta': {'object_name': 'MonthlyOrder'},
+            'amount': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'batch': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['donations.MonthlyBatch']"}),
+            'bic': ('django_iban.fields.SWIFTBICField', [], {'default': "''", 'max_length': '11', 'blank': 'True'}),
+            'city': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
+            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            'currency': ('django.db.models.fields.CharField', [], {'default': "'EUR'", 'max_length': '3'}),
+            'iban': ('django_iban.fields.IBANField', [], {'default': "''", 'max_length': '34', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
+            'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['members.Member']"})
         },
         u'geo.country': {
             'Meta': {'ordering': "['name']", 'object_name': 'Country'},
