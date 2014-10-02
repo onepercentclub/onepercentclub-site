@@ -355,3 +355,42 @@
 		}
 	}
 }
+
+// disable hover on iPad
+body {
+	&.touch {
+		.campaign-container {
+			.campaign-item {
+				.campaign-item-holder {
+					.header {
+						opacity: 1;
+					}
+					
+					.profile-photo {
+						top: 168px;
+					}
+					
+					.campaign-body {
+						top: 217px;
+						z-index: 0;
+						
+						.campaign-body-names {
+							opacity: 1;
+						}
+					}
+					
+					.campaign-footer {
+						opacity: 1;
+						bottom: 8px;
+					}
+					
+					.campaign-hover {
+						visibility: hidden;
+						opacity: 1;
+						height: 100%;
+					}
+				}
+			}
+		}
+	}
+}
