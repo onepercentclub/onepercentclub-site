@@ -1,0 +1,61 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "howto/slider" %}
+    <div class="l-section home-carousel" id="howto-slider">
+        <section class="carousel default" {{bindAttr style=view.backgroundStyle}}>
+            <ul>
+                <li class="carousel-item slide">
+                    <div class="home-carousel-content">
+                        {% blocktrans %}
+                            <h3>The <big>10 golden rules</big> for successful do-good Crowdfunding</h3>
+                        {% endblocktrans %}
+                        <div class="row">
+                            <div class="col5">
+                                <div class="icon-section clipboard">
+                                    
+                                </div>
+                            </div>
+                            <div class="col7">
+                                <div class="content-section">
+                                    <h4>
+                                        <big>1</big>{% trans 'Start with a detailed strategy'%}
+                                    </h4>
+                                    <p>
+                                        {% blocktrans%}
+                                            Make sure all the preparation is done before you launch your campaign. Take time to work thoroughly on a campaign strategy, including a detailed plan with clear goals and sub-goals. As most successful campaigns are funded within thirty days, you should aim to reach your target as quickly as possible. 
+                                            <br><br>
+                                            Prepare a realistic budget to show potential supporters that you mean business. Make a list of your network and create several template emails to spread during your campaign so you can be ready to contact supporters right from the beginning.
+                                        {% endblocktrans%}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="home-carousel-btn">
+                        <a class='btn'>
+                            slide one
+                        </a>
+                    </div>
+                </li>
+
+                <li class="carousel-item slide">
+                    <div class="home-carousel-content">
+                        <h1>Jhon</h1>
+                        <p>Jhon Majoor is..</p>
+                    </div>
+                    <div class="home-carousel-btn">
+                        <a class='btn'>
+                            slide one
+                        </a>
+                    </div>
+                </li>
+            </ul>
+            <div class="home-carousel-nav">
+                <span class="carousel-nav-item is-active"></span>
+                <span class="carousel-nav-item"></span>
+            </div>
+        </section>
+    </div>
+{% endtplhandlebars %}
