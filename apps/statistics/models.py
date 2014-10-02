@@ -27,7 +27,7 @@ class Statistic(models.Model):
 
         if cache.get('donations-grant-total'):
             return cache.get('donations-grant-total')
-        donations = DONATION_MODEL.successful_donations
+        donations = DONATION_MODEL.valid_donations
         donated = donations.aggregate(sum=Sum('amount'))['sum'] or '000'
         cache.set('donations-grant-total', donated, 300)
         return donated

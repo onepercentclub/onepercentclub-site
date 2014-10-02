@@ -292,12 +292,14 @@ INSTALLED_APPS = (
     'bluebottle.bb_fundraisers',
     'bluebottle.bb_orders',
     'bluebottle.bb_donations',
+    'bluebottle.bb_payouts',
 
     # Standard implementation of Bb abstract models
     'bluebottle.fundraisers',
     'bluebottle.orders',
     'bluebottle.donations',
     'bluebottle.tasks',
+    'bluebottle.payouts',
 
     'apps.bluebottle_salesforce',
     'apps.core',
@@ -310,8 +312,6 @@ INSTALLED_APPS = (
     'apps.homepage',
     'apps.redirects',
     'apps.partners',
-    'apps.csvimport',
-    # 'apps.accounting',
     'apps.crawlable',
 
     # Custom dashboard
@@ -343,7 +343,9 @@ ORGANIZATIONS_MEMBER_MODEL = 'organizations.OrganizationMember'
 
 ORDERS_ORDER_MODEL = 'orders.Order'
 DONATIONS_DONATION_MODEL = 'donations.Donation'
-DONATIONS_DONATION_MODEL = 'donations.Donation'
+
+PAYOUTS_PROJECTPAYOUT_MODEL = 'payouts.ProjectPayout'
+PAYOUTS_ORGANIZATIONPAYOUT_MODEL = 'payouts.OrganizationPayout'
 
 SOCIAL_AUTH_USER_MODEL = 'members.Member'
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_friends', 'public_profile', 'user_birthday']
