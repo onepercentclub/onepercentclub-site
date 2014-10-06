@@ -6,7 +6,6 @@ from bluebottle.wallposts.notifiers import WallPostObserver, ReactionObserver, O
 from bluebottle.mail import send_mail
 
 
-#TODO: fixed should work (fix text email)
 class FundraiserWallObserver(WallPostObserver):
 
     model = FundRaiser
@@ -32,7 +31,6 @@ class FundraiserWallObserver(WallPostObserver):
             )
 
 
-#TODO: Just copied from others fix this
 class FundraiserReactionObserver(ReactionObserver):
 
     model = FundRaiser
