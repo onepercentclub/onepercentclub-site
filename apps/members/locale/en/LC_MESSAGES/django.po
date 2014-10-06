@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-19 16:28+0200\n"
+"POT-Creation-Date: 2014-10-01 16:14+0200\n"
 "PO-Revision-Date: 2014-09-19 14:30+0000\n"
 "Last-Translator: aethemba <aksel@onepercentclub.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
@@ -579,12 +579,12 @@ msgstr ""
 msgid "Hello, is it me you're looking&nbsp;for"
 msgstr "Hello, is it me you're looking for?"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/_matched_login_content.hbs.py:15
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/_matched_login_content.hbs.py:16
 msgid ""
 "has already been registered via Facebook. Is this you? Please sign in below."
 msgstr "has already been registered via Facebook. Is this you? Please sign in below."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/_matched_login_content.hbs.py:19
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/_matched_login_content.hbs.py:20
 msgid ""
 "has already been registered with Bluebottle Project. Is this you? Please "
 "sign in below."

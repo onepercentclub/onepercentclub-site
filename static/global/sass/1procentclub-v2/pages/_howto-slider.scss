@@ -1,0 +1,40 @@
+#howto-slider {
+    
+    h4 {
+        color: $color-primary;
+        text-transform: none;
+
+        big {
+            margin-right: 10px;
+            padding: 2px 8px 2px 8px;
+            background: $color-primary;
+            color: $white;
+            border-radius: 4px;
+        }
+    }
+
+    h3 {
+        text-transform: none;
+        color: $color-secondary;
+
+        big {
+            background: $color-secondary;
+            color: $white;
+            padding: 8px;
+            border-radius: 4px;
+        }
+    }
+
+     .content-section {
+        margin-top: 50px;
+        text-align: left;
+        color: $gray;
+
+        p {
+            font-size: 18px;
+            line-height: 26px;
+            color: #444;
+            margin-top: 15px;
+        }
+     }
+}
