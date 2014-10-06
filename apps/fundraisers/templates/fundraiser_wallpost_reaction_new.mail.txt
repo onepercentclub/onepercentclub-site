@@ -5,14 +5,15 @@
 {% blocktrans with receiver_name=receiver.first_name author_name=author.first_name %}
 Hello {{ receiver_name }},
 
-{{ author_name }} has left a message on your fundraiser page.
+Yes, yes, yes! {{ author_name }} commented on your wallpost.
 
-You must be curious what! Don't wait any longer and check it out here:
+Click the link below to go to our website:
 
 {{ site }}{{ link }}
 
 See you in a bit!
 
 Liane | 1%Club
+
 {% endblocktrans %}
 {% endblock %}
