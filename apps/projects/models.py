@@ -94,7 +94,6 @@ class Project(BaseProject):
                     "explains your project? Cool! We can't wait to see it! "
                     "You can paste the link to YouTube or Vimeo video here"))
 
-    deadline = models.DateTimeField(_('deadline'), null=True, blank=True)
     popularity = models.FloatField(null=False, default=0)
     is_campaign = models.BooleanField(default=False, help_text=_("Project is part of a campaign and gets special promotion."))
 
