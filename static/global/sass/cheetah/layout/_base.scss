@@ -37,6 +37,24 @@
 			}
 		}
 
+		.click-more-loader {
+			display: none;
+			position: relative;
+			margin: 30px 0 50px 0;
+			width: 100%;
+			height: 52px;
+			text-align: center;
+
+			.btn {
+				min-width: 250px;
+			}
+
+			&.is-active {
+				display: block;
+				@include animation(fadeInDownBig .4s ease-in-out);
+			}
+		}
+
 
 	&.cheetah-fund-campaigns {
 		padding-top: 0;
