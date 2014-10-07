@@ -22,14 +22,13 @@ App.PartnerProjectsView = Em.View.extend({
     templateName: 'partner_projects',
 
     didInsertElement: function() {
-        var _this = this;
-        $(window).bind('scroll', function() {
-            _this.didScroll();
+        $(window).on('scroll', $.proxy(this.didScroll, this));
+        $(document).on('touchmove', $.proxy(this.didScrollTouch, this));
+    },
 
-            if (_this.noMoreCampaign()) {
-               $('.scroll-more-loader').removeClass('is-active'); 
-            }
-        });
+    willDestroyElement: function(){
+        $(window).off('scroll', $.proxy(this.didScroll, this));
+        $(document).off('touchmove', $.proxy(this.didScrollTouch, this));
     },
 
     noMoreCampaign: function() {
@@ -40,7 +39,7 @@ App.PartnerProjectsView = Em.View.extend({
         if (amountLoadedCampaigns === totalCampaigns) {
             return result = true;
         }
-    },
+    }.observes('controller.amountProjects'),
 
     campaignLeft: function() {
         var amountLoadedCampaigns = $('.campaign-item').length,
@@ -69,6 +68,20 @@ App.PartnerProjectsView = Em.View.extend({
                 $('.is-search:nth-last-of-type(-n + ' + ' ' + nthChild + ')').addClass('is-fadeIn');
             });
             $('.scroll-more-loader').addClass('is-active');
+
+            if (this.noMoreCampaign()) {
+               $('.scroll-more-loader').removeClass('is-active'); 
+            }
+        }
+    },
+
+    didScrollTouch: function() {
+        $('.click-more-loader').addClass('is-active');
+        $('.scroll-more-loader').removeClass('is-active');
+
+        if (this.noMoreCampaign()) {
+            $('.click-more-loader').removeClass('is-active');
+            $('.scroll-more-loader').removeClass('is-active');
         }
     },
 
