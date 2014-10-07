@@ -12,24 +12,17 @@ function pluralidx(n) {
   }
 }
 catalog['Cancel'] = 'Cancel';
+catalog['Description'] = 'Short description';
 catalog['No, continue'] = 'No, continue';
-catalog['Password needs to be at least 6 characters long'] = 'Your password needs to be at least 6 characters long.';
-catalog['Password required'] = 'Please fill in your password.';
-catalog['Password'] = 'Password';
-catalog['Person'] = 'Person';
-catalog['Pick a country'] = 'Pick a country';
-catalog['Pick a phase'] = 'Pick a phase';
-catalog['Pick an item'] = 'Pick an item';
-catalog['Pick an organization'] = 'Pick an organisation';
-catalog['Re-enter email address'] = 'Re-enter email address';
-catalog['Really?'] = 'Really?';
 catalog['Save changed data?'] = 'Save changed data?';
 catalog['Save'] = 'Save';
 catalog['Set my monthly donation'] = 'Set my monthly donation';
 catalog['Stop my monthly donation'] = 'Stop my monthly donation';
+catalog['Tags'] = 'Keywords';
 catalog['Thanks a lot for your support until now. You rock! We welcome you back anytime.<br /><br />Are you sure you want to stop your monthly support?'] = 'Thanks a lot for your support until now. You rock! We welcome you back anytime.<br /><br />Are you sure you want to stop your monthly donation?';
 catalog['There was an error connecting Facebook'] = 'Oh snap! There was an error connecting with your Facebook account. Please try again.';
 catalog['There was an error with your payment. Please try again.'] = 'There was an error with your payment. Could you please try again?';
+catalog['Valid budget breakdown'] = 'Budget specification';
 catalog['Yes, stop my donation'] = 'Yes, stop my donation';
 catalog['You have some unsaved changes. Do you want to save before you leave?'] = 'You have some unsaved changes. Do you want to save before you leave?';
 catalog['You\'re about to set a monthly donation.<br/><br/>'] = 'You\'re about to set a monthly donation.<br/><br/>';

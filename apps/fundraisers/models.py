@@ -62,3 +62,4 @@ class FundRaiser(models.Model):
         return tweet
 
 
+from fundwallmails import *

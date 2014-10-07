@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-19 16:28+0200\n"
-"PO-Revision-Date: 2014-09-19 14:30+0000\n"
+"POT-Creation-Date: 2014-10-01 16:14+0200\n"
+"PO-Revision-Date: 2014-10-01 14:27+0000\n"
 "Last-Translator: aethemba <aksel@onepercentclub.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
@@ -820,37 +820,49 @@ msgstr "\nHello %(receiver_name)s,\n\n%(author_name)s has left a message on your
 msgid "Post a new update on wall"
 msgstr "Post a new update"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/wallposts/templates/wallposts/media_wallpost_new.hbs.py:56
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/wallposts/templates/wallposts/media_wallpost_new.hbs.py:37
+msgid "Add images"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/wallposts/templates/wallposts/media_wallpost_new.hbs.py:38
+msgid "Link a video"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/wallposts/templates/wallposts/media_wallpost_new.hbs.py:57
 msgid "Error"
 msgstr "Error"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/wallposts/templates/wallposts/media_wallpost_new.hbs.py:63
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/wallposts/templates/wallposts/media_wallpost_new.hbs.py:64
 msgid "Loading photos&#8230;"
 msgstr "Loading photos&#8230;"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/wallposts/templates/wallposts/media_wallpost_new.hbs.py:74
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/wallposts/templates/wallposts/media_wallpost_new.hbs.py:75
 msgid "Add file"
 msgstr "Add file"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/wallposts/templates/wallposts/media_wallpost_new.hbs.py:80
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/wallposts/templates/wallposts/media_wallpost_new.hbs.py:81
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/wallposts/templates/wallposts/text_wallpost_new.hbs.py:27
 msgid "Post"
 msgstr "Post"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/wallposts/templates/wallposts/media_wallpost_new.hbs.py:82
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/wallposts/templates/wallposts/media_wallpost_new.hbs.py:83
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/wallposts/templates/wallposts/text_wallpost_new.hbs.py:29
 msgid "Cancel"
 msgstr "Cancel"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/wallposts/templates/wallposts/reactions.hbs.py:66
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/wallposts/templates/wallposts/reactions.hbs.py:67
 msgid "Login"
 msgstr "Login"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/wallposts/templates/wallposts/reactions.hbs.py:66
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/wallposts/templates/wallposts/reactions.hbs.py:67
+msgid "or"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/wallposts/templates/wallposts/reactions.hbs.py:68
 msgid "Sign up"
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/wallposts/templates/wallposts/reactions.hbs.py:66
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/wallposts/templates/wallposts/reactions.hbs.py:68
 msgid "to leave a reaction"
 msgstr "to leave a reaction"
 
@@ -1226,11 +1238,11 @@ msgstr "Allow comments"
 msgid "Internal CMS error: failed to fetch preview data!"
 msgstr "Internal CMS error: failed to fetch preview data!"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/news/templates/admin/blogs/preview_canvas.html.py:22
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/news/templates/admin/blogs/preview_canvas.html.py:21
 msgid "Blog post preview"
 msgstr "Blog post preview"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/news/templates/admin/blogs/preview_canvas.html.py:23
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/news/templates/admin/blogs/preview_canvas.html.py:22
 msgid "now"
 msgstr "now"
 
@@ -1771,8 +1783,7 @@ msgid "Browse all Campaigns"
 msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/_running_campaign_list.hbs.py:10
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/detail/partner_campaign_list.hbs.py:9
-msgid "Running Cheetah campaigns"
+msgid "Top Cheetah campaigns"
 msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/_running_campaign_list.hbs.py:25
@@ -2041,4 +2052,8 @@ msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/detail/_project_preview.hbs.py:52
 msgid "fully funded!"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/detail/partner_campaign_list.hbs.py:9
+msgid "Running Cheetah campaigns"
 msgstr ""
