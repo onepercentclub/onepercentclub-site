@@ -8,73 +8,55 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Organization'
-        db.create_table(u'organizations_organization', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('slug', self.gf('django.db.models.fields.SlugField')(unique=True, max_length=100)),
-            ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('updated', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
-            ('deleted', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
-            ('partner_organizations', self.gf('django.db.models.fields.TextField')(blank=True)),
-            ('address_line1', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('address_line2', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('city', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('state', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('country', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='country', null=True, to=orm['geo.Country'])),
-            ('postal_code', self.gf('django.db.models.fields.CharField')(max_length=20, blank=True)),
-            ('phone_number', self.gf('django.db.models.fields.CharField')(max_length=40, blank=True)),
-            ('website', self.gf('django.db.models.fields.URLField')(max_length=200, blank=True)),
-            ('email', self.gf('django.db.models.fields.EmailField')(max_length=75, blank=True)),
-            ('twitter', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('facebook', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('skype', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('account_holder_name', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('account_holder_address', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('account_holder_postal_code', self.gf('django.db.models.fields.CharField')(max_length=20, blank=True)),
-            ('account_holder_city', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('account_holder_country', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='account_holder_country', null=True, to=orm['geo.Country'])),
-            ('account_iban', self.gf('django_iban.fields.IBANField')(max_length=34, blank=True)),
-            ('account_bic', self.gf('django_iban.fields.SWIFTBICField')(max_length=11, blank=True)),
-            ('account_number', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('account_bank_name', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('account_bank_address', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('account_bank_postal_code', self.gf('django.db.models.fields.CharField')(max_length=20, blank=True)),
-            ('account_bank_city', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('account_bank_country', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='account_bank_country', null=True, to=orm['geo.Country'])),
-            ('account_other', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('registration', self.gf('django.db.models.fields.files.FileField')(max_length=100, null=True, blank=True)),
-        ))
-        db.send_create_signal(u'organizations', ['Organization'])
+        # Adding field 'OrganizationDocument.created'
+        db.add_column(u'organizations_organizationdocument', 'created',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True),
+                      keep_default=False)
 
-        # Adding model 'OrganizationMember'
-        db.create_table(u'organizations_organizationmember', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['members.Member'])),
-            ('function', self.gf('django.db.models.fields.CharField')(max_length=20)),
-            ('organization', self.gf('django.db.models.fields.related.ForeignKey')(related_name='members', to=orm['organizations.Organization'])),
-        ))
-        db.send_create_signal(u'organizations', ['OrganizationMember'])
+        # Adding field 'OrganizationDocument.updated'
+        db.add_column(u'organizations_organizationdocument', 'updated',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True),
+                      keep_default=False)
 
-        # Adding model 'OrganizationDocument'
-        db.create_table(u'organizations_organizationdocument', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('file', self.gf('django.db.models.fields.files.FileField')(max_length=100)),
-            ('author', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['members.Member'], null=True, blank=True)),
-            ('organization', self.gf('django.db.models.fields.related.ForeignKey')(related_name='documents', to=orm['organizations.Organization'])),
-        ))
-        db.send_create_signal(u'organizations', ['OrganizationDocument'])
+        # Adding field 'OrganizationDocument.deleted'
+        db.add_column(u'organizations_organizationdocument', 'deleted',
+                      self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'OrganizationMember.created'
+        db.add_column(u'organizations_organizationmember', 'created',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True),
+                      keep_default=False)
+
+        # Adding field 'OrganizationMember.updated'
+        db.add_column(u'organizations_organizationmember', 'updated',
+                      self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True),
+                      keep_default=False)
+
+        # Adding field 'OrganizationMember.deleted'
+        db.add_column(u'organizations_organizationmember', 'deleted',
+                      self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True),
+                      keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting model 'Organization'
-        db.delete_table(u'organizations_organization')
+        # Deleting field 'OrganizationDocument.created'
+        db.delete_column(u'organizations_organizationdocument', 'created')
 
-        # Deleting model 'OrganizationMember'
-        db.delete_table(u'organizations_organizationmember')
+        # Deleting field 'OrganizationDocument.updated'
+        db.delete_column(u'organizations_organizationdocument', 'updated')
 
-        # Deleting model 'OrganizationDocument'
-        db.delete_table(u'organizations_organizationdocument')
+        # Deleting field 'OrganizationDocument.deleted'
+        db.delete_column(u'organizations_organizationdocument', 'deleted')
+
+        # Deleting field 'OrganizationMember.created'
+        db.delete_column(u'organizations_organizationmember', 'created')
+
+        # Deleting field 'OrganizationMember.updated'
+        db.delete_column(u'organizations_organizationmember', 'updated')
+
+        # Deleting field 'OrganizationMember.deleted'
+        db.delete_column(u'organizations_organizationmember', 'deleted')
 
 
     models = {
@@ -197,15 +179,21 @@ class Migration(SchemaMigration):
         u'organizations.organizationdocument': {
             'Meta': {'object_name': 'OrganizationDocument'},
             'author': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['members.Member']", 'null': 'True', 'blank': 'True'}),
+            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            'deleted': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'file': ('django.db.models.fields.files.FileField', [], {'max_length': '100'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'organization': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'documents'", 'to': u"orm['organizations.Organization']"})
+            'organization': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'documents'", 'to': u"orm['organizations.Organization']"}),
+            'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'})
         },
         u'organizations.organizationmember': {
             'Meta': {'object_name': 'OrganizationMember'},
+            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            'deleted': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'function': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'organization': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'members'", 'to': u"orm['organizations.Organization']"}),
+            'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['members.Member']"})
         },
         u'taggit.tag': {
