@@ -15,10 +15,15 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
+# aethemba <aksel@onepercentclub.com>, 2014
 # aethemba <aksel@onepercentclub.com>, 2014
 # bartlacroix <bart@onepercentclub.com>, 2014
+# bartlacroix <bart@onepercentclub.com>, 2014
+# JhonM <jhon@onepercentclub.com>, 2014
 # JhonM <jhon@onepercentclub.com>, 2014
 # Loek van Gent <loek@1procentclub.nl>, 2014
+# Malou <malou@onepercentclub.com>, 2014
 # Malou <malou@onepercentclub.com>, 2014
 # Niels Jansen <niels@1procentclub.nl>, 2014
 # Sezayi Arslan <sezayi@onepercentclub.com>, 2014
@@ -26,9 +31,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-01 16:14+0200\n"
-"PO-Revision-Date: 2014-10-01 14:26+0000\n"
-"Last-Translator: aethemba <aksel@onepercentclub.com>\n"
+"POT-Creation-Date: 2014-10-07 17:56+0200\n"
+"PO-Revision-Date: 2014-10-07 15:57+0000\n"
+"Last-Translator: rollick <mark@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -45,7 +50,7 @@ msgid "Finished Campaigns"
 msgstr "Gerealiseerde Campagnes"
 
 #: apps/core/static/js/bluebottle/app_overrides.js:131
-#: env-2.7/src/bluebottle/bluebottle/common/static/js/plugins/ember-facebook.js.c:104
+#: env-2.7/src/bluebottle/bluebottle/common/static/js/plugins/ember-facebook.js.c:106
 msgid "There was an error connecting Facebook"
 msgstr "Oeps! We konden geen verbinding maken met je Facebook account. Probeer het nog eens."
 
@@ -68,8 +73,6 @@ msgstr "Opslaan"
 
 #: apps/donations/static/js/bluebottle/donations/controllers.js:134
 #: apps/donations/static/js/bluebottle/donations/controllers.js:179
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:92
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:204
 #: env-2.7/src/bluebottle/bluebottle/bb_tasks/static/js/bluebottle/bb_tasks/routes.js.c:66
 #: env-2.7/src/bluebottle/bluebottle/common/static/js/bluebottle/utils.js.c:424
 #: env-2.7/src/bluebottle/bluebottle/wallposts/static/js/bluebottle/wallposts/views.js.c:42
@@ -160,12 +163,12 @@ msgid "Tell us a bit about yourself so we can get to know you!"
 msgstr "Vertel ons wat over jezelf zodat we je kunnen leren kennen!"
 
 #: apps/members/static/js/members/views.js:16
-#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:9
+#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:8
 msgid "First name"
 msgstr "Voornaam"
 
 #: apps/members/static/js/members/views.js:20
-#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:10
+#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:9
 msgid "Surname"
 msgstr "Achternaam"
 
@@ -282,158 +285,6 @@ msgstr "Budget specificatie"
 msgid "Story"
 msgstr "Verhaal"
 
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:45
-#, c-format
-msgid "Available %s"
-msgstr ""
-
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:46
-#, c-format
-msgid ""
-"This is the list of available %s. You may choose some by selecting them in "
-"the box below and then clicking the \"Choose\" arrow between the two boxes."
-msgstr ""
-
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:53
-#, c-format
-msgid "Type into this box to filter down the list of available %s."
-msgstr ""
-
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:57
-msgid "Filter"
-msgstr ""
-
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:61
-msgid "Choose all"
-msgstr ""
-
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:61
-#, c-format
-msgid "Click to choose all %s at once."
-msgstr ""
-
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:67
-msgid "Choose"
-msgstr ""
-
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:69
-msgid "Remove"
-msgstr ""
-
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:75
-#, c-format
-msgid "Chosen %s"
-msgstr ""
-
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:76
-#, c-format
-msgid ""
-"This is the list of chosen %s. You may remove some by selecting them in the "
-"box below and then clicking the \"Remove\" arrow between the two boxes."
-msgstr ""
-
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:80
-msgid "Remove all"
-msgstr ""
-
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/SelectFilter2.js:80
-#, c-format
-msgid "Click to remove all chosen %s at once."
-msgstr ""
-
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/actions.js:18
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/actions.min.js:1
-msgid "%(sel)s of %(cnt)s selected"
-msgid_plural "%(sel)s of %(cnt)s selected"
-msgstr[0] ""
-msgstr[1] ""
-
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/actions.js:109
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/actions.min.js:5
-msgid ""
-"You have unsaved changes on individual editable fields. If you run an "
-"action, your unsaved changes will be lost."
-msgstr ""
-
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/actions.js:121
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/actions.min.js:5
-msgid ""
-"You have selected an action, but you haven't saved your changes to "
-"individual fields yet. Please click OK to save. You'll need to re-run the "
-"action."
-msgstr ""
-
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/actions.js:123
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/actions.min.js:6
-msgid ""
-"You have selected an action, and you haven't made any changes on individual "
-"fields. You're probably looking for the Go button rather than the Save "
-"button."
-msgstr ""
-
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/calendar.js:26
-msgid ""
-"January February March April May June July August September October November"
-" December"
-msgstr ""
-
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/calendar.js:27
-msgid "S M T W T F S"
-msgstr ""
-
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/collapse.js:8
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/collapse.js:19
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/collapse.min.js:1
-msgid "Show"
-msgstr ""
-
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/collapse.js:15
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/collapse.min.js:1
-msgid "Hide"
-msgstr ""
-
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:49
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:85
-msgid "Now"
-msgstr ""
-
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:53
-msgid "Clock"
-msgstr ""
-
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:81
-msgid "Choose a time"
-msgstr ""
-
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:86
-msgid "Midnight"
-msgstr ""
-
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:87
-msgid "6 a.m."
-msgstr ""
-
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:88
-msgid "Noon"
-msgstr ""
-
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:144
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:197
-msgid "Today"
-msgstr ""
-
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:148
-msgid "Calendar"
-msgstr ""
-
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:195
-msgid "Yesterday"
-msgstr ""
-
-#: env/lib/python2.7/site-packages/django/contrib/admin/static/admin/js/admin/DateTimeShortcuts.js:199
-msgid "Tomorrow"
-msgstr ""
-
 #: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:16
 msgid "First Name can't be left empty"
 msgstr "Voornaam kan niet leeg zijn"
@@ -540,46 +391,46 @@ msgstr ""
 msgid "We've updated your password, you're all set!"
 msgstr "We hebben uw wachtwoord aangepast. "
 
-#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:516
+#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:517
 msgid "Passwords don't match"
 msgstr "De wachtwoorden komen niet overeen"
 
-#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:611
+#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:613
 msgid "Invalid token, try request a new password again"
 msgstr "Ongeldig token, vraag een nieuw wachtwoord aan"
 
-#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:632
+#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:634
 msgid "If you leave me now..."
 msgstr ""
 
-#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:633
+#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:635
 msgid "The account was disabled"
 msgstr ""
 
-#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:660
+#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:662
 msgid "Success"
 msgstr ""
 
-#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:665
+#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/controllers.js.c:667
 msgid "Error, invalid token"
 msgstr "Oeps, ongeldig token"
 
-#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:11
-#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:24
-#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:51
+#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:10
+#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:23
+#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:38
 msgid "Email address"
 msgstr "E-mailadres"
 
-#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:12
+#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:11
 msgid "Re-enter email address"
 msgstr "Herhaal e-mailadres"
 
-#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:13
-#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:25
+#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:12
+#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:24
 msgid "Password"
 msgstr "Wachtwoord"
 
-#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:59
+#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:46
 msgid "Pick an item"
 msgstr "Kies een item"
 
@@ -753,7 +604,7 @@ msgstr ""
 msgid "Pick a language"
 msgstr "Kies een taal"
 
-#: env-2.7/src/bluebottle/bluebottle/common/static/js/plugins/ember-facebook.js.c:108
+#: env-2.7/src/bluebottle/bluebottle/common/static/js/plugins/ember-facebook.js.c:110
 msgid "Unauthorized to connect to Facebook "
 msgstr "Geen toestemming om te verbinden met Facebook"
 
