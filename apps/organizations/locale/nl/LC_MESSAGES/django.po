@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-01 16:14+0200\n"
+"POT-Creation-Date: 2014-10-07 13:04+0200\n"
 "PO-Revision-Date: 2014-08-12 12:44+0000\n"
 "Last-Translator: Malou <malou@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
@@ -24,22 +24,22 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:16
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/forms.py:13
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/forms.py:13
 msgid "Change:"
 msgstr "Pas aan:"
 
 #: forms.py:18
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/forms.py:15
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/forms.py:15
 msgid "Add:"
 msgstr "Voeg toe:"
 
 #: models.py:28
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:110
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:118
 msgid "organization"
 msgstr "organisatie"
 
 #: models.py:29
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:111
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:119
 msgid "organizations"
 msgstr "organisaties"
 
@@ -52,12 +52,12 @@ msgid "Please fill in your contact details below."
 msgstr "Vul hieronder je contact gegevens in."
 
 #: templates/bb_organizations/manage/_organisation_legend.hbs:16
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/_organisation_legend.hbs.py:16
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/_organisation_legend.hbs.py:16
 msgid "You can import this from a previous campaign: "
 msgstr "Je kunt dit importeren van een eerdere campagne:"
 
 #: templates/bb_organizations/manage/_organisation_legend.hbs:16
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/_organisation_legend.hbs.py:16
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/_organisation_legend.hbs.py:16
 msgid "Import:"
 msgstr "Importeer:"
 
@@ -80,365 +80,371 @@ msgid ""
 "        "
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:24
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:24
 msgid "Owner"
 msgstr "Campaigner"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:25
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:25
 msgid "Editor"
 msgstr "Editor"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:27
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:27
 msgid "user"
 msgstr "gebruiker"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:28
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:28
 msgid "function"
 msgstr "functie"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:32
-msgid "organization member"
-msgstr "organisatielid"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:33
-msgid "organization members"
-msgstr "organisatieleden"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:42
-msgid "author"
-msgstr "auteur"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:46
-msgid "organization document"
-msgstr "organisatie document"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:47
-msgid "organization documents"
-msgstr "organisatie documenten"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:60
-msgid "name"
-msgstr "naam"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:61
-msgid "slug"
-msgstr "slug"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:63
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:31
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:49
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:71
 msgid "created"
 msgstr "aangemaakt"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:64
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:32
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:50
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:72
 msgid "updated"
 msgstr "aangepast"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:65
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:33
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:51
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:73
 msgid "deleted"
 msgstr "verwijderd"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:67
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:36
+msgid "organization member"
+msgstr "organisatielid"
+
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:37
+msgid "organization members"
+msgstr "organisatieleden"
+
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:46
+msgid "author"
+msgstr "auteur"
+
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:54
+msgid "organization document"
+msgstr "organisatie document"
+
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:55
+msgid "organization documents"
+msgstr "organisatie documenten"
+
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:68
+msgid "name"
+msgstr "naam"
+
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:69
+msgid "slug"
+msgstr "slug"
+
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:75
 msgid "partner organizations"
 msgstr "partner organisaties"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:78
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:86
 msgid "phone number"
 msgstr "telefoonnummer"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:79
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:87
 msgid "website"
 msgstr "website"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:82
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:90
 msgid "twitter"
 msgstr "Twitter"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:83
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:91
 msgid "facebook"
 msgstr "Facebook"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:84
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:92
 msgid "skype"
 msgstr "Skype"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:86
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:94
 msgid "tags"
 msgstr "trefwoorden"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:89
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:97
 msgid "account holder name"
 msgstr "Naam rekeninghouder"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:90
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:98
 msgid "account holder address"
 msgstr "Adres rekeninghouder"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:91
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:99
 msgid "account holder postal code"
 msgstr "Postcode "
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:92
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:100
 msgid "account holder city"
 msgstr "Plaats"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:96
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:104
 msgid "account IBAN"
 msgstr "IBAN nummer"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:97
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:105
 msgid "account SWIFT-BIC"
 msgstr "SWIFT-BIC code"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:98
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:106
 msgid "account number"
 msgstr "Rekeningnummer"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:99
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:107
 msgid "account bank name"
 msgstr "Naam bank"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:100
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:108
 msgid "account bank address"
 msgstr "Plaats bank"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:101
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:109
 msgid "account bank postal code"
 msgstr "Postcode bank"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:102
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:110
 msgid "account bank city"
 msgstr "Plaats bank "
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/models.py:104
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/models.py:112
 msgid "account information that doesn't fit in the other field"
 msgstr "Rekening informatie die niet in het andere veld paste"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/_organisation_legend.hbs.py:7
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/_organisation_legend.hbs.py:7
 msgid "Partner organisation"
 msgstr "Partner organisatie"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/_organisation_legend.hbs.py:9
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/_organisation_legend.hbs.py:9
 msgid ""
 "Give us the details about your partner organisation whose sole purpose in "
 "life it is to address the topic that you care about!"
 msgstr "Geef ons de details van je partnerorganisatie."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/_organisation_legend.hbs.py:22
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/_organisation_legend.hbs.py:22
 msgid ""
 "It appears that you already have an (other) organisation. Select it below or"
 " fill out the form to create a new one."
 msgstr "Het lijkt alsof je al een (andere) organisatie hebt. Selecteer deze hieronder of maak een nieuwe organisatie aan."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:9
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:9
 msgid "Bank details"
 msgstr "Bank gegevens "
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:10
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:10
 msgid ""
 "And the boring part… we know there is no fun in filling in these details, "
 "but please make sure everything you fill in is correct and double checked. "
 "Errors in bank details means delays in payments."
 msgstr "Nu het saaie gedeelte… Ja, we weten het, deze info is niet echt leuk om in te vullen. Zorg wel dat het compleet en up-to-date is want onjuiste of incomplete bankdetails zorgen voor een latere uitbetaling. "
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:17
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:8
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:17
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:8
 msgid "Name"
 msgstr "Naam"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:17
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:17
 msgid "Name of your organisation"
 msgstr "Naam van je organisatie"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:22
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:22
 msgid "Account holder name"
 msgstr "Rekeninghouder "
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:22
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:22
 msgid "Who will receive the money"
 msgstr "Wie ontvangt het geld? "
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:22
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:22
 msgid "Account holder's full name"
 msgstr "Volledige naam van de rekeninghouder"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:24
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:24
 msgid "Account holder full address"
 msgstr "Adres rekeninghouder"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:24
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:59
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:24
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:59
 msgid "Street and number"
 msgstr "Straat en huisnummer "
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:26
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:61
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:26
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:61
 msgid "Zipcode"
 msgstr "Postcode"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:28
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:63
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:28
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:63
 msgid "City"
 msgstr "Woonplaats"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:35
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:35
 msgid "Where is your bank located:"
 msgstr "Locatie van je bank:"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:36
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:36
 msgid "Inside Europe"
 msgstr "Binnen Europa"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:37
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:37
 msgid "Outside Europe"
 msgstr "Buiten Europa"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:45
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:45
 msgid "IBAN"
 msgstr "IBAN"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:45
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:45
 msgid "For example NL12RABO0123467890 "
 msgstr "Bijvoorbeeld NL12RABO0123467890 "
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:47
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:55
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:47
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:55
 msgid "BIC/SWIFT code"
 msgstr "BIC/SWIFT code"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:47
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:55
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:47
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:55
 msgid "BIC or SWIFT code"
 msgstr "BIC of SWIFT code"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:47
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:55
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:47
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:55
 msgid "The BIC/SWIFT code contains 8 or 11 characters"
 msgstr "De BIC/SWIFT code heeft 8 of 11 karakters"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:53
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:53
 msgid "Account Number"
 msgstr "Rekeningnummer"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:53
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:53
 msgid "Can be found on your bank statement"
 msgstr "Is te vinden op je bankafschrift"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:57
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:57
 msgid "Bank name"
 msgstr "Bank"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:57
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:57
 msgid "Your bank's full name"
 msgstr "Naam bank"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:59
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:59
 msgid "Bank's full address"
 msgstr "Adres bank"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:75
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:75
 msgid "Extra Info"
 msgstr "Extra info"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:75
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:75
 msgid "If you have extra info"
 msgstr "Als je extra informatie hebt"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:81
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/bank.hbs.py:81
 msgid "You should create an organisation profile first."
 msgstr "Maak eerst een organisatie profiel aan."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:8
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:8
 msgid "Name of your partner organisation"
 msgstr "Naam van de contact persoon of organisatie"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:10
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:10
 msgid "Email"
 msgstr "E-mail"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:10
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:10
 msgid "E-mail of your contact person"
 msgstr "E-mail van je contactpersoon"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:12
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:12
 msgid "Phone number"
 msgstr "Telefoonnummer"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:12
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:12
 msgid "Phone number of your contact person"
 msgstr "Telefoonnummer van je contactpersoon"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:14
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:14
 msgid "Website"
 msgstr "Website"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:14
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:14
 msgid "Does your partner organization have a website?"
 msgstr "Heeft je organisatie een website?"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:14
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:14
 msgid "http://"
 msgstr "http://"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:16
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:16
 msgid "Twitter"
 msgstr "Twitter"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:16
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:16
 msgid "Does your partner organization have a twitter account?"
 msgstr "Heeft je organisatie een Twitter account?"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:16
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:16
 msgid "@twitteraccount"
 msgstr "@twitteraccount"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:18
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:18
 msgid "Facebook"
 msgstr "Facebook"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:18
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:18
 msgid "Does your partner organization have a facebook group?"
 msgstr "Heeft je organisatie een Facebook groep?"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:18
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:18
 msgid "https://www.facebook.com/<groupname>"
 msgstr "https://www.facebook.com/<groupname>"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:20
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:20
 msgid "Skype"
 msgstr "Skype"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:20
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:20
 msgid "Can we reach you on Skype?"
 msgstr "Kunnen we je bereiken op Skype?"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:20
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/detail_fields.hbs.py:20
 msgid "Skype name"
 msgstr "Skype naam"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:21
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:21
 msgid "Legal status"
 msgstr "Legitimatie"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:22
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:22
 msgid ""
 "Upload a document that identifies your contact person or your partner "
 "organisation. The document can be an ID, passport, memorandum of association"
 " or an other official document."
 msgstr " Upload een scan of kopie van je paspoort of ID. "
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:28
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:28
 msgid ""
 "please upload a copy of your passport. Make sure it's a valid one and we can"
 " read it clearly!"
 msgstr "Upload een scan of kopie van je paspoort of ID. "
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:30
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:30
 msgid "Passport or ID"
 msgstr "Paspoort of ID"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:32
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:32
 msgid ".jpg, .png or .pdf"
 msgstr ".jpg, .png or .pdf"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:40
+#: /Users/onepercentclub/Dev/onepercentclub-site/../bluebottle/bluebottle/bb_organizations/templates/bb_organizations/manage/details.hbs.py:40
 msgid "Upload scan(s)"
 msgstr "Upload scan(s)"
