@@ -16,6 +16,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # aethemba <aksel@onepercentclub.com>, 2014
 # aethemba <aksel@onepercentclub.com>, 2014
 # Loek van Gent <loek@1procentclub.nl>, 2014
@@ -27,8 +28,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-07 17:56+0200\n"
-"PO-Revision-Date: 2014-10-07 15:57+0000\n"
+"POT-Creation-Date: 2014-10-08 10:52+0200\n"
+"PO-Revision-Date: 2014-10-08 08:53+0000\n"
 "Last-Translator: rollick <mark@onepercentclub.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
@@ -413,7 +414,7 @@ msgstr ""
 
 #: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:10
 #: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:23
-#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:38
+#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:41
 msgid "Email address"
 msgstr ""
 
@@ -426,7 +427,15 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:46
+#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:36
+msgid "Choose New Password"
+msgstr ""
+
+#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:37
+msgid "Confirm New Password"
+msgstr ""
+
+#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:49
 msgid "Pick an item"
 msgstr ""
 

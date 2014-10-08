@@ -16,6 +16,7 @@
 # Translators:
 # Translators:
 # Translators:
+# Translators:
 # aethemba <aksel@onepercentclub.com>, 2014
 # aethemba <aksel@onepercentclub.com>, 2014
 # bartlacroix <bart@onepercentclub.com>, 2014
@@ -25,14 +26,15 @@
 # Loek van Gent <loek@1procentclub.nl>, 2014
 # Malou <malou@onepercentclub.com>, 2014
 # Malou <malou@onepercentclub.com>, 2014
+# rollick <mark@onepercentclub.com>, 2014
 # Niels Jansen <niels@1procentclub.nl>, 2014
 # Sezayi Arslan <sezayi@onepercentclub.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-07 17:56+0200\n"
-"PO-Revision-Date: 2014-10-07 15:57+0000\n"
+"POT-Creation-Date: 2014-10-08 10:52+0200\n"
+"PO-Revision-Date: 2014-10-08 09:06+0000\n"
 "Last-Translator: rollick <mark@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -417,7 +419,7 @@ msgstr "Oeps, ongeldig token"
 
 #: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:10
 #: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:23
-#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:38
+#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:41
 msgid "Email address"
 msgstr "E-mailadres"
 
@@ -430,7 +432,15 @@ msgstr "Herhaal e-mailadres"
 msgid "Password"
 msgstr "Wachtwoord"
 
-#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:46
+#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:36
+msgid "Choose New Password"
+msgstr "Kies nieuw wachtwoord"
+
+#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:37
+msgid "Confirm New Password"
+msgstr "Bevestig nieuw wachtwoord"
+
+#: env-2.7/src/bluebottle/bluebottle/bb_accounts/static/js/bluebottle/bb_accounts/views.js.c:49
 msgid "Pick an item"
 msgstr "Kies een item"
 
