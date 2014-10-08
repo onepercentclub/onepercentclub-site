@@ -266,11 +266,37 @@ INSTALLED_APPS = (
     # Password auth from old PHP site.
     'legacyauth',
 
-    'apps.vouchers',
-    'apps.fund',
-    'apps.fundraisers',
-    'bluebottle.wallposts', # Define wall posts before projects/tasks that depend on it.
-    'apps.donations',
+
+    # Plain Bluebottle apps
+    'bluebottle.wallposts',
+    'bluebottle.utils',
+    'bluebottle.common',
+    'bluebottle.contentplugins',
+    'bluebottle.contact',
+    'bluebottle.geo',
+    'bluebottle.pages',
+    'bluebottle.news',
+    'bluebottle.slides',
+    'bluebottle.quotes',
+    'bluebottle.payments',
+    'bluebottle.payments_docdata',
+
+
+    # Bluebottle apps with abstract models
+    'bluebottle.bb_accounts',
+    'bluebottle.bb_organizations',
+    'bluebottle.bb_projects',
+    'bluebottle.bb_tasks',
+    'bluebottle.bb_fundraisers',
+    'bluebottle.bb_donations',
+    'bluebottle.bb_orders',
+    'bluebottle.bb_payouts',
+
+    # Basic Bb implementations
+    'bluebottle.fundraisers',
+    'bluebottle.donations',
+    'bluebottle.orders',
+    'bluebottle.payouts',
 
     # Apps extending Bluebottle base models
     'apps.members',
@@ -281,41 +307,25 @@ INSTALLED_APPS = (
     # apps overriding bluebottle functionality should come before the bluebottle entries
     # (template loaders pick the first template they find)
     'apps.core',
-
-    # Other Bluebottle apps
-    'bluebottle.utils',
-    'bluebottle.common',
-    'bluebottle.contentplugins',
-    'bluebottle.contact',
-    'bluebottle.geo',
-    'bluebottle.pages',
-    'bluebottle.news',
-    'bluebottle.slides',
-    'bluebottle.quotes',
-
-    # Bluebottle apps with abstract models
-    'bluebottle.bb_accounts',
-    'bluebottle.bb_organizations',
-    'bluebottle.bb_projects',
-    'bluebottle.bb_tasks',
-
     'apps.bluebottle_salesforce',
 
     'apps.bluebottle_dashboard',
     'apps.contentplugins',
     'apps.campaigns',
     'apps.hbtemplates',
-    'apps.payouts',
-    'apps.sepa',
     'apps.statistics',
     'apps.homepage',
     'apps.redirects',
     'apps.partners',
-    'apps.csvimport',
-    'apps.accounting',
     'apps.crawlable',
-
     'apps.mchanga',
+
+    # FIXME: Reimplement these apps
+    # 'apps.vouchers',
+    # 'apps.sepa',
+    # 'apps.csvimport',
+    # 'apps.accounting',
+
 
     # Custom dashboard
     'fluent_dashboard',
@@ -329,16 +339,26 @@ INSTALLED_APPS = (
 
 # Custom User model
 AUTH_USER_MODEL = 'members.Member'
+
 PROJECTS_PROJECT_MODEL = 'projects.Project'
 PROJECTS_PHASELOG_MODEL = 'projects.ProjectPhaseLog'
+
+FUNDRAISERS_FUNDRAISER_MODEL = 'fundraisers.FundRaiser'
+
 TASKS_TASK_MODEL = 'tasks.Task'
 TASKS_SKILL_MODEL = 'tasks.Skill'
 TASKS_TASKMEMBER_MODEL = 'tasks.TaskMember'
 TASKS_TASKFILE_MODEL = 'tasks.TaskFile'
+
 ORGANIZATIONS_ORGANIZATION_MODEL = 'organizations.Organization'
 ORGANIZATIONS_DOCUMENT_MODEL = 'organizations.OrganizationDocument'
 ORGANIZATIONS_MEMBER_MODEL = 'organizations.OrganizationMember'
-PROJECTS_PHASELOG_MODEL = 'projects.ProjectPhaseLog'
+
+ORDERS_ORDER_MODEL = 'orders.Order'
+DONATIONS_DONATION_MODEL = 'donations.Donation'
+
+PAYOUTS_PROJECTPAYOUT_MODEL = 'payouts.ProjectPayout'
+PAYOUTS_ORGANIZATIONPAYOUT_MODEL = 'payouts.OrganizationPayout'
 
 SOCIAL_AUTH_USER_MODEL = 'members.Member'
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_friends', 'public_profile', 'user_birthday']
