@@ -1,4 +1,10 @@
 #howto-slider {
+    min-height: 625px;
+
+    .carousel {
+        background: none;
+        height: 625px!important;
+    }
     
     h4 {
         color: $color-primary;
@@ -13,9 +19,22 @@
         }
     }
 
+    .slider-header {
+        position: absolute;
+        margin-top: 24px;
+        width: 100%;
+        text-align: center;
+        z-index: 1;
+    }
+
+    ul {
+        padding-top: 30px; 
+    }
+
     h3 {
         text-transform: none;
         color: $color-secondary;
+        font-size: 28px;
 
         big {
             background: $color-secondary;
@@ -25,16 +44,45 @@
         }
     }
 
-     .content-section {
-        margin-top: 50px;
-        text-align: left;
-        color: $gray;
+    .slide-content {
+        width: 100%;
 
-        p {
-            font-size: 18px;
-            line-height: 26px;
-            color: #444;
-            margin-top: 15px;
+        .slide-hr {
+            width: 80%;
+            margin: 60px auto;
+            display: block;
         }
-     }
+
+        .content-section {
+            margin-top: 50px;
+            width: 80%;
+            text-align: left;
+            color: $gray;
+
+            p {
+                font-size: 18px;
+                line-height: 26px;
+                color: #444;
+                margin-top: 15px;
+            }
+        }
+
+        .icon-section {
+            float: right;
+            margin: 50px 65px 0 0;
+
+            &.clipboard {
+                width: 199px;
+                height: 261px;
+                background: image-url("img/howto/icon-clipboard.svg") transparent no-repeat 50% 49%;
+            }
+
+            &.rocket {
+                width: 202px;
+                height: 317px;
+                background: image-url("img/howto/icon-rocket.svg") transparent no-repeat 50% 49%;
+            }
+        }
+    }
+
 }
