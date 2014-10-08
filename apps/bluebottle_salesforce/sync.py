@@ -1,5 +1,5 @@
 import logging
-from bluebottle.utils.utils import get_project_model
+from bluebottle.utils.model_dispatcher import get_project_model
 from django.contrib.auth import get_user_model
 from registration.models import RegistrationProfile
 from apps.cowry_docdata.models import payment_method_mapping

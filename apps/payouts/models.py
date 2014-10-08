@@ -22,7 +22,7 @@ from .utils import (round_money,calculate_vat, calculate_vat_exclusive, date_tim
 )
 from .choices import PayoutLineStatuses, PayoutRules
 
-from bluebottle.utils.utils import get_project_model
+from bluebottle.utils.model_dispatcher import get_project_model
 
 PROJECT_MODEL = get_project_model()
 

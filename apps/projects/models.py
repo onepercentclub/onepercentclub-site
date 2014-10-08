@@ -94,14 +94,8 @@ class Project(BaseProject):
                     "explains your project? Cool! We can't wait to see it! "
                     "You can paste the link to YouTube or Vimeo video here"))
 
-    deadline = models.DateTimeField(_('deadline'), null=True, blank=True)
     popularity = models.FloatField(null=False, default=0)
     is_campaign = models.BooleanField(default=False, help_text=_("Project is part of a campaign and gets special promotion."))
-
-    # For convenience and performance we also store money donated and needed here.
-    amount_asked = MoneyField(default=0, null=True, blank=True)
-    amount_donated = MoneyField(default=0)
-    amount_needed = MoneyField(default=0)
 
     skip_monthly = models.BooleanField(_("Skip monthly"),
                                        help_text=_("Skip this project when running monthly donations"),
@@ -239,13 +233,13 @@ class Project(BaseProject):
 
     @property
     def task_count(self):
-        from bluebottle.utils.utils import get_task_model
+        from bluebottle.utils.model_dispatcher import get_task_model
         TASK_MODEL = get_task_model()
         return len(self.task_set.filter(status=TASK_MODEL.TaskStatuses.open).all())
 
     @property
     def get_open_tasks(self):
-        from bluebottle.utils.utils import get_task_model
+        from bluebottle.utils.model_dispatcher import get_task_model
         TASK_MODEL = get_task_model()
         return self.task_set.filter(status=TASK_MODEL.TaskStatuses.open).all()
 

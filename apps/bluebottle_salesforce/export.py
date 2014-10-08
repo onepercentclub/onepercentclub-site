@@ -1,7 +1,7 @@
 import csv
 import logging
 from apps.projects.models import ProjectBudgetLine
-from bluebottle.utils.utils import get_project_model
+from bluebottle.utils.model_dispatcher import get_project_model
 from django.contrib.auth import get_user_model
 
 import os

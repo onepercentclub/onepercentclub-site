@@ -258,11 +258,6 @@ INSTALLED_APPS = (
     #FB Auth
     'bluebottle.auth',
 
-    # Cowry Payments
-    'apps.cowry',
-    'apps.cowry_docdata',
-    'apps.cowry_docdata_legacy',
-
     # Password auth from old PHP site.
     'legacyauth',
 
@@ -400,12 +395,7 @@ LOGGING = {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
             'propagate': True,
-        },
-        'cowry.docdata': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': True,
-        },
+        }
     }
 }
 

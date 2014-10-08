@@ -2,7 +2,7 @@ from decimal import Decimal
 from django.test import TestCase
 
 from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
-from bluebottle.utils.utils import get_project_model
+from bluebottle.utils.model_dispatcher import get_project_model
 
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
 
