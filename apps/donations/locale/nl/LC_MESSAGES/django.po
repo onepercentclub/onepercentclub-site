@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-08 10:52+0200\n"
-"PO-Revision-Date: 2014-10-07 14:56+0000\n"
+"PO-Revision-Date: 2014-10-09 09:59+0000\n"
 "Last-Translator: aethemba <aksel@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -818,7 +818,7 @@ msgstr "Houd overzicht over je donaties."
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:35
 msgid "Skip and stay anonymous"
-msgstr "Sla over en blijf anoniem."
+msgstr "Sla deze stap over"
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:11
 msgid ""
