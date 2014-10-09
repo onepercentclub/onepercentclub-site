@@ -493,7 +493,6 @@ def link_anonymous_donations(sender, user, request, **kwargs):
 # On account activation try to connect anonymous donations to this  fails.
 user_activated.connect(link_anonymous_donations)
 
-@task
 @receiver(pre_save, weak=False, sender=Donation)
 def new_oneoff_donation(sender, instance, **kwargs):
     """
@@ -518,10 +517,11 @@ def new_oneoff_donation(sender, instance, **kwargs):
     # If the donation status will be pending, send a mail.
     if donation.status in [DonationStatuses.pending, DonationStatuses.paid]:
 
+        name = _('Anonymous')
+
         if donation.user:
-            name = donation.user.first_name
-        else:
-            name = _('Anonymous')
+            if donation.user.first_name != '':
+                name = donation.user.first_name
 
         if donation.fundraiser:
             send_mail(
