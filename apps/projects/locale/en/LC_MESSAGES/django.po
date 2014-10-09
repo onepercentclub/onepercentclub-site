@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-08 10:52+0200\n"
+"POT-Creation-Date: 2014-10-09 16:21+0200\n"
 "PO-Revision-Date: 2014-10-07 14:56+0000\n"
 "Last-Translator: aethemba <aksel@onepercentclub.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
@@ -393,7 +393,7 @@ msgstr "View all campaigns"
 msgid "Read full project plan"
 msgstr "Read more."
 
-#: templates/bb_projects/project.hbs:46 templates/bb_projects/project.hbs:54
+#: templates/bb_projects/project.hbs:46 templates/bb_projects/project.hbs:55
 msgid "deadline passed"
 msgstr "deadline passed"
 
@@ -403,22 +403,22 @@ msgstr "deadline passed"
 msgid "days to go"
 msgstr "days to go"
 
-#: templates/bb_projects/project.hbs:61
+#: templates/bb_projects/project.hbs:63
 #: templates/bb_projects/project_preview.hbs:32
 #: templates/bb_projects/project_preview.hbs:39
 #: templates/bb_projects/manage/project.hbs:56
 msgid "of"
 msgstr "of"
 
-#: templates/bb_projects/project.hbs:63
+#: templates/bb_projects/project.hbs:65
 #: templates/bb_projects/project_preview.hbs:32
 #: templates/bb_projects/project_preview.hbs:39
 #: templates/bb_projects/manage/project.hbs:58
 msgid "raised"
 msgstr "raised"
 
-#: templates/bb_projects/project.hbs:72 templates/bb_projects/project.hbs:84
-#: templates/bb_projects/project.hbs:100
+#: templates/bb_projects/project.hbs:74 templates/bb_projects/project.hbs:86
+#: templates/bb_projects/project.hbs:102
 #, python-format
 msgid ""
 "\n"
@@ -426,12 +426,12 @@ msgid ""
 "                                        "
 msgstr ""
 
-#: templates/bb_projects/project.hbs:123
+#: templates/bb_projects/project.hbs:125
 #: templates/bb_projects/manage/project.hbs:65
 msgid "Support project"
 msgstr "Support campaign"
 
-#: templates/bb_projects/project.hbs:139
+#: templates/bb_projects/project.hbs:141
 #: templates/bb_projects/manage/project.hbs:79
 #: /Users/onepercentclub/Dev/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/project.hbs.py:53
 #: /Users/onepercentclub/Dev/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/project_members.hbs.py:13
@@ -448,12 +448,7 @@ msgstr "View campaign"
 msgid "View public page"
 msgstr "View public page"
 
-#: templates/bb_projects/manage/_my_project_preview.hbs:27
-#: /Users/onepercentclub/Dev/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/_my_project_preview.hbs.py:27
-msgid "Draft"
-msgstr ""
-
-#: templates/bb_projects/manage/_my_project_preview.hbs:37
+#: templates/bb_projects/manage/_my_project_preview.hbs:35
 #: templates/bb_projects/manage/start.hbs:68
 #: /Users/onepercentclub/Dev/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/project.hbs.py:29
 #: /Users/onepercentclub/Dev/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/_my_project_preview.hbs.py:37
@@ -461,25 +456,20 @@ msgid "Edit"
 msgstr "Edit"
 
 #: templates/bb_projects/manage/_my_project_preview.hbs:42
-#: /Users/onepercentclub/Dev/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/_my_project_preview.hbs.py:42
-msgid "Campaign is in review"
-msgstr ""
-
-#: templates/bb_projects/manage/_my_project_preview.hbs:48
 #: /Users/onepercentclub/Dev/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/project_donation_list.hbs.py:13
 msgid "Donations"
 msgstr ""
 
-#: templates/bb_projects/manage/_my_project_preview.hbs:53
+#: templates/bb_projects/manage/_my_project_preview.hbs:47
 msgid "Mpesa Payments"
 msgstr ""
 
-#: templates/bb_projects/manage/_my_project_preview.hbs:59
+#: templates/bb_projects/manage/_my_project_preview.hbs:53
 #: /Users/onepercentclub/Dev/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/_my_project_preview.hbs.py:47
 msgid "Post update"
 msgstr "Post update"
 
-#: templates/bb_projects/manage/_my_project_preview.hbs:63
+#: templates/bb_projects/manage/_my_project_preview.hbs:57
 #: /Users/onepercentclub/Dev/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/wall.hbs.py:48
 #: /Users/onepercentclub/Dev/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/wall.hbs.py:61
 #: /Users/onepercentclub/Dev/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/_my_project_preview.hbs.py:51
@@ -1230,6 +1220,14 @@ msgstr "Open tasks"
 #: /Users/onepercentclub/Dev/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/wall.hbs.py:69
 msgid "In progress & closed tasks"
 msgstr "In progress & closed tasks"
+
+#: /Users/onepercentclub/Dev/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/_my_project_preview.hbs.py:27
+msgid "Draft"
+msgstr ""
+
+#: /Users/onepercentclub/Dev/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/_my_project_preview.hbs.py:42
+msgid "Campaign is in review"
+msgstr ""
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/_my_project_start_intro.hbs.py:6
 msgid ""

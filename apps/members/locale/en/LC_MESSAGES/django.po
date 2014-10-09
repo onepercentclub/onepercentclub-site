@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-08 10:51+0200\n"
+"POT-Creation-Date: 2014-10-09 16:21+0200\n"
 "PO-Revision-Date: 2014-10-07 14:56+0000\n"
 "Last-Translator: aethemba <aksel@onepercentclub.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
@@ -567,13 +567,13 @@ msgstr ""
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/_login_footer.hbs.py:7
 #: /Users/onepercentclub/Dev/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_request.hbs.py:31
-#: /Users/onepercentclub/Dev/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_reset.hbs.py:38
+#: /Users/onepercentclub/Dev/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_reset.hbs.py:37
 msgid "Don’t have an account?"
 msgstr ""
 
 #: /Users/onepercentclub/Dev/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/_login_footer.hbs.py:9
 #: /Users/onepercentclub/Dev/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_request.hbs.py:33
-#: /Users/onepercentclub/Dev/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_reset.hbs.py:40
+#: /Users/onepercentclub/Dev/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/password_reset.hbs.py:39
 msgid "Sign up here"
 msgstr ""
 
