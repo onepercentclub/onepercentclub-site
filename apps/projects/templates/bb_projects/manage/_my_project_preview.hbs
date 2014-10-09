@@ -19,12 +19,10 @@
                     {{ project.title }}
                 </h2>
                 {{#if project.viewable}}
-                {{#link-to 'project' project.id}}
-                    <span class="flaticon solid eye-1"></span>
-                    {% trans "View public page" %}
-                {{/link-to}}
-                {{else}}
-                    {% trans "Draft" %}
+                    {{#link-to 'project' project.id}}
+                        <span class="flaticon solid eye-1"></span>
+                        {% trans "View public page" %}
+                    {{/link-to}}
                 {{/if}}
             </div>
         </div>
@@ -36,10 +34,6 @@
                     <span class="flaticon solid pencil-3"></span>
                     {% trans "Edit" %}
                 {{/link-to}}
-
-            {{else}}
-                    <span class="flaticon solid lock-1"></span>
-                    {% trans "Campaign is in review" %}
             {{/if}}
             {{#if project.viewable}}
                 {{#if project.amount_asked}}
