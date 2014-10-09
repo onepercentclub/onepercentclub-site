@@ -276,6 +276,7 @@ INSTALLED_APPS = (
     'bluebottle.quotes',
     'bluebottle.payments',
     'bluebottle.payments_docdata',
+    'bluebottle.payments_logger',
 
 
     # Bluebottle apps with abstract models
@@ -316,8 +317,13 @@ INSTALLED_APPS = (
     'apps.crawlable',
     'apps.mchanga',
 
+    # FIXME: Keep these just for migrations
+    'apps.fund',
+    'apps.cowry',
+    'apps.cowry_docdata',
+
     # FIXME: Reimplement these apps
-    # 'apps.vouchers',
+    'apps.vouchers',
     # 'apps.sepa',
     # 'apps.csvimport',
     # 'apps.accounting',
