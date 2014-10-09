@@ -22,6 +22,10 @@ App.Project.reopen({
 
     task_count: DS.attr('number'),
 
+    donatedRound: function() {
+        return Math.floor(this.get('amount_donated'));
+    }.property(),
+
     phaseNum: function(){
         if (this.get('status') === null){
             return 1;
