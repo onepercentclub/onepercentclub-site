@@ -176,7 +176,16 @@ App.HowtoSliderView = Em.View.extend({
                 delay: 800000
             }), _this = this,
             unsliderData = banner.data('unslider');
+
+        $('.carousel-nav-arrow.left').on('click', function() {
+            unsliderData.prev();
+        });
+
+        $('.carousel-nav-arrow.right').on('click', function() {
+            unsliderData.next();
+        });
     }
+
 })
 
 

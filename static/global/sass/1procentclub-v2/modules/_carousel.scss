@@ -458,6 +458,24 @@
 				background: rgba(255, 255, 255, 1);
 			}
 		}
+
+		&.howto-slides {
+			width: 60%;
+			line-height: 28px;
+			font-size: 14px;
+			bottom: 60px;
+			span {
+				width: auto;
+				border-radius: inherit;
+				background: none;
+				border: none;
+				margin-right: 20px;
+
+				&.is-active {
+					color: $color-primary;
+				}
+			}
+		}
 	}
 }
 
