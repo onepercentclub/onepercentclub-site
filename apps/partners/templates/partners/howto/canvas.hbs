@@ -1,0 +1,39 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "howto/canvas" %}
+    <div class="l-section" id="howto-canvas">
+        <div class="l-wrapper">
+            <div class="row">
+                <div class="col6">
+                    <div class="content">
+                        <span class="title-header">Your canvas to successful crowdfunding</span>
+                        <p>
+                            {% blocktrans %}
+                                Make sure all the preparation is done before you launch your campaign. Take time to work thoroughly on a campaign strategy, including a detailed plan with clear goals and sub-goals. As most successful campaigns are funded within thirty days, you should aim to reach your target as quickly as possible. 
+                                <br><br>
+                                Prepare a realistic budget to show potential supporters that you mean business. Make a list of your network and create several template emails to spread during your campaign so you can be ready to contact supporters right from the beginning.
+                            {% endblocktrans %}
+                        </p>
+                        <div class="row">
+                            <div class="col6">
+                                <a href="some.pdf" data-size="364kb">Download <strong>A4</strong> Canvas</a>
+                            </div>
+                            <div class="col6">
+                                <a href="some.pdf" data-size="664kb">Download <strong>A3</strong> Canvas</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col6">
+                    <div class="mask">
+                        <div class="m-container">
+                            <div class="crowdfunding-canvas"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endtplhandlebars %}
