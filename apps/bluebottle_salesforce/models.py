@@ -179,6 +179,8 @@ class SalesforceProject(SalesforceModel):
     # SF Layout: Summary Project Details section.
     country_in_which_the_project_is_located = models.CharField(max_length=255,
                                                                db_column='Country_in_which_the_project_is_located__c')
+    region = models.CharField(max_length=100, db_column='Region__c')
+    sub_region = models.CharField(max_length=100, db_column='Sub_region__c')
     describe_the_project_in_one_sentence = models.CharField(max_length=50000, db_column='Describe_the_project_in_one_sentence__c')
     describe_where_the_money_is_needed_for = models.CharField(max_length=15000, db_column='Describe_where_the_money_is_needed_for__c')
     story = models.CharField(max_length=32768, db_column='Story__c')
@@ -250,6 +252,10 @@ class SalesforceProject(SalesforceModel):
                                                                     db_column='NumberOfPeopleReachedIndirect__c')
     theme = models.CharField(max_length=255, db_column='Theme__c')
     target_group = models.CharField(max_length=255, db_column='Target_group__c')
+    donation_total = models.PositiveIntegerField(max_length=8, db_column='Donation_total__c')
+    supporter_count = models.CharField(max_length=20, db_column='Donation_total__c')
+    donation_oo_total = models.PositiveIntegerField(max_length=8, db_column='Donation_oo_total__c')
+    supporter_oo_count = models.CharField(max_length=20, db_column='Donation_oo_total__c')
 
     class Meta:
         db_table = 'Project__c'

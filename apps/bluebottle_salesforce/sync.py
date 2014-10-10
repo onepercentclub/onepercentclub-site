@@ -20,6 +20,8 @@ USER_MODEL = get_user_model()
 PROJECT_MODEL = get_project_model()
 logger = logging.getLogger('bluebottle.salesforce')
 
+val = re.compile("^[A-Z0-9._%+-/!#$%&'*=?^_`{|}~]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$")
+
 
 def sync_organizations(dry_run, sync_from_datetime, loglevel):
     logger.setLevel(loglevel)
@@ -57,7 +59,12 @@ def sync_organizations(dry_run, sync_from_datetime, loglevel):
         else:
             sforganization.billing_country = ''
 
-        sforganization.email_address = organization.email
+        if organization.email and val.match(organization.email.upper()):
+            sforganization.email_address = organization.email
+        elif organization.email:
+            logger.error("Organization has invalid e-mail address '{0}', org id {1}. "
+                         "Ignoring e-mail address field.".format(organization.email, organization.id))
+
         sforganization.phone = organization.phone_number
         sforganization.website = organization.website
         sforganization.twitter = organization.twitter
@@ -111,8 +118,6 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
     error_count = 0
     success_count = 0
 
-    val = re.compile("^[A-Z0-9._%+-/!#$%&'*=?^_`{|}~]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$")
-
     users = USER_MODEL.objects.all()
     if sync_from_datetime:
         users = users.filter(updated__gte=sync_from_datetime)
@@ -164,10 +169,7 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
         contact.about_me_us = user.about
         contact.why_one_percent_member = user.why
 
-        if user.time_available:
-            contact.availability = user.time_available.type
-        else:
-            contact.availability = ''
+        contact.availability = user.available_time
 
         contact.facebook = user.facebook
         contact.twitter = user.twitter
@@ -293,7 +295,7 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
         # sfproject.sustainability = project.future
         # sfproject.contribution_project_in_reducing_poverty = project.effects
 
-        sfproject.describe_where_the_money_is_needed_for = project.amount_needed
+        # sfproject.describe_where_the_money_is_needed_for = project.amount_needed
 
         sfproject.date_plan_submitted = project.date_submitted
         sfproject.date_started = project.campaign_started
@@ -319,6 +321,8 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
 
         if project.country:
             sfproject.country_in_which_the_project_is_located = project.country.name.encode("utf-8")
+            sfproject.sub_region = project.country.subregion.name.encode("utf-8")
+            sfproject.region = project.country.subregion.region.name.encode("utf-8")
 
         sfproject.theme = ""
         if project.theme:
@@ -340,6 +344,9 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
             sfproject.partner_organization = project.partner_organization.name
 
         sfproject.slug = project.slug
+
+        sfproject.donation_total = "%01.2f" % ((project.get_money_total(['paid', 'pending'])) / 100)
+        sfproject.supporter_count = project.supporters_count
 
         # Save the object to Salesforce
         if not dry_run:
@@ -520,7 +527,7 @@ def sync_donations(dry_run, sync_from_datetime, loglevel):
         if donation.user and donation.user.get_full_name() != '':
             sfdonation.name = donation.user.get_full_name()
         else:
-            sfdonation.name = "1%MEMBER"
+            sfdonation.name = "Anonymous"
 
         sfdonation.record_type = "012A0000000ZK6FIAW"
 
