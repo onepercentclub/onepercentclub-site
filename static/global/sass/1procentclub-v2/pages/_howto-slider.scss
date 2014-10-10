@@ -51,6 +51,11 @@
             width: 80%;
             margin: 60px auto;
             display: block;
+
+            @include breakpoint(x-large) {
+                margin: 10px auto;
+            }
+
         }
 
         .content-section {
@@ -71,25 +76,22 @@
                 list-style-type: square;
 
                 li {
-                    padding: inherit;
-                    margin: inherit;
-                    position: inherit;
-                    width: inherit;
-                    height: inherit;
-                    overflow: inherit;
-                    text-align: inherit;
-                    background-position: inherit;
-                    background-size: inherit;
-                    background-color: inherit;
+                    padding-left: 1.3em;
+                    margin: .3em 0;
+                    background: url("/static/assets/icons/flaticons_stroke/SVGs/right-green-1.svg") transparent no-repeat 0 10px;
+                    line-height: 28px;
                     font-size: 15px;
-                    background: none;
+                    height: inherit;
+                    text-align: left;
+                    color: #444;
                 }
             }
         }
 
         .icon-section {
             float: right;
-            margin: 50px 10px 0 0;
+            margin: 50px 0 0 0;
+            background-size: 80%!important; 
 
             &.clipboard {
                 width: 199px;
@@ -105,14 +107,14 @@
 
             &.arrows {
                 width: 233px;
-                height: 311px;
+                height: 261px;
                 background: image-url("img/howto/icon-arrows.svg") transparent no-repeat 50% 49%;
             }
 
             &.chart {
                 width: 250px;
                 height: 275px;
-                background: image-url("img/howto/icon-chart2.svg") transparent no-repeat 50% 49%;
+                background: image-url("img/howto/icon-chart.svg") transparent no-repeat 50% 49%;
             }
 
             &.clock {
@@ -172,6 +174,10 @@
         width: 43px;
         height: 75px;
         cursor: pointer;
+
+        @include breakpoint(x-large) {
+            display: none;
+        }
 
         &.left {
             left: 10%;
