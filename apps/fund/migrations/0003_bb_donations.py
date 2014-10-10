@@ -2,6 +2,7 @@
 import datetime
 from decimal import Decimal
 from bluebottle.utils.utils import StatusDefinition
+from django.db.models.aggregates import Sum
 from south.db import db
 from south.v2 import DataMigration
 from django.db import models
@@ -28,18 +29,28 @@ def get_latest_payment_for_order(order):
     return None
 
 
+def get_total_for_order(order):
+    total =  order.donations.aggregate(total=Sum('amount'))['total']
+    if total:
+        return Decimal(total) / 100
+    return 0
+
+
 class Migration(DataMigration):
+
+    depends_on = (
+        ('donations', '0001_initial'),
+        ('orders', '0002_auto__del_field_order_closed__add_field_order_confirmed__add_field_ord'),
+    )
 
     def forwards(self, orm):
         "Write your forwards methods here."
-        old_orders = orm['fund.Order'].objects.all()[:50]
-        t = 0
-        for old_order in old_orders[:50]:
-            t += 1
-            print "{0} / {1}".format(t, len(old_orders))
+        old_orders = orm['fund.Order'].objects.all()[:200]
+        for old_order in old_orders:
             if old_order.status <> 'recurring':
                 order = orm['orders.Order'].objects.create(id=old_order.id)
                 order.user = old_order.user
+                order.total = get_total_for_order(old_order)
                 order.created = old_order.created
                 order.updated = old_order.updated
                 if old_order.status == 'current':
@@ -53,7 +64,6 @@ class Migration(DataMigration):
                 order.save()
 
                 for old_donation in old_order.donations.all():
-                    print 'Donation'
                     donation = orm['donations.Donation'].objects.create(
                         id=old_donation.id,
                         amount=Decimal(old_donation.amount) / 100,
