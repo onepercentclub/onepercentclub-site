@@ -254,9 +254,7 @@ def generate_users_csv_file(path, loglevel):
                     bank_account_iban = ''
                     bank_account_active = False
 
-                availability = ""
-                if user.time_available:
-                    availability = user.time_available.type
+                availability = user.available_time
 
                 csvwriter.writerow([user.id,
                                     USER_MODEL.UserType.values[user.user_type].title(),
@@ -343,7 +341,13 @@ def generate_projects_csv_file(path, loglevel):
                             "Project_updated_date__c",
                             "Tags__c",
                             "Partner_Organization__c",
-                            "Slug__c"])
+                            "Slug__c",
+                            "Region__c",
+                            "Sub_region__c",
+                            "Donation_total__c",
+                            "Donation_oo_total__c",
+                            "Supporter_count__c",
+                            "Supporter_oo_count__c"])
 
         projects = PROJECT_MODEL.objects.all()
         logger.info("Exporting {0} Project objects to {1}".format(projects.count(), filename))
@@ -351,8 +355,12 @@ def generate_projects_csv_file(path, loglevel):
         for project in projects:
 
             country = ''
+            region = ''
+            sub_region = ''
             if project.country:
                 country = project.country.name.encode("utf-8")
+                region = project.country.subregion.region.name.encode("utf-8")
+                sub_region = project.country.subregion.name.encode("utf-8")
 
             status = ''
             if project.status:
@@ -416,7 +424,13 @@ def generate_projects_csv_file(path, loglevel):
                                 project.updated.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
                                 tags[:255],
                                 partner_organization_name.encode("utf-8"),
-                                project.slug])
+                                project.slug,
+                                region,
+                                sub_region,
+                                "%01.2f" % ((project.get_money_total(['paid', 'pending'])) / 100),
+                                "%01.2f" % ((project.get_money_total(['paid', 'pending'], ['one_off'])) / 100),
+                                project.supporters_count(),
+                                project.supporters_count(True, ['one_off'])])
             success_count += 1
     return success_count, error_count
 
@@ -499,7 +513,7 @@ def generate_donations_csv_file(path, loglevel):
                 if donation.user and donation.user.get_full_name() != '':
                     name = donation.user.get_full_name()
                 else:
-                    name = "1%Member"
+                    name = "Anonymous"
 
                 donation_ready = ''
                 if donation.ready:
