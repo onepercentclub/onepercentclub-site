@@ -49,6 +49,8 @@ urlpatterns += patterns('',
     url(r'^api/token-auth/', 'rest_framework_jwt.views.obtain_jwt_token'),
     url(r'^api/token-auth-refresh/$', 'rest_framework_jwt.views.refresh_jwt_token'),
 
+    url(r'^embed/', include('apps.widget.urls.api')),
+
     url(r'^', include('django.conf.urls.i18n')),
 )
 
