@@ -28,7 +28,7 @@ class DocDataPaymentInline(admin.TabularInline):
 
 class DocDataPaymentOrderAdmin(admin.ModelAdmin):
     list_filter = ('status',)
-    list_display = ('created', 'amount_override', 'status')
+    list_display = ('created', 'amount_override', 'status', )
     raw_id_fields = ('order',)
     search_fields = ('payment_order_id', 'merchant_order_reference')
     inlines = (DocDataPaymentInline, DocDataPaymentLogEntryInine)

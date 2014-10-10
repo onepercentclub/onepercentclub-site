@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import datetime
 from decimal import Decimal
+from apps.cowry_docdata.models import DocDataPaymentOrder
+from bluebottle.payments_docdata.models import DocdataPayment
 from bluebottle.utils.utils import StatusDefinition
 from django.db.models.aggregates import Sum
 from south.db import db
@@ -23,14 +25,77 @@ def map_payment_to_order_status(status):
     }[status]
 
 
+def map_payment_to_order_payment_status(status):
+    return {
+        'new': StatusDefinition.CREATED,
+        'in_progress': StatusDefinition.IN_PROGRESS,
+        'pending': StatusDefinition.AUTHORIZED,
+        'paid': StatusDefinition.SETTLED,
+        'failed': StatusDefinition.FAILED,
+        'cancelled': StatusDefinition.CANCELLED,
+        'chargedback': StatusDefinition.CHARGED_BACK,
+        'refunded': StatusDefinition.REFUNDED,
+        'unknown': StatusDefinition.UNKNOWN
+    }[status]
+
+
+def map_payment_method(payment_method):
+
+    return {
+        'MASTERCARD': 'docdataCreditcard',
+        'VISA': 'docdataCreditcard',
+        'MAESTRO': 'docdataCreditcard',
+        'AMEX': 'docdataCreditcard',
+        'IDEAL': 'docdataIdeal',
+        'BANK_TRANSFER': 'docdataBanktransfer',
+        'DIRECT_DEBIT': 'docdataDirectdebit',
+        'SEPA_DIRECT_DEBIT': 'docdataDirectdebit',
+
+        'ideal-ing-1procentclub_nl': 'docdataIdeal',
+        'ideal-rabobank-1procentclub_nl': 'docdataIdeal',
+        'directdebitnc2-online-nl': 'docdataDirectdebit',
+        'directdebitnc-online-nl': 'docdataDirectdebit',
+        'omnipay-ems-mc-1procentclub_nl': 'docdataCreditcard',
+        'omnipay-ems-visa-1procentclub_nl': 'docdataCreditcard',
+        'ing-ideal-1procentclub_nl': 'docdataIdeal',
+        'system-banktransfer-nl': 'docdataBanktransfer',
+        'paypal-1procentclub_nl': 'docdataPaypal',
+
+
+        # FIMXE: See if we have to create new methods in the new payments_docdata
+        'omnipay-ems-maestro-1procentclub_nl': 'docdataCreditcard',
+        'SOFORT_UEBERWEISUNG-SofortUeberweisung-1procentclub_nl': 'docdataBanktransfer',
+        'banksys-mrcash-1procentclub_nl': 'docdataBanktransfer',
+
+        # Sometimes there's no payment method
+        '': ''
+    }[payment_method]
+
+
 def get_latest_payment_for_order(order):
-    if order.payments.count() > 0:
-        return order.payments.order_by('-created').all()[0]
+    """
+    Get the latest payment (DocDataPaymentOrder) for given Order.
+    """
+    payments = DocDataPaymentOrder.objects.filter(order=order)
+    if payments.count() > 0:
+        return payments.order_by('-created').all()[0]
+    return None
+
+
+def get_latest_docdata_payment(payment):
+    """
+    Get the latest docdata payment (DocDataPayment) for given payment (DocDataPaymentOrder).
+    """
+    if payment.docdata_payments.count() > 0:
+        return payment.docdata_payments.order_by('-created').all()[0]
     return None
 
 
 def get_total_for_order(order):
-    total =  order.donations.aggregate(total=Sum('amount'))['total']
+    """
+    Calculate total for order by summing up its donations.
+    """
+    total = order.donations.aggregate(total=Sum('amount'))['total']
     if total:
         return Decimal(total) / 100
     return 0
@@ -45,9 +110,17 @@ class Migration(DataMigration):
 
     def forwards(self, orm):
         "Write your forwards methods here."
-        old_orders = orm['fund.Order'].objects.all()[:200]
+        start = 0
+        old_orders = orm['fund.Order'].objects.all()[start:100]
+
+        t = 0
+        # Iterate over orders
         for old_order in old_orders:
-            if old_order.status <> 'recurring':
+            t += 1
+            if not t % 10:
+                print "migrating order {0} / {1} [{2}]".format(t, len(old_orders), (start + t))
+
+            if old_order.status != 'recurring':
                 order = orm['orders.Order'].objects.create(id=old_order.id)
                 order.user = old_order.user
                 order.total = get_total_for_order(old_order)
@@ -56,13 +129,14 @@ class Migration(DataMigration):
                 if old_order.status == 'current':
                     order.status = StatusDefinition.NEW
                 elif old_order.status == 'closed':
-                    payment = get_latest_payment_for_order(old_order)
-                    if payment:
-                        order.status = map_payment_to_order_status(payment.status)
+                    old_payment = get_latest_payment_for_order(old_order)
+                    if old_payment:
+                        order.status = map_payment_to_order_status(old_payment.status)
                     else:
                         order.status = StatusDefinition.NEW
                 order.save()
 
+                # Migrate donations belong to this order
                 for old_donation in old_order.donations.all():
                     donation = orm['donations.Donation'].objects.create(
                         id=old_donation.id,
@@ -78,6 +152,32 @@ class Migration(DataMigration):
                         order.completed = old_donation.ready
                     donation.save()
                 order.save()
+
+                # Migrate payments belonging to this order
+                for old_payment in DocDataPaymentOrder.objects.filter(order=old_order):
+                    if old_order.payments.count() > 1:
+                        print "Multiple payments for order {0}".format(order.id)
+                    order_payment = orm['payments.OrderPayment'].objects.create(
+                        order=order,
+                        user=order.user,
+                        amount=Decimal(old_payment.amount) / 100,
+                        created=order.created
+                    )
+                    order_payment.created = old_payment.created
+                    order_payment.updated = old_payment.updated
+                    order_payment.created = old_payment.created
+
+                    dd_payment = get_latest_docdata_payment(old_payment)
+                    if dd_payment:
+                        order_payment.payment_method = map_payment_method(dd_payment.payment_method)
+                    order_payment.transaction_fee = Decimal(old_payment.fee) / 100
+                    order_payment.save()
+                    if order_payment.amount != order.total and old_payment.status == 'paid':
+                        raise Exception("Order and Payment amount differ! {0} != {1}. Old order id: {2}".format(order.total, order_payment.amount, order.id))
+
+                    # Set the status after
+                    order_payment.status = map_payment_to_order_payment_status(old_payment.status)
+                    order_payment.save()
 
     def backwards(self, orm):
         "Write your backwards methods here."
