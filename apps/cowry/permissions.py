@@ -7,13 +7,15 @@ class IsOrderCreator(permissions.BasePermission):
     """
     def has_object_permission(self, request, view, obj):
         # Use duck typing to check if we have an order or a payment.
-        if hasattr(obj, 'user'):
+        from apps.fund.models import Order
+
+        if isinstance(obj, Order):
             order = obj
         else:
             order = obj.order
 
         # Case 1: Authenticated user.
-        if request.user.is_authenticated():
+        if request.user and request.user.is_authenticated():
             # Permission is only granted if the order user is the logged in user.
             return order.user == request.user
 

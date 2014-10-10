@@ -25,11 +25,11 @@ html, body, #site {
 	}
 }
 
-#home, #about-new, #start-campaign {
+#home, #about-new, #start-campaign, #business, #how-to-crowdfund {
 	margin-bottom: -40px; // reset 
 }
 
-.modal-fullscreen-background, #home, #about-new, #start-campaign {
+.modal-fullscreen-background, #home, #about-new, #start-campaign, #business, #how-to-crowdfund {
 
 	.btn {
 		font-size: 18px;
@@ -50,6 +50,15 @@ html, body, #site {
 		// fix for chrome animation bug
 		-webkit-backface-visibility: hidden;
     	-webkit-transform: scale(1);
+
+    	&.btn-third {
+    		background: $color-primary;
+    		@include single-box-shadow($color-primary-shadow, 0, -2px, 0, 0, true);
+
+    		&:hover {
+				@include single-box-shadow($color-primary-shadow, 0, -4px, 0, 0, true);
+    		}
+    	}
 
 
 		&.btn-sec {
@@ -148,7 +157,7 @@ html, body, #site {
 	}
 }
 
-#home, #about-new, #start-campaign {
+#home, #about-new, #start-campaign, #business, #how-to-crowdfund {
 	font-family: $font-family-body;
 
 	h1 {

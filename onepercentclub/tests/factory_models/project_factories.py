@@ -6,7 +6,6 @@ import factory
 from apps.projects.models import Project, PartnerOrganization
 
 
-
 class OnePercentProjectFactory(ProjectFactory):
     FACTORY_FOR = Project
 
@@ -15,9 +14,13 @@ class OnePercentProjectFactory(ProjectFactory):
     amount_asked = 100
     allow_overfunding = True
 
+
 class PartnerFactory(factory.DjangoModelFactory):
     FACTORY_FOR = PartnerOrganization
+
+    FACTORY_DJANGO_GET_OR_CREATE = ('slug',)
 
     name = factory.Sequence(lambda n: 'Partner_{0}'.format(n))
     slug = factory.Sequence(lambda n: 'partner-{0}'.format(n))
     description = 'Partner Organization factory model'
+

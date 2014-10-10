@@ -1,4 +1,6 @@
 import datetime
+from decimal import Decimal
+from apps.mchanga.models import MpesaFundRaiser
 from .fields import MoneyField
 from bluebottle.bb_projects.models import BaseProject, ProjectPhase, BaseProjectPhaseLog
 from django.db import models
@@ -101,6 +103,10 @@ class Project(BaseProject):
     amount_donated = MoneyField(default=0)
     amount_needed = MoneyField(default=0)
 
+    skip_monthly = models.BooleanField(_("Skip monthly"),
+                                       help_text=_("Skip this project when running monthly donations"),
+                                       default=False)
+
     allow_overfunding = models.BooleanField(default=True)
     story = models.TextField(_("story"), help_text=_("This is the help text for the story field"), blank=True,
                              null=True)
@@ -114,6 +120,19 @@ class Project(BaseProject):
     campaign_started = models.DateTimeField(_('Campaign Started'), null=True, blank=True)
     campaign_ended = models.DateTimeField(_('Campaign Ended'), null=True, blank=True)
     campaign_funded = models.DateTimeField(_('Campaign Funded'), null=True, blank=True)
+
+    mchanga_account = models.CharField(_('M-Changa account'), help_text=_('Id or keyword for the M-Changa fundraiser'), max_length=100, null=True, blank=True)
+
+    @property
+    def mchanga_fundraiser(self):
+        """
+        Return a M-Changa fund raiser, if there is one.
+        """
+        if self.mchanga_account:
+            frs = MpesaFundRaiser.objects.filter(account=self.mchanga_account).all()
+            if len(frs):
+                return frs[0]
+            return None
 
     objects = ProjectManager()
 
@@ -163,6 +182,11 @@ class Project(BaseProject):
         """ Update amount based on paid and pending donations. """
 
         self.amount_donated = self.get_money_total(['paid', 'pending']) / 100
+
+        if self.mchanga_fundraiser:
+            kes = self.mchanga_fundraiser.current_amount
+            euro = kes / Decimal(114.651)
+            self.amount_donated += euro
 
         self.amount_needed = self.amount_asked - self.amount_donated
 
@@ -375,7 +399,9 @@ class PartnerOrganization(models.Model):
 
     @property
     def projects(self):
-        return self.project_set.exclude(status__in=[ProjectPhase.objects.get(slug="plan-new"),ProjectPhase.objects.get(slug="done-stopped")]).all()
+        return self.project_set.order_by('-favorite', '-popularity').filter(status__in=[ProjectPhase.objects.get(slug="campaign"),
+                                                                            ProjectPhase.objects.get(slug="done-complete"),
+                                                                            ProjectPhase.objects.get(slug="done-incomplete")])
 
     class Meta:
         db_table = 'projects_partnerorganization'

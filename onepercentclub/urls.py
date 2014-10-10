@@ -28,6 +28,8 @@ urlpatterns += patterns('',
     url(r'^api/bb_projects/', include('apps.projects.urls.api')),
 
     url(r'^api/fund/', include('apps.fund.urls.api')),
+    url(r'^api/mpesa/', include('apps.mchanga.urls.api')),
+
     url(r'^api/fundraisers/', include('apps.fundraisers.urls.api')),
     url(r'^api/organizations/', include('apps.organizations.urls.api')),
     url(r'^api/partners/', include('apps.partners.urls.api')),
@@ -91,7 +93,10 @@ urlpatterns += i18n_patterns('',
     url(r'^templates/', include('apps.hbtemplates.urls')),
 
     # Urls for partner sites
-    url(r'^pp/', include('apps.partners.urls.partners'))
+    url(r'^pp/', include('apps.partners.urls.partners')),
+
+    # Url M-changa status updates
+    url(r'^payments_mchanga/', include('apps.mchanga.urls.core'))
 
 )
 

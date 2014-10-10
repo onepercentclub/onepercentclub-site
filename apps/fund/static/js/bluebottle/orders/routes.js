@@ -108,8 +108,22 @@ App.OrderThanksRoute = App.OrderFlowRoute.extend({
     afterModel: function(order){
 
         if (this.get('tracker')) {
-            var tracker = this.get('tracker');
-            tracker.trackEvent("Successful donation", {amount: order.get('total') });
+            var tracker = this.get('tracker'),
+                donations = order.get('donations'),
+                fundraiser_id = null,
+                project_slug = null;
+
+            if (donations.get('length')) {
+                project_slug = donations.get('firstObject.project.id')
+                if (donations.get('firstObject.fundraiser')) {
+                    fundraiser_id = donations.get('firstObject.fundraiser.id')
+                }
+
+            }
+            tracker.trackEvent("Successful donation", {amount: order.get('total'), 
+                                                        fundraiser_id: fundraiser_id,
+                                                        project_slug: project_slug,
+                                                        order_id: order.get('id')});
         }
     }
 });

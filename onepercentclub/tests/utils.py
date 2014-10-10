@@ -1,4 +1,5 @@
 import json
+from onepercentclub.tests.factory_models.project_factories import PartnerFactory
 import os
 import requests
 import base64
@@ -31,6 +32,12 @@ class InitProjectDataMixin(object):
 
         language_data = [{'id': 1, 'code': 'en', 'language_name': 'English', 'native_name': 'English'},
                          {'id': 2, 'code': 'nl', 'language_name': 'Dutch', 'native_name': 'Nederlands'}]
+
+        partner_data = [{'id': 1, 'slug': 'cheetah', 'name': 'The Cheetah Campaign'},
+                        {'id': 2, 'slug': 'macro_micro', 'name': 'Macro Micro'}]
+
+        for partner in partner_data:
+            PartnerFactory.create(**partner)
 
         for phase in phase_data:
             ProjectPhaseFactory.create(**phase)
@@ -98,6 +105,24 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
 
         # Check if the homepage opened, and the dynamically loaded content appeared.
         return self.wait_for_element_css('#home')
+
+    def visit_path(self, path, lang_code=None):
+        if lang_code is None:
+            lang_code = 'en'
+        if path and not path.startswith('#!'):
+            path = '#!%s' % path
+
+        url = '%(url)s/%(lang_code)s/%(path)s' % {
+            'url': self.live_server_url,
+            'lang_code': lang_code,
+            'path': path
+        }
+
+        self.browser.driver.get(url)
+        
+        # TODO: maybe we can do an element check here - method caller would 
+        #       pass a css element to check before returning a success.
+        return True
 
     def scroll_to_by_css(self, selector):
         """

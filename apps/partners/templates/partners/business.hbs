@@ -1,0 +1,19 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "business" %}
+    <div id="business">
+
+        {{render 'business/header'}}
+
+        {{render 'business/corporate'}}
+
+        {{render 'business/tools_services'}}
+
+        {{render 'business/inspired'}}
+
+        {{render 'business/contact'}}
+        
+    </div>
+{% endtplhandlebars %}

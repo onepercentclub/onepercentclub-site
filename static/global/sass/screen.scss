@@ -15,6 +15,7 @@
 @import "1procentclub/variables"; /* 1%Club overrides */
 @import "variables";
 @import "mixins/grid";
+@import "mixins/campaigns-grid";
 @import "mixins/utilities";
 @import "mixins/keyframes";
 @import "mixins/animations";
@@ -113,6 +114,7 @@
 @import "1procentclub-v2/mixins/grid";
 
 @import "1procentclub-v2/variables";
+@import "1procentclub-v2/base/base";
 @import "1procentclub-v2/layout/global";
 @import "1procentclub-v2/layout/header";
 @import "1procentclub-v2/layout/footer";
@@ -122,8 +124,21 @@
 @import "1procentclub-v2/modules/start-campaign";
 @import "1procentclub-v2/modules/quote-carousel";
 
+@import "1procentclub-v2/pages/business-header";
+@import "1procentclub-v2/pages/business-corporate";
+@import "1procentclub-v2/pages/business-tools";
+@import "1procentclub-v2/pages/business-inspired";
+@import "1procentclub-v2/pages/business-contact";
+@import "1procentclub-v2/pages/business-block";
+
+@import "1procentclub-v2/pages/howto-header";
+@import "1procentclub-v2/pages/howto-slider";
+
 @import "1procentclub-v2/pages/home";
 @import "1procentclub-v2/pages/about";
+@import "1procentclub-v2/pages/business";
+@import "1procentclub-v2/pages/howto-canvas";
+@import "1procentclub-v2/pages/howto-crowfundtools";
 
 /* Cheetah fund version */
 @import "cheetah/variables";
@@ -136,5 +151,12 @@
 @import "cheetah/modules/about";
 @import "cheetah/modules/areyou";
 @import "cheetah/modules/earmark";
+@import "cheetah/modules/running-campaign";
+@import "cheetah/modules/campaigns";
+
+@import "cheetah/modules/partner-info";
+@import "cheetah/modules/partner-projects-list";
+
+@import "cheetah/modules/mpesa";
 
 

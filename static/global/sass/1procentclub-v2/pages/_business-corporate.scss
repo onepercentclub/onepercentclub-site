@@ -1,0 +1,178 @@
+#business-corporate {
+    min-height: 500px;
+    padding: 100px 0 120px 0;
+    border-bottom: 1px solid #E4EDE9;
+
+    .corporate-content {
+        display: none;
+
+        p {
+            width: 90%;
+        }
+
+         &.is-default {
+            display: block;
+            @include animation(fadeIn .230s ease-out);
+         }
+    }
+
+    .social-holder {
+        padding-top: 60px;
+
+        .social-circle {
+            position: relative;
+            margin: auto;
+            width: 271px;
+            height: 271px;
+            background: #E8FBED;
+            border-radius: 50%;
+            @include transform(rotate(0deg));
+            @include transition(transform .9s ease-in-out);
+
+            &.rotate-organization {
+                @include transform(rotate(0deg));
+
+                .do-good {
+                    @include transform(rotate(0deg));
+                }
+
+                .circle-svg {
+                    @include transform(rotate(0deg));
+
+                    &.circle-organization {
+                        @include transform(rotate(0deg) scale(1.2));
+                    }
+                }
+            }
+
+            &.rotate-employees {
+                @include transform(rotate(-120deg));
+
+                .do-good {
+                    @include transform(rotate(120deg));
+                }
+
+                .circle-svg {
+                    @include transform(rotate(120deg));
+
+                    &.circle-employees {
+                        @include transform(rotate(120deg) scale(1.2));
+                    }
+                }
+            }
+
+            &.rotate-crowdfunding {
+                @include transform(rotate(-240deg));
+
+                .do-good {
+                    @include transform(rotate(240deg));
+                }
+
+                .circle-svg {
+                    @include transform(rotate(240deg));
+
+                    &.circle-impact {
+                        @include transform(rotate(240deg)scale(1.2));
+                    }
+                }
+            }
+
+            .do-good {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 38%;
+                margin-left: auto;
+                margin-right: auto;
+                width: 67px;
+                height: 68px;
+                background: image-url("img/business/social-do-good.png") transparent no-repeat;
+                @include transition(transform 1s ease-in-out);
+            }
+
+            .circle-svg {
+                position: absolute;
+                @include transition(transform 1s ease-in-out);
+
+                &.circle-organization {
+                    top: 70px;
+                    left: -70px;
+                    width: 123px;
+                    height: 120px;
+                    background: image-url("img/business/social-organization.svg") transparent no-repeat;
+                }
+
+                &.circle-employees {
+                    top: -40px;
+                    right: 0;
+                    width: 120px;
+                    height: 123px;
+                    background: image-url("img/business/social-employees.svg") transparent no-repeat;
+                }
+
+                &.circle-impact {
+                    right: 0;
+                    bottom: -55px;
+                    width: 122px;
+                    height: 127px;
+                    background: image-url("img/business/social-impact.svg") transparent no-repeat;
+                }
+            }
+
+            .circle-arrow {
+                position: absolute;
+                width: 152px;
+                height: 110px;
+                background: image-url("img/business/social-arrow.svg") transparent no-repeat;
+
+                &.arrow-organization {
+                    top: -40px;
+                    left: 0px;
+                    @include transform(rotate(6deg));
+                }
+
+                &.arrow-employees {
+                    @include transform(rotate(125deg));
+                    top: 88px;
+                    right: -79px;
+                }
+
+                &.arrow-impact {
+                    @include transform(rotate(245deg));
+                    bottom: -39px;
+                    left: -18px;
+                }
+            }
+
+            .circle-round-organization {
+                position: absolute;
+                width: 99px;
+                height: 46px;
+                background: image-url("img/business/round-organization.svg") transparent no-repeat;
+                left: -10px;
+                bottom: -32px;
+                @include transform(rotate(10deg));
+            }
+
+            .circle-round-impact {
+                position: absolute;
+                width: 42px;
+                height: 171px;
+                background: image-url("img/business/round-crowd.svg") transparent no-repeat;
+                right: -47px;
+                top: 47px;
+                @include transform(rotate(6deg));
+            }
+
+            .circle-round-employees {
+                position: absolute;
+                width: 92px;
+                height: 75px;
+                background: image-url("img/business/round-employee.svg") transparent no-repeat;
+                left: 0;
+                top: -40px;
+                @include transform(rotate(5deg));
+            }
+        }
+    }
+}

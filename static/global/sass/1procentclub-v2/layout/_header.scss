@@ -9,6 +9,43 @@
 	@include single-transition(all, .1s ease);
 	z-index: 999;
 
+	&.business {
+		background: none;
+		border-bottom: none;
+		@include box-shadow(none);
+
+		#nav {
+			.nav-main {
+			    .nav-main-item {
+			        a {
+			            color: $white;
+			        }
+
+			        &.cheetah-nav-item {
+			        	color: $color-primary;
+
+			        	.cheetah-icon {
+			        		background: none;
+			        		border: solid 3px transparent;
+			        	}
+			        }
+			    }
+			}
+		}
+
+		&.is-scrolled {
+			#nav {
+				.nav-main {
+					.nav-main-item {
+						a {
+							color: #3c3c3c;
+						}
+					}
+				}
+			}
+		}
+	}
+
 
 	ul {
 		padding-left: 0;
@@ -306,16 +343,16 @@
 					}
 				}
 
+				&.touch {
+					&.is-active {
+						.nav-member-dropdown {
+							color: $white;
+							background: $color-primary;
+						}
 
-				&:hover {
-
-					.nav-member-dropdown {
-						color: $white;
-						background: $color-primary;
-					}
-
-					.nav-member-dropdown-menu {
-						display: block !important;
+						.nav-member-dropdown-menu {
+							display: block !important;
+						}
 					}
 				}
 			}
@@ -397,6 +434,30 @@
 		#nav {
 			padding: 0;
 			padding-top: 4px;
+		}
+	}
+}
+
+.no-touch {
+	#header {
+		#nav {
+			.nav-actions {
+				li {
+					&.nav-member {
+						&:hover {
+
+							.nav-member-dropdown {
+								color: $white;
+								background: $color-primary;
+							}
+
+							.nav-member-dropdown-menu {
+								display: block !important;
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }

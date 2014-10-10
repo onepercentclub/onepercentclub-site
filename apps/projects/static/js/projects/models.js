@@ -18,7 +18,13 @@ App.Project.reopen({
     fundraisers: DS.belongsTo('App.Fundraiser'),
     partner: DS.belongsTo('App.Partner'),
 
+    mchanga_account: DS.attr('string'),
+
     task_count: DS.attr('number'),
+
+    donatedRound: function() {
+        return Math.floor(this.get('amount_donated'));
+    }.property(),
 
     phaseNum: function(){
         if (this.get('status') === null){
@@ -42,13 +48,14 @@ App.Project.reopen({
         return this.get('isStatusCampaign') && this.get('deadline') > now && (this.get('amount_needed') > 0 || this.get('allowOverfunding'));
     }.property('isStatusCampaign', 'deadline', 'amount_needed', 'allowOverfunding'),
 
+    isCheetahProject: Em.computed.equal('partner.id', 'cheetah'),
+
     save: function () {
         // the amount_needed is calculated here and not in the server
         this.set('amount_needed', this.get('calculatedAmountNeeded'));
         
         this._super();
     }
-
 });
 
 App.MyProjectBudgetLine = DS.Model.extend({
@@ -102,9 +109,10 @@ App.MyProject.reopen({
 
     requiredStoryFields: ['story', 'storyChanged'],
     requiredGoalFields: ['amount_asked', 'deadline', 'maxAmountAsked', 'minAmountAsked', 'validBudgetBreakdown'],
-    requiredPitchFields: ['title', 'pitch', 'image', 'theme', 'tags.length', 'country', 'latitude', 'longitude'],
+    requiredPitchFields: ['validTitle', 'pitch', 'image', 'theme', 'tags.length', 'country', 'latitude', 'longitude'],
 
     friendlyFieldNames: {
+        'validTitle': gettext('Title'),
         'title' : gettext('Title'),
         'pitch': gettext('Description'),
         'storyChanged' : gettext('Personalised story'),

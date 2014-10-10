@@ -181,7 +181,7 @@ def process_monthly_donations(recurring_payments_queryset, send_email):
     webdirect_payment_adapter = WebDirectDocDataDirectDebitPaymentAdapter()
 
     # Fixed lists of the popular projects.
-    popular_projects_all = list(Project.objects.filter(status=ProjectPhase.objects.get(slug="campaign")).order_by('-popularity'))
+    popular_projects_all = list(Project.objects.exclude(skip_monthly=True).filter(status=ProjectPhase.objects.get(slug="campaign")).order_by('-popularity'))
     top_three_projects = popular_projects_all[:3]
     popular_projects_rest = popular_projects_all[3:]
 

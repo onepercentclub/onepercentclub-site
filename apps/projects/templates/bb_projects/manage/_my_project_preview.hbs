@@ -1,0 +1,64 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "_my_project_preview" %}
+
+    <li class="project-list-item">
+
+        <div class="project-header">
+            <figure class="project-image">
+                {{#if project.image.square}}
+                    <img {{bindAttr src="project.image.square" alt="project.title"}} />
+                {{else}}
+                    &nbsp;
+                {{/if}}
+            </figure>
+            <div class="project-info">
+                <h2 class="project-title">
+                    {{ project.title }}
+                </h2>
+                {{#if project.viewable}}
+                    {{#link-to 'project' project.id}}
+                        <span class="flaticon solid eye-1"></span>
+                        {% trans "View public page" %}
+                    {{/link-to}}
+                {{/if}}
+            </div>
+        </div>
+
+        <div class="project-actions">
+            {{!-- trans "Phase" %}: <strong>{{ project.status.name</strong> --}}
+            {{#if project.editable}}
+                {{#link-to "myProject" project.id tagName="a" class="btn-link right"}}
+                    <span class="flaticon solid pencil-3"></span>
+                    {% trans "Edit" %}
+                {{/link-to}}
+            {{/if}}
+            {{#if project.viewable}}
+                {{#if project.amount_asked}}
+                    {{#link-to "projectDonationList" project.id class="btn-link right"}}
+                        <span class="flaticon solid wallet-1"></span>
+                        {% trans "Donations" %}
+                    {{/link-to}}
+                    {{#if project.mchanga_account}}
+                        {{#link-to "projectMpesaList" project.id class="btn-link right"}}
+                            <span class="flaticon solid wallet-1"></span>
+                            {% trans "Mpesa Payments" %}
+                        {{/link-to}}
+                    {{/if}}
+                {{/if}}
+                {{#link-to "project" project.id class="btn-link right"}}
+                    <span class="flaticon solid pencil-3"></span>
+                    {% trans "Post update" %}
+                {{/link-to}}
+                {{#link-to "taskNew" project.id class="btn-link right"}}
+                    <span class="flaticon solid pencil-3"></span>
+                    {% trans "Create task" %}
+                {{/link-to}}
+            {{/if}}
+
+        </div>
+    </li>
+
+{% endtplhandlebars %}
