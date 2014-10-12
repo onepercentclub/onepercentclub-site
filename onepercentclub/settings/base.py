@@ -277,6 +277,7 @@ INSTALLED_APPS = (
     'bluebottle.payments',
     'bluebottle.payments_docdata',
     'bluebottle.payments_logger',
+    'bluebottle.redirects',
 
 
     # Bluebottle apps with abstract models
@@ -312,7 +313,6 @@ INSTALLED_APPS = (
     'apps.hbtemplates',
     'apps.statistics',
     'apps.homepage',
-    'apps.redirects',
     'apps.partners',
     'apps.crawlable',
     'apps.mchanga',

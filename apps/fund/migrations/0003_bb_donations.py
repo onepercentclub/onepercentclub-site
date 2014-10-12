@@ -5,6 +5,7 @@ from apps.cowry_docdata.models import DocDataPaymentOrder
 from bluebottle.payments_docdata.models import DocdataPayment
 from bluebottle.utils.utils import StatusDefinition
 from django.db.models.aggregates import Sum
+from django.db.utils import DatabaseError
 from south.db import db
 from south.v2 import DataMigration
 from django.db import models
@@ -111,7 +112,7 @@ class Migration(DataMigration):
     def forwards(self, orm):
         "Write your forwards methods here."
         start = 0
-        old_orders = orm['fund.Order'].objects.all()[start:100]
+        old_orders = orm['fund.Order'].objects.all()[start:]
 
         t = 0
         # Iterate over orders
@@ -155,8 +156,6 @@ class Migration(DataMigration):
 
                 # Migrate payments belonging to this order
                 for old_payment in DocDataPaymentOrder.objects.filter(order=old_order):
-                    if old_order.payments.count() > 1:
-                        print "Multiple payments for order {0}".format(order.id)
                     order_payment = orm['payments.OrderPayment'].objects.create(
                         order=order,
                         user=order.user,
@@ -165,7 +164,7 @@ class Migration(DataMigration):
                     )
                     order_payment.created = old_payment.created
                     order_payment.updated = old_payment.updated
-                    order_payment.created = old_payment.created
+                    order_payment.status = map_payment_to_order_payment_status(old_payment.status)
 
                     dd_payment = get_latest_docdata_payment(old_payment)
                     if dd_payment:
@@ -175,9 +174,24 @@ class Migration(DataMigration):
                     if order_payment.amount != order.total and old_payment.status == 'paid':
                         raise Exception("Order and Payment amount differ! {0} != {1}. Old order id: {2}".format(order.total, order_payment.amount, order.id))
 
-                    # Set the status after
-                    order_payment.status = map_payment_to_order_payment_status(old_payment.status)
-                    order_payment.save()
+                    if old_payment.payment_order_id:
+                        try:
+                            payment = orm['payments_docdata.DocdataPayment'].objects.create(
+                                order_payment=order_payment,
+                                status=order_payment.status,
+                                created=old_payment.created,
+                                updated=old_payment.updated,
+                                payment_cluster_id=old_payment.merchant_order_reference,
+                                payment_cluster_key=old_payment.payment_order_id,
+                                merchant_order_id=old_payment.merchant_order_reference,
+                                total_gross_amount=old_payment.amount,
+                                default_pm=dd_payment.payment_method
+                            )
+                            payment.polymorphic_ctype_id = 220
+                            payment.save()
+                        except Exception as e:
+                            print e
+
 
     def backwards(self, orm):
         "Write your backwards methods here."
