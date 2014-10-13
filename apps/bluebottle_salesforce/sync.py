@@ -294,7 +294,6 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
         # sfproject.target_group_s_of_the_project = project.for_who
         # sfproject.sustainability = project.future
         # sfproject.contribution_project_in_reducing_poverty = project.effects
-
         # sfproject.describe_where_the_money_is_needed_for = project.amount_needed
 
         sfproject.date_plan_submitted = project.date_submitted
@@ -346,7 +345,9 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
         sfproject.slug = project.slug
 
         sfproject.donation_total = "%01.2f" % ((project.get_money_total(['paid', 'pending'])) / 100)
-        sfproject.supporter_count = project.supporters_count
+        sfproject.donation_oo_total = "%01.2f" % ((project.get_money_total(['paid', 'pending'], ['one_off'])) / 100)
+        sfproject.supporter_count = project.supporters_count()
+        sfproject.supporter_oo_count = project.supporters_count(True, ['one_off'])
 
         # Save the object to Salesforce
         if not dry_run:
@@ -762,8 +763,9 @@ def sync_organizationmembers(dry_run, sync_from_datetime, loglevel):
         # Find the corresponding SF organization members.
         try:
             sf_org_member = SalesforceOrganizationMember.objects.get(external_id=org_member.id)
-        except SalesforceTaskMembers.DoesNotExist:
+        except SalesforceOrganizationMember.DoesNotExist:
             sf_org_member = SalesforceOrganizationMember()
+            logger.debug("Creating new SalesforceOrganizationMember")
         except Exception as e:
             logger.error("Error while loading sf_org_member id {0} - stopping: ".format(org_member.id) + str(e))
             return success_count, error_count+1
@@ -772,13 +774,15 @@ def sync_organizationmembers(dry_run, sync_from_datetime, loglevel):
         sf_org_member.external_id = org_member.id
 
         try:
-            sf_org_member.contacts = SalesforceContact.objects.get(external_id=org_member.user.id)
+            sf_org_member.contact = SalesforceContact.objects.get(external_id=org_member.user.id)
+            # logger.debug("Connecting contact id {0} in Salesforce".format(org_member.user.id))
         except SalesforceContact.DoesNotExist:
             logger.error("Unable to find contact id {0} in Salesforce for organization member id {1}".format(
                 org_member.user.id, org_member.id))
 
         try:
-            sf_org_member.contacts = SalesforceOrganization.objects.get(external_id=org_member.organization.id)
+            sf_org_member.organization = SalesforceOrganization.objects.get(external_id=org_member.organization.id)
+            # logger.debug("Connecting organization id {0} in Salesforce".format(org_member.organization.id))
         except SalesforceOrganization.DoesNotExist:
             logger.error("Unable to find organization id {0} in Salesforce for organization member id {1}".format(
                 org_member.organization.id, org_member.id))
@@ -792,7 +796,7 @@ def sync_organizationmembers(dry_run, sync_from_datetime, loglevel):
                 success_count += 1
             except Exception as e:
                 error_count += 1
-                logger.error("Error while saving organization member id {0}: ".format(org_member.id) + str(e))
+                logger.error("Error while saving organization member id {0}: {1}".format(org_member.id, e))
 
     return success_count, error_count
 

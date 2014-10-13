@@ -252,10 +252,10 @@ class SalesforceProject(SalesforceModel):
                                                                     db_column='NumberOfPeopleReachedIndirect__c')
     theme = models.CharField(max_length=255, db_column='Theme__c')
     target_group = models.CharField(max_length=255, db_column='Target_group__c')
-    donation_total = models.PositiveIntegerField(max_length=8, db_column='Donation_total__c')
-    supporter_count = models.CharField(max_length=20, db_column='Donation_total__c')
-    donation_oo_total = models.PositiveIntegerField(max_length=8, db_column='Donation_oo_total__c')
-    supporter_oo_count = models.CharField(max_length=20, db_column='Donation_oo_total__c')
+    donation_total = models.CharField(max_length=20, db_column='Donation_total__c')
+    supporter_count = models.PositiveIntegerField(max_length=8, db_column='Supporter_count__c')
+    donation_oo_total = models.CharField(max_length=20, db_column='Donation_oo_total__c')
+    supporter_oo_count = models.PositiveIntegerField(max_length=8, db_column='Supporter_oo_count__c')
 
     class Meta:
         db_table = 'Project__c'

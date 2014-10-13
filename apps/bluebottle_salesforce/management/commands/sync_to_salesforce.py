@@ -87,7 +87,7 @@ class Command(BaseCommand):
                 self.run_with_count_update(generate_tasks_csv_file, path, loglevel)
                 self.run_with_count_update(generate_taskmembers_csv_file, path, loglevel)
                 self.run_with_count_update(generate_fundraisers_csv_file, path, loglevel)
-                # self.run_with_count_update(generate_organizationmember_csv_file, path, loglevel)
+                self.run_with_count_update(generate_organizationmember_csv_file, path, loglevel)
             else:
                 # The synchronization methods need to be run in a specific order because of foreign key dependencies.
                 self.run_with_count_update(sync_organizations, options['dry_run'], sync_from_datetime, loglevel)
@@ -98,7 +98,7 @@ class Command(BaseCommand):
                 self.run_with_count_update(sync_tasks, options['dry_run'], sync_from_datetime, loglevel)
                 self.run_with_count_update(sync_taskmembers, options['dry_run'], sync_from_datetime, loglevel)
                 self.run_with_count_update(sync_donations, options['dry_run'], sync_from_datetime, loglevel)
-                #self.run_with_count_update(sync_organizationmembers, options['dry_run'], sync_from_datetime, loglevel)
+                self.run_with_count_update(sync_organizationmembers, options['dry_run'], sync_from_datetime, loglevel)
 
         except Exception as e:
             self.error_count += 1
