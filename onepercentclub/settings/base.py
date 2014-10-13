@@ -142,12 +142,6 @@ TEMPLATE_LOADERS = [
     'apptemplates.Loader', # extend AND override templates
 ]
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-    }
-}
-
 # These are basically the default values from the Django configuration, written
 # as a list for easy manipulation. This way one can:
 #
@@ -316,6 +310,7 @@ INSTALLED_APPS = (
     'apps.crawlable',
 
     'apps.mchanga',
+    'apps.widgets',
 
     # Custom dashboard
     'fluent_dashboard',

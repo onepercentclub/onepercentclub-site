@@ -40,3 +40,17 @@ class HomeView(TemplateView):
         context = {}
 
         return context
+
+
+class WidgetView(TemplateView):
+    """
+    Home view for the site.
+    """
+
+    template_name = 'widgets.html'
+
+    def get_context_data(self, **kwargs):
+        """ Add some extra context. """
+        context = {}
+
+        return context

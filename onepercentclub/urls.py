@@ -4,6 +4,8 @@ from django.conf import settings
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
+from django.views.decorators.cache import cache_page
+from onepercentclub.views import WidgetView
 from .views import HomeView
 from bluebottle.urls.core import urlpatterns as bb_urlpatterns
 from bluebottle.auth.views import GetAuthToken
@@ -23,6 +25,7 @@ urlpatterns += bb_urlpatterns
 urlpatterns += patterns('',
 
     url('', include('social.apps.django_app.urls', namespace='social')),
+
     url(r'^api/social-login/(?P<backend>[^/]+)/$', GetAuthToken.as_view()),
 
     url(r'^api/bb_projects/', include('apps.projects.urls.api')),
@@ -94,7 +97,9 @@ urlpatterns += i18n_patterns('',
     url(r'^pp/', include('apps.partners.urls.partners')),
 
     # Url M-changa status updates
-    url(r'^payments_mchanga/', include('apps.mchanga.urls.core'))
+    url(r'^payments_mchanga/', include('apps.mchanga.urls.core')),
+
+    url(r'^widgets/', WidgetView.as_view(), name='widget')
 
 )
 
