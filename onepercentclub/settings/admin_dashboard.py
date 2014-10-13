@@ -36,7 +36,8 @@ FLUENT_DASHBOARD_APP_GROUPS = (
     }),
     (_('Donations'), {
         'models': (
-            'apps.fund.*',
+            'bluebottle.donations.*',
+            'bluebottle.orders.*',
             'apps.vouchers.*',
         ),
         'module': 'fluent_dashboard.modules.AppIconList',
@@ -44,10 +45,10 @@ FLUENT_DASHBOARD_APP_GROUPS = (
     }),
     (_('Finances'), {
         'models': (
-            'apps.accounting.*',
+            'bluebottle.payments.*',
+            'bluebottle.payments_docdata.*',
+            'bluebottle.payments_logger.*',
             'apps.payouts.*',
-            'apps.cowry_docdata.*',
-            'apps.cowry.*',
         ),
         'module': 'fluent_dashboard.modules.AppIconList',
         'collapsible': False,
@@ -84,6 +85,19 @@ FLUENT_DASHBOARD_APP_GROUPS = (
         'module': 'fluent_dashboard.modules.AppIconList',
         'collapsible': False,
     }),
+    (_("Old Donations"),{
+        'models': (
+            'apps.fund.*',
+            'apps.accounting.*',
+            'apps.payouts.*',
+            'apps.cowry_docdata.*',
+            'apps.cowry.*',
+        ),
+        'module': 'fluent_dashboard.modules.AppIconList',
+        'collapsible': False,
+
+    }),
+
     # The '*' selector acts like a fallback for all other apps. This section mainly displays models
     # with tabular data that is rarely touched. The important models have an icon.
     (_('Applications'), {
@@ -129,8 +143,8 @@ FLUENT_DASHBOARD_APP_ICONS = {
     'wallposts/reaction': 'icons/flaticons_stroke/SVGs/comment-2.svg',
 
     # Donations
-    'fund/donation': 'icons/flaticons_stroke/SVGs/money-2.svg',
-    'fund/order': 'icons/flaticons_stroke/SVGs/cart-1.svg',
+    'donations/donation': 'icons/flaticons_stroke/SVGs/money-2.svg',
+    'orders/order': 'icons/flaticons_stroke/SVGs/cart-1.svg',
     'fund/recurringdirectdebitpayment': 'icons/flaticons_stroke/SVGs/repeat-2.svg',
     'vouchers/voucher': 'icons/flaticons_stroke/SVGs/gift-2.svg',
     'vouchers/customvoucherrequest': 'icons/flaticons_stroke/SVGs/mail-2.svg',
@@ -148,8 +162,9 @@ FLUENT_DASHBOARD_APP_ICONS = {
     'payouts/organizationpayout': 'icons/flaticons_stroke/SVGs/money-2.svg',
     'payouts/bankmutation': 'icons/flaticons_stroke/SVGs/menu-2.svg',
     'payouts/bankmutationline': 'icons/flaticons_stroke/SVGs/menu-2.svg',
-    'cowry_docdata/docdatapaymentorder': 'icons/flaticons_stroke/SVGs/wallet-1.svg',
-    'cowry_docdata/docdatapaymentlogentry': 'icons/flaticons_stroke/SVGs/menu-list-3.svg',
+    'payments/payment': 'icons/flaticons_stroke/SVGs/wallet-1.svg',
+    'payments/orderpayment': 'icons/flaticons_stroke/SVGs/money-1.svg',
+    'payments_logger/paymentlogentry': 'icons/flaticons_stroke/SVGs/eye-1.svg',
 
     # Site Content
     'slides/slide': 'icons/flaticons_stroke/SVGs/id-1.svg',
