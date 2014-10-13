@@ -1,6 +1,7 @@
 import datetime
 from decimal import Decimal
 from apps.mchanga.models import MpesaFundRaiser
+from bluebottle.utils.utils import StatusDefinition
 from .fields import MoneyField
 from bluebottle.bb_projects.models import BaseProject, ProjectPhase, BaseProjectPhaseLog
 from django.db import models
@@ -175,7 +176,7 @@ class Project(BaseProject):
     def update_money_donated(self, save=True):
         """ Update amount based on paid and pending donations. """
 
-        self.amount_donated = self.get_money_total(['paid', 'pending']) / 100
+        self.amount_donated = self.get_money_total([StatusDefinition.PENDING, StatusDefinition.PAID]) / 100
 
         if self.mchanga_fundraiser:
             kes = self.mchanga_fundraiser.current_amount
@@ -204,7 +205,7 @@ class Project(BaseProject):
         donations = self.donation_set.all()
 
         if status_in:
-            donations = donations.filter(status__in=status_in)
+            donations = donations.filter(order_status__in=status_in)
 
         total = donations.aggregate(sum=Sum('amount'))
 
