@@ -162,7 +162,7 @@ App.BusinessView = Em.View.extend({
     }
 });
 
-App.HowToCrowdfundView = Em.View.extend({
+App.CrowdfundingView = Em.View.extend({
     templateName:'how_to_crowdfund'
 });
 
