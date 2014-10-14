@@ -1,71 +1,62 @@
 <style>
-    h1 {
-        color:red;
-    }
-
     .container {
-        width: {{ width }}px;
+        /*width: {{ width }}px;*/
         height: {{ height }}px;
-
-        max-width: 365px;
+        max-width: 1200px;
+        margin: auto;
     }
 </style>
 <div id="onepercent-campaign-widget">
-    <div class="campaign-container">
-        <h2>1% Projects</h2>
-        <ul class="container">
+    <div class="campaign-container campaign-grid gc-3">
         h:{{ height }}
         w: {{ width }}
         p: {{ partner }}
-        {% for project in projects %}
-
-        <li class="campaign-item">
-            <a href="https://onepercentclub.com/go/projects/{{project.slug}}" class="campaign-item-holder">
-                <header class="header">
-                    <img src="{{project.image}}" />
-                </header>
-                <span class="profile-photo">
-                    <img src="{{project.owner.getAvatar}}" />
-                </span>
-                <div class="campaign-body">
-                    <p>
-                        <span class="profile-name">
-                            <strong>{{project.owner.full_name}}</strong> campaigns for
+        <ul class="container">
+            {% for project in projects %}
+                <li class="campaign-item">
+                    <a href="https://onepercentclub.com/go/projects/{{project.slug}}" class="campaign-item-holder">
+                        <header class="header">
+                            <img src="{{project.image}}" />
+                        </header>
+                        <span class="profile-photo">
+                            <img src="https://onepercentclub.com/{{project.owner.avatar}}" />
                         </span>
-                        <span class="campaign-body-names">
-                            {{project.title}}
-                        </span>
-                    </p>
-                </div>
-
-                <div class="campaign-footer">
-                        <div class="campaign-fund-amount">
-                            <span class="amount-raised"><strong>&euro; {{project.amount_donated}} </strong>Slider project frontpage</span>
-                            <span class="days-left"><strong>{{project.daysToGo}} </strong>days left</span>
+                        <div class="campaign-body">
+                            <p>
+                                <span class="profile-name">
+                                    <strong>{{project.owner.full_name}}</strong> campaigns for
+                                </span>
+                                <span class="campaign-body-names">
+                                    {{project.title}}
+                                </span>
+                            </p>
                         </div>
-                        <p class="campaign-fund-amount-slider is-funded"><strong style="width: 100%; overflow: hidden;" class="slider-progress is-in-progress"><em class="slider-percentage"></em></strong></p>
-                        <div class="campaign-fund-amount">
-                        <span class="fully-funded"><strong>&euro; {{project.amount_donated}} raised</strong></span>
+
+                        <div class="campaign-footer">
+                                <div class="project-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress" data-target-amount="{{project.amount_asked}}" data-donated-amount="{{project.amount_donated}}"><em class="slider-percentage">0%</em></strong></div>
+                                <div class="campaign-fund-amount">
+                                    <span class="amount-raised"><strong>&euro; {{project.amount_donated}} </strong>raised</span>
+                                    <span data-days-left="{{project.deadline| date:"d m Y"}}" class="days-left"><strong>{{project.daysToGo}} </strong>days left</span>
+                                </div>
                         </div>
-                </div>
-                <div class="campaign-hover">
-                    <p class="campaign-hover-head">
-                        <strong>{{project.title}}</strong>
-                    </p>
-                    <p class="campaign-hover-body">
-                        <span>
-                            {{project.pitch}}
-                        </span>
-                    </p>
-                    <p class="campaign-hover-footer">
-                        <span class="go-to-campaign">
-                            Go to campaign
-                        </span>
-                    </p>
-                </div>
-            </a>
-        </li>
-        {% endfor %}
+                        <div class="campaign-hover">
+                            <p class="campaign-hover-head">
+                                <strong>{{project.title}}</strong>
+                            </p>
+                            <p class="campaign-hover-body">
+                                <span>
+                                    {{project.pitch}}
+                                </span>
+                            </p>
+                            <p class="campaign-hover-footer">
+                                <span class="go-to-campaign">
+                                    Go to campaign
+                                </span>
+                            </p>
+                        </div>
+                    </a>
+                </li>
+            {% endfor %}
         </ul>
     </div>
 </div>
