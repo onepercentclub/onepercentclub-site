@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-13 09:27+0200\n"
+"POT-Creation-Date: 2014-10-14 17:08+0200\n"
 "PO-Revision-Date: 2014-10-13 07:35+0000\n"
 "Last-Translator: JhonM <jhon@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
@@ -132,6 +132,7 @@ msgid "Browse all campaigns"
 msgstr "Bekijk alle campagnes"
 
 #: templates/homepage/home_project_list.hbs:28
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/widget/templates/widget/widget.html.py:28
 msgid "campaigns for"
 msgstr "voert campagne voor"
 
@@ -151,11 +152,13 @@ msgstr "dagen te gaan"
 
 #: templates/homepage/home_project_list.hbs:46
 #: templates/homepage/project.hbs:47
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/widget/templates/widget/widget.html.py:39
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/pages/templates/pages/project_snippet.html.py:41
 msgid "raised"
 msgstr "opgehaald"
 
 #: templates/homepage/home_project_list.hbs:62
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/widget/templates/widget/widget.html.py:54
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/cheetah/detail/_project_preview.hbs.py:87
 msgid "Go to campaign"
 msgstr "Bekijk campagne"
@@ -1435,7 +1438,7 @@ msgstr ""
 msgid "Give us feedback"
 msgstr "Geef ons feedback"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/partner_index.hbs.py:25
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/partners/templates/partners/partner_index.hbs.py:27
 msgid "No projects found."
 msgstr "Geen campagnes gevonden."
 
