@@ -399,10 +399,9 @@ class PartnerOrganization(models.Model):
 
     @property
     def projects(self):
-        return self.project_set.order_by('-favorite', '-popularity').exclude(status__in=[ProjectPhase.objects.get(slug="plan-new"),
-                                                                            ProjectPhase.objects.get(slug="plan-submitted"),
-                                                                            ProjectPhase.objects.get(slug="plan-rejected"),
-                                                                            ProjectPhase.objects.get(slug="done-stopped")]).all()
+        return self.project_set.order_by('-favorite', '-popularity').filter(status__in=[ProjectPhase.objects.get(slug="campaign"),
+                                                                            ProjectPhase.objects.get(slug="done-complete"),
+                                                                            ProjectPhase.objects.get(slug="done-incomplete")])
 
     class Meta:
         db_table = 'projects_partnerorganization'

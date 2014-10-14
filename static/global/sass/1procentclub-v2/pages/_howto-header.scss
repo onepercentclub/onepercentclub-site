@@ -1,0 +1,41 @@
+#howto-header {
+    position: relative;
+    margin-top: -96px;
+    height: 360px;
+    background: #00C051;
+
+    .howto-header-title {
+        position: absolute;
+        top: 160px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: $white;
+        font-size: 36px;
+        line-height: 43px;
+        z-index: 2;
+
+        strong {
+            width: 100%;
+            display: block;
+        }
+    }
+
+    .howto-header-bg {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 294px;
+
+        &:after {
+            position: absolute;
+            top: 0;
+            content: '';
+            background: image-url("img/howto/howto_header.jpg") transparent repeat-y 50% 50%;
+            background-size: cover;
+            width: 100%;
+            height: 294px;
+            @include opacity(.4);
+        }
+    }
+}

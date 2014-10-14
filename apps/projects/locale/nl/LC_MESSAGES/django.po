@@ -4,22 +4,25 @@
 # 
 # Translators:
 # aethemba <aksel@onepercentclub.com>, 2014
+# aethemba <aksel@onepercentclub.com>, 2014
 # dokterbob <mathijs@mathijsfietst.nl>, 2012
 # Loek van Gent <loek@1procentclub.nl>, 2013
 # JhonM <jhon@onepercentclub.com>, 2014
+# JhonM <jhon@onepercentclub.com>, 2014
 # Liane <liane@onepercentclub.com>, 2014
 # Liane <liane@onepercentclub.com>, 2014
-# Loek van Gent <loek@1procentclub.nl>, 2014
+# Loek van Gent <loek@1procentclub.nl>, 2013-2014
+# Malou <malou@onepercentclub.com>, 2014
 # Malou <malou@onepercentclub.com>, 2014
 # Niels Jansen <niels@1procentclub.nl>, 2013
-# Niels Jansen <niels@1procentclub.nl>, 2014
+# Niels Jansen <niels@1procentclub.nl>, 2013-2014
 # onepercentclub <webmaster@1procentclub.nl>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-19 16:28+0200\n"
-"PO-Revision-Date: 2014-09-12 07:55+0000\n"
+"POT-Creation-Date: 2014-10-13 09:27+0200\n"
+"PO-Revision-Date: 2014-10-07 14:56+0000\n"
 "Last-Translator: aethemba <aksel@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -63,154 +66,162 @@ msgstr ""
 msgid "No recently funded projects."
 msgstr "Geen recent gefunde campagnes"
 
-#: models.py:81
+#: models.py:83
 msgid "latitude"
 msgstr "breedte"
 
-#: models.py:83
+#: models.py:85
 msgid "longitude"
 msgstr "lengte"
 
-#: models.py:86
+#: models.py:88
 msgid "Reach"
 msgstr "Bereik"
 
-#: models.py:86
+#: models.py:88
 msgid "How many people do you expect to reach?"
 msgstr "Hoeveel mensen verwacht je te bereiken?"
 
-#: models.py:90
+#: models.py:92
 msgid "video"
 msgstr "video"
 
-#: models.py:91
+#: models.py:93
 msgid ""
 "Do you have a video pitch or a short movie that explains your project? Cool!"
 " We can't wait to see it! You can paste the link to YouTube or Vimeo video "
 "here"
 msgstr "Voeg een campagne video toe vanuit YouTube of Vimeo (begint met http://)"
 
-#: models.py:95
+#: models.py:97
 msgid "deadline"
 msgstr "deadline"
 
-#: models.py:97
+#: models.py:99
 msgid "Project is part of a campaign and gets special promotion."
 msgstr "Campagne is onderdeel van een marketing campagne."
 
-#: models.py:104
+#: models.py:106
 msgid "Skip monthly"
 msgstr ""
 
-#: models.py:105
+#: models.py:107
 msgid "Skip this project when running monthly donations"
 msgstr ""
 
-#: models.py:109
+#: models.py:111
 msgid "story"
 msgstr "verhaal"
 
-#: models.py:109
+#: models.py:111
 msgid "This is the help text for the story field"
 msgstr "Dit is de help tekst voor het story veld"
 
-#: models.py:113
+#: models.py:115
 msgid "effects"
 msgstr "effecten"
 
-#: models.py:113
+#: models.py:115
 msgid ""
 "What will be the Impact? How will your Smart Idea change the lives of "
 "people?"
 msgstr "Wat is de impact? Hoe maak jij de wereld een stukje mooier? "
 
-#: models.py:114
+#: models.py:116
 msgid "for who"
 msgstr "voor wie"
 
-#: models.py:114
+#: models.py:116
 msgid "Describe your target group"
 msgstr "Beschrijf je doelgroep"
 
-#: models.py:115
+#: models.py:117
 msgid "future"
 msgstr "toekomst"
 
-#: models.py:115
+#: models.py:117
 msgid ""
 "How will this project be self-sufficient and sustainable in the long term?"
 msgstr "Op welke manier is het project zelfvoorzienend en duurzaam op lange termijn?"
 
-#: models.py:117
+#: models.py:119
 msgid "Campaign Submitted"
 msgstr "Campagne aangemaakt"
 
-#: models.py:118
+#: models.py:120
 msgid "Campaign Started"
 msgstr "Campagne gestart"
 
-#: models.py:119
+#: models.py:121
 msgid "Campaign Ended"
 msgstr "Campagne gestopt"
 
-#: models.py:120
+#: models.py:122
 msgid "Campaign Funded"
 msgstr "Campagne gerealiseerd"
 
-#: models.py:264
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:202
+#: models.py:124
+msgid "M-Changa account"
+msgstr ""
+
+#: models.py:124
+msgid "Id or keyword for the M-Changa fundraiser"
+msgstr ""
+
+#: models.py:284
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:197
 #, python-brace-format
 msgid "{name_project} in {country}"
 msgstr "{name_project} in {country}"
 
-#: models.py:283
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:222
+#: models.py:303
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:217
 #, python-brace-format
 msgid "{title} {{URL}} via @{twitter_handle}"
 msgstr "{title} {{URL}} via @{twitter_handle}"
 
-#: models.py:351 models.py:377
+#: models.py:371 models.py:397
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:25
 msgid "description"
 msgstr "beschrijving"
 
-#: models.py:353
+#: models.py:373
 msgid "amount (in cents)"
 msgstr "bedrag (in centen)"
 
-#: models.py:359
+#: models.py:379
 msgid "budget line"
 msgstr "budget item"
 
-#: models.py:360
+#: models.py:380
 msgid "budget lines"
 msgstr "budget items"
 
-#: models.py:375
+#: models.py:395
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:22
 msgid "name"
 msgstr "naam"
 
-#: models.py:376
+#: models.py:396
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:24
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:129
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:128
 msgid "slug"
 msgstr "url"
 
-#: models.py:378
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:145
+#: models.py:398
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:140
 msgid "image"
 msgstr "afbeelding"
 
-#: models.py:378
+#: models.py:398
 msgid "Main partner picture"
 msgstr "Campagne foto"
 
-#: models.py:389
+#: models.py:408
 msgid "partner organization"
 msgstr "organisatie"
 
-#: models.py:390
+#: models.py:409
 msgid "partner organizations"
 msgstr "organisaties"
 
@@ -387,7 +398,7 @@ msgstr "Bekijk alle campagnes"
 msgid "Read full project plan"
 msgstr "Lees meer"
 
-#: templates/bb_projects/project.hbs:46 templates/bb_projects/project.hbs:54
+#: templates/bb_projects/project.hbs:46 templates/bb_projects/project.hbs:55
 msgid "deadline passed"
 msgstr "Deadline voorbij"
 
@@ -397,22 +408,22 @@ msgstr "Deadline voorbij"
 msgid "days to go"
 msgstr "dagen"
 
-#: templates/bb_projects/project.hbs:61
+#: templates/bb_projects/project.hbs:63
 #: templates/bb_projects/project_preview.hbs:32
 #: templates/bb_projects/project_preview.hbs:39
 #: templates/bb_projects/manage/project.hbs:56
 msgid "of"
 msgstr "van"
 
-#: templates/bb_projects/project.hbs:63
+#: templates/bb_projects/project.hbs:65
 #: templates/bb_projects/project_preview.hbs:32
 #: templates/bb_projects/project_preview.hbs:39
 #: templates/bb_projects/manage/project.hbs:58
 msgid "raised"
 msgstr "opgehaald"
 
-#: templates/bb_projects/project.hbs:72 templates/bb_projects/project.hbs:84
-#: templates/bb_projects/project.hbs:103
+#: templates/bb_projects/project.hbs:74 templates/bb_projects/project.hbs:86
+#: templates/bb_projects/project.hbs:102
 #, python-format
 msgid ""
 "\n"
@@ -420,11 +431,7 @@ msgid ""
 "                                        "
 msgstr ""
 
-#: templates/bb_projects/project.hbs:98
-msgid "fully funded!"
-msgstr ""
-
-#: templates/bb_projects/project.hbs:126
+#: templates/bb_projects/project.hbs:125
 #: templates/bb_projects/manage/project.hbs:65
 msgid "Support project"
 msgstr "Support campagne"
@@ -440,6 +447,39 @@ msgstr "Campaigner"
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/project_preview.hbs.py:47
 msgid "View project"
 msgstr "Bekijk campagne"
+
+#: templates/bb_projects/manage/_my_project_preview.hbs:24
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/_my_project_preview.hbs.py:24
+msgid "View public page"
+msgstr "Bekijk campagne pagina"
+
+#: templates/bb_projects/manage/_my_project_preview.hbs:35
+#: templates/bb_projects/manage/start.hbs:68
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/project.hbs.py:29
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/_my_project_preview.hbs.py:37
+msgid "Edit"
+msgstr "Pas aan"
+
+#: templates/bb_projects/manage/_my_project_preview.hbs:42
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/project_donation_list.hbs.py:13
+msgid "Donations"
+msgstr ""
+
+#: templates/bb_projects/manage/_my_project_preview.hbs:47
+msgid "Mpesa Payments"
+msgstr ""
+
+#: templates/bb_projects/manage/_my_project_preview.hbs:53
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/_my_project_preview.hbs.py:47
+msgid "Post update"
+msgstr "Plaats update"
+
+#: templates/bb_projects/manage/_my_project_preview.hbs:57
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/wall.hbs.py:48
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/wall.hbs.py:61
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/_my_project_preview.hbs.py:51
+msgid "Create task"
+msgstr "Maak taak aan"
 
 #: templates/bb_projects/manage/_story_legend.hbs:7
 msgid "Campaign Story"
@@ -656,12 +696,6 @@ msgstr "Profiel"
 msgid "Update your profile so people know who is the campaigner"
 msgstr "Update je profiel zodat je supporters zien wie je bent."
 
-#: templates/bb_projects/manage/start.hbs:68
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/project.hbs.py:29
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/_my_project_preview.hbs.py:37
-msgid "Edit"
-msgstr "Pas aan"
-
 #: templates/bb_projects/manage/start.hbs:73
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/start.hbs.py:70
 msgid "No user Logged, sign in to start and create your project."
@@ -862,7 +896,7 @@ msgid ""
 msgstr "\n<ul>\n<li>Zorg voor een interessant verhaal, maak het vooral niet te lang.</li>\n<li> Gebruik kopjes en paragrafen, dit zal je plan nog overtuigender maken. </li>\n<li> Vertel - als je wilt - de effecten van je campagne, je lange termijn strategie en wie je doelgroep is. </li>\n</ul>\n<p> Lees nog meer in onze <a href=\"#!/pages/faq-campaigns\">FAQ ></a></p>"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/admin.py:63
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:128
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:127
 msgid "title"
 msgstr "titel"
 
@@ -935,57 +969,77 @@ msgstr "Organisatie "
 msgid "Project organization"
 msgstr "Campagne organisatie"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:126
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:239
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:125
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:234
 msgid "created"
 msgstr "aangemaakt"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:126
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:125
 msgid "When this project was created."
 msgstr "Wanneer deze campagne is aangemaakt."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:127
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:126
 msgid "updated"
 msgstr "updated"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:131
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:129
 msgid "pitch"
 msgstr "beschrijf"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:131
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:129
 msgid "Pitch your smart idea in one sentence"
 msgstr "Pitch je campagne verhaal in één zin"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:135
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:133
 msgid "tags"
 msgstr "trefwoorden"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:136
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:133
 msgid "Add tags"
 msgstr "Voeg trefwoorden toe"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:140
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:136
 msgid "why, what and how"
 msgstr "waarom, wat en hoe"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:140
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:136
 msgid "Blow us away with the details!"
 msgstr "Leg in één paragraaf uit waar je campagne voor nodig is "
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:146
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:141
 msgid "Main project picture"
 msgstr "Campagne afbeelding"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:158
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:153
 msgid "project"
 msgstr "campagne"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:159
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:154
 msgid "projects"
 msgstr "campagnes"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:239
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/models.py:234
 msgid "When this project entered in this status."
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/projectwallmails.py:24
+#, python-format
+msgid "%(author)s has left a message on your project page."
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/projectwallmails.py:56
+#, python-format
+msgid "%(author)s commented on a post you reacted on."
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/projectwallmails.py:71
+#, python-format
+msgid "%(author)s commented on your post."
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/projectwallmails.py:87
+#, python-format
+msgid "%(author)s commented on your project page."
 msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/serializers.py:145
@@ -1051,10 +1105,6 @@ msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/project_donation_list.hbs.py:13
 msgid "Campaign"
-msgstr ""
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/project_donation_list.hbs.py:13
-msgid "Donations"
 msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/project_donation_list.hbs.py:18
@@ -1172,19 +1222,9 @@ msgstr "Toont"
 msgid "Open tasks"
 msgstr "Open taken"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/wall.hbs.py:48
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/wall.hbs.py:61
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/_my_project_preview.hbs.py:51
-msgid "Create task"
-msgstr "Maak taak aan"
-
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/wall.hbs.py:69
 msgid "In progress & closed tasks"
 msgstr "Lopende & afgeronde taken"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/_my_project_preview.hbs.py:24
-msgid "View public page"
-msgstr "Bekijk campagne pagina"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/_my_project_preview.hbs.py:27
 msgid "Draft"
@@ -1193,10 +1233,6 @@ msgstr "Draft"
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/_my_project_preview.hbs.py:42
 msgid "Campaign is in review"
 msgstr "Campagne is in review"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/_my_project_preview.hbs.py:47
-msgid "Post update"
-msgstr "Plaats update"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/_my_project_start_intro.hbs.py:6
 msgid ""

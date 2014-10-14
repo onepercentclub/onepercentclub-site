@@ -4,21 +4,44 @@
 # 
 # Translators:
 # aethemba <aksel@onepercentclub.com>, 2014
+# aethemba <aksel@onepercentclub.com>, 2014
+# bartlacroix <bart@onepercentclub.com>, 2014
+# Liane <liane@onepercentclub.com>, 2014
 # Liane <liane@onepercentclub.com>, 2014
 # Niels Jansen <niels@1procentclub.nl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-19 16:28+0200\n"
-"PO-Revision-Date: 2014-07-30 07:45+0000\n"
-"Last-Translator: aethemba <aksel@onepercentclub.com>\n"
+"POT-Creation-Date: 2014-10-13 09:27+0200\n"
+"PO-Revision-Date: 2014-10-08 16:28+0000\n"
+"Last-Translator: bartlacroix <bart@onepercentclub.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: en_GB\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: fundwallmails.py:24
+#, python-format
+msgid "%(author)s has left a message on your fundraiser page."
+msgstr "%(author)s heeft een bericht achtergelaten op je fundraise pagina."
+
+#: fundwallmails.py:56
+#, python-format
+msgid "%(author)s commented on a post you reacted on."
+msgstr "%(author)s heeft een reactie gegeven op een bericht waarop jij hebt gereageerd."
+
+#: fundwallmails.py:71
+#, python-format
+msgid "%(author)s commented on your post."
+msgstr "%(author)s heeft gereageerd op je bericht"
+
+#: fundwallmails.py:87
+#, python-format
+msgid "%(author)s commented on your fundraiser page."
+msgstr "%(author)s heeft een reactie geplaatst op je fundraise pagina."
 
 #: models.py:14
 msgid "initiator"
@@ -78,6 +101,123 @@ msgstr "{title} {{URL}} via @{twitter_handle}"
 msgid "No %(verbose_name)s found matching the query"
 msgstr "No %(verbose_name)s found matching the query"
 
+#: templates/fundraiser_wallpost_new.mail.html:5
+#, python-format
+msgid ""
+"\n"
+"Hello %(receiver_name)s,\n"
+"<br/><br/>\n"
+"%(author_name)s has left a message on your fundraiser page.\n"
+"<br/><br/>\n"
+"You must be curious what! Don't wait any longer and check it out <a href=\"%(site)s%(link)s\">here on our website</a>.\n"
+"<br/>\n"
+"See you in a bit!<br/>\n"
+"<br/>\n"
+"Liane | 1%%Club\n"
+msgstr "\nHallo %(receiver_name)s,\n<br/><br/>\n%(author_name)s heeft een reactie geplaatst op je fundraise pagina.\n<br/><br/>\nBekijk de reactie op je <a href=\"%(site)s%(link)s\">fundraise pagina</a>.\n<br/>\nGroet<br/>\n<br/>\n1%%Club\n"
+
+#: templates/fundraiser_wallpost_new.mail.txt:5
+#, python-format
+msgid ""
+"\n"
+"Hello %(receiver_name)s,\n"
+"\n"
+"%(author_name)s has left a message on your fundraiser page.\n"
+"\n"
+"You must be curious what! Don't wait any longer and check it out here:\n"
+"\n"
+"%(site)s%(link)s\n"
+"\n"
+"See you in a bit!\n"
+"\n"
+"Liane | 1%%Club\n"
+msgstr "\nHallo %(receiver_name)s,\n\n%(author_name)s heeft een bericht geplaatst op je fundraise pagina.\n\nLees het bericht op je fundraise pagina:\n\n%(site)s%(link)s\n\nGroet,\n\n1%%Club\n"
+
+#: templates/fundraiser_wallpost_reaction_new.mail.html:5
+#, python-format
+msgid ""
+"\n"
+"Hello %(receiver_name)s,<br/>\n"
+"<br/>\n"
+"Yes, yes, yes! <b>%(author_name)s</b> commented on your wallpost.<br/>\n"
+"<br/>\n"
+"<a href=\"%(site)s%(link)s\">Go to our website</a> and read the reaction.<br/>\n"
+"<br/>\n"
+"See you in a bit!<br/>\n"
+"<br/>\n"
+"Liane | 1%%Club\n"
+msgstr "\nHallo %(receiver_name)s,<br/>\n<br/>\n<b>%(author_name)s</b> heeft gereageerd op je bericht<br/>\n<br/>\n<a href=\"%(site)s%(link)s\">Ga naar de pagina en</a> lees de reactie.<br/>\n<br/>\nGroet<br/>\n<br/>\n1%%Club\n"
+
+#: templates/fundraiser_wallpost_reaction_new.mail.txt:5
+#, python-format
+msgid ""
+"\n"
+"Hello %(receiver_name)s,\n"
+"\n"
+"Yes, yes, yes! %(author_name)s commented on your wallpost.\n"
+"\n"
+"Click the link below to go to our website:\n"
+"\n"
+"%(site)s%(link)s\n"
+"\n"
+"See you in a bit!\n"
+"\n"
+"Liane | 1%%Club\n"
+"\n"
+msgstr "\nHallo %(receiver_name)s,\n\n%(author_name)s heeft een reactie geplaatst op je bericht.\n\nKlik op deze link om het bericht te bekijken:\n\n%(site)s%(link)s\n\nGroet\n\n1%%Club\n\n"
+
+#: templates/fundraiser_wallpost_reaction_same_wallpost.mail.html:5
+#, python-format
+msgid ""
+"\n"
+"Hi %(receiver_name)s,<br/>\n"
+"<br/>\n"
+"<strong>%(author_name)s</strong> left a comment on your message! <a href=\"%(site)s%(link)s\">Read the comment here.</a><br/>\n"
+"<br/>\n"
+"Liane | 1%%Club\n"
+msgstr "\nHallo %(receiver_name)s,<br/>\n<br/>\n<strong>%(author_name)s</strong> heeft gereageerd op je bericht! <a href=\"%(site)s%(link)s\">Lees reactie</a><br/>\n<br/>\n1%%Club\n"
+
+#: templates/fundraiser_wallpost_reaction_same_wallpost.mail.txt:5
+#, python-format
+msgid ""
+"\n"
+"Hi %(receiver_name)s,\n"
+"\n"
+"%(author_name)s left a comment on your message!\n"
+"\n"
+"Read the comment here:\n"
+"%(site)s%(link)s\n"
+"\n"
+"Liane | 1%%Club\n"
+msgstr "\nHallo %(receiver_name)s,\n\n%(author_name)s heeft gereageerd op je bericht!\n\nLees de reactie hier:\n%(site)s%(link)s\n\n1%%Club\n"
+
+#: templates/project_wallpost_reaction_project.mail.html:5
+#, python-format
+msgid ""
+"\n"
+"Hi %(receiver_name)s,<br/>\n"
+"<br/>\n"
+"<strong>%(author_name)s</strong> left a comment on your fundraiser page.<br/>\n"
+"<br/>\n"
+"<a href=\"%(site)s%(link)s\">Read the comment here</a> and continue the conversation!<br/>\n"
+"<br/>\n"
+"Liane | 1%%Club\n"
+msgstr "\nHallo %(receiver_name)s,<br/>\n<br/>\n<strong>%(author_name)s</strong> heeft een bericht geschreven op je fundraise pagina.<br/>\n<br/>\n<a href=\"%(site)s%(link)s\">Lees hier</a> het bericht!<br/>\n<br/>\n1%%Club\n"
+
+#: templates/project_wallpost_reaction_project.mail.txt:5
+#, python-format
+msgid ""
+"\n"
+"Hi %(receiver_name)s,\n"
+"\n"
+"%(author_name)s left a comment on your fundraiser page.\n"
+"\n"
+"Read the comment on our website and continue the conversation:\n"
+"%(site)s%(link)s\n"
+"\n"
+"Liane | 1%%Club\n"
+msgstr "\nHallo %(receiver_name)s,\n\n%(author_name)s heeft aam bericht geschreven op je fundraise pagina.\n\nLees hier het bericht:\n%(site)s%(link)s\n\n1%%Club\n"
+
 #: templates/fundraisers/fundraiser.hbs:25
 msgid "Edit Fundraiser"
 msgstr "Edit fundraiser"
@@ -97,7 +237,7 @@ msgstr "Fundraiser"
 #: templates/fundraisers/fundraiser.hbs:64
 #: templates/fundraisers/fundraiser.hbs:91
 msgid "deadline passed"
-msgstr ""
+msgstr "deadline verlopen"
 
 #: templates/fundraisers/fundraiser.hbs:68
 msgid "Support"
@@ -222,7 +362,7 @@ msgstr "Because you're fundraising for this campaign:"
 
 #: templates/fundraisers/fundraiser_form.hbs:19
 msgid "Profile Picture"
-msgstr ""
+msgstr "Profiel Afbeelding"
 
 #: templates/fundraisers/fundraiser_form.hbs:30
 #: templates/generic/form_imagefield.html:10

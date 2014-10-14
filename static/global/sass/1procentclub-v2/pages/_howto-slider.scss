@@ -1,0 +1,193 @@
+#howto-slider {
+    min-height: 625px;
+
+    .carousel {
+        background: none;
+        height: 625px!important;
+    }
+    
+    h4 {
+        color: $color-primary;
+        text-transform: none;
+
+        big {
+            margin-right: 10px;
+            padding: 2px 8px 2px 8px;
+            background: $color-primary;
+            color: $white;
+            border-radius: 4px;
+        }
+    }
+
+    .slider-header {
+        position: absolute;
+        margin-top: 24px;
+        width: 100%;
+        text-align: center;
+        z-index: 1;
+    }
+
+    ul {
+        padding-top: 30px; 
+    }
+
+    h3 {
+        text-transform: none;
+        color: $color-secondary;
+        font-size: 28px;
+
+        big {
+            background: $color-secondary;
+            color: $white;
+            padding: 8px;
+            border-radius: 4px;
+        }
+    }
+
+    .slide-content {
+        width: 100%;
+
+        .slide-hr {
+            width: 80%;
+            margin: 60px auto;
+            display: block;
+
+            @include breakpoint(x-large) {
+                margin: 10px auto;
+            }
+
+        }
+
+        .content-section {
+            margin-top: 50px;
+            width: 80%;
+            text-align: left;
+            color: $gray;
+
+            p {
+                font-size: 18px;
+                line-height: 26px;
+                color: #444;
+                margin-top: 15px;
+            }
+
+            ul {
+                padding: 0;
+                list-style-type: square;
+
+                li {
+                    padding-left: 1.3em;
+                    margin: .3em 0;
+                    background: url("/static/assets/icons/flaticons_stroke/SVGs/right-green-1.svg") transparent no-repeat 0 10px;
+                    line-height: 28px;
+                    font-size: 15px;
+                    height: inherit;
+                    text-align: left;
+                    color: #444;
+                }
+            }
+        }
+
+        .icon-section {
+            float: right;
+            margin: 50px 0 0 0;
+            background-size: 80%!important; 
+
+            &.clipboard {
+                width: 199px;
+                height: 261px;
+                background: image-url("img/howto/icon-clipboard.svg") transparent no-repeat 50% 49%;
+            }
+
+            &.rocket {
+                width: 202px;
+                height: 317px;
+                background: image-url("img/howto/icon-rocket.svg") transparent no-repeat 50% 49%;
+            }
+
+            &.arrows {
+                width: 233px;
+                height: 261px;
+                background: image-url("img/howto/icon-arrows.svg") transparent no-repeat 50% 49%;
+            }
+
+            &.chart {
+                width: 250px;
+                height: 275px;
+                background: image-url("img/howto/icon-chart.svg") transparent no-repeat 50% 49%;
+            }
+
+            &.clock {
+                width: 288px;
+                height: 267px;
+                background: image-url("img/howto/icon-clock.svg") transparent no-repeat 50% 49%;
+            }
+
+            &.lamp {
+                width: 279px;
+                height: 253px;
+                background: image-url("img/howto/icon-lamp.svg") transparent no-repeat 50% 49%;
+            }
+
+            &.mag {
+                width: 214px;
+                height: 292px;
+                background: image-url("img/howto/icon-mag.svg") transparent no-repeat 50% 49%;
+            }
+
+            &.mail-paper {
+                width: 238px;
+                height: 291px;
+                background: image-url("img/howto/icon-mail-paper.svg") transparent no-repeat 50% 49%;
+            }
+
+            &.mail {
+                width: 249px;
+                height: 154px;
+                background: image-url("img/howto/icon-mail.svg") transparent no-repeat 50% 49%;
+            }
+
+            &.money {
+                width: 210px;
+                height: 274px;
+                background: image-url("img/howto/icon-money.svg") transparent no-repeat 50% 49%;
+            }
+
+            &.paper {
+                width: 264px;
+                height: 268px;
+                background: image-url("img/howto/icon-paper.svg") transparent no-repeat 50% 49%;
+            }
+
+            &.pins {
+                width: 253px;
+                height: 188px;
+                background: image-url("img/howto/icon-pins.svg") transparent no-repeat 50% 49%;
+            }
+        }
+    }
+
+    .carousel-nav-arrow {
+        position: absolute;
+        display: block;
+        top: 32%;
+        width: 43px;
+        height: 75px;
+        cursor: pointer;
+
+        @include breakpoint(x-large) {
+            display: none;
+        }
+
+        &.left {
+            left: 10%;
+            background: image-url("img/howto/icon-arrow-left.svg") transparent no-repeat 50% 49%;
+        }
+
+        &.right {
+            right: 10%;
+            background: image-url("img/howto/icon-arrow.svg") transparent no-repeat 50% 49%;
+        }
+    }
+
+}

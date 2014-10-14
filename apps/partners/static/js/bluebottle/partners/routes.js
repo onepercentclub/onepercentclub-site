@@ -8,6 +8,7 @@ App.Router.map(function(){
         this.route('projects', {path: '/projects'});
     });
 	this.resource('business');
+    this.resource('crowdfunding');
 });
 
 App.PartnerRoute = Em.Route.extend(App.SubMenuMixin, {
@@ -51,3 +52,5 @@ App.BusinessRoute = Em.Route.extend(App.ScrollToTop, {
 
 });
 
+
+App.CrowdfundingRoute = Em.Route.extend(App.ScrollToTop);
