@@ -94,9 +94,9 @@ case "$1" in
             $MANAGE_PY makemessages -l $SOURCE_LANGUAGE $INCLUDES --no-wrap -e hbs,html,txt $SETTINGS
 
 
-            echo "Generating PO-files for wallposts, partners, pages, news and homepage, and utils and common in BB"
+            echo "Generating PO-files for the widget, wallposts, partners, pages, news and homepage, and utils and common in BB"
             cd "$APPS_ROOT/homepage"
-            INCLUDES=" --include=$ROOT/templates --include=$APPS_ROOT/core/ --include=$BB_ROOT/wallposts --include=$BB_ROOT/pages --include=$BB_ROOT/quotes --include=$BB_ROOT/slides --include=$BB_ROOT/contact --include=$BB_ROOT/news --include=$BB_ROOT/utils --include=$BB_ROOT/common --include=$APPS_ROOT/partners "
+            INCLUDES=" --include=$ROOT/templates --include=$APPS_ROOT/core/ --include=$APPS_ROOT/widget/ --include=$BB_ROOT/wallposts --include=$BB_ROOT/pages --include=$BB_ROOT/quotes --include=$BB_ROOT/slides --include=$BB_ROOT/contact --include=$BB_ROOT/news --include=$BB_ROOT/utils --include=$BB_ROOT/common --include=$APPS_ROOT/partners "
             # Make the locale dir if it's not there.
             if [ ! -d "locale" ]; then
                 mkdir "locale"
@@ -111,20 +111,6 @@ case "$1" in
             # Remove the old translations
             rm locale/en/LC_MESSAGES/django.po
             INCLUDES="--include=$APPS_ROOT/fund --include=$APPS_ROOT/payouts --include=$APPS_ROOT/cowry --include=$APPS_ROOT/cowry_docdata --include=$APPS_ROOT/cowry_docdata_legacy"
-            # Make the locale dir if it's not there.
-            if [ ! -d "locale" ]; then
-                mkdir "locale"
-            fi
-            # Remove the old translations
-            rm locale/en/LC_MESSAGES/django.po
-            $MANAGE_PY makemessages -l $SOURCE_LANGUAGE $INCLUDES --no-wrap -e hbs,html,txt $SETTINGS
-
-
-            echo "Generating PO-files for the widget"
-            cd "$APPS_ROOT/widget"
-            # Remove the old translations
-            rm locale/en/LC_MESSAGES/django.po
-            INCLUDES="--include=$APPS_ROOT/widget"
             # Make the locale dir if it's not there.
             if [ ! -d "locale" ]; then
                 mkdir "locale"
