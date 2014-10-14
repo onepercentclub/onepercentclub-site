@@ -306,6 +306,11 @@ class Project(BaseProject):
 
         return tweet
 
+    @property
+    def image_url(self):
+        if self.image and hasattr(self.image, 'url'):
+            return self.image.url
+
     class Meta(BaseProject.Meta):
         ordering = ['title']
         default_serializer = 'apps.projects.serializers.ProjectSerializer'
