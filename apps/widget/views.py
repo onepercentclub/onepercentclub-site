@@ -15,14 +15,18 @@ class WidgetView(View):
         height = request.GET.get('height', None)
         width  = request.GET.get('width', None)
         partner = request.GET.get('partner', None)
+        
+        projects = None
 
-        if id:
+        if id and not partner:
             try:
-                projects = Project.objects.filter(id=id)
+                projects = Project.filter(id=id) #Enforce that we always get a QuerySet for use in the template
             except Project.DoesNotExist:
-                projects = None
+                pass
+        elif partner:
+            projects = Project.objects.filter(partner_organization__slug=partner).order_by('?')[:3]
         else:
-            projects = Project.objects.all()[0:10]
+            projects = Project.objects.all().order_by('?')[:3]            
 
         html = render_to_string(self.template, locals())
         response_data = "%s ( {'html': %s } )" % (callback, json.dumps(html))
