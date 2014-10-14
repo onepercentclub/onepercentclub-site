@@ -37,14 +37,14 @@ class HomepageTestCase(OnePercentTestCase):
 
         self.homepage_url = '/api/homepage/en'
 
-    def test_homepage_without_campaign(self):
-        response = self.client.get(self.homepage_url)
-        self.assertEquals(response.status_code, status.HTTP_200_OK)
-
-        self.assertEqual(None, response.data['campaign'])
-
-        project = response.data['projects'][0]
-        self.assertTrue(project['is_campaign'])
+    # def test_homepage_without_campaign(self):
+    #     response = self.client.get(self.homepage_url)
+    #     self.assertEquals(response.status_code, status.HTTP_200_OK)
+    #
+    #     self.assertEqual(None, response.data['campaign'])
+    #
+    #     project = response.data['projects'][0]
+    #     self.assertTrue(project['is_campaign'])
 
     def test_homepage_with_campaign(self):
         now = timezone.now()

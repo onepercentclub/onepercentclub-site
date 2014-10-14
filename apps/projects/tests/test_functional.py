@@ -222,9 +222,6 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
                 ]
             }
 
-    def tearDown(self):
-        self.logout()
-
     def test_create_project(self):
         """
         Creating a project. The positive flow.

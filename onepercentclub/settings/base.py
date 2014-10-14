@@ -279,6 +279,12 @@ INSTALLED_APPS = (
     'bluebottle.payments_logger',
     'bluebottle.redirects',
 
+    # Apps extending Bluebottle base models
+    # These should be before there Bb parents so the templates are overridden
+    'apps.members',
+    'apps.tasks',
+    'apps.projects',
+    'apps.organizations',
 
     # Bluebottle apps with abstract models
     'bluebottle.bb_accounts',
@@ -295,12 +301,6 @@ INSTALLED_APPS = (
     'bluebottle.donations',
     'bluebottle.orders',
     'bluebottle.payouts',
-
-    # Apps extending Bluebottle base models
-    'apps.members',
-    'apps.tasks',
-    'apps.projects',
-    'apps.organizations',
 
     # apps overriding bluebottle functionality should come before the bluebottle entries
     # (template loaders pick the first template they find)

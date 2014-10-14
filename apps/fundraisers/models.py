@@ -1,3 +1,4 @@
+from decimal import Decimal
 from bluebottle.utils.utils import StatusDefinition
 from django.conf import settings
 from django.db import models
@@ -33,13 +34,12 @@ class FundRaiser(models.Model):
 
     @property
     def amount_donated(self):
-        # FIXME: Removed import of DonationStatuses because it was resulting in circular imports.
         valid_statuses = [StatusDefinition.PENDING, StatusDefinition.PAID]
         donations = self.donation_set.filter(order__status__in=valid_statuses)
         if donations:
             total = donations.aggregate(sum=Sum('amount'))
             return total['sum']
-        return '000'
+        return Decimal('0.00')
 
     def get_meta_title(self, **kwargs):
         return self.title
