@@ -265,8 +265,6 @@ def generate_users_csv_file(path, loglevel):
                                     int(user.is_active),
                                     date_deleted,
                                     member_since,
-                                    # user.why.encode("utf-8"),
-                                    # user.about.encode("utf-8"),
                                     user.location.encode("utf-8"),
                                     birth_date,
                                     user.email.encode("utf-8"),
@@ -314,7 +312,6 @@ def generate_projects_csv_file(path, loglevel):
 
         csvwriter.writerow(["Project_External_ID__c",
                             "Project_name__c",
-                            # "Describe_the_project_in_one_sentence__c",
                             "NumerOfPeopleReachedDirect__c",
                             "VideoURL__c",
                             "Date_project_deadline__c",
@@ -323,10 +320,6 @@ def generate_projects_csv_file(path, loglevel):
                             "Amount_at_the_moment__c",
                             "Amount_still_needed__c",
                             "Allow_Overfunding__c",
-                            # "Story__c",
-                            # "Contribution_project_in_reducing_poverty__c",
-                            # "Target_group_s_of_the_project__c",
-                            # "Sustainability__c",
                             "Date_plan_submitted",
                             "Date_Started__c",
                             "Date_Ended__c",
@@ -527,19 +520,19 @@ def generate_donations_csv_file(path, loglevel):
                         if lp.latest_docdata_payment.payment_method in payment_method_mapping:
                             payment_method = payment_method_mapping[lp.latest_docdata_payment.payment_method]
 
-                csvwriter.writerow([donation.id,                                            # Donation_External_ID__c
-                                    donor_id,                                            # Donor__c
-                                    project_id,                                             # Project__c
-                                    '%01.2f' % (float(donation.amount) / 100),              # Amount
-                                    donation.created.date().strftime("%Y-%m-%dT%H:%M:%S.000Z"),          # CloseDate
-                                    name.encode("utf-8"),                                   # Name
-                                    DonationStatuses.values[donation.status].title(),       # StageName
-                                    donation.DonationTypes.values[donation.donation_type].title(),  # Type
+                csvwriter.writerow([donation.id,
+                                    donor_id,
+                                    project_id,
+                                    '%01.2f' % (float(donation.amount) / 100),
+                                    donation.created.date().strftime("%Y-%m-%dT%H:%M:%S.000Z"),
+                                    name.encode("utf-8"),
+                                    DonationStatuses.values[donation.status].title(),
+                                    donation.DonationTypes.values[donation.donation_type].title(),
                                     donation.created.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
                                     donation.updated.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
                                     donation_ready,
-                                    payment_method.encode("utf-8"),                         # Payment_method__c
-                                    '012A0000000ZK6FIAW',                                   # RecordTypeId
+                                    payment_method.encode("utf-8"),
+                                    '012A0000000ZK6FIAW',
                                     fundraiser_id])
 
                 success_count += 1
@@ -574,14 +567,14 @@ def generate_vouchers_csv_file(path, loglevel):
                 else:
                     name = "1%MEMBER"
 
-                csvwriter.writerow([voucher.id,                                             # Voucher_External_ID__c
-                                    voucher.sender.id,                                      # Purchaser__c
-                                    '%01.2f' % (float(voucher.amount) / 100),               # Amount
-                                    voucher.created.date(),                                 # CloseDate
-                                    name.encode("utf-8"),                                   # Name
-                                    voucher.message.encode("utf-8"),                        # Description
-                                    VoucherStatuses.values[voucher.status].title(),         # StageName
-                                    '012A0000000BxfHIAS'])                                  # RecordTypeId
+                csvwriter.writerow([voucher.id,
+                                    voucher.sender.id,
+                                    '%01.2f' % (float(voucher.amount) / 100),
+                                    voucher.created.date(),
+                                    name.encode("utf-8"),
+                                    voucher.message.encode("utf-8"),
+                                    VoucherStatuses.values[voucher.status].title(),
+                                    '012A0000000BxfHIAS'])
                 success_count += 1
             except Exception as e:
                 error_count += 1

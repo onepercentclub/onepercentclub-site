@@ -19,8 +19,7 @@ from apps.bluebottle_salesforce.models import SalesforceOrganization, Salesforce
 USER_MODEL = get_user_model()
 PROJECT_MODEL = get_project_model()
 logger = logging.getLogger('bluebottle.salesforce')
-
-val = re.compile("^[A-Z0-9._%+-/!#$%&'*=?^_`{|}~]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$")
+re_email = re.compile("^[A-Z0-9._%+-/!#$%&'*=?^_`{|}~]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$")
 
 
 def sync_organizations(dry_run, sync_from_datetime, loglevel):
@@ -59,7 +58,7 @@ def sync_organizations(dry_run, sync_from_datetime, loglevel):
         else:
             sforganization.billing_country = ''
 
-        if organization.email and val.match(organization.email.upper()):
+        if organization.email and re_email.match(organization.email.upper()):
             sforganization.email_address = organization.email
         elif organization.email:
             logger.error("Organization has invalid e-mail address '{0}', org id {1}. "
@@ -140,7 +139,7 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
         contact.external_id = user.id
         contact.user_name = user.username
 
-        if val.match(user.email.upper()):
+        if re_email.match(user.email.upper()):
             contact.email = user.email
         else:
             logger.error("User has invalid e-mail address '{0}', member id {1}. "
@@ -279,8 +278,6 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
         sfproject.project_name = project.title
         sfproject.describe_the_project_in_one_sentence = project.pitch[:5000]
 
-        # sfproject.number_of_people_reached_direct = project.reach
-
         sfproject.video_url = project.video_url
 
         sfproject.date_project_deadline = project.deadline or None
@@ -290,11 +287,6 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
         sfproject.amount_still_needed = "%01.2f" % (project.amount_needed or 0)
         sfproject.allow_overfunding = project.allow_overfunding
         sfproject.story = project.story
-
-        # sfproject.target_group_s_of_the_project = project.for_who
-        # sfproject.sustainability = project.future
-        # sfproject.contribution_project_in_reducing_poverty = project.effects
-        # sfproject.describe_where_the_money_is_needed_for = project.amount_needed
 
         sfproject.date_plan_submitted = project.date_submitted
         sfproject.date_started = project.campaign_started
@@ -477,7 +469,6 @@ def sync_donations(dry_run, sync_from_datetime, loglevel):
 
     donations = Donation.objects.all()
     if sync_from_datetime:
-        # donations = donations.filter(updated__gte=sync_from_datetime, status='paid')
         donations = donations.filter(updated__gte=sync_from_datetime)
 
     logger.info("Syncing {0} Donation objects.".format(donations.count()))
@@ -578,12 +569,6 @@ def sync_vouchers(dry_run, sync_from_datetime, loglevel):
         except SalesforceContact.DoesNotExist:
             logger.error("Unable to find purchaser contact id {0} in Salesforce for voucher id {1}".format(
                 voucher.sender_id, voucher.id))
-
-        # TODO: There should be a voucher.project.id, else remove from (parent) models
-        # sfvoucher.project = SalesforceProject.objects.get(external_id=1)
-
-        # TODO: There should be a voucher.receiver.id, , else remove from (parent) models
-        # sfvoucher.receiver = SalesforceContact.objects.get(external_id=1)
 
         # SF Layout: Donation Information section.
         sfvoucher.amount = "%01.2f" % (float(voucher.amount) / 100)
