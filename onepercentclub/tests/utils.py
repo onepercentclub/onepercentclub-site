@@ -66,6 +66,9 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
         self.init_projects()
         self.visit_homepage()
 
+        if self.browser.is_text_present('My 1%'):
+            self.logout()
+
         # Find the link to the signup button page and click it.
         self.scroll_to_and_click_by_css('.nav-signup-login a')
         self.wait_for_element_css('.modal-fullscreen-content')
@@ -77,7 +80,6 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
         self.wait_for_element_css("a[name=login]", timeout=10)
         self.scroll_to_and_click_by_css("a[name=login]")
 
-        # FIXME: We should be checking some other state, maybe something in Ember
         return self.browser.is_text_present('My 1%', wait_time=wait_time)
 
     def logout(self):
