@@ -227,6 +227,7 @@
 				font-family: $font-family-body;
 				font-weight: 700;
 				font-size: 1.13em;
+				color: rgb(60,60,60);
 				@include breakpoint(column) {
 					font-size: .8em;
 					line-height: 17px;

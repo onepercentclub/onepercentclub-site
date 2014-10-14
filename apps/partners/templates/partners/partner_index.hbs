@@ -5,16 +5,18 @@
 {% tplhandlebars "partner_index" %}
     <div class="l-section" id="partner-detail">
         <section class="l-wrapper">
+            <div class="row">
+                <div class="col12 partner-col">
+                    <figure class="image">
+                        <img {{bindAttr src="image.full"}} />
+                    </figure>
 
-            <figure class="image">
-                <img {{bindAttr src="image.large"}} />
-            </figure>
-
-            <article>
-                <h1>{{name}}</h1>
-                <p>{{linebreaks description formatting='br'}}</p>
-            </article>
-
+                    <article>
+                        <h1>{{name}}</h1>
+                        <p>{{linebreaks description formatting='br'}}</p>
+                    </article>
+                </div>
+            </div>
         </section>
 
         <section class="l-wrapper">
