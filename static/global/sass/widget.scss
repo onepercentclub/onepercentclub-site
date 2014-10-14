@@ -1,0 +1,32 @@
+
+/* Compass */
+@import "compass/utilities";
+@import "compass/reset";
+@import "compass/css3";
+
+/* Variables & Mixins */
+@import "variables";
+@import "mixins/grid";
+@import "mixins/campaigns-grid";
+@import "mixins/utilities";
+@import "mixins/keyframes";
+@import "mixins/animations";
+
+/* Base */
+@import "base/reset";
+@import "base/base";
+@import "base/type";
+@import "base/media";
+@import "states/states";
+
+/* Mixins */;
+@import "1procentclub-v2/mixins/breakpoints";
+@import "1procentclub-v2/mixins/grid";
+
+@import "1procentclub-v2/variables";
+@import "1procentclub-v2/base/base";
+
+/* target specific elements in campaign widget */ 
+#onepercent-campaign-widget {
+    @import "1procentclub-v2/modules/campaigns";
+}
