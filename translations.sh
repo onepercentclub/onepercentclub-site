@@ -29,7 +29,7 @@ COMPILEJSMESSAGES="$MANAGE_PY compilejsi18n $SETTINGS"
 APPS_DIR="apps"
 
 # All apps that hold translations. This is used by `pull` and `compile`.
-APPS="projects members fundraisers organizations tasks homepage donations"
+APPS="projects members fundraisers organizations tasks homepage donations widget"
 
 case "$1" in
         generate)
@@ -119,6 +119,19 @@ case "$1" in
             rm locale/en/LC_MESSAGES/django.po
             $MANAGE_PY makemessages -l $SOURCE_LANGUAGE $INCLUDES --no-wrap -e hbs,html,txt $SETTINGS
 
+
+            echo "Generating PO-files for the widget"
+            cd "$APPS_ROOT/widget"
+            # Remove the old translations
+            rm locale/en/LC_MESSAGES/django.po
+            INCLUDES="--include=$APPS_ROOT/widget"
+            # Make the locale dir if it's not there.
+            if [ ! -d "locale" ]; then
+                mkdir "locale"
+            fi
+            # Remove the old translations
+            rm locale/en/LC_MESSAGES/django.po
+            $MANAGE_PY makemessages -l $SOURCE_LANGUAGE $INCLUDES --no-wrap -e hbs,html,txt $SETTINGS
 
             echo "Generating PO-file for javascripts"
             cd "$APPS_ROOT/.."
