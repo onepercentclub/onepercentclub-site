@@ -138,7 +138,7 @@ class Project(BaseProject):
         from apps.fund.models import Donation
 
         last_month = timezone.now() - timezone.timedelta(days=30)
-        donations = Donation.objects.filter(order__status__in=['paid', 'pending'])
+        donations = Donation.objects.filter(order__status__in=[StatusDefinition.PENDING, StatusDefinition.PAID])
         donations = donations.exclude(donation_type='recurring')
         donations = donations.filter(created__gte=last_month)
 
@@ -222,14 +222,14 @@ class Project(BaseProject):
         # TODO: Replace this with a proper Supporters API
         # something like /projects/<slug>/donations
         donations = self.donation_set.objects.filter(project=self)
-        donations = donations.filter(status__in=['paid', 'pending'])
+        donations = donations.filter(order_status__in=[StatusDefinition.PENDING, StatusDefinition.PAID])
         donations = donations.filter(user__isnull=False)
         donations = donations.annotate(Count('user'))
         count = len(donations.all())
 
         if with_guests:
             donations = self.donation_set.objects.filter(project=self)
-            donations = donations.filter(status__in=['paid', 'pending'])
+            donations = donations.filter(order_status__in=[StatusDefinition.PENDING, StatusDefinition.PAID])
             donations = donations.filter(user__isnull=True)
             count = count + len(donations.all())
         return count
