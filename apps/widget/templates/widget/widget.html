@@ -10,7 +10,7 @@
 </style>
 {% for project in projects %}
     <div class="campaign-item">
-        <a href="https://onepercentclub.com/go/projects/{{project.slug}}" class="campaign-item-holder">
+        <a href="https://{{ request.get_host }}/go/projects/{{project.slug}}" class="campaign-item-holder">
             <header class="header">
                 {% thumbnail project.image "400x380" as im %}
                     <img src="https://{{ request.get_host }}{{ im.url }}" />
