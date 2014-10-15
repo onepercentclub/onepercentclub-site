@@ -25,7 +25,6 @@ def generate_organizations_csv_file(path, loglevel):
     error_count = 0
     success_count = 0
 
-    #filename = 'BLUE2SFDC_Organizations_{0}.csv'.format(timezone.localtime(timezone.now()).strftime('%Y%m%d'))
     filename = 'BLUE2SFDC_Organizations.csv'
     with open(os.path.join(path, filename), 'wb') as csv_outfile:
         csvwriter = csv.writer(csv_outfile, quoting=csv.QUOTE_MINIMAL)
@@ -133,7 +132,6 @@ def generate_users_csv_file(path, loglevel):
     error_count = 0
     success_count = 0
 
-    #filename = 'BLUE2SFDC_Users_{0}.csv'.format(timezone.localtime(timezone.now()).strftime('%Y%m%d'))
     filename = 'BLUE2SFDC_Users.csv'
     with open(os.path.join(path, filename), 'wb') as csv_outfile:
         csvwriter = csv.writer(csv_outfile, quoting=csv.QUOTE_ALL)
@@ -595,7 +593,6 @@ def generate_tasks_csv_file(path, loglevel):
         csvwriter.writerow(["Task_External_ID__c",
                             "Project__c",
                             "Deadline__c",
-                            # "Extended_task_description__c",
                             "Location_of_the_task__c",
                             "Task_expertise__c",
                             "Task_status__c",
@@ -604,7 +601,6 @@ def generate_tasks_csv_file(path, loglevel):
                             "Tags__c",
                             "Effort__c",
                             "People_Needed__c",
-                            # "End_Goal__c",
                             "Author__c",
                             "Date_realized__c"])
 
@@ -634,7 +630,6 @@ def generate_tasks_csv_file(path, loglevel):
                 csvwriter.writerow([task.id,
                                     task.project.id,
                                     task.deadline.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
-                                    #task.description.encode("utf-8"),
                                     task.location.encode("utf-8"),
                                     skill,
                                     task.status.encode("utf-8"),
@@ -643,7 +638,6 @@ def generate_tasks_csv_file(path, loglevel):
                                     tags,
                                     task.time_needed.encode("utf-8"),
                                     task.people_needed,
-                                    # task.end_goal.encode("utf-8"),
                                     author,
                                     date_realized])
                 success_count += 1
@@ -667,7 +661,6 @@ def generate_taskmembers_csv_file(path, loglevel):
                             "Contacts__c",
                             "X1_CLUB_Task__c",
                             "Status__c",
-                            # "Motivation__c",
                             "Taskmember_Created_Date__c"])
 
         taskmembers = TaskMember.objects.all()
@@ -680,7 +673,6 @@ def generate_taskmembers_csv_file(path, loglevel):
                                     taskmember.member.id,
                                     taskmember.task.id,
                                     taskmember.status.encode("utf-8"),
-                                    # taskmember.motivation.encode("utf-8"),
                                     taskmember.created.strftime("%Y-%m-%dT%H:%M:%S.000Z")])
                 success_count += 1
             except Exception as e:
@@ -703,7 +695,6 @@ def generate_fundraisers_csv_file(path, loglevel):
                             "Name",
                             "Owner__c",
                             "Project__c",
-                            #"Description__c",
                             "Picture_Location__c",
                             "VideoURL__c",
                             "Amount__c",
@@ -720,7 +711,6 @@ def generate_fundraisers_csv_file(path, loglevel):
                                     fundraiser.title.encode("utf-8"),
                                     fundraiser.owner.id,
                                     fundraiser.project.id,
-                                    #fundraiser.description.encode("utf-8"),
                                     fundraiser.image,
                                     fundraiser.video_url,
                                     '%01.2f' % (float(fundraiser.amount) / 100),
