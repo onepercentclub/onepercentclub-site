@@ -4,6 +4,7 @@ from decimal import Decimal
 from apps.cowry_docdata.models import DocDataPaymentOrder
 from bluebottle.payments_docdata.models import DocdataPayment
 from bluebottle.utils.utils import StatusDefinition
+from django.contrib.contenttypes.models import ContentType
 from django.db.models.aggregates import Sum
 from django.db.utils import DatabaseError
 from south.db import db
@@ -112,10 +113,12 @@ class Migration(DataMigration):
     def forwards(self, orm):
         "Write your forwards methods here."
         start = 0
-        old_orders = orm['fund.Order'].objects.all()[start:1000]
+        old_orders = orm['fund.Order'].objects.all()[start:100]
 
-        docdata_payment_type_id = orm['contenttypes.ContentType'].objects.get(app_label='payments_docdata',
-                                                                              model='docdatapayment').id
+        # Apparently we need to explicitly set ctypes for polymorphic models, so get the ids here.
+        content_types = orm['contenttypes.ContentType'].objects
+        docdata_payment_type_id = content_types.get(app_label='payments_docdata', model='docdatapayment').id
+        docdata_transaction_type_id = content_types.get(app_label='payments_docdata', model='docdatatransaction').id
 
         t = 0
         # Iterate over orders
@@ -188,19 +191,34 @@ class Migration(DataMigration):
                                 payment_cluster_key=old_payment.payment_order_id,
                                 merchant_order_id=old_payment.merchant_order_reference,
                                 total_gross_amount=old_payment.amount,
-                                default_pm=dd_payment.payment_method
+                                default_pm=dd_payment.payment_method,
+                                polymorphic_ctype_id=docdata_payment_type_id
                             )
-                            payment.polymorphic_ctype_id = docdata_payment_type_id
                             payment.save()
+                            for old_transaction in old_payment.docdata_payments.all():
+                                if old_transaction.payment_id:
+                                    transaction = orm['payments_docdata.DocdataTransaction'].objects.create(
+                                        payment=payment,
+                                        docdata_id=old_transaction.payment_id,
+                                        status=old_transaction.status,
+                                        created=old_transaction.created,
+                                        updated=old_transaction.updated,
+                                        payment_method=old_transaction.payment_method
+                                    )
+                                    transaction.polymorphic_ctype_id = docdata_transaction_type_id
+                                    transaction.payment_method = old_transaction.payment_method
+                                    transaction.save()
+
                         except Exception as e:
                             print e
-
 
     def backwards(self, orm):
         "Write your backwards methods here."
         orm['donations.Donation'].objects.all().delete()
         orm['payments.OrderPayment'].objects.all().delete()
         orm['orders.Order'].objects.all().delete()
+        orm['payments_docdata.DocdataPayment'].objects.all().delete()
+        orm['payments_docdata.DocdataTransaction'].objects.all().delete()
 
     models = {
         u'auth.group': {

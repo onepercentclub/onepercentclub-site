@@ -252,11 +252,11 @@ class Project(BaseProject):
 
     @property
     def amount_pending(self):
-        return self.get_money_total(['pending']) / 100
+        return self.get_money_total(StatusDefinition.PENDING)
 
     @property
     def amount_safe(self):
-        return self.get_money_total(['paid']) / 100
+        return self.get_money_total(StatusDefinition.PAID)
 
     @models.permalink
     def get_absolute_url(self):
