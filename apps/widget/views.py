@@ -1,3 +1,4 @@
+from bluebottle.bb_projects.models import ProjectPhase
 from django.template.loader import render_to_string
 from django.http import HttpResponse
 from django.views.generic import View
@@ -5,6 +6,7 @@ from django.utils import timezone
 from django.utils import translation
 from apps.projects.models import Project
 import json
+
 
 class WidgetView(View):
     template = "widget/widget.html"
@@ -18,7 +20,11 @@ class WidgetView(View):
         id = request.GET.get('id', None)
         height = request.GET.get('height', None)
         width  = request.GET.get('width', None)
+        widget = request.GET.get('widget', 'project')
+
         partner = request.GET.get('partner', None)
+        project_slug = request.GET.get('project', None)
+
         language = request.GET.get('language', None)
 
         if language:
@@ -28,13 +34,15 @@ class WidgetView(View):
         projects = None
         now = timezone.now()
 
-        if id and not partner:
+        allowed_phases = ProjectPhase.objects.filter(slug__in=['running', 'campaign'])
+
+        if project_slug:
             try:
-                projects = Project.filter(id=id, deadline__gt=now) #Enforce that we always get a QuerySet for use in the template
+                projects = Project.objects.filter(slug=project_slug)
             except Project.DoesNotExist:
                 pass
         elif partner:
-            projects = Project.objects.filter(partner_organization__slug=partner, deadline__gt=now).order_by('?')[:3]
+            projects = Project.objects.filter(partner_organization__slug=partner, status__in=allowed_phases).order_by('?')[:3]
         else:
             projects = Project.objects.filter(deadline__gt=now).order_by('?')[:3]            
 
@@ -43,4 +51,5 @@ class WidgetView(View):
         #Re-activate the previous language
         translation.activate(cur_language)
         response_data = "%s ( {'html': %s } )" % (callback, json.dumps(html))
-        return HttpResponse(response_data, content_type="text/javascript") 
+        return HttpResponse(response_data, content_type="text/javascript")
+

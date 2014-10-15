@@ -33,8 +33,6 @@
 @import "1procentclub-v2/variables";
 @import "1procentclub-v2/base/base";
 
-/* target specific elements in campaign widget */ 
-#onepercent-campaign-widget {
-    @import "1procentclub-v2/modules/campaigns";
-}
+@import "1procentclub-v2/modules/widgets";
+
 
