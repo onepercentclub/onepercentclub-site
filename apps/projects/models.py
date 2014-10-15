@@ -174,7 +174,7 @@ class Project(BaseProject):
     def update_money_donated(self, save=True):
         """ Update amount based on paid and pending donations. """
 
-        self.amount_donated = self.get_money_total([StatusDefinition.PENDING, StatusDefinition.PAID]) / 100
+        self.amount_donated = self.get_money_total([StatusDefinition.PENDING, StatusDefinition.PAID])
 
         if self.mchanga_fundraiser:
             kes = self.mchanga_fundraiser.current_amount
@@ -252,11 +252,11 @@ class Project(BaseProject):
 
     @property
     def amount_pending(self):
-        return self.get_money_total(['pending']) / 100
+        return self.get_money_total(StatusDefinition.PENDING)
 
     @property
     def amount_safe(self):
-        return self.get_money_total(['paid']) / 100
+        return self.get_money_total(StatusDefinition.PAID)
 
     @models.permalink
     def get_absolute_url(self):
