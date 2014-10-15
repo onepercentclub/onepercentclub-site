@@ -46,6 +46,12 @@ class WidgetView(View):
         else:
             projects = Project.objects.filter(deadline__gt=now).order_by('?')[:3]            
 
+        if 'localhost' in request.get_host():
+            host = 'http://' + request.get_host()
+        else:
+            host = 'https://' +request.get_host()
+
+
         html = render_to_string(self.template, locals())
 
         #Re-activate the previous language

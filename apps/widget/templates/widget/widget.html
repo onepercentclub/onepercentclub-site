@@ -10,15 +10,15 @@
 </style>
 {% for project in projects %}
     <div class="campaign-item">
-        <a href="https://{{ request.get_host }}/go/projects/{{project.slug}}" class="campaign-item-holder">
+        <a href="{{ host }}/go/projects/{{project.slug}}" class="campaign-item-holder">
             <header class="header">
                 {% thumbnail project.image "400x380" as im %}
-                    <img src="https://{{ request.get_host }}{{ im.url }}" />
+                    <img src="{{ host }}{{ im.url }}" />
                 {% endthumbnail %}
             </header>
             <span class="profile-photo">
                 {% thumbnail project.owner.picture "120x120" colorspace="GRAY" as im %}
-                    <img src="https://{{ request.get_host }}{{ im.url }}" />
+                    <img src="{{ host }}{{ im.url }}" />
                 {% endthumbnail %}
             </span>
             <div class="campaign-body">
