@@ -112,7 +112,10 @@ class Migration(DataMigration):
     def forwards(self, orm):
         "Write your forwards methods here."
         start = 0
-        old_orders = orm['fund.Order'].objects.all()[start:]
+        old_orders = orm['fund.Order'].objects.all()[start:1000]
+
+        docdata_payment_type_id = orm['contenttypes.ContentType'].objects.get(app_label='payments_docdata',
+                                                                              model='docdatapayment').id
 
         t = 0
         # Iterate over orders
@@ -187,7 +190,7 @@ class Migration(DataMigration):
                                 total_gross_amount=old_payment.amount,
                                 default_pm=dd_payment.payment_method
                             )
-                            payment.polymorphic_ctype_id = 220
+                            payment.polymorphic_ctype_id = docdata_payment_type_id
                             payment.save()
                         except Exception as e:
                             print e

@@ -40,8 +40,8 @@ class FundRaiserSerializer(serializers.ModelSerializer):
     owner = UserPreviewSerializer(read_only=True)
     project = serializers.SlugRelatedField(source='project', slug_field='slug')
     image = ImageSerializerExt(required=False)
-    amount = EuroField()
-    amount_donated = EuroField(source='amount_donated', read_only=True)
+    amount = serializers.DecimalField(source='amount')
+    amount_donated = serializers.DecimalField(source='amount_donated', read_only=True)
     video_html = OEmbedField(source='video_url', maxwidth='560', maxheight='315')
 
     meta_data = MetaField(

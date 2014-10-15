@@ -5,7 +5,7 @@ Functional tests using Selenium.
 See: ``docs/testing/selenium.rst`` for details.
 """
 from decimal import Decimal
-from bluebottle.bb_projects.models import ProjectPhase
+from bluebottle.bb_projects.models import ProjectPhase, ProjectTheme
 from bluebottle.utils.models import Language
 from django.conf import settings
 from django.utils.text import slugify
@@ -204,6 +204,9 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         self.country_1 = CountryFactory.create(name="Afghanistan")
         self.country_2 = CountryFactory.create(name="Albania")
 
+        self.theme = ProjectTheme.objects.all()[0]
+        self.language = Language.objects.all()[0]
+
         self.login(self.user.email, 'testing')
 
         self.project_data = {
@@ -221,9 +224,6 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
                 {'description': 'Jama Jurnoader', 'amount': 500}
                 ]
             }
-
-    def tearDown(self):
-        self.logout()
 
     def test_create_project(self):
         """
@@ -248,21 +248,24 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         ###
         time.sleep(3)
 
-        self.browser.select('language', 2)
+        self.browser.select('language', self.language.id)
         self.assertTrue(self.is_visible('input[name="title"]'))
         self.browser.fill('title', self.project_data['title'])
         self.browser.fill('pitch', self.project_data['pitch'])
 
         btn = self.browser.attach_file('img_upload', '{0}/apps/projects/test_images/upload.png'.format(settings.PROJECT_ROOT))
 
+        self.browser.find_by_css('.map-look-up input').type('Lyutidol')
+        self.browser.find_by_css('.map-look-up button').click()
+
         # Splinter takes the value of the select option
-        self.browser.select('theme', 2)
+        self.browser.select('theme', self.theme.id)
 
         for tag in self.project_data['tags']:
             self.browser.fill('tag', tag)
             self.browser.find_by_css("button.add-tag").first.click()
 
-        self.browser.select('country', 1)
+        self.browser.select('country', self.country_1.id)
 
         self.scroll_to_and_click_by_css("button.next")
 
@@ -468,7 +471,7 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
         self.wait_for_element_css('article.wallpost')
         post = self.browser.find_by_css("article.wallpost").first
 
-        self.assertEqual(post.find_by_css('.wallpost-author').text, self.user.full_name().upper())
+        self.assertEqual(post.find_by_css('.wallpost-author').text, self.user.full_name.upper())
         # FIXME: re-enable this test
         # self.assertEqual(post.find_by_css('.text p').text, self.post1['text'])
 
@@ -480,7 +483,7 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
         # Should see the post by the first user.
         self.visit_path('/projects/{0}'.format(self.project.slug))
         post = self.browser.find_by_css("article.wallpost").first
-        self.assertEqual(post.find_by_css('.wallpost-author').text, self.user.full_name().upper())
+        self.assertEqual(post.find_by_css('.wallpost-author').text, self.user.full_name.upper())
         self.assertEqual(post.find_by_css('.text p').text, self.post1['text'])
 
         # Post as project owner
@@ -498,12 +501,12 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
         self.assertTrue(self.browser.is_text_present(self.post2['title'], wait_time=5))
         post = self.browser.find_by_css("article.wallpost")[0]
 
-        self.assertEqual(post.find_by_css('.wallpost-author').text, self.project.owner.full_name().upper())
+        self.assertEqual(post.find_by_css('.wallpost-author').text, self.project.owner.full_name.upper())
         self.assertEqual(post.find_by_css('.wallpost-title').text, self.post2['title'])
         self.assertEqual(post.find_by_css('.text p').text, self.post2['text'])
 
         # And the first post should still be shown as second
         post = self.browser.find_by_css("article.wallpost")[1]
-        self.assertEqual(post.find_by_css('.wallpost-author').text, self.user.full_name().upper())
+        self.assertEqual(post.find_by_css('.wallpost-author').text, self.user.full_name.upper())
         self.assertEqual(post.find_by_css('.text p').text, self.post1['text'])
 

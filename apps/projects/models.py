@@ -1,6 +1,7 @@
 import datetime
 from decimal import Decimal
 from apps.mchanga.models import MpesaFundRaiser
+from bluebottle.utils.utils import StatusDefinition
 from .fields import MoneyField
 from bluebottle.bb_projects.models import BaseProject, ProjectPhase, BaseProjectPhaseLog
 from django.db import models
@@ -17,8 +18,6 @@ from django.utils import timezone
 from .mails import mail_project_funded_internal
 from .signals import project_funded
 
-
-#from apps.fund.models import Donation, DonationStatuses
 
 class ProjectPhaseLog(BaseProjectPhaseLog):
     pass
@@ -139,7 +138,7 @@ class Project(BaseProject):
         from apps.fund.models import Donation
 
         last_month = timezone.now() - timezone.timedelta(days=30)
-        donations = Donation.objects.filter(status__in=['paid', 'pending'])
+        donations = Donation.objects.filter(order__status__in=[StatusDefinition.PENDING, StatusDefinition.PAID])
         donations = donations.exclude(donation_type='recurring')
         donations = donations.filter(created__gte=last_month)
 
@@ -175,7 +174,7 @@ class Project(BaseProject):
     def update_money_donated(self, save=True):
         """ Update amount based on paid and pending donations. """
 
-        self.amount_donated = self.get_money_total(['paid', 'pending']) / 100
+        self.amount_donated = self.get_money_total([StatusDefinition.PENDING, StatusDefinition.PAID])
 
         if self.mchanga_fundraiser:
             kes = self.mchanga_fundraiser.current_amount
@@ -204,7 +203,7 @@ class Project(BaseProject):
         donations = self.donation_set.all()
 
         if status_in:
-            donations = donations.filter(status__in=status_in)
+            donations = donations.filter(order__status__in=status_in)
 
         total = donations.aggregate(sum=Sum('amount'))
 
@@ -223,14 +222,14 @@ class Project(BaseProject):
         # TODO: Replace this with a proper Supporters API
         # something like /projects/<slug>/donations
         donations = self.donation_set.objects.filter(project=self)
-        donations = donations.filter(status__in=['paid', 'pending'])
+        donations = donations.filter(order_status__in=[StatusDefinition.PENDING, StatusDefinition.PAID])
         donations = donations.filter(user__isnull=False)
         donations = donations.annotate(Count('user'))
         count = len(donations.all())
 
         if with_guests:
             donations = self.donation_set.objects.filter(project=self)
-            donations = donations.filter(status__in=['paid', 'pending'])
+            donations = donations.filter(order_status__in=[StatusDefinition.PENDING, StatusDefinition.PAID])
             donations = donations.filter(user__isnull=True)
             count = count + len(donations.all())
         return count
