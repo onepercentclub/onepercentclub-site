@@ -1,6 +1,6 @@
-from django.conf.urls import patterns, url
 from ..views import WidgetView
+from django.conf.urls import patterns, url
 
 urlpatterns = patterns('',
-	url('^$', WidgetView.as_view(), name='widget')
+    url('^$', WidgetView.as_view(), name='partner-widget'),
 )
