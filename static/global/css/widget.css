@@ -1,0 +1,3954 @@
+/* Compass */
+/* line 17, ../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/* Variables & Mixins */
+/* =========== Semantic fluid grid */
+/*
+
+    Use '@include grid(12, 2)' to make a column. 
+    The first unit (12) is the column width.
+    The second unit (2) is the margin on both sides.
+    The margin will be auto substracted from the column width.
+    So don't recalculate the column width if you change your margin.
+    
+    To set different margins on both sides use '@include grid(12, 2, 3)'.
+    You can also use negative margins.
+    
+*/
+/* reset your grid */
+/* need to reset floats */
+/* line 1, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_campaigns-grid.scss */
+.campaign-grid {
+  padding: 0.25em;
+}
+/* line 4, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_campaigns-grid.scss */
+.campaign-grid li {
+  float: left;
+  width: 31.3333333333333333%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+}
+/* line 11, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_campaigns-grid.scss */
+.campaign-grid li:nth-of-type(3n-1) {
+  margin-right: 3%;
+  margin-left: 3%;
+}
+
+/* line 97, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_utilities.scss */
+.touch .project-list .project-list-item .manage-delete {
+  display: block;
+}
+
+@-webkit-keyframes flipBack {
+  /* line 3, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: rotateY(0deg);
+    -moz-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    -o-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+  }
+
+  /* line 7, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: rotateY(-180deg);
+    -moz-transform: rotateY(-180deg);
+    -ms-transform: rotateY(-180deg);
+    -o-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+  }
+}
+
+@-moz-keyframes flipBack {
+  /* line 3, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: rotateY(0deg);
+    -moz-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    -o-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+  }
+
+  /* line 7, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: rotateY(-180deg);
+    -moz-transform: rotateY(-180deg);
+    -ms-transform: rotateY(-180deg);
+    -o-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+  }
+}
+
+@-o-keyframes flipBack {
+  /* line 3, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: rotateY(0deg);
+    -moz-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    -o-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+  }
+
+  /* line 7, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: rotateY(-180deg);
+    -moz-transform: rotateY(-180deg);
+    -ms-transform: rotateY(-180deg);
+    -o-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+  }
+}
+
+@keyframes flipBack {
+  /* line 3, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: rotateY(0deg);
+    -moz-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    -o-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+  }
+
+  /* line 7, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: rotateY(-180deg);
+    -moz-transform: rotateY(-180deg);
+    -ms-transform: rotateY(-180deg);
+    -o-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+  }
+}
+
+@-webkit-keyframes flipFront {
+  /* line 14, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: rotateY(-180deg);
+    -moz-transform: rotateY(-180deg);
+    -ms-transform: rotateY(-180deg);
+    -o-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+  }
+
+  /* line 18, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: rotateY(0deg);
+    -moz-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    -o-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+  }
+}
+
+@-moz-keyframes flipFront {
+  /* line 14, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: rotateY(-180deg);
+    -moz-transform: rotateY(-180deg);
+    -ms-transform: rotateY(-180deg);
+    -o-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+  }
+
+  /* line 18, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: rotateY(0deg);
+    -moz-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    -o-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+  }
+}
+
+@-o-keyframes flipFront {
+  /* line 14, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: rotateY(-180deg);
+    -moz-transform: rotateY(-180deg);
+    -ms-transform: rotateY(-180deg);
+    -o-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+  }
+
+  /* line 18, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: rotateY(0deg);
+    -moz-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    -o-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+  }
+}
+
+@keyframes flipFront {
+  /* line 14, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: rotateY(-180deg);
+    -moz-transform: rotateY(-180deg);
+    -ms-transform: rotateY(-180deg);
+    -o-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+  }
+
+  /* line 18, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: rotateY(0deg);
+    -moz-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    -o-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  /* line 25, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    visibility: hidden;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+
+  /* line 30, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    visibility: visible;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes fadeIn {
+  /* line 25, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    visibility: hidden;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+
+  /* line 30, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    visibility: visible;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+}
+
+@-o-keyframes fadeIn {
+  /* line 25, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    visibility: hidden;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+
+  /* line 30, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    visibility: visible;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  /* line 25, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    visibility: hidden;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+
+  /* line 30, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    visibility: visible;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeOut {
+  /* line 37, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    visibility: visible;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+
+  /* line 42, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    visibility: hidden;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+}
+
+@-moz-keyframes fadeOut {
+  /* line 37, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    visibility: visible;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+
+  /* line 42, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    visibility: hidden;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+}
+
+@-o-keyframes fadeOut {
+  /* line 37, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    visibility: visible;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+
+  /* line 42, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    visibility: hidden;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  /* line 37, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    visibility: visible;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+
+  /* line 42, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    visibility: hidden;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes fadeOutDown {
+  /* line 50, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  /* line 54, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    -webkit-transform: translateY(20px);
+    -moz-transform: translateY(20px);
+    -ms-transform: translateY(20px);
+    -o-transform: translateY(20px);
+    transform: translateY(20px);
+  }
+}
+
+@-moz-keyframes fadeOutDown {
+  /* line 50, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  /* line 54, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    -webkit-transform: translateY(20px);
+    -moz-transform: translateY(20px);
+    -ms-transform: translateY(20px);
+    -o-transform: translateY(20px);
+    transform: translateY(20px);
+  }
+}
+
+@-o-keyframes fadeOutDown {
+  /* line 50, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  /* line 54, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    -webkit-transform: translateY(20px);
+    -moz-transform: translateY(20px);
+    -ms-transform: translateY(20px);
+    -o-transform: translateY(20px);
+    transform: translateY(20px);
+  }
+}
+
+@keyframes fadeOutDown {
+  /* line 50, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  /* line 54, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    -webkit-transform: translateY(20px);
+    -moz-transform: translateY(20px);
+    -ms-transform: translateY(20px);
+    -o-transform: translateY(20px);
+    transform: translateY(20px);
+  }
+}
+
+@-webkit-keyframes fadeInUp {
+  /* line 61, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    -webkit-transform: translateY(20px);
+    -moz-transform: translateY(20px);
+    -ms-transform: translateY(20px);
+    -o-transform: translateY(20px);
+    transform: translateY(20px);
+  }
+
+  /* line 65, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@-moz-keyframes fadeInUp {
+  /* line 61, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    -webkit-transform: translateY(20px);
+    -moz-transform: translateY(20px);
+    -ms-transform: translateY(20px);
+    -o-transform: translateY(20px);
+    transform: translateY(20px);
+  }
+
+  /* line 65, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@-o-keyframes fadeInUp {
+  /* line 61, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    -webkit-transform: translateY(20px);
+    -moz-transform: translateY(20px);
+    -ms-transform: translateY(20px);
+    -o-transform: translateY(20px);
+    transform: translateY(20px);
+  }
+
+  /* line 65, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  /* line 61, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    -webkit-transform: translateY(20px);
+    -moz-transform: translateY(20px);
+    -ms-transform: translateY(20px);
+    -o-transform: translateY(20px);
+    transform: translateY(20px);
+  }
+
+  /* line 65, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@-webkit-keyframes fadeInDownBig {
+  /* line 72, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    -webkit-transform: translateY(100px);
+    -moz-transform: translateY(100px);
+    -ms-transform: translateY(100px);
+    -o-transform: translateY(100px);
+    transform: translateY(100px);
+  }
+
+  /* line 76, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@-moz-keyframes fadeInDownBig {
+  /* line 72, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    -webkit-transform: translateY(100px);
+    -moz-transform: translateY(100px);
+    -ms-transform: translateY(100px);
+    -o-transform: translateY(100px);
+    transform: translateY(100px);
+  }
+
+  /* line 76, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@-o-keyframes fadeInDownBig {
+  /* line 72, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    -webkit-transform: translateY(100px);
+    -moz-transform: translateY(100px);
+    -ms-transform: translateY(100px);
+    -o-transform: translateY(100px);
+    transform: translateY(100px);
+  }
+
+  /* line 76, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDownBig {
+  /* line 72, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    -webkit-transform: translateY(100px);
+    -moz-transform: translateY(100px);
+    -ms-transform: translateY(100px);
+    -o-transform: translateY(100px);
+    transform: translateY(100px);
+  }
+
+  /* line 76, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@-webkit-keyframes fadeOutUpBig {
+  /* line 82, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  /* line 86, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    -webkit-transform: translateY(100px);
+    -moz-transform: translateY(100px);
+    -ms-transform: translateY(100px);
+    -o-transform: translateY(100px);
+    transform: translateY(100px);
+  }
+}
+
+@-moz-keyframes fadeOutUpBig {
+  /* line 82, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  /* line 86, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    -webkit-transform: translateY(100px);
+    -moz-transform: translateY(100px);
+    -ms-transform: translateY(100px);
+    -o-transform: translateY(100px);
+    transform: translateY(100px);
+  }
+}
+
+@-o-keyframes fadeOutUpBig {
+  /* line 82, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  /* line 86, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    -webkit-transform: translateY(100px);
+    -moz-transform: translateY(100px);
+    -ms-transform: translateY(100px);
+    -o-transform: translateY(100px);
+    transform: translateY(100px);
+  }
+}
+
+@keyframes fadeOutUpBig {
+  /* line 82, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  /* line 86, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    -webkit-transform: translateY(100px);
+    -moz-transform: translateY(100px);
+    -ms-transform: translateY(100px);
+    -o-transform: translateY(100px);
+    transform: translateY(100px);
+  }
+}
+
+@-webkit-keyframes rotateOutDownRight {
+  /* line 94, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform-origin: right bottom 50%;
+    -moz-transform-origin: right bottom 50%;
+    -ms-transform-origin: right bottom 50%;
+    -o-transform-origin: right bottom 50%;
+    transform-origin: right bottom 50%;
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -ms-transform: rotate(0);
+    -o-transform: rotate(0);
+    transform: rotate(0);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+
+  /* line 99, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform-origin: right bottom 50%;
+    -moz-transform-origin: right bottom 50%;
+    -ms-transform-origin: right bottom 50%;
+    -o-transform-origin: right bottom 50%;
+    transform-origin: right bottom 50%;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+}
+
+@-moz-keyframes rotateOutDownRight {
+  /* line 94, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform-origin: right bottom 50%;
+    -moz-transform-origin: right bottom 50%;
+    -ms-transform-origin: right bottom 50%;
+    -o-transform-origin: right bottom 50%;
+    transform-origin: right bottom 50%;
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -ms-transform: rotate(0);
+    -o-transform: rotate(0);
+    transform: rotate(0);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+
+  /* line 99, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform-origin: right bottom 50%;
+    -moz-transform-origin: right bottom 50%;
+    -ms-transform-origin: right bottom 50%;
+    -o-transform-origin: right bottom 50%;
+    transform-origin: right bottom 50%;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+}
+
+@-o-keyframes rotateOutDownRight {
+  /* line 94, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform-origin: right bottom 50%;
+    -moz-transform-origin: right bottom 50%;
+    -ms-transform-origin: right bottom 50%;
+    -o-transform-origin: right bottom 50%;
+    transform-origin: right bottom 50%;
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -ms-transform: rotate(0);
+    -o-transform: rotate(0);
+    transform: rotate(0);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+
+  /* line 99, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform-origin: right bottom 50%;
+    -moz-transform-origin: right bottom 50%;
+    -ms-transform-origin: right bottom 50%;
+    -o-transform-origin: right bottom 50%;
+    transform-origin: right bottom 50%;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+}
+
+@keyframes rotateOutDownRight {
+  /* line 94, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform-origin: right bottom 50%;
+    -moz-transform-origin: right bottom 50%;
+    -ms-transform-origin: right bottom 50%;
+    -o-transform-origin: right bottom 50%;
+    transform-origin: right bottom 50%;
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -ms-transform: rotate(0);
+    -o-transform: rotate(0);
+    transform: rotate(0);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+
+  /* line 99, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform-origin: right bottom 50%;
+    -moz-transform-origin: right bottom 50%;
+    -ms-transform-origin: right bottom 50%;
+    -o-transform-origin: right bottom 50%;
+    transform-origin: right bottom 50%;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes shake {
+  /* line 108, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+  }
+
+  /* line 109, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  10% {
+    -webkit-transform: translateX(-10px);
+    -moz-transform: translateX(-10px);
+    -ms-transform: translateX(-10px);
+    -o-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+
+  /* line 110, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  20% {
+    -webkit-transform: translateX(10px);
+    -moz-transform: translateX(10px);
+    -ms-transform: translateX(10px);
+    -o-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+
+  /* line 111, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  30% {
+    -webkit-transform: translateX(-10px);
+    -moz-transform: translateX(-10px);
+    -ms-transform: translateX(-10px);
+    -o-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+
+  /* line 112, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  40% {
+    -webkit-transform: translateX(10px);
+    -moz-transform: translateX(10px);
+    -ms-transform: translateX(10px);
+    -o-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+
+  /* line 113, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  50% {
+    -webkit-transform: translateX(-10px);
+    -moz-transform: translateX(-10px);
+    -ms-transform: translateX(-10px);
+    -o-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+
+  /* line 114, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  60% {
+    -webkit-transform: translateX(10px);
+    -moz-transform: translateX(10px);
+    -ms-transform: translateX(10px);
+    -o-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+
+  /* line 115, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  70% {
+    -webkit-transform: translateX(-10px);
+    -moz-transform: translateX(-10px);
+    -ms-transform: translateX(-10px);
+    -o-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+
+  /* line 116, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  80% {
+    -webkit-transform: translateX(10px);
+    -moz-transform: translateX(10px);
+    -ms-transform: translateX(10px);
+    -o-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+
+  /* line 117, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  90% {
+    -webkit-transform: translateX(-10px);
+    -moz-transform: translateX(-10px);
+    -ms-transform: translateX(-10px);
+    -o-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+
+  /* line 118, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+
+@-moz-keyframes shake {
+  /* line 108, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+  }
+
+  /* line 109, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  10% {
+    -webkit-transform: translateX(-10px);
+    -moz-transform: translateX(-10px);
+    -ms-transform: translateX(-10px);
+    -o-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+
+  /* line 110, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  20% {
+    -webkit-transform: translateX(10px);
+    -moz-transform: translateX(10px);
+    -ms-transform: translateX(10px);
+    -o-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+
+  /* line 111, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  30% {
+    -webkit-transform: translateX(-10px);
+    -moz-transform: translateX(-10px);
+    -ms-transform: translateX(-10px);
+    -o-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+
+  /* line 112, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  40% {
+    -webkit-transform: translateX(10px);
+    -moz-transform: translateX(10px);
+    -ms-transform: translateX(10px);
+    -o-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+
+  /* line 113, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  50% {
+    -webkit-transform: translateX(-10px);
+    -moz-transform: translateX(-10px);
+    -ms-transform: translateX(-10px);
+    -o-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+
+  /* line 114, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  60% {
+    -webkit-transform: translateX(10px);
+    -moz-transform: translateX(10px);
+    -ms-transform: translateX(10px);
+    -o-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+
+  /* line 115, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  70% {
+    -webkit-transform: translateX(-10px);
+    -moz-transform: translateX(-10px);
+    -ms-transform: translateX(-10px);
+    -o-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+
+  /* line 116, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  80% {
+    -webkit-transform: translateX(10px);
+    -moz-transform: translateX(10px);
+    -ms-transform: translateX(10px);
+    -o-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+
+  /* line 117, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  90% {
+    -webkit-transform: translateX(-10px);
+    -moz-transform: translateX(-10px);
+    -ms-transform: translateX(-10px);
+    -o-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+
+  /* line 118, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+
+@-o-keyframes shake {
+  /* line 108, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+  }
+
+  /* line 109, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  10% {
+    -webkit-transform: translateX(-10px);
+    -moz-transform: translateX(-10px);
+    -ms-transform: translateX(-10px);
+    -o-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+
+  /* line 110, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  20% {
+    -webkit-transform: translateX(10px);
+    -moz-transform: translateX(10px);
+    -ms-transform: translateX(10px);
+    -o-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+
+  /* line 111, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  30% {
+    -webkit-transform: translateX(-10px);
+    -moz-transform: translateX(-10px);
+    -ms-transform: translateX(-10px);
+    -o-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+
+  /* line 112, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  40% {
+    -webkit-transform: translateX(10px);
+    -moz-transform: translateX(10px);
+    -ms-transform: translateX(10px);
+    -o-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+
+  /* line 113, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  50% {
+    -webkit-transform: translateX(-10px);
+    -moz-transform: translateX(-10px);
+    -ms-transform: translateX(-10px);
+    -o-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+
+  /* line 114, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  60% {
+    -webkit-transform: translateX(10px);
+    -moz-transform: translateX(10px);
+    -ms-transform: translateX(10px);
+    -o-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+
+  /* line 115, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  70% {
+    -webkit-transform: translateX(-10px);
+    -moz-transform: translateX(-10px);
+    -ms-transform: translateX(-10px);
+    -o-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+
+  /* line 116, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  80% {
+    -webkit-transform: translateX(10px);
+    -moz-transform: translateX(10px);
+    -ms-transform: translateX(10px);
+    -o-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+
+  /* line 117, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  90% {
+    -webkit-transform: translateX(-10px);
+    -moz-transform: translateX(-10px);
+    -ms-transform: translateX(-10px);
+    -o-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+
+  /* line 118, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+
+@keyframes shake {
+  /* line 108, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+  }
+
+  /* line 109, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  10% {
+    -webkit-transform: translateX(-10px);
+    -moz-transform: translateX(-10px);
+    -ms-transform: translateX(-10px);
+    -o-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+
+  /* line 110, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  20% {
+    -webkit-transform: translateX(10px);
+    -moz-transform: translateX(10px);
+    -ms-transform: translateX(10px);
+    -o-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+
+  /* line 111, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  30% {
+    -webkit-transform: translateX(-10px);
+    -moz-transform: translateX(-10px);
+    -ms-transform: translateX(-10px);
+    -o-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+
+  /* line 112, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  40% {
+    -webkit-transform: translateX(10px);
+    -moz-transform: translateX(10px);
+    -ms-transform: translateX(10px);
+    -o-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+
+  /* line 113, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  50% {
+    -webkit-transform: translateX(-10px);
+    -moz-transform: translateX(-10px);
+    -ms-transform: translateX(-10px);
+    -o-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+
+  /* line 114, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  60% {
+    -webkit-transform: translateX(10px);
+    -moz-transform: translateX(10px);
+    -ms-transform: translateX(10px);
+    -o-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+
+  /* line 115, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  70% {
+    -webkit-transform: translateX(-10px);
+    -moz-transform: translateX(-10px);
+    -ms-transform: translateX(-10px);
+    -o-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+
+  /* line 116, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  80% {
+    -webkit-transform: translateX(10px);
+    -moz-transform: translateX(10px);
+    -ms-transform: translateX(10px);
+    -o-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+
+  /* line 117, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  90% {
+    -webkit-transform: translateX(-10px);
+    -moz-transform: translateX(-10px);
+    -ms-transform: translateX(-10px);
+    -o-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+
+  /* line 118, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+
+@-webkit-keyframes tada {
+  /* line 124, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+  }
+
+  /* line 127, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  10% {
+    -webkit-transform: scale(0.9);
+    -moz-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    -o-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  /* line 130, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  20% {
+    -webkit-transform: scale(0.9);
+    -moz-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    -o-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  /* line 133, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  30% {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* line 136, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  40% {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* line 139, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  50% {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* line 142, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  60% {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* line 145, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  70% {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* line 148, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  80% {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* line 151, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  90% {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* line 154, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@-moz-keyframes tada {
+  /* line 124, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+  }
+
+  /* line 127, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  10% {
+    -webkit-transform: scale(0.9);
+    -moz-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    -o-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  /* line 130, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  20% {
+    -webkit-transform: scale(0.9);
+    -moz-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    -o-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  /* line 133, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  30% {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* line 136, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  40% {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* line 139, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  50% {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* line 142, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  60% {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* line 145, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  70% {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* line 148, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  80% {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* line 151, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  90% {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* line 154, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@-o-keyframes tada {
+  /* line 124, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+  }
+
+  /* line 127, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  10% {
+    -webkit-transform: scale(0.9);
+    -moz-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    -o-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  /* line 130, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  20% {
+    -webkit-transform: scale(0.9);
+    -moz-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    -o-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  /* line 133, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  30% {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* line 136, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  40% {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* line 139, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  50% {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* line 142, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  60% {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* line 145, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  70% {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* line 148, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  80% {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* line 151, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  90% {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* line 154, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@keyframes tada {
+  /* line 124, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+  }
+
+  /* line 127, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  10% {
+    -webkit-transform: scale(0.9);
+    -moz-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    -o-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  /* line 130, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  20% {
+    -webkit-transform: scale(0.9);
+    -moz-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    -o-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  /* line 133, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  30% {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* line 136, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  40% {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* line 139, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  50% {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* line 142, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  60% {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* line 145, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  70% {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* line 148, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  80% {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* line 151, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  90% {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* line 154, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@-webkit-keyframes shakeModal {
+  /* line 160, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0 {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+  }
+
+  /* line 163, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  12.5% {
+    -webkit-transform: translateX(-6px) rotateY(-5deg);
+    -moz-transform: translateX(-6px) rotateY(-5deg);
+    -ms-transform: translateX(-6px) rotateY(-5deg);
+    -o-transform: translateX(-6px) rotateY(-5deg);
+    transform: translateX(-6px) rotateY(-5deg);
+  }
+
+  /* line 166, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  37.5% {
+    -webkit-transform: translateX(5px) rotateY(4deg);
+    -moz-transform: translateX(5px) rotateY(4deg);
+    -ms-transform: translateX(5px) rotateY(4deg);
+    -o-transform: translateX(5px) rotateY(4deg);
+    transform: translateX(5px) rotateY(4deg);
+  }
+
+  /* line 169, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  62.5% {
+    -webkit-transform: translateX(-3px) rotateY(-2deg);
+    -moz-transform: translateX(-3px) rotateY(-2deg);
+    -ms-transform: translateX(-3px) rotateY(-2deg);
+    -o-transform: translateX(-3px) rotateY(-2deg);
+    transform: translateX(-3px) rotateY(-2deg);
+  }
+
+  /* line 172, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  87.5% {
+    -webkit-transform: translateX(2px) rotateY(1deg);
+    -moz-transform: translateX(2px) rotateY(1deg);
+    -ms-transform: translateX(2px) rotateY(1deg);
+    -o-transform: translateX(2px) rotateY(1deg);
+    transform: translateX(2px) rotateY(1deg);
+  }
+
+  /* line 175, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+
+@-moz-keyframes shakeModal {
+  /* line 160, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0 {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+  }
+
+  /* line 163, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  12.5% {
+    -webkit-transform: translateX(-6px) rotateY(-5deg);
+    -moz-transform: translateX(-6px) rotateY(-5deg);
+    -ms-transform: translateX(-6px) rotateY(-5deg);
+    -o-transform: translateX(-6px) rotateY(-5deg);
+    transform: translateX(-6px) rotateY(-5deg);
+  }
+
+  /* line 166, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  37.5% {
+    -webkit-transform: translateX(5px) rotateY(4deg);
+    -moz-transform: translateX(5px) rotateY(4deg);
+    -ms-transform: translateX(5px) rotateY(4deg);
+    -o-transform: translateX(5px) rotateY(4deg);
+    transform: translateX(5px) rotateY(4deg);
+  }
+
+  /* line 169, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  62.5% {
+    -webkit-transform: translateX(-3px) rotateY(-2deg);
+    -moz-transform: translateX(-3px) rotateY(-2deg);
+    -ms-transform: translateX(-3px) rotateY(-2deg);
+    -o-transform: translateX(-3px) rotateY(-2deg);
+    transform: translateX(-3px) rotateY(-2deg);
+  }
+
+  /* line 172, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  87.5% {
+    -webkit-transform: translateX(2px) rotateY(1deg);
+    -moz-transform: translateX(2px) rotateY(1deg);
+    -ms-transform: translateX(2px) rotateY(1deg);
+    -o-transform: translateX(2px) rotateY(1deg);
+    transform: translateX(2px) rotateY(1deg);
+  }
+
+  /* line 175, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+
+@-o-keyframes shakeModal {
+  /* line 160, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0 {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+  }
+
+  /* line 163, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  12.5% {
+    -webkit-transform: translateX(-6px) rotateY(-5deg);
+    -moz-transform: translateX(-6px) rotateY(-5deg);
+    -ms-transform: translateX(-6px) rotateY(-5deg);
+    -o-transform: translateX(-6px) rotateY(-5deg);
+    transform: translateX(-6px) rotateY(-5deg);
+  }
+
+  /* line 166, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  37.5% {
+    -webkit-transform: translateX(5px) rotateY(4deg);
+    -moz-transform: translateX(5px) rotateY(4deg);
+    -ms-transform: translateX(5px) rotateY(4deg);
+    -o-transform: translateX(5px) rotateY(4deg);
+    transform: translateX(5px) rotateY(4deg);
+  }
+
+  /* line 169, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  62.5% {
+    -webkit-transform: translateX(-3px) rotateY(-2deg);
+    -moz-transform: translateX(-3px) rotateY(-2deg);
+    -ms-transform: translateX(-3px) rotateY(-2deg);
+    -o-transform: translateX(-3px) rotateY(-2deg);
+    transform: translateX(-3px) rotateY(-2deg);
+  }
+
+  /* line 172, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  87.5% {
+    -webkit-transform: translateX(2px) rotateY(1deg);
+    -moz-transform: translateX(2px) rotateY(1deg);
+    -ms-transform: translateX(2px) rotateY(1deg);
+    -o-transform: translateX(2px) rotateY(1deg);
+    transform: translateX(2px) rotateY(1deg);
+  }
+
+  /* line 175, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+
+@keyframes shakeModal {
+  /* line 160, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0 {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+  }
+
+  /* line 163, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  12.5% {
+    -webkit-transform: translateX(-6px) rotateY(-5deg);
+    -moz-transform: translateX(-6px) rotateY(-5deg);
+    -ms-transform: translateX(-6px) rotateY(-5deg);
+    -o-transform: translateX(-6px) rotateY(-5deg);
+    transform: translateX(-6px) rotateY(-5deg);
+  }
+
+  /* line 166, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  37.5% {
+    -webkit-transform: translateX(5px) rotateY(4deg);
+    -moz-transform: translateX(5px) rotateY(4deg);
+    -ms-transform: translateX(5px) rotateY(4deg);
+    -o-transform: translateX(5px) rotateY(4deg);
+    transform: translateX(5px) rotateY(4deg);
+  }
+
+  /* line 169, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  62.5% {
+    -webkit-transform: translateX(-3px) rotateY(-2deg);
+    -moz-transform: translateX(-3px) rotateY(-2deg);
+    -ms-transform: translateX(-3px) rotateY(-2deg);
+    -o-transform: translateX(-3px) rotateY(-2deg);
+    transform: translateX(-3px) rotateY(-2deg);
+  }
+
+  /* line 172, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  87.5% {
+    -webkit-transform: translateX(2px) rotateY(1deg);
+    -moz-transform: translateX(2px) rotateY(1deg);
+    -ms-transform: translateX(2px) rotateY(1deg);
+    -o-transform: translateX(2px) rotateY(1deg);
+    transform: translateX(2px) rotateY(1deg);
+  }
+
+  /* line 175, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+
+@-webkit-keyframes slideInRight {
+  /* line 181, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: translateX(500px);
+    -moz-transform: translateX(500px);
+    -ms-transform: translateX(500px);
+    -o-transform: translateX(500px);
+    transform: translateX(500px);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+
+  /* line 185, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes slideInRight {
+  /* line 181, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: translateX(500px);
+    -moz-transform: translateX(500px);
+    -ms-transform: translateX(500px);
+    -o-transform: translateX(500px);
+    transform: translateX(500px);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+
+  /* line 185, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+}
+
+@-o-keyframes slideInRight {
+  /* line 181, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: translateX(500px);
+    -moz-transform: translateX(500px);
+    -ms-transform: translateX(500px);
+    -o-transform: translateX(500px);
+    transform: translateX(500px);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+
+  /* line 185, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  /* line 181, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: translateX(500px);
+    -moz-transform: translateX(500px);
+    -ms-transform: translateX(500px);
+    -o-transform: translateX(500px);
+    transform: translateX(500px);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+
+  /* line 185, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes slideInLeft {
+  /* line 192, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: translateX(-500px);
+    -moz-transform: translateX(-500px);
+    -ms-transform: translateX(-500px);
+    -o-transform: translateX(-500px);
+    transform: translateX(-500px);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+
+  /* line 196, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes slideInLeft {
+  /* line 192, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: translateX(-500px);
+    -moz-transform: translateX(-500px);
+    -ms-transform: translateX(-500px);
+    -o-transform: translateX(-500px);
+    transform: translateX(-500px);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+
+  /* line 196, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+}
+
+@-o-keyframes slideInLeft {
+  /* line 192, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: translateX(-500px);
+    -moz-transform: translateX(-500px);
+    -ms-transform: translateX(-500px);
+    -o-transform: translateX(-500px);
+    transform: translateX(-500px);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+
+  /* line 196, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  /* line 192, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: translateX(-500px);
+    -moz-transform: translateX(-500px);
+    -ms-transform: translateX(-500px);
+    -o-transform: translateX(-500px);
+    transform: translateX(-500px);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+
+  /* line 196, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes slideOutLeft {
+  /* line 203, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+
+  /* line 207, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: translateX(-500px);
+    -moz-transform: translateX(-500px);
+    -ms-transform: translateX(-500px);
+    -o-transform: translateX(-500px);
+    transform: translateX(-500px);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+}
+
+@-moz-keyframes slideOutLeft {
+  /* line 203, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+
+  /* line 207, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: translateX(-500px);
+    -moz-transform: translateX(-500px);
+    -ms-transform: translateX(-500px);
+    -o-transform: translateX(-500px);
+    transform: translateX(-500px);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+}
+
+@-o-keyframes slideOutLeft {
+  /* line 203, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+
+  /* line 207, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: translateX(-500px);
+    -moz-transform: translateX(-500px);
+    -ms-transform: translateX(-500px);
+    -o-transform: translateX(-500px);
+    transform: translateX(-500px);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+}
+
+@keyframes slideOutLeft {
+  /* line 203, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+
+  /* line 207, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: translateX(-500px);
+    -moz-transform: translateX(-500px);
+    -ms-transform: translateX(-500px);
+    -o-transform: translateX(-500px);
+    transform: translateX(-500px);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes slideOutRight {
+  /* line 214, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+
+  /* line 218, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: translateX(500px);
+    -moz-transform: translateX(500px);
+    -ms-transform: translateX(500px);
+    -o-transform: translateX(500px);
+    transform: translateX(500px);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+}
+
+@-moz-keyframes slideOutRight {
+  /* line 214, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+
+  /* line 218, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: translateX(500px);
+    -moz-transform: translateX(500px);
+    -ms-transform: translateX(500px);
+    -o-transform: translateX(500px);
+    transform: translateX(500px);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+}
+
+@-o-keyframes slideOutRight {
+  /* line 214, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+
+  /* line 218, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: translateX(500px);
+    -moz-transform: translateX(500px);
+    -ms-transform: translateX(500px);
+    -o-transform: translateX(500px);
+    transform: translateX(500px);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+}
+
+@keyframes slideOutRight {
+  /* line 214, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+
+  /* line 218, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: translateX(500px);
+    -moz-transform: translateX(500px);
+    -ms-transform: translateX(500px);
+    -o-transform: translateX(500px);
+    transform: translateX(500px);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes scaleBack {
+  /* line 225, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+
+  /* line 229, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    -ms-transform: scale(0);
+    -o-transform: scale(0);
+    transform: scale(0);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+}
+
+@-moz-keyframes scaleBack {
+  /* line 225, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+
+  /* line 229, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    -ms-transform: scale(0);
+    -o-transform: scale(0);
+    transform: scale(0);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+}
+
+@-o-keyframes scaleBack {
+  /* line 225, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+
+  /* line 229, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    -ms-transform: scale(0);
+    -o-transform: scale(0);
+    transform: scale(0);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+}
+
+@keyframes scaleBack {
+  /* line 225, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+
+  /* line 229, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    -ms-transform: scale(0);
+    -o-transform: scale(0);
+    transform: scale(0);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes scaleUp {
+  /* line 236, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+
+  /* line 240, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: scale(4);
+    -moz-transform: scale(4);
+    -ms-transform: scale(4);
+    -o-transform: scale(4);
+    transform: scale(4);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+}
+
+@-moz-keyframes scaleUp {
+  /* line 236, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+
+  /* line 240, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: scale(4);
+    -moz-transform: scale(4);
+    -ms-transform: scale(4);
+    -o-transform: scale(4);
+    transform: scale(4);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+}
+
+@-o-keyframes scaleUp {
+  /* line 236, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+
+  /* line 240, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: scale(4);
+    -moz-transform: scale(4);
+    -ms-transform: scale(4);
+    -o-transform: scale(4);
+    transform: scale(4);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+}
+
+@keyframes scaleUp {
+  /* line 236, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+
+  /* line 240, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: scale(4);
+    -moz-transform: scale(4);
+    -ms-transform: scale(4);
+    -o-transform: scale(4);
+    transform: scale(4);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes scaleDown {
+  /* line 247, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: scale(4);
+    -moz-transform: scale(4);
+    -ms-transform: scale(4);
+    -o-transform: scale(4);
+    transform: scale(4);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+
+  /* line 251, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes scaleDown {
+  /* line 247, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: scale(4);
+    -moz-transform: scale(4);
+    -ms-transform: scale(4);
+    -o-transform: scale(4);
+    transform: scale(4);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+
+  /* line 251, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+}
+
+@-o-keyframes scaleDown {
+  /* line 247, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: scale(4);
+    -moz-transform: scale(4);
+    -ms-transform: scale(4);
+    -o-transform: scale(4);
+    transform: scale(4);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+
+  /* line 251, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+}
+
+@keyframes scaleDown {
+  /* line 247, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  0% {
+    -webkit-transform: scale(4);
+    -moz-transform: scale(4);
+    -ms-transform: scale(4);
+    -o-transform: scale(4);
+    transform: scale(4);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+
+  /* line 251, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_animations.scss */
+  100% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }
+}
+
+/* Base */
+/* line 19, ../../../../bluebottle/bluebottle/common/static/sass/base/_reset.scss */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section {
+  display: block;
+}
+
+/* line 28, ../../../../bluebottle/bluebottle/common/static/sass/base/_reset.scss */
+audio,
+canvas,
+video {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+
+/* line 37, ../../../../bluebottle/bluebottle/common/static/sass/base/_reset.scss */
+audio:not([controls]) {
+  display: none;
+}
+
+/* line 44, ../../../../bluebottle/bluebottle/common/static/sass/base/_reset.scss */
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+/* line 55, ../../../../bluebottle/bluebottle/common/static/sass/base/_reset.scss */
+a:hover,
+a:active {
+  outline: 0;
+}
+
+/* line 63, ../../../../bluebottle/bluebottle/common/static/sass/base/_reset.scss */
+sub,
+sup {
+  position: relative;
+  font-size: 75%;
+  line-height: 0;
+  vertical-align: baseline;
+}
+
+/* line 69, ../../../../bluebottle/bluebottle/common/static/sass/base/_reset.scss */
+sup {
+  top: -0.5em;
+}
+
+/* line 72, ../../../../bluebottle/bluebottle/common/static/sass/base/_reset.scss */
+sub {
+  bottom: -0.25em;
+}
+
+/* line 79, ../../../../bluebottle/bluebottle/common/static/sass/base/_reset.scss */
+img {
+  /* Responsive images (ensure images don't scale beyond their parents) */
+  max-width: 100%;
+  /* Part 1: Set a maxium relative to the parent */
+  width: auto\9;
+  /* IE7-8 need help adjusting responsive images */
+  height: auto;
+  /* Part 2: Scale the height according to the width, otherwise you get stretching */
+  vertical-align: middle;
+  border: 0;
+  -ms-interpolation-mode: bicubic;
+}
+
+/* line 93, ../../../../bluebottle/bluebottle/common/static/sass/base/_reset.scss */
+#map_canvas img,
+.google-maps img,
+.map-picker img {
+  max-width: none;
+}
+
+/* line 104, ../../../../bluebottle/bluebottle/common/static/sass/base/_reset.scss */
+button,
+input,
+select,
+textarea {
+  margin: 0;
+  font-size: 100%;
+  vertical-align: middle;
+}
+
+/* line 110, ../../../../bluebottle/bluebottle/common/static/sass/base/_reset.scss */
+button,
+input {
+  *overflow: visible;
+  line-height: normal;
+}
+
+/* line 115, ../../../../bluebottle/bluebottle/common/static/sass/base/_reset.scss */
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+/* line 122, ../../../../bluebottle/bluebottle/common/static/sass/base/_reset.scss */
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+
+/* line 133, ../../../../bluebottle/bluebottle/common/static/sass/base/_reset.scss */
+label,
+select,
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+input[type="radio"],
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
+/* line 136, ../../../../bluebottle/bluebottle/common/static/sass/base/_reset.scss */
+input[type="search"] {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  -webkit-appearance: textfield;
+}
+
+/* line 141, ../../../../bluebottle/bluebottle/common/static/sass/base/_reset.scss */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+/* line 144, ../../../../bluebottle/bluebottle/common/static/sass/base/_reset.scss */
+textarea {
+  overflow: auto;
+  vertical-align: top;
+}
+
+@media print {
+  /* line 156, ../../../../bluebottle/bluebottle/common/static/sass/base/_reset.scss */
+  * {
+    text-shadow: none !important;
+    color: #000 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  /* line 164, ../../../../bluebottle/bluebottle/common/static/sass/base/_reset.scss */
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+
+  /* line 168, ../../../../bluebottle/bluebottle/common/static/sass/base/_reset.scss */
+  a[href]:after {
+    content: " (" attr(href) ")";
+  }
+
+  /* line 172, ../../../../bluebottle/bluebottle/common/static/sass/base/_reset.scss */
+  abbr[title]:after {
+    content: " (" attr(title) ")";
+  }
+
+  /* line 179, ../../../../bluebottle/bluebottle/common/static/sass/base/_reset.scss */
+  .ir a:after,
+  a[href^="javascript:"]:after,
+  a[href^="#"]:after {
+    content: "";
+  }
+
+  /* line 184, ../../../../bluebottle/bluebottle/common/static/sass/base/_reset.scss */
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+
+  /* line 189, ../../../../bluebottle/bluebottle/common/static/sass/base/_reset.scss */
+  thead {
+    display: table-header-group;
+  }
+
+  /* line 194, ../../../../bluebottle/bluebottle/common/static/sass/base/_reset.scss */
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+
+  /* line 198, ../../../../bluebottle/bluebottle/common/static/sass/base/_reset.scss */
+  img {
+    max-width: 100% !important;
+  }
+
+  @page {
+    margin: 0.5cm;
+}
+
+  /* line 208, ../../../../bluebottle/bluebottle/common/static/sass/base/_reset.scss */
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  /* line 214, ../../../../bluebottle/bluebottle/common/static/sass/base/_reset.scss */
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+}
+/* line 5, ../../../../bluebottle/bluebottle/common/static/sass/base/_base.scss */
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* line 11, ../../../../bluebottle/bluebottle/common/static/sass/base/_base.scss */
+.is-loading-small {
+  float: left;
+  display: inline-block;
+  padding: 0.5em 0;
+}
+/* line 16, ../../../../bluebottle/bluebottle/common/static/sass/base/_base.scss */
+.is-loading-small img {
+  width: 16px;
+  margin-right: 0.5em;
+}
+/* line 21, ../../../../bluebottle/bluebottle/common/static/sass/base/_base.scss */
+.is-loading-small strong {
+  display: none;
+}
+
+/* line 26, ../../../../bluebottle/bluebottle/common/static/sass/base/_base.scss */
+.is-loading-big {
+  display: block;
+  width: 100%;
+  padding: 4em 0;
+  text-align: center;
+}
+/* line 6, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_utilities.scss */
+.is-loading-big:after, .is-loading-big:before {
+  content: "";
+  display: table;
+}
+/* line 10, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_utilities.scss */
+.is-loading-big:after {
+  clear: both;
+}
+/* line 13, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_utilities.scss */
+.is-loading-big {
+  *zoom: 1;
+}
+/* line 33, ../../../../bluebottle/bluebottle/common/static/sass/base/_base.scss */
+.is-loading-big img {
+  width: 100px;
+}
+/* line 37, ../../../../bluebottle/bluebottle/common/static/sass/base/_base.scss */
+.is-loading-big strong {
+  display: none;
+}
+
+/* line 42, ../../../../bluebottle/bluebottle/common/static/sass/base/_base.scss */
+.is-saved {
+  float: left;
+  display: inline-block;
+  padding: 0.5em 0;
+}
+
+/* line 48, ../../../../bluebottle/bluebottle/common/static/sass/base/_base.scss */
+.fade {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
+}
+/* line 51, ../../../../bluebottle/bluebottle/common/static/sass/base/_base.scss */
+.fade.fade.in {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+}
+/* line 55, ../../../../bluebottle/bluebottle/common/static/sass/base/_base.scss */
+.fade.fade.out {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
+}
+
+/* line 60, ../../../../bluebottle/bluebottle/common/static/sass/base/_base.scss */
+.is-stopped-scrolling {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* line 8, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+body {
+  font-family: "Futura W01 Book", "Trebuchet MS", Helvetica, Arial, sans-serif;
+  line-height: 1.5em;
+  font-size: 1em;
+  color: #444444;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  text-rendering: optimizelegibility;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* line 19, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+p {
+  margin: 0 0 1em 0;
+}
+
+/* line 23, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+.section-header {
+  padding: 1em 0 0.5em 0;
+  text-align: center;
+}
+
+/* line 31, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+small {
+  font-size: 0.75em;
+}
+
+/* line 35, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+strong, b {
+  font-weight: normal;
+  font-family: "Futura W02 Heavy", "Trebuchet MS", Helvetica, Arial, sans-serif;
+}
+
+/* line 40, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+em, i {
+  font-weight: normal;
+  font-style: italic;
+}
+
+/* line 45, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+cite {
+  font-style: normal;
+}
+
+/* line 53, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0.5em 0 0 0;
+  font-family: "Futura W01 Bold", "Trebuchet MS", Helvetica, Arial, sans-serif;
+  line-height: 1.3em;
+  text-transform: uppercase;
+  font-weight: normal;
+}
+/* line 60, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
+  line-height: 1;
+  color: #cccccc;
+}
+/* line 65, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+h1 em, h2 em, h3 em, h4 em, h5 em, h6 em {
+  font-style: normal;
+}
+
+/* line 70, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+h1 {
+  font-size: 2.5em;
+  color: #0896ff;
+}
+/* line 74, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+h1 em {
+  font-family: "Futura W01 Book", "Trebuchet MS", Helvetica, Arial, sans-serif;
+  color: #003580;
+}
+
+/* line 80, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+h2 {
+  font-size: 1.75em;
+  color: #003580;
+}
+
+/* line 85, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+h3 {
+  font-size: 1.25em;
+  color: #444444;
+}
+
+/* line 90, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+h4 {
+  font-size: 1em;
+}
+
+/* line 98, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+a {
+  color: #003580;
+  text-decoration: underline;
+  cursor: hand;
+  cursor: pointer;
+}
+/* line 104, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+a a:visited {
+  color: #003580;
+}
+/* line 108, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+a:hover {
+  color: #0896ff;
+}
+/* line 112, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+a:active {
+  position: relative;
+  top: 1px;
+  color: #444444;
+}
+
+/* line 6, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_utilities.scss */
+.dl-horizontal:after, .dl-horizontal:before {
+  content: "";
+  display: table;
+}
+/* line 10, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_utilities.scss */
+.dl-horizontal:after {
+  clear: both;
+}
+/* line 13, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_utilities.scss */
+.dl-horizontal {
+  *zoom: 1;
+}
+/* line 127, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+.dl-horizontal dt {
+  float: left;
+  clear: left;
+  text-align: right;
+}
+
+/* line 134, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+ul, ul.bullets {
+  margin: 1em 0 2em 2em;
+}
+/* line 137, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+ul > li, ul.bullets > li {
+  padding-left: 2em;
+  margin: 1em 0;
+  background: url('../images/list-item.png?1403007417') transparent no-repeat 0 0;
+}
+/* line 142, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+ul > li.alternative, ul.bullets > li.alternative {
+  background: url('../images/img/icons/icon-close-modal.svg?1406538566') transparent no-repeat;
+  background-position-y: 6px;
+}
+/* line 146, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+ul > li.alternative a, ul.bullets > li.alternative a {
+  text-decoration: none;
+}
+
+/* line 155, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+ol {
+  margin: 1em 0 2em 2em;
+}
+/* line 158, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+ol > li {
+  list-style: decimal;
+  margin: 0.25em 0;
+}
+
+/* line 166, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+dl {
+  font-size: 0.875em;
+  border-bottom: 1px solid #cccccc;
+  padding: 0.5em 1em;
+}
+/* line 6, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_utilities.scss */
+dl:after, dl:before {
+  content: "";
+  display: table;
+}
+/* line 10, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_utilities.scss */
+dl:after {
+  clear: both;
+}
+/* line 13, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_utilities.scss */
+dl {
+  *zoom: 1;
+}
+/* line 172, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+dl > dt {
+  text-transform: uppercase;
+  color: #999999;
+  float: left;
+  width: 39.58333%;
+  margin-left: 0%;
+  margin-right: 2.08333%;
+  font-weight: normal;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* line 181, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+dl > dt .flaticon {
+  margin-right: 0.25em;
+}
+/* line 187, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+dl > dd {
+  float: left;
+  width: 58.33333%;
+  margin-left: 0%;
+  margin-right: 0%;
+}
+
+/* line 197, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+hr {
+  margin: 1.5em 0;
+  border: 0;
+  border-top: 1px solid #cccccc;
+  border-bottom: 1px solid white;
+}
+
+/* line 208, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+abbr[title],
+abbr[data-original-title] {
+  cursor: help;
+  border-bottom: 1px dotted #cccccc;
+}
+
+/* line 213, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+abbr.initialism {
+  font-size: 90%;
+  text-transform: uppercase;
+}
+
+/* line 219, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+blockquote {
+  padding: 0 0 0 1em;
+  margin: 1em 0;
+  border-left: 5px solid #e9e9e9;
+}
+/* line 224, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+blockquote p {
+  margin-bottom: 0;
+}
+/* line 228, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+blockquote small {
+  display: block;
+  line-height: 1.5em;
+  color: #cccccc;
+}
+/* line 232, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+blockquote small:before {
+  content: '\2014 \00A0';
+}
+/* line 238, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+blockquote.pull-right {
+  float: right;
+  padding-right: 15px;
+  padding-left: 0;
+  border-right: 5px solid #e9e9e9;
+  border-left: 0;
+}
+/* line 245, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+blockquote.pull-right p,
+blockquote.pull-right small {
+  text-align: right;
+}
+/* line 249, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+blockquote.pull-right small:before {
+  content: '';
+}
+/* line 252, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+blockquote.pull-right small:after {
+  content: '\00A0 \2014';
+}
+
+/* line 263, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+q:before,
+q:after,
+blockquote:before,
+blockquote:after {
+  content: "";
+}
+
+/* line 268, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+.flaticon {
+  vertical-align: middle;
+}
+
+/* line 272, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+.well {
+  padding: 1em;
+  background-color: #e9e9e9;
+}
+/* line 6, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_utilities.scss */
+.well:after, .well:before {
+  content: "";
+  display: table;
+}
+/* line 10, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_utilities.scss */
+.well:after {
+  clear: both;
+}
+/* line 13, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_utilities.scss */
+.well {
+  *zoom: 1;
+}
+
+/* line 277, ../../../../bluebottle/bluebottle/common/static/sass/base/_type.scss */
+.flaticon {
+  vertical-align: middle;
+}
+
+/*
+figure {
+    display: inline-block;
+    max-width: 100%;
+    img { 
+        display: block;
+        width: 100%;
+    }
+    figcaption {
+        color: blue;
+    }
+}
+
+ul, ol { margin: 0 0 $base-margin 1.5em; }
+ul.list li:before {
+    margin-right: 1.5em;
+    font-family: 'Flaticons Solid';
+    color: $gray;
+    content: "\e1c3";
+}
+ol { list-style: decimal; }
+
+dl {
+    margin-bottom: $base-margin;
+    dt { font-weight: bold; }
+    dd { margin-left: $base-margin; }
+    &.advanced {
+        dt { @include grid(16, 0, 1); }
+        dd { @include grid(32); }
+    }
+}
+*/
+/* line 5, ../../../../bluebottle/bluebottle/common/static/sass/base/_media.scss */
+.text, .video, .image, .oembed, .rawhtml {
+  clear: both;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+/* line 15, ../../../../bluebottle/bluebottle/common/static/sass/base/_media.scss */
+object, embed, iframe {
+  width: 100% !important;
+}
+
+/* line 19, ../../../../bluebottle/bluebottle/common/static/sass/base/_media.scss */
+.video, .oembed {
+  position: relative;
+  padding-bottom: 56.25%;
+}
+
+/* line 29, ../../../../bluebottle/bluebottle/common/static/sass/base/_media.scss */
+.video iframe,
+.oembed iframe,
+.video object,
+.oembed object,
+.video embed,
+.oembed embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* line 41, ../../../../bluebottle/bluebottle/common/static/sass/base/_media.scss */
+.photo-viewer {
+  margin: 0;
+  padding: 0;
+}
+/* line 6, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_utilities.scss */
+.photo-viewer:after, .photo-viewer:before {
+  content: "";
+  display: table;
+}
+/* line 10, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_utilities.scss */
+.photo-viewer:after {
+  clear: both;
+}
+/* line 13, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_utilities.scss */
+.photo-viewer {
+  *zoom: 1;
+}
+/* line 46, ../../../../bluebottle/bluebottle/common/static/sass/base/_media.scss */
+.photo-viewer li {
+  padding-left: 0;
+  text-indent: 0;
+  background-image: none;
+  margin-bottom: 0;
+  margin-top: 0;
+  list-style: none;
+  float: left;
+  width: 14.58333%;
+  margin-left: 0%;
+  margin-right: 2.08333%;
+  overflow: hidden;
+  margin-bottom: 1em;
+}
+/* line 44, ../../../../bluebottle/bluebottle/common/static/sass/mixins/_utilities.scss */
+.photo-viewer li li {
+  list-style: none;
+}
+/* line 52, ../../../../bluebottle/bluebottle/common/static/sass/base/_media.scss */
+.photo-viewer li img {
+  border: 1px solid white;
+}
+/* line 56, ../../../../bluebottle/bluebottle/common/static/sass/base/_media.scss */
+.photo-viewer li:hover img {
+  border-color: #0896ff;
+}
+/* line 60, ../../../../bluebottle/bluebottle/common/static/sass/base/_media.scss */
+.photo-viewer li.more {
+  display: block;
+  float: left;
+  width: 16.66667%;
+  margin-left: 0%;
+  margin-right: 0%;
+  background-color: color-secondary;
+}
+/* line 65, ../../../../bluebottle/bluebottle/common/static/sass/base/_media.scss */
+.photo-viewer li.more a {
+  display: block;
+  color: white;
+}
+
+/* =========== Global States */
+/* line 3, ../../../../bluebottle/bluebottle/common/static/sass/states/_states.scss */
+.is-hidden {
+  display: none !important;
+}
+
+/* Mixins */
+/* Define some variables */
+/* Flexible image */
+/* line 29, ../sass/1procentclub-v2/mixins/_grid.scss */
+img {
+  height: auto;
+  max-width: 100%;
+}
+
+/* line 34, ../sass/1procentclub-v2/mixins/_grid.scss */
+.container {
+  padding: 0 15px;
+  position: relative;
+  *zoom: 1;
+}
+/* line 38, ../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+.container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* line 42, ../sass/1procentclub-v2/mixins/_grid.scss */
+.row {
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  max-width: 1200px;
+  *zoom: 1;
+}
+/* line 38, ../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* line 55, ../sass/1procentclub-v2/mixins/_grid.scss */
+[class*="col"] {
+  float: left;
+  display: inline;
+  min-height: 1px;
+  position: relative;
+  margin-left: 3.09091%;
+}
+/* line 63, ../sass/1procentclub-v2/mixins/_grid.scss */
+[class*="col"]:first-of-type {
+  margin-left: 0;
+}
+
+/* --- Column Width --- */
+/* We can do iteration in sass just like we do in javascript or php */
+/* line 71, ../sass/1procentclub-v2/mixins/_grid.scss */
+.col1 {
+  width: 5.5%;
+}
+
+/* line 71, ../sass/1procentclub-v2/mixins/_grid.scss */
+.col2 {
+  width: 14.09091%;
+}
+
+/* line 71, ../sass/1procentclub-v2/mixins/_grid.scss */
+.col3 {
+  width: 22.68182%;
+}
+
+/* line 71, ../sass/1procentclub-v2/mixins/_grid.scss */
+.col4 {
+  width: 31.27273%;
+}
+
+/* line 71, ../sass/1procentclub-v2/mixins/_grid.scss */
+.col5 {
+  width: 39.86364%;
+}
+
+/* line 71, ../sass/1procentclub-v2/mixins/_grid.scss */
+.col6 {
+  width: 48.45455%;
+}
+
+/* line 71, ../sass/1procentclub-v2/mixins/_grid.scss */
+.col7 {
+  width: 57.04545%;
+}
+
+/* line 71, ../sass/1procentclub-v2/mixins/_grid.scss */
+.col8 {
+  width: 65.63636%;
+}
+
+/* line 71, ../sass/1procentclub-v2/mixins/_grid.scss */
+.col9 {
+  width: 74.22727%;
+}
+
+/* line 71, ../sass/1procentclub-v2/mixins/_grid.scss */
+.col10 {
+  width: 82.81818%;
+}
+
+/* line 71, ../sass/1procentclub-v2/mixins/_grid.scss */
+.col11 {
+  width: 91.40909%;
+}
+
+/* line 71, ../sass/1procentclub-v2/mixins/_grid.scss */
+.col12 {
+  width: 100%;
+}
+
+/*  #Mobile Phone
+================================================== */
+@media only screen and (max-width: 39em) {
+  /* line 81, ../sass/1procentclub-v2/mixins/_grid.scss */
+  .row {
+    max-width: 39em;
+  }
+  /* line 83, ../sass/1procentclub-v2/mixins/_grid.scss */
+  .row [class*="col"] {
+    width: 100%;
+    margin-left: 0;
+    margin-bottom: 20px;
+  }
+  /* line 89, ../sass/1procentclub-v2/mixins/_grid.scss */
+  .row.two [class*="col"] {
+    width: 50%;
+  }
+}
+/* line 1, ../sass/1procentclub-v2/base/_base.scss */
+a[href$=".pdf"][data-size] {
+  text-decoration: underline !important;
+  color: #9f9f9f !important;
+}
+/* line 5, ../sass/1procentclub-v2/base/_base.scss */
+a[href$=".pdf"][data-size]:before {
+  float: left;
+  display: block;
+  margin-right: 7px;
+  content: '';
+  width: 21px;
+  height: 24px;
+  background: url('../images/img/icons/icon-download-file.svg?1413289864') transparent no-repeat;
+  text-decoration: none;
+}
+/* line 16, ../sass/1procentclub-v2/base/_base.scss */
+a[href$=".pdf"][data-size]:after {
+  position: absolute;
+  top: 24px;
+  left: 27px;
+  content: "" attr(data-size) " - PDF";
+  font-size: 14px;
+  color: #d8d8d8;
+  text-decoration: none;
+}
+
+/* target specific elements in campaign widget */
+/* line 3, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container {
+  font-family: "Neue Helvetica W01", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding-bottom: 80px;
+  margin: 1em 0 2em 0;
+}
+/* line 8, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item {
+  position: relative;
+  height: 420px;
+  min-width: 245px;
+  background: #f8f7f8;
+  padding: 7px;
+  border-radius: 0 0 6px 6px;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+@media screen and (min-width: 39em) and (max-width: 46.8em) {
+  /* line 8, ../sass/1procentclub-v2/modules/_campaigns.scss */
+  #onepercent-campaign-widget .campaign-container .campaign-item {
+    min-width: 185px;
+    height: 300px;
+  }
+}
+@media screen and (min-width: 46.8em) and (max-width: 67em) {
+  /* line 8, ../sass/1procentclub-v2/modules/_campaigns.scss */
+  #onepercent-campaign-widget .campaign-container .campaign-item {
+    height: 380px;
+  }
+}
+@media (max-width: 39em) {
+  /* line 8, ../sass/1procentclub-v2/modules/_campaigns.scss */
+  #onepercent-campaign-widget .campaign-container .campaign-item {
+    height: 500px;
+  }
+}
+/* line 27, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item .campaign-item-holder {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: white;
+  border-radius: 0 0 6px 6px;
+  border: solid 1px #d8d8d8;
+  display: block;
+}
+/* line 36, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item .campaign-item-holder .header {
+  position: absolute;
+  overflow: hidden;
+  width: 100%;
+  height: 200px;
+  background: #8a9993;
+  opacity: 1;
+  -webkit-transition: opacity 0.2s ease-in-out;
+  -moz-transition: opacity 0.2s ease-in-out;
+  -o-transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
+}
+@media screen and (min-width: 39em) and (max-width: 46.8em) {
+  /* line 36, ../sass/1procentclub-v2/modules/_campaigns.scss */
+  #onepercent-campaign-widget .campaign-container .campaign-item .campaign-item-holder .header {
+    height: 100px;
+  }
+}
+@media screen and (min-width: 46.8em) and (max-width: 67em) {
+  /* line 36, ../sass/1procentclub-v2/modules/_campaigns.scss */
+  #onepercent-campaign-widget .campaign-container .campaign-item .campaign-item-holder .header {
+    height: 150px;
+  }
+}
+/* line 51, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item .campaign-item-holder .header img {
+  width: 100%;
+  position: relative;
+}
+/* line 56, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item .campaign-item-holder .header:before {
+  position: absolute;
+  top: 45%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 40%;
+  text-align: center;
+  content: "Loading...";
+  font-size: .7em;
+  color: #f8f7f8;
+}
+/* line 70, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item .campaign-item-holder .profile-photo {
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 51px;
+  height: 51px;
+  overflow: hidden;
+  border-radius: 50%;
+  top: 168px;
+  border: solid 2px white;
+  z-index: 4;
+  -webkit-transition: top 0.2s ease-in-out;
+  -moz-transition: top 0.2s ease-in-out;
+  -o-transition: top 0.2s ease-in-out;
+  transition: top 0.2s ease-in-out;
+}
+@media screen and (min-width: 39em) and (max-width: 46.8em) {
+  /* line 70, ../sass/1procentclub-v2/modules/_campaigns.scss */
+  #onepercent-campaign-widget .campaign-container .campaign-item .campaign-item-holder .profile-photo {
+    top: 76px;
+  }
+}
+@media screen and (min-width: 46.8em) and (max-width: 67em) {
+  /* line 70, ../sass/1procentclub-v2/modules/_campaigns.scss */
+  #onepercent-campaign-widget .campaign-container .campaign-item .campaign-item-holder .profile-photo {
+    top: 125px;
+  }
+}
+/* line 91, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item .campaign-item-holder .profile-photo img {
+  width: 100%;
+}
+/* line 96, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item .campaign-item-holder .campaign-hover {
+  position: absolute;
+  height: 57%;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  z-index: 3;
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+/* line 109, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item .campaign-item-holder .campaign-hover .campaign-hover-head {
+  margin: auto;
+  margin-top: 55px;
+  width: 100%;
+  height: auto;
+  min-height: 50px;
+  text-align: center;
+  padding: 0.6em 0 0.3em 0.6em;
+  border-bottom: solid 1px #d8d8d8;
+}
+@media screen and (min-width: 39em) and (max-width: 46.8em) {
+  /* line 109, ../sass/1procentclub-v2/modules/_campaigns.scss */
+  #onepercent-campaign-widget .campaign-container .campaign-item .campaign-item-holder .campaign-hover .campaign-hover-head {
+    font-size: .8em;
+    line-height: 17px;
+  }
+}
+@media screen and (min-width: 46.8em) and (max-width: 67em) {
+  /* line 109, ../sass/1procentclub-v2/modules/_campaigns.scss */
+  #onepercent-campaign-widget .campaign-container .campaign-item .campaign-item-holder .campaign-hover .campaign-hover-head {
+    font-size: .8em;
+    line-height: 17px;
+  }
+}
+/* line 128, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item .campaign-item-holder .campaign-hover .campaign-hover-head strong {
+  display: inline-block;
+  margin: auto;
+  font-family: "Neue Helvetica W01", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  padding: 0 0.6em;
+}
+/* line 137, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item .campaign-item-holder .campaign-hover .campaign-hover-body {
+  min-height: 190px;
+  max-height: 210px;
+  overflow: hidden;
+  color: #3c3c3c;
+}
+@media screen and (min-width: 39em) and (max-width: 46.8em) {
+  /* line 137, ../sass/1procentclub-v2/modules/_campaigns.scss */
+  #onepercent-campaign-widget .campaign-container .campaign-item .campaign-item-holder .campaign-hover .campaign-hover-body {
+    font-size: 13px;
+    line-height: 20px;
+    min-height: 40px;
+    max-height: 120px;
+  }
+}
+@media screen and (min-width: 46.8em) and (max-width: 67em) {
+  /* line 137, ../sass/1procentclub-v2/modules/_campaigns.scss */
+  #onepercent-campaign-widget .campaign-container .campaign-item .campaign-item-holder .campaign-hover .campaign-hover-body {
+    font-size: 14px;
+    line-height: 23px;
+  }
+}
+/* line 154, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item .campaign-item-holder .campaign-hover .campaign-hover-footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  border-top: solid 1px #d8d8d8;
+}
+/* line 165, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item .campaign-item-holder .campaign-hover p span {
+  display: block;
+  padding: 15px 12px 15px 12px;
+}
+/* line 170, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item .campaign-item-holder .campaign-hover p .go-to-campaign {
+  display: block;
+  text-align: center;
+  font-size: 14px;
+  color: #ff619a;
+}
+/* line 176, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item .campaign-item-holder .campaign-hover p .go-to-campaign:after {
+  content: "\2192";
+  margin-left: 7px;
+}
+/* line 185, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item .campaign-body {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 217px;
+  margin: auto;
+  padding: 10px;
+  -webkit-transition: top 0.2s ease-in-out;
+  -moz-transition: top 0.2s ease-in-out;
+  -o-transition: top 0.2s ease-in-out;
+  transition: top 0.2s ease-in-out;
+}
+@media screen and (min-width: 39em) and (max-width: 46.8em) {
+  /* line 185, ../sass/1procentclub-v2/modules/_campaigns.scss */
+  #onepercent-campaign-widget .campaign-container .campaign-item .campaign-body {
+    top: 117px;
+  }
+}
+@media screen and (min-width: 46.8em) and (max-width: 67em) {
+  /* line 185, ../sass/1procentclub-v2/modules/_campaigns.scss */
+  #onepercent-campaign-widget .campaign-container .campaign-item .campaign-body {
+    top: 167px;
+  }
+}
+/* line 200, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item .campaign-body .profile-name {
+  display: block;
+  color: #8a9993;
+  text-align: center;
+  opacity: 1;
+  -webkit-transition: opacity 0.2s ease-in-out;
+  -moz-transition: opacity 0.2s ease-in-out;
+  -o-transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
+}
+@media screen and (min-width: 39em) and (max-width: 46.8em) {
+  /* line 200, ../sass/1procentclub-v2/modules/_campaigns.scss */
+  #onepercent-campaign-widget .campaign-container .campaign-item .campaign-body .profile-name {
+    font-size: 12px;
+    line-height: 17px;
+  }
+}
+@media screen and (min-width: 46.8em) and (max-width: 67em) {
+  /* line 200, ../sass/1procentclub-v2/modules/_campaigns.scss */
+  #onepercent-campaign-widget .campaign-container .campaign-item .campaign-body .profile-name {
+    font-size: 12px;
+    line-height: 17px;
+  }
+}
+/* line 215, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item .campaign-body .profile-name strong {
+  font-family: "Neue Helvetica W01", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  color: #00c051;
+}
+/* line 223, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item .campaign-body .campaign-body-names {
+  display: block;
+  margin: 0.3em 0 0 0;
+  text-align: center;
+  font-family: "Neue Helvetica W01", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.13em;
+}
+@media screen and (min-width: 39em) and (max-width: 46.8em) {
+  /* line 223, ../sass/1procentclub-v2/modules/_campaigns.scss */
+  #onepercent-campaign-widget .campaign-container .campaign-item .campaign-body .campaign-body-names {
+    font-size: .8em;
+    line-height: 17px;
+  }
+}
+@media screen and (min-width: 46.8em) and (max-width: 67em) {
+  /* line 223, ../sass/1procentclub-v2/modules/_campaigns.scss */
+  #onepercent-campaign-widget .campaign-container .campaign-item .campaign-body .campaign-body-names {
+    font-size: .8em;
+    line-height: 17px;
+  }
+}
+/* line 241, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item .campaign-footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 8px;
+  margin: auto;
+  padding: 10px;
+  opacity: 1;
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  -o-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+}
+/* line 251, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item .campaign-footer .campaign-fund-amount {
+  color: #8a9993;
+}
+@media screen and (min-width: 39em) and (max-width: 46.8em) {
+  /* line 251, ../sass/1procentclub-v2/modules/_campaigns.scss */
+  #onepercent-campaign-widget .campaign-container .campaign-item .campaign-footer .campaign-fund-amount {
+    font-size: 12px;
+  }
+}
+/* line 257, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item .campaign-footer .campaign-fund-amount .amount-raised {
+  float: left;
+  padding-left: 0.5em;
+}
+/* line 262, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item .campaign-footer .campaign-fund-amount .days-left {
+  float: right;
+  padding-right: 0.5em;
+}
+/* line 267, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item .campaign-footer .campaign-fund-amount strong {
+  font-family: "Neue Helvetica W01", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+}
+/* line 272, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item .campaign-footer .campaign-fund-amount .fully-funded {
+  display: block;
+  width: 100%;
+  text-align: center;
+  color: #ff619a;
+}
+/* line 279, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item .campaign-footer .campaign-fund-amount-slider {
+  display: block;
+  overflow: hidden;
+  border-radius: 1em;
+  margin: 0 0 0.4em 0;
+  border: solid 1px #00c051;
+}
+/* line 287, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item .campaign-footer .campaign-fund-amount-slider .project-fund-amount-slider {
+  background: transparent;
+}
+/* line 291, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item .campaign-footer .campaign-fund-amount-slider .slider-progress {
+  position: relative;
+  display: block;
+  border-radius: 1em 0 0 1em;
+  background-color: #00c051;
+  color: #fff;
+  text-align: right;
+  white-space: nowrap;
+  line-height: 0.8em;
+  height: 0.8em;
+}
+/* line 303, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item .campaign-footer .campaign-fund-amount-slider.is-funded {
+  border-color: #ff619a;
+}
+/* line 306, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item .campaign-footer .campaign-fund-amount-slider.is-funded .slider-progress {
+  background-color: #ff619a;
+}
+/* line 317, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item:hover .campaign-item-holder .header {
+  opacity: 0;
+}
+/* line 321, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item:hover .campaign-item-holder .profile-photo {
+  top: -30px;
+}
+/* line 325, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item:hover .campaign-item-holder .campaign-body {
+  top: 20px;
+  z-index: 4;
+}
+/* line 329, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item:hover .campaign-item-holder .campaign-body .campaign-body-names {
+  opacity: 0;
+}
+/* line 334, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item:hover .campaign-item-holder .campaign-footer {
+  opacity: 0;
+  bottom: -4px;
+}
+/* line 339, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item:hover .campaign-item-holder .campaign-hover {
+  visibility: visible;
+  opacity: 1;
+  height: 100%;
+}
+/* line 347, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget .campaign-container .campaign-item a.campaign-href {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+/* line 365, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget body.touch .campaign-container .campaign-item .campaign-item-holder .header {
+  opacity: 1;
+}
+/* line 369, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget body.touch .campaign-container .campaign-item .campaign-item-holder .profile-photo {
+  top: 168px;
+}
+/* line 373, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget body.touch .campaign-container .campaign-item .campaign-item-holder .campaign-body {
+  top: 217px;
+  z-index: 0;
+}
+/* line 377, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget body.touch .campaign-container .campaign-item .campaign-item-holder .campaign-body .campaign-body-names {
+  opacity: 1;
+}
+/* line 382, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget body.touch .campaign-container .campaign-item .campaign-item-holder .campaign-footer {
+  opacity: 1;
+  bottom: 8px;
+}
+/* line 387, ../sass/1procentclub-v2/modules/_campaigns.scss */
+#onepercent-campaign-widget body.touch .campaign-container .campaign-item .campaign-item-holder .campaign-hover {
+  visibility: hidden;
+  opacity: 1;
+  height: 100%;
+}
