@@ -1,7 +1,9 @@
 {% load i18n %}
+{% load thumbnail %}
+
 <style>
     .container {
-        /*width: {{ width }}px;*/
+        width: {{ width }}px;
         height: {{ height }}px;
         max-width: 1200px;
         margin: auto;
@@ -9,9 +11,6 @@
 </style>
 <div id="onepercent-campaign-widget">
     <div class="campaign-container campaign-grid gc-3">
-        h:{{ height }}
-        w: {{ width }}
-        p: {{ partner }}
         <ul class="container">
             {% for project in projects %}
                 <li class="campaign-item">
@@ -34,9 +33,10 @@
                         </div>
 
                         <div class="campaign-footer">
-                                <div class="project-fund-amount-slider"><strong style="width: 0%;" class="slider-progress is-in-progress" data-target-amount="{{project.amount_asked}}" data-donated-amount="{{project.amount_donated}}"><em class="slider-percentage">0%</em></strong></div>
+                                <div class="project-fund-amount-slider">
+                                    <strong style="width: {{ project.donated_percentage }}%;" class="slider-progress is-in-progress" data-target-amount="{{project.amount_asked}}" data-donated-amount="{{project.amount_donated}}"><em class="slider-percentage">0%</em></strong></div>
                                 <div class="campaign-fund-amount">
-                                    <span class="amount-raised"><strong>&euro; {{project.amount_donated}} </strong>{% trans 'raised'%}</span>
+                                    <span class="amount-raised"><strong>&euro; {{project.amount_donated|floatformat:0}} </strong>{% trans 'raised'%}</span>
                                     <span data-days-left="{{project.deadline| date:"d m Y"}}" class="days-left"><strong>{{project.daysToGo}} </strong></span>
                                 </div>
                         </div>
