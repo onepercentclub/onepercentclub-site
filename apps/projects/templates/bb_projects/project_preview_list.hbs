@@ -25,17 +25,42 @@
 
             <div class="campaign-footer">
                 {{#if project.isStatusCampaign}}
-                    {{bb-progressbar targetValue=project.amount_asked currentValue=project.amount_donated class="campaign-fund-amount-slider"}}
-                    <div class="campaign-fund-amount">
+                    {{#if project.isSupportable}}
+                            {{bb-progressbar targetValue=project.amount_asked currentValue=project.amount_donated class="campaign-fund-amount-slider"}}
+                    {{else}}
+                        <div class="expired">
+                            {{bb-progressbar targetValue=project.amount_asked currentValue=project.amount_donated class="campaign-fund-amount-slider"}}
+                        </div>
+                    {{/if}}
+                    <div {{bind-attr class=":campaign-fund-amount project.isSupportable::expired"}}>
                         <span class="amount-raised"><strong>&euro; {{project.amount_donated}} </strong>{% trans "raised" context "Slider project frontpage" %}</span>
-                        <span class="days-left"><strong>{{project.daysToGo}} </strong>{% trans "days left" context "Slider project frontpage" %}</span>
+                        {{#if project.isSupportable}}
+                            <span class="days-left"><strong>{{project.daysToGo}} </strong>{% trans "days left" context "Slider project frontpage" %}</span>
+                        {{else}}
+                            <div class="expired">
+                                <span class="days-left">{% trans "deadline passed" %}</span>
+                            </div>
+                        {{/if}}
                     </div>
                 {{else}}
-                    <p class="campaign-fund-amount-slider is-funded"><strong style="width: 100%; overflow: hidden;" class="slider-progress is-in-progress"><em class="slider-percentage"></em></strong></p>
-                    <div class="campaign-fund-amount">
-                    <span class="fully-funded"><strong>&euro; {{project.amount_donated}} {% trans 'raised' %}</strong></span>
-                    </div>
-
+                    {{#if project.isStatusCompleted}}
+                        <p class="campaign-fund-amount-slider is-funded"><strong style="width: 100%; overflow: hidden;" class="slider-progress is-in-progress"><em class="slider-percentage"></em></strong></p>
+                        <div class="campaign-fund-amount">
+                            <span class="fully-funded"><strong>&euro; {{project.amount_donated}} {% trans 'raised' %}</strong></span>
+                        </div>
+                    {{else}}
+                        <div {{bind-attr class=":campaign-fund-amount project.isSupportable::expired"}}>
+                            {{bb-progressbar targetValue=project.amount_asked currentValue=project.amount_donated class="campaign-fund-amount-slider"}}
+                            <span class="amount-raised"><strong>&euro; {{project.amount_donated}} </strong>{% trans "raised" context "Slider project frontpage" %}</span>
+                            {{#if project.overDeadline}}
+                                <div class="expired">
+                                    <span class="days-left">{% trans "deadline passed" %}</span>
+                                </div>
+                            {{else}}
+                                <span class="days-left"><strong>{{project.daysToGo}} </strong>{% trans "days left" context "Slider project frontpage" %}</span>
+                            {{/if}}
+                        </div>
+                    {{/if}}
                 {{/if}}
             </div>
             <div class="campaign-hover">
