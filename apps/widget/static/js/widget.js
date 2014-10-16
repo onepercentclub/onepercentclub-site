@@ -1,5 +1,10 @@
 (function() {
 
+    if (window.location.href.substring('onepercent') || window.location.href.substring('localhost')) {
+        var host = '';
+    } else {
+        var host = 'https://onepercentclub.com/';
+    }
     var jQuery;
 
     if (window.jQuery === undefined || window.jQuery.fn.jquery !== '1.11.1') {
@@ -8,12 +13,14 @@
         script_tag.setAttribute("src", "http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js");
 
         if (script_tag.readyState) {
-            script_tag.onreadystatechange = function (){ //Specific for old versions of IE
+            script_tag.onreadystatechange = function (){
+                // Specific for old versions of IE
                 if (this.readyState == 'complete' || this.readyState == 'loaded') {
                     scriptLoadHandler();
                 }
             };
-        } else { //Other browsers use this
+        } else {
+            // Other browsers use this
             script_tag.onload = scriptLoadHandler;
         }
 
@@ -33,12 +40,11 @@
             $('.widget-container').each(function(){
                 var el = $(this);
                 var project = el.data('project') ? el.data('project') : '';
-                var width = el.data('width') ? el.data('width') : 200;
+                var width = el.data('width') ? el.data('width') : 300;
                 var height = el.data('height') ? el.data('height') : 300;
                 var partner = el.data('partner') ? el.data('partner') : '';
                 var language = el.data('language') ? el.data('language') : 'en';
-                // var jsonp_url = "http://staging.onepercentclub.com/embed?callback=?&id=" + id + "&width=" + width + "&height=" + height
-                var jsonp_url = "http://localhost:8000/embed?callback=?&project=" + project + "&width=" + width + "&height=" + height +"&partner=" + partner + '&language=' + language;
+                var jsonp_url = host + "/embed?callback=?&project=" + project + "&width=" + width + "&height=" + height +"&partner=" + partner + '&language=' + language;
                 $.getJSON(jsonp_url, function(data){
                     el.html(data.html);
                 });
