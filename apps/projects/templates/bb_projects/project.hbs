@@ -51,7 +51,9 @@
                 </div>
             {{else}}
                 <div class="project-days-left">
-                    <strong><span class="flaticon solid clock-1"></span> <em>{% trans "deadline passed" %}</em></strong>
+                    {{#unless isPhasePlanNew}}
+                        <strong><span class="flaticon solid clock-1"></span> <em>{% trans "deadline passed" %}</em></strong>
+                    {{/unless}}
                 </div>
             {{/if}}
 

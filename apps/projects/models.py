@@ -260,6 +260,14 @@ class Project(BaseProject):
     def amount_safe(self):
         return self.get_money_total(['paid']) / 100
 
+    @property
+    def donated_percentage(self):
+        if not self.amount_asked:
+            return 0
+        elif self.amount_donated > self.amount_asked:
+            return 100
+        return int(100 * self.amount_donated / self.amount_asked)
+
     @models.permalink
     def get_absolute_url(self):
         """ Get the URL for the current project. """
@@ -304,6 +312,11 @@ class Project(BaseProject):
                 )
 
         return tweet
+
+    @property
+    def image_url(self):
+        if self.image and hasattr(self.image, 'url'):
+            return self.image.url
 
     class Meta(BaseProject.Meta):
         ordering = ['title']

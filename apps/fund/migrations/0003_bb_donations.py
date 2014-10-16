@@ -112,7 +112,7 @@ class Migration(DataMigration):
     def forwards(self, orm):
         "Write your forwards methods here."
         start = 0
-        old_orders = orm['fund.Order'].objects.all()[start:]
+        old_orders = orm['fund.Order'].objects.all()[start:1000]
 
         t = 0
         # Iterate over orders
