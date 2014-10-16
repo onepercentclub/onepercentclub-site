@@ -10,7 +10,7 @@
     if (window.jQuery === undefined || window.jQuery.fn.jquery !== '1.11.1') {
         var script_tag = document.createElement('script');
         script_tag.setAttribute("type", "text/javascript");
-        script_tag.setAttribute("src", "http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js");
+        script_tag.setAttribute("src", "//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js");
 
         if (script_tag.readyState) {
             script_tag.onreadystatechange = function (){
