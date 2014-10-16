@@ -1,10 +1,6 @@
 (function() {
 
-    if (window.location.href.substring('onepercent') || window.location.href.substring('localhost')) {
-        var host = '';
-    } else {
-        var host = 'https://onepercentclub.com/';
-    }
+    var host = 'https://onepercentclub.com/';
     var jQuery;
 
     if (window.jQuery === undefined || window.jQuery.fn.jquery !== '1.11.1') {
