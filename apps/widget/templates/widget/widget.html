@@ -2,14 +2,8 @@
 {% load thumbnail %}
 {% load static from staticfiles %}
 
-<style>
-    .campaign-item {
-        width: {{ width }}px;
-        height: {{ height }}px;
-    }
-</style>
 {% for project in projects %}
-    <div class="campaign-item">
+    <div class="campaign-item" style="width: {{ width }}px; height: {{ height }}px;">
         <a href="{{ host }}/go/projects/{{project.slug}}" class="campaign-item-holder">
             <header class="header">
                 {% thumbnail project.image "400x380" as im %}
