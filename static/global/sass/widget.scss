@@ -1,7 +1,7 @@
 
 /* Compass */
 @import "compass/utilities";
-@import "compass/reset";
+//@import "compass/reset";
 @import "compass/css3";
 
 /* Variables & Mixins */
@@ -15,13 +15,6 @@
 
 /* Icons */
 @import "icons/icons-sprites";
-
-/* Base */
-@import "base/reset";
-@import "base/base";
-@import "base/type";
-@import "base/media";
-@import "states/states";
 
 /* BB modules*/
 @import "modules/projects";

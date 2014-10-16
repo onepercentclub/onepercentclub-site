@@ -2,6 +2,105 @@
     display: inline-block;
 }
 
+.widget-holder {
+    position: relative;
+
+    // import from bb base/type
+    font-family: $font-family;
+    line-height: $base-line-height;
+    font-size: $base-font-size;
+    color: $type-body-color;
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased; 
+    text-rendering: optimizelegibility;
+    -moz-osx-font-smoothing: grayscale;
+
+    small { 
+        font-size: $font-size-smallest;
+    }
+
+    strong, b { 
+        font-weight: normal; 
+        font-family: $font-family-heavy; 
+    }
+
+    em, i { 
+        font-weight: normal; 
+        font-style: italic; 
+    }
+
+    cite { 
+        font-style: normal; 
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        margin: $base-margin/2 0 0 0;
+        font-family: $font-family-bold;
+        line-height: 1.3em;
+        text-transform: uppercase;
+        font-weight: normal;
+        
+        small {
+            line-height: 1;
+            color: $gray-light;
+        }
+        
+        em {
+            font-style: normal;
+        }
+    }
+
+    h1 { 
+        font-size: $font-size-largest;
+        color: $type-h1-color;
+        
+        em {
+            font-family: $base-font-family;
+            color: $type-h1-em-color;
+        }
+    } 
+
+    h2 {
+        font-size: $font-size-larger;
+        color: $type-h2-color;
+    } 
+
+    h3 { 
+        font-size: $font-size-large;
+        color: $type-h3-color;
+    } 
+
+    h4 { 
+        font-size: $base-font-size;
+    }
+
+    .powered-by {
+        width: 112px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -35px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 10px;
+        font-size: 10px;
+        color: #D8D8D8;
+        text-decoration: none;
+        
+        &:after {
+            position: absolute;
+            display: block;
+            right: 10px;
+            top: 3px;
+            content: '';
+            height: 35px;
+            width: 37px;
+            background: image-url("img/1procentclub.svg") transparent no-repeat 100% 50%;
+            background-size: contain;
+        }
+    }
+}
+
 .campaign-item {
     max-width: 400px;
     min-height: 400px;
@@ -14,14 +113,17 @@
     border-radius: 0 0 6px 6px;
     @include single-transition(all, .2s ease-in-out);
     @include breakpoint(column) {
-        min-width: 185px;
-        height: 300px;
+        min-width: 200px;
+        min-height: 255px;
     }
-    @include breakpoint(large) {
-        height: 380px;
-    }
+
     @include breakpoint(x-small) {
-        height: 500px;
+        // min-width: 200px;
+        min-height: 255px;
+    }
+
+    @include breakpoint(large) {
+        max-height: 420px;
     }
 
     .campaign-item-holder {
@@ -113,8 +215,6 @@
                 height: auto;
                 min-height: 50px;
                 text-align: center;
-
-                padding: 0.6em 0 0.3em 0.6em;
                 border-bottom: solid 1px $gray-border;
                 @include breakpoint(column) {
                     font-size: .8em;
@@ -127,10 +227,11 @@
 
                 strong {
                     display: inline-block;
-                    margin: auto;
+                    margin-top: 17px;
                     font-family: $font-family-body;
                     font-weight: 700;
                     padding: 0 0.6em;
+                    color: $black;
                 }
             }
 
