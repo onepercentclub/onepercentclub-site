@@ -7,7 +7,7 @@ from django.contrib.admin import SimpleListFilter
 from django.contrib.admin.templatetags.admin_static import static
 from django.utils import translation
 from django.utils.translation import ugettext_lazy as _
-from .models import Donation, Order, RecurringDirectDebitPayment, OrderStatuses, DonationStatuses
+from .models import Donation, Order, OrderStatuses, DonationStatuses
 
 
 # http://stackoverflow.com/a/16556771
@@ -222,26 +222,3 @@ class ActiveFilter(SimpleListFilter):
             return queryset.filter(active=self.default)
 
 
-class RecurringDirectDebitPaymentAdmin(admin.ModelAdmin):
-
-    list_display = ('user', 'active', 'amount_override', 'account', 'iban', 'iban_ok')
-    list_filter = (ActiveFilter,)
-    search_fields = ('user__email', 'user__username', 'user__first_name', 'user__last_name', 'account', 'iban', 'bic')
-    raw_id_fields = ('user',)
-    readonly_fields = ('created', 'updated')
-
-    def amount_override(self, obj):
-        language = translation.get_language().split('-')[0]
-        return format_currency(obj.amount / 100.0, obj.currency, locale=language)
-
-    amount_override.short_description = 'amount'
-
-    def iban_ok(self, obj):
-        if obj.account in obj.iban:
-            return 'OK'
-        return 'CHECK IBAN'
-
-
-
-
-admin.site.register(RecurringDirectDebitPayment, RecurringDirectDebitPaymentAdmin)

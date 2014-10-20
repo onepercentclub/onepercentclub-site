@@ -48,7 +48,7 @@
                     {{#if currentUser.isAuthenticated }}
                         <h3>{% trans "Want to do more?" %}</h3>
                         <p>{% blocktrans %}You can easily support projects monthly. Just pick a project yourself or you can leave that up to us.{% endblocktrans %}</p>
-                        {{#linkTo "userMonthlyProjects" class="btn btn-primary"}}{% trans "Support monthly" %}{{/linkTo}}
+                        {{#linkTo "monthlyDonation" class="btn btn-primary"}}{% trans "Support monthly" %}{{/linkTo}}
                     {{else}}
                          <h3>{% trans "Stay updated" %}</h3>
                         <p>{% blocktrans %}We’d love to keep you updated on the progress of the projects you just supported. Sign up and receive updates, and our everlasting love.{% endblocktrans %}</p>

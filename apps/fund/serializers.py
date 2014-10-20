@@ -8,7 +8,7 @@ from bluebottle.bb_projects.models import ProjectPhase
 from bluebottle.utils.serializers import MetaField
 from django.utils.translation import ugettext as _
 from rest_framework import serializers
-from .models import Donation, DonationStatuses, Order, OrderStatuses, RecurringDirectDebitPayment
+from .models import Donation, DonationStatuses, Order, OrderStatuses
 
 
 class ProjectSupporterSerializer(serializers.ModelSerializer):
@@ -32,18 +32,6 @@ class ProjectDonationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Donation
         fields = ('member', 'date_donated', 'amount',)
-
-
-
-# TODO Create a Serializer that takes an order id for the current order to make this resource RESTful.
-#      The model should not have an order though.
-class RecurringDirectDebitPaymentSerializer(serializers.ModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name='recurring-direct-debit-payment-detail')
-    amount = EuroField()
-
-    class Meta:
-        model = RecurringDirectDebitPayment
-        fields = ('id', 'url', 'active', 'amount', 'name', 'city', 'account')
 
 
 class DonationSerializer(serializers.ModelSerializer):

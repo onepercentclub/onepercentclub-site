@@ -16,11 +16,10 @@ from django.db import transaction
 from django.http import Http404
 from rest_framework import exceptions, status, permissions, response, generics
 from django.utils.translation import ugettext as _
-from .models import Donation, Order, OrderStatuses, DonationStatuses, RecurringDirectDebitPayment
+from .models import Donation, Order, OrderStatuses, DonationStatuses
 from .permissions import IsUser
 from rest_framework.permissions import IsAuthenticated
-from .serializers import DonationSerializer, OrderSerializer, RecurringDirectDebitPaymentSerializer, \
-    OrderCurrentSerializer, OrderCurrentDonationSerializer
+from .serializers import DonationSerializer, OrderSerializer, OrderCurrentSerializer, OrderCurrentDonationSerializer
 
 from bluebottle.utils.utils import get_project_model
 
@@ -290,48 +289,6 @@ class RecurringDonationDetail(generics.RetrieveUpdateDestroyAPIView):
         qs = super(RecurringDonationDetail, self).get_queryset()
         qs = qs.filter(donation_type=Donation.DonationTypes.recurring)
         return qs.filter(user=self.request.user)
-
-
-class RecurringDirectDebitPaymentMixin(object):
-    model = RecurringDirectDebitPayment
-    serializer_class = RecurringDirectDebitPaymentSerializer
-    permission_classes = (IsUser,)
-
-    def get_queryset(self):
-        if isinstance(self.request.user, AnonymousUser):
-            return self.model.objects.none()
-        else:
-            return self.model.objects.filter(user=self.request.user)
-
-    def pre_save(self, obj):
-        obj.user = self.request.user
-
-    def post_save(self, obj, created=False):
-        # TODO: Get the order id from the client for the current order.
-        try:
-            order = Order.objects.get(user=self.request.user, status=OrderStatuses.recurring)
-        except Order.DoesNotExist:
-            if created:
-                obj.delete()
-            raise exceptions.ParseError(detail=no_active_order_error_msg)
-
-        # Update monthly order.
-        with transaction.commit_on_success():
-            monthly_order, created = Order.objects.get_or_create(user=self.request.user, status=OrderStatuses.recurring)
-            monthly_order.recurring = True
-            monthly_order.save()
-
-        for donation in monthly_order.donations.all():
-            donation.order = monthly_order
-            donation.save()
-
-
-class RecurringDirectDebitPaymentList(RecurringDirectDebitPaymentMixin, generics.ListCreateAPIView):
-    pass
-
-
-class RecurringDirectDebitPaymentDetail(RecurringDirectDebitPaymentMixin, generics.RetrieveUpdateAPIView):
-    pass
 
 
 #

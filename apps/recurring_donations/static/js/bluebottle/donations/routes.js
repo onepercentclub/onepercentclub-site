@@ -5,10 +5,10 @@
 
 App.Router.map(function() {
 
-    this.resource('userDonation', {path: '/donations'}, function() {
-        this.resource('userDonationHistory', {path: '/'});
-        this.resource('userMonthlyProjects', {path: '/projects'});
-        this.resource('userMonthlyProfile', {path: '/profile'});
+    this.resource('userDonationHistory', {path: '/donations'});
+
+    this.resource('monthlyDonation', {path: '/donations/monthly'}, function() {
+        this.resource('monthlyDonationProjects', {path: '/projects'});
     });
 
 });
@@ -24,17 +24,16 @@ App.UserDonationHistoryRoute = Em.Route.extend({
 });
 
 
-
-App.UserDonationRoute = Em.Route.extend({
+App.MonthlyDonationRoute = Em.Route.extend({
     model: function() {
         var route = this;
-        return App.RecurringDirectDebitPayment.find({}).then(function(recordList) {
+        return App.MonthlyDonation.find({}).then(function(recordList) {
             var store = route.get('store');
             if (recordList.get('length') > 0) {
                 var record = recordList.objectAt(0);
                 return record;
             } else {
-                record = store.createRecord(App.RecurringDirectDebitPayment);
+                record = store.createRecord(App.MonthlyDonation);
                 return record
             }
         })
@@ -42,32 +41,8 @@ App.UserDonationRoute = Em.Route.extend({
 
 });
 
+App.MonthlyDonationProjectsRoute = App.MonthlyDonationRoute.extend({
 
-App.UserMonthlyProfileRoute = Em.Route.extend({
-    model: function(params) {
-        return this.modelFor('userDonation');
-    },
-    exit: function(){
-        this.get('controller').stopEditing();
-    }
-
-
-
-});
-
-App.UserMonthlyProjectsRoute = Em.Route.extend({
-
-    model: function() {
-        var route = this;
-        return App.RecurringOrder.find({'status': 'recurring'}).then(function(recordList) {
-            var store = route.get('store');
-            if (recordList.get('length') > 0) {
-                return recordList.objectAt(0);
-            } else {
-                return store.createRecord(App.RecurringOrder);
-            }
-        });
-    },
     setupController: function(controller, order) {
         this._super(controller, order);
         controller.startEditing();
@@ -93,9 +68,10 @@ App.UserMonthlyProjectsRoute = Em.Route.extend({
 });
 
 
-App.UserMonthlyProjectsIndexRoute = App.UserMonthlyProjectsRoute.extend({});
+App.MonthlyDonationProjectsIndexRoute = App.MonthlyDonationRoute.extend({});
 
-App.UserMonthlyDonationListRoute = Em.Route.extend({
+
+App.MonthlyDonationListRoute = Em.Route.extend({
     model: function(params) {
         return this.modelFor('userMonthlyProjects').get('donations');
     }

@@ -1,21 +1,4 @@
-App.UserDonationController = Em.ObjectController.extend({});
-App.UserMonthlyController = Em.ObjectController.extend({});
-
-App.UserMonthlyProfileController = Em.ObjectController.extend(App.Editable, {
-    actions: {
-        save: function(){
-            this.get('model').save();
-        }
-    }
-});
-
-App.UserMonthlyProjectsController = Em.ObjectController.extend({
-
-    initamount: function(obj, keyName) {
-        if (this.get('payment.isLoaded') && this.get('amount') == 0) {
-            this.set('amount', this.get('payment.amount'))
-        }
-    }.observes('payment.isLoaded'),
+App.MonthlyDonationController = Em.ObjectController.extend({
 
     addressComplete: function(){
         if (this.get('profile.didError')) {
@@ -29,87 +12,16 @@ App.UserMonthlyProjectsController = Em.ObjectController.extend({
 
     shouldSave: function(obj, keyName){
         var dirty = false;
-        this.get('model.donations').forEach(function(record){
+        this.get('model.projects').forEach(function(record){
             if (record.get('isDirty')){
                 dirty = true;
             }
         });
-        if (this.get('model.isDirty') || this.get('payment.isDirty')) {
+        if (this.get('model.isDirty')) {
             dirty = true;
         }
         return dirty;
-    }.property('isDirty', 'payment.isDirty', 'model.donations.@each.isDirty'),
-
-    updateDonations: function(obj, keyName) {
-
-        // Validation:
-        if (keyName == 'amount') {
-            // Clear the previous error.
-            this.set('errors', {amount: []});
-
-            var intRegex = /^\d+$/;
-            if(!intRegex.test(this.get('amount'))) {
-                this.set('errors', {amount: ["Please use whole numbers for your donation."]});
-            } else if (this.get('amount') < 5) {
-                this.set('errors', {amount: ["Monthly donations must be above €5."]});
-            }
-
-            // TODO Validate minimum €2 per project.
-
-            // TODO Revert old value for amount.
-
-            // Don't continue if there's an error.
-            if (this.get('errors.amount.length') != 0) {
-                return;
-            }
-        }
-
-        var numDonations = 0,
-            amountPerProject = 0,
-            donations = null,
-            lastDonation = null;
-
-        var donationsTotal = 0,
-            amount = 0;
-        donations = this.get('donations');
-
-        // This happens sometimes when loading the donations list from a bookmark.
-        if (Em.isNone(donations)) {
-            return;
-        }
-
-        numDonations = donations.get('length');
-
-        // Special setup when the number of donations changes.
-        if (keyName == 'model.length' && numDonations > 0) {
-            amount = Math.max(this.get('singleTotal'), this.get('amount'));
-            this.set('payment.amount', amount);
-        } else {
-            donationsTotal = this.get('singleTotal');
-            amount = this.get('payment.amount');
-        }
-
-        if (amount == 0) {
-            amount = donationsTotal;
-            this.set('payment.amount', donationsTotal);
-        }
-
-        if (donationsTotal != amount) {
-            var order = this.get('model');
-            amountPerProject = Math.floor(amount / numDonations);
-            for (var j = 0; j < numDonations - 1; j++) {
-                donations.objectAt(j).set('amount', amountPerProject);
-                order.transaction.add(donations.objectAt(j));
-            }
-            // Update the last donation with the remaining amount if it hasn't been deleted.
-            lastDonation = donations.objectAt(numDonations - 1);
-            if (!Em.isNone(lastDonation)) {
-                lastDonation.set('amount', amount - (amountPerProject * (numDonations - 1)));
-                order.transaction.add(lastDonation);
-            }
-        }
-
-    }.observes('payment.amount', 'donations.length'),
+    }.property('model.isDirty', 'model.projects.@each.isDirty'),
 
     startEditing: function() {
         var record = this.get('model');
@@ -169,8 +81,6 @@ App.UserMonthlyProjectsController = Em.ObjectController.extend({
                 gettext("1%Club will withdraw your monthly donation from your bank account in the beginning of each month. You can cancel it anytime you like.<br/><br/>") +
                 gettext("We will send you an email in the beginning of each month to update you on what projects received your support!");
 
-            var profile = this.get('profile');
-
             Bootstrap.ModalPane.popup({
                 classNames: ['modal'],
                 heading: gettext('Set my monthly donation'),
@@ -181,8 +91,10 @@ App.UserMonthlyProjectsController = Em.ObjectController.extend({
                     e.preventDefault();
 
                     if (opts.primary) {
-                        model.transaction.commit();
-                        profile.save();
+                        model.save();
+                        model.get('projects').forEach(function(project){
+                            project.save();
+                        });
                     }
 
                     if (opts.secondary) {
@@ -193,8 +105,8 @@ App.UserMonthlyProjectsController = Em.ObjectController.extend({
 
         },
         toggleActive: function(sender, value){
-            if (this.get('payment.active')) {
-                var payment = this.get('payment');
+            if (this.get('active')) {
+                var model = this.get('model');
                 Bootstrap.ModalPane.popup({
                     classNames: ['modal'],
                     heading: gettext('Stop my monthly donation'),
@@ -205,29 +117,26 @@ App.UserMonthlyProjectsController = Em.ObjectController.extend({
                         e.preventDefault();
 
                         if (opts.primary) {
-                            payment.set('active', false)
-                            payment.save();
+                            model.set('active', false)
+                            model.save();
                         }
 
                         if (opts.secondary) {
-                            payment.set('active', true)
+                            model.set('active', true)
                         }
                     }
                 });
             } else {
-                this.set('payment.active', true);
+                this.set('active', true);
             }
         },
         addProjectToMonthly: function(project){
-            var store = this.get('store');
-            var order = this.get('model');
-            if (order.get('donations').anyBy('project', project)) {
-               // Donation for this already exists in this order.
+            var store = this.get('store'),
+                donation = this.get('model');
+            if (donation.get('projects').anyBy('project', project)) {
+               // Project already connected to this monthly donation.
             } else {
-                var donation = store.createRecord(App.RecurringDonation);
-                order.transaction.add(donation);
-                donation.set('project', App.Project.find(project));
-                donation.set('order', order);
+                App.MonthlyDonationProject.createRecord({project: project, donation: donation});
             }
 
             // Close the modal
@@ -249,12 +158,13 @@ App.MonthlyProjectSearchFormController = App.ProjectSearchFormController.extend(
 
 App.MonthlyProjectListController = App.ProjectListController.extend({});
 
-App.MonthlyDonationController = Em.ObjectController.extend({
-    deleteDonation: function() {
-        var donation = this.get('model');
-        var order = donation.get('order');
-        order.transaction.add(donation);
-        order.get('donations').removeObject(donation);
-        donation.deleteRecord();
+App.MonthlyDonationProjectController = Em.ObjectController.extend({
+
+    actions: {
+        deleteProject: function() {
+            var monthlyProject = this.get('model');
+            monthlyProject.deleteRecord();
+            monthlyProject.save();
+        }
     }
 });
