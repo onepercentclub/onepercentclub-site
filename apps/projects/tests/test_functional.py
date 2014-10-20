@@ -4,7 +4,6 @@ Functional tests using Selenium.
 
 See: ``docs/testing/selenium.rst`` for details.
 """
-from decimal import Decimal
 from bluebottle.bb_projects.models import ProjectPhase, ProjectTheme
 from bluebottle.utils.models import Language
 from django.conf import settings

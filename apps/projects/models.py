@@ -329,11 +329,11 @@ class Project(BaseProject):
             self.date_submitted = None
 
         #Set the submitted date
-        if self.status == ProjectPhase.objects.get(slug="plan-submitted") and not self.date_submitted:
+        if self.status in ProjectPhase.objects.filter(slug="plan-submitted") and not self.date_submitted:
             self.date_submitted = timezone.now()
 
         #Set the campaign started date
-        if self.status == ProjectPhase.objects.get(slug="campaign") and not self.campaign_started:
+        if self.status in ProjectPhase.objects.filter(slug="campaign") and not self.campaign_started:
             self.campaign_started = timezone.now()
 
         #Set a default deadline of 30 days
