@@ -121,6 +121,7 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
 
         form = self.browser.find_by_id('wallpost-form')
 
+        time.sleep(1)
         self.browser.find_by_css('.wallpost-post-update').first.click()
 
         # Wait for form to animate down
