@@ -2,6 +2,10 @@ App.Adapter.map('App.MonthlyDonation', {
     projects: {embedded: 'load'}
 });
 
+App.Adapter.map('App.MonthlyDonationProject', {
+    //project: {embedded: 'load'}
+});
+
 
 App.MonthlyDonationProject = DS.Model.extend({
     url: 'monthly_donations/projects',

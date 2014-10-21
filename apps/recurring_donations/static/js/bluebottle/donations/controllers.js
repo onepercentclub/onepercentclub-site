@@ -1,7 +1,6 @@
 App.MyDonationListController = Em.ArrayController.extend({
     page: 1,
     canLoadMore: function(){
-        console.log(this.get('length') + ' <  ' + this.get('meta.total'));
         if (this.get('length') < this.get('meta.total')){
             return true;
         }
