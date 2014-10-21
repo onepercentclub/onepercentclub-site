@@ -21,6 +21,7 @@ App.MonthlyDonation = DS.Model.extend({
 
     name: DS.attr('string'),
     city: DS.attr('string'),
+    country: DS.belongsTo('App.Country'),
     iban: DS.attr('string'),
     bic: DS.attr('string'),
 

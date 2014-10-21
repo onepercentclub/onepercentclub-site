@@ -1,13 +1,26 @@
+from apps.recurring_donations.models import MonthlyProject
 from .models import MonthlyDonation, MonthlyBatch, MonthlyOrder, MonthlyDonor, MonthlyDonorProject
 from django.contrib import admin
 from django.contrib.admin.filters import SimpleListFilter
 from django.utils.translation import ugettext as _
 
 
+class MonthlyProjectInline(admin.TabularInline):
+    model = MonthlyProject
+    readonly_fields = ('project', 'amount', 'fully_funded')
+    fields = readonly_fields
+    extra = 0
+
+    def fully_funded(self, obj):
+        if obj.project.amount_needed <= obj.amount:
+            return 'FUNDED'
+        return '-'
+
+
 class MonthlyDonorProjectInline(admin.TabularInline):
     model = MonthlyDonorProject
-    readonly_fields = ('project', )
-    fields = readonly_fields
+    raw_id_fields = ('project', )
+    fields = ('project', )
     extra = 0
 
 
@@ -63,6 +76,7 @@ admin.site.register(MonthlyDonorProject, MonthlyDonorProjectAdmin)
 class MonthlyBatchAdmin(admin.ModelAdmin):
     model = MonthlyBatch
     list_display = ('id', 'date')
+    inlines = (MonthlyProjectInline, )
 
 admin.site.register(MonthlyBatch, MonthlyBatchAdmin)
 

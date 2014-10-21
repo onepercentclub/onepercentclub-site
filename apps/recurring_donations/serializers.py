@@ -18,4 +18,4 @@ class MonthlyDonationSerializer(serializers.ModelSerializer):
 
     class Meta():
         model = MonthlyDonor
-        fields = ('id', 'amount', 'iban', 'bic', 'active', 'name', 'city', 'projects')
+        fields = ('id', 'amount', 'iban', 'bic', 'active', 'name', 'city', 'country', 'projects')

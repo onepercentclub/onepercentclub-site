@@ -6,7 +6,7 @@ import traceback
 import sys
 from collections import namedtuple
 from optparse import make_option
-from apps.donations.models import MonthlyDonation, MonthlyOrder, MonthlyBatch
+from apps.recurring_donations.models import MonthlyProject
 from bluebottle.bb_projects.models import ProjectPhase
 from django.utils.timezone import now
 
@@ -14,10 +14,9 @@ import os
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 from apps.cowry_docdata.adapters import WebDirectDocDataDirectDebitPaymentAdapter
-from apps.cowry_docdata.exceptions import DocDataPaymentException
-from apps.cowry_docdata.models import DocDataPaymentOrder
-from apps.fund.models import RecurringDirectDebitPayment, Order, OrderStatuses, Donation
+from apps.fund.models import Order, OrderStatuses, Donation
 from apps.projects.models import Project
+from ...models import MonthlyDonor, MonthlyDonation, MonthlyOrder, MonthlyBatch
 from ...mails import mail_monthly_donation_processed_notification
 
 logger = logging.getLogger(__name__)
@@ -56,7 +55,7 @@ class Command(BaseCommand):
         loglevel = self.verbosity_loglevel.get(options['verbosity'])
         logger.setLevel(loglevel)
 
-        recurring_payments_queryset = RecurringDirectDebitPayment.objects.filter(active=True, manually_process=False)
+        recurring_payments_queryset = MonthlyDonor.objects.filter(active=True).order_by('user__email')
         if options['prepare']:
                 prepare_monthly_donations(recurring_payments_queryset, False)
 
@@ -100,17 +99,26 @@ def update_last_donation(donation, remaining_amount, popular_projects):
         update_last_donation(new_donation, remaining_amount - donation.amount, popular_projects)
 
 
-def create_recurring_order(user, projects, batch, order=None):
+def create_recurring_order(user, projects, batch, donor):
     """
     Creates a recurring Order with donations to the supplied projects.
     """
-    if not order:
-        order = MonthlyOrder.objects.create(user=user, batch=batch)
+    project_amount = math.floor(donor.amount_in_cents / len(projects))
+    order = MonthlyOrder.objects.create(user=user, batch=batch, amount=donor.amount_in_cents, name=donor.name,
+                                        city=donor.city, iban=donor.iban, bic=donor.bic)
+    order.save()
+
+    rest_amount = donor.amount_in_cents - project_amount * len(projects)
 
     for p in projects:
         project = Project.objects.get(id=p.id)
-        if project.status == ProjectPhase.objects.get(slug="campaign"):
-            MonthlyDonation.objects.create(user=user, project=project, amount=0, order=order)
+        don = MonthlyDonation.objects.create(user=user, project=project, amount=project_amount, order=order)
+        don.save()
+
+    # Update amount for last donation to make sure donation total == donor amount
+    don.amount += rest_amount
+    don.save()
+
     return order
 
 
@@ -142,9 +150,10 @@ def correct_donation_amounts(popular_projects, recurring_order, recurring_paymen
     update_last_donation(donations[num_donations - 1], remaining_amount, popular_projects)
 
 
-def prepare_monthly_donations(recurring_payments_queryset, send_email):
+def prepare_monthly_donations(donor_queryset, send_email):
     """ The starting point for creating DocData payments for the monthly donations. """
 
+    # FIXME: Check that we don't have created a batch recently
     batch = MonthlyBatch.objects.create(date=now())
     batch.save()
 
@@ -156,129 +165,86 @@ def prepare_monthly_donations(recurring_payments_queryset, send_email):
 
     # The adapter is used after the recurring Order and donations have been adjusted. It's created here so that we can
     # reuse it to process all recurring donations.
-    webdirect_payment_adapter = WebDirectDocDataDirectDebitPaymentAdapter()
+    # webdirect_payment_adapter = WebDirectDocDataDirectDebitPaymentAdapter()
 
-    # Fixed lists of the popular projects.
-    popular_projects_all = list(Project.objects.exclude(skip_monthly=True).filter(status=ProjectPhase.objects.get(slug="campaign")).order_by('-popularity'))
-    top_three_projects = popular_projects_all[:3]
-    popular_projects_rest = popular_projects_all[3:]
+    popular_projects_all = Project.objects.exclude(skip_monthly=True, amount_needed=0).filter(status=ProjectPhase.objects.get(slug="campaign")).order_by('-popularity')
+    top_three_projects = list(popular_projects_all[:3])
+    top_projects = list(popular_projects_all[3:])
 
     logger.info("Config: Using these projects as 'Top Three':")
     for project in top_three_projects:
         logger.info("  {0}".format(project.title.encode("utf8")))
 
     # The main loop that processes each monthly donation.
-    for recurring_payment in recurring_payments_queryset:
-        top_three_donation = False
-        user_selected_projects = []
+    for donor in donor_queryset:
 
-        # Skip payment if there has been a recurring Order recently.
-        ten_days_ago = timezone.now() + timezone.timedelta(days=-10)
-        recent_closed_recurring_orders = MonthlyOrder.objects.filter(batch=batch, user=recurring_payment.user, updated__gt=ten_days_ago, amount=recurring_payment.amount)
-        if recent_closed_recurring_orders.count() > 0:
-            skipped_recurring_payments.append(SkippedRecurringPayment(recurring_payment, list(recent_closed_recurring_orders)))
-            logger.warn(
-                "Skipping '{0}' because it looks like it has been processed recently with one of these Orders:".format(
-                    recurring_payment))
-            for closed_order in recent_closed_recurring_orders:
-                logger.warn("  Order Number: {0}".format(closed_order.order_number))
-            continue
+        # Remove DonorProjects for Projects that no longer need money.
+        # This is amount_needed from db minus the amount already appointed in previous MonthlyDonations
+        for donor_project in donor.projects.all():
+            if donor_project.project.status != ProjectPhase.objects.get(slug="campaign"):
+                logger.info(u"Project not in Campaign phase. Skipping '{0}'".format(donor_project.project.title))
+                donor_project.delete()
+            elif donor_project.project.amount_needed <= 0:
+                logger.info(u"Project already funded. Skipping '{0}'".format(donor_project.project.title))
+                donor_project.delete()
+            else:
+                monthly_project, created = MonthlyProject.objects.get_or_create(batch=batch, project=donor_project.project)
+                if donor_project.project.amount_needed - monthly_project.amount <= 0:
+                    logger.info(u"Project already funded. Skipping '{0}'".format(donor_project.project.title))
+                    donor_project.delete()
 
-        # Check if there is a monthly shopping cart (Order status is 'recurring') for this recurring_payment user.
-        try:
-            order = Order.objects.get(user=recurring_payment.user, status=OrderStatuses.recurring)
-            recurring_order = MonthlyOrder.objects.create(batch=batch, user=order.user, amount=order.total)
-            recurring_order.save()
-            for don in order.donations.all():
-                donation = MonthlyDonation.objects.create(user=order.user, project=don.project, order=recurring_order, amount=don.amount)
-                donation.save()
-            logger.debug("Using existing recurring Order for user: {0}.".format(recurring_payment.user))
-        except Order.DoesNotExist:
-            # There is no monthly shopping cart. The user is supporting the top three projects so we need to create an
-            # Order with Donations for the top three projects.
-            logger.debug("Creating new 'Top Three' recurring Order for user {0}.".format(recurring_payment.user))
-            recurring_order = create_recurring_order(recurring_payment.user, top_three_projects, batch)
-            top_three_donation = True
-        except MonthlyOrder.MultipleObjectsReturned:
-            error_message = "Multiple Orders with status 'recurring' returned for '{0}'. Not processing this recurring donation.".format(
-                recurring_payment)
+        # Remove Projects from top 3
+        for project in top_three_projects:
+            monthly_project, created = MonthlyProject.objects.get_or_create(batch=batch, project=project)
+            if project.amount_needed - monthly_project.amount <= 0:
+                # Remove project if it's doesn't need more many and add another from top_projects
+                logger.info(u"Top3 project fully funded. Skipping '{0}'".format(project.title))
+                top_three_projects.remove(project)
+                new_project = top_projects[0]
+                logger.info(u"New Top3 project added '{0}'".format(new_project.title))
+                top_three_projects.append(new_project)
+
+        # Check if the donor object is valid
+        if not donor.is_valid:
+            error_message = "MonthlyDonor [{0}] invalid! IBAN/BIC missing or amount wrong.".format(donor.id)
             logger.error(error_message)
-            recurring_donation_errors.append(RecurringDonationError(recurring_payment, error_message))
+            recurring_donation_errors.append(RecurringDonationError(donor, error_message))
             continue
 
-        # Check if we're above the DocData minimum for direct debit.
-        if recurring_payment.amount < 113:
-            # Cleanup the Order if there's an error.
-            if top_three_donation:
-                remove_order(recurring_order)
-            error_message = "Payment amount for '{0}' is less than the DocData minimum for direct debit (113). Skipping.".format(
-                recurring_payment)
-            logger.error(error_message)
-            recurring_donation_errors.append(RecurringDonationError(recurring_payment, error_message))
-            continue
-
-        # Remove donations to projects that are no longer in the campaign phase.
-        for donation in recurring_order.donations.all():
-            project = Project.objects.get(id=donation.project.id)
-            if project.amount_needed <= 0:
-                donation.delete()
-
-        if recurring_order.donations.count() > 0:
-            # There are donations in the recurring Order and we need to redistribute / correct the donation amounts.
-
-            # Save a copy of the projects that have been selected by the user so that the monthly shopping cart can
-            # recreated after the payment has been successfully started.
-            for donation in recurring_order.donations.all():
-                user_selected_projects.append(donation.project)
-
-            correct_donation_amounts(popular_projects_all, recurring_order, recurring_payment)
+        # Create MonthlyOrder and MonthlyDonation objects
+        if donor.projects.count():
+            # Prepare a MonthlyOrder with preferred projects
+            preferred_projects = []
+            for project in donor.projects.all():
+                preferred_projects.append(project.project)
+            recurring_order = create_recurring_order(donor.user, preferred_projects, batch, donor)
+            logger.debug("Preparing an Order with preferred projects for user: {0}.".format(donor.user))
         else:
-            # There are no donations in the recurring Order so we need to create a monthly shopping cart to support the
-            # top three projects and redistribute / correct the donation amounts.
-            create_recurring_order(recurring_payment.user, top_three_projects, batch, recurring_order)
-
-            if recurring_order.donations.count() == 0:
-                logger.debug("The top three donations are full. Using next three projects for top three.")
-                top_three_projects = popular_projects_rest[:3]
-                popular_projects_rest = popular_projects_rest[3:]
-                create_recurring_order(recurring_payment.user, top_three_projects, batch, recurring_order)
-
-            correct_donation_amounts(popular_projects_rest, recurring_order, recurring_payment)
+            # Prepare MonthlyOrder with Donations for the top three projects.
+            logger.debug("Preparing new 'Top Three' Order for user {0}.".format(donor.user))
+            recurring_order = create_recurring_order(donor.user, top_three_projects, batch, donor)
             top_three_donation = True
+
+        # Update amounts for projects
+        for donation in recurring_order.donations.all():
+            monthly_project, created = MonthlyProject.objects.get_or_create(batch=batch, project=donation.project)
+            monthly_project.amount += donation.amount / 100
+            monthly_project.save()
 
         # At this point the order should be correctly setup and ready for the DocData payment.
         if top_three_donation:
             donation_type_message = "supporting the 'Top Three' projects"
         else:
             donation_type_message = "with {0} donations".format(recurring_order.donations.count())
-        logger.info("Starting payment for '{0}' {1}.".format(recurring_payment, donation_type_message))
+        logger.info("Starting payment for '{0}' {1}.".format(donor, donation_type_message))
 
         # Safety check to ensure the modifications to the donations in the recurring result in an Order total that
         # matches the RecurringDirectDebitPayment.
-        if recurring_payment.amount != recurring_order.amount:
-            # Cleanup the Order if there's an error.
-            recurring_order.amount = recurring_payment.amount
-            recurring_order.save()
-            # error_message = "RecurringDirectDebitPayment amount: {0} does not equal recurring Order amount: {1} for '{2}'. Not processing this recurring donation.".format(
-            #     recurring_payment.amount, recurring_order.amount, recurring_payment)
-            # if top_three_donation:
-            #     remove_order(recurring_order)
-            # logger.error(error_message)
-            # recurring_donation_errors.append(RecurringDonationError(recurring_payment, error_message))
-            # continue
-
-        # Check if the IBAN / BIC is stored correctly on the RecurringDirectDebitPayment.
-        if recurring_payment.iban == '' or recurring_payment.bic == '' or \
-                not recurring_payment.iban.endswith(recurring_payment.account) or \
-                recurring_payment.bic[:4] != recurring_payment.iban[4:8]:
-
-            # Cleanup the Order if there's an error.
-            if top_three_donation:
-                remove_order(recurring_order)
-
-            error_message = "Cannot create payment because the IBAN and/or BIC are not available."
+        if donor.amount != Decimal(recurring_order.amount) / 100:
+            error_message = "Monthly donation amount: {0} does not equal recurring Order amount: {1} for '{2}'. Not processing this recurring donation.".format(
+                donor.amount, recurring_order.amount, donor)
             logger.error(error_message)
-            recurring_donation_errors.append(RecurringDonationError(recurring_payment, error_message))
+            recurring_donation_errors.append(RecurringDonationError(donor, error_message))
             continue
 
         # Create and fill in the DocDataPaymentOrder.
@@ -414,7 +380,7 @@ def prepare_monthly_donations(recurring_payments_queryset, send_email):
     logger.info("Recurring Donation Processing Summary")
     logger.info("=====================================")
     logger.info("")
-    logger.info("Total number of recurring donations: {0}".format(recurring_payments_queryset.count()))
+    logger.info("Total number of recurring donations: {0}".format(donor_queryset.count()))
     logger.info("Number of recurring Orders successfully processed: {0}".format(donation_count))
     logger.info("Number of errors: {0}".format(len(recurring_donation_errors)))
     logger.info("Number of skipped payments: {0}".format(len(skipped_recurring_payments)))

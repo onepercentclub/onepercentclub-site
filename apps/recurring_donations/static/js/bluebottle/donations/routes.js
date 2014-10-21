@@ -5,10 +5,12 @@
 
 App.Router.map(function() {
 
-    this.resource('userDonationHistory', {path: '/donations'});
+    this.resource('myDonations', {path: '/donations'}, function(){
+        this.resource('myDonationList', {path: '/history'});
 
-    this.resource('monthlyDonation', {path: '/donations/monthly'}, function() {
-        this.resource('monthlyDonationProjects', {path: '/projects'});
+        this.resource('monthlyDonation', {path: '/monthly'}, function() {
+            this.resource('monthlyDonationProjects', {path: '/projects'});
+        });
     });
 
 });
@@ -17,9 +19,21 @@ App.Router.map(function() {
  * Routes
  */
 
-App.UserDonationHistoryRoute = Em.Route.extend({
+
+App.MyDonationsRoute = Em.Route.extend({
+    beforeModel: function() {
+        this.transitionTo('myDonationList');
+    }
+});
+
+App.MyDonationListRoute = Em.Route.extend({
     model: function(params) {
         return App.Order.find({status: 'closed'});
+    },
+    setupController: function(controller, model){
+        //this._super(controller, model);
+        controller.set('meta', model.get('meta'));
+        controller.set('model', model.toArray());
     }
 });
 
@@ -37,12 +51,7 @@ App.MonthlyDonationRoute = Em.Route.extend({
                 return record
             }
         })
-    }
-
-});
-
-App.MonthlyDonationProjectsRoute = App.MonthlyDonationRoute.extend({
-
+    },
     setupController: function(controller, order) {
         this._super(controller, order);
         controller.startEditing();
@@ -52,28 +61,10 @@ App.MonthlyDonationProjectsRoute = App.MonthlyDonationRoute.extend({
         App.ProjectPreview.find({ordering: 'popularity', status: 5}).then(function(projects) {
             controller.set('topThreeProjects', projects.slice(0, 3));
         });
-
-        // Set the recurring payment
-        controller.set('payment', this.modelFor('userDonation'));
-
-        // Set Address
-        App.CurrentUser.find('current').then(function(user) {
-            controller.set('profile', App.UserSettings.find(user.get('id_for_ember')));
-        });
     },
     exit: function(transition){
         this.get('controller').stopEditing();
     }
 
-});
-
-
-App.MonthlyDonationProjectsIndexRoute = App.MonthlyDonationRoute.extend({});
-
-
-App.MonthlyDonationListRoute = Em.Route.extend({
-    model: function(params) {
-        return this.modelFor('userMonthlyProjects').get('donations');
-    }
 });
 

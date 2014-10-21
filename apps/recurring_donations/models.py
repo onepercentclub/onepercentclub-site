@@ -21,6 +21,28 @@ class MonthlyDonor(models.Model):
     bic = SWIFTBICField(blank=True, default='')
     name = models.CharField(max_length=35)
     city = models.CharField(max_length=35)
+    country = models.ForeignKey('geo.Country', blank=True, null=True)
+
+    @property
+    def amount_in_cents(self):
+        return int(self.amount*100)
+
+    @property
+    def is_valid(self):
+        # Check if we're above the DocData minimum for direct debit.
+        if self.amount < 1.13:
+            return False
+
+        # Check if the IBAN / BIC is stored correctly.
+        if self.iban == '' or self.bic == '' or self.bic[:4] != self.iban[4:8]:
+            return False
+
+        # Check if the IBAN / BIC is match.
+        # FIXME: Check if this goes for all IBAN/Bic or just just for The Netherlands.
+        if self.bic[:4] != self.iban[4:8]:
+            return False
+
+        return True
 
 
 class MonthlyDonorProject(models.Model):
@@ -44,6 +66,16 @@ class MonthlyBatch(models.Model):
     class Meta:
         verbose_name = _('Monthly batch')
         verbose_name_plural = _('Monthly batches')
+
+
+class MonthlyProject(models.Model):
+    """
+    Aggregated amount for projects.
+    """
+
+    batch = models.ForeignKey(MonthlyBatch)
+    project = models.ForeignKey(settings.PROJECTS_PROJECT_MODEL)
+    amount = models.DecimalField(_("amount"), default=0, max_digits=6, decimal_places=2)
 
 
 class MonthlyOrder(models.Model):

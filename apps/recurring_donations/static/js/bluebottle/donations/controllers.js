@@ -1,3 +1,29 @@
+App.MyDonationListController = Em.ArrayController.extend({
+    page: 1,
+    canLoadMore: function(){
+        console.log(this.get('length') + ' <  ' + this.get('meta.total'));
+        if (this.get('length') < this.get('meta.total')){
+            return true;
+        }
+        return false;
+    }.property('length', 'meta.total'),
+
+    actions: {
+        loadMore: function(){
+            var _this = this;
+            if (this.get('canLoadMore')) {
+                this.incrementProperty('page');
+                App.Order.find({status: 'closed', page: this.get('page')}).then(function(items){
+                    _this.pushObjects(items.toArray());
+                });
+
+            }
+        }
+    }
+
+});
+
+
 App.MonthlyDonationController = Em.ObjectController.extend({
 
     addressComplete: function(){
