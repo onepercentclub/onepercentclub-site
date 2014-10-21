@@ -4,12 +4,16 @@ Functional tests using Selenium.
 
 See: ``docs/testing/selenium.rst`` for details.
 """
+import os
+import time
 from decimal import Decimal
-from bluebottle.bb_projects.models import ProjectPhase, ProjectTheme
-from bluebottle.utils.models import Language
 from django.conf import settings
 from django.utils.text import slugify
 from django.utils.unittest.case import skipUnless
+from selenium.webdriver.common.by import By
+
+from bluebottle.bb_projects.models import ProjectPhase, ProjectTheme
+from bluebottle.utils.models import Language
 
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory, PartnerFactory
@@ -20,8 +24,6 @@ from bluebottle.test.factory_models.geo import CountryFactory
 
 from ..models import Project
 
-import os
-import time
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
@@ -119,6 +121,7 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
 
         form = self.browser.find_by_id('wallpost-form')
 
+        time.sleep(1)
         self.browser.find_by_css('.wallpost-post-update').first.click()
 
         # Wait for form to animate down
@@ -233,7 +236,11 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         self.visit_path('/my/projects')
 
         # Click "Pitch Smart Idea" btn
+        self.assertTrue(self.browser.is_element_present_by_css('#create_project', wait_time=5))
         self.assertTrue(self.is_visible('#create_project'))
+        # This click can ocassially cause a problem. What the exact reason is seems to vary per person. See this thread: https://code.google.com/p/selenium/issues/detail?id=2766
+        # There are various fixes but, they too, are not reliable. The only consistent solution that seems to work is a time.sleep(1)
+        time.sleep(1)
         self.browser.find_by_id("create_project").first.click()
 
         ###
@@ -246,7 +253,9 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         ###
         # Project Section
         ###
-        time.sleep(3)
+
+        self.assertTrue(self.browser.is_element_present_by_css('.language'))
+        self.assertTrue(self.is_visible('.language'))
 
         self.browser.select('language', self.language.id)
         self.assertTrue(self.is_visible('input[name="title"]'))
