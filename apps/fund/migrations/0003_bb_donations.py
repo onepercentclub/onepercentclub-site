@@ -108,12 +108,13 @@ class Migration(DataMigration):
     depends_on = (
         ('donations', '0001_initial'),
         ('orders', '0002_auto__del_field_order_closed__add_field_order_confirmed__add_field_ord'),
+        ('payments_docdata', '0002_auto__add_field_docdatapayment_customer_id__add_field_docdatapayment_e')
     )
 
     def forwards(self, orm):
         "Write your forwards methods here."
         start = 0
-        old_orders = orm['fund.Order'].objects.all()[start:100]
+        old_orders = orm['fund.Order'].objects.all()#[start:100]
 
         # Apparently we need to explicitly set ctypes for polymorphic models, so get the ids here.
         content_types = orm['contenttypes.ContentType'].objects
@@ -192,8 +193,15 @@ class Migration(DataMigration):
                                 merchant_order_id=old_payment.merchant_order_reference,
                                 total_gross_amount=old_payment.amount,
                                 default_pm=dd_payment.payment_method,
-                                polymorphic_ctype_id=docdata_payment_type_id
+                                polymorphic_ctype_id=docdata_payment_type_id,
+                                email=old_payment.email,
+                                first_name=old_payment.first_name,
+                                last_name=old_payment.last_name,
+                                address=old_payment.address,
+                                postal_code=old_payment.postal_code,
+                                city=old_payment.city
                             )
+
                             payment.save()
                             for old_transaction in old_payment.docdata_payments.all():
                                 if old_transaction.payment_id:
@@ -545,15 +553,22 @@ class Migration(DataMigration):
         },
         u'payments_docdata.docdatapayment': {
             'Meta': {'ordering': "('-created', '-updated')", 'object_name': 'DocdataPayment', '_ormbases': [u'payments.Payment']},
+            'address': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '200'}),
+            'city': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '200'}),
             'country': ('django.db.models.fields.CharField', [], {'max_length': '2', 'null': 'True', 'blank': 'True'}),
             'currency': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
+            'customer_id': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
             'default_pm': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100'}),
+            'email': ('django.db.models.fields.EmailField', [], {'default': "''", 'max_length': '254'}),
+            'first_name': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '200'}),
             'ideal_issuer_id': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100'}),
             'language': ('django.db.models.fields.CharField', [], {'default': "'en'", 'max_length': '5', 'blank': 'True'}),
+            'last_name': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '200'}),
             'merchant_order_id': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100'}),
             'payment_cluster_id': ('django.db.models.fields.CharField', [], {'default': "''", 'unique': 'True', 'max_length': '200'}),
             'payment_cluster_key': ('django.db.models.fields.CharField', [], {'default': "''", 'unique': 'True', 'max_length': '200'}),
             u'payment_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['payments.Payment']", 'unique': 'True', 'primary_key': 'True'}),
+            'postal_code': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '20'}),
             'total_acquirer_approved': ('django.db.models.fields.DecimalField', [], {'default': "'0.00'", 'max_digits': '15', 'decimal_places': '2'}),
             'total_acquirer_pending': ('django.db.models.fields.DecimalField', [], {'default': "'0.00'", 'max_digits': '15', 'decimal_places': '2'}),
             'total_captured': ('django.db.models.fields.DecimalField', [], {'default': "'0.00'", 'max_digits': '15', 'decimal_places': '2'}),
@@ -667,3 +682,4 @@ class Migration(DataMigration):
 
     complete_apps = ['donations', 'orders', 'cowry', 'cowry_docdata', 'payments', 'payments_docdata', 'fund']
     symmetrical = True
+
