@@ -16,14 +16,14 @@ from apps.mail import send_mail
 
 
 @task
-def mail_monthly_donation_processed_notification(recurring_payment, recurring_order):
+def mail_monthly_donation_processed_notification(monthly_order):
     # TODO: Use English base and the regular translation mechanism.
-    receiver = recurring_payment.user
+    receiver = monthly_order.user
 
-    context = Context({'order': recurring_order,
+    context = Context({'order': monthly_order,
                        'receiver_first_name': receiver.first_name.capitalize(),
                        'date': format_date(locale='nl_NL'),
-                       'amount': format_currency(recurring_payment.amount / 100, 'EUR', locale='nl_NL'),
+                       'amount': format_currency(monthly_order.amount / 100, 'EUR', locale='nl_NL'),
                        'site': 'https://' + Site.objects.get_current().domain})
 
     subject = "Bedankt voor je maandelijkse support"

@@ -10,11 +10,19 @@ class MonthlyProjectInline(admin.TabularInline):
     readonly_fields = ('project', 'amount', 'fully_funded')
     fields = readonly_fields
     extra = 0
+    can_delete = False
+    ordering = ('-amount', )
+
+    def has_add_permission(self, request):
+        return False
 
     def fully_funded(self, obj):
         if obj.project.amount_needed <= obj.amount:
             return 'FUNDED'
         return '-'
+
+    class Media:
+        css = {"all": ("css/admin/hide_admin_original.css",)}
 
 
 class MonthlyDonorProjectInline(admin.TabularInline):
@@ -83,18 +91,32 @@ admin.site.register(MonthlyBatch, MonthlyBatchAdmin)
 
 class MonthlyDonationInline(admin.TabularInline):
     model = MonthlyDonation
-    readonly_fields = ('project', 'amount')
-    fields = readonly_fields
+    readonly_fields = ('amount', )
+    raw_id_fields = ('project', )
+    can_delete = False
+    fields = ('project', 'amount')
     extra = 0
 
+    def has_add_permission(self, request):
+        return False
 
 class MonthlyOrderAdmin(admin.ModelAdmin):
     model = MonthlyDonation
-    list_display = ('user', 'amount', 'batch')
+    list_display = ('user', 'amount', 'batch', 'processed')
+    readonly_fields = ('user', 'amount', 'batch', 'iban', 'bic', 'name', 'city', 'processed', 'error_message')
+    fields = readonly_fields
     list_filter = ('batch', )
     raw_id_fields = ('user', 'batch')
     inlines = (MonthlyDonationInline, )
     search_fields = ('user__email', )
+
+    ordering = ('-batch', 'user__email')
+
+    def error_message(self, obj):
+        return "<span style='color:red; font-weight: bold'>{0}</span>".format(obj.error)
+
+    error_message.allow_tags = True
+
 
 admin.site.register(MonthlyOrder, MonthlyOrderAdmin)
 

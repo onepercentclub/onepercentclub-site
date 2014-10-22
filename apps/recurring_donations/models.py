@@ -61,7 +61,7 @@ class MonthlyBatch(models.Model):
     updated = ModificationDateTimeField(_('updated'))
 
     def __unicode__(self):
-        return "{0} {1}".format(self.id, self.date)
+        return self.date.strftime('%B %Y')
 
     class Meta:
         verbose_name = _('Monthly batch')
@@ -83,7 +83,7 @@ class MonthlyOrder(models.Model):
     created = CreationDateTimeField(_('created'))
     updated = ModificationDateTimeField(_('updated'))
 
-    batch = models.ForeignKey(MonthlyBatch)
+    batch = models.ForeignKey(MonthlyBatch, related_name='orders')
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     amount = models.PositiveIntegerField(_("amount in cents"), default=0)
     currency = models.CharField(max_length=3, default='EUR')
@@ -91,6 +91,10 @@ class MonthlyOrder(models.Model):
     city = models.CharField(max_length=35)
     iban = IBANField(blank=True, default='')
     bic = SWIFTBICField(blank=True, default='')
+    country = models.CharField(max_length=2, default='')
+
+    processed = models.BooleanField(help_text=_("Whether a payment has been created for this order."), default=False)
+    error = models.CharField(max_length=1000, blank=True, null=True, default='')
 
     def __unicode__(self):
         return "{0}: {1}".format(self.user, self.amount)
