@@ -14,7 +14,7 @@ class MonthlyDonor(models.Model):
     created = CreationDateTimeField(_("Created"))
     updated = ModificationDateTimeField(_("Updated"))
 
-    active = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
     amount = models.DecimalField(_("amount"), max_digits=6, decimal_places=2)
 
     iban = IBANField(blank=True, default='')
