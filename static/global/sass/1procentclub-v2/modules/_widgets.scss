@@ -17,7 +17,7 @@
 
     &.large {
         min-width: 300px;
-        max-width: 400px;
+        max-width: 350px;
     }
 
     // import from bb base/type
@@ -118,7 +118,7 @@
 
 .campaign-item {
     position: relative;
-    min-width: 280px;
+    min-width: 250px;
     max-width: 300px;
     height: 420px;
     background: $gray-light;
@@ -127,22 +127,38 @@
     @include single-transition(all, .2s ease-in-out);
 
     &.small {
-        min-width: 230px;
+        min-width: 200px;
         max-width: 250px;
-        height: 370px;
+        height: 360px;
 
         .campaign-item-holder {
             .header {
-                height: 150px;
+                height: 140px;
+                @include calc(height, '250 / 16 * 9px');
             }
 
             .profile-photo {
-                // top: 122px;
+                top: 112px;
             }
+
         }
 
         .campaign-body {
             top: 160px;
+            
+            .campaign-hover-body {
+                max-height: 145px;
+                font-size: 13px;
+                line-height: 1.9em;
+            }
+
+            .profile-name {
+                font-size: 14px;
+
+                span {
+                    display: none;
+                }
+            }
 
             .campaign-body-names {
                 font-size: 16px;
@@ -157,9 +173,42 @@
     }
 
     &.large {
-        min-width: 330px;
-        max-width: 400px;
+        min-width: 300px;
+        max-width: 350px;
         height: 470px;
+
+        .campaign-item-holder {
+            .header {
+                height: 196.875px;
+                @include calc(height, '350 / 16 * 9px');
+            }
+
+            .profile-photo {
+                top: 168px;
+            }
+        }
+
+        .campaign-body {
+            top: 220px;
+
+            .campaign-hover-body {
+                min-height: 274px;
+            }
+
+            .profile-name {
+                font-size: 16px;
+            }
+
+            .campaign-body-names {
+                font-size: 20px;
+            }
+        }
+
+        .campaign-footer {
+            .campaign-fund-amount {
+                font-size: 15px;
+            }
+        }
     }
 
     a {
@@ -183,10 +232,11 @@
             position: absolute;
             overflow: hidden;
             width: 100%;
-            height: 200px;
-            background: $gray-dark;
+            height: 165.75px;
+            @include calc(height, '300 / 16 * 9px');
+            background: #e9e9e9;
             opacity: 1;
-            @include single-transition(opacity, .2s ease-in-out);
+            //@include single-transition(opacity, .2s ease-in-out);
     
             img {
                 width: 100%;
@@ -201,7 +251,7 @@
                 margin: auto;
                 width: 40%;
                 text-align: center;
-                content: "Loading...";
+                content: '';
                 font-size: .7em;
                 color: $gray-light;
             }
@@ -217,7 +267,8 @@
             height: 51px;
             overflow: hidden;
             border-radius: 50%;
-            top: 168px;
+            background: #e9e9e9;
+            top: 140px;
             border: solid 2px white;
             z-index: 4;
             @include single-transition(top, .2s ease-in-out);
@@ -235,41 +286,12 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: white;
-            z-index: 3;
             visibility: hidden;
             opacity: 0;
+            border-radius: 0 0 6px 6px;
+            background: white;
+            z-index: 3;
             @include single-transition(all, .2s ease-in-out);
-            
-            .campaign-hover-head {
-                margin: auto;
-                margin-top: 55px;
-                width: 100%;
-                height: auto;
-                min-height: 50px;
-                text-align: center;
-                border-bottom: solid 1px $gray-border;
-                
-                strong {
-                    display: inline-block;
-                    margin: auto;
-                    font-family: $font-family-body;
-                    font-weight: 700;
-                    padding: 0 0.6em;
-                    font-size: 18px;
-                }
-            }
-            
-            .campaign-hover-body {
-                min-height: 190px;
-                max-height: 210px;
-                overflow: hidden;
-                color: $black;
-                padding: 15px 20px;
-                margin-top: 0;
-                font-size: 14px;
-                line-height: 26px;
-            }
             
             .campaign-hover-footer {
                 position: absolute;
@@ -302,10 +324,34 @@
         position: absolute;
         left: 0;
         right: 0;
-        top: 200px;
+        top: 190px;
         margin: auto;
         padding: 20px;
+        overflow: hidden;
+        color: $gray-darker;
         @include single-transition(top, .2s ease-in-out);
+
+        .campaign-hover-body {
+            @include opacity(0);
+            height: 0px;
+            overflow: hidden;
+            font-size: 14px;
+            line-height: 1.9em;
+            @include single-transition(all, 0s ease-in-out);
+
+             &:after {
+                width: 86%;
+                height: 0px;
+                content: '';
+                display: block;
+                position: absolute;
+                bottom: 0;
+                @include opacity(0); 
+                @include background-image(linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%));
+                // @include background-image(linear-gradient(rgba(55, 55, 55, 0) 0%, rgba(55, 55, 55, 1) 95%));
+                @include single-transition(all, .2s ease-in-out);
+            }
+        }
         
         .profile-name {
             display: block;
@@ -322,17 +368,35 @@
                 color: $color-primary;
             
             }
+
+            span {
+                white-space: nowrap;
+            }
         }
         
         .campaign-body-names {
             display: block;
-            margin: 0.5em 0 0 0;
+            margin: 0.5em 0 0.5em 0;
             text-align: center;
             font-family: $font-family-body;
             font-weight: 700;
             font-size: 18px;
             color: rgb(60,60,60);
             line-height: 22px;
+
+            &:after {
+                display: block;
+                content: '';
+                border-bottom: solid 1px $gray-border;
+                height: 1px;
+                width: 125%;
+                @include single-transition(all, .2s ease-in-out);
+                @include opacity(0);
+            }
+        }
+
+        p {
+            margin-top: 0;
         }
     }
     
@@ -422,7 +486,7 @@
         .campaign-item-holder {
         
             .header {
-                opacity: 0;
+                opacity: 1;
             }
             
             .profile-photo {
@@ -430,11 +494,28 @@
             }
             
             .campaign-body {
-                top: -5px;
+                top: 10px;
                 z-index: 4;
+
+                .campaign-hover-body {
+                    display: block;
+                    height: 182px;
+                    @include opacity(1);
+                    @include single-transition(all, .2s ease-in-out);
+
+                    &:after {
+                        height: 75px;
+                        @include opacity(1);
+                    }
+                }
                 
                 .campaign-body-names {
-                    opacity: 0;
+                    opacity: 1;
+
+                    &:after {
+                        margin: 15px 0 15px -20px;
+                        @include opacity(1);
+                    }
 
                     span {
                         color: $black;
@@ -455,6 +536,13 @@
                 visibility: visible;
                 opacity: 1;
                 height: 100%;
+
+                .campaign-hover-body {
+                    &:after {
+                        height: 20px;
+                        @include opacity(1);
+                    }
+                }
             }
         }
     }
@@ -469,3 +557,4 @@
         height: 100%;
     }
 }
+
