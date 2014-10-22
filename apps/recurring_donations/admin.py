@@ -83,8 +83,22 @@ admin.site.register(MonthlyDonorProject, MonthlyDonorProjectAdmin)
 
 class MonthlyBatchAdmin(admin.ModelAdmin):
     model = MonthlyBatch
-    list_display = ('id', 'date')
+    readonly_fields = ('date', 'monthly_orders')
     inlines = (MonthlyProjectInline, )
+
+
+
+    def monthly_orders(self, obj):
+        url = '/admin/recurring_donations/monthlyorder?processed__exact={0}&batch={1}'
+        return "<a href='{3}'>{0} processed</a><br/><a href='{4}'>{1} unprocessed ({2} errored)</a>".format(
+            obj.orders.filter(processed=True).count(),
+            obj.orders.filter(processed=False).count(),
+            obj.orders.filter(error__gt='').count(),
+            url.format(1, obj.id),
+            url.format(0, obj.id)
+        )
+
+    monthly_orders.allow_tags = True
 
 admin.site.register(MonthlyBatch, MonthlyBatchAdmin)
 
@@ -100,12 +114,13 @@ class MonthlyDonationInline(admin.TabularInline):
     def has_add_permission(self, request):
         return False
 
+
 class MonthlyOrderAdmin(admin.ModelAdmin):
     model = MonthlyDonation
-    list_display = ('user', 'amount', 'batch', 'processed')
+    list_display = ('user', 'amount', 'batch', 'processed', 'has_error')
     readonly_fields = ('user', 'amount', 'batch', 'iban', 'bic', 'name', 'city', 'processed', 'error_message')
     fields = readonly_fields
-    list_filter = ('batch', )
+    list_filter = ('batch', 'processed')
     raw_id_fields = ('user', 'batch')
     inlines = (MonthlyDonationInline, )
     search_fields = ('user__email', )
@@ -116,6 +131,14 @@ class MonthlyOrderAdmin(admin.ModelAdmin):
         return "<span style='color:red; font-weight: bold'>{0}</span>".format(obj.error)
 
     error_message.allow_tags = True
+
+    def has_error(self, obj):
+        if obj.error:
+            return "<span style='color:red; font-weight: bold'>ERROR!</span>"
+        return '-'
+
+    has_error.allow_tags = True
+
 
 
 admin.site.register(MonthlyOrder, MonthlyOrderAdmin)

@@ -29,8 +29,8 @@ class Migration(DataMigration):
                         project=don.project
                     )
                     donor_project.save()
-                # order.delete()
-            #rec.delete()
+                order.delete()
+            rec.delete()
 
     def backwards(self, orm):
         "Write your backwards methods here."

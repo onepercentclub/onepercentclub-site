@@ -46,7 +46,7 @@ class Command(BaseCommand):
 
     option_list = BaseCommand.option_list + (
         make_option('--no-email', action='store_true', dest='no_email', default=False,
-                help="Don't send the monthly donation email to users."),
+                help="Don't send the monthly donation email to users (when processing)."),
 
         make_option('--prepare', action='store_true', dest='prepare', default=False,
                     help="Prepare the monthly donations and create records that can be processed later."),
@@ -55,7 +55,7 @@ class Command(BaseCommand):
                     help="Process the prepared records."),
 
         make_option('--process-single', action='store', dest='process_single',  default=False,
-                    metavar='DONOR-MAIL', type='str',
+                    metavar='<someone@gmail.com>', type='str',
                     help="Process only the MonthlyOrder for specified e-mail address."),
 
     )
@@ -101,13 +101,20 @@ def create_recurring_order(user, projects, batch, donor):
     return order
 
 
-def prepare_monthly_donations(date=now()):
+def prepare_monthly_donations():
     """
     Prepare MonthlyOrders.
     """
 
-    # FIXME: Check that we don't have created a batch recently
-    batch = MonthlyBatch.objects.create(date=date)
+    ten_days_ago = timezone.now() + timezone.timedelta(days=-10)
+    recent_batches = MonthlyBatch.objects.filter(date__gt=ten_days_ago)
+    if recent_batches.count() > 0:
+        recent_batch = recent_batches.all()[0]
+        message = "Found a recent batch {0} : {1}. Refusing to create another one quite now.".format(recent_batch.id, recent_batch)
+        logger.error(message)
+        return
+
+    batch = MonthlyBatch.objects.create(date=now())
     batch.save()
     top_three_donation = False
 
