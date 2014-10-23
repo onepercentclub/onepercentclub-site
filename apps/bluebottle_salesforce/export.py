@@ -170,6 +170,8 @@ def generate_users_csv_file(path, loglevel):
                             "Account_number__c",
                             "Account_holder__c",
                             "Account_city__c",
+                            "Account_IBAN__c",
+                            "Account_Active_Recurring_Debit__c",
                             "Phone"])
 
         users = USER_MODEL.objects.all()
