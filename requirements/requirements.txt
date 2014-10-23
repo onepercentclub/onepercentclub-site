@@ -1,4 +1,4 @@
--e git://github.com/onepercentclub/bluebottle.git@bc961c2e2fb70173c169fda08b321934dd8182dd#egg=bluebottle
+-e git://github.com/onepercentclub/bluebottle.git@99f3d9669fdc939cac35fbb789b7e2806105da12#egg=bluebottle
 
 
 pip
@@ -22,8 +22,7 @@ gevent==1.0.1
 # JSON Web Token based authentication for Django REST framework
 # Use our fork with token refresh from:
 # https://github.com/pjodouin/django-rest-framework-jwt
-# -e git://github.com/onepercentclub/django-rest-framework-jwt.git@1be254ad098af00cc1a3c88249a5253e1f3e7ba7#egg=djangorestframework-jwt
--e git://github.com/onepercentclub/django-rest-framework-jwt.git@1be254ad098af00cc1a3c88249a5253e1f3e7ba7#egg=djangorestframework_jwt-doordash-0.1.6
+-e git://github.com/onepercentclub/django-rest-framework-jwt.git@1be254ad098af00cc1a3c88249a5253e1f3e7ba7#egg=djangorestframework-jwt
 
 pytz==2013b
 
