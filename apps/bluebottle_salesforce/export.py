@@ -700,6 +700,7 @@ def generate_fundraisers_csv_file(path, loglevel):
                             "Picture_Location__c",
                             "VideoURL__c",
                             "Amount__c",
+                            "Amount_at_the_moment__c",
                             "Deadline__c",
                             "Created__c"])
 
@@ -716,6 +717,7 @@ def generate_fundraisers_csv_file(path, loglevel):
                                     fundraiser.image,
                                     fundraiser.video_url,
                                     '%01.2f' % (float(fundraiser.amount) / 100),
+                                    '%01.2f' % (float(fundraiser.amount_donated) / 100),
                                     fundraiser.deadline.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
                                     fundraiser.created.strftime("%Y-%m-%dT%H:%M:%S.000Z")])
                 success_count += 1
