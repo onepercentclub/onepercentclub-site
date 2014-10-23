@@ -20,6 +20,7 @@ class Migration(DataMigration):
         # Use orm.ModelName to refer to models in this application,
         # and orm['appname.ModelName'] for models in other applications.
 
+        count = 0
         total = orm['cowry_docdata.DocDataPaymentLogEntry'].objects.count()
         for i, log_entry_model in enumerate(orm['cowry_docdata.DocDataPaymentLogEntry'].objects.all()):
             print "Processing DocdataPaymentLogEntry {0} of {1}".format(i, total)
@@ -31,8 +32,10 @@ class Migration(DataMigration):
             try:
                 new_docdata_payment = orm['payments_docdata.DocdataPayment'].objects.get(payment_cluster_id=old_docdata_payment_order.merchant_order_reference)
             except orm['payments_docdata.DocdataPayment'].DoesNotExist:
+                count +=1
                 msg = "No new DocdataPayment object found for the old DocdataPaymentOrder object. DocdataPaymentOrder ID: {0} DocDataPaymentLogEntry ID: {1}".format(old_docdata_payment_order.id, log_entry_model.id)
-                raise Exception(msg)
+                print msg
+                continue
 
             # Create new PaymentLogEntry using the old DocDataPaymentLogEntry data
             payment_log_entry = orm['payments_logger.PaymentLogEntry'].objects.create(
@@ -44,7 +47,8 @@ class Migration(DataMigration):
 
             payment_log_entry.save()
             print "PaymentLogEntry {0} created".format(i)
-
+        print "PaymentLogEntries without DocdataPayment: {0}".format(count)
+        
     def backwards(self, orm):
         orm['payments_logger.PaymentLogEntry'].objects.all().delete()
 
