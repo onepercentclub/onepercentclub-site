@@ -1,3 +1,4 @@
+from django.core import mail
 import json
 from bluebottle.bb_projects.models import ProjectPhase
 
@@ -229,6 +230,37 @@ class CartApiIntegrationTest(OnePercentTestCase):
         self.assertEqual(project.amount_needed, 150)
 
         self._make_api_donation(self.another_user, project=self.some_project, amount=150)
+        # Reload the project from db and check phase / money_needed
+        project = PROJECT_MODEL.objects.get(pk=self.some_project.id)
+        self.assertEqual(project.status.slug, 'campaign')
+        self.assertEqual(project.amount_needed, 0)
+
+    @override_settings(COWRY_PAYMENT_METHODS=default_payment_methods)
+    @unittest.skipUnless(run_docdata_tests, 'DocData credentials not set or not online')
+    def test_mail_after_donation(self):
+        """
+        Test Mail after Donation
+        """
+        self.assertEqual(len(mail.outbox), 4)
+
+        self.assertEqual(self.some_project.amount_needed, 500)
+        self.assertEqual(self.some_project.status.slug, 'campaign')
+
+        self._make_api_donation(self.some_user, project=self.some_project, amount=350)
+        self.assertEqual(len(mail.outbox), 5)
+        m = mail.outbox.pop(4)
+        self.assertEqual(m.subject, 'You received a new donation')
+
+        # Reload the project from db adn check phase / money_needed
+        project = PROJECT_MODEL.objects.get(pk=self.some_project.id)
+        self.assertEqual(project.status.slug, 'campaign')
+        self.assertEqual(project.amount_needed, 150)
+
+        self._make_api_donation(self.another_user, project=self.some_project, amount=150)
+        self.assertEqual(len(mail.outbox), 5)
+        m = mail.outbox.pop(4)
+        self.assertEqual(m.subject, 'You received a new donation')
+
         # Reload the project from db and check phase / money_needed
         project = PROJECT_MODEL.objects.get(pk=self.some_project.id)
         self.assertEqual(project.status.slug, 'campaign')
