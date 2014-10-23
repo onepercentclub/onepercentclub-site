@@ -161,7 +161,6 @@ class SalesforceProject(SalesforceModel):
     sustainability = models.CharField(max_length=20000, db_column='Sustainability__c')
     additional_explanation_of_budget = models.CharField(max_length=32000,
                                                         db_column='Additional_explanation_of_budget__c')
-    end_date_of_the_project = models.DateField(db_column='End_date_of_the_project__c')
     tags = models.CharField(max_length=255, db_column='Tags__c')
     slug = models.CharField(max_length=100, db_column='Slug__c')
     partner_organization = models.CharField(max_length=255, db_column='Partner_Organization__c')
