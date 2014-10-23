@@ -1,9 +1,24 @@
 .widget-container {
-    display: inline-block;
+    // display: inline-block;
 }
 
-.widget-holder {
+.widget-campaign-container {
     position: relative;
+
+    &.small {
+        min-width: 200px;
+        max-width: 250px;
+    }
+
+    &.default {
+        min-width: 250px;
+        max-width: 300px;
+    }
+
+    &.large {
+        min-width: 300px;
+        max-width: 350px;
+    }
 
     // import from bb base/type
     font-family: $font-family;
@@ -75,7 +90,7 @@
     }
 
     .powered-by {
-        width: 112px;
+        width: 100px;
         position: absolute;
         left: 0;
         right: 0;
@@ -83,7 +98,7 @@
         margin-left: auto;
         margin-right: auto;
         padding: 10px;
-        font-size: 10px;
+        font-size: 11px;
         color: #D8D8D8;
         text-decoration: none;
         
@@ -102,30 +117,108 @@
 }
 
 .campaign-item {
-    max-width: 400px;
-    min-height: 400px;
     position: relative;
-    display: inline-block;
+    min-width: 250px;
+    max-width: 300px;
     height: 420px;
-    min-width: 245px;
     background: $gray-light;
     padding: 7px;
     border-radius: 0 0 6px 6px;
     @include single-transition(all, .2s ease-in-out);
-    @include breakpoint(column) {
+
+    &.small {
         min-width: 200px;
-        min-height: 255px;
+        max-width: 250px;
+        height: 360px;
+
+        .campaign-item-holder {
+            .header {
+                height: 140px;
+                @include calc(height, '250 / 16 * 9px');
+            }
+
+            .profile-photo {
+                top: 112px;
+            }
+
+        }
+
+        .campaign-body {
+            top: 160px;
+            
+            .campaign-hover-body {
+                max-height: 145px;
+                font-size: 13px;
+                line-height: 1.9em;
+            }
+
+            .profile-name {
+                font-size: 14px;
+
+                span {
+                    display: none;
+                }
+            }
+
+            .campaign-body-names {
+                font-size: 16px;
+            }
+        }
+
+        .campaign-footer {
+            .campaign-fund-amount {
+                font-size: 13px;
+            }
+        }
     }
 
-    @include breakpoint(x-small) {
-        // min-width: 200px;
-        min-height: 255px;
+    &.large {
+        min-width: 300px;
+        max-width: 350px;
+        height: 470px;
+
+        .campaign-item-holder {
+            .header {
+                height: 196.875px;
+                @include calc(height, '350 / 16 * 9px');
+            }
+
+            .profile-photo {
+                top: 168px;
+            }
+        }
+
+        .campaign-body {
+            top: 220px;
+
+            .campaign-hover-body {
+                min-height: 274px;
+            }
+
+            .profile-name {
+                font-size: 16px;
+            }
+
+            .campaign-body-names {
+                font-size: 20px;
+            }
+        }
+
+        .campaign-footer {
+            .campaign-fund-amount {
+                font-size: 15px;
+            }
+        }
     }
 
-    @include breakpoint(large) {
-        max-height: 420px;
+    a {
+        color: $black;
+        &:visited, &:active {
+            color: $black;
+        }
     }
 
+    
     .campaign-item-holder {
         position: relative;
         width: 100%;
@@ -134,27 +227,22 @@
         border-radius: 0 0 6px 6px;
         border: solid 1px $gray-border;
         display: block;
-
+        
         .header {
             position: absolute;
             overflow: hidden;
             width: 100%;
-            height: 200px;
-            background: $gray-dark;
+            height: 165.75px;
+            @include calc(height, '300 / 16 * 9px');
+            background: #e9e9e9;
             opacity: 1;
-            @include single-transition(opacity, .2s ease-in-out);
-            @include breakpoint(column) {
-                height: 100px;
-            }
-            @include breakpoint(large) {
-                height: 150px;
-            }
-
+            //@include single-transition(opacity, .2s ease-in-out);
+    
             img {
                 width: 100%;
                 position: relative;
             }
-
+            
             &:before {
                 position: absolute;
                 top: 45%;
@@ -163,12 +251,12 @@
                 margin: auto;
                 width: 40%;
                 text-align: center;
-                content: "Loading...";
+                content: '';
                 font-size: .7em;
                 color: $gray-light;
             }
         }
-
+        
         .profile-photo {
             display: inline-block;
             position: absolute;
@@ -179,22 +267,18 @@
             height: 51px;
             overflow: hidden;
             border-radius: 50%;
-            top: 168px;
+            background: #e9e9e9;
+            top: 140px;
             border: solid 2px white;
             z-index: 4;
             @include single-transition(top, .2s ease-in-out);
-            @include breakpoint(column) {
-                top: 76px;
-            }
-            @include breakpoint(large) {
-                top: 125px;
-            }
-
+            
             img {
                 width: 100%;
+                height: 100%;
             }
         }
-
+        
         .campaign-hover {
             position: absolute;
             height: 57%;
@@ -202,56 +286,13 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: white;
-            z-index: 3;
             visibility: hidden;
             opacity: 0;
+            border-radius: 0 0 6px 6px;
+            background: white;
+            z-index: 3;
             @include single-transition(all, .2s ease-in-out);
-
-            .campaign-hover-head {
-                margin: auto;
-                margin-top: 55px;
-                width: 100%;
-                height: auto;
-                min-height: 50px;
-                text-align: center;
-                border-bottom: solid 1px $gray-border;
-                @include breakpoint(column) {
-                    font-size: .8em;
-                    line-height: 17px;
-                }
-                @include breakpoint(large) {
-                    font-size: .8em;
-                    line-height: 17px;
-                }
-
-                strong {
-                    display: inline-block;
-                    margin-top: 17px;
-                    font-family: $font-family-body;
-                    font-weight: 700;
-                    padding: 0 0.6em;
-                    color: $black;
-                }
-            }
-
-            .campaign-hover-body {
-                min-height: 190px;
-                max-height: 210px;
-                overflow: hidden;
-                color: $black;
-                @include breakpoint(column) {
-                    font-size: 13px;
-                    line-height: 20px;
-                    min-height: 40px;
-                    max-height: 120px;
-                }
-                @include breakpoint(large) {
-                    font-size: 14px;
-                    line-height: 23px;
-                }
-            }
-
+            
             .campaign-hover-footer {
                 position: absolute;
                 right: 0;
@@ -260,117 +301,135 @@
                 margin: auto;
                 border-top: solid 1px $gray-border;
             }
-
+            
             p {
-
-                span {
-                    display: block;
-                    padding: 15px 12px 15px 12px;
-                }
-
+                
                 .go-to-campaign {
                     display: block;
                     text-align: center;
                     font-size: 14px;
+                    font-weight: 700;
                     color: $color-secondary;
-
+                    padding: 10px 15px;
+                    
                     &:after {
                         content: "\2192";
-                        margin-left: 7px;
                     }
                 }
             }
         }
     }
-
+    
     .campaign-body {
         position: absolute;
         left: 0;
         right: 0;
-        top: 217px;
+        top: 190px;
         margin: auto;
-        padding: 10px;
+        padding: 20px;
+        overflow: hidden;
+        color: $gray-darker;
         @include single-transition(top, .2s ease-in-out);
-        @include breakpoint(column) {
-            top: 117px;
-        }
-        @include breakpoint(large) {
-            top: 167px;
-        }
 
+        .campaign-hover-body {
+            @include opacity(0);
+            height: 0px;
+            overflow: hidden;
+            font-size: 14px;
+            line-height: 1.9em;
+            @include single-transition(all, 0s ease-in-out);
+
+             &:after {
+                width: 86%;
+                height: 0px;
+                content: '';
+                display: block;
+                position: absolute;
+                bottom: 0;
+                @include opacity(0); 
+                @include background-image(linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%));
+                // @include background-image(linear-gradient(rgba(55, 55, 55, 0) 0%, rgba(55, 55, 55, 1) 95%));
+                @include single-transition(all, .2s ease-in-out);
+            }
+        }
+        
         .profile-name {
             display: block;
             color: $gray-dark;
             text-align: center;
             opacity: 1;
+            font-size: 15px;
+            line-height: 20px;
             @include single-transition(opacity, .2s ease-in-out);
-            @include breakpoint(column) {
-                font-size: 12px;
-                line-height: 17px;
-            }
-            @include breakpoint(large) {
-                font-size: 12px;
-                line-height: 17px;
-            }
-
+            
             strong {
                 font-family: $font-family-body;
                 font-weight: normal;
                 color: $color-primary;
+            
+            }
 
+            span {
+                white-space: nowrap;
             }
         }
-
+        
         .campaign-body-names {
             display: block;
-            margin: 0.3em 0 0 0;
+            margin: 0.5em 0 0.5em 0;
             text-align: center;
             font-family: $font-family-body;
             font-weight: 700;
-            font-size: 1.13em;
+            font-size: 18px;
             color: rgb(60,60,60);
-            @include breakpoint(column) {
-                font-size: .8em;
-                line-height: 17px;
-            }
-            @include breakpoint(large) {
-                font-size: .8em;
-                line-height: 17px;
+            line-height: 22px;
+
+            &:after {
+                display: block;
+                content: '';
+                border-bottom: solid 1px $gray-border;
+                height: 1px;
+                width: 125%;
+                @include single-transition(all, .2s ease-in-out);
+                @include opacity(0);
             }
         }
-    }
 
+        p {
+            margin-top: 0;
+        }
+    }
+    
     .campaign-footer {
         position: absolute;
         left: 0;
         right: 0;
-        bottom: 8px;
+        bottom: 0;
         margin: auto;
-        padding: 10px;
+        padding: 20px;
         opacity: 1;
         @include single-transition(all, .1s ease-in-out);
-
+        
         .campaign-fund-amount {
             color: $gray-dark;
-            @include breakpoint(column) {
-                font-size: 12px;
-            }
-
+            font-size: 14px;
+            
             .amount-raised {
                 float: left;
-                padding-left: 0.5em;
+                padding-top: 0.25em;
+                display: block;
             }
-
+            
             .days-left {
                 float: right;
                 padding-right: 0.5em;
             }
-
+            
             strong {
                 font-family: $font-family-body;
                 font-weight: 700;
             }
-
+            
             .fully-funded {
                 display: block;
                 width: 100%;
@@ -381,7 +440,7 @@
             &.expired {
                 .campaign-fund-amount-slider {
                     border-color: rgb(138, 153, 147);
-
+                    
                     .slider-progress {
                         background-color: rgb(138, 153, 147);
                     }
@@ -394,12 +453,12 @@
             border-radius: 1em;
             margin: 0 0 0.4em 0;
             border: solid 1px $color-primary;
-
+            
             // Old slider code overwrite
             .project-fund-amount-slider {
                 background: transparent;
             }
-
+            
             .slider-progress {
                 position: relative;
                 display: block;
@@ -411,10 +470,10 @@
                 line-height: 0.8em;
                 height: 0.8em;
             }
-
+            
             &.is-funded {
                 border-color: $color-secondary;
-
+                
                 .slider-progress {
                     background-color: $color-secondary;
                 }
@@ -423,39 +482,71 @@
     }
 
     &:hover {
-
+    
         .campaign-item-holder {
-
+        
             .header {
-                opacity: 0;
+                opacity: 1;
             }
-
+            
             .profile-photo {
                 top: -30px;
             }
-
+            
             .campaign-body {
-                top: 20px;
+                top: 10px;
                 z-index: 4;
 
+                .campaign-hover-body {
+                    display: block;
+                    height: 182px;
+                    @include opacity(1);
+                    @include single-transition(all, .2s ease-in-out);
+
+                    &:after {
+                        height: 75px;
+                        @include opacity(1);
+                    }
+                }
+                
                 .campaign-body-names {
-                    opacity: 0;
+                    opacity: 1;
+
+                    &:after {
+                        margin: 15px 0 15px -20px;
+                        @include opacity(1);
+                    }
+
+                    span {
+                        color: $black;
+                    }
                 }
             }
-
+            
             .campaign-footer {
                 opacity: 0;
                 bottom: -4px;
-            }
 
+                .project-fund-amount-slider {
+                    display: none;
+                }
+            }
+            
             .campaign-hover {
                 visibility: visible;
                 opacity: 1;
                 height: 100%;
+
+                .campaign-hover-body {
+                    &:after {
+                        height: 20px;
+                        @include opacity(1);
+                    }
+                }
             }
         }
     }
-
+    
     a.campaign-href {
         position: absolute;
         left: 0;
