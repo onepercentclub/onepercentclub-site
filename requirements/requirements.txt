@@ -1,4 +1,4 @@
--e git://github.com/onepercentclub/bluebottle.git@52f7ca2dcd007343ee5e6ff5fc5d24434f1084e5#egg=bluebottle
+-e git://github.com/onepercentclub/bluebottle.git@aea33e9#egg=bluebottle
 
 
 pip

@@ -25,11 +25,11 @@ html, body, #site {
 	}
 }
 
-#home, #about-new, #start-campaign, #business, #how-to-crowdfund {
+#home, #about-new, #start-campaign, #business, #how-to-crowdfund, #partner-detail {
 	margin-bottom: -40px; // reset 
 }
 
-.modal-fullscreen-background, #home, #about-new, #start-campaign, #business, #how-to-crowdfund {
+.modal-fullscreen-background, #home, #about-new, #start-campaign, #business, #how-to-crowdfund, #partner-detail {
 
 	.btn {
 		font-size: 18px;
@@ -157,7 +157,7 @@ html, body, #site {
 	}
 }
 
-#home, #about-new, #start-campaign, #business, #how-to-crowdfund {
+#home, #about-new, #start-campaign, #business, #how-to-crowdfund, #partner-detail {
 	font-family: $font-family-body;
 
 	h1 {

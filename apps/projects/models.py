@@ -197,7 +197,7 @@ class Project(BaseProject):
         if save:
             self.save()
 
-    def get_money_total(self, status_in=None):
+    def get_money_total(self, status_in=None, type_in=None):
         """
         Calculate the total (realtime) amount of money for donations,
         optionally filtered by status.
@@ -212,6 +212,9 @@ class Project(BaseProject):
         if status_in:
             donations = donations.filter(status__in=status_in)
 
+        if type_in:
+            donations = donations.filter(donation_type__in=type_in)
+
         total = donations.aggregate(sum=Sum('amount'))
 
         if not total['sum']:
@@ -220,21 +223,24 @@ class Project(BaseProject):
 
         return total['sum']
 
-    @property
-    def supporters_count(self, with_guests=True):
+    def supporters_count(self, with_guests=True, type_in=None):
         # TODO: Replace this with a proper Supporters API
         # something like /projects/<slug>/donations
-        donations = self.donation_set.objects.filter(project=self)
+        donations = self.donation_set.all()
         donations = donations.filter(status__in=['paid', 'pending'])
         donations = donations.filter(user__isnull=False)
+        if type_in:
+            donations = donations.filter(donation_type__in=type_in)
         donations = donations.annotate(Count('user'))
         count = len(donations.all())
 
         if with_guests:
-            donations = self.donation_set.objects.filter(project=self)
+            donations = self.donation_set.all()
             donations = donations.filter(status__in=['paid', 'pending'])
             donations = donations.filter(user__isnull=True)
-            count = count + len(donations.all())
+            if type_in:
+                donations = donations.filter(donation_type__in=type_in)
+            count += len(donations.all())
         return count
 
     @property
@@ -260,6 +266,14 @@ class Project(BaseProject):
     @property
     def amount_safe(self):
         return self.get_money_total(['paid']) / 100
+
+    @property
+    def donated_percentage(self):
+        if not self.amount_asked:
+            return 0
+        elif self.amount_donated > self.amount_asked:
+            return 100
+        return int(100 * self.amount_donated / self.amount_asked)
 
     @models.permalink
     def get_absolute_url(self):
@@ -305,6 +319,11 @@ class Project(BaseProject):
                 )
 
         return tweet
+
+    @property
+    def image_url(self):
+        if self.image and hasattr(self.image, 'url'):
+            return self.image.url
 
     class Meta(BaseProject.Meta):
         ordering = ['title']
