@@ -26,13 +26,14 @@ class PositiveDonationFlow(OnePercentSeleniumTestCase):
            u'Mobile payments for everyone 2!', u'Schools for children 2',  u'Women first 2'
         ]])
 
-        self.user = BlueBottleUserFactory.create(email='johndoe@example.com', primary_language='en')
+        self.user = BlueBottleUserFactory.create(email='johndoe@example.com', primary_language='en', first_name='test',
+                                                 last_name='testi')
+        campaign_phase = ProjectPhase.objects.get(name='Campaign')
 
-        campaign_phase = ProjectPhase.objects.get(slug='campaign')
 
         for slug, title in self.projects.items():
-            project = OnePercentProjectFactory.create(title=title, slug=slug, owner=self.user,
-                                                      amount_asked=1000, status=campaign_phase)
+            project = OnePercentProjectFactory.create(title=title, slug=slug, owner=self.user, amount_asked=1000, status=campaign_phase)
+
         self.login(self.user.email, 'testing')
 
     def test_positive_flow_mockdeal(self, lang_code=None):
@@ -47,9 +48,6 @@ class PositiveDonationFlow(OnePercentSeleniumTestCase):
         # Bring up the donation modal
 
         self.assert_css(".project-status")
-        # self.scroll_to_and_click_by_css(".l-wrapper")
-        #
-        # self.scroll_to_and_click_by_css(".project-status")
 
         # Click the first button to raise the amount to 10 euros (Mock doesn't allow 5)
         self.wait_for_element_css('a.btn-primary')
@@ -65,34 +63,25 @@ class PositiveDonationFlow(OnePercentSeleniumTestCase):
         self.assertEqual(int(donation_input.value), 10)
         self.assert_css(".donation-buttons")
         self.assert_css("#hideMyName")
+
         # Jump to next step
         self.scroll_to_and_click_by_css(".donate-btn")
-
-        #HERE
-
-        # subheader_text = self.browser.find_by_css("#payment big").first.text
-        # subheader_text = self.browser.find_by_css(".payment-tab-content").first.text
 
         self.assert_css(".payment-tabs")
         self.assert_css(".payment-tab-content")
 
         self.assert_css(".ember-select")
 
-        # If you select only the li, the click will fail because the modal closes
-        # look into payments_docdata/views.js
-        ideal_payments = self.browser.find_by_css('li#ABNANL2A')
-
-        ideal_payments[1].click()
-
-        self.browser.select('mockiDealSelect', 'huey')
+        self.browser.select('docDataiDealSelect', 'ABNANL2A')
 
         self.scroll_to_and_click_by_css(".payment-btn")
-
         time.sleep(2)
 
-        self.assertTrue(self.browser.is_text_present('This is a Mock Payment Service provider', wait_time=20))
+        #HERE
 
-        self.scroll_to_and_click_by_css('a.btn-ok')
+        self.assertTrue(self.browser.is_text_present('iDEAL simulator', wait_time=30))
+
+        self.scroll_to_and_click_by_css('#form1:callSucces')
 
         self.assertTrue(self.browser.is_text_present('Thank you for caring', wait_time=30))
 
@@ -112,5 +101,4 @@ class PositiveDonationFlow(OnePercentSeleniumTestCase):
 
         author = self.browser.find_by_css(".wallpost-author").first.text
         self.assertEqual(author, self.user.full_name)
-
 
