@@ -1,6 +1,6 @@
 {% load i18n bb_ember static %}
 
-{% tplhandlebars "userDonation" %}
+{% tplhandlebars "my_donations" %}
 
     <div id="account">
 
@@ -13,28 +13,9 @@
                 </header>
 
                 <ul class="tabs three">
-                    <li class="tab-item">
-                        {{#linkTo "userMonthlyProjects" }}
-                            <em class="tab-icon"><span class="flaticon solid wallet-1"></span></em>
-                            <strong class="tab-title">
-                                {% trans "Monthly Donation" %}
-                                <em class="tab-subtitle">{% trans "Select Projects" %}</em>
-                            </strong>
-                        {{/linkTo}}
-                    </li>
-
-                    <li class="tab-item">
-                        {{#linkTo "userMonthlyProfile" }}
-                            <em class="tab-icon"><span class="flaticon solid wallet-1"></span></em>
-                            <strong class="tab-title">
-                                {% trans "Donation Profile" %}
-                                <em class="tab-subtitle">{% trans "Payment Details" %}</em>
-                            </strong>
-                        {{/linkTo}}
-                    </li>
 
                     <li class="tab-item first">
-                        {{#linkTo "userDonationHistory" }}
+                        {{#linkTo "myDonationList" }}
                             <em class="tab-icon"><span class="flaticon solid wallet-1"></span></em>
                             <strong class="tab-title">
                                 {% trans "Donations" %}
@@ -42,6 +23,17 @@
                             </strong>
                         {{/linkTo}}
                     </li>
+
+                    <li class="tab-item">
+                        {{#linkTo "monthlyDonation" }}
+                            <em class="tab-icon"><span class="flaticon solid wallet-1"></span></em>
+                            <strong class="tab-title">
+                                {% trans "Monthly Donation" %}
+                                <em class="tab-subtitle">{% trans "Setup a recurring donation" %}</em>
+                            </strong>
+                        {{/linkTo}}
+                    </li>
+
                 </ul>
             </nav>
         </div>
@@ -53,4 +45,3 @@
     </div>
 
 {% endtplhandlebars %}
-

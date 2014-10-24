@@ -1,10 +1,10 @@
 {% load i18n bb_ember static %}
 
-{% tplhandlebars "monthlyDonation" %}
+{% tplhandlebars "monthly_donation_project" %}
 
     {{#linkTo 'project' project class="project-header" }}
         <figure class="project-image">
-            <img {{bindAttr src="project.plan.image.square" alt="project.title"}} />
+            <img {{bindAttr src="project.image" alt="project.title"}} />
         </figure>
         <h2 class="project-title">
             {{ project.title }}
@@ -21,10 +21,9 @@
             {{#each error in errors.amount}}
                 <span class="has-errors">{{ error }}</span>
             {{/each}}
-            <strong>&euro; {{ amount }}</strong>
         </div>
     </div>
 
-    <a {{ action "deleteDonation" this target="view" }} class="manage-delete"><span class="flaticon solid x-2"></span> <strong>{% trans "Delete" %}</strong></a></li>
+    <a {{ action "deleteProject" this target="view" }} class="manage-delete"><span class="flaticon solid x-2"></span> <strong>{% trans "Delete" %}</strong></a></li>
 
 {% endtplhandlebars %}

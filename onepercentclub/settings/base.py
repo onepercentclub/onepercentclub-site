@@ -274,6 +274,7 @@ INSTALLED_APPS = (
     'apps.fundraisers',
     'bluebottle.wallposts', # Define wall posts before projects/tasks that depend on it.
     'apps.donations',
+    'apps.recurring_donations',
 
     # Apps extending Bluebottle base models
     'apps.members',

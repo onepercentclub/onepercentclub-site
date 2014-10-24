@@ -1,6 +1,6 @@
 {% load i18n bb_ember static %}
 
-{% tplhandlebars "userDonationHistory" %}
+{% tplhandlebars "my_donation_list" %}
 
     <section class="l-wrapper">
         <div class="l-full">
@@ -9,10 +9,8 @@
                 <h1>{% trans "Order History" %}</h1>
             </header>
 
-            {{#if model.isLoaded }}
-
-                <table class="fund-history">
-                    {{#each order in controller}}
+            <table class="fund-history">
+                {{#each order in controller}}
                     <tr>
                         <td class="fund-history-date">{{localize order.created formatting='d'}}</td>
                         <td class="fund-history-type">{{#if order.recurring }} {% trans "Monthly Donation" %} {{ else }} {% trans "Single Donation" %} {{/if}}</td>
@@ -28,12 +26,11 @@
                             </table>
                         </td>
                     </tr>
-                    {{/each}}
-                </table>
-            {{else}}
-                <div class="is-loading-small"><img src="{% get_static_prefix %}images/loading.gif" /> <strong>{% trans "Loading order history&#8230;" %}</strong></div>
+                {{/each}}
+            </table>
+            {{#if canLoadMore}}
+                <a {{action "loadMore"}}>{% trans "Older donations" %}</a>
             {{/if}}
-
         </div>
     </section>
 {% endtplhandlebars %}

@@ -27,45 +27,6 @@ logger = logging.getLogger(__name__)
 random.seed()
 
 
-class RecurringDirectDebitPayment(models.Model):
-    """
-    Holds the direct debit account and payment information.
-    """
-    user = models.OneToOneField(settings.AUTH_USER_MODEL)
-    active = models.BooleanField(default=False)
-    created = CreationDateTimeField(_("Created"))
-    updated = ModificationDateTimeField(_("Updated"))
-
-    manually_process = models.BooleanField(default=False, help_text="Whether or not to process the monthly donation manually instead of with the automatic script.")
-
-    # The amount in the minor unit for the given currency (e.g. for EUR in cents).
-    amount = models.PositiveIntegerField(_("amount"), default=0)
-    currency = models.CharField(max_length=3, default='EUR')
-
-    # Bank account.
-    name = models.CharField(max_length=35)  # max_length from DocData
-    city = models.CharField(max_length=35)  # max_length from DocData
-    account = DutchBankAccountField()
-
-    # IBAN fields required for DocData recurring donation processing.
-    # These are not required because we will be filling these in manually (for now) and not presenting them to users.
-    iban = IBANField(blank=True, default='')
-    bic = SWIFTBICField(blank=True, default='')
-
-    def __unicode__(self):
-        active_status = 'inactive'
-        if self.active:
-            active_status = 'active'
-
-        language = translation.get_language().split('-')[0]
-        if not language:
-            language = 'en'
-
-        return u'{0} - {1} - {2}'.format(str(self.user),
-                                         format_currency(self.amount / 100.0, self.currency, locale=language),
-                                         active_status)
-
-
 class DonationStatuses(DjangoChoices):
     new = ChoiceItem('new', label=_("New"))
     in_progress = ChoiceItem('in_progress', label=_("In progress"))

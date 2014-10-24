@@ -601,7 +601,7 @@ class WebDirectDocDataDirectDebitPaymentAdapter(DocDataPaymentAdapter):
         else:
             return super(WebDirectDocDataDirectDebitPaymentAdapter, self).generate_merchant_order_reference(payment)
 
-    def start_payment(self, payment, recurring_payment):
+    def start_payment(self, payment, monthly_order):
         # Some preconditions.
         if not self.client:
             raise DocDataPaymentException('ERROR',
@@ -622,10 +622,10 @@ class WebDirectDocDataDirectDebitPaymentAdapter(DocDataPaymentAdapter):
         paymentRequestInput.paymentMethod = 'SEPA_DIRECT_DEBIT'
 
         directDebitPaymentInput = self.client.factory.create('ddp:directDebitPaymentInput')
-        directDebitPaymentInput.iban = recurring_payment.iban
-        directDebitPaymentInput.bic = recurring_payment.bic
-        directDebitPaymentInput.holderCity = self.convert_to_ascii(recurring_payment.city)
-        directDebitPaymentInput.holderName = self.convert_to_ascii(recurring_payment.name)
+        directDebitPaymentInput.iban = monthly_order.iban
+        directDebitPaymentInput.bic = monthly_order.bic
+        directDebitPaymentInput.holderCity = self.convert_to_ascii(monthly_order.city)
+        directDebitPaymentInput.holderName = self.convert_to_ascii(monthly_order.name)
 
         country = self.client.factory.create('ns0:country')
         country._code = payment.country
@@ -640,7 +640,7 @@ class WebDirectDocDataDirectDebitPaymentAdapter(DocDataPaymentAdapter):
             self._change_status(payment, PaymentStatuses.in_progress)  # Note: _change_status calls payment.save().
 
             update_docdata_webdirect_direct_debit_payment(payment, str(reply['startSuccess']['paymentId']),
-                                                          recurring_payment)
+                                                          monthly_order)
 
         elif hasattr(reply, 'startError'):
             error = reply['startError']['error']
