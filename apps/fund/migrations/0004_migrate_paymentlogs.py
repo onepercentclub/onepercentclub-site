@@ -1,232 +1,56 @@
 # -*- coding: utf-8 -*-
 import datetime
-from decimal import Decimal
-from apps.cowry_docdata.models import DocDataPaymentOrder
-from bluebottle.payments_docdata.models import DocdataPayment
-from bluebottle.utils.utils import StatusDefinition
-from django.contrib.contenttypes.models import ContentType
-from django.db.models.aggregates import Sum
-from django.db.utils import DatabaseError
 from south.db import db
 from south.v2 import DataMigration
 from django.db import models
 
+from bluebottle.utils.model_dispatcher import get_model_mapping
 
-def map_payment_to_order_status(status):
-
-    return {
-        'new': StatusDefinition.NEW,
-        'in_progress': StatusDefinition.LOCKED,
-        'pending': StatusDefinition.PENDING,
-        'paid': StatusDefinition.SUCCESS,
-        'failed': StatusDefinition.FAILED,
-        'cancelled': StatusDefinition.FAILED,
-        'chargedback': StatusDefinition.FAILED,
-        'refunded': StatusDefinition.FAILED,
-        'unknown': StatusDefinition.FAILED
-    }[status]
-
-
-def map_payment_to_order_payment_status(status):
-    return {
-        'new': StatusDefinition.CREATED,
-        'in_progress': StatusDefinition.IN_PROGRESS,
-        'pending': StatusDefinition.AUTHORIZED,
-        'paid': StatusDefinition.SETTLED,
-        'failed': StatusDefinition.FAILED,
-        'cancelled': StatusDefinition.CANCELLED,
-        'chargedback': StatusDefinition.CHARGED_BACK,
-        'refunded': StatusDefinition.REFUNDED,
-        'unknown': StatusDefinition.UNKNOWN
-    }[status]
-
-
-def map_payment_method(payment_method):
-
-    return {
-        'MASTERCARD': 'docdataCreditcard',
-        'VISA': 'docdataCreditcard',
-        'MAESTRO': 'docdataCreditcard',
-        'AMEX': 'docdataCreditcard',
-        'IDEAL': 'docdataIdeal',
-        'BANK_TRANSFER': 'docdataBanktransfer',
-        'DIRECT_DEBIT': 'docdataDirectdebit',
-        'SEPA_DIRECT_DEBIT': 'docdataDirectdebit',
-
-        'ideal-ing-1procentclub_nl': 'docdataIdeal',
-        'ideal-rabobank-1procentclub_nl': 'docdataIdeal',
-        'directdebitnc2-online-nl': 'docdataDirectdebit',
-        'directdebitnc-online-nl': 'docdataDirectdebit',
-        'omnipay-ems-mc-1procentclub_nl': 'docdataCreditcard',
-        'omnipay-ems-visa-1procentclub_nl': 'docdataCreditcard',
-        'ing-ideal-1procentclub_nl': 'docdataIdeal',
-        'system-banktransfer-nl': 'docdataBanktransfer',
-        'paypal-1procentclub_nl': 'docdataPaypal',
-
-
-        # FIMXE: See if we have to create new methods in the new payments_docdata
-        'omnipay-ems-maestro-1procentclub_nl': 'docdataCreditcard',
-        'SOFORT_UEBERWEISUNG-SofortUeberweisung-1procentclub_nl': 'docdataBanktransfer',
-        'banksys-mrcash-1procentclub_nl': 'docdataBanktransfer',
-
-        # Sometimes there's no payment method
-        '': ''
-    }[payment_method]
-
-
-def get_latest_payment_for_order(order):
-    """
-    Get the latest payment (DocDataPaymentOrder) for given Order.
-    """
-    payments = DocDataPaymentOrder.objects.filter(order=order)
-    if payments.count() > 0:
-        return payments.order_by('-created').all()[0]
-    return None
-
-
-def get_latest_docdata_payment(payment):
-    """
-    Get the latest docdata payment (DocDataPayment) for given payment (DocDataPaymentOrder).
-    """
-    if payment.docdata_payments.count() > 0:
-        return payment.docdata_payments.order_by('-created').all()[0]
-    return None
-
-
-def get_total_for_order(order):
-    """
-    Calculate total for order by summing up its donations.
-    """
-    total = order.donations.aggregate(total=Sum('amount'))['total']
-    if total:
-        return Decimal(total) / 100
-    return 0
-
+MODEL_MAP = get_model_mapping()
 
 class Migration(DataMigration):
 
     depends_on = (
-        ('donations', '0001_initial'),
-        ('orders', '0002_auto__del_field_order_closed__add_field_order_confirmed__add_field_ord'),
-        ('payments_docdata', '0002_auto__add_field_docdatapayment_customer_id__add_field_docdatapayment_e')
+        ('bluebottle.payments_logger', '0001_initial'),
+        ('bluebottle.payments_docdata', '0002_auto__add_field_docdatapayment_customer_id__add_field_docdatapayment_e'),
     )
 
     def forwards(self, orm):
-        "Write your forwards methods here."
-        start = 0
-        old_orders = orm['fund.Order'].objects.all()#[start:100]
+        # Note: Don't use "from appname.models import ModelName". 
+        # Use orm.ModelName to refer to models in this application,
+        # and orm['appname.ModelName'] for models in other applications.
 
-        # Apparently we need to explicitly set ctypes for polymorphic models, so get the ids here.
-        content_types = orm['contenttypes.ContentType'].objects
-        docdata_payment_type_id = content_types.get(app_label='payments_docdata', model='docdatapayment').id
-        docdata_transaction_type_id = content_types.get(app_label='payments_docdata', model='docdatatransaction').id
+        count = 0
+        total = orm['cowry_docdata.DocDataPaymentLogEntry'].objects.count()
+        for i, log_entry_model in enumerate(orm['cowry_docdata.DocDataPaymentLogEntry'].objects.all()):
+            print "Processing DocdataPaymentLogEntry {0} of {1}".format(i, total)
 
-        t = 0
-        # Iterate over orders
-        for old_order in old_orders:
-            t += 1
-            if not t % 10:
-                print "migrating order {0} / {1} [{2}]".format(t, len(old_orders), (start + t))
+            # Fetch DocDataPaymentOrder
+            old_docdata_payment_order = log_entry_model.docdata_payment_order
 
-            if old_order.status != 'recurring':
-                order = orm['orders.Order'].objects.create(id=old_order.id)
-                order.user = old_order.user
-                order.total = get_total_for_order(old_order)
-                order.created = old_order.created
-                order.updated = old_order.updated
-                if old_order.status == 'current':
-                    order.status = StatusDefinition.NEW
-                elif old_order.status == 'closed':
-                    old_payment = get_latest_payment_for_order(old_order)
-                    if old_payment:
-                        order.status = map_payment_to_order_status(old_payment.status)
-                    else:
-                        order.status = StatusDefinition.NEW
-                order.save()
+            # Fetch corresponding DocdataPayment
+            try:
+                new_docdata_payment = orm['payments_docdata.DocdataPayment'].objects.get(payment_cluster_id=old_docdata_payment_order.merchant_order_reference)
+            except orm['payments_docdata.DocdataPayment'].DoesNotExist:
+                count +=1
+                msg = "No new DocdataPayment object found for the old DocdataPaymentOrder object. DocdataPaymentOrder ID: {0} DocDataPaymentLogEntry ID: {1}".format(old_docdata_payment_order.id, log_entry_model.id)
+                print msg
+                continue
 
-                # Migrate donations belong to this order
-                for old_donation in old_order.donations.all():
-                    donation = orm['donations.Donation'].objects.create(
-                        id=old_donation.id,
-                        amount=Decimal(old_donation.amount) / 100,
-                        order=order,
-                        project=old_donation.project,
-                        fundraiser = old_donation.fundraiser,
-                        created=old_donation.created,
-                        updated=old_donation.updated
-                    )
-                    order.confirmed = old_donation.ready
-                    if order.status == StatusDefinition.SUCCESS:
-                        order.completed = old_donation.ready
-                    donation.save()
-                order.save()
+            # Create new PaymentLogEntry using the old DocDataPaymentLogEntry data
+            payment_log_entry = orm['payments_logger.PaymentLogEntry'].objects.create(
+                message=log_entry_model.message,
+                level=log_entry_model.level,
+                timestamp=log_entry_model.timestamp,
+                payment=new_docdata_payment
+            )
 
-                # Migrate payments belonging to this order
-                for old_payment in DocDataPaymentOrder.objects.filter(order=old_order):
-                    order_payment = orm['payments.OrderPayment'].objects.create(
-                        order=order,
-                        user=order.user,
-                        amount=Decimal(old_payment.amount) / 100,
-                        created=order.created
-                    )
-                    order_payment.created = old_payment.created
-                    order_payment.updated = old_payment.updated
-                    order_payment.status = map_payment_to_order_payment_status(old_payment.status)
-
-                    dd_payment = get_latest_docdata_payment(old_payment)
-                    if dd_payment:
-                        order_payment.payment_method = map_payment_method(dd_payment.payment_method)
-                    order_payment.transaction_fee = Decimal(old_payment.fee) / 100
-                    order_payment.save()
-                    if order_payment.amount != order.total and old_payment.status == 'paid':
-                        raise Exception("Order and Payment amount differ! {0} != {1}. Old order id: {2}".format(order.total, order_payment.amount, order.id))
-
-                    if old_payment.payment_order_id:
-                        try:
-                            payment = orm['payments_docdata.DocdataPayment'].objects.create(
-                                order_payment=order_payment,
-                                status=order_payment.status,
-                                created=old_payment.created,
-                                updated=old_payment.updated,
-                                payment_cluster_id=old_payment.merchant_order_reference,
-                                payment_cluster_key=old_payment.payment_order_id,
-                                merchant_order_id=old_payment.merchant_order_reference,
-                                total_gross_amount=old_payment.amount,
-                                default_pm=dd_payment.payment_method,
-                                polymorphic_ctype_id=docdata_payment_type_id,
-                                email=old_payment.email,
-                                first_name=old_payment.first_name,
-                                last_name=old_payment.last_name,
-                                address=old_payment.address,
-                                postal_code=old_payment.postal_code,
-                                city=old_payment.city
-                            )
-
-                            payment.save()
-                            for old_transaction in old_payment.docdata_payments.all():
-                                if old_transaction.payment_id:
-                                    transaction = orm['payments_docdata.DocdataTransaction'].objects.create(
-                                        payment=payment,
-                                        docdata_id=old_transaction.payment_id,
-                                        status=old_transaction.status,
-                                        created=old_transaction.created,
-                                        updated=old_transaction.updated,
-                                        payment_method=old_transaction.payment_method
-                                    )
-                                    transaction.polymorphic_ctype_id = docdata_transaction_type_id
-                                    transaction.payment_method = old_transaction.payment_method
-                                    transaction.save()
-
-                        except Exception as e:
-                            print e
-
+            payment_log_entry.save()
+            print "PaymentLogEntry {0} created".format(i)
+        print "PaymentLogEntries without DocdataPayment: {0}".format(count)
+        
     def backwards(self, orm):
-        "Write your backwards methods here."
-        orm['donations.Donation'].objects.all().delete()
-        orm['payments.OrderPayment'].objects.all().delete()
-        orm['orders.Order'].objects.all().delete()
-        orm['payments_docdata.DocdataPayment'].objects.all().delete()
-        orm['payments_docdata.DocdataTransaction'].objects.all().delete()
+        orm['payments_logger.PaymentLogEntry'].objects.all().delete()
 
     models = {
         u'auth.group': {
@@ -325,36 +149,24 @@ class Migration(DataMigration):
             u'docdatapayment_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['cowry_docdata.DocDataPayment']", 'unique': 'True', 'primary_key': 'True'}),
             'iban': ('django_iban.fields.IBANField', [], {'max_length': '34'})
         },
-        u'donations.donation': {
-            'Meta': {'object_name': 'Donation'},
-            'amount': ('django.db.models.fields.DecimalField', [], {'max_digits': '16', 'decimal_places': '2'}),
-            'anonymous': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'completed': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'fundraiser': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['fundraisers.FundRaiser']", 'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'order': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'donations'", 'null': 'True', 'to': u"orm['orders.Order']"}),
-            'project': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['projects.Project']"}),
-            'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'})
-        },
         u'fund.donation': {
-            'Meta': {'object_name': 'Donation'},
+            'Meta': {'object_name': MODEL_MAP['donation']['class']},
             'amount': ('django.db.models.fields.PositiveIntegerField', [], {}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'currency': ('django.db.models.fields.CharField', [], {'default': "'EUR'", 'max_length': '3'}),
             'donation_type': ('django.db.models.fields.CharField', [], {'default': "'one_off'", 'max_length': '20', 'db_index': 'True'}),
-            'fundraiser': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'old_donations'", 'null': 'True', 'to': u"orm['fundraisers.FundRaiser']"}),
+            'fundraiser': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'old_donations'", 'null': 'True', 'to': "orm['{0}']".format(MODEL_MAP['fundraiser']['model'])}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'order': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'donations'", 'null': 'True', 'to': u"orm['fund.Order']"}),
-            'project': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'old_donations'", 'to': u"orm['projects.Project']"}),
+            'project': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'old_donations'", 'to': "orm['{0}']".format(MODEL_MAP['project']['model'])}),
             'ready': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'status': ('django.db.models.fields.CharField', [], {'default': "'new'", 'max_length': '20', 'db_index': 'True'}),
             'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['members.Member']", 'null': 'True', 'blank': 'True'}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['{0}']".format(MODEL_MAP['user']['model']), 'null': 'True', 'blank': 'True'}),
             'voucher': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['vouchers.Voucher']", 'null': 'True', 'blank': 'True'})
         },
         u'fund.order': {
-            'Meta': {'ordering': "('-updated',)", 'object_name': 'Order'},
+            'Meta': {'ordering': "('-updated',)", 'object_name': MODEL_MAP['order']['class']},
             'closed': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -362,7 +174,7 @@ class Migration(DataMigration):
             'recurring': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'status': ('django.db.models.fields.CharField', [], {'default': "'current'", 'max_length': '20', 'db_index': 'True'}),
             'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'old_orders'", 'null': 'True', 'to': u"orm['members.Member']"})
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'old_orders'", 'null': 'True', 'to': "orm['{0}']".format(MODEL_MAP['user']['model'])})
         },
         u'fund.recurringdirectdebitpayment': {
             'Meta': {'object_name': 'RecurringDirectDebitPayment'},
@@ -378,11 +190,11 @@ class Migration(DataMigration):
             'manually_process': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
             'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['members.Member']", 'unique': 'True'})
+            'user': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['{0}']".format(MODEL_MAP['user']['model']), 'unique': 'True'})
         },
-        u'fundraisers.fundraiser': {
-            'Meta': {'object_name': 'FundRaiser'},
-            'amount': ('django.db.models.fields.PositiveIntegerField', [], {}),
+        MODEL_MAP['fundraiser']['model_lower']: {
+            'Meta': {'object_name': MODEL_MAP['fundraiser']['class']},
+            'amount': ('django.db.models.fields.DecimalField', [], {'max_digits': '10', 'decimal_places': '2'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'currency': ('django.db.models.fields.CharField', [], {'default': "'EUR'", 'max_length': "'10'"}),
             'deadline': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
@@ -390,8 +202,8 @@ class Migration(DataMigration):
             'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'image': ('sorl.thumbnail.fields.ImageField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'owner': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['members.Member']"}),
-            'project': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['projects.Project']"}),
+            'owner': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['{0}']".format(MODEL_MAP['user']['model'])}),
+            'project': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['{0}']".format(MODEL_MAP['project']['model'])}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'video_url': ('django.db.models.fields.URLField', [], {'default': "''", 'max_length': '100', 'blank': 'True'})
@@ -419,8 +231,8 @@ class Migration(DataMigration):
             'numeric_code': ('django.db.models.fields.CharField', [], {'max_length': '3', 'unique': 'True', 'null': 'True', 'blank': 'True'}),
             'region': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['geo.Region']"})
         },
-        u'members.member': {
-            'Meta': {'object_name': 'Member'},
+        MODEL_MAP['user']['model_lower']: {
+            'Meta': {'object_name': MODEL_MAP['user']['class']},
             'about': ('django.db.models.fields.TextField', [], {'max_length': '265', 'blank': 'True'}),
             'available_time': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'}),
             'birthdate': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
@@ -455,8 +267,8 @@ class Migration(DataMigration):
             'website': ('django.db.models.fields.URLField', [], {'max_length': '200', 'blank': 'True'}),
             'why': ('django.db.models.fields.TextField', [], {'max_length': '265', 'blank': 'True'})
         },
-        u'orders.order': {
-            'Meta': {'object_name': 'Order'},
+        MODEL_MAP['order']['model_lower']: {
+            'Meta': {'object_name': MODEL_MAP['order']['class']},
             'completed': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'confirmed': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
@@ -464,10 +276,10 @@ class Migration(DataMigration):
             'status': ('django_fsm.db.fields.fsmfield.FSMField', [], {'default': "'created'", 'max_length': '50'}),
             'total': ('django.db.models.fields.DecimalField', [], {'default': '0', 'max_digits': '16', 'decimal_places': '2'}),
             'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['members.Member']", 'null': 'True', 'blank': 'True'})
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['{0}']".format(MODEL_MAP['user']['model']), 'null': 'True', 'blank': 'True'})
         },
-        u'organizations.organization': {
-            'Meta': {'ordering': "['name']", 'object_name': 'Organization'},
+        MODEL_MAP['organization']['model_lower']: {
+            'Meta': {'ordering': "['name']", 'object_name': MODEL_MAP['organization']['class']},
             'account_bank_address': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
             'account_bank_city': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
             'account_bank_country': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'account_bank_country'", 'null': 'True', 'to': u"orm['geo.Country']"}),
@@ -511,12 +323,12 @@ class Migration(DataMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'integration_data': ('django.db.models.fields.TextField', [], {'default': "'{}'", 'max_length': '5000', 'blank': 'True'}),
-            'order': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'payments'", 'to': u"orm['orders.Order']"}),
+            'order': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'order_payments'", 'to': "orm['{0}']".format(MODEL_MAP['order']['model'])}),
             'payment_method': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '20', 'blank': 'True'}),
             'status': ('django_fsm.db.fields.fsmfield.FSMField', [], {'default': "'created'", 'max_length': '50'}),
             'transaction_fee': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '16', 'decimal_places': '2'}),
             'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['members.Member']", 'null': 'True', 'blank': 'True'})
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['{0}']".format(MODEL_MAP['user']['model']), 'null': 'True', 'blank': 'True'})
         },
         u'payments.orderpaymentaction': {
             'Meta': {'object_name': 'OrderPaymentAction'},
@@ -591,6 +403,14 @@ class Migration(DataMigration):
             'status': ('django.db.models.fields.CharField', [], {'default': "'NEW'", 'max_length': '30'}),
             u'transaction_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['payments.Transaction']", 'unique': 'True', 'primary_key': 'True'})
         },
+        u'payments_logger.paymentlogentry': {
+            'Meta': {'ordering': "('-timestamp',)", 'object_name': 'PaymentLogEntry'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'level': ('django.db.models.fields.CharField', [], {'max_length': '15'}),
+            'message': ('django.db.models.fields.CharField', [], {'max_length': '400'}),
+            'payment': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'payments'", 'to': u"orm['payments.Payment']"}),
+            'timestamp': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'})
+        },
         u'projects.partnerorganization': {
             'Meta': {'object_name': 'PartnerOrganization'},
             'description': ('django.db.models.fields.TextField', [], {}),
@@ -599,8 +419,8 @@ class Migration(DataMigration):
             'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'}),
             'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '100'})
         },
-        u'projects.project': {
-            'Meta': {'ordering': "['title']", 'object_name': 'Project'},
+        MODEL_MAP['project']['model_lower']: {
+            'Meta': {'ordering': "['title']", 'object_name': MODEL_MAP['project']['class']},
             'allow_overfunding': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'amount_asked': ('bluebottle.bb_projects.fields.MoneyField', [], {'default': '0', 'null': 'True', 'max_digits': '12', 'decimal_places': '2', 'blank': 'True'}),
             'amount_donated': ('bluebottle.bb_projects.fields.MoneyField', [], {'default': '0', 'max_digits': '12', 'decimal_places': '2'}),
@@ -614,7 +434,7 @@ class Migration(DataMigration):
             'deadline': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'effects': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'favorite': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'favorite': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'for_who': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'future': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -624,8 +444,8 @@ class Migration(DataMigration):
             'latitude': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '21', 'decimal_places': '18', 'blank': 'True'}),
             'longitude': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '21', 'decimal_places': '18', 'blank': 'True'}),
             'mchanga_account': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'organization': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'organization'", 'null': 'True', 'to': u"orm['organizations.Organization']"}),
-            'owner': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'owner'", 'to': u"orm['members.Member']"}),
+            'organization': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'organization'", 'null': 'True', 'to': "orm['{0}']".format(MODEL_MAP['organization']['model'])}),
+            'owner': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'owner'", 'to': "orm['{0}']".format(MODEL_MAP['user']['model'])}),
             'partner_organization': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['projects.PartnerOrganization']", 'null': 'True', 'blank': 'True'}),
             'pitch': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'popularity': ('django.db.models.fields.FloatField', [], {'default': '0'}),
@@ -669,10 +489,10 @@ class Migration(DataMigration):
             'language': ('django.db.models.fields.CharField', [], {'default': "'en'", 'max_length': '2'}),
             'message': ('django.db.models.fields.TextField', [], {'default': "''", 'max_length': '500', 'blank': 'True'}),
             'order': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'vouchers'", 'null': 'True', 'to': u"orm['fund.Order']"}),
-            'receiver': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'receiver'", 'null': 'True', 'to': u"orm['members.Member']"}),
+            'receiver': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'receiver'", 'null': 'True', 'to': "orm['{0}']".format(MODEL_MAP['user']['model'])}),
             'receiver_email': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
             'receiver_name': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100', 'blank': 'True'}),
-            'sender': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'sender'", 'null': 'True', 'to': u"orm['members.Member']"}),
+            'sender': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'sender'", 'null': 'True', 'to': "orm['{0}']".format(MODEL_MAP['user']['model'])}),
             'sender_email': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
             'sender_name': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100', 'blank': 'True'}),
             'status': ('django.db.models.fields.CharField', [], {'default': "'new'", 'max_length': '20', 'db_index': 'True'}),
@@ -680,6 +500,5 @@ class Migration(DataMigration):
         }
     }
 
-    complete_apps = ['donations', 'orders', 'cowry', 'cowry_docdata', 'payments', 'payments_docdata', 'fund']
+    complete_apps = ['payments', 'payments_docdata', 'payments_logger', 'cowry_docdata', 'fund']
     symmetrical = True
-
