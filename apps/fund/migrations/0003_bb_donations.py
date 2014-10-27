@@ -205,18 +205,31 @@ class Migration(DataMigration):
                             payment.save()
                             for old_transaction in old_payment.docdata_payments.all():
                                 if old_transaction.payment_id:
-                                    transaction = orm['payments_docdata.DocdataTransaction'].objects.create(
-                                        payment=payment,
-                                        docdata_id=old_transaction.payment_id,
-                                        status=old_transaction.status,
-                                        created=old_transaction.created,
-                                        updated=old_transaction.updated,
-                                        payment_method=old_transaction.payment_method
-                                    )
-                                    transaction.polymorphic_ctype_id = docdata_transaction_type_id
-                                    transaction.payment_method = old_transaction.payment_method
-                                    transaction.save()
-
+                                        existing_transactions = orm['payments_docdata.DocdataTransaction'].objects.filter(docdata_id=old_transaction.payment_id)
+                                        if not existing_transactions:
+                                            transaction = orm['payments_docdata.DocdataTransaction'].objects.create(
+                                                payment=payment,
+                                                docdata_id=old_transaction.payment_id,
+                                                status=old_transaction.status,
+                                                created=old_transaction.created,
+                                                updated=old_transaction.updated,
+                                                payment_method=old_transaction.payment_method
+                                            )
+                                            transaction.polymorphic_ctype_id = docdata_transaction_type_id
+                                            transaction.payment_method = old_transaction.payment_method
+                                            transaction.save()
+                                        else:
+                                            transaction = orm['payments_docdata.DocdataTransaction'].objects.create(
+                                                payment=payment,
+                                                docdata_id='{0}a'.format(old_transaction.payment_id),
+                                                status=old_transaction.status,
+                                                created=old_transaction.created,
+                                                updated=old_transaction.updated,
+                                                payment_method=old_transaction.payment_method
+                                            )
+                                            transaction.polymorphic_ctype_id = docdata_transaction_type_id
+                                            transaction.payment_method = old_transaction.payment_method
+                                            transaction.save()                   
                         except Exception as e:
                             print e
 
