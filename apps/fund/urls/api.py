@@ -3,8 +3,8 @@ from apps.fund.views import RecurringOrderList, RecurringOrderDetail, RecurringD
 from django.conf.urls import patterns, include, url
 from surlex.dj import surl
 from ..views import OrderList, OrderDetail, OrderCurrentDetail, PaymentProfileCurrent,  PaymentCurrent, \
-    RecurringDirectDebitPaymentList, RecurringDirectDebitPaymentDetail, OrderCurrentDonationDetail, \
-    OrderCurrentDonationList, NestedDonationDetail, NestedDonationList, DonationList, DonationDetail, TickerList
+    OrderCurrentDonationDetail, OrderCurrentDonationList, NestedDonationDetail, NestedDonationList, DonationList, \
+    DonationDetail, TickerList
 
 
 urlpatterns = patterns('',
@@ -44,8 +44,5 @@ urlpatterns = patterns('',
 
     # The Payment REST API.
     url(r'', include('apps.cowry.urls.api')),
-    url(r'^recurring/directdebitpayments/$', RecurringDirectDebitPaymentList.as_view(), name='recurring-direct-debit-payment-list'),
-    surl(r'^recurring/directdebitpayments/<pk:#>$', RecurringDirectDebitPaymentDetail.as_view(), name='recurring-direct-debit-payment-detail'),
-
 
 )

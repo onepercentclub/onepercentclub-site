@@ -245,6 +245,9 @@ INSTALLED_APPS = (
     #'social_auth',
     'social.apps.django_app.default',
 
+    #Widget
+    'bluebottle.widget',
+
     # CMS page contents
     'fluent_contents',
     'fluent_contents.plugins.text',
@@ -316,6 +319,7 @@ INSTALLED_APPS = (
     'apps.partners',
     'apps.crawlable',
     'apps.mchanga',
+    'apps.recurring_donations',
 
     # FIXME: Keep these just for migrations
     'apps.fund',
