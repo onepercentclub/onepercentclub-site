@@ -19,10 +19,6 @@ from .mails import mail_project_funded_internal
 from .signals import project_funded
 
 
-class ProjectPhaseLog(BaseProjectPhaseLog):
-    pass
-
-
 class ProjectManager(models.Manager):
 
     def search(self, query):
@@ -190,7 +186,7 @@ class Project(BaseProject):
         if save:
             self.save()
 
-    def get_money_total(self, status_in=None):
+    def get_money_total(self, status_in=None, type_in=None):
         """
         Calculate the total (realtime) amount of money for donations,
         optionally filtered by status.
@@ -205,6 +201,9 @@ class Project(BaseProject):
         if status_in:
             donations = donations.filter(order__status__in=status_in)
 
+        if type_in:
+            donations = donations.filter(donation_type__in=type_in)
+
         total = donations.aggregate(sum=Sum('amount'))
 
         if not total['sum']:
@@ -218,7 +217,7 @@ class Project(BaseProject):
         return self.status in ProjectPhase.objects.filter(slug__in=['done-complete', 'done-incomplete']).all()
 
     @property
-    def supporters_count(self, with_guests=True):
+    def supporters_count(self, with_guests=True, type_in=None):
         # TODO: Replace this with a proper Supporters API
         # something like /projects/<slug>/donations
         donations = self.donation_set.objects.filter(project=self)
@@ -229,9 +228,11 @@ class Project(BaseProject):
 
         if with_guests:
             donations = self.donation_set.objects.filter(project=self)
-            donations = donations.filter(order_status__in=[StatusDefinition.PENDING, StatusDefinition.PAID])
+            donations = donations.filter(status__in=['paid', 'pending'])
             donations = donations.filter(user__isnull=True)
-            count = count + len(donations.all())
+            if type_in:
+                donations = donations.filter(donation_type__in=type_in)
+            count += len(donations.all())
         return count
 
     @property
@@ -257,6 +258,14 @@ class Project(BaseProject):
     @property
     def amount_safe(self):
         return self.get_money_total(StatusDefinition.PAID)
+
+    @property
+    def donated_percentage(self):
+        if not self.amount_asked:
+            return 0
+        elif self.amount_donated > self.amount_asked:
+            return 100
+        return int(100 * self.amount_donated / self.amount_asked)
 
     @models.permalink
     def get_absolute_url(self):
