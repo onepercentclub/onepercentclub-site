@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-08 10:52+0200\n"
-"PO-Revision-Date: 2014-10-07 14:56+0000\n"
-"Last-Translator: aethemba <aksel@onepercentclub.com>\n"
+"POT-Creation-Date: 2014-10-14 17:08+0200\n"
+"PO-Revision-Date: 2014-10-13 06:18+0000\n"
+"Last-Translator: bartlacroix <bart@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -377,7 +377,7 @@ msgstr "Bedrag & deadline"
 
 #: templates/fundraisers/fundraiser_form.hbs:42
 msgid "Be realistic and...show ambition!"
-msgstr "Kom op, niet te bescheiden..."
+msgstr "Ben ambitieus maar ook realistisch..."
 
 #: templates/fundraisers/fundraiser_index.hbs:28
 msgid "Show more"

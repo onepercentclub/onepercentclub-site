@@ -245,6 +245,9 @@ INSTALLED_APPS = (
     #'social_auth',
     'social.apps.django_app.default',
 
+    #Widget
+    'bluebottle.widget',
+
     # CMS page contents
     'fluent_contents',
     'fluent_contents.plugins.text',

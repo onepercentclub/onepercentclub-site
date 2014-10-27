@@ -25,7 +25,7 @@ class FundraiserWallObserver(WallPostObserver):
                 to=fundraiser_owner,
 
                 project=fundraiser,
-                link='/go/projects/{0}'.format(fundraiser.id),
+                link='/go/fundraisers/{0}'.format(fundraiser.id),
                 author=self.author,
                 receiver=fundraiser_owner
             )
@@ -57,7 +57,7 @@ class FundraiserReactionObserver(ReactionObserver):
                     to=r.author,
 
                     project=fundraiser,
-                    link='/go/projects/{0}'.format(fundraiser.id),
+                    link='/go/fundraisers/{0}'.format(fundraiser.id),
                     author=self.reaction_author,
                     receiver=r.author
                 )
@@ -72,7 +72,7 @@ class FundraiserReactionObserver(ReactionObserver):
                     to=self.post_author,
 
                     project=fundraiser,
-                    link='/go/projects/{0}'.format(fundraiser.id),
+                    link='/go/fundraisers/{0}'.format(fundraiser.id),
                     site=self.site,
                     author=self.reaction_author,
                     receiver=self.post_author
@@ -88,7 +88,7 @@ class FundraiserReactionObserver(ReactionObserver):
                     to=fundraiser_owner,
 
                     site=self.site,
-                    link='/go/projects/{0}'.format(fundraiser.id),
+                    link='/go/fundraisers/{0}'.format(fundraiser.id),
                     author=self.reaction_author,
                     receiver=fundraiser_owner
                 )

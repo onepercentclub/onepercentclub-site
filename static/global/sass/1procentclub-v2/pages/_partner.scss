@@ -1,0 +1,78 @@
+#partner-detail {
+    padding-bottom: 50px;
+
+    .partner-info {
+        padding: 30px 0 40px 0;
+        background: $color-light-gray;
+        border-bottom: 1px solid #e9e9e9;
+
+        .partner-headline {
+            width: 90%;
+
+            .partner-heading {
+
+                h1 {
+                    font-size: 46px;
+                    margin-top: 0;
+                }
+
+                .partner-icon-big {
+                    float: left;
+                    display: block;
+                    width: 101px;
+                    height: 95px;
+                    background: image-url("cheetah/icons/icon-cheetah-head-big.svg") transparent no-repeat 0 0;
+                }
+
+                .partner-main-content {
+                    float: left;
+                    display: block;
+                    font-size: 28px;
+                    text-transform: uppercase;
+                    color: $color-primary;
+                    
+                    span {
+                        font-family: $font-family-body;
+                    }
+
+                    h1 {
+                        color: #444;
+                        font-family: $font-family;
+                    }
+                }
+
+            }
+        }
+
+        .partner-content {
+            display: inline-block;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .cheetah-facts {
+            border-left: 1px solid #e9e9e9;
+            height: 210px;
+            width: 100%;
+        }
+    }
+
+    figure {
+        &.image-logo {
+            float: right;
+            max-width: 150px;
+            max-height: 150px;
+
+            img {
+                padding-left: 20px;
+                float: none;
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+
+    .partner-col {
+        padding: 0 1.5em;
+    }
+}

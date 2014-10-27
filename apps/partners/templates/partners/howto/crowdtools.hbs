@@ -1,0 +1,43 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "howto/crowdtools" %}
+    <div class="l-section tools-container" id="howto-crowfundtools">
+        <div class="l-wrapper">
+            <div class="row">
+                <div class="col4">
+                    <div class="tools second-item">
+                        <div class="tools-icon"><object type="image/svg+xml" data="/static/assets/images/img/illustrations/illustration-start-campaign.svg" class="tools-icon-image"></object></div>
+                        <div class="tools-content">
+                            {{#link-to 'page' 'start-campaign' classNames='btn btn-sec'}}{% blocktrans %}Start campaigning{% endblocktrans %}{{/link-to}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col4">
+                    <div class="tools first-item">
+                        {{#if currentUser.isAuthenticated}}
+                            <div class="tools-icon"><object type="image/svg+xml" data="/static/assets/images/img/illustrations/illustration-contact.svg" class="tools-icon-image"></object></div>
+                            <div class="tools-content">
+                                {{#link-to 'contactMessage' classNames='btn btn-sec'}}{% blocktrans %}Contact us{% endblocktrans %}{{/link-to}}
+                            </div>
+                        {{else}}
+                            <div class="tools-icon"><object type="image/svg+xml" data="/static/assets/images/img/illustrations/illustration-network.svg" class="tools-icon-image"></object></div>
+                            <div class="tools-content">
+                                <a {{action 'openInBox' 'login'}} class="btn btn-sec">{% blocktrans %}Join 1%Club{% endblocktrans %}</a>
+                            </div>
+                        {{/if}}
+                    </div>
+                </div>
+                <div class="col4">
+                    <div class="tools third-item">
+                        <div class="tools-icon"><object type="image/svg+xml" data="/static/assets/images/img/illustrations/illustration-faq.svg" class="tools-icon-image"></object></div>
+                        <div class="tools-content">
+                            {{#link-to 'page' 'faq' classNames='btn btn-sec'}}{% blocktrans %}Read our FAQ{% endblocktrans %}{{/link-to}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endtplhandlebars %}

@@ -7,18 +7,25 @@ from django.core.management.base import BaseCommand
 from django.utils import timezone
 from django.conf import settings
 from ...export import generate_donations_csv_file, generate_organizations_csv_file, generate_users_csv_file, \
-    generate_projects_csv_file, generate_projectbudgetlines_csv_file, generate_vouchers_csv_file, \
-    generate_tasks_csv_file, generate_taskmembers_csv_file
-from ...sync import sync_organizations, sync_users, sync_projects, sync_projectbudgetlines, sync_tasks, sync_taskmembers, \
-    sync_donations, sync_vouchers
+    generate_projects_csv_file, generate_projectbudgetlines_csv_file, \
+    generate_tasks_csv_file, generate_taskmembers_csv_file, generate_fundraisers_csv_file, \
+    generate_organizationmember_csv_file
+from ...sync import sync_organizations, sync_users, sync_projects, sync_projectbudgetlines, sync_tasks, \
+    sync_taskmembers, sync_donations, sync_fundraisers, send_log, sync_organizationmembers
 
 logger = logging.getLogger('bluebottle.salesforce')
-
+fhndl = logging.handlers.RotatingFileHandler(os.path.join(settings.PROJECT_ROOT, "salesforce", "log", "last.log"),
+                                             backupCount=5)
+formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+fhndl.setFormatter(formatter)
+fhndl.doRollover()
+logger.addHandler(fhndl)
 
 #
 # Run with:
 # ./manage.py sync_to_salesforce -v 2 --settings=bluebottle.settings.salesforcesync
 #
+
 
 class Command(BaseCommand):
     help = 'Synchronize data to Salesforce.'
@@ -69,31 +76,41 @@ class Command(BaseCommand):
 
         logger.info("Process starting at {0}.".format(timezone.localtime(timezone.now())))
 
-        if options['csv_export']:
-            path = os.path.join(settings.PROJECT_ROOT, "salesforce", "dataloader_prd", "Data", "Input")
-            self.run_with_count_update(generate_organizations_csv_file, path, loglevel)
-            self.run_with_count_update(generate_users_csv_file, path, loglevel)
-            self.run_with_count_update(generate_projects_csv_file, path, loglevel)
-            self.run_with_count_update(generate_projectbudgetlines_csv_file, path, loglevel)
-            self.run_with_count_update(generate_donations_csv_file, path, loglevel)
-            # self.run_with_count_update(generate_vouchers_csv_file, path, loglevel)
-            self.run_with_count_update(generate_tasks_csv_file, path, loglevel)
-            self.run_with_count_update(generate_taskmembers_csv_file, path, loglevel)
-        else:
-            # The synchronization methods need to be run in a specific order because of foreign key dependencies.
-            self.run_with_count_update(sync_organizations, options['dry_run'], sync_from_datetime, loglevel)
-            self.run_with_count_update(sync_users, options['dry_run'], sync_from_datetime, loglevel)
-            self.run_with_count_update(sync_projects, options['dry_run'], sync_from_datetime, loglevel)
-            self.run_with_count_update(sync_projectbudgetlines, options['dry_run'], sync_from_datetime, loglevel)
-            self.run_with_count_update(sync_tasks, options['dry_run'], sync_from_datetime, loglevel)
-            self.run_with_count_update(sync_taskmembers, options['dry_run'], sync_from_datetime, loglevel)
-            self.run_with_count_update(sync_donations, options['dry_run'], sync_from_datetime, loglevel)
-            # self.run_with_count_update(sync_vouchers, options['dry_run'], sync_from_datetime, loglevel)
+        try:
+            if options['csv_export']:
+                path = os.path.join(settings.PROJECT_ROOT, "salesforce", "export", "current")
+                self.run_with_count_update(generate_organizations_csv_file, path, loglevel)
+                self.run_with_count_update(generate_users_csv_file, path, loglevel)
+                self.run_with_count_update(generate_projects_csv_file, path, loglevel)
+                self.run_with_count_update(generate_projectbudgetlines_csv_file, path, loglevel)
+                self.run_with_count_update(generate_donations_csv_file, path, loglevel)
+                self.run_with_count_update(generate_tasks_csv_file, path, loglevel)
+                self.run_with_count_update(generate_taskmembers_csv_file, path, loglevel)
+                self.run_with_count_update(generate_fundraisers_csv_file, path, loglevel)
+                self.run_with_count_update(generate_organizationmember_csv_file, path, loglevel)
+            else:
+                # The synchronization methods need to be run in a specific order because of foreign key dependencies.
+                self.run_with_count_update(sync_organizations, options['dry_run'], sync_from_datetime, loglevel)
+                self.run_with_count_update(sync_users, options['dry_run'], sync_from_datetime, loglevel)
+                self.run_with_count_update(sync_projects, options['dry_run'], sync_from_datetime, loglevel)
+                self.run_with_count_update(sync_fundraisers, options['dry_run'], sync_from_datetime, loglevel)
+                self.run_with_count_update(sync_projectbudgetlines, options['dry_run'], sync_from_datetime, loglevel)
+                self.run_with_count_update(sync_tasks, options['dry_run'], sync_from_datetime, loglevel)
+                self.run_with_count_update(sync_taskmembers, options['dry_run'], sync_from_datetime, loglevel)
+                self.run_with_count_update(sync_donations, options['dry_run'], sync_from_datetime, loglevel)
+                self.run_with_count_update(sync_organizationmembers, options['dry_run'], sync_from_datetime, loglevel)
+
+        except Exception as e:
+            self.error_count += 1
+            logger.error("Error - stopping: {0}".format(e))
 
         logger.info("Process finished at {2} with {0} successes and {1} errors.".format(self.success_count,
                                                                                         self.error_count,
                                                                                         timezone.localtime(
                                                                                             timezone.now())))
+        send_log(os.path.join(settings.PROJECT_ROOT, "salesforce", "log", "last.log"),
+                 self.error_count, self.success_count, "export" if options['csv_export'] else "sync",
+                 options, options['dry_run'], loglevel)
 
     def run_with_count_update(self, function, *args, **kwargs):
         cur_success_count, cur_error_count = function(*args, **kwargs)

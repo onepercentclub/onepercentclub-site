@@ -22,6 +22,10 @@ App.Project.reopen({
 
     task_count: DS.attr('number'),
 
+    donatedRound: function() {
+        return Math.floor(this.get('amount_donated'));
+    }.property(),
+
     phaseNum: function(){
         if (this.get('status') === null){
             return 1;
@@ -105,9 +109,10 @@ App.MyProject.reopen({
 
     requiredStoryFields: ['story', 'storyChanged'],
     requiredGoalFields: ['amount_asked', 'deadline', 'maxAmountAsked', 'minAmountAsked', 'validBudgetBreakdown'],
-    requiredPitchFields: ['title', 'pitch', 'image', 'theme', 'tags.length', 'country', 'latitude', 'longitude'],
+    requiredPitchFields: ['validTitle', 'pitch', 'image', 'theme', 'tags.length', 'country', 'latitude', 'longitude'],
 
     friendlyFieldNames: {
+        'validTitle': gettext('Title'),
         'title' : gettext('Title'),
         'pitch': gettext('Description'),
         'storyChanged' : gettext('Personalised story'),

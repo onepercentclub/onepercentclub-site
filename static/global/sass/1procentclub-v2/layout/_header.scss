@@ -343,16 +343,16 @@
 					}
 				}
 
+				&.touch {
+					&.is-active {
+						.nav-member-dropdown {
+							color: $white;
+							background: $color-primary;
+						}
 
-				&:hover {
-
-					.nav-member-dropdown {
-						color: $white;
-						background: $color-primary;
-					}
-
-					.nav-member-dropdown-menu {
-						display: block !important;
+						.nav-member-dropdown-menu {
+							display: block !important;
+						}
 					}
 				}
 			}
@@ -434,6 +434,30 @@
 		#nav {
 			padding: 0;
 			padding-top: 4px;
+		}
+	}
+}
+
+.no-touch {
+	#header {
+		#nav {
+			.nav-actions {
+				li {
+					&.nav-member {
+						&:hover {
+
+							.nav-member-dropdown {
+								color: $white;
+								background: $color-primary;
+							}
+
+							.nav-member-dropdown-menu {
+								display: block !important;
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }

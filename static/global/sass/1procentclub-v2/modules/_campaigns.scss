@@ -227,6 +227,7 @@
 				font-family: $font-family-body;
 				font-weight: 700;
 				font-size: 1.13em;
+				color: rgb(60,60,60);
 				@include breakpoint(column) {
 					font-size: .8em;
 					line-height: 17px;
@@ -274,6 +275,16 @@
 					width: 100%;
 					text-align: center;
 					color: $color-secondary
+				}
+
+				&.expired {
+					.campaign-fund-amount-slider {
+						border-color: rgb(138, 153, 147);
+						
+						.slider-progress {
+							background-color: rgb(138, 153, 147);
+						}
+					}
 				}
 			}
 			.campaign-fund-amount-slider {
