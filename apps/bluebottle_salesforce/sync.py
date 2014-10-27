@@ -398,7 +398,8 @@ def sync_fundraisers(dry_run, sync_from_datetime, loglevel):
         sffundraiser.name = fundraiser.title[:80]
         sffundraiser.description = fundraiser.description
         sffundraiser.video_url = fundraiser.video_url
-        sffundraiser.amount = "%01.2f" % (fundraiser.amount or 0)
+        sffundraiser.amount = '%01.2f' % (float(fundraiser.amount) / 100)
+        sffundraiser.amount_at_the_moment = '%01.2f' % (float(fundraiser.amount_donated) / 100)
 
         sffundraiser.deadline = fundraiser.deadline.date()
         sffundraiser.created = fundraiser.created
