@@ -10,7 +10,6 @@ from django.db.utils import DatabaseError
 from south.db import db
 from south.v2 import DataMigration
 from django.db import models
-from django.db.utils import IntegrityError
 
 
 def map_payment_to_order_status(status):
