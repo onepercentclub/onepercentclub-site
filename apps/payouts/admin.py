@@ -277,7 +277,7 @@ class OrganizationPayoutAdmin(admin.ModelAdmin):
     list_filter = ['status', ]
 
     list_display = [
-        'invoice_reference', 'start_date', 'end_date',
+        'invoice_reference', 'start_date', 'end_date', 'status',
         'organization_fee_incl', 'psp_fee_incl',
         'other_costs_incl', 'payable_amount_incl'
     ]
