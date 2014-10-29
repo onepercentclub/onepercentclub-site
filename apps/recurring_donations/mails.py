@@ -1,0 +1,51 @@
+from apps.fund.models import DonationStatuses, Donation
+from babel.dates import format_date
+from babel.numbers import format_currency
+from django.contrib.sites.models import Site
+from django.core.mail import EmailMultiAlternatives
+from django.db.models.signals import post_save, pre_save
+from django.dispatch.dispatcher import receiver
+from django.template.loader import get_template
+from django.template import Context
+from django.utils.translation import ugettext_lazy as _
+from celery import task
+
+import time
+
+from apps.mail import send_mail
+
+
+@task
+def mail_monthly_donation_processed_notification(monthly_order):
+    # TODO: Use English base and the regular translation mechanism.
+    receiver = monthly_order.user
+
+    context = Context({'order': monthly_order,
+                       'receiver_first_name': receiver.first_name.capitalize(),
+                       'date': format_date(locale='nl_NL'),
+                       'amount': format_currency(monthly_order.amount / 100, 'EUR', locale='nl_NL'),
+                       'site': 'https://' + Site.objects.get_current().domain})
+
+    subject = "Bedankt voor je maandelijkse support"
+    text_content = get_template('monthly_donation.nl.mail.txt').render(context)
+    html_content = get_template('monthly_donation.nl.mail.html').render(context)
+    msg = EmailMultiAlternatives(subject=subject, body=text_content, to=[receiver.email])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+
+
+@task
+def mail_project_funded_monthly_donor_notification(receiver, project):
+    # TODO: Use English base and the regular translation mechanism.
+    context = Context({'receiver_first_name': receiver.first_name.capitalize(),
+                       'project': project,
+                       'link': '/go/projects/{0}'.format(project.slug),
+                       'site': 'https://' + Site.objects.get_current().domain})
+
+    subject = "Gefeliciteerd: project afgerond!"
+    text_content = get_template('project_full_monthly_donor.nl.mail.txt').render(context)
+    html_content = get_template('project_full_monthly_donor.nl.mail.html').render(context)
+    msg = EmailMultiAlternatives(subject=subject, body=text_content, to=[receiver.email])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+

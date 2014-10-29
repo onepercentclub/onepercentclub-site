@@ -5,7 +5,7 @@ from django.utils import translation
 from .models import DocDataPaymentOrder, DocDataPayment, DocDataPaymentLogEntry
 
 
-class DocDataPaymentLogEntryInine(admin.TabularInline):
+class DocDataPaymentLogEntryInline(admin.TabularInline):
     model = DocDataPaymentLogEntry
     can_delete = False
     extra = 0
@@ -31,7 +31,7 @@ class DocDataPaymentOrderAdmin(admin.ModelAdmin):
     list_display = ('created', 'amount_override', 'status', )
     raw_id_fields = ('order',)
     search_fields = ('payment_order_id', 'merchant_order_reference')
-    inlines = (DocDataPaymentInline, DocDataPaymentLogEntryInine)
+    inlines = (DocDataPaymentInline, DocDataPaymentLogEntryInline)
 
     def amount_override(self, obj):
         language = translation.get_language().split('-')[0]

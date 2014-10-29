@@ -82,6 +82,8 @@ salesforce/*/*/*/log/*
 salesforce/*/*/*/archive/*
 salesforce/*/Data/Input/*
 salesforce/*/Data/Output/*
+salesforce/export/current/*.csv
+salesforce/log/*log*
 
 static/global/compass_app_log.txt
 
@@ -91,3 +93,4 @@ ghostdriver.log
 # ignore the screen.css file
 static/global/css/screen.css
 static/global/css/ie.css
+static/global/css/widget.css
