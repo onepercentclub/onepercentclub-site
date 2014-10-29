@@ -1,6 +1,5 @@
 import logging
 import re
-from bluebottle.utils.utils import get_project_model
 from bluebottle.utils.model_dispatcher import get_project_model
 from django.contrib.auth import get_user_model
 from django.utils import timezone
@@ -14,14 +13,13 @@ from apps.vouchers.models import Voucher, VoucherStatuses
 from apps.fundraisers.models import FundRaiser
 
 from apps.bluebottle_salesforce.models import SalesforceOrganization, SalesforceContact, SalesforceProject, \
-    SalesforceDonation, SalesforceProjectBudget, SalesforceTask, SalesforceTaskMembers, SalesforceVoucher
-from bluebottle.bb_projects.models import ProjectPhase
+    SalesforceDonation, SalesforceProjectBudget, SalesforceTask, SalesforceTaskMembers, SalesforceVoucher, \
+    SalesforceLogItem, SalesforceFundraiser, SalesforceOrganizationMember
 
 USER_MODEL = get_user_model()
 PROJECT_MODEL = get_project_model()
-
-
 logger = logging.getLogger('bluebottle.salesforce')
+re_email = re.compile("^[A-Z0-9._%+-/!#$%&'*=?^_`{|}~]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$")
 
 
 def sync_organizations(dry_run, sync_from_datetime, loglevel):
@@ -400,7 +398,8 @@ def sync_fundraisers(dry_run, sync_from_datetime, loglevel):
         sffundraiser.name = fundraiser.title[:80]
         sffundraiser.description = fundraiser.description
         sffundraiser.video_url = fundraiser.video_url
-        sffundraiser.amount = "%01.2f" % (fundraiser.amount or 0)
+        sffundraiser.amount = '%01.2f' % (float(fundraiser.amount) / 100)
+        sffundraiser.amount_at_the_moment = '%01.2f' % (float(fundraiser.amount_donated) / 100)
 
         sffundraiser.deadline = fundraiser.deadline.date()
         sffundraiser.created = fundraiser.created
