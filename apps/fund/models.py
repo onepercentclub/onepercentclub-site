@@ -1,32 +1,20 @@
 import logging
 import random
 
+from django.utils.translation import ugettext as _
 from django.conf import settings
 from django.db import models
-from django.db.models.signals import post_save, post_delete, pre_save
 from django.contrib.contenttypes.models import ContentType
 from django.utils import translation
 from django.utils import timezone
-from django.utils.translation import ugettext as _
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from django_iban.fields import IBANField, SWIFTBICField
 from djchoices import DjangoChoices, ChoiceItem
 
-from babel.dates import format_date
-from django.contrib.sites.models import Site
-from django.core.mail import EmailMultiAlternatives
-from django.dispatch.dispatcher import receiver
-from django.template.loader import get_template
-from django.template import Context
-from celery import task
-
-from apps.mail import send_mail
-
 from babel.numbers import format_currency
 from registration.signals import user_activated
 
-from apps.cowry.models import PaymentStatuses, Payment
-from apps.cowry.signals import payment_status_changed
+
 from apps.cowry_docdata.models import DocDataPaymentOrder
 from apps.vouchers.models import VoucherStatuses
 from django.contrib.auth import get_user_model
@@ -37,64 +25,6 @@ USER_MODEL = get_user_model()
 
 logger = logging.getLogger(__name__)
 random.seed()
-
-
-class RecurringDirectDebitPayment(models.Model):
-    """
-    Holds the direct debit account and payment information.
-    """
-    user = models.OneToOneField(settings.AUTH_USER_MODEL)
-    active = models.BooleanField(default=False)
-    created = CreationDateTimeField(_("Created"))
-    updated = ModificationDateTimeField(_("Updated"))
-
-    manually_process = models.BooleanField(default=False, help_text="Whether or not to process the monthly donation manually instead of with the automatic script.")
-
-    # The amount in the minor unit for the given currency (e.g. for EUR in cents).
-    amount = models.PositiveIntegerField(_("amount"), default=0)
-    currency = models.CharField(max_length=3, default='EUR')
-
-    # Bank account.
-    name = models.CharField(max_length=35)  # max_length from DocData
-    city = models.CharField(max_length=35)  # max_length from DocData
-    account = DutchBankAccountField()
-
-    # IBAN fields required for DocData recurring donation processing.
-    # These are not required because we will be filling these in manually (for now) and not presenting them to users.
-    iban = IBANField(blank=True, default='')
-    bic = SWIFTBICField(blank=True, default='')
-
-    def __unicode__(self):
-        active_status = 'inactive'
-        if self.active:
-            active_status = 'active'
-
-        language = translation.get_language().split('-')[0]
-        if not language:
-            language = 'en'
-
-        return u'{0} - {1} - {2}'.format(str(self.user),
-                                         format_currency(self.amount / 100.0, self.currency, locale=language),
-                                         active_status)
-
-
-@receiver(post_save, weak=False, sender=USER_MODEL)
-def cancel_recurring_payment_user_soft_delete(sender, instance, created, **kwargs):
-    if created:
-        return
-
-    if hasattr(instance, 'recurringdirectdebitpayment') and instance.deleted:
-        recurring_payment = instance.recurringdirectdebitpayment
-        recurring_payment.active = False
-        recurring_payment.save()
-
-
-@receiver(post_delete, weak=False, sender=USER_MODEL)
-def cancel_recurring_payment_user_delete(sender, instance, **kwargs):
-
-    if hasattr(instance, 'recurringdirectdebitpayment'):
-        recurring_payment = instance.recurringdirectdebitpayment
-        recurring_payment.delete()
 
 
 class DonationStatuses(DjangoChoices):
@@ -343,3 +273,39 @@ class Order(models.Model):
             return request.build_absolute_uri(location)
         return None
 
+
+def link_anonymous_donations(sender, user, request, **kwargs):
+    """
+    Search for anonymous donations with the same email address as this user and connect them.
+    """
+    dd_orders = DocDataPaymentOrder.objects.filter(email=user.email).all()
+
+    from bluebottle.wallposts.models import SystemWallPost
+
+    wallposts = None
+    for dd_order in dd_orders:
+        dd_order.customer_id = user.id
+        dd_order.save()
+        dd_order.order.user = user
+        dd_order.order.save()
+        dd_order.order.donations.update(user=user)
+
+        ctype = ContentType.objects.get_for_model(Donation)
+        for donation_id in dd_order.order.donations.values_list('id', flat=True):
+            qs = SystemWallPost.objects.filter(related_type=ctype, related_id=donation_id)
+
+            if not wallposts:
+                wallposts = qs
+            else:
+                pass
+                # This causes errors...
+                # wallposts += qs
+
+    if wallposts:
+        wallposts.update(author=user)
+
+# On account activation try to connect anonymous donations to this  fails.
+user_activated.connect(link_anonymous_donations)
+
+from signals import *
+from fundmail import *

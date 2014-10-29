@@ -1,0 +1,25 @@
+a[href$=".pdf"][data-size] {
+    text-decoration: underline!important;
+    color: #9F9F9F!important;
+
+    &:before {
+        float: left;
+        display: block;
+        margin-right: 7px;
+        content: '';
+        width: 21px;
+        height: 24px;
+        background: image-url("img/icons/icon-download-file.svg") transparent no-repeat;
+        text-decoration: none;
+    }
+
+    &:after { 
+        position: absolute;
+        top: 24px;
+        left: 27px;
+        content: "" attr(data-size) " - PDF"; 
+        font-size: 14px;
+        color: $gray-border;
+        text-decoration: none;
+    }
+}

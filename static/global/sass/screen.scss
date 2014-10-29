@@ -118,6 +118,7 @@
 @import "1procentclub-v2/mixins/grid";
 
 @import "1procentclub-v2/variables";
+@import "1procentclub-v2/base/base";
 @import "1procentclub-v2/layout/global";
 @import "1procentclub-v2/layout/header";
 @import "1procentclub-v2/layout/footer";
@@ -126,6 +127,7 @@
 @import "1procentclub-v2/modules/tools";
 @import "1procentclub-v2/modules/start-campaign";
 @import "1procentclub-v2/modules/quote-carousel";
+@import "1procentclub-v2/pages/partner";
 
 @import "1procentclub-v2/pages/business-header";
 @import "1procentclub-v2/pages/business-corporate";
@@ -140,6 +142,8 @@
 @import "1procentclub-v2/pages/home";
 @import "1procentclub-v2/pages/about";
 @import "1procentclub-v2/pages/business";
+@import "1procentclub-v2/pages/howto-canvas";
+@import "1procentclub-v2/pages/howto-crowfundtools";
 
 /* Cheetah fund version */
 @import "cheetah/variables";
