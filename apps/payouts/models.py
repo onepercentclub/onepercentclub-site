@@ -90,6 +90,10 @@ class CompletedDateTimeBase(models.Model):
             # No completed date was set and our current status is completed
             self.completed = timezone.now()
 
+        if self.status == PayoutLineStatuses.progress and not self.submitted:
+            # No submitted date was set and our current status is progress
+            self.submitted = timezone.now()
+
         super(CompletedDateTimeBase, self).save(*args, **kwargs)
 
 
