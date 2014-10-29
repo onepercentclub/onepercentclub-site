@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="21px" height="24px" viewBox="0 0 21 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.1 (8751) - http://www.bohemiancoding.com/sketch -->
+    <title>Fill 1</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="How-to-crowdfund" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g sketch:type="MSArtboardGroup" transform="translate(-407.000000, -1366.000000)" id="Canvas" fill="#9F9F9F">
+            <g sketch:type="MSLayerGroup" transform="translate(139.000000, 1038.000000)">
+                <g id="Download" transform="translate(268.000000, 328.000000)" sketch:type="MSShapeGroup">
+                    <path d="M20.469,5.469 L15.531,0.531 C15.237,0.237 14.664,0 14.25,0 L1.5,0 C0.6705,0 0,0.6705 0,1.5 L0,22.5 C0,23.3295 0.6705,24 1.5,24 L19.5,24 C20.3295,24 21,23.3295 21,22.5 L21,6.75 C21,6.336 20.763,5.763 20.469,5.469 L20.469,5.469 Z M18,21 L3,21 L3,3 L12,3 L12,8.25 C12,8.664 12.336,9 12.75,9 L18,9 L18,21 Z M10.5,9.7485 C10.5,9.3345 10.167,9 9.753,9 L8.253,9 C7.839,9 7.5,9.3345 7.5,9.7485 L7.5,13.5 L4.9605,13.5 C4.515,13.5 4.3695,13.896 4.638,14.2485 L8.5185,19.2315 C8.7855,19.584 9.219,19.5885 9.4875,19.2375 L13.368,14.2485 C13.6365,13.8945 13.491,13.5 13.0455,13.5 L10.5,13.5 L10.5,9.7485 Z" id="Fill-1"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

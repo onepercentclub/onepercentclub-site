@@ -1,0 +1,47 @@
+#howto-canvas {
+    margin: 50px 0 50px 0;
+
+    .content {
+        margin-top: 65px;
+
+        .title-header {
+            display: block;
+            margin-bottom: 16px;
+            font-size: 28px;
+            color: $color-secondary;
+        }
+
+        p {
+            margin-bottom: 40px;
+            line-height: 22px;
+            font-size: 16px;
+        }
+
+        a {
+            margin-top: 30px;
+        }
+    }
+
+    .mask {
+        width: 100%;
+        height: 412px;
+        padding: 20px;
+        overflow: hidden;
+
+        .m-container {
+            background-color: #ffffff;
+            height: 378px;
+            width: 533px;
+            padding: 5px;
+            border-radius: 8px;
+            border: solid 1px #ccc;
+            @include single-box-shadow(rgba(138,153,147,.4), 0, 0, 15px, 2px, false);
+
+            .crowdfunding-canvas {
+                height: 100%;
+                background: image-url("img/howto/illustration-canvas.jpg") transparent no-repeat;
+                background-size: 100%; 
+            }
+        }
+    }
+}
