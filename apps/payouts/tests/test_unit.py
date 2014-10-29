@@ -477,6 +477,8 @@ class OrganizationPayoutTestCase(OnePercentTestCase):
 
         # Change payout status to complete
         self.payout = Payout.objects.all()[0]
+        self.payout.status = PayoutLineStatuses.progress
+        self.payout.save()
         self.payout.status = PayoutLineStatuses.completed
         self.payout.save()
 
