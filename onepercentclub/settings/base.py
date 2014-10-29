@@ -319,6 +319,7 @@ INSTALLED_APPS = (
     'apps.partners',
     'apps.crawlable',
     'apps.mchanga',
+    'apps.recurring_donations',
 
     # FIXME: Keep these just for migrations
     'apps.fund',

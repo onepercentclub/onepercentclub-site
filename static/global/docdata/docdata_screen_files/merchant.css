@@ -1,0 +1,1158 @@
+/*--------------------------------------------------------------
+DOCDATA ORIGINAL
+--------------------------------------------------------------*/
+body 
+{
+	background-color: #F8F7F8!important;
+	color: #000000;
+}
+
+a
+{
+	color: blue;
+}
+
+a:link
+{ 
+	color: blue;
+	text-decoration: underline;
+}
+
+a:visited
+{ 
+	color: red;
+}
+
+a:hover
+{ 
+	color: black;
+}
+
+a:active
+{ 
+	color: black;
+}
+
+.bodyOuter
+{
+	width: 100%;
+	text-align: center;
+}
+
+.bodyInner
+{
+	margin: auto;
+	width: 60%;
+}
+
+.mainLayout {
+    max-width: 803px;
+    margin: 25px auto;
+}
+
+.menuMain
+{
+	background-color: #FFFFFF;
+	text-align: left;
+}
+
+.menuMainTitle
+{
+	padding: 10px; 
+	background-color: #FFFFFF;
+}
+
+.menuMainMerchantHelp
+{
+	padding: 10px; 
+	background-color: #FFFFFF;
+}
+
+.menuMainTransaction
+{
+	padding: 10px;
+	background-color: #FFFFFF;
+}
+
+.menuMainCountryLeft
+{
+	padding: 10px;
+	width: 33%;
+	background-color: #FFFFFF;
+}
+
+.menuMainCountryRight
+{
+	padding: 10px; 
+	background-color: #FFFFFF;
+}
+
+.menuMainPaymentMethodLeft
+{
+	padding: 10px; 
+	background-color: #FFFFFF;
+}
+
+.menuMainPaymentMethodRight
+{
+	padding: 10px; 
+	background-color: #FFFFFF;
+}
+
+.menuMainButtonsLeft
+{
+	padding: 10px; 
+	background-color: #FFFFFF; 
+}
+
+.menuMainButtonsRight
+{
+	padding: 10px; 
+	background-color: #FFFFFF; 
+}
+
+.menuTitle
+{
+
+}
+
+.menuDescription
+{
+	padding: 10px; 
+	background-color: #FFFFFF; 
+}
+
+.menuTitleText
+{
+	font-weight: bold;
+}
+
+.menuTitleMerchant
+{
+	font-weight: bold;
+	font-size: larger;
+}
+
+.menuTransaction
+{
+	width: 100%;
+}
+
+.menuPaymentHeader
+{
+	padding: 2px;
+	width: 31%;
+	background-color: #FFFFFF;
+}
+
+.menuPaymentRow
+{
+	padding: 2px;
+	width: 31%;
+	background-color: #FFFFFF;
+}
+
+.menuTransactionLabel
+{
+	padding: 2px;
+	width: 31%;
+	background-color: #FFFFFF;
+}
+
+.menuTransactionValue
+{
+	padding: 2px;
+	background-color: #FFFFFF;
+}
+
+.menuTransactionAmount
+{
+	padding: 2px;
+	background-color: #FFFFFF;
+	font-weight: bold;
+}
+
+.menuTransactionTripleDeal
+{
+	text-align: right;
+	font-size: 80%;
+}
+
+.menuCountryHelp
+{
+	text-decoration: none;
+	font-weight: bold; 
+}
+
+.menuCountrySelect
+{
+
+}
+
+.menuPaymentMethodSelect
+{
+
+}
+
+.menuPaymentMethodHelp
+{
+	text-decoration: none;
+	font-weight: bold;
+	font-size: small;
+}
+
+.menuButtonContinue
+{
+	width: 21ex;
+}
+
+.menuButtonReturnToShop
+{
+	width: 21ex;
+}
+
+.pmMain
+{
+	background-color: #FFFFFF;
+}
+
+.pmMainTitle
+{
+	padding: 3px; 
+	background-color: #FFFFFF;
+	text-align: left; 
+	font-weight: bold; 
+	font-size: 120%; 
+}
+
+.pmMainImage
+{
+	padding: 3px; 
+	background-color: #FFFFFF;
+}
+
+.pmMainDescription
+{
+	padding: 3px; 
+	background-color: #FFFFFF;
+	text-align: left;
+}
+
+.pmMainLabel
+{
+	padding: 3px; 
+	background-color: #FFFFFF;
+	text-align: left;
+}
+
+.pmMainLabelExample
+{
+	font-size: 90%;
+}
+
+.pmMainValue
+{
+	padding: 3px;
+	background-color: #FFFFFF; 
+	text-align: left;
+	font-weight: bold;
+}
+
+.pmMainAmount
+{
+	padding: 3px;
+	background-color: #FFFFFF; 
+	text-align: left;
+	font-weight: bold;
+}
+
+.pmMainAmountCosts
+{
+	font-weight: normal;
+	font-size: smaller;
+}
+
+.pmMainButtonsLeft
+{
+	padding: 3px; 
+	background-color: #FFFFFF; 
+}
+
+.pmMainButtonsRight
+{
+	padding: 3px; 
+	background-color: #FFFFFF;
+}
+
+.pmMainButtons
+{
+	padding: 3px; 
+	background-color: #FFFFFF;
+	text-align: center;
+}
+
+.pmMainProgressBar
+{
+	padding: 3px; 
+	background-color: #FFFFFF;
+	text-align: left;
+}
+
+.pmMainHelp
+{
+	background-color: #FFFFFF;
+	text-align: right;
+	font-size: small;
+}
+
+.pmMainHelpQuestionMark
+{
+	text-decoration: none;
+	font-weight: bold;
+	font-size: small;
+}
+
+.pmMainWarning
+{
+	padding: 3px; 
+	background-color: #FFFFFF;
+	color: red;
+}
+
+.pmInputText
+{
+}
+
+.pmInputCC1
+{
+}
+
+.pmInputCC2
+{
+}
+
+.pmInputCC3
+{
+}
+
+.pmInputCC4
+{
+}
+
+.pmInputExp
+{
+}
+
+.pmInputCheckbox
+{
+}
+
+.pmInputSelect
+{
+}
+
+.pmButtonContinue
+{
+	width: 21ex;
+}
+
+.pmButtonFinish
+{
+	width: 21ex;
+}
+
+.pmButtonCancel
+{
+	width: 21ex;
+}
+
+.pmButtonReturnToShop
+{
+	width: 21ex;
+}
+
+.pmCompulsaryField
+{
+	color: red;
+}
+
+.pmProgressBar
+{
+	background-color: red;
+	text-align: left;
+}
+
+.helpMain
+{
+	background-color: #FFFFFF;
+	text-align: center;
+}
+
+.helpMainDescription
+{
+	background-color: #FFFFFF;
+	text-align: justify;
+}
+
+.helpMainReturn
+{
+	background-color: #FFFFFF;
+	text-align: right;
+}
+
+.secureLock
+{
+	text-align: right;
+}
+
+.pmMerchantLogo
+{
+	padding: 25px;
+}
+
+/*--------------------------------------------------------------
+1%CLUB OVERRIDES
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+GENERAL
+--------------------------------------------------------------*/
+
+* {
+    -webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-ms-box-sizing: border-box;
+}
+
+html {
+	color: #454545;
+	font-size: 14px;
+	font-family: Helvetica, Arial, sans-serif;
+	line-height: 1;
+}
+
+body {
+	overflow-y: scroll;
+	margin: 0;
+	padding: 0;
+	background-color: #fff;
+	line-height: 1.5em;
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+}
+
+.wrapper {
+    margin: auto;
+    padding: 0 16px;
+    min-width: 980px;
+    max-width: 91.42857em;
+}
+
+a  img {
+	display: block;
+	overflow: hidden;
+	border: none;
+}
+
+a,
+a:link {
+	color: #9F9F9F;
+	text-decoration: none;
+	-webkit-transition: color 0.2s ease-in, color 0.25s ease-out;
+	-moz-transition: color 0.2s ease-in, color 0.25s ease-out;
+	-o-transition: color 0.2s ease-in, color 0.25s ease-out;
+	transition: color 0.2s ease-in, color 0.25s ease-out;
+}
+
+a:hover {
+	color: #003580;
+}
+
+a.link.backBtn {
+    position: absolute;
+    top: 0;
+    padding-top: 20px;
+    cursor: pointer;
+}
+
+/*--------------------------------------------------------------
+HEADER
+--------------------------------------------------------------*/
+
+.merchantHeader {
+	background-color: none;
+}
+
+.merchantHeader:after {
+	display: block;
+	visibility: hidden;
+	clear: both;
+	height: 0;
+	content: ".";
+}
+
+#logo {
+    position: absolute;
+    background: url("https://onepercentclub.com/static/assets/images/1procentclub.svg") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    float: left;
+    width: 10%;
+    max-width: 114px;
+    height: 68px;
+    top: 188px;
+    left: 0;
+    right: -549px;
+    margin-left: auto;
+    margin-right: auto;
+    background-size: contain;
+    z-index: 1;
+}
+
+#title {
+	display: none;
+}
+
+#logo #subtitle {
+	position: relative;
+	top: 55px;
+	top: 3.9rem;
+	display: none;
+	margin: 0;
+	padding: 0 0 0 4px;
+	padding: 0 0 0 0.25rem;
+	color: #003580;
+	text-transform: uppercase;
+	font-weight: normal;
+	font-size: 11px;
+	font-size: 0.6875rem;
+}
+
+#logo #subtitle em {
+	color: #FDBA16;
+	font-style: normal;
+}
+
+#safePayment {
+	float: right;
+	margin: 16px 0 0;
+	width: 50%;
+	color: #fff;
+    display: none;
+}
+
+#safePayment img {
+	float: left;
+	margin-right: 16px;
+}
+
+/*--------------------------------------------------------------
+CENTER LAYOUT
+--------------------------------------------------------------*/
+
+.centerLayout {
+	margin: auto;
+	min-width: 980px;
+	max-width: 91.42857em;
+}
+
+.introduction.paymentChoiceBox {
+	position: relative;
+	right: 0;
+	left: 0;
+	padding: 32px 0;
+	width: 100%;
+}
+
+.introduction .title:after {
+	display: block;
+	visibility: hidden;
+	clear: both;
+	height: 0;
+	content: ".";
+}
+
+.introduction .title .h1 {
+	float: left;
+	margin-bottom: 5px;
+	color: #FF619A;
+	text-transform: none;
+	font-weight: bold;
+	font-size: 24px;
+}
+
+.introduction.paymentChoiceBox  > div {
+	margin: auto;
+	max-width: 803px;
+}
+
+.introduction .gwt-Label {
+    color: #9F9F9F;
+    font-size: 18px;
+}
+
+.paymentChoiceBox {
+    max-width: 503px;
+}
+
+.paymentChoiceContainer {
+	float: left;
+	margin-right: 2.08333%;
+	margin-bottom: 1.25em;
+	max-width: 503px;
+}
+
+.primarySidebarContainer {
+    position: relative;
+    min-height: 400px;
+    margin-top: 126px;
+	float: left;
+	margin-right: 2.08333%;
+    margin-left: 1%;
+    width: 280px;
+    max-width: 299px;
+}
+
+.gwt-Label.h1.title {
+    display: none;
+}
+
+.paymentChoiceMenuRow {
+    margin-bottom: 20px;
+    border: 1px solid #d8d8d8;
+    background-color: none;
+    border-radius: 6px;
+    box-shadow: 0 0 0 6px #F5F4F6;
+}
+
+.paymentChoiceMenuRow:focus {
+    outline: 0;
+}
+
+.paymentChoiceMenuRow > div:focus {
+    outline: 0;
+}
+
+.paymentChoiceMenuRow.ideal, .paymentChoiceMenuRow.sepa_direct_debit {
+    display: none;
+}
+
+.paymentChoiceHeader {
+	padding: 14px 26px 13px 40px;
+	background-color: #ffffff;
+    border-radius: 6px;
+	cursor: pointer;
+}
+
+.paymentChoiceHeader:focus,
+.paymentChoiceHeader:hover,
+.paymentChoiceHeader.active {
+    outline: none;
+    border-radius: 6px 6px 0 0;
+    border-bottom: solid 1px #d8d8d8;
+}
+
+.paymentChoiceHeader.active .h3 {
+    color: #00C051;
+}
+
+
+.paymentChoiceHeader .logo {
+	float: right;
+	width: 40px;
+}
+
+.paymentChoiceHeader img {
+	width: 35px;
+}
+
+.paymentChoiceHeader .h3 {
+	color: #9F9F9F;
+	text-transform: normal;
+	font-weight: bold;
+	font-size: 24px;
+}
+
+.paymentChoiceForm {
+	padding: 20px 30px 20px 40px; 
+	border-bottom: 1px solid #fff;
+    background-color: #fff;
+    border-radius: 0 0 6px 6px;
+}
+
+.paymentChoiceForm.mastercard {
+    height: auto!important;
+}
+
+/*--------------------------------------------------------------
+CREDIT CARD
+--------------------------------------------------------------*/
+.creditCardNumber .creditCardField {
+    margin-left: 1.3333%;
+    width: 24%;
+}
+
+.creditCardNumber .creditCardField.left {
+    margin-left: 0;
+}
+
+.expiryDateField .gwt-Label {
+    display: none;
+    visibility: hidden;
+}
+
+.expiryDateField select {
+    float: left;
+    width: 47%;
+}
+
+.expiryDateField select:last-child {
+    float: right;
+}
+
+/*--------------------------------------------------------------
+MODAL
+--------------------------------------------------------------*/
+.gwt-PopupPanelGlass {
+    width: 100%!important;
+    height: 100%!important;
+    background: rgba(24,24,24, .60);
+    z-index: 2;
+}
+
+.gwt-DialogBox table {
+    position: relative;
+}
+
+.gwt-DialogBox {
+    clip: inherit!important;
+    left: 0!important;
+    top: 20%!important;
+    right: 0;
+    bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    height: 210px;
+    background: #f5f4f6;
+    border-radius: 8px;
+    padding: 5px;
+    z-index: 3;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.25);
+}
+
+.dialogMiddleCenter {
+    padding: 35px;
+    border: 1px solid #ccc;
+    background: #fff;
+    height: 200px;
+    width: 100%;
+    border-radius: 4px;
+    display: block;
+    text-align: center;
+    font-size: 22px;
+    font-family: "Neue Helvetica W01", Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    line-height: 28.6000003814697px;
+}
+
+.dialogMiddleCenter .gwt-Label {
+    color: rgb(68, 68, 68);
+    margin-bottom: 10px;
+}
+
+.continueLink {
+    margin-top: 15px;
+    font-size: 18px;
+    position: relative;
+    display: inline-block;
+    background: #FF619A;
+    padding: .75em 2.25em;
+    vertical-align: center;
+    border-radius: 8px;
+    color: #fff;
+    font-family: Helvetica,Arial,sans-serif;
+    font-weight: 700;
+    border: none;
+    text-transform: inherit;
+    cursor: pointer;
+    -webkit-box-shadow: inset 0 -2px 0 0 #b42a5c;
+    -moz-box-shadow: inset 0 -2px 0 0 #b42a5c;
+    box-shadow: inset 0 -2px 0 0 #b42a5c;
+    -webkit-transition: all .1s ease-in-out;
+    -moz-transition: all .1s ease-in-out;
+    -o-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: scale(1);
+}
+
+.continueLink:hover {
+    top: -1px;
+    color: #fff;
+    -webkit-transition: none 1s;
+    -moz-transition: none 1s;
+    -o-transition: none 1s;
+    transition: none 1s;
+    -webkit-box-shadow: inset 0 -4px 0 0 #b42a5c;
+    -moz-box-shadow: inset 0 -4px 0 0 #b42a5c;
+    box-shadow: inset 0 -4px 0 0 #b42a5c;
+}
+
+.continueLink:active {
+    top: 1px!important;
+    background: #676767!important;
+    color: #f8f7f8!important;
+    -webkit-box-shadow: inset 0 2px 0 0 #b42a5c;
+    -moz-box-shadow: inset 0 2px 0 0 #b42a5c;
+    box-shadow: inset 0 2px 0 0 #b42a5c;
+}
+
+/*--------------------------------------------------------------
+SIDEBAR
+--------------------------------------------------------------*/
+.merchantHeader {
+    display: block;
+}
+
+.languageSelection {
+    display: none;
+}
+
+.safePaymentInformation {
+    display: block;
+    position: absolute;
+    bottom: -30px;
+}
+
+.safePaymentInformation .headerTitle {
+    display: none;
+}
+
+.safePaymentInformation.sidebarBoxContent {
+    text-align: center;
+}
+
+.sidebarBoxContent {
+    position: relative;
+}
+
+.sidebarBoxContent .flowHorizontal.gwt-Image {
+    display: none;
+}
+
+.safePaymentInformation .sidebarBoxContent .flowHorizontal:after {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: url("https://onepercentclub.com/static/assets/images/docdata/icon-secure-lock.svg") transparent no-repeat 50% 50%;
+    /*background: url("/static/assets/images/docdata/icon-secure-lock.svg") transparent no-repeat 50% 50%;*/
+    background-color: #F8F7F8;
+    content: '';
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    top: -24px;
+}
+
+.sidebarBoxContent .flowHorizontal.gwt-HTML {
+    border-top: solid 1px #D8D8D8;
+    border-bottom: solid 1px #D8D8D8;
+}
+
+.sidebarBoxContent .flowHorizontal.gwt-HTML {
+    text-align: left;
+    padding: 15px 0;
+    font-size: 11px;
+    color: #9F9F9F;
+}
+
+.transactionSummary {
+    min-height: 200px;
+/*	margin-top: 100px;*/
+}
+
+.identification {
+    display: block;
+}
+
+.identification .title {
+    display: none;
+}
+
+.identification .description {
+    left: 91px;
+    top: 74px;
+    color: #9F9F9F;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.identification .description:before {
+    content: 'Order ';
+    text-transform: uppercase;
+    font-weight: normal;
+}
+
+.transactionSummary .description .title, 
+.transactionSummary .description .description {
+    display: none;
+}
+
+.transactionSummary .headerTitle {
+	display: none;
+}
+
+.transactionSummary {
+    position: relative;
+    height: 238px;
+    padding: 9px 0 27px;
+    background: url("https://onepercentclub.com/static/assets/images/docdata/order-edges.png") no-repeat;
+    /*background: url("/static/assets/images/docdata/order-edges.png") no-repeat;*/
+}
+
+.priceCalculation {
+    padding: 9px 0 27px;
+    background: white;
+}
+
+.priceCalculation {
+    position: absolute;
+    width: 100%;
+    border-top: 1px dashed #d8d8d8;
+    border-bottom: 1px dashed #d8d8d8;
+    border-left: 1px solid #d8d8d8;
+    border-right: 1px solid #d8d8d8;
+    color: #9F9F9F;
+}
+
+.transactionSummary .description .title,
+.priceCalculation .headerTitle .gwt-Label {
+	color: #00c051;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+.priceCalculation {
+    margin-top: -110px;
+    padding: 9px 23px 10px 23px;
+}
+
+.priceCalculation.sidebarBox {
+    width: 270px;
+    margin-left: 6px;
+}
+
+.priceCalculation.sidebarBox:after {
+    position: absolute;
+    content: 'Thank you for your donation!';
+    top: 57px;
+    right: 47px;
+}
+
+.priceCalculation .footer {
+	display: none;
+}
+
+.priceCalculation .headerTitle {
+    display: none;
+}
+
+.priceCalculation .total .gwt-Label {
+    width: 50%;
+    float: left;
+}
+
+.priceCalculation .total .gwt-Label:last-child {
+    text-align: right;
+    font-weight: bold;
+}
+
+/*--------------------------------------------------------------
+FORM ELEMENTS
+--------------------------------------------------------------*/
+
+select {
+    text-indent: 10px;
+}
+
+select,
+textarea,
+input[type=text],
+input[type=password],
+input[type=number],
+input[type=search],
+input[type=email],
+input[type=tel],
+input[type=url] {
+    padding: 10px 10px 10px 20px;
+    width: 50%;
+    height: 44px;
+    border: 1px solid #D8D8D8;
+    border-radius: 4px;
+    background-color: #fff;
+
+    color:#999999;
+    vertical-align: baseline;
+    font-size: 18px;
+    font-family: Helvetica, Arial, sans-serif;
+    line-height: 1.6em;
+    -webkit-transition: border 0.1s;
+    -moz-transition: border 0.1s;
+    -o-transition: border 0.1s;
+    transition: border 0.1s;
+}
+
+textarea:focus,
+input[type=text]:focus,
+input[type=password]:focus,
+input[type=number]:focus,
+input[type=search]:focus,
+input[type=email]:focus,
+input[type=tel]:focus,
+input[type=url] :focus{
+    outline: 0;
+    border: 1px solid #9f9f9f;
+    -webkit-box-shadow: 0 0 0 2px #d8d8d8;
+    -moz-box-shadow: 0 0 0 2px #d8d8d8;
+    box-shadow: 0 0 0 2px #d8d8d8;
+    color: #444444;
+}
+
+.form {
+	margin-bottom: 16px;
+}
+
+.paymentChoiceForm  .intro {
+    margin: 0 4.1667% 16px;
+    margin-left: 0;
+    color: #9F9F9F;
+}
+
+.paymentChoiceForm .intro .gwt-Image {
+	display: none;
+}
+
+.paymentChoiceForm{
+    color: #444;
+}
+
+.form:after {
+	display: block;
+	visibility: hidden;
+	clear: both;
+	height: 0;
+	content: ".";
+}
+
+.form .gwt-Label {
+    float: left;
+	margin-right: 2.0833%;
+	margin-left: 0;
+	padding: 0.2em 0;
+	width: 100%;
+	text-align: left;
+    font-weight: 800;
+}
+
+.form .inputField {
+	float: left;
+	width: 80%;
+}
+
+.form .inputField .amexNumberField {
+    width: 33%;
+}
+
+.form .inputField .amexNumberField:nth-child(2) {
+    width: 32%;
+    margin-right: 1%;
+    margin-left: 1%;
+}
+
+.form .gwt-Anchor {
+    font-size: 18px;
+    position: relative;
+    display: inline-block;
+    background: #FF619A;
+    padding: .75em 2.25em;
+    vertical-align: center;
+    border-radius: 8px;
+    color: #fff;
+    font-family: Helvetica,Arial,sans-serif;
+    font-weight: 700;
+    border: none;
+    text-transform: inherit;
+    -webkit-box-shadow: inset 0 -2px 0 0 #b42a5c;
+    -moz-box-shadow: inset 0 -2px 0 0 #b42a5c;
+    box-shadow: inset 0 -2px 0 0 #b42a5c;
+    -webkit-transition: all .1s ease-in-out;
+    -moz-transition: all .1s ease-in-out;
+    -o-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: scale(1);
+}
+
+.form .gwt-Anchor:hover {
+    top: -1px;
+    -webkit-transition: none 1s;
+    -moz-transition: none 1s;
+    -o-transition: none 1s;
+    transition: none 1s;
+    -webkit-box-shadow: inset 0 -4px 0 0 #b42a5c;
+    -moz-box-shadow: inset 0 -4px 0 0 #b42a5c;
+    box-shadow: inset 0 -4px 0 0 #b42a5c;
+}
+
+.form .gwt-Anchor:active {
+    top: 1px!important;
+    background: #676767!important;
+    color: #f8f7f8!important;
+    -webkit-box-shadow: inset 0 2px 0 0 #b42a5c;
+    -moz-box-shadow: inset 0 2px 0 0 #b42a5c;
+    box-shadow: inset 0 2px 0 0 #b42a5c;
+}
+
+.form.requiredFields {
+	border-top: 1px solid #fff;
+	color: #bcbcbc;
+	text-transform: uppercase;
+}
+
+.form.requiredFields .gwt-Label {
+	margin-top: 16px;
+    text-align: right;
+    text-transform: none;
+}
+
+.form.submit {
+	float: left;
+	margin-top: -58px;
+}
+
+.form .gwt-Image {
+    margin: 10px 0 0 27px;
+    vertical-align: middle;
+}
+
+.form.price {
+    display: none;
+}
+
+/*--------------------------------------------------------------
+TYPOGRAPHY
+--------------------------------------------------------------*/
+
+
+/*--------------------------------------------------------------
+STATES
+--------------------------------------------------------------*/
+
+.right {
+    float: right;
+}
+
+.left {
+    float: left;
+}

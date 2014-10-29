@@ -19,6 +19,7 @@
 @import "mixins/utilities";
 @import "mixins/keyframes";
 @import "mixins/animations";
+@import "mixins/forms_mixin";
 
 /* Icons */
 @import "icons/flaticons-social";
@@ -65,6 +66,9 @@
 // @import "modules/image-upload";
 // @import "modules/document-upload";
 
+/* New sass modules */
+@import "new-sass/modules/donate";
+@import "new-sass/modules/payment";
 /* Pages */
 //@import "pages/home";
 @import "pages/static";
