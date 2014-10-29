@@ -2,6 +2,7 @@
 import datetime
 from decimal import Decimal
 from apps.cowry_docdata.models import DocDataPaymentOrder
+from apps.fund.utils import reset_db_sequence, reset_db_sequences
 from bluebottle.payments_docdata.models import DocdataPayment
 from bluebottle.utils.utils import StatusDefinition
 from django.contrib.contenttypes.models import ContentType
@@ -10,6 +11,8 @@ from django.db.utils import DatabaseError
 from south.db import db
 from south.v2 import DataMigration
 from django.db import models
+
+from django.db import connection
 
 
 def map_payment_to_order_status(status):
@@ -219,6 +222,9 @@ class Migration(DataMigration):
 
                         except Exception as e:
                             print e
+
+        # Manually reset the sequences for the models for which we set IDs.
+        reset_db_sequences(['orders_order', 'donations_donation'])
 
     def backwards(self, orm):
         "Write your backwards methods here."
