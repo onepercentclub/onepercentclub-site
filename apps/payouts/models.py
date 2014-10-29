@@ -484,7 +484,8 @@ class OrganizationPayout(PayoutBase):
         # Get Payouts
         payouts = Payout.objects.filter(
             completed__gte=self.start_date,
-            completed__lte=self.end_date
+            completed__lte=self.end_date,
+            submitted__isnull=False
         )
 
         # Aggregate value
