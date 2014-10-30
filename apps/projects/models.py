@@ -221,13 +221,11 @@ class Project(BaseProject):
         return self.status in ProjectPhase.objects.filter(slug__in=['done-complete', 'done-incomplete']).all()
 
     @property
-    def supporters_count(self, with_guests=True, type_in=None):
+    def supporters_count(self, with_guests=True,  type_in=None):
         # TODO: Replace this with a proper Supporters API
         # something like /projects/<slug>/donations
         donations = self.donation_set.objects.filter(project=self)
         donations = donations.filter(order_status__in=[StatusDefinition.PENDING, StatusDefinition.PAID])
-        donations = self.donation_set.all()
-        donations = donations.filter(status__in=['paid', 'pending'])
         donations = donations.filter(user__isnull=False)
         if type_in:
             donations = donations.filter(donation_type__in=type_in)
@@ -346,11 +344,11 @@ class Project(BaseProject):
             self.date_submitted = None
 
         #Set the submitted date
-        if self.status in ProjectPhase.objects.filter(slug="plan-submitted") and not self.date_submitted:
+        if self.status == ProjectPhase.objects.get(slug="plan-submitted") and not self.date_submitted:
             self.date_submitted = timezone.now()
 
         #Set the campaign started date
-        if self.status in ProjectPhase.objects.filter(slug="campaign") and not self.campaign_started:
+        if self.status == ProjectPhase.objects.get(slug="campaign") and not self.campaign_started:
             self.campaign_started = timezone.now()
 
         #Set a default deadline of 30 days

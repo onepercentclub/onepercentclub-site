@@ -1,3 +1,4 @@
+# from apps.bluebottle_salesforce.models import ProjectCountry
 from django.db import models
 from salesforce.models import SalesforceModel
 from djchoices import DjangoChoices, ChoiceItem
@@ -87,17 +88,11 @@ class SalesforceContact(SalesforceModel):
     bank_account_city = models.CharField(max_length=50, db_column='Account_city__c')
     bank_account_iban = models.CharField(max_length=40, db_column='Account_IBAN__c')
     bank_account_active_recurring_debit = models.BooleanField(db_column='Account_Active_Recurring_Debit__c')
-    activity_number = models.CharField(max_length=255, db_column='Activity_number__c')
-    amount_of_single_donations = models.CharField(max_length=255, db_column='Amount_of_single_donations__c')
     has_n_friends = models.CharField(max_length=255, db_column='Has_n_friends__c')
     has_given_n_vouchers = models.CharField(max_length=255, db_column='Has_given_n_1_VOUCHERS__c')
-    is_doing_n_tasks = models.CharField(max_length=255, db_column='Is_doing_n_tasks__c')
     number_of_donations = models.CharField(max_length=255, db_column='Number_of_donations__c')
     support_n_projects = models.CharField(max_length=255, db_column='Support_n_projects__c')
     total_amount_of_donations = models.CharField(max_length=255, db_column='Total_amount_of_donations__c')
-    total_number_of_received_messages = models.CharField(max_length=255,
-                                                         db_column='Total_number_of_received_messages__c')
-    total_number_of_sent_messages = models.CharField(max_length=255, db_column='Total_number_of_sent_messages__c')
     birth_date = models.DateField(db_column='Birthdate')
     gender = models.CharField(max_length=20, db_column='Gender__c')
     mailing_city = models.CharField(max_length=40, db_column='MailingCity')
@@ -112,10 +107,7 @@ class SalesforceContact(SalesforceModel):
     available_time = models.CharField(max_length=255, db_column='Available_time__c')
     where = models.CharField(max_length=255, db_column='Where__c')
     availability = models.CharField(max_length=255, db_column='Availability__c')
-    receive_emails_for_friend_invitations = models.BooleanField(db_column='Receive_emails_for_friend_invitations__c')
     receive_newsletter = models.BooleanField(db_column='Receive_newsletter__c')
-    email_after_a_new_message = models.BooleanField(db_column='Email_after_a_new_message__c')
-    email_after_a_new_public_message = models.BooleanField(db_column='Email_after_a_new_public_message__c')
     primary_language = models.CharField(max_length=255, db_column='Primary_language__c')
     external_id = models.CharField(max_length=255, db_column='Contact_External_ID__c')
     tags = models.CharField(max_length=255, db_column='Tags__c')
@@ -151,31 +143,16 @@ class SalesforceProject(SalesforceModel):
     sub_region = models.CharField(max_length=100, db_column='Sub_region__c')
     describe_the_project_in_one_sentence = models.CharField(max_length=50000,
                                                             db_column='Describe_the_project_in_one_sentence__c')
-    describe_where_the_money_is_needed_for = models.CharField(max_length=15000,
-                                                              db_column='Describe_where_the_money_is_needed_for__c')
     story = models.CharField(max_length=32768, db_column='Story__c')
-    project_url = models.URLField(max_length=255, db_column='Projecturl__c')
     third_half_project = models.BooleanField(db_column='third_half_project__c')
     organization_account = models.ForeignKey(SalesforceOrganization, db_column='Organization__c', null=True)
     comments = models.CharField(max_length=32000, db_column='Comments__c')
     contribution_project_in_reducing_poverty = models.CharField(max_length=32000,
                                                                 db_column='Contribution_project_in_reducing_poverty__c')
     earth_charther_project = models.BooleanField(db_column='Earth_Charther_project__c')
-    project_goals = models.CharField(max_length=20000, db_column='Project_goals__c')
     sustainability = models.CharField(max_length=20000, db_column='Sustainability__c')
     additional_explanation_of_budget = models.CharField(max_length=32000,
                                                         db_column='Additional_explanation_of_budget__c')
-    end_date_of_the_project = models.DateField(db_column='End_date_of_the_project__c')
-    expected_funding_through_other_resources = models.CharField(max_length=20000,
-                                                                db_column='Expected_funding_through_other_resources__c')
-    expected_project_results = models.CharField(max_length=32000, db_column='Expected_project_results__c')
-    funding_received_through_other_resources = models.CharField(max_length=20000,
-                                                                db_column='Funding_received_through_other_resources__c')
-    need_for_volunteers = models.CharField(max_length=32000, db_column='Need_for_volunteers__c')
-    other_way_people_can_contribute = models.CharField(max_length=32000,
-                                                       db_column='Other_way_people_can_contribute__c')
-    project_activities_and_timetable = models.CharField(max_length=32000,
-                                                        db_column='Project_activities_and_timetable__c')
     tags = models.CharField(max_length=255, db_column='Tags__c')
     slug = models.CharField(max_length=100, db_column='Slug__c')
     partner_organization = models.CharField(max_length=255, db_column='Partner_Organization__c')
@@ -215,7 +192,6 @@ class SalesforceProject(SalesforceModel):
     number_of_people_reached_indirect = models.PositiveIntegerField(max_length=18,
                                                                   db_column='NumberOfPeopleReachedIndirect__c')
     theme = models.CharField(max_length=255, db_column='Theme__c')
-    target_group = models.CharField(max_length=255, db_column='Target_group__c')
     donation_total = models.CharField(max_length=20, db_column='Donation_total__c')
     supporter_count = models.PositiveIntegerField(max_length=8, db_column='Supporter_count__c')
     donation_oo_total = models.CharField(max_length=20, db_column='Donation_oo_total__c')
@@ -270,6 +246,7 @@ class SalesforceFundraiser(SalesforceModel):
     project = models.ForeignKey(SalesforceProject, db_column='Project__c')
     video_url = models.CharField(max_length=255, db_column='VideoURL__c')
     name = models.CharField(max_length=80, db_column='Name')
+    amount_at_the_moment = models.CharField(max_length=100, db_column='Amount_at_the_moment__c')
 
     class Meta:
         db_table = 'Fundraiser__c'
