@@ -53,14 +53,22 @@
                         </div>
                     {{else}}
                         {{partial 'cheetah/detail/project_cheetah_funded'}}
-                        <div class="expired">
-                            {{cheetah-progressbar targetValue=project.amount_asked currentValue=project.amount_donated class="campaign-fund-amount-slider"}}
-                        </div>
                         <div class="campaign-fund-amount">
-                            <span class="amount-raised"><strong>&euro; {{project.amount_donated}} </strong>{% trans "raised" context "Slider project frontpage" %}</span>
-                            <div class="expired">
-                                <span class="days-left">{% trans "deadline passed" %}</span>
-                            </div>
+                            {{#if project.allowOverfunding}}
+                                {{cheetah-progressbar targetValue=project.amount_asked currentValue=project.amount_donated class="campaign-fund-amount-slider"}}
+                                <span class="amount-raised"><strong>&euro; {{project.amount_donated}} </strong>{% trans "raised" context "Slider project frontpage" %}</span>
+                                {{#if project.overDeadline}}
+                                    <div class="expired">
+                                        <span class="days-left">{% trans "deadline passed" %}</span>
+                                    </div>
+                                {{else}}
+                                    <span class="days-left"><strong>{{project.daysToGo}} </strong>{% trans "days left" context "Slider project frontpage" %}</span>
+                                {{/if}}
+                            {{else}}
+                                <div class="expired">
+                                  {{cheetah-progressbar targetValue=project.amount_asked currentValue=project.amount_donated class="campaign-fund-amount-slider"}}
+                                </div>
+                            {{/if}} 
                         </div>
                     {{/if}}
                 {{/if}}

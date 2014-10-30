@@ -4,6 +4,7 @@ Functional tests using Selenium.
 
 See: ``docs/testing/selenium.rst`` for details.
 """
+
 import os
 import time
 from decimal import Decimal

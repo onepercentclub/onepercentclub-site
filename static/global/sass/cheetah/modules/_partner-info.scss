@@ -58,3 +58,16 @@
         width: 100%;
     }
 }
+
+#partner-detail {
+    figure.image img {
+        padding-left: 20px;
+        float: right;
+        width: 200px;
+        padding-bottom: 20px;
+    }
+
+    .partner-col {
+        padding: 0 1.5em;
+    }
+}

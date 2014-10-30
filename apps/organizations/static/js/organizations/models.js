@@ -21,6 +21,8 @@ App.MyOrganization.reopen({
         'account_holder_city' : gettext('Account city'),
         'account_holder_country' : gettext('Account country'),
         'account_bic' : gettext('Account BIC code'),
-        'account_iban': gettext('Account IBAN code')
+        'account_iban': gettext('Account IBAN code'),
+        'validIban': gettext('Account IBAN code'),
+        'validBic': gettext('Account BIC code')
     }
 });

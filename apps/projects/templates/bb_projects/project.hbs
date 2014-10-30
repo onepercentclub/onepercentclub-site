@@ -51,7 +51,9 @@
                 </div>
             {{else}}
                 <div class="project-days-left">
-                    <strong><span class="flaticon solid clock-1"></span> <em>{% trans "deadline passed" %}</em></strong>
+                    {{#unless isPhasePlanNew}}
+                        <strong><span class="flaticon solid clock-1"></span> <em>{% trans "deadline passed" %}</em></strong>
+                    {{/unless}}
                 </div>
             {{/if}}
 
@@ -116,8 +118,8 @@
                     {{bb-progressbar targetValue=amount_asked currentValue=amount_donated}}
                 </div>
                 {{/if}}
-            </div>
 
+            </div>
             {{#if isSupportable}}
                 <div class="project-action">
                     <a href='#' {{ action 'addDonation' this }} class="btn btn-primary btn-iconed"><span class="flaticon solid wallet-1"></span> {% trans "Support project" %}</a>
