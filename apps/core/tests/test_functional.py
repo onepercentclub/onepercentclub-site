@@ -70,20 +70,23 @@ class PositiveDonationFlow(OnePercentSeleniumTestCase):
         self.assert_css(".payment-tabs")
         self.assert_css(".payment-tab-content")
 
+        # If you select only the li, the click will fail because the modal closes
+        ideal_payments = self.browser.find_by_css("li.ideal label")
+        ideal_payments[0].click()
+
         self.assert_css(".ember-select")
 
-        self.browser.select('docDataiDealSelect', 'ABNANL2A')
+        self.browser.select('mockiDealSelect', 'huey')
 
         self.scroll_to_and_click_by_css(".payment-btn")
+
         time.sleep(2)
 
-        #HERE
+        self.assertTrue(self.browser.is_text_present('This is a Mock Payment Service provider', wait_time=20))
 
-        self.assertTrue(self.browser.is_text_present('iDEAL simulator', wait_time=30))
+        self.scroll_to_and_click_by_css('a.btn-ok')
 
-        self.scroll_to_and_click_by_css('#form1:callSucces')
-
-        self.assertTrue(self.browser.is_text_present('Thank you for caring', wait_time=30))
+        self.assertTrue(self.browser.is_text_present('Thanks for your support', wait_time=30))
 
         text = 'I made a donation with mockdeal! Good luck!'
 
@@ -100,5 +103,5 @@ class PositiveDonationFlow(OnePercentSeleniumTestCase):
         self.assertEqual(wallpost_text, text)
 
         author = self.browser.find_by_css(".wallpost-author").first.text
-        self.assertEqual(author, self.user.full_name)
+        self.assertEqual(author.lower(), self.user.full_name.lower())
 
