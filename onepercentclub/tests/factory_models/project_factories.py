@@ -8,7 +8,7 @@ import datetime
 class OnePercentProjectFactory(ProjectFactory):
     FACTORY_FOR = Project
 
-    deadline = now() + datetime.timedelta(days=100)
+    deadline = now() + datetime.timedelta(days=30)
     amount_needed = 100
     amount_asked = 100
     allow_overfunding = True
