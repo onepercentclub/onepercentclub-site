@@ -45,11 +45,10 @@ class PositiveDonationFlow(OnePercentSeleniumTestCase):
         # Assert visual donation elements on project page
         self.assert_css(".amount-donated")
         self.assert_css(".project-fund-amount-slider")
-        # Bring up the donation modal
 
         self.assert_css(".project-status")
 
-        # Click the first button to raise the amount to 10 euros (Mock doesn't allow 5)
+        # Bring up the donation modal
         self.wait_for_element_css('a.btn-primary')
         button = self.browser.find_by_css('a.btn-primary')[0]
         button.click()
@@ -58,7 +57,7 @@ class PositiveDonationFlow(OnePercentSeleniumTestCase):
         self.wait_for_element_css('input.donation-input')
         donation_input = self.browser.find_by_css("input.donation-input").first
 
-        # Make a donation of 10
+        # Make a donation of 10 euros (default is 25)
         donation_input.value = 10
         self.assertEqual(int(donation_input.value), 10)
         self.assert_css(".donation-buttons")
