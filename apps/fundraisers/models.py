@@ -34,7 +34,7 @@ class FundRaiser(models.Model):
 
     @property
     def amount_donated(self):
-        valid_statuses = [StatusDefinition.PENDING, StatusDefinition.PAID]
+        valid_statuses = [StatusDefinition.PENDING, StatusDefinition.SUCCESS]
         donations = self.donation_set.filter(order__status__in=valid_statuses)
         if donations:
             total = donations.aggregate(sum=Sum('amount'))
