@@ -245,13 +245,13 @@ class Project(BaseProject):
 
     @property
     def task_count(self):
-        from bluebottle.utils.utils import get_task_model
+        from bluebottle.utils.model_dispatcher import get_task_model
         TASK_MODEL = get_task_model()
         return len(self.task_set.filter(status=TASK_MODEL.TaskStatuses.open).all())
 
     @property
     def get_open_tasks(self):
-        from bluebottle.utils.utils import get_task_model
+        from bluebottle.utils.model_dispatcher import get_task_model
         TASK_MODEL = get_task_model()
         return self.task_set.filter(status=TASK_MODEL.TaskStatuses.open).all()
 
