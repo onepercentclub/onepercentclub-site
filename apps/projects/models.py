@@ -181,11 +181,11 @@ class Project(BaseProject):
     def update_money_donated(self, save=True):
         """ Update amount based on paid and pending donations. """
 
-        self.amount_donated = self.get_money_total(['paid', 'pending']) / 100
+        self.amount_donated = Decimal(self.get_money_total(['paid', 'pending'])) / 100
 
         if self.mchanga_fundraiser:
             kes = self.mchanga_fundraiser.current_amount
-            euro = kes / Decimal(114.651)
+            euro = Decimal(kes) / Decimal(114.651)
             self.amount_donated += euro
 
         self.amount_needed = self.amount_asked - self.amount_donated
