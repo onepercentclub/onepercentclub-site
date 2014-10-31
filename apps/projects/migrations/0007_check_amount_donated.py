@@ -52,9 +52,6 @@ def get_money_total(project, donations, status_in=None, type_in=None):
         # No money asked, return 0
         return 0
 
-    if project.id == 688:
-        import pdb;pdb.set_trace()
-
     if status_in:
         donations = donations.filter(status__in=status_in)
 
@@ -75,6 +72,7 @@ class Migration(DataMigration):
         count = 0
         count_large = 0
         print "Checking amount_donated for projects"
+        f = open('donationAmount.log', 'w')
         for project in orm['projects.Project'].objects.all():
             donations = orm['fund.Donation'].objects.filter(project=project)
 
@@ -89,18 +87,26 @@ class Migration(DataMigration):
 
             if amount_donated != new_amount_donated:
                 #print "Amount mismatch"
-                print "Project id: {0}, title: {1}".format(project, project.id)
+                print "Project id: {0}".format(project.id)
+                f.write("Project id: {0}\n".format(project.id))
                 print "Old amount donated: {0} -- New amount donated {1}".format(amount_donated, new_amount_donated)
+                f.write("Old amount donated: {0} -- New amount donated {1}\n".format(amount_donated, new_amount_donated))
                 if new_amount_donated - amount_donated > 1:
                     count_large += 1 
                     print "Donations for large amount mismatch:"
+                    f.write("Donations for large amount mismatch:\n")
                     print ''.join([str(donation.created.year) + '\n' for donation in donations])
+                    f.write(''.join([str(donation.created.year) + "\n" for donation in donations]))
+                    f.write('\n')
                 count += 1
             # else:
             #     print "Amounts match, {0}".format(amount_donated)
 
         print "{0} of {1} projects do not match".format(count, orm['projects.Project'].objects.count())
+        f.write("{0} of {1} projects do not match\n".format(count, orm['projects.Project'].objects.count()))
         print "{0} projects have more than 1 euro mismatch".format(count_large)
+        f.write("{0} projects have more than 1 euro mismatch\n".format(count_large))
+        f.close()
 
     def backwards(self, orm):
         "Write your backwards methods here."
