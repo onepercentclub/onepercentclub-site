@@ -5,7 +5,7 @@ from south.db import db
 from south.v2 import DataMigration
 from django.db import models
 from django.db.models.aggregates import Sum
-
+from django.conf import settings
 
 def mchanga_fundraiser(project):
     """
@@ -72,7 +72,10 @@ class Migration(DataMigration):
         count = 0
         count_large = 0
         print "Checking amount_donated for projects"
-        f = open('donationAmount.log', 'w')
+        if hasattr(settings, 'PRODUCTION'):
+            f = open('/home/onepercentsite/donationAmount.log', 'w')
+        else:
+            f = open('donationAmount.log', 'w')
         for project in orm['projects.Project'].objects.all():
             donations = orm['fund.Donation'].objects.filter(project=project)
 
@@ -86,7 +89,6 @@ class Migration(DataMigration):
             new_amount_donated, new_amount_needed = update_money_donated(project, mchanga_object, donations)
 
             if amount_donated != new_amount_donated:
-                #print "Amount mismatch"
                 print "Project id: {0}".format(project.id)
                 f.write("Project id: {0}\n".format(project.id))
                 print "Old amount donated: {0} -- New amount donated {1}".format(amount_donated, new_amount_donated)
@@ -98,9 +100,10 @@ class Migration(DataMigration):
                     print ''.join([str(donation.created.year) + '\n' for donation in donations])
                     f.write(''.join([str(donation.created.year) + "\n" for donation in donations]))
                     f.write('\n')
+                else:
+                    project.amount_donated = new_amount_donated
+                    project.save()
                 count += 1
-            # else:
-            #     print "Amounts match, {0}".format(amount_donated)
 
         print "{0} of {1} projects do not match".format(count, orm['projects.Project'].objects.count())
         f.write("{0} of {1} projects do not match\n".format(count, orm['projects.Project'].objects.count()))
