@@ -16,8 +16,12 @@ class Migration(DataMigration):
         db.rename_table('payouts_payout', 'payouts_projectpayout')
         db.rename_table('payouts_payoutlog', 'bb_payouts_projectpayoutlog')
         db.rename_table('payouts_organizationpayoutlog', 'bb_payouts_organizationpayoutlog')
+        db.rename_column('bb_payouts_projectpayoutlog', 'date', 'created')
+        db.rename_column('bb_payouts_organizationpayoutlog', 'date', 'created')
 
     def backwards(self, orm):
+        db.rename_column('bb_payouts_projectpayoutlog', 'created', 'date')
+        db.rename_column('bb_payouts_organizationpayoutlog', 'created', 'date')
         db.rename_table('payouts_projectpayout', 'payouts_payout')
         db.rename_table('bb_payouts_projectpayoutlog', 'payouts_payoutlog')
         db.rename_table('bb_payouts_organizationpayoutlog', 'payouts_organizationpayoutlog')
