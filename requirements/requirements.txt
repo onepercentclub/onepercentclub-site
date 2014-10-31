@@ -1,4 +1,4 @@
--e git://github.com/onepercentclub/bluebottle.git@d358cf6513c0d4df7ef6f4459b62076aed79a8ef#egg=bluebottle
+-e git://github.com/onepercentclub/bluebottle.git@4b0d117041502aa16a80f8ac5f82bfe6a8452835#egg=bluebottle
 
 pip
 mercurial==2.9.1
@@ -17,11 +17,6 @@ BeautifulSoup==3.2.1
 ember-compressor-compiler==0.3.1
 eventlet==0.14.0
 gevent==1.0.1
-
-# JSON Web Token based authentication for Django REST framework
-# Use our fork with token refresh from:
-# https://github.com/pjodouin/django-rest-framework-jwt
--e git://github.com/onepercentclub/django-rest-framework-jwt.git@1be254ad098af00cc1a3c88249a5253e1f3e7ba7#egg=djangorestframework-jwt
 
 pytz==2013b
 
