@@ -52,6 +52,9 @@ def get_money_total(project, donations, status_in=None, type_in=None):
         # No money asked, return 0
         return 0
 
+    if project.id == 688:
+        import pdb;pdb.set_trace()
+
     if status_in:
         donations = donations.filter(status__in=status_in)
 
@@ -90,6 +93,8 @@ class Migration(DataMigration):
                 print "Old amount donated: {0} -- New amount donated {1}".format(amount_donated, new_amount_donated)
                 if new_amount_donated - amount_donated > 1:
                     count_large += 1 
+                    print "Donations for large amount mismatch:"
+                    print ''.join([str(donation.created.year) + '\n' for donation in donations])
                 count += 1
             # else:
             #     print "Amounts match, {0}".format(amount_donated)
