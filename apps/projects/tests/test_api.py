@@ -14,7 +14,7 @@ from onepercentclub.tests.utils import OnePercentTestCase
 
 from rest_framework import status
 
-from bluebottle.utils.utils import get_taskmember_model, get_skill_model
+from bluebottle.utils.model_dispatcher import get_taskmember_model, get_skill_model
 from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
 from onepercentclub.tests.factory_models.donation_factories import DonationFactory

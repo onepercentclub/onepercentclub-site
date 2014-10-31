@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from bluebottle.bluebottle_drf2.views import RetrieveUpdateDeleteAPIView, ListCreateAPIView, ListAPIView
 from rest_framework import permissions, exceptions
 
-from bluebottle.utils.utils import get_project_model
+from bluebottle.utils.model_dispatcher import get_project_model
 
 PROJECT_MODEL = get_project_model()
 

@@ -18,7 +18,7 @@ from apps.projects.serializers import (
     ProjectSupporterSerializer, ProjectPreviewSerializer, ProjectThemeSerializer, ProjectBudgetLineSerializer)
 from apps.projects.permissions import IsProjectOwner
 from apps.fundraisers.models import FundRaiser
-from bluebottle.utils.utils import get_project_model
+from bluebottle.utils.model_dispatcher import get_project_model
 
 from .models import Project
 from .serializers import ProjectSerializer, ProjectDonationSerializer
