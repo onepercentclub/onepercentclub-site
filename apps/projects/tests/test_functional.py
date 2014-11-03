@@ -122,15 +122,16 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
 
         form = self.browser.find_by_id('wallpost-form')
 
-        time.sleep(1)
+        time.sleep(2)
         self.browser.find_by_css('.wallpost-post-update').first.click()
+        time.sleep(2)
 
         # Wait for form to animate down
         self.wait_for_element_css('#wallpost-title')
 
         title = 'My wallpost'
-        self.browser.find_by_id('wallpost-title').first.fill(title)
-        self.browser.find_by_id('wallpost-update').first.fill('These are some sample pictures from this non-existent project!')
+        self.browser.find_by_id('wallpost-title').first.type(title)
+        self.browser.find_by_id('wallpost-update').first.type('These are some sample pictures from this non-existent project!')
 
         # verify that no previews are there yet
         ul = form.find_by_css('ul.form-wallpost-photos').first
@@ -481,16 +482,18 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
         self.wait_for_element_css('article.wallpost')
         post = self.browser.find_by_css("article.wallpost").first
 
+        self.wait_for_element_css(".wallpost-author")
         self.assertEqual(post.find_by_css('.wallpost-author').text, self.user.full_name.upper())
-        # FIXME: re-enable this test
-        # self.assertEqual(post.find_by_css('.text p').text, self.post1['text'])
-
+        self.assertEqual(post.find_by_css('.text p').text, self.post1['text'])
         self.logout()
 
         # Login as the project owner
-        self.login(username=self.project.owner.email, password='testing')
+        self.assertTrue(self.login(username=self.project.owner.email, password='testing'))
 
         # Should see the post by the first user.
+        # Somehow it helps to first navigate to home and then to the project page again.
+        # TODO: Find out why we can't go to project page and fix it properly.
+        self.visit_path('/')
         self.visit_path('/projects/{0}'.format(self.project.slug))
         post = self.browser.find_by_css("article.wallpost").first
         self.assertEqual(post.find_by_css('.wallpost-author').text, self.user.full_name.upper())

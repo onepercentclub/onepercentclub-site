@@ -30,7 +30,6 @@ class PositiveDonationFlow(OnePercentSeleniumTestCase):
                                                  last_name='testi')
         campaign_phase = ProjectPhase.objects.get(name='Campaign')
 
-
         for slug, title in self.projects.items():
             project = OnePercentProjectFactory.create(title=title, slug=slug, owner=self.user, amount_asked=1000, status=campaign_phase)
 
