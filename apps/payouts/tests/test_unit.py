@@ -1,5 +1,4 @@
 from decimal import Decimal
-from apps.projects.models import PartnerOrganization
 from bluebottle.bb_projects.models import ProjectPhase
 from bluebottle.test.factory_models.orders import OrderFactory
 from bluebottle.test.factory_models.organizations_factories import OrganizationFactory
@@ -7,10 +6,8 @@ from bluebottle.utils.model_dispatcher import get_project_model
 
 from django_dynamic_fixture import N, G
 
-from bluebottle.payouts.models import ProjectPayout, OrganizationPayout
-from bluebottle.donations.models import Donation
+from bluebottle.payouts.models import ProjectPayout
 from bluebottle.test.factory_models.donations import DonationFactory
-from bluebottle.test.factory_models.projects import ProjectFactory
 from bluebottle.test.utils import BluebottleTestCase
 from bluebottle.utils.utils import StatusDefinition
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory, PartnerFactory
@@ -26,7 +23,7 @@ class PayoutTestCase(BluebottleTestCase):
         # Set up a project ready for payout
         organization = OrganizationFactory.create()
         organization.save()
-        self.project = ProjectFactory.create(organization=organization, amount_asked=50)
+        self.project = OnePercentProjectFactory.create(organization=organization, amount_asked=50)
 
         # Update phase to campaign.
         self.project.status = ProjectPhase.objects.get(slug='campaign')
