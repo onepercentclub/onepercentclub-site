@@ -23,7 +23,8 @@ class Migration(DataMigration):
         count = 0
         total = orm['cowry_docdata.DocDataPaymentLogEntry'].objects.count()
         for i, log_entry_model in enumerate(orm['cowry_docdata.DocDataPaymentLogEntry'].objects.all()):
-            print "Processing DocdataPaymentLogEntry {0} of {1}".format(i, total)
+            if not i % 50:
+                print "Processing DocdataPaymentLogEntry {0} of {1}".format(i, total)
 
             # Fetch DocDataPaymentOrder
             old_docdata_payment_order = log_entry_model.docdata_payment_order
@@ -46,7 +47,8 @@ class Migration(DataMigration):
             )
 
             payment_log_entry.save()
-            print "PaymentLogEntry {0} created".format(i)
+            if not i % 50:
+                print "PaymentLogEntry {0} created".format(i)
         print "PaymentLogEntries without DocdataPayment: {0}".format(count)
         
     def backwards(self, orm):
