@@ -138,7 +138,7 @@ class Project(BaseProject):
         from apps.fund.models import Donation
 
         last_month = timezone.now() - timezone.timedelta(days=30)
-        donations = Donation.objects.filter(order__status__in=[StatusDefinition.PENDING, StatusDefinition.PAID])
+        donations = Donation.objects.filter(order__status__in=[StatusDefinition.PENDING, StatusDefinition.SUCCESS])
         donations = donations.exclude(donation_type='recurring')
         donations = donations.filter(created__gte=last_month)
 
@@ -174,7 +174,7 @@ class Project(BaseProject):
     def update_money_donated(self, save=True):
         """ Update amount based on paid and pending donations. """
 
-        self.amount_donated = self.get_money_total([StatusDefinition.PENDING, StatusDefinition.PAID])
+        self.amount_donated = self.get_money_total([StatusDefinition.PENDING, StatusDefinition.SUCCESS])
 
         if self.mchanga_fundraiser:
             kes = self.mchanga_fundraiser.current_amount
@@ -218,14 +218,14 @@ class Project(BaseProject):
 
     @property
     def is_realised(self):
-        return self.status in ProjectPhase.objects.filter(slug__in=['done-complete', 'done-incomplete']).all()
+        return self.status in ProjectPhase.objects.filter(slug__in=['done-complete', 'done-incomplete', 'realised']).all()
 
     @property
     def supporters_count(self, with_guests=True,  type_in=None):
         # TODO: Replace this with a proper Supporters API
         # something like /projects/<slug>/donations
         donations = self.donation_set.objects.filter(project=self)
-        donations = donations.filter(order_status__in=[StatusDefinition.PENDING, StatusDefinition.PAID])
+        donations = donations.filter(order_status__in=[StatusDefinition.PENDING, StatusDefinition.SUCCESS])
         donations = donations.filter(user__isnull=False)
         if type_in:
             donations = donations.filter(donation_type__in=type_in)
@@ -234,7 +234,7 @@ class Project(BaseProject):
 
         if with_guests:
             donations = self.donation_set.objects.filter(project=self)
-            donations = donations.filter(order_status__in=[StatusDefinition.PENDING, StatusDefinition.PAID])
+            donations = donations.filter(order_status__in=[StatusDefinition.PENDING, StatusDefinition.SUCCESS])
             donations = donations.filter(user__isnull=True)
             if type_in:
                 donations = donations.filter(donation_type__in=type_in)
@@ -259,11 +259,11 @@ class Project(BaseProject):
 
     @property
     def amount_pending(self):
-        return self.get_money_total(StatusDefinition.PENDING)
+        return self.get_money_total([StatusDefinition.PENDING])
 
     @property
     def amount_safe(self):
-        return self.get_money_total(StatusDefinition.PAID)
+        return self.get_money_total([StatusDefinition.SUCCESS])
 
     @property
     def donated_percentage(self):
