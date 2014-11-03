@@ -42,6 +42,13 @@ FLUENT_DASHBOARD_APP_GROUPS = (
         'module': 'fluent_dashboard.modules.AppIconList',
         'collapsible': False,
     }),
+    (_('Monthly Donations'), {
+        'models': (
+            'apps.recurring_donations.*',
+        ),
+        'module': 'fluent_dashboard.modules.AppIconList',
+        'collapsible': False,
+    }),
     (_('Finances'), {
         'models': (
             'apps.accounting.*',

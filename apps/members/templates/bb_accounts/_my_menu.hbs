@@ -5,7 +5,7 @@
     {{#if controllers.currentOrder.donations.length }}
         <li class="nav-cart">
             {{#linkTo 'currentOrder.index'}}
-                <span class="nav-cart-count">{{ controllers.currentOrder.donations.length }}</span> {% trans "Pending donations" %} 
+                <span class="nav-cart-count">{{ controllers.currentOrder.donations.length }}</span> {% trans "Pending donations" %}
             {{/linkTo}}
         </li>
     {{/if}}
@@ -15,9 +15,9 @@
             {% trans "My profile" %}
         {{/linkTo }}
     </li>
-    
+
     <li>
-        {{#linkTo "userMonthlyProjects" }}
+        {{#linkTo "myDonationList" }}
             {% trans "My Donations" %}
         {{/linkTo}}
     </li>

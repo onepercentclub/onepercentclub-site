@@ -1,32 +1,20 @@
 import logging
 import random
 
+from django.utils.translation import ugettext as _
 from django.conf import settings
 from django.db import models
-from django.db.models.signals import post_save, post_delete, pre_save
 from django.contrib.contenttypes.models import ContentType
 from django.utils import translation
 from django.utils import timezone
-from django.utils.translation import ugettext as _
 from django_extensions.db.fields import ModificationDateTimeField, CreationDateTimeField
 from django_iban.fields import IBANField, SWIFTBICField
 from djchoices import DjangoChoices, ChoiceItem
 
-from babel.dates import format_date
-from django.contrib.sites.models import Site
-from django.core.mail import EmailMultiAlternatives
-from django.dispatch.dispatcher import receiver
-from django.template.loader import get_template
-from django.template import Context
-from celery import task
-
-from apps.mail import send_mail
-
 from babel.numbers import format_currency
 from registration.signals import user_activated
 
-from apps.cowry.models import PaymentStatuses, Payment
-from apps.cowry.signals import payment_status_changed
+
 from apps.cowry_docdata.models import DocDataPaymentOrder
 from apps.vouchers.models import VoucherStatuses
 from django.contrib.auth import get_user_model
@@ -37,64 +25,6 @@ USER_MODEL = get_user_model()
 
 logger = logging.getLogger(__name__)
 random.seed()
-
-
-class RecurringDirectDebitPayment(models.Model):
-    """
-    Holds the direct debit account and payment information.
-    """
-    user = models.OneToOneField(settings.AUTH_USER_MODEL)
-    active = models.BooleanField(default=False)
-    created = CreationDateTimeField(_("Created"))
-    updated = ModificationDateTimeField(_("Updated"))
-
-    manually_process = models.BooleanField(default=False, help_text="Whether or not to process the monthly donation manually instead of with the automatic script.")
-
-    # The amount in the minor unit for the given currency (e.g. for EUR in cents).
-    amount = models.PositiveIntegerField(_("amount"), default=0)
-    currency = models.CharField(max_length=3, default='EUR')
-
-    # Bank account.
-    name = models.CharField(max_length=35)  # max_length from DocData
-    city = models.CharField(max_length=35)  # max_length from DocData
-    account = DutchBankAccountField()
-
-    # IBAN fields required for DocData recurring donation processing.
-    # These are not required because we will be filling these in manually (for now) and not presenting them to users.
-    iban = IBANField(blank=True, default='')
-    bic = SWIFTBICField(blank=True, default='')
-
-    def __unicode__(self):
-        active_status = 'inactive'
-        if self.active:
-            active_status = 'active'
-
-        language = translation.get_language().split('-')[0]
-        if not language:
-            language = 'en'
-
-        return u'{0} - {1} - {2}'.format(str(self.user),
-                                         format_currency(self.amount / 100.0, self.currency, locale=language),
-                                         active_status)
-
-
-@receiver(post_save, weak=False, sender=USER_MODEL)
-def cancel_recurring_payment_user_soft_delete(sender, instance, created, **kwargs):
-    if created:
-        return
-
-    if hasattr(instance, 'recurringdirectdebitpayment') and instance.deleted:
-        recurring_payment = instance.recurringdirectdebitpayment
-        recurring_payment.active = False
-        recurring_payment.save()
-
-
-@receiver(post_delete, weak=False, sender=USER_MODEL)
-def cancel_recurring_payment_user_delete(sender, instance, **kwargs):
-
-    if hasattr(instance, 'recurringdirectdebitpayment'):
-        recurring_payment = instance.recurringdirectdebitpayment
-        recurring_payment.delete()
 
 
 class DonationStatuses(DjangoChoices):
@@ -344,122 +274,6 @@ class Order(models.Model):
         return None
 
 
-
-@receiver(payment_status_changed, sender=Payment)
-def process_payment_status_changed(sender, instance, old_status, new_status, **kwargs):
-    # Payment statuses: new
-    #                   in_progress
-    #                   pending
-    #                   paid
-    #                   failed
-    #                   cancelled
-    #                   chargedback
-    #                   refunded
-    #                   unknown
-
-    order = instance.order
-
-    #
-    # Payment: new -> in_progress
-    #
-    if old_status == PaymentStatuses.new and new_status == PaymentStatuses.in_progress:
-        # Donations.
-        for donation in order.donations.all():
-            donation.status = DonationStatuses.in_progress
-            donation.save()
-
-        # Vouchers.
-        # TODO Implement vouchers.
-        #for voucher in order.vouchers.all():
-        #    process_voucher_order_in_progress(voucher)
-
-    #
-    # Payment: -> cancelled; Order is 'current'
-    #
-    if new_status == PaymentStatuses.cancelled and order.status == OrderStatuses.current:
-
-        # Donations.
-        for donation in order.donations.all():
-            donation.status = DonationStatuses.new
-            donation.save()
-
-        # Vouchers.
-        # TODO Implement vouchers.
-
-    #
-    # Payment: -> cancelled; Order is 'closed'
-    #
-    elif new_status == PaymentStatuses.cancelled and order.status == OrderStatuses.closed:
-        if order.status != OrderStatuses.closed:
-            order.status = OrderStatuses.closed
-            order.save()
-
-        # Donations.
-        for donation in order.donations.all():
-            donation.status = DonationStatuses.failed
-            donation.save()
-
-        # Vouchers.
-        # TODO Implement vouchers.
-
-    #
-    # Payment: -> cancelled; Order is not 'closed' or 'current'
-    #
-    elif new_status == PaymentStatuses.cancelled:
-        logger.error("PaymentStatuses.cancelled when Order {0} has status {1}.".format(order.id, order.status))
-
-    #
-    # Payment: -> pending
-    #
-    if new_status == PaymentStatuses.pending:
-        if order.status != OrderStatuses.closed:
-            order.status = OrderStatuses.closed
-            order.save()
-
-        # Donations.
-        for donation in order.donations.all():
-            donation.status = DonationStatuses.pending
-            donation.save()
-
-        # Vouchers.
-        # TODO Implement vouchers.
-
-    #
-    # Payment: -> paid
-    #
-    if new_status == PaymentStatuses.paid:
-        if order.status != OrderStatuses.closed:
-            order.status = OrderStatuses.closed
-            order.save()
-
-        # Donations.
-        for donation in order.donations.all():
-            donation.status = DonationStatuses.paid
-            donation.save()
-
-        # Vouchers.
-        # TODO Implement vouchers.
-
-    #
-    # Payment: -> failed, refunded or chargedback
-    #
-    if new_status in [PaymentStatuses.failed, PaymentStatuses.refunded, PaymentStatuses.chargedback]:
-        if order.status != OrderStatuses.closed:
-            order.status = OrderStatuses.closed
-            order.save()
-
-        # Donations.
-        for donation in order.donations.all():
-            donation.status = DonationStatuses.failed
-            donation.save()
-
-        # Vouchers.
-        # TODO Implement vouchers.
-        #for voucher in order.vouchers.all():
-        #    voucher.status = VoucherStatuses.cancelled
-        #    voucher.save()
-
-
 def link_anonymous_donations(sender, user, request, **kwargs):
     """
     Search for anonymous donations with the same email address as this user and connect them.
@@ -493,70 +307,5 @@ def link_anonymous_donations(sender, user, request, **kwargs):
 # On account activation try to connect anonymous donations to this  fails.
 user_activated.connect(link_anonymous_donations)
 
-@task
-@receiver(pre_save, weak=False, sender=Donation)
-def new_oneoff_donation(sender, instance, **kwargs):
-    """
-    Send project owner a mail if a new "one off" donation is done. We consider a donation done if the status is pending.
-    """
-    donation = instance
-
-    # Only process the donation if it is of type "one off".
-    if donation.donation_type != Donation.DonationTypes.one_off:
-        return
-
-    # If the instance has no PK the previous status is unknown.
-    if donation.pk:
-        # NOTE: We cannot check the previous and future state of the ready attribute since it is set in the
-        # Donation.save function.
-
-        existing_donation = Donation.objects.get(pk=donation.pk)
-        # If the existing donation is already pending, don't mail.
-        if existing_donation.status in [DonationStatuses.pending, DonationStatuses.paid]:
-            return
-
-    # If the donation status will be pending, send a mail.
-    if donation.status in [DonationStatuses.pending, DonationStatuses.paid]:
-
-        if donation.user:
-            name = donation.user.first_name
-        else:
-            name = _('Anonymous')
-
-        if donation.fundraiser:
-            send_mail(
-                template_name='new_oneoff_donation_fundraiser.mail',
-                subject=_('You received a new donation'),
-                to=donation.fundraiser.owner,
-
-                amount=(donation.amount / 100.0),
-                donor_name=name,
-                link='/go/fundraisers/{0}'.format(donation.fundraiser.id),
-            )
-        # Always email the project owner.
-        send_mail(
-            template_name='new_oneoff_donation.mail',
-            subject=_('You received a new donation'),
-            to=donation.project.owner,
-
-            amount=(donation.amount / 100.0),
-            donor_name=name,
-            link='/go/projects/{0}'.format(donation.project.slug),
-        )
-
-
-#Change project phase according to donated amount
-@receiver(post_save, weak=False, sender=Donation)
-def update_project_after_donation(sender, instance, created, **kwargs):
-    # Skip all post save logic during fixture loading.
-    if kwargs.get('raw', False):
-        return
-
-    project = instance.project
-
-    # Don't look at donations that are just created.
-    if instance.status not in [DonationStatuses.in_progress, DonationStatuses.new]:
-        project.update_money_donated()
-        project.update_popularity()
-        project.update_status_after_donation()
-
+from signals import *
+from fundmail import *
