@@ -246,7 +246,7 @@ class Migration(DataMigration):
         orm['orders.Order'].objects.all().delete()
         orm['payments_docdata.DocdataPayment'].objects.all().delete()
         orm['payments_docdata.DocdataTransaction'].objects.all().delete()
-//improve
+
     models = {
         u'auth.group': {
             'Meta': {'object_name': 'Group'},
