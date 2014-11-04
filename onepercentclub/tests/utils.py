@@ -107,7 +107,7 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
         :return: ``True`` if the homepage could be visited.
         """
         # If we're already on homepage, then reload it
-        if self.browser.url[-3:] == '#!/':
+        if self.browser.url[-3:] == '#!/' or '#!' not in self.browser.url:
             self.browser.reload()
         else:
             self.visit_path('/', lang_code)
