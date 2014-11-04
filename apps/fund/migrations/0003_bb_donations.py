@@ -2,6 +2,7 @@
 import datetime
 from decimal import Decimal
 from apps.cowry_docdata.models import DocDataPaymentOrder
+from apps.fund.utils import reset_db_sequences
 from bluebottle.payments_docdata.models import DocdataPayment
 from bluebottle.utils.utils import StatusDefinition
 from django.contrib.contenttypes.models import ContentType
@@ -68,6 +69,7 @@ def map_payment_method(payment_method):
         'omnipay-ems-maestro-1procentclub_nl': 'docdataCreditcard',
         'SOFORT_UEBERWEISUNG-SofortUeberweisung-1procentclub_nl': 'docdataBanktransfer',
         'banksys-mrcash-1procentclub_nl': 'docdataBanktransfer',
+        'SYSTEM': 'docdataBanktransfer',
 
         # Sometimes there's no payment method
         '': ''
@@ -232,6 +234,10 @@ class Migration(DataMigration):
                                             transaction.save()                   
                         except Exception as e:
                             print e
+
+        # Manually reset the sequences for the models that got migrated IDs.
+        reset_db_sequences(['orders_order', 'donations_donation'])
+
 
     def backwards(self, orm):
         "Write your backwards methods here."
