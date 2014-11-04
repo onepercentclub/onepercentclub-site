@@ -350,7 +350,7 @@ def prepare_django():
 
         run_web('./manage.py syncdb --noinput --settings=%s' % env.django_settings)
         #Pretend the bb_payouts migrations has run so the 0005 data migration in 'fund' can manually rename the table
-        run_web('./manage.py migrate bb_payouts --fake --ignore-ghost-migrations --settings=%s' % env.django_settings)
+        run_web('./manage.py migrate bb_payouts 0001 --fake --ignore-ghost-migrations --settings=%s' % env.django_settings)
         run_web('./manage.py migrate --ignore-ghost-migrations --settings=%s' % env.django_settings)
         run_web('./manage.py collectstatic -l -v 0 --noinput --settings=%s' % env.django_settings)
 
