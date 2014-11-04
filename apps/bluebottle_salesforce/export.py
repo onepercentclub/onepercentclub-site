@@ -242,12 +242,12 @@ def generate_users_csv_file(path, loglevel):
                         has_activated = True
 
                 try:
-                    recurring_payment = MonthlyDonor.objects.get(user=user)
-                    bank_account_city = recurring_payment.city
-                    bank_account_holder = recurring_payment.name
-                    bank_account_number = recurring_payment.account
-                    bank_account_iban = recurring_payment.iban
-                    bank_account_active = recurring_payment.active
+                    monthly_donor = MonthlyDonor.objects.get(user=user)
+                    bank_account_city = monthly_donor.city
+                    bank_account_holder = monthly_donor.name
+                    bank_account_number = monthly_donor.account
+                    bank_account_iban = monthly_donor.iban
+                    bank_account_active = monthly_donor.active
                 except MonthlyDonor.DoesNotExist:
                     bank_account_city = ''
                     bank_account_holder = ''
