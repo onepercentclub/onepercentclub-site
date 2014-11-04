@@ -228,7 +228,7 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
             monthly_donor = MonthlyDonor.objects.get(user=user)
             contact.bank_account_city = monthly_donor.city
             contact.bank_account_holder = monthly_donor.name
-            contact.bank_account_number = monthly_donor.account
+            contact.bank_account_number = ''
             contact.bank_account_iban = monthly_donor.iban
             contact.bank_account_active_recurring_debit = monthly_donor.active
         except MonthlyDonor.DoesNotExist:

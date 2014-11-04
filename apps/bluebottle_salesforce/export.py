@@ -245,7 +245,7 @@ def generate_users_csv_file(path, loglevel):
                     monthly_donor = MonthlyDonor.objects.get(user=user)
                     bank_account_city = monthly_donor.city
                     bank_account_holder = monthly_donor.name
-                    bank_account_number = monthly_donor.account
+                    bank_account_number = ''
                     bank_account_iban = monthly_donor.iban
                     bank_account_active = monthly_donor.active
                 except MonthlyDonor.DoesNotExist:
