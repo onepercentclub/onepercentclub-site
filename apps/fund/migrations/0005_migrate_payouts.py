@@ -16,6 +16,7 @@ class Migration(DataMigration):
         # Rename table names to new scheme
         db.rename_table('payouts_payout', 'payouts_projectpayout')
         db.delete_table('bb_payouts_projectpayoutlog')
+        db.delete_table('bb_payouts_organizationpayoutlog')
         db.rename_table('payouts_payoutlog', 'bb_payouts_projectpayoutlog')
         db.rename_table('payouts_organizationpayoutlog', 'bb_payouts_organizationpayoutlog')
         db.rename_column('bb_payouts_projectpayoutlog', 'date', 'created')
