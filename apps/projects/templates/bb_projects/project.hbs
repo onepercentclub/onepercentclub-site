@@ -58,12 +58,21 @@
             {{/if}}
 
             <div class="project-fund">
+                {{#if isCheetahFunded }}
+                    <p class="project-fund-amount">
+                        <strong class="amount-donated">&euro;{{localize cheetahAmount }}</strong>
+                        {% trans "of" %}
+                        <strong class="amount-asked">&euro;{{localize amount_asked}}</strong>
+                        {% trans "will be Cheetah funded" %}
+                    </p>
+                {{else}}
                 <p class="project-fund-amount">
                     <strong class="amount-donated">&euro;{{localize amount_donated}}</strong>
                     {% trans "of" %}
                     <strong class="amount-asked">&euro;{{localize amount_asked}}</strong>
                     {% trans "raised" %}
                 </p>
+                {{/if}}
                 {{#if isCheetahProject}}
                     <div class="cheetah-project-progress">
 
@@ -93,9 +102,15 @@
                             {{/ifExpired}}
                         {{else}}
                             {{#if isStatusCompleted}}
-                                <div class="cheetah-fully-funded">
-                                    {{bb-progressbar targetValue=amount_asked currentValue=amount_donated class="campaign-fund-amount-slider "}}
-                                </div>
+                                {{#if isCheetahFunded}}
+                                    <div class="cheetah-fully-funded">
+                                        {{bb-progressbar targetValue=amount_asked currentValue=amount_asked class="campaign-fund-amount-slider"}}
+                                     </div>   
+                                {{else}}
+                                    <div class="cheetah-fully-funded">
+                                        {{bb-progressbar targetValue=amount_asked currentValue=amount_donated class="campaign-fund-amount-slider "}}
+                                    </div>
+                                {{/if}}   
                             {{else}}
                                 <div class="cheetah-funded">
                                     <div class="cheetah-funded-text">
