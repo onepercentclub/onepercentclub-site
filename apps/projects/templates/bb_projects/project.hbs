@@ -58,20 +58,22 @@
             {{/if}}
 
             <div class="project-fund">
-                {{#if isCheetahFunded }}
+                {{#if isCheetahProject}}
+                    {{#if isCheetahFunded }}
+                        <p class="project-fund-amount">
+                            <strong class="amount-donated">&euro;{{localize cheetahAmount }}</strong>
+                            {% trans "of" %}
+                            <strong class="amount-asked">&euro;{{localize amount_asked}}</strong>
+                            {% trans "will be Cheetah funded" %}
+                        </p>
+                    {{/if}}
+                {{else}}
                     <p class="project-fund-amount">
-                        <strong class="amount-donated">&euro;{{localize cheetahAmount }}</strong>
+                        <strong class="amount-donated">&euro;{{localize amount_donated}}</strong>
                         {% trans "of" %}
                         <strong class="amount-asked">&euro;{{localize amount_asked}}</strong>
-                        {% trans "will be Cheetah funded" %}
+                        {% trans "raised" %}
                     </p>
-                {{else}}
-                <p class="project-fund-amount">
-                    <strong class="amount-donated">&euro;{{localize amount_donated}}</strong>
-                    {% trans "of" %}
-                    <strong class="amount-asked">&euro;{{localize amount_asked}}</strong>
-                    {% trans "raised" %}
-                </p>
                 {{/if}}
                 {{#if isCheetahProject}}
                     <div class="cheetah-project-progress">
