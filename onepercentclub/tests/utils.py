@@ -9,6 +9,7 @@ from bluebottle.test.utils import SeleniumTestCase
 from bluebottle.utils.models import Language
 from django.test import TestCase
 from bluebottle.test.factory_models.utils import LanguageFactory
+import time
 
 
 class InitProjectDataMixin(object):
@@ -64,10 +65,12 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
         :return: ``True`` if login was successful.
         """
         self.init_projects()
-        self.visit_homepage()
 
         if self.browser.is_text_present('My 1%'):
             self.logout()
+            self.wait_for_element_css('.nav-signup-login a')
+
+        self.visit_homepage()
 
         # Find the link to the signup button page and click it.
         self.scroll_to_and_click_by_css('.nav-signup-login a')
@@ -103,7 +106,11 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
         :param lang_code: A two letter language code as used in the URL.
         :return: ``True`` if the homepage could be visited.
         """
-        self.visit_path('', lang_code)
+        # If we're already on homepage, then reload it
+        if self.browser.url[-3:] == '#!/' or '#!' not in self.browser.url:
+            self.browser.reload()
+        else:
+            self.visit_path('/', lang_code)
 
         # Check if the homepage opened, and the dynamically loaded content appeared.
         return self.wait_for_element_css('#home')
