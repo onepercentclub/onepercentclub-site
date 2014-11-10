@@ -22,7 +22,7 @@ class Migration(DataMigration):
 
         count = 0
         total = orm['cowry_docdata.DocDataPaymentLogEntry'].objects.count()
-        for i, log_entry_model in enumerate(orm['cowry_docdata.DocDataPaymentLogEntry'].objects.all()[0:1000]):
+        for i, log_entry_model in enumerate(orm['cowry_docdata.DocDataPaymentLogEntry'].objects.all()):
             if not i % 50:
                 print "Processing DocdataPaymentLogEntry {0} of {1}".format(i, total)
 
