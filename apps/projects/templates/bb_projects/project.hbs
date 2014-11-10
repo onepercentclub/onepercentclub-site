@@ -66,6 +66,13 @@
                             <strong class="amount-asked">&euro;{{localize amount_asked}}</strong>
                             {% trans "will be Cheetah funded" %}
                         </p>
+                    {{else}}
+                        <p class="project-fund-amount">
+                            <strong class="amount-donated">&euro;{{localize amount_donated}}</strong>
+                            {% trans "of" %}
+                            <strong class="amount-asked">&euro;{{localize amount_asked}}</strong>
+                            {% trans "raised" %}
+                        </p>
                     {{/if}}
                 {{else}}
                     <p class="project-fund-amount">
