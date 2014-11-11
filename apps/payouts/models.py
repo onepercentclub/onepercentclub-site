@@ -387,7 +387,7 @@ class Payout(PayoutBase):
 
         batch_id = timezone.datetime.strftime(timezone.now(), '%Y%m%d%H%I%S')
 
-        sepa = SepaDocument(type='CT')
+        sepa = SepaDocument(sepa_type='CT')
 
         sepa.set_initiating_party(
             name=settings.BANK_ACCOUNT_DONATIONS['name']
@@ -399,8 +399,7 @@ class Payout(PayoutBase):
         )
 
         sepa.set_debtor(debtor)
-        sepa.set_info(
-            message_identification=batch_id, payment_info_id=batch_id)
+        sepa.set_info(message_identification=batch_id, payment_info_id=batch_id)
         sepa.set_initiating_party(name=settings.BANK_ACCOUNT_DONATIONS['name'])
 
         now = timezone.now()
@@ -681,7 +680,7 @@ class OrganizationPayout(PayoutBase):
 
         batch_id = timezone.datetime.strftime(timezone.now(), '%Y%m%d%H%I%S')
 
-        sepa = SepaDocument(type='CT')
+        sepa = SepaDocument(sepa_type='CT')
 
         sepa.set_initiating_party(
             name=settings.BANK_ACCOUNT_DONATIONS['name']
