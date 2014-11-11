@@ -9,7 +9,8 @@ from registration.models import RegistrationProfile
 from django.utils import timezone
 from django.conf import settings
 from apps.cowry_docdata.models import payment_method_mapping
-from apps.fund.models import Donation, DonationStatuses, RecurringDirectDebitPayment
+from apps.fund.models import Donation, DonationStatuses
+from apps.recurring_donations.models import MonthlyDonor
 from apps.vouchers.models import Voucher, VoucherStatuses
 from apps.organizations.models import Organization, OrganizationMember
 from apps.fundraisers.models import FundRaiser
@@ -241,13 +242,13 @@ def generate_users_csv_file(path, loglevel):
                         has_activated = True
 
                 try:
-                    recurring_payment = RecurringDirectDebitPayment.objects.get(user=user)
-                    bank_account_city = recurring_payment.city
-                    bank_account_holder = recurring_payment.name
-                    bank_account_number = recurring_payment.account
-                    bank_account_iban = recurring_payment.iban
-                    bank_account_active = recurring_payment.active
-                except RecurringDirectDebitPayment.DoesNotExist:
+                    monthly_donor = MonthlyDonor.objects.get(user=user)
+                    bank_account_city = monthly_donor.city
+                    bank_account_holder = monthly_donor.name
+                    bank_account_number = ''
+                    bank_account_iban = monthly_donor.iban
+                    bank_account_active = monthly_donor.active
+                except MonthlyDonor.DoesNotExist:
                     bank_account_city = ''
                     bank_account_holder = ''
                     bank_account_number = ''

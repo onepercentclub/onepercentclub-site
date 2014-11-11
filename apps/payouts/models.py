@@ -293,6 +293,10 @@ class Payout(PayoutBase):
                 # Fully funded
                 # If it's a Cheetah campaign then set 0 percent rule.
                 if self.project.partner_organization == PartnerOrganization.objects.get(slug='cheetah'):
+                    if self.project.amount_donated < settings.MINIMAL_PAYOUT_AMOUNT:
+                        return PayoutRules.hundred
+                    if self.project.amount_donated < self.project.amount_asked * 0.3:
+                        return PayoutRules.twelve 
                     return PayoutRules.zero
                 # Default payout rule is 7 percent.
                 return PayoutRules.seven
