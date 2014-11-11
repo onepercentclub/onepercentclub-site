@@ -152,7 +152,6 @@ class Migration(DataMigration):
                         id=old_donation.id,
                         amount=Decimal(old_donation.amount) / 100,
                         order=order,
-                        donation_type=old_donation.donation_type,
                         project=old_donation.project,
                         fundraiser = old_donation.fundraiser,
                         created=old_donation.created,
