@@ -278,3 +278,6 @@ App.Router.reopen({
         if (gc) App.trackConversion(gc);
     },
 });
+
+// Order login controller needs the jwt mixin
+App.OrderLoginController.reopen(App.AuthJwtMixin, {});
