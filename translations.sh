@@ -105,7 +105,16 @@ case "$1" in
             rm locale/en/LC_MESSAGES/django.po
             $MANAGE_PY makemessages -l $SOURCE_LANGUAGE $INCLUDES --no-wrap -e hbs,html,txt $SETTINGS
 
-
+            echo "Generating translations for various payment, donation and payment related Bluebottle apps that are not extended in this project"
+            cd $"APPS_ROOT/utils"
+            INCLUDES=" --include=$BB_ROOT/payments --include=$BB_ROOT/payments_docdata --include=$BB_ROOT/bb_payouts --include=$BB_ROOT/bb_donations --include=$BB_ROOT/bb_orders --include=$BB_ROOT/bb_fundraisers"
+            if [! -d "locale" ]; then
+                mkdir "locale"
+            fi
+            # Remove the old translations
+            rm locale/en/LC_MESSAGES/django.po
+            $MANAGE_PY makemessages -l $SOURCE_LANGUAGE $INCLUDES --no-wrap -e hbs,html,txt $SETTINGS
+ 
             echo "Generating PO-files for donations and payments"
             cd "$APPS_ROOT/donations"
             # Remove the old translations
