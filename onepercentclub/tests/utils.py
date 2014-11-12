@@ -83,13 +83,7 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
         return self.browser.is_text_present('My 1%', wait_time=wait_time)
 
     def logout(self):
-        # Click user profile to open menu - mouse_over() only works for chrome
-        self.browser.find_by_css('.nav-member-dropdown').click()
-        
-        # Click the logout item
-        logout = '.nav-member-logout a'
-        self.wait_for_element_css(logout)
-        return self.browser.find_by_css(logout).click()
+        return self.visit_path("/logout")
 
     def tearDown(self):
         # Navigate to homepage before tearing the browser down.
