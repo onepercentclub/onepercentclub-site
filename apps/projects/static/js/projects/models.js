@@ -55,7 +55,16 @@ App.Project.reopen({
         this.set('amount_needed', this.get('calculatedAmountNeeded'));
         
         this._super();
-    }
+    },
+
+    isCheetahFunded: function(){
+        // The project is funded for more than 30% but is not funded for the full 100%
+        return (this.get('amount_donated') >= 0.3 * this.get('amount_asked') && !(this.get('amount_donated') >= this.get('amount_asked') ));
+    }.property('amount_asked', 'amount_donated'),
+
+    cheetahAmount: function() {
+        return .7 * this.get('amount_asked')
+    }.property('amount_asked')
 });
 
 App.MyProjectBudgetLine = DS.Model.extend({

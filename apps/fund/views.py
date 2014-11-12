@@ -9,7 +9,7 @@ from apps.cowry_docdata.models import DocDataPaymentOrder
 from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer
 from apps.fund.serializers import DonationInfoSerializer, NestedDonationSerializer, RecurringOrderSerializer, RecurringDonationSerializer, \
     ProjectDonationSerializer
-from apps.fundraisers.models import FundRaiser
+from bluebottle.fundraisers.models import FundRaiser
 from apps.projects.serializers import ProjectSupporterSerializer
 from django.contrib.auth.models import AnonymousUser
 from django.db import transaction

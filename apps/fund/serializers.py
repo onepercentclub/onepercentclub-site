@@ -1,5 +1,5 @@
 # coding=utf-8
-from apps.fundraisers.serializers import FundRaiserPreviewSerializer
+from bluebottle.fundraisers.serializers import FundRaiserPreviewSerializer
 from apps.projects.serializers import ProjectPreviewSerializer
 from apps.vouchers.serializers import VoucherSerializer, OrderCurrentVoucherSerializer
 from bluebottle.bb_accounts.serializers import UserPreviewSerializer

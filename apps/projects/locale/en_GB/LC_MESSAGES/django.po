@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# aethemba <aksel@onepercentclub.com>, 2014
 # JhonM <jhon@onepercentclub.com>, 2014
 # JhonM <jhon@onepercentclub.com>, 2014
 # Liane <liane@onepercentclub.com>, 2014
@@ -17,7 +18,7 @@ msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-14 17:08+0200\n"
-"PO-Revision-Date: 2014-10-07 14:56+0000\n"
+"PO-Revision-Date: 2014-11-05 15:08+0000\n"
 "Last-Translator: aethemba <aksel@onepercentclub.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
@@ -1571,7 +1572,7 @@ msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/updates.hbs.py:10
 msgid "Crowdsourcing"
-msgstr "Bank"
+msgstr "Crowdsourcing"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/manage/updates.hbs.py:13
 msgid "Do you need someone to help writing your business plan?"

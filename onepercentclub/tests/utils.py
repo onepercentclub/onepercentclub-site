@@ -68,6 +68,7 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
 
         if self.browser.is_text_present('My 1%'):
             self.logout()
+            self.wait_for_element_css('.nav-signup-login a')
 
         # Find the link to the signup button page and click it.
         self.scroll_to_and_click_by_css('.nav-signup-login a')

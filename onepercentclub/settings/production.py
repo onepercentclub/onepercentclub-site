@@ -15,7 +15,9 @@ COWRY_LIVE_PAYMENTS = True
 
 # Send email for real
 EMAIL_BACKEND = 'bluebottle.utils.email_backend.DKIMBackend'
-
+  
 SESSION_COOKIE_DOMAIN = '.onepercentclub.com'
 
 ANALYTICS_CODE = 'UA-2761714-4'
+
+PRODUCTION = True
