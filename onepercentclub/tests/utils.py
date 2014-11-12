@@ -93,12 +93,15 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
     def visit_homepage(self, lang_code=None):
         """
         Convenience function to open the homepage.
-
-        :param lang_code: A two letter language code as used in the URL.
-        :return: ``True`` if the homepage could be visited.
         """
-        self.
-        self.visit_path('', lang_code)
+        # Reload if we're not on the homepage yet
+        if self.browser.driver.current_url[-4:] != '/#!/':
+            self.visit_path('/')
+        else:
+            # Close modal, if any
+            list = self.browser.find_by_css('.modal-fullscreen-close')
+            if list:
+                list.first.click()
 
         # Check if the homepage opened, and the dynamically loaded content appeared.
         return self.wait_for_element_css('#home')
