@@ -349,9 +349,7 @@ def prepare_django():
 
 
         run_web('./manage.py syncdb --noinput --settings=%s' % env.django_settings)
-        #Pretend the bb_payouts migrations has run so the 0005 data migration in 'fund' can manually rename the table
-        run_web('./manage.py migrate bb_payouts 0001 --fake --ignore-ghost-migrations --settings=%s' % env.django_settings)
-        run_web('./manage.py migrate --ignore-ghost-migrations --settings=%s' % env.django_settings)
+        run_web('./manage.py migrate --delete-ghost-migrations --settings=%s' % env.django_settings)
         run_web('./manage.py collectstatic -l -v 0 --noinput --settings=%s' % env.django_settings)
 
         # Disabled for now; it unjustly deletes cached thumbnails
@@ -549,6 +547,8 @@ def deploy_production(revspec=None):
 @task
 def get_db():
     backup_dir = "/home/backups/onepercentclub-backups/onepercentsite/"
+
+
     with cd(backup_dir):
         output = run("ls -1t *.bz2 | head -1")
         try:
@@ -558,11 +558,24 @@ def get_db():
 
         if filename:
             get(remote_path="{0}/{1}".format(backup_dir, filename), local_path="./dump.sql.bz2")
-            unpack_db()
+            confirmed = confirm('Are you sure you want to replace the current database?', default=False)
+            if confirmed:
+                replace_db("./dump.sql.bz2")
+
+
+def replace_db(filename="./dump.sql.bz2", db_name="onepercentsite"):
+    local("dropdb {0}".format(db_name))
+    local("createdb {0}".format(db_name))
+    local("bunzip2 {0} -c | psql {1}".format(filename, db_name))
+
+
+def run_migrations():
+    run_web('./manage.py migrate --delete-ghost-migrations --settings=%s' % env.django_settings)
+
 
 def unpack_db(filename="dump.sql.bz2"):
     try:
-        local("gunzip {0}".format(filename))
+        local("bunzip2 {0}".format(filename))
     except IndexError:
         print "No database file found"
 
