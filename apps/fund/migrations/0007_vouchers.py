@@ -60,14 +60,14 @@ class Migration(DataMigration):
                 order.save()
 
                 # Create a new Donation
-                donation = orm['donations.Donation'].objects.create(
+                donation, created = orm['donations.Donation'].objects.get_or_create(
                     id=old_donation.id,
-                    created=old_donation.created,
-                    updated=old_donation.ready,
-                    amount=amount,
                     project=old_donation.project,
-                    order=order
                 )
+                donation.amount = amount
+                donation.created = old_donation.created
+                donation.updated = old_donation.ready
+                donation.order = order
                 donation.save()
 
                 # Create an order payment
