@@ -11,7 +11,7 @@ from apps.organizations.models import Organization, OrganizationMember
 from apps.tasks.models import Task, TaskMember
 from apps.fund.models import Donation, DonationStatuses
 from apps.vouchers.models import Voucher, VoucherStatuses
-from apps.fundraisers.models import FundRaiser
+from bluebottle.fundraisers.models import FundRaiser
 
 from apps.bluebottle_salesforce.models import SalesforceOrganization, SalesforceContact, SalesforceProject, \
     SalesforceDonation, SalesforceProjectBudget, SalesforceTask, SalesforceTaskMembers, SalesforceVoucher, \

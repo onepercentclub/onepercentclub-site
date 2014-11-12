@@ -38,6 +38,8 @@ class PayoutTestCase(BluebottleTestCase):
         )
         self.donation.save()
 
+        self.cheetah_partner = PartnerFactory.create(slug='cheetah')
+
     def _reload_project(self):
         # Stale project instances aren't updated, so we have to reload it from the db again.
         self.project = PROJECT_MODEL.objects.get(pk=self.project.id)
@@ -247,7 +249,6 @@ class PayoutTestCase(BluebottleTestCase):
         self.assertEquals(payout.amount_safe, Decimal('60.00'))
         self.assertEquals(payout.amount_failed, Decimal('0.00'))
 
-
     def test_amounts_paid_cheetah(self):
         """ Test amounts for paid donations. """
 
@@ -258,15 +259,13 @@ class PayoutTestCase(BluebottleTestCase):
         organization.account_bic = 'ABNANL2A'
         organization.save()
 
-        cheetah_partner = PartnerFactory.create(slug='cheetah')
-
         # Set status of donation to paid
         self.donation.order.locked()
         self.donation.order.succeeded()
 
         # Update phase to act.
         self._reload_project()
-        self.project.partner_organization = cheetah_partner
+        self.project.partner_organization = self.cheetah_partner
         self.project.status = ProjectPhase.objects.get(slug='realised')
 
         self.project.status = ProjectPhase.objects.get(slug='realised')

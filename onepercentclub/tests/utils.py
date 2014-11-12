@@ -68,6 +68,8 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
 
         if self.browser.is_text_present('My 1%'):
             self.logout()
+            self.wait_for_element_css('.nav-signup-login a')
+
 
         # Find the link to the signup button page and click it.
         self.scroll_to_and_click_by_css('.nav-signup-login a')
@@ -83,13 +85,7 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
         return self.browser.is_text_present('My 1%', wait_time=wait_time)
 
     def logout(self):
-        # Click user profile to open menu - mouse_over() only works for chrome
-        self.browser.find_by_css('.nav-member-dropdown').click()
-        
-        # Click the logout item
-        logout = '.nav-member-logout a'
-        self.wait_for_element_css(logout)
-        return self.browser.find_by_css(logout).click()
+        return self.visit_path('/logout')
 
     def tearDown(self):
         # Navigate to homepage before tearing the browser down.
@@ -108,6 +104,7 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
         # Check if the homepage opened, and the dynamically loaded content appeared.
         return self.wait_for_element_css('#home')
 
+
     def visit_path(self, path, lang_code=None):
         if lang_code is None:
             lang_code = 'en'
@@ -121,10 +118,9 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
         }
 
         self.browser.driver.get(url)
-        
-        # TODO: maybe we can do an element check here - method caller would 
-        #       pass a css element to check before returning a success.
+
         return True
+
 
     def scroll_to_by_css(self, selector):
         """

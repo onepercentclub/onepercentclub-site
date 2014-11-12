@@ -77,7 +77,7 @@ class ProjectPayout(BaseProjectPayout):
                 if self.project.partner_organization == PartnerOrganization.objects.get(slug='cheetah'):
                     if self.project.amount_donated < settings.MINIMAL_PAYOUT_AMOUNT:
                         return self.PayoutRules.hundred
-                    if self.project.amount_donated < self.project.amount_asked * 0.3:
+                    if self.project.amount_donated < self.project.amount_asked * Decimal(0.3):
                         return self.PayoutRules.twelve 
                     return self.PayoutRules.zero
                 # Default payout rule is 7 percent.
