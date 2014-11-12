@@ -280,6 +280,7 @@ INSTALLED_APPS = (
     'bluebottle.payments',
     'bluebottle.payments_docdata',
     'bluebottle.payments_logger',
+    'bluebottle.payments_voucher',
     'bluebottle.redirects',
 
     # Apps extending Bluebottle base models

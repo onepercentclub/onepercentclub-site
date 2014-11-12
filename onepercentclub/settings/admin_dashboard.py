@@ -38,7 +38,7 @@ FLUENT_DASHBOARD_APP_GROUPS = (
         'models': (
             'bluebottle.donations.*',
             'bluebottle.orders.*',
-            'apps.vouchers.*',
+            'bluebottle.payments_voucher.models.Voucher',
         ),
         'module': 'fluent_dashboard.modules.AppIconList',
         'collapsible': False,

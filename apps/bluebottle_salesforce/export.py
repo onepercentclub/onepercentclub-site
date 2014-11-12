@@ -1,22 +1,20 @@
 import csv
 import logging
 from apps.projects.models import ProjectBudgetLine
-from bluebottle.utils.model_dispatcher import get_project_model
-from django.contrib.auth import get_user_model
-
 import os
 from registration.models import RegistrationProfile
 from django.utils import timezone
 from django.conf import settings
 from apps.cowry_docdata.models import payment_method_mapping
-from apps.fund.models import Donation, DonationStatuses, RecurringDirectDebitPayment
+from apps.fund.models import Donation, DonationStatuses
+from apps.recurring_donations.models import MonthlyDonor
 from apps.vouchers.models import Voucher, VoucherStatuses
 from apps.organizations.models import Organization, OrganizationMember
 from apps.fundraisers.models import FundRaiser
 from apps.tasks.models import Task, TaskMember
+from apps.projects.models import Project
+from apps.members.models import Member
 
-USER_MODEL = get_user_model()
-PROJECT_MODEL = get_project_model()
 logger = logging.getLogger('bluebottle.salesforce')
 
 
@@ -174,7 +172,7 @@ def generate_users_csv_file(path, loglevel):
                             "Account_Active_Recurring_Debit__c",
                             "Phone"])
 
-        users = USER_MODEL.objects.all()
+        users = Member.objects.all()
 
         logger.info("Exporting {0} User objects to {1}".format(users.count(), filename))
 
@@ -203,9 +201,9 @@ def generate_users_csv_file(path, loglevel):
 
                 gender = ""
                 if user.gender == "male":
-                    gender = USER_MODEL.Gender.values['male'].title()
+                    gender = Member.Gender.values['male'].title()
                 elif user.gender == "female":
-                    gender = USER_MODEL.Gender.values['female'].title()
+                    gender = Member.Gender.values['female'].title()
 
                 date_deleted = ""
                 if user.deleted:
@@ -241,13 +239,13 @@ def generate_users_csv_file(path, loglevel):
                         has_activated = True
 
                 try:
-                    recurring_payment = RecurringDirectDebitPayment.objects.get(user=user)
-                    bank_account_city = recurring_payment.city
-                    bank_account_holder = recurring_payment.name
-                    bank_account_number = recurring_payment.account
-                    bank_account_iban = recurring_payment.iban
-                    bank_account_active = recurring_payment.active
-                except RecurringDirectDebitPayment.DoesNotExist:
+                    monthly_donor = MonthlyDonor.objects.get(user=user)
+                    bank_account_city = monthly_donor.city
+                    bank_account_holder = monthly_donor.name
+                    bank_account_number = ''
+                    bank_account_iban = monthly_donor.iban
+                    bank_account_active = monthly_donor.active
+                except MonthlyDonor.DoesNotExist:
                     bank_account_city = ''
                     bank_account_holder = ''
                     bank_account_number = ''
@@ -257,7 +255,7 @@ def generate_users_csv_file(path, loglevel):
                 availability = user.available_time
 
                 csvwriter.writerow([user.id,
-                                    USER_MODEL.UserType.values[user.user_type].title(),
+                                    Member.UserType.values[user.user_type].title(),
                                     user.first_name.encode("utf-8"),
                                     last_name.encode("utf-8"),
                                     gender,
@@ -342,7 +340,7 @@ def generate_projects_csv_file(path, loglevel):
                             "Supporter_count__c",
                             "Supporter_oo_count__c"])
 
-        projects = PROJECT_MODEL.objects.all()
+        projects = Project.objects.all()
         logger.info("Exporting {0} Project objects to {1}".format(projects.count(), filename))
 
         for project in projects:
