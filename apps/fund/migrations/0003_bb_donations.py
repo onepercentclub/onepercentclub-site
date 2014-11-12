@@ -110,7 +110,7 @@ class Migration(DataMigration):
     depends_on = (
         ('donations', '0001_initial'),
         ('orders', '0002_auto__del_field_order_closed__add_field_order_confirmed__add_field_ord'),
-        ('payments_docdata', '0002_auto__add_field_docdatapayment_customer_id__add_field_docdatapayment_e')
+        ('payments_docdata', '0004_auto__add_field_docdatapayment_ip_address')
     )
 
     def forwards(self, orm):
@@ -202,7 +202,8 @@ class Migration(DataMigration):
                                 last_name=old_payment.last_name,
                                 address=old_payment.address,
                                 postal_code=old_payment.postal_code,
-                                city=old_payment.city
+                                city=old_payment.city,
+                                ip_address=''
                             )
 
                             payment.save()
@@ -350,7 +351,6 @@ class Migration(DataMigration):
             'anonymous': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'completed': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'donation_type': ('django.db.models.fields.CharField', [], {'default': "'one-off'", 'max_length': '30', 'null': 'True', 'blank': 'True'}),
             'fundraiser': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['fundraisers.FundRaiser']", 'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'order': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'donations'", 'null': 'True', 'to': u"orm['orders.Order']"}),
@@ -582,6 +582,7 @@ class Migration(DataMigration):
             'email': ('django.db.models.fields.EmailField', [], {'default': "''", 'max_length': '254'}),
             'first_name': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '200'}),
             'ideal_issuer_id': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100'}),
+            'ip_address': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '200'}),
             'language': ('django.db.models.fields.CharField', [], {'default': "'en'", 'max_length': '5', 'blank': 'True'}),
             'last_name': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '200'}),
             'merchant_order_id': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100'}),
