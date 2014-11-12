@@ -63,7 +63,6 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
         :param password: The user's password
         :return: ``True`` if login was successful.
         """
-        self.init_projects()
         self.visit_homepage()
 
         if self.browser.is_text_present('My 1%'):
@@ -98,6 +97,7 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
         :param lang_code: A two letter language code as used in the URL.
         :return: ``True`` if the homepage could be visited.
         """
+        self.
         self.visit_path('', lang_code)
 
         # Check if the homepage opened, and the dynamically loaded content appeared.
