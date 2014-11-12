@@ -27,7 +27,6 @@ urlpatterns += patterns('',
 
     url(r'^api/bb_projects/', include('apps.projects.urls.api')),
 
-    url(r'^api/fund/', include('apps.fund.urls.api')),
     url(r'^api/mpesa/', include('apps.mchanga.urls.api')),
     url(r'^api/monthly_donations/', include('apps.recurring_donations.urls.api')),
 
