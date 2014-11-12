@@ -29,7 +29,7 @@ COMPILEJSMESSAGES="$MANAGE_PY compilejsi18n $SETTINGS"
 APPS_DIR="apps"
 
 # All apps that hold translations. This is used by `pull` and `compile`.
-APPS="projects members fundraisers organizations tasks homepage donations widget"
+APPS="projects members fundraisers organizations tasks homepage donations widget core"
 
 case "$1" in
         generate)
@@ -105,7 +105,16 @@ case "$1" in
             rm locale/en/LC_MESSAGES/django.po
             $MANAGE_PY makemessages -l $SOURCE_LANGUAGE $INCLUDES --no-wrap -e hbs,html,txt $SETTINGS
 
-
+            echo "Generating translations for various payment, donation and payment related Bluebottle apps that are not extended in this project"
+            cd "$APPS_ROOT/core"
+            INCLUDES=" --include=$BB_ROOT/payments --include=$BB_ROOT/payments_docdata --include=$BB_ROOT/bb_payouts --include=$BB_ROOT/bb_donations --include=$BB_ROOT/bb_orders --include=$BB_ROOT/bb_fundraisers"
+            if [ ! -d "locale" ]; then
+                mkdir "locale"
+            fi
+            # Remove the old translations
+            rm locale/en/LC_MESSAGES/django.po
+            $MANAGE_PY makemessages -l $SOURCE_LANGUAGE $INCLUDES --no-wrap -e hbs,html,txt $SETTINGS
+ 
             echo "Generating PO-files for donations and payments"
             cd "$APPS_ROOT/donations"
             # Remove the old translations
