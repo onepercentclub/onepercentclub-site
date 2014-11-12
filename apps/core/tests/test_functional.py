@@ -105,3 +105,125 @@ class PositiveDonationFlow(OnePercentSeleniumTestCase):
         author = self.browser.find_by_css(".wallpost-author").first.text
         self.assertEqual(author.lower(), self.user.full_name.lower())
 
+
+class LoginDonationFlow(OnePercentSeleniumTestCase):
+
+    def setUp(self):
+        self.init_projects()
+
+        self.projects = dict([(slugify(title), title) for title in [
+           u'Mobile payments for everyone 2!', u'Schools for children 2',  u'Women first 2'
+        ]])
+
+        self.user = BlueBottleUserFactory.create(email='johndoe@example.com', primary_language='en', first_name='John',
+                                                 last_name='Doe')
+        campaign_phase = ProjectPhase.objects.get(name='Campaign')
+
+
+        for slug, title in self.projects.items():
+            project = OnePercentProjectFactory.create(title=title, slug=slug, owner=self.user, amount_asked=1000, status=campaign_phase)
+
+        self.visit_path('/projects/schools-for-children-2')
+
+        # Assert visual donation elements on project page
+        self.assert_css(".amount-donated")
+        self.assert_css(".project-fund-amount-slider")
+
+        self.assert_css(".project-status")
+
+        # Bring up the donation modal
+        self.wait_for_element_css('a.btn-primary')
+        button = self.browser.find_by_css('a.btn-primary')[0]
+        button.click()
+
+        # Verify the elements of the donation modal
+        self.wait_for_element_css('input.donation-input')
+        donation_input = self.browser.find_by_css("input.donation-input").first
+
+        # Make a donation of 10 euros (default is 25)
+        donation_input.value = 10
+        self.assertEqual(int(donation_input.value), 10)
+        self.assert_css(".donation-buttons")
+        self.assert_css("#hideMyName")
+
+        # Jump to next step
+        self.scroll_to_and_click_by_css(".donate-btn")
+
+    def tearDown(self):
+        self.logout()
+
+    def test_signup_donation_flow(self):
+        """
+        Test signup flow for a donation
+        """
+
+        user_data = {
+            'first_name': 'Bob',
+            'last_name': 'Brown',
+            'password': 'testing',
+            'email': 'bob.brown@com.net'
+        }
+
+        # Wait for the signup modal
+        self.assert_css("input[type=email]")
+
+        # There should be two email fields in the signup form
+        self.assertEqual(len(self.browser.find_by_css('input[type=email]')), 2)
+
+        # Signup
+        self.browser.fill('first-name', user_data['first_name'])
+        self.browser.fill('last-name', user_data['last_name'])
+        self.browser.fill('email', user_data['email'])
+        self.browser.fill('email-confirmation', user_data['email'])
+        self.browser.fill('password', user_data['password'])
+
+        self.browser.driver.find_element_by_name('signup').click()
+
+        # Assert the payment modal loads
+        self.assert_css('.btn.payment-btn')
+
+    def test_login_donation_flow(self):
+        """
+        Test login flow for a donation
+        """
+
+        # Wait for the signup modal
+        self.assert_css("input[type=email]")
+
+        # There should be two email fields in the signup form
+        self.assertEqual(len(self.browser.find_by_css('input[type=email]')), 2)
+
+        # Load the login modal
+        self.browser.driver.find_element_by_link_text('Sign in here.').click()
+
+        # Wait for the user login modal to appear
+        self.assert_css('input[name=username]')
+
+        # There should be an username field in the login form
+        self.assertEqual(len(self.browser.find_by_css('input[name=username]')), 1)
+
+        # Login as test user
+        self.browser.fill('username', self.user.email)
+        self.browser.fill('password', 'testing')
+        self.browser.driver.find_element_by_name('login').click()
+
+        # Assert the payment modal loads
+        self.assert_css('.btn.payment-btn')
+
+    def test_guest_donation_flow(self):
+        """
+        Test guest flow for a donation
+        """
+
+        # Wait for the signup modal
+        self.assert_css("input[type=email]")
+
+        # There should be two email fields in the signup form
+        self.assertEqual(len(self.browser.find_by_css('input[type=email]')), 2)
+
+        # Select guest donation
+        self.browser.driver.find_element_by_link_text('donate as guest.').click()
+
+        # Assert the payment modal loads
+        self.assert_css('.btn.payment-btn')
+
