@@ -376,6 +376,7 @@ class Migration(DataMigration):
             'email': ('django.db.models.fields.EmailField', [], {'default': "''", 'max_length': '254'}),
             'first_name': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '200'}),
             'ideal_issuer_id': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100'}),
+            'ip_address': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '200'}),
             'language': ('django.db.models.fields.CharField', [], {'default': "'en'", 'max_length': '5', 'blank': 'True'}),
             'last_name': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '200'}),
             'merchant_order_id': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100'}),

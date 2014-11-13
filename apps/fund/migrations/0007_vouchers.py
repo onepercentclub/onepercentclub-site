@@ -1,251 +1,111 @@
 # -*- coding: utf-8 -*-
 import datetime
 from decimal import Decimal
-from apps.cowry_docdata.models import DocDataPaymentOrder
 from apps.fund.utils import reset_db_sequence
-from bluebottle.payments_docdata.models import DocdataPayment
 from bluebottle.utils.utils import StatusDefinition
-from django.contrib.contenttypes.models import ContentType
-from django.db.models.aggregates import Sum
-from django.db.utils import DatabaseError
 from south.db import db
 from south.v2 import DataMigration
 from django.db import models
 
 
-def map_payment_to_order_status(status):
-
-    return {
-        'new': StatusDefinition.NEW,
-        'in_progress': StatusDefinition.LOCKED,
-        'pending': StatusDefinition.PENDING,
-        'paid': StatusDefinition.SUCCESS,
-        'failed': StatusDefinition.FAILED,
-        'cancelled': StatusDefinition.FAILED,
-        'chargedback': StatusDefinition.FAILED,
-        'refunded': StatusDefinition.FAILED,
-        'unknown': StatusDefinition.FAILED
-    }[status]
-
-
-def map_payment_to_order_payment_status(status):
-    return {
-        'new': StatusDefinition.CREATED,
-        'in_progress': StatusDefinition.IN_PROGRESS,
-        'pending': StatusDefinition.AUTHORIZED,
-        'paid': StatusDefinition.SETTLED,
-        'failed': StatusDefinition.FAILED,
-        'cancelled': StatusDefinition.CANCELLED,
-        'chargedback': StatusDefinition.CHARGED_BACK,
-        'refunded': StatusDefinition.REFUNDED,
-        'unknown': StatusDefinition.UNKNOWN
-    }[status]
-
-
-def map_payment_method(payment_method):
-
-    return {
-        'MASTERCARD': 'docdataCreditcard',
-        'VISA': 'docdataCreditcard',
-        'MAESTRO': 'docdataCreditcard',
-        'AMEX': 'docdataCreditcard',
-        'IDEAL': 'docdataIdeal',
-        'BANK_TRANSFER': 'docdataBanktransfer',
-        'DIRECT_DEBIT': 'docdataDirectdebit',
-        'SEPA_DIRECT_DEBIT': 'docdataDirectdebit',
-
-        'ideal-ing-1procentclub_nl': 'docdataIdeal',
-        'ideal-rabobank-1procentclub_nl': 'docdataIdeal',
-        'directdebitnc2-online-nl': 'docdataDirectdebit',
-        'directdebitnc-online-nl': 'docdataDirectdebit',
-        'omnipay-ems-mc-1procentclub_nl': 'docdataCreditcard',
-        'omnipay-ems-visa-1procentclub_nl': 'docdataCreditcard',
-        'ing-ideal-1procentclub_nl': 'docdataIdeal',
-        'system-banktransfer-nl': 'docdataBanktransfer',
-        'paypal-1procentclub_nl': 'docdataPaypal',
-
-
-        # FIMXE: See if we have to create new methods in the new payments_docdata
-        'omnipay-ems-maestro-1procentclub_nl': 'docdataCreditcard',
-        'SOFORT_UEBERWEISUNG-SofortUeberweisung-1procentclub_nl': 'docdataBanktransfer',
-        'banksys-mrcash-1procentclub_nl': 'docdataBanktransfer',
-        'SYSTEM': 'docdataBanktransfer',
-
-        # Sometimes there's no payment method
-        '': ''
-    }[payment_method]
-
-
-def get_latest_payment_for_order(order):
-    """
-    Get the latest payment (DocDataPaymentOrder) for given Order.
-    """
-    payments = DocDataPaymentOrder.objects.filter(order=order)
-    if payments.count() > 0:
-        return payments.order_by('-created').all()[0]
-    return None
-
-
-def get_latest_docdata_payment(payment):
-    """
-    Get the latest docdata payment (DocDataPayment) for given payment (DocDataPaymentOrder).
-    """
-    if payment.docdata_payments.count() > 0:
-        return payment.docdata_payments.order_by('-created').all()[0]
-    return None
-
-
-def get_total_for_order(order):
-    """
-    Calculate total for order by summing up its donations.
-    """
-    total = order.donations.aggregate(total=Sum('amount'))['total']
-    if total:
-        return Decimal(total) / 100
-    return 0
-
-
 class Migration(DataMigration):
 
     depends_on = (
-        ('donations', '0001_initial'),
-        ('orders', '0002_auto__del_field_order_closed__add_field_order_confirmed__add_field_ord'),
-        ('payments_docdata', '0004_auto__add_field_docdatapayment_ip_address')
+        ('payments_voucher', '0001_initial'),
     )
 
+
     def forwards(self, orm):
-        "Write your forwards methods here."
-        start = 0
-        old_orders = orm['fund.Order'].objects.all()#[start:1000]
 
-        # Apparently we need to explicitly set ctypes for polymorphic models, so get the ids here.
+        total = orm['vouchers.Voucher'].objects.count()
+        t= 1
         content_types = orm['contenttypes.ContentType'].objects
-        docdata_payment_type_id = content_types.get(app_label='payments_docdata', model='docdatapayment').id
-        docdata_transaction_type_id = content_types.get(app_label='payments_docdata', model='docdatatransaction').id
+        voucher_payment_type_id = content_types.get(app_label='payments_voucher', model='voucherpayment').id
 
-        t = 0
-        # Iterate over orders
-        for old_order in old_orders:
+        for old_voucher in orm['vouchers.Voucher'].objects.all():
+            print "Migrating voucher {0}/{1}".format(t, total)
             t += 1
-            if not t % 10:
-                print "migrating order {0} / {1} [{2}]".format(t, len(old_orders), (start + t))
+            amount = Decimal(old_voucher.amount) / 100
+            voucher = orm['payments_voucher.Voucher'].objects.create(
+                code=old_voucher.code,
+                message=old_voucher.message,
+                status=old_voucher.status,
+                created=old_voucher.created,
+                updated=old_voucher.updated,
+                sender_id=old_voucher.sender_id,
+                sender_email=old_voucher.sender_email,
+                sender_name=old_voucher.sender_name,
+                receiver_id=old_voucher.receiver_id,
+                receiver_email=old_voucher.receiver_email,
+                receiver_name=old_voucher.receiver_name,
+                order_id=old_voucher.order_id,
+                amount=amount
+            )
+            voucher.save()
 
-            if old_order.status != 'recurring':
-                order = orm['orders.Order'].objects.create()
-                order.user = old_order.user
-                order.total = get_total_for_order(old_order)
-                order.created = old_order.created
-                order.updated = old_order.updated
-                if old_order.status == 'current':
-                    order.status = StatusDefinition.NEW
-                elif old_order.status == 'closed':
-                    old_payment = get_latest_payment_for_order(old_order)
-                    if old_payment:
-                        order.status = map_payment_to_order_status(old_payment.status)
-                    else:
-                        order.status = StatusDefinition.NEW
+            for old_donation in orm['fund.Donation'].objects.filter(voucher=old_voucher).all():
+                print "Migrating voucher donation...."
+                # For every donation we should create an Order, OrderPayment and VoucherPayment.
+                amount = Decimal(old_donation.amount) / 100
+                # Create an order
+                order = orm['orders.Order'].objects.create(
+                    created=old_donation.created,
+                    confirmed=old_donation.ready,
+                    completed=old_donation.ready,
+                    updated=old_donation.ready,
+                    user=old_donation.user,
+                    total=amount,
+                    status=StatusDefinition.SUCCESS
+                )
                 order.save()
 
-                # Migrate donations belong to this order
-                for old_donation in old_order.donations.all():
-                    donation = orm['donations.Donation'].objects.create(
-                        id=old_donation.id,
-                        amount=Decimal(old_donation.amount) / 100,
-                        order=order,
-                        project=old_donation.project,
-                        fundraiser = old_donation.fundraiser,
-                        created=old_donation.created,
-                        updated=old_donation.updated
-                    )
-                    order.confirmed = old_donation.ready
-                    if order.status == StatusDefinition.SUCCESS:
-                        order.completed = old_donation.ready
-                    donation.save()
-                order.save()
+                # Create a new Donation
+                donation, created = orm['donations.Donation'].objects.get_or_create(
+                    id=old_donation.id,
+                    project=old_donation.project,
+                )
+                donation.amount = amount
+                donation.created = old_donation.created
+                donation.updated = old_donation.ready
+                donation.order = order
+                donation.save()
 
-                # Migrate payments belonging to this order
-                for old_payment in DocDataPaymentOrder.objects.filter(order=old_order):
-                    order_payment = orm['payments.OrderPayment'].objects.create(
-                        order=order,
-                        user=order.user,
-                        amount=Decimal(old_payment.amount) / 100,
-                        created=order.created
-                    )
-                    order_payment.created = old_payment.created
-                    order_payment.updated = old_payment.updated
-                    order_payment.status = map_payment_to_order_payment_status(old_payment.status)
+                # Create an order payment
+                order_payment = orm['payments.OrderPayment'].objects.create(
+                    created=old_donation.created,
+                    updated=old_donation.ready,
+                    order=order,
+                    closed=old_donation.ready,
+                    amount=amount,
+                    transaction_fee=Decimal(0),
+                    payment_method='voucherVoucher',
+                    status=StatusDefinition.SETTLED
+                )
+                order_payment.save()
 
-                    dd_payment = get_latest_docdata_payment(old_payment)
-                    if dd_payment:
-                        order_payment.payment_method = map_payment_method(dd_payment.payment_method)
-                    order_payment.transaction_fee = Decimal(old_payment.fee) / 100
-                    order_payment.save()
-                    if order_payment.amount != order.total and old_payment.status == 'paid':
-                        raise Exception("Order and Payment amount differ! {0} != {1}. Old order id: {2}".format(order.total, order_payment.amount, order.id))
-
-                    if old_payment.payment_order_id:
-                        try:
-                            payment = orm['payments_docdata.DocdataPayment'].objects.create(
-                                order_payment=order_payment,
-                                status=order_payment.status,
-                                created=old_payment.created,
-                                updated=old_payment.updated,
-                                payment_cluster_id=old_payment.merchant_order_reference,
-                                payment_cluster_key=old_payment.payment_order_id,
-                                merchant_order_id=old_payment.merchant_order_reference,
-                                total_gross_amount=old_payment.amount,
-                                default_pm=dd_payment.payment_method,
-                                polymorphic_ctype_id=docdata_payment_type_id,
-                                email=old_payment.email,
-                                first_name=old_payment.first_name,
-                                last_name=old_payment.last_name,
-                                address=old_payment.address,
-                                postal_code=old_payment.postal_code,
-                                city=old_payment.city,
-                                ip_address=''
-                            )
-
-                            payment.save()
-                            for old_transaction in old_payment.docdata_payments.all():
-                                if old_transaction.payment_id:
-                                        existing_transactions = orm['payments_docdata.DocdataTransaction'].objects.filter(docdata_id=old_transaction.payment_id)
-                                        if not existing_transactions:
-                                            transaction = orm['payments_docdata.DocdataTransaction'].objects.create(
-                                                payment=payment,
-                                                docdata_id=old_transaction.payment_id,
-                                                status=old_transaction.status,
-                                                created=old_transaction.created,
-                                                updated=old_transaction.updated,
-                                                payment_method=old_transaction.payment_method
-                                            )
-                                            transaction.polymorphic_ctype_id = docdata_transaction_type_id
-                                            transaction.payment_method = old_transaction.payment_method
-                                            transaction.save()
-                                        else:
-                                            transaction = orm['payments_docdata.DocdataTransaction'].objects.create(
-                                                payment=payment,
-                                                docdata_id='{0}a'.format(old_transaction.payment_id),
-                                                status=old_transaction.status,
-                                                created=old_transaction.created,
-                                                updated=old_transaction.updated,
-                                                payment_method=old_transaction.payment_method
-                                            )
-                                            transaction.polymorphic_ctype_id = docdata_transaction_type_id
-                                            transaction.payment_method = old_transaction.payment_method
-                                            transaction.save()                   
-                        except Exception as e:
-                            print e
+                # Create a voucher payment
+                voucher_payment = orm['payments_voucher.VoucherPayment'].objects.create(
+                    order_payment=order_payment,
+                    voucher=voucher,
+                    created=old_donation.created,
+                    updated=old_donation.ready,
+                    status=StatusDefinition.SETTLED,
+                    polymorphic_ctype_id=voucher_payment_type_id
+                )
+                voucher_payment.save()
 
         # Manually reset the sequences for the donations that got migrated IDs.
         reset_db_sequence('donations_donation')
 
     def backwards(self, orm):
         "Write your backwards methods here."
-        orm['donations.Donation'].objects.all().delete()
-        orm['payments.OrderPayment'].objects.all().delete()
-        orm['orders.Order'].objects.all().delete()
-        orm['payments_docdata.DocdataPayment'].objects.all().delete()
-        orm['payments_docdata.DocdataTransaction'].objects.all().delete()
+        orm['payments_voucher.Voucher'].objects.all().delete()
+
+        for payment in orm['payments_voucher.VoucherPayment'].objects.all():
+            payment.order_payment.order.donations.all().delete()
+            payment.order_payment.order.delete()
+            payment.order_payment.delete()
+            payment.delete()
 
     models = {
         u'auth.group': {
@@ -288,62 +148,6 @@ class Migration(DataMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'cowry.payment': {
-            'Meta': {'object_name': 'Payment'},
-            'amount': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
-            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'currency': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '3'}),
-            'fee': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'order': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'payments'", 'to': u"orm['fund.Order']"}),
-            'payment_method_id': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '20', 'blank': 'True'}),
-            'payment_submethod_id': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '20', 'blank': 'True'}),
-            'polymorphic_ctype': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "u'polymorphic_cowry.payment_set'", 'null': 'True', 'to': u"orm['contenttypes.ContentType']"}),
-            'status': ('django.db.models.fields.CharField', [], {'default': "'new'", 'max_length': '15', 'db_index': 'True'}),
-            'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'})
-        },
-        u'cowry_docdata.docdatapayment': {
-            'Meta': {'ordering': "('-created', '-updated')", 'object_name': 'DocDataPayment'},
-            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'docdata_payment_order': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'docdata_payments'", 'to': u"orm['cowry_docdata.DocDataPaymentOrder']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'payment_id': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100', 'blank': 'True'}),
-            'payment_method': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '60', 'blank': 'True'}),
-            'polymorphic_ctype': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "u'polymorphic_cowry_docdata.docdatapayment_set'", 'null': 'True', 'to': u"orm['contenttypes.ContentType']"}),
-            'status': ('django.db.models.fields.CharField', [], {'default': "'NEW'", 'max_length': '30'}),
-            'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'})
-        },
-        u'cowry_docdata.docdatapaymentlogentry': {
-            'Meta': {'ordering': "('-timestamp',)", 'object_name': 'DocDataPaymentLogEntry'},
-            'docdata_payment_order': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'log_entries'", 'to': u"orm['cowry_docdata.DocDataPaymentOrder']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'level': ('django.db.models.fields.CharField', [], {'max_length': '15'}),
-            'message': ('django.db.models.fields.CharField', [], {'max_length': '400'}),
-            'timestamp': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'})
-        },
-        u'cowry_docdata.docdatapaymentorder': {
-            'Meta': {'ordering': "('-created', '-updated')", 'object_name': 'DocDataPaymentOrder', '_ormbases': [u'cowry.Payment']},
-            'address': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '200'}),
-            'city': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '200'}),
-            'country': ('django_countries.fields.CountryField', [], {'max_length': '2'}),
-            'customer_id': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
-            'email': ('django.db.models.fields.EmailField', [], {'default': "''", 'max_length': '254'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '200'}),
-            'language': ('django.db.models.fields.CharField', [], {'default': "'en'", 'max_length': '2'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '200'}),
-            'merchant_order_reference': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100', 'blank': 'True'}),
-            'payment_order_id': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '200', 'blank': 'True'}),
-            u'payment_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['cowry.Payment']", 'unique': 'True', 'primary_key': 'True'}),
-            'postal_code': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '20'})
-        },
-        u'cowry_docdata.docdatawebdirectdirectdebit': {
-            'Meta': {'ordering': "('-created', '-updated')", 'object_name': 'DocDataWebDirectDirectDebit', '_ormbases': [u'cowry_docdata.DocDataPayment']},
-            'account_city': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
-            'account_name': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
-            'bic': ('django_iban.fields.SWIFTBICField', [], {'max_length': '11'}),
-            u'docdatapayment_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['cowry_docdata.DocDataPayment']", 'unique': 'True', 'primary_key': 'True'}),
-            'iban': ('django_iban.fields.IBANField', [], {'max_length': '34'})
-        },
         u'donations.donation': {
             'Meta': {'object_name': 'Donation'},
             'amount': ('django.db.models.fields.DecimalField', [], {'max_digits': '16', 'decimal_places': '2'}),
@@ -383,25 +187,9 @@ class Migration(DataMigration):
             'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'old_orders'", 'null': 'True', 'to': u"orm['members.Member']"})
         },
-        u'fund.recurringdirectdebitpayment': {
-            'Meta': {'object_name': 'RecurringDirectDebitPayment'},
-            'account': ('apps.fund.fields.DutchBankAccountField', [], {'max_length': '10'}),
-            'active': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'amount': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
-            'bic': ('django_iban.fields.SWIFTBICField', [], {'default': "''", 'max_length': '11', 'blank': 'True'}),
-            'city': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
-            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'currency': ('django.db.models.fields.CharField', [], {'default': "'EUR'", 'max_length': '3'}),
-            'iban': ('django_iban.fields.IBANField', [], {'default': "''", 'max_length': '34', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'manually_process': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
-            'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['members.Member']", 'unique': 'True'})
-        },
         u'fundraisers.fundraiser': {
             'Meta': {'object_name': 'FundRaiser'},
-            'amount': ('django.db.models.fields.PositiveIntegerField', [], {}),
+            'amount': ('django.db.models.fields.DecimalField', [], {'max_digits': '10', 'decimal_places': '2'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'currency': ('django.db.models.fields.CharField', [], {'default': "'EUR'", 'max_length': "'10'"}),
             'deadline': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
@@ -530,7 +318,7 @@ class Migration(DataMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'integration_data': ('django.db.models.fields.TextField', [], {'default': "'{}'", 'max_length': '5000', 'blank': 'True'}),
-            'order': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'payments'", 'to': u"orm['orders.Order']"}),
+            'order': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'order_payments'", 'to': u"orm['orders.Order']"}),
             'payment_method': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '20', 'blank': 'True'}),
             'status': ('django_fsm.db.fields.fsmfield.FSMField', [], {'default': "'created'", 'max_length': '50'}),
             'transaction_fee': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '16', 'decimal_places': '2'}),
@@ -554,62 +342,29 @@ class Migration(DataMigration):
             'status': ('django_fsm.db.fields.fsmfield.FSMField', [], {'default': "'started'", 'max_length': '50'}),
             'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'})
         },
-        u'payments.transaction': {
-            'Meta': {'ordering': "('-created', '-updated')", 'object_name': 'Transaction'},
+        u'payments_voucher.voucher': {
+            'Meta': {'object_name': 'Voucher'},
+            'amount': ('django.db.models.fields.PositiveIntegerField', [], {}),
+            'code': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            'currency': ('django.db.models.fields.CharField', [], {'default': "'EUR'", 'max_length': '3'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'payment': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['payments.Payment']"}),
-            'polymorphic_ctype': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "u'polymorphic_payments.transaction_set'", 'null': 'True', 'to': u"orm['contenttypes.ContentType']"}),
+            'language': ('django.db.models.fields.CharField', [], {'default': "'en'", 'max_length': '2'}),
+            'message': ('django.db.models.fields.TextField', [], {'default': "''", 'max_length': '500', 'blank': 'True'}),
+            'order': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['fund.Order']", 'null': 'True'}),
+            'receiver': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'casher'", 'null': 'True', 'to': u"orm['members.Member']"}),
+            'receiver_email': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
+            'receiver_name': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100', 'blank': 'True'}),
+            'sender': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'buyer'", 'null': 'True', 'to': u"orm['members.Member']"}),
+            'sender_email': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
+            'sender_name': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100', 'blank': 'True'}),
+            'status': ('django.db.models.fields.CharField', [], {'default': "'new'", 'max_length': '20', 'db_index': 'True'}),
             'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'})
         },
-        u'payments_docdata.docdatadirectdebittransaction': {
-            'Meta': {'ordering': "('-created', '-updated')", 'object_name': 'DocDataDirectDebitTransaction', '_ormbases': [u'payments.Transaction']},
-            'account_city': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
-            'account_name': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
-            'bic': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
-            'iban': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
-            u'transaction_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['payments.Transaction']", 'unique': 'True', 'primary_key': 'True'})
-        },
-        u'payments_docdata.docdatapayment': {
-            'Meta': {'ordering': "('-created', '-updated')", 'object_name': 'DocdataPayment', '_ormbases': [u'payments.Payment']},
-            'address': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '200'}),
-            'city': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '200'}),
-            'country': ('django.db.models.fields.CharField', [], {'max_length': '2', 'null': 'True', 'blank': 'True'}),
-            'currency': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
-            'customer_id': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
-            'default_pm': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100'}),
-            'email': ('django.db.models.fields.EmailField', [], {'default': "''", 'max_length': '254'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '200'}),
-            'ideal_issuer_id': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100'}),
-            'ip_address': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '200'}),
-            'language': ('django.db.models.fields.CharField', [], {'default': "'en'", 'max_length': '5', 'blank': 'True'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '200'}),
-            'merchant_order_id': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100'}),
-            'payment_cluster_id': ('django.db.models.fields.CharField', [], {'default': "''", 'unique': 'True', 'max_length': '200'}),
-            'payment_cluster_key': ('django.db.models.fields.CharField', [], {'default': "''", 'unique': 'True', 'max_length': '200'}),
+        u'payments_voucher.voucherpayment': {
+            'Meta': {'ordering': "('-created', '-updated')", 'object_name': 'VoucherPayment', '_ormbases': [u'payments.Payment']},
             u'payment_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['payments.Payment']", 'unique': 'True', 'primary_key': 'True'}),
-            'postal_code': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '20'}),
-            'total_acquirer_approved': ('django.db.models.fields.DecimalField', [], {'default': "'0.00'", 'max_digits': '15', 'decimal_places': '2'}),
-            'total_acquirer_pending': ('django.db.models.fields.DecimalField', [], {'default': "'0.00'", 'max_digits': '15', 'decimal_places': '2'}),
-            'total_captured': ('django.db.models.fields.DecimalField', [], {'default': "'0.00'", 'max_digits': '15', 'decimal_places': '2'}),
-            'total_charged_back': ('django.db.models.fields.DecimalField', [], {'default': "'0.00'", 'max_digits': '15', 'decimal_places': '2'}),
-            'total_gross_amount': ('django.db.models.fields.DecimalField', [], {'max_digits': '15', 'decimal_places': '2'}),
-            'total_refunded': ('django.db.models.fields.DecimalField', [], {'default': "'0.00'", 'max_digits': '15', 'decimal_places': '2'}),
-            'total_registered': ('django.db.models.fields.DecimalField', [], {'default': "'0.00'", 'max_digits': '15', 'decimal_places': '2'}),
-            'total_shopper_pending': ('django.db.models.fields.DecimalField', [], {'default': "'0.00'", 'max_digits': '15', 'decimal_places': '2'})
-        },
-        u'payments_docdata.docdatatransaction': {
-            'Meta': {'ordering': "('-created', '-updated')", 'object_name': 'DocdataTransaction', '_ormbases': [u'payments.Transaction']},
-            'authorization_amount': ('django.db.models.fields.IntegerField', [], {'null': 'True'}),
-            'authorization_currency': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '10', 'blank': 'True'}),
-            'authorization_status': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '60', 'blank': 'True'}),
-            'capture_amount': ('django.db.models.fields.IntegerField', [], {'null': 'True'}),
-            'capture_currency': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '10', 'blank': 'True'}),
-            'capture_status': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '60', 'blank': 'True'}),
-            'docdata_id': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '100'}),
-            'payment_method': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '60', 'blank': 'True'}),
-            'status': ('django.db.models.fields.CharField', [], {'default': "'NEW'", 'max_length': '30'}),
-            u'transaction_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['payments.Transaction']", 'unique': 'True', 'primary_key': 'True'})
+            'voucher': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['payments_voucher.Voucher']"})
         },
         u'projects.partnerorganization': {
             'Meta': {'object_name': 'PartnerOrganization'},
@@ -634,7 +389,7 @@ class Migration(DataMigration):
             'deadline': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'effects': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'favorite': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'favorite': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'for_who': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'future': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -679,6 +434,21 @@ class Migration(DataMigration):
             'language_name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'native_name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
+        u'vouchers.customvoucherrequest': {
+            'Meta': {'object_name': 'CustomVoucherRequest'},
+            'contact': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['members.Member']", 'null': 'True'}),
+            'contact_email': ('django.db.models.fields.EmailField', [], {'default': "''", 'max_length': '75', 'blank': 'True'}),
+            'contact_name': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100', 'blank': 'True'}),
+            'contact_phone': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100', 'blank': 'True'}),
+            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'message': ('django.db.models.fields.TextField', [], {'default': "''", 'max_length': '500', 'blank': 'True'}),
+            'number': ('django.db.models.fields.PositiveIntegerField', [], {}),
+            'organization': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '200', 'blank': 'True'}),
+            'status': ('django.db.models.fields.CharField', [], {'default': "'new'", 'max_length': '20', 'db_index': 'True'}),
+            'type': ('django.db.models.fields.CharField', [], {'default': "'unknown'", 'max_length': '20'}),
+            'value': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100', 'blank': 'True'})
+        },
         u'vouchers.voucher': {
             'Meta': {'object_name': 'Voucher'},
             'amount': ('django.db.models.fields.PositiveIntegerField', [], {}),
@@ -700,6 +470,5 @@ class Migration(DataMigration):
         }
     }
 
-    complete_apps = ['donations', 'orders', 'cowry', 'cowry_docdata', 'payments', 'payments_docdata', 'fund']
+    complete_apps = ['vouchers', 'payments_voucher', 'donations', 'fund']
     symmetrical = True
-

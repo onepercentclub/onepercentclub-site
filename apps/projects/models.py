@@ -220,22 +220,21 @@ class Project(BaseProject):
     def is_realised(self):
         return self.status in ProjectPhase.objects.filter(slug__in=['done-complete', 'done-incomplete', 'realised']).all()
 
-    @property
     def supporters_count(self, with_guests=True,  type_in=None):
         # TODO: Replace this with a proper Supporters API
         # something like /projects/<slug>/donations
-        donations = self.donation_set.objects.filter(project=self)
-        donations = donations.filter(order_status__in=[StatusDefinition.PENDING, StatusDefinition.SUCCESS])
-        donations = donations.filter(user__isnull=False)
+        donations = self.donation_set
+        donations = donations.filter(order__status__in=[StatusDefinition.PENDING, StatusDefinition.SUCCESS])
+        donations = donations.filter(order__user__isnull=False)
         if type_in:
             donations = donations.filter(donation_type__in=type_in)
-        donations = donations.annotate(Count('user'))
+        donations = donations.annotate(Count('order__user'))
         count = len(donations.all())
 
         if with_guests:
-            donations = self.donation_set.objects.filter(project=self)
-            donations = donations.filter(order_status__in=[StatusDefinition.PENDING, StatusDefinition.SUCCESS])
-            donations = donations.filter(user__isnull=True)
+            donations = self.donation_set
+            donations = donations.filter(order__status__in=[StatusDefinition.PENDING, StatusDefinition.SUCCESS])
+            donations = donations.filter(order__user__isnull=True)
             if type_in:
                 donations = donations.filter(donation_type__in=type_in)
             count += len(donations.all())

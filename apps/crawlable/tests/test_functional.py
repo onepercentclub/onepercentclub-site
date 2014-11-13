@@ -32,12 +32,6 @@ class CrawlableTests(OnePercentSeleniumTestCase):
 
         self.client = self.client_class(SERVER_NAME=self.server_thread.host, SERVER_PORT=self.server_thread.port)
 
-    def tearDown(self):
-        from ..middleware import web_cache
-
-        if web_cache._web_driver:
-            web_cache._web_driver.service.stop()
-
     def test_project_list_via_hashbang(self):
         print "loading " + self.project_list_url
         response = self.client.get(self.project_list_url)
