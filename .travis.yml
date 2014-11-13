@@ -25,7 +25,7 @@ before_install:
 - wget -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 - sudo apt-get update -qq
 - sudo apt-get install -y chromium-browser google-chrome-stable
-- sudo ln -s /etc/alternatives/google-chrome /usr/bin/google-chrome
+#- sudo ln -s /etc/alternatives/google-chrome /usr/bin/google-chrome
 install:
 - pip install --upgrade setuptools --use-mirrors
 - pip install $DJANGO --use-mirrors
