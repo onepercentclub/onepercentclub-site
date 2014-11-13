@@ -23,8 +23,8 @@ before_install:
 install:
 - pip install --upgrade setuptools --use-mirrors
 - pip install $DJANGO --use-mirrors
-- ls /home/travis/build/onepercentclub/onepercent-site
-- pip install --use-mirrors --use-wheel --find-links=https://stream.onepercentclub.com/wheelhouse/ -r /home/travis/build/onepercentclub/onepercent-site/requirements/ci_requirements.txt
+- ls /home/travis/build/onepercentclub/onepercentclub-site
+- pip install --use-mirrors --use-wheel --find-links=https://stream.onepercentclub.com/wheelhouse/ -r /home/travis/build/onepercentclub/onepercentclub-site/requirements/ci_requirements.txt
 - touch onepercentclub/settings/secrets.py
 before_script:
 - pip show bluebottle
