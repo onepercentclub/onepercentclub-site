@@ -24,7 +24,7 @@ before_install:
 - sudo sed -i s/deb-src.*google.*//g /etc/apt/sources.list
 - wget -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 - sudo apt-get update -qq
-- sudo apt-get install -y chromium-browser opera firefox google-chrome-stable
+- sudo apt-get install -y chromium-browser google-chrome-stable
 install:
 - pip install --upgrade setuptools --use-mirrors
 - pip install $DJANGO --use-mirrors
