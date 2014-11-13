@@ -1,5 +1,6 @@
 from decimal import Decimal
 from apps.projects.models import PartnerOrganization
+from apps.sepa.sepa import SepaDocument, SepaAccount
 from bluebottle.bb_payouts.models import BaseProjectPayout, BaseOrganizationPayout
 from djchoices.choices import DjangoChoices, ChoiceItem
 from django.utils.translation import ugettext as _
@@ -89,6 +90,48 @@ class ProjectPayout(BaseProjectPayout):
         # Campaign started before 2014
         # Always 5 percent
         return self.PayoutRules.five
+
+    @classmethod
+    def create_sepa_xml(cls, qs):
+        """ Create a SEPA XML file for Payouts in QuerySet. """
+
+        batch_id = timezone.datetime.strftime(timezone.now(), '%Y%m%d%H%I%S')
+
+        sepa = SepaDocument(type='CT')
+
+        sepa.set_initiating_party(
+            name=settings.BANK_ACCOUNT_DONATIONS['name']
+        )
+        debtor = SepaAccount(
+            name=settings.BANK_ACCOUNT_DONATIONS['name'],
+            iban=settings.BANK_ACCOUNT_DONATIONS['iban'],
+            bic=settings.BANK_ACCOUNT_DONATIONS['bic']
+        )
+
+        sepa.set_debtor(debtor)
+        sepa.set_info(
+            message_identification=batch_id, payment_info_id=batch_id)
+        sepa.set_initiating_party(name=settings.BANK_ACCOUNT_DONATIONS['name'])
+
+        now = timezone.now()
+
+        for payout in qs.all():
+            payout.status = cls.PayoutLineStatuses.progress
+            payout.submitted = now
+            payout.save()
+            creditor = SepaAccount(
+                name=payout.receiver_account_name,
+                iban=payout.receiver_account_iban,
+                bic=payout.receiver_account_bic
+            )
+
+            sepa.add_credit_transfer(
+                creditor=creditor,
+                amount=payout.amount_payable,
+                creditor_payment_id=payout.invoice_reference
+            )
+
+        return sepa.as_xml()
 
 
 class OrganizationPayout(BaseOrganizationPayout):
