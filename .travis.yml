@@ -18,10 +18,13 @@ before_install:
 - npm install grunt grunt-contrib-compass
 - sudo apt-get install -qq memcached python-memcache libjpeg8-dev libjpeg-dev zlib1g-dev libpng12-dev
 - pip install Pillow --use-mirrors
-- wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-- sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-- sudo apt-get update
-- sudo apt-get install google-chrome-stable
+- sudo apt-get update -qq
+- sudo apt-get install -y python-software-properties
+- sudo apt-add-repository "deb http://dl.google.com/linux/chrome/deb/ stable main"
+- sudo sed -i s/deb-src.*google.*//g /etc/apt/sources.list
+- wget -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+- sudo apt-get update -qq
+- sudo apt-get install -y chromium-browser opera firefox google-chrome-stable
 install:
 - pip install --upgrade setuptools --use-mirrors
 - pip install $DJANGO --use-mirrors
