@@ -1,4 +1,5 @@
 import logging
+from apps.recurring_donations.models import MonthlyDonor
 import re
 from bluebottle.utils.model_dispatcher import get_project_model
 from django.contrib.auth import get_user_model
@@ -8,7 +9,7 @@ from apps.cowry_docdata.models import payment_method_mapping
 from apps.projects.models import ProjectBudgetLine
 from apps.organizations.models import Organization, OrganizationMember
 from apps.tasks.models import Task, TaskMember
-from apps.fund.models import Donation, DonationStatuses, RecurringDirectDebitPayment
+from apps.fund.models import Donation, DonationStatuses
 from apps.vouchers.models import Voucher, VoucherStatuses
 from apps.fundraisers.models import FundRaiser
 
@@ -224,13 +225,13 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
 
         # Bank details of recurring payments
         try:
-            recurring_payment = RecurringDirectDebitPayment.objects.get(user=user)
-            contact.bank_account_city = recurring_payment.city
-            contact.bank_account_holder = recurring_payment.name
-            contact.bank_account_number = recurring_payment.account
-            contact.bank_account_iban = recurring_payment.iban
-            contact.bank_account_active_recurring_debit = recurring_payment.active
-        except RecurringDirectDebitPayment.DoesNotExist:
+            monthly_donor = MonthlyDonor.objects.get(user=user)
+            contact.bank_account_city = monthly_donor.city
+            contact.bank_account_holder = monthly_donor.name
+            contact.bank_account_number = ''
+            contact.bank_account_iban = monthly_donor.iban
+            contact.bank_account_active_recurring_debit = monthly_donor.active
+        except MonthlyDonor.DoesNotExist:
             contact.bank_account_city = ''
             contact.bank_account_holder = ''
             contact.bank_account_number = ''
