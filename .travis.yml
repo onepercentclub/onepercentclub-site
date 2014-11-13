@@ -3,8 +3,6 @@ python:
 - '2.7'
 node_js:
 - '0.10'
-addons:
-  firefox: '27.0'
 env:
   matrix:
   - DJANGO=django==1.5.4
@@ -20,6 +18,10 @@ before_install:
 - npm install grunt grunt-contrib-compass
 - sudo apt-get install -qq memcached python-memcache libjpeg8-dev libjpeg-dev zlib1g-dev libpng12-dev
 - pip install Pillow --use-mirrors
+- wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+- sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+- sudo apt-get update
+- sudo apt-get install google-chrome-stable
 install:
 - pip install --upgrade setuptools --use-mirrors
 - pip install $DJANGO --use-mirrors
@@ -27,6 +29,7 @@ install:
 - touch onepercentclub/settings/secrets.py
 before_script:
 - pip show bluebottle
+- source /home/travis/virtualenv/python2.7.8/bin/activate
 - grunt compass:dist --bb_path="`pip show bluebottle | grep Location | cut -b11-`/bluebottle/common/static/sass"
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
