@@ -2,6 +2,7 @@ from decimal import Decimal
 from apps.projects.models import PartnerOrganization
 from apps.sepa.sepa import SepaDocument, SepaAccount
 from bluebottle.bb_payouts.models import BaseProjectPayout, BaseOrganizationPayout
+from bluebottle.utils.utils import StatusDefinition
 from djchoices.choices import DjangoChoices, ChoiceItem
 from django.utils.translation import ugettext as _
 from django.utils import timezone
@@ -116,7 +117,7 @@ class ProjectPayout(BaseProjectPayout):
         now = timezone.now()
 
         for payout in qs.all():
-            payout.status = cls.PayoutLineStatuses.progress
+            payout.status = StatusDefinition.IN_PROGRESS
             payout.submitted = now
             payout.save()
             creditor = SepaAccount(
