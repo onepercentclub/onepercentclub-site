@@ -21,11 +21,12 @@ before_install:
 - sudo apt-get install -qq memcached python-memcache libjpeg8-dev libjpeg-dev zlib1g-dev libpng12-dev
 - pip install Pillow --use-mirrors
 install:
-- pip install --upgrade setuptools --use-mirrors
-- pip install $DJANGO --use-mirrors
 - ls -l
 - pwd
-- ls /home/travis/requirements
+- ls /home/travis/build/
+- ls /home/travis/build/requirements
+- pip install --upgrade setuptools --use-mirrors
+- pip install $DJANGO --use-mirrors
 - pip install --use-mirrors --use-wheel --find-links=https://stream.onepercentclub.com/wheelhouse/ -r requirements/ci_requirements.txt
 - touch onepercentclub/settings/secrets.py
 before_script:
