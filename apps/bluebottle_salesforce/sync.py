@@ -336,9 +336,9 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
         sfproject.slug = project.slug
 
         sfproject.donation_total = "%01.2f" % (project.get_money_total(['paid', 'pending']))
-        sfproject.donation_oo_total = "%01.2f" % (project.get_money_total(['paid', 'pending'], ['one_off']))
+        sfproject.donation_oo_total = "%01.2f" % (project.get_money_total(['paid', 'pending']))
         sfproject.supporter_count = project.supporters_count()
-        sfproject.supporter_oo_count = project.supporters_count(True, ['one_off'])
+        sfproject.supporter_oo_count = project.supporters_count(True)
 
         # Save the object to Salesforce
         if not dry_run:
@@ -514,7 +514,7 @@ def sync_donations(dry_run, sync_from_datetime, loglevel):
         sfdonation.donation_updated_date = donation.updated
         sfdonation.donation_ready_date = donation.completed or None
 
-        sfdonation.type = donation.order.get_status_display()
+        sfdonation.type = ''
 
         if donation.user and donation.order.user.get_full_name() != '':
             sfdonation.name = donation.order.user.get_full_name()
