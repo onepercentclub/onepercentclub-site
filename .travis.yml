@@ -24,9 +24,9 @@ before_install:
 - sudo sed -i s/deb-src.*google.*//g /etc/apt/sources.list
 - wget -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 - sudo apt-get update -qq
-- sudo apt-get install -y chromium-browser google-chrome-stable
+- sudo apt-get install -y chromium-browser google-chrome-stable unzip
 - wget http://chromedriver.storage.googleapis.com/2.12/chromedriver_linux64.zip
-- gunzip chromedriver_linux64.zip
+- unzip chromedriver_linux64.zip
 - sudo mv chromedriver /usr/bin/
 #- sudo ln -s /etc/alternatives/google-chrome /usr/bin/google-chrome
 install:
