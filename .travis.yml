@@ -24,6 +24,8 @@ install:
 - pip install --upgrade setuptools --use-mirrors
 - pip install $DJANGO --use-mirrors
 - ls -l
+- pwd
+- ls /home/travis/requirements
 - pip install --use-mirrors --use-wheel --find-links=https://stream.onepercentclub.com/wheelhouse/ -r requirements/ci_requirements.txt
 - touch onepercentclub/settings/secrets.py
 before_script:
