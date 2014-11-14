@@ -107,6 +107,11 @@ class SepaDocument(object):
         """
         self._type = type
 
+        # All clear
+        self._header_control_sum = decimal.Decimal('0.00')
+        self._credit_transfers = []
+        self._direct_debits = []
+
 
     def set_initiating_party(self, *args, **kwargs):
         self.initiating_party = InitiatingParty(**kwargs)

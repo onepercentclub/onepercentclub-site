@@ -139,7 +139,6 @@ class Project(BaseProject):
 
         last_month = timezone.now() - timezone.timedelta(days=30)
         donations = Donation.objects.filter(order__status__in=[StatusDefinition.PENDING, StatusDefinition.SUCCESS])
-        donations = donations.exclude(donation_type='recurring')
         donations = donations.filter(created__gte=last_month)
 
         # For all projects.
@@ -190,7 +189,7 @@ class Project(BaseProject):
         if save:
             self.save()
 
-    def get_money_total(self, status_in=None, type_in=None):
+    def get_money_total(self, status_in=None):
         """
         Calculate the total (realtime) amount of money for donations,
         optionally filtered by status.
@@ -205,9 +204,6 @@ class Project(BaseProject):
         if status_in:
             donations = donations.filter(order__status__in=status_in)
 
-        if type_in:
-            donations = donations.filter(donation_type__in=type_in)
-
         total = donations.aggregate(sum=Sum('amount'))
 
         if not total['sum']:
@@ -220,24 +216,19 @@ class Project(BaseProject):
     def is_realised(self):
         return self.status in ProjectPhase.objects.filter(slug__in=['done-complete', 'done-incomplete', 'realised']).all()
 
-    @property
-    def supporters_count(self, with_guests=True,  type_in=None):
+    def supporters_count(self, with_guests=True):
         # TODO: Replace this with a proper Supporters API
         # something like /projects/<slug>/donations
-        donations = self.donation_set.objects.filter(project=self)
-        donations = donations.filter(order_status__in=[StatusDefinition.PENDING, StatusDefinition.SUCCESS])
-        donations = donations.filter(user__isnull=False)
-        if type_in:
-            donations = donations.filter(donation_type__in=type_in)
-        donations = donations.annotate(Count('user'))
+        donations = self.donation_set
+        donations = donations.filter(order__status__in=[StatusDefinition.PENDING, StatusDefinition.SUCCESS])
+        donations = donations.filter(order__user__isnull=False)
+        donations = donations.annotate(Count('order__user'))
         count = len(donations.all())
 
         if with_guests:
-            donations = self.donation_set.objects.filter(project=self)
-            donations = donations.filter(order_status__in=[StatusDefinition.PENDING, StatusDefinition.SUCCESS])
-            donations = donations.filter(user__isnull=True)
-            if type_in:
-                donations = donations.filter(donation_type__in=type_in)
+            donations = self.donation_set
+            donations = donations.filter(order__status__in=[StatusDefinition.PENDING, StatusDefinition.SUCCESS])
+            donations = donations.filter(order__user__isnull=True)
             count += len(donations.all())
         return count
 

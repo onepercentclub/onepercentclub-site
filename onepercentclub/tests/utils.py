@@ -63,7 +63,6 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
         :param password: The user's password
         :return: ``True`` if login was successful.
         """
-        self.init_projects()
         self.visit_homepage()
 
         if self.browser.is_text_present('My 1%'):
@@ -83,12 +82,8 @@ class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
         return self.browser.is_text_present('My 1%', wait_time=wait_time)
 
     def logout(self):
-        return self.visit_path("/logout")
-
-    def tearDown(self):
-        # Navigate to homepage before tearing the browser down.
-        # This helps Travis.
-        self.visit_homepage()
+        self.visit_path("/logout")
+        return self.wait_for_element_css('.nav-signup-login a')
 
     def visit_homepage(self, lang_code=None):
         """

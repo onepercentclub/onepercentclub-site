@@ -79,8 +79,8 @@ class Command(BaseCommand):
         try:
             if options['csv_export']:
                 path = os.path.join(settings.PROJECT_ROOT, "salesforce", "export", "current")
-                self.run_with_count_update(generate_organizations_csv_file, path, loglevel)
-                self.run_with_count_update(generate_users_csv_file, path, loglevel)
+                #self.run_with_count_update(generate_organizations_csv_file, path, loglevel)
+                #self.run_with_count_update(generate_users_csv_file, path, loglevel)
                 self.run_with_count_update(generate_projects_csv_file, path, loglevel)
                 self.run_with_count_update(generate_projectbudgetlines_csv_file, path, loglevel)
                 self.run_with_count_update(generate_donations_csv_file, path, loglevel)
