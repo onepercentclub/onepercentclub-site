@@ -46,8 +46,6 @@ class PositiveDonationFlow(OnePercentSeleniumTestCase):
         self.assert_css(".amount-donated")
         self.assert_css(".project-fund-amount-slider")
 
-        self.assert_css(".project-status")
-
         # Bring up the donation modal
         self.wait_for_element_css('a.btn-primary')
         button = self.browser.find_by_css('a.btn-primary')[0]
