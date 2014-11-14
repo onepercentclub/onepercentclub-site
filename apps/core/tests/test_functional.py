@@ -36,10 +36,6 @@ class PositiveDonationFlow(OnePercentSeleniumTestCase):
 
         self.login(self.user.email, 'testing')
 
-    def tearDown(self):
-        self.logout()
-
-
     def test_positive_flow_mockdeal(self, lang_code=None):
         """
         Test a positive donation flow for a donation paid with iDeal
@@ -107,4 +103,6 @@ class PositiveDonationFlow(OnePercentSeleniumTestCase):
 
         author = self.browser.find_by_css(".wallpost-author").first.text
         self.assertEqual(author.lower(), self.user.full_name.lower())
+
+        self.wait_for_toast_to_disappear()
 
