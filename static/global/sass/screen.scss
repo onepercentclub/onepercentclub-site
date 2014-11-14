@@ -28,7 +28,7 @@
 @import "icons/icons-sprites";
 
 // New sass icons
-@import "new-sass/base/bb-icons";
+@import "new-sass/mixins/bb-icons";
 
 /* Base */
 @import "base/reset";
@@ -57,7 +57,7 @@
 @import "modules/carousel";
 @import "modules/members";
 @import "modules/projects";
-@import "modules/wallposts";
+//@import "modules/wallposts";
 @import "modules/reactions";
 @import "modules/tasks";
 @import "modules/share";
@@ -73,6 +73,7 @@
 @import "new-sass/modules/payment";
 @import "new-sass/modules/share";
 @import "new-sass/modules/video";
+@import "new-sass/modules/wallpost-new";
 
 /* Pages */
 //@import "pages/home";
@@ -93,6 +94,7 @@
 @import "pages/fmo";
 
 /* New sass pages */
+@import "new-sass/pages/wallpost";
 @import "new-sass/pages/project-detail";
 
 

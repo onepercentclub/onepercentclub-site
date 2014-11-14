@@ -29,7 +29,7 @@ html, body, #site {
 	margin-bottom: -40px; // reset 
 }
 
-.modal-fullscreen-background, #home, #about-new, #start-campaign, #business, #how-to-crowdfund, #partner-detail, .project-detail-main {
+.modal-fullscreen-background, #home, #about-new, #start-campaign, #business, #how-to-crowdfund, #partner-detail, .project-detail-main, #wallposts {
 
 	.btn {
 		font-size: 18px;
@@ -157,7 +157,7 @@ html, body, #site {
 	}
 }
 
-#home, #about-new, #start-campaign, #business, #how-to-crowdfund, #partner-detail, .project-detail-main {
+#home, #about-new, #start-campaign, #business, #how-to-crowdfund, #partner-detail, .project-detail-main, #wallposts {
 	font-family: $font-family-body;
 
 	h1 {
