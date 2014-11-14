@@ -26,7 +26,6 @@ from bluebottle.test.factory_models.geo import CountryFactory
 from ..models import Project
 
 
-
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
         'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
 class ProjectSeleniumTests(OnePercentSeleniumTestCase):
