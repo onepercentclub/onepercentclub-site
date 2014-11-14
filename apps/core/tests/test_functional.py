@@ -127,12 +127,8 @@ class LoginDonationFlow(OnePercentSeleniumTestCase):
         self.assert_css(".amount-donated")
         self.assert_css(".project-fund-amount-slider")
 
-        self.assert_css(".project-status")
-
         # Bring up the donation modal
-        self.wait_for_element_css('a.btn-primary')
-        button = self.browser.find_by_css('a.btn-primary')[0]
-        button.click()
+        self.scroll_to_and_click_by_css('a.btn-primary')
 
         # Verify the elements of the donation modal
         self.wait_for_element_css('input.donation-input')
@@ -148,6 +144,7 @@ class LoginDonationFlow(OnePercentSeleniumTestCase):
         self.scroll_to_and_click_by_css(".donate-btn")
 
     def tearDown(self):
+        self.close_modal()
         self.logout()
 
     def test_signup_donation_flow(self):
@@ -201,8 +198,8 @@ class LoginDonationFlow(OnePercentSeleniumTestCase):
         self.assertEqual(len(self.browser.find_by_css('input[name=username]')), 1)
 
         # Login as test user
-        self.browser.fill('username', self.user.email)
-        self.browser.fill('password', 'testing')
+        self.browser.find_by_css('input[name=username]').first.type(self.user.email)
+        self.browser.find_by_css('input[name=password]').first.type('testing')
         self.browser.driver.find_element_by_name('login').click()
 
         # Assert the payment modal loads
