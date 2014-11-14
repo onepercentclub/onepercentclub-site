@@ -30,15 +30,10 @@ class PositiveDonationFlow(OnePercentSeleniumTestCase):
                                                  last_name='testi')
         campaign_phase = ProjectPhase.objects.get(name='Campaign')
 
-
         for slug, title in self.projects.items():
             project = OnePercentProjectFactory.create(title=title, slug=slug, owner=self.user, amount_asked=1000, status=campaign_phase)
 
         self.login(self.user.email, 'testing')
-
-    def tearDown(self):
-        self.logout()
-
 
     def test_positive_flow_mockdeal(self, lang_code=None):
         """
@@ -49,8 +44,6 @@ class PositiveDonationFlow(OnePercentSeleniumTestCase):
         # Assert visual donation elements on project page
         self.assert_css(".amount-donated")
         self.assert_css(".project-fund-amount-slider")
-
-        self.assert_css(".project-status")
 
         # Bring up the donation modal
         self.wait_for_element_css('a.btn-primary')
@@ -107,4 +100,6 @@ class PositiveDonationFlow(OnePercentSeleniumTestCase):
 
         author = self.browser.find_by_css(".wallpost-author").first.text
         self.assertEqual(author.lower(), self.user.full_name.lower())
+
+        self.wait_for_toast_to_disappear()
 

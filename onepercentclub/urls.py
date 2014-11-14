@@ -31,7 +31,6 @@ urlpatterns += patterns('',
     url(r'^api/mpesa/', include('apps.mchanga.urls.api')),
     url(r'^api/monthly_donations/', include('apps.recurring_donations.urls.api')),
 
-    url(r'^api/fundraisers/', include('apps.fundraisers.urls.api')),
     url(r'^api/organizations/', include('apps.organizations.urls.api')),
     url(r'^api/partners/', include('apps.partners.urls.api')),
 
