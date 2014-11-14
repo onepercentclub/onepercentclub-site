@@ -419,9 +419,9 @@ def generate_projects_csv_file(path, loglevel):
                                 region,
                                 sub_region,
                                 "%01.2f" % ((project.get_money_total(['paid', 'pending'])) / 100),
-                                "%01.2f" % ((project.get_money_total(['paid', 'pending'], ['one_off'])) / 100),
+                                "%01.2f" % ((project.get_money_total(['paid', 'pending'])) / 100),
                                 project.supporters_count(),
-                                project.supporters_count(True, ['one_off'])])
+                                project.supporters_count(True)])
             success_count += 1
     return success_count, error_count
 
@@ -525,7 +525,7 @@ def generate_donations_csv_file(path, loglevel):
                                     donation.created.date().strftime("%Y-%m-%dT%H:%M:%S.000Z"),
                                     name.encode("utf-8"),
                                     DonationStatuses.values[donation.status].title(),
-                                    donation.DonationTypes.values[donation.donation_type].title(),
+                                    '',
                                     donation.created.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
                                     donation.updated.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
                                     donation_ready,
