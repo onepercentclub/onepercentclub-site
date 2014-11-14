@@ -27,6 +27,8 @@
 @import "icons/flaticons-stroke";
 @import "icons/icons-sprites";
 
+// New sass icons
+@import "new-sass/base/bb-icons";
 
 /* Base */
 @import "base/reset";
@@ -71,6 +73,7 @@
 @import "new-sass/modules/payment";
 @import "new-sass/modules/share";
 @import "new-sass/modules/video";
+
 /* Pages */
 //@import "pages/home";
 @import "pages/static";
@@ -78,7 +81,7 @@
 @import "pages/campaign-create";
 @import "pages/signup";
 @import "pages/search";
-@import "pages/project-detail";
+//@import "pages/project-detail";
 @import "pages/project-detail-fundraiser";
 @import "pages/task-detail";
 @import "pages/fund";
@@ -88,6 +91,10 @@
 @import "pages/news";
 @import "pages/manage";
 @import "pages/fmo";
+
+/* New sass pages */
+@import "new-sass/pages/project-detail";
+
 
 /* Temp */
 // @import "campaigns/crazy-campaign-2013";
