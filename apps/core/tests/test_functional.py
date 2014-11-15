@@ -22,16 +22,12 @@ class PositiveDonationFlow(OnePercentSeleniumTestCase):
     def setUp(self):
         self.init_projects()
 
-        self.projects = dict([(slugify(title), title) for title in [
-           u'Mobile payments for everyone 2!', u'Schools for children 2',  u'Women first 2'
-        ]])
+        self.user = BlueBottleUserFactory.create()
 
-        self.user = BlueBottleUserFactory.create(email='johndoe@example.com', primary_language='en', first_name='test',
-                                                 last_name='testi')
         campaign_phase = ProjectPhase.objects.get(name='Campaign')
-
-        for slug, title in self.projects.items():
-            project = OnePercentProjectFactory.create(title=title, slug=slug, owner=self.user, amount_asked=1000, status=campaign_phase)
+        for title in [u'Mobile payments for everyone!', u'Schools for children',  u'Women first']:
+            project = OnePercentProjectFactory.create(title=title, owner=self.user,
+                                                      amount_asked=1000, status=campaign_phase)
 
         self.login(self.user.email, 'testing')
 
@@ -39,7 +35,7 @@ class PositiveDonationFlow(OnePercentSeleniumTestCase):
         """
         Test a positive donation flow for a donation paid with iDeal
         """
-        self.visit_path('/projects/schools-for-children-2', lang_code)
+        self.visit_path('/projects/schools-for-children', lang_code)
 
         # Assert visual donation elements on project page
         self.assert_css(".amount-donated")
@@ -109,19 +105,14 @@ class LoginDonationFlow(OnePercentSeleniumTestCase):
     def setUp(self):
         self.init_projects()
 
-        self.projects = dict([(slugify(title), title) for title in [
-           u'Mobile payments for everyone 2!', u'Schools for children 2',  u'Women first 2'
-        ]])
+        self.user = BlueBottleUserFactory.create()
 
-        self.user = BlueBottleUserFactory.create(email='johndoe@example.com', primary_language='en', first_name='John',
-                                                 last_name='Doe')
         campaign_phase = ProjectPhase.objects.get(name='Campaign')
+        for title in [u'Mobile payments for everyone!', u'Schools for children',  u'Women first']:
+            project = OnePercentProjectFactory.create(title=title, owner=self.user,
+                                                      amount_asked=1000, status=campaign_phase)
 
-
-        for slug, title in self.projects.items():
-            project = OnePercentProjectFactory.create(title=title, slug=slug, owner=self.user, amount_asked=1000, status=campaign_phase)
-
-        self.visit_path('/projects/schools-for-children-2')
+        self.visit_path('/projects/schools-for-children')
 
         # Assert visual donation elements on project page
         self.assert_css(".amount-donated")
@@ -145,7 +136,6 @@ class LoginDonationFlow(OnePercentSeleniumTestCase):
 
     def tearDown(self):
         self.close_modal()
-        self.logout()
 
     def test_signup_donation_flow(self):
         """
@@ -204,6 +194,7 @@ class LoginDonationFlow(OnePercentSeleniumTestCase):
 
         # Assert the payment modal loads
         self.assert_css('.btn.payment-btn')
+        self.logout()
 
     def test_guest_donation_flow(self):
         """
