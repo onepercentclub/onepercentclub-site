@@ -116,7 +116,7 @@ class Migration(DataMigration):
     def forwards(self, orm):
         "Write your forwards methods here."
         start = 0
-        old_orders = orm['fund.Order'].objects.all()#[start:1000]
+        old_orders = orm['fund.Order'].objects.all()
 
         # Apparently we need to explicitly set ctypes for polymorphic models, so get the ids here.
         content_types = orm['contenttypes.ContentType'].objects
