@@ -1,3 +1,4 @@
+from bluebottle.utils.utils import StatusDefinition
 from django.contrib import admin
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
@@ -22,8 +23,8 @@ class OnePercentProjectPayoutAdmin(ProjectPayoutAdmin):
     export_fields = ['project', 'status', 'payout_rule', 'amount_raised', 'organization_fee', 'amount_payable',
                      'created', 'submitted']
 
-    actions = ('export_sepa', 'recalculate_amounts', export_as_csv_action(fields=export_fields))
-
+    actions = ('change_status_to_new', 'change_status_to_progress', 'change_status_to_settled',
+               'export_sepa', 'recalculate_amounts', export_as_csv_action(fields=export_fields))
 
     def export_sepa(self, request, queryset):
         """
