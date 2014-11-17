@@ -177,7 +177,7 @@ class Project(BaseProject):
 
         if self.mchanga_fundraiser:
             kes = self.mchanga_fundraiser.current_amount
-            euro = kes / Decimal(114.651)
+            euro = Decimal(kes) / Decimal(114.651)
             self.amount_donated += euro
 
         self.amount_needed = self.amount_asked - self.amount_donated

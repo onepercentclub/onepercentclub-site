@@ -4,7 +4,7 @@ python:
 node_js:
 - '0.10'
 addons:
-  firefox: '27.0'
+  firefox: '30.0'
 env:
   matrix:
   - DJANGO=django==1.5.4
@@ -32,7 +32,7 @@ before_script:
 - sh -e /etc/init.d/xvfb start
 #- curl https://gist.githubusercontent.com/rollick/42b92c18c3a265b08792/raw/sauce-connect.sh | sh
 script:
-- python ./manage.py test --settings=onepercentclub.settings.travis -v1 --failfast
+- python ./manage.py test --settings=onepercentclub.settings.travis -v3 --failfast
 notifications:
   hipchat:
     rooms:
