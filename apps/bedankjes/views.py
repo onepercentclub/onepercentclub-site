@@ -9,6 +9,9 @@ def donation_trigger(request):
         Test view to trigger the sending of a dummy donation
     """
 
+    if request.method == "GET":
+        return Response("Request must be POST")
+
     if request.method == 'POST':
 
         payload = {}
