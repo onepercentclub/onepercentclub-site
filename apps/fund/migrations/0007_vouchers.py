@@ -14,7 +14,6 @@ class Migration(DataMigration):
         ('payments_voucher', '0001_initial'),
     )
 
-
     def forwards(self, orm):
 
         total = orm['vouchers.Voucher'].objects.count()
@@ -45,8 +44,10 @@ class Migration(DataMigration):
 
             for old_donation in orm['fund.Donation'].objects.filter(voucher=old_voucher).all():
                 print "Migrating voucher donation...."
+
                 # For every donation we should create an Order, OrderPayment and VoucherPayment.
                 amount = Decimal(old_donation.amount) / 100
+
                 # Create an order
                 order = orm['orders.Order'].objects.create(
                     created=old_donation.created,
@@ -63,8 +64,8 @@ class Migration(DataMigration):
                 donation, created = orm['donations.Donation'].objects.get_or_create(
                     id=old_donation.id,
                     project=old_donation.project,
+                    amount=amount
                 )
-                donation.amount = amount
                 donation.created = old_donation.created
                 donation.updated = old_donation.ready
                 donation.order = order
