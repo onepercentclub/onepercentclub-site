@@ -38,6 +38,7 @@ FLUENT_DASHBOARD_APP_GROUPS = (
         'models': (
             'apps.fund.*',
             'apps.vouchers.*',
+            'apps.mchanga.*'
         ),
         'module': 'fluent_dashboard.modules.AppIconList',
         'collapsible': False,
