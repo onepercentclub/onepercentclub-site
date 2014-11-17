@@ -6,7 +6,7 @@ except ImportError:
 
 from .server import *
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 # Put dev server environment specific overrides below.

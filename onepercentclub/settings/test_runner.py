@@ -34,7 +34,7 @@ SOUTH_TESTS_MIGRATE = False
 
 INSTALLED_APPS += (
     'django_nose',
-    'bluebottle.payments_mock',
+    'bluebottle.payments_mock'
 )
 
 from bluebottle.payments_mock.settings import MOCK_PAYMENT_METHODS, MOCK_FEES
