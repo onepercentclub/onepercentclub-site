@@ -244,6 +244,9 @@ INSTALLED_APPS = (
     #'social_auth',
     'social.apps.django_app.default',
 
+    #Bedankjes app
+    'apps.bedankjes',
+
     #Widget
     'bluebottle.widget',
 

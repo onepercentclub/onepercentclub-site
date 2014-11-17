@@ -35,6 +35,9 @@ urlpatterns += patterns('',
     url(r'^api/organizations/', include('apps.organizations.urls.api')),
     url(r'^api/partners/', include('apps.partners.urls.api')),
 
+    # A Friend of Mine API hook for the "Bedankjes" app
+    url(r'^api/bedankjes/', include('apps.bedankjes.urls.api')),
+
     # Homepage API urls
     url(r'^api/homepage/', include('apps.homepage.urls.api')),
     url(r'^api/stats', include('apps.statistics.urls.api')),
