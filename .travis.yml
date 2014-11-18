@@ -17,7 +17,7 @@ before_install:
 - gem update --system
 - gem install compass -v 0.12.7
 - npm install -g grunt-cli
-- npm install grunt grunt-contrib-compass
+- npm install
 - sudo apt-get install -qq memcached python-memcache libjpeg8-dev libjpeg-dev zlib1g-dev libpng12-dev
 - pip install Pillow --use-mirrors
 install:
@@ -32,7 +32,7 @@ before_script:
 - sh -e /etc/init.d/xvfb start
 #- curl https://gist.githubusercontent.com/rollick/42b92c18c3a265b08792/raw/sauce-connect.sh | sh
 script:
-- python ./manage.py test --settings=onepercentclub.settings.travis -v3 --failfast
+- python ./manage.py test --settings=onepercentclub.settings.travis -v1 --failfast
 notifications:
   hipchat:
     rooms:
