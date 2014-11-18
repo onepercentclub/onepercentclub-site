@@ -112,20 +112,17 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
 
     def test_upload_multiple_wallpost_images(self):
         """ Test uploading multiple images in a media wallpost """
-
         self.assertTrue(self.login(self.user.email, 'testing'))
         self.visit_project_list_page()
 
         # pick a project
+        self.wait_for_element_css('.project-item')
         self.browser.find_by_css('.project-item').first.find_by_tag('a').first.click()
 
-        form = self.browser.find_by_id('wallpost-form')
-
-        time.sleep(1)
-        self.browser.find_by_css('.wallpost-post-update').first.click()
-
         # Wait for form to animate down
-        self.wait_for_element_css('#wallpost-title')
+        self.wait_for_element_css('.wallpost-form')
+
+        form = self.browser.find_by_css('.wallpost-form')
 
         title = 'My wallpost'
         self.browser.find_by_id('wallpost-title').first.fill(title)
