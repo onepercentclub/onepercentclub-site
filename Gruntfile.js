@@ -5,6 +5,8 @@ module.exports = function (grunt) {
   var bluebottlePath = grunt.option('bb_path') || ["../bluebottle/bluebottle/common/static/sass"];
   var bluebottleRefactorPath = grunt.option('bb_path') || ["../bluebottle/bluebottle/common/static/refactor-sass"];
 
+  grunt.loadNpmTasks('grunt-bower-task'); 
+
   // Project configuration.
   grunt.initConfig({
     sass: {

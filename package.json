@@ -25,15 +25,14 @@
     "grunt-contrib-compass": "~0.7.2",
     "karma": "~0.10.4",
     "grunt-karma": "~0.6.2",
-    "grunt-microlib": "~0.1.1",
-    "time-grunt": "^1.0.0"
+    "grunt-microlib": "~0.1.1"
 
   },
   "devDependencies": {
     "growly": "~1.1.1",
-    "grunt-contrib-sass": "^0.8.1",
+    "grunt-contrib-sass": "~0.8.1",
     "grunt-es6-module-transpiler": "~0.5.1",
-    "jit-grunt": "^0.9.0",
+    "jit-grunt": "~0.9.0",
     "karma-coverage": "~0.1.0",
     "karma-ember-preprocessor": "~1.1.2",
     "karma-firefox-launcher": "~0.1.0",
@@ -45,7 +44,7 @@
     "karma-script-launcher": "~0.1.0",
     "phantomjs": "~1.9.2-2",
     "qunitjs": "~1.14.0",
-    "time-grunt": "^1.0.0"
+    "time-grunt": "~1.0.0"
   },
   "scripts": {
     "build": "grunt build",
