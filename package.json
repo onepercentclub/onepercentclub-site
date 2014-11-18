@@ -25,7 +25,9 @@
     "grunt-contrib-compass": "~0.7.2",
     "karma": "~0.10.4",
     "grunt-karma": "~0.6.2",
-    "grunt-microlib": "~0.1.1"
+    "grunt-microlib": "~0.1.1",
+    "time-grunt": "^1.0.0"
+
   },
   "devDependencies": {
     "growly": "~1.1.1",
