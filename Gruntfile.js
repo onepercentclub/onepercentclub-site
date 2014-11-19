@@ -3,7 +3,7 @@ module.exports = function (grunt) {
   require('jit-grunt')(grunt);
   var sassOutputStyle = grunt.option('output_style') || 'expanded';
   var bluebottlePath = grunt.option('bb_path') || ["../bluebottle/bluebottle/common/static/sass"];
-  var bluebottleRefactorPath = grunt.option('bb_path') || ["../bluebottle/bluebottle/common/static/refactor-sass"];
+  var bluebottleRefactorPath = grunt.option('bb_ref_path') || ["../bluebottle/bluebottle/common/static/refactor-sass"];
 
   grunt.loadNpmTasks('grunt-bower-task'); 
 
@@ -28,11 +28,15 @@ module.exports = function (grunt) {
       options: {
         livereload: true,
       },
+      sass: {
+        files: ['static/global/refactor-sass/**/*', bluebottleRefactorPath+"/**/*"],
+        tasks: ['sassRender:dist']
+      },
       scss: {
       	options: {
 	        livereload: false,
 	      },
-        files: ['static/global/sass/**/*',"../bluebottle/bluebottle/common/static/sass/**/*"],
+        files: ['static/global/sass/**/*', bluebottlePath+"/**/*"],
         tasks: ['render-sass:dev'],
       },
       css: {
@@ -90,4 +94,5 @@ module.exports = function (grunt) {
     grunt.task.run('compass:dist');
   });
   grunt.registerTask('sassRender', ['sass:dist']);
+  grunt.registerTask('build:css', ['sass:dist', 'compass:dist']);
 }
