@@ -244,6 +244,9 @@ INSTALLED_APPS = (
     #'social_auth',
     'social.apps.django_app.default',
 
+    #Bedankjes app
+    'apps.bedankjes',
+
     #Widget
     'bluebottle.widget',
 
@@ -597,5 +600,7 @@ SOCIAL_AUTH_PIPELINE = (
 
 SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email', 'first_name', 'last_name', ]
 SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
+
+POST_A_FRIEND_OF_MINE = True
 
 SEND_WELCOME_MAIL = True
