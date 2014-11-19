@@ -1,26 +1,30 @@
-import csv
 from decimal import Decimal
 import math
 import logging
-import traceback
-import sys
 from collections import namedtuple
 from optparse import make_option
-from apps.cowry_docdata.exceptions import DocDataPaymentException
-from apps.cowry_docdata.models import DocDataPaymentOrder
+from bluebottle.payments.exception import PaymentException
+
+from bluebottle.payments.models import OrderPayment
+from bluebottle.payments_docdata.exceptions import DocdataPaymentException
+
 from apps.recurring_donations.models import MonthlyProject
 from bluebottle.bb_projects.models import ProjectPhase
+from bluebottle.utils.model_dispatcher import get_donation_model, get_order_model, get_project_model
+from bluebottle.utils.utils import StatusDefinition
 from django.utils.timezone import now
-from apps.cowry import payments
 
-import os
 from django.core.management.base import BaseCommand
 from django.utils import timezone
-from apps.cowry_docdata.adapters import WebDirectDocDataDirectDebitPaymentAdapter
-from apps.fund.models import Order, OrderStatuses, Donation
-from apps.projects.models import Project
+from bluebottle.payments.services import PaymentService
+
 from ...models import MonthlyDonor, MonthlyDonation, MonthlyOrder, MonthlyBatch
 from ...mails import mail_monthly_donation_processed_notification
+
+
+DONATION_MODEL = get_donation_model()
+ORDER_MODEL = get_order_model()
+PROJECT_MODEL = get_project_model()
 
 logger = logging.getLogger(__name__)
 
@@ -81,16 +85,16 @@ def create_recurring_order(user, projects, batch, donor):
     """
     Creates a recurring Order with donations to the supplied projects.
     """
-    project_amount = math.floor(donor.amount_in_cents / len(projects))
-    order = MonthlyOrder.objects.create(user=user, batch=batch, amount=donor.amount_in_cents, name=donor.name,
+    project_amount = Decimal(math.floor(donor.amount / len(projects)))
+    order = MonthlyOrder.objects.create(user=user, batch=batch, amount=donor.amount, name=donor.name,
                                         city=donor.city, iban=donor.iban, bic=donor.bic,
                                         country=donor.country.alpha2_code)
     order.save()
 
-    rest_amount = donor.amount_in_cents - project_amount * len(projects)
+    rest_amount = donor.amount - project_amount * len(projects)
 
     for p in projects:
-        project = Project.objects.get(id=p.id)
+        project = PROJECT_MODEL.objects.get(id=p.id)
         don = MonthlyDonation.objects.create(user=user, project=project, amount=project_amount, order=order)
         don.save()
 
@@ -126,7 +130,7 @@ def prepare_monthly_donations():
     SkippedRecurringPayment = namedtuple('SkippedRecurringPayment', 'recurring_payment orders')
     donation_count = 0
 
-    popular_projects_all = Project.objects.exclude(skip_monthly=True, amount_needed=0).filter(status=ProjectPhase.objects.get(slug="campaign")).order_by('-popularity')
+    popular_projects_all = PROJECT_MODEL.objects.exclude(skip_monthly=True, amount_needed=0).filter(status=ProjectPhase.objects.get(slug="campaign")).order_by('-popularity')
     top_three_projects = list(popular_projects_all[:3])
     top_projects = list(popular_projects_all[3:])
 
@@ -187,7 +191,7 @@ def prepare_monthly_donations():
         # Update amounts for projects
         for donation in recurring_order.donations.all():
             monthly_project, created = MonthlyProject.objects.get_or_create(batch=batch, project=donation.project)
-            monthly_project.amount += donation.amount / 100
+            monthly_project.amount += donation.amount
             monthly_project.save()
 
         # At this point the order should be correctly setup and ready for the DocData payment.
@@ -199,7 +203,7 @@ def prepare_monthly_donations():
 
         # Safety check to ensure the modifications to the donations in the recurring result in an Order total that
         # matches the RecurringDirectDebitPayment.
-        if donor.amount != Decimal(recurring_order.amount) / 100:
+        if donor.amount != Decimal(recurring_order.amount):
             error_message = "Monthly donation amount: {0} does not equal recurring Order amount: {1} for '{2}'. Not processing this recurring donation.".format(
                 donor.amount, recurring_order.amount, donor)
             logger.error(error_message)
@@ -235,135 +239,61 @@ def prepare_monthly_donations():
         for skipped_payment in skipped_recurring_payments:
             logger.info("RecurringDirectDebitPayment: {0} {1}".format(skipped_payment.recurring_payment.id, skipped_payment.recurring_payment))
             for closed_order in skipped_payment.orders:
-                logger.info("Order Number: {0}".format(closed_order.order_number))
+                logger.info("Order Number: {0}".format(closed_order.id))
                 logger.info("--")
-
-
-def create_payment(recurring_order, monthly_order):
-
-        # Create and fill in the DocDataPaymentOrder.
-        payment = DocDataPaymentOrder()
-        payment.order = recurring_order
-        payment.payment_method_id = 'dd-webdirect'
-
-        payment.amount = monthly_order.amount
-        payment.currency = monthly_order.currency
-
-        payment.customer_id = monthly_order.user.id
-        payment.email = monthly_order.user.email
-
-        # Use the recurring payment name (bank account name) to set the first and last name if they're not set.
-        if not monthly_order.user.first_name:
-            if ' ' in monthly_order.name:
-                payment.first_name = monthly_order.name.split(' ')[0]
-            else:
-                payment.first_name = monthly_order.name
-        else:
-            payment.first_name = monthly_order.user.first_name
-
-        if not monthly_order.user.last_name:
-            if ' ' in monthly_order.name:
-                payment.last_name = monthly_order.name[monthly_order.name.index(' ') + 1:]
-            else:
-                payment.last_name = monthly_order.name
-        else:
-            payment.last_name = monthly_order.user.last_name
-
-        unknown_value = u'Unknown'
-
-        if monthly_order.city:
-            payment.city = monthly_order.city
-        else:
-            logger.warn("User '{0}' does not have their city set. Using '{1}'.".format(monthly_order.user, unknown_value))
-            payment.city = unknown_value
-
-        # If the MontlhyOrder doesn't have an address we use default values
-        if not monthly_order.user.address:
-            logger.warn("User '{0}' does not have an address set. Using '{1}'.".format(monthly_order.user, unknown_value))
-            payment.address = unknown_value
-            payment.postal_code = unknown_value
-        else:
-            address = monthly_order.user.address
-
-            # Set a default value for the pieces of the address that we don't have.
-            if not address.line1:
-                logger.warn("User '{0}' does not have their street and street number set. Using '{1}'.".format(monthly_order.user, unknown_value))
-                payment.address = unknown_value
-            else:
-                payment.address = address.line1
-            if not monthly_order.user.address.postal_code:
-                logger.warn("User '{0}' does not have their postal code set. Using '{1}'.".format(monthly_order.user, unknown_value))
-                payment.postal_code = unknown_value
-            else:
-                payment.postal_code = address.postal_code
-
-        payment.country = monthly_order.country
-
-        # Try to use the language from the User settings if it's set.
-        if monthly_order.user.primary_language:
-            payment.language = monthly_order.user.primary_language[:2]  # Cut off locale.
-        else:
-            payment.language = 'nl'
-
-        payment.save()
-
-        return payment
 
 
 def _process_monthly_order(monthly_order, send_email=False):
 
-    payment_adapter = WebDirectDocDataDirectDebitPaymentAdapter()
-
     if monthly_order.processed:
         logger.info("Order for {0} already processed".format(monthly_order.user))
-        return
+        return False
 
     ten_days_ago = timezone.now() + timezone.timedelta(days=-10)
-    recent_orders = Order.objects.filter(user=monthly_order.user, recurring=True, updated__gt=ten_days_ago)
+    recent_orders = ORDER_MODEL.objects.filter(user=monthly_order.user, order_type='recurring', updated__gt=ten_days_ago)
+
     if recent_orders.count() > 0:
         message = "Skipping '{0}' recently processed a recurring order for {1}:".format(monthly_order, monthly_order.user)
         logger.warn(message)
-        for closed_order in recent_orders:
-            logger.warn("  Order Number: {0}".format(closed_order.order_number))
+        for closed_order in recent_orders.all():
+            logger.warn("Recent Order Number: {0}".format(closed_order.id))
 
-        # Mark this as processed
+        # Set an error on this monthly order
         monthly_order.error = message
         monthly_order.save()
-        return
+        return False
 
-    order = Order.objects.create(status=OrderStatuses.closed, user=monthly_order.user, recurring=True)
+    order = ORDER_MODEL.objects.create(status=StatusDefinition.LOCKED, user=monthly_order.user, order_type='recurring')
     order.save()
 
     logger.info("Creating Order for {0} with {1} donations".format(monthly_order.user, monthly_order.donations.count()))
     for monthly_donation in monthly_order.donations.all():
-        donation = Donation.objects.create(amount=monthly_donation.amount, user=monthly_donation.user,
-                                           project=monthly_donation.project, order=order,
-                                           donation_type=Donation.DonationTypes.recurring)
+        donation = DONATION_MODEL.objects.create(amount=monthly_donation.amount, user=monthly_donation.user,
+                                                 project=monthly_donation.project, order=order)
         donation.save()
 
-    payment = create_payment(order, monthly_order)
+    integration_data = {'account_name': monthly_order.name,
+                        'account_city': monthly_order.city,
+                        'iban': monthly_order.iban,
+                        'bic' :monthly_order.bic,
+                        'agree': True}
+
+    order_payment = OrderPayment(order=order, user=monthly_order.user, payment_method='docdataDirectdebit',
+                                 integration_data=integration_data)
+
+    order_payment.save()
 
     try:
-        payment_adapter.create_remote_payment_order(payment)
-    except DocDataPaymentException as e:
-        # Cleanup the Order if there's an error.
-        order.delete()
-        error_message = "Problem creating remote payment order."
-        logger.error(error_message)
-        monthly_order.error = "{0}".format(e.message)
-        monthly_order.save()
-        return
-
-    try:
-        payment_adapter.start_payment(payment, monthly_order)
-    except DocDataPaymentException as e:
-
+        service = PaymentService(order_payment)
+        service.start_payment()
+    except PaymentException as e:
+        order_payment.delete()
         order.delete()
         error_message = "Problem starting payment. {0}".format(e)
         monthly_order.error = "{0}".format(e.message)
         monthly_order.save()
         logger.error(error_message)
-        return
+        return False
 
     logger.debug("Payment for '{0}' started.".format(monthly_order))
 
@@ -372,14 +302,13 @@ def _process_monthly_order(monthly_order, send_email=False):
     monthly_order.save()
 
     # Try to update status
-    payments.update_payment_status(payment, status_changed_notification=True)
-
+    service.check_payment_status()
 
     # Send an email to the user.
     if send_email:
         mail_monthly_donation_processed_notification(monthly_order)
 
-    return payment
+    return True
 
 
 def process_single_monthly_order(email, batch=None, send_email=False):
@@ -407,17 +336,5 @@ def process_monthly_batch(batch=None, send_email=False):
         logger.info("No batch found using latest...")
         batch = MonthlyBatch.objects.order_by('-date', '-created').all()[0]
 
-    recurring_donation_errors = []
-    RecurringDonationError = namedtuple('RecurringDonationError', 'recurring_payment error_message')
-    skipped_recurring_payments = []
-    SkippedRecurringPayment = namedtuple('SkippedRecurringPayment', 'recurring_payment orders')
-    donation_count = 0
-
     for monthly_order in batch.orders.all():
-
-        payment = _process_monthly_order(monthly_order, send_email)
-        if not payment:
-            continue
-
-        donation_count += 1
-
+        _process_monthly_order(monthly_order, send_email)
