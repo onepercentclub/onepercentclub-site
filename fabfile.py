@@ -328,6 +328,7 @@ def prepare_django():
         # "Could not find a tag or branch '<commit_id>', assuming commit."
         run('pip install -q --allow-all-external --allow-unverified django-admin-tools -r requirements/requirements.txt')
 
+        run('npm install time-grunt jit-grunt')
         run('grunt compass:dist --bb_path=env-2.7/src/bluebottle/bluebottle/common/static/sass')
         run('grunt sassRender --bb_path=env-2.7/src/bluebottle/bluebottle/common/static/refactor-sass')
 
