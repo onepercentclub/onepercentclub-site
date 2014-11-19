@@ -17,6 +17,7 @@ import json
 
 @receiver(pre_save, weak=False, sender=Donation)
 def post_to_friend_of_mine(sender, instance, **kwargs):
+
     donation = instance
 
     # Only post to AFOM for one-off donations. 
@@ -51,10 +52,6 @@ def post_to_friend_of_mine(sender, instance, **kwargs):
         payload['amount'] = donation.amount
 
         url = "http://stage-onepercentclub.campaignapps.nl/api/donations/new"
-        
-        print "Payload", json.dumps(payload)
-        
-        r = requests.post(url, data=json.dumps(payload))
+                
+        res = requests.post(url, data=json.dumps(payload))
 
-        print "Status code", r.status_code
-        print "Content-type", r.headers['content-type']

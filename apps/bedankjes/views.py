@@ -16,15 +16,16 @@ def donation_trigger(request):
 
         payload = {}
         payload['identifier'] = "Test identifier"
+        payload['first_name'] = "Test first name"
+        payload['last_name'] = "Test last name"
         payload['name'] = "Test name"
+        payload['city'] = "Test Amsterdam"
         payload['email'] = "test@testing.com"
         payload['project'] = "Test project title"
         payload['amount'] = "280"
 
-        url = "http://31.3.103.106"
-        
-        print "Payload", json.dumps(payload)
-        
+        url = "http://stage-onepercentclub.campaignapps.nl/api/donations/new"
+                
         r = requests.post(url, data=json.dumps(payload))
 
         if r.status_code == 200:
