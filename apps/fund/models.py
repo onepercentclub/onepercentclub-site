@@ -17,10 +17,7 @@ from registration.signals import user_activated
 
 from apps.cowry_docdata.models import DocDataPaymentOrder
 from apps.vouchers.models import VoucherStatuses
-from django.contrib.auth import get_user_model
 from .fields import DutchBankAccountField
-
-USER_MODEL = get_user_model()
 
 
 logger = logging.getLogger(__name__)
