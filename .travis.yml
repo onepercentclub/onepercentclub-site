@@ -16,6 +16,7 @@ services:
 before_install:
 - gem update --system
 - gem install compass -v 0.12.7
+- gem install bourbon neat
 - npm install -g grunt-cli
 - npm install
 - sudo apt-get install -qq memcached python-memcache libjpeg8-dev libjpeg-dev zlib1g-dev libpng12-dev
@@ -25,6 +26,8 @@ install:
 - pip install $DJANGO --use-mirrors
 - pip install --use-mirrors --use-wheel --find-links=https://stream.onepercentclub.com/wheelhouse/ -r requirements/ci_requirements.txt
 - touch onepercentclub/settings/secrets.py
+- bourbon install --path=static/global/refactor-sass/lib
+- cd static/global/refactor-sass/lib && neat install
 before_script:
 - pip show bluebottle
 - grunt build:css --bb_path="`pip show bluebottle | grep Location | cut -b11-`"
