@@ -93,11 +93,6 @@
 @import "pages/manage";
 @import "pages/fmo";
 
-/* New sass pages */
-@import "new-sass/pages/wallpost";
-@import "new-sass/pages/project-detail";
-
-
 /* Temp */
 // @import "campaigns/crazy-campaign-2013";
 @import "campaigns/easter_eggs";
@@ -112,10 +107,9 @@
 @import "1procentclub/base/tabs";
 @import "1procentclub/layout/header";
 @import "1procentclub/modules/projects";
-@import "1procentclub/modules/wallposts";
 @import "1procentclub/modules/donations";
 @import "1procentclub/pages/account";
-@import "1procentclub/pages/project-detail";
+//@import "1procentclub/pages/project-detail";
 @import "1procentclub/pages/profile";
 @import "1procentclub/modules/tasks";
 
