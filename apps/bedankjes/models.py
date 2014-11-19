@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models.signals import pre_save
+from django.conf import settings
 from django.dispatch import receiver
 from apps.fund.models import Donation, DonationStatuses # Old donation model
 #from bluebottle.utils.model_dispatcher import get_donation_model
@@ -17,6 +18,13 @@ import json
 
 @receiver(pre_save, weak=False, sender=Donation)
 def post_to_friend_of_mine(sender, instance, **kwargs):
+
+    if not hasattr(settings, 'POST_A_FRIEND_OF_MINE'):
+        return
+
+    if not settings.POST_A_FRIEND_OF_MINE:
+        return
+
 
     donation = instance
 
@@ -55,3 +63,4 @@ def post_to_friend_of_mine(sender, instance, **kwargs):
                 
         res = requests.post(url, data=json.dumps(payload))
 
+        print "Post to A Friend of Mine"
