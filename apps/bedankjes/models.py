@@ -62,5 +62,3 @@ def post_to_friend_of_mine(sender, instance, **kwargs):
         url = "http://stage-onepercentclub.campaignapps.nl/api/donations/new"
                 
         res = requests.post(url, data=json.dumps(payload))
-
-        print "Post to A Friend of Mine"
