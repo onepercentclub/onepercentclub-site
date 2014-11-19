@@ -27,6 +27,10 @@ module.exports = function (grunt) {
       options: {
         livereload: true,
       },
+      sass: {
+        files: ['static/global/refactor-sass/**/*', bluebottlPath+"/bluebottle/common/static/refactor-sass/**/*"],
+        tasks: ['sassRender:dist']
+      },
       scss: {
       	options: {
 	        livereload: false,
@@ -89,5 +93,5 @@ module.exports = function (grunt) {
     grunt.task.run('compass:dist');
   });
   grunt.registerTask('sassRender', ['sass:dist']);
-  grunt.registerTask('build:css', ['sass:dist', 'compass:dist'])
+  grunt.registerTask('build:css', ['sass:dist', 'compass:dist']);
 }
