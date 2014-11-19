@@ -36,14 +36,21 @@ def post_to_friend_of_mine(sender, instance, **kwargs):
     # If the donation status will be pending, send a mail.
     if donation.status in [DonationStatuses.pending, DonationStatuses.paid]:
 
+        if donation.fundraiser:
+            user = donation.fundraiser.owner.username
+        else:
+            identifier = donation.project.owner.username
+
         payload = {}
-        payload['identifier'] = donation.user.username # A Friend of Mine has a list of predefined accounts
-        payload['name'] = donation.user.get_full_name()
+        payload['identifier'] = identifier # A Friend of Mine has a list of predefined accounts
+        payload['first_name'] = donation.user.first_name
+        payload['last_name'] = donation.user.last_name
+        payload['city'] = donation.user.location
         payload['email'] = donation.user.email
         payload['project'] = donation.project.title
         payload['amount'] = donation.amount
 
-        url = "http://31.3.103.106"
+        url = "http://stage-onepercentclub.campaignapps.nl/api/donations/new"
         
         print "Payload", json.dumps(payload)
         
