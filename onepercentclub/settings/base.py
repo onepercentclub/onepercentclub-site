@@ -244,6 +244,9 @@ INSTALLED_APPS = (
     #'social_auth',
     'social.apps.django_app.default',
 
+    # Onepercent app to send POST requests to AFOM
+    'onepercent_afom',
+
     #Widget
     'bluebottle.widget',
 
