@@ -329,6 +329,7 @@ def prepare_django():
         run('pip install -q --allow-all-external --allow-unverified django-admin-tools -r requirements/requirements.txt')
 
         run('grunt compass:dist --bb_path=env-2.7/src/bluebottle/bluebottle/common/static/sass')
+        run('grunt sassRender --bb_path=env-2.7/src/bluebottle/bluebottle/common/static/refactor-sass')
 
         # Remove and compile the .pyc files.
         run('find . -name \*.pyc -delete')
