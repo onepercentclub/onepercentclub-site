@@ -331,8 +331,7 @@ def prepare_django():
         # Building CSS
         sudo('gem install bourbon neat')
         run('bourbon install --path static/global/refactor-sass/lib')
-        with cd('{0}/static/global/refactor-sass/lib'.format(env.directory)):
-            run('neat install')
+        run('cd static/global/refactor-sass/lib && neat install')
         run('npm install')
         run('grunt build:css --bb_path=env-2.7/src/bluebottle')
 
