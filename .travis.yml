@@ -27,7 +27,7 @@ install:
 - touch onepercentclub/settings/secrets.py
 before_script:
 - pip show bluebottle
-- grunt compass:dist --bb_path="`pip show bluebottle | grep Location | cut -b11-`/bluebottle/common/static/sass"
+- grunt build:css --bb_path="`pip show bluebottle | grep Location | cut -b11-`"
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
 #- curl https://gist.githubusercontent.com/rollick/42b92c18c3a265b08792/raw/sauce-connect.sh | sh
