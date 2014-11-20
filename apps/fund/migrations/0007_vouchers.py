@@ -56,6 +56,7 @@ class Migration(DataMigration):
                     updated=old_donation.ready,
                     user=old_donation.user,
                     total=amount,
+                    order_type='voucher',
                     status=StatusDefinition.SUCCESS
                 )
                 order.save()

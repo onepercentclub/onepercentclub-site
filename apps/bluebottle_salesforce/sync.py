@@ -801,7 +801,10 @@ def send_log(filename, err, succ, command, command_ext, dry_run, loglevel):
 
     with open(filename, "r") as logfile:
         for line in logfile:
-            sflog.message += line
+            if len(line) > 1300:
+                sflog.message += line[:1300]
+            else:
+                sflog.message += line
 
     # Save the object to Salesforce
     if not dry_run:
