@@ -20,11 +20,11 @@ def mchanga_fundraiser(project):
 def update_money_donated(project, mchanga_object, donations):
     """ Update amount based on paid and pending donations. """
 
-    amount_donated = Decimal( str(get_money_total(project, donations, ['paid', 'pending']))) / 100
+    amount_donated = Decimal(get_money_total(project, donations, ['paid', 'pending'])) / 100
 
     if mchanga_object:
         kes = mchanga_object.current_amount
-        euro = Decimal(str(kes)) / Decimal(114.651)
+        euro = Decimal(kes) / Decimal(114.651)
         amount_donated += euro
 
 
