@@ -85,7 +85,7 @@ def create_recurring_order(user, projects, batch, donor):
     """
     Creates a recurring Order with donations to the supplied projects.
     """
-    project_amount = Decimal(math.floor(donor.amount / len(projects)))
+    project_amount = Decimal(math.floor(donor.amount * 100 / len(projects))) / 100
     order = MonthlyOrder.objects.create(user=user, batch=batch, amount=donor.amount, name=donor.name,
                                         city=donor.city, iban=donor.iban, bic=donor.bic,
                                         country=donor.country.alpha2_code)

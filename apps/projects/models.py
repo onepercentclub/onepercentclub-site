@@ -2,7 +2,6 @@ import datetime
 from decimal import Decimal
 from apps.mchanga.models import MpesaFundRaiser
 from bluebottle.utils.utils import StatusDefinition
-from .fields import MoneyField
 from bluebottle.bb_projects.models import BaseProject, ProjectPhase, BaseProjectPhaseLog
 from django.db import models
 from django.db.models import Q
@@ -135,11 +134,12 @@ class Project(BaseProject):
         return self.slug
 
     def update_popularity(self, save=True):
-        from apps.fund.models import Donation
+        from bluebottle.donations.models import Donation
 
         last_month = timezone.now() - timezone.timedelta(days=30)
         donations = Donation.objects.filter(order__status__in=[StatusDefinition.PENDING, StatusDefinition.SUCCESS])
         donations = donations.filter(created__gte=last_month)
+        donations = donations.exclude(order__order_type='recurring')
 
         # For all projects.
         total_recent_donors = len(donations)
@@ -170,7 +170,7 @@ class Project(BaseProject):
 
             self.save()
 
-    def update_money_donated(self, save=True):
+    def update_amounts(self, save=True):
         """ Update amount based on paid and pending donations. """
 
         self.amount_donated = self.get_money_total([StatusDefinition.PENDING, StatusDefinition.SUCCESS])
@@ -185,6 +185,8 @@ class Project(BaseProject):
         if self.amount_needed < 0:
             # Should never be less than zero
             self.amount_needed = 0
+
+        self.update_popularity(False)
 
         if save:
             self.save()
@@ -357,9 +359,6 @@ class Project(BaseProject):
                                                            Q(slug="done-incomplete") |
                                                            Q(slug="done-stopped")) and not self.campaign_ended:
             self.campaign_ended = timezone.now()
-
-        if self.amount_asked:
-            self.update_money_donated(False)
 
         super(Project, self).save(*args, **kwargs)
 
