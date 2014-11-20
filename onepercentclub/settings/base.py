@@ -259,7 +259,7 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'django_tools',
 
-    #FB Auth
+    # FB Auth
     'bluebottle.auth',
 
     # Password auth from old PHP site.

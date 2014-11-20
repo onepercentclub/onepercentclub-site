@@ -49,6 +49,7 @@ App.then(function(app) {
 
 
     app.fbLogin = function (fbResponse) {
+        
         var _this = this,
             currentUsercontroller = App.__container__.lookup('controller:currentUser');
 
@@ -72,7 +73,6 @@ App.then(function(app) {
 
                     // If success
                     currentUsercontroller.set('model', user);
-                    currentUsercontroller.send('close');
 
                     // For some reason the currentUserController keeps failing to have a reference to 'tracker'
                     var loginController = App.__container__.lookup('controller:login'),
@@ -118,7 +118,15 @@ App.then(function(app) {
                     
                     // Trigger next transition in case a user was accesing a restricted page
                     currentUsercontroller.send('loadNextTransition'); 
-                    
+
+                    if (FBApp.get('callingController')._handleSignupSuccess) {
+                        FBApp.get('callingController')._handleSignupSuccess();
+                    } else if (FBApp.get('callingController')._handleLoginSuccess) {
+                        FBApp.get('callingController')._handleLoginSuccess();
+                    } else {
+                        currentUsercontroller.send('close');
+                    }
+
                  }, function (error) {
                     // If Facebook login succeeded but something goes wrong on the token side we end up here
                     currentUsercontroller.send('setFlash', error, 'error');
@@ -222,7 +230,7 @@ App.EventMixin = Em.Mixin.create({
 });
 
 Ember.View.reopen({
-    touchStart: Ember.alias('click')
+    touchStart: Ember.computed.alias('click')
 })
 
 /*
