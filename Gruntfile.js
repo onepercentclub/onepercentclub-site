@@ -28,7 +28,7 @@ module.exports = function (grunt) {
         livereload: true,
       },
       sass: {
-        files: ['static/global/refactor-sass/**/*', bluebottlPath+"/bluebottle/common/static/refactor-sass/**/*"],
+        files: ['static/global/refactor-sass/**/*', bluebottlePath+"/bluebottle/common/static/refactor-sass/**/*"],
         tasks: ['sassRender:dist']
       },
       scss: {
