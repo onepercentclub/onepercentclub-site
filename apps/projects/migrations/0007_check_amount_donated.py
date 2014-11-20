@@ -24,7 +24,7 @@ def update_money_donated(project, mchanga_object, donations):
 
     if mchanga_object:
         kes = mchanga_object.current_amount
-        euro = Decimal(kes) / Decimal(114.651)
+        euro = Decimal(str(kes) / Decimal(114.651)
         amount_donated += euro
 
 
