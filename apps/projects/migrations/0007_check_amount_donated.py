@@ -72,7 +72,7 @@ class Migration(DataMigration):
         count = 0
         count_large = 0
         print "Checking amount_donated for projects"
-        if hasattr(settings, 'PRODUCTION'):
+        if hasattr(settings, 'PRODUCTION') or hasattr(settings, 'STAGING'):
             f = open('/home/onepercentsite/donationAmount.log', 'w')
         else:
             f = open('donationAmount.log', 'w')
