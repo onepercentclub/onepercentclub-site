@@ -1,17 +1,23 @@
+// libs
 @import "lib/bourbon/bourbon";
 @import "base/grid-settings";
 @import "lib/neat/neat";
 
-// reset
-@import "base/reset";
-@import "variables";
-
+// mixins
 @import "mixins/regular";
 @import "mixins/bb-icons";
+@import "mixins/custom";
+
+// reset
+@import "base/normalize";
+
+// variables
+@import "variables";
 
 // modules
 @import "modules/wallpost-new";
+@import "modules/wallpost";
 
 // pages
 @import "pages/project-detail";
-@import "pages/wallposts";
+@import "pages/wall";
