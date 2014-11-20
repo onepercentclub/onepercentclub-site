@@ -528,7 +528,7 @@ def sync_donations(dry_run, sync_from_datetime, loglevel):
         sfdonation.payment_method = payment_method_mapping['']  # Maps to Unknown for DocData.
         if donation.order:
             lp = OrderPayment.get_latest_by_order(donation.order)
-            if lp and lp.payment:
+            if lp:
                 if lp.payment_method in payment_method_mapping:
                     sfdonation.payment_method = payment_method_mapping[lp.latest_docdata_payment.payment_method]
 
