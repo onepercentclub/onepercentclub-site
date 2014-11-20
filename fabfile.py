@@ -328,7 +328,12 @@ def prepare_django():
         # "Could not find a tag or branch '<commit_id>', assuming commit."
         run('pip install -q --allow-all-external --allow-unverified django-admin-tools -r requirements/requirements.txt')
 
-        run('grunt build:css --bb_path=env-2.7/src/bluebottle/bluebottle/common/static/sass --bb_ref_path=env-2.7/src/bluebottle/bluebottle/common/static/refactor-sass')
+        # Building CSS
+        sudo('gem install bourbon neat')
+        run('bourbon install --path static/global/refactor-sass/lib')
+        run('cd static/global/refactor-sass/lib && neat install')
+        run('npm install')
+        run('grunt build:css --bb_path=env-2.7/src/bluebottle')
 
         # Remove and compile the .pyc files.
         run('find . -name \*.pyc -delete')
