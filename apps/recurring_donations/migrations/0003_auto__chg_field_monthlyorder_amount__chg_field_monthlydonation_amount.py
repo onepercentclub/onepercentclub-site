@@ -1,106 +1,28 @@
 # -*- coding: utf-8 -*-
-from decimal import Decimal
-from south.v2 import DataMigration
-from django.db.models.aggregates import Sum
-from django.conf import settings
+import datetime
+from south.db import db
+from south.v2 import SchemaMigration
+from django.db import models
 
 
-def update_money_donated(project, mchanga_object, donations):
-    """ Update amount based on paid and pending donations. """
-
-    amount_donated = Decimal(get_money_total(project, donations, ['paid', 'pending'])) / 100
-
-    if mchanga_object:
-        kes = mchanga_object.current_amount
-        euro = Decimal(kes) / Decimal(114.651)
-        amount_donated += euro
-
-
-    if not project.amount_asked:
-        #print "amount_asked is None"
-        #print amount_donated
-        amount_needed = 0
-    else:
-        amount_needed = project.amount_asked - amount_donated
-
-    if amount_needed < 0:
-        # Should never be less than zero
-        amount_needed = 0
-
-    return amount_donated, amount_needed
-
-
-def get_money_total(project, donations, status_in=None, type_in=None):
-    """
-    Calculate the total (realtime) amount of money for donations,
-    optionally filtered by status.
-    """
-
-    if project.amount_asked == 0:
-        # No money asked, return 0
-        return 0
-
-    if status_in:
-        donations = donations.filter(status__in=status_in)
-
-    if type_in:
-        donations = donations.filter(donation_type__in=type_in)
-
-    total = donations.aggregate(sum=Sum('amount'))
-
-    if not total['sum']:
-        # No donations, manually set amount
-        return 0
-
-    return total['sum']
-
-class Migration(DataMigration):
+class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        count = 0
-        count_large = 0
-        print "Checking amount_donated for projects"
-        if hasattr(settings, 'PRODUCTION'):
-            f = open('/home/onepercentsite/donationAmount.log', 'w')
-        else:
-            f = open('donationAmount.log', 'w')
-        for project in orm['projects.Project'].objects.all():
-            donations = orm['fund.Donation'].objects.filter(project=project)
 
-            mchanga_object = None
-            if project.mchanga_account:
-                frs = orm['mchanga.MpesaFundRaiser'].objects.filter(account=project.mchanga_account).all()
-                if len(frs):
-                    mchanga_object = frs[0]
+        # Changing field 'MonthlyOrder.amount'
+        db.alter_column(u'recurring_donations_monthlyorder', 'amount', self.gf('django.db.models.fields.DecimalField')(max_digits=16, decimal_places=2))
 
-            amount_donated = project.amount_donated
-            new_amount_donated, new_amount_needed = update_money_donated(project, mchanga_object, donations)
-
-            if amount_donated != new_amount_donated:
-                print "Project id: {0}".format(project.id)
-                f.write("Project id: {0}\n".format(project.id))
-                print "Old amount donated: {0} -- New amount donated {1}".format(amount_donated, new_amount_donated)
-                f.write("Old amount donated: {0} -- New amount donated {1}\n".format(amount_donated, new_amount_donated))
-                if new_amount_donated - amount_donated > 1:
-                    count_large += 1 
-                    print "Donations for large amount mismatch:"
-                    f.write("Donations for large amount mismatch:\n")
-                    print ''.join([str(donation.created.year) + '\n' for donation in donations])
-                    f.write(''.join([str(donation.created.year) + "\n" for donation in donations]))
-                    f.write('\n')
-                else:
-                    project.amount_donated = new_amount_donated
-                    project.save()
-                count += 1
-
-        print "{0} of {1} projects do not match".format(count, orm['projects.Project'].objects.count())
-        f.write("{0} of {1} projects do not match\n".format(count, orm['projects.Project'].objects.count()))
-        print "{0} projects have more than 1 euro mismatch".format(count_large)
-        f.write("{0} projects have more than 1 euro mismatch\n".format(count_large))
-        f.close()
+        # Changing field 'MonthlyDonation.amount'
+        db.alter_column(u'recurring_donations_monthlydonation', 'amount', self.gf('django.db.models.fields.DecimalField')(max_digits=16, decimal_places=2))
 
     def backwards(self, orm):
-        "Write your backwards methods here."
+
+        # Changing field 'MonthlyOrder.amount'
+        db.alter_column(u'recurring_donations_monthlyorder', 'amount', self.gf('django.db.models.fields.PositiveIntegerField')())
+
+        # Changing field 'MonthlyDonation.amount'
+        db.alter_column(u'recurring_donations_monthlydonation', 'amount', self.gf('django.db.models.fields.PositiveIntegerField')())
+
     models = {
         u'auth.group': {
             'Meta': {'object_name': 'Group'},
@@ -142,65 +64,6 @@ class Migration(DataMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'fund.donation': {
-            'Meta': {'object_name': 'Donation'},
-            'amount': ('django.db.models.fields.PositiveIntegerField', [], {}),
-            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'currency': ('django.db.models.fields.CharField', [], {'default': "'EUR'", 'max_length': '3'}),
-            'donation_type': ('django.db.models.fields.CharField', [], {'default': "'one_off'", 'max_length': '20', 'db_index': 'True'}),
-            'fundraiser': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['fundraisers.FundRaiser']", 'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'order': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'donations'", 'null': 'True', 'to': u"orm['fund.Order']"}),
-            'project': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['projects.Project']"}),
-            'ready': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            'status': ('django.db.models.fields.CharField', [], {'default': "'new'", 'max_length': '20', 'db_index': 'True'}),
-            'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['members.Member']", 'null': 'True', 'blank': 'True'}),
-            'voucher': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['vouchers.Voucher']", 'null': 'True', 'blank': 'True'})
-        },
-        u'fund.order': {
-            'Meta': {'ordering': "('-updated',)", 'object_name': 'Order'},
-            'closed': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'order_number': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30', 'db_index': 'True'}),
-            'recurring': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'status': ('django.db.models.fields.CharField', [], {'default': "'current'", 'max_length': '20', 'db_index': 'True'}),
-            'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['members.Member']", 'null': 'True', 'blank': 'True'})
-        },
-        u'fund.recurringdirectdebitpayment': {
-            'Meta': {'object_name': 'RecurringDirectDebitPayment'},
-            'account': ('apps.fund.fields.DutchBankAccountField', [], {'max_length': '10'}),
-            'active': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'amount': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
-            'bic': ('django_iban.fields.SWIFTBICField', [], {'default': "''", 'max_length': '11', 'blank': 'True'}),
-            'city': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
-            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'currency': ('django.db.models.fields.CharField', [], {'default': "'EUR'", 'max_length': '3'}),
-            'iban': ('django_iban.fields.IBANField', [], {'default': "''", 'max_length': '34', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'manually_process': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
-            'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['members.Member']", 'unique': 'True'})
-        },
-        u'fundraisers.fundraiser': {
-            'Meta': {'object_name': 'FundRaiser'},
-            'amount': ('django.db.models.fields.PositiveIntegerField', [], {}),
-            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'currency': ('django.db.models.fields.CharField', [], {'default': "'EUR'", 'max_length': "'10'"}),
-            'deadline': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
-            'deleted': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'image': ('sorl.thumbnail.fields.ImageField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'owner': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['members.Member']"}),
-            'project': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['projects.Project']"}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'video_url': ('django.db.models.fields.URLField', [], {'default': "''", 'max_length': '100', 'blank': 'True'})
-        },
         u'geo.country': {
             'Meta': {'ordering': "['name']", 'object_name': 'Country'},
             'alpha2_code': ('django.db.models.fields.CharField', [], {'max_length': '2', 'blank': 'True'}),
@@ -224,37 +87,6 @@ class Migration(DataMigration):
             'numeric_code': ('django.db.models.fields.CharField', [], {'max_length': '3', 'unique': 'True', 'null': 'True', 'blank': 'True'}),
             'region': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['geo.Region']"})
         },
-        u'mchanga.mpesafundraiser': {
-            'Meta': {'object_name': 'MpesaFundRaiser'},
-            'account': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
-            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'current_amount': ('django.db.models.fields.IntegerField', [], {'null': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'link': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
-            'owner': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
-            'payment_count': ('django.db.models.fields.IntegerField', [], {'null': 'True'}),
-            'project': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['projects.Project']", 'null': 'True'}),
-            'status': ('django.db.models.fields.CharField', [], {'max_length': '10', 'blank': 'True'}),
-            'total_amount': ('django.db.models.fields.IntegerField', [], {'null': 'True'}),
-            'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'})
-        },
-        u'mchanga.mpesapayment': {
-            'Meta': {'object_name': 'MpesaPayment'},
-            'amount': ('django.db.models.fields.IntegerField', [], {'null': 'True'}),
-            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'currency': ('django.db.models.fields.CharField', [], {'max_length': '10', 'blank': 'True'}),
-            'date': ('django.db.models.fields.DateTimeField', [], {'null': 'True'}),
-            'fundraiser_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'mchanga_account': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
-            'mpesa_id': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
-            'mpesa_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
-            'mpesa_phone': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
-            'project': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['projects.Project']", 'null': 'True'}),
-            'status': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
-            'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'})
-        },
         u'members.member': {
             'Meta': {'object_name': 'Member'},
             'about': ('django.db.models.fields.TextField', [], {'max_length': '265', 'blank': 'True'}),
@@ -265,7 +97,7 @@ class Migration(DataMigration):
             'disable_token': ('django.db.models.fields.CharField', [], {'max_length': '32', 'null': 'True', 'blank': 'True'}),
             'email': ('django.db.models.fields.EmailField', [], {'unique': 'True', 'max_length': '254', 'db_index': 'True'}),
             'facebook': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
+            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
             'gender': ('django.db.models.fields.CharField', [], {'max_length': '6', 'blank': 'True'}),
             'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Group']", 'symmetrical': 'False', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -273,7 +105,7 @@ class Migration(DataMigration):
             'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
+            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
             'location': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
             'newsletter': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
@@ -339,9 +171,9 @@ class Migration(DataMigration):
         u'projects.project': {
             'Meta': {'ordering': "['title']", 'object_name': 'Project'},
             'allow_overfunding': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'amount_asked': ('apps.projects.fields.MoneyField', [], {'default': '0', 'null': 'True', 'max_digits': '12', 'decimal_places': '2', 'blank': 'True'}),
-            'amount_donated': ('apps.projects.fields.MoneyField', [], {'default': '0', 'max_digits': '12', 'decimal_places': '2'}),
-            'amount_needed': ('apps.projects.fields.MoneyField', [], {'default': '0', 'max_digits': '12', 'decimal_places': '2'}),
+            'amount_asked': ('bluebottle.bb_projects.fields.MoneyField', [], {'default': '0', 'null': 'True', 'max_digits': '12', 'decimal_places': '2', 'blank': 'True'}),
+            'amount_donated': ('bluebottle.bb_projects.fields.MoneyField', [], {'default': '0', 'max_digits': '12', 'decimal_places': '2'}),
+            'amount_needed': ('bluebottle.bb_projects.fields.MoneyField', [], {'default': '0', 'max_digits': '12', 'decimal_places': '2'}),
             'campaign_ended': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'campaign_funded': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'campaign_started': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
@@ -376,22 +208,64 @@ class Migration(DataMigration):
             'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'video_url': ('django.db.models.fields.URLField', [], {'default': "''", 'max_length': '100', 'null': 'True', 'blank': 'True'})
         },
-        u'projects.projectbudgetline': {
-            'Meta': {'object_name': 'ProjectBudgetLine'},
-            'amount': ('django.db.models.fields.PositiveIntegerField', [], {}),
+        u'recurring_donations.monthlybatch': {
+            'Meta': {'object_name': 'MonthlyBatch'},
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'currency': ('django.db.models.fields.CharField', [], {'default': "'EUR'", 'max_length': '3'}),
-            'description': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '255'}),
+            'date': ('django.db.models.fields.DateField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'project': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['projects.Project']"}),
             'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'})
         },
-        u'projects.projectphaselog': {
-            'Meta': {'object_name': 'ProjectPhaseLog'},
+        u'recurring_donations.monthlydonation': {
+            'Meta': {'object_name': 'MonthlyDonation'},
+            'amount': ('django.db.models.fields.DecimalField', [], {'default': '0', 'max_digits': '16', 'decimal_places': '2'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'order': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'donations'", 'to': u"orm['recurring_donations.MonthlyOrder']"}),
             'project': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['projects.Project']"}),
-            'start': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'status': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['bb_projects.ProjectPhase']"})
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['members.Member']"})
+        },
+        u'recurring_donations.monthlydonor': {
+            'Meta': {'object_name': 'MonthlyDonor'},
+            'active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
+            'amount': ('django.db.models.fields.DecimalField', [], {'max_digits': '6', 'decimal_places': '2'}),
+            'bic': ('django_iban.fields.SWIFTBICField', [], {'default': "''", 'max_length': '11', 'blank': 'True'}),
+            'city': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
+            'country': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['geo.Country']", 'null': 'True', 'blank': 'True'}),
+            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            'iban': ('django_iban.fields.IBANField', [], {'default': "''", 'max_length': '34', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
+            'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['members.Member']", 'unique': 'True'})
+        },
+        u'recurring_donations.monthlydonorproject': {
+            'Meta': {'object_name': 'MonthlyDonorProject'},
+            'donor': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'projects'", 'to': u"orm['recurring_donations.MonthlyDonor']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'project': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['projects.Project']"})
+        },
+        u'recurring_donations.monthlyorder': {
+            'Meta': {'object_name': 'MonthlyOrder'},
+            'amount': ('django.db.models.fields.DecimalField', [], {'default': '0', 'max_digits': '16', 'decimal_places': '2'}),
+            'batch': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'orders'", 'to': u"orm['recurring_donations.MonthlyBatch']"}),
+            'bic': ('django_iban.fields.SWIFTBICField', [], {'default': "''", 'max_length': '11', 'blank': 'True'}),
+            'city': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
+            'country': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '2'}),
+            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            'currency': ('django.db.models.fields.CharField', [], {'default': "'EUR'", 'max_length': '3'}),
+            'error': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '1000', 'null': 'True', 'blank': 'True'}),
+            'iban': ('django_iban.fields.IBANField', [], {'default': "''", 'max_length': '34', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
+            'processed': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['members.Member']"})
+        },
+        u'recurring_donations.monthlyproject': {
+            'Meta': {'object_name': 'MonthlyProject'},
+            'amount': ('django.db.models.fields.DecimalField', [], {'default': '0', 'max_digits': '6', 'decimal_places': '2'}),
+            'batch': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['recurring_donations.MonthlyBatch']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'project': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['projects.Project']"})
         },
         u'taggit.tag': {
             'Meta': {'object_name': 'Tag'},
@@ -412,27 +286,7 @@ class Migration(DataMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'language_name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'native_name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        u'vouchers.voucher': {
-            'Meta': {'object_name': 'Voucher'},
-            'amount': ('django.db.models.fields.PositiveIntegerField', [], {}),
-            'code': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100', 'blank': 'True'}),
-            'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
-            'currency': ('django.db.models.fields.CharField', [], {'default': "'EUR'", 'max_length': '3'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'language': ('django.db.models.fields.CharField', [], {'default': "'en'", 'max_length': '2'}),
-            'message': ('django.db.models.fields.TextField', [], {'default': "''", 'max_length': '500', 'blank': 'True'}),
-            'order': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'vouchers'", 'null': 'True', 'to': u"orm['fund.Order']"}),
-            'receiver': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'receiver'", 'null': 'True', 'to': u"orm['members.Member']"}),
-            'receiver_email': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
-            'receiver_name': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100', 'blank': 'True'}),
-            'sender': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'sender'", 'null': 'True', 'to': u"orm['members.Member']"}),
-            'sender_email': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
-            'sender_name': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100', 'blank': 'True'}),
-            'status': ('django.db.models.fields.CharField', [], {'default': "'new'", 'max_length': '20', 'db_index': 'True'}),
-            'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'})
         }
     }
 
-    complete_apps = ['fund', 'mchanga', 'projects']
-    symmetrical = True
+    complete_apps = ['recurring_donations']
