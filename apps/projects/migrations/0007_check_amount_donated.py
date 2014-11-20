@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
-import datetime
 from decimal import Decimal
-from apps.mchanga.models import MpesaFundRaiser
-from south.db import db
 from south.v2 import DataMigration
-from django.db import models
 from django.db.models.aggregates import Sum
 from django.conf import settings
 
