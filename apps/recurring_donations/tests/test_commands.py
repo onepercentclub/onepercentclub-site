@@ -23,6 +23,7 @@ class MonthlyDonationCommandsTest(OnePercentTestCase):
             self.projects.append(OnePercentProjectFactory.create(amount_asked=amount, status=self.phase_campaign))
 
         # Some donations to get the popularity going
+        # Top 3 after this should be projects 4, 3, 0
         order = OrderFactory()
         DonationFactory(order=order, project=self.projects[3], amount=10)
         DonationFactory(order=order, project=self.projects[3], amount=100)
@@ -39,7 +40,6 @@ class MonthlyDonationCommandsTest(OnePercentTestCase):
         # Since we force the transitions update_amounts isn't triggered by signal, so we run it manually here.
         for project in self.projects:
             project.update_amounts()
-            project.update_popularity()
 
         self.user1 = BlueBottleUserFactory.create()
         self.user2 = BlueBottleUserFactory.create()
