@@ -360,6 +360,9 @@ class Project(BaseProject):
                                                            Q(slug="done-stopped")) and not self.campaign_ended:
             self.campaign_ended = timezone.now()
 
+        if self.amount_asked:
+            self.update_amounts(False)
+
         super(Project, self).save(*args, **kwargs)
 
 
