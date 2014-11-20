@@ -230,7 +230,7 @@ App.EventMixin = Em.Mixin.create({
 });
 
 Ember.View.reopen({
-    touchStart: Ember.alias('click')
+    touchStart: Ember.computed.alias('click')
 })
 
 /*
