@@ -525,7 +525,7 @@ def generate_donations_csv_file(path, loglevel):
                                     donation.created.date().strftime("%Y-%m-%dT%H:%M:%S.000Z"),
                                     name.encode("utf-8"),
                                     DonationStatuses.values[donation.status].title(),
-                                    '',
+                                    donation.order.order_type,
                                     donation.created.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
                                     donation.updated.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
                                     donation_ready,

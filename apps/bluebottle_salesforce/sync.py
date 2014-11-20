@@ -515,7 +515,7 @@ def sync_donations(dry_run, sync_from_datetime, loglevel):
         sfdonation.donation_updated_date = donation.updated
         sfdonation.donation_ready_date = donation.completed or None
 
-        sfdonation.type = ''
+        sfdonation.type = donation.order.order_type
 
         if donation.user and donation.order.user.get_full_name() != '':
             sfdonation.name = donation.order.user.get_full_name()
