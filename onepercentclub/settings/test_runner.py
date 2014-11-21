@@ -24,9 +24,6 @@ warnings.filterwarnings(
         'ignore', r"DateTimeField received a naive datetime .* while time zone support is active",
         RuntimeWarning, r'django\.db\.models\.fields')
 
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
-
 # Selenium settings
 SELENIUM_TESTS = True
 SELENIUM_WEBDRIVER = 'chrome'
