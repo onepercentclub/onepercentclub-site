@@ -80,6 +80,38 @@ html, body, #site {
 			}
 		}
 
+		&.btn-comment {
+			background: $color-primary;
+			padding: 0.25em 0.15em;
+			color: $white;
+			font-weight: 400;
+			@include single-box-shadow(green, 0, -2px, 0, 0, true);
+
+			&:hover {
+				@include single-box-shadow(green, 0, -4px, 0, 0, true);
+			}
+		}
+
+		&.btn-comment-inactive {
+			background: none;
+			padding: 0.20em 0.15em;
+			color: $gray-dark;
+			border: 1px solid $gray-border;
+			font-weight: 400;
+			@include box-shadow(none);
+
+			&:hover {
+				top: 0;
+				//background-color: $color-primary;
+				color: $gray-dark;
+				@include box-shadow(none);
+			}
+
+			&:active, &:focus {
+				border: 1px solid $gray-dark;
+			}
+		}
+
 		&.btn-facebook {
 			background-color: #3368A2;
 			padding-left: 50px;

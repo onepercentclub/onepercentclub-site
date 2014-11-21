@@ -4,7 +4,10 @@
 
 // reset
 @import "base/reset";
+
+// base
 @import "variables";
+@import "base/base";
 
 @import "mixins/regular";
 @import "mixins/bb-icons";
