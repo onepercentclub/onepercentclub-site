@@ -1,4 +1,4 @@
--e git://github.com/onepercentclub/bluebottle.git@321dd31#egg=bluebottle
+-e git://github.com/onepercentclub/bluebottle.git@c36f26b8baf195dc3458a76d416d42072f041d36#egg=bluebottle
 
 pip
 mercurial==2.9.1
@@ -59,8 +59,7 @@ requests==2.3.0 #Updated requests to make python social auth work
 # setup.py doesn't seem to be working properly so we're using a fixed version.
 # https://github.com/freelancersunion/django-salesforce/issues/4
 # https://github.com/onepercentclub/django-salesforce/archive/1e54beb7bcc15a893e9590fb27cbf08853da5599.zip
-# -e git://github.com/onepercentclub/django-salesforce.git@1e54beb7bcc15a893e9590fb27cbf08853da5599#egg=django-salesforce
-django-salesforce==0.4
+-e git://github.com/onepercentclub/django-salesforce.git@1e54beb7bcc15a893e9590fb27cbf08853da5599#egg=django-salesforce
 
 # There hasn't been a release of django-registration is a while and we need the 1.5 custom user support.
 # Official: https://bitbucket.org/ubernostrum/django-registration/
