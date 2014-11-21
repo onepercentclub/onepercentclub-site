@@ -29,16 +29,13 @@ module.exports = function (grunt) {
         livereload: true,
       },
       sass: {
-        options: {
-          livereload: false,
-        },
         files: ['static/global/refactor-sass/**/*', bluebottleRefactorPath+"/**/*"],
         tasks: ['sassRender:dist']
       },
       scss: {
-      	options: {
-	        livereload: false,
-	      },
+        options: {
+          livereload: false,
+        },
         files: ['static/global/sass/**/*', bluebottlePath+"/**/*"],
         tasks: ['render-sass:dev'],
       },
@@ -80,7 +77,6 @@ module.exports = function (grunt) {
           raw: 'preferred_syntax = :scss\n', // Use `raw` since it's not directly available  
           importPath: bluebottlePath,
           force: false,
-          sourcemap: true
         }
       }
     }    
