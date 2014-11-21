@@ -58,10 +58,8 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         """
         self.visit_project_list_page()
 
-        time.sleep(10)
         # Validate that we are on the intended page.
-        self.assertTrue(self.browser.is_element_present_by_css('.project-item'), 'Cannot load the project list page.')
-
+        self.assertTrue(self.browser.driver.find_element_by_css_selector('.project-item'), 'Cannot load the project list page.')
         self.assertEqual(self.browser.url, '%s/en/#!/projects' % self.live_server_url)
 
     def test_view_project_list_page(self):
@@ -185,8 +183,7 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         element = self.wait_for_element_css('.project-plan-link a')
         element.click()
 
-        self.wait_for_element_css('.project-plan-navigation-links')
-        self.assertTrue(self.browser.is_element_not_present_by_css('.project-plan-download-pdf'), 'PDF download should not be available')
+        self.assert_css('.project-plan-navigation-links')
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
@@ -367,12 +364,7 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         self.browser.fill('account-holder-address', bank_details['address'])
         self.browser.fill('account-holder-postcode', bank_details['postcode'])
         self.browser.fill('account-holder-city', bank_details['city'])
-
-        self.scroll_to_and_click_by_css('select[name="account-holder-country"]')
-        self.browser.select('account-holder-country', 1)
-
-        self.scroll_to_and_click_by_css('ul.tab-control .tab-first a')
-        
+        self.browser.select('account-holder-country', 1)        
         self.browser.fill('account-iban', bank_details['iban'])
         self.browser.fill('account-bic', bank_details['bic'])
 
@@ -498,6 +490,7 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
         post = self.browser.find_by_css("article.wallpost").first
         self.assertTrue(post)
 
+        import ipdb; ipdb.set_trace()
         self.assertEqual(post.find_by_css('.wallpost-author').text, self.project.owner.full_name.upper())
         self.assertEqual(post.find_by_css('.text p').text, self.post2['text'])
 

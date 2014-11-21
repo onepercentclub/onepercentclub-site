@@ -24,8 +24,28 @@ warnings.filterwarnings(
         'ignore', r"DateTimeField received a naive datetime .* while time zone support is active",
         RuntimeWarning, r'django\.db\.models\.fields')
 
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+DEBUG = False
+TEMPLATE_DEBUG = False
+COMPRESS_TEMPLATES = True
+
+COMPRESS_PRECOMPILERS = (
+    ('text/x-handlebars', 'embercompressorcompiler.filter.EmberHandlebarsCompiler'),
+)
+
+TEMPLATE_LOADERS = [
+    ('django.template.loaders.cached.Loader', (
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+        'apptemplates.Loader', # extend AND override templates
+    )),
+]
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
 
 # Selenium settings
 SELENIUM_TESTS = True
