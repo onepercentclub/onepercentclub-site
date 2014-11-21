@@ -265,6 +265,21 @@ INSTALLED_APPS = (
     # Password auth from old PHP site.
     'legacyauth',
 
+    # apps overriding bluebottle functionality should come before the bluebottle entries
+    # (template loaders pick the first template they find)
+    'apps.core',
+    'apps.bluebottle_salesforce',
+
+    'apps.bluebottle_dashboard',
+    'apps.contentplugins',
+    'apps.campaigns',
+    'apps.hbtemplates',
+    'apps.statistics',
+    'apps.homepage',
+    'apps.partners',
+    'apps.crawlable',
+    'apps.mchanga',
+    'apps.recurring_donations',
 
     # Plain Bluebottle apps
     'bluebottle.wallposts',
@@ -305,22 +320,6 @@ INSTALLED_APPS = (
     'bluebottle.fundraisers',
     'bluebottle.donations',
     'bluebottle.orders',
-
-    # apps overriding bluebottle functionality should come before the bluebottle entries
-    # (template loaders pick the first template they find)
-    'apps.core',
-    'apps.bluebottle_salesforce',
-
-    'apps.bluebottle_dashboard',
-    'apps.contentplugins',
-    'apps.campaigns',
-    'apps.hbtemplates',
-    'apps.statistics',
-    'apps.homepage',
-    'apps.partners',
-    'apps.crawlable',
-    'apps.mchanga',
-    'apps.recurring_donations',
 
     # FIXME: Keep these just for migrations
     'apps.fund',
