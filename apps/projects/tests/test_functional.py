@@ -137,11 +137,10 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         self.assertEqual(1, len(previews))
 
         # attach file
-        self.browser.driver.find_element_by_css_selector('.add-photo').click()
         file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'kitten_snow.jpg')
-
-        file_field = self.wait_for_element_css('.form-wallpost-photos .btn-upload')
-        file_field.find_element_by_tag_name('input').send_keys(file_path)
+        self.browser.driver.find_element_by_css_selector('.add-photo').click()
+        file_input = self.wait_for_element_css('.btn-upload input')
+        file_input.send_keys(file_path)
 
         # verify that one picture was added, after waiting for the preview to load
         self.wait_for_element_css('ul.form-wallpost-photos li:nth-of-type(2)')
@@ -152,8 +151,8 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
 
         # verify that a second picture was added
         file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'chameleon.jpg')
-        file_field = self.wait_for_element_css('.form-wallpost-photos .btn-upload')
-        file_field.find_element_by_tag_name('input').send_keys(file_path)
+        file_input = self.wait_for_element_css('.btn-upload input')
+        file_input.send_keys(file_path)
 
         # Wait for the second item to be added
         self.wait_for_element_css('ul.form-wallpost-photos li:nth-of-type(3)')
