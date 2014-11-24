@@ -139,7 +139,9 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         # attach file
         self.browser.driver.find_element_by_css_selector('.add-photo').click()
         file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'kitten_snow.jpg')
-        self.browser.driver.find_element_by_css_selector('.form-wallpost-photo input').send_keys(file_path)
+
+        file_field = self.wait_for_element_css('.form-wallpost-photos .btn-upload')
+        file_field.find_element_by_tag_name('input').send_keys(file_path)
 
         # verify that one picture was added, after waiting for the preview to load
         self.wait_for_element_css('ul.form-wallpost-photos li:nth-of-type(2)')
@@ -150,7 +152,8 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
 
         # verify that a second picture was added
         file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'chameleon.jpg')
-        self.browser.driver.find_element_by_css_selector('.form-wallpost-photo input').send_keys(file_path)
+        file_field = self.wait_for_element_css('.form-wallpost-photos .btn-upload')
+        file_field.find_element_by_tag_name('input').send_keys(file_path)
 
         # Wait for the second item to be added
         self.wait_for_element_css('ul.form-wallpost-photos li:nth-of-type(3)')
