@@ -1,17 +1,28 @@
-@import "lib/bourbon/bourbon";
-@import "base/grid-settings";
-@import "lib/neat/neat";
+// libs
+@import 'lib/bourbon/bourbon';
+@import 'base/grid-settings';
+@import 'lib/neat/neat';
+
+// mixins
+@import 'mixins/regular';
+@import 'mixins/bb-icons';
+@import 'mixins/custom';
 
 // reset
-@import "base/reset";
-@import "variables";
+@import 'base/normalize';
 
-@import "mixins/regular";
-@import "mixins/bb-icons";
+// variables
+@import 'variables';
+
+// global
+@import "base/base";
+@import 'base/typography';
 
 // modules
-@import "modules/wallpost-new";
+@import 'modules/wallpost-new';
+@import 'modules/wallpost';
+@import 'modules/activity';
 
 // pages
-@import "pages/project-detail";
-@import "pages/wallposts";
+@import 'pages/project-detail';
+@import 'pages/wall';
