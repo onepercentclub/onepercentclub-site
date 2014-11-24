@@ -443,7 +443,6 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
 
         super(ProjectWallPostSeleniumTests, self).setUp()
         self.user = BlueBottleUserFactory.create()
-        self.login(self.user.email, 'testing')
 
         owner = BlueBottleUserFactory.create()
 
@@ -462,22 +461,20 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
         """
         Test to write wall-posts on project page
         """
+        self.login(self.user.email, 'testing')
+
         self.visit_path('/projects/{0}'.format(self.project.slug))
 
-        self.wait_for_element_css('.wallpost-form')
+        wallpost_form = self.wait_for_element_css('#wallposts form')
 
         # Write wallpost as normal user
-        self.browser.driver.find_element_by_css_selector('textarea.wallpost-update').send_keys(self.post1['text'])
-        self.browser.find_by_css('button.btn-save').first.click()
+        wallpost_form.find_element_by_css_selector('textarea').send_keys(self.post1['text'])
+        wallpost_form.find_element_by_css_selector('button.action-submit').click()
 
-        self.wait_for_element_css('article.wallpost')
-        post = self.browser.find_by_css("article.wallpost").first
+        wallpost = self.wait_for_element_css('#wallposts article:first-of-type')
 
-        self.assertEqual(post.find_by_css('.wallpost-author').text, self.user.full_name.upper())
-        # FIXME: re-enable this test
-        # self.assertEqual(post.find_by_css('.text p').text, self.post1['text'])
-
-        self.logout()
+        self.assertEqual(wallpost.find_element_by_css_selector('.user-name').text.upper(), self.user.full_name.upper())
+        self.assertEqual(wallpost.find_element_by_css_selector('.wallpost-body').text, self.post1['text'])
 
         # Login as the project owner
         self.login(username=self.project.owner.email, password='testing')
@@ -485,24 +482,22 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
         # Should see the post by the first user.
         self.visit_path('/projects/{0}'.format(self.project.slug))
 
-        post = self.browser.find_by_css("article.wallpost").first
-        self.assertEqual(post.find_by_css('.wallpost-author').text, self.user.full_name.upper())
-        self.assertEqual(post.find_by_css('.text p').text, self.post1['text'])
+        wallpost = self.wait_for_element_css('#wallposts article:first-of-type')
+        self.assertEqual(wallpost.find_element_by_css_selector('.wallpost-body').text, self.post1['text'])
 
         # Post as project owner
-        self.browser.driver.find_element_by_css_selector('textarea.wallpost-update').send_keys(self.post2['text'])
-        self.browser.find_by_css("button.btn-save").first.click()
+        wallpost_form = self.wait_for_element_css('#wallposts form')
+        wallpost_form.find_element_by_css_selector('textarea').send_keys(self.post2['text'])
+        wallpost_form.find_element_by_css_selector('button.action-submit').click()
 
-        # Wait for title, so we're sure the animation is finished.
-        self.wait_for_element_css('article.wallpost:nth-of-type(1)')
-        post = self.browser.find_by_css("article.wallpost").first
-        self.assertTrue(post)
+        # Wait for the two posts to load. Wait for the second first to ensure both have loaded.
+        original_wallpost = self.wait_for_element_css('#wallposts article:nth-of-type(2)')
+        owner_wallpost = self.wait_for_element_css('#wallposts article:nth-of-type(1)')
 
-        self.assertEqual(post.find_by_css('.wallpost-author').text, self.project.owner.full_name.upper())
-        self.assertEqual(post.find_by_css('.text p').text, self.post2['text'])
+        self.assertEqual(owner_wallpost.find_element_by_css_selector('.user-name').text.upper(), self.project.owner.full_name.upper())
+        self.assertEqual(owner_wallpost.find_element_by_css_selector('.wallpost-body').text, self.post2['text'])
 
         # And the first post should still be shown as second
-        post = self.browser.find_by_css("article.wallpost")[1]
-        self.assertEqual(post.find_by_css('.wallpost-author').text, self.user.full_name.upper())
-        self.assertEqual(post.find_by_css('.text p').text, self.post1['text'])
+        self.assertEqual(original_wallpost.find_element_by_css_selector('.user-name').text.upper(), self.user.full_name.upper())
+        self.assertEqual(original_wallpost.find_element_by_css_selector('.wallpost-body').text, self.post1['text'])
 
