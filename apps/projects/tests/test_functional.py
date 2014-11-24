@@ -490,7 +490,6 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
         post = self.browser.find_by_css("article.wallpost").first
         self.assertTrue(post)
 
-        import ipdb; ipdb.set_trace()
         self.assertEqual(post.find_by_css('.wallpost-author').text, self.project.owner.full_name.upper())
         self.assertEqual(post.find_by_css('.text p').text, self.post2['text'])
 
