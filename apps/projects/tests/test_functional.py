@@ -122,50 +122,55 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         self.browser.find_by_css('.project-item').first.find_by_tag('a').first.click()
 
         # Wait for form to animate down
-        self.wait_for_element_css('.wallpost-form')
-
-        form = self.browser.find_by_css('.wallpost-form')
-
-        self.browser.driver.find_element_by_css_selector('textarea.wallpost-update').send_keys('These are some sample pictures from this non-existent project!')
+        form = self.wait_for_element_css('#wallpost-form')
+        form.find_element_by_css_selector('textarea').send_keys('These are some sample pictures from this non-existent project!')
 
         #
         # TODO: re-enable this when we finish
         #
 
         # verify that no previews are there yet
-        # ul = form.find_by_css('ul.form-wallpost-photos').first
-        # previews = ul.find_by_tag('li')
-        # self.assertEqual(0, len(previews))
+        ul = form.find_element_by_css_selector('ul.form-wallpost-photos')
+        previews = ul.find_elements_by_tag_name('li')
 
-        # # attach file
-        # file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'kitten_snow.jpg')
-        # self.browser.attach_file('wallpost-photo', file_path)
+        # Number of li elements should be 1 - the add image button is in the first li 
+        self.assertEqual(1, len(previews))
 
-        # # verify that one picture was added
-        # form = self.browser.find_by_id('wallpost-form')
-        # ul = form.find_by_css('ul.form-wallpost-photos').first
-        # previews = ul.find_by_tag('li')
+        # attach file
+        self.browser.driver.find_element_by_css_selector('.add-photo').click()
+        file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'kitten_snow.jpg')
+        self.browser.driver.find_element_by_css_selector('.form-wallpost-photo input').send_keys(file_path)
 
-        # # verify that a second picture was added
-        # file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'chameleon.jpg')
-        # self.browser.attach_file('wallpost-photo', file_path)
+        # verify that one picture was added, after waiting for the preview to load
+        self.wait_for_element_css('ul.form-wallpost-photos li:nth-of-type(2)')
+        ul = form.find_element_by_css_selector('ul.form-wallpost-photos')
+        previews = ul.find_elements_by_tag_name('li')
 
-        # # Wait for the second item to be added
-        # self.wait_for_element_css('ul.form-wallpost-photos li:nth-child(2)')
+        self.assertEqual(2, len(previews))
 
-        # form = self.browser.find_by_id('wallpost-form')
-        # ul = form.find_by_css('ul.form-wallpost-photos').first
-        # previews = ul.find_by_tag('li')
-        # self.assertEqual(2, len(previews))
+        # verify that a second picture was added
+        file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'chameleon.jpg')
+        self.browser.driver.find_element_by_css_selector('.form-wallpost-photo input').send_keys(file_path)
 
-        # # submit the form
-        # form.find_by_tag('button').first.click();
+        # Wait for the second item to be added
+        self.wait_for_element_css('ul.form-wallpost-photos li:nth-of-type(3)')
+        ul = form.find_element_by_css_selector('ul.form-wallpost-photos')
+        previews = ul.find_elements_by_tag_name('li')
+        self.assertEqual(3, len(previews))
 
-        # # check if the wallpostis there
-        # wp = self.browser.find_by_css('article.wallpost').first
+        # submit the form
+        form.find_element_by_css_selector('button.action-submit').click()
 
-        # num_photos = len(wp.find_by_css('ul.photo-viewer li.photo'))
-        # self.assertEqual(num_photos, 2)
+        # check if the wallpostis there
+        wallpost = self.browser.driver.find_element_by_css_selector('#wallposts article')
+
+        # Check for cover photo
+        cover_photos = wallpost.find_elements_by_css_selector('ul.photo-viewer li.cover')
+        self.assertEqual(len(cover_photos), 1)
+
+        # Check for other photo
+        other_photos = wallpost.find_elements_by_css_selector('ul.photo-viewer li.photo')
+        self.assertEqual(len(other_photos), 1)
 
 
     def test_meta_tag(self, lang_code=None):
