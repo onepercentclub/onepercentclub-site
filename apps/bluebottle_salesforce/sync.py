@@ -1,5 +1,6 @@
 import logging
 from apps.recurring_donations.models import MonthlyDonor
+from bluebottle.payments.models import OrderPayment
 import re
 from django.utils import timezone
 from registration.models import RegistrationProfile
@@ -514,7 +515,7 @@ def sync_donations(dry_run, sync_from_datetime, loglevel):
         sfdonation.donation_updated_date = donation.updated
         sfdonation.donation_ready_date = donation.completed or None
 
-        sfdonation.type = ''
+        sfdonation.type = donation.order.order_type
 
         if donation.user and donation.order.user.get_full_name() != '':
             sfdonation.name = donation.order.user.get_full_name()
@@ -526,10 +527,9 @@ def sync_donations(dry_run, sync_from_datetime, loglevel):
         # Get the payment method from the associated order / payment
         sfdonation.payment_method = payment_method_mapping['']  # Maps to Unknown for DocData.
         if donation.order:
-            lp = donation.order.get_latest_order_payment
-            if lp and lp.payment:
-                if lp.payment.payment_method in payment_method_mapping:
-                    sfdonation.payment_method = payment_method_mapping[lp.latest_docdata_payment.payment_method]
+            lp = OrderPayment.get_latest_by_order(donation.order)
+            if lp and lp.payment_method in payment_method_mapping:
+                sfdonation.payment_method = payment_method_mapping[lp.payment_method]
 
         # Save the object to Salesforce
         if not dry_run:
@@ -801,7 +801,10 @@ def send_log(filename, err, succ, command, command_ext, dry_run, loglevel):
 
     with open(filename, "r") as logfile:
         for line in logfile:
-            sflog.message += line
+            if len(line) > 1300:
+                sflog.message += line[:1300]
+            else:
+                sflog.message += line
 
     # Save the object to Salesforce
     if not dry_run:
