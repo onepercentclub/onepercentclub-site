@@ -109,7 +109,7 @@ class Migration(DataMigration):
 
     depends_on = (
         ('donations', '0001_initial'),
-        ('orders', '0002_auto__del_field_order_closed__add_field_order_confirmed__add_field_ord'),
+        ('orders', '0003_auto__add_field_order_order_type'),
         ('payments_docdata', '0004_auto__add_field_docdatapayment_ip_address')
     )
 
@@ -132,6 +132,10 @@ class Migration(DataMigration):
 
             if old_order.status != 'recurring':
                 order = orm['orders.Order'].objects.create()
+                if old_order.recurring:
+                    order.order_type = 'recurring'
+                else:
+                    order.order_type = 'one-off'
                 order.user = old_order.user
                 order.total = get_total_for_order(old_order)
                 order.created = old_order.created
