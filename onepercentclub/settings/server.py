@@ -1,7 +1,7 @@
 from .base import *
 
 DEBUG = False
-TEMPLATE_DEBUG = DEBUG
+TEMPLATE_DEBUG = False
 COMPRESS_TEMPLATES = True
 
 INSTALLED_APPS += (
