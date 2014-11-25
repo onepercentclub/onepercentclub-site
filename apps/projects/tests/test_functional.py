@@ -122,50 +122,57 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         self.browser.find_by_css('.project-item').first.find_by_tag('a').first.click()
 
         # Wait for form to animate down
-        self.wait_for_element_css('.wallpost-form')
-
-        form = self.browser.find_by_css('.wallpost-form')
-
-        self.browser.driver.find_element_by_css_selector('textarea.wallpost-update').send_keys('These are some sample pictures from this non-existent project!')
+        form = self.wait_for_element_css('#wallpost-form')
+        form.find_element_by_css_selector('textarea').send_keys('These are some sample pictures from this non-existent project!')
 
         #
         # TODO: re-enable this when we finish
         #
 
         # verify that no previews are there yet
-        # ul = form.find_by_css('ul.form-wallpost-photos').first
-        # previews = ul.find_by_tag('li')
-        # self.assertEqual(0, len(previews))
+        ul = form.find_element_by_css_selector('ul.form-wallpost-photos')
+        previews = ul.find_elements_by_tag_name('li')
 
-        # # attach file
-        # file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'kitten_snow.jpg')
-        # self.browser.attach_file('wallpost-photo', file_path)
+        # Number of li elements should be 1 - the add image button is in the first li 
+        self.assertEqual(1, len(previews))
 
-        # # verify that one picture was added
-        # form = self.browser.find_by_id('wallpost-form')
-        # ul = form.find_by_css('ul.form-wallpost-photos').first
-        # previews = ul.find_by_tag('li')
+        # attach file
+        file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'kitten_snow.jpg')
+        self.browser.driver.find_element_by_css_selector('a.btn-upload').click()
+        file_field = self.wait_for_element_css('.form-wallpost-photos .btn-upload')
+        file_field.find_element_by_css_selector('input').send_keys(file_path)
 
-        # # verify that a second picture was added
-        # file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'chameleon.jpg')
-        # self.browser.attach_file('wallpost-photo', file_path)
+        # verify that one picture was added, after waiting for the preview to load
+        self.wait_for_element_css('ul.form-wallpost-photos li:nth-of-type(2)')
+        ul = form.find_element_by_css_selector('ul.form-wallpost-photos')
+        previews = ul.find_elements_by_tag_name('li')
 
-        # # Wait for the second item to be added
-        # self.wait_for_element_css('ul.form-wallpost-photos li:nth-child(2)')
+        self.assertEqual(2, len(previews))
 
-        # form = self.browser.find_by_id('wallpost-form')
-        # ul = form.find_by_css('ul.form-wallpost-photos').first
-        # previews = ul.find_by_tag('li')
-        # self.assertEqual(2, len(previews))
+        # verify that a second picture was added
+        file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'chameleon.jpg')
+        file_field = self.wait_for_element_css('.form-wallpost-photos .btn-upload')
+        file_field.find_element_by_css_selector('input').send_keys(file_path)
 
-        # # submit the form
-        # form.find_by_tag('button').first.click();
+        # Wait for the second item to be added
+        self.wait_for_element_css('ul.form-wallpost-photos li:nth-of-type(3)')
+        ul = form.find_element_by_css_selector('ul.form-wallpost-photos')
+        previews = ul.find_elements_by_tag_name('li')
+        self.assertEqual(3, len(previews))
 
-        # # check if the wallpostis there
-        # wp = self.browser.find_by_css('article.wallpost').first
+        # submit the form
+        form.find_element_by_css_selector('button.action-submit').click()
 
-        # num_photos = len(wp.find_by_css('ul.photo-viewer li.photo'))
-        # self.assertEqual(num_photos, 2)
+        # check if the wallpostis there
+        wallpost = self.browser.driver.find_element_by_css_selector('#wallposts article')
+
+        # Check for cover photo
+        cover_photos = wallpost.find_elements_by_css_selector('ul.photo-viewer li.cover')
+        self.assertEqual(len(cover_photos), 1)
+
+        # Check for other photo
+        other_photos = wallpost.find_elements_by_css_selector('ul.photo-viewer li.photo')
+        self.assertEqual(len(other_photos), 1)
 
 
     def test_meta_tag(self, lang_code=None):
@@ -443,7 +450,6 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
 
         super(ProjectWallPostSeleniumTests, self).setUp()
         self.user = BlueBottleUserFactory.create()
-        self.login(self.user.email, 'testing')
 
         owner = BlueBottleUserFactory.create()
 
@@ -462,22 +468,20 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
         """
         Test to write wall-posts on project page
         """
+        self.login(self.user.email, 'testing')
+
         self.visit_path('/projects/{0}'.format(self.project.slug))
 
-        self.wait_for_element_css('.wallpost-form')
+        wallpost_form = self.wait_for_element_css('#wallposts form')
 
         # Write wallpost as normal user
-        self.browser.driver.find_element_by_css_selector('textarea.wallpost-update').send_keys(self.post1['text'])
-        self.browser.find_by_css('button.btn-save').first.click()
+        wallpost_form.find_element_by_css_selector('textarea').send_keys(self.post1['text'])
+        wallpost_form.find_element_by_css_selector('button.action-submit').click()
 
-        self.wait_for_element_css('article.wallpost')
-        post = self.browser.find_by_css("article.wallpost").first
+        wallpost = self.wait_for_element_css('#wallposts article:first-of-type')
 
-        self.assertEqual(post.find_by_css('.wallpost-author').text, self.user.full_name.upper())
-        # FIXME: re-enable this test
-        # self.assertEqual(post.find_by_css('.text p').text, self.post1['text'])
-
-        self.logout()
+        self.assertEqual(wallpost.find_element_by_css_selector('.user-name').text.upper(), self.user.full_name.upper())
+        self.assertEqual(wallpost.find_element_by_css_selector('.wallpost-body').text, self.post1['text'])
 
         # Login as the project owner
         self.login(username=self.project.owner.email, password='testing')
@@ -485,24 +489,22 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
         # Should see the post by the first user.
         self.visit_path('/projects/{0}'.format(self.project.slug))
 
-        post = self.browser.find_by_css("article.wallpost").first
-        self.assertEqual(post.find_by_css('.wallpost-author').text, self.user.full_name.upper())
-        self.assertEqual(post.find_by_css('.text p').text, self.post1['text'])
+        wallpost = self.wait_for_element_css('#wallposts article:first-of-type')
+        self.assertEqual(wallpost.find_element_by_css_selector('.wallpost-body').text, self.post1['text'])
 
         # Post as project owner
-        self.browser.driver.find_element_by_css_selector('textarea.wallpost-update').send_keys(self.post2['text'])
-        self.browser.find_by_css("button.btn-save").first.click()
+        wallpost_form = self.wait_for_element_css('#wallposts form')
+        wallpost_form.find_element_by_css_selector('textarea').send_keys(self.post2['text'])
+        wallpost_form.find_element_by_css_selector('button.action-submit').click()
 
-        # Wait for title, so we're sure the animation is finished.
-        self.wait_for_element_css('article.wallpost:nth-of-type(1)')
-        post = self.browser.find_by_css("article.wallpost").first
-        self.assertTrue(post)
+        # Wait for the two posts to load. Wait for the second first to ensure both have loaded.
+        original_wallpost = self.wait_for_element_css('#wallposts article:nth-of-type(2)')
+        owner_wallpost = self.wait_for_element_css('#wallposts article:nth-of-type(1)')
 
-        self.assertEqual(post.find_by_css('.wallpost-author').text, self.project.owner.full_name.upper())
-        self.assertEqual(post.find_by_css('.text p').text, self.post2['text'])
+        self.assertEqual(owner_wallpost.find_element_by_css_selector('.user-name').text.upper(), self.project.owner.full_name.upper())
+        self.assertEqual(owner_wallpost.find_element_by_css_selector('.wallpost-body').text, self.post2['text'])
 
         # And the first post should still be shown as second
-        post = self.browser.find_by_css("article.wallpost")[1]
-        self.assertEqual(post.find_by_css('.wallpost-author').text, self.user.full_name.upper())
-        self.assertEqual(post.find_by_css('.text p').text, self.post1['text'])
+        self.assertEqual(original_wallpost.find_element_by_css_selector('.user-name').text.upper(), self.user.full_name.upper())
+        self.assertEqual(original_wallpost.find_element_by_css_selector('.wallpost-body').text, self.post1['text'])
 

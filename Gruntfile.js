@@ -1,8 +1,10 @@
 module.exports = function (grunt) {
   require('time-grunt')(grunt);
   require('jit-grunt')(grunt);
-  var sassOutputStyle = grunt.option('output_style') || 'expanded';
-  var bluebottlePath = grunt.option('bb_path') || ["../bluebottle/bluebottle/common/static/sass"];
+  var sassOutputStyle = grunt.option('output_style') || 'expanded',
+      bluebottlePath = grunt.option('bb_path') || ["../bluebottle"],
+      bluebottleSassPath = bluebottlePath + '/bluebottle/common/static/refactor-sass',
+      bluebottleCompassPath = bluebottlePath + '/bluebottle/common/static/sass';
 
   grunt.loadNpmTasks('grunt-bower-task'); 
 
@@ -11,7 +13,7 @@ module.exports = function (grunt) {
     sass: {
       dist: {
         options: {
-          loadPath: bluebottlePath+'/bluebottle/common/static/refactor-sass'
+          loadPath: bluebottleSassPath
         },
         files: [{
           expand: true,
@@ -28,14 +30,17 @@ module.exports = function (grunt) {
         livereload: true,
       },
       sass: {
-        files: ['static/global/refactor-sass/**/*', bluebottlePath+"/bluebottle/common/static/refactor-sass/**/*"],
+        options: {
+          livereload: false,
+        },
+        files: ['static/global/refactor-sass/**/*', bluebottleSassPath + "/**/*"],
         tasks: ['sassRender:dist']
       },
       scss: {
-      	options: {
-	        livereload: false,
-	      },
-        files: ['static/global/sass/**/*', bluebottlePath+'/bluebottle/common/static/sass/**/*'],
+        options: {
+          livereload: false,
+        },
+        files: ['static/global/sass/**/*', bluebottleCompassPath + "/**/*"],
         tasks: ['render-sass:dev'],
       },
       css: {
@@ -57,7 +62,7 @@ module.exports = function (grunt) {
           noLineComments: true,
           environment: 'production',
           raw: 'preferred_syntax = :scss\n', // Use `raw` since it's not directly available
-          importPath: bluebottlePath+'/bluebottle/common/static/sass',
+          importPath: bluebottleCompassPath,
           force: true,     
         }
       },
@@ -74,7 +79,7 @@ module.exports = function (grunt) {
           relativeAssets: true,
           noLineComments: false,
           raw: 'preferred_syntax = :scss\n', // Use `raw` since it's not directly available  
-          importPath: bluebottlePath+'/bluebottle/common/static/sass',
+          importPath: bluebottleCompassPath,
           force: false,
         }
       }
@@ -82,7 +87,7 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('render-sass:dev', 'Alias for "compass:dev" task with relative bluebottle path.', function () {
-    bluebottlePath = ["../bluebottle/bluebottle/common/static/sass"];
+    bluebottlePath = ["../bluebottle"];
 
     grunt.task.run('compass:dev');
   });

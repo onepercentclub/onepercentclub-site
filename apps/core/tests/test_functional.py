@@ -88,17 +88,14 @@ class PositiveDonationFlow(OnePercentSeleniumTestCase):
 
         self.browser.find_by_css(".wallpost-buttons .btn")[1].click()
 
-        self.assert_css('.wallpost')
+        wallpost = self.browser.driver.find_element_by_css_selector('section#wallposts article:first-of-type')
 
-        self.assert_css('.wallpost-content')
-        wallpost_text = self.browser.find_by_css(".wallpost-content").first.text
+        wallpost_text = wallpost.find_element_by_css_selector('.wallpost-body').text
         self.assertEqual(wallpost_text, text)
 
-        author = self.browser.find_by_css(".wallpost-author").first.text
+        author = wallpost.find_element_by_css_selector(".user-name").text
         self.assertEqual(author.lower(), self.user.full_name.lower())
-
-        self.wait_for_toast_to_disappear()
-
+        
 
 class LoginDonationFlow(OnePercentSeleniumTestCase):
 
