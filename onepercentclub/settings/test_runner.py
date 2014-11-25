@@ -4,19 +4,10 @@
 # TODO: Use this with the Jenkins settings file
 #
 
-
-
-
 SECRET_KEY = 'hbqnTEq+m7Tk61bvRV/TLANr3i0WZ6hgBXDh3aYpSU8m+E1iCtlU3Q=='
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': ':memory:',
-    },
-}
 
 from .base import *
-
+from .templates import *
 
 # Supress naive date warnings
 import warnings
@@ -24,8 +15,15 @@ warnings.filterwarnings(
         'ignore', r"DateTimeField received a naive datetime .* while time zone support is active",
         RuntimeWarning, r'django\.db\.models\.fields')
 
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+DEBUG = False
+TEMPLATE_DEBUG = False
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ':memory:',
+    },
+}
 
 # Selenium settings
 SELENIUM_TESTS = True
@@ -37,8 +35,7 @@ INSTALLED_APPS += (
     'bluebottle.payments_mock'
 )
 
-from bluebottle.payments_mock.settings import MOCK_PAYMENT_METHODS, MOCK_FEES
-
 #Override the payment methods that are in payments.py in the settings directory
+from bluebottle.payments_mock.settings import MOCK_PAYMENT_METHODS, MOCK_FEES
 PAYMENT_METHODS = MOCK_PAYMENT_METHODS
 VAT_RATE = 0.21
