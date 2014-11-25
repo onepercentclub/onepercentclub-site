@@ -14,6 +14,8 @@ from bluebottle.test.factory_models.projects import ProjectPhaseFactory
 
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
+from selenium.webdriver.common.keys import Keys
+
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
             'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
@@ -122,9 +124,9 @@ class LoginDonationFlow(OnePercentSeleniumTestCase):
         self.wait_for_element_css('input.donation-input')
         donation_input = self.browser.find_by_css("input.donation-input").first
 
-        # Make a donation of 10 euros (default is 25)
-        donation_input.value = 10
-        self.assertEqual(int(donation_input.value), 10)
+        # Make a donation of 55 euros (default is 25)
+        donation_input.type(Keys.DELETE + '5')
+        self.assertEqual(int(donation_input.value), 55)
         self.assert_css(".donation-buttons")
         self.assert_css("#hideMyName")
 
