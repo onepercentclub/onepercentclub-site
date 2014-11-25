@@ -99,13 +99,16 @@ class SepaDocument(object):
     # XML
     _xml = None
 
-    def __init__(self, type='CT', *args, **kwargs):
+    def __init__(self, sepa_type='CT', *args, **kwargs):
         """
         Set transaction type.
         DD: Direct Debit
         CT: Credit Transfer
         """
-        self._type = type
+        self._type = sepa_type
+        self._credit_transfers = []
+        self._direct_debits = []
+        self._header_control_sum = decimal.Decimal('0.00')
 
         # All clear
         self._header_control_sum = decimal.Decimal('0.00')

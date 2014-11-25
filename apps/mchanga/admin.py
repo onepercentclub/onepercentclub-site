@@ -1,4 +1,5 @@
 from apps.mchanga.models import MpesaPayment
+from bluebottle.utils.admin import export_as_csv_action
 from django.contrib import admin
 
 
@@ -13,6 +14,9 @@ class MpesaAdmin(admin.ModelAdmin):
     list_display = ('date', 'amount', 'mpesa_name', 'project', 'fundraiser_name', 'mchanga_account')
 
     fields = ('project',) + readonly_fields
+
+    export_fields = ['date', 'amount', 'project', 'mpesa_name', 'project', 'fundraiser_name', 'mchanga_account']
+    actions = (export_as_csv_action(fields=export_fields), )
 
 
 admin.site.register(MpesaPayment, MpesaAdmin)

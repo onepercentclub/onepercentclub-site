@@ -58,11 +58,11 @@
 @import "modules/members";
 @import "modules/projects";
 //@import "modules/wallposts";
-@import "modules/reactions";
+//@import "modules/reactions";
 @import "modules/tasks";
-@import "modules/share";
+//@import "modules/share";
 @import "modules/project-iframe";
-@import "modules/owner-actions";
+//@import "modules/owner-actions";
 @import "modules/maps";
 @import "modules/modal";
 // @import "modules/image-upload";
@@ -73,7 +73,6 @@
 @import "new-sass/modules/payment";
 @import "new-sass/modules/share";
 @import "new-sass/modules/video";
-@import "new-sass/modules/wallpost-new";
 
 /* Pages */
 //@import "pages/home";
@@ -111,6 +110,7 @@
 @import "1procentclub/pages/account";
 @import "1procentclub/pages/profile";
 @import "1procentclub/modules/tasks";
+@import "1procentclub/pages/cheetah-project-detail";
 
 /* Version 2 */
 @import "compass/css3/transition";

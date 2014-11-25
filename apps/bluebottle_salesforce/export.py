@@ -1,6 +1,7 @@
 import csv
 import logging
 from apps.projects.models import ProjectBudgetLine
+from bluebottle.payments.models import OrderPayment
 import os
 from registration.models import RegistrationProfile
 from django.utils import timezone
@@ -513,10 +514,9 @@ def generate_donations_csv_file(path, loglevel):
                 # Get the payment method from the associated order / payment
                 payment_method = payment_method_mapping['']  # Maps to Unknown for DocData.
                 if donation.order:
-                    lp = donation.order.latest_payment
-                    if lp and lp.latest_docdata_payment:
-                        if lp.latest_docdata_payment.payment_method in payment_method_mapping:
-                            payment_method = payment_method_mapping[lp.latest_docdata_payment.payment_method]
+                    lp = OrderPayment.get_latest_by_order(donation.order)
+                    if lp and lp.payment_method in payment_method_mapping:
+                        payment_method = payment_method_mapping[lp.payment_method]
 
                 csvwriter.writerow([donation.id,
                                     donor_id,
@@ -525,7 +525,7 @@ def generate_donations_csv_file(path, loglevel):
                                     donation.created.date().strftime("%Y-%m-%dT%H:%M:%S.000Z"),
                                     name.encode("utf-8"),
                                     DonationStatuses.values[donation.status].title(),
-                                    '',
+                                    donation.order.order_type,
                                     donation.created.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
                                     donation.updated.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
                                     donation_ready,

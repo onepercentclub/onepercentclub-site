@@ -24,7 +24,7 @@ TEMPLATE_DEBUG = True
 COMPRESS_TEMPLATES = False
 
 ADMINS = (
-    ('Loek van Gent', 'loek@1procentclub.nl'),
+    ('Team Error', 'errors@onepercentclub.com'),
 )
 
 CONTACT_EMAIL = 'info@onepercentclub.com'
@@ -245,6 +245,9 @@ INSTALLED_APPS = (
     #'social_auth',
     'social.apps.django_app.default',
 
+    # Onepercent app to send POST requests to AFOM
+    'onepercent_afom',
+
     #Widget
     'bluebottle.widget',
 
@@ -291,21 +294,6 @@ INSTALLED_APPS = (
     'apps.organizations',
     'apps.payouts',
 
-    # Bluebottle apps with abstract models
-    'bluebottle.bb_accounts',
-    'bluebottle.bb_organizations',
-    'bluebottle.bb_projects',
-    'bluebottle.bb_tasks',
-    'bluebottle.bb_fundraisers',
-    'bluebottle.bb_donations',
-    'bluebottle.bb_orders',
-    'bluebottle.bb_payouts',
-
-    # Basic Bb implementations
-    'bluebottle.fundraisers',
-    'bluebottle.donations',
-    'bluebottle.orders',
-
     # apps overriding bluebottle functionality should come before the bluebottle entries
     # (template loaders pick the first template they find)
     'apps.core',
@@ -321,6 +309,22 @@ INSTALLED_APPS = (
     'apps.crawlable',
     'apps.mchanga',
     'apps.recurring_donations',
+
+
+    # Bluebottle apps with abstract models
+    'bluebottle.bb_accounts',
+    'bluebottle.bb_organizations',
+    'bluebottle.bb_projects',
+    'bluebottle.bb_tasks',
+    'bluebottle.bb_fundraisers',
+    'bluebottle.bb_donations',
+    'bluebottle.bb_orders',
+    'bluebottle.bb_payouts',
+
+    # Basic Bb implementations
+    'bluebottle.fundraisers',
+    'bluebottle.donations',
+    'bluebottle.orders',
 
     # FIXME: Keep these just for migrations
     'apps.fund',
