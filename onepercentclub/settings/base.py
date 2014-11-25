@@ -24,7 +24,7 @@ TEMPLATE_DEBUG = True
 COMPRESS_TEMPLATES = False
 
 ADMINS = (
-    ('Loek van Gent', 'loek@1procentclub.nl'),
+    ('Team Error', 'errors@onepercentclub.com'),
 )
 
 CONTACT_EMAIL = 'info@onepercentclub.com'
