@@ -52,9 +52,9 @@ class PositiveDonationFlow(OnePercentSeleniumTestCase):
         self.wait_for_element_css('input.donation-input')
         donation_input = self.browser.find_by_css("input.donation-input").first
 
-        # Make a donation of 10 euros (default is 25)
-        donation_input.value = 10
-        self.assertEqual(int(donation_input.value), 10)
+        # Make a donation of 65 euros (default is 25)
+        donation_input.type(Keys.DELETE + '6')
+        self.assertEqual(int(donation_input.value), 65)
         self.assert_css(".donation-buttons")
         self.assert_css("#hideMyName")
 
