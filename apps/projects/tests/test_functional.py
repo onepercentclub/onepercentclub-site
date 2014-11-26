@@ -12,6 +12,7 @@ from django.conf import settings
 from django.utils.text import slugify
 from django.utils.unittest.case import skipUnless
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
 
 from bluebottle.bb_projects.models import ProjectPhase, ProjectTheme
 from bluebottle.utils.models import Language
@@ -375,11 +376,10 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         self.browser.fill('account-holder-postcode', bank_details['postcode'])
         self.browser.fill('account-holder-city', bank_details['city'])
 
-        self.scroll_to_and_click_by_css('select[name="account-holder-country"]')
-        self.browser.select('account-holder-country', 1)
+        select = Select(self.browser.driver.find_element_by_name("account-holder-country"))
+        select.select_by_visible_text("Afghanistan")
 
-        self.scroll_to_and_click_by_css('ul.tab-control .tab-first a')
-        
+        self.scroll_to_and_click_by_css('ul.fieldset-tabs .tab-first a')
         self.browser.fill('account-iban', bank_details['iban'])
         self.browser.fill('account-bic', bank_details['bic'])
 
@@ -394,7 +394,7 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         
         # confirm the project record was created
         # TODO: Also check it has the expected fields.
-        Project.objects.filter(slug=self.project_data['slug']).exists()
+        self.assertTrue(Project.objects.filter(slug=self.project_data['slug']).exists())
 
     def test_change_project_goal(self):
         plan_phase = ProjectPhase.objects.get(slug='plan-new')
