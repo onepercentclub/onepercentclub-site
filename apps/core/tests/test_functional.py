@@ -53,7 +53,7 @@ class PositiveDonationFlow(OnePercentSeleniumTestCase):
         donation_input = self.browser.find_by_css("input.donation-input").first
 
         # Make a donation of 65 euros (default is 25)
-        donation_input.type(Keys.DELETE + '6')
+        donation_input.fill('65')
         self.assertEqual(int(donation_input.value), 65)
         self.assert_css(".donation-buttons")
         self.assert_css("#hideMyName")
@@ -125,7 +125,7 @@ class LoginDonationFlow(OnePercentSeleniumTestCase):
         donation_input = self.browser.find_by_css("input.donation-input").first
 
         # Make a donation of 55 euros (default is 25)
-        donation_input.type(Keys.DELETE + '5')
+        donation_input.fill('55')
         self.assertEqual(int(donation_input.value), 55)
         self.assert_css(".donation-buttons")
         self.assert_css("#hideMyName")

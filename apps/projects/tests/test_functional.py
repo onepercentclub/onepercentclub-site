@@ -498,8 +498,8 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
         wallpost_form.find_element_by_css_selector('button.action-submit').click()
 
         # Wait for the two posts to load. Wait for the second first to ensure both have loaded.
-        original_wallpost = self.assert_css('article.m-wallpost:nth-of-type(2)')
-        owner_wallpost = self.assert_css('article.m-wallpost:nth-of-type(1)')
+        original_wallpost = self.wait_for_element_css('article.m-wallpost:nth-of-type(2)')
+        owner_wallpost = self.wait_for_element_css('article.m-wallpost:nth-of-type(1)')
 
         self.assertEqual(owner_wallpost.find_element_by_css_selector('.user-name').text.upper(), self.project.owner.full_name.upper())
         self.assertEqual(owner_wallpost.find_element_by_css_selector('.wallpost-body').text, self.post2['text'])
