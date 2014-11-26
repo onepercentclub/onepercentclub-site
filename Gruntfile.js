@@ -13,7 +13,8 @@ module.exports = function (grunt) {
     sass: {
       dist: {
         options: {
-          loadPath: bluebottleSassPath
+          loadPath: bluebottleSassPath,
+          sourcemap: 'auto'
         },
         files: [{
           expand: true,
@@ -63,7 +64,7 @@ module.exports = function (grunt) {
           environment: 'production',
           raw: 'preferred_syntax = :scss\n', // Use `raw` since it's not directly available
           importPath: bluebottleCompassPath,
-          force: true,     
+          force: true
         }
       },
       // development
@@ -80,7 +81,8 @@ module.exports = function (grunt) {
           noLineComments: false,
           raw: 'preferred_syntax = :scss\n', // Use `raw` since it's not directly available  
           importPath: bluebottleCompassPath,
-          force: false,
+          force: false, 
+          sourcemap: true
         }
       }
     }    
