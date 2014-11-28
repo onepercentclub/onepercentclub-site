@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="16px" height="18px" viewBox="0 0 16 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch Beta 3.2 (9961) - http://www.bohemiancoding.com/sketch -->
+    <title>icon-checkbox-checked</title>
+    <desc>Created with Sketch Beta.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="icon-checkbox-checked" sketch:type="MSLayerGroup" transform="translate(-4.000000, 0.000000)">
+            <g id="Back-2_1_" sketch:type="MSShapeGroup">
+                <g id="Checkbox-_x2F_-Unchecked_1_" transform="translate(0.052000, 0.000000)">
+                    <g id="Check-Background_1_" transform="translate(1.000000, 0.000000)">
+                        <g id="icon-checkbox" transform="translate(1.000000, 0.000000)">
+                            <g id="Back-2">
+                                <g id="Checkbox-_x2F_-Unchecked" transform="translate(0.052000, 0.000000)">
+                                    <g id="Check-Background" transform="translate(1.000000, 0.000000)">
+                                        <path d="M14.4,17.1 L3.3,17.1 C2,17.1 0.9,16 0.9,14.7 L0.9,3.3 C0.9,2 2,0.9 3.3,0.9 L14.4,0.9 C15.7,0.9 16.8,2 16.8,3.3 L16.8,14.7 C16.7,16 15.7,17.1 14.4,17.1 L14.4,17.1 Z" id="Shape" fill="#D8D8D8"></path>
+                                        <path d="M3.3,1.9 C2.5,1.9 1.9,2.5 1.9,3.3 L1.9,14.7 C1.9,15.5 2.5,16.1 3.3,16.1 L14.4,16.1 C15.2,16.1 15.8,15.5 15.8,14.7 L15.8,3.3 C15.8,2.5 15.2,1.9 14.4,1.9 L3.3,1.9 L3.3,1.9 Z" id="Path" fill="#FFFFFF"></path>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+            <g id="Back-2" transform="translate(6.000000, 5.000000)">
+                <g id="Rectangle-39">
+                    <g id="Campaign-Detail-Copy">
+                        <g id="Desktop">
+                            <g id="Lightbox---Support">
+                                <g id="_x31_">
+                                    <g id="Back-2_2_">
+                                        <g id="Rectangle-39_1_">
+                                            <g id="Checkbox-_x2F_-Unchecked_2_" transform="translate(0.052000, 0.000000)"></g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
