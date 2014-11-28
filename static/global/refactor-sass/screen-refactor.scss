@@ -4,9 +4,8 @@
 @import 'lib/neat/neat';
 
 // mixins
-@import 'mixins/regular';
-@import 'mixins/bb-icons';
 @import 'mixins/custom';
+// @import 'mixins/bb-icons';
 
 // reset
 @import 'base/normalize';
@@ -19,10 +18,10 @@
 @import 'base/typography';
 
 // modules
-@import 'modules/wallpost-new';
+@import 'modules/wallpost-update';
 @import 'modules/wallpost';
 @import 'modules/activity';
 
 // pages
-@import 'pages/project-detail';
+@import 'pages/project-detail-header';
 @import 'pages/wall';

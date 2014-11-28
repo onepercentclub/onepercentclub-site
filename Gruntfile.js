@@ -14,7 +14,8 @@ module.exports = function (grunt) {
       dist: {
         options: {
           loadPath: bluebottleSassPath,
-          sourcemap: 'auto'
+          sourcemap: 'auto',
+          require: bluebottleSassPath + '/sass_extensions.rb'
         },
         files: [{
           expand: true,
