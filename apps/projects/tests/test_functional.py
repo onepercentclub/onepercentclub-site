@@ -131,7 +131,7 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         #
 
         # verify that no previews are there yet
-        ul = form.find_element_by_css_selector('ul.form-wallpost-photos')
+        ul = form.find_element_by_css_selector('ul.upload-photos')
         previews = ul.find_elements_by_tag_name('li')
 
         # Number of li elements should be 1 - the add image button is in the first li 
@@ -139,25 +139,26 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
 
         # attach file
         file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'kitten_snow.jpg')
-        self.browser.driver.find_element_by_css_selector('a.btn-upload').click()
-        file_field = self.wait_for_element_css('.form-wallpost-photos .btn-upload')
+        self.browser.driver.find_element_by_css_selector('a.action-upload input').click()
+
+        file_field = self.wait_for_element_css('.wallpost-photos .action-upload')
         file_field.find_element_by_css_selector('input').send_keys(file_path)
 
         # verify that one picture was added, after waiting for the preview to load
         self.wait_for_element_css('ul.form-wallpost-photos li:nth-of-type(2)')
-        ul = form.find_element_by_css_selector('ul.form-wallpost-photos')
+        ul = form.find_element_by_css_selector('ul.upload-photos')
         previews = ul.find_elements_by_tag_name('li')
 
         self.assertEqual(2, len(previews))
 
         # verify that a second picture was added
         file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'chameleon.jpg')
-        file_field = self.wait_for_element_css('.form-wallpost-photos .btn-upload')
+        file_field = self.wait_for_element_css('.wallpost-photos .action-upload')
         file_field.find_element_by_css_selector('input').send_keys(file_path)
 
         # Wait for the second item to be added
         self.wait_for_element_css('ul.form-wallpost-photos li:nth-of-type(3)')
-        ul = form.find_element_by_css_selector('ul.form-wallpost-photos')
+        ul = form.find_element_by_css_selector('ul.upload-photos')
         previews = ul.find_elements_by_tag_name('li')
         self.assertEqual(3, len(previews))
 
@@ -190,7 +191,7 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
     def test_project_plan(self):
         self.visit_path('/projects/schools-for-children-2')
 
-        element = self.wait_for_element_css('.project-plan-link a')
+        element = self.wait_for_element_css('.project-more')
         element.click()
 
         self.wait_for_element_css('.project-plan-navigation-links')
