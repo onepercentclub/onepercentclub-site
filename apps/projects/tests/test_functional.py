@@ -139,7 +139,7 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
 
         # attach file
         file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'kitten_snow.jpg')
-        self.browser.driver.find_element_by_css_selector('a.action-upload input').click()
+        self.scroll_to_and_click_by_css('a.action-upload input')
 
         file_field = self.wait_for_element_css('.wallpost-photos .action-upload')
         file_field.find_element_by_css_selector('input').send_keys(file_path)
