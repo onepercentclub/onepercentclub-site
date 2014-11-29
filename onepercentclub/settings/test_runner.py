@@ -15,7 +15,7 @@ warnings.filterwarnings(
         'ignore', r"DateTimeField received a naive datetime .* while time zone support is active",
         RuntimeWarning, r'django\.db\.models\.fields')
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = False
 
 DATABASES = {
