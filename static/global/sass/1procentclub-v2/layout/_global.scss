@@ -138,16 +138,18 @@ html, body, #site {
 		}
 
 		&.is-inactive {
-			background: #D8D8D8;
-			@include single-box-shadow(darken(#D8D8D8, 10%), 0, -2px, 0, 0, true);
+		    background-color: #C8C8CA !important;
+		    @include single-box-shadow(#B8B8BA, 0, -2px, 0, 0, true);
 
-			&:hover {
-				@include single-box-shadow(darken(#D8D8D8, 10%), 0, -4px, 0, 0, true);
-			}
+		    &:hover {
+		    	top: 0px;
+		        @include single-box-shadow(#B8B8BA, 0, -2px, 0, 0, true);
+		    }
 
-			&:active, &:focus {
-				@include single-box-shadow($gray-darkest, 0, 2px, 0, 0, true);
-			}
+		    &:active, &:focus {
+		    	top: 0px;
+		        @include single-box-shadow(#B8B8BA, 0, -2px, 0, 0, true);
+		    }
 		}
 
 		&:active, &:focus {

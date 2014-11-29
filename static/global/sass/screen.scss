@@ -55,7 +55,7 @@
 @import "modules/tooltip-new";
 @import "modules/accounts";
 @import "modules/carousel";
-@import "modules/members";
+//@import "modules/members";
 @import "modules/projects";
 //@import "modules/wallposts";
 //@import "modules/reactions";
@@ -82,8 +82,8 @@
 @import "pages/signup";
 @import "pages/search";
 //@import "pages/project-detail";
-@import "pages/project-detail-fundraiser";
-@import "pages/task-detail";
+//@import "pages/project-detail-fundraiser";
+//@import "pages/task-detail";
 @import "pages/fund";
 @import "pages/fund-thanks";
 @import "pages/profile";
@@ -106,7 +106,7 @@
 @import "1procentclub/base/tabs";
 @import "1procentclub/layout/header";
 @import "1procentclub/modules/projects";
-@import "1procentclub/modules/donations";
+//@import "1procentclub/modules/donations";
 @import "1procentclub/pages/account";
 @import "1procentclub/pages/profile";
 @import "1procentclub/modules/tasks";
@@ -164,10 +164,6 @@
 @import "cheetah/modules/earmark";
 @import "cheetah/modules/running-campaign";
 @import "cheetah/modules/campaigns";
-
 @import "cheetah/modules/partner-info";
 @import "cheetah/modules/partner-projects-list";
-
 @import "cheetah/modules/mpesa";
-
-
