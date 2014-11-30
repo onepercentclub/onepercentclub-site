@@ -138,9 +138,9 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         self.assertEqual(1, len(previews))
 
         # attach file
-        file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'kitten_snow.jpg')
-        self.scroll_to_and_click_by_css('a.action-upload input')
+        self.browser.driver.find_element_by_css_selector('a[data-action-type="show-photo-upload"]').click()
 
+        file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'kitten_snow.jpg')
         file_field = self.wait_for_element_css('.wallpost-photos .action-upload')
         file_field.find_element_by_css_selector('input').send_keys(file_path)
 
@@ -175,7 +175,6 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         # Check for other photo
         other_photos = wallpost.find_elements_by_css_selector('ul.photo-viewer li.photo')
         self.assertEqual(len(other_photos), 1)
-
 
     def test_meta_tag(self, lang_code=None):
         self.visit_path('/projects/schools-for-children-2', lang_code)
