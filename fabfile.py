@@ -333,7 +333,7 @@ def prepare_django():
         run('bourbon install --path static/global/refactor-sass/lib')
         run('cd static/global/refactor-sass/lib && neat install')
         run('npm install')
-        run('grunt build:css --bb_path=env-2.7/src/bluebottle')
+        run('grunt build:css --bb_path=./env-2.7/src/bluebottle')
 
         # Remove and compile the .pyc files.
         run('find . -name \*.pyc -delete')
