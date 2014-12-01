@@ -47,7 +47,7 @@ payment_method_icon_mapping = {
 class DonationAdmin(admin.ModelAdmin):
     date_hierarchy = 'updated'
     list_display = ('updated', 'ready', 'project', 'user', 'amount_override', 'status', 'type', 'payment_method_override')
-    list_filter = (DonationStatusFilter, 'donation_type')
+    list_filter = (DonationStatusFilter, 'donation_type', 'order__status')
     ordering = ('-ready', '-updated')
     raw_id_fields = ('user', 'project', 'fundraiser', 'voucher')
     readonly_fields = ('view_order', 'created', 'updated', 'ready')
