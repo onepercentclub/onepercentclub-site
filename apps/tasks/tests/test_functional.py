@@ -87,7 +87,7 @@ class TaskCreateSeleniumTests(OnePercentSeleniumTestCase):
         # Check the task is loaded
         self.assertTrue(self.browser.is_text_present("Task open", wait_time=20))
         self.assertRegexpMatches(self.browser.url, r'/tasks/\d+$')
-        self.assertEqual(self.browser.find_by_css('h1.task-title').text, self.task1['title'])
+        self.assertEqual(self.browser.find_by_css('h1.task-title').text.upper(), self.task1['title'].upper())
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
