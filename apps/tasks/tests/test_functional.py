@@ -140,7 +140,7 @@ class TaskWithdrawSeleniumTest(OnePercentSeleniumTestCase):
     def setUp(self):
         self.init_projects()
         self.user = BlueBottleUserFactory.create()
-        self.login_user(self.user)
+        self.login(username=self.user.email, password='testing')
 
         self.task = TaskFactory.create(people_needed=2, time_needed=8)
         self.task.author = BlueBottleUserFactory.create()

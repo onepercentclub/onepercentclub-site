@@ -55,9 +55,6 @@ class OnePercentTestCase(InitProjectDataMixin, TestCase):
 
 class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
 
-    def login_user(self, user):
-        self.login(username=user.email, password='testing')
-
     def visit_homepage(self, lang_code=None):
         """
         Convenience function to open the homepage.
