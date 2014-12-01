@@ -16,7 +16,7 @@ from django.db import models
 def map_payment_to_order_status(status):
 
     return {
-        'new': StatusDefinition.NEW,
+        'new': StatusDefinition.CREATED,
         'in_progress': StatusDefinition.LOCKED,
         'pending': StatusDefinition.PENDING,
         'paid': StatusDefinition.SUCCESS,
@@ -39,6 +39,16 @@ def map_payment_to_order_payment_status(status):
         'chargedback': StatusDefinition.CHARGED_BACK,
         'refunded': StatusDefinition.REFUNDED,
         'unknown': StatusDefinition.UNKNOWN
+    }[status]
+
+
+def map_donation_to_order_status(status):
+    return {
+        'new': StatusDefinition.CREATED,
+        'in_progress': StatusDefinition.IN_PROGRESS,
+        'pending': StatusDefinition.AUTHORIZED,
+        'paid': StatusDefinition.SETTLED,
+        'failed': StatusDefinition.FAILED
     }[status]
 
 
@@ -141,13 +151,14 @@ class Migration(DataMigration):
                 order.created = old_order.created
                 order.updated = old_order.updated
                 if old_order.status == 'current':
-                    order.status = StatusDefinition.NEW
+                    order.status = StatusDefinition.CREATED
                 elif old_order.status == 'closed':
                     old_payment = get_latest_payment_for_order(old_order)
                     if old_payment:
                         order.status = map_payment_to_order_status(old_payment.status)
                     else:
-                        order.status = StatusDefinition.NEW
+                        first_donation = order.donations[0]
+                        order.status = map_donation_to_order_status(first_donation.status)
                 order.save()
 
                 # Migrate donations belong to this order
