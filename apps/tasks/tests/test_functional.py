@@ -28,7 +28,7 @@ class TaskCreateSeleniumTests(OnePercentSeleniumTestCase):
         self.project = OnePercentProjectFactory.create()
         self.project.owner = BlueBottleUserFactory.create()
         self.project.save()
-        self.login_user(self.project.owner)
+        self.login(username=self.project.owner.email, password='testing')
 
 
         self.task1 = {
@@ -99,7 +99,7 @@ class TaskWallPostSeleniumTests(OnePercentSeleniumTestCase):
     def setUp(self):
         self.init_projects()
         self.user = BlueBottleUserFactory.create()
-        self.login_user(self.user)
+        self.login(username=self.user.email, password='testing')
 
         self.task = TaskFactory.create()
         self.task.author = BlueBottleUserFactory.create()
