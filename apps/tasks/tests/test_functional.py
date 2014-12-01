@@ -121,8 +121,6 @@ class TaskWallPostSeleniumTests(OnePercentSeleniumTestCase):
         Test to write wall-posts on task page
         """
         self.visit_path('/tasks/{0}'.format(self.task.id))
-        self.assertTrue(self.browser.is_text_present(self.task.title, wait_time=20))
-
 
         wallpost_form = self.wait_for_element_css('#wallposts form')
         wallpost_form.find_element_by_css_selector('textarea').send_keys(self.post1['text'])
