@@ -451,11 +451,6 @@ def deploy_testing(revspec='origin/master'):
 
     # Find commit for revspec
     commit = get_commit(revspec)
-    print "c", commit
-    print "cs", str(commit)
-
-    # Backup the testing database
-    backup_db(commit=commit)
 
     tag = find_available_tag('testing')
 
@@ -535,7 +530,7 @@ def deploy_production(revspec=None):
     commit = get_commit(revspec)
 
     # Backup the production database
-    backup_db(commit=commit)
+    backup_db(commit=str(commit))
 
     # Find latest available staging version
     tag = find_available_tag('production')
@@ -569,23 +564,19 @@ def backup_db(db_username="onepercentsite", db_name="onepercentsite", commit=Non
     time = datetime.now().strftime('%d-%m-%Y:%H:%M')
     backup_host = 'backups@bluebucket.onepercentclub.com'
     backup_path = '/home/backups/onepercentclub-backups'
-
-    if commit:
-        backup_name = '{0}-{1}.sql.bz2'.format(db_name, commit)
-    else:
-        backup_name = '{0}-{1}.sql.bz2'.format(db_name, time)
+    backup_name = '{0}-{1}-{2}.sql.bz2'.format(db_name, time, commit)
 
     # Export the database
     run_web("pg_dump -x --no-owner --username={0} {1} | bzip2 -c > /tmp/{2}".format(db_username, db_name, backup_name))
 
-    print("Copying dump to backup server")
     # TODO: create the backup directory if it doesn't exist. 
     # Move the database to backup
+    print("Copying dump to backup server")
     run_web("scp /tmp/{0} {1}:{2}/onepercentsite/deploy_production/".format(backup_name, backup_host, backup_path))
 
-    print("Removing local db dump")
     # Clearup the local database dump
-    run_web("rm /tmp/{0}.sql.bz2 ".format(backup_name))
+    print("Removing local db dump")
+    run_web("rm /tmp/{0}".format(backup_name))
 
 
 @roles('backup')
