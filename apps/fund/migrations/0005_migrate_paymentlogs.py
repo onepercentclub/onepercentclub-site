@@ -20,6 +20,12 @@ class Migration(DataMigration):
         # Use orm.ModelName to refer to models in this application,
         # and orm['appname.ModelName'] for models in other applications.
 
+        # Create a lookup for new docdata payments
+        ddps = orm['payments_docdata.DocdataPayment'].objects.all().values_list('payment_cluster_id', 'id')
+        dd_payments = {}
+        for ddp in ddps:
+            dd_payments[ddp[0]] = ddp[1]
+
         count = 0
         total = orm['cowry_docdata.DocDataPaymentLogEntry'].objects.count()
         for i, log_entry_model in enumerate(orm['cowry_docdata.DocDataPaymentLogEntry'].objects.iterator()):
@@ -30,9 +36,9 @@ class Migration(DataMigration):
             old_docdata_payment_order = log_entry_model.docdata_payment_order
 
             # Fetch corresponding DocdataPayment
-            try:
-                new_docdata_payment = orm['payments_docdata.DocdataPayment'].objects.get(payment_cluster_id=old_docdata_payment_order.merchant_order_reference)
-            except orm['payments_docdata.DocdataPayment'].DoesNotExist:
+            if old_docdata_payment_order.merchant_order_reference in dd_payments:
+                new_docdata_payment_id = dd_payments[old_docdata_payment_order.merchant_order_reference]
+            else:
                 count +=1
                 msg = "No new DocdataPayment object found for the old DocdataPaymentOrder object. DocdataPaymentOrder ID: {0} DocDataPaymentLogEntry ID: {1}".format(old_docdata_payment_order.id, log_entry_model.id)
                 print msg
@@ -43,7 +49,7 @@ class Migration(DataMigration):
                 message=log_entry_model.message,
                 level=log_entry_model.level,
                 timestamp=log_entry_model.timestamp,
-                payment=new_docdata_payment
+                payment_id=new_docdata_payment_id
             )
 
             payment_log_entry.save()
