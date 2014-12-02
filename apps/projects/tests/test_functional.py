@@ -401,9 +401,9 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         project = OnePercentProjectFactory.create(title='Project Goal Changes', owner=self.user, status=plan_phase)
         self.visit_path('/my/projects/{0}/goal'.format(project.slug))
 
-        # Check that deadline is set to 30 days now
+        # Check that deadline is set to 100 days now
         days_left = self.browser.find_by_css('.project-days-left strong').first
-        self.assertEqual(days_left.text, '30')
+        self.assertEqual(days_left.text, '100')
 
         # Let's pick a date
         # Click Next to get a date in the future
