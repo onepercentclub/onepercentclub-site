@@ -26,8 +26,6 @@ class Migration(DataMigration):
         for ddp in ddps:
             dd_payments[ddp[0]] = ddp[1]
 
-        import ipdb; ipdb.set_trace()
-
         count = 0
         total = orm['cowry_docdata.DocDataPaymentLogEntry'].objects.count()
         for i, log_entry_model in enumerate(orm['cowry_docdata.DocDataPaymentLogEntry'].objects.all()):
