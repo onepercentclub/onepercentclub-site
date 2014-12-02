@@ -30,7 +30,6 @@ class TaskCreateSeleniumTests(OnePercentSeleniumTestCase):
         self.project.save()
         self.login(username=self.project.owner.email, password='testing')
 
-
         self.task1 = {
             'title': 'Hora est labora',
             'description': 'In nec convallis felis. Quisque iaculis augue nec eros convallis, non rutrum velit mattis.',
@@ -68,7 +67,8 @@ class TaskCreateSeleniumTests(OnePercentSeleniumTestCase):
 
         # Click Next to get a date in the future
         self.browser.find_by_css("[title=Next]").first.click()
-        self.assertTrue(self.browser.is_text_present("10"))
+        time.sleep(1)
+        self.browser.is_text_present("10")
         self.browser.find_link_by_text("10").first.click()
 
         # FF doesn't know how to fill number fields ?
