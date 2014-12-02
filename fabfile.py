@@ -557,7 +557,7 @@ def deploy_production(revspec=None):
 
 def backup_db(db_username="onepercentsite", db_name="onepercentsite"):
     """ Function to locally backup the database, copy it to the backup server, and then clean the local server backup again. """ 
-
+    print("Backing up database")
     time = datetime.now().strftime('%d-%m-%Y:%H:%M')
     backup_host = 'backups@bluebucket.onepercentclub.com'
     backup_path = '/home/backups/onepercentclub-backups'
@@ -565,10 +565,12 @@ def backup_db(db_username="onepercentsite", db_name="onepercentsite"):
     # Export the database
     run_web("pg_dump -x --no-owner --username={0} {1} | bzip2 -c > /tmp/{2}-{3}.sql.bz2".format(db_username, db_name, db_name, time))
 
+    print("Copying dump to backup server")
     # TODO: create the backup directory if it doesn't exist. 
     # Move the database to backup
     run_web("scp /tmp/{0}-{1}.sql.bz2 {2}:{3}/onepercentsite/deploy_production/".format(db_name, time, backup_host, backup_path))
 
+    print("Removing local db dump")
     # Clearup the local database dump
     run_web("rm /tmp/{0}-{1}.sql.bz2 ".format(db_name, time))
 
