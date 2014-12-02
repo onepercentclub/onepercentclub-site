@@ -154,11 +154,13 @@ class Migration(DataMigration):
                     order.status = StatusDefinition.CREATED
                 elif old_order.status == 'closed':
                     old_payment = get_latest_payment_for_order(old_order)
-                    if old_payment:
+                    if order.donations.count():
+                        first_donation = order.donations.all()[0]
+                        order.status = map_donation_to_order_status(first_donation.status)
+                    elif old_payment:
                         order.status = map_payment_to_order_status(old_payment.status)
                     else:
-                        first_donation = order.donations[0]
-                        order.status = map_donation_to_order_status(first_donation.status)
+                        order.status = StatusDefinition.CREATED
                 order.save()
 
                 # Migrate donations belong to this order
