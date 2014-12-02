@@ -39,7 +39,7 @@ FLUENT_DASHBOARD_APP_GROUPS = (
             'bluebottle.donations.*',
             'bluebottle.orders.*',
             'bluebottle.payments_voucher.models.Voucher',
-            'apps.mchanga.*'
+            'apps.mchanga.*',
         ),
         'module': 'fluent_dashboard.modules.AppIconList',
         'collapsible': False,

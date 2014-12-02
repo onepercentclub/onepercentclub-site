@@ -17,3 +17,5 @@ COWRY_LIVE_PAYMENTS = False
 EMAIL_BACKEND = 'bluebottle.utils.email_backend.DKIMBackend'
 
 SESSION_COOKIE_NAME = 'bb-staging-session-id'
+
+STAGING = True
