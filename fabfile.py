@@ -446,9 +446,6 @@ def deploy_testing(revspec='origin/master'):
     Update the testing server to the specified revspec, or HEAD of deploy branch and optionally sync migrated data.
     """
 
-    # Backup the production database
-    backup_db()
-
     # Update git locally
     git_fetch_local()
 
@@ -556,7 +553,11 @@ def deploy_production(revspec=None):
 
 
 def backup_db(db_username="onepercentsite", db_name="onepercentsite"):
-    """ Function to locally backup the database, copy it to the backup server, and then clean the local server backup again. """ 
+    """ 
+        Function to locally backup the database, copy it to the backup server, and then clean the local server backup again. 
+        Intended for the 'deploy_production' task.
+    """ 
+    
     print("Backing up database")
     time = datetime.now().strftime('%d-%m-%Y:%H:%M')
     backup_host = 'backups@bluebucket.onepercentclub.com'
