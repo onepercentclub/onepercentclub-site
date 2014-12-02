@@ -85,10 +85,9 @@ class TaskCreateSeleniumTests(OnePercentSeleniumTestCase):
         self.browser.find_by_css("button.btn-submit").first.click()
 
         # Check the task is loaded
-        self.wait_for_element_css('#task-details')
-        self.assertTrue(self.browser.is_text_present("Task open", wait_time=20))
+        self.assertTrue(self.browser.is_text_present("OPEN TASK FOR", wait_time=20))
         self.assertRegexpMatches(self.browser.url, r'/tasks/\d+$')
-        self.assertEqual(self.browser.find_by_css('h1.task-title').text.upper(), self.task1['title'].upper())
+        self.assertEqual(self.browser.find_by_css('h1.project-title').text.upper(), self.task1['title'].upper())
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
