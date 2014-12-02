@@ -124,7 +124,6 @@ class Migration(DataMigration):
     )
 
     def forwards(self, orm):
-        "Write your forwards methods here."
         start = 0
         old_orders = orm['fund.Order'].objects.all()
 
@@ -156,9 +155,11 @@ class Migration(DataMigration):
                     old_payment = get_latest_payment_for_order(old_order)
                     if old_payment:
                         order.status = map_payment_to_order_status(old_payment.status)
-                    else:
-                        first_donation = order.donations[0]
+                    elif order.donations.count():
+                        first_donation = order.donations.all()[0]
                         order.status = map_donation_to_order_status(first_donation.status)
+                    else:
+                        order.status = StatusDefinition.CREATED
                 order.save()
 
                 # Migrate donations belong to this order
