@@ -445,6 +445,10 @@ def deploy_testing(revspec='origin/master'):
     """
     Update the testing server to the specified revspec, or HEAD of deploy branch and optionally sync migrated data.
     """
+
+    # Backup the production database
+    backup_db()
+
     # Update git locally
     git_fetch_local()
 
@@ -515,6 +519,9 @@ def deploy_staging(revspec=None):
 def deploy_production(revspec=None):
     """ Update the production server to the specified revspec, or the latest staging release. """
 
+    # Backup the production database
+    backup_db()
+
     # Update git locally
     git_fetch_local()
 
@@ -547,21 +554,23 @@ def deploy_production(revspec=None):
     # Deploy complete, tag commit
     tag_commit(commit.hexsha, tag)
 
-@roles('testing')
-@task
+
 def backup_db(db_username="onepercentsite", db_name="onepercentsite"):
+    """ Function to locally backup the database, copy it to the backup server, and then clean the local server backup again. """ 
+
     time = datetime.now().strftime('%d-%m-%Y:%H:%M')
     backup_host = 'backups@bluebucket.onepercentclub.com'
     backup_path = '/home/backups/onepercentclub-backups'
 
     # Export the database
-    local("pg_dump -x --no-owner --username={0} {1} | bzip2 -c > /tmp/{2}-{3}.sql.bz2".format(db_username, db_name, db_name, time))
+    run_web("pg_dump -x --no-owner --username={0} {1} | bzip2 -c > /tmp/{2}-{3}.sql.bz2".format(db_username, db_name, db_name, time))
 
+    # TODO: create the backup directory if it doesn't exist. 
     # Move the database to backup
-    local("scp /tmp/{0}-{1}.sql.bz2 {2}:{3}/onepercentsite/deploy_production/".format(db_name, time, backup_host, backup_path))
+    run_web("scp /tmp/{0}-{1}.sql.bz2 {2}:{3}/onepercentsite/deploy_production/".format(db_name, time, backup_host, backup_path))
 
     # Clearup the local database dump
-    local("rm /tmp/{0}-{1}.sql.bz2 ".format(db_name, time))
+    run_web("rm /tmp/{0}-{1}.sql.bz2 ".format(db_name, time))
 
 
 @roles('backup')
