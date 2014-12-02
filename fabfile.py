@@ -5,7 +5,7 @@
 #    1. Environment settings
 #    2. Utility functions
 #    3. Fabric tasks
-
+from datetime import datetime
 from git import Repo
 from fabric.api import env, roles, sudo, prefix, cd, task, require, run, local, put, prompt, abort
 from fabric.contrib.console import confirm
@@ -546,6 +546,22 @@ def deploy_production(revspec=None):
 
     # Deploy complete, tag commit
     tag_commit(commit.hexsha, tag)
+
+@roles('testing')
+@task
+def backup_db(db_username="onepercentsite", db_name="onepercentsite"):
+    time = datetime.now().strftime('%d-%m-%Y:%H:%M')
+    backup_host = 'backups@bluebucket.onepercentclub.com'
+    backup_path = '/home/backups/onepercentclub-backups'
+
+    # Export the database
+    local("pg_dump -x --no-owner --username={0} {1} | bzip2 -c > /tmp/{2}-{3}.sql.bz2".format(db_username, db_name, db_name, time))
+
+    # Move the database to backup
+    local("scp /tmp/{0}-{1}.sql.bz2 {2}:{3}/onepercentsite/deploy_production/".format(db_name, time, backup_host, backup_path))
+
+    # Clearup the local database dump
+    local("rm /tmp/{0}-{1}.sql.bz2 ".format(db_name, time))
 
 
 @roles('backup')
