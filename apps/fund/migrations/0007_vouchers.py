@@ -16,6 +16,7 @@ class Migration(DataMigration):
     )
 
     def forwards(self, orm):
+        db.send_create_signal('payments_voucher', ['voucherpayment'])
 
         total = orm['vouchers.Voucher'].objects.count()
         t = 1

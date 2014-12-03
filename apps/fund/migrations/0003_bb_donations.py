@@ -583,14 +583,6 @@ class Migration(DataMigration):
             'polymorphic_ctype': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "u'polymorphic_payments.transaction_set'", 'null': 'True', 'to': u"orm['contenttypes.ContentType']"}),
             'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'})
         },
-        # u'payments_docdata.docdatadirectdebittransaction': {
-        #     'Meta': {'ordering': "('-created', '-updated')", 'object_name': 'DocDataDirectDebitTransaction', '_ormbases': [u'payments.Transaction']},
-        #     'account_city': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
-        #     'account_name': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
-        #     'bic': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
-        #     'iban': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
-        #     u'transaction_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['payments.Transaction']", 'unique': 'True', 'primary_key': 'True'})
-        # },
         u'payments_docdata.docdatapayment': {
             'Meta': {'ordering': "('-created', '-updated')", 'object_name': 'DocdataPayment', '_ormbases': [u'payments.Payment']},
             'address': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '200'}),

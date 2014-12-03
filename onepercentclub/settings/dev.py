@@ -5,10 +5,6 @@ except ImportError:
     sys.exit('secrets.py settings file not found. Please run `prepare.sh` to create one.')
 
 from .server import *
-from .templates import *
-
-DEBUG = False
-TEMPLATE_DEBUG = DEBUG
 
 # Put dev server environment specific overrides below.
 
