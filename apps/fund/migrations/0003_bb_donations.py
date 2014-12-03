@@ -46,8 +46,8 @@ def map_donation_to_order_status(status):
     return {
         'new': StatusDefinition.CREATED,
         'in_progress': StatusDefinition.IN_PROGRESS,
-        'pending': StatusDefinition.AUTHORIZED,
-        'paid': StatusDefinition.SETTLED,
+        'pending': StatusDefinition.PENDING,
+        'paid': StatusDefinition.SUCCESS,
         'failed': StatusDefinition.FAILED
     }[status]
 
@@ -124,6 +124,7 @@ class Migration(DataMigration):
     )
 
     def forwards(self, orm):
+        "Write your forwards methods here."
         start = 0
         old_orders = orm['fund.Order'].objects.all()
 
@@ -141,23 +142,24 @@ class Migration(DataMigration):
 
             if old_order.status != 'recurring':
                 order = orm['orders.Order'].objects.create()
-                if old_order.recurring:
-                    order.order_type = 'recurring'
-                else:
-                    order.order_type = 'one-off'
                 order.user = old_order.user
                 order.total = get_total_for_order(old_order)
                 order.created = old_order.created
                 order.updated = old_order.updated
+                if old_order.recurring:
+                    order.order_type = 'recurring'
+                else:
+                    order.order_type = 'one-off'
+
                 if old_order.status == 'current':
                     order.status = StatusDefinition.CREATED
                 elif old_order.status == 'closed':
                     old_payment = get_latest_payment_for_order(old_order)
-                    if old_payment:
-                        order.status = map_payment_to_order_status(old_payment.status)
-                    elif order.donations.count():
-                        first_donation = order.donations.all()[0]
+                    if old_order.donations.count():
+                        first_donation = old_order.donations.all()[0]
                         order.status = map_donation_to_order_status(first_donation.status)
+                    elif old_payment:
+                        order.status = map_payment_to_order_status(old_payment.status)
                     else:
                         order.status = StatusDefinition.CREATED
                 order.save()
@@ -171,12 +173,14 @@ class Migration(DataMigration):
                         project=old_donation.project,
                         fundraiser = old_donation.fundraiser,
                         created=old_donation.created,
-                        updated=old_donation.updated
+                        updated=old_donation.updated,
+                        completed=old_donation.ready
                     )
                     order.confirmed = old_donation.ready
                     if order.status == StatusDefinition.SUCCESS:
                         order.completed = old_donation.ready
                     donation.save()
+
                 order.save()
 
                 # Migrate payments belonging to this order
@@ -496,6 +500,7 @@ class Migration(DataMigration):
             'confirmed': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'order_type': ('django.db.models.fields.CharField', [], {'default': "'single'", 'max_length': "'100'", 'null': 'True', 'blank': 'True'}),
             'status': ('django_fsm.db.fields.fsmfield.FSMField', [], {'default': "'created'", 'max_length': '50'}),
             'total': ('django.db.models.fields.DecimalField', [], {'default': '0', 'max_digits': '16', 'decimal_places': '2'}),
             'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
@@ -577,14 +582,6 @@ class Migration(DataMigration):
             'payment': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['payments.Payment']"}),
             'polymorphic_ctype': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "u'polymorphic_payments.transaction_set'", 'null': 'True', 'to': u"orm['contenttypes.ContentType']"}),
             'updated': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'})
-        },
-        u'payments_docdata.docdatadirectdebittransaction': {
-            'Meta': {'ordering': "('-created', '-updated')", 'object_name': 'DocDataDirectDebitTransaction', '_ormbases': [u'payments.Transaction']},
-            'account_city': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
-            'account_name': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
-            'bic': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
-            'iban': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
-            u'transaction_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['payments.Transaction']", 'unique': 'True', 'primary_key': 'True'})
         },
         u'payments_docdata.docdatapayment': {
             'Meta': {'ordering': "('-created', '-updated')", 'object_name': 'DocdataPayment', '_ormbases': [u'payments.Payment']},
