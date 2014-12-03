@@ -5,6 +5,7 @@ except ImportError:
     sys.exit('secrets.py settings file not found. Please run `prepare.sh` to create one.')
 
 from .server import *
+from .templates import *
 
 #
 # Put staging server environment specific overrides below.
