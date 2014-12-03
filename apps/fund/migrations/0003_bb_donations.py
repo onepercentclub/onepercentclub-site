@@ -46,7 +46,7 @@ def map_donation_to_order_status(status):
     return {
         'new': StatusDefinition.CREATED,
         'in_progress': StatusDefinition.IN_PROGRESS,
-        'pending': StatusDefinition.AUTHORIZED,
+        'pending': StatusDefinition.PENDING,
         'paid': StatusDefinition.SUCCESS,
         'failed': StatusDefinition.FAILED
     }[status]
