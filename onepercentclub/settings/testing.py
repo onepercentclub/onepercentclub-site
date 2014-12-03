@@ -28,5 +28,3 @@ try:
     print "DEBUG", DEBUG
 except:
     pass
-DEBUG = False
-
