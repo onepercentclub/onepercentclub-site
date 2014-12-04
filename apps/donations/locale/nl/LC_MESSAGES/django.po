@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-03 09:40+0100\n"
+"POT-Creation-Date: 2014-12-04 21:04+0100\n"
 "PO-Revision-Date: 2014-12-02 07:48+0000\n"
 "Last-Translator: aethemba <aksel@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
@@ -34,27 +34,27 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:15
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:118
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:123
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:58
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:149
 msgid "Status"
 msgstr "Status"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:21
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:124
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:208
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:129
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:213
 msgid "All"
 msgstr "Alles"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:200
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:205
 msgid "Active"
 msgstr "Actief"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:203
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:208
 msgid "Yes"
 msgstr "Ja"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:204
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:209
 msgid "No"
 msgstr "Nee"
 
