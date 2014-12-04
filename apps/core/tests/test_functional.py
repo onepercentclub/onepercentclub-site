@@ -80,6 +80,8 @@ class PositiveDonationFlow(OnePercentSeleniumTestCase):
 
         self.scroll_to_and_click_by_css('a.btn-ok')
 
+        self.upload_screenshot()
+
         self.assertTrue(self.browser.is_text_present('Thanks for your support', wait_time=30))
 
         text = 'I made a donation with mockdeal! Good luck!'
