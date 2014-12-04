@@ -9,8 +9,9 @@ env:
   matrix:
   - DJANGO=django==1.5.4
   global:
-  - secure: gJ/2vz3uLrvEAodhI/uchCZYM7z0eFidAGP3kj2wD5rhUlaMvFZZd1EApJjSxBsxUnJwcdXZdpcy1GM2hx2c2vpNF8YEwm42dsQwvKUHveP+8bBxeB+zp0KoikdDDIUQKu2gjUv4n/QRZzCpEvmFdHtn6/yXnlyV6g5axUYCQyE=
-  - secure: nhtUS6j9oU38XHd5nl0MsorrqAhSukSWGU/R31hWT6NT4ipUmYLJniIerHCJ+Vt++h4XH3CSYmBRYYEiRrx81kBhlbxGdPm1cGVLb76NCjdhjUsiqoS5yB8H056/GnZWlYYG2ZaWOYgHhACTlQpm5OICO6TILLYcSd362Fg+gKs=
+  # Imgur API keys
+  - secure: "D+ya6k5EEjaEh8FJDSyHrh6X0K/xDd9gAZfenTSMiwNojiSUXjIs9c3uH2pI2HdBzhoajsSvOlCN/CMzuPBNWd2FfEuWdrNOTXQHPHvQDhEHpqGxtGZtw8zf99t5BIPfZTTQkemUyyvYOKHAT3VBnehp8q0SdzYAaEfvhDCjgys="
+  - secure: "fOzfAkE3f4Aq/+4JKwkX4IcjaRcldfLeMqdCV6MTn88BYgFvDCz7Bhp6/WOECHzw/1HYHr14vW0JHXqHh8JB6jkTQ1Gxei6fOTZbNNG+qtlguuoBQ+jnJ29ArV5FROOEtrBv/86SKyMz5D/2tR7BmES+hfmUDDxDhhCx/aEzpHw="
 services:
 - memcached
 before_install:
