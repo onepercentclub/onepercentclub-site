@@ -47,6 +47,7 @@ class PositiveDonationFlow(OnePercentSeleniumTestCase):
         self.wait_for_element_css('a[data-action-type=donate]')
         button = self.browser.find_by_css('a[data-action-type=donate]')[0]
         button.click()
+        self.upload_screenshot()
 
         # Verify the elements of the donation modal
         self.wait_for_element_css('input.donation-input')
@@ -75,6 +76,7 @@ class PositiveDonationFlow(OnePercentSeleniumTestCase):
         self.scroll_to_and_click_by_css(".payment-btn")
 
         time.sleep(2)
+        self.upload_screenshot()
 
         self.assertTrue(self.browser.is_text_present('This is a Mock Payment Service provider', wait_time=20))
 
