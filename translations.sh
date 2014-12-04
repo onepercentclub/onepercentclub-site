@@ -143,7 +143,7 @@ case "$1" in
 
         push)
             echo "Uploading PO files to Transifex"
-            tx push -s
+            tx push -s 
 
             ;;
 
