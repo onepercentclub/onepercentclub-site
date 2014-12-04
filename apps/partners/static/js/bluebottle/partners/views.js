@@ -22,12 +22,12 @@ App.PartnerProjectsView = Em.View.extend({
     templateName: 'partner_projects',
 
     didInsertElement: function() {
-        $(window).on('scroll', $.proxy(this.didScroll, this));
+        $(document).on('scroll', $.proxy(this.didScroll, this));
         $(document).on('touchmove', $.proxy(this.didScrollTouch, this));
     },
 
     willDestroyElement: function(){
-        $(window).off('scroll', $.proxy(this.didScroll, this));
+        $(document).off('scroll', $.proxy(this.didScroll, this));
         $(document).off('touchmove', $.proxy(this.didScrollTouch, this));
     },
 
@@ -57,7 +57,6 @@ App.PartnerProjectsView = Em.View.extend({
 
     didScroll: function() {
         var nthChild = this.campaignLeft();
-
         if(this.isScrolledToBottom()) {
             if (this.noMoreCampaign()) {
                 $('.scroll-more-loader').removeClass('is-active');
@@ -72,7 +71,10 @@ App.PartnerProjectsView = Em.View.extend({
             if (this.noMoreCampaign()) {
                $('.scroll-more-loader').removeClass('is-active'); 
             }
+        } else {
+            $('.scroll-more-loader').removeClass('is-active');    
         }
+
     },
 
     didScrollTouch: function() {
@@ -88,8 +90,7 @@ App.PartnerProjectsView = Em.View.extend({
     isScrolledToBottom: function() {
         var distanceTop = $(document).height() - $(window).height(),
             top = $(document).scrollTop();
-
-        return top === distanceTop;
+        return top >= distanceTop;
     }
 });
 
