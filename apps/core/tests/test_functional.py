@@ -82,6 +82,7 @@ class PositiveDonationFlow(OnePercentSeleniumTestCase):
 
         self.scroll_to_and_click_by_css('a.btn-ok')
 
+        time.sleep(5)
         self.upload_screenshot()
 
         self.assertTrue(self.browser.is_text_present('Thanks for your support', wait_time=30))
