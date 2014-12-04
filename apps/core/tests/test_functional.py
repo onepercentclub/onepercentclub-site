@@ -99,7 +99,7 @@ class PositiveDonationFlow(OnePercentSeleniumTestCase):
         #
         # author = wallpost.find_element_by_css_selector(".user-name").text
         # self.assertEqual(author.lower(), self.user.full_name.lower())
-        
+
 
 class LoginDonationFlow(OnePercentSeleniumTestCase):
 
