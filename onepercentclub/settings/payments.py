@@ -22,13 +22,6 @@ PAYMENT_METHODS = (
         'profile': 'creditcard',
         'name': 'CreditCard',
         'supports_recurring': False,
-    },
-    # {
-    #     'provider': 'docdata',
-    #     'id': 'docdata-paypal',
-    #     'profile': 'paypal',
-    #     'name': 'Paypal',
-    #     'supports_recurring': False,
-    # },
+    }
 )
 VAT_RATE = 0.21
