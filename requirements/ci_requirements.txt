@@ -1,5 +1,6 @@
 -r requirements.txt
 
+bunch==1.0.1
 selenium==2.43.0
 coverage==3.7.1
 django-jenkins==0.14.1

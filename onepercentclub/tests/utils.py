@@ -55,45 +55,6 @@ class OnePercentTestCase(InitProjectDataMixin, TestCase):
 
 class OnePercentSeleniumTestCase(InitProjectDataMixin, SeleniumTestCase):
 
-    def login(self, username, password, wait_time=30):
-        """
-        Perform login operation on the website.
-
-        :param username: The user's email address.
-        :param password: The user's password
-        :return: ``True`` if login was successful.
-        """
-        self.init_projects()
-        self.visit_homepage()
-
-        # Find the link to the signup button page and click it.
-        self.scroll_to_and_click_by_css('.nav-signup-login a')
-        self.wait_for_element_css('.modal-fullscreen-content')
-
-        # Fill in details.
-        self.browser.find_by_css('input[name=username]').first.fill(username)
-        self.browser.find_by_css('input[type=password]').first.fill(password)
-
-        self.wait_for_element_css("a[name=login]", timeout=10)
-        self.scroll_to_and_click_by_css("a[name=login]")
-
-        # FIXME: We should be checking some other state, maybe something in Ember
-        return self.browser.is_text_present('My 1%', wait_time=wait_time)
-
-    def logout(self):
-        # Click user profile to open menu - mouse_over() only works for chrome
-        self.browser.find_by_css('.nav-member-dropdown').click()
-        
-        # Click the logout item
-        logout = '.nav-member-logout a'
-        self.wait_for_element_css(logout)
-        return self.browser.find_by_css(logout).click()
-
-    def tearDown(self):
-        # Navigate to homepage before tearing the browser down.
-        # This helps Travis.
-        self.visit_homepage()
-
     def visit_homepage(self, lang_code=None):
         """
         Convenience function to open the homepage.

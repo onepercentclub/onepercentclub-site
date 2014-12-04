@@ -1,9 +1,7 @@
 import csv
 import logging
 from apps.projects.models import ProjectBudgetLine
-from bluebottle.utils.utils import get_project_model
-from django.contrib.auth import get_user_model
-
+from bluebottle.payments.models import OrderPayment
 import os
 from registration.models import RegistrationProfile
 from django.utils import timezone
@@ -13,11 +11,11 @@ from apps.fund.models import Donation, DonationStatuses
 from apps.recurring_donations.models import MonthlyDonor
 from apps.vouchers.models import Voucher, VoucherStatuses
 from apps.organizations.models import Organization, OrganizationMember
-from apps.fundraisers.models import FundRaiser
+from bluebottle.fundraisers.models import FundRaiser
 from apps.tasks.models import Task, TaskMember
+from apps.projects.models import Project
+from apps.members.models import Member
 
-USER_MODEL = get_user_model()
-PROJECT_MODEL = get_project_model()
 logger = logging.getLogger('bluebottle.salesforce')
 
 
@@ -175,7 +173,7 @@ def generate_users_csv_file(path, loglevel):
                             "Account_Active_Recurring_Debit__c",
                             "Phone"])
 
-        users = USER_MODEL.objects.all()
+        users = Member.objects.all()
 
         logger.info("Exporting {0} User objects to {1}".format(users.count(), filename))
 
@@ -204,9 +202,9 @@ def generate_users_csv_file(path, loglevel):
 
                 gender = ""
                 if user.gender == "male":
-                    gender = USER_MODEL.Gender.values['male'].title()
+                    gender = Member.Gender.values['male'].title()
                 elif user.gender == "female":
-                    gender = USER_MODEL.Gender.values['female'].title()
+                    gender = Member.Gender.values['female'].title()
 
                 date_deleted = ""
                 if user.deleted:
@@ -258,7 +256,7 @@ def generate_users_csv_file(path, loglevel):
                 availability = user.available_time
 
                 csvwriter.writerow([user.id,
-                                    USER_MODEL.UserType.values[user.user_type].title(),
+                                    Member.UserType.values[user.user_type].title(),
                                     user.first_name.encode("utf-8"),
                                     last_name.encode("utf-8"),
                                     gender,
@@ -343,7 +341,7 @@ def generate_projects_csv_file(path, loglevel):
                             "Supporter_count__c",
                             "Supporter_oo_count__c"])
 
-        projects = PROJECT_MODEL.objects.all()
+        projects = Project.objects.all()
         logger.info("Exporting {0} Project objects to {1}".format(projects.count(), filename))
 
         for project in projects:
@@ -422,9 +420,9 @@ def generate_projects_csv_file(path, loglevel):
                                 region,
                                 sub_region,
                                 "%01.2f" % ((project.get_money_total(['paid', 'pending'])) / 100),
-                                "%01.2f" % ((project.get_money_total(['paid', 'pending'], ['one_off'])) / 100),
+                                "%01.2f" % ((project.get_money_total(['paid', 'pending'])) / 100),
                                 project.supporters_count(),
-                                project.supporters_count(True, ['one_off'])])
+                                project.supporters_count(True)])
             success_count += 1
     return success_count, error_count
 
@@ -516,10 +514,9 @@ def generate_donations_csv_file(path, loglevel):
                 # Get the payment method from the associated order / payment
                 payment_method = payment_method_mapping['']  # Maps to Unknown for DocData.
                 if donation.order:
-                    lp = donation.order.latest_payment
-                    if lp and lp.latest_docdata_payment:
-                        if lp.latest_docdata_payment.payment_method in payment_method_mapping:
-                            payment_method = payment_method_mapping[lp.latest_docdata_payment.payment_method]
+                    lp = OrderPayment.get_latest_by_order(donation.order)
+                    if lp and lp.payment_method in payment_method_mapping:
+                        payment_method = payment_method_mapping[lp.payment_method]
 
                 csvwriter.writerow([donation.id,
                                     donor_id,
@@ -528,7 +525,7 @@ def generate_donations_csv_file(path, loglevel):
                                     donation.created.date().strftime("%Y-%m-%dT%H:%M:%S.000Z"),
                                     name.encode("utf-8"),
                                     DonationStatuses.values[donation.status].title(),
-                                    donation.DonationTypes.values[donation.donation_type].title(),
+                                    donation.order.order_type,
                                     donation.created.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
                                     donation.updated.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
                                     donation_ready,

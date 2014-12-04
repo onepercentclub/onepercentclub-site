@@ -4,12 +4,18 @@ Functional tests using Selenium.
 
 See: ``docs/testing/selenium.rst`` for details.
 """
+
+import os
+import time
 from decimal import Decimal
-from bluebottle.bb_projects.models import ProjectPhase
-from bluebottle.utils.models import Language
 from django.conf import settings
 from django.utils.text import slugify
 from django.utils.unittest.case import skipUnless
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
+
+from bluebottle.bb_projects.models import ProjectPhase, ProjectTheme
+from bluebottle.utils.models import Language
 
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory, PartnerFactory
@@ -19,9 +25,6 @@ from bluebottle.test.factory_models.geo import CountryFactory
 
 
 from ..models import Project
-
-import os
-import time
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
@@ -110,68 +113,73 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
 
     def test_upload_multiple_wallpost_images(self):
         """ Test uploading multiple images in a media wallpost """
-
         self.assertTrue(self.login(self.user.email, 'testing'))
         self.visit_project_list_page()
 
+        self.close_modal()
+
         # pick a project
+        self.wait_for_element_css('.project-item')
         self.browser.find_by_css('.project-item').first.find_by_tag('a').first.click()
 
-        form = self.browser.find_by_id('wallpost-form')
-
-        self.browser.find_by_css('.wallpost-post-update').first.click()
-
         # Wait for form to animate down
-        self.wait_for_element_css('#wallpost-title')
+        form = self.wait_for_element_css('#wallpost-form')
+        form.find_element_by_css_selector('textarea').send_keys('These are some sample pictures from this non-existent project!')
 
-        title = 'My wallpost'
-        self.browser.find_by_id('wallpost-title').first.fill(title)
-        self.browser.find_by_id('wallpost-update').first.fill('These are some sample pictures from this non-existent project!')
+        #
+        # TODO: re-enable this when we finish
+        #
 
         # verify that no previews are there yet
-        ul = form.find_by_css('ul.form-wallpost-photos').first
-        previews = ul.find_by_tag('li')
-        self.assertEqual(0, len(previews))
+        ul = form.find_element_by_css_selector('ul.upload-photos')
+        previews = ul.find_elements_by_tag_name('li')
+
+        # Number of li elements should be 1 - the add image button is in the first li 
+        self.assertEqual(1, len(previews))
 
         # attach file
-        file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'kitten_snow.jpg')
-        self.browser.attach_file('wallpost-photo', file_path)
+        self.browser.driver.find_element_by_css_selector('a[data-action-type="show-photo-upload"]').click()
 
-        # verify that one picture was added
-        form = self.browser.find_by_id('wallpost-form')
-        ul = form.find_by_css('ul.form-wallpost-photos').first
-        previews = ul.find_by_tag('li')
+        file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'kitten_snow.jpg')
+        file_field = self.wait_for_element_css('.wallpost-photos .action-upload')
+        file_field.find_element_by_css_selector('input').send_keys(file_path)
+
+        # verify that one picture was added, after waiting for the preview to load
+        self.wait_for_element_css('ul.form-wallpost-photos li:nth-of-type(2)')
+        ul = form.find_element_by_css_selector('ul.upload-photos')
+        previews = ul.find_elements_by_tag_name('li')
+
+        self.assertEqual(2, len(previews))
 
         # verify that a second picture was added
         file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'chameleon.jpg')
-        self.browser.attach_file('wallpost-photo', file_path)
+        file_field = self.wait_for_element_css('.wallpost-photos .action-upload')
+        file_field.find_element_by_css_selector('input').send_keys(file_path)
 
         # Wait for the second item to be added
-        self.wait_for_element_css('ul.form-wallpost-photos li:nth-child(2)')
-
-        form = self.browser.find_by_id('wallpost-form')
-        ul = form.find_by_css('ul.form-wallpost-photos').first
-        previews = ul.find_by_tag('li')
-        self.assertEqual(2, len(previews))
+        self.wait_for_element_css('ul.form-wallpost-photos li:nth-of-type(3)')
+        ul = form.find_element_by_css_selector('ul.upload-photos')
+        previews = ul.find_elements_by_tag_name('li')
+        self.assertEqual(3, len(previews))
 
         # submit the form
-        form.find_by_tag('button').first.click();
+        form.find_element_by_css_selector('button.action-submit').click()
 
         # check if the wallpostis there
-        wp = self.browser.find_by_css('article.wallpost').first
+        wallpost = self.browser.driver.find_element_by_css_selector('#wallposts article')
 
-        # FIXME: reenable this test
-        # self.assertTrue(self.browser.is_text_present(title))
+        # Check for cover photo
+        cover_photos = wallpost.find_elements_by_css_selector('ul.photo-viewer li.cover')
+        self.assertEqual(len(cover_photos), 1)
 
-        num_photos = len(wp.find_by_css('ul.photo-viewer li.photo'))
-        self.assertEqual(num_photos, 2)
-
+        # Check for other photo
+        other_photos = wallpost.find_elements_by_css_selector('ul.photo-viewer li.photo')
+        self.assertEqual(len(other_photos), 1)
 
     def test_meta_tag(self, lang_code=None):
         self.visit_path('/projects/schools-for-children-2', lang_code)
 
         time.sleep(4)
-        #self.assertIn('Schools for children 2', self.browser.title) # check that the title indeed contains the project title
 
         # check meta url
         meta_url = self.browser.find_by_xpath("//html/head/meta[@property='og:url']").first
@@ -179,14 +187,14 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
 
         # TODO: check that the default description is overwritten, add description to plan
 
-    def test_project_plan(self):
-        self.visit_path('/projects/schools-for-children-2')
-
-        element = self.wait_for_element_css('.project-plan-link a')
-        element.click()
-
-        self.wait_for_element_css('.project-plan-navigation-links')
-        self.assertTrue(self.browser.is_element_not_present_by_css('.project-plan-download-pdf'), 'PDF download should not be available')
+    # def test_project_plan(self):
+    #     self.visit_path('/projects/schools-for-children-2')
+    #
+    #     element = self.wait_for_element_css('.project-more')
+    #     element.click()
+    #
+    #     self.wait_for_element_css('.project-plan-navigation-links')
+    #     self.assertTrue(self.browser.is_element_not_present_by_css('.project-plan-download-pdf'), 'PDF download should not be available')
 
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
@@ -203,6 +211,9 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
 
         self.country_1 = CountryFactory.create(name="Afghanistan")
         self.country_2 = CountryFactory.create(name="Albania")
+
+        self.theme = ProjectTheme.objects.all()[0]
+        self.language = Language.objects.all()[0]
 
         self.login(self.user.email, 'testing')
 
@@ -222,9 +233,6 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
                 ]
             }
 
-    def tearDown(self):
-        self.logout()
-
     def test_create_project(self):
         """
         Creating a project. The positive flow.
@@ -233,7 +241,11 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         self.visit_path('/my/projects')
 
         # Click "Pitch Smart Idea" btn
+        self.assertTrue(self.browser.is_element_present_by_css('#create_project', wait_time=5))
         self.assertTrue(self.is_visible('#create_project'))
+        # This click can ocassially cause a problem. What the exact reason is seems to vary per person. See this thread: https://code.google.com/p/selenium/issues/detail?id=2766
+        # There are various fixes but, they too, are not reliable. The only consistent solution that seems to work is a time.sleep(1)
+        time.sleep(1)
         self.browser.find_by_id("create_project").first.click()
 
         ###
@@ -246,23 +258,28 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         ###
         # Project Section
         ###
-        time.sleep(3)
 
-        self.browser.select('language', 2)
+        self.assertTrue(self.browser.is_element_present_by_css('.language'))
+        self.assertTrue(self.is_visible('.language'))
+
+        self.browser.select('language', self.language.id)
         self.assertTrue(self.is_visible('input[name="title"]'))
         self.browser.fill('title', self.project_data['title'])
         self.browser.fill('pitch', self.project_data['pitch'])
 
         btn = self.browser.attach_file('img_upload', '{0}/apps/projects/test_images/upload.png'.format(settings.PROJECT_ROOT))
 
+        self.browser.find_by_css('.map-look-up input').type('Lyutidol')
+        self.browser.find_by_css('.map-look-up button').click()
+
         # Splinter takes the value of the select option
-        self.browser.select('theme', 2)
+        self.browser.select('theme', self.theme.id)
 
         for tag in self.project_data['tags']:
             self.browser.fill('tag', tag)
             self.browser.find_by_css("button.add-tag").first.click()
 
-        self.browser.select('country', 1)
+        self.browser.select('country', self.country_1.id)
 
         self.scroll_to_and_click_by_css("button.next")
 
@@ -359,11 +376,10 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         self.browser.fill('account-holder-postcode', bank_details['postcode'])
         self.browser.fill('account-holder-city', bank_details['city'])
 
-        self.scroll_to_and_click_by_css('select[name="account-holder-country"]')
-        self.browser.select('account-holder-country', 1)
+        select = Select(self.browser.driver.find_element_by_name("account-holder-country"))
+        select.select_by_visible_text("Afghanistan")
 
-        self.scroll_to_and_click_by_css('ul.tab-control .tab-first a')
-        
+        self.scroll_to_and_click_by_css('ul.fieldset-tabs .tab-first a')
         self.browser.fill('account-iban', bank_details['iban'])
         self.browser.fill('account-bic', bank_details['bic'])
 
@@ -378,16 +394,16 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         
         # confirm the project record was created
         # TODO: Also check it has the expected fields.
-        Project.objects.filter(slug=self.project_data['slug']).exists()
+        self.assertTrue(Project.objects.filter(slug=self.project_data['slug']).exists())
 
     def test_change_project_goal(self):
         plan_phase = ProjectPhase.objects.get(slug='plan-new')
         project = OnePercentProjectFactory.create(title='Project Goal Changes', owner=self.user, status=plan_phase)
         self.visit_path('/my/projects/{0}/goal'.format(project.slug))
 
-        # Check that deadline is set to 30 days now
+        # Check that deadline is set to 100 days now
         days_left = self.browser.find_by_css('.project-days-left strong').first
-        self.assertEqual(days_left.text, '30')
+        self.assertEqual(days_left.text, '100')
 
         # Let's pick a date
         # Click Next to get a date in the future
@@ -434,7 +450,6 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
 
         super(ProjectWallPostSeleniumTests, self).setUp()
         self.user = BlueBottleUserFactory.create()
-        self.login(self.user.email, 'testing')
 
         owner = BlueBottleUserFactory.create()
 
@@ -453,57 +468,43 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
         """
         Test to write wall-posts on project page
         """
-        self.visit_path('/projects/{0}'.format(self.project.slug))
-        #self.assertTrue(self.browser.is_text_present(self.project.title, wait_time=5))
-        self.assertTrue(self.browser.is_text_present('Post a new comment', wait_time=5))
+        self.login(self.user.email, 'testing')
 
-        self.wait_for_element_css(".wallpost-post-update")
-        self.scroll_to_and_click_by_css(".wallpost-post-update")
-        self.assertTrue(self.browser.is_text_present('Post', wait_time=5))
+        self.visit_path('/projects/{0}'.format(self.project.slug))
+
+        wallpost_form = self.wait_for_element_css('#wallposts form')
 
         # Write wallpost as normal user
-        self.browser.driver.find_element_by_id('wallpost-update').send_keys(self.post1['text'])
-        self.browser.find_by_css('button.btn-save').first.click()
+        wallpost_form.find_element_by_css_selector('textarea').send_keys(self.post1['text'])
+        wallpost_form.find_element_by_css_selector('button.action-submit').click()
 
-        self.wait_for_element_css('article.wallpost')
-        post = self.browser.find_by_css("article.wallpost").first
+        wallpost = self.wait_for_element_css('#wallposts article:first-of-type')
 
-        self.assertEqual(post.find_by_css('.wallpost-author').text, self.user.full_name().upper())
-        # FIXME: re-enable this test
-        # self.assertEqual(post.find_by_css('.text p').text, self.post1['text'])
-
-        self.logout()
+        self.assertEqual(wallpost.find_element_by_css_selector('.user-name').text.upper(), self.user.full_name.upper())
+        self.assertEqual(wallpost.find_element_by_css_selector('.wallpost-body').text, self.post1['text'])
 
         # Login as the project owner
         self.login(username=self.project.owner.email, password='testing')
 
         # Should see the post by the first user.
         self.visit_path('/projects/{0}'.format(self.project.slug))
-        post = self.browser.find_by_css("article.wallpost").first
-        self.assertEqual(post.find_by_css('.wallpost-author').text, self.user.full_name().upper())
-        self.assertEqual(post.find_by_css('.text p').text, self.post1['text'])
+
+        wallpost = self.wait_for_element_css('#wallposts article:first-of-type')
+        self.assertEqual(wallpost.find_element_by_css_selector('.wallpost-body').text, self.post1['text'])
 
         # Post as project owner
-        self.wait_for_element_css(".wallpost-post-update")
-        self.scroll_to_and_click_by_css(".wallpost-post-update")
-        self.assertTrue(self.browser.is_text_present('Post', wait_time=5))
+        wallpost_form = self.wait_for_element_css('#wallposts form')
+        wallpost_form.find_element_by_css_selector('textarea').send_keys(self.post2['text'])
+        wallpost_form.find_element_by_css_selector('button.action-submit').click()
 
-        self.scroll_to_and_fill_by_css('#wallpost-title', self.post2['title'])
-        self.scroll_to_and_fill_by_css('#wallpost-update', self.post2['text'])
-        self.browser.find_by_css("button.btn-save").first.click()
+        # Wait for the two posts to load. Wait for the second first to ensure both have loaded.
+        original_wallpost = self.wait_for_element_css_index('article.m-wallpost', 1)
+        owner_wallpost = self.wait_for_element_css_index('article.m-wallpost', 0)
 
-        # Check that the new wallpost is there
-        self.assertTrue(self.browser.is_text_present('INITIATOR', wait_time=5))
-        # Wait for title, so we're sure the animation is finished.
-        self.assertTrue(self.browser.is_text_present(self.post2['title'], wait_time=5))
-        post = self.browser.find_by_css("article.wallpost")[0]
-
-        self.assertEqual(post.find_by_css('.wallpost-author').text, self.project.owner.full_name().upper())
-        self.assertEqual(post.find_by_css('.wallpost-title').text, self.post2['title'])
-        self.assertEqual(post.find_by_css('.text p').text, self.post2['text'])
+        self.assertEqual(owner_wallpost.find_element_by_css_selector('.user-name').text.upper(), self.project.owner.full_name.upper())
+        self.assertEqual(owner_wallpost.find_element_by_css_selector('.wallpost-body').text, self.post2['text'])
 
         # And the first post should still be shown as second
-        post = self.browser.find_by_css("article.wallpost")[1]
-        self.assertEqual(post.find_by_css('.wallpost-author').text, self.user.full_name().upper())
-        self.assertEqual(post.find_by_css('.text p').text, self.post1['text'])
+        self.assertEqual(original_wallpost.find_element_by_css_selector('.user-name').text.upper(), self.user.full_name.upper())
+        self.assertEqual(original_wallpost.find_element_by_css_selector('.wallpost-body').text, self.post1['text'])
 

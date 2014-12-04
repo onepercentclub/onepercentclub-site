@@ -12,12 +12,6 @@ from django.utils.translation import ugettext as _
 
 
 class Member(BlueBottleBaseUser):
-
-    @property
-    def image_url(self):
-        if self.picture and hasattr(self.picture, 'url'):
-            return self.picture.url
-    
     #Create an address if none exists
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         super(Member, self).save(force_insert=False, force_update=False, using=None, update_fields=None)

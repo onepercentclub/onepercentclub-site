@@ -1,21 +1,9 @@
 # -*- coding: utf-8 -*-
-import datetime
 from decimal import Decimal
-from south.db import db
 from south.v2 import DataMigration
-from django.db import models
 from django.db.models.aggregates import Sum
 from django.conf import settings
 
-def mchanga_fundraiser(project):
-    """
-    Return a M-Changa fund raiser, if there is one.
-    """
-    if project.mchanga_account:
-        frs = MpesaFundRaiser.objects.filter(account=self.mchanga_account).all()
-        if len(frs):
-            return frs[0]
-        return None
 
 def update_money_donated(project, mchanga_object, donations):
     """ Update amount based on paid and pending donations. """
