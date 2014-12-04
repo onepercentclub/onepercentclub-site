@@ -61,12 +61,16 @@ class PositiveDonationFlow(OnePercentSeleniumTestCase):
         # Jump to next step
         self.scroll_to_and_click_by_css(".donate-btn")
 
+        self.upload_screenshot()
+
         self.assert_css(".payment-tabs")
         self.assert_css(".payment-tab-content")
 
         # If you select only the li, the click will fail because the modal closes
         ideal_payments = self.browser.find_by_css("li.ideal label")
         ideal_payments[0].click()
+
+        self.upload_screenshot()
 
         self.assert_css(".ember-select")
 
@@ -75,6 +79,8 @@ class PositiveDonationFlow(OnePercentSeleniumTestCase):
         self.scroll_to_and_click_by_css(".payment-btn")
 
         time.sleep(2)
+
+        self.upload_screenshot()
 
         self.assertTrue(self.browser.is_text_present('This is a Mock Payment Service provider', wait_time=20))
 
