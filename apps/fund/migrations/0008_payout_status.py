@@ -9,9 +9,14 @@ class Migration(DataMigration):
     def forwards(self, orm):
         orm['payouts.ProjectPayout'].objects.filter(status='completed').update(status='settled')
         orm['payouts.ProjectPayout'].objects.filter(status='progress').update(status='in_progress')
+        orm['payouts.OrganizationPayout'].objects.filter(status='completed').update(status='settled')
+        orm['payouts.OrganizationPayout'].objects.filter(status='progress').update(status='in_progress')
 
     def backwards(self, orm):
-        "Write your backwards methods here."
+        orm['payouts.ProjectPayout'].objects.filter(status='settled').update(status='completed')
+        orm['payouts.ProjectPayout'].objects.filter(status='in_progress').update(status='progress')
+        orm['payouts.OrganizationPayout'].objects.filter(status='settled').update(status='completed')
+        orm['payouts.OrganizationPayout'].objects.filter(status='in_progress').update(status='progress')
 
     models = {
         u'auth.group': {
