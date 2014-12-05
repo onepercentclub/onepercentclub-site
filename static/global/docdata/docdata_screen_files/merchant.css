@@ -472,8 +472,17 @@ a:hover {
 a.link.backBtn {
     position: absolute;
     top: 0;
-    padding-top: 20px;
+    margin-top: 20px;
     cursor: pointer;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMSIgaGVpZ2h0PSIxOCI+PHBhdGggZmlsbD0iI0Q4RDhEOCIgZD0iTTE5LjQ2MiA2LjkxaC0xMy41MTFsMy45NjItNC4xOGMuMzIyLS4zNDIuMzIyLS44OTUgMC0xLjIzN2wtMS4xNTYtMS4yMzdjLS4zMTgtLjM0Mi0uODM2LS4zNDItMS4xNTggMGwtNy4zNiA3Ljc4M2MtLjMxOC4zNDUtLjMxOC44OTggMCAxLjIzOGw3LjMxNCA3LjczOGMuMzIuMzQ0LjgzOS4zNDQgMS4xNTYgMGwxLjE1OC0xLjIzOGMuMzItLjM0LjMyLS44OTUgMC0xLjIzNWwtMy45NjItNC4xNzhoMTMuNTU3Yy40NjcgMCAuODQ2LS4zODcuODQ2LS44NjR2LTEuNzI3YzAtLjQ3Ny0uMzc5LS44NjQtLjg0Ni0uODY0Ii8+PC9zdmc+);
+    width: 21px;
+    height: 18px;
+    background-repeat: no-repeat;
+    background-size: 21px 18px;
+
 }
 
 /*--------------------------------------------------------------
@@ -585,6 +594,7 @@ CENTER LAYOUT
 	text-transform: none;
 	font-weight: bold;
 	font-size: 24px;
+	padding-right: 6px;
 }
 
 .introduction.paymentChoiceBox  > div {
@@ -651,17 +661,20 @@ CENTER LAYOUT
 }
 
 .paymentChoiceHeader:focus,
-.paymentChoiceHeader:hover,
+.paymentChoiceHeader:hover {
+    outline: none;
+}
+
 .paymentChoiceHeader.active {
     outline: none;
     border-radius: 6px 6px 0 0;
-    border-bottom: solid 1px #d8d8d8;
 }
 
+.paymentChoiceHeader:focus .h3,
+.paymentChoiceHeader:hover .h3,
 .paymentChoiceHeader.active .h3 {
     color: #00C051;
 }
-
 
 .paymentChoiceHeader .logo {
 	float: right;
@@ -682,12 +695,13 @@ CENTER LAYOUT
 .paymentChoiceForm {
 	padding: 20px 30px 20px 40px; 
 	border-bottom: 1px solid #fff;
+	border-top: solid 1px #d8d8d8;
     background-color: #fff;
     border-radius: 0 0 6px 6px;
 }
 
 .paymentChoiceForm.mastercard {
-    height: auto!important;
+    /* height: auto!important; */
 }
 
 /*--------------------------------------------------------------
@@ -816,6 +830,32 @@ MODAL
     box-shadow: inset 0 2px 0 0 #3C3C3C;
 }
 
+.gwt-DialogBox.alert, .gwt-DialogBox.spinner {
+	top: 200px !important;
+	text-align: center;
+}
+
+.gwt-DialogBox.alert .dialogMiddleCenter {
+	width: 400px;
+	min-height: 160px;
+}
+
+/*--------------------------------------------------------------
+HIDE ?
+--------------------------------------------------------------*/
+
+.paymentChoiceForm.sliding {
+	overflow: hidden;
+}
+
+.paymentChoiceMenuRow.sepa_direct_debit {
+	display: none;
+}
+
+.creditCardNumber img:last-of-type, .expiryDate img:last-of-type, .cardHolder img:last-of-type, .emailAddress img:last-of-type, .bank img:last-of-type {
+	display: none;
+}
+
 /*--------------------------------------------------------------
 SIDEBAR
 --------------------------------------------------------------*/
@@ -835,10 +875,6 @@ SIDEBAR
 
 .safePaymentInformation .headerTitle {
     display: none;
-}
-
-.safePaymentInformation.sidebarBoxContent {
-    text-align: center;
 }
 
 .sidebarBoxContent {
@@ -879,7 +915,6 @@ SIDEBAR
 
 .transactionSummary {
     min-height: 200px;
-/*	margin-top: 100px;*/
 }
 
 .identification {
