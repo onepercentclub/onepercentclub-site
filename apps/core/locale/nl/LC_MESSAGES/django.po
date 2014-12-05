@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# bartlacroix <bart@onepercentclub.com>, 2014
 # Malou <malou@onepercentclub.com>, 2014
 # Sezayi Arslan <sezayi@onepercentclub.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-04 21:04+0100\n"
-"PO-Revision-Date: 2014-12-04 20:08+0000\n"
+"POT-Creation-Date: 2014-12-05 13:56+0100\n"
+"PO-Revision-Date: 2014-12-05 12:59+0000\n"
 "Last-Translator: aethemba <aksel@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -178,9 +179,9 @@ msgstr "Doorgaan met"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/templates/payments/order_payment.hbs.py:63
 msgid "Payment processing is securely handled by"
-msgstr ""
+msgstr "Betalingen wordt veilig afgehandeld door"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/adapters.py:189
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/adapters.py:190
 #, python-format
 msgid "Bluebottle donation %(payment_id)s"
 msgstr "Bluebottle donation %(payment_id)s"
@@ -618,11 +619,11 @@ msgstr "Pending / Success"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/admin.py:44
 msgid "User type"
-msgstr ""
+msgstr "Gebruikers type"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/admin.py:50
 msgid "Member"
-msgstr ""
+msgstr "Gebruiker"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/admin.py:51
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/models.py:23
@@ -631,7 +632,7 @@ msgstr "Anoniem"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/admin.py:51
 msgid "Guest"
-msgstr ""
+msgstr "Gast"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/dashboard.py:13
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/templates/bb_donations/my_donations.hbs.py:23
@@ -640,7 +641,7 @@ msgid "Donations"
 msgstr "Donaties"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/donationmail.py:21
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/donationmail.py:51
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/donationmail.py:52
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/tests/test_mails.py:76
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/tests/test_mails.py:106
 msgid "You received a new donation"
@@ -703,13 +704,13 @@ msgid ""
 "\n"
 "                        My 1%% <em class=\"account-subtitle\">Donations</em>\n"
 "                    "
-msgstr ""
+msgstr "\n                        Mijn 1%% <em class=\"account-subtitle\">Donaties</em>\n                    "
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/templates/bb_donations/mails/new_oneoff_donation.mail.html.py:5
 #, python-format
 msgid ""
 "\n"
-"Hello,<br/>\n"
+"Hello %(first_name)s,<br/>\n"
 "<br/>\n"
 "You just received a EUR %(amount)s donation from %(donor_name)s!<br/>\n"
 "<br/>\n"
@@ -717,13 +718,13 @@ msgid ""
 "<br/>\n"
 "Cheers,<br/>\n"
 "1%%Club\n"
-msgstr "\nHoi,<br/>\n<br/>\nJe hebt zojuist een donatie van €%(amount)s van %(donor_name)s ontvangen!<br/>\n<br/>\nBedank direct je supporter met een persoonlijk berichtje op de <a href=\"%(site)s%(link)s\"> wall</a>.<br/>\n<br/>\nGroetjes,<br/>\n1%%Club\n"
+msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/templates/bb_donations/mails/new_oneoff_donation.mail.txt.py:2
 #, python-format
 msgid ""
 "\n"
-"Hello,\n"
+"Hello %(first_name)s,\n"
 "\n"
 "You just received a EUR %(amount)s donation from %(donor_name)s!\n"
 "\n"
@@ -731,13 +732,13 @@ msgid ""
 "\n"
 "Cheers,\n"
 "1%%Club\n"
-msgstr "\nHoi,\n\nJe hebt zojuist een donatie van €%(amount)s van %(donor_name)s ontvangen!\n\nBedank direct je support met een persoonlijk berichtje: %(site)s%(link)s.\n\nGroetjes,\n1%%Club\n"
+msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/templates/bb_donations/mails/new_oneoff_donation_fundraiser.mail.html.py:5
 #, python-format
 msgid ""
 "\n"
-"Hello %(receiver)s,\n"
+"Hello %(first_name)s,\n"
 "<br/><br/>\n"
 "You just received a EUR %(amount)s donation!\n"
 "<br/><br/>\n"
@@ -746,13 +747,13 @@ msgid ""
 "<a href=\"%(site)s%(link)s\">%(site)s%(link)s</a>.\n"
 "<br/><br/>\n"
 "Keep up the good work!<br/>\n"
-msgstr "\nHoi %(receiver)s,\n<br/><br/>\nJe hebt zojuist een doantie onvangen van €%(amount)s!\n<br/><br/>\nNieuwsgierig wie je heeft gesupport, check je fundraiser:\n<br/>\n<a href=\"%(site)s%(link)s\">%(site)s%(link)s</a>.\n<br/><br/>\nSucces met alles!<br/>\n"
+msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/templates/bb_donations/mails/new_oneoff_donation_fundraiser.mail.txt.py:2
 #, python-format
 msgid ""
 "\n"
-"Hello %(receiver)s,\n"
+"Hello %(first_name)s,\n"
 "\n"
 "You just received a EUR %(amount)s donation!\n"
 "\n"
@@ -760,7 +761,7 @@ msgid ""
 "%(site)s%(link)s.\n"
 "\n"
 "Keep up the good work!\n"
-msgstr "\nHoi %(receiver)s,\n\nJe hebt zojuist een donatie ontvangen van €%(amount)s!\n\nNieuwsgierig wie je heeft gesupport, check je fundraiser:\n%(site)s%(link)s.\n\n Succes met alles!\n"
+msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_orders/models.py:34
 msgid "Locked"
@@ -928,7 +929,7 @@ msgstr "Support deze fundraiser"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser.hbs.py:66
 msgid "And get your name on the wall!"
-msgstr "En vergezel het rijtje hierboven!"
+msgstr "Het warme gevoel van binnen went snel!"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_donation_list.hbs.py:12
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_donation_list.hbs.py:35
@@ -1009,19 +1010,19 @@ msgstr "Omdat je aan het fundraisen bent voor deze campagne:"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_form.hbs.py:6
 msgid "Title"
-msgstr ""
+msgstr "Titel"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_form.hbs.py:6
 msgid "Title describes your fundraiser action in short"
-msgstr ""
+msgstr "Titel beschrijft in het kort je fundraiser actie"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_form.hbs.py:8
 msgid "Description"
-msgstr ""
+msgstr "Beschrijving"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_form.hbs.py:8
 msgid "Tell a little more about your fundraise action"
-msgstr ""
+msgstr "Beschrijf je fundraise actie"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_form.hbs.py:21
 msgid "Profile Picture"
@@ -1034,11 +1035,11 @@ msgstr "Upload foto"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_form.hbs.py:37
 msgid "Video"
-msgstr ""
+msgstr "Video"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_form.hbs.py:37
 msgid "Youtube or Vimeo link"
-msgstr ""
+msgstr "Youtube of Vimeo link"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_form.hbs.py:43
 msgid "Amount & deadline"
@@ -1050,11 +1051,11 @@ msgstr "Wees realistisch en... ambitieus!"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_form.hbs.py:47
 msgid "Amount to raise"
-msgstr ""
+msgstr "Bedrag dat je wil ophalen"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_form.hbs.py:49
 msgid "Deadline"
-msgstr ""
+msgstr "Deadline"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_new.hbs.py:13
 msgid "Yes, you can!"

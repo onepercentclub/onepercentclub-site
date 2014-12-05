@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-04 21:04+0100\n"
-"PO-Revision-Date: 2014-12-04 20:08+0000\n"
+"POT-Creation-Date: 2014-12-05 13:56+0100\n"
+"PO-Revision-Date: 2014-12-05 12:59+0000\n"
 "Last-Translator: aethemba <aksel@onepercentclub.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
@@ -180,7 +180,7 @@ msgstr "Proceed with"
 msgid "Payment processing is securely handled by"
 msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/adapters.py:189
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/adapters.py:190
 #, python-format
 msgid "Bluebottle donation %(payment_id)s"
 msgstr "Bluebottle donation %(payment_id)s"
@@ -640,7 +640,7 @@ msgid "Donations"
 msgstr "Donations"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/donationmail.py:21
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/donationmail.py:51
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/donationmail.py:52
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/tests/test_mails.py:76
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/tests/test_mails.py:106
 msgid "You received a new donation"
@@ -709,7 +709,7 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"Hello,<br/>\n"
+"Hello %(first_name)s,<br/>\n"
 "<br/>\n"
 "You just received a EUR %(amount)s donation from %(donor_name)s!<br/>\n"
 "<br/>\n"
@@ -717,13 +717,13 @@ msgid ""
 "<br/>\n"
 "Cheers,<br/>\n"
 "1%%Club\n"
-msgstr "\nHello,<br/>\n<br/>\nYou just received a EUR %(amount)s donation from %(donor_name)s!<br/>\n<br/>\nQuickly thank your supporter by posting a personal message on your <a href=\"%(site)s%(link)s\">wall</a>.<br/>\n<br/>\nCheers,<br/>\n1%%Club\n"
+msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/templates/bb_donations/mails/new_oneoff_donation.mail.txt.py:2
 #, python-format
 msgid ""
 "\n"
-"Hello,\n"
+"Hello %(first_name)s,\n"
 "\n"
 "You just received a EUR %(amount)s donation from %(donor_name)s!\n"
 "\n"
@@ -731,13 +731,13 @@ msgid ""
 "\n"
 "Cheers,\n"
 "1%%Club\n"
-msgstr "\nHello,\n\nYou just received a EUR %(amount)s donation from %(donor_name)s!\n\nQuickly thank your supporter by posting a personal message on your wall: %(site)s%(link)s.\n\nCheers,\n1%%Club\n"
+msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/templates/bb_donations/mails/new_oneoff_donation_fundraiser.mail.html.py:5
 #, python-format
 msgid ""
 "\n"
-"Hello %(receiver)s,\n"
+"Hello %(first_name)s,\n"
 "<br/><br/>\n"
 "You just received a EUR %(amount)s donation!\n"
 "<br/><br/>\n"
@@ -746,13 +746,13 @@ msgid ""
 "<a href=\"%(site)s%(link)s\">%(site)s%(link)s</a>.\n"
 "<br/><br/>\n"
 "Keep up the good work!<br/>\n"
-msgstr "\nHello %(receiver)s,\n<br/><br/>\nYou just received a EUR %(amount)s donation!\n<br/><br/>\nCurious who made a donation, check your fundraiser:\n<br/>\n<a href=\"%(site)s%(link)s\">%(site)s%(link)s</a>.\n<br/><br/>\nKeep up the good work!<br/>\n"
+msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/templates/bb_donations/mails/new_oneoff_donation_fundraiser.mail.txt.py:2
 #, python-format
 msgid ""
 "\n"
-"Hello %(receiver)s,\n"
+"Hello %(first_name)s,\n"
 "\n"
 "You just received a EUR %(amount)s donation!\n"
 "\n"
@@ -760,7 +760,7 @@ msgid ""
 "%(site)s%(link)s.\n"
 "\n"
 "Keep up the good work!\n"
-msgstr "\nHello %(receiver)s,\n\nYou just received a EUR %(amount)s donation!\n\nCurious who made a donation, check your fundraiser:\n%(site)s%(link)s.\n\nKeep up the good work!\n"
+msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_orders/models.py:34
 msgid "Locked"

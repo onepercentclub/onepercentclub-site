@@ -5,6 +5,7 @@
 # Translators:
 # aethemba <aksel@onepercentclub.com>, 2014
 # aethemba <aksel@onepercentclub.com>, 2014
+# bartlacroix <bart@onepercentclub.com>, 2014
 # dokterbob <mathijs@mathijsfietst.nl>, 2012
 # Loek van Gent <loek@1procentclub.nl>, 2013
 # Loek van Gent <loek@1procentclub.nl>, 2013-2014
@@ -17,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-04 21:04+0100\n"
-"PO-Revision-Date: 2014-12-04 16:29+0000\n"
-"Last-Translator: Malou <malou@onepercentclub.com>\n"
+"POT-Creation-Date: 2014-12-05 13:56+0100\n"
+"PO-Revision-Date: 2014-12-05 11:30+0000\n"
+"Last-Translator: bartlacroix <bart@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -77,7 +78,7 @@ msgstr "Taal"
 #: templates/bb_accounts/_my_menu.hbs:35
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/_my_menu.hbs.py:47
 msgid "Logout"
-msgstr ""
+msgstr "Log uit"
 
 #: templates/bb_accounts/_profile_anchor.hbs:8
 #: templates/bb_accounts/profile_nav.hbs:7
@@ -95,7 +96,7 @@ msgstr "We plaatsen niets zonder jouw toestemming."
 
 #: templates/bb_accounts/_social_logins.hbs:18
 msgid "or"
-msgstr ""
+msgstr "of"
 
 #: templates/bb_accounts/account_settings.hbs:5
 #, python-format
@@ -591,7 +592,7 @@ msgstr "is al geregistreerd bij 1%%Club. Ben jij dit? Meld je hieronder aan."
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/_matched_login_header.hbs.py:7
 msgid "Hello, is it me you're looking for"
-msgstr ""
+msgstr "Hello, is it me you're looking for"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_accounts/templates/bb_accounts/_my_menu.hbs.py:7
 msgid "Edit my profile & settings"
@@ -894,7 +895,7 @@ msgstr "Reset"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_accounts/templates/registration/password_reset_email.html.py:41
 msgid "See you at"
-msgstr ""
+msgstr "Zie je op"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_accounts/templates/registration/password_reset_email.html.py:41
 msgid "in a minute!"
