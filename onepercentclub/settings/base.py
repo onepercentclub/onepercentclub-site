@@ -400,6 +400,10 @@ LOGGING = {
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
         },
+        'payment_logs': {
+            'level': 'INFO',
+            'class': 'bluebottle.payments_logger.handlers.PaymentLogHandler',
+        }
     },
     'loggers': {
         'django.request': {
@@ -411,9 +415,15 @@ LOGGING = {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
             'propagate': True,
-        }
+        },
+        'payments.payment': {
+            'handlers': ['mail_admins', 'payment_logs'],
+            'level': 'INFO',
+            'propagate': True,
+        },
     }
 }
+
 
 # log errors & warnings
 import logging
