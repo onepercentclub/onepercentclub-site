@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-08 16:25+0100\n"
-"PO-Revision-Date: 2014-12-08 15:29+0000\n"
+"PO-Revision-Date: 2014-12-08 15:35+0000\n"
 "Last-Translator: aethemba <aksel@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -512,7 +512,7 @@ msgstr "We staan altijd voor je klaar via "
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:59
 msgid "and"
-msgstr ""
+msgstr "en"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/templates/bluebottle/footer.hbs.py:77
 msgid "Go to top"
