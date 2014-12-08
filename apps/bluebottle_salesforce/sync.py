@@ -1,24 +1,23 @@
 import logging
 from apps.recurring_donations.models import MonthlyDonor
+from bluebottle.payments.models import OrderPayment
 import re
-from bluebottle.utils.utils import get_project_model
-from django.contrib.auth import get_user_model
 from django.utils import timezone
 from registration.models import RegistrationProfile
 from apps.cowry_docdata.models import payment_method_mapping
 from apps.projects.models import ProjectBudgetLine
 from apps.organizations.models import Organization, OrganizationMember
 from apps.tasks.models import Task, TaskMember
-from apps.fund.models import Donation, DonationStatuses
+from bluebottle.donations.models import Donation
 from apps.vouchers.models import Voucher, VoucherStatuses
-from apps.fundraisers.models import FundRaiser
+from bluebottle.fundraisers.models import FundRaiser
+from apps.projects.models import Project
+from apps.members.models import Member
 
 from apps.bluebottle_salesforce.models import SalesforceOrganization, SalesforceContact, SalesforceProject, \
     SalesforceDonation, SalesforceProjectBudget, SalesforceTask, SalesforceTaskMembers, SalesforceVoucher, \
     SalesforceLogItem, SalesforceFundraiser, SalesforceOrganizationMember
 
-USER_MODEL = get_user_model()
-PROJECT_MODEL = get_project_model()
 logger = logging.getLogger('bluebottle.salesforce')
 re_email = re.compile("^[A-Z0-9._%+-/!#$%&'*=?^_`{|}~]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$")
 
@@ -118,7 +117,7 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
     error_count = 0
     success_count = 0
 
-    users = USER_MODEL.objects.all()
+    users = Member.objects.all()
     if sync_from_datetime:
         users = users.filter(updated__gte=sync_from_datetime)
 
@@ -151,7 +150,7 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
         contact.date_joined = user.date_joined
         contact.deleted = user.deleted
 
-        contact.category1 = USER_MODEL.UserType.values[user.user_type].title()
+        contact.category1 = Member.UserType.values[user.user_type].title()
 
         contact.first_name = user.first_name
         if user.last_name.strip():
@@ -181,9 +180,9 @@ def sync_users(dry_run, sync_from_datetime, loglevel):
         contact.birth_date = user.birthdate
 
         if user.gender == "male":
-            contact.gender = USER_MODEL.Gender.values['male'].title()
+            contact.gender = Member.Gender.values['male'].title()
         elif user.gender == "female":
-            contact.gender = USER_MODEL.Gender.values['female'].title()
+            contact.gender = Member.Gender.values['female'].title()
         else:
             contact.gender = ""
 
@@ -255,7 +254,7 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
     error_count = 0
     success_count = 0
 
-    projects = PROJECT_MODEL.objects.all()
+    projects = Project.objects.all()
 
     if sync_from_datetime:
         projects = projects.filter(updated__gte=sync_from_datetime)
@@ -337,10 +336,10 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
 
         sfproject.slug = project.slug
 
-        sfproject.donation_total = "%01.2f" % ((project.get_money_total(['paid', 'pending'])) / 100)
-        sfproject.donation_oo_total = "%01.2f" % ((project.get_money_total(['paid', 'pending'], ['one_off'])) / 100)
+        sfproject.donation_total = "%01.2f" % (project.get_money_total(['paid', 'pending']))
+        sfproject.donation_oo_total = "%01.2f" % (project.get_money_total(['paid', 'pending']))
         sfproject.supporter_count = project.supporters_count()
-        sfproject.supporter_oo_count = project.supporters_count(True, ['one_off'])
+        sfproject.supporter_oo_count = project.supporters_count(True)
 
         # Save the object to Salesforce
         if not dry_run:
@@ -489,14 +488,14 @@ def sync_donations(dry_run, sync_from_datetime, loglevel):
 
         # Poplate the data
         sfdonation.external_id_donation = donation.id
-        sfdonation.amount = "%01.2f" % (float(donation.amount) / 100)
+        sfdonation.amount = "%01.2f" % donation.amount
 
         if donation.user:
             try:
-                sfdonation.donor = SalesforceContact.objects.get(external_id=donation.user.id)
+                sfdonation.donor = SalesforceContact.objects.get(external_id=donation.order.user.id)
             except SalesforceContact.DoesNotExist:
                 logger.error("Unable to find contact id {0} in Salesforce for donation id {1}".format(
-                    donation.user.id, donation.id))
+                    donation.order.user.id, donation.id))
         if donation.project:
             try:
                 sfdonation.project = SalesforceProject.objects.get(external_id=donation.project.id)
@@ -510,16 +509,16 @@ def sync_donations(dry_run, sync_from_datetime, loglevel):
                 logger.error("Unable to find fundraiser id {0} in Salesforce for donation id {1}".format(
                     donation.fundraiser.id, donation.id))
 
-        sfdonation.stage_name = DonationStatuses.values[donation.status].title()
+        sfdonation.stage_name = donation.order.get_status_display()
         sfdonation.close_date = donation.created
         sfdonation.donation_created_date = donation.created
         sfdonation.donation_updated_date = donation.updated
-        sfdonation.donation_ready_date = donation.ready or None
+        sfdonation.donation_ready_date = donation.completed or None
 
-        sfdonation.type = donation.DonationTypes.values[donation.donation_type].title()
+        sfdonation.type = donation.order.order_type
 
-        if donation.user and donation.user.get_full_name() != '':
-            sfdonation.name = donation.user.get_full_name()
+        if donation.user and donation.order.user.get_full_name() != '':
+            sfdonation.name = donation.order.user.get_full_name()
         else:
             sfdonation.name = "Anonymous"
 
@@ -528,10 +527,9 @@ def sync_donations(dry_run, sync_from_datetime, loglevel):
         # Get the payment method from the associated order / payment
         sfdonation.payment_method = payment_method_mapping['']  # Maps to Unknown for DocData.
         if donation.order:
-            lp = donation.order.latest_payment
-            if lp and lp.latest_docdata_payment:
-                if lp.latest_docdata_payment.payment_method in payment_method_mapping:
-                    sfdonation.payment_method = payment_method_mapping[lp.latest_docdata_payment.payment_method]
+            lp = OrderPayment.get_latest_by_order(donation.order)
+            if lp and lp.payment_method in payment_method_mapping:
+                sfdonation.payment_method = payment_method_mapping[lp.payment_method]
 
         # Save the object to Salesforce
         if not dry_run:
@@ -803,7 +801,10 @@ def send_log(filename, err, succ, command, command_ext, dry_run, loglevel):
 
     with open(filename, "r") as logfile:
         for line in logfile:
-            sflog.message += line
+            if len(line) > 1300:
+                sflog.message += line[:1300]
+            else:
+                sflog.message += line
 
     # Save the object to Salesforce
     if not dry_run:

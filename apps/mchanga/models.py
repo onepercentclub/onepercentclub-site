@@ -63,7 +63,7 @@ class MpesaFundRaiser(models.Model):
         fundraiser.payments_count = fr['payments_count']
         fundraiser.save()
         if project:
-            project.update_money_donated()
+            project.update_amounts()
 
     project = models.ForeignKey('projects.Project', null=True)
 

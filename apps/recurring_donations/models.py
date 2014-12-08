@@ -24,10 +24,6 @@ class MonthlyDonor(models.Model):
     country = models.ForeignKey('geo.Country', blank=True, null=True)
 
     @property
-    def amount_in_cents(self):
-        return int(self.amount*100)
-
-    @property
     def is_valid(self):
         # Check if we're above the DocData minimum for direct debit.
         if self.amount < 1.13:
@@ -85,7 +81,7 @@ class MonthlyOrder(models.Model):
 
     batch = models.ForeignKey(MonthlyBatch, related_name='orders')
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    amount = models.PositiveIntegerField(_("amount in cents"), default=0)
+    amount = models.DecimalField(_("Amount"), max_digits=16, decimal_places=2, default=0)
     currency = models.CharField(max_length=3, default='EUR')
     name = models.CharField(max_length=35)
     city = models.CharField(max_length=35)
@@ -105,6 +101,6 @@ class MonthlyDonation(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     order = models.ForeignKey(MonthlyOrder, related_name='donations')
     project = models.ForeignKey(settings.PROJECTS_PROJECT_MODEL)
-    amount = models.PositiveIntegerField(_("amount in cents"), default=0)
+    amount = models.DecimalField(_("Amount"), max_digits=16, decimal_places=2, default=0)
 
 

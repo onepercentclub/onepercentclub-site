@@ -5,7 +5,7 @@
 #    1. Environment settings
 #    2. Utility functions
 #    3. Fabric tasks
-
+from datetime import datetime
 from git import Repo
 from fabric.api import env, roles, sudo, prefix, cd, task, require, run, local, put, prompt, abort
 from fabric.contrib.console import confirm
@@ -328,7 +328,12 @@ def prepare_django():
         # "Could not find a tag or branch '<commit_id>', assuming commit."
         run('pip install -q --allow-all-external --allow-unverified django-admin-tools -r requirements/requirements.txt')
 
-        run('grunt compass:dist --bb_path=env-2.7/src/bluebottle/bluebottle/common/static/sass')
+        # Building CSS
+        sudo('gem install bourbon neat')
+        run('bourbon install --path static/global/refactor-sass/lib')
+        run('cd static/global/refactor-sass/lib && neat install')
+        run('npm install')
+        run('grunt build:css --bb_path=./env-2.7/src/bluebottle')
 
         # Remove and compile the .pyc files.
         run('find . -name \*.pyc -delete')
@@ -440,11 +445,13 @@ def deploy_testing(revspec='origin/master'):
     """
     Update the testing server to the specified revspec, or HEAD of deploy branch and optionally sync migrated data.
     """
+
     # Update git locally
     git_fetch_local()
 
     # Find commit for revspec
     commit = get_commit(revspec)
+
     tag = find_available_tag('testing')
 
     # Make sure the remote git repo is up to date
@@ -510,6 +517,7 @@ def deploy_staging(revspec=None):
 def deploy_production(revspec=None):
     """ Update the production server to the specified revspec, or the latest staging release. """
 
+
     # Update git locally
     git_fetch_local()
 
@@ -520,6 +528,9 @@ def deploy_production(revspec=None):
 
     # Find commit for revspec
     commit = get_commit(revspec)
+
+    # Backup the production database
+    backup_db(commit=str(commit))
 
     # Find latest available staging version
     tag = find_available_tag('production')
@@ -543,12 +554,35 @@ def deploy_production(revspec=None):
     tag_commit(commit.hexsha, tag)
 
 
+def backup_db(db_username="onepercentsite", db_name="onepercentsite", commit=None):
+    """ 
+        Function to locally backup the database, copy it to the backup server, and then clean the local server backup again. 
+        Intended for the 'deploy_production' task.
+    """ 
+
+    print("Backing up database")
+    time = datetime.now().strftime('%d-%m-%Y:%H:%M')
+    backup_host = 'backups@bluebucket.onepercentclub.com'
+    backup_path = '/home/backups/onepercentclub-backups'
+    backup_name = '{0}-{1}-{2}.sql.bz2'.format(db_name, time, commit)
+
+    # Export the database
+    run_web("pg_dump -x --no-owner --username={0} {1} | bzip2 -c > /tmp/{2}".format(db_username, db_name, backup_name))
+
+    # TODO: create the backup directory if it doesn't exist. 
+    # Move the database to backup
+    print("Copying dump to backup server")
+    run_web("scp /tmp/{0} {1}:{2}/onepercentsite/deploy_production/".format(backup_name, backup_host, backup_path))
+
+    # Clearup the local database dump
+    print("Removing local db dump")
+    run_web("rm /tmp/{0}".format(backup_name))
+
+
 @roles('backup')
 @task
 def get_db():
     backup_dir = "/home/backups/onepercentclub-backups/onepercentsite/"
-
-
     with cd(backup_dir):
         output = run("ls -1t *.bz2 | head -1")
         try:

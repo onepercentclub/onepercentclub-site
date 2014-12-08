@@ -5,10 +5,10 @@ from bluebottle.slides.models import Slide
 from bluebottle.quotes.models import Quote
 
 from apps.campaigns.models import Campaign
-from apps.fundraisers.models import FundRaiser
+from bluebottle.fundraisers.models import FundRaiser
 from apps.statistics.models import Statistic
 
-from bluebottle.utils.utils import get_project_model
+from bluebottle.utils.model_dispatcher import get_project_model
 
 PROJECT_MODEL = get_project_model()
 

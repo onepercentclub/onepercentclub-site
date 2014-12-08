@@ -49,6 +49,7 @@ App.then(function(app) {
 
 
     app.fbLogin = function (fbResponse) {
+        
         var _this = this,
             currentUsercontroller = App.__container__.lookup('controller:currentUser');
 
@@ -72,7 +73,6 @@ App.then(function(app) {
 
                     // If success
                     currentUsercontroller.set('model', user);
-                    currentUsercontroller.send('close');
 
                     // For some reason the currentUserController keeps failing to have a reference to 'tracker'
                     var loginController = App.__container__.lookup('controller:login'),
@@ -118,7 +118,15 @@ App.then(function(app) {
                     
                     // Trigger next transition in case a user was accesing a restricted page
                     currentUsercontroller.send('loadNextTransition'); 
-                    
+
+                    if (FBApp.get('callingController')._handleSignupSuccess) {
+                        FBApp.get('callingController')._handleSignupSuccess();
+                    } else if (FBApp.get('callingController')._handleLoginSuccess) {
+                        FBApp.get('callingController')._handleLoginSuccess();
+                    } else {
+                        currentUsercontroller.send('close');
+                    }
+
                  }, function (error) {
                     // If Facebook login succeeded but something goes wrong on the token side we end up here
                     currentUsercontroller.send('setFlash', error, 'error');
@@ -150,42 +158,9 @@ App.ApplicationRoute.reopen(App.LogoutJwtMixin, {
 
             // If the has logged in via FB, eg there is a FBUser then they should 
             // be logged out so that the user can log in with user/email
-            if (FB && !Em.isEmpty(FB.getUserID()))
+            if (typeof FB == 'object' && !Em.isEmpty(FB.getUserID()))
                 FB.logout();
         },
-        addDonation: function (project, fundraiser) {
-            var route = this;
-            App.CurrentOrder.find('current').then(function(order) {
-                var store = route.get('store');
-
-                var projectHasDonation = order.get('donations').anyBy('project', project);
-                var fundraiserHasDonation = false;
-                if(fundraiser !== undefined){
-                    fundraiserHasDonation = order.get('donations').anyBy('fundraiser', fundraiser);
-                }
-
-                // TODO: functional test this.
-                // *  Donate directly to project: check if no direct donations exist
-                // *  Donate through fundraiser: check if donation for that fundraiser exists
-                // *  We can have the same project multiple times, but all different fundraisers
-                
-                if (fundraiserHasDonation ||
-                    (projectHasDonation && !fundraiserHasDonation && fundraiser === undefined)) {
-                    // Donation for this already exists in this order.
-                } else {
-                    var donation = store.createRecord(App.CurrentOrderDonation);
-                    donation.set('project', project);
-                    if(fundraiser !== undefined){
-                        donation.set('fundraiser', fundraiser);
-                    }
-                    donation.set('order', order);
-                    donation.save();
-
-                    if (route.get('tracker')) route.get('tracker').trackEvent("Support Campaign", {project: project.get('title')});
-                }
-                route.transitionTo('currentOrder.donationList');
-            });
-        }
     }
 });
 
@@ -193,8 +168,7 @@ App.ApplicationRoute.reopen(App.LogoutJwtMixin, {
   Bluebottle Controller Overrides
  */
 App.ApplicationController.reopen({
-    needs: ['currentOrder', 'myProjectList'],
-
+    needs: ['myProjectList'],
     missingCurrentUser: function () {
         // FIXME: should call the clearJwtToken action here but it isn't being called.
         delete localStorage.jwtToken;
@@ -256,7 +230,7 @@ App.EventMixin = Em.Mixin.create({
 });
 
 Ember.View.reopen({
-    touchStart: Ember.alias('click')
+    touchStart: Ember.computed.alias('click')
 })
 
 /*
@@ -312,3 +286,6 @@ App.Router.reopen({
         if (gc) App.trackConversion(gc);
     },
 });
+
+// Order login controller needs the jwt mixin
+App.OrderLoginController.reopen(App.AuthJwtMixin, {});

@@ -14,7 +14,7 @@
 	}
 }
 
-#project-detail {
+.project-detail {
 	.project-image {
 		position: relative;
 		
@@ -23,7 +23,7 @@
 			width: 100px;
 			height: 100px;
 			background: image-url("cheetah/icons/icon-cheetah-earmark.svg") transparent no-repeat 0 0;
-			left: 15px;
+			right: 0;
 			z-index: 101;
 		}
 	}

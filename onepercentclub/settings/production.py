@@ -21,3 +21,10 @@ SESSION_COOKIE_DOMAIN = '.onepercentclub.com'
 ANALYTICS_CODE = 'UA-2761714-4'
 
 PRODUCTION = True
+
+DOCDATA_SETTINGS = {
+    'profile': 'webmenu',
+    'days_to_pay': 5,
+    'testing_mode': False,
+}
+
