@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-05 13:56+0100\n"
-"PO-Revision-Date: 2014-12-05 12:59+0000\n"
-"Last-Translator: aethemba <aksel@onepercentclub.com>\n"
+"POT-Creation-Date: 2014-12-08 16:25+0100\n"
+"PO-Revision-Date: 2014-12-07 16:55+0000\n"
+"Last-Translator: bartlacroix <bart@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -179,7 +179,7 @@ msgstr "Doorgaan met"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/templates/payments/order_payment.hbs.py:63
 msgid "Payment processing is securely handled by"
-msgstr "Betalingen wordt veilig afgehandeld door"
+msgstr "Betalingen worden veilig afgehandeld door"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/adapters.py:190
 #, python-format
@@ -667,11 +667,11 @@ msgstr "Ready"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/templates/bb_donations/_donation_amount.hbs.py:7
 msgid "Thank you for supporting this project!"
-msgstr "Bedankt voor het supporten van deze campagne!"
+msgstr "Bedankt voor je support!"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/templates/bb_donations/_donation_amount.hbs.py:8
 msgid "Select or enter the amount you would like to donate"
-msgstr "Selecteer of typ het bedrag dat je wilt doneren"
+msgstr "Selecteer of vul het bedrag in dat je wilt doneren"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/templates/bb_donations/_donation_amount.hbs.py:25
 msgid "Donate now"
@@ -692,7 +692,7 @@ msgstr "Zorg ervoor dat je deze campagne deelt met je netwerk"
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/templates/bb_donations/my_donation_list.hbs.py:9
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/templates/bb_donations/my_donations.hbs.py:24
 msgid "Donation History"
-msgstr "Donatie geschiedenis"
+msgstr "Donatie overzicht"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/templates/bb_donations/my_donation_list.hbs.py:29
 msgid "Older donations"
@@ -718,7 +718,7 @@ msgid ""
 "<br/>\n"
 "Cheers,<br/>\n"
 "1%%Club\n"
-msgstr ""
+msgstr "\nHoi %(first_name)s<br/>\n<br/>\nJe hebt zojuist een donatie van €%(amount)s van %(donor_name)s ontvangen!<br/>\n<br/>\nBedank direct je supporter met een persoonlijk berichtje op de <a href=\"%(site)s%(link)s\"> wall</a>.<br/>\n<br/>\nGroetjes,<br/>\n1%%Club\n"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/templates/bb_donations/mails/new_oneoff_donation.mail.txt.py:2
 #, python-format
@@ -732,7 +732,7 @@ msgid ""
 "\n"
 "Cheers,\n"
 "1%%Club\n"
-msgstr ""
+msgstr "\nHallo %(first_name)s,\n\nYou just received a EUR %(amount)s donation from %(donor_name)s!\n\nQuickly thank your supporter by posting a personal message on your project wall: %(site)s%(link)s.\n\nGroetjes,\n1%%Club\n"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/templates/bb_donations/mails/new_oneoff_donation_fundraiser.mail.html.py:5
 #, python-format
@@ -747,7 +747,7 @@ msgid ""
 "<a href=\"%(site)s%(link)s\">%(site)s%(link)s</a>.\n"
 "<br/><br/>\n"
 "Keep up the good work!<br/>\n"
-msgstr ""
+msgstr "\nHallo %(first_name)s,\n<br/><br/>\nJe hebt zojuist een donatie ontvangen van EUR %(amount)s!\n<br/><br/>\nNieuwsgierig wie je heeft gesupport, check je fundraiser:\n<br/>\n<a href=\"%(site)s%(link)s\">%(site)s%(link)s</a>.\n<br/><br/>\nKeep up the good work!<br/>\n"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/templates/bb_donations/mails/new_oneoff_donation_fundraiser.mail.txt.py:2
 #, python-format
@@ -761,7 +761,7 @@ msgid ""
 "%(site)s%(link)s.\n"
 "\n"
 "Keep up the good work!\n"
-msgstr ""
+msgstr "\nHallo %(first_name)s,\n\nJe hebt zojuist een donatie ontvangen van EUR %(amount)s!\n\nNieuwsgierig wie je heeft gesupport, check je fundraiser:\n%(site)s%(link)s.\n\nKeep up the good work!\n"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_orders/models.py:34
 msgid "Locked"
@@ -805,7 +805,7 @@ msgstr "hier inloggen."
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_orders/templates/bb_orders/_order_signup_footer.hbs.py:13
 msgid "donate as guest."
-msgstr "doneer als een gast."
+msgstr "doneer als gast."
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_orders/templates/bb_orders/order_signup.hbs.py:7
 msgid "Nice to meet you!"
@@ -860,7 +860,7 @@ msgstr "{title} {{URL}} via @{twitter_handle}"
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/serializers.py:64
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/tests/test_api.py:40
 msgid "Fundraiser deadline exceeds campaign deadline."
-msgstr "De fundraiser deadline overschrijdt de campagne deadline."
+msgstr "De fundraiser deadline ligt later dan de campagne deadline."
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/views.py:38
 #, python-format
@@ -1136,11 +1136,11 @@ msgstr "Start je eigen fundraiser"
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/project_fundraiser_list.hbs.py:23
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/project_fundraiser_list.hbs.py:36
 msgid "Throw a party or run a marathon to raise funds"
-msgstr "Organiseer een feest of ren een marathon om geld op te halen"
+msgstr "Geef een feest of ren een marathon om geld op te halen"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/project_fundraiser_list.hbs.py:35
 msgid "Be the first to fundraise"
-msgstr "Wees de eerste die gaat fundraisen"
+msgstr "Start als eerste met fundraisen"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/generic/form_charfield.html.py:3
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/generic/form_field.html.py:3
