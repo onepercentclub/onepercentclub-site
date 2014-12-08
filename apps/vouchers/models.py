@@ -14,6 +14,7 @@ class VoucherStatuses(DjangoChoices):
     cashed = ChoiceItem('cashed', label=_("Cashed"))
     cashed_by_proxy = ChoiceItem('cashed_by_proxy', label=_("Cashed by us"))
 
+
 class Voucher(models.Model):
 
     class VoucherLanguages(DjangoChoices):

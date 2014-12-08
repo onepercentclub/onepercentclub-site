@@ -16,9 +16,6 @@ from .models import Redirect
 )
 class RedirectTests(TestCase):
 
-    def setUp(self):
-        pass
-
     def test_model(self):
         r1 = Redirect.objects.create(
             old_path='/initial', new_path='/new_target')

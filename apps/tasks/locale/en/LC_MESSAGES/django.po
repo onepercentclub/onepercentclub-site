@@ -10,12 +10,13 @@
 # Malou <malou@onepercentclub.com>, 2014
 # Malou <malou@onepercentclub.com>, 2014
 # Niels Jansen <niels@1procentclub.nl>, 2014
+# Sezayi Arslan <sezayi@onepercentclub.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-14 17:08+0200\n"
-"PO-Revision-Date: 2014-10-07 14:56+0000\n"
+"POT-Creation-Date: 2014-12-05 13:56+0100\n"
+"PO-Revision-Date: 2014-12-03 08:50+0000\n"
 "Last-Translator: aethemba <aksel@onepercentclub.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
@@ -25,211 +26,207 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: dashboard.py:9
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/dashboard.py:58
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/dashboard.py:11
 msgid "Recently Created Tasks"
 msgstr "Recently Created Tasks"
 
 #: dashboard.py:24
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/dashboard.py:26
 msgid "No recent projects."
 msgstr "No recent campaings."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/dashboard.py:17
-msgid "Tasks"
-msgstr "Tasks"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/dashboard.py:45
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/dashboard.py:46
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/my_tasks.hbs.py:28
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_list.hbs.py:16
 msgid "No tasks found."
 msgstr "No tasks found."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/dashboard.py:51
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/admin_tools/dashboard/recent_tasks.html.py:24
-msgid "View all tasks"
-msgstr "View all tasks"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:17
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:19
 msgid "english name"
 msgstr "English name"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:18
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:20
 msgid "dutch name"
 msgstr "Dutch name"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:19
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:99
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:21
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:104
 msgid "description"
 msgstr "description"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:31
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_member.hbs.py:17
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:33
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_member_edit.hbs.py:17
 msgid "Applied"
 msgstr "Applied"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:32
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:135
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:34
 msgid "Accepted"
 msgstr "Accepted"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:33
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:35
 msgid "Rejected"
 msgstr "Rejected"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:34
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:36
 msgid "Stopped"
 msgstr "Stopped"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:35
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:96
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:37
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:101
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/project_tasks.hbs.py:40
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:36
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_member.hbs.py:29
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_member_edit.hbs.py:29
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:38
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_member_edit.hbs.py:32
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_preview.hbs.py:39
 msgid "Realised"
 msgstr "Realised"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:39
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:109
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:41
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:114
 msgid "status"
 msgstr "status"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:42
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/_task_detail_member_partial.hbs.py:29
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:44
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_member.hbs.py:21
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_member_apply.hbs.py:13
 msgid "Motivation"
 msgstr "Motivation"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:42
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:44
 msgid "Motivation by applicant."
 msgstr "Motivation by applicant."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:43
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:45
 msgid "Comment"
 msgstr "Comment"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:43
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:45
 msgid "Comment by task owner."
 msgstr "Comment by campaigner."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:45
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:47
 msgid "time spent"
 msgstr "time spent"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:45
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:47
 msgid "Time spent executing this task."
 msgstr "Time spent executing this task."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:47
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:80
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:126
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:49
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:85
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:131
 msgid "created"
 msgstr "created"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:48
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:127
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:50
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:132
 msgid "updated"
 msgstr "updated"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:79
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:72
+msgid "No email address for this user"
+msgstr "No email address for this user"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:84
 msgid "file"
 msgstr "file"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:81
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:86
 msgid "Updated"
 msgstr "Updated"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:93
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:98
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/project_tasks.hbs.py:28
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:28
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_preview.hbs.py:27
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_summary.hbs.py:16
 msgid "Open"
 msgstr "Open"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:94
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:99
 msgid "In progress"
 msgstr "In progress"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:95
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:100
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/project_tasks.hbs.py:36
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:40
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:43
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_preview.hbs.py:35
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_summary.hbs.py:22
 msgid "Closed"
 msgstr "Closed"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:98
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:103
 msgid "title"
 msgstr "title"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:100
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:105
 msgid "end_goal"
 msgstr "end_goal"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:101
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:106
 msgid "location"
 msgstr "location"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:102
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:99
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:107
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:69
 msgid "people needed"
 msgstr "people needed"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:111
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:116
 msgid "date status change"
 msgstr "date status change"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:114
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:119
 msgid "tags"
 msgstr "keywords"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:120
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:125
 msgid "time_needed"
 msgstr "time_needed"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:121
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:126
 msgid "Estimated number of hours needed to perform this task."
 msgstr "Estimated time to perform this task."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:122
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:127
 msgid "Skill needed"
 msgstr "Skill needed"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:126
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:131
 msgid "When this task was created?"
 msgstr "When was this task created?"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:133
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:138
 msgid "task"
 msgstr "task"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:134
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/models.py:139
 msgid "tasks"
 msgstr "tasks"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/taskmail.py:32
-#, python-format
-msgid "%(sender)s applied for your task."
-msgstr "%(sender)s applied for your task."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/taskmail.py:51
-#, python-format
-msgid "%(sender)s found someone else to do the task you applied for."
-msgstr "%(sender)s found someone else to do the task you applied for."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/taskmail.py:69
-#, python-format
-msgid "%(sender)s accepted you to complete the tasks you applied for."
-msgstr "%(sender)s accepted you to complete the tasks you applied for."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/taskmail.py:88
-msgid "You realised your Booking Cares task!"
-msgstr ""
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/taskmail.py:115
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/taskmail.py:48
 #, python-brace-format
-msgid "{name} is no longer available for the task"
-msgstr ""
+msgid "{0} applied for your task."
+msgstr "{0} applied for your task."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/taskmail.py:60
+#, python-brace-format
+msgid "{0}s found someone else to do the task you applied for."
+msgstr "{0}s found someone else to do the task you applied for."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/taskmail.py:72
+#, python-brace-format
+msgid "{0}s accepted you to complete the tasks you applied for."
+msgstr "{0}s accepted you to complete the tasks you applied for."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/taskmail.py:84
+#, python-brace-format
+msgid "You realised your {0} task!"
+msgstr "You realised your {0} task!"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/taskmail.py:97
+#, python-brace-format
+msgid "{0} is no longer available for the task"
+msgstr "{0} is no longer available for the task"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/taskwallmails.py:22
 #, python-format
@@ -244,6 +241,49 @@ msgstr ""
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/taskwallmails.py:85
 #, python-format
 msgid "%(author)s commented on your task page."
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/task_closed_owner.mail.html.py:5
+#, python-format
+msgid ""
+"\n"
+"Dear %(receiver_name)s,\n"
+"<br/><br/>\n"
+"Unfortunately the deadline of your task is reached and no members have applied...<br/><br/>\n"
+"\n"
+"You now have two options:<br/>\n"
+"<ol>\n"
+"<li>Option 1. Change the status and deadline and start your campaign! Find a colleague with that unique skill that you need and sell this task(s)! You can always ask your local connector for tips & tricks. </li>\n"
+"<li>Option 2. Relax and do nothing. Your tasks will close automatically.</li>\n"
+"</ol>\n"
+"You can edit your task <a target=_blank href=\"%(site)s%(edit_link)s\">here</a><br/>\n"
+"\n"
+"<br/>\n"
+"Thanks again and we hope to see you back on <Bluebottle Project> soon!<br/><br/>\n"
+"\n"
+"Warm regards,<br/><br/>\n"
+"\n"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/task_closed_owner.mail.txt.py:5
+#, python-format
+msgid ""
+"\n"
+"\n"
+"Dear %(receiver_name)s,\n"
+"\n"
+"Unfortunately the deadline of your task is reached and no members have applied...\n"
+"\n"
+"You now have two options:\n"
+"1. Option 1. Change the status and deadline and start your campaign! Find a colleague with that unique skill that you need and sell this task(s)! You can always ask your local connector for tips & tricks.\n"
+"2. Option 2. Relax and do nothing. Your tasks will close automatically.\n"
+"\n"
+"You can edit your task at %(site)s%(edit_link)s\n"
+"\n"
+"Thanks again and we hope to see you back on <Bluebottle Project> soon!\n"
+"\n"
+"Warm regards,\n"
+"\n"
 msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/task_member_accepted.mail.html.py:5
@@ -284,7 +324,7 @@ msgid ""
 "As motivation %(sender_name)s wrote:<br/>\n"
 "<i>%(motivation)s</i>\n"
 "<br/><br/>\n"
-"Be sure to follow this up a.s.a.p.!\n"
+"You can now accept or reject this member, he or she will receive an email when you have confirmed the status of the participant.\n"
 "<br/><br/>\n"
 "<a href=\"%(site)s%(link)s\">Go to the task</a>.\n"
 "<br/><br/>\n"
@@ -304,7 +344,7 @@ msgid ""
 "As motivation %(sender_name)s wrote:\n"
 "%(motivation)s\n"
 "\n"
-"Be sure to follow this up a.s.a.p.!\n"
+"You can now accept or reject this member, he or she will receive an email when you have confirmed the status of the participant.\n"
 "\n"
 "Go to the task: %(site)s%(link)s.\n"
 "\n"
@@ -323,15 +363,12 @@ msgid ""
 "\n"
 "What a great job you did! You’ve contributed to a happier and healthier destination!\n"
 "<br/><br/>\n"
-"Share your story on the Cares platform; go to the project you’ve participated in and post your story on the wall. Pictures are worth a 1000 words, so add those lovely images, if you have them.\n"
+"Share your story on the <Bluebottle Project> platform; go to the project you’ve participated in and post your story on the wall. Pictures are worth a 1000 words, so add those lovely images, if you have them.\n"
 "<br/><br/>\n"
-"Please, let us know what you think about the project and the Cares platform and fill in the [evaluation].\n"
-"<br/><br/>\n"
-"Thanks again and we hope to see you back on Booking Cares soon… Have a look <a href=\"%(site)s%(task_list)s\">here</a> for the currently open tasks at Booking Cares.\n"
+"Thanks again and we hope to see you back on <Bluebottle Project> soon… Have a look <a href=\"%(site)s%(task_list)s\">here</a> for the currently open tasks at <Bluebottle Project>.\n"
 "<br/><br/>\n"
 "Warm regards,\n"
 "<br/><br/>\n"
-"Marianne | Booking Cares Manager\n"
 msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/task_member_realized.mail.txt.py:5
@@ -343,15 +380,12 @@ msgid ""
 "Yeah, with your help the task %(task.title)s from the %(task.project.title)s is realised.\n"
 "\n"
 "What a great job you did! You’ve contributed to a happier and healthier destination!\n"
-"Share your story on the Cares platform; go to the project you’ve participated in and post your story on the wall. Pictures are worth a 1000 words, so add those lovely images, if you have them.\n"
+"Share your story on the <Bluebottle Project> platform; go to the project you’ve participated in and post your story on the wall. Pictures are worth a 1000 words, so add those lovely images, if you have them.\n"
 "\n"
-"Please, let us know what you think about the project and the Cares platform and fill in the [evaluation].\n"
-"\n"
-"Thanks again and we hope to see you back on Booking Cares soon… Have a look at the task list for the currently open tasks at Booking Cares.\n"
+"Thanks again and we hope to see you back on <Bluebottle Project> soon… Have a look at the task list for the currently open tasks at <Bluebottle Project>.\n"
 "\n"
 "Warm regards,\n"
 "\n"
-"Marianne | Booking Cares Manager\n"
 msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/task_member_rejected.mail.html.py:5
@@ -364,7 +398,7 @@ msgid ""
 "<br /><br />\n"
 "No worries, we have some other really cool tasks that might be the perfect match for your skills.\n"
 "<br /><br />\n"
-"Take a look right here: <a href=\"%(site)s%(task_list)s\">%(site)s/#!/tasks</a>\n"
+"Take a look right here: <a href=\"%(site)s%(task_list)s\">%(site)s%(task_list)s</a>\n"
 "<br /><br />\n"
 "Good luck!\n"
 "<br /><br />\n"
@@ -416,6 +450,60 @@ msgid ""
 "%(site_name)s\n"
 msgstr ""
 
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/task_realised_owner.mail.html.py:5
+#, python-format
+msgid ""
+"\n"
+"\n"
+"Dear %(receiver_name)s,<br/>\n"
+"<br/>\n"
+"\n"
+"Yes, yes … your task %(task_title)s from the project %(project_title)s is realised!<br/>\n"
+"<br/>\n"
+"<strong>Please confirm the participations of member(s)</strong><br/>\n"
+"Have all accepted members participated in your task? If you confirm that they were part of the task & project their status will change to ‘realised’. All participants will also receive an email to evaluate the activity. <a href=\"%(site)s%(link)s\">Confirm members.</a><br/><br/>\n"
+"Was this the final task? If so, there are two options:<br/>\n"
+"Option 1. Create a new task and keep on caring! For example when it is possible to do it again next year. Always check the status and deadline of your project! Click <a href=\"%(site)s%(project_link)s\">here</a> to create a new task.<br/><br/>\n"
+"Option 2. Are you sure that everything is done? Change the status of your project to ‘realised’ and evaluate your Cares experience by clicking <a href=\"%(site)s%(edit_project_link)s\">here</a>.<br/>\n"
+"<br/>\n"
+"Oops. Is it too early to celebrate? You can always change the deadline or status of your task(s). Close your task if it hasn’t been realised by changing the status into ‘closed’. Or change the deadline if the task has not been realised yet. <a href=\"%(site)s%(link)s/edit\">Edit task</a><br/>\n"
+"<br/>\n"
+"Was this not the final task for your project? Keep up the good work then!<br/>\n"
+"<br/>\n"
+"Best,<br/><br/>\n"
+"\n"
+"%(site.name)s\n"
+"\n"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/task_realised_owner.mail.txt.py:5
+#, python-format
+msgid ""
+"\n"
+"Dear %(receiver_name)s,\n"
+"\n"
+"Yes, yes … your task %(task_title)s from the project %(project_title)s is realised\n"
+"\n"
+"<strong>Please confirm the participations of member(s)</strong>\n"
+"Have all accepted members participated in your task? If you confirm that they were part of the task & project their status will change to ‘realised’. All participants will also receive an email to evaluate the activity. Confirm members.\n"
+"\n"
+"Go to task: %(site)s%(link)s\n"
+"\n"
+"<strong>Was this the final task? If so, there are two options:</strong>\n"
+"Option 1. Create a new task and keep on caring! For example when it is possible to do it again next year. Always check the status and deadline of your project! Go to %(site)s%(project_link)s to create a new task.\n"
+"\n"
+"Option 2. Are you sure that everything is done? Change the status of your project to ‘realised’ and evaluate your Cares experience by visiting %(site)s%(edit_project_link)s.\n"
+"\n"
+"Oops. Is it too early to celebrate? You can always change the deadline or status of your task(s). Close your task if it hasn’t been realised by changing the status into ‘closed’. Or change the deadline if the task has not been realised yet. Edit your task at %(site)s%(link)s/edit.\n"
+"\n"
+"Was this not the last task from your project? Keep up the good work!\n"
+"\n"
+"Best,\n"
+"\n"
+"\n"
+"%(site.name)s\n"
+msgstr ""
+
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/task_realized.mail.txt.py:5
 #, python-format
 msgid ""
@@ -433,41 +521,32 @@ msgid ""
 "%(site.name)s\n"
 msgstr "\nHi %(receiver_name)s,\n\nGreat jobt! The project campaigner, %(sender_name)s, has marked the task \"%(task_title)s\" as realized. \n\nYou can still add a short comment!\n\nGo to %(site)s%(link)s\n\nThank you!\n\n%(site.name)s\n"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/_task_detail_member_partial.hbs.py:22
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/task_realized_mail.html.py:5
+#, python-format
+msgid ""
+"\n"
+"Hi %(receiver_name)s,\n"
+"<br /><br />\n"
+"You made it! The project owner, %(sender_name)s, has marked the task <a href=\"%(site)s%(link)s\">%(task_title)s</a> as realized. Good job!\n"
+"<br /><br />\n"
+"You can still add a short comment!\n"
+"<br /><br />\n"
+"Thank you!"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/admin_tools/dashboard/recent_tasks.html.py:24
+msgid "View all tasks"
+msgstr "View all tasks"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/my_tasks.hbs.py:13
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:109
+msgid "Task"
+msgstr "Task"
+
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/my_tasks.hbs.py:15
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:21
 msgid "Status"
 msgstr "Status"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/_task_detail_member_partial.hbs.py:39
-msgid "Withdraw"
-msgstr ""
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/_task_detail_member_partial.hbs.py:49
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_member_edit.hbs.py:21
-msgid "Accept"
-msgstr "Accept"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/_task_detail_member_partial.hbs.py:51
-msgid "Application pending..."
-msgstr "Application pending..."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/_task_detail_member_partial.hbs.py:58
-msgid "Confirm"
-msgstr "Confirm"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/_task_detail_member_partial.hbs.py:61
-msgid "Did not complete"
-msgstr ""
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/_task_detail_member_partial.hbs.py:66
-msgid "Edit status"
-msgstr "Edit status"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/my_tasks.hbs.py:13
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:12
-msgid "Task"
-msgstr "Task"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/my_tasks.hbs.py:17
 msgid "Time spent (in hours)"
@@ -478,8 +557,9 @@ msgid "Loading your tasks..."
 msgstr "Loading your tasks..."
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/project_tasks.hbs.py:32
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:32
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:33
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_preview.hbs.py:31
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_summary.hbs.py:19
 msgid "Running"
 msgstr ""
 
@@ -499,61 +579,76 @@ msgstr "Add a task"
 msgid "No tasks currently available for this project"
 msgstr "No tasks currently available for this campaign."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:23
-msgid "For project"
-msgstr "For campaign"
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:15
+msgid "Task for"
+msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:30
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:25
 msgid "Goal"
 msgstr "Goal"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:35
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:28
 msgid "Read more"
 msgstr "Read more"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:45
-msgid "Edit"
-msgstr "Edit"
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:34
+msgid "Edit Task"
+msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:76
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:58
 msgid "Deadline passed"
 msgstr "Deadline passed"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:81
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:63
 msgid "No deadline"
 msgstr "No deadline"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:101
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:71
 msgid "person needed"
 msgstr "person needed"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:104
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:74
 msgid "accepted"
 msgstr "accepted"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:124
-msgid "Initiator"
-msgstr "Initiator"
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:94
+msgid "Task Initiator"
+msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:172
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:103
 msgid "Edit task"
 msgstr "Edit task"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:180
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:109
+msgid "closed"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task.hbs.py:114
 msgid "Apply for task"
 msgstr "Apply for task"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_activity.hbs.py:8
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_activity.hbs.py:12
+msgid "Task members"
+msgstr "Task members"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_activity.hbs.py:29
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_activity.hbs.py:69
 msgid "Files"
 msgstr "Files"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_activity.hbs.py:43
-msgid "Add file"
-msgstr "Add file"
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_activity.hbs.py:47
+msgid "Download"
+msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_activity.hbs.py:49
-msgid "Task members"
-msgstr "Task members"
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_activity.hbs.py:56
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_activity.hbs.py:74
+msgid "Upload a new file"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_activity.hbs.py:57
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_activity.hbs.py:75
+msgid "Share documents of files with your supporters"
+msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:12
 msgid "Edit current task"
@@ -569,65 +664,89 @@ msgstr "For campaign:"
 msgid "Title of your task"
 msgstr "Title of your task"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:50
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:29
+msgid ""
+"Select this option when your task is still open. For the task to be open, "
+"also make sure the deadline of the task lies in the future!"
+msgstr "Select this option when your task is still open. For the task to be open, also make sure the deadline of the task lies in the future!"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:34
+msgid ""
+"Select this status when your task is running. This means that you are "
+"preparing for the task and you found all the participants that you need. "
+"Make sure the deadline of your task lies in the future so your project stays"
+" open"
+msgstr "Select this status when your task is running. This means that you are preparing for the task and you found all the participants that you need. Make sure the deadline of your task lies in the future so your project stays open"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:39
+msgid "Great! Select this status if you’ve successfully realised the task."
+msgstr "Great! Select this status if you’ve successfully realised the task."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:44
+msgid ""
+"Select 'closed' when you haven’t realised this task and have not plans of "
+"doing so in the future."
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:54
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_new.hbs.py:27
 msgid "Deadline"
 msgstr "Deadline"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:52
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:56
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_new.hbs.py:19
 msgid "Description"
 msgstr "Description"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:52
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:56
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_new.hbs.py:19
 msgid "What do you need? Give a clear description of the task"
 msgstr "What is your question? Give a clear description of the task."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:54
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:58
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_new.hbs.py:21
 msgid "Deliverable"
 msgstr "Deliverable"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:54
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:58
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_new.hbs.py:21
 msgid "What do you expect to have in the end?"
 msgstr "What do you expect to have in the end?"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:56
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:60
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_new.hbs.py:23
 msgid "People needed"
 msgstr "People needed"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:58
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:62
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_new.hbs.py:30
 msgid "Location"
 msgstr "Location"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:58
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:62
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_new.hbs.py:30
 msgid "Can this be done online or on location?"
 msgstr "Can this be done online or on location?"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:63
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:67
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_new.hbs.py:34
 msgid "Time needed (approximately)"
 msgstr "Time needed (approximately)"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:77
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:81
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_new.hbs.py:48
 msgid "Skill"
 msgstr "Skill"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:93
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:97
 msgid "Tags"
 msgstr "Keywords"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:105
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:109
 msgid "Save Task"
 msgstr "Save Task"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:106
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_edit.hbs.py:110
 msgid "Cancel Changes"
 msgstr "Cancel Changes"
 
@@ -647,19 +766,67 @@ msgstr "Upload file"
 msgid "Loading tasks"
 msgstr "Loading tasks"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_member.hbs.py:9
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_member.hbs.py:14
+msgid "this task"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_member.hbs.py:17
+msgid "Edit"
+msgstr "Edit"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_member.hbs.py:25
+msgid "Withdraw"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_member.hbs.py:30
+msgid "applied. Do you want to accept?"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_member.hbs.py:31
+msgid "Decline"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_member.hbs.py:32
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_member_edit.hbs.py:22
+msgid "Accept"
+msgstr "Accept"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_member.hbs.py:36
+msgid "has said that the task is done. Please confirm."
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_member.hbs.py:38
+msgid "Not (yet) done"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_member.hbs.py:41
+msgid "Set task done"
+msgstr ""
+
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_member_edit.hbs.py:9
 msgid "said:"
 msgstr "said:"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_member.hbs.py:21
-msgid "Start"
-msgstr "Start"
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_member_edit.hbs.py:18
+msgid "Select this status when a member has applied for this task."
+msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_member.hbs.py:25
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_member_edit.hbs.py:25
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_member_edit.hbs.py:23
+msgid ""
+"Select this status when you accept this member to participate in this task."
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_member_edit.hbs.py:27
 msgid "Reject"
 msgstr "Reject"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_member_edit.hbs.py:28
+msgid "Select this status when you cannot accept this member."
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_member_edit.hbs.py:33
+msgid "Great! Select this status if this member participated in this task"
+msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_new.hbs.py:12
 msgid "Create new task"
@@ -668,6 +835,10 @@ msgstr "Create new task"
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_new.hbs.py:17
 msgid "Be creative! And eh&hellip; avoid the word \"help"
 msgstr "Be creative! And avoid the word \"help''"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_new.hbs.py:27
+msgid "Date before which the task should be executed"
+msgstr ""
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_new.hbs.py:27
 msgid "You can only pick a date before the deadline of the project"
@@ -709,18 +880,14 @@ msgstr "Near deadline"
 msgid "Showing"
 msgstr "Showing"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_summary.hbs.py:12
-msgid "Members"
-msgstr "Members"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_summary.hbs.py:12
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_summary.hbs.py:11
 msgid "assigned"
 msgstr "assigned"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_summary.hbs.py:15
-msgid "Task open to apply"
-msgstr "Task open to apply"
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_summary.hbs.py:12
+msgid "hour"
+msgstr ""
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_summary.hbs.py:22
-msgid "Hour(s)"
-msgstr "Hour(s)"
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_tasks/templates/bb_tasks/task_summary.hbs.py:25
+msgid "Done"
+msgstr ""

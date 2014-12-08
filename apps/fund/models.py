@@ -52,8 +52,8 @@ class Donation(models.Model):
 
     # User is just a cache of the order user.
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("User"), null=True, blank=True)
-    project = models.ForeignKey(settings.PROJECTS_PROJECT_MODEL, verbose_name=_("Project"))
-    fundraiser = models.ForeignKey('fundraisers.FundRaiser', verbose_name=_("fund raiser"), null=True, blank=True)
+    project = models.ForeignKey(settings.PROJECTS_PROJECT_MODEL, verbose_name=_("Project"), related_name='old_donations')
+    fundraiser = models.ForeignKey('fundraisers.FundRaiser', verbose_name=_("fund raiser"), related_name='old_donations', null=True, blank=True)
 
     status = models.CharField(_("Status"), max_length=20, choices=DonationStatuses.choices, default=DonationStatuses.new, db_index=True)
 
@@ -145,7 +145,7 @@ class Order(models.Model):
     """
     An order is a collection of Donations and vouchers with a connected payment.
     """
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"), blank=True, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"), related_name='old_orders', blank=True, null=True)
     status = models.CharField(_("Status"), max_length=20, choices=OrderStatuses.choices, default=OrderStatuses.current, db_index=True)
     recurring = models.BooleanField(default=False)
     order_number = models.CharField(_("Order Number"), max_length=30, db_index=True, unique=True, help_text="Used to reference the Order from external systems.")

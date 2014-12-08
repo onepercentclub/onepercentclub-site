@@ -1,0 +1,17 @@
+#donation-success {
+    font-family: $font-family-body;
+
+    .donor-name {
+        color: $color-primary;
+    }
+
+    h4 {
+        font-family: $font-family-body;
+        color: $color-secondary;
+    }
+    .wallpost-buttons {
+        .btn {
+            font-family: $font-family-body;
+        }
+    }
+}

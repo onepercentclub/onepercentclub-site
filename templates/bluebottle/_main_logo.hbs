@@ -1,0 +1,9 @@
+{% load i18n %}
+{% load bb_ember %}
+{% load static %}
+
+{% tplhandlebars "_main_logo" %}
+    {{#link-to 'home' class="logo-link"}}
+        <object type="image/svg+xml" data="{% static "images/1procentclub.svg" %}" class="logo-image"></object>
+    {{/link-to}}
+{% endtplhandlebars %}

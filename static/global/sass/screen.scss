@@ -19,6 +19,7 @@
 @import "mixins/utilities";
 @import "mixins/keyframes";
 @import "mixins/animations";
+@import "mixins/forms_mixin";
 
 /* Icons */
 @import "icons/flaticons-social";
@@ -26,6 +27,8 @@
 @import "icons/flaticons-stroke";
 @import "icons/icons-sprites";
 
+// New sass icons
+@import "new-sass/mixins/bb-icons";
 
 /* Base */
 @import "base/reset";
@@ -52,18 +55,24 @@
 @import "modules/tooltip-new";
 @import "modules/accounts";
 @import "modules/carousel";
-@import "modules/members";
+//@import "modules/members";
 @import "modules/projects";
-@import "modules/wallposts";
-@import "modules/reactions";
+//@import "modules/wallposts";
+//@import "modules/reactions";
 @import "modules/tasks";
-@import "modules/share";
+//@import "modules/share";
 @import "modules/project-iframe";
-@import "modules/owner-actions";
+//@import "modules/owner-actions";
 @import "modules/maps";
 @import "modules/modal";
 // @import "modules/image-upload";
 // @import "modules/document-upload";
+
+/* New sass modules */
+@import "new-sass/modules/donate";
+@import "new-sass/modules/payment";
+// @import "new-sass/modules/share";
+@import "new-sass/modules/video";
 
 /* Pages */
 //@import "pages/home";
@@ -72,9 +81,9 @@
 @import "pages/campaign-create";
 @import "pages/signup";
 @import "pages/search";
-@import "pages/project-detail";
-@import "pages/project-detail-fundraiser";
-@import "pages/task-detail";
+//@import "pages/project-detail";
+//@import "pages/project-detail-fundraiser";
+//@import "pages/task-detail";
 @import "pages/fund";
 @import "pages/fund-thanks";
 @import "pages/profile";
@@ -97,12 +106,11 @@
 @import "1procentclub/base/tabs";
 @import "1procentclub/layout/header";
 @import "1procentclub/modules/projects";
-@import "1procentclub/modules/wallposts";
-@import "1procentclub/modules/donations";
+//@import "1procentclub/modules/donations";
 @import "1procentclub/pages/account";
-@import "1procentclub/pages/project-detail";
 @import "1procentclub/pages/profile";
 @import "1procentclub/modules/tasks";
+@import "1procentclub/pages/cheetah-project-detail";
 
 /* Version 2 */
 @import "compass/css3/transition";
@@ -124,6 +132,7 @@
 @import "1procentclub-v2/modules/start-campaign";
 @import "1procentclub-v2/modules/quote-carousel";
 @import "1procentclub-v2/pages/partner";
+@import "1procentclub-v2/modules/donate";
 
 @import "1procentclub-v2/pages/business-header";
 @import "1procentclub-v2/pages/business-corporate";
@@ -140,6 +149,7 @@
 @import "1procentclub-v2/pages/business";
 @import "1procentclub-v2/pages/howto-canvas";
 @import "1procentclub-v2/pages/howto-crowfundtools";
+@import "1procentclub-v2/pages/howto-video";
 
 /* Cheetah fund version */
 @import "cheetah/variables";
@@ -154,10 +164,6 @@
 @import "cheetah/modules/earmark";
 @import "cheetah/modules/running-campaign";
 @import "cheetah/modules/campaigns";
-
 @import "cheetah/modules/partner-info";
 @import "cheetah/modules/partner-projects-list";
-
 @import "cheetah/modules/mpesa";
-
-
