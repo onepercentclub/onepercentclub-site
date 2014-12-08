@@ -17,11 +17,9 @@ class Migration(SchemaMigration):
                       self.gf('django.db.models.fields.related.ForeignKey')(to=orm['vouchers.Voucher'], null=True, blank=True),
                       keep_default=False)
 
-
     def backwards(self, orm):
         # Deleting field 'Donation.voucher'
         db.delete_column(u'fund_donation', 'voucher_id')
-
 
     models = {
         u'auth.group': {

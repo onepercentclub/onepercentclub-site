@@ -7,6 +7,7 @@ import os, datetime
 from django.conf import global_settings
 from django.utils.translation import ugettext as _
 from admin_dashboard import *
+from .payments import *
 
 # Set PROJECT_ROOT to the dir of the current file
 # Find the project's containing directory and normalize it to refer to
@@ -23,7 +24,7 @@ TEMPLATE_DEBUG = True
 COMPRESS_TEMPLATES = False
 
 ADMINS = (
-    ('Loek van Gent', 'loek@1procentclub.nl'),
+    ('Team Error', 'errors@onepercentclub.com'),
 )
 
 CONTACT_EMAIL = 'info@onepercentclub.com'
@@ -261,35 +262,15 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'django_tools',
 
-    #FB Auth
+    # FB Auth
     'bluebottle.auth',
-
-    # Cowry Payments
-    'apps.cowry',
-    'apps.cowry_docdata',
-    'apps.cowry_docdata_legacy',
 
     # Password auth from old PHP site.
     'legacyauth',
 
-    'apps.vouchers',
-    'apps.fund',
-    'apps.fundraisers',
-    'bluebottle.wallposts', # Define wall posts before projects/tasks that depend on it.
-    'apps.donations',
-    'apps.recurring_donations',
 
-    # Apps extending Bluebottle base models
-    'apps.members',
-    'apps.tasks',
-    'apps.projects',
-    'apps.organizations',
-
-    # apps overriding bluebottle functionality should come before the bluebottle entries
-    # (template loaders pick the first template they find)
-    'apps.core',
-
-    # Other Bluebottle apps
+    # Plain Bluebottle apps
+    'bluebottle.wallposts',
     'bluebottle.utils',
     'bluebottle.common',
     'bluebottle.contentplugins',
@@ -299,30 +280,63 @@ INSTALLED_APPS = (
     'bluebottle.news',
     'bluebottle.slides',
     'bluebottle.quotes',
+    'bluebottle.payments',
+    'bluebottle.payments_docdata',
+    'bluebottle.payments_logger',
+    'bluebottle.payments_voucher',
+    'bluebottle.redirects',
 
-    # Bluebottle apps with abstract models
-    'bluebottle.bb_accounts',
-    'bluebottle.bb_organizations',
-    'bluebottle.bb_projects',
-    'bluebottle.bb_tasks',
+    # Apps extending Bluebottle base models
+    # These should be before there Bb parents so the templates are overridden
+    'apps.members',
+    'apps.tasks',
+    'apps.projects',
+    'apps.organizations',
+    'apps.payouts',
 
+    # apps overriding bluebottle functionality should come before the bluebottle entries
+    # (template loaders pick the first template they find)
+    'apps.core',
     'apps.bluebottle_salesforce',
 
     'apps.bluebottle_dashboard',
     'apps.contentplugins',
     'apps.campaigns',
     'apps.hbtemplates',
-    'apps.payouts',
-    'apps.sepa',
     'apps.statistics',
     'apps.homepage',
-    'apps.redirects',
     'apps.partners',
-    'apps.csvimport',
-    'apps.accounting',
     'apps.crawlable',
-
     'apps.mchanga',
+    'apps.recurring_donations',
+
+
+    # Bluebottle apps with abstract models
+    'bluebottle.bb_accounts',
+    'bluebottle.bb_organizations',
+    'bluebottle.bb_projects',
+    'bluebottle.bb_tasks',
+    'bluebottle.bb_fundraisers',
+    'bluebottle.bb_donations',
+    'bluebottle.bb_orders',
+    'bluebottle.bb_payouts',
+
+    # Basic Bb implementations
+    'bluebottle.fundraisers',
+    'bluebottle.donations',
+    'bluebottle.orders',
+
+    # FIXME: Keep these just for migrations
+    'apps.fund',
+    'apps.cowry',
+    'apps.cowry_docdata',
+
+    # FIXME: Reimplement these apps
+    'apps.vouchers',
+    # 'apps.sepa',
+    # 'apps.csvimport',
+    # 'apps.accounting',
+
 
     # Custom dashboard
     'fluent_dashboard',
@@ -336,16 +350,26 @@ INSTALLED_APPS = (
 
 # Custom User model
 AUTH_USER_MODEL = 'members.Member'
+
 PROJECTS_PROJECT_MODEL = 'projects.Project'
 PROJECTS_PHASELOG_MODEL = 'projects.ProjectPhaseLog'
+
+FUNDRAISERS_FUNDRAISER_MODEL = 'fundraisers.FundRaiser'
+
 TASKS_TASK_MODEL = 'tasks.Task'
 TASKS_SKILL_MODEL = 'tasks.Skill'
 TASKS_TASKMEMBER_MODEL = 'tasks.TaskMember'
 TASKS_TASKFILE_MODEL = 'tasks.TaskFile'
+
 ORGANIZATIONS_ORGANIZATION_MODEL = 'organizations.Organization'
 ORGANIZATIONS_DOCUMENT_MODEL = 'organizations.OrganizationDocument'
 ORGANIZATIONS_MEMBER_MODEL = 'organizations.OrganizationMember'
-PROJECTS_PHASELOG_MODEL = 'projects.ProjectPhaseLog'
+
+ORDERS_ORDER_MODEL = 'orders.Order'
+DONATIONS_DONATION_MODEL = 'donations.Donation'
+
+PAYOUTS_PROJECTPAYOUT_MODEL = 'payouts.ProjectPayout'
+PAYOUTS_ORGANIZATIONPAYOUT_MODEL = 'payouts.OrganizationPayout'
 
 SOCIAL_AUTH_USER_MODEL = 'members.Member'
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_friends', 'public_profile', 'user_birthday']
@@ -376,6 +400,10 @@ LOGGING = {
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
         },
+        'payment_logs': {
+            'level': 'INFO',
+            'class': 'bluebottle.payments_logger.handlers.PaymentLogHandler',
+        }
     },
     'loggers': {
         'django.request': {
@@ -388,13 +416,14 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
-        'cowry.docdata': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
+        'payments.payment': {
+            'handlers': ['mail_admins', 'payment_logs'],
+            'level': 'INFO',
             'propagate': True,
         },
     }
 }
+
 
 # log errors & warnings
 import logging

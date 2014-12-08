@@ -1,6 +1,10 @@
 App.LoginController.reopen(App.AuthJwtMixin, {
     loginTitle: gettext('Welcome!'),
 
+    willOpen: function() {
+        this.container.lookup('controller:modalContainer').set('type', 'donation normal');
+    },
+
     willClose: function () {
         this._super();
 
@@ -11,6 +15,7 @@ App.LoginController.reopen(App.AuthJwtMixin, {
 
 App.SignupController.reopen({
     willOpen: function () {
+        this._super();
         // Track google conversation in the controller as the signup
         // doesn't use a route so we can't use the built-in handler.
         var gc = {

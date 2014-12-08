@@ -23,9 +23,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-14 17:08+0200\n"
-"PO-Revision-Date: 2014-10-09 12:08+0000\n"
-"Last-Translator: rollick <mark@onepercentclub.com>\n"
+"POT-Creation-Date: 2014-12-05 13:56+0100\n"
+"PO-Revision-Date: 2014-12-02 07:48+0000\n"
+"Last-Translator: aethemba <aksel@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,333 +33,28 @@ msgstr ""
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: templates/new_oneoff_donation.mail.html:5
-#, python-format
-msgid ""
-"\n"
-"Hello,<br/>\n"
-"<br/>\n"
-"You just received a EUR %(amount)s donation from %(donor_name)s!<br/>\n"
-"<br/>\n"
-"Quickly thank your supporter by posting a personal message on your <a href=\"%(site)s%(link)s\">project wall</a>.<br/>\n"
-"<br/>\n"
-"Cheers,<br/>\n"
-"1%%Club\n"
-msgstr "\nHallo,<br/>\n<br/>\nJe hebt zojuist een donatie van EUR %(amount)s ontvangen van %(donor_name)s!<br/>\n<br/>\nBedank direct je supporter met een persoonlijk berichtje op je <a href=\"%(site)s%(link)s\">campagne wall</a>.<br/>\n<br/>\nGroetjes,<br/>\n1%%Club\n"
-
-#: templates/new_oneoff_donation.mail.txt:2
-#, python-format
-msgid ""
-"\n"
-"Hello,\n"
-"\n"
-"You just received a EUR %(amount)s donation from %(donor_name)s!\n"
-"\n"
-"Quickly thank your supporter by posting a personal message on your project wall: %(site)s%(link)s.\n"
-"\n"
-"Cheers,\n"
-"1%%Club\n"
-msgstr "\nHallo,\n<br/>\nJe hebt zojuist een donatie van EUR %(amount)s ontvangen van %(donor_name)s!\n<br/>\nBedank direct je supporter met een persoonlijk berichtje op campagne wall: %(site)s%(link)s.\n<br/>\nCheers, <br/>\n1%%Club\n"
-
-#: templates/new_oneoff_donation_fundraiser.mail.html:5
-#, python-format
-msgid ""
-"\n"
-"Hello,<br/>\n"
-"<br/>\n"
-"You just received a EUR %(amount)s donation from %(donor_name)s!<br/>\n"
-"<br/>\n"
-"Quickly thank your supporter by posting a personal message on your <a href=\"%(site)s%(link)s\">fundraise action wall</a>.<br/>\n"
-"<br/>\n"
-"Cheers,<br/>\n"
-"1%%Club\n"
-msgstr "\nHallo,<br/>\n<br/>\nJe hebt zojuist een donatie van EUR %(amount)s ontvangen van %(donor_name)s!<br/>\n<br/>\nBedank direct je supporter met een persoonlijk berichtje op je <a href=\"%(site)s%(link)s\">fundraiser wall</a>.<br/>\n<br/>\nCheers,<br/>\n1%%Club\n"
-
-#: templates/new_oneoff_donation_fundraiser.mail.txt:2
-#, python-format
-msgid ""
-"\n"
-"Hello,\n"
-"\n"
-"You just received a EUR %(amount)s donation from %(donor_name)s!\n"
-"\n"
-"Quickly thank your supporter by posting a personal message on your fundraise action wall: %(site)s%(link)s.\n"
-"\n"
-"Cheers,\n"
-"1%%Club\n"
-msgstr "\nHallo,\n<br/>\nJe hebt zojuist een donatie van EUR %(amount)s ontvangen van %(donor_name)s!\n<br/>\nBedank direct je support met een persoonlijk berichtje op je fundraiser wall: %(site)s%(link)s.\n<br/>\nGroetjes, <br/>\n1%%Club\n"
-
-#: templates/donations/monthly_donation.hbs:18
-#: templates/donations/user_monthly_projects.hbs:74
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order_donation.hbs.py:31
-msgid "is still needed"
-msgstr "nog nodig"
-
-#: templates/donations/monthly_donation.hbs:28
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order_donation.hbs.py:43
-msgid "Delete"
-msgstr "Verwijder"
-
-#: templates/donations/monthly_project_list.hbs:11
-msgid "No projects found."
-msgstr "Geen campagnes gevonden"
-
-#: templates/donations/monthly_project_preview.hbs:23
-msgid "of"
-msgstr "van"
-
-#: templates/donations/monthly_project_preview.hbs:23
-msgid "raised"
-msgstr "opgehaald"
-
-#: templates/donations/monthly_project_preview.hbs:24
-msgid "days"
-msgstr "dagen"
-
-#: templates/donations/monthly_project_search_form.hbs:29
-msgid "Found"
-msgstr "Gevonden"
-
-#: templates/donations/monthly_project_search_form.hbs:31
-msgid "Reset Search Filter"
-msgstr "Reset zoekfilter"
-
-#: templates/donations/monthly_project_search_form.hbs:36
-msgid "Sort:"
-msgstr "Sorteer:"
-
-#: templates/donations/monthly_project_search_form.hbs:37
-msgid "Most popular"
-msgstr "Meest populair"
-
-#: templates/donations/monthly_project_search_form.hbs:44
-msgid "Newest"
-msgstr "Nieuwste"
-
-#: templates/donations/monthly_project_search_form.hbs:45
-msgid "Almost funded"
-msgstr "Bijna vol"
-
-#: templates/donations/monthly_project_search_form.hbs:46
-msgid "Near deadline"
-msgstr "Deadline nadert"
-
-#: templates/donations/monthly_project_search_form.hbs:50
-msgid "Showing"
-msgstr "Weergegeven"
-
-#: templates/donations/project_select_modal.hbs:18
-msgid "Close"
-msgstr "Sluit"
-
-#: templates/donations/user_donation.hbs:12
-#, python-format
-msgid "My 1%%"
-msgstr "Mijn 1%%"
-
-#: templates/donations/user_donation.hbs:12
-#: templates/donations/user_donation.hbs:40
-msgid "Donations"
-msgstr "Donaties"
-
-#: templates/donations/user_donation.hbs:20
-#: templates/donations/user_donation_history.hbs:18
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/user_orders.html.py:15
-msgid "Monthly Donation"
-msgstr "Maandelijkse donatie"
-
-#: templates/donations/user_donation.hbs:21
-msgid "Select Projects"
-msgstr "Selecteer campagnes"
-
-#: templates/donations/user_donation.hbs:30
-msgid "Donation Profile"
-msgstr "Donatie Profiel"
-
-#: templates/donations/user_donation.hbs:31
-msgid "Payment Details"
-msgstr "Betaling details"
-
-#: templates/donations/user_donation.hbs:41
-msgid "Donation History"
-msgstr "Donatie historie"
-
-#: templates/donations/user_donation_history.hbs:9
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/user_orders.html.py:9
-msgid "Order History"
-msgstr "Donatie overzicht"
-
-#: templates/donations/user_donation_history.hbs:18
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/user_orders.html.py:15
-msgid "Single Donation"
-msgstr "Eenmalige donatie"
-
-#: templates/donations/user_donation_history.hbs:34
-msgid "Loading order history&#8230;"
-msgstr "Laad donatie overzicht&#8230;"
-
-#: templates/donations/user_monthly_profile.hbs:10
-msgid "Edit your payment info"
-msgstr "Bewerk je betalings info"
-
-#: templates/donations/user_monthly_profile.hbs:11
-msgid "Here you can change your bank account info and monthly donations."
-msgstr "Hier kan je je bankggegevens en maandelijke donatie aanpassen."
-
-#: templates/donations/user_monthly_profile.hbs:17
-#: templates/donations/user_monthly_projects.hbs:180
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:16
-msgid "Account Name"
-msgstr "Naam rekeninghouder"
-
-#: templates/donations/user_monthly_profile.hbs:27
-#: templates/donations/user_monthly_projects.hbs:190
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:36
-msgid "Account Number"
-msgstr "Rekeningnummer"
-
-#: templates/donations/user_monthly_profile.hbs:37
-#: templates/donations/user_monthly_projects.hbs:200
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:26
-msgid "Account City"
-msgstr "Plaats bank"
-
-#: templates/donations/user_monthly_profile.hbs:50
-msgid "Monthly settings saved"
-msgstr "Maandelijkse donatie instellingen opgeslagen."
-
-#: templates/donations/user_monthly_profile.hbs:55
-#: templates/donations/user_monthly_projects.hbs:218
-msgid "Save"
-msgstr "Opslaan"
-
-#: templates/donations/user_monthly_projects.hbs:9
-msgid "My monthly donation"
-msgstr "Mijn maandelijkse donatie"
-
-#: templates/donations/user_monthly_projects.hbs:14
-#, python-format
-msgid "Support 1%%Projects monthly"
-msgstr "Support maandelijks 1%% campagnes"
-
-#: templates/donations/user_monthly_projects.hbs:15
-#, python-format
-msgid ""
-"\n"
-"<p>Do you like to support projects regularly on 1%%Club? But are you too busy to select a new project each time again?</p>\n"
-"<p>No worries! Just set a monthly donation.</p>\n"
-"\n"
-"<p>\n"
-"    There are two ways:\n"
-"    <ol>\n"
-"        <li>\n"
-"            <h3>Top 3 Projects</h3>\n"
-"            Follow the 'wisdom of the crowd' and donate to the 3 projects that are most successful that month. And give them an extra boost!\n"
-"        </li>\n"
-"        <li>\n"
-"            <h3>Pick your own project(s)</h3>\n"
-"            Select one or more projects yourself that you want to support every month. You can adjust your support all the time, as you like.\n"
-"        </li>\n"
-"\n"
-"    </ol>\n"
-"</p>\n"
-"<p>We will send you an email every month to update you what project(s) received your 1%% support!</p>\n"
-"                "
-msgstr "\n<p>Wil je structureel campagnes bij 1%%Club supporten? Maar ben je te druk om iedere maand opnieuw te kiezen?</p>\n<p>Geen probleem!</p>\n\n<p>\n    Dit kan op 2 manieren:\n    <ol>\n        <li>\n            <h3>Top 3 Campagnes</h3>\n            Wij verdelen je maandelijkse donatie tussen de drie meest populaire campagnes. Zo geef jij ze een extra boost!\n        </li>\n        <li>\n            <h3>Kies je eigen campagne(s)</h3>\n            Doneer maandelijks aan een campagne tot deze helemaal gefinancierd is. Daarna kies je weer een nieuwe campagne om je 1%% mee te delen.\n        </li>\n\n    </ol>\n</p>\n<p>Wij sturen je iedere maand een overzicht van de projecten die jij die maand hebt gesteund. Easy!</p>"
-
-#: templates/donations/user_monthly_projects.hbs:35
-msgid "Yes, I want to set a monthly donation"
-msgstr "Ja, ik wil maandelijks doneren"
-
-#: templates/donations/user_monthly_projects.hbs:45
-msgid "Your monthly donation will go to the project(s) you've selected here:"
-msgstr "Je maandelijkse donatie zal overgemaakt worden naar de geselecteerde campagne(s):"
-
-#: templates/donations/user_monthly_projects.hbs:49
-msgid "Your monthly donation will go to the top 3 projects."
-msgstr "Je maandelijkse donatie zal overgemaakt worden naar de top 3 campagnes."
-
-#: templates/donations/user_monthly_projects.hbs:50
-msgid "The three most popular projects at this moment are:"
-msgstr "De drie populairste campagnes op dit moment zijn:"
-
-#: templates/donations/user_monthly_projects.hbs:85
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order_donation_list.hbs.py:24
-msgid "Total"
-msgstr "Totaal"
-
-#: templates/donations/user_monthly_projects.hbs:91
-msgid "Divide to projects"
-msgstr "Verdeel tussen campagnes"
-
-#: templates/donations/user_monthly_projects.hbs:101
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order_donation_list.hbs.py:30
-msgid "Add another project"
-msgstr "Voeg nog een campagne toe"
-
-#: templates/donations/user_monthly_projects.hbs:103
-msgid "Select a project yourself"
-msgstr "Selecteer zelf een campagne"
-
-#: templates/donations/user_monthly_projects.hbs:108
-msgid "My address"
-msgstr "Mijn adres"
-
-#: templates/donations/user_monthly_projects.hbs:114
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:39
-msgid "Address"
-msgstr "Adres"
-
-#: templates/donations/user_monthly_projects.hbs:127
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:61
-msgid "City"
-msgstr "Woonplaats"
-
-#: templates/donations/user_monthly_projects.hbs:140
-msgid "Postal Code"
-msgstr "Postcode"
-
-#: templates/donations/user_monthly_projects.hbs:155
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:72
-msgid "Country"
-msgstr "Land"
-
-#: templates/donations/user_monthly_projects.hbs:175
-msgid "My payment details"
-msgstr "Mijn betalings details"
-
-#: templates/donations/user_monthly_projects.hbs:176
-msgid "Please fill in your bank details"
-msgstr "Vul uw bankgegevens in"
-
-#: templates/donations/user_monthly_projects.hbs:229
-msgid "Cancel my monthly donation"
-msgstr "Annuleer mijn maandelijkse donatie(s)"
-
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:15
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:118
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:131
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:222
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:123
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:58
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:149
 msgid "Status"
 msgstr "Status"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:21
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:124
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:208
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:129
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:213
 msgid "All"
 msgstr "Alles"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:200
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:205
 msgid "Active"
 msgstr "Actief"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:203
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin_filters.py:19
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:208
 msgid "Yes"
 msgstr "Ja"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:204
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin_filters.py:20
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/admin.py:209
 msgid "No"
 msgstr "Nee"
 
@@ -371,835 +66,258 @@ msgstr "Een Nederlands IBAN bankrekeningnummer heeft 18 tekens."
 msgid "Invalid Dutch bank account number."
 msgstr "Ongeldig Nederlands bankrekeningnummer."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:48
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:133
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:226
-msgid "Created"
-msgstr "Aangemaakt"
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/fundmail.py:32
+msgid "Anonymous"
+msgstr "Anoniem"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:49
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:134
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:227
-msgid "Updated"
-msgstr "Gewijzigd"
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/fundmail.py:41
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/fundmail.py:51
+msgid "You received a new donation"
+msgstr "Je hebt een donatie ontvangen"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:54
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:26
-msgid "amount"
-msgstr "Bedrag"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:101
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:20
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:28
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:10
 msgid "New"
 msgstr "Nieuw"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:102
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:29
 msgid "In progress"
 msgstr "In behandeling"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:103
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:174
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:30
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:12
 msgid "Pending"
 msgstr "Pending"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:104
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:31
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:13
 msgid "Paid"
 msgstr "Betaald"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:105
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:194
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:32
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:14
 msgid "Failed"
 msgstr "Mislukt"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:119
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:46
 msgid "One-off"
 msgstr "Eenmalig"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:120
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:213
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:47
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:140
 msgid "Recurring"
 msgstr "Periodieke"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:121
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:48
 msgid "Voucher"
 msgstr "Bon"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:123
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:50
 msgid "amount (in cents)"
 msgstr "bedrag (in centen)"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:124
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:51
 msgid "currency"
 msgstr "valuta"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:127
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:54
 msgid "User"
 msgstr "Gebruiker"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:128
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:55
 msgid "Project"
 msgstr "Campaigner"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:129
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:56
 msgid "fund raiser"
 msgstr "fundraiser"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:136
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:60
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:153
+msgid "Created"
+msgstr "Aangemaakt"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:61
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:154
+msgid "Updated"
+msgstr "Gewijzigd"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:63
 msgid "Ready"
 msgstr "Klaar"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:138
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:65
 msgid "Type"
 msgstr "Type"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:140
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:67
 msgid "Order"
 msgstr "Bestel"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:141
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:68
 msgid "Gift card"
 msgstr "Kadobon"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:161
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:88
 msgid "donation"
 msgstr "donatie"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:162
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:89
 msgid "donations"
 msgstr "donaties"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:212
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:139
 msgid "Current"
 msgstr "Huidig"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:214
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:229
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:71
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:141
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:156
 msgid "Closed"
 msgstr "Gesloten"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:221
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:148
 msgid "user"
 msgstr "gebruiker"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:224
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:151
 msgid "Order Number"
 msgstr "Bestelnummer"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:277
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:204
 msgid "GIFTCARDS"
 msgstr "KADOBONNEN"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:279
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:206
 msgid "GIFTCARD"
 msgstr "KADOBON"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:283
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:210
 msgid "DONATIONS"
 msgstr "DONATIES"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:285
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:212
 msgid "DONATION"
 msgstr "DONATIE"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:287
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:214
 msgid "DONATIONS & GIFTCARDS"
 msgstr "DONATIES & KADOBONNEN"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:288
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:215
 msgid "THANK YOU!"
 msgstr "BEDANKT!"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:302
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:229
 msgid "Couldn't generate a unique order number."
 msgstr "Kon geen uniek ordernummer genereren."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:329
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:256
 #, python-brace-format
 msgid "I've just supported {title} {{URL}} via @{twitter_handle}"
 msgstr "Ik heb zojuist {title} gesteund {{URL}} via @{twitter_handle}"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:331
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:258
 #, python-brace-format
 msgid "{{URL}} via @{twitter_handle}"
 msgstr "{{URL}} via @{twitter_handle}"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:524
-msgid "Anonymous"
-msgstr "Anoniem"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:529
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/models.py:539
-msgid "You received a new donation"
-msgstr "Je hebt een donatie ontvangen"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:69
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:109
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:56
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:96
 msgid "You cannot modify a Donation that does not have status new."
 msgstr "Je kunt geen donatie aanpassen die geen status 'nieuw' heeft."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:79
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:118
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:66
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:105
 msgid "Donations must be at least €2."
 msgstr "Het minimumbedrag is €2."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:82
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:85
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:121
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:124
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:69
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:72
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:108
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:111
 msgid "Donations must be at least €5."
 msgstr "Het minimumbedrag is €5."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:92
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:131
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:79
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:118
 msgid "You can only donate a project in the campaign phase."
 msgstr "Je kunt alleen doneren aan een campagne in de 'running-campagne-fase'."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:137
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:124
 msgid "Can only Recurring Donations to a Recurring Order."
 msgstr "Can only Recurring Donations to a Recurring Order."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:139
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:126
 msgid ""
 "Can only Recurring Donations to an active Recurring Order (status "
 "recurring)."
 msgstr "Can only Recurring Donations to an active Recurring Order (status recurring)."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:169
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/serializers.py:156
 msgid "You cannot modify a closed Order."
 msgstr "Je kunt een 'closed order' niet aanpassen."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:38
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:37
 msgid "No active order"
 msgstr "Niet actief"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:100
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:99
 msgid "You cannot add a donation to a closed Order."
 msgstr "Je kunt geen donatie toevoegen aan een 'closed order'."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:155
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:162
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:165
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:496
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:154
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:161
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:164
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:453
 #, python-format
 msgid "No %(verbose_name)s found matching the query"
 msgstr "Geen  %(verbose_name)s gevonden"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:423
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:427
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:380
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:384
 msgid "Order not found."
 msgstr "Betaling niet gevonden."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:425
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:382
 msgid "No order specified."
 msgstr "Geen betaling opgegeven"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:502
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/views.py:459
 msgid "Anonymous users are not permitted to create recurring orders."
 msgstr "Anonieme gebruikers kunnen geen maandelijkse donatie aanmaken."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order.hbs.py:10
-#, python-format
-msgid "Order digital 1%%GIFTCARDS"
-msgstr "Bestel 1%%Kadobon(nen)"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order.hbs.py:15
-msgid "Switch to donations"
-msgstr "Switch naar donaties"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order.hbs.py:25
-msgid "Support"
-msgstr "Support"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order.hbs.py:38
-msgid "Projects"
-msgstr "Campagnes"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order.hbs.py:44
-msgid "Profile"
-msgstr "Profiel"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order.hbs.py:49
-msgid "Details"
-msgstr "Details"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order.hbs.py:53
-msgid "Payment"
-msgstr "Betaling"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order.hbs.py:79
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:23
-msgid "There was an error with your payment. Please try again."
-msgstr "Er ging iets mis met de betaling. Kun je het nogmaals proberen?"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order_donation.hbs.py:13
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/thanks_donation.hbs.py:13
-msgid "Fund-racing for"
-msgstr "Fundraising voor"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order_donation.hbs.py:36
-msgid "I'd like to give"
-msgstr "Doneer"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order_donation_list.hbs.py:15
-msgid "Choose a project to support"
-msgstr "Kies je campagne om te supporten"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order_donation_list.hbs.py:16
-msgid ""
-"Choose a project and click 'Support this project' to add it to your list"
-msgstr "Kies een campagne en klik op 'Support deze campagne' om dit aan je lijst toe te voegen"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order_donation_list.hbs.py:32
-msgid "Add a project"
-msgstr "Voeg campagne toe"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order_donation_list.hbs.py:38
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/current_order_donation_list.hbs.py:41
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:85
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:89
-msgid "Next Step"
-msgstr "Volgende"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:14
-msgid "Did you know that you rock?"
-msgstr "Wist je dat je geweldig bent?"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:14
-msgid "Well, you rock!"
-msgstr "Bij deze!"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:16
-msgid ""
-"Why not share the project with your friends, and encourage them to support "
-"as well?"
-msgstr "Deel de campagne met je vrienden en vraag of ze ook meedoen."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:17
-msgid "Just hit (one of) the share buttons to make even more impact:"
-msgstr "Gebruik onderstaande buttons om nóg meer impact te maken."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:31
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:47
-msgid "You just supported these projects"
-msgstr "Je hebt bijgedragen aan"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:33
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:49
-msgid "You just supported this project"
-msgstr "Je hebt zojuist gesteund"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:36
-msgid ""
-"Thank you for supporting these projects below. With your support we come one"
-" step closer realizing the project."
-msgstr "Bedankt voor je support aan onderstaande campagne(s). Dankzij jouw steun komen we een stap dichterbij de realisatie van de campagne."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:49
-msgid "Want to do more?"
-msgstr "Meer doen?"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:50
-msgid ""
-"You can easily support projects monthly. Just pick a project yourself or you"
-" can leave that up to us."
-msgstr "Je kunt ook heel simpel automatisch campagnes steunen. Kies zelf campagne(s) of laat dat aan ons over."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:51
-msgid "Support monthly"
-msgstr "Steun maandelijks"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:53
-msgid "Stay updated"
-msgstr "Volg de voortgang"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:54
-msgid ""
-"We’d love to keep you updated on the progress of the projects you just "
-"supported. Sign up and receive updates, and our everlasting love."
-msgstr "We houden je graag op de hoogte van de voortgang van de campagne(s). Meld je aan en we sturen je updates (en een warm gevoel van binnen)."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/order_thanks.hbs.py:55
-msgid "Signup now"
-msgstr "Registreer"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:8
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:7
-msgid "Have an account?"
-msgstr "Heb je een profiel?"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:8
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:7
-msgid "Log in here"
-msgstr "Log hier in"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:13
-msgid "Safety first!"
-msgstr "Veilig doneren!"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:14
-msgid "To secure your transaction we need the following details."
-msgstr "Deze gegevens zijn noodzakelijk voor je donatie."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:20
-msgid "Your full name"
-msgstr "Jouw volledige naam"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:28
-msgid "Email"
-msgstr "E-mail"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_profile.hbs.py:50
-msgid "Postal code"
-msgstr "Postcode"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:11
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:74
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:10
-msgid "You're almost there!"
-msgstr "Je bent er bijna!"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:12
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:48
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:75
-msgid ""
-"We'll redirect you through our payment provider where you can finish your "
-"donation securely."
-msgstr "We sturen je door naar onze betaalservice waar je je donatie veilig kan afronden. "
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:47
-msgid "Select your bank below"
-msgstr "Kies je bank"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:61
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:78
-msgid "Processing payment&#8230;"
-msgstr "Verwerkt betaling&#8230;"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:62
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:64
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:67
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:79
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_select.hbs.py:81
-msgid "Proceed with Payment"
-msgstr "Ga door met betaling"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:11
-msgid "Your name with your donation?"
-msgstr "Je naam zichtbaar bij je donatie?"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:12
-msgid "Create an account with just one click."
-msgstr "Maak een account aan via één klik."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:19
-msgid "Sign up"
-msgstr "Meld je aan"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:23
-msgid "Keep it personal, you name will show with your donation."
-msgstr "Maak het persoonlijk, je naam is zichtbaar bij je donatie."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:26
-msgid "We keep you posted."
-msgstr "We houden je op de hoogte."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:29
-msgid "Faster future donations."
-msgstr "Makkelijker nog een keer doneren."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:32
-msgid "Keep track of all of your donations."
-msgstr "Houd overzicht over je donaties."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/payment_signup.hbs.py:35
-msgid "Skip and stay anonymous"
-msgstr "Sla deze stap over"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:11
-msgid ""
-"Add or edit your bank account information and submit to set your monthly "
-"donations."
-msgstr "Vul je betaalgegevens aan en druk op 'verzend' om je maandelijkse donatie in te stellen."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:48
-#, python-format
-msgid "By clicking submit, I authorize 1%%Club to withdraw money every month."
-msgstr "Door op 'verzend' te klikken, ga ik akkoord met een maandelijkse afschrijving door 1%%Club."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:56
-msgid "Updating monthly donation&#8230;"
-msgstr "Past maandelijkse donatie aan&#8230;"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:57
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:59
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:62
-msgid "Submit"
-msgstr "Verzend"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:69
-msgid "Your monthly donation"
-msgstr "Jouw maandelijkse donatie"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_direct_debit_payment.hbs.py:70
-#, python-format
-msgid ""
-"Thank you 1%%Friend! You're about to set your monthly donation amount to "
-"&euro;"
-msgstr "Bedankt 1%%Friend! Je hebt nu bijna een maandelijkse donatie  ingesteld ter hoogte van &euro;"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:14
-msgid "Donation Successful!"
-msgstr "Donatie geslaagd!"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:16
-#, python-format
-msgid ""
-"\n"
-"\t\t\t\t\t\t\tThanks for your support! Your 1%% has brought them one step closer to realise their smart idea! Don't forget to tune in to see how they're doing!\n"
-"\t\t\t\t\t\t"
-msgstr "\n\t\t\t\t\tBedankt voor je support!  Jouw 1%% heeft deze campagne weer een stapje dichterbij hun doel gebracht! Vergeet niet om af en toe te kijken hoe het met de campagne gaat! \n\t\t\t\t\t"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:20
-#, python-format
-msgid ""
-"\n"
-"\t\t\t\t\t\t\tThanks for your support! We'd be happy to keep you posted on the progress of the project(s) you supported. Why? Because it's a fun and personal way to see what's happening with your 1%%. Sounds good? Just become a 1%%Member!\n"
-"\t\t\t\t\t\t"
-msgstr "\n\t\t\t\t\tBedankt voor je support! Als je wil, houden we je graag op de hoogte van de status van de projecten die jij hebt gesteund. Waarom? Omdat het een makkelijke en leuke manier is om te zien wat er met jouw 1%% gebeurt! \nKlinkt goed toch? Meld je aan als 1%%Lid!\n\t\t\t\t\t"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:23
-#, python-format
-msgid "Become a 1%%Member"
-msgstr "Word lid van 1%%Club"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:29
-msgid "No donation set..."
-msgstr "Geen donatie ingesteld....."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:31
-msgid "Create or enable your monthly donation"
-msgstr "Stel je maandelijkse donatie in"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:52
-msgid "You just supported the top three projects."
-msgstr "Je hebt bijgedragen aan"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:77
-msgid "Your monthly donation is set"
-msgstr "Jouw maandelijkse donatie is ingesteld!"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:79
-msgid ""
-"Your monthly donation will be deducted from your account at the beginning of"
-" each month."
-msgstr "Je maandelijkse donatie wordt aan het begin van iedere maand afgeschreven van je bankrekening."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/recurring_order_thanks.hbs.py:81
-msgid "Monthly donation total:"
-msgstr "Maandelijkse donatie totaal:"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/thanks_donation.hbs.py:31
-msgid "You supported"
-msgstr "Je hebt zojuist gesteund:"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/fund/templates/fund/user_orders.html.py:30
-msgid "Loading order history"
-msgstr "Donatie geschiedenis laden"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:104
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:298
-msgid "Dates"
-msgstr "Data"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:109
-msgid "Realtime amounts"
-msgstr "Huidig bedrag"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:114
-msgid "Payout amounts"
-msgstr "Uitbetaling bedrag"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:117
-msgid "Payment details"
-msgstr "Betaling details"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:133
-msgid "pending"
-msgstr "In behandeling"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:164
-msgid "Raised"
-msgstr "Opgehaald"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:184
-msgid "Safe"
-msgstr "Opslaan"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:206
-msgid "project"
-msgstr "campagne"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:213
-msgid "organization"
-msgstr "organisatie"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:221
-msgid "IBAN"
-msgstr "IBAN"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:263
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:345
-msgid "Recalculate amounts for new payouts."
-msgstr "Herbereken bedrag voor nieuwe uitbetalingen."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:303
-msgid "Organization fee"
-msgstr "Organisatie fee"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:308
-msgid "PSP fee"
-msgstr "PSP fee"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:313
-msgid "Other costs"
-msgstr "Andere kosten"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin.py:318
-msgid "Amount payable"
-msgstr "Bedrag uitbetalen"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin_filters.py:44
-msgid "pending donations"
-msgstr "donaties in behandeling"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/admin_filters.py:52
-msgid "has IBAN"
-msgstr "heeft IBAN"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:8
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:16
 msgid "Old 1%/5%"
 msgstr "Oud 1%%/5%%"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:9
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:17
 msgid "0%"
 msgstr "0%%"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:10
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:18
 msgid "5%"
 msgstr "5%%"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:11
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:19
 msgid "7%"
 msgstr "7%%"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:12
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:20
 msgid "12%"
 msgstr "12%%"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:13
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:21
 msgid "100%"
 msgstr "100%"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:14
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:22
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:18
 msgid "Unknown"
 msgstr "Onbekend"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:15
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:23
 msgid "Other"
 msgstr "Ander"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:21
-msgid "Progress"
-msgstr "In behandeling"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/choices.py:22
-msgid "Completed"
-msgstr "Voltooid"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:72
-msgid ""
-"Book date when the bank transaction was confirmed and the payout has been "
-"set to completed."
-msgstr "Noteer datum dat overmaking is bevestigd door de bank en de uitbetaling is ingesteld op voltooid."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:85
-msgid "Closed date is set but status is not completed."
-msgstr "Datum gesloten is ingesteld maar status is niet voltooid"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:100
-msgid "Planned"
-msgstr "Gepland"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:101
-msgid "Date on which this batch should be processed."
-msgstr "Datum wanneer deze batch verwerkt moet worden."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:105
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:36
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry_docdata/models.py:78
-msgid "status"
-msgstr "status"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:108
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:38
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry_docdata/models.py:83
-msgid "created"
-msgstr "aangemaakt"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:109
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:39
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry_docdata/models.py:84
-msgid "updated"
-msgstr "gewijzigd"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:111
-msgid "submitted"
-msgstr "ingediend"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:164
-msgid "state change"
-msgstr "status gewijzigd"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:165
-msgid "state changes"
-msgstr "status wijzigingen"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:171
-msgid "date"
-msgstr "datum"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:174
-msgid "old status"
-msgstr "oude status"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:179
-msgid "new status"
-msgstr "nieuwe status"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:184
-#, python-format
-msgid ""
-"Status change of '%(payout)s' on %(date)s from %(old_status)s to "
-"%(new_status)s"
-msgstr "Verander status van'%(payout)s' op %(date)s van %(old_status)s naar %(new_status)s"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:202
-msgid "Payout rule"
-msgstr "Uitbetalingsregel"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:204
-msgid "The payout rule for this project."
-msgstr "De uitbetalingsregel voor deze campagne."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:208
-msgid "amount raised"
-msgstr "bedrag opgehaald"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:209
-msgid "Amount raised when Payout was created or last recalculated."
-msgstr "Opgehaald bedrag toen uitbetaling werd aangemaakt of herberekend"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:213
-msgid "organization fee"
-msgstr "Organisatie fee"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:214
-msgid "Fee substracted from amount raised for the organization."
-msgstr "Fee voor organisatie berekend over opgehaald bedrag."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:218
-msgid "amount payable"
-msgstr "bedrag te betalen"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:219
-msgid "Payable amount; raised amount minus organization fee."
-msgstr "Bedrag te betalen; opgehaald bedrag min organisatie fee"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:442
-msgid "start date"
-msgstr "start datum"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:443
-msgid "end date"
-msgstr "einddatum"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:445
-msgid "organization fee excluding VAT"
-msgstr "organisatie fee exclusief BTW"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:446
-msgid "organization fee VAT"
-msgstr "organisatie fee BTW"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:447
-msgid "organization fee including VAT"
-msgstr "organisatie fee inclusief BTW"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:449
-msgid "PSP fee excluding VAT"
-msgstr "PSP fee exclusief BTW"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:450
-msgid "PSP fee VAT"
-msgstr "PSP fee BTW"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:451
-msgid "PSP fee including VAT"
-msgstr "PSP fee inclusief BTW"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:454
-msgid "other costs excluding VAT"
-msgstr "andere kosten exclusief BTW"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:456
-msgid ""
-"Set either this value or inclusive VAT, make sure recalculate afterwards."
-msgstr "stel deze waarde in of inclusief BTW, herbereken na aanpassing."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:460
-msgid "other costs VAT"
-msgstr "andere kosten BTW"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:462
-msgid "other costs including VAT"
-msgstr "andere kosten inclusief BTW"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:464
-msgid ""
-"Set either this value or exclusive VAT, make sure recalculate afterwards."
-msgstr "stel deze waarde in of exclusief BTW, herbereken na aanpassing."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:468
-msgid "payable amount excluding VAT"
-msgstr "bedrag uit te betalen exclusief BTW"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:469
-msgid "payable amount VAT"
-msgstr "bedrag uit te betalen BTW"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:470
-msgid "payable amount including VAT"
-msgstr "bedrag uit te betalen inclusief BTW"
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:594
-msgid "Start date should be earlier than date."
-msgstr "Start datum moet vroeger dan datum zijn."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:605
-msgid ""
-"The next payout period should start the day after the end of the previous "
-"period."
-msgstr "De volgende uitbetalingsperiode moet beginnen na afsluiting vorige periode."
-
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/payouts/models.py:628
-msgid "Other costs have changed, please recalculate before progessing."
-msgstr "Andere kosten zijn veranderd, nu eerst herbereken voor verder gaan."
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:11
 msgid "In Progress"
@@ -1217,9 +335,28 @@ msgstr "Teruggevorderd"
 msgid "Refunded"
 msgstr "Terugbetaald"
 
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:26
+msgid "amount"
+msgstr "Bedrag"
+
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:30
 msgid "payment service fee"
 msgstr "uitbetalings service fee"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:36
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry_docdata/models.py:79
+msgid "status"
+msgstr "status"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:38
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry_docdata/models.py:84
+msgid "created"
+msgstr "aangemaakt"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:39
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry_docdata/models.py:85
+msgid "updated"
+msgstr "gewijzigd"
 
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry/models.py:45
 msgid "INFO"
@@ -1242,18 +379,18 @@ msgstr "Betaling log"
 msgid "%(payment_method_id)s is not a valid payment method."
 msgstr "%(payment_method_id)s is geen erkende betalingsmethode."
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry_docdata/models.py:69
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry_docdata/models.py:70
 msgid "DocData Payment"
 msgstr "DocData betaling"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry_docdata/models.py:70
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry_docdata/models.py:71
 msgid "DocData Payments"
 msgstr "DocData betalingen"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry_docdata/models.py:80
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry_docdata/models.py:81
 msgid "payment id"
 msgstr "betaling id"
 
-#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry_docdata/models.py:106
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/apps/cowry_docdata/models.py:107
 msgid "DocData Payment Log"
 msgstr "DocData betaling log"

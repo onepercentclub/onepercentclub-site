@@ -42,7 +42,7 @@ App.Donation = DS.Model.extend({
     url: 'fund/donations',
 
     project: DS.belongsTo('App.Project'),
-    fundraiser: DS.belongsTo('App.FundRaiser'),
+    fundraiser: DS.belongsTo('App.Fundraiser'),
     amount: DS.attr('number', {defaultValue: 20}),
     status: DS.attr('string'),
     type: DS.attr('string'),
@@ -54,7 +54,7 @@ App.ProjectSupporter = DS.Model.extend({
     url: 'fund/project-supporters',
 
     project: DS.belongsTo('App.ProjectPreview'),
-    fundraiser: DS.belongsTo('App.FundRaiser'),
+    fundraiser: DS.belongsTo('App.Fundraiser'),
     member: DS.belongsTo('App.UserPreview'),
     date_donated: DS.attr('date'),
 
