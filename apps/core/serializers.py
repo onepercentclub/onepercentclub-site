@@ -23,7 +23,6 @@ class ProjectSerializer(BaseProjectPreviewSerializer):
                   'is_campaign', 'amount_asked', 'amount_donated', 'amount_needed', 'deadline', 'status', 'owner', 'partner')
 
 
-
 class LatestDonationSerializer(serializers.ModelSerializer):
     project = ProjectSerializer()
     user = UserPreviewSerializer()
