@@ -1,4 +1,5 @@
 from mock import patch
+from bunch import bunchify
 
 from django.core.urlresolvers import reverse
 
@@ -35,7 +36,7 @@ class TestDonationList(DonationApiTestCase):
 
         # Two users make a donations
         order1 = OrderFactory.create(user=self.user1)
-        self.donation1 = DonationFactory.create(amount=1000, project=self.project, 
+        self.donation1 = DonationFactory.create(amount=1500, project=self.project, 
             fundraiser=self.fundraiser, order=order1)
         order1.locked()
         order1.succeeded()
@@ -58,13 +59,19 @@ class TestDonationList(DonationApiTestCase):
         self.assertEqual(len(response.data['results']), 2)
 
         # Second donation (first in list) without fundraiser
-        donation2_data = response.data['results'][0]
-        self.assertEqual(donation2_data['id'], self.donation2.id)
-        self.assertEqual(donation2_data['project']['title'], self.project.title)
-        self.assertTrue(donation2_data['project']['country']['name'])
-        self.assertEqual(donation2_data['user']['full_name'], self.user2.full_name)
+        data1 = bunchify(response.data['results'][0])
+
+        self.assertEqual(data1.id, self.donation2.id)
+        self.assertEqual(data1.amount, '10.00')
+        self.assertEqual(data1.project.title, self.project.title)
+        self.assertTrue(data1.project.country.name)
+        self.assertEqual(data1.user.full_name, self.user2.full_name)
+        self.assertEqual(data1.project.image, '')
+        self.assertEqual(data1.project.owner.avatar, '')
         
         # First donation without fundraiser
-        donation1_data = response.data['results'][1]
-        self.assertEqual(donation1_data['fundraiser'], self.fundraiser.id)
+        data2 = bunchify(response.data['results'][1])
+
+        self.assertEqual(data2['amount'], '15.00')
+        self.assertEqual(data2['fundraiser'], self.fundraiser.id)
 
