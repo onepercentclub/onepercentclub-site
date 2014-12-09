@@ -11,6 +11,13 @@ PAYMENT_METHODS = (
     },
     {
         'provider': 'docdata',
+        'id': 'docdata-directdebit',
+        'profile': 'directdebit',
+        'name': 'Direct Debit',
+        'supports_recurring': True,
+    },
+    {
+        'provider': 'docdata',
         'id': 'docdata-creditcard',
         'profile': 'creditcard',
         'name': 'CreditCard',
