@@ -1,3 +1,4 @@
+from apps.core.views import LatestDonationsList
 from apps.fund.views import RecurringOrderList, RecurringOrderDetail, RecurringDonationList, RecurringDonationDetail, \
     ProjectDonationList, ProjectSupporterList
 from django.conf.urls import patterns, include, url
@@ -22,9 +23,6 @@ urlpatterns = patterns('',
     surl(r'^donations/$', DonationList.as_view(), name='fund-donation-list'),
     surl(r'^donations/<pk:#>$', DonationDetail.as_view(), name='fund-donation-detail'),
 
-    # Latest Donations
-    surl(r'^latest-donations/$', TickerList.as_view(), name='fund-ticker-list'),
-
     # Current Order (i.e. the server-side shopping cart).
     url(r'^orders/current$', OrderCurrentDetail.as_view(), {'alias': 'current'}, name='fund-order-current-detail'),
     url(r'^orders/current/donations/$', OrderCurrentDonationList.as_view(), {'alias': 'current'}, name='fund-order-current-donation-list'),
@@ -44,5 +42,8 @@ urlpatterns = patterns('',
 
     # The Payment REST API.
     url(r'', include('apps.cowry.urls.api')),
+
+    # Latest Donations
+    surl(r'^latest-donations/$', LatestDonationsList.as_view(), name='fund-ticker-list'),
 
 )
