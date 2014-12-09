@@ -1,13 +1,9 @@
 from rest_framework import serializers
 
-from bluebottle.bluebottle_drf2.serializers import EuroField, OEmbedField
+from bluebottle.bluebottle_drf2.serializers import EuroField
 from bluebottle.utils.model_dispatcher import get_donation_model
-from bluebottle.bb_projects.serializers import (ProjectSerializer as BaseProjectSerializer,
-												ProjectPreviewSerializer as BaseProjectPreviewSerializer)
-from bluebottle.bb_fundraisers.serializers import BaseFundRaiserSerializer
+from bluebottle.bb_projects.serializers import ProjectPreviewSerializer as BaseProjectPreviewSerializer
 from bluebottle.bb_accounts.serializers import UserPreviewSerializer
-
-from apps.projects.serializers import ProjectCountrySerializer
 
 DONATION_MODEL = get_donation_model()
 
