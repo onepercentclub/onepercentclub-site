@@ -1,5 +1,5 @@
 import logging
-from bluebottle.bb_donations.serializers import PreviewDonationSerializer
+from serializers import LatestDonationSerializer
 from bluebottle.donations.models import Donation
 from bluebottle.utils.utils import StatusDefinition
 from rest_framework import permissions, generics
@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 # For showing the latest donations
 class LatestDonationsList(generics.ListAPIView):
     model = Donation
-    serializer_class = PreviewDonationSerializer
+    serializer_class = LatestDonationSerializer
     permission_classes = (permissions.IsAdminUser,)
     paginate_by = 20
 
