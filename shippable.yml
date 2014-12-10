@@ -9,11 +9,10 @@ addons:
 env:
   matrix:
   - DJANGO=django==1.5.4
-  - REALLY_GEM_UPDATE_SYSTEM=1
 services:
 - memcached
 before_install:
-- gem update --system
+- REALLY_GEM_UPDATE_SYSTEM=1 gem update --system
 - gem install compass -v 0.12.7
 - gem install bourbon neat
 - npm install -g grunt-cli
