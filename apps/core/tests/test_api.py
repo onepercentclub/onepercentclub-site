@@ -1,3 +1,4 @@
+from decimal import Decimal
 from mock import patch
 from bunch import bunchify
 
@@ -36,14 +37,14 @@ class TestDonationList(DonationApiTestCase):
 
         # Two users make a donations
         order1 = OrderFactory.create(user=self.user1)
-        self.donation1 = DonationFactory.create(amount=1500, project=self.project, 
+        self.donation1 = DonationFactory.create(amount=15, project=self.project, 
             fundraiser=self.fundraiser, order=order1)
         order1.locked()
         order1.succeeded()
 
         # Create the second without fundraiser
         order2 = OrderFactory.create(user=self.user2)
-        self.donation2 = DonationFactory.create(amount=1000, 
+        self.donation2 = DonationFactory.create(amount=10, 
             project=self.project, fundraiser=None, order=order2)
         order2.locked()
         order2.succeeded()
@@ -62,7 +63,7 @@ class TestDonationList(DonationApiTestCase):
         data1 = bunchify(response.data['results'][0])
 
         self.assertEqual(data1.id, self.donation2.id)
-        self.assertEqual(data1.amount, '10.00')
+        self.assertEqual(data1.amount, Decimal('10'))
         self.assertEqual(data1.project.title, self.project.title)
         self.assertTrue(data1.project.country.name)
         self.assertEqual(data1.user.full_name, self.user2.full_name)
@@ -72,6 +73,6 @@ class TestDonationList(DonationApiTestCase):
         # First donation without fundraiser
         data2 = bunchify(response.data['results'][1])
 
-        self.assertEqual(data2['amount'], '15.00')
+        self.assertEqual(data2['amount'], Decimal('15'))
         self.assertEqual(data2['fundraiser'], self.fundraiser.id)
 

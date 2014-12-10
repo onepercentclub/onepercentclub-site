@@ -1,6 +1,5 @@
 from rest_framework import serializers
 
-from bluebottle.bluebottle_drf2.serializers import EuroField
 from bluebottle.utils.model_dispatcher import get_donation_model
 from bluebottle.bb_projects.serializers import ProjectPreviewSerializer as BaseProjectPreviewSerializer
 from bluebottle.bb_accounts.serializers import UserPreviewSerializer
@@ -22,7 +21,6 @@ class ProjectSerializer(BaseProjectPreviewSerializer):
 class LatestDonationSerializer(serializers.ModelSerializer):
     project = ProjectSerializer()
     user = UserPreviewSerializer()
-    amount = EuroField()
 
     class Meta:
         model = DONATION_MODEL
