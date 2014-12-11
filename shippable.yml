@@ -12,8 +12,8 @@ env:
 services:
 - memcached
 before_install:
-- gem install compass -v 0.12.7
-- gem install bourbon neat
+- sudo gem install compass -v 0.12.7
+- sudo gem install bourbon neat
 - npm install -g grunt-cli
 - npm install
 - sudo apt-get install -qq memcached python-memcache libjpeg8-dev libjpeg-dev zlib1g-dev libpng12-dev
