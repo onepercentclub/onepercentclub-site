@@ -12,15 +12,14 @@ env:
 services:
 - memcached
 before_install:
-- sudo gem install compass -v 0.12.7
-- sudo gem install bourbon neat
-- sudo npm install -g grunt-cli
-- npm install
+- gem install compass -v 0.12.7
+- gem install bourbon neat
+- npm install -g grunt-cli
 - sudo apt-get install -qq memcached python-memcache libjpeg8-dev libjpeg-dev zlib1g-dev libpng12-dev
-- pip install Pillow --use-mirrors
 install:
+- npm install
 - pip install --upgrade setuptools --use-mirrors
-- pip install $DJANGO --use-mirrors
+- pip install $DJANGO Pillow --use-mirrors
 - pip install --use-mirrors --use-wheel --find-links=https://stream.onepercentclub.com/wheelhouse/ -r requirements/ci_requirements.txt
 - touch onepercentclub/settings/secrets.py
 - bourbon install --path=static/global/refactor-sass/lib
