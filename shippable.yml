@@ -4,6 +4,8 @@ python:
 - '2.7'
 node_js:
 - '0.10'
+rvm:
+- 1.9.2
 addons:
   firefox: '30.0'
 env:
