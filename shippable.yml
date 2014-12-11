@@ -12,7 +12,6 @@ env:
 services:
 - memcached
 before_install:
-- REALLY_GEM_UPDATE_SYSTEM=1 gem update --system
 - gem install compass -v 0.12.7
 - gem install bourbon neat
 - npm install -g grunt-cli
