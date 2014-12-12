@@ -1,5 +1,5 @@
 import logging
-from bluebottle.fundraisers.models import FundRaiser
+from bluebottle.fundraisers.models import Fundraiser
 from apps.projects.models import Project
 from apps.tasks.models import Task
 from django.http.response import HttpResponsePermanentRedirect
@@ -170,10 +170,10 @@ class HashbangMiddleware(object):
                 task = Task.objects.get(id=task_id)
                 return SimpleTemplateResponse(template='crawlable/task.html', context={'task': task})
 
-            # FundRaiser page
+            # Fundraiser page
             if route[1] == 'fundraisers' and len(route) > 2:
                 fundraiser_id = route[2].split('?')[0]
-                fundraiser = FundRaiser.objects.get(id=fundraiser_id)
+                fundraiser = Fundraiser.objects.get(id=fundraiser_id)
                 return SimpleTemplateResponse(template='crawlable/fundraiser.html', context={'fundraiser': fundraiser})
 
             # Update query string by removing the escaped fragment.

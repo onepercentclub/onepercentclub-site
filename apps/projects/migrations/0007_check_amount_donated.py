@@ -186,7 +186,7 @@ class Migration(DataMigration):
             'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['members.Member']", 'unique': 'True'})
         },
         u'fundraisers.fundraiser': {
-            'Meta': {'object_name': 'FundRaiser'},
+            'Meta': {'object_name': 'Fundraiser'},
             'amount': ('django.db.models.fields.PositiveIntegerField', [], {}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'currency': ('django.db.models.fields.CharField', [], {'default': "'EUR'", 'max_length': "'10'"}),
