@@ -1,4 +1,4 @@
--e git://github.com/onepercentclub/bluebottle.git@40ae113e4ac2ebb957feb5bec81e298bb331f8f9#egg=bluebottle
+-e git://github.com/onepercentclub/bluebottle.git@d409d5ebcb77391be7dd3cb0b0e80903221fbbf2#egg=bluebottle
 
 -e git://github.com/onepercentclub/django-onepercent-afom.git@master#egg=onepercent_afom
 
