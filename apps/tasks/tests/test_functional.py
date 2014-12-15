@@ -92,7 +92,7 @@ class TaskCreateSeleniumTests(OnePercentSeleniumTestCase):
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
         'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
-class TaskWallPostSeleniumTests(OnePercentSeleniumTestCase):
+class TaskWallpostSeleniumTests(OnePercentSeleniumTestCase):
     """
     Selenium tests for Projects.
     """
