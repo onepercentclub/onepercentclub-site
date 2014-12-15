@@ -1,4 +1,4 @@
-Factory.define('wallPost', {
+Factory.define('wallpost', {
   	// id: 'projectfactory',
   	// created: Date.now(),
   	title: 'Kick start on the road to clean drinking water',

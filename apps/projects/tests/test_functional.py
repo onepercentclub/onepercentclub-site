@@ -441,14 +441,14 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
             'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
-class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
+class ProjectWallpostSeleniumTests(OnePercentSeleniumTestCase):
     """
     Selenium tests for Projects.
     """
     def setUp(self):
         self.init_projects()
 
-        super(ProjectWallPostSeleniumTests, self).setUp()
+        super(ProjectWallpostSeleniumTests, self).setUp()
         self.user = BlueBottleUserFactory.create()
 
         owner = BlueBottleUserFactory.create()
