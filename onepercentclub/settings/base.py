@@ -285,6 +285,7 @@ INSTALLED_APPS = (
     'bluebottle.payments_logger',
     'bluebottle.payments_voucher',
     'bluebottle.redirects',
+    'bluebottle.bb_follow',
 
     # Apps extending Bluebottle base models
     # These should be before there Bb parents so the templates are overridden
