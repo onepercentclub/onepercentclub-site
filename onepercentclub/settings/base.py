@@ -604,6 +604,9 @@ PASSWORD_HASHERS = global_settings.PASSWORD_HASHERS + (
     'legacyauth.hashers.LegacyPasswordHasher',
 )
 
+# By default the Bedankje's app is disabled
+AFOM_ENABLED = False
+
 # Twitter handles, per language
 TWITTER_HANDLES = {
     'nl': '1procentclub',
