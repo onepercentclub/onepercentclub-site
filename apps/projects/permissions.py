@@ -83,7 +83,7 @@ class IsProjectOwnerOrReadOnly(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
 
-        # Test for objects/lists related to a Project (e.g WallPosts).
+        # Test for objects/lists related to a Project (e.g Wallposts).
         # Get the project form the request
         project = get_project_from_request(request)
         return project and project.owner == request.user
