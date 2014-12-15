@@ -7,7 +7,7 @@ node_js:
 rvm:
 - 1.9.2
 addons:
-  firefox: '30.0'
+  firefox: '32.0'
 env:
   matrix:
   - DJANGO=django==1.5.4
