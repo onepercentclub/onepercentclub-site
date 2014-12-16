@@ -33,7 +33,7 @@ def create_donation_post(sender, instance, **kwargs):
                     post.ip = '127.0.0.1'
                     post.save()
 
-                    # Post on FundRaiser Wall.
+                    # Post on Fundraiser Wall.
                     post = SystemWallpost()
                     post.content_object = donation.fundraiser
                     post.related_object = donation
