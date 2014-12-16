@@ -127,7 +127,7 @@ class TaskWallpostSeleniumTests(OnePercentSeleniumTestCase):
         wallpost_form.find_element_by_css_selector('button.action-submit').click()
 
         post = self.wait_for_element_css('article.m-wallpost')
-        self.assertEqual(post.find_element_by_css_selector('.user-name').text.upper(), self.user.full_name.upper())
+        self.assertEqual(post.find_element_by_css_selector('.user-name').text.upper(), self.user.get_full_name().upper())
         self.assertEqual(post.find_element_by_css_selector('.wallpost-body').text, self.post1['text'])
 
 

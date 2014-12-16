@@ -480,7 +480,7 @@ class ProjectWallpostSeleniumTests(OnePercentSeleniumTestCase):
 
         wallpost = self.wait_for_element_css('#wallposts article:first-of-type')
 
-        self.assertEqual(wallpost.find_element_by_css_selector('.user-name').text.upper(), self.user.full_name.upper())
+        self.assertEqual(wallpost.find_element_by_css_selector('.user-name').text.upper(), self.user.get_full_name().upper())
         self.assertEqual(wallpost.find_element_by_css_selector('.wallpost-body').text, self.post1['text'])
 
         # Login as the project owner
@@ -501,10 +501,10 @@ class ProjectWallpostSeleniumTests(OnePercentSeleniumTestCase):
         original_wallpost = self.wait_for_element_css_index('article.m-wallpost', 1)
         owner_wallpost = self.wait_for_element_css_index('article.m-wallpost', 0)
 
-        self.assertEqual(owner_wallpost.find_element_by_css_selector('.user-name').text.upper(), self.project.owner.full_name.upper())
+        self.assertEqual(owner_wallpost.find_element_by_css_selector('.user-name').text.upper(), self.project.owner.get_full_name().upper())
         self.assertEqual(owner_wallpost.find_element_by_css_selector('.wallpost-body').text, self.post2['text'])
 
         # And the first post should still be shown as second
-        self.assertEqual(original_wallpost.find_element_by_css_selector('.user-name').text.upper(), self.user.full_name.upper())
+        self.assertEqual(original_wallpost.find_element_by_css_selector('.user-name').text.upper(), self.user.get_full_name().upper())
         self.assertEqual(original_wallpost.find_element_by_css_selector('.wallpost-body').text, self.post1['text'])
 
