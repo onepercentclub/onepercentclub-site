@@ -83,20 +83,21 @@ class PositiveDonationFlow(OnePercentSeleniumTestCase):
         self.assertTrue(self.browser.is_text_present('Thanks for your support', wait_time=30))
 
         text = 'I made a donation with mockdeal! Good luck!'
-
-        self.assert_css('.wallpost-textarea')
         self.scroll_to_and_click_by_css('.wallpost-textarea')
         self.browser.find_by_css('.wallpost-textarea').type(text)
 
         self.browser.find_by_css(".wallpost-buttons .btn")[1].click()
 
-        wallpost = self.browser.driver.find_element_by_css_selector('section#wallposts article:first-of-type')
+        # Wait until there's two wallposts
+        # (one system wallpost about the donation and one by the donor)
+        self.wait_for_element_css_index('section#wallposts article', 1)
+        wallpost = self.wait_for_element_css_index('section#wallposts article', 0)
 
         wallpost_text = wallpost.find_element_by_css_selector('.wallpost-body').text
         self.assertEqual(wallpost_text, text)
 
         author = wallpost.find_element_by_css_selector(".user-name").text
-        self.assertEqual(author.lower(), self.user.full_name.lower())
+        self.assertEqual(author.lower(), self.user.get_full_name().lower())
 
 
 class LoginDonationFlow(OnePercentSeleniumTestCase):
