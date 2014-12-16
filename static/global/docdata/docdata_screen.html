@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<!-- saved from url=(0550)https://test.docdatapayments.com/ps/menu?return_url_canceled=http%3A%2F%2Flocalhost%3A8000%2F%23%21%2Forders%2F11%2Fcancelled&return_url_pending=http%3A%2F%2Flocalhost%3A8000%2F%23%21%2Forders%2F11%2Fpending&command=show_payment_cluster&return_url_success=http%3A%2F%2Flocalhost%3A8000%2F%23%21%2Forders%2F11%2Fsuccess&client_language=EN&payment_cluster_key=81001C950CA061154FAFFBCC9B8B750B&return_url_error=http%3A%2F%2Flocalhost%3A8000%2F%23%21%2Forders%2F11%2Ferror&merchant_name=1procentclub_nw&default_pm=&ideal_issuer_id=&default_act=False#MTsw -->
+<html data-ember-extension="1">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <meta name="gwt:property" content="locale=en">
+    <link type="text/css" rel="stylesheet" href="docdata_screen_files/merchant.css">
+    <title>DocData Payment Menu</title>
+    <script type="text/javascript">        var autoBean = {
+        json: "\x7B\x22partialPayments\x22\x3A\x7B\x22currencies\x22\x3A\x5B\x5D,\x22amounts\x22\x3A\x5B\x5D\x7D,\x22transactionInfo\x22\x3A\x7B\x22price\x22\x3A\x2250\x22,\x22currencyCode\x22\x3A\x22EUR\x22,\x22shopperEmailAddress\x22\x3A\x22loek\x401procentclub.nl\x22,\x22description\x22\x3A\x22Bluebottle\x20donation\x22,\x22merchantName\x22\x3A\x221procentclub_nw\x22,\x22orderKey\x22\x3A\x2281001C950CA061154FAFFBCC9B8B750B\x22,\x22merchantTransactionId\x22\x3A\x221\x2D15\x22\x7D,\x22merchantGuiPaymentMethodNames\x22\x3A\x7B\x22names\x22\x3A\x5B\x22IDEAL\x22,\x22MASTERCARD\x22,\x22VISA\x22,\x22SEPA_DIRECT_DEBIT\x22\x5D,\x22configurations\x22\x3A\x5B\x7B\x22enabled\x22\x3A\x22true\x22,\x22issuerValues\x22\x3A\x22Nederland,ABNAMRO,ASN,ING,KNAB,RABO,TRIODOS,VANLANSCHOT,Belgi\xEB\x2FBelgique,KBC\x22,\x22idealForm_recurringWithSepa\x22\x3A\x22false\x22,\x22issuerKeys\x22\x3A\x220_idealForm_countrySeparator,ABNAMRO,ASN,ING,KNAB,RABO,TRIODOS,VANLANSCHOT,1_idealForm_countrySeparator,KBC\x22\x7D,\x7B\x22showSecureLogo\x22\x3A\x22true\x22,\x22enabled\x22\x3A\x22true\x22,\x22passwordProtectVerificationCode\x22\x3A\x22false\x22\x7D,\x7B\x22showSecureLogo\x22\x3A\x22true\x22,\x22enabled\x22\x3A\x22true\x22,\x22passwordProtectVerificationCode\x22\x3A\x22false\x22\x7D,\x7B\x22COUNTRY_CODE_WS\x22\x3A\x22COUNTRY_DESCRIPTION_Samoa\x22,\x22creditor_address\x22\x3A\x22Hoofdstraat\x2082\x22,\x22COUNTRY_CODE_FJ\x22\x3A\x22COUNTRY_DESCRIPTION_Fiji\x22,\x22COUNTRY_CODE_FI\x22\x3A\x22COUNTRY_DESCRIPTION_Finland\x22,\x22COUNTRY_CODE_FK\x22\x3A\x22COUNTRY_DESCRIPTION_Falkland\x20Islands\x22,\x22COUNTRY_CODE_FM\x22\x3A\x22COUNTRY_DESCRIPTION_Micronesia\x22,\x22COUNTRY_CODE_FO\x22\x3A\x22COUNTRY_DESCRIPTION_Faroe\x20Islands\x22,\x22COUNTRY_CODE_FR\x22\x3A\x22COUNTRY_DESCRIPTION_France\x22,\x22COUNTRY_CODE_GA\x22\x3A\x22COUNTRY_DESCRIPTION_Gabon\x22,\x22COUNTRY_CODE_GE\x22\x3A\x22COUNTRY_DESCRIPTION_Georgia\x22,\x22COUNTRY_CODE_VN\x22\x3A\x22COUNTRY_DESCRIPTION_Vietnam\x22,\x22COUNTRY_CODE_GD\x22\x3A\x22COUNTRY_DESCRIPTION_Grenada\x22,\x22COUNTRY_CODE_GB\x22\x3A\x22COUNTRY_DESCRIPTION_United\x20Kingdom\x22,\x22COUNTRY_CODE_GI\x22\x3A\x22COUNTRY_DESCRIPTION_Gibraltar\x22,\x22COUNTRY_CODE_GH\x22\x3A\x22COUNTRY_DESCRIPTION_Ghana\x22,\x22creditor_residence\x22\x3A\x22Driebergen\x2DRijsenburg\x22,\x22COUNTRY_CODE_GG\x22\x3A\x22COUNTRY_DESCRIPTION_Guernsey\x22,\x22COUNTRY_CODE_GF\x22\x3A\x22COUNTRY_DESCRIPTION_French\x20Guiana\x22,\x22COUNTRY_CODE_GM\x22\x3A\x22COUNTRY_DESCRIPTION_Gambia\x22,\x22COUNTRY_CODE_VU\x22\x3A\x22COUNTRY_DESCRIPTION_Vanuatu\x22,\x22COUNTRY_CODE_GL\x22\x3A\x22COUNTRY_DESCRIPTION_Greenland\x22,\x22COUNTRY_CODE_GP\x22\x3A\x22COUNTRY_DESCRIPTION_Guadeloupe\x22,\x22COUNTRY_CODE_GQ\x22\x3A\x22COUNTRY_DESCRIPTION_Equatorial\x20Guinea\x22,\x22COUNTRY_CODE_GN\x22\x3A\x22COUNTRY_DESCRIPTION_Guinea\x22,\x22COUNTRY_CODE_GT\x22\x3A\x22COUNTRY_DESCRIPTION_Guatemala\x22,\x22COUNTRY_CODE_GU\x22\x3A\x22COUNTRY_DESCRIPTION_Guam\x22,\x22COUNTRY_CODE_GR\x22\x3A\x22COUNTRY_DESCRIPTION_Greece\x22,\x22COUNTRY_CODE_GS\x22\x3A\x22COUNTRY_DESCRIPTION_South\x20Georgia\x20And\x20The\x20South\x20Sandwich\x20Islands\x22,\x22COUNTRY_CODE_GY\x22\x3A\x22COUNTRY_DESCRIPTION_Guyana\x22,\x22COUNTRY_CODE_GW\x22\x3A\x22COUNTRY_DESCRIPTION_Guinea\x2DBissau\x22,\x22COUNTRY_CODE_WF\x22\x3A\x22COUNTRY_DESCRIPTION_Wallis\x20And\x20Futuna\x22,\x22COUNTRY_CODE_YT\x22\x3A\x22COUNTRY_DESCRIPTION_Mayotte\x22,\x22COUNTRY_CODE_HK\x22\x3A\x22COUNTRY_DESCRIPTION_Hong\x20Kong\x22,\x22COUNTRY_CODE_HN\x22\x3A\x22COUNTRY_DESCRIPTION_Honduras\x22,\x22COUNTRY_CODE_HM\x22\x3A\x22COUNTRY_DESCRIPTION_Heard\x20Island\x20And\x20McDonald\x20Islands\x22,\x22COUNTRY_CODE_HT\x22\x3A\x22COUNTRY_DESCRIPTION_Haiti\x22,\x22COUNTRY_CODE_HU\x22\x3A\x22COUNTRY_DESCRIPTION_Hungary\x22,\x22COUNTRY_CODE_ZA\x22\x3A\x22COUNTRY_DESCRIPTION_South\x20Africa\x22,\x22COUNTRY_CODE_HR\x22\x3A\x22COUNTRY_DESCRIPTION_Croatia\x22,\x22COUNTRY_CODE_ZM\x22\x3A\x22COUNTRY_DESCRIPTION_Zambia\x22,\x22COUNTRY_CODE_IE\x22\x3A\x22COUNTRY_DESCRIPTION_Ireland\x22,\x22COUNTRY_CODE_ID\x22\x3A\x22COUNTRY_DESCRIPTION_Indonesia\x22,\x22COUNTRY_CODE_IO\x22\x3A\x22COUNTRY_DESCRIPTION_British\x20Indian\x20Ocean\x20Territory\x22,\x22COUNTRY_CODE_IN\x22\x3A\x22COUNTRY_DESCRIPTION_India\x22,\x22COUNTRY_CODE_IM\x22\x3A\x22COUNTRY_DESCRIPTION_Isle\x20Of\x20Man\x22,\x22COUNTRY_CODE_IL\x22\x3A\x22COUNTRY_DESCRIPTION_Israel\x22,\x22collection_delay\x22\x3A\x223\x22,\x22COUNTRY_CODE_IT\x22\x3A\x22COUNTRY_DESCRIPTION_Italy\x22,\x22COUNTRY_CODE_IR\x22\x3A\x22COUNTRY_DESCRIPTION_Iran\x22,\x22COUNTRY_CODE_IS\x22\x3A\x22COUNTRY_DESCRIPTION_Iceland\x22,\x22COUNTRY_CODE_YE\x22\x3A\x22COUNTRY_DESCRIPTION_Yemen\x22,\x22COUNTRY_CODE_IQ\x22\x3A\x22COUNTRY_DESCRIPTION_Iraq\x22,\x22creditor_sepa_id\x22\x3A\x22NL98ZZZ301689820000\x22,\x22COUNTRY_CODE_BA\x22\x3A\x22COUNTRY_DESCRIPTION_Bosnia\x20and\x20Herzegovina\x22,\x22holder_middle_name\x22\x3Anull,\x22COUNTRY_CODE_SY\x22\x3A\x22COUNTRY_DESCRIPTION_Syria\x22,\x22COUNTRY_CODE_BB\x22\x3A\x22COUNTRY_DESCRIPTION_Barbados\x22,\x22COUNTRY_CODE_SV\x22\x3A\x22COUNTRY_DESCRIPTION_El\x20Salvador\x22,\x22COUNTRY_CODE_BD\x22\x3A\x22COUNTRY_DESCRIPTION_Bangladesh\x22,\x22COUNTRY_CODE_ST\x22\x3A\x22COUNTRY_DESCRIPTION_Sao\x20Tome\x20And\x20Principe\x22,\x22COUNTRY_CODE_BE\x22\x3A\x22COUNTRY_DESCRIPTION_Belgium\x22,\x22COUNTRY_CODE_BF\x22\x3A\x22COUNTRY_DESCRIPTION_Burkina\x20Faso\x22,\x22COUNTRY_CODE_SR\x22\x3A\x22COUNTRY_DESCRIPTION_Suriname\x22,\x22COUNTRY_CODE_BG\x22\x3A\x22COUNTRY_DESCRIPTION_Bulgaria\x22,\x22COUNTRY_CODE_BH\x22\x3A\x22COUNTRY_DESCRIPTION_Bahrain\x22,\x22COUNTRY_CODE_AX\x22\x3A\x22COUNTRY_DESCRIPTION_\xC5land\x20Islands\x22,\x22holder_country\x22\x3A\x22Netherlands\x22,\x22COUNTRY_CODE_SN\x22\x3A\x22COUNTRY_DESCRIPTION_Senegal\x22,\x22COUNTRY_CODE_AZ\x22\x3A\x22COUNTRY_DESCRIPTION_Azerbaijan\x22,\x22COUNTRY_CODE_SO\x22\x3A\x22COUNTRY_DESCRIPTION_Somalia\x22,\x22COUNTRY_CODE_SL\x22\x3A\x22COUNTRY_DESCRIPTION_Sierra\x20Leone\x22,\x22COUNTRY_CODE_SM\x22\x3A\x22COUNTRY_DESCRIPTION_San\x20Marino\x22,\x22generated_mandate_id\x22\x3A\x22ddps\x2D498004220\x2D201409121214084\x2D1\x22,\x22COUNTRY_CODE_SJ\x22\x3A\x22COUNTRY_DESCRIPTION_Svalbard\x20And\x20Jan\x20Mayen\x22,\x22COUNTRY_CODE_SK\x22\x3A\x22COUNTRY_DESCRIPTION_Slovakia\x22,\x22COUNTRY_CODE_TJ\x22\x3A\x22COUNTRY_DESCRIPTION_Tajikistan\x22,\x22COUNTRY_CODE_BR\x22\x3A\x22COUNTRY_DESCRIPTION_Brazil\x22,\x22COUNTRY_CODE_TH\x22\x3A\x22COUNTRY_DESCRIPTION_Thailand\x22,\x22COUNTRY_CODE_BT\x22\x3A\x22COUNTRY_DESCRIPTION_Bhutan\x22,\x22COUNTRY_CODE_BS\x22\x3A\x22COUNTRY_DESCRIPTION_Bahamas\x22,\x22COUNTRY_CODE_TG\x22\x3A\x22COUNTRY_DESCRIPTION_Togo\x22,\x22COUNTRY_CODE_BV\x22\x3A\x22COUNTRY_DESCRIPTION_Bouvet\x20Island\x22,\x22COUNTRY_CODE_TF\x22\x3A\x22COUNTRY_DESCRIPTION_French\x20Southern\x20Territories\x22,\x22COUNTRY_CODE_TD\x22\x3A\x22COUNTRY_DESCRIPTION_Chad\x22,\x22COUNTRY_CODE_BW\x22\x3A\x22COUNTRY_DESCRIPTION_Botswana\x22,\x22COUNTRY_CODE_TC\x22\x3A\x22COUNTRY_DESCRIPTION_Turks\x20And\x20Caicos\x20Islands\x22,\x22COUNTRY_CODE_BJ\x22\x3A\x22COUNTRY_DESCRIPTION_Benin\x22,\x22COUNTRY_CODE_BI\x22\x3A\x22COUNTRY_DESCRIPTION_Burundi\x22,\x22COUNTRY_CODE_BN\x22\x3A\x22COUNTRY_DESCRIPTION_Brunei\x22,\x22COUNTRY_CODE_BM\x22\x3A\x22COUNTRY_DESCRIPTION_Bermuda\x22,\x22COUNTRY_CODE_BO\x22\x3A\x22COUNTRY_DESCRIPTION_Bolivia\x22,\x22COUNTRY_CODE_SZ\x22\x3A\x22COUNTRY_DESCRIPTION_Swaziland\x22,\x22COUNTRY_CODE_CD\x22\x3A\x22COUNTRY_DESCRIPTION_The\x20Democratic\x20Republic\x20Of\x20Congo\x22,\x22COUNTRY_CODE_RU\x22\x3A\x22COUNTRY_DESCRIPTION_Russia\x22,\x22holder_house_number\x22\x3A\x221\x22,\x22enabled\x22\x3A\x22true\x22,\x22COUNTRY_CODE_RW\x22\x3A\x22COUNTRY_DESCRIPTION_Rwanda\x22,\x22COUNTRY_CODE_CC\x22\x3A\x22COUNTRY_DESCRIPTION_Cocos\x20Islands\x22,\x22COUNTRY_CODE_CH\x22\x3A\x22COUNTRY_DESCRIPTION_Switzerland\x22,\x22COUNTRY_CODE_CI\x22\x3A\x22COUNTRY_DESCRIPTION_C\xF4te\x20d\x27Ivoire\x22,\x22COUNTRY_CODE_CF\x22\x3A\x22COUNTRY_DESCRIPTION_Central\x20African\x20Republic\x22,\x22COUNTRY_CODE_RS\x22\x3A\x22COUNTRY_DESCRIPTION_Serbia\x22,\x22COUNTRY_CODE_CG\x22\x3A\x22COUNTRY_DESCRIPTION_Congo\x22,\x22COUNTRY_CODE_BY\x22\x3A\x22COUNTRY_DESCRIPTION_Belarus\x22,\x22COUNTRY_CODE_RO\x22\x3A\x22COUNTRY_DESCRIPTION_Romania\x22,\x22COUNTRY_CODE_BZ\x22\x3A\x22COUNTRY_DESCRIPTION_Belize\x22,\x22COUNTRY_CODE_CA\x22\x3A\x22COUNTRY_DESCRIPTION_Canada\x22,\x22COUNTRY_CODE_CU\x22\x3A\x22COUNTRY_DESCRIPTION_Cuba\x22,\x22COUNTRY_CODE_SG\x22\x3A\x22COUNTRY_DESCRIPTION_Singapore\x22,\x22COUNTRY_CODE_CS\x22\x3A\x22COUNTRY_DESCRIPTION_Serbia\x20and\x20Montenegro\x22,\x22COUNTRY_CODE_SI\x22\x3A\x22COUNTRY_DESCRIPTION_Slovenia\x22,\x22COUNTRY_CODE_CR\x22\x3A\x22COUNTRY_DESCRIPTION_Costa\x20Rica\x22,\x22COUNTRY_CODE_SH\x22\x3A\x22COUNTRY_DESCRIPTION_Saint\x20Helena\x22,\x22COUNTRY_CODE_CY\x22\x3A\x22COUNTRY_DESCRIPTION_Cyprus\x22,\x22COUNTRY_CODE_SC\x22\x3A\x22COUNTRY_DESCRIPTION_Seychelles\x22,\x22COUNTRY_CODE_CX\x22\x3A\x22COUNTRY_DESCRIPTION_Christmas\x20Island\x22,\x22COUNTRY_CODE_SB\x22\x3A\x22COUNTRY_DESCRIPTION_Solomon\x20Islands\x22,\x22COUNTRY_CODE_SE\x22\x3A\x22COUNTRY_DESCRIPTION_Sweden\x22,\x22COUNTRY_CODE_CV\x22\x3A\x22COUNTRY_DESCRIPTION_Cape\x20Verde\x22,\x22COUNTRY_CODE_SD\x22\x3A\x22COUNTRY_DESCRIPTION_Sudan\x22,\x22COUNTRY_CODE_CM\x22\x3A\x22COUNTRY_DESCRIPTION_Cameroon\x22,\x22COUNTRY_CODE_CL\x22\x3A\x22COUNTRY_DESCRIPTION_Chile\x22,\x22COUNTRY_CODE_CK\x22\x3A\x22COUNTRY_DESCRIPTION_Cook\x20Islands\x22,\x22COUNTRY_CODE_SA\x22\x3A\x22COUNTRY_DESCRIPTION_Saudi\x20Arabia\x22,\x22COUNTRY_CODE_CO\x22\x3A\x22COUNTRY_DESCRIPTION_Colombia\x22,\x22COUNTRY_CODE_CN\x22\x3A\x22COUNTRY_DESCRIPTION_China\x22,\x22COUNTRY_CODE_DJ\x22\x3A\x22COUNTRY_DESCRIPTION_Djibouti\x22,\x22COUNTRY_CODE_UZ\x22\x3A\x22COUNTRY_DESCRIPTION_Uzbekistan\x22,\x22COUNTRY_CODE_DE\x22\x3A\x22COUNTRY_DESCRIPTION_Germany\x22,\x22COUNTRY_CODE_UY\x22\x3A\x22COUNTRY_DESCRIPTION_Uruguay\x22,\x22COUNTRY_CODE_UM\x22\x3A\x22COUNTRY_DESCRIPTION_United\x20States\x20Minor\x20Outlying\x20Islands\x22,\x22holder_house_number_addition\x22\x3Anull,\x22COUNTRY_CODE_CZ\x22\x3A\x22COUNTRY_DESCRIPTION_Czech\x20Republic\x22,\x22COUNTRY_CODE_US\x22\x3A\x22COUNTRY_DESCRIPTION_United\x20States\x22,\x22COUNTRY_CODE_VG\x22\x3A\x22COUNTRY_DESCRIPTION_British\x20Virgin\x20Islands\x22,\x22COUNTRY_CODE_DZ\x22\x3A\x22COUNTRY_DESCRIPTION_Algeria\x22,\x22COUNTRY_CODE_VE\x22\x3A\x22COUNTRY_DESCRIPTION_Venezuela\x22,\x22COUNTRY_CODE_VI\x22\x3A\x22COUNTRY_DESCRIPTION_U.S.\x20Virgin\x20Islands\x22,\x22COUNTRY_CODE_DO\x22\x3A\x22COUNTRY_DESCRIPTION_Dominican\x20Republic\x22,\x22COUNTRY_CODE_DK\x22\x3A\x22COUNTRY_DESCRIPTION_Denmark\x22,\x22COUNTRY_CODE_VC\x22\x3A\x22COUNTRY_DESCRIPTION_Saint\x20Vincent\x20And\x20The\x20Grenadines\x22,\x22COUNTRY_CODE_VA\x22\x3A\x22COUNTRY_DESCRIPTION_Vatican\x22,\x22COUNTRY_CODE_DM\x22\x3A\x22COUNTRY_DESCRIPTION_Dominica\x22,\x22COUNTRY_CODE_TT\x22\x3A\x22COUNTRY_DESCRIPTION_Trinidad\x20and\x20Tobago\x22,\x22COUNTRY_CODE_EH\x22\x3A\x22COUNTRY_DESCRIPTION_Western\x20Sahara\x22,\x22COUNTRY_CODE_TV\x22\x3A\x22COUNTRY_DESCRIPTION_Tuvalu\x22,\x22COUNTRY_CODE_TW\x22\x3A\x22COUNTRY_DESCRIPTION_Taiwan\x22,\x22COUNTRY_CODE_EG\x22\x3A\x22COUNTRY_DESCRIPTION_Egypt\x22,\x22COUNTRY_CODE_TZ\x22\x3A\x22COUNTRY_DESCRIPTION_Tanzania\x22,\x22COUNTRY_CODE_EE\x22\x3A\x22COUNTRY_DESCRIPTION_Estonia\x22,\x22COUNTRY_CODE_TK\x22\x3A\x22COUNTRY_DESCRIPTION_Tokelau\x22,\x22COUNTRY_CODE_EC\x22\x3A\x22COUNTRY_DESCRIPTION_Ecuador\x22,\x22COUNTRY_CODE_TL\x22\x3A\x22COUNTRY_DESCRIPTION_Timor\x2DLeste\x22,\x22COUNTRY_CODE_TM\x22\x3A\x22COUNTRY_DESCRIPTION_Turkmenistan\x22,\x22COUNTRY_CODE_TN\x22\x3A\x22COUNTRY_DESCRIPTION_Tunisia\x22,\x22COUNTRY_CODE_TO\x22\x3A\x22COUNTRY_DESCRIPTION_Tonga\x22,\x22COUNTRY_CODE_TR\x22\x3A\x22COUNTRY_DESCRIPTION_Turkey\x22,\x22COUNTRY_CODE_UG\x22\x3A\x22COUNTRY_DESCRIPTION_Uganda\x22,\x22COUNTRY_CODE_ET\x22\x3A\x22COUNTRY_DESCRIPTION_Ethiopia\x22,\x22COUNTRY_CODE_ES\x22\x3A\x22COUNTRY_DESCRIPTION_Spain\x22,\x22COUNTRY_CODE_ER\x22\x3A\x22COUNTRY_DESCRIPTION_Eritrea\x22,\x22COUNTRY_CODE_UA\x22\x3A\x22COUNTRY_DESCRIPTION_Ukraine\x22,\x22creditor_id\x22\x3A\x221\x22,\x22holder_last_name\x22\x3A\x22Van\x20Gent\x22,\x22COUNTRY_CODE_NU\x22\x3A\x22COUNTRY_DESCRIPTION_Niue\x22,\x22COUNTRY_CODE_NZ\x22\x3A\x22COUNTRY_DESCRIPTION_New\x20Zealand\x22,\x22COUNTRY_CODE_NG\x22\x3A\x22COUNTRY_DESCRIPTION_Nigeria\x22,\x22COUNTRY_CODE_NF\x22\x3A\x22COUNTRY_DESCRIPTION_Norfolk\x20Island\x22,\x22COUNTRY_CODE_NE\x22\x3A\x22COUNTRY_DESCRIPTION_Niger\x22,\x22COUNTRY_CODE_NL\x22\x3A\x22COUNTRY_DESCRIPTION_Netherlands\x22,\x22COUNTRY_CODE_NI\x22\x3A\x22COUNTRY_DESCRIPTION_Nicaragua\x22,\x22COUNTRY_CODE_NP\x22\x3A\x22COUNTRY_DESCRIPTION_Nepal\x22,\x22COUNTRY_CODE_NO\x22\x3A\x22COUNTRY_DESCRIPTION_Norway\x22,\x22tid\x22\x3A\x22498004220\x22,\x22COUNTRY_CODE_NR\x22\x3A\x22COUNTRY_DESCRIPTION_Nauru\x22,\x22COUNTRY_CODE_PA\x22\x3A\x22COUNTRY_DESCRIPTION_Panama\x22,\x22COUNTRY_CODE_PE\x22\x3A\x22COUNTRY_DESCRIPTION_Peru\x22,\x22COUNTRY_CODE_PF\x22\x3A\x22COUNTRY_DESCRIPTION_French\x20Polynesia\x22,\x22COUNTRY_CODE_OM\x22\x3A\x22COUNTRY_DESCRIPTION_Oman\x22,\x22COUNTRY_CODE_PY\x22\x3A\x22COUNTRY_DESCRIPTION_Paraguay\x22,\x22COUNTRY_CODE_PW\x22\x3A\x22COUNTRY_DESCRIPTION_Palau\x22,\x22mandate_text\x22\x3A\x22\x20\x22,\x22COUNTRY_CODE_QA\x22\x3A\x22COUNTRY_DESCRIPTION_Qatar\x22,\x22COUNTRY_CODE_PN\x22\x3A\x22COUNTRY_DESCRIPTION_Pitcairn\x22,\x22COUNTRY_CODE_PM\x22\x3A\x22COUNTRY_DESCRIPTION_Saint\x20Pierre\x20And\x20Miquelon\x22,\x22COUNTRY_CODE_PL\x22\x3A\x22COUNTRY_DESCRIPTION_Poland\x22,\x22holder_residence\x22\x3A\x22Unknown\x22,\x22COUNTRY_CODE_PK\x22\x3A\x22COUNTRY_DESCRIPTION_Pakistan\x22,\x22COUNTRY_CODE_PH\x22\x3A\x22COUNTRY_DESCRIPTION_Philippines\x22,\x22COUNTRY_CODE_PG\x22\x3A\x22COUNTRY_DESCRIPTION_Papua\x20New\x20Guinea\x22,\x22COUNTRY_CODE_PT\x22\x3A\x22COUNTRY_DESCRIPTION_Portugal\x22,\x22COUNTRY_CODE_PS\x22\x3A\x22COUNTRY_DESCRIPTION_Palestine\x22,\x22COUNTRY_CODE_PR\x22\x3A\x22COUNTRY_DESCRIPTION_Puerto\x20Rico\x22,\x22merchant_description\x22\x3A\x221\x25\x20club\x20\x28TEST\x29\x22,\x22COUNTRY_CODE_RE\x22\x3A\x22COUNTRY_DESCRIPTION_Reunion\x22,\x22creditor_country\x22\x3A\x22Netherlands\x22,\x22holder_zip_code\x22\x3A\x22Unknown\x22,\x22COUNTRY_CODE_AE\x22\x3A\x22COUNTRY_DESCRIPTION_United\x20Arab\x20Emirates\x22,\x22COUNTRY_CODE_AD\x22\x3A\x22COUNTRY_DESCRIPTION_Andorra\x22,\x22COUNTRY_CODE_AG\x22\x3A\x22COUNTRY_DESCRIPTION_Antigua\x20and\x20Barbuda\x22,\x22COUNTRY_CODE_AF\x22\x3A\x22COUNTRY_DESCRIPTION_Afghanistan\x22,\x22holder_street\x22\x3A\x22Unknown\x22,\x22type\x22\x3A\x22ONE_OFF\x22,\x22COUNTRY_CODE_AQ\x22\x3A\x22COUNTRY_DESCRIPTION_Antarctica\x22,\x22COUNTRY_CODE_AR\x22\x3A\x22COUNTRY_DESCRIPTION_Argentina\x22,\x22COUNTRY_CODE_AS\x22\x3A\x22COUNTRY_DESCRIPTION_American\x20Samoa\x22,\x22holder_first_name\x22\x3A\x22Loek\x22,\x22COUNTRY_CODE_AT\x22\x3A\x22COUNTRY_DESCRIPTION_Austria\x22,\x22COUNTRY_CODE_JO\x22\x3A\x22COUNTRY_DESCRIPTION_Jordan\x22,\x22COUNTRY_CODE_AU\x22\x3A\x22COUNTRY_DESCRIPTION_Australia\x22,\x22COUNTRY_CODE_JP\x22\x3A\x22COUNTRY_DESCRIPTION_Japan\x22,\x22COUNTRY_CODE_JM\x22\x3A\x22COUNTRY_DESCRIPTION_Jamaica\x22,\x22COUNTRY_CODE_AW\x22\x3A\x22COUNTRY_DESCRIPTION_Aruba\x22,\x22COUNTRY_CODE_AI\x22\x3A\x22COUNTRY_DESCRIPTION_Anguilla\x22,\x22COUNTRY_CODE_AL\x22\x3A\x22COUNTRY_DESCRIPTION_Albania\x22,\x22COUNTRY_CODE_AM\x22\x3A\x22COUNTRY_DESCRIPTION_Armenia\x22,\x22COUNTRY_CODE_JE\x22\x3A\x22COUNTRY_DESCRIPTION_Jersey\x22,\x22COUNTRY_CODE_AN\x22\x3A\x22COUNTRY_DESCRIPTION_Netherlands\x20Antilles\x22,\x22COUNTRY_CODE_AO\x22\x3A\x22COUNTRY_DESCRIPTION_Angola\x22,\x22COUNTRY_CODE_KZ\x22\x3A\x22COUNTRY_DESCRIPTION_Kazakhstan\x22,\x22COUNTRY_CODE_LB\x22\x3A\x22COUNTRY_DESCRIPTION_Lebanon\x22,\x22COUNTRY_CODE_LA\x22\x3A\x22COUNTRY_DESCRIPTION_Laos\x22,\x22COUNTRY_CODE_KR\x22\x3A\x22COUNTRY_DESCRIPTION_South\x20Korea\x22,\x22creditor_name\x22\x3A\x22Stichting\x20Foundation\x20Docdata\x20Payments\x22,\x22COUNTRY_CODE_KW\x22\x3A\x22COUNTRY_DESCRIPTION_Kuwait\x22,\x22COUNTRY_CODE_KY\x22\x3A\x22COUNTRY_DESCRIPTION_Cayman\x20Islands\x22,\x22COUNTRY_CODE_KM\x22\x3A\x22COUNTRY_DESCRIPTION_Comoros\x22,\x22COUNTRY_CODE_KN\x22\x3A\x22COUNTRY_DESCRIPTION_Saint\x20Kitts\x20And\x20Nevis\x22,\x22COUNTRY_CODE_KP\x22\x3A\x22COUNTRY_DESCRIPTION_North\x20Korea\x22,\x22COUNTRY_CODE_ZW\x22\x3A\x22COUNTRY_DESCRIPTION_Zimbabwe\x22,\x22COUNTRY_CODE_KE\x22\x3A\x22COUNTRY_DESCRIPTION_Kenya\x22,\x22COUNTRY_CODE_KG\x22\x3A\x22COUNTRY_DESCRIPTION_Kyrgyzstan\x22,\x22COUNTRY_CODE_KH\x22\x3A\x22COUNTRY_DESCRIPTION_Cambodia\x22,\x22COUNTRY_CODE_KI\x22\x3A\x22COUNTRY_DESCRIPTION_Kiribati\x22,\x22COUNTRY_CODE_MC\x22\x3A\x22COUNTRY_DESCRIPTION_Monaco\x22,\x22COUNTRY_CODE_MA\x22\x3A\x22COUNTRY_DESCRIPTION_Morocco\x22,\x22holder_email\x22\x3A\x22loek\x401procentclub.nl\x22,\x22COUNTRY_CODE_LY\x22\x3A\x22COUNTRY_DESCRIPTION_Libya\x22,\x22COUNTRY_CODE_LV\x22\x3A\x22COUNTRY_DESCRIPTION_Latvia\x22,\x22COUNTRY_CODE_LU\x22\x3A\x22COUNTRY_DESCRIPTION_Luxembourg\x22,\x22COUNTRY_CODE_LT\x22\x3A\x22COUNTRY_DESCRIPTION_Lithuania\x22,\x22COUNTRY_CODE_LS\x22\x3A\x22COUNTRY_DESCRIPTION_Lesotho\x22,\x22COUNTRY_CODE_LR\x22\x3A\x22COUNTRY_DESCRIPTION_Liberia\x22,\x22creditor_zip_code\x22\x3A\x228972LB\x22,\x22COUNTRY_CODE_LK\x22\x3A\x22COUNTRY_DESCRIPTION_Sri\x20Lanka\x22,\x22COUNTRY_CODE_LI\x22\x3A\x22COUNTRY_DESCRIPTION_Liechtenstein\x22,\x22COUNTRY_CODE_LC\x22\x3A\x22COUNTRY_DESCRIPTION_Saint\x20Lucia\x22,\x22COUNTRY_CODE_NA\x22\x3A\x22COUNTRY_DESCRIPTION_Namibia\x22,\x22COUNTRY_CODE_NC\x22\x3A\x22COUNTRY_DESCRIPTION_New\x20Caledonia\x22,\x22COUNTRY_CODE_MY\x22\x3A\x22COUNTRY_DESCRIPTION_Malaysia\x22,\x22COUNTRY_CODE_MX\x22\x3A\x22COUNTRY_DESCRIPTION_Mexico\x22,\x22COUNTRY_CODE_MZ\x22\x3A\x22COUNTRY_DESCRIPTION_Mozambique\x22,\x22COUNTRY_CODE_MU\x22\x3A\x22COUNTRY_DESCRIPTION_Mauritius\x22,\x22COUNTRY_CODE_MT\x22\x3A\x22COUNTRY_DESCRIPTION_Malta\x22,\x22COUNTRY_CODE_MW\x22\x3A\x22COUNTRY_DESCRIPTION_Malawi\x22,\x22COUNTRY_CODE_MV\x22\x3A\x22COUNTRY_DESCRIPTION_Maldives\x22,\x22COUNTRY_CODE_MP\x22\x3A\x22COUNTRY_DESCRIPTION_Northern\x20Mariana\x20Islands\x22,\x22COUNTRY_CODE_MQ\x22\x3A\x22COUNTRY_DESCRIPTION_Martinique\x22,\x22COUNTRY_CODE_MR\x22\x3A\x22COUNTRY_DESCRIPTION_Mauritania\x22,\x22COUNTRY_CODE_MS\x22\x3A\x22COUNTRY_DESCRIPTION_Montserrat\x22,\x22COUNTRY_CODE_ML\x22\x3A\x22COUNTRY_DESCRIPTION_Mali\x22,\x22COUNTRY_CODE_MM\x22\x3A\x22COUNTRY_DESCRIPTION_Myanmar\x22,\x22COUNTRY_CODE_MN\x22\x3A\x22COUNTRY_DESCRIPTION_Mongolia\x22,\x22COUNTRY_CODE_MO\x22\x3A\x22COUNTRY_DESCRIPTION_Macao\x22,\x22COUNTRY_CODE_MH\x22\x3A\x22COUNTRY_DESCRIPTION_Marshall\x20Islands\x22,\x22COUNTRY_CODE_MK\x22\x3A\x22COUNTRY_DESCRIPTION_Macedonia\x22,\x22COUNTRY_CODE_MD\x22\x3A\x22COUNTRY_DESCRIPTION_Moldova\x22,\x22COUNTRY_CODE_ME\x22\x3A\x22COUNTRY_DESCRIPTION_Montenegro\x22,\x22COUNTRY_CODE_MG\x22\x3A\x22COUNTRY_DESCRIPTION_Madagascar\x22\x7D\x5D\x7D,\x22pseudoSessionInfo\x22\x3A\x7B\x22timestamp\x22\x3A\x221410516847356\x22,\x22sessionId\x22\x3A\x221410516848496\x22,\x22sessionKey\x22\x3A\x2233d597353c30c51714f9c381c548385928058e5f0cf248d6f2c450f2a22e4a0a\x22\x7D,\x22merchantLanguages\x22\x3A\x5B\x22nl\x22,\x22en\x22,\x22de\x22,\x22cz\x22,\x22da\x22,\x22es\x22,\x22fi\x22,\x22fr\x22,\x22hu\x22,\x22it\x22,\x22no\x22,\x22pl\x22,\x22pt\x22,\x22sv\x22,\x22system\x22\x5D,\x22clientInfo\x22\x3A\x7B\x22remoteAddress\x22\x3A\x22213.127.165.114\x22\x7D,\x22merchantInfo\x22\x3A\x7B\x22pendingUrl\x22\x3A\x22http\x3A\x2F\x2Flocalhost\x3A8000\x2F\x23\x21\x2Forders\x2F11\x2Fpending\x22,\x22canceledUrl\x22\x3A\x22http\x3A\x2F\x2Flocalhost\x3A8000\x2F\x23\x21\x2Forders\x2F11\x2Fcancelled\x22,\x22errorUrl\x22\x3A\x22http\x3A\x2F\x2Flocalhost\x3A8000\x2F\x23\x21\x2Forders\x2F11\x2Ferror\x22,\x22shopHeader\x22\x3A\x22\x3Cdiv\x20class\x3D\x5C\x22wrapper\x5C\x22\x3E\x5Cr\x5Cn\x5Ct\x3Ca\x3E\x5Cr\x5Cn\x20\x20\x20\x20\x20\x20\x20\x20\x3Cspan\x20id\x3D\x5C\x22logo\x5C\x22\x3E\x5Cr\x5Cn\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x3Ch1\x20id\x3D\x5C\x22title\x5C\x22\x3E1\x25Club\x3C\x5C\x2Fh1\x3E\x5Cr\x5Cn\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x3Ch2\x20id\x3D\x5C\x22subtitle\x5C\x22\x3E\x5Cr\x5Cn\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x3Cem\x3ESECURE\x3C\x5C\x2Fem\x3E\x20PAYMENTS\x5Cr\x5Cn\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x3C\x5C\x2Fh2\x3E\x5Cr\x5Cn\x20\x20\x20\x20\x20\x20\x20\x20\x3C\x5C\x2Fspan\x3E\x5Cr\x5Cn\x5Ct\x3C\x5C\x2Fa\x3E\x5Cr\x5Cn\x5Ct\x5Cr\x5Cn\x5Ct\x3Cdiv\x20id\x3D\x5C\x22safePayment\x5C\x22\x3E\x5Cr\x5Cn\x5Ct\x5Ct\x3Cimg\x20src\x3D\x5C\x22https\x3A\x2F\x2Fsecure.docdatapayments.com\x2Fps\x2Fimg\x2Flock.png\x5C\x22\x20alt\x3D\x5C\x22Secure\x5C\x22\x20\x2F\x3E\x5Cr\x5Cn\x5Ct\x5Ct\x3Cp\x3E\x5Cr\x5Cn\x5Ct\x5Ct\x5CtYou\x20are\x20paying\x20through\x20a\x20secure\x20connection.\x20Your\x20data\x20is\x20encrypted\x20and\x20is\x20not\x20visible\x20to\x20others.\x20For\x20more\x20information\x20about\x20secure\x20payments,\x20see\x20\x3Ca\x20href\x3D\x5C\x22http\x3A\x2F\x2Fwww.docdatapayments.com\x2Fen\x5C\x22\x3Ewww.docdatapayments.com\x2Fen\x3C\x5C\x2Fa\x3E.\x5Cr\x5Cn\x5Ct\x5Ct\x3C\x5C\x2Fp\x3E\x5Cr\x5Cn\x5Ct\x3C\x5C\x2Fdiv\x3E\x5Cr\x5Cn\x3C\x5C\x2Fdiv\x3E\x22,\x22shopFooter\x22\x3A\x22\x22,\x22displayName\x22\x3A\x221\x25\x20club\x20\x28TEST\x29\x22,\x22customMerchantText\x22\x3A\x7B\x7D,\x22successUrl\x22\x3A\x22http\x3A\x2F\x2Flocalhost\x3A8000\x2F\x23\x21\x2Forders\x2F11\x2Fsuccess\x22\x7D\x7D"
+    }
+    </script>
+    <script type="text/javascript" src="docdata_screen_files/com.docdata.payments.Menu.nocache.js"></script>
+    <script defer="defer">com_docdata_payments_Menu.onInjectionDone('com.docdata.payments.Menu')</script>
+    <script type="text/javascript" src="./docdata_screen_files/application.js"></script>
+    <script src="chrome-extension://jgghnecdoiloelcogfmgjgcacadpaejf/inject.js"></script>
+    <style></style>
+</head>
+<body cz-shortcut-listen="true" class="root-container">    <!-- OPTIONAL: include this if you want history support -->
+<iframe src="javascript:''" id="__gwt_historyFrame" tabindex="-1"
+        style="position:absolute;width:0;height:0;border:0"></iframe>
+<iframe src="javascript:''" id="com.docdata.payments.Menu" tabindex="-1"
+        style="position: absolute; width: 0px; height: 0px; border: none;"></iframe>
+<script type="text/javascript" src="chrome-extension://bmdblncegkenkacieihfhpjfppoconhi/in-page-script.js"></script>
+<div class="logbox"></div>
+<div aria-hidden="true" style="display: none;"></div>
+<div class="mainLayout">
+    <div class="merchantHeader">
+        <div class="flowHorizontal gwt-HTML">
+            <div class="wrapper">
+                <a>
+        <span id="logo">
+            <h1 id="title">1%Club</h1>
+            <h2 id="subtitle">
+                <em>SECURE</em> PAYMENTS
+            </h2>
+        </span>
+                </a>
+
+                <div id="safePayment">
+                    <img src="docdata_screen_files/lock.png" alt="Secure">
+
+                    <p>
+                        You are paying through a secure connection. Your data is encrypted and is not visible to others.
+                        For more information about secure payments, see <a href="http://www.docdatapayments.com/en">www.docdatapayments.com/en</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="centerLayout">
+        <div class="flowHorizontal paymentChoiceContainer">
+            <div class="introduction paymentChoiceBox">
+                <div class="title">
+                    <div class="flowHorizontal gwt-Label h1">Your payment to</div>
+                    <div class="flowHorizontal gwt-Label h1">1% club (TEST).</div>
+                </div>
+                <div>
+                    <div class="flowHorizontal gwt-Label">Welcome to the payment menu, please select your payment method
+                        from the available options below.
+                    </div>
+                </div>
+            </div>
+            <div class="gwt-Label h1 paymentChoiceBox title">Please select your payment method</div>
+            <div class="paymentChoiceBox">
+                <div class="paymentChoiceMenu">
+                    <div class="paymentChoiceMenuRow ideal">
+                        <div tabindex="0"><input type="text" tabindex="-1" role="presentation"
+                                                 style="opacity: 0; height: 1px; width: 1px; z-index: -1; overflow: hidden; position: absolute;">
+
+                            <div class="paymentChoiceHeader">
+                                <div class="flowHorizontal logo"><img src="docdata_screen_files/ideal.png"
+                                                                      class="flowHorizontal gwt-Image"></div>
+                                <div class="flowHorizontal gwt-Label h3">iDEAL</div>
+                            </div>
+                        </div>
+                        <div class="paymentChoiceForm ideal" aria-hidden="true" style="display: none;">
+                            <div class="intro">
+                                <div class="flowHorizontal gwt-Label">Please select your bank and click on "to iDEAL".
+                                </div>
+                                <img class="flowHorizontal gwt-Image" src="docdata_screen_files/ideal_intro.png"></div>
+                            <div class="form bank">
+                                <div class="flowHorizontal ">
+                                    <div class="flowHorizontal gwt-Label">Your bank *</div>
+                                    <select class="flowHorizontal gwt-ListBox inputField">
+                                        <option value="">Select your bank</option>
+                                        <option value="">--- Nederland ---</option>
+                                        <option value="ABNAMRO">Abn Amro</option>
+                                        <option value="ASN">ASN Bank</option>
+                                        <option value="ING">ING</option>
+                                        <option value="KNAB">Knab</option>
+                                        <option value="RABO">Rabobank</option>
+                                        <option value="TRIODOS">Triodos Bank</option>
+                                        <option value="VANLANSCHOT">van Lanschot</option>
+                                        <option value="">--- België/Belgique ---</option>
+                                        <option value="KBC">KBC</option>
+                                    </select><img class="flowHorizontal gwt-Image"
+                                                  src="docdata_screen_files/validation_blank.png"><img
+                                        class="flowHorizontal gwt-Image" src="docdata_screen_files/field_info.png">
+                                </div>
+                            </div>
+                            <div class="form price">
+                                <div class="flowHorizontal gwt-Label">Amount</div>
+                                <div class="flowHorizontal gwt-Label">€ 50.00</div>
+                            </div>
+                            <div class="form requiredFields">
+                                <div class="flowHorizontal gwt-Label">* Required field</div>
+                            </div>
+                            <div class="form submit"><a class="flowHorizontal gwt-Anchor forwardBtn">to iDEAL</a></div>
+                        </div>
+                    </div>
+                    <div class="paymentChoiceMenuRow mastercard">
+                        <div tabindex="0"><input type="text" tabindex="-1" role="presentation"
+                                                 style="opacity: 0; height: 1px; width: 1px; z-index: -1; overflow: hidden; position: absolute;">
+
+                            <div class="paymentChoiceHeader active">
+                                <div class="flowHorizontal logo"><img src="docdata_screen_files/mastercard.png"
+                                                                      class="flowHorizontal gwt-Image"></div>
+                                <div class="flowHorizontal gwt-Label h3">MasterCard</div>
+                            </div>
+                        </div>
+                        <div class="paymentChoiceForm mastercard" aria-hidden="false" style="height: 511px;">
+                            <div class="intro">
+                                <div class="flowHorizontal gwt-Label">Enter your credit card data and click on "Submit".
+                                    After submitting your payment will be sent for authorisation. This will take 30
+                                    seconds at most.
+                                </div>
+                                <img class="flowHorizontal gwt-Image" src="docdata_screen_files/mastercard_intro.png">
+                            </div>
+                            <div class="form price">
+                                <div class="flowHorizontal gwt-Label">Amount</div>
+                                <div class="flowHorizontal gwt-Label">€ 50.00</div>
+                            </div>
+                            <div class="form creditCardNumber">
+                                <div class="flowHorizontal ">
+                                    <div class="flowHorizontal gwt-Label">Credit card number *</div>
+                                    <div class="flowHorizontal inputField"><input type="text"
+                                                                                  class="flowHorizontal gwt-TextBox creditCardField left"
+                                                                                  maxlength="4"><input type="text"
+                                                                                                       class="flowHorizontal gwt-TextBox creditCardField"
+                                                                                                       maxlength="4"><input
+                                            type="text" class="flowHorizontal gwt-TextBox creditCardField"
+                                            maxlength="4"><input type="text"
+                                                                 class="flowHorizontal gwt-TextBox creditCardField right"
+                                                                 maxlength="4"></div>
+                                    <img class="flowHorizontal gwt-Image"
+                                         src="docdata_screen_files/validation_blank.png"><img
+                                        class="flowHorizontal gwt-Image" src="docdata_screen_files/field_info.png">
+                                </div>
+                            </div>
+                            <div class="form expiryDate">
+                                <div class="flowHorizontal ">
+                                    <div class="flowHorizontal gwt-Label">Expiry date *</div>
+                                    <div class="flowHorizontal expiryDateField inputField"><select
+                                            class="flowHorizontal gwt-ListBox">
+                                        <option value="Month">Month</option>
+                                        <option value="01">01</option>
+                                        <option value="02">02</option>
+                                        <option value="03">03</option>
+                                        <option value="04">04</option>
+                                        <option value="05">05</option>
+                                        <option value="06">06</option>
+                                        <option value="07">07</option>
+                                        <option value="08">08</option>
+                                        <option value="09">09</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                    </select>
+
+                                        <div class="flowHorizontal gwt-Label">/</div>
+                                        <select class="flowHorizontal gwt-ListBox">
+                                            <option value="Year">Year</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="24">24</option>
+                                            <option value="25">25</option>
+                                            <option value="26">26</option>
+                                            <option value="27">27</option>
+                                            <option value="28">28</option>
+                                            <option value="29">29</option>
+                                            <option value="30">30</option>
+                                            <option value="31">31</option>
+                                            <option value="32">32</option>
+                                            <option value="33">33</option>
+                                        </select></div>
+                                    <img class="flowHorizontal gwt-Image"
+                                         src="docdata_screen_files/validation_blank.png"><img
+                                        class="flowHorizontal gwt-Image" src="docdata_screen_files/field_info.png">
+                                </div>
+                            </div>
+                            <div class="form cvc2">
+                                <div class="flowHorizontal ">
+                                    <div class="flowHorizontal gwt-Label">CVC2 *</div>
+                                    <input type="text" class="flowHorizontal gwt-TextBox inputField"
+                                           placeholder="See back side of your card"><img
+                                        class="flowHorizontal gwt-Image"
+                                        src="docdata_screen_files/validation_blank.png"><img
+                                        class="flowHorizontal gwt-Image" src="docdata_screen_files/field_info.png">
+                                </div>
+                            </div>
+                            <div class="form cardHolder">
+                                <div class="flowHorizontal ">
+                                    <div class="flowHorizontal gwt-Label">Cardholder name *</div>
+                                    <input type="text" class="flowHorizontal gwt-TextBox inputField"><img
+                                        class="flowHorizontal gwt-Image"
+                                        src="docdata_screen_files/validation_blank.png"><img
+                                        class="flowHorizontal gwt-Image" src="docdata_screen_files/field_info.png">
+                                </div>
+                            </div>
+                            <div class="form emailAddress">
+                                <div class="flowHorizontal ">
+                                    <div class="flowHorizontal gwt-Label">Email address *</div>
+                                    <input type="text" class="flowHorizontal gwt-TextBox inputField"><img
+                                        class="flowHorizontal gwt-Image"
+                                        src="docdata_screen_files/validation_success.png"><img
+                                        class="flowHorizontal gwt-Image" src="docdata_screen_files/field_info.png">
+                                </div>
+                            </div>
+                            <div class="form requiredFields">
+                                <div class="flowHorizontal gwt-Label">* Required fields</div>
+                            </div>
+                            <div class="form submit"><a class="flowHorizontal gwt-Anchor forwardBtn" target="_top">Submit</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="paymentChoiceMenuRow visa">
+                        <div tabindex="0"><input type="text" tabindex="-1" role="presentation"
+                                                 style="opacity: 0; height: 1px; width: 1px; z-index: -1; overflow: hidden; position: absolute;">
+
+                            <div class="paymentChoiceHeader">
+                                <div class="flowHorizontal logo"><img src="docdata_screen_files/visa.png"
+                                                                      class="flowHorizontal gwt-Image"></div>
+                                <div class="flowHorizontal gwt-Label h3">Visa</div>
+                            </div>
+                        </div>
+                        <div class="paymentChoiceForm visa" aria-hidden="true" style="display: none;">
+                            <div class="intro">
+                                <div class="flowHorizontal gwt-Label">Enter your credit card data and click on "Submit".
+                                    After submitting your payment will be sent for authorisation. This will take 30
+                                    seconds at most.
+                                </div>
+                                <img class="flowHorizontal gwt-Image" src="docdata_screen_files/visa_intro.png"></div>
+                            <div class="form price">
+                                <div class="flowHorizontal gwt-Label">Amount</div>
+                                <div class="flowHorizontal gwt-Label">€ 50.00</div>
+                            </div>
+                            <div class="form creditCardNumber">
+                                <div class="flowHorizontal ">
+                                    <div class="flowHorizontal gwt-Label">Credit card number *</div>
+                                    <div class="flowHorizontal inputField"><input type="text"
+                                                                                  class="flowHorizontal gwt-TextBox creditCardField left"
+                                                                                  maxlength="4"><input type="text"
+                                                                                                       class="flowHorizontal gwt-TextBox creditCardField"
+                                                                                                       maxlength="4"><input
+                                            type="text" class="flowHorizontal gwt-TextBox creditCardField"
+                                            maxlength="4"><input type="text"
+                                                                 class="flowHorizontal gwt-TextBox creditCardField right"
+                                                                 maxlength="4"></div>
+                                    <img class="flowHorizontal gwt-Image"
+                                         src="docdata_screen_files/validation_blank.png"><img
+                                        class="flowHorizontal gwt-Image" src="docdata_screen_files/field_info.png">
+                                </div>
+                            </div>
+                            <div class="form expiryDate">
+                                <div class="flowHorizontal ">
+                                    <div class="flowHorizontal gwt-Label">Expiry date *</div>
+                                    <div class="flowHorizontal expiryDateField inputField"><select
+                                            class="flowHorizontal gwt-ListBox">
+                                        <option value="Month">Month</option>
+                                        <option value="01">01</option>
+                                        <option value="02">02</option>
+                                        <option value="03">03</option>
+                                        <option value="04">04</option>
+                                        <option value="05">05</option>
+                                        <option value="06">06</option>
+                                        <option value="07">07</option>
+                                        <option value="08">08</option>
+                                        <option value="09">09</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                    </select>
+
+                                        <div class="flowHorizontal gwt-Label">/</div>
+                                        <select class="flowHorizontal gwt-ListBox">
+                                            <option value="Year">Year</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="24">24</option>
+                                            <option value="25">25</option>
+                                            <option value="26">26</option>
+                                            <option value="27">27</option>
+                                            <option value="28">28</option>
+                                            <option value="29">29</option>
+                                            <option value="30">30</option>
+                                            <option value="31">31</option>
+                                            <option value="32">32</option>
+                                            <option value="33">33</option>
+                                        </select></div>
+                                    <img class="flowHorizontal gwt-Image"
+                                         src="docdata_screen_files/validation_blank.png"><img
+                                        class="flowHorizontal gwt-Image" src="docdata_screen_files/field_info.png">
+                                </div>
+                            </div>
+                            <div class="form cvv2">
+                                <div class="flowHorizontal ">
+                                    <div class="flowHorizontal gwt-Label">CVV2-code *</div>
+                                    <input type="text" class="flowHorizontal gwt-TextBox inputField"
+                                           placeholder="See back side of your card"><img
+                                        class="flowHorizontal gwt-Image"
+                                        src="docdata_screen_files/validation_blank.png"><img
+                                        class="flowHorizontal gwt-Image" src="docdata_screen_files/field_info.png">
+                                </div>
+                            </div>
+                            <div class="form cardHolder">
+                                <div class="flowHorizontal ">
+                                    <div class="flowHorizontal gwt-Label">Cardholder name *</div>
+                                    <input type="text" class="flowHorizontal gwt-TextBox inputField"><img
+                                        class="flowHorizontal gwt-Image"
+                                        src="docdata_screen_files/validation_blank.png"><img
+                                        class="flowHorizontal gwt-Image" src="docdata_screen_files/field_info.png">
+                                </div>
+                            </div>
+                            <div class="form emailAddress">
+                                <div class="flowHorizontal ">
+                                    <div class="flowHorizontal gwt-Label">Email address *</div>
+                                    <input type="text" class="flowHorizontal gwt-TextBox inputField"><img
+                                        class="flowHorizontal gwt-Image"
+                                        src="docdata_screen_files/validation_success.png"><img
+                                        class="flowHorizontal gwt-Image" src="docdata_screen_files/field_info.png">
+                                </div>
+                            </div>
+                            <div class="form requiredFields">
+                                <div class="flowHorizontal gwt-Label">* Required fields</div>
+                            </div>
+                            <div class="form submit"><a class="flowHorizontal gwt-Anchor forwardBtn">Submit</a></div>
+                        </div>
+                    </div>
+                    <div class="paymentChoiceMenuRow sepa_direct_debit">
+                        <div tabindex="0"><input type="text" tabindex="-1" role="presentation"
+                                                 style="opacity: 0; height: 1px; width: 1px; z-index: -1; overflow: hidden; position: absolute;">
+
+                            <div class="paymentChoiceHeader">
+                                <div class="flowHorizontal logo"><img src="docdata_screen_files/sepa-logo-small.png"
+                                                                      class="flowHorizontal gwt-Image"></div>
+                                <div class="flowHorizontal gwt-Label h3">SEPA Direct Debit</div>
+                            </div>
+                        </div>
+                        <div class="paymentChoiceForm sdd" aria-hidden="true" style="display: none;">
+                            <div class="form formTitle">
+                                <div class="flowHorizontal gwt-Label formTitleLabel">Authorisation form one-off direct
+                                    debit
+                                </div>
+                            </div>
+                            <div class="intro">
+                                <div class="flowHorizontal gwt-Label">You hereby allow Docdata Payments to withdrawn the
+                                    below mentioned amount from your bank account. Fill in the requested information and
+                                    press 'Submit'.
+                                </div>
+                            </div>
+                            <div class="form creditorName">
+                                <div class="flowHorizontal gwt-Label">Creditor</div>
+                                <div class="flowHorizontal gwt-Label">Stichting Foundation Docdata Payments</div>
+                            </div>
+                            <div class="form creditorAddress">
+                                <div class="flowHorizontal gwt-Label valueOnlyRowColumn">Hoofdstraat 82</div>
+                            </div>
+                            <div class="form creditorZipCode">
+                                <div class="flowHorizontal gwt-Label valueOnlyRowColumn">8972LB</div>
+                            </div>
+                            <div class="form creditorResidence">
+                                <div class="flowHorizontal gwt-Label valueOnlyRowColumn">Driebergen-Rijsenburg</div>
+                            </div>
+                            <div class="form creditorCountry">
+                                <div class="flowHorizontal gwt-Label valueOnlyRowColumn">Netherlands</div>
+                            </div>
+                            <div class="form creditorId">
+                                <div class="flowHorizontal gwt-Label">Creditor ID</div>
+                                <div class="flowHorizontal gwt-Label">NL98ZZZ301689820000</div>
+                            </div>
+                            <div class="form mandateId">
+                                <div class="flowHorizontal gwt-Label">Mandate number</div>
+                                <div class="flowHorizontal gwt-Label">ddps-498004220-201409121214084-1</div>
+                            </div>
+                            <div class="form price">
+                                <div class="flowHorizontal gwt-Label">Amount</div>
+                                <div class="flowHorizontal gwt-Label">€ 50.00</div>
+                            </div>
+                            <div class="form accountHolderFirst">
+                                <div class="flowHorizontal ">
+                                    <div class="flowHorizontal gwt-Label">First name account holder *</div>
+                                    <input type="text" class="flowHorizontal gwt-TextBox inputField" maxlength="35"><img
+                                        class="flowHorizontal gwt-Image"
+                                        src="docdata_screen_files/validation_blank.png"><img
+                                        class="flowHorizontal gwt-Image" src="docdata_screen_files/field_info.png">
+                                </div>
+                            </div>
+                            <div class="form accountHolderMiddle">
+                                <div class="flowHorizontal ">
+                                    <div class="flowHorizontal gwt-Label">Middle name account holder</div>
+                                    <input type="text" class="flowHorizontal gwt-TextBox inputField" maxlength="35"><img
+                                        class="flowHorizontal gwt-Image"
+                                        src="docdata_screen_files/validation_blank.png"><img
+                                        class="flowHorizontal gwt-Image" src="docdata_screen_files/field_info.png">
+                                </div>
+                            </div>
+                            <div class="form accountHolderLast">
+                                <div class="flowHorizontal ">
+                                    <div class="flowHorizontal gwt-Label">Last name account holder *</div>
+                                    <input type="text" class="flowHorizontal gwt-TextBox inputField" maxlength="35"><img
+                                        class="flowHorizontal gwt-Image"
+                                        src="docdata_screen_files/validation_blank.png"><img
+                                        class="flowHorizontal gwt-Image" src="docdata_screen_files/field_info.png">
+                                </div>
+                            </div>
+                            <div class="form email">
+                                <div class="flowHorizontal ">
+                                    <div class="flowHorizontal gwt-Label">Email address *</div>
+                                    <input type="text" class="flowHorizontal gwt-TextBox inputField"
+                                           maxlength="255"><img class="flowHorizontal gwt-Image"
+                                                                src="docdata_screen_files/validation_blank.png"><img
+                                        class="flowHorizontal gwt-Image" src="docdata_screen_files/field_info.png">
+                                </div>
+                            </div>
+                            <div class="form street">
+                                <div class="flowHorizontal ">
+                                    <div class="flowHorizontal gwt-Label">Street name *</div>
+                                    <input type="text" class="flowHorizontal gwt-TextBox inputField" maxlength="35"><img
+                                        class="flowHorizontal gwt-Image"
+                                        src="docdata_screen_files/validation_blank.png"><img
+                                        class="flowHorizontal gwt-Image" src="docdata_screen_files/field_info.png">
+                                </div>
+                            </div>
+                            <div class="form houseNumber">
+                                <div class="flowHorizontal ">
+                                    <div class="flowHorizontal gwt-Label">House number *</div>
+                                    <input type="text" class="flowHorizontal gwt-TextBox inputField" maxlength="35"><img
+                                        class="flowHorizontal gwt-Image"
+                                        src="docdata_screen_files/validation_blank.png"><img
+                                        class="flowHorizontal gwt-Image" src="docdata_screen_files/field_info.png">
+                                </div>
+                            </div>
+                            <div class="form houseNumberAddition">
+                                <div class="flowHorizontal ">
+                                    <div class="flowHorizontal gwt-Label">House number addition</div>
+                                    <input type="text" class="flowHorizontal gwt-TextBox inputField" maxlength="35"><img
+                                        class="flowHorizontal gwt-Image"
+                                        src="docdata_screen_files/validation_blank.png"><img
+                                        class="flowHorizontal gwt-Image" src="docdata_screen_files/field_info.png">
+                                </div>
+                            </div>
+                            <div class="form residence">
+                                <div class="flowHorizontal ">
+                                    <div class="flowHorizontal gwt-Label">City *</div>
+                                    <input type="text" class="flowHorizontal gwt-TextBox inputField" maxlength="35"><img
+                                        class="flowHorizontal gwt-Image"
+                                        src="docdata_screen_files/validation_blank.png"><img
+                                        class="flowHorizontal gwt-Image" src="docdata_screen_files/field_info.png">
+                                </div>
+                            </div>
+                            <div class="form zipCode">
+                                <div class="flowHorizontal ">
+                                    <div class="flowHorizontal gwt-Label">Postal code *</div>
+                                    <input type="text" class="flowHorizontal gwt-TextBox inputField" maxlength="35"><img
+                                        class="flowHorizontal gwt-Image"
+                                        src="docdata_screen_files/validation_blank.png"><img
+                                        class="flowHorizontal gwt-Image" src="docdata_screen_files/field_info.png">
+                                </div>
+                            </div>
+                            <div class="form country">
+                                <div class="flowHorizontal ">
+                                    <div class="flowHorizontal gwt-Label">Country *</div>
+                                    <select class="flowHorizontal gwt-ListBox inputField">
+                                        <option value="">Select a country</option>
+                                        <option value="AF">Afghanistan</option>
+                                        <option value="AL">Albania</option>
+                                        <option value="DZ">Algeria</option>
+                                        <option value="AS">American Samoa</option>
+                                        <option value="AD">Andorra</option>
+                                        <option value="AO">Angola</option>
+                                        <option value="AI">Anguilla</option>
+                                        <option value="AQ">Antarctica</option>
+                                        <option value="AG">Antigua and Barbuda</option>
+                                        <option value="AR">Argentina</option>
+                                        <option value="AM">Armenia</option>
+                                        <option value="AW">Aruba</option>
+                                        <option value="AU">Australia</option>
+                                        <option value="AT">Austria</option>
+                                        <option value="AZ">Azerbaijan</option>
+                                        <option value="BS">Bahamas</option>
+                                        <option value="BH">Bahrain</option>
+                                        <option value="BD">Bangladesh</option>
+                                        <option value="BB">Barbados</option>
+                                        <option value="BY">Belarus</option>
+                                        <option value="BE">Belgium</option>
+                                        <option value="BZ">Belize</option>
+                                        <option value="BJ">Benin</option>
+                                        <option value="BM">Bermuda</option>
+                                        <option value="BT">Bhutan</option>
+                                        <option value="BO">Bolivia</option>
+                                        <option value="BA">Bosnia and Herzegovina</option>
+                                        <option value="BW">Botswana</option>
+                                        <option value="BV">Bouvet Island</option>
+                                        <option value="BR">Brazil</option>
+                                        <option value="IO">British Indian Ocean Territory</option>
+                                        <option value="VG">British Virgin Islands</option>
+                                        <option value="BN">Brunei</option>
+                                        <option value="BG">Bulgaria</option>
+                                        <option value="BF">Burkina Faso</option>
+                                        <option value="BI">Burundi</option>
+                                        <option value="KH">Cambodia</option>
+                                        <option value="CM">Cameroon</option>
+                                        <option value="CA">Canada</option>
+                                        <option value="CV">Cape Verde</option>
+                                        <option value="KY">Cayman Islands</option>
+                                        <option value="CF">Central African Republic</option>
+                                        <option value="TD">Chad</option>
+                                        <option value="CL">Chile</option>
+                                        <option value="CN">China</option>
+                                        <option value="CX">Christmas Island</option>
+                                        <option value="CC">Cocos Islands</option>
+                                        <option value="CO">Colombia</option>
+                                        <option value="KM">Comoros</option>
+                                        <option value="CG">Congo</option>
+                                        <option value="CK">Cook Islands</option>
+                                        <option value="CR">Costa Rica</option>
+                                        <option value="HR">Croatia</option>
+                                        <option value="CU">Cuba</option>
+                                        <option value="CY">Cyprus</option>
+                                        <option value="CZ">Czech Republic</option>
+                                        <option value="CI">Côte d'Ivoire</option>
+                                        <option value="DK">Denmark</option>
+                                        <option value="DJ">Djibouti</option>
+                                        <option value="DM">Dominica</option>
+                                        <option value="DO">Dominican Republic</option>
+                                        <option value="EC">Ecuador</option>
+                                        <option value="EG">Egypt</option>
+                                        <option value="SV">El Salvador</option>
+                                        <option value="GQ">Equatorial Guinea</option>
+                                        <option value="ER">Eritrea</option>
+                                        <option value="EE">Estonia</option>
+                                        <option value="ET">Ethiopia</option>
+                                        <option value="FK">Falkland Islands</option>
+                                        <option value="FO">Faroe Islands</option>
+                                        <option value="FJ">Fiji</option>
+                                        <option value="FI">Finland</option>
+                                        <option value="FR">France</option>
+                                        <option value="GF">French Guiana</option>
+                                        <option value="PF">French Polynesia</option>
+                                        <option value="TF">French Southern Territories</option>
+                                        <option value="GA">Gabon</option>
+                                        <option value="GM">Gambia</option>
+                                        <option value="GE">Georgia</option>
+                                        <option value="DE">Germany</option>
+                                        <option value="GH">Ghana</option>
+                                        <option value="GI">Gibraltar</option>
+                                        <option value="GR">Greece</option>
+                                        <option value="GL">Greenland</option>
+                                        <option value="GD">Grenada</option>
+                                        <option value="GP">Guadeloupe</option>
+                                        <option value="GU">Guam</option>
+                                        <option value="GT">Guatemala</option>
+                                        <option value="GG">Guernsey</option>
+                                        <option value="GN">Guinea</option>
+                                        <option value="GW">Guinea-Bissau</option>
+                                        <option value="GY">Guyana</option>
+                                        <option value="HT">Haiti</option>
+                                        <option value="HM">Heard Island And McDonald Islands</option>
+                                        <option value="HN">Honduras</option>
+                                        <option value="HK">Hong Kong</option>
+                                        <option value="HU">Hungary</option>
+                                        <option value="IS">Iceland</option>
+                                        <option value="IN">India</option>
+                                        <option value="ID">Indonesia</option>
+                                        <option value="IR">Iran</option>
+                                        <option value="IQ">Iraq</option>
+                                        <option value="IE">Ireland</option>
+                                        <option value="IM">Isle Of Man</option>
+                                        <option value="IL">Israel</option>
+                                        <option value="IT">Italy</option>
+                                        <option value="JM">Jamaica</option>
+                                        <option value="JP">Japan</option>
+                                        <option value="JE">Jersey</option>
+                                        <option value="JO">Jordan</option>
+                                        <option value="KZ">Kazakhstan</option>
+                                        <option value="KE">Kenya</option>
+                                        <option value="KI">Kiribati</option>
+                                        <option value="KW">Kuwait</option>
+                                        <option value="KG">Kyrgyzstan</option>
+                                        <option value="LA">Laos</option>
+                                        <option value="LV">Latvia</option>
+                                        <option value="LB">Lebanon</option>
+                                        <option value="LS">Lesotho</option>
+                                        <option value="LR">Liberia</option>
+                                        <option value="LY">Libya</option>
+                                        <option value="LI">Liechtenstein</option>
+                                        <option value="LT">Lithuania</option>
+                                        <option value="LU">Luxembourg</option>
+                                        <option value="MO">Macao</option>
+                                        <option value="MK">Macedonia</option>
+                                        <option value="MG">Madagascar</option>
+                                        <option value="MW">Malawi</option>
+                                        <option value="MY">Malaysia</option>
+                                        <option value="MV">Maldives</option>
+                                        <option value="ML">Mali</option>
+                                        <option value="MT">Malta</option>
+                                        <option value="MH">Marshall Islands</option>
+                                        <option value="MQ">Martinique</option>
+                                        <option value="MR">Mauritania</option>
+                                        <option value="MU">Mauritius</option>
+                                        <option value="YT">Mayotte</option>
+                                        <option value="MX">Mexico</option>
+                                        <option value="FM">Micronesia</option>
+                                        <option value="MD">Moldova</option>
+                                        <option value="MC">Monaco</option>
+                                        <option value="MN">Mongolia</option>
+                                        <option value="ME">Montenegro</option>
+                                        <option value="MS">Montserrat</option>
+                                        <option value="MA">Morocco</option>
+                                        <option value="MZ">Mozambique</option>
+                                        <option value="MM">Myanmar</option>
+                                        <option value="NA">Namibia</option>
+                                        <option value="NR">Nauru</option>
+                                        <option value="NP">Nepal</option>
+                                        <option value="NL">Netherlands</option>
+                                        <option value="AN">Netherlands Antilles</option>
+                                        <option value="NC">New Caledonia</option>
+                                        <option value="NZ">New Zealand</option>
+                                        <option value="NI">Nicaragua</option>
+                                        <option value="NE">Niger</option>
+                                        <option value="NG">Nigeria</option>
+                                        <option value="NU">Niue</option>
+                                        <option value="NF">Norfolk Island</option>
+                                        <option value="KP">North Korea</option>
+                                        <option value="MP">Northern Mariana Islands</option>
+                                        <option value="NO">Norway</option>
+                                        <option value="OM">Oman</option>
+                                        <option value="PK">Pakistan</option>
+                                        <option value="PW">Palau</option>
+                                        <option value="PS">Palestine</option>
+                                        <option value="PA">Panama</option>
+                                        <option value="PG">Papua New Guinea</option>
+                                        <option value="PY">Paraguay</option>
+                                        <option value="PE">Peru</option>
+                                        <option value="PH">Philippines</option>
+                                        <option value="PN">Pitcairn</option>
+                                        <option value="PL">Poland</option>
+                                        <option value="PT">Portugal</option>
+                                        <option value="PR">Puerto Rico</option>
+                                        <option value="QA">Qatar</option>
+                                        <option value="RE">Reunion</option>
+                                        <option value="RO">Romania</option>
+                                        <option value="RU">Russia</option>
+                                        <option value="RW">Rwanda</option>
+                                        <option value="SH">Saint Helena</option>
+                                        <option value="KN">Saint Kitts And Nevis</option>
+                                        <option value="LC">Saint Lucia</option>
+                                        <option value="PM">Saint Pierre And Miquelon</option>
+                                        <option value="VC">Saint Vincent And The Grenadines</option>
+                                        <option value="WS">Samoa</option>
+                                        <option value="SM">San Marino</option>
+                                        <option value="ST">Sao Tome And Principe</option>
+                                        <option value="SA">Saudi Arabia</option>
+                                        <option value="SN">Senegal</option>
+                                        <option value="RS">Serbia</option>
+                                        <option value="CS">Serbia and Montenegro</option>
+                                        <option value="SC">Seychelles</option>
+                                        <option value="SL">Sierra Leone</option>
+                                        <option value="SG">Singapore</option>
+                                        <option value="SK">Slovakia</option>
+                                        <option value="SI">Slovenia</option>
+                                        <option value="SB">Solomon Islands</option>
+                                        <option value="SO">Somalia</option>
+                                        <option value="ZA">South Africa</option>
+                                        <option value="GS">South Georgia And The South Sandwich Islands</option>
+                                        <option value="KR">South Korea</option>
+                                        <option value="ES">Spain</option>
+                                        <option value="LK">Sri Lanka</option>
+                                        <option value="SD">Sudan</option>
+                                        <option value="SR">Suriname</option>
+                                        <option value="SJ">Svalbard And Jan Mayen</option>
+                                        <option value="SZ">Swaziland</option>
+                                        <option value="SE">Sweden</option>
+                                        <option value="CH">Switzerland</option>
+                                        <option value="SY">Syria</option>
+                                        <option value="TW">Taiwan</option>
+                                        <option value="TJ">Tajikistan</option>
+                                        <option value="TZ">Tanzania</option>
+                                        <option value="TH">Thailand</option>
+                                        <option value="CD">The Democratic Republic Of Congo</option>
+                                        <option value="TL">Timor-Leste</option>
+                                        <option value="TG">Togo</option>
+                                        <option value="TK">Tokelau</option>
+                                        <option value="TO">Tonga</option>
+                                        <option value="TT">Trinidad and Tobago</option>
+                                        <option value="TN">Tunisia</option>
+                                        <option value="TR">Turkey</option>
+                                        <option value="TM">Turkmenistan</option>
+                                        <option value="TC">Turks And Caicos Islands</option>
+                                        <option value="TV">Tuvalu</option>
+                                        <option value="VI">U.S. Virgin Islands</option>
+                                        <option value="UG">Uganda</option>
+                                        <option value="UA">Ukraine</option>
+                                        <option value="AE">United Arab Emirates</option>
+                                        <option value="GB">United Kingdom</option>
+                                        <option value="US">United States</option>
+                                        <option value="UM">United States Minor Outlying Islands</option>
+                                        <option value="UY">Uruguay</option>
+                                        <option value="UZ">Uzbekistan</option>
+                                        <option value="VU">Vanuatu</option>
+                                        <option value="VA">Vatican</option>
+                                        <option value="VE">Venezuela</option>
+                                        <option value="VN">Vietnam</option>
+                                        <option value="WF">Wallis And Futuna</option>
+                                        <option value="EH">Western Sahara</option>
+                                        <option value="YE">Yemen</option>
+                                        <option value="ZM">Zambia</option>
+                                        <option value="ZW">Zimbabwe</option>
+                                        <option value="AX">Åland Islands</option>
+                                    </select><img class="flowHorizontal gwt-Image"
+                                                  src="docdata_screen_files/validation_blank.png"><img
+                                        class="flowHorizontal gwt-Image" src="docdata_screen_files/field_info.png">
+                                </div>
+                            </div>
+                            <div class="form iban">
+                                <div class="flowHorizontal ">
+                                    <div class="flowHorizontal gwt-Label">IBAN</div>
+                                    <input type="text" class="flowHorizontal gwt-TextBox inputField"
+                                           placeholder="NL99 BANK 0123456789"><img class="flowHorizontal gwt-Image"
+                                                                                   src="docdata_screen_files/validation_blank.png"><img
+                                        class="flowHorizontal gwt-Image" src="docdata_screen_files/field_info.png">
+                                </div>
+                            </div>
+                            <div class="form bic">
+                                <div aria-hidden="true" class="flowHorizontal " style="display: none;">
+                                    <div class="flowHorizontal gwt-Label">BIC/SWIFT</div>
+                                    <input type="text" class="flowHorizontal gwt-TextBox inputField"
+                                           placeholder="BANKNL2A"><img class="flowHorizontal gwt-Image"
+                                                                       src="docdata_screen_files/validation_blank.png"><img
+                                        class="flowHorizontal gwt-Image" src="docdata_screen_files/field_info.png">
+                                </div>
+                            </div>
+                            <div class="form ibanlink">
+                                <div class="flowHorizontal gwt-HTML">Click on <a href="http://www.ibancalculator.com/"
+                                                                                 target="_blank">http://www.ibancalculator.com</a>
+                                    to to change your current account number to the correct IBAN.
+                                </div>
+                            </div>
+                            <div class="form acceptance">
+                                <div class="flowHorizontal ">
+                                    <div class="flowHorizontal gwt-Label">I agree with the above mentioned amount to be
+                                        withdrawn from my account via direct debit.
+                                    </div>
+                                    <span class="flowHorizontal gwt-CheckBox inputField"><input type="checkbox"
+                                                                                                value="on"
+                                                                                                id="gwt-uid-6"
+                                                                                                tabindex="0"><label
+                                            for="gwt-uid-6"></label></span><img class="flowHorizontal gwt-Image"
+                                                                                src="docdata_screen_files/validation_blank.png"><img
+                                        class="flowHorizontal gwt-Image" src="docdata_screen_files/field_info.png">
+                                </div>
+                            </div>
+                            <div class="form big">
+                                <div class="flowHorizontal gwt-HTML sddConsentInfo"></div>
+                            </div>
+                            <div class="form big">
+                                <div class="flowHorizontal gwt-HTML sddConsentInfo">When pressing the button ‘Submit’
+                                    you allow:<br><br> 1) Stichting Foundation Docdata Payments (in the name of 1% club
+                                    (TEST)) to withdraw the above mentioned amount from your account as a one-off direct
+                                    debit.<br><br> 2) Your bank to debit a one-off payment from your account in
+                                    accordance with this instruction.<br><br> If you don’t agree with this debit, you
+                                    can charge back your funds. Please contact your bank up to 8 weeks after the debit.
+                                    Ask your bank for the terms and conditions.<br> You will receive a copy of the
+                                    direct debit mandate via email.<br><br> Within 3 working days the funds will be
+                                    debited from your account. <br><br> Stichting Foundation Docdata Payments is only a
+                                    service provider for 1% club (TEST).
+                                </div>
+                            </div>
+                            <div class="form submit"><a class="flowHorizontal gwt-Anchor forwardBtn">Submit</a></div>
+                        </div>
+                    </div>
+                </div>
+                <br class="horizontalClear"></div>
+            <div class="paymentChoiceBox"><a class="gwt-Anchor link backBtn">&lt; Back to the shop</a></div>
+        </div>
+        <div class="flowHorizontal primarySidebarContainer">
+            <div class="languageSelection sidebarBox">
+                <div class="flowHorizontal ">
+                    <div class="flowHorizontal gwt-Label">Language:</div>
+                    <select class="flowHorizontal gwt-ListBox">
+                        <option value="nl">nl</option>
+                        <option value="en">en</option>
+                        <option value="de">de</option>
+                        <option value="cz">cz</option>
+                        <option value="da">da</option>
+                        <option value="es">es</option>
+                        <option value="fi">fi</option>
+                        <option value="fr">fr</option>
+                        <option value="hu">hu</option>
+                        <option value="it">it</option>
+                        <option value="no">no</option>
+                        <option value="pl">pl</option>
+                        <option value="pt">pt</option>
+                        <option value="sv">sv</option>
+                        <option value="system">system</option>
+                    </select></div>
+            </div>
+            <div class="safePaymentInformation sidebarBox">
+                <div class="headerTitle">
+                    <div class="flowHorizontal gwt-Label h2 sidebarBoxContent">Pay safely</div>
+                </div>
+                <div class="sidebarBoxContent"><img class="flowHorizontal gwt-Image"
+                                                    src="docdata_screen_files/lock(1).png">
+
+                    <div class="flowHorizontal gwt-HTML">You are paying through a secure connection. Your data is
+                        encrypted and is not visible to others. For more information about secure payments, see
+                        www.docdatapayments.com/en.
+                    </div>
+                </div>
+            </div>
+            <div class="transactionSummary sidebarBox">
+                <div class="headerTitle">
+                    <div class="flowHorizontal gwt-Label h2 sidebarBoxContent">Transactional information</div>
+                </div>
+                <div class="rows">
+                    <div class="identification">
+                        <div class="gwt-Label title sidebarBoxContent">Transaction reference</div>
+                        <div class="gwt-Label description sidebarBoxContent">1-15</div>
+                    </div>
+                    <div class="description">
+                        <div class="gwt-Label title sidebarBoxContent">Description</div>
+                        <div class="gwt-Label description sidebarBoxContent">Bluebottle donation</div>
+                    </div>
+                </div>
+            </div>
+            <div class="priceCalculation sidebarBox">
+                <div class="headerTitle">
+                    <div class="flowHorizontal gwt-Label h2 sidebarBoxContent">Pricing</div>
+                </div>
+                <div class="rows">
+                    <div class="sidebarBoxContent total">
+                        <div class="flowHorizontal gwt-Label">Total amount</div>
+                        <div class="flowHorizontal gwt-Label">€ 50.00</div>
+                    </div>
+                    <div class="sidebarBoxContent paidItemsList"></div>
+                </div>
+                <div class="footer">
+                    <div class="title">
+                        <div class="flowHorizontal gwt-Label sidebarBoxContent">Remaining amount</div>
+                        <div class="flowHorizontal gwt-Label sidebarBoxContent">€ 50.00</div>
+                    </div>
+                </div>
+                <div class="rows">
+                    <div class="sidebarBoxContent"><a class="flowHorizontal gwt-Anchor" aria-hidden="true"
+                                                      style="display: none;">Order pricing</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br class="horizontalClear">
+
+    <div class="merchantFooter">
+        <div class="flowHorizontal gwt-HTML"></div>
+    </div>
+</div>
+</body>
+</html>

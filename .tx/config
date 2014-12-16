@@ -37,15 +37,21 @@ source_file = apps/homepage/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 
-[onepercentclub.fundraisers]
-file_filter = apps/fundraisers/locale/<lang>/LC_MESSAGES/django.po
-source_file = apps/fundraisers/locale/en/LC_MESSAGES/django.po
-source_lang = en
-type = PO
-
 [onepercentclub.popups_and_javascript]
 file_filter = locale/<lang>/LC_MESSAGES/djangojs.po
 source_file = locale/en/LC_MESSAGES/djangojs.po
+source_lang = en
+type = PO
+
+[onepercentclub.core]
+file_filter = apps/core/locale/<lang>/LC_MESSAGES/django.po
+source_file = apps/core/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[onepercentclub.fundraisers]
+file_filter = apps/fundraisers/locale/<lang>/LC_MESSAGES/django.po
+source_file = apps/fundraisers/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
 

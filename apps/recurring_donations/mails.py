@@ -23,7 +23,7 @@ def mail_monthly_donation_processed_notification(monthly_order):
     context = Context({'order': monthly_order,
                        'receiver_first_name': receiver.first_name.capitalize(),
                        'date': format_date(locale='nl_NL'),
-                       'amount': format_currency(monthly_order.amount / 100, 'EUR', locale='nl_NL'),
+                       'amount': format_currency(monthly_order.amount, 'EUR', locale='nl_NL'),
                        'site': 'https://' + Site.objects.get_current().domain})
 
     subject = "Bedankt voor je maandelijkse support"

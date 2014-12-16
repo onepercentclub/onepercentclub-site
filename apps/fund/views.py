@@ -9,7 +9,7 @@ from apps.cowry_docdata.models import DocDataPaymentOrder
 from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer
 from apps.fund.serializers import DonationInfoSerializer, NestedDonationSerializer, RecurringOrderSerializer, RecurringDonationSerializer, \
     ProjectDonationSerializer
-from apps.fundraisers.models import FundRaiser
+from bluebottle.fundraisers.models import FundRaiser
 from apps.projects.serializers import ProjectSupporterSerializer
 from django.contrib.auth.models import AnonymousUser
 from django.db import transaction
@@ -21,7 +21,7 @@ from .permissions import IsUser
 from rest_framework.permissions import IsAuthenticated
 from .serializers import DonationSerializer, OrderSerializer, OrderCurrentSerializer, OrderCurrentDonationSerializer
 
-from bluebottle.utils.utils import get_project_model
+from bluebottle.utils.model_dispatcher import get_project_model
 
 PROJECT_MODEL = get_project_model()
 

@@ -24,3 +24,7 @@ EMAIL_BACKEND = 'bluebottle.utils.email_backend.TestMailBackend'
 SESSION_COOKIE_NAME = 'bb-testing-session-id'
 
 SOUTH_TESTS_MIGRATE = False
+try:
+    print "DEBUG", DEBUG
+except:
+    pass

@@ -1,3 +1,4 @@
+# from apps.bluebottle_salesforce.models import ProjectCountry
 from django.db import models
 from salesforce.models import SalesforceModel
 from djchoices import DjangoChoices, ChoiceItem

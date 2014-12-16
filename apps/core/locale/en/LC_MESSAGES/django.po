@@ -1,0 +1,1156 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Malou <malou@onepercentclub.com>, 2014
+# Sezayi Arslan <sezayi@onepercentclub.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: OnePercentClub\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-12-08 16:25+0100\n"
+"PO-Revision-Date: 2014-12-05 12:59+0000\n"
+"Last-Translator: aethemba <aksel@onepercentclub.com>\n"
+"Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/onepercentclub/language/en_GB/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en_GB\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/models.py:28
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/models.py:48
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/models.py:106
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/models.py:191
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/models.py:19
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_orders/models.py:33
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_orders/models.py:45
+msgid "Created"
+msgstr "Created"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/models.py:29
+msgid "Started"
+msgstr "Started"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/models.py:30
+msgid "Cancelled"
+msgstr "Cancelled"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/models.py:31
+msgid "Authorized"
+msgstr "Authorized"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/models.py:32
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:102
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:178
+msgid "Settled"
+msgstr "Settled"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/models.py:33
+msgid "Charged_back"
+msgstr "Charged_back"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/models.py:34
+msgid "Refunded"
+msgstr "Refunded"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/models.py:35
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_orders/models.py:37
+msgid "Failed"
+msgstr "Failed"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/models.py:36
+msgid "Unknown"
+msgstr "Unknown"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/models.py:49
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/models.py:107
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/models.py:192
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/models.py:20
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_orders/models.py:46
+msgid "Updated"
+msgstr "Updated"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/models.py:80
+msgid "Redirect"
+msgstr "Redirect"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/models.py:81
+msgid "Popup"
+msgstr "Pop-up"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/models.py:84
+msgid "GET"
+msgstr "GET"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/models.py:85
+msgid "POST"
+msgstr "POST"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/models.py:88
+msgid "Authorization action type"
+msgstr "Authorization action type"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/models.py:90
+msgid "Authorization action method"
+msgstr "Authorization action method"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/models.py:92
+msgid "Authorization action url"
+msgstr "Authorization action url"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/models.py:93
+msgid "Authorization action payload"
+msgstr "Authorization action payload"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/models.py:102
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_orders/models.py:40
+msgid "user"
+msgstr "user"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/models.py:108
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:70
+msgid "Closed"
+msgstr "Closed"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/models.py:109
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/models.py:13
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_orders/models.py:50
+msgid "Amount"
+msgstr "Amount"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/models.py:111
+msgid "Transaction Fee"
+msgstr "Transaction Fee"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/models.py:112
+msgid "Bank & transaction fee, withheld by payment provider."
+msgstr "Bank & transaction fee, withheld by payment provider."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/models.py:116
+msgid "Integration data"
+msgstr "Integration data"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/models.py:117
+msgid "Authorization action"
+msgstr "Authorization action"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/templates/payments/_order_payment_method.hbs.py:8
+msgid "Select Payment Method"
+msgstr "Select payment method"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/templates/payments/order_payment.hbs.py:8
+msgid "Select your method of payment"
+msgstr "Select your method of payment"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/templates/payments/order_payment.hbs.py:10
+msgid "You're about to support"
+msgstr "You're about to support"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/templates/payments/order_payment.hbs.py:10
+msgid "with"
+msgstr "with"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/templates/payments/order_payment.hbs.py:10
+msgid "Good job!"
+msgstr "Good job!"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/templates/payments/order_payment.hbs.py:33
+msgid "Remember this for faster future payments."
+msgstr "Remember this for faster future payments."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/templates/payments/order_payment.hbs.py:39
+msgid ""
+"\n"
+"                                    <h6>\n"
+"                                        What's this?\n"
+"                                    </h6>\n"
+"                                    We'll remember your payment details\n"
+"                                    on our secure server so next time you can support\n"
+"                                    with just 1-click!\n"
+"                                "
+msgstr "\n                                    <h6>\n                                        What's this?\n                                    </h6>\n                                    We'll remember your payment details\n                                    on our secure server so next time you can support\n                                    with just 1-click!\n                                "
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/templates/payments/order_payment.hbs.py:55
+msgid "Proceed with"
+msgstr "Proceed with"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments/templates/payments/order_payment.hbs.py:63
+msgid "Payment processing is securely handled by"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/adapters.py:190
+#, python-format
+msgid "Bluebottle donation %(payment_id)s"
+msgstr "Bluebottle donation %(payment_id)s"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:25
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:119
+msgid "Order ID"
+msgstr "Order ID"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:27
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:121
+msgid "Payment cluster id"
+msgstr "Payment cluster id"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:28
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:122
+msgid "Payment cluster key"
+msgstr "Payment cluster key"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:30
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:124
+msgid "Language"
+msgstr "Language"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:32
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:126
+msgid "Ideal Issuer ID"
+msgstr "Ideal Issuer ID"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:33
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:127
+msgid "Default Payment Method"
+msgstr "Default payment method"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:36
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:130
+msgid "Total gross amount"
+msgstr "Total gross amount"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:37
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:131
+msgid "Currency"
+msgstr "Currency"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:38
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:132
+msgid "Country_code"
+msgstr "Country_code"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:41
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:135
+msgid "Total registered"
+msgstr "Total registered"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:42
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:136
+msgid "Total shopper pending"
+msgstr "Total shopper pending"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:43
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:137
+msgid "Total acquirer pending"
+msgstr "Total acquirer pending"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:44
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:138
+msgid "Total acquirer approved"
+msgstr "Total acquirer approved"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:45
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:139
+msgid "Total captured"
+msgstr "Total captured"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:46
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:140
+msgid "Total refunded"
+msgstr "Total refunded"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:47
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:141
+msgid "Total charged back"
+msgstr "Total charged back"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:89
+msgid "Docdata Payment"
+msgstr "Docdata Payment"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:90
+msgid "Docdata Payments"
+msgstr "Docdata Payments"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:99
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:107
+msgid "status"
+msgstr "status"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:100
+msgid "Docdata ID"
+msgstr "Docdata ID"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:106
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:110
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:130
+msgid "Amount in cents"
+msgstr "Amount in cents"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:145
+msgid "Docdata Direct Debit Payment"
+msgstr "Docdata Direct Debit Payment"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/models.py:146
+msgid "Docdata Direct Debit Payments"
+msgstr "Docdata Direct Debit Payments"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/templates/payments_docdata/creditcard.hbs.py:5
+msgid "Select your creditcard type"
+msgstr "Select your creditcard type"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/templates/payments_docdata/creditcard.hbs.py:6
+msgid ""
+" \n"
+"            We'll redirect you through our payment service provider where you can finish your donation securely.\n"
+"        "
+msgstr " \n            We'll redirect you to our payment service provider where you can finish your donation securely.\n        "
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/templates/payments_docdata/directdebit.hbs.py:7
+msgid "Your name (as on bank account)"
+msgstr "Your name (as on bank account)"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/templates/payments_docdata/directdebit.hbs.py:13
+msgid "Your IBAN number"
+msgstr "Your IBAN number"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/templates/payments_docdata/directdebit.hbs.py:17
+msgid "BIC/Swift"
+msgstr "BIC/Swift"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/templates/payments_docdata/directdebit.hbs.py:27
+msgid ""
+"\n"
+"                        I agree with the above metioned amount to be withdrawn from my account via direct debit.\n"
+"                    "
+msgstr "\n                        I agree with the above mentioned amount to be withdrawn from my account via direct debit.\n                    "
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/templates/payments_docdata/ideal.hbs.py:5
+msgid "Select your bank below"
+msgstr "Select your bank below"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/templates/payments_docdata/ideal.hbs.py:6
+msgid ""
+" \n"
+"            We'll redirect you through to iDeal where you can finish your donation securely.\n"
+"        "
+msgstr " \n            We'll redirect you to iDeal where you can finish your donation securely.\n        "
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/templates/payments_docdata/paypal.hbs.py:5
+msgid ""
+"\n"
+"            <h6>The world's most loved way to pay.</h6>\n"
+"        "
+msgstr "\n            <h6>The world's most loved way to pay.</h6>\n        "
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/payments_docdata/templates/payments_docdata/paypal.hbs.py:8
+msgid ""
+"\n"
+"            Paypal is the easy way to pay online without sharing \n"
+"            your credit-/debitcard details.\n"
+"        "
+msgstr "\n            Paypal is the easy way to pay online without sharing \n            your credit-/debitcard details.\n        "
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/admin.py:97
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/admin.py:233
+msgid "Dates"
+msgstr "Dates"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/admin.py:102
+msgid "Payout amounts"
+msgstr "Payout amounts"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/admin.py:105
+msgid "Payment details"
+msgstr "Payment details"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/admin.py:121
+msgid "pending"
+msgstr "pending"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/admin.py:150
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/models.py:18
+msgid "project"
+msgstr "campaign"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/admin.py:159
+msgid "organization"
+msgstr "organization"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/admin.py:167
+msgid "IBAN"
+msgstr "IBAN"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/admin.py:194
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/admin.py:280
+msgid "Recalculate amounts for new payouts."
+msgstr "Recalculate amounts for new payouts."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/admin.py:238
+msgid "Organization fee"
+msgstr "Organisation fee"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/admin.py:243
+msgid "PSP fee"
+msgstr "PSP fee"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/admin.py:248
+msgid "Other costs"
+msgstr "Other costs"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/admin.py:253
+msgid "Amount payable"
+msgstr "Amount payable"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/admin_filters.py:21
+msgid "Yes"
+msgstr "Yes"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/admin_filters.py:22
+msgid "No"
+msgstr "No"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/admin_filters.py:46
+msgid "has IBAN"
+msgstr "has IBAN"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:71
+msgid ""
+"Book date when the bank transaction was confirmed and the payout has been "
+"set to completed."
+msgstr "Book date when the bank transaction was confirmed and the payout has been set to completed."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:84
+msgid "Closed date is set but status is not completed."
+msgstr "Closed date is set but status is not completed."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:100
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:176
+msgid "New"
+msgstr "New"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:101
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:177
+msgid "In progress"
+msgstr "In progress"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:105
+msgid "Planned"
+msgstr "Planned"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:105
+msgid "Date on which this batch should be processed."
+msgstr "Date on which this batch should be processed."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:109
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/models.py:29
+msgid "created"
+msgstr "created"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:110
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/models.py:30
+msgid "updated"
+msgstr "updated"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:112
+msgid "submitted"
+msgstr "submitted"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:168
+msgid "state change"
+msgstr "state change"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:169
+msgid "state changes"
+msgstr "state changes"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:181
+msgid "date"
+msgstr "date"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:184
+msgid "old status"
+msgstr "old status"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:189
+msgid "new status"
+msgstr "new status"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:194
+#, python-format
+msgid ""
+"Status change of '%(payout)s' on %(created)s from %(old_status)s to "
+"%(new_status)s"
+msgstr "Status change of '%(payout)s' on %(created)s from %(old_status)s to %(new_status)s"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:211
+msgid "5%"
+msgstr "5%"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:215
+msgid "Payout rule"
+msgstr "Payout rule"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:215
+msgid "The payout rule for this project."
+msgstr "The payout rule for this campaign."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:217
+msgid "amount raised"
+msgstr "amount raised"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:218
+msgid "Amount raised when Payout was created or last recalculated."
+msgstr "Amount raised when payout was created or last recalculated."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:220
+msgid "organization fee"
+msgstr "organization fee"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:221
+msgid "Fee subtracted from amount raised for the organization."
+msgstr "Fee subtracted from amount raised for the organization."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:223
+msgid "amount payable"
+msgstr "amount payable"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:224
+msgid "Payable amount; raised amount minus organization fee."
+msgstr "Payable amount; raised amount minus organization fee."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:374
+msgid "start date"
+msgstr "start date"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:375
+msgid "end date"
+msgstr "end date"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:377
+msgid "organization fee excluding VAT"
+msgstr "organization fee excluding VAT"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:378
+msgid "organization fee VAT"
+msgstr "organization fee VAT"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:379
+msgid "organization fee including VAT"
+msgstr "organization fee including VAT"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:381
+msgid "PSP fee excluding VAT"
+msgstr "PSP fee excluding VAT"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:382
+msgid "PSP fee VAT"
+msgstr "PSP fee VAT"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:383
+msgid "PSP fee including VAT"
+msgstr "PSP fee including VAT"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:386
+msgid "other costs excluding VAT"
+msgstr "other costs excluding VAT"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:388
+msgid ""
+"Set either this value or inclusive VAT, make sure recalculate afterwards."
+msgstr "Set either this value or inclusive VAT, make sure recalculate afterwards."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:392
+msgid "other costs VAT"
+msgstr "other costs VAT"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:394
+msgid "other costs including VAT"
+msgstr "other costs including VAT"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:396
+msgid ""
+"Set either this value or exclusive VAT, make sure recalculate afterwards."
+msgstr "Set either this value or exclusive VAT, make sure recalculate afterwards."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:400
+msgid "payable amount excluding VAT"
+msgstr "payable amount excluding VAT"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:401
+msgid "payable amount VAT"
+msgstr "payable amount VAT"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:402
+msgid "payable amount including VAT"
+msgstr "payable amount including VAT"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:527
+msgid "Start date should be earlier than date."
+msgstr "Start date should be earlier than date."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:538
+msgid ""
+"The next payout period should start the day after the end of the previous "
+"period."
+msgstr "The next payout period should start the day after the end of the previous period."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_payouts/models.py:561
+msgid "Other costs have changed, please recalculate before progessing."
+msgstr "Other costs have changed, please recalculate before progressing."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/admin.py:19
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_orders/admin.py:16
+msgid "Status"
+msgstr "Status"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/admin.py:25
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/admin.py:50
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_orders/admin.py:22
+msgid "All"
+msgstr "All"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/admin.py:25
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_orders/admin.py:22
+msgid "Pending/Success"
+msgstr "Pending / Success"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/admin.py:44
+msgid "User type"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/admin.py:50
+msgid "Member"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/admin.py:51
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/models.py:23
+msgid "Anonymous"
+msgstr "Anonymous"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/admin.py:51
+msgid "Guest"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/dashboard.py:13
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/templates/bb_donations/my_donations.hbs.py:23
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/_fundraiser_donation_list_header.hbs.py:10
+msgid "Donations"
+msgstr "Donations"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/donationmail.py:21
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/donationmail.py:52
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/tests/test_mails.py:76
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/tests/test_mails.py:106
+msgid "You received a new donation"
+msgstr "You received a new donation"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/models.py:15
+msgid "Project"
+msgstr "Campaign"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/models.py:16
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/_fundraiser_actions.hbs.py:30
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/_fundraiser_actions.hbs.py:49
+msgid "Fundraiser"
+msgstr "Fundraiser"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/models.py:17
+msgid "Order"
+msgstr "Order"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/models.py:21
+msgid "Ready"
+msgstr "Ready"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/templates/bb_donations/_donation_amount.hbs.py:7
+msgid "Thank you for supporting this project!"
+msgstr "Thank you for supporting this campaign!"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/templates/bb_donations/_donation_amount.hbs.py:8
+msgid "Select or enter the amount you would like to donate"
+msgstr "Select or enter the amount you would like to donate."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/templates/bb_donations/_donation_amount.hbs.py:25
+msgid "Donate now"
+msgstr "Donate now"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/templates/bb_donations/_donation_amount.hbs.py:36
+msgid "Hide my name for this donation"
+msgstr "Hide my name for this donation"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/templates/bb_donations/donation_success.hbs.py:13
+msgid "Thanks for your support"
+msgstr "Thanks for your support"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/templates/bb_donations/donation_success.hbs.py:22
+msgid "Be sure to share this campaign with your network"
+msgstr "Be sure to share this campaign with your network"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/templates/bb_donations/my_donation_list.hbs.py:9
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/templates/bb_donations/my_donations.hbs.py:24
+msgid "Donation History"
+msgstr "Donation History"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/templates/bb_donations/my_donation_list.hbs.py:29
+msgid "Older donations"
+msgstr "Older donations"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/templates/bb_donations/my_donations.hbs.py:12
+#, python-format
+msgid ""
+"\n"
+"                        My 1%% <em class=\"account-subtitle\">Donations</em>\n"
+"                    "
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/templates/bb_donations/mails/new_oneoff_donation.mail.html.py:5
+#, python-format
+msgid ""
+"\n"
+"Hello %(first_name)s,<br/>\n"
+"<br/>\n"
+"You just received a EUR %(amount)s donation from %(donor_name)s!<br/>\n"
+"<br/>\n"
+"Quickly thank your supporter by posting a personal message on your <a href=\"%(site)s%(link)s\">project wall</a>.<br/>\n"
+"<br/>\n"
+"Cheers,<br/>\n"
+"1%%Club\n"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/templates/bb_donations/mails/new_oneoff_donation.mail.txt.py:2
+#, python-format
+msgid ""
+"\n"
+"Hello %(first_name)s,\n"
+"\n"
+"You just received a EUR %(amount)s donation from %(donor_name)s!\n"
+"\n"
+"Quickly thank your supporter by posting a personal message on your project wall: %(site)s%(link)s.\n"
+"\n"
+"Cheers,\n"
+"1%%Club\n"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/templates/bb_donations/mails/new_oneoff_donation_fundraiser.mail.html.py:5
+#, python-format
+msgid ""
+"\n"
+"Hello %(first_name)s,\n"
+"<br/><br/>\n"
+"You just received a EUR %(amount)s donation!\n"
+"<br/><br/>\n"
+"Curious who made a donation, check your fundraiser page:\n"
+"<br/>\n"
+"<a href=\"%(site)s%(link)s\">%(site)s%(link)s</a>.\n"
+"<br/><br/>\n"
+"Keep up the good work!<br/>\n"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_donations/templates/bb_donations/mails/new_oneoff_donation_fundraiser.mail.txt.py:2
+#, python-format
+msgid ""
+"\n"
+"Hello %(first_name)s,\n"
+"\n"
+"You just received a EUR %(amount)s donation!\n"
+"\n"
+"Curious who made a donation, check your fundraiser page:\n"
+"%(site)s%(link)s.\n"
+"\n"
+"Keep up the good work!\n"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_orders/models.py:34
+msgid "Locked"
+msgstr "Locked"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_orders/models.py:35
+msgid "Pending"
+msgstr "Pending"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_orders/models.py:36
+msgid "Success"
+msgstr "Success"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_orders/models.py:47
+msgid "Confirmed"
+msgstr "Confirmed"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_orders/models.py:48
+msgid "Completed"
+msgstr "Completed"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_orders/templates/bb_orders/_matched_order_login_header.hbs.py:8
+msgid "Hello, is it me you're looking&nbsp;for"
+msgstr "Hello, is it me you're looking for"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_orders/templates/bb_orders/_order_login_footer.hbs.py:6
+msgid "Don’t have an account?"
+msgstr "Don’t have an account?"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_orders/templates/bb_orders/_order_login_footer.hbs.py:8
+msgid "Sign up here"
+msgstr "Sign up here"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_orders/templates/bb_orders/_order_signup_footer.hbs.py:7
+msgid "Have an account? You can "
+msgstr "Have an account? You can "
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_orders/templates/bb_orders/_order_signup_footer.hbs.py:9
+msgid "Sign in here."
+msgstr "sign in here."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_orders/templates/bb_orders/_order_signup_footer.hbs.py:13
+msgid "donate as guest."
+msgstr "donate as guest."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_orders/templates/bb_orders/order_signup.hbs.py:7
+msgid "Nice to meet you!"
+msgstr "Nice to meet you!"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_orders/templates/bb_orders/order_signup.hbs.py:12
+#, python-format
+msgid "By signing up, you accept our <a %(link)s>terms of service</a>"
+msgstr "By signing up, you accept our <a %(link)s>terms of service</a>"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/models.py:17
+msgid "initiator"
+msgstr "campaigner"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/models.py:17
+msgid "Project owner"
+msgstr "Campaigner"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/models.py:20
+msgid "title"
+msgstr "title"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/models.py:21
+msgid "description"
+msgstr "description"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/models.py:22
+msgid "picture"
+msgstr "picture"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/models.py:22
+msgid "Minimal of 800px wide"
+msgstr "Minimal of 800px wide"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/models.py:25
+msgid "amount"
+msgstr "amount"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/models.py:29
+msgid "When this fundraiser was created."
+msgstr "When this fundraiser was created."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/models.py:31
+msgid "deleted"
+msgstr "deleted"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/models.py:59
+#, python-brace-format
+msgid "{title} {{URL}} via @{twitter_handle}"
+msgstr "{title} {{URL}} via @{twitter_handle}"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/serializers.py:64
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/tests/test_api.py:40
+msgid "Fundraiser deadline exceeds campaign deadline."
+msgstr "Fundraiser deadline exceeds campaign deadline."
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/views.py:38
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr "No %(verbose_name)s found matching the query"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/_fundraiser_actions.hbs.py:14
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/project_fundraiser_all.hbs.py:19
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/project_fundraiser_popup.hbs.py:12
+msgid "of"
+msgstr "of"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/_fundraiser_actions.hbs.py:14
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/project_fundraiser.hbs.py:11
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/project_fundraiser_all.hbs.py:21
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/project_fundraiser_popup.hbs.py:14
+msgid "raised"
+msgstr "raised"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/_fundraiser_actions.hbs.py:19
+msgid "Deadline passed"
+msgstr "Deadline passed"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/_fundraiser_actions.hbs.py:21
+msgid "days left"
+msgstr "days left"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/_fundraiser_actions.hbs.py:30
+msgid "fully funded and"
+msgstr "fully funded and"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/_fundraiser_actions.hbs.py:30
+msgid "closed"
+msgstr "closed"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/_fundraiser_actions.hbs.py:34
+msgid "Support"
+msgstr "Support"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/_fundraiser_actions.hbs.py:55
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser.hbs.py:57
+msgid "Supporters"
+msgstr "Supporters"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/_fundraiser_donation_list_header.hbs.py:10
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/my_fundraiser_top.hbs.py:10
+msgid "My <Bluebottle Project>"
+msgstr "My <Bluebottle Project>"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/_fundraiser_donation_list_header.hbs.py:10
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/my_fundraiser_top.hbs.py:10
+msgid "Fundraising"
+msgstr "Fundraising"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser.hbs.py:15
+msgid "Fundraiser for"
+msgstr "Fundraiser for"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser.hbs.py:22
+msgid "Read full project plan"
+msgstr "Read full campaign plan"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser.hbs.py:65
+msgid "Support this fundraiser"
+msgstr "Support this fundraiser"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser.hbs.py:66
+msgid "And get your name on the wall!"
+msgstr "And get your name on the wall!"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_donation_list.hbs.py:12
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_donation_list.hbs.py:35
+msgid "Donation overview"
+msgstr "Donation overview"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_donation_list.hbs.py:14
+msgid ""
+"\n"
+"                            The people below supported your fundraiser\n"
+"                            "
+msgstr "\n                            The people below supported your fundraiser\n                            "
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_donation_list.hbs.py:30
+msgid "Awww. No donations yet!"
+msgstr "Awww. No donations yet!"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_donation_list.hbs.py:37
+msgid ""
+"\n"
+"                                You are not authorised to view the donations.\n"
+"                            "
+msgstr "\n                                You're not authorised to view the donations.\n                            "
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_donation_list.hbs.py:43
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_edit.hbs.py:36
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_new.hbs.py:39
+msgid "Login"
+msgstr "Log in"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_donation_list.hbs.py:43
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_edit.hbs.py:36
+msgid "or become a"
+msgstr "or become a"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_donation_list.hbs.py:43
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_edit.hbs.py:36
+msgid "member"
+msgstr "sign up"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_donation_list.hbs.py:43
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_edit.hbs.py:36
+msgid "to start a fundraiser."
+msgstr "to start a fundraiser"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_donation_list.hbs.py:48
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_sidebar.hbs.py:7
+msgid "Fundraising for project"
+msgstr "Fundraising for campaign"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_donation_list.hbs.py:49
+msgid "You are fundraising for this project"
+msgstr "You're fundraising for this campaign"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_edit.hbs.py:14
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_edit.hbs.py:28
+msgid "Edit fundraiser"
+msgstr "Edit fundraiser"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_edit.hbs.py:22
+msgid "Save"
+msgstr "Save"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_edit.hbs.py:30
+msgid ""
+"\n"
+"                                You can only make a fundraiser if you are logged in and the owner of this fundraiser.\n"
+"                            "
+msgstr "\n                                You can only make a fundraiser if you are logged in.\n                            "
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_edit.hbs.py:41
+msgid "You rock!"
+msgstr "You rock!"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_edit.hbs.py:42
+msgid "Because you're fundraising for this project:"
+msgstr "Because you're fundraising for this campaign:"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_form.hbs.py:6
+msgid "Title"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_form.hbs.py:6
+msgid "Title describes your fundraiser action in short"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_form.hbs.py:8
+msgid "Description"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_form.hbs.py:8
+msgid "Tell a little more about your fundraise action"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_form.hbs.py:21
+msgid "Profile Picture"
+msgstr "Fundraiser Picture"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_form.hbs.py:32
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/generic/form_imagefield.html.py:10
+msgid "Upload picture"
+msgstr "Upload picture"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_form.hbs.py:37
+msgid "Video"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_form.hbs.py:37
+msgid "Youtube or Vimeo link"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_form.hbs.py:43
+msgid "Amount & deadline"
+msgstr "Amount & Deadline"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_form.hbs.py:44
+msgid "Be realistic and...show ambition!"
+msgstr "Be realistic and... show ambition!"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_form.hbs.py:47
+msgid "Amount to raise"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_form.hbs.py:49
+msgid "Deadline"
+msgstr ""
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_new.hbs.py:13
+msgid "Yes, you can!"
+msgstr "Yes, you can!"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_new.hbs.py:15
+msgid ""
+"\n"
+"                            What's your fundraising plan? Make it concrete & exciting!\n"
+"                            "
+msgstr "\n                            What's your fundraiser pitch? Make it concrete & exciting!\n                            "
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_new.hbs.py:26
+msgid "Start Fundraising"
+msgstr "Start a fundraiser"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_new.hbs.py:31
+msgid "New fundraiser"
+msgstr "New fundraiser"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_new.hbs.py:33
+msgid ""
+"\n"
+"                            You need to be logged in to start fundraising.\n"
+"                            "
+msgstr "\n                            You need to be logged in to start a fundraiser.\n                            "
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_new.hbs.py:39
+msgid "or"
+msgstr "or"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_new.hbs.py:39
+msgid "register"
+msgstr "register"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_new.hbs.py:39
+msgid "to become a fundraiser."
+msgstr "to become a fundraiser"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/fundraiser_sidebar.hbs.py:8
+msgid "You'll be fundraising for this project"
+msgstr "You'll be fundraising for this campaign"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/my_fundraiser_list.hbs.py:11
+msgid "Loading projects"
+msgstr "Loading campaigns"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/my_fundraiser_list.hbs.py:17
+msgid "Overview of you fundraising pages"
+msgstr "Overview of your fundraisers"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/my_fundraiser_list.hbs.py:19
+msgid "You have no fundraising pages"
+msgstr "You have no fundraisers"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/my_fundraiser_list.hbs.py:44
+msgid "Edit"
+msgstr "Edit"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/project_fundraiser.hbs.py:11
+msgid "so far"
+msgstr "so far"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/project_fundraiser_all.hbs.py:7
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/project_fundraiser_list.hbs.py:10
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/project_fundraiser_list.hbs.py:30
+msgid "Fundraisers"
+msgstr "Fundraisers"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/project_fundraiser_all.hbs.py:16
+msgid "by"
+msgstr "by"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/project_fundraiser_list.hbs.py:22
+msgid "Start your own fundraiser"
+msgstr "Start your own fundraiser"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/project_fundraiser_list.hbs.py:23
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/project_fundraiser_list.hbs.py:36
+msgid "Throw a party or run a marathon to raise funds"
+msgstr "Throw a party or run a marathon to raise funds"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/bb_fundraisers/project_fundraiser_list.hbs.py:35
+msgid "Be the first to fundraise"
+msgstr "Be the first to fundraise"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/generic/form_charfield.html.py:3
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/generic/form_field.html.py:3
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/generic/form_imagefield.html.py:4
+#, python-format
+msgid "%(help_text)s"
+msgstr "%(help_text)s"
+
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/generic/form_charfield.html.py:4
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/generic/form_field.html.py:4
+#: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_fundraisers/templates/generic/form_imagefield.html.py:5
+#, python-format
+msgid "%(title)s"
+msgstr "%(title)s"

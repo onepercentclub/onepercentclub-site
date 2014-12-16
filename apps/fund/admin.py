@@ -1,6 +1,6 @@
 from apps.cowry_docdata.models import DocDataPaymentOrder, payment_method_mapping
 from babel.numbers import format_currency
-from bluebottle.utils.admin import export_as_csv_action
+from bluebottle.utils.admin import export_as_csv_action, TotalAmountAdminChangeList
 from django.contrib import admin
 from django.core.urlresolvers import reverse
 from django.contrib.admin import SimpleListFilter
@@ -45,8 +45,8 @@ payment_method_icon_mapping = {
 
 
 class DonationAdmin(admin.ModelAdmin):
-    date_hierarchy = 'updated'
-    list_display = ('updated', 'ready', 'project', 'user', 'amount_override', 'status', 'type', 'payment_method_override')
+    date_hierarchy = 'created'
+    list_display = ('created', 'ready', 'project', 'user', 'amount_override', 'status', 'type', 'payment_method_override')
     list_filter = (DonationStatusFilter, 'donation_type')
     ordering = ('-ready', '-updated')
     raw_id_fields = ('user', 'project', 'fundraiser', 'voucher')
@@ -54,8 +54,13 @@ class DonationAdmin(admin.ModelAdmin):
     fields = readonly_fields + ('status', 'donation_type', 'amount', 'currency', 'user', 'project', 'fundraiser', 'voucher')
     search_fields = ('user__first_name', 'user__last_name', 'user__email', 'project__title')
 
-    export_fields = ['project', 'user', 'amount', 'updated', 'ready', 'status', 'type']
+    export_fields = ['project', 'user', 'amount', 'created', 'updated', 'ready', 'status', 'type']
     actions = (export_as_csv_action(fields=export_fields), )
+
+
+    def get_changelist(self, request):
+        self.total_column = 'amount'
+        return TotalAmountAdminChangeList
 
     def view_order(self, obj):
         url = reverse('admin:%s_%s_change' % (obj.order._meta.app_label, obj.order._meta.module_name), args=[obj.order.id])
