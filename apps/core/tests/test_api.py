@@ -66,7 +66,7 @@ class TestDonationList(DonationApiTestCase):
         self.assertEqual(data1.amount, Decimal('10'))
         self.assertEqual(data1.project.title, self.project.title)
         self.assertTrue(data1.project.country.name)
-        self.assertEqual(data1.user.full_name, self.user2.full_name)
+        self.assertEqual(data1.user.full_name, self.user2.get_full_name())
         self.assertEqual(data1.project.image, '')
         self.assertEqual(data1.project.owner.avatar, '')
         
