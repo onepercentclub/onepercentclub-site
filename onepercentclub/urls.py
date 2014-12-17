@@ -20,17 +20,7 @@ urlpatterns += patterns('',
     url('', include('social.apps.django_app.urls', namespace='social')),
     url(r'^api/social-login/(?P<backend>[^/]+)/$', GetAuthToken.as_view()),
 
-    url(r'^api/mpesa/', include('apps.mchanga.urls.api')),
-    url(r'^api/monthly_donations/', include('apps.recurring_donations.urls.api')),
-
     url(r'^api/partners/', include('apps.partners.urls.api')),
-
-    # Onepercent AFOM
-    url(r'^api/bedankjes/', include('onepercent_afom.urls.api')),
-
-    # Homepage API urls
-    url(r'^api/homepage/', include('apps.homepage.urls.api')),
-    url(r'^api/stats', include('apps.statistics.urls.api')),
 
     # Needed for the self-documenting API in Django Rest Framework.
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
@@ -78,9 +68,6 @@ urlpatterns += i18n_patterns('',
 
     # Urls for partner sites
     url(r'^pp/', include('apps.partners.urls.partners')),
-
-    # Url M-changa status updates
-    url(r'^payments_mchanga/', include('apps.mchanga.urls.core'))
 
 )
 

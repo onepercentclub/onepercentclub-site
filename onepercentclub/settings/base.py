@@ -160,7 +160,7 @@ CACHES = {
 # http://stackoverflow.com/questions/8092695/404-on-requests-without-trailing-slash-to-i18n-urls
 MIDDLEWARE_CLASSES = [
     'bluebottle.auth.middleware.UserJwtTokenMiddleware',
-    'apps.redirects.middleware.RedirectHashCompatMiddleware',
+    'bluebottle.redirects.middleware.RedirectHashCompatMiddleware',
     'bluebottle.auth.middleware.AdminOnlyCsrf',
     # Have a middleware to make sure old cookies still work after we switch to domain-wide cookies.
     'bluebottle.utils.middleware.SubDomainSessionMiddleware',
@@ -174,7 +174,7 @@ MIDDLEWARE_CLASSES = [
     # https://docs.djangoproject.com/en/1.4/ref/clickjacking/
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
-    'apps.redirects.middleware.RedirectFallbackMiddleware',
+    'bluebottle.redirects.middleware.RedirectFallbackMiddleware',
     'apps.crawlable.middleware.HashbangMiddleware',
     'django_tools.middlewares.ThreadLocal.ThreadLocalMiddleware',
     'bluebottle.auth.middleware.SlidingJwtTokenMiddleware'
@@ -272,6 +272,9 @@ INSTALLED_APPS = (
     'bluebottle.tasks',
     'bluebottle.organizations',
     'bluebottle.payouts',
+    'bluebottle.homepage',
+    'bluebottle.statistics',
+    'bluebottle.recurring_donations',
 
     # Plain Bluebottle apps
     'bluebottle.wallposts',
@@ -298,14 +301,9 @@ INSTALLED_APPS = (
 
     'apps.bluebottle_dashboard',
     'apps.contentplugins',
-    'apps.campaigns',
     'apps.hbtemplates',
-    'apps.statistics',
-    'apps.homepage',
     'apps.partners',
     'apps.crawlable',
-    'apps.mchanga',
-    'apps.recurring_donations',
 
 
     # Bluebottle apps with abstract models
