@@ -13,25 +13,16 @@ admin.autodiscover()
 
 handler500 = 'onepercentclub.views.handler500'
 
-#Put the members urls before the bluebottle urls
-urlpatterns = patterns('',
-    url(r'^api/users/', include('apps.members.urls.api')),
-)
-
-urlpatterns += bb_urlpatterns
+urlpatterns = bb_urlpatterns
 
 urlpatterns += patterns('',
 
     url('', include('social.apps.django_app.urls', namespace='social')),
     url(r'^api/social-login/(?P<backend>[^/]+)/$', GetAuthToken.as_view()),
 
-    url(r'^api/bb_projects/', include('apps.projects.urls.api')),
-
-    url(r'^api/fund/', include('apps.fund.urls.api')),
     url(r'^api/mpesa/', include('apps.mchanga.urls.api')),
     url(r'^api/monthly_donations/', include('apps.recurring_donations.urls.api')),
 
-    url(r'^api/organizations/', include('apps.organizations.urls.api')),
     url(r'^api/partners/', include('apps.partners.urls.api')),
 
     # Onepercent AFOM
@@ -40,10 +31,6 @@ urlpatterns += patterns('',
     # Homepage API urls
     url(r'^api/homepage/', include('apps.homepage.urls.api')),
     url(r'^api/stats', include('apps.statistics.urls.api')),
-
-    # API for DocData Status Changed Notifications.
-    url(r'^api/docdatastatuschanged/', include('apps.cowry_docdata.urls.api')),
-    url(r'^api/docdatastatuschangedlegacy/', include('apps.cowry_docdata_legacy.urls.api')),
 
     # Needed for the self-documenting API in Django Rest Framework.
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
@@ -83,12 +70,8 @@ urlpatterns += i18n_patterns('',
     # account login/logout, password reset, and password change
     url(r'^accounts/', include('django.contrib.auth.urls', namespace='accounts')),
 
-    # Project view that search engines will use.
-    url(r'^projects/', include('apps.projects.urls.seo')),
-
     # Organization urls for downloading private documents
     url(r'^admin/documents/', include('bluebottle.utils.urls.main')),
-    url(r'^documents/', include('apps.organizations.urls.documents')),
 
     # handlebar templates
     url(r'^templates/', include('apps.hbtemplates.urls')),

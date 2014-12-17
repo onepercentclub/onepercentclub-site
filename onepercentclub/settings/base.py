@@ -245,10 +245,7 @@ INSTALLED_APPS = (
     #'social_auth',
     'social.apps.django_app.default',
 
-    # Onepercent app to send POST requests to AFOM
-    'onepercent_afom',
-
-    #Widget
+    # Widget
     'bluebottle.widget',
 
     # CMS page contents
@@ -269,6 +266,13 @@ INSTALLED_APPS = (
     'legacyauth',
 
 
+    # Apps moved to Bluebottle
+    'bluebottle.members',
+    'bluebottle.projects',
+    'bluebottle.tasks',
+    'bluebottle.organizations',
+    'bluebottle.payouts',
+
     # Plain Bluebottle apps
     'bluebottle.wallposts',
     'bluebottle.utils',
@@ -286,14 +290,6 @@ INSTALLED_APPS = (
     'bluebottle.payments_voucher',
     'bluebottle.redirects',
     'bluebottle.bb_follow',
-
-    # Apps extending Bluebottle base models
-    # These should be before there Bb parents so the templates are overridden
-    'apps.members',
-    'apps.tasks',
-    'apps.projects',
-    'apps.organizations',
-    'apps.payouts',
 
     # apps overriding bluebottle functionality should come before the bluebottle entries
     # (template loaders pick the first template they find)
@@ -326,18 +322,6 @@ INSTALLED_APPS = (
     'bluebottle.fundraisers',
     'bluebottle.donations',
     'bluebottle.orders',
-
-    # FIXME: Keep these just for migrations
-    'apps.fund',
-    'apps.cowry',
-    'apps.cowry_docdata',
-
-    # FIXME: Reimplement these apps
-    'apps.vouchers',
-    # 'apps.sepa',
-    # 'apps.csvimport',
-    # 'apps.accounting',
-
 
     # Custom dashboard
     'fluent_dashboard',

@@ -1,6 +1,6 @@
 from fluent_dashboard.dashboard import FluentIndexDashboard
-from apps.projects.dashboard import SubmittedPlans, EndedProjects, StartedCampaigns
-from apps.tasks.dashboard import RecentTasks
+from bluebottle.projects.dashboard import SubmittedPlans, EndedProjects, StartedCampaigns
+from bluebottle.tasks.dashboard import RecentTasks
 
 
 class CustomIndexDashboard(FluentIndexDashboard):

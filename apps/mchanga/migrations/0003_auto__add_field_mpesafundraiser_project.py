@@ -204,9 +204,9 @@ class Migration(SchemaMigration):
         u'projects.project': {
             'Meta': {'ordering': "['title']", 'object_name': 'Project'},
             'allow_overfunding': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'amount_asked': ('apps.projects.fields.MoneyField', [], {'default': '0', 'null': 'True', 'max_digits': '12', 'decimal_places': '2', 'blank': 'True'}),
-            'amount_donated': ('apps.projects.fields.MoneyField', [], {'default': '0', 'max_digits': '12', 'decimal_places': '2'}),
-            'amount_needed': ('apps.projects.fields.MoneyField', [], {'default': '0', 'max_digits': '12', 'decimal_places': '2'}),
+            'amount_asked': ('bluebottle.projects.fields.MoneyField', [], {'default': '0', 'null': 'True', 'max_digits': '12', 'decimal_places': '2', 'blank': 'True'}),
+            'amount_donated': ('bluebottle.projects.fields.MoneyField', [], {'default': '0', 'max_digits': '12', 'decimal_places': '2'}),
+            'amount_needed': ('bluebottle.projects.fields.MoneyField', [], {'default': '0', 'max_digits': '12', 'decimal_places': '2'}),
             'campaign_ended': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'campaign_funded': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'campaign_started': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),

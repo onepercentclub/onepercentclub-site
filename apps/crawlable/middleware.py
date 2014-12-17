@@ -1,7 +1,7 @@
 import logging
 from bluebottle.fundraisers.models import Fundraiser
-from apps.projects.models import Project
-from apps.tasks.models import Task
+from bluebottle.projects.models import Project
+from bluebottle.tasks.models import Task
 from django.http.response import HttpResponsePermanentRedirect
 from django.template.response import SimpleTemplateResponse
 import re

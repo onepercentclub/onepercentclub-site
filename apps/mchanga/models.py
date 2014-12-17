@@ -7,7 +7,7 @@ class MpesaPayment(models.Model):
 
     @classmethod
     def create_from_json(cls, pm):
-        from apps.projects.models import Project
+        from bluebottle.projects.models import Project
         payment, created = cls.objects.get_or_create(mpesa_id=pm['mmp_trid'])
         if created:
             try:
@@ -46,7 +46,7 @@ class MpesaFundraiser(models.Model):
     def create_from_json(cls, fr):
         account = fr['m-changa_acno']
         fundraiser, created = cls.objects.get_or_create(account=account)
-        from apps.projects.models import Project
+        from bluebottle.projects.models import Project
         try:
             project = Project.objects.get(mchanga_account=account)
         except Project.DoesNotExist:

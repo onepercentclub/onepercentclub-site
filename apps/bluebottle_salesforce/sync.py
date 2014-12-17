@@ -5,14 +5,14 @@ import re
 from django.utils import timezone
 from registration.models import RegistrationProfile
 from apps.cowry_docdata.models import payment_method_mapping
-from apps.projects.models import ProjectBudgetLine
+from bluebottle.projects.models import ProjectBudgetLine
 from apps.organizations.models import Organization, OrganizationMember
 from apps.tasks.models import Task, TaskMember
 from bluebottle.donations.models import Donation
 from apps.vouchers.models import Voucher, VoucherStatuses
 from bluebottle.fundraisers.models import Fundraiser
-from apps.projects.models import Project
-from apps.members.models import Member
+from bluebottle.projects.models import Project
+from bluebottle.members.models import Member
 
 from apps.bluebottle_salesforce.models import SalesforceOrganization, SalesforceContact, SalesforceProject, \
     SalesforceDonation, SalesforceProjectBudget, SalesforceTask, SalesforceTaskMembers, SalesforceVoucher, \

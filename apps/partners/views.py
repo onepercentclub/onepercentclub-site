@@ -1,5 +1,5 @@
 from apps.partners.serializers import PartnerOrganizationSerializer
-from apps.projects.models import Project, PartnerOrganization
+from bluebottle.projects.models import Project, PartnerOrganization
 from django.contrib.sites.models import Site
 from django.views.generic.list import ListView
 from rest_framework import generics
