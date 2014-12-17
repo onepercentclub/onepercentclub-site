@@ -20,8 +20,6 @@ urlpatterns += patterns('',
     url('', include('social.apps.django_app.urls', namespace='social')),
     url(r'^api/social-login/(?P<backend>[^/]+)/$', GetAuthToken.as_view()),
 
-    url(r'^api/partners/', include('apps.partners.urls.api')),
-
     # Needed for the self-documenting API in Django Rest Framework.
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
@@ -62,13 +60,6 @@ urlpatterns += i18n_patterns('',
 
     # Organization urls for downloading private documents
     url(r'^admin/documents/', include('bluebottle.utils.urls.main')),
-
-    # handlebar templates
-    url(r'^templates/', include('apps.hbtemplates.urls')),
-
-    # Urls for partner sites
-    url(r'^pp/', include('apps.partners.urls.partners')),
-
 )
 
 js_info_dict = {
