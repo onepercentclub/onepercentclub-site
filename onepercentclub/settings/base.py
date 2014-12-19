@@ -285,6 +285,7 @@ INSTALLED_APPS = (
     'bluebottle.payments_logger',
     'bluebottle.payments_voucher',
     'bluebottle.redirects',
+    'bluebottle.bb_follow',
 
     # Apps extending Bluebottle base models
     # These should be before there Bb parents so the templates are overridden
@@ -603,6 +604,9 @@ SESSION_COOKIE_NAME = 'bb-session-id'
 PASSWORD_HASHERS = global_settings.PASSWORD_HASHERS + (
     'legacyauth.hashers.LegacyPasswordHasher',
 )
+
+# By default the Bedankje's app is disabled
+AFOM_ENABLED = False
 
 # Twitter handles, per language
 TWITTER_HANDLES = {

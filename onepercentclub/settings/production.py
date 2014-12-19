@@ -21,6 +21,7 @@ SESSION_COOKIE_DOMAIN = '.onepercentclub.com'
 ANALYTICS_CODE = 'UA-2761714-4'
 
 PRODUCTION = True
+AFOM_ENABLED = True
 
 DOCDATA_SETTINGS = {
     'profile': 'webmenu',

@@ -3,14 +3,14 @@ import factory
 
 from django.utils.timezone import now
 
-from bluebottle.fundraisers.models import FundRaiser
+from bluebottle.fundraisers.models import Fundraiser
 
 from bluebottle.test.factory_models.accounts import BlueBottleUserFactory
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
 
 
-class FundRaiserFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = FundRaiser
+class FundraiserFactory(factory.DjangoModelFactory):
+    FACTORY_FOR = Fundraiser
 
     title = factory.Sequence(lambda n: 'John Doe-{0}'.format(n))
     amount = 5000

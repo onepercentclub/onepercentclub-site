@@ -32,7 +32,7 @@ class TestDonationList(DonationApiTestCase):
         self.project = ProjectFactory.create(amount_asked=5000, owner=self.user1)
         self.project.set_status('campaign')
 
-        self.fundraiser = FundraiserFactory.create(amount=4000, owner=self.user1, 
+        self.fundraiser = FundraiserFactory.create(amount=4000, owner=self.user1,
             project=self.project)
 
         # Two users make a donations

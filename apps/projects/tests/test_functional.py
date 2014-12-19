@@ -251,15 +251,11 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         ###
         # Intro Section
         ###
-
-        self.assertTrue(self.is_visible('section h1.page-title'))
         self.visit_path('/my/projects/new/pitch')
 
         ###
         # Project Section
         ###
-
-        self.assertTrue(self.browser.is_element_present_by_css('.language'))
         self.assertTrue(self.is_visible('.language'))
 
         self.browser.select('language', self.language.id)

@@ -8,7 +8,7 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'MpesaFundRaiser'
+        # Adding model 'MpesaFundraiser'
         db.create_table(u'mchanga_mpesafundraiser', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
@@ -22,11 +22,11 @@ class Migration(SchemaMigration):
             ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
             ('updated', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
         ))
-        db.send_create_signal(u'mchanga', ['MpesaFundRaiser'])
+        db.send_create_signal(u'mchanga', ['MpesaFundraiser'])
 
 
     def backwards(self, orm):
-        # Deleting model 'MpesaFundRaiser'
+        # Deleting model 'MpesaFundraiser'
         db.delete_table(u'mchanga_mpesafundraiser')
 
 
@@ -101,7 +101,7 @@ class Migration(SchemaMigration):
             'region': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['geo.Region']"})
         },
         u'mchanga.mpesafundraiser': {
-            'Meta': {'object_name': 'MpesaFundRaiser'},
+            'Meta': {'object_name': 'MpesaFundraiser'},
             'account': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'current_amount': ('django.db.models.fields.IntegerField', [], {'null': 'True'}),

@@ -69,7 +69,7 @@ class Migration(DataMigration):
 
             mchanga_object = None
             if project.mchanga_account:
-                frs = orm['mchanga.MpesaFundRaiser'].objects.filter(account=project.mchanga_account).all()
+                frs = orm['mchanga.MpesaFundraiser'].objects.filter(account=project.mchanga_account).all()
                 if len(frs):
                     mchanga_object = frs[0]
 
@@ -225,7 +225,7 @@ class Migration(DataMigration):
             'region': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['geo.Region']"})
         },
         u'mchanga.mpesafundraiser': {
-            'Meta': {'object_name': 'MpesaFundRaiser'},
+            'Meta': {'object_name': 'MpesaFundraiser'},
             'account': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'current_amount': ('django.db.models.fields.IntegerField', [], {'null': 'True'}),

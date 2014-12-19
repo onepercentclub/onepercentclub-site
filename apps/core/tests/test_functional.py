@@ -44,8 +44,8 @@ class PositiveDonationFlow(OnePercentSeleniumTestCase):
         self.assert_css(".project-fund-amount-slider")
 
         # Bring up the donation modal
-        self.wait_for_element_css('a[data-action-type=donate]')
-        button = self.browser.find_by_css('a[data-action-type=donate]')[0]
+        self.wait_for_element_css('a.btn-donate')
+        button = self.browser.find_by_css('a.btn-donate')[0]
         button.click()
 
         # Verify the elements of the donation modal
@@ -83,14 +83,15 @@ class PositiveDonationFlow(OnePercentSeleniumTestCase):
         self.assertTrue(self.browser.is_text_present('Thanks for your support', wait_time=30))
 
         text = 'I made a donation with mockdeal! Good luck!'
-
-        self.assert_css('.wallpost-textarea')
         self.scroll_to_and_click_by_css('.wallpost-textarea')
         self.browser.find_by_css('.wallpost-textarea').type(text)
 
         self.browser.find_by_css(".wallpost-buttons .btn")[1].click()
 
-        wallpost = self.browser.driver.find_element_by_css_selector('section#wallposts article:first-of-type')
+        # Wait until there's two wallposts
+        # (one system wallpost about the donation and one by the donor)
+        self.wait_for_element_css_index('section#wallposts article', 1)
+        wallpost = self.wait_for_element_css_index('section#wallposts article', 0)
 
         wallpost_text = wallpost.find_element_by_css_selector('.wallpost-body').text
         self.assertEqual(wallpost_text, text)
@@ -118,12 +119,12 @@ class LoginDonationFlow(OnePercentSeleniumTestCase):
         self.assert_css(".project-fund-amount-slider")
 
         # Bring up the donation modal
-        self.assert_css('a[data-action-type="donate"]')
-        self.scroll_to_and_click_by_css('a[data-action-type=donate]')
+        self.wait_for_element_css('a.btn-donate')
+        button = self.browser.find_by_css('a.btn-donate')[0]
+        button.click()
 
         # Verify the elements of the donation modal
         self.wait_for_element_css('input.donation-input')
-
         donation_input = self.browser.find_by_css("input.donation-input").first
 
         # Make a donation of 55 euros (default is 25)
