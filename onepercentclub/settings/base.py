@@ -320,6 +320,7 @@ INSTALLED_APPS = (
     'bluebottle.bb_donations',
     'bluebottle.bb_orders',
     'bluebottle.bb_payouts',
+    'bluebottle.bb_follow',
 
     # Basic Bb implementations
     'bluebottle.fundraisers',

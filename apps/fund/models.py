@@ -277,7 +277,7 @@ def link_anonymous_donations(sender, user, request, **kwargs):
     """
     dd_orders = DocDataPaymentOrder.objects.filter(email=user.email).all()
 
-    from bluebottle.wallposts.models import SystemWallPost
+    from bluebottle.wallposts.models import SystemWallpost
 
     wallposts = None
     for dd_order in dd_orders:
@@ -289,7 +289,7 @@ def link_anonymous_donations(sender, user, request, **kwargs):
 
         ctype = ContentType.objects.get_for_model(Donation)
         for donation_id in dd_order.order.donations.values_list('id', flat=True):
-            qs = SystemWallPost.objects.filter(related_type=ctype, related_id=donation_id)
+            qs = SystemWallpost.objects.filter(related_type=ctype, related_id=donation_id)
 
             if not wallposts:
                 wallposts = qs
