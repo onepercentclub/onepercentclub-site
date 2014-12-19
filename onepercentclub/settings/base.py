@@ -627,6 +627,8 @@ SOCIAL_AUTH_PIPELINE = (
     'bluebottle.auth.utils.send_welcome_mail_pipe'
 )
 
+AFOM_ENABLED = False
+
 SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email', 'first_name', 'last_name', ]
 SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
 
