@@ -354,7 +354,7 @@ AUTH_USER_MODEL = 'members.Member'
 PROJECTS_PROJECT_MODEL = 'projects.Project'
 PROJECTS_PHASELOG_MODEL = 'projects.ProjectPhaseLog'
 
-FUNDRAISERS_FUNDRAISER_MODEL = 'fundraisers.FundRaiser'
+FUNDRAISERS_FUNDRAISER_MODEL = 'fundraisers.Fundraiser'
 
 TASKS_TASK_MODEL = 'tasks.Task'
 TASKS_SKILL_MODEL = 'tasks.Skill'

@@ -1,5 +1,5 @@
 from onepercentclub.tests.factory_models.donation_factories import DonationFactory
-from onepercentclub.tests.factory_models.fundraiser_factories import FundRaiserFactory
+from onepercentclub.tests.factory_models.fundraiser_factories import FundraiserFactory
 import re
 
 from django.test import TestCase
@@ -64,7 +64,7 @@ class DonationMailTests(TestCase):
     def test_single_mail_on_new_fundraiser_donation(self):
 
         self.fundraiser_owner = BlueBottleUserFactory.create(email='fundraiserowner@example.com', primary_language='en')
-        fundraiser = FundRaiserFactory.create(owner=self.fundraiser_owner, project=self.project)
+        fundraiser = FundraiserFactory.create(owner=self.fundraiser_owner, project=self.project)
         donation = DonationFactory.create(user=self.user, project=self.project, donation_type=Donation.DonationTypes.one_off, fundraiser=fundraiser)
 
         # Mailbox should not contain anything.
