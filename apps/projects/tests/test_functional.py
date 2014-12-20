@@ -145,11 +145,9 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         file_field.find_element_by_css_selector('input').send_keys(file_path)
 
         # verify that one picture was added, after waiting for the preview to load
-        self.wait_for_element_css('ul.form-wallpost-photos li:nth-of-type(2)')
-        ul = form.find_element_by_css_selector('ul.upload-photos')
-        previews = ul.find_elements_by_tag_name('li')
-
-        self.assertEqual(2, len(previews))
+        # NOTE: there is always an "add photo" thumbnail so there should be two
+        #       thumbnails after uploading the first pic
+        self.assertTrue(self.wait_for_element_css('.wallpost-photos .upload-photo:nth-of-type(2)'))
 
         # verify that a second picture was added
         file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'chameleon.jpg')
@@ -157,10 +155,7 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         file_field.find_element_by_css_selector('input').send_keys(file_path)
 
         # Wait for the second item to be added
-        self.wait_for_element_css('ul.form-wallpost-photos li:nth-of-type(3)')
-        ul = form.find_element_by_css_selector('ul.upload-photos')
-        previews = ul.find_elements_by_tag_name('li')
-        self.assertEqual(3, len(previews))
+        self.assertTrue(self.wait_for_element_css('.wallpost-photos .upload-photo:nth-of-type(3)'))
 
         # submit the form
         form.find_element_by_css_selector('button.action-submit').click()
