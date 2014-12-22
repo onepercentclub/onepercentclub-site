@@ -44,8 +44,7 @@ class PositiveDonationFlow(OnePercentSeleniumTestCase):
         self.assert_css(".project-fund-amount-slider")
 
         # Bring up the donation modal
-        self.wait_for_element_css('a.btn-donate')
-        button = self.browser.find_by_css('a.btn-donate')[0]
+        button = self.wait_for_element_css('.project-action a.button')
         button.click()
 
         # Verify the elements of the donation modal
@@ -119,17 +118,18 @@ class LoginDonationFlow(OnePercentSeleniumTestCase):
         self.assert_css(".project-fund-amount-slider")
 
         # Bring up the donation modal
-        self.wait_for_element_css('a.btn-donate')
-        button = self.browser.find_by_css('a.btn-donate')[0]
+        button = self.wait_for_element_css('.project-action a.button')
         button.click()
 
         # Verify the elements of the donation modal
-        self.wait_for_element_css('input.donation-input')
-        donation_input = self.browser.find_by_css("input.donation-input").first
+        donation_input = self.wait_for_element_css('input.donation-input')
+        self.assertTrue(donation_input)
 
         # Make a donation of 55 euros (default is 25)
-        donation_input.fill('55')
-        self.assertEqual(int(donation_input.value), 55)
+        donation_input.clear()
+        donation_input.send_keys('55')
+
+        self.assertEqual(int(donation_input.get_attribute('value')), 55)
         self.assert_css(".donation-buttons")
         self.assert_css("#hideMyName")
 
@@ -174,14 +174,14 @@ class LoginDonationFlow(OnePercentSeleniumTestCase):
         Test login flow for a donation
         """
 
-        # Wait for the signup modal
-        self.assert_css("input[type=email]")
-
         # There should be two email fields in the signup form
-        self.assertEqual(len(self.browser.find_by_css('input[type=email]')), 2)
+        emails = self.wait_for_n_elements_css('input[type=email]', 2)
+        self.assertTrue(emails)
 
         # Load the login modal
-        self.browser.driver.find_element_by_link_text('Sign in here.').click()
+        footer = self.wait_for_element_css('.modal-fullscreen-footer .modal-btn-signup')
+        # Find the sign in here partial text
+        footer.find_element_by_partial_link_text('ign in').click()
 
         # Wait for the user login modal to appear
         self.assert_css('input[name=username]')

@@ -321,6 +321,7 @@ INSTALLED_APPS = (
     'bluebottle.bb_donations',
     'bluebottle.bb_orders',
     'bluebottle.bb_payouts',
+    'bluebottle.bb_follow',
 
     # Basic Bb implementations
     'bluebottle.fundraisers',
@@ -630,6 +631,8 @@ SOCIAL_AUTH_PIPELINE = (
     'bluebottle.auth.utils.get_extra_facebook_data',
     'bluebottle.auth.utils.send_welcome_mail_pipe'
 )
+
+AFOM_ENABLED = False
 
 SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email', 'first_name', 'last_name', ]
 SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True

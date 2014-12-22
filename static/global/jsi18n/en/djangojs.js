@@ -13,6 +13,7 @@ function pluralidx(n) {
 }
 catalog['Cancel'] = 'Cancel';
 catalog['Description'] = 'Short description';
+catalog['Leave a comment, '] = 'Leave a comment, ';
 catalog['No, continue'] = 'No, continue';
 catalog['Save changed data?'] = 'Save changed data?';
 catalog['Save'] = 'Save';
@@ -26,9 +27,6 @@ catalog['Valid budget breakdown'] = 'Budget specification';
 catalog['Yes, stop my donation'] = 'Yes, stop my donation';
 catalog['You have some unsaved changes. Do you want to save before you leave?'] = 'You have some unsaved changes. Do you want to save before you leave?';
 catalog['You\'re about to set a monthly donation.<br/><br/>'] = 'You\'re about to set a monthly donation.<br/><br/>';
-catalog['by'] = 'by';
-catalog['of'] = 'of';
-catalog['raised'] = 'raised';
 
 
 function gettext(msgid) {
