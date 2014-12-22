@@ -385,6 +385,10 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         
         # confirm the project record was created
         # TODO: Also check it has the expected fields.
+        submit = self.wait_for_element_css('.btn-submit')
+        self.assertTrue(submit)
+        submit.click()
+
         self.assertTrue(Project.objects.filter(slug=self.project_data['slug']).exists())
 
     def test_change_project_goal(self):
