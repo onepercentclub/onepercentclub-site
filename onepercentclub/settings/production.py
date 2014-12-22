@@ -28,3 +28,4 @@ DOCDATA_SETTINGS = {
     'testing_mode': False,
 }
 
+AFOM_ENABLED = True
