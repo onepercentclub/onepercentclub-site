@@ -9,7 +9,7 @@
 	@include single-transition(all, .1s ease);
 	z-index: 999;
 
-	&.business {
+	&.business, &.civic-crowdfunding {
 		background: none;
 		border-bottom: none;
 		@include box-shadow(none);
