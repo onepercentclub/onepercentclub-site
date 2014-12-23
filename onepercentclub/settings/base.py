@@ -285,7 +285,6 @@ INSTALLED_APPS = (
     'bluebottle.payments_logger',
     'bluebottle.payments_voucher',
     'bluebottle.redirects',
-    'bluebottle.bb_follow',
 
     # Apps extending Bluebottle base models
     # These should be before there Bb parents so the templates are overridden
@@ -631,8 +630,6 @@ SOCIAL_AUTH_PIPELINE = (
     'bluebottle.auth.utils.get_extra_facebook_data',
     'bluebottle.auth.utils.send_welcome_mail_pipe'
 )
-
-AFOM_ENABLED = False
 
 SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email', 'first_name', 'last_name', ]
 SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
