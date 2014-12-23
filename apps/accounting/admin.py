@@ -1,7 +1,11 @@
+from decimal import Decimal
 from apps.accounting.models import BankTransactionCategory
 from apps.accounting.signals import match_transaction_with_payout
+from bluebottle.payments.models import Payment
+from bluebottle.utils.utils import StatusDefinition
 from django.contrib import admin
 from django.contrib.admin.filters import SimpleListFilter
+from django.db.models.aggregates import Sum
 from django.utils.translation import ugettext as _
 
 from apps.csvimport.admin import IncrementalCSVImportMixin
@@ -10,10 +14,7 @@ from django.core.urlresolvers import reverse
 from .models import BankTransaction, RemoteDocdataPayment, RemoteDocdataPayout
 from bluebottle.payments_docdata.models import DocdataPayment
 
-from .forms import (
-    BankTransactionImportForm, DocdataPayoutImportForm,
-    DocdataPaymentImportForm
-)
+from .forms import BankTransactionImportForm, DocdataPaymentImportForm
 
 
 class BankTransactionAdmin(IncrementalCSVImportMixin, admin.ModelAdmin):
@@ -60,10 +61,70 @@ class BankTransactionAdmin(IncrementalCSVImportMixin, admin.ModelAdmin):
 admin.site.register(BankTransaction, BankTransactionAdmin)
 
 
-class DocdataPayoutAdmin(IncrementalCSVImportMixin, admin.ModelAdmin):
+class DocdataPayoutAdmin(admin.ModelAdmin):
     date_hierarchy = 'start_date'
 
-    list_display = ['payout_reference', 'payout_date', 'payout_amount']
+    list_display = ['payout_reference', 'week', 'start_date', 'end_date', 'payout_date', 'payout_amount',
+                    'payments_total', 'local_payments_total']
+
+    readonly_fields = ['payout_reference', 'payout_date', 'payout_amount',
+                       'start_date', 'end_date', 'collected_amount',
+                       'payments_count', 'payments_total', 'fee_total', 'costs_total', 'vat_costs',
+                       'local_payments_total', 'local_payments_count']
+
+    fieldsets = (
+        (None, {
+            'fields': ('payout_reference', 'payout_date', 'payout_amount',
+                       'start_date', 'end_date', 'collected_amount')
+        }),
+        ('Calculated from remote payments', {
+            'fields': ('payments_count', 'payments_total', 'fee_total', 'costs_total', 'vat_costs')
+        }),
+        ('Calculated from local order-payments', {
+            'fields': ('local_payments_count', 'local_payments_total', )
+        })
+    )
+
+    def week(self, obj):
+        if obj.start_date:
+            return 'Week {0}'.format(obj.start_date.isocalendar()[1])
+        return '?'
+
+    def local_payments_total(self, obj):
+        return obj.remotedocdatapayment_set.filter(local_payment__order_payment__status=StatusDefinition.SETTLED).aggregate(total=Sum('local_payment__order_payment__amount'))['total']
+        payment_ids =  obj.remotedocdatapayment_set.values_list('local_payment_id')
+        total = Payment.objects.filter(id__in=payment_ids).aggregate(total=Sum('amount'))
+        return total['total']
+
+    def local_payments_count(self, obj):
+        payment_ids = obj.remotedocdatapayment_set.values_list('local_payment_id')
+        return len(payment_ids)
+
+    def payments_count(self, obj):
+        count = obj.remotedocdatapayment_set.count()
+        return count
+
+    def payments_count(self, obj):
+        count = obj.remotedocdatapayment_set.count()
+        url = '/admin/accounting/remotedocdatapayment/'
+        return "<a href='{0}?remote_payout__id__exact={1}'>{2} payments</a>".format(url, obj.id, count)
+
+    payments_count.allow_tags = True
+
+    def payments_total(self, obj):
+        total = obj.remotedocdatapayment_set.aggregate(total=Sum('amount_collected'))
+        return total['total']
+
+    def fee_total(self, obj):
+        return obj.remotedocdatapayment_set.aggregate(total=Sum('docdata_fee'))['total']
+
+    def costs_total(self, obj):
+        return obj.remotedocdatapayment_set.aggregate(total=Sum('tpci'))['total']
+
+    def vat_costs(self, obj):
+        costs = self.costs_total(obj) + self.fee_total(obj)
+        return round(costs * 21) / 100
+
 
 admin.site.register(RemoteDocdataPayout, DocdataPayoutAdmin)
 
@@ -71,17 +132,17 @@ admin.site.register(RemoteDocdataPayout, DocdataPayoutAdmin)
 class DocdataPaymentAdmin(IncrementalCSVImportMixin, admin.ModelAdmin):
     list_display = [
         'triple_deal_reference', 'merchant_reference', 'payment_type',
-        'matched', 'payment_link'
+        'matched', 'payment_link', 'integrity_check',
     ]
 
     list_filter = ['payment_type', ]
 
     readonly_fields = ['payout_link', 'payment_link', 'merchant_reference', 'triple_deal_reference',
-                       'payment_type', 'amount_collected']
+                       'payment_type', 'amount_collected', 'currency_amount_collected', 'tpci', 'docdata_fee', 'integrity_check']
 
     fields = readonly_fields
 
-    search_fields = ['merchant_reference', 'triple_deal_reference']
+    search_fields = ['merchant_reference', 'triple_deal_reference', 'remote_payout__payout_reference']
 
     import_form = DocdataPaymentImportForm
 
@@ -99,6 +160,13 @@ class DocdataPaymentAdmin(IncrementalCSVImportMixin, admin.ModelAdmin):
         if DocdataPayment.objects.filter(merchant_order_id=obj.merchant_reference).count():
             return True
         return False
+
+    def integrity_check(self, obj):
+        if not obj.local_payment:
+            return 'No local payment to conenct to.'
+        if obj.local_payment.order_payment.amount == obj.amount_collected:
+            return 'ok'
+        return 'OrderPayment: {0}.'.format(obj.local_payment.order_payment.amount)
 
     def payout_link(self, obj):
         object = obj.remote_payout

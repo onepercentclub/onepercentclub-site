@@ -1,3 +1,4 @@
+from decimal import Decimal, InvalidOperation
 from apps.accounting.models import RemoteDocdataPayout
 import unicodecsv as csv
 import cStringIO as StringIO
@@ -67,97 +68,15 @@ class BankTransactionImportForm(CSVImportForm):
                 )
 
 
-class DocdataPayoutImportForm(CSVImportForm):
-    """ Docdata payout import form. """
-
-    dialect = DocdataDialect
-
-    field_mapping = {
-        'Period ID': 'period_id',
-        'Start date': 'start_date',
-        'End date': 'end_date',
-        'Total': 'total'
-    }
-
-    def _reformat_date(self, date):
-        return datetime.datetime.strptime(date, '%d/%m/%y').date()
-
-    def pre_save(self, instance):
-        # Fixup date after CSV import
-        instance.start_date = self._reformat_date(instance.start_date)
-        instance.end_date = self._reformat_date(instance.end_date)
-
-        # If no payout has happened, value should be None
-        if instance.total.strip() == '-':
-            instance.total = None
-        else:
-            # Remove ' EUR' suffix from total.
-            instance.total = instance.total.replace(' EUR', '')
-
-    def skip_instance(self, instance):
-        # Make sure period ID is not already present
-        period_id = instance.period_id
-
-        if self.model.objects.filter(period_id=period_id).exists():
-            # Already exists, skip
-            return True
-
-        return False
-
-
-class OldDocdataPaymentImportForm(CSVImportForm):
-    """ Docdata payment form. """
-
-    dialect = DocdataDialect
-
-    field_mapping = {
-        'Merchant Reference': 'merchant_reference',
-        'Triple Deal Reference': 'triple_deal_reference',
-        'Type': 'payment_type',
-        'Amount Registered': 'amount_registered',
-        'Currency Amount Registered': 'currency_amount_registered',
-        'Amount Collected': 'amount_collected',
-        'Currency Amount Collected': 'currency_amount_collected',
-        'TPCD': 'tpcd',
-        'Currency TPCD': 'currency_tpcd',
-        'TPCI': 'tpci',
-        'Currency TPCI': 'currency_tpci',
-        'docdata payments Fee': 'docdata_fee',
-        'Currency docdata payments Fee': 'currency_docdata_fee',
-    }
-
-    def pre_save(self, instance):
-        """ Process model instance before saving. """
-
-        if not instance.tpcd:
-            # Decimal fields can be None, not empty
-            instance.tpcd = None
-
-        if not instance.tpci:
-            # Decimal fields can be None, not empty
-            instance.tpci = None
-
-    def skip_instance(self, instance):
-        if self.model.objects.filter(
-            triple_deal_reference=instance.triple_deal_reference,
-            merchant_reference=instance.merchant_reference,
-            payment_type=instance.payment_type
-        ).exists():
-
-            # Already exists, skip
-            return True
-
-        return False
-
-
 class DocdataPaymentImportForm(forms.Form):
     """
     Form for importing Docdata Payout Detail Report.
     """
 
-    csv_file = forms.FileField(label=_('CSV file'))
+    csv_file = forms.FileField(label=_('Payout Details Report'), help_text=_('Docdata Back-office > Reports > Download Reports > Payout Details Report + csv '))
 
     charset = 'utf-8'
+    dialect = DocdataDialect
     delimiters = '\t'
 
     field_mapping = {
@@ -204,7 +123,10 @@ class DocdataPaymentImportForm(forms.Form):
             return True
         if not instance.amount_collected:
             return True
-
+        try:
+            Decimal(instance.amount_collected)
+        except InvalidOperation:
+            return True
         return False
 
     def validate_csv(self, reader):
@@ -231,17 +153,7 @@ class DocdataPaymentImportForm(forms.Form):
         # Python's CSV code eats only UTF-8
         csv_file = codecs.EncodedFile(csv_file, self.charset)
 
-        try:
-            # Sniff dialect
-            dialect = sniffer.sniff(
-                csv_string,
-                delimiters=self.delimiters
-            )
-
-        except csv.Error, e:
-            raise forms.ValidationError(
-                _('Could not read CSV file: %s' % e.message)
-            )
+        dialect = self.dialect
 
         # Read CSV file
         reader = csv.reader(csv_file, dialect=dialect, encoding=self.charset)
@@ -251,6 +163,11 @@ class DocdataPaymentImportForm(forms.Form):
         while True:
             row = reader.next()
             t += 1
+            # Row 3 (cell 2) holds the dates for the payments in this payout
+            if t == 4:
+                interval = row[1].split(' to ')
+                payout_start = interval[0].strip(' 00:00')
+                payout_end = interval[1].strip(' 00:00')
             # Row 10 should have the Payout specification
             if t == 10:
                 payout_reference = row[0]
@@ -262,6 +179,9 @@ class DocdataPaymentImportForm(forms.Form):
                 self.payout, created = RemoteDocdataPayout.objects.get_or_create(payout_reference=payout_reference)
                 self.payout.payout_date = payout_date
                 self.payout.payout_amount = payout_amount
+
+                self.payout.start_date = payout_start
+                self.payout.end_date = payout_end
                 self.payout.save()
             # Row 15 should have the header info for all payments
             if t == 15:

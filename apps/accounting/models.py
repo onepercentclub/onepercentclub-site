@@ -91,6 +91,9 @@ class RemoteDocdataPayout(models.Model):
     def __unicode__(self):
         return self.payout_reference
 
+    class Meta:
+        ordering = ('-payout_date', )
+
 
 class RemoteDocdataPayment(models.Model):
     """ Docdata payment as incrementally imported from CSV. """
@@ -144,6 +147,10 @@ class RemoteDocdataPayment(models.Model):
 
     def __unicode__(self):
         return self.triple_deal_reference
+
+
+    class Meta:
+        ordering = ('-remote_payout__payout_date', )
 
 
 post_save.connect(change_payout_status_with_matched_transaction, weak=False, sender=BankTransaction)
