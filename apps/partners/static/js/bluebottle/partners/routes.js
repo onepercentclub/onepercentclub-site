@@ -9,6 +9,7 @@ App.Router.map(function(){
     });
 	this.resource('business');
     this.resource('crowdfunding');
+    this.resource('civic-crowdfunding');
 });
 
 App.PartnerRoute = Em.Route.extend(App.SubMenuMixin, {
@@ -48,9 +49,6 @@ App.PartnerProjectsRoute = Em.Route.extend(App.ScrollToTop, {
     }
 });
 
-App.BusinessRoute = Em.Route.extend(App.ScrollToTop, {
-
-});
-
-
+App.BusinessRoute = Em.Route.extend(App.ScrollToTop);
 App.CrowdfundingRoute = Em.Route.extend(App.ScrollToTop);
+App.CivicCrowdfundingRoute = Em.Route.extend(App.ScrollToTop);
