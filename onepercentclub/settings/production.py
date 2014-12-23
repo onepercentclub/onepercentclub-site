@@ -28,5 +28,3 @@ DOCDATA_SETTINGS = {
     'days_to_pay': 5,
     'testing_mode': False,
 }
-
-AFOM_ENABLED = True
