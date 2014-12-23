@@ -1,6 +1,6 @@
 import datetime
 from decimal import Decimal
-from apps.mchanga.models import MpesaFundRaiser
+from apps.mchanga.models import MpesaFundraiser
 from bluebottle.utils.utils import StatusDefinition
 from bluebottle.bb_projects.models import BaseProject, ProjectPhase, BaseProjectPhaseLog
 from django.db import models
@@ -121,7 +121,7 @@ class Project(BaseProject):
         Return a M-Changa fund raiser, if there is one.
         """
         if self.mchanga_account:
-            frs = MpesaFundRaiser.objects.filter(account=self.mchanga_account).all()
+            frs = MpesaFundraiser.objects.filter(account=self.mchanga_account).all()
             if len(frs):
                 return frs[0]
             return None

@@ -10,7 +10,7 @@ from apps.organizations.models import Organization, OrganizationMember
 from apps.tasks.models import Task, TaskMember
 from bluebottle.donations.models import Donation
 from apps.vouchers.models import Voucher, VoucherStatuses
-from bluebottle.fundraisers.models import FundRaiser
+from bluebottle.fundraisers.models import Fundraiser
 from apps.projects.models import Project
 from apps.members.models import Member
 
@@ -358,7 +358,7 @@ def sync_fundraisers(dry_run, sync_from_datetime, loglevel):
     error_count = 0
     success_count = 0
 
-    fundraisers = FundRaiser.objects.all()
+    fundraisers = Fundraiser.objects.all()
 
     if sync_from_datetime:
         fundraisers = fundraisers.filter(updated__gte=sync_from_datetime)

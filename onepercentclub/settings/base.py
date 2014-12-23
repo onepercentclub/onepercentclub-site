@@ -320,6 +320,7 @@ INSTALLED_APPS = (
     'bluebottle.bb_donations',
     'bluebottle.bb_orders',
     'bluebottle.bb_payouts',
+    'bluebottle.bb_follow',
 
     # Basic Bb implementations
     'bluebottle.fundraisers',
@@ -354,7 +355,7 @@ AUTH_USER_MODEL = 'members.Member'
 PROJECTS_PROJECT_MODEL = 'projects.Project'
 PROJECTS_PHASELOG_MODEL = 'projects.ProjectPhaseLog'
 
-FUNDRAISERS_FUNDRAISER_MODEL = 'fundraisers.FundRaiser'
+FUNDRAISERS_FUNDRAISER_MODEL = 'fundraisers.Fundraiser'
 
 TASKS_TASK_MODEL = 'tasks.Task'
 TASKS_SKILL_MODEL = 'tasks.Skill'
@@ -602,6 +603,9 @@ SESSION_COOKIE_NAME = 'bb-session-id'
 PASSWORD_HASHERS = global_settings.PASSWORD_HASHERS + (
     'legacyauth.hashers.LegacyPasswordHasher',
 )
+
+# By default the Bedankje's app is disabled
+AFOM_ENABLED = False
 
 # Twitter handles, per language
 TWITTER_HANDLES = {

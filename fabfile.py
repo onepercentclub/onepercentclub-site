@@ -581,7 +581,7 @@ def backup_db(db_username="onepercentsite", db_name="onepercentsite", commit=Non
 
 @roles('backup')
 @task
-def get_db():
+def get_db(db_name="onepercentsite"):
     backup_dir = "/home/backups/onepercentclub-backups/onepercentsite/"
     with cd(backup_dir):
         output = run("ls -1t *.bz2 | head -1")
@@ -594,7 +594,7 @@ def get_db():
             get(remote_path="{0}/{1}".format(backup_dir, filename), local_path="./dump.sql.bz2")
             confirmed = confirm('Are you sure you want to replace the current database?', default=False)
             if confirmed:
-                replace_db("./dump.sql.bz2")
+                replace_db("./dump.sql.bz2", db_name)
 
 
 def replace_db(filename="./dump.sql.bz2", db_name="onepercentsite"):
