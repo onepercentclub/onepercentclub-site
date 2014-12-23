@@ -334,9 +334,9 @@ INSTALLED_APPS = (
 
     # FIXME: Reimplement these apps
     'apps.vouchers',
-    # 'apps.sepa',
-    # 'apps.csvimport',
-    # 'apps.accounting',
+    'apps.sepa',
+    'apps.csvimport',
+    'apps.accounting',
 
 
     # Custom dashboard
