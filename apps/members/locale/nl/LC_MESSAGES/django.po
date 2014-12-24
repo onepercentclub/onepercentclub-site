@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-08 16:24+0100\n"
-"PO-Revision-Date: 2014-12-07 13:49+0000\n"
+"PO-Revision-Date: 2014-12-20 16:07+0000\n"
 "Last-Translator: bartlacroix <bart@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -154,7 +154,7 @@ msgstr "Over jou"
 #: templates/bb_accounts/profile_form.hbs:66
 #, python-format
 msgid "Why did you join 1%%Club?"
-msgstr "Waarom heb je je geregistreerd bij 1%%Club?"
+msgstr "Waarom 1%%Club?"
 
 #: templates/bb_accounts/profile_form.hbs:80
 msgid "Your website"
@@ -265,7 +265,7 @@ msgstr "Log in hier"
 #: templates/bb_accounts/signup.hbs:39
 #, python-format
 msgid "Why join 1%%Club?"
-msgstr "Waarom registreren bij 1%%Club?"
+msgstr "Waarom meedoen met 1%%Club?"
 
 #: templates/bb_accounts/signup.hbs:41
 msgid "It's easy to find projects you like."

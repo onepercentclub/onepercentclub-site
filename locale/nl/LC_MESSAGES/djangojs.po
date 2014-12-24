@@ -40,7 +40,7 @@ msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-08 16:25+0100\n"
-"PO-Revision-Date: 2014-12-07 16:57+0000\n"
+"PO-Revision-Date: 2014-12-20 16:06+0000\n"
 "Last-Translator: bartlacroix <bart@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -82,7 +82,7 @@ msgstr "Kies tijd"
 #: apps/members/static/js/members/views.js:8
 #, c-format
 msgid "Tell the world why you chose to join 1%Club!"
-msgstr "Vertel ons waarom je voor de 1%Club hebt gekozen!"
+msgstr "Waarom doe je mee met 1%Club."
 
 #: apps/members/static/js/members/views.js:12
 msgid "Tell us a bit about yourself so we can get to know you!"

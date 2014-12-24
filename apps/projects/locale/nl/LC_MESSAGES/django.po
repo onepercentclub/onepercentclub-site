@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-08 16:25+0100\n"
-"PO-Revision-Date: 2014-12-07 16:28+0000\n"
+"PO-Revision-Date: 2014-12-14 20:42+0000\n"
 "Last-Translator: bartlacroix <bart@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -401,7 +401,7 @@ msgstr "van"
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/_project_actions_with_funding.hbs.py:70
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/project_preview_list.hbs.py:36
 msgid "raised"
-msgstr "heeft"
+msgstr "opgehaald"
 
 #: templates/bb_projects/project_preview.hbs:51
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/project_preview.hbs.py:16
@@ -418,7 +418,7 @@ msgstr "campagnes voor"
 #: /Users/aethem/Documents/SWTR/onepercent/onepercentclub-site/env-2.7/src/bluebottle/bluebottle/bb_projects/templates/bb_projects/project_preview_list.hbs.py:30
 msgctxt "Slider project frontpage"
 msgid "raised"
-msgstr "heeft"
+msgstr "opgehaald"
 
 #: templates/bb_projects/project_preview_list.hbs:38
 #: templates/bb_projects/project_preview_list.hbs:60
