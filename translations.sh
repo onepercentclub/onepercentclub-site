@@ -29,7 +29,7 @@ COMPILEJSMESSAGES="$MANAGE_PY compilejsi18n $SETTINGS"
 APPS_DIR="apps"
 
 # All apps that hold translations. This is used by `pull` and `compile`.
-APPS="projects members fundraisers organizations tasks homepage donations widget core"
+APPS="projects members organizations tasks homepage donations core"
 
 case "$1" in
         generate)
