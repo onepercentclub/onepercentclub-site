@@ -1,0 +1,49 @@
+// ========================= Variables ==================================
+// SET YOUR EDITOR TO USING TABS AND TAB SIZE OF 4 FOR PROPER ALIGNMENT
+// OF THE VARIABLES BELOW
+
+// global colors
+$color-pri             : #009FE3;
+$color-pri-shadow      : #146DB3;
+$color-sec             : #FDBA16;
+$color-sec-shadow      : #F3991F;
+
+// global black, white, grey
+$color-black           : #4a4a4a !default;
+$color-white           : #f8f7f8 !default;
+$color-grey-dark	   : #3c3c3c !default;
+$color-grey            : #999999 !default; // usually for text
+$color-grey-medium     : #d8d8d8 !default; // borders for box
+$color-grey-light      : #ededed !default; // outside borders for box
+$color-grey-lightest   : #f8f7f8 !default; // box background grey
+$color-grey-back       : #F6F5F7 !default; // background grey
+
+// real white & black (try avoiding these)
+$color-real-black      : #000000 !default;
+$color-real-white      : #ffffff !default;
+
+// corners
+$radius-small          : 2px !default;
+$radius-medium         : 4px !default;
+$radius-large          : 8px !default;
+
+// text
+$font-family-base      : 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-family-header    : 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+$font-size-base        : 16px !default;
+$line-height-base      : 1.5em !default;
+$color-text            : $color-black;
+$color-text-on-dark    : $color-white;
+
+// forms
+$color-placeholder	   : #bababa !default;
+
+// errors & success
+$color-error           : #CA4040 !default;
+$color-error-back	   : #F4C5C5 !default;
+$color-success         : $color-sec !default;
+
+// social
+$color-facebook: #3B5998 !default;
+$color-twitter: #55ACEE !default;

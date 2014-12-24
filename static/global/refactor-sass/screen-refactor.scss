@@ -16,6 +16,9 @@
 @import "base/base";
 @import "base/typography";
 
+// layout
+@import "layout/header";
+
 // modules
 @import "modules/wallpost-update";
 @import "modules/wallpost";
@@ -26,7 +29,6 @@
 // pages
 @import "pages/project-detail-header";
 @import "pages/wall";
-@import "pages/static";
 
 // static pages
 @import "extend/pages/civic-crowdfunding";
