@@ -376,6 +376,11 @@ SOCIAL_AUTH_USER_MODEL = 'members.Member'
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_friends', 'public_profile', 'user_birthday']
 SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [('birthday', 'birthday')]
 
+BB_APPS = ['wallposts', 'utils', 'contact', 'geo', 'pages', 'news', 'slides', 'quotes',
+           'payments', 'payments_docdata', 'payments_voucher', 'bb_accounts', 'bb_organizations',
+           'bb_projects', 'bb_tasks', 'bb_fundraisers', 'bb_donations', 'bb_orders']
+
+
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error when DEBUG=False.
