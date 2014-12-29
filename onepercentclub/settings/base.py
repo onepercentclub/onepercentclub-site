@@ -280,6 +280,7 @@ INSTALLED_APPS = (
     'bluebottle.statistics',
     'bluebottle.homepage',
     'bluebottle.crawlable',
+    'bluebottle.recurring_donations',
 
     # Plain Bluebottle apps
     'bluebottle.wallposts',
@@ -304,7 +305,6 @@ INSTALLED_APPS = (
 
     # apps overriding bluebottle functionality should come before the bluebottle entries
     # (template loaders pick the first template they find)
-    'apps.recurring_donations',
     'apps.bluebottle_salesforce',
 
     # Bluebottle apps with abstract models
