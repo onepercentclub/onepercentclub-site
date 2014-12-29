@@ -17,7 +17,7 @@ from apps.cowry_docdata.adapters import WebDirectDocDataDirectDebitPaymentAdapte
 from apps.cowry_docdata.exceptions import DocDataPaymentException
 from apps.cowry_docdata.models import DocDataPaymentOrder
 from apps.fund.models import RecurringDirectDebitPayment, Order, OrderStatuses, Donation
-from apps.projects.models import Project
+from bluebottle.projects.models import Project
 from ...mails import mail_monthly_donation_processed_notification
 
 logger = logging.getLogger(__name__)

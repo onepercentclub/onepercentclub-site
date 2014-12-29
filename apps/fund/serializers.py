@@ -1,5 +1,5 @@
 # coding=utf-8
-from apps.projects.serializers import ProjectPreviewSerializer
+from bluebottle.projects.serializers import ProjectPreviewSerializer
 from apps.vouchers.serializers import VoucherSerializer, OrderCurrentVoucherSerializer
 from bluebottle.bb_accounts.serializers import UserPreviewSerializer
 from bluebottle.bluebottle_drf2.serializers import EuroField

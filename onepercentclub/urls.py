@@ -20,7 +20,7 @@ urlpatterns += patterns('',
     url('', include('social.apps.django_app.urls', namespace='social')),
     url(r'^api/social-login/(?P<backend>[^/]+)/$', GetAuthToken.as_view()),
 
-    url(r'^api/bb_projects/', include('apps.projects.urls.api')),
+    url(r'^api/bb_projects/', include('bluebottle.projects.urls.api')),
 
     url(r'^api/fund/', include('apps.fund.urls.api')),
     url(r'^api/mpesa/', include('apps.mchanga.urls.api')),
@@ -79,7 +79,7 @@ urlpatterns += i18n_patterns('',
     url(r'^accounts/', include('django.contrib.auth.urls', namespace='accounts')),
 
     # Project view that search engines will use.
-    url(r'^projects/', include('apps.projects.urls.seo')),
+    url(r'^projects/', include('bluebottle.projects.urls.seo')),
 
     # Organization urls for downloading private documents
     url(r'^admin/documents/', include('bluebottle.utils.urls.main')),
@@ -97,7 +97,7 @@ urlpatterns += i18n_patterns('',
 )
 
 js_info_dict = {
-    'packages': ('apps.accounts', 'apps.projects'),
+    'packages': ('apps.accounts', 'bluebottle.projects'),
 }
 
 urlpatterns += patterns('',

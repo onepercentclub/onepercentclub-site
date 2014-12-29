@@ -25,7 +25,7 @@ FLUENT_DASHBOARD_APP_GROUPS = (
     }),
     (_('Projects'), {
         'models': (
-            'apps.projects.*',
+            'bluebottle.projects.*',
             'bluebottle.bb_projects.*',
             'bluebottle.fundraisers.*',
             'apps.organizations.*',
@@ -72,7 +72,7 @@ FLUENT_DASHBOARD_APP_GROUPS = (
         'models': (
             'django.contrib.auth.*',
             'registration.*',
-            'apps.members.*',
+            'bluebottle.members.*',
             'bluebottle.bb_accounts.*',
         ),
         'module': 'fluent_dashboard.modules.AppIconList',

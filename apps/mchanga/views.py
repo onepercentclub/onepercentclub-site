@@ -1,6 +1,6 @@
 from apps.mchanga.models import MpesaPayment, MpesaFundraiser
 from apps.mchanga.serializers import MpesaPaymentSerializer, MpesaFundraiserSerializer
-from apps.projects.permissions import IsProjectOwner
+from bluebottle.projects.permissions import IsProjectOwner
 from django.http.response import HttpResponse
 from django.views.generic.base import View
 from rest_framework.generics import ListAPIView, RetrieveAPIView

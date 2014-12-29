@@ -1,6 +1,6 @@
 import csv
 import logging
-from apps.projects.models import ProjectBudgetLine
+from bluebottle.projects.models import ProjectBudgetLine
 from bluebottle.payments.models import OrderPayment
 import os
 from registration.models import RegistrationProfile
@@ -13,8 +13,8 @@ from apps.vouchers.models import Voucher, VoucherStatuses
 from apps.organizations.models import Organization, OrganizationMember
 from bluebottle.fundraisers.models import Fundraiser
 from apps.tasks.models import Task, TaskMember
-from apps.projects.models import Project
-from apps.members.models import Member
+from bluebottle.projects.models import Project
+from bluebottle.members.models import Member
 
 logger = logging.getLogger('bluebottle.salesforce')
 

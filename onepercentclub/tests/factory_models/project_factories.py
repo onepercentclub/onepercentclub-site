@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.utils.timezone import now
 
 from bluebottle.test.factory_models.projects import ProjectFactory
-from apps.projects.models import Project, PartnerOrganization
+from bluebottle.projects.models import Project, PartnerOrganization
 import factory
 
 class OnePercentProjectFactory(ProjectFactory):

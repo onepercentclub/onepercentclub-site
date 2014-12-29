@@ -3,7 +3,7 @@
 #import json
 #from django.test import TestCase
 #from rest_framework import status
-#from apps.projects.tests import ProjectTestsMixin
+#from bluebottle.projects.tests import ProjectTestsMixin
 #
 #
 #class VoucherApiIntegrationTest(ProjectTestsMixin, TestCase):
