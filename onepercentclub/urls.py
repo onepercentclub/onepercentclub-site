@@ -27,7 +27,6 @@ urlpatterns += patterns('',
     url(r'^api/monthly_donations/', include('apps.recurring_donations.urls.api')),
 
     url(r'^api/organizations/', include('apps.organizations.urls.api')),
-    url(r'^api/partners/', include('apps.partners.urls.api')),
 
     # Onepercent AFOM
     url(r'^api/bedankjes/', include('onepercent_afom.urls.api')),
@@ -78,18 +77,12 @@ urlpatterns += i18n_patterns('',
     # account login/logout, password reset, and password change
     url(r'^accounts/', include('django.contrib.auth.urls', namespace='accounts')),
 
-    # Project view that search engines will use.
-    url(r'^projects/', include('bluebottle.projects.urls.seo')),
-
     # Organization urls for downloading private documents
     url(r'^admin/documents/', include('bluebottle.utils.urls.main')),
     url(r'^documents/', include('apps.organizations.urls.documents')),
 
     # handlebar templates
     url(r'^templates/', include('apps.hbtemplates.urls')),
-
-    # Urls for partner sites
-    url(r'^pp/', include('apps.partners.urls.partners')),
 
     # Url M-changa status updates
     url(r'^payments_mchanga/', include('apps.mchanga.urls.core'))

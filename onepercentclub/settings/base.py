@@ -272,6 +272,7 @@ INSTALLED_APPS = (
     # Newly moved BB apps
     'bluebottle.members',
     'bluebottle.projects',
+    'bluebottle.partners',
 
     # Plain Bluebottle apps
     'bluebottle.wallposts',
@@ -307,7 +308,6 @@ INSTALLED_APPS = (
     'apps.hbtemplates',
     'apps.statistics',
     'apps.homepage',
-    'apps.partners',
     'apps.crawlable',
     'apps.mchanga',
     'apps.recurring_donations',
