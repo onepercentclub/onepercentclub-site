@@ -1,4 +1,3 @@
-from bluebottle.utils.utils import StatusDefinition
 from django.contrib import admin
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse

@@ -1,6 +1,6 @@
 from decimal import Decimal
 from bluebottle.projects.models import PartnerOrganization
-from apps.sepa.sepa import SepaDocument, SepaAccount
+from bluebottle.sepa.sepa import SepaDocument, SepaAccount
 from bluebottle.bb_payouts.models import BaseProjectPayout, BaseOrganizationPayout
 from bluebottle.utils.utils import StatusDefinition
 from djchoices.choices import DjangoChoices, ChoiceItem

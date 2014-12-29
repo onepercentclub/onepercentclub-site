@@ -20,14 +20,8 @@ urlpatterns += patterns('',
     url('', include('social.apps.django_app.urls', namespace='social')),
     url(r'^api/social-login/(?P<backend>[^/]+)/$', GetAuthToken.as_view()),
 
-    url(r'^api/bb_projects/', include('bluebottle.projects.urls.api')),
 
     url(r'^api/monthly_donations/', include('apps.recurring_donations.urls.api')),
-
-    # Homepage API urls
-    url(r'^api/homepage/', include('apps.homepage.urls.api')),
-    url(r'^api/stats', include('apps.statistics.urls.api')),
-
 
     # Needed for the self-documenting API in Django Rest Framework.
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),

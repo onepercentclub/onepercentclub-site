@@ -175,7 +175,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
     'bluebottle.redirects.middleware.RedirectFallbackMiddleware',
-    'apps.crawlable.middleware.HashbangMiddleware',
+    'bluebottle.crawlable.middleware.HashbangMiddleware',
     'django_tools.middlewares.ThreadLocal.ThreadLocalMiddleware',
     'bluebottle.auth.middleware.SlidingJwtTokenMiddleware'
 ]
@@ -277,6 +277,9 @@ INSTALLED_APPS = (
     'bluebottle.tasks',
     'bluebottle.hbtemplates',
     'bluebottle.bluebottle_dashboard',
+    'bluebottle.statistics',
+    'bluebottle.homepage',
+    'bluebottle.crawlable',
 
     # Plain Bluebottle apps
     'bluebottle.wallposts',
@@ -301,10 +304,6 @@ INSTALLED_APPS = (
 
     # apps overriding bluebottle functionality should come before the bluebottle entries
     # (template loaders pick the first template they find)
-    'apps.core',
-    'apps.statistics',
-    'apps.homepage',
-    'apps.crawlable',
     'apps.recurring_donations',
     'apps.bluebottle_salesforce',
 
