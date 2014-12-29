@@ -13,12 +13,7 @@ admin.autodiscover()
 
 handler500 = 'onepercentclub.views.handler500'
 
-#Put the members urls before the bluebottle urls
-urlpatterns = patterns('',
-    url(r'^api/users/', include('apps.members.urls.api')),
-)
-
-urlpatterns += bb_urlpatterns
+urlpatterns = bb_urlpatterns
 
 urlpatterns += patterns('',
 

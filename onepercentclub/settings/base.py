@@ -269,6 +269,9 @@ INSTALLED_APPS = (
     'legacyauth',
 
 
+    # Newly moved BB apps
+    'bluebottle.members',
+
     # Plain Bluebottle apps
     'bluebottle.wallposts',
     'bluebottle.utils',
@@ -288,7 +291,6 @@ INSTALLED_APPS = (
 
     # Apps extending Bluebottle base models
     # These should be before there Bb parents so the templates are overridden
-    'apps.members',
     'apps.tasks',
     'apps.projects',
     'apps.organizations',
