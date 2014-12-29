@@ -149,11 +149,6 @@ class RemoteDocdataPayment(models.Model):
     def __unicode__(self):
         return self.triple_deal_reference
 
-
     class Meta:
         ordering = ('-remote_payout__payout_date', )
 
-#
-# post_save.connect(change_payout_status_with_matched_transaction, weak=False, sender=BankTransaction)
-#
-# post_save.connect(match_transaction_with_payout_on_creation, weak=False, sender=BankTransaction)
