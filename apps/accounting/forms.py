@@ -1,6 +1,6 @@
 from decimal import Decimal, InvalidOperation
 from apps.accounting.fields import MultiFileField
-from apps.accounting.models import RemoteDocdataPayout
+from apps.accounting.models import RemoteDocdataPayout, RemoteDocdataPayment
 import unicodecsv as csv
 import cStringIO as StringIO
 import codecs
@@ -120,9 +120,8 @@ class DocdataPaymentImportForm(forms.Form):
             instance.tpci = None
 
     def skip_instance(self, instance):
-        if self.model.objects.filter(
+        if RemoteDocdataPayment.objects.filter(
             triple_deal_reference=instance.triple_deal_reference,
-            merchant_reference=instance.merchant_reference,
             payment_type=instance.payment_type
         ).exists():
 
@@ -262,7 +261,7 @@ class DocdataPaymentImportForm(forms.Form):
                     for (index, field_name) in self.field_mapping.items():
                         init_args[field_name] = row[index]
 
-                    instance = self.model(**init_args)
+                    instance = RemoteDocdataPayment(**init_args)
 
                 # Further processing before saving
                 self.pre_save(instance, payout)

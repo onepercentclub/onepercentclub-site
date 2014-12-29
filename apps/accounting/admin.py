@@ -1,7 +1,9 @@
+from decimal import Decimal
 from apps.accounting.models import BankTransactionCategory
 from apps.accounting.signals import match_transaction_with_payout
-from bluebottle.payments.models import Payment
+from bluebottle.payments.models import Payment, OrderPayment
 from bluebottle.utils.utils import StatusDefinition
+from django.conf import settings
 from django.contrib import admin
 from django.db.models.aggregates import Sum
 from django.utils.translation import ugettext as _
@@ -116,18 +118,19 @@ class DocdataPayoutAdmin(admin.ModelAdmin):
         return '?'
 
     def local_payments_total(self, obj):
+        order_payment_ids = obj.remotedocdatapayment_set.values_list('local_payment__order_payment__id')
+        order_payments = OrderPayment.objects.filter(id__in=order_payment_ids)
+        print order_payments.count()
+        order_payments = order_payments.filter(status=StatusDefinition.SETTLED)
+        print order_payments.count()
+        total = order_payments.aggregate(total=Sum('amount'))['total']
+        return format(total)
+
         return obj.remotedocdatapayment_set.filter(local_payment__order_payment__status=StatusDefinition.SETTLED).aggregate(total=Sum('local_payment__order_payment__amount'))['total']
-        payment_ids =  obj.remotedocdatapayment_set.values_list('local_payment_id')
-        total = Payment.objects.filter(id__in=payment_ids).aggregate(total=Sum('amount'))
-        return total['total']
 
     def local_payments_count(self, obj):
         payment_ids = obj.remotedocdatapayment_set.values_list('local_payment_id')
         return len(payment_ids)
-
-    def payments_count(self, obj):
-        count = obj.remotedocdatapayment_set.count()
-        return count
 
     def payments_count(self, obj):
         count = obj.remotedocdatapayment_set.count()
@@ -148,7 +151,7 @@ class DocdataPayoutAdmin(admin.ModelAdmin):
 
     def vat_costs(self, obj):
         costs = self.costs_total(obj) + self.fee_total(obj)
-        return round(costs * 21) / 100
+        return round(Decimal(settings.VAT_RATE) * costs * 100) / 100
 
 
 admin.site.register(RemoteDocdataPayout, DocdataPayoutAdmin)
