@@ -22,7 +22,6 @@ urlpatterns += patterns('',
 
     url(r'^api/bb_projects/', include('bluebottle.projects.urls.api')),
 
-    url(r'^api/fund/', include('apps.fund.urls.api')),
     url(r'^api/mpesa/', include('apps.mchanga.urls.api')),
     url(r'^api/monthly_donations/', include('apps.recurring_donations.urls.api')),
 
@@ -35,9 +34,6 @@ urlpatterns += patterns('',
     url(r'^api/homepage/', include('apps.homepage.urls.api')),
     url(r'^api/stats', include('apps.statistics.urls.api')),
 
-    # API for DocData Status Changed Notifications.
-    url(r'^api/docdatastatuschanged/', include('apps.cowry_docdata.urls.api')),
-    url(r'^api/docdatastatuschangedlegacy/', include('apps.cowry_docdata_legacy.urls.api')),
 
     # Needed for the self-documenting API in Django Rest Framework.
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),

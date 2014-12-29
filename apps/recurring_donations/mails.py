@@ -1,19 +1,10 @@
-from apps.fund.models import DonationStatuses, Donation
 from babel.dates import format_date
 from babel.numbers import format_currency
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives
-from django.db.models.signals import post_save, pre_save
-from django.dispatch.dispatcher import receiver
 from django.template.loader import get_template
 from django.template import Context
-from django.utils.translation import ugettext_lazy as _
 from celery import task
-
-import time
-
-from apps.mail import send_mail
-
 
 @task
 def mail_monthly_donation_processed_notification(monthly_order):

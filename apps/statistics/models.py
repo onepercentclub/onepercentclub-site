@@ -1,3 +1,4 @@
+from bluebottle.utils.utils import StatusDefinition
 from django.core.cache import cache
 from django.db import models
 from django.db.models.aggregates import Sum
@@ -18,12 +19,12 @@ class Statistic(models.Model):
 
     @property
     def donated(self):
-        from apps.fund.models import Donation, DonationStatuses
+        from bluebottle.donations.models import Donation
 
         """ Add all donation amounts for all donations ever """
         if cache.get('donations-grant-total'):
             return cache.get('donations-grant-total')
-        donations = Donation.objects.filter(status__in=(DonationStatuses.pending, DonationStatuses.paid))
+        donations = Donation.objects.filter(order__status__in=(StatusDefinition.PENDING, StatusDefinition.SUCCESS))
         donated = donations.aggregate(sum=Sum('amount'))['sum'] or '000'
         cache.set('donations-grant-total', donated, 300)
         return donated

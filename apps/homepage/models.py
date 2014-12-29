@@ -4,7 +4,6 @@ from django.utils.timezone import now
 from bluebottle.slides.models import Slide
 from bluebottle.quotes.models import Quote
 
-from apps.campaigns.models import Campaign
 from bluebottle.fundraisers.models import Fundraiser
 from apps.statistics.models import Statistic
 
@@ -36,13 +35,6 @@ class HomePage(object):
             self.projects = projects[0:len(projects)]
         else:
             self.projects = None
-
-        try:
-            self.campaign = Campaign.objects.get(start__lte=now(), end__gte=now())
-            # NOTE: MultipleObjectsReturned is not caught yet!
-            self.fundraisers = Fundraiser.objects.filter(project__is_campaign=True).order_by('-created')
-        except Campaign.DoesNotExist:
-            self.campaign, self.fundraisers = None, None
 
         return self
 

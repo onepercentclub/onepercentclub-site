@@ -246,7 +246,7 @@ INSTALLED_APPS = (
     'social.apps.django_app.default',
 
     # Onepercent app to send POST requests to AFOM
-    'onepercent_afom',
+    # 'onepercent_afom',
 
     #Widget
     'bluebottle.widget',
@@ -304,7 +304,6 @@ INSTALLED_APPS = (
 
     'apps.bluebottle_dashboard',
     'apps.contentplugins',
-    'apps.campaigns',
     'apps.hbtemplates',
     'apps.statistics',
     'apps.homepage',
@@ -328,18 +327,6 @@ INSTALLED_APPS = (
     'bluebottle.fundraisers',
     'bluebottle.donations',
     'bluebottle.orders',
-
-    # FIXME: Keep these just for migrations
-    'apps.fund',
-    'apps.cowry',
-    'apps.cowry_docdata',
-
-    # FIXME: Reimplement these apps
-    'apps.vouchers',
-    # 'apps.sepa',
-    # 'apps.csvimport',
-    # 'apps.accounting',
-
 
     # Custom dashboard
     'fluent_dashboard',
@@ -611,8 +598,8 @@ PASSWORD_HASHERS = global_settings.PASSWORD_HASHERS + (
     'legacyauth.hashers.LegacyPasswordHasher',
 )
 
-# By default the Bedankje's app is disabled
-AFOM_ENABLED = False
+# By default the Bedankjes app is disabled
+# AFOM_ENABLED = False
 
 # Twitter handles, per language
 TWITTER_HANDLES = {

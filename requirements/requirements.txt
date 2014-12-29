@@ -1,7 +1,5 @@
 -e git://github.com/onepercentclub/bluebottle.git@355d4729662b5e9a03398efb4fe882e0f8cfa28d#egg=bluebottle
 
--e git://github.com/onepercentclub/django-onepercent-afom.git@master#egg=onepercent_afom
-
 pip
 mercurial==2.9.1
 
