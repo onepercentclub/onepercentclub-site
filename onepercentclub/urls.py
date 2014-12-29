@@ -22,7 +22,6 @@ urlpatterns += patterns('',
 
     url(r'^api/bb_projects/', include('bluebottle.projects.urls.api')),
 
-    url(r'^api/mpesa/', include('apps.mchanga.urls.api')),
     url(r'^api/monthly_donations/', include('apps.recurring_donations.urls.api')),
 
     url(r'^api/organizations/', include('apps.organizations.urls.api')),
@@ -79,10 +78,6 @@ urlpatterns += i18n_patterns('',
 
     # handlebar templates
     url(r'^templates/', include('apps.hbtemplates.urls')),
-
-    # Url M-changa status updates
-    url(r'^payments_mchanga/', include('apps.mchanga.urls.core'))
-
 )
 
 js_info_dict = {

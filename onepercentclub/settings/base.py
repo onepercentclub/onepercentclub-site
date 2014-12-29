@@ -308,9 +308,7 @@ INSTALLED_APPS = (
     'apps.statistics',
     'apps.homepage',
     'apps.crawlable',
-    'apps.mchanga',
     'apps.recurring_donations',
-
 
     # Bluebottle apps with abstract models
     'bluebottle.bb_accounts',
