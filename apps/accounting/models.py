@@ -1,11 +1,8 @@
-from apps.accounting.signals import match_transaction_with_payout_on_creation
 from bluebottle.payments_docdata.models import DocdataPayment, DocdataDirectdebitPayment
 from django.db import models
-from django.db.models.signals import post_save
 from django.utils.translation import ugettext as _
 from djchoices import DjangoChoices, ChoiceItem
 
-from .signals import change_payout_status_with_matched_transaction
 
 class BankTransactionCategory(models.Model):
 
@@ -133,7 +130,6 @@ class RemoteDocdataPayment(models.Model):
 
     local_payment = models.ForeignKey('payments.Payment', null=True)
     remote_payout = models.ForeignKey('accounting.RemoteDocdataPayout', null=True)
-
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         if not self.local_payment and self.merchant_reference:

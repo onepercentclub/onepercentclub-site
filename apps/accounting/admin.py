@@ -1,10 +1,8 @@
-from decimal import Decimal
 from apps.accounting.models import BankTransactionCategory
 from apps.accounting.signals import match_transaction_with_payout
 from bluebottle.payments.models import Payment
 from bluebottle.utils.utils import StatusDefinition
 from django.contrib import admin
-from django.contrib.admin.filters import SimpleListFilter
 from django.db.models.aggregates import Sum
 from django.utils.translation import ugettext as _
 
