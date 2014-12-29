@@ -24,13 +24,13 @@ class BankTransactionAdmin(IncrementalCSVImportMixin, admin.ModelAdmin):
 
     search_fields = [
         'counter_account', 'counter_name',
-        'description1', 'description2', 'description2', 'description4',
+        'description1', 'description2', 'description3', 'description4',
         'description5', 'description6',
         'amount'
     ]
 
     list_display = [
-        'book_date', 'counter_name','counter_account', 'credit_debit', 'amount', 'category'
+        'book_date', 'counter_name','counter_account', 'credit_debit', 'amount', 'amount_matched', 'category'
     ]
 
     list_filter = [
@@ -38,18 +38,43 @@ class BankTransactionAdmin(IncrementalCSVImportMixin, admin.ModelAdmin):
     ]
     list_editable = ('category', )
 
-    raw_id_fields = ('payout', )
+    raw_id_fields = ('payout', 'remote_payout')
 
-    readonly_fields = ('payout_link', )
+    readonly_fields = ('payout_link', 'remote_payout_link', 'counter_name', 'counter_account', 'sender_account',
+                       'description1', 'description2', 'description2', 'description3',
+                       'description4', 'description5', 'description6',
+                       'credit_debit', 'currency', 'book_code', 'book_date', 'interest_date',
+                       'amount', 'filler', 'end_to_end_id', 'id_recipient', 'mandate_id')
 
     import_form = BankTransactionImportForm
 
     def payout_link(self, obj):
         object = obj.payout
         url = reverse('admin:%s_%s_change' % (object._meta.app_label, object._meta.module_name), args=[object.id])
-        return "<a href='%s'>%s</a>" % (str(url), object)
+        return "<a href='%s'>%s (%s)</a>" % (str(url), object, object.amount)
 
     payout_link.allow_tags = True
+
+    def remote_payout_link(self, obj):
+        object = obj.remote_payout
+        url = reverse('admin:%s_%s_change' % (object._meta.app_label, object._meta.module_name), args=[object.id])
+        return "<a href='%s'>%s</a> Payout amount %s" % (str(url), object, object.payout_amount)
+
+    remote_payout_link.allow_tags = True
+
+    def amount_matched(self, obj):
+        if obj.remote_payout:
+            if obj.remote_payout.payout_amount == obj.amount:
+                return 'ok'
+            else:
+                return 'Amount mismatch {0} & {1}'.format(obj.remote_payout.payout_amount, obj.amount)
+        if obj.payout:
+            if obj.payout.amount_payable == obj.amount:
+                return 'ok'
+            else:
+                return 'Amount mismatch {0} & {1}'.format(obj.payout.amount_payable, obj.amount)
+        return '-'
+
 
     def find_matches(self, request, queryset):
         #
@@ -63,6 +88,8 @@ admin.site.register(BankTransaction, BankTransactionAdmin)
 
 class DocdataPayoutAdmin(admin.ModelAdmin):
     date_hierarchy = 'start_date'
+
+    search_fields = ['payout_reference']
 
     list_display = ['payout_reference', 'week', 'start_date', 'end_date', 'payout_date', 'payout_amount',
                     'payments_total', 'local_payments_total']
@@ -138,7 +165,8 @@ class DocdataPaymentAdmin(IncrementalCSVImportMixin, admin.ModelAdmin):
     list_filter = ['payment_type', ]
 
     readonly_fields = ['payout_link', 'payment_link', 'merchant_reference', 'triple_deal_reference',
-                       'payment_type', 'amount_collected', 'currency_amount_collected', 'tpci', 'docdata_fee', 'integrity_check']
+                       'payment_type', 'amount_collected', 'currency_amount_collected', 'tpci',
+                       'docdata_fee', 'integrity_check']
 
     fields = readonly_fields
 
@@ -163,7 +191,7 @@ class DocdataPaymentAdmin(IncrementalCSVImportMixin, admin.ModelAdmin):
 
     def integrity_check(self, obj):
         if not obj.local_payment:
-            return 'No local payment to conenct to.'
+            return 'No local payment to connect to.'
         if obj.local_payment.order_payment.amount == obj.amount_collected:
             return 'ok'
         return 'OrderPayment: {0}.'.format(obj.local_payment.order_payment.amount)

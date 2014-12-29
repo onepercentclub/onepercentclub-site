@@ -28,6 +28,7 @@ class BankTransaction(models.Model):
 
     category = models.ForeignKey(BankTransactionCategory, blank=True, null=True)
     payout = models.ForeignKey('payouts.ProjectPayout', verbose_name=_('Campaign payout'), blank=True, null=True)
+    remote_payout = models.ForeignKey('accounting.RemoteDocdataPayout', verbose_name=_('Docdata payout'), blank=True, null=True)
 
     sender_account = models.CharField(_('holder account number'), max_length=35)
     currency = models.CharField(_('currency'), max_length=3)
@@ -152,7 +153,7 @@ class RemoteDocdataPayment(models.Model):
     class Meta:
         ordering = ('-remote_payout__payout_date', )
 
-
-post_save.connect(change_payout_status_with_matched_transaction, weak=False, sender=BankTransaction)
-
-post_save.connect(match_transaction_with_payout_on_creation, weak=False, sender=BankTransaction)
+#
+# post_save.connect(change_payout_status_with_matched_transaction, weak=False, sender=BankTransaction)
+#
+# post_save.connect(match_transaction_with_payout_on_creation, weak=False, sender=BankTransaction)

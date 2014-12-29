@@ -1,4 +1,5 @@
 from decimal import Decimal, InvalidOperation
+from apps.accounting.fields import MultiFileField
 from apps.accounting.models import RemoteDocdataPayout
 import unicodecsv as csv
 import cStringIO as StringIO
@@ -73,11 +74,16 @@ class DocdataPaymentImportForm(forms.Form):
     Form for importing Docdata Payout Detail Report.
     """
 
-    csv_file = forms.FileField(label=_('Payout Details Report'), help_text=_('Docdata Back-office > Reports > Download Reports > Payout Details Report + csv '))
+    csv_file = MultiFileField(label=_('Payout Details Report'),
+                               help_text=_('Docdata Back-office > Reports > Download Reports > Payout Details Report + csv '),
+                               maximum_file_size=1024*1024)
+
 
     charset = 'utf-8'
     dialect = DocdataDialect
     delimiters = '\t'
+    csv_reader = []
+    payouts = []
 
     field_mapping = {
         'Transaction Id': 'merchant_reference',
@@ -97,12 +103,13 @@ class DocdataPaymentImportForm(forms.Form):
     def __init__(self, *args, **kwargs):
         """ Get initialization properties from kwargs. """
         self.model = kwargs.pop('model', None)
-        self.payout = None
+        self.payouts = []
+        self.csv_reader = []
         super(DocdataPaymentImportForm, self).__init__(*args, **kwargs)
 
-    def pre_save(self, instance):
+    def pre_save(self, instance, payout):
         """ Process model instance before saving. """
-        instance.remote_payout = self.payout
+        instance.remote_payout = payout
 
         if not instance.tpcd:
             # Decimal fields can be None, not empty
@@ -140,9 +147,8 @@ class DocdataPaymentImportForm(forms.Form):
         """
         pass
 
-    def clean_csv_file(self):
-        csv_file = self.cleaned_data['csv_file']
 
+    def parse_csv_file(self, csv_file):
         # Universal newlines
         # Ugly hack - but works for now
         csv_string = '\n'.join(csv_file.read().splitlines())
@@ -176,13 +182,14 @@ class DocdataPaymentImportForm(forms.Form):
                 if not payout_reference[:3] == 'pop':
                     error_message = 'Could not find payout details in row 10: {0}'.format(row)
                     raise Exception(error_message)
-                self.payout, created = RemoteDocdataPayout.objects.get_or_create(payout_reference=payout_reference)
-                self.payout.payout_date = payout_date
-                self.payout.payout_amount = payout_amount
+                payout, created = RemoteDocdataPayout.objects.get_or_create(payout_reference=payout_reference)
+                payout.payout_date = payout_date
+                payout.payout_amount = payout_amount
 
-                self.payout.start_date = payout_start
-                self.payout.end_date = payout_end
-                self.payout.save()
+                payout.start_date = payout_start
+                payout.end_date = payout_end
+                payout.save()
+                self.payouts.append(payout)
             # Row 15 should have the header info for all payments
             if t == 15:
                 header = row
@@ -230,9 +237,15 @@ class DocdataPaymentImportForm(forms.Form):
         if self.validate_csv:
             self.validate_csv(validate_csv)
 
-        self.cleaned_data['csv_reader'] = reader
-
+        self.csv_reader.append(reader)
         return csv_file
+
+    def clean_csv_file(self):
+        files = self.cleaned_data['csv_file']
+        self.cleaned_data['csv_file'] = []
+        for csv_file in files:
+            self.cleaned_data['csv_file'].append(self.parse_csv_file(csv_file))
+        return self.cleaned_data['csv_file']
 
     def save(self):
         """ Write results of CSV reader to database according to mapping. """
@@ -240,26 +253,28 @@ class DocdataPaymentImportForm(forms.Form):
         new_records = 0
         ignored_records = 0
 
-        for row in self.cleaned_data['csv_reader']:
-            init_args = {}
+        for csv_reader in self.csv_reader:
+            payout = self.payouts.pop(0)
+            for row in csv_reader:
+                init_args = {}
 
-            if len(row) >= len(self.field_mapping):
-                for (index, field_name) in self.field_mapping.items():
-                    init_args[field_name] = row[index]
+                if len(row) >= len(self.field_mapping):
+                    for (index, field_name) in self.field_mapping.items():
+                        init_args[field_name] = row[index]
 
-                instance = self.model(**init_args)
+                    instance = self.model(**init_args)
 
-            # Further processing before saving
-            self.pre_save(instance)
+                # Further processing before saving
+                self.pre_save(instance, payout)
 
-            if self.skip_instance(instance):
-                # Ignore
-                ignored_records += 1
+                if self.skip_instance(instance):
+                    # Ignore
+                    ignored_records += 1
 
-            else:
-                # Save
-                instance.save()
+                else:
+                    # Save
+                    instance.save()
 
-            new_records += 1
+                new_records += 1
 
         return (new_records, ignored_records)
