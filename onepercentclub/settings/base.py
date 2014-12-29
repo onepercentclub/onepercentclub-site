@@ -281,6 +281,8 @@ INSTALLED_APPS = (
     'bluebottle.homepage',
     'bluebottle.crawlable',
     'bluebottle.recurring_donations',
+    'bluebottle.payouts',
+    'bluebottle.bluebottle_salesforce',
 
     # Plain Bluebottle apps
     'bluebottle.wallposts',
@@ -298,14 +300,6 @@ INSTALLED_APPS = (
     'bluebottle.payments_logger',
     'bluebottle.payments_voucher',
     'bluebottle.redirects',
-
-    # Apps extending Bluebottle base models
-    # These should be before there Bb parents so the templates are overridden
-    'apps.payouts',
-
-    # apps overriding bluebottle functionality should come before the bluebottle entries
-    # (template loaders pick the first template they find)
-    'apps.bluebottle_salesforce',
 
     # Bluebottle apps with abstract models
     'bluebottle.bb_accounts',
