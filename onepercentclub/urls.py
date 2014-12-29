@@ -66,9 +66,6 @@ urlpatterns += i18n_patterns('',
 
     # account login/logout, password reset, and password change
     url(r'^accounts/', include('django.contrib.auth.urls', namespace='accounts')),
-
-    # handlebar templates
-    url(r'^templates/', include('apps.hbtemplates.urls')),
 )
 
 js_info_dict = {

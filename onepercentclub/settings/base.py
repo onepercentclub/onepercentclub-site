@@ -275,6 +275,7 @@ INSTALLED_APPS = (
     'bluebottle.partners',
     'bluebottle.organizations',
     'bluebottle.tasks',
+    'bluebottle.hbtemplates',
 
     # Plain Bluebottle apps
     'bluebottle.wallposts',
@@ -303,7 +304,6 @@ INSTALLED_APPS = (
     'apps.bluebottle_salesforce',
 
     'apps.bluebottle_dashboard',
-    'apps.hbtemplates',
     'apps.statistics',
     'apps.homepage',
     'apps.crawlable',
