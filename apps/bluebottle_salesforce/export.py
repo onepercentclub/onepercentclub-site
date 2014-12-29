@@ -12,7 +12,7 @@ from apps.recurring_donations.models import MonthlyDonor
 from apps.vouchers.models import Voucher, VoucherStatuses
 from apps.organizations.models import Organization, OrganizationMember
 from bluebottle.fundraisers.models import Fundraiser
-from apps.tasks.models import Task, TaskMember
+from bluebottle.tasks.models import Task, TaskMember
 from bluebottle.projects.models import Project
 from bluebottle.members.models import Member
 

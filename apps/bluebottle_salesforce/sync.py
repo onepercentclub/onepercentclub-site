@@ -7,7 +7,7 @@ from registration.models import RegistrationProfile
 from apps.cowry_docdata.models import payment_method_mapping
 from bluebottle.projects.models import ProjectBudgetLine
 from apps.organizations.models import Organization, OrganizationMember
-from apps.tasks.models import Task, TaskMember
+from bluebottle.tasks.models import Task, TaskMember
 from bluebottle.donations.models import Donation
 from apps.vouchers.models import Voucher, VoucherStatuses
 from bluebottle.fundraisers.models import Fundraiser
