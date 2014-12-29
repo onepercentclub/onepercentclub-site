@@ -24,11 +24,6 @@ urlpatterns += patterns('',
 
     url(r'^api/monthly_donations/', include('apps.recurring_donations.urls.api')),
 
-    url(r'^api/organizations/', include('apps.organizations.urls.api')),
-
-    # Onepercent AFOM
-    url(r'^api/bedankjes/', include('onepercent_afom.urls.api')),
-
     # Homepage API urls
     url(r'^api/homepage/', include('apps.homepage.urls.api')),
     url(r'^api/stats', include('apps.statistics.urls.api')),
@@ -71,10 +66,6 @@ urlpatterns += i18n_patterns('',
 
     # account login/logout, password reset, and password change
     url(r'^accounts/', include('django.contrib.auth.urls', namespace='accounts')),
-
-    # Organization urls for downloading private documents
-    url(r'^admin/documents/', include('bluebottle.utils.urls.main')),
-    url(r'^documents/', include('apps.organizations.urls.documents')),
 
     # handlebar templates
     url(r'^templates/', include('apps.hbtemplates.urls')),

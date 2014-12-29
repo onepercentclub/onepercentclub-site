@@ -273,6 +273,7 @@ INSTALLED_APPS = (
     'bluebottle.members',
     'bluebottle.projects',
     'bluebottle.partners',
+    'bluebottle.organizations',
 
     # Plain Bluebottle apps
     'bluebottle.wallposts',
@@ -294,7 +295,6 @@ INSTALLED_APPS = (
     # Apps extending Bluebottle base models
     # These should be before there Bb parents so the templates are overridden
     'apps.tasks',
-    'apps.organizations',
     'apps.payouts',
 
     # apps overriding bluebottle functionality should come before the bluebottle entries
