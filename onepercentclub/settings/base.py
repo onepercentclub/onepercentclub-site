@@ -160,7 +160,7 @@ CACHES = {
 # http://stackoverflow.com/questions/8092695/404-on-requests-without-trailing-slash-to-i18n-urls
 MIDDLEWARE_CLASSES = [
     'bluebottle.auth.middleware.UserJwtTokenMiddleware',
-    'apps.redirects.middleware.RedirectHashCompatMiddleware',
+    'bluebottle.redirects.middleware.RedirectHashCompatMiddleware',
     'bluebottle.auth.middleware.AdminOnlyCsrf',
     # Have a middleware to make sure old cookies still work after we switch to domain-wide cookies.
     'bluebottle.utils.middleware.SubDomainSessionMiddleware',
@@ -174,7 +174,7 @@ MIDDLEWARE_CLASSES = [
     # https://docs.djangoproject.com/en/1.4/ref/clickjacking/
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
-    'apps.redirects.middleware.RedirectFallbackMiddleware',
+    'bluebottle.redirects.middleware.RedirectFallbackMiddleware',
     'apps.crawlable.middleware.HashbangMiddleware',
     'django_tools.middlewares.ThreadLocal.ThreadLocalMiddleware',
     'bluebottle.auth.middleware.SlidingJwtTokenMiddleware'
@@ -276,6 +276,7 @@ INSTALLED_APPS = (
     'bluebottle.organizations',
     'bluebottle.tasks',
     'bluebottle.hbtemplates',
+    'bluebottle.bluebottle_dashboard',
 
     # Plain Bluebottle apps
     'bluebottle.wallposts',
@@ -301,13 +302,11 @@ INSTALLED_APPS = (
     # apps overriding bluebottle functionality should come before the bluebottle entries
     # (template loaders pick the first template they find)
     'apps.core',
-    'apps.bluebottle_salesforce',
-
-    'apps.bluebottle_dashboard',
     'apps.statistics',
     'apps.homepage',
     'apps.crawlable',
     'apps.recurring_donations',
+    'apps.bluebottle_salesforce',
 
     # Bluebottle apps with abstract models
     'bluebottle.bb_accounts',
