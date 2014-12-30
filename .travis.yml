@@ -7,7 +7,8 @@ addons:
   firefox: '30.0'
 env:
   matrix:
-  - DJANGO=django==1.5.4
+  - DJANGO=django==1.5.5
+  - DJANGO=django==1.6.8
   global:
   # Imgur API keys
   - secure: "D+ya6k5EEjaEh8FJDSyHrh6X0K/xDd9gAZfenTSMiwNojiSUXjIs9c3uH2pI2HdBzhoajsSvOlCN/CMzuPBNWd2FfEuWdrNOTXQHPHvQDhEHpqGxtGZtw8zf99t5BIPfZTTQkemUyyvYOKHAT3VBnehp8q0SdzYAaEfvhDCjgys="
@@ -24,8 +25,8 @@ before_install:
 - pip install Pillow --use-mirrors
 install:
 - pip install --upgrade setuptools --use-mirrors
-- pip install $DJANGO --use-mirrors
 - pip install --use-mirrors --use-wheel --find-links=https://stream.onepercentclub.com/wheelhouse/ -r requirements/ci_requirements.txt
+- pip install $DJANGO --use-mirrors
 - touch onepercentclub/settings/secrets.py
 - bourbon install --path=static/global/refactor-sass/lib
 - bash -c "cd static/global/refactor-sass/lib && neat install"
