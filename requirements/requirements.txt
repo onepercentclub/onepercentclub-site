@@ -9,6 +9,7 @@ mercurial==2.9.1
 South==0.8.4
 django-taggit==0.11
 django-fluent-contents==1.0c3
+-e git://github.com/mrmachine/django-taggit-autocomplete-modified.git@8e41e333ce1f0690e1041515b1f2cbf12e0452ce#egg=django-taggit-autocomplete-modified
 
 # django_debug_toolbar==0.9.4
 
