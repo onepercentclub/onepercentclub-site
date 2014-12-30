@@ -8,6 +8,7 @@ mercurial==2.9.1
 # Move these version overrides to BB
 South==0.8.4
 django-taggit==0.11
+django-fluent-contents==1.0c3
 
 # django_debug_toolbar==0.9.4
 
