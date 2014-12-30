@@ -9,6 +9,7 @@ env:
   matrix:
   - DJANGO=django==1.5.5
   - DJANGO=django==1.6.8
+  - DJANGO=django==1.7.1
   global:
   # Imgur API keys
   - secure: "D+ya6k5EEjaEh8FJDSyHrh6X0K/xDd9gAZfenTSMiwNojiSUXjIs9c3uH2pI2HdBzhoajsSvOlCN/CMzuPBNWd2FfEuWdrNOTXQHPHvQDhEHpqGxtGZtw8zf99t5BIPfZTTQkemUyyvYOKHAT3VBnehp8q0SdzYAaEfvhDCjgys="
