@@ -34,7 +34,7 @@ surlex==0.2.0
 gunicorn==0.14.6
 
 # Used for WallPosts and Blog/News content (as a dependency of django-fluent-contents).
-django_polymorphic==0.5
+django_polymorphic==0.5.6
 
 # Admin dashboard improvements
 django-fluent-dashboard==0.3.2
