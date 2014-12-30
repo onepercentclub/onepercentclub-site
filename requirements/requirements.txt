@@ -4,6 +4,7 @@
 
 pip
 mercurial==2.9.1
+South==0.8.4
 
 # django_debug_toolbar==0.9.4
 
