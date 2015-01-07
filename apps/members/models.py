@@ -12,6 +12,11 @@ from django.utils.translation import ugettext as _
 
 
 class Member(BlueBottleBaseUser):
+
+    @property
+    def full_name(self):
+        return self.get_full_name()
+
     #Create an address if none exists
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         super(Member, self).save(force_insert=False, force_update=False, using=None, update_fields=None)
