@@ -6,7 +6,7 @@ from .models import Statistic
 
 class StatisticSerializer(serializers.ModelSerializer):
 
-    donated = EuroField(source='donated')
+    donated = serializers.DecimalField(source='donated')
 
     class Meta:
         model = Statistic
