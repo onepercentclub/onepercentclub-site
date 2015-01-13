@@ -46,31 +46,6 @@
 {% block ember_scripts %}
     {{ block.super }}
 
-    {% if DEBUG %}
-        <script type="text/javascript">
-          window.liveSettings = {
-            api_key: "c6148644284d4475b10cc96ba2d62c7a",
-            picker: "bottom-right",
-            detectlang: true,
-            dynamic: true,
-            autocollect: true,
-            staging: true
-          };
-        </script>
-        <script type="text/javascript" src="//cdn.transifex.com/live.js"></script>
-    {% else %}
-        <script type="text/javascript">
-          window.liveSettings = {
-            api_key: "c6148644284d4475b10cc96ba2d62c7a",
-            picker: "bottom-right",
-            detectlang: true,
-            dynamic: true,
-            autocollect: true
-          };
-        </script>
-        <script type="text/javascript" src="//cdn.transifex.com/live.js"></script>
-    {% endif %}
-
 
     {# Addition for Bluebottle JS #}
     <script type="text/javascript" src="{% static 'js/vendor/froogaloop.js' %}"></script>
@@ -124,4 +99,32 @@
 
     <script type="text/javascript" src="{% static 'js/plugins/jquery.countdown.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/plugins/jquery.lettering.js' %}"></script>
+{% endblock %}
+
+
+{% block transifexlive %}
+    {% if DEBUG %}
+        <script type="text/javascript">
+          window.liveSettings = {
+            api_key: "c6148644284d4475b10cc96ba2d62c7a",
+            picker: "bottom-right",
+            detectlang: true,
+            dynamic: true,
+            autocollect: true,
+            staging: true
+          };
+        </script>
+        <script type="text/javascript" src="//cdn.transifex.com/live.js"></script>
+    {% else %}
+        <script type="text/javascript">
+          window.liveSettings = {
+            api_key: "c6148644284d4475b10cc96ba2d62c7a",
+            picker: "bottom-right",
+            detectlang: true,
+            dynamic: true,
+            autocollect: true
+          };
+        </script>
+        <script type="text/javascript" src="//cdn.transifex.com/live.js"></script>
+    {% endif %}
 {% endblock %}
