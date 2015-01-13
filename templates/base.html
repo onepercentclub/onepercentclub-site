@@ -103,10 +103,21 @@
 
 
 {% block transifexlive %}
-    {% if DEBUG %}
+    {% if PRODUCTION %}
         <script type="text/javascript">
           window.liveSettings = {
-            api_key: "c6148644284d4475b10cc96ba2d62c7a",
+            api_key: "f94ca9ec0f3542eebd7fd3b0c2bea500",
+            picker: "bottom-right",
+            detectlang: true,
+            dynamic: true,
+            autocollect: true
+          };
+        </script>
+        <script type="text/javascript" src="//cdn.transifex.com/live.js"></script>
+    {% else %}
+            <script type="text/javascript">
+          window.liveSettings = {
+            api_key: "f94ca9ec0f3542eebd7fd3b0c2bea500",
             picker: "bottom-right",
             detectlang: true,
             dynamic: true,
@@ -115,16 +126,6 @@
           };
         </script>
         <script type="text/javascript" src="//cdn.transifex.com/live.js"></script>
-    {% else %}
-        <script type="text/javascript">
-          window.liveSettings = {
-            api_key: "c6148644284d4475b10cc96ba2d62c7a",
-            picker: "bottom-right",
-            detectlang: true,
-            dynamic: true,
-            autocollect: true
-          };
-        </script>
-        <script type="text/javascript" src="//cdn.transifex.com/live.js"></script>
+
     {% endif %}
 {% endblock %}
