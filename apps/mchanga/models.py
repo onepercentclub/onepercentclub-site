@@ -40,7 +40,7 @@ class MpesaPayment(models.Model):
     updated = ModificationDateTimeField(_("updated"))
 
 
-class MpesaFundRaiser(models.Model):
+class MpesaFundraiser(models.Model):
 
     @classmethod
     def create_from_json(cls, fr):

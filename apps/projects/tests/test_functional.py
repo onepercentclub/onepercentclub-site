@@ -145,11 +145,9 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         file_field.find_element_by_css_selector('input').send_keys(file_path)
 
         # verify that one picture was added, after waiting for the preview to load
-        self.wait_for_element_css('ul.form-wallpost-photos li:nth-of-type(2)')
-        ul = form.find_element_by_css_selector('ul.upload-photos')
-        previews = ul.find_elements_by_tag_name('li')
-
-        self.assertEqual(2, len(previews))
+        # NOTE: there is always an "add photo" thumbnail so there should be two
+        #       thumbnails after uploading the first pic
+        self.assertTrue(self.wait_for_element_css('.wallpost-photos .upload-photo:nth-of-type(2)'))
 
         # verify that a second picture was added
         file_path = os.path.join(settings.PROJECT_ROOT, 'static', 'tests', 'chameleon.jpg')
@@ -157,10 +155,7 @@ class ProjectSeleniumTests(OnePercentSeleniumTestCase):
         file_field.find_element_by_css_selector('input').send_keys(file_path)
 
         # Wait for the second item to be added
-        self.wait_for_element_css('ul.form-wallpost-photos li:nth-of-type(3)')
-        ul = form.find_element_by_css_selector('ul.upload-photos')
-        previews = ul.find_elements_by_tag_name('li')
-        self.assertEqual(3, len(previews))
+        self.assertTrue(self.wait_for_element_css('.wallpost-photos .upload-photo:nth-of-type(3)'))
 
         # submit the form
         form.find_element_by_css_selector('button.action-submit').click()
@@ -251,15 +246,11 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         ###
         # Intro Section
         ###
-
-        self.assertTrue(self.is_visible('section h1.page-title'))
         self.visit_path('/my/projects/new/pitch')
 
         ###
         # Project Section
         ###
-
-        self.assertTrue(self.browser.is_element_present_by_css('.language'))
         self.assertTrue(self.is_visible('.language'))
 
         self.browser.select('language', self.language.id)
@@ -394,6 +385,10 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
         
         # confirm the project record was created
         # TODO: Also check it has the expected fields.
+        submit = self.wait_for_element_css('.btn-submit')
+        self.assertTrue(submit)
+        submit.click()
+
         self.assertTrue(Project.objects.filter(slug=self.project_data['slug']).exists())
 
     def test_change_project_goal(self):
@@ -441,14 +436,14 @@ class ProjectCreateSeleniumTests(OnePercentSeleniumTestCase):
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
             'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
-class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
+class ProjectWallpostSeleniumTests(OnePercentSeleniumTestCase):
     """
     Selenium tests for Projects.
     """
     def setUp(self):
         self.init_projects()
 
-        super(ProjectWallPostSeleniumTests, self).setUp()
+        super(ProjectWallpostSeleniumTests, self).setUp()
         self.user = BlueBottleUserFactory.create()
 
         owner = BlueBottleUserFactory.create()
@@ -480,7 +475,7 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
 
         wallpost = self.wait_for_element_css('#wallposts article:first-of-type')
 
-        self.assertEqual(wallpost.find_element_by_css_selector('.user-name').text.upper(), self.user.full_name.upper())
+        self.assertEqual(wallpost.find_element_by_css_selector('.user-name').text.upper(), self.user.get_full_name().upper())
         self.assertEqual(wallpost.find_element_by_css_selector('.wallpost-body').text, self.post1['text'])
 
         # Login as the project owner
@@ -501,10 +496,10 @@ class ProjectWallPostSeleniumTests(OnePercentSeleniumTestCase):
         original_wallpost = self.wait_for_element_css_index('article.m-wallpost', 1)
         owner_wallpost = self.wait_for_element_css_index('article.m-wallpost', 0)
 
-        self.assertEqual(owner_wallpost.find_element_by_css_selector('.user-name').text.upper(), self.project.owner.full_name.upper())
+        self.assertEqual(owner_wallpost.find_element_by_css_selector('.user-name').text.upper(), self.project.owner.get_full_name().upper())
         self.assertEqual(owner_wallpost.find_element_by_css_selector('.wallpost-body').text, self.post2['text'])
 
         # And the first post should still be shown as second
-        self.assertEqual(original_wallpost.find_element_by_css_selector('.user-name').text.upper(), self.user.full_name.upper())
+        self.assertEqual(original_wallpost.find_element_by_css_selector('.user-name').text.upper(), self.user.get_full_name().upper())
         self.assertEqual(original_wallpost.find_element_by_css_selector('.wallpost-body').text, self.post1['text'])
 

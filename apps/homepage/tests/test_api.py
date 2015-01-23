@@ -7,7 +7,7 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.utils import timezone
 from django.utils.text import slugify
-from onepercentclub.tests.factory_models.fundraiser_factories import FundRaiserFactory
+from onepercentclub.tests.factory_models.fundraiser_factories import FundraiserFactory
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
 from onepercentclub.tests.utils import OnePercentTestCase
 
@@ -69,7 +69,7 @@ class HomepageTestCase(OnePercentTestCase):
         self.project_with_fundraiser = OnePercentProjectFactory.create(amount_asked=50000)
         self.project_with_fundraiser.is_campaign = True
         self.project_with_fundraiser.save()
-        self.fundraiser = FundRaiserFactory.create(owner=self.user, project=self.project_with_fundraiser)
+        self.fundraiser = FundraiserFactory.create(owner=self.user, project=self.project_with_fundraiser)
 
         response = self.client.get(self.homepage_url)
         self.assertNotEqual(None, response.data['campaign'])

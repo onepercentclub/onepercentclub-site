@@ -13,7 +13,7 @@ from bluebottle.bb_orders.views import ManageOrderDetail
 from bluebottle.test.factory_models.projects import ProjectFactory
 from bluebottle.test.factory_models.orders import OrderFactory
 from bluebottle.test.factory_models.donations import DonationFactory
-from bluebottle.test.factory_models.fundraisers import FundRaiserFactory
+from bluebottle.test.factory_models.fundraisers import FundraiserFactory
 
 
 @patch.object(ManageOrderDetail, 'check_status_psp')
@@ -32,7 +32,7 @@ class TestDonationList(DonationApiTestCase):
         self.project = ProjectFactory.create(amount_asked=5000, owner=self.user1)
         self.project.set_status('campaign')
 
-        self.fundraiser = FundRaiserFactory.create(amount=4000, owner=self.user1, 
+        self.fundraiser = FundraiserFactory.create(amount=4000, owner=self.user1,
             project=self.project)
 
         # Two users make a donations
@@ -66,7 +66,7 @@ class TestDonationList(DonationApiTestCase):
         self.assertEqual(data1.amount, Decimal('10'))
         self.assertEqual(data1.project.title, self.project.title)
         self.assertTrue(data1.project.country.name)
-        self.assertEqual(data1.user.full_name, self.user2.full_name)
+        self.assertEqual(data1.user.full_name, self.user2.get_full_name())
         self.assertEqual(data1.project.image, '')
         self.assertEqual(data1.project.owner.avatar, '')
         

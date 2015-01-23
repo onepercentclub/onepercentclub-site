@@ -320,6 +320,7 @@ INSTALLED_APPS = (
     'bluebottle.bb_donations',
     'bluebottle.bb_orders',
     'bluebottle.bb_payouts',
+    'bluebottle.bb_follow',
 
     # Basic Bb implementations
     'bluebottle.fundraisers',
@@ -354,7 +355,7 @@ AUTH_USER_MODEL = 'members.Member'
 PROJECTS_PROJECT_MODEL = 'projects.Project'
 PROJECTS_PHASELOG_MODEL = 'projects.ProjectPhaseLog'
 
-FUNDRAISERS_FUNDRAISER_MODEL = 'fundraisers.FundRaiser'
+FUNDRAISERS_FUNDRAISER_MODEL = 'fundraisers.Fundraiser'
 
 TASKS_TASK_MODEL = 'tasks.Task'
 TASKS_SKILL_MODEL = 'tasks.Skill'
@@ -603,6 +604,9 @@ PASSWORD_HASHERS = global_settings.PASSWORD_HASHERS + (
     'legacyauth.hashers.LegacyPasswordHasher',
 )
 
+# By default the Bedankje's app is disabled
+AFOM_ENABLED = False
+
 # Twitter handles, per language
 TWITTER_HANDLES = {
     'nl': '1procentclub',
@@ -626,8 +630,6 @@ SOCIAL_AUTH_PIPELINE = (
     'bluebottle.auth.utils.get_extra_facebook_data',
     'bluebottle.auth.utils.send_welcome_mail_pipe'
 )
-
-AFOM_ENABLED = False
 
 SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email', 'first_name', 'last_name', ]
 SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True

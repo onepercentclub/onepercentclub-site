@@ -92,7 +92,7 @@ class TaskCreateSeleniumTests(OnePercentSeleniumTestCase):
 
 @skipUnless(getattr(settings, 'SELENIUM_TESTS', False),
         'Selenium tests disabled. Set SELENIUM_TESTS = True in your settings.py to enable.')
-class TaskWallPostSeleniumTests(OnePercentSeleniumTestCase):
+class TaskWallpostSeleniumTests(OnePercentSeleniumTestCase):
     """
     Selenium tests for Projects.
     """
@@ -127,7 +127,7 @@ class TaskWallPostSeleniumTests(OnePercentSeleniumTestCase):
         wallpost_form.find_element_by_css_selector('button.action-submit').click()
 
         post = self.wait_for_element_css('article.m-wallpost')
-        self.assertEqual(post.find_element_by_css_selector('.user-name').text.upper(), self.user.full_name.upper())
+        self.assertEqual(post.find_element_by_css_selector('.user-name').text.upper(), self.user.get_full_name().upper())
         self.assertEqual(post.find_element_by_css_selector('.wallpost-body').text, self.post1['text'])
 
 

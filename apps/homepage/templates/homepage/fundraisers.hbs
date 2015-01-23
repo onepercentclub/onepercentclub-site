@@ -17,7 +17,7 @@
                     {{#each fundraisers}}
 
                         <li {{bind-attr class="is_funded:fully-funded :project-item" }}>
-                            {{#linkTo 'fundRaiser' this}}
+                            {{#linkTo 'fundraiser' this}}
                                 {{#if is_funded }}
                                     <span class="is-funded">
                                         {% trans "Fully funded by" %} {{owner.full_name}} {% trans "and supporters." %}

@@ -1,4 +1,4 @@
-from apps.mchanga.models import MpesaPayment, MpesaFundRaiser
+from apps.mchanga.models import MpesaPayment, MpesaFundraiser
 from rest_framework import serializers
 
 
@@ -9,10 +9,10 @@ class MpesaPaymentSerializer(serializers.ModelSerializer):
         fields = ('id', 'date', 'amount', 'project', 'mpesa_name', 'mpesa_phone')
 
 
-class MpesaFundRaiserSerializer(serializers.ModelSerializer):
+class MpesaFundraiserSerializer(serializers.ModelSerializer):
 
     id = serializers.CharField(source='account')
 
     class Meta:
-        model = MpesaFundRaiser
+        model = MpesaFundraiser
         fields = ('id', 'created', 'total_amount', 'current_amount')
