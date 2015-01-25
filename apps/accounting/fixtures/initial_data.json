@@ -10,7 +10,7 @@
     "pk": 2, 
     "model": "accounting.banktransactioncategory", 
     "fields": {
-        "name": "Docdata"
+        "name": "Docdata payout"
     }
 },
 {
@@ -18,6 +18,27 @@
     "model": "accounting.banktransactioncategory", 
     "fields": {
         "name": "Donation by us"
+    }
+},
+{
+    "pk": 4,
+    "model": "accounting.banktransactioncategory",
+    "fields": {
+        "name": "Checking to savings"
+    }
+},
+{
+    "pk": 5,
+    "model": "accounting.banktransactioncategory",
+    "fields": {
+        "name": "Savings to checking"
+    }
+},
+{
+    "pk": 6,
+    "model": "accounting.banktransactioncategory",
+    "fields": {
+        "name": "Docdata payment"
     }
 }
 ]

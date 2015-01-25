@@ -16,7 +16,7 @@ from apps.csvimport.admin import IncrementalCSVImportMixin
 
 from .models import BankTransaction, RemoteDocdataPayment, RemoteDocdataPayout
 from .forms import BankTransactionImportForm, DocdataPaymentImportForm
-from .admin_extra import DocdataPaymentIntegrityListFilter, DocdataPaymentMatchedListFilter, BankTransactionMatchedListFilter, OrderPaymentMatchedListFilter, OrderPaymentIntegrityListFilter
+from .admin_extra import DocdataPaymentIntegrityListFilter, DocdataPaymentMatchedListFilter, OrderPaymentMatchedListFilter, OrderPaymentIntegrityListFilter, BankTransactionStatusListFilter
 
 
 admin.site.register(BankTransactionCategory)
@@ -35,17 +35,19 @@ class BankTransactionAdmin(IncrementalCSVImportMixin, admin.ModelAdmin):
     ]
 
     list_display = [
-        'book_date', 'counter_name','counter_account', 'credit_debit', 'amount', 'amount_matched', 'category'
+        'book_date', 'counter_name','counter_account', 'credit_debit', 'amount', 'status',
+        'status_remarks', 'category'
     ]
 
     list_filter = [
-        'credit_debit', 'book_date', 'category', BankTransactionMatchedListFilter,
+        'credit_debit', 'book_date', 'category', BankTransactionStatusListFilter,
     ]
-    list_editable = ('category', )
+    list_editable = ('status', 'status_remarks', 'category',)
 
-    raw_id_fields = ('payout', 'remote_payout')
+    raw_id_fields = ('payout', 'remote_payout', 'remote_payment')
 
-    readonly_fields = ('payout_link', 'remote_payout_link', 'counter_name', 'counter_account', 'sender_account',
+    readonly_fields = ('payout_link', 'remote_payout_link', 'remote_payment_link',
+                       'counter_name', 'counter_account', 'sender_account',
                        'description1', 'description2', 'description2', 'description3',
                        'description4', 'description5', 'description6',
                        'credit_debit', 'currency', 'book_code', 'book_date', 'interest_date',
@@ -69,25 +71,24 @@ class BankTransactionAdmin(IncrementalCSVImportMixin, admin.ModelAdmin):
         return "<a href='%s'>%s</a> Payout amount %s" % (str(url), object, object.payout_amount)
     remote_payout_link.allow_tags = True
 
-    def amount_matched(self, obj):
-        if obj.remote_payout:
-            if obj.remote_payout.payout_amount == obj.amount:
-                return _('Valid')
-            else:
-                return _('Invalid: Amount mismatch ({0} != {1})').format(obj.remote_payout.payout_amount, obj.amount)
-        if obj.payout:
-            if obj.payout.amount_payable == obj.amount:
-                return _('Valid')
-            else:
-                return _('Invalid: Amount mismatch ({0} != {1})').format(obj.payout.amount_payable, obj.amount)
-        return _('Invalid: Unknown transaction')
-
+    def remote_payment_link(self, obj):
+        object = obj.remote_payment
+        url = reverse('admin:%s_%s_change' % (object._meta.app_label, object._meta.module_name), args=[object.id])
+        return "<a href='%s'>%s</a> Amount collected %s" % (str(url), object, object.amount_collected)
+    remote_payout_link.allow_tags = True
 
     def find_matches(self, request, queryset):
         #
         for transaction in queryset.all():
             match_transaction_with_payout(transaction)
     find_matches.short_description = _("Try to match with payouts.")
+
+
+class DocdataPaymentInline(admin.TabularInline):
+    model = RemoteDocdataPayment
+    readonly_fields = ['triple_deal_reference', 'merchant_reference', 'payment_type', 'amount_collected',
+                       'currency_amount_collected', 'tpci', 'docdata_fee']
+    fields = readonly_fields
 
 
 class DocdataPayoutAdmin(admin.ModelAdmin):
@@ -116,6 +117,8 @@ class DocdataPayoutAdmin(admin.ModelAdmin):
         })
     )
 
+    inlines = [DocdataPaymentInline,]
+
     def week(self, obj):
         if obj.start_date:
             return 'Week {0}'.format(obj.start_date.isocalendar()[1])
@@ -124,9 +127,7 @@ class DocdataPayoutAdmin(admin.ModelAdmin):
     def local_payments_total(self, obj):
         order_payment_ids = obj.remotedocdatapayment_set.values_list('local_payment__order_payment__id')
         order_payments = OrderPayment.objects.filter(id__in=order_payment_ids)
-        print order_payments.count()
         order_payments = order_payments.filter(status=StatusDefinition.SETTLED)
-        print order_payments.count()
         total = order_payments.aggregate(total=Sum('amount'))['total']
         return format(total)
 
@@ -159,7 +160,7 @@ class DocdataPayoutAdmin(admin.ModelAdmin):
 
 class DocdataPaymentAdmin(IncrementalCSVImportMixin, admin.ModelAdmin):
     list_display = [
-        'triple_deal_reference', 'date', 'merchant_reference', 'payment_type',
+        'triple_deal_reference', 'payout_date', 'merchant_reference', 'payment_type',
         'payment_link', 'matched', 'integrity_status',
     ]
 
@@ -176,36 +177,44 @@ class DocdataPaymentAdmin(IncrementalCSVImportMixin, admin.ModelAdmin):
     import_form = DocdataPaymentImportForm
 
     def queryset(self, request):
-        return super(DocdataPaymentAdmin, self).queryset(request).select_related('local_payment', 'remote_payout')
+        return super(DocdataPaymentAdmin, self).queryset(request).select_related(
+            'local_payment', 'remote_payout'
+        ).annotate(
+            rdp_amount_collected_sum=Sum('local_payment__remotedocdatapayment__amount_collected')
+        )
 
-    def date(self, obj):
-        if obj.local_payment:
-            return u'{0} (payment)'.format(formats.date_format(obj.local_payment.created, 'DATE_FORMAT'))
-        elif obj.remote_payout:
-            return u'{0} (payout)'.format(formats.date_format(obj.remote_payout.payout_date, 'DATE_FORMAT'))
+    def payout_date(self, obj):
+        if obj.remote_payout:
+            return obj.remote_payout.payout_date
         return None
-    date.admin_order_field = 'local_payment__created'
+    payout_date.admin_order_field = 'remote_payout__payout_date'
 
     def payment_link(self, obj):
         payment = obj.local_payment
         if payment:
-            payment = DocdataPayment.objects.get(merchant_order_id=obj.merchant_reference)
             url = reverse('admin:%s_%s_change' % (payment._meta.app_label, payment._meta.module_name), args=[payment.id])
             return "<a href='%s'>%s</a>" % (str(url), payment)
         return '-'
     payment_link.allow_tags = True
 
     def matched(self, obj):
-        if DocdataPayment.objects.filter(merchant_order_id=obj.merchant_reference).count():
+        if obj.local_payment:
             return True
         return False
     matched.boolean = True
 
     def integrity_status(self, obj):
         if not obj.local_payment:
+            if DocdataPayment.objects.filter(merchant_order_id=obj.merchant_reference).count():
+                return _('Invalid: Local payment matched but not linked')
             return _('Invalid: Missing local payment')
-        if obj.local_payment.order_payment.amount == obj.amount_collected:
+        if obj.amount_collected == obj.local_payment.order_payment.amount:
             return _('Valid')
+        if obj.payment_type in ['chargedback', 'refund'] and \
+                        obj.amount_collected * -1 == obj.local_payment.order_payment.amount:
+            return _('Valid (chargedback/refund)')
+        if obj.rdp_amount_collected_sum == obj.local_payment.order_payment.amount:
+            return _('Valid (multiple payments)')
         return _('Invalid: Amount mismatch ({0} != {1})').format(obj.amount_collected, obj.local_payment.order_payment.amount)
 
     def payout_link(self, obj):
@@ -226,7 +235,9 @@ class OrderPaymentAdmin(admin.ModelAdmin):
     ordering = ('-created',)
 
     def queryset(self, request):
-        return super(OrderPaymentAdmin, self).queryset(request).select_related('payment').annotate(rdp_amount_collected=Sum('payment__remotedocdatapayment__amount_collected'))
+        return super(OrderPaymentAdmin, self).queryset(request).select_related('payment').annotate(
+            rdp_amount_collected=Sum('payment__remotedocdatapayment__amount_collected')
+        )
 
     def order_link(self, obj):
         object = obj.order

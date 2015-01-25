@@ -56,7 +56,7 @@ class AccountingOverviewView(FormView):
             bank_transactions = BankTransaction.objects.filter(book_date__gte=start, book_date__lte=stop)
             remote_docdata_payments = RemoteDocdataPayment.objects.filter(local_payment__created__gte=start, local_payment__created__lte=stop, local_payment__status='settled')
             remote_docdata_payouts = RemoteDocdataPayout.objects.filter(payout_date__gte=start, payout_date__lte=stop)
-            project_payouts = ProjectPayout.objects.filter(created__gte=start, created__lte=stop, status='settled')
+            project_payouts = ProjectPayout.objects.filter(created__gte=start, created__lte=stop, status='settled') #
             donations = Donation.objects.filter(created__gte=start, created__lte=stop, order__status='success')
 
             bank_credit = bank_transactions.filter(credit_debit='C').aggregate(Sum('amount'))['amount__sum']

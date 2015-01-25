@@ -19,6 +19,11 @@ class BankTransactionCategory(models.Model):
 class BankTransaction(models.Model):
     """ Rabobank transaction as incrementally imported from CSV. """
 
+    class IntegrityStatus(DjangoChoices):
+        Valid = ChoiceItem('valid', _('Valid'))
+        UnknownTransaction = ChoiceItem('unknown', _('Invalid: Unknown transaction'))
+        AmountMismatch = ChoiceItem('mismatch', _('Invalid: Amount mismatch'))
+
     class CreditDebit(DjangoChoices):
         credit = ChoiceItem('C', label=_('Credit'))
         debit = ChoiceItem('D', label=_('Debit'))
@@ -26,6 +31,7 @@ class BankTransaction(models.Model):
     category = models.ForeignKey(BankTransactionCategory, blank=True, null=True)
     payout = models.ForeignKey('payouts.ProjectPayout', verbose_name=_('Campaign payout'), blank=True, null=True)
     remote_payout = models.ForeignKey('accounting.RemoteDocdataPayout', verbose_name=_('Docdata payout'), blank=True, null=True)
+    remote_payment = models.ForeignKey('accounting.RemoteDocdataPayment', verbose_name=_('Docdata payment'), blank=True, null=True)
 
     sender_account = models.CharField(_('holder account number'), max_length=35)
     currency = models.CharField(_('currency'), max_length=3)
@@ -52,6 +58,12 @@ class BankTransaction(models.Model):
     end_to_end_id = models.CharField(_('End to end ID'), max_length=35, blank=True)
     id_recipient = models.CharField(_('ID recipient account'), max_length=35, blank=True)
     mandate_id = models.CharField(_('Mandate ID'), max_length=35, blank=True)
+
+    status = models.CharField(_('status'), max_length=30, blank=True, choices=IntegrityStatus.choices,
+                              help_text=_('Cached status assigned during matching.'))
+    status_remarks = models.CharField(_('status remarks'), max_length=250, blank=True, help_text=_(
+        'Additional remarks regarding the status.'
+    ))
 
     class Meta:
         verbose_name = _('bank transaction')
@@ -130,6 +142,13 @@ class RemoteDocdataPayment(models.Model):
 
     local_payment = models.ForeignKey('payments.Payment', null=True)
     remote_payout = models.ForeignKey('accounting.RemoteDocdataPayout', null=True)
+
+    status = models.CharField(_('status'), max_length=30, blank=True, help_text=_(
+        'Cached status assigned during matching.'
+    ))
+    status_remarks = models.CharField(_('status remarks'), max_length=250, blank=True, help_text=_(
+        'Additional remarks regarding the status.'
+    ))
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         if not self.local_payment and self.merchant_reference:
