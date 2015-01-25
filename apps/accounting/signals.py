@@ -25,6 +25,7 @@ def match_transaction_with_payout(transaction):
 
     """
     from apps.accounting.models import RemoteDocdataPayout
+    from apps.accounting.models import RemoteDocdataPayment
 
     full_description = ''.join([getattr(transaction, 'description{0}'.format(i)) for i in range(1, 7)])
 
@@ -64,7 +65,7 @@ def match_transaction_with_payout(transaction):
                 transaction.status = transaction.IntegrityStatus.Valid
             else:
                 transaction.status = transaction.IntegrityStatus.AmountMismatch
-                transaction.status_remarks = '{0} != {1})'.format(project_payout.amount_payable, transaction.amount)
+                transaction.status_remarks = '{0} != {1}'.format(project_payout.amount_payable, transaction.amount)
 
             transaction.payout = project_payout
             transaction.category_id = 1

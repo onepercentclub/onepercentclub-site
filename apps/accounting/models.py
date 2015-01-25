@@ -107,6 +107,10 @@ class RemoteDocdataPayout(models.Model):
 
 class RemoteDocdataPayment(models.Model):
     """ Docdata payment as incrementally imported from CSV. """
+    class IntegrityStatus(DjangoChoices):
+        Valid = ChoiceItem('valid', _('Valid'))
+        MissingBackofficeRecord = ChoiceItem('missing', _('Invalid: Missing backoffice record'))
+        AmountMismatch = ChoiceItem('mismatch', _('Invalid: Amount mismatch'))
 
     merchant_reference = models.CharField(
         _('merchant reference'), max_length=35, db_index=True
@@ -143,9 +147,8 @@ class RemoteDocdataPayment(models.Model):
     local_payment = models.ForeignKey('payments.Payment', null=True)
     remote_payout = models.ForeignKey('accounting.RemoteDocdataPayout', null=True)
 
-    status = models.CharField(_('status'), max_length=30, blank=True, help_text=_(
-        'Cached status assigned during matching.'
-    ))
+    status = models.CharField(_('status'), max_length=30, blank=True, choices=IntegrityStatus.choices,
+                              help_text=_('Cached status assigned during matching.'))
     status_remarks = models.CharField(_('status remarks'), max_length=250, blank=True, help_text=_(
         'Additional remarks regarding the status.'
     ))
@@ -166,4 +169,3 @@ class RemoteDocdataPayment(models.Model):
 
     class Meta:
         ordering = ('-remote_payout__payout_date', )
-

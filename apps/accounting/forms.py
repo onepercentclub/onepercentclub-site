@@ -1,20 +1,26 @@
+import logging
 from decimal import Decimal, InvalidOperation
-from apps.accounting.fields import MultiFileField
-from apps.accounting.models import RemoteDocdataPayout, RemoteDocdataPayment
 import unicodecsv as csv
 import cStringIO as StringIO
 import codecs
 import itertools
-
 import datetime
 
+from django.db.models import Sum
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
+from bluebottle.payments_docdata.models import DocdataPayment, DocdataDirectdebitPayment
+
 from apps.csvimport.utils.common import has_duplicate_items
 from apps.csvimport.forms import CSVImportForm
+from apps.accounting.fields import MultiFileField
+from apps.accounting.models import RemoteDocdataPayout, RemoteDocdataPayment
 
 from .dialects import DocdataDialect
+
+
+logger = logging.getLogger(__name__)
 
 
 class BankTransactionImportForm(CSVImportForm):
@@ -126,12 +132,16 @@ class DocdataPaymentImportForm(forms.Form):
         ).exists():
 
             # Already exists, skip
+            logger.warning('Record already exists: {0}'.format(instance.triple_deal_reference))
             return True
         if not instance.amount_collected:
+            logger.warning('Record has no amount: {0}'.format(instance.triple_deal_reference))
             return True
         try:
             Decimal(instance.amount_collected)
         except InvalidOperation:
+            logger.warning('Record has an invalid amount ({0}): {1}'.format(
+                instance.amount_collected, instance.triple_deal_reference))
             return True
         return False
 
@@ -271,9 +281,61 @@ class DocdataPaymentImportForm(forms.Form):
                     ignored_records += 1
 
                 else:
+                    # NOTE: Could be moved to pre_save, but skipped records are also processed in that case.
+                    # Update status and remarks
+                    if not instance.merchant_reference:
+                        instance.status = RemoteDocdataPayment.IntegrityStatus.MissingBackofficeRecord
+                        instance.status_remarks = 'Merchant reference missing'
+                    else:
+                        local_payment = None
+                        try:
+                            local_payment = DocdataPayment.objects.get(payment_cluster_id=instance.merchant_reference)
+                        except DocdataPayment.DoesNotExist:
+                            try:
+                                local_payment = DocdataDirectdebitPayment.objects.get(merchant_order_id=instance.merchant_reference)
+                            except DocdataDirectdebitPayment.DoesNotExist:
+                                pass
+
+                        if local_payment:
+                            instance.local_payment = local_payment
+                            amount_collected = Decimal(instance.amount_collected)
+
+                            if instance.payment_type in ['chargedback', 'refund'] and \
+                                                    amount_collected * -1 == local_payment.order_payment.amount:
+                                instance.status = RemoteDocdataPayment.IntegrityStatus.Valid
+                            elif amount_collected == local_payment.order_payment.amount:
+                                instance.status = RemoteDocdataPayment.IntegrityStatus.Valid
+                            else:
+                                # Case missing: multiple payments (even in different payouts). Mark as invalid now, and
+                                # check afterwards.
+                                instance.status = RemoteDocdataPayment.IntegrityStatus.AmountMismatch
+                                instance.status_remarks = '{0} != {1}'.format(amount_collected,
+                                                                              local_payment.order_payment.amount)
+                        else:
+                            instance.status = RemoteDocdataPayment.IntegrityStatus.MissingBackofficeRecord
+
                     # Save
                     instance.save()
 
                 new_records += 1
+
+            # Missing case: multiple payments can be figured out after processing all entries. This will be done over
+            # all existing records to even cover payouts over several weeks.
+            queryset = RemoteDocdataPayment.objects.filter(
+                status=RemoteDocdataPayment.IntegrityStatus.AmountMismatch
+            ).annotate(
+               rdp_amount_collected_sum=Sum('local_payment__remotedocdatapayment__amount_collected')
+            )
+
+            pks = []
+            for pk, rdp_sum, local_amount in queryset.values_list('pk', 'rdp_amount_collected_sum', 'local_payment__order_payment__amount'):
+                if rdp_sum == local_amount:
+                    pks.append(pk)
+
+            if pks:
+                RemoteDocdataPayment.objects.filter(pk__in=pks).update(
+                    status = RemoteDocdataPayment.IntegrityStatus.Valid,
+                    status_remarks = 'Multiple payments',
+                )
 
         return (new_records, ignored_records)

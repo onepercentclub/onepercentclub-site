@@ -11,36 +11,6 @@ class YesOrNo(DjangoChoices):
     no = ChoiceItem('0', _('No'))
 
 
-class DocdataPaymentIntegrityListFilter(SimpleListFilter):
-    title = _('integrity status')
-    parameter_name = 'integrity'
-
-    class Status(DjangoChoices):
-        valid = ChoiceItem('valid', _('Valid'))
-        invalid = ChoiceItem('invalid', _('Invalid'))
-
-    def lookups(self, request, model_admin):
-        return self.Status.choices
-
-    def queryset(self, request, queryset):
-        if self.value() == self.Status.valid:
-            return queryset.exclude(local_payment=None).exclude(
-                ~Q(local_payment__order_payment__amount=F('amount_collected')) |
-                ~Q(rdp_amount_collected=F('local_payment__order_payment__amount'))
-            ).exclude(
-                local_payment__order_payment__amount=F('amount_collected') * -1,
-                payment_type__in=['chargedback', 'refund'],
-            )
-        if self.value() == self.Status.invalid:
-            return queryset.filter(
-                ~Q(amount_collected=F('local_payment__order_payment__amount')) &
-                ~Q(rdp_amount_collected_sum=F('local_payment__order_payment__amount'))
-            ).exclude(
-                local_payment__order_payment__amount=F('amount_collected') * -1,
-                payment_type__in=['chargedback', 'refund'],
-            )
-
-
 class DocdataPaymentMatchedListFilter(SimpleListFilter):
     title = _('matched')
     parameter_name = 'matched'
@@ -55,9 +25,9 @@ class DocdataPaymentMatchedListFilter(SimpleListFilter):
             return queryset.exclude(local_payment__docdatapayment__merchant_order_id=F('merchant_reference'))
 
 
-class BankTransactionStatusListFilter(SimpleListFilter):
-    title = _('status')
-    parameter_name = 'status'
+class IntegrityStatusListFilter(SimpleListFilter):
+    title = _('integrity status')
+    parameter_name = 'integrity'
 
     class Status(DjangoChoices):
         valid = ChoiceItem('valid', _('Valid'))

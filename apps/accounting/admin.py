@@ -16,7 +16,7 @@ from apps.csvimport.admin import IncrementalCSVImportMixin
 
 from .models import BankTransaction, RemoteDocdataPayment, RemoteDocdataPayout
 from .forms import BankTransactionImportForm, DocdataPaymentImportForm
-from .admin_extra import DocdataPaymentIntegrityListFilter, DocdataPaymentMatchedListFilter, OrderPaymentMatchedListFilter, OrderPaymentIntegrityListFilter, BankTransactionStatusListFilter
+from .admin_extra import DocdataPaymentMatchedListFilter, OrderPaymentMatchedListFilter, OrderPaymentIntegrityListFilter, IntegrityStatusListFilter
 
 
 admin.site.register(BankTransactionCategory)
@@ -40,9 +40,8 @@ class BankTransactionAdmin(IncrementalCSVImportMixin, admin.ModelAdmin):
     ]
 
     list_filter = [
-        'credit_debit', 'book_date', 'category', BankTransactionStatusListFilter,
+        'credit_debit', 'book_date', 'category', IntegrityStatusListFilter,
     ]
-    list_editable = ('status', 'status_remarks', 'category',)
 
     raw_id_fields = ('payout', 'remote_payout', 'remote_payment')
 
@@ -52,6 +51,7 @@ class BankTransactionAdmin(IncrementalCSVImportMixin, admin.ModelAdmin):
                        'description4', 'description5', 'description6',
                        'credit_debit', 'currency', 'book_code', 'book_date', 'interest_date',
                        'amount', 'filler', 'end_to_end_id', 'id_recipient', 'mandate_id')
+    fields = ('status', 'status_remarks',)
 
     import_form = BankTransactionImportForm
     ordering = ('-book_date',)
@@ -161,14 +161,14 @@ class DocdataPayoutAdmin(admin.ModelAdmin):
 class DocdataPaymentAdmin(IncrementalCSVImportMixin, admin.ModelAdmin):
     list_display = [
         'triple_deal_reference', 'payout_date', 'merchant_reference', 'payment_type',
-        'payment_link', 'matched', 'integrity_status',
+        'payment_link', 'matched', 'status', 'status_remarks',
     ]
 
-    list_filter = ['payment_type', DocdataPaymentMatchedListFilter, DocdataPaymentIntegrityListFilter]
+    list_filter = ['payment_type', DocdataPaymentMatchedListFilter, IntegrityStatusListFilter]
 
     readonly_fields = ['payout_link', 'payment_link', 'merchant_reference', 'triple_deal_reference',
                        'payment_type', 'amount_collected', 'currency_amount_collected', 'tpci',
-                       'docdata_fee', 'integrity_status']
+                       'docdata_fee', 'status', 'status_remarks']
 
     fields = readonly_fields
 
@@ -198,24 +198,8 @@ class DocdataPaymentAdmin(IncrementalCSVImportMixin, admin.ModelAdmin):
     payment_link.allow_tags = True
 
     def matched(self, obj):
-        if obj.local_payment:
-            return True
-        return False
+        return bool(obj.local_payment)
     matched.boolean = True
-
-    def integrity_status(self, obj):
-        if not obj.local_payment:
-            if DocdataPayment.objects.filter(merchant_order_id=obj.merchant_reference).count():
-                return _('Invalid: Local payment matched but not linked')
-            return _('Invalid: Missing local payment')
-        if obj.amount_collected == obj.local_payment.order_payment.amount:
-            return _('Valid')
-        if obj.payment_type in ['chargedback', 'refund'] and \
-                        obj.amount_collected * -1 == obj.local_payment.order_payment.amount:
-            return _('Valid (chargedback/refund)')
-        if obj.rdp_amount_collected_sum == obj.local_payment.order_payment.amount:
-            return _('Valid (multiple payments)')
-        return _('Invalid: Amount mismatch ({0} != {1})').format(obj.amount_collected, obj.local_payment.order_payment.amount)
 
     def payout_link(self, obj):
         object = obj.remote_payout
@@ -231,7 +215,7 @@ class OrderPaymentAdmin(admin.ModelAdmin):
                        'payment_method', 'transaction_fee', 'status', 'created', 'closed')
     fields = ('user',) + readonly_fields
     list_display = ('created', 'user', 'status', 'amount', 'payment_method', 'transaction_fee', 'matched', 'integrity_status')
-    list_filter = ('status', 'created', OrderPaymentMatchedListFilter, OrderPaymentIntegrityListFilter)
+    list_filter = ('status', 'created', 'payment_method', OrderPaymentMatchedListFilter, OrderPaymentIntegrityListFilter)
     ordering = ('-created',)
 
     def queryset(self, request):
@@ -252,10 +236,7 @@ class OrderPaymentAdmin(admin.ModelAdmin):
     payment_link.allow_tags = True
 
     def matched(self, obj):
-        if obj.payment and obj.payment.remotedocdatapayment_set.count() and \
-                RemoteDocdataPayment.objects.filter(
-                        merchant_reference=obj.payment.docdatapayment.merchant_order_id
-                ).count():
+        if obj.payment and obj.payment.remotedocdatapayment_set.count():
             return True
         return False
     matched.boolean = True
