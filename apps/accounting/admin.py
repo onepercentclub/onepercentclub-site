@@ -211,7 +211,8 @@ class DocdataPaymentAdmin(IncrementalCSVImportMixin, admin.ModelAdmin):
 class OrderPaymentAdmin(admin.ModelAdmin):
     date_hierarchy = 'created'
     raw_id_fields = ('user', )
-    readonly_fields = ('order_link', 'payment_link', 'authorization_action', 'amount', 'integration_data',
+    readonly_fields = ('order_link', 'payment_link', 'remote_payment_link',
+                       'authorization_action', 'amount', 'integration_data',
                        'payment_method', 'transaction_fee', 'status', 'created', 'closed')
     fields = ('user',) + readonly_fields
     list_display = ('created', 'user', 'status', 'amount', 'payment_method', 'transaction_fee', 'matched', 'integrity_status')
@@ -235,6 +236,13 @@ class OrderPaymentAdmin(admin.ModelAdmin):
         return "<a href='{0}'>{1}: {2}</a>".format(str(url), object.polymorphic_ctype, object.id)
     payment_link.allow_tags = True
 
+    def remote_payment_link(self, obj):
+        if self.matched(obj):
+            object = obj.payment.remotedocdatapayment_set.all()[0]
+            url = reverse('admin:{0}_{1}_change'.format(object._meta.app_label, object._meta.module_name), args=[object.id])
+            return "<a href='{0}'>Remote Docdata Payment: {1}</a>".format(str(url), object.id)
+    remote_payment_link.allow_tags = True
+
     def matched(self, obj):
         if obj.payment and obj.payment.remotedocdatapayment_set.count():
             return True
@@ -246,6 +254,10 @@ class OrderPaymentAdmin(admin.ModelAdmin):
             return _('Invalid: Missing docdata payment')
         if not obj.payment.remotedocdatapayment_set.count():
             return _('Invalid: Missing remote docdata payment')
+
+        # This seems incorrectly stated.
+        # if obj.amount in obj.payment.remotedocdatapayment_set.values_list('amount_collected', flat=True):
+        #     return _('Valid: Multiple remote payments')
 
         # The line below is done via annotate.
         # amount_collected = obj.payment.remotedocdatapayment_set.aggregate(Sum('amount_collected'))['amount_collected__sum']
