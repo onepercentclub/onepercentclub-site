@@ -2,7 +2,6 @@ from decimal import Decimal
 from django.conf import settings
 from django.contrib import admin
 from django.db.models.aggregates import Sum
-from django.utils import formats
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
 
@@ -15,7 +14,7 @@ from apps.accounting.signals import match_transaction_with_payout
 from apps.csvimport.admin import IncrementalCSVImportMixin
 
 from .models import BankTransaction, RemoteDocdataPayment, RemoteDocdataPayout
-from .forms import BankTransactionImportForm, DocdataPaymentImportForm
+from .forms import BankTransactionImportForm, DocdataPaymentImportForm, update_remote_docdata_status, bulk_update_remote_docdata_spanning_multiple_weeks
 from .admin_extra import DocdataPaymentMatchedListFilter, OrderPaymentMatchedListFilter, OrderPaymentIntegrityListFilter, IntegrityStatusListFilter
 
 
@@ -47,11 +46,19 @@ class BankTransactionAdmin(IncrementalCSVImportMixin, admin.ModelAdmin):
 
     readonly_fields = ('payout_link', 'remote_payout_link', 'remote_payment_link',
                        'counter_name', 'counter_account', 'sender_account',
-                       'description1', 'description2', 'description2', 'description3',
+                       'description1', 'description2', 'description3',
                        'description4', 'description5', 'description6',
                        'credit_debit', 'currency', 'book_code', 'book_date', 'interest_date',
                        'amount', 'filler', 'end_to_end_id', 'id_recipient', 'mandate_id')
-    fields = ('status', 'status_remarks',)
+
+    fieldsets = (
+        (None, {
+            'fields': ('status', 'status_remarks', 'category')
+        }),
+        ('Data', {
+            'fields': readonly_fields
+        }),
+    )
 
     import_form = BankTransactionImportForm
     ordering = ('-book_date',)
@@ -159,6 +166,8 @@ class DocdataPayoutAdmin(admin.ModelAdmin):
 
 
 class DocdataPaymentAdmin(IncrementalCSVImportMixin, admin.ModelAdmin):
+    actions = ('find_matches',)
+
     list_display = [
         'triple_deal_reference', 'payout_date', 'merchant_reference', 'payment_type',
         'payment_link', 'matched', 'status', 'status_remarks',
@@ -168,9 +177,16 @@ class DocdataPaymentAdmin(IncrementalCSVImportMixin, admin.ModelAdmin):
 
     readonly_fields = ['payout_link', 'payment_link', 'merchant_reference', 'triple_deal_reference',
                        'payment_type', 'amount_collected', 'currency_amount_collected', 'tpci',
-                       'docdata_fee', 'status', 'status_remarks']
+                       'docdata_fee']
 
-    fields = readonly_fields
+    fieldsets = (
+        (None, {
+            'fields': ('status', 'status_remarks',)
+        }),
+        ('Data', {
+            'fields': readonly_fields
+        }),
+    )
 
     search_fields = ['merchant_reference', 'triple_deal_reference', 'remote_payout__payout_reference']
 
@@ -206,6 +222,13 @@ class DocdataPaymentAdmin(IncrementalCSVImportMixin, admin.ModelAdmin):
         url = reverse('admin:%s_%s_change' % (object._meta.app_label, object._meta.module_name), args=[object.id])
         return "<a href='%s'>%s</a>" % (str(url), object)
     payout_link.allow_tags = True
+
+    def find_matches(self, request, queryset):
+        for rdp in queryset.all():
+            update_remote_docdata_status(rdp)
+            rdp.save()
+        bulk_update_remote_docdata_spanning_multiple_weeks(queryset.all())
+    find_matches.short_description = _("Try to match with backoffice.")
 
 
 class OrderPaymentAdmin(admin.ModelAdmin):
