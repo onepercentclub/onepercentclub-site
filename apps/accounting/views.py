@@ -121,18 +121,18 @@ class AccountingOverviewView(FormView):
                 },
             })
 
-        # Tpci (third party costs)
-        # Tdf (docdata fee)
+            # Tpci (third party costs)
+            # Tdf (docdata fee)
 
-        statistics['docdata']['pending_orders'] = \
-            statistics['orders']['total_amount'] - \
-            statistics['docdata']['payout']['total_amount']
+            statistics['docdata']['pending_orders'] = \
+                statistics['orders']['total_amount'] - \
+                statistics['docdata']['payout']['total_amount']
 
-        statistics['docdata']['payout']['other_costs'] = \
-            statistics['docdata']['payment']['total_amount'] - \
-            statistics['docdata']['payment']['docdata_fee'] - \
-            statistics['docdata']['payment']['third_party'] - \
-            statistics['docdata']['payout']['total_amount']
+            statistics['docdata']['payout']['other_costs'] = \
+                statistics['docdata']['payment']['total_amount'] - \
+                statistics['docdata']['payment']['docdata_fee'] - \
+                statistics['docdata']['payment']['third_party'] - \
+                statistics['docdata']['payout']['total_amount']
 
 
         context = super(AccountingOverviewView, self).get_context_data(**kwargs)
