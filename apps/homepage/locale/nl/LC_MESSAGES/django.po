@@ -22,7 +22,7 @@ msgstr ""
 "Project-Id-Version: OnePercentClub\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-26 15:58+0100\n"
-"PO-Revision-Date: 2015-01-26 15:02+0000\n"
+"PO-Revision-Date: 2015-01-27 09:32+0000\n"
 "Last-Translator: Paul Jansen <paul@onepercentclub.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/onepercentclub/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -2207,13 +2207,13 @@ msgid ""
 "\n"
 "\t\t\t\t\t\t\tUsing solar panels for a more sustainable neighbourhood. <br>(Initiative of \"de Groene Regentes\")\n"
 "\t\t\t\t\t\t"
-msgstr "\n\t\t\t\t\t\t\tDe wijk verduurzamen met zonnepanelen. \n<br>(Initiatief van de Groene Regentes)<br>\n\t\t\t\t\t\t"
+msgstr "\n\t\t\t\t\t\t\tDe wijk verduurzamen met zonnepanelen. <br>(Initiatief van de Groene Regentes)\n\t\t\t\t\t\t"
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/partners/templates/partners/civic/index.hbs.py:46
 #: /home/gannetson/Projects/onepercentclub-site/apps/partners/templates/partners/civic/index.hbs.py:99
 #: /home/gannetson/Projects/onepercentclub-site/apps/partners/templates/partners/civic/index.hbs.py:151
 msgid "Photo"
-msgstr ""
+msgstr "Foto"
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/partners/templates/partners/civic/index.hbs.py:56
 msgid ""
@@ -2222,7 +2222,7 @@ msgid ""
 "\t\t\t\t\tlocal initiatives together with citizens, organizations and\n"
 "\t\t\t\t\tcompanies by sharing time, knowledge and funds.\n"
 "\t       \t\t"
-msgstr "\n\t\t\t\t\tCivic crowdfunding is dé nieuwe manier waarop een gemeente\n\t\t\t\t\tsamen met burgers, verenigingen en bedrijven lokale initiatieven kan\n\t\t\t\t\trealiseren door de inzet van tijd, kennis\nen geld.\n\t       \t\t"
+msgstr "\nCivic crowdfunding is dé nieuwe manier waarop een gemeente\n\t\t\t\t\tsamen met burgers, verenigingen en bedrijven lokale initiatieven kan\n\t\t\t\t\trealiseren door de inzet van tijd, kennis\nen geld.\n\t       \t\t"
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/partners/templates/partners/civic/index.hbs.py:69
 msgid ""
@@ -2240,7 +2240,7 @@ msgid ""
 "\t\t\t\t\t\tgiving extra support. In this way the municipality works towards a participatory\n"
 "\t\t\t\t\t\tsociety with pro-active citizens.\n"
 "\t\t\t\t\t"
-msgstr "\n\t\t\t\t\t\tDe rol van de gemeente verandert. Via een eigen online platform faciliteert zij\n\t\t\t\t\t\tde communicatie rondom buurtinitiatieven, cureert deze op basis van eigen\n\t\t\t\t\t\tbeleid en jaagt de meest kansrijken aan met extra steun. Zo bouwt de\n\t\t\t\t\t\tgemeente aan een permanente participatiemaatschappij met pro- actieve\n\t\t\t\t\t\tburgers.\n\t\t\t\t\t"
+msgstr "\n\t\t\t\t\t\tDe rol van de gemeente verandert. Via een eigen online platform faciliteert zij\n\t\t\t\t\t\tde communicatie rondom buurtinitiatieven, cureert deze op basis van eigen\n\t\t\t\t\t\tbeleid en jaagt de meest kansrijken aan met extra steun. Zo bouwt de\n\t\t\t\t\t\tgemeente aan een permanente participatiemaatschappij met pro-actieve\n\t\t\t\t\t\tburgers.\n\t\t\t\t\t"
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/partners/templates/partners/civic/index.hbs.py:84
 msgid "This is how it works:"
@@ -2286,23 +2286,23 @@ msgid ""
 "\t\t\t\t\t\tfrom citizens and organizations. This is how we can do more with fewer\n"
 "\t\t\t\t\t\tresources.\n"
 "\t\t\t\t\t"
-msgstr "\n\t\t\t\t\t\tDe vraag naar burger participatie stijgt en het budget vermindert. \n\t\t\t\t\t\tVia Civic crowdfunding kan dit budget als ‘hefboom’ worden\n\t\t\t\t\t\t ingezet en kunnen projecten met kennis, geld en tijd gesteund worden\n\t\t\t\t\t\t door burgers en verenigingen. Zo is er meer mogelijk met minder\n\t\t\t\t\t\t middelen.\n\t\t\t\t\t"
+msgstr "\n\t\t\t\t\t\tDe vraag naar burger participatie stijgt en het budget vermindert. \n\t\t\t\t\t\tVia Civic crowdfunding kan dit budget als ‘hefboom’ worden\n\t\t\t\t\t\t ingezet en kunnen projecten met kennis, geld en tijd gesteund worden\n\t\t\t\t\t\t door burgers en verenigingen. Zo is er meer mogelijk met minder\n\t\t\t\t\t\t middelen. Civic crowdfunding:\n\t\t\t\t\t"
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/partners/templates/partners/civic/index.hbs.py:137
 msgid "supports the participation of citizens and social cohesion,"
-msgstr "vergroot burgerparticipatie en sociale cohesie"
+msgstr "vergroot burgerparticipatie en sociale cohesie;"
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/partners/templates/partners/civic/index.hbs.py:138
 msgid "strengthens local entrepreneurship,"
-msgstr "versterkt lokaal ondernemerschap"
+msgstr "versterkt lokaal ondernemerschap;"
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/partners/templates/partners/civic/index.hbs.py:139
 msgid "maps out local support,"
-msgstr "brengt lokaal draagvlak in kaart"
+msgstr "brengt lokaal draagvlak in kaart;"
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/partners/templates/partners/civic/index.hbs.py:140
 msgid "provides a new method of financing."
-msgstr "biedt een nieuwe manier van financiering"
+msgstr "biedt een nieuwe manier van financiering."
 
 #: /home/gannetson/Projects/onepercentclub-site/apps/partners/templates/partners/civic/index.hbs.py:148
 msgid ""
