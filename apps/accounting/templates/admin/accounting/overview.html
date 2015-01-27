@@ -1,5 +1,5 @@
 {% extends "admin/change_form.html" %}
-{% load i18n humanize %}
+{% load i18n humanize accounting %}
 
 {#{% block content %}#}
 {#  <div id="content-main">#}
@@ -23,7 +23,53 @@
 {% endblock %}
 
 {% block content %}
-    <style type="text/css">small { font-size: 80%; }</style>
+    <style type="text/css">
+        small {
+            font-size: 80%;
+        }
+        td {
+            padding: 4px 6px;
+        }
+        thead tr {
+            border-bottom: 1px solid black;
+        }
+        th {
+            font-weight: bold;
+        }
+        .financial {
+            text-align: right;
+            clear: left;
+        }
+        .financial:before {
+            content: '€';
+            padding-right: 10px;
+            float: left;
+        }
+        .sum {
+            border-top: 1px solid black;
+        }
+        .sum.deduct:after, .sum.add:after {
+            position: relative;
+            top: -7px;
+            right: -10px;
+        }
+        .sum.deduct:after {
+            content: "-";
+        }
+        .sum.add:after {
+            content: "+";
+        }
+        .total {
+            border-top: 3px double black;
+        }
+        .help-text {
+            display: block;
+            font-weight: normal;
+            margin-top: 2px;
+            font-size: 80%;
+            color: #666;
+        }
+    </style>
 
     <div id="content-main">
         <p>
@@ -61,12 +107,113 @@
         {% if statistics %}
             <hr>
 
-            {% for title, data in statistics.items %}
-                <h2>{{ title }}</h2>
-                {% for k, v in data.items %}
-                    <p><strong>{{ k }}</strong>: {{ v|intcomma }}{% if k != 'count' %},<small>{{ v|floatformat:2|slice:"-2:" }}</small>{% endif %}</p>
-                {% endfor %}
-            {% endfor %}
+            <h2>{% trans "Bank" %}</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>{% trans "Credit" %}</th>
+                        <th>{% trans "Debit" %}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>{% trans "Campaign payout" %}</th>
+                        <td class="financial">{{ statistics.bank.campaign_payout.credit|numberformat }}</td>
+                        <td class="financial">{{ statistics.bank.campaign_payout.debit|numberformat }}</td>
+                        <td class="financial">{{ statistics.bank.campaign_payout.balance|numberformat }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>{% trans "Balance of pending orders" %}</h2>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>{% trans "Settled orders" %}</th>
+                        <td class="financial">{{ statistics.orders.total_amount|numberformat }}</td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {% trans "Docdata" %}
+                            <span class="help-text">{% trans "(Docdata fees, third party and other costs are already deducted)" %}</span>
+                        </th>
+                        <td class="financial">{{ statistics.docdata.payout.total_amount|numberformat }}</td>
+                    </tr>
+                    <tr class="sum deduct">
+                        <th></th>
+                        <td class="financial">{{ statistics.docdata.pending_orders|numberformat }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>{% trans "Project payouts" %}</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>{% trans "Payout rule" %}</th>
+                        <th>{% trans "Number of projects" %}</th>
+                        <th>{% trans "Raised" %}</th>
+                        <th>{% trans "Payable" %}</th>
+                        <th>{% trans "Organization fee" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entry in statistics.project_payouts.per_payout_rule %}
+                        <tr>
+                            <th>{{ entry.payout_rule }}</th>
+                            <td>{{ entry.count }}</td>
+                            <td class="financial">{{ entry.raised|numberformat }}</td>
+                            <td class="financial">{{ entry.payable|numberformat }}</td>
+                            <td class="financial">{{ entry.organization_fee|numberformat }}</td>
+                        </tr>
+                    {% endfor %}
+                    <tr class="sum add">
+                        {% with entry=statistics.project_payouts %}
+                            <th></th>
+                            <td>{{ entry.count }}</td>
+                            <td class="financial">{{ entry.raised|numberformat }}</td>
+                            <td class="financial">{{ entry.payable|numberformat }}</td>
+                            <td class="financial">{{ entry.organization_fee|numberformat }}</td>
+                        {% endwith %}
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>{% trans "Docdata" %}</h2>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>{% trans "Payments recieved" %}</th>
+                        <td class="financial">{{ statistics.docdata.payment.total_amount|numberformat }}</td>
+                    </tr>
+                    <tr>
+                        <th>{% trans "Payouts made" %}</th>
+                        <td class="financial">{{ statistics.docdata.payout.total_amount|numberformat }}</td>
+                    </tr>
+                    <tr>
+                        <th>{% trans "Docdata fee (Tdf)" %}</th>
+                        <td class="financial">{{ statistics.docdata.payment.docdata_fee|numberformat }}</td>
+                    </tr>
+                    <tr>
+                        <th>{% trans "Third party (Tpci)" %}</th>
+                        <td class="financial">{{ statistics.docdata.payment.third_party|numberformat }}</td>
+                    </tr>
+                    <tr>
+                        <th>{% trans "Other costs" %}</th>
+                        <td class="financial">{{ statistics.docdata.payout.other_costs|numberformat }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+{##}
+{#            {% for title, data in statistics.items %}#}
+{#                <h2>{{ title }}</h2>#}
+{#                {% for k, v in data.items %}#}
+{#                    <p><strong>{{ k }}</strong>: {{ v|intcomma }}{% if k != 'count' %},<small>{{ v|floatformat:2|slice:"-2:" }}</small>{% endif %}</p>#}
+{#                {% endfor %}#}
+{#            {% endfor %}#}
 
         {% endif %}
 
