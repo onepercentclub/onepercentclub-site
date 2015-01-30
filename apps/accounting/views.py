@@ -7,7 +7,7 @@ from django import forms
 from bluebottle.payments.models import OrderPayment
 from bluebottle.donations.models import Donation
 
-from apps.accounting.models import BankTransaction, RemoteDocdataPayment, RemoteDocdataPayout
+from apps.accounting.models import BankTransaction, RemoteDocdataPayment, RemoteDocdataPayout, BankTransactionCategory
 from apps.payouts.models import ProjectPayout
 
 
@@ -55,12 +55,8 @@ class AccountingOverviewView(FormView):
             order_payments_aggregated = order_payments.aggregate(Sum('amount'), Sum('transaction_fee'))
 
             bank_transactions = BankTransaction.objects.filter(book_date__gte=start, book_date__lte=stop)
-            bank_credit = bank_transactions.filter(credit_debit='C').aggregate(Sum('amount'))['amount__sum']
-            bank_debit = bank_transactions.filter(credit_debit='D').aggregate(Sum('amount'))['amount__sum']
-
-            bank_cp = bank_transactions.filter(category_id=1)
-            bank_cp_credit = bank_cp.filter(credit_debit='C').aggregate(Sum('amount'))['amount__sum']
-            bank_cp_debit = bank_cp.filter(credit_debit='D').aggregate(Sum('amount'))['amount__sum']
+            bank_credit = bank_transactions.filter(credit_debit='C').aggregate(Sum('amount'))
+            bank_debit = bank_transactions.filter(credit_debit='D').aggregate(Sum('amount'))
 
             remote_docdata_payments = RemoteDocdataPayment.objects.filter(remote_payout__payout_date__gte=start, remote_payout__payout_date__lte=stop)
             remote_docdata_payments_aggregated = remote_docdata_payments.aggregate(Sum('amount_collected'), Sum('docdata_fee'), Sum('tpci'))
@@ -68,7 +64,12 @@ class AccountingOverviewView(FormView):
             remote_docdata_payouts = RemoteDocdataPayout.objects.filter(payout_date__gte=start, payout_date__lte=stop)
             remote_docdata_payouts_aggregated = remote_docdata_payouts.aggregate(Sum('payout_amount'))
 
-            project_payouts = ProjectPayout.objects.filter(created__gte=start, created__lte=stop, status='settled') #
+            exluded_date = timezone.datetime(2014, 7, 8)
+            project_payouts = ProjectPayout.objects.exclude(
+                created__gte=exluded_date,
+                created__lt=exluded_date + timezone.timedelta(days=1),
+                completed=exluded_date.date()
+            ).filter(created__gte=start, created__lte=stop, status='settled') #
             project_payouts_aggregated = project_payouts.aggregate(Sum('amount_raised'), Sum('amount_payable'), Sum('organization_fee'))
 
             donations = Donation.objects.filter(created__gte=start, created__lte=stop, order__status='success')
@@ -79,20 +80,15 @@ class AccountingOverviewView(FormView):
                     'transaction_fee': order_payments_aggregated['transaction_fee__sum'],
                     'count': order_payments.count(),
                 },
-                'donations': {
-                    'total_amount': donations.aggregate(Sum('amount'))['amount__sum'],
-                    'count': donations.count(),
-                },
+                # 'donations': {
+                #     'total_amount': donations.aggregate(Sum('amount'))['amount__sum'],
+                #     'count': donations.count(),
+                # },
                 'bank': {
-                    'campaign_payout': {
-                        'credit': bank_cp_credit,  # in
-                        'debit': bank_cp_debit,    # out
-                        'balance': bank_cp_credit - bank_cp_debit,
-                        'count': bank_cp.count(),
-                    },
-                    'credit': bank_credit,  # in
-                    'debit': bank_debit,    # out
-                    'balance': bank_credit - bank_debit,
+                    'per_category': [],
+                    'credit': bank_credit['amount__sum'],  # in
+                    'debit': bank_debit['amount__sum'],    # out
+                    'balance': (bank_credit['amount__sum'] or 0 ) - (bank_debit['amount__sum'] or 0),
                     'count': bank_transactions.count(),
                 },
                 'docdata': {
@@ -124,9 +120,28 @@ class AccountingOverviewView(FormView):
             # Tpci (third party costs)
             # Tdf (docdata fee)
 
+            for category in [None] + list(BankTransactionCategory.objects.all()):
+                credit = bank_transactions.filter(category=category, credit_debit='C').aggregate(Sum('amount'))['amount__sum']
+                debit = bank_transactions.filter(category=category, credit_debit='D').aggregate(Sum('amount'))['amount__sum']
+
+                statistics['bank']['per_category'].append({
+                    'category': category,
+                    'credit': credit,
+                    'debit': debit,
+                    'balance': (credit or 0) - (debit or 0),
+                })
+
             statistics['docdata']['pending_orders'] = \
                 statistics['orders']['total_amount'] - \
                 statistics['docdata']['payout']['total_amount']
+
+            statistics['docdata']['pending_service_fee'] = \
+                statistics['orders']['transaction_fee'] - \
+                statistics['docdata']['payment']['docdata_fee']
+
+            statistics['docdata']['pending_payout'] = \
+                statistics['docdata']['payment']['total_amount'] - \
+                sum([entry['balance'] for entry in statistics['bank']['per_category'] if entry['category'] and entry['category'].pk == 2])
 
             statistics['docdata']['payout']['other_costs'] = \
                 statistics['docdata']['payment']['total_amount'] - \

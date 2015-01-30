@@ -107,7 +107,7 @@
         {% if statistics %}
             <hr>
 
-            <h2>{% trans "Bank" %}</h2>
+            <h2>{% trans "Bank transactions" %}</h2>
             <table>
                 <thead>
                     <tr>
@@ -118,11 +118,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th>{% trans "Campaign payout" %}</th>
-                        <td class="financial">{{ statistics.bank.campaign_payout.credit|numberformat }}</td>
-                        <td class="financial">{{ statistics.bank.campaign_payout.debit|numberformat }}</td>
-                        <td class="financial">{{ statistics.bank.campaign_payout.balance|numberformat }}</td>
+                    {% for entry in statistics.bank.per_category %}
+                        <tr>
+                            <th>{{ entry.category }}</th>
+                            <td class="financial">{{ entry.credit|numberformat }}</td>
+                            <td class="financial">{{ entry.debit|numberformat }}</td>
+                            <td class="financial">{{ entry.balance|numberformat }}</td>
+                        </tr>
+                    {% endfor %}
+                    <tr class="sum add">
+                        <th>{% trans "Total" %}</th>
+                        <td class="financial">{{ statistics.bank.credit|numberformat }}</td>
+                        <td class="financial">{{ statistics.bank.debit|numberformat }}</td>
+                        <td></td>
                     </tr>
                 </tbody>
             </table>
@@ -131,15 +139,15 @@
             <table>
                 <tbody>
                     <tr>
-                        <th>{% trans "Settled orders" %}</th>
+                        <th>{% trans "Settled orders (Backoffice)" %}</th>
                         <td class="financial">{{ statistics.orders.total_amount|numberformat }}</td>
                     </tr>
                     <tr>
-                        <th>
-                            {% trans "Docdata" %}
-                            <span class="help-text">{% trans "(Docdata fees, third party and other costs are already deducted)" %}</span>
-                        </th>
+                        <th>{% trans "Docdata payout (Docdata)" %}</th>
                         <td class="financial">{{ statistics.docdata.payout.total_amount|numberformat }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="help-text">{% trans "Docdata fees, third party and other costs are already deducted." %}</td>
                     </tr>
                     <tr class="sum deduct">
                         <th></th>
@@ -148,7 +156,51 @@
                 </tbody>
             </table>
 
-            <h2>{% trans "Project payouts" %}</h2>
+            <h2>{% trans "Balance of pending service fees to Docdata" %}</h2>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>{% trans "Settled order payment service fees (Backoffice)" %}</th>
+                        <td class="financial">{{ statistics.orders.transaction_fee|numberformat }}</td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {% trans "Docdata service fees (Docdata)" %}
+                        </th>
+                        <td class="financial">{{ statistics.docdata.payment.docdata_fee|numberformat }}</td>
+                    </tr>
+                    <tr class="sum deduct">
+                        <th></th>
+                        <td class="financial">{{ statistics.docdata.pending_service_fee|numberformat }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>{% trans "Balance of pending payouts by Docdata to 1%Club" %}</h2>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>{% trans "Docdata payout (Docdata)" %}</th>
+                        <td class="financial">{{ statistics.docdata.payment.total_amount|numberformat }}</td>
+                    </tr>
+                    <tr>
+                        {% for entry in statistics.bank.per_category %}
+                            {% if entry.category.pk == 2 %}
+                                <th>
+                                    {{ entry.category }} {% trans "(Bank)" %}
+                                </th>
+                                <td class="financial">{{ entry.balance|numberformat }}</td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                    <tr class="sum deduct">
+                        <th></th>
+                        <td class="financial">{{ statistics.docdata.pending_payout|numberformat }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>{% trans "Project payouts (Backoffice)" %}</h2>
             <table>
                 <thead>
                     <tr>
@@ -203,6 +255,9 @@
                     <tr>
                         <th>{% trans "Other costs" %}</th>
                         <td class="financial">{{ statistics.docdata.payout.other_costs|numberformat }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="help-text">{% trans "Calculated from payments recieved minus payouts made, Docdata fee and third party." %}</td>
                     </tr>
                 </tbody>
             </table>
