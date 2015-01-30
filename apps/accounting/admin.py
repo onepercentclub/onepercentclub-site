@@ -238,7 +238,7 @@ class OrderPaymentAdmin(admin.ModelAdmin):
                        'authorization_action', 'amount', 'integration_data',
                        'payment_method', 'transaction_fee', 'status', 'created', 'closed')
     fields = ('user',) + readonly_fields
-    list_display = ('created', 'user', 'status', 'amount', 'payment_method', 'transaction_fee', 'matched', 'integrity_status')
+    list_display = ('created', 'user', 'status', 'amount', 'payment_method', 'transaction_fee', 'triple_deal_reference', 'matched', 'integrity_status')
     list_filter = ('status', 'created', 'payment_method', OrderPaymentMatchedListFilter, OrderPaymentIntegrityListFilter)
     ordering = ('-created',)
 
@@ -246,6 +246,9 @@ class OrderPaymentAdmin(admin.ModelAdmin):
         return super(OrderPaymentAdmin, self).queryset(request).select_related('payment').annotate(
             rdp_amount_collected=Sum('payment__remotedocdatapayment__amount_collected')
         )
+
+    def triple_deal_reference(self, obj):
+        return ', '.join(obj.payment.remotedocdatapayment_set.values_list('triple_deal_reference', flat=True))
 
     def order_link(self, obj):
         object = obj.order
