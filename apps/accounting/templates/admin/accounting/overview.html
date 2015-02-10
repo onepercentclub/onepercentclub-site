@@ -107,33 +107,35 @@
         {% if statistics %}
             <hr>
 
-            <h2>{% trans "Bank transactions" %}</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>{% trans "Credit" %}</th>
-                        <th>{% trans "Debit" %}</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for entry in statistics.bank.per_category %}
+            {% for account in statistics.bank %}
+                <h2>{% trans "Bank transactions" %}: {{ account.name }} ({{ account.account_number }})</h2>
+                <table>
+                    <thead>
                         <tr>
-                            <th>{{ entry.category }}</th>
-                            <td class="financial">{{ entry.credit|numberformat }}</td>
-                            <td class="financial">{{ entry.debit|numberformat }}</td>
-                            <td class="financial">{{ entry.balance|numberformat }}</td>
+                            <th></th>
+                            <th>{% trans "Credit" %}</th>
+                            <th>{% trans "Debit" %}</th>
+                            <th></th>
                         </tr>
-                    {% endfor %}
-                    <tr class="sum add">
-                        <th>{% trans "Total" %}</th>
-                        <td class="financial">{{ statistics.bank.credit|numberformat }}</td>
-                        <td class="financial">{{ statistics.bank.debit|numberformat }}</td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {% for entry in account.per_category %}
+                            <tr>
+                                <th>{{ entry.category }}</th>
+                                <td class="financial">{{ entry.credit|numberformat }}</td>
+                                <td class="financial">{{ entry.debit|numberformat }}</td>
+                                <td class="financial">{{ entry.balance|numberformat }}</td>
+                            </tr>
+                        {% endfor %}
+                        <tr class="sum add">
+                            <th>{% trans "Total" %}</th>
+                            <td class="financial">{{ account.credit|numberformat }}</td>
+                            <td class="financial">{{ account.debit|numberformat }}</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            {% endfor %}
 
             <h2>{% trans "Balance of pending orders" %}</h2>
             <table>
@@ -160,14 +162,20 @@
             <table>
                 <tbody>
                     <tr>
-                        <th>{% trans "Settled order payment service fees (Backoffice)" %}</th>
+                        <th>{% trans "Settled order payment service fees (Backoffice, Tpci+Tdf)" %}</th>
                         <td class="financial">{{ statistics.orders.transaction_fee|numberformat }}</td>
                     </tr>
                     <tr>
                         <th>
-                            {% trans "Docdata service fees (Docdata)" %}
+                            {% trans "Docdata service fees (Docdata, Tdf)" %}
                         </th>
                         <td class="financial">{{ statistics.docdata.payment.docdata_fee|numberformat }}</td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {% trans "Docdata third party costs (Docdata, Tpci)" %}
+                        </th>
+                        <td class="financial">{{ statistics.docdata.payment.third_party|numberformat }}</td>
                     </tr>
                     <tr class="sum deduct">
                         <th></th>
@@ -184,8 +192,8 @@
                         <td class="financial">{{ statistics.docdata.payment.total_amount|numberformat }}</td>
                     </tr>
                     <tr>
-                        {% for entry in statistics.bank.per_category %}
-                            {% if entry.category.pk == 2 %}
+                        {% for entry in statistics.bank.0.per_category %}
+                            {% if entry.category.pk == 2 %}  {# All bank transactons / Category Docdata payout #}
                                 <th>
                                     {{ entry.category }} {% trans "(Bank)" %}
                                 </th>

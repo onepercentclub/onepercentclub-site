@@ -1,5 +1,6 @@
 from django.db.models import Sum, Count
 from django.utils import timezone
+from django.utils.datastructures import SortedDict
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import FormView
 from django import forms
@@ -55,8 +56,6 @@ class AccountingOverviewView(FormView):
             order_payments_aggregated = order_payments.aggregate(Sum('amount'), Sum('transaction_fee'))
 
             bank_transactions = BankTransaction.objects.filter(book_date__gte=start, book_date__lte=stop)
-            bank_credit = bank_transactions.filter(credit_debit='C').aggregate(Sum('amount'))
-            bank_debit = bank_transactions.filter(credit_debit='D').aggregate(Sum('amount'))
 
             remote_docdata_payments = RemoteDocdataPayment.objects.filter(remote_payout__payout_date__gte=start, remote_payout__payout_date__lte=stop)
             remote_docdata_payments_aggregated = remote_docdata_payments.aggregate(Sum('amount_collected'), Sum('docdata_fee'), Sum('tpci'))
@@ -84,13 +83,7 @@ class AccountingOverviewView(FormView):
                 #     'total_amount': donations.aggregate(Sum('amount'))['amount__sum'],
                 #     'count': donations.count(),
                 # },
-                'bank': {
-                    'per_category': [],
-                    'credit': bank_credit['amount__sum'],  # in
-                    'debit': bank_debit['amount__sum'],    # out
-                    'balance': (bank_credit['amount__sum'] or 0 ) - (bank_debit['amount__sum'] or 0),
-                    'count': bank_transactions.count(),
-                },
+                'bank': [],
                 'docdata': {
                     'payment': {
                         'total_amount': remote_docdata_payments_aggregated['amount_collected__sum'],
@@ -117,18 +110,46 @@ class AccountingOverviewView(FormView):
                 },
             })
 
+
             # Tpci (third party costs)
             # Tdf (docdata fee)
 
-            for category in [None] + list(BankTransactionCategory.objects.all()):
-                credit = bank_transactions.filter(category=category, credit_debit='C').aggregate(Sum('amount'))['amount__sum']
-                debit = bank_transactions.filter(category=category, credit_debit='D').aggregate(Sum('amount'))['amount__sum']
+            bank_accounts = SortedDict([
+                ('', 'All'),
+                ('NL45RABO0132207044', 'Checking account'),
+                ('NL38RABO1513237977', 'Savings account'),
+            ])
 
-                statistics['bank']['per_category'].append({
-                    'category': category,
-                    'credit': credit,
-                    'debit': debit,
-                    'balance': (credit or 0) - (debit or 0),
+            for sender_account, name in bank_accounts.items():
+                if sender_account:
+                    qs = bank_transactions.filter(sender_account=sender_account)
+                else:
+                    qs = bank_transactions
+
+                categories = []
+
+                for category in [None] + list(BankTransactionCategory.objects.all()):
+                    credit = qs.filter(category=category, credit_debit='C').aggregate(Sum('amount'))['amount__sum']
+                    debit = qs.filter(category=category, credit_debit='D').aggregate(Sum('amount'))['amount__sum']
+
+                    categories.append({
+                        'category': category,
+                        'credit': credit,
+                        'debit': debit,
+                        'balance': (credit or 0) - (debit or 0),
+                    })
+
+                credit = qs.filter(credit_debit='C').aggregate(Sum('amount'))['amount__sum']
+                debit = qs.filter(credit_debit='D').aggregate(Sum('amount'))['amount__sum']
+
+                statistics['bank'].append({
+                    'per_category': categories,
+                    'account_number': sender_account,
+                    'name': name,
+                    'credit': credit,  # in
+                    'debit': debit,    # out
+                    'balance': (credit or 0 ) - (debit or 0),
+                    'count': qs.count(),
                 })
 
             statistics['docdata']['pending_orders'] = \
@@ -137,11 +158,12 @@ class AccountingOverviewView(FormView):
 
             statistics['docdata']['pending_service_fee'] = \
                 statistics['orders']['transaction_fee'] - \
-                statistics['docdata']['payment']['docdata_fee']
+                statistics['docdata']['payment']['docdata_fee'] - \
+            statistics['docdata']['payment']['third_party']
 
             statistics['docdata']['pending_payout'] = \
                 statistics['docdata']['payment']['total_amount'] - \
-                sum([entry['balance'] for entry in statistics['bank']['per_category'] if entry['category'] and entry['category'].pk == 2])
+                sum([entry['balance'] for entry in statistics['bank'][0]['per_category'] if entry['category'] and entry['category'].pk == 2])
 
             statistics['docdata']['payout']['other_costs'] = \
                 statistics['docdata']['payment']['total_amount'] - \
