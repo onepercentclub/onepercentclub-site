@@ -79,10 +79,6 @@ class BankTransaction(models.Model):
                 self.amount, self.counter_name or self.counter_account
             )
 
-    def clean(self):
-        if self.payout:
-            self.category = BankTransactionCategory.objects.get(pk=1)
-
 
 class RemoteDocdataPayout(models.Model):
     """ Payout to bank account as incrementally imported from CSV. """
