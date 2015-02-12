@@ -11,7 +11,7 @@ from apps.fund.models import Donation, DonationStatuses
 from apps.recurring_donations.models import MonthlyDonor
 from apps.vouchers.models import Voucher, VoucherStatuses
 from apps.organizations.models import Organization, OrganizationMember
-from bluebottle.fundraisers.models import Fundraiser
+from bluebottle.fundraisers.models import FundRaiser
 from apps.tasks.models import Task, TaskMember
 from apps.projects.models import Project
 from apps.members.models import Member
@@ -702,7 +702,7 @@ def generate_fundraisers_csv_file(path, loglevel):
                             "Deadline__c",
                             "Created__c"])
 
-        fundraisers = Fundraiser.objects.all()
+        fundraisers = FundRaiser.objects.all()
 
         logger.info("Exporting {0} Fundraiser objects to {1}".format(fundraisers.count(), filename))
 

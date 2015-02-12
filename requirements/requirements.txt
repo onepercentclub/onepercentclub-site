@@ -1,4 +1,4 @@
--e git://github.com/onepercentclub/bluebottle.git@fcb8789f5475ad96db1bef1ab393e56b766fd22f#egg=bluebottle
+-e git://github.com/onepercentclub/bluebottle.git@1.2.1#egg=bluebottle
 
 -e git://github.com/onepercentclub/django-onepercent-afom.git@master#egg=onepercent_afom
 
@@ -32,7 +32,7 @@ surlex==0.2.0
 # Gunicorn WSGI server
 gunicorn==0.14.6
 
-# Used for Wallposts and Blog/News content (as a dependency of django-fluent-contents).
+# Used for WallPosts and Blog/News content (as a dependency of django-fluent-contents).
 django_polymorphic==0.5
 
 # Admin dashboard improvements

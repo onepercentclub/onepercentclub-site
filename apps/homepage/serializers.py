@@ -3,7 +3,7 @@ from bluebottle.quotes.serializers import QuoteSerializer
 from bluebottle.slides.serializers import SlideSerializer
 
 from apps.campaigns.serializers import CampaignSerializer
-from bluebottle.bb_fundraisers.serializers import BaseFundraiserSerializer
+from bluebottle.bb_fundraisers.serializers import BaseFundRaiserSerializer
 from apps.statistics.serializers import StatisticSerializer
 
 
@@ -17,4 +17,4 @@ class HomePageSerializer(serializers.Serializer):
     impact = StatisticSerializer(source='stats')
     projects = ProjectPreviewSerializer(source='projects')
     campaign = CampaignSerializer(source='campaign')
-    fundraisers = BaseFundraiserSerializer(source='fundraisers')
+    fundraisers = BaseFundRaiserSerializer(source='fundraisers')

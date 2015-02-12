@@ -57,6 +57,7 @@ FLUENT_DASHBOARD_APP_GROUPS = (
             'bluebottle.payments_docdata.*',
             'bluebottle.payments_logger.*',
             'apps.payouts.*',
+            'apps.accounting.*'
         ),
         'module': 'fluent_dashboard.modules.AppIconList',
         'collapsible': False,
