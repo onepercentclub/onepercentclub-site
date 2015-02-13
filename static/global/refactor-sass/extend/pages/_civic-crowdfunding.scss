@@ -1,0 +1,29 @@
+#civic-crowdfunding {
+
+	.static-header { 
+		background-image: url('/static/assets/images/img/pages/civic/header-background.jpg');
+		background-repeat: no-repeat;
+		background-size: cover;
+		min-height: 460px;
+		padding: 180px 0 80px 0;
+	}
+
+	.contact-photo {
+		@include span-columns(1.5);
+	}
+
+	.contact-info {
+		@include span-columns(4);
+		@include shift(0.5);
+		padding: 1.8em 0;
+	}
+	
+	.contact-logo {
+		@include span-columns(2);
+		@include shift(0.5);
+		padding: 1em 0;
+		clear: none;
+	}
+
+
+}

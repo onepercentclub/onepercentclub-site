@@ -1,0 +1,44 @@
+[
+{
+    "pk": 1, 
+    "model": "accounting.banktransactioncategory", 
+    "fields": {
+        "name": "Campaign Payout"
+    }
+},
+{
+    "pk": 2, 
+    "model": "accounting.banktransactioncategory", 
+    "fields": {
+        "name": "Docdata payout"
+    }
+},
+{
+    "pk": 3, 
+    "model": "accounting.banktransactioncategory", 
+    "fields": {
+        "name": "Donation by us"
+    }
+},
+{
+    "pk": 4,
+    "model": "accounting.banktransactioncategory",
+    "fields": {
+        "name": "Checking to savings"
+    }
+},
+{
+    "pk": 5,
+    "model": "accounting.banktransactioncategory",
+    "fields": {
+        "name": "Savings to checking"
+    }
+},
+{
+    "pk": 6,
+    "model": "accounting.banktransactioncategory",
+    "fields": {
+        "name": "Docdata payment"
+    }
+}
+]

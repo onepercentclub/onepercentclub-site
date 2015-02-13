@@ -320,7 +320,6 @@ INSTALLED_APPS = (
     'bluebottle.bb_donations',
     'bluebottle.bb_orders',
     'bluebottle.bb_payouts',
-    'bluebottle.bb_follow',
 
     # Basic Bb implementations
     'bluebottle.fundraisers',
@@ -334,9 +333,9 @@ INSTALLED_APPS = (
 
     # FIXME: Reimplement these apps
     'apps.vouchers',
-    # 'apps.sepa',
-    # 'apps.csvimport',
-    # 'apps.accounting',
+    'apps.sepa',
+    'apps.csvimport',
+    'apps.accounting',
 
 
     # Custom dashboard

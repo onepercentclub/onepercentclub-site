@@ -70,6 +70,7 @@ urlpatterns += i18n_patterns('',
     url(r'^$', HomeView.as_view(), name='home'),
 
     # Django Admin, docs and password reset
+    url(r'^admin/accounting/', include('apps.accounting.urls')),
     url(r'^admin/password_reset/$', 'django.contrib.auth.views.password_reset', name='admin_password_reset'),
     url(r'^admin/password_reset/done/$', 'django.contrib.auth.views.password_reset_done'),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

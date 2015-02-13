@@ -189,4 +189,7 @@ App.HowtoSliderView = Em.View.extend({
 
 })
 
+App.CivicCrowdfundingView = Em.View.extend({
+    templateName:'civic_crowdfunding'
+});
 

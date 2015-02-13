@@ -9,7 +9,7 @@ from apps.cowry_docdata.models import DocDataPaymentOrder
 from apps.cowry_docdata.serializers import DocDataOrderProfileSerializer
 from apps.fund.serializers import DonationInfoSerializer, NestedDonationSerializer, RecurringOrderSerializer, RecurringDonationSerializer, \
     ProjectDonationSerializer
-from bluebottle.fundraisers.models import Fundraiser
+from bluebottle.fundraisers.models import FundRaiser
 from apps.projects.serializers import ProjectSupporterSerializer
 from django.contrib.auth.models import AnonymousUser
 from django.db import transaction
@@ -148,11 +148,11 @@ class ProjectSupporterList(generics.ListAPIView):
         fundraiser_id = self.request.QUERY_PARAMS.get('fundraiser', None)
         if fundraiser_id:
             try:
-                fundraiser = Fundraiser.objects.get(pk=fundraiser_id)
+                fundraiser = FundRaiser.objects.get(pk=fundraiser_id)
                 filter_kwargs['fundraiser'] = fundraiser
-            except Fundraiser.DoesNotExist:
+            except FundRaiser.DoesNotExist:
                 raise Http404(_(u"No %(verbose_name)s found matching the query") %
-                              {'verbose_name': Fundraiser._meta.verbose_name})
+                              {'verbose_name': FundRaiser._meta.verbose_name})
         elif project_slug:
             try:
                 project = PROJECT_MODEL.objects.get(slug=project_slug)

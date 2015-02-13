@@ -75,5 +75,5 @@ App.PartnerProjectsController = Em.ObjectController.extend({
 });
 
 App.BusinessController = Em.Controller.extend({});
-
 App.HowToCrowdfundController = Em.Controller.extend({});
+App.CivicCrowdfundController = Em.Controller.extend({});
