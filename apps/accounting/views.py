@@ -52,7 +52,7 @@ class AccountingOverviewView(FormView):
             start = form.get_start()
             stop = form.get_stop()
 
-            order_payments = OrderPayment.objects.filter(created__gte=start, created__lte=stop, status='settled')
+            order_payments = OrderPayment.objects.filter(created__gte=start, created__lte=stop, status__in=['settled', 'charged_back', 'refunded'])
             order_payments_aggregated = order_payments.aggregate(Sum('amount'), Sum('transaction_fee'))
 
             bank_transactions = BankTransaction.objects.filter(book_date__gte=start, book_date__lte=stop)
@@ -67,8 +67,7 @@ class AccountingOverviewView(FormView):
             project_payouts = ProjectPayout.objects.exclude(
                 created__gte=exluded_date,
                 created__lt=exluded_date + timezone.timedelta(days=1),
-                completed=exluded_date.date()
-            ).filter(created__gte=start, created__lte=stop, status='settled') #
+            ).filter(completed__gte=start, completed__lte=stop)  # , status='settled')
             project_payouts_aggregated = project_payouts.aggregate(Sum('amount_raised'), Sum('amount_payable'), Sum('organization_fee'))
 
             donations = Donation.objects.filter(created__gte=start, created__lte=stop, order__status='success')
@@ -159,7 +158,7 @@ class AccountingOverviewView(FormView):
             statistics['docdata']['pending_service_fee'] = \
                 statistics['orders']['transaction_fee'] - \
                 statistics['docdata']['payment']['docdata_fee'] - \
-            statistics['docdata']['payment']['third_party']
+                statistics['docdata']['payment']['third_party']
 
             statistics['docdata']['pending_payout'] = \
                 statistics['docdata']['payment']['total_amount'] - \
