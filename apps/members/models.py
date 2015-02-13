@@ -22,6 +22,10 @@ class Member(BlueBottleBaseUser):
             self.address = UserAddress.objects.create(user=self)
             self.address.save()
 
+    @property
+    def full_name(self):
+        return self.get_full_name()
+
 
 class UserAddress(Address):
 

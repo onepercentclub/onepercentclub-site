@@ -25,3 +25,4 @@ PAYMENT_METHODS = (
     }
 )
 VAT_RATE = 0.21
+

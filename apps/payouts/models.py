@@ -32,7 +32,7 @@ class ProjectPayout(BaseProjectPayout):
         """
         Calculate the amount payable for 0% rule
         """
-        return self.amount_raised * Decimal(1)
+        return self.amount_raised
 
     def calculate_amount_payable_rule_five(self, total):
         """

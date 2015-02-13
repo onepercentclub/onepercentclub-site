@@ -235,9 +235,9 @@ class OrderPaymentAdmin(admin.ModelAdmin):
     date_hierarchy = 'created'
     raw_id_fields = ('user', )
     readonly_fields = ('order_link', 'payment_link', 'remote_payment_link',
-                       'authorization_action', 'amount', 'integration_data',
+                       'authorization_action', 'integration_data',
                        'payment_method', 'transaction_fee', 'status', 'created', 'closed')
-    fields = ('user',) + readonly_fields
+    fields = ('user', 'amount') + readonly_fields
     list_display = ('created', 'user', 'status', 'amount', 'payment_method', 'transaction_fee', 'triple_deal_reference', 'matched', 'integrity_status')
     list_filter = ('status', 'created', 'payment_method', OrderPaymentMatchedListFilter, OrderPaymentIntegrityListFilter)
     ordering = ('-created',)
