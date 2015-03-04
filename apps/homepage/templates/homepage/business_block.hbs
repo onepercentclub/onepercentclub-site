@@ -17,9 +17,11 @@
                     {% endblocktrans%}
                 {{/link-to}}
 
-                {{#if App.isDutch}}
-                    {{#link-to 'civic-crowdfunding' classNames='btn btn-third'}}1%Club voor gemeenten{{/link-to}}
-                {{/if}}
+                {{#link-to 'civic-crowdfunding' classNames='btn btn-third'}}
+                    {% blocktrans%}
+                        1%Club for municipalities
+                    {% endblocktrans%}
+                {{/link-to}}
             </div>
         </div>
     </div>
