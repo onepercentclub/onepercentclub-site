@@ -4,45 +4,33 @@
 
 {% tplhandlebars "business/header" %}
     <div class="l-section" id="business-header">
-        <div class="l-wrapper">
-            <div class="business-main-header">
-                <span class="logo"></span>
-                <span class="business">{% trans 'business' %}</span>
+        <div class="carousel-item video-item">
+            <div class="vimeo-item-container">
+                <div class="vimeo-item-content">
+                    <span class="close-video"></span>
+                    <span class="vimeo-video">
+                        {{#if App.isDutch}}
+                            <iframe src="https://player.vimeo.com/video/121019933?api=1&player_id=brand-video&title=0&amp;byline=0&amp;portrait=0&amp;color=00c051" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen id="brand-video"></iframe> 
+                        {{/if}}
+                    </span>
+                </div>
             </div>
-
-            <div class="business-main-content">
-                {% blocktrans %}
-                    Businesses and large organizations can join 1%Club too! Together we can inspire employees and stakeholders to generate ideas for a better world - ideas that match the sustainability strategies of your organization and will generate big changes in communities around the world.  
-                {% endblocktrans %}
-            </div>
-
-            <div class="corporate-menu">
-                <ul>
-                    <li class="is-active">
-                        <a class="corporate-link" data-id="organization">
-                            <div>
-                                <span class="corporate-item organistion"></span>
-                                <span class="corporate-text">{% trans 'Organization' context 'american'%}</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="corporate-link" data-id="employees">
-                            <div>
-                                <span class="corporate-item employees"></span>
-                                <span class="corporate-text">{% trans 'Employees'%}</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="corporate-link" data-id="crowdfunding">
-                            <div>
-                                <span class="corporate-item crowdfunding"></span>
-                                <span class="corporate-text">{% trans 'Crowd Engagement'%}</span>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
+            <div class="video-item-container">
+                {{#if App.isDutch}}
+                    <div class="video-action">
+                        <a class="video-play-btn"></a>
+                    </div>
+                {{/if}}
+                <div class="l-section video-business-item">
+                    <div class="l-wrapper">
+                        <div class="business-main-header">
+                            <span class="logo"></span>
+                            <span class="business">{% trans 'business' %}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-item-content">
+                </div>
             </div>
         </div>
     </div>
