@@ -1,6 +1,6 @@
 import urllib2
 import simplejson
-from apps.mchanga.models import MpesaPayment, MpesaFundRaiser
+from apps.mchanga.models import MpesaPayment, MpesaFundraiser
 from django.conf import settings
 
 PAYMENTS_URL = 'https://secure.changa.co.ke/api/tagged/all_payments/format/json'
@@ -31,7 +31,7 @@ class MchangaService(object):
     def sync_fundraisers(self):
         data = self._load_url(FUNDRAISER_URL)
         for fundraiser in data:
-            MpesaFundRaiser.create_from_json(fundraiser)
+            MpesaFundraiser.create_from_json(fundraiser)
 
     def sync_payment_by_id(self, payment_id):
         payment_url = PAYMENT_URL.format(payment_id)
