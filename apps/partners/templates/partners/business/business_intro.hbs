@@ -1,0 +1,21 @@
+{% load templatetag_handlebars %}
+{% load i18n %}
+{% load static %}
+
+{% tplhandlebars "business/business_intro" %}
+    
+    <div class="l-section" id="business-intro">
+        <div class="l-wrapper">
+            <div class="row">
+                <div class="col12">
+                    <p>
+                    {% blocktrans %}
+                        Businesses and large organizations can join 1%Club too! Together we can inspire employees and stakeholders to generate ideas for a better world - ideas that match the sustainability strategies of your organization and will generate big changes in communities around the world.  
+                    {% endblocktrans %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endtplhandlebars %}

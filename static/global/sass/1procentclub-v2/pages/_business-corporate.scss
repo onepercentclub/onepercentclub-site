@@ -1,7 +1,94 @@
 #business-corporate {
+    position: relative;
     min-height: 500px;
     padding: 100px 0 120px 0;
+    border-top: 1px solid #E4EDE9;
     border-bottom: 1px solid #E4EDE9;
+
+    .corporate-menu {
+        position: absolute;
+        top: -148px;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        width: 417px;
+        height: 90px;
+        border: solid 1px $gray-border;
+        border-radius: 8px;
+        background: $white;
+        z-index: 1;
+
+        ul {
+            margin: 0;
+
+            li {
+                position: relative;
+                float: left;
+                padding-left: 0;
+                background: none;
+                width: 33.333333%;
+                height: 55px;
+                text-align: center;
+
+                &:nth-of-type(2) {
+                    border-left: 1px solid $gray-border;
+                    border-right: 1px solid $gray-border;
+                }
+
+                .corporate-item {
+                    display: block;
+                    height: 39px;
+                    width: 100%;
+                    margin: auto;
+
+                    &.organistion {
+                        width: 37px;
+                        background: image-url("img/business/icon-organisation.svg") transparent no-repeat;
+                    }
+
+                    &.employees {
+                        width: 71px;
+                        background: image-url("img/business/icon-employees.svg") transparent no-repeat;
+                    }
+
+                    &.crowdfunding {
+                        width: 38px;
+                        background: image-url("img/business/icon-crowdfunding.svg") transparent no-repeat;
+                    }
+                }
+
+                .corporate-text {
+                    font-size: 13px;
+                    color: $gray-border;
+                }
+
+                &.is-active {
+                    .corporate-item {
+                        &.organistion {
+                            width: 37px;
+                            background: image-url("img/business/icon-organisation_active.svg") transparent no-repeat;
+                        }
+
+                        &.employees {
+                            width: 71px;
+                            background: image-url("img/business/icon-employees_active.svg") transparent no-repeat;
+                        }
+
+                        &.crowdfunding {
+                            width: 38px;
+                            background: image-url("img/business/icon-crowdfunding_active.svg") transparent no-repeat;
+                        }
+                    }
+
+                    .corporate-text {
+                        font-weight: bold;
+                        color: $color-primary;
+                    }
+                }
+            }
+        }
+    }
 
     .corporate-content {
         display: none;
