@@ -61,7 +61,7 @@ requests==2.3.0 #Updated requests to make python social auth work
 # setup.py doesn't seem to be working properly so we're using a fixed version.
 # https://github.com/freelancersunion/django-salesforce/issues/4
 # https://github.com/onepercentclub/django-salesforce/archive/1e54beb7bcc15a893e9590fb27cbf08853da5599.zip
--e git://github.com/onepercentclub/django-salesforce.git@1e54beb7bcc15a893e9590fb27cbf08853da5599#egg=django-salesforce
+-e git://github.com/onepercentclub/django-salesforce.git@d67760eb7661d23bf7680d8f746749eb71a3b0e8#egg=django-salesforce
 
 # There hasn't been a release of django-registration is a while and we need the 1.5 custom user support.
 # Official: https://bitbucket.org/ubernostrum/django-registration/
