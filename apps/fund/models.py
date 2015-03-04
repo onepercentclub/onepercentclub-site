@@ -53,7 +53,7 @@ class Donation(models.Model):
     # User is just a cache of the order user.
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("User"), null=True, blank=True)
     project = models.ForeignKey(settings.PROJECTS_PROJECT_MODEL, verbose_name=_("Project"), related_name='old_donations')
-    fundraiser = models.ForeignKey('fundraisers.FundRaiser', verbose_name=_("fund raiser"), related_name='old_donations', null=True, blank=True)
+    fundraiser = models.ForeignKey('fundraisers.Fundraiser', verbose_name=_("fund raiser"), related_name='old_donations', null=True, blank=True)
 
     status = models.CharField(_("Status"), max_length=20, choices=DonationStatuses.choices, default=DonationStatuses.new, db_index=True)
 

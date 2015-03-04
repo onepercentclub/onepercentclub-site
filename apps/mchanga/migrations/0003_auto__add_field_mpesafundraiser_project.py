@@ -8,14 +8,14 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding field 'MpesaFundRaiser.project'
+        # Adding field 'MpesaFundraiser.project'
         db.add_column(u'mchanga_mpesafundraiser', 'project',
                       self.gf('django.db.models.fields.related.ForeignKey')(to=orm['projects.Project'], null=True),
                       keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting field 'MpesaFundRaiser.project'
+        # Deleting field 'MpesaFundraiser.project'
         db.delete_column(u'mchanga_mpesafundraiser', 'project_id')
 
 
@@ -90,7 +90,7 @@ class Migration(SchemaMigration):
             'region': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['geo.Region']"})
         },
         u'mchanga.mpesafundraiser': {
-            'Meta': {'object_name': 'MpesaFundRaiser'},
+            'Meta': {'object_name': 'MpesaFundraiser'},
             'account': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'current_amount': ('django.db.models.fields.IntegerField', [], {'null': 'True'}),

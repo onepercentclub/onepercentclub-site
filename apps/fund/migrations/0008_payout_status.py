@@ -65,7 +65,7 @@ class Migration(DataMigration):
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'currency': ('django.db.models.fields.CharField', [], {'default': "'EUR'", 'max_length': '3'}),
             'donation_type': ('django.db.models.fields.CharField', [], {'default': "'one_off'", 'max_length': '20', 'db_index': 'True'}),
-            'fundraiser': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'old_donations'", 'null': 'True', 'to': u"orm['fundraisers.FundRaiser']"}),
+            'fundraiser': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'old_donations'", 'null': 'True', 'to': u"orm['fundraisers.Fundraiser']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'order': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'donations'", 'null': 'True', 'to': u"orm['fund.Order']"}),
             'project': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'old_donations'", 'to': u"orm['projects.Project']"}),
@@ -87,7 +87,7 @@ class Migration(DataMigration):
             'user': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'old_orders'", 'null': 'True', 'to': u"orm['members.Member']"})
         },
         u'fundraisers.fundraiser': {
-            'Meta': {'object_name': 'FundRaiser'},
+            'Meta': {'object_name': 'Fundraiser'},
             'amount': ('django.db.models.fields.DecimalField', [], {'max_digits': '10', 'decimal_places': '2'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'currency': ('django.db.models.fields.CharField', [], {'default': "'EUR'", 'max_length': "'10'"}),

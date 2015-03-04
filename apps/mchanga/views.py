@@ -1,5 +1,5 @@
-from apps.mchanga.models import MpesaPayment, MpesaFundRaiser
-from apps.mchanga.serializers import MpesaPaymentSerializer, MpesaFundRaiserSerializer
+from apps.mchanga.models import MpesaPayment, MpesaFundraiser
+from apps.mchanga.serializers import MpesaPaymentSerializer, MpesaFundraiserSerializer
 from apps.projects.permissions import IsProjectOwner
 from django.http.response import HttpResponse
 from django.views.generic.base import View
@@ -29,14 +29,14 @@ class MpesaPaymentList(ListAPIView):
         return queryset.filter(**filter_kwargs)
 
 
-class MpesaFundRaiserList(ListAPIView):
-    model = MpesaFundRaiser
-    serializer_class = MpesaFundRaiserSerializer
+class MpesaFundraiserList(ListAPIView):
+    model = MpesaFundraiser
+    serializer_class = MpesaFundraiserSerializer
 
 
-class MpesaFundRaiserDetail(RetrieveAPIView):
-    model = MpesaFundRaiser
-    serializer_class = MpesaFundRaiserSerializer
+class MpesaFundraiserDetail(RetrieveAPIView):
+    model = MpesaFundraiser
+    serializer_class = MpesaFundraiserSerializer
     lookup_field = 'account'
 
 """

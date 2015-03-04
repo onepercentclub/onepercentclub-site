@@ -6,7 +6,7 @@ from django.utils import timezone
 from django.utils.text import slugify
 from django.conf import settings
 from django.utils.unittest.case import skipUnless
-from onepercentclub.tests.factory_models.fundraiser_factories import FundRaiserFactory
+from onepercentclub.tests.factory_models.fundraiser_factories import FundraiserFactory
 from onepercentclub.tests.factory_models.project_factories import OnePercentProjectFactory
 
 from onepercentclub.tests.utils import OnePercentSeleniumTestCase
@@ -46,7 +46,7 @@ class HomepageTestCase(OnePercentSeleniumTestCase):
         self.project_with_fundraiser = OnePercentProjectFactory.create(amount_asked=50000)
         self.project_with_fundraiser.is_campaign = True
         self.project_with_fundraiser.save()
-        self.fundraiser = FundRaiserFactory.create(owner=self.user, project=self.project_with_fundraiser)
+        self.fundraiser = FundraiserFactory.create(owner=self.user, project=self.project_with_fundraiser)
 
         self.visit_homepage()
         self.assertTrue(self.browser.is_text_present('OUR CRAZY FUND-RACERS'))
