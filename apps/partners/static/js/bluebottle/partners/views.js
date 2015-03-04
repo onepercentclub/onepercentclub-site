@@ -163,6 +163,69 @@ App.BusinessView = Em.View.extend({
     }
 });
 
+App.BusinessHeaderView = Em.View.extend({
+    templateName: 'header',
+
+    didInsertElement: function() {
+
+        // Carousel
+        var iframe = $('#brand-video'),
+            animationEnd = 'animationEnd animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd',
+            player = $f(iframe);
+
+        this.$().find('.video-play-btn').on('mouseenter', function(){
+            $(".video-item-content").addClass("is-blur");
+        });
+
+        this.$().find('.video-play-btn').on('mouseleave', function(){
+            $(".video-item-content").removeClass("is-blur");
+        });
+
+        this.$().find('.video-play-btn').on('click', function(){
+            $(".video-item").removeClass("is-inactive");
+            $(".video-item").addClass("is-active");
+            $("#header").animate({
+                speed: 200,
+                easing: 'swing',
+                top: '-100px'
+            });
+            player.api("play");
+        });
+
+        this.$().find('.close-video').on('click', function(){
+            $(".video-item").removeClass("is-active");
+            $(".video-item").addClass("is-inactive");
+            player.api("pause");
+            $("#header").animate({
+                speed: 200,
+                easing: 'swing',
+                top: "0px"
+            });
+
+            $('.video-item').one(animationEnd, function(){
+                $(".video-item").removeClass("is-inactive");
+            });
+        });
+
+        function onFinish(id) {
+            $(".video-item").removeClass("is-active");
+            $(".video-item").addClass("is-inactive");
+
+            $('.video-item').one(animationEnd, function(){
+                $(".video-item").removeClass("is-inactive");
+            });
+        }
+        
+        function onPlayProgress(data, id) {
+        }
+        
+        player.addEvent('ready', function() {
+            player.addEvent('finish', onFinish);
+            player.addEvent('playProgress', onPlayProgress);
+        });
+    }
+})
+
 App.CrowdfundingView = Em.View.extend({
     templateName:'how_to_crowdfund'
 });
