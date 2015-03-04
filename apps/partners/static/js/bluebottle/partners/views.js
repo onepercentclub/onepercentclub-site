@@ -210,6 +210,11 @@ App.BusinessHeaderView = Em.View.extend({
         function onFinish(id) {
             $(".video-item").removeClass("is-active");
             $(".video-item").addClass("is-inactive");
+             $("#header").animate({
+                speed: 200,
+                easing: 'swing',
+                top: "0px"
+            });
 
             $('.video-item').one(animationEnd, function(){
                 $(".video-item").removeClass("is-inactive");
