@@ -12,15 +12,16 @@
         right: 0;
         margin-left: auto;
         margin-right: auto;
-        width: 23%;
+        width: 100%;
 
         .logo {
             float: left;
             display: block;
-            background: image-url("global/logo_green.svg") transparent no-repeat 50% 50%;
-            height: 80px;
-            width: 47%;
-            margin: -14px 4px 0 0;
+            height: 130px;
+            width: 100%;
+            margin: -14px 4px 0 10px;
+            background: image-url("global/logo-business.svg") transparent no-repeat 50% 50%;
+            background-size: 35%;
         }
 
         .business {
