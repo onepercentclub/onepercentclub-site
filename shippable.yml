@@ -18,7 +18,7 @@ before_install:
 - sudo gem install compass -v 0.12.7
 - sudo gem install bourbon neat
 - sudo npm install -g grunt-cli
-- npm install
+- sudo npm install
 - sudo apt-get install -qq memcached python-memcache libjpeg8-dev libjpeg-dev zlib1g-dev libpng12-dev
 - pip install Pillow --use-mirrors
 install:
