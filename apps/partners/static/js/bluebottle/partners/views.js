@@ -173,13 +173,7 @@ App.BusinessHeaderView = Em.View.extend({
             animationEnd = 'animationEnd animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd',
             player = $f(iframe);
 
-        this.$().find('.video-play-btn').on('mouseenter', function(){
-            $(".video-item-content").addClass("is-blur");
-        });
-
-        this.$().find('.video-play-btn').on('mouseleave', function(){
-            $(".video-item-content").removeClass("is-blur");
-        });
+        $(".video-item-content").addClass("is-blur");
 
         this.$().find('.video-play-btn').on('click', function(){
             $(".video-item").removeClass("is-inactive");
