@@ -10,20 +10,20 @@
                     <span class="close-video"></span>
                     <span class="vimeo-video">
                         {{#if App.isDutch}}
-                            <iframe src="https://player.vimeo.com/video/121019933?api=1&player_id=brand-video&title=0&amp;byline=0&amp;portrait=0&amp;color=00c051" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen id="brand-video"></iframe> 
+                            <iframe src="https://player.vimeo.com/video/121019933?api=1&player_id=brand-video&title=0&amp;byline=0&amp;portrait=0&amp;color=00c051" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen id="brand-video"></iframe>
+                        {{else}}
+                            <iframe src="https://player.vimeo.com/video/121406079?api=1&player_id=brand-video&title=0&amp;byline=0&amp;portrait=0&amp;color=00c051" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen id="brand-video"></iframe>
                         {{/if}}
                     </span>
                 </div>
             </div>
             <div class="video-item-container">
-                {{#if App.isDutch}}
-                    <div class="video-action">
-                        <a class="video-play-btn"></a>
-                        <span class="video-watch">
-                            <h3>{% trans 'Watch our video'%}</h3>
-                        </span>
-                    </div>
-                {{/if}}
+                <div class="video-action">
+                    <a class="video-play-btn"></a>
+                    <span class="video-watch">
+                        <h3>{% trans 'Watch our video'%}</h3>
+                    </span>
+                </div>
                 <div class="l-section video-business-item">
                     <div class="l-wrapper">
                         <div class="business-main-header">
