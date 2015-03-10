@@ -489,6 +489,9 @@ ALTER TABLE payments_docdata_docdatapayment
 ALTER TABLE payments_docdata_docdatatransaction
 	DROP CONSTRAINT transaction_ptr_id_refs_id_4e92d97e;
 
+ALTER TABLE payments_logger_paymentlogentry
+	DROP CONSTRAINT payment_id_refs_id_82bc8d67;
+
 ALTER TABLE payments_orderpayment
 	DROP CONSTRAINT authorization_action_id_refs_id_c10b7e5e;
 
@@ -644,8 +647,6 @@ ALTER TABLE wallposts_wallpost
 
 DROP INDEX members_member_user_permissions_bluebottleuser_id;
 
-DROP TABLE payments_logger_paymentlogentry;
-
 DROP SEQUENCE accounts_timeavailable_id_seq;
 
 DROP SEQUENCE accounts_useraddress_id_seq;
@@ -653,8 +654,6 @@ DROP SEQUENCE accounts_useraddress_id_seq;
 DROP SEQUENCE banners_slide_id_seq;
 
 DROP SEQUENCE projects_projectphase_id_seq;
-
-DROP SEQUENCE payments_logger_paymentlogentry_id_seq;
 
 CREATE SEQUENCE bb_projects_projectphase_id_seq
 	START WITH 1
@@ -670,27 +669,12 @@ CREATE SEQUENCE members_useraddress_id_seq
 	NO MINVALUE
 	CACHE 1;
 
-CREATE SEQUENCE payments_logger_paymentloonepercentry_id_seq
-	START WITH 1
-	INCREMENT BY 1
-	NO MAXVALUE
-	NO MINVALUE
-	CACHE 1;
-
 CREATE SEQUENCE slides_slide_id_seq
 	START WITH 1
 	INCREMENT BY 1
 	NO MAXVALUE
 	NO MINVALUE
 	CACHE 1;
-
-CREATE TABLE payments_logger_paymentloonepercentry (
-	id integer DEFAULT nextval('payments_logger_paymentloonepercentry_id_seq'::regclass) NOT NULL,
-	message character varying(400) NOT NULL,
-	"level" character varying(15) NOT NULL,
-	"timestamp" timestamp with time zone NOT NULL,
-	payment_id integer NOT NULL
-);
 
 ALTER TABLE bb_projects_projectphase
 	ALTER COLUMN id SET DEFAULT nextval('bb_projects_projectphase_id_seq'::regclass);
@@ -783,9 +767,6 @@ ALTER SEQUENCE bb_projects_projectphase_id_seq
 ALTER SEQUENCE members_useraddress_id_seq
 	OWNED BY members_useraddress.id;
 
-ALTER SEQUENCE payments_logger_paymentloonepercentry_id_seq
-	OWNED BY payments_logger_paymentloonepercentry.id;
-
 ALTER SEQUENCE slides_slide_id_seq
 	OWNED BY slides_slide.id;
 
@@ -797,9 +778,6 @@ ALTER TABLE bb_payouts_projectpayoutlog
 
 ALTER TABLE members_useraddress
 	ADD CONSTRAINT members_useraddress_pkey PRIMARY KEY (id);
-
-ALTER TABLE payments_logger_paymentloonepercentry
-	ADD CONSTRAINT payments_logger_paymentloonepercentry_pkey PRIMARY KEY (id);
 
 ALTER TABLE payouts_projectpayout
 	ADD CONSTRAINT payouts_projectpayout_pkey PRIMARY KEY (id);
@@ -939,8 +917,8 @@ ALTER TABLE payments_docdata_docdatapayment
 ALTER TABLE payments_docdata_docdatatransaction
 	ADD CONSTRAINT payments_docdata_docdatatransaction_transaction_ptr_id_fkey FOREIGN KEY (transaction_ptr_id) REFERENCES payments_transaction(id) DEFERRABLE INITIALLY DEFERRED;
 
-ALTER TABLE payments_logger_paymentloonepercentry
-	ADD CONSTRAINT payments_logger_paymentloonepercentry_payment_id_fkey FOREIGN KEY (payment_id) REFERENCES payments_payment(id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE payments_logger_paymentlogentry
+	ADD CONSTRAINT payments_logger_paymentlogentry_payment_id_fkey FOREIGN KEY (payment_id) REFERENCES payments_payment(id) DEFERRABLE INITIALLY DEFERRED;
 
 ALTER TABLE payments_mock_mockpayment
 	ADD CONSTRAINT payment_ptr_id_refs_id_2b26da6b FOREIGN KEY (payment_ptr_id) REFERENCES payments_payment(id) DEFERRABLE INITIALLY DEFERRED;
@@ -1117,10 +1095,6 @@ ALTER TABLE wallposts_wallpost
 	ADD CONSTRAINT wallposts_wallpost_polymorphic_ctype_id_fkey FOREIGN KEY (polymorphic_ctype_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
 
 CREATE INDEX members_member_user_permissions_member_id ON members_member_user_permissions USING btree (member_id);
-
-CREATE INDEX payments_logger_paymentloonepercentry_payment_id ON payments_logger_paymentloonepercentry USING btree (payment_id);
-
-
 
 --  NOW RENAME THE SCHEMA
 ALTER SCHEMA public RENAME TO onepercent;
