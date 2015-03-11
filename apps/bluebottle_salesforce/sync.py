@@ -330,7 +330,7 @@ def sync_projects(dry_run, sync_from_datetime, loglevel):
             sfproject.tags = str(tag) + ", " + sfproject.tags
         sfproject.tags = sfproject.tags[:255]
 
-        sfproject.partner_organization = ""
+        sfproject.partner_organization = "-"
         if project.partner_organization:
             sfproject.partner_organization = project.partner_organization.name
 
