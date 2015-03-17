@@ -1096,6 +1096,94 @@ ALTER TABLE wallposts_wallpost
 
 CREATE INDEX members_member_user_permissions_member_id ON members_member_user_permissions USING btree (member_id);
 
+DELETE FROM south_migrationhistory;
+
+COPY south_migrationhistory (id, app_name, migration, applied) FROM stdin;
+1	menu	0001_initial	2015-01-23 14:00:49.515915+01
+2	dashboard	0001_initial	2015-01-23 14:00:49.554921+01
+3	dashboard	0002_auto__add_field_dashboardpreferences_dashboard_id	2015-01-23 14:00:49.56346+01
+4	dashboard	0003_auto__add_unique_dashboardpreferences_dashboard_id_user	2015-01-23 14:00:49.572246+01
+5	authtoken	0001_initial	2015-01-23 14:00:49.607145+01
+6	members	0001_initial	2015-01-23 14:00:49.648747+01
+7	members	0002_auto__add_field_member_time_available	2015-01-23 14:00:49.654247+01
+8	members	0003_auto__add_field_member_disable_token	2015-01-23 14:00:49.663168+01
+9	members	0004_auto__add_field_member_available_time	2015-01-23 14:00:49.671989+01
+10	members	0005_time_available	2015-01-23 14:00:49.680394+01
+11	members	0006_auto__del_field_member_time_available	2015-01-23 14:00:49.689021+01
+12	members	0007_auto__add_field_member_campaign_notifications__chg_field_member_last_n	2015-01-23 14:00:49.697403+01
+13	members	0008_auto__del_useraddress	2015-01-23 14:00:49.706898+01
+14	projects	0001_initial	2015-01-23 14:00:49.822733+01
+15	projects	0002_auto__del_projectphaselog	2015-01-23 14:00:49.83247+01
+16	projects	0003_auto__add_projectphaselog	2015-01-23 14:00:49.842591+01
+17	projects	0004_partner_organizations	2015-01-23 14:00:49.851736+01
+18	projects	0005_auto__add_field_project_skip_monthly	2015-01-23 14:00:49.860449+01
+19	projects	0006_auto__add_field_project_mchanga_account	2015-01-23 14:00:49.869849+01
+20	projects	0007_check_amount_donated	2015-01-23 14:00:49.87877+01
+21	projects	0008_auto__chg_field_project_amount_needed__chg_field_project_amount_asked_	2015-01-23 14:00:49.887569+01
+22	projects	0009_auto__del_field_project_mchanga_account	2015-01-23 14:00:49.896801+01
+23	organizations	0001_initial	2015-01-23 14:00:49.935978+01
+24	organizations	0002_auto__add_field_organizationdocument_created__add_field_organizationdo	2015-01-23 14:00:49.94558+01
+25	statistics	0001_initial	2015-01-23 14:00:49.978724+01
+26	recurring_donations	0001_initial	2015-01-23 14:00:50.012887+01
+27	recurring_donations	0002_migrate_monthly_orders	2015-01-23 14:00:50.017995+01
+28	recurring_donations	0003_auto__chg_field_monthlyorder_amount__chg_field_monthlydonation_amount	2015-01-23 14:00:50.026442+01
+29	recurring_donations	0004_adjust_amounts	2015-01-23 14:00:50.035328+01
+30	fluent_contents	0001_initial	2015-01-23 14:00:50.129173+01
+31	contentplugins	0001_initial	2015-01-23 14:00:50.137915+01
+32	contact	0001_initial	2015-01-23 14:00:50.171874+01
+33	geo	0001_initial	2015-01-23 14:00:50.208751+01
+34	pages	0001_initial	2015-01-23 14:00:50.24803+01
+35	news	0001_initial	2015-01-23 14:00:50.361622+01
+36	slides	0001_initial	2015-01-23 14:00:50.403856+01
+37	quotes	0001_initial	2015-01-23 14:00:50.438233+01
+38	orders	0001_initial	2015-01-23 14:00:50.471682+01
+39	payments	0001_initial	2015-01-23 14:00:50.480674+01
+40	payments	0002_auto__add_field_orderpayment_transaction_fee	2015-01-23 14:00:50.489147+01
+41	payments_docdata	0001_initial	2015-01-23 14:00:50.586384+01
+42	payments_docdata	0002_auto__add_field_docdatapayment_customer_id__add_field_docdatapayment_e	2015-01-23 14:00:50.59477+01
+43	payments_docdata	0003_auto__add_docdatadirectdebitpayment__del_unique_docdatatransaction_doc	2015-01-23 14:00:50.603426+01
+44	payments_docdata	0004_auto__add_field_docdatapayment_ip_address	2015-01-23 14:00:50.612043+01
+45	payments_logger	0001_initial	2015-01-23 14:00:50.645993+01
+46	redirects	0001_initial	2015-01-23 14:00:50.680925+01
+47	bb_accounts	0001_initial	2015-01-23 14:00:50.721486+01
+48	bb_accounts	0002_auto__del_timeavailable	2015-01-23 14:00:50.730165+01
+49	bb_accounts	0003_auto__add_useraddress	2015-01-23 14:00:50.738803+01
+50	bb_projects	0001_initial	2015-01-23 14:00:50.830105+01
+51	bb_projects	0002_auto__add_field_projectphase_owner_editable	2015-01-23 14:00:50.837278+01
+52	bb_payouts	0001_initial	2015-01-23 14:00:50.872869+01
+53	bb_follow	0001_initial	2015-01-23 14:00:50.90678+01
+54	fundraisers	0001_initial	2015-01-23 14:00:50.943068+01
+55	fundraisers	0002_auto__chg_field_fundraiser_amount	2015-01-23 14:00:50.951478+01
+56	fundraisers	0003_migrate_amounts	2015-01-23 14:00:50.96054+01
+57	fundraisers	0004_contenttypes	2015-01-23 14:00:50.969248+01
+58	donations	0001_initial	2015-01-23 14:00:51.068195+01
+59	orders	0002_auto__del_field_order_closed__add_field_order_confirmed__add_field_ord	2015-01-23 14:00:51.103053+01
+60	orders	0003_auto__add_field_order_order_type	2015-01-23 14:00:51.108036+01
+61	fluent_contents	0002_add_contentitem__sort_order__db_index	2015-01-23 14:00:51.143283+01
+62	fluent_contents	0003_contentitem_placeholder_on_delete_set_null	2015-01-23 14:00:51.151763+01
+63	fluent_contents	0004_add_contentitem__language_code	2015-01-23 14:00:51.160388+01
+64	fluent_contents	0005_fill_contentitem__language_code	2015-01-23 14:00:51.168905+01
+65	text	0001_initial	2015-01-23 14:00:51.20218+01
+66	oembeditem	0001_initial	2015-01-23 14:00:51.301625+01
+67	rawhtml	0001_initial	2015-01-23 14:00:51.337291+01
+68	taggit	0001_initial	2015-01-23 14:00:51.372435+01
+69	taggit	0002_unique_tagnames	2015-01-23 14:00:51.386111+01
+70	payments_voucher	0001_initial	2015-01-23 14:00:51.418509+01
+71	payouts	0001_initial	2015-01-23 14:00:51.527772+01
+72	homepage	0001_new_slides	2015-01-23 14:00:51.573304+01
+73	wallposts	0001_initial	2015-01-23 14:00:51.618469+01
+74	wallposts	0002_auto__add_field_wallpost_email_followers	2015-01-23 14:00:51.628843+01
+76	payments_mock	0001_initial	2015-02-01 16:51:27.157102+01
+81	bb_projects	0003_project_phases_and_themes	2015-02-18 09:43:02.578032+01
+82	tasks	0001_initial	2015-03-02 17:08:06.170121+01
+83	tasks	0002_auto__del_field_task_end_goal	2015-03-02 17:08:14.483901+01
+85	bb_projects	0004_adjust_phases	2015-03-05 13:18:24.098972+01
+\.
+
+
+
+
+
 --  NOW RENAME THE SCHEMA
 ALTER SCHEMA public RENAME TO onepercent;
 
