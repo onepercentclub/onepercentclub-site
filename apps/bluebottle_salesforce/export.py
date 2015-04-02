@@ -512,11 +512,10 @@ def generate_donations_csv_file(path, loglevel):
                     donation_ready = donation.completed.strftime("%Y-%m-%dT%H:%M:%S.000Z")
 
                 # Get the payment method from the associated order / payment
-                payment_method = payment_method_mapping['']  # Maps to Unknown for DocData.
-		if donation.order:
-                    lp = OrderPayment.get_latest_by_order(donation.order)
-                    if lp and lp.payment_method in payment_method_mapping:
-                        payment_method = payment_method_mapping[lp.payment_method]
+                payment_method = 'Unknown'
+                lp = OrderPayment.get_latest_by_order(donation.order)
+                if lp and lp.payment_method.startswith("docdata"):
+                    payment_method = lp.payment_method[7:]
 
                 csvwriter.writerow([donation.id,
                                     donor_id,
@@ -526,7 +525,7 @@ def generate_donations_csv_file(path, loglevel):
                                     name.encode("utf-8"),
                                     donation.order.get_status_display(),
                                     donation.order.order_type,
-				    donation.created.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
+                                    donation.created.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
                                     donation.updated.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
                                     donation_ready,
                                     payment_method.encode("utf-8"),

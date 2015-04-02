@@ -470,7 +470,7 @@ def sync_donations(dry_run, sync_from_datetime, loglevel):
 
     donations = Donation.objects.all()
     if sync_from_datetime:
-        donations = donations.filter(updated__gte=sync_from_datetime)
+        donations = donations.filter(order__updated__gte=sync_from_datetime)
 
     logger.info("Syncing {0} Donation objects.".format(donations.count()))
 
@@ -525,11 +525,10 @@ def sync_donations(dry_run, sync_from_datetime, loglevel):
         sfdonation.record_type = "012A0000000ZK6FIAW"
 
         # Get the payment method from the associated order / payment
-        sfdonation.payment_method = payment_method_mapping['']  # Maps to Unknown for DocData.
-        if donation.order:
-            lp = OrderPayment.get_latest_by_order(donation.order)
-            if lp and lp.payment_method in payment_method_mapping:
-                sfdonation.payment_method = payment_method_mapping[lp.payment_method]
+        sfdonation.payment_method = 'Unknown'
+        lp = OrderPayment.get_latest_by_order(donation.order)
+        if lp and lp.payment_method.startswith("docdata"):
+            sfdonation.payment_method = lp.payment_method[7:]
 
         # Save the object to Salesforce
         if not dry_run:
