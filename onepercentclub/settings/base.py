@@ -161,6 +161,7 @@ CACHES = {
 MIDDLEWARE_CLASSES = [
     'bluebottle.auth.middleware.UserJwtTokenMiddleware',
     'apps.redirects.middleware.RedirectHashCompatMiddleware',
+    'bluebottle.auth.middleware.UserJwtTokenMiddleware',
     'bluebottle.auth.middleware.AdminOnlyCsrf',
     # Have a middleware to make sure old cookies still work after we switch to domain-wide cookies.
     'bluebottle.utils.middleware.SubDomainSessionMiddleware',
